@@ -1,0 +1,238 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29911.84
+MinimumVisualStudioVersion = 15.0.26124.0
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CorexUO", "Application\CorexUO.csproj", "{3B0D3394-8CC0-4166-8DFE-9ED07A10538E}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Server", "Server\Server.csproj", "{245722F3-378E-436B-A8B9-7D0C93CC2D40}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Scripts", "Scripts\Scripts.csproj", "{74EAA3E3-1223-4FBB-AECE-3880B991EA58}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Data", "Data", "{863CB287-E2F8-49AC-8BF1-F416E8C6D3F7}"
+	ProjectSection(SolutionItems) = preProject
+		Binaries\Data\bodyTable.cfg = Binaries\Data\bodyTable.cfg
+		Binaries\Data\Common.map = Binaries\Data\Common.map
+		Binaries\Data\containers.cfg = Binaries\Data\containers.cfg
+		Binaries\Data\items.cfg = Binaries\Data\items.cfg
+		Binaries\Data\MLQuests.cfg = Binaries\Data\MLQuests.cfg
+		Binaries\Data\mobiles.cfg = Binaries\Data\mobiles.cfg
+		Binaries\Data\models.txt = Binaries\Data\models.txt
+		Binaries\Data\names.xml = Binaries\Data\names.xml
+		Binaries\Data\objects.xml = Binaries\Data\objects.xml
+		Binaries\Data\pageresponse.cfg = Binaries\Data\pageresponse.cfg
+		Binaries\Data\Regions.xml = Binaries\Data\Regions.xml
+		Binaries\Data\shrink.cfg = Binaries\Data\shrink.cfg
+		Binaries\Data\signs.cfg = Binaries\Data\signs.cfg
+		Binaries\Data\SpawnDefinitions.xml = Binaries\Data\SpawnDefinitions.xml
+		Binaries\Data\treasure.cfg = Binaries\Data\treasure.cfg
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Locations", "Locations", "{3B72F13A-08A1-40A1-B4C9-78FEAA9C12FC}"
+	ProjectSection(SolutionItems) = preProject
+		Binaries\Data\Locations\felucca.xml = Binaries\Data\Locations\felucca.xml
+		Binaries\Data\Locations\ilshenar.xml = Binaries\Data\Locations\ilshenar.xml
+		Binaries\Data\Locations\malas.xml = Binaries\Data\Locations\malas.xml
+		Binaries\Data\Locations\tokuno.xml = Binaries\Data\Locations\tokuno.xml
+		Binaries\Data\Locations\trammel.xml = Binaries\Data\Locations\trammel.xml
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Components", "Components", "{3C58DE27-DA34-4215-859B-E60C70A4DA09}"
+	ProjectSection(SolutionItems) = preProject
+		Binaries\Data\Components\doors.txt = Binaries\Data\Components\doors.txt
+		Binaries\Data\Components\floors.txt = Binaries\Data\Components\floors.txt
+		Binaries\Data\Components\misc.txt = Binaries\Data\Components\misc.txt
+		Binaries\Data\Components\roof.txt = Binaries\Data\Components\roof.txt
+		Binaries\Data\Components\stairs.txt = Binaries\Data\Components\stairs.txt
+		Binaries\Data\Components\suppinfo.txt = Binaries\Data\Components\suppinfo.txt
+		Binaries\Data\Components\teleprts.txt = Binaries\Data\Components\teleprts.txt
+		Binaries\Data\Components\walls.txt = Binaries\Data\Components\walls.txt
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Decoration", "Decoration", "{32793652-D0FF-423B-830A-244C83047B31}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Britannia", "Britannia", "{9903B926-9FAB-4F18-BD27-DAE415D7D6B2}"
+	ProjectSection(SolutionItems) = preProject
+		Binaries\Data\Decoration\Britannia\_covetous.cfg = Binaries\Data\Decoration\Britannia\_covetous.cfg
+		Binaries\Data\Decoration\Britannia\_deceit.cfg = Binaries\Data\Decoration\Britannia\_deceit.cfg
+		Binaries\Data\Decoration\Britannia\_despise.cfg = Binaries\Data\Decoration\Britannia\_despise.cfg
+		Binaries\Data\Decoration\Britannia\_destard.cfg = Binaries\Data\Decoration\Britannia\_destard.cfg
+		Binaries\Data\Decoration\Britannia\_fire.cfg = Binaries\Data\Decoration\Britannia\_fire.cfg
+		Binaries\Data\Decoration\Britannia\_hedgemaze.cfg = Binaries\Data\Decoration\Britannia\_hedgemaze.cfg
+		Binaries\Data\Decoration\Britannia\_hythloth.cfg = Binaries\Data\Decoration\Britannia\_hythloth.cfg
+		Binaries\Data\Decoration\Britannia\_ice.cfg = Binaries\Data\Decoration\Britannia\_ice.cfg
+		Binaries\Data\Decoration\Britannia\_orccave.cfg = Binaries\Data\Decoration\Britannia\_orccave.cfg
+		Binaries\Data\Decoration\Britannia\_shame.cfg = Binaries\Data\Decoration\Britannia\_shame.cfg
+		Binaries\Data\Decoration\Britannia\_terathankeep.cfg = Binaries\Data\Decoration\Britannia\_terathankeep.cfg
+		Binaries\Data\Decoration\Britannia\_wrong.cfg = Binaries\Data\Decoration\Britannia\_wrong.cfg
+		Binaries\Data\Decoration\Britannia\britain.cfg = Binaries\Data\Decoration\Britannia\britain.cfg
+		Binaries\Data\Decoration\Britannia\bucs.cfg = Binaries\Data\Decoration\Britannia\bucs.cfg
+		Binaries\Data\Decoration\Britannia\bucsportal.cfg = Binaries\Data\Decoration\Britannia\bucsportal.cfg
+		Binaries\Data\Decoration\Britannia\cove.cfg = Binaries\Data\Decoration\Britannia\cove.cfg
+		Binaries\Data\Decoration\Britannia\delucia.cfg = Binaries\Data\Decoration\Britannia\delucia.cfg
+		Binaries\Data\Decoration\Britannia\despise.cfg = Binaries\Data\Decoration\Britannia\despise.cfg
+		Binaries\Data\Decoration\Britannia\destard.cfg = Binaries\Data\Decoration\Britannia\destard.cfg
+		Binaries\Data\Decoration\Britannia\hythloth.cfg = Binaries\Data\Decoration\Britannia\hythloth.cfg
+		Binaries\Data\Decoration\Britannia\jhelom.cfg = Binaries\Data\Decoration\Britannia\jhelom.cfg
+		Binaries\Data\Decoration\Britannia\magincia.cfg = Binaries\Data\Decoration\Britannia\magincia.cfg
+		Binaries\Data\Decoration\Britannia\minoc.cfg = Binaries\Data\Decoration\Britannia\minoc.cfg
+		Binaries\Data\Decoration\Britannia\moonglow.cfg = Binaries\Data\Decoration\Britannia\moonglow.cfg
+		Binaries\Data\Decoration\Britannia\nujelm.cfg = Binaries\Data\Decoration\Britannia\nujelm.cfg
+		Binaries\Data\Decoration\Britannia\papua.cfg = Binaries\Data\Decoration\Britannia\papua.cfg
+		Binaries\Data\Decoration\Britannia\patches.cfg = Binaries\Data\Decoration\Britannia\patches.cfg
+		Binaries\Data\Decoration\Britannia\serpent pillars.cfg = Binaries\Data\Decoration\Britannia\serpent pillars.cfg
+		Binaries\Data\Decoration\Britannia\serpentshold.cfg = Binaries\Data\Decoration\Britannia\serpentshold.cfg
+		Binaries\Data\Decoration\Britannia\shame.cfg = Binaries\Data\Decoration\Britannia\shame.cfg
+		Binaries\Data\Decoration\Britannia\shrines.cfg = Binaries\Data\Decoration\Britannia\shrines.cfg
+		Binaries\Data\Decoration\Britannia\skara.cfg = Binaries\Data\Decoration\Britannia\skara.cfg
+		Binaries\Data\Decoration\Britannia\solen matriarch quest.cfg = Binaries\Data\Decoration\Britannia\solen matriarch quest.cfg
+		Binaries\Data\Decoration\Britannia\study of solen quest.cfg = Binaries\Data\Decoration\Britannia\study of solen quest.cfg
+		Binaries\Data\Decoration\Britannia\trinsic.cfg = Binaries\Data\Decoration\Britannia\trinsic.cfg
+		Binaries\Data\Decoration\Britannia\vesper.cfg = Binaries\Data\Decoration\Britannia\vesper.cfg
+		Binaries\Data\Decoration\Britannia\wind.cfg = Binaries\Data\Decoration\Britannia\wind.cfg
+		Binaries\Data\Decoration\Britannia\witch apprentice quest.cfg = Binaries\Data\Decoration\Britannia\witch apprentice quest.cfg
+		Binaries\Data\Decoration\Britannia\yew.cfg = Binaries\Data\Decoration\Britannia\yew.cfg
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Felucca", "Felucca", "{19E12A6A-273E-48F9-BB2A-0F7E7BDF651F}"
+	ProjectSection(SolutionItems) = preProject
+		Binaries\Data\Decoration\Felucca\_champion teleporters.cfg = Binaries\Data\Decoration\Felucca\_champion teleporters.cfg
+		Binaries\Data\Decoration\Felucca\_star room.cfg = Binaries\Data\Decoration\Felucca\_star room.cfg
+		Binaries\Data\Decoration\Felucca\ambitious solen queen quest.cfg = Binaries\Data\Decoration\Felucca\ambitious solen queen quest.cfg
+		Binaries\Data\Decoration\Felucca\khaldun entrance.cfg = Binaries\Data\Decoration\Felucca\khaldun entrance.cfg
+		Binaries\Data\Decoration\Felucca\khaldun.cfg = Binaries\Data\Decoration\Felucca\khaldun.cfg
+		Binaries\Data\Decoration\Felucca\ocllo.cfg = Binaries\Data\Decoration\Felucca\ocllo.cfg
+		Binaries\Data\Decoration\Felucca\solen matriarch quest.cfg = Binaries\Data\Decoration\Felucca\solen matriarch quest.cfg
+		Binaries\Data\Decoration\Felucca\yew.cfg = Binaries\Data\Decoration\Felucca\yew.cfg
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Ilshenar", "Ilshenar", "{9F3BC99F-210E-468A-A9FB-36B1EF5B01AE}"
+	ProjectSection(SolutionItems) = preProject
+		Binaries\Data\Decoration\Ilshenar\_blood.cfg = Binaries\Data\Decoration\Ilshenar\_blood.cfg
+		Binaries\Data\Decoration\Ilshenar\_central.cfg = Binaries\Data\Decoration\Ilshenar\_central.cfg
+		Binaries\Data\Decoration\Ilshenar\_exodus.cfg = Binaries\Data\Decoration\Ilshenar\_exodus.cfg
+		Binaries\Data\Decoration\Ilshenar\_gwenno.cfg = Binaries\Data\Decoration\Ilshenar\_gwenno.cfg
+		Binaries\Data\Decoration\Ilshenar\_ratcave.cfg = Binaries\Data\Decoration\Ilshenar\_ratcave.cfg
+		Binaries\Data\Decoration\Ilshenar\_regvolom.cfg = Binaries\Data\Decoration\Ilshenar\_regvolom.cfg
+		Binaries\Data\Decoration\Ilshenar\_serpentine.cfg = Binaries\Data\Decoration\Ilshenar\_serpentine.cfg
+		Binaries\Data\Decoration\Ilshenar\_sheepfarm.cfg = Binaries\Data\Decoration\Ilshenar\_sheepfarm.cfg
+		Binaries\Data\Decoration\Ilshenar\_sorcerers.cfg = Binaries\Data\Decoration\Ilshenar\_sorcerers.cfg
+		Binaries\Data\Decoration\Ilshenar\_terortskitas.cfg = Binaries\Data\Decoration\Ilshenar\_terortskitas.cfg
+		Binaries\Data\Decoration\Ilshenar\_twinoaks.cfg = Binaries\Data\Decoration\Ilshenar\_twinoaks.cfg
+		Binaries\Data\Decoration\Ilshenar\camp.cfg = Binaries\Data\Decoration\Ilshenar\camp.cfg
+		Binaries\Data\Decoration\Ilshenar\camp2.cfg = Binaries\Data\Decoration\Ilshenar\camp2.cfg
+		Binaries\Data\Decoration\Ilshenar\enslavedgargs.cfg = Binaries\Data\Decoration\Ilshenar\enslavedgargs.cfg
+		Binaries\Data\Decoration\Ilshenar\gargoylecity.cfg = Binaries\Data\Decoration\Ilshenar\gargoylecity.cfg
+		Binaries\Data\Decoration\Ilshenar\golemsandjukas.cfg = Binaries\Data\Decoration\Ilshenar\golemsandjukas.cfg
+		Binaries\Data\Decoration\Ilshenar\lakeshire.cfg = Binaries\Data\Decoration\Ilshenar\lakeshire.cfg
+		Binaries\Data\Decoration\Ilshenar\meercatacombs.cfg = Binaries\Data\Decoration\Ilshenar\meercatacombs.cfg
+		Binaries\Data\Decoration\Ilshenar\misc.cfg = Binaries\Data\Decoration\Ilshenar\misc.cfg
+		Binaries\Data\Decoration\Ilshenar\mistas.cfg = Binaries\Data\Decoration\Ilshenar\mistas.cfg
+		Binaries\Data\Decoration\Ilshenar\patches.cfg = Binaries\Data\Decoration\Ilshenar\patches.cfg
+		Binaries\Data\Decoration\Ilshenar\ratfortress.cfg = Binaries\Data\Decoration\Ilshenar\ratfortress.cfg
+		Binaries\Data\Decoration\Ilshenar\savagecamp.cfg = Binaries\Data\Decoration\Ilshenar\savagecamp.cfg
+		Binaries\Data\Decoration\Ilshenar\shrines.cfg = Binaries\Data\Decoration\Ilshenar\shrines.cfg
+		Binaries\Data\Decoration\Ilshenar\vinculuminn.cfg = Binaries\Data\Decoration\Ilshenar\vinculuminn.cfg
+		Binaries\Data\Decoration\Ilshenar\wispdungeon.cfg = Binaries\Data\Decoration\Ilshenar\wispdungeon.cfg
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Malas", "Malas", "{2817E3B6-3D1E-47AB-AE7F-4C9F685CCB4E}"
+	ProjectSection(SolutionItems) = preProject
+		Binaries\Data\Decoration\Malas\_luna.cfg = Binaries\Data\Decoration\Malas\_luna.cfg
+		Binaries\Data\Decoration\Malas\_umbra.cfg = Binaries\Data\Decoration\Malas\_umbra.cfg
+		Binaries\Data\Decoration\Malas\dark tides quest.cfg = Binaries\Data\Decoration\Malas\dark tides quest.cfg
+		Binaries\Data\Decoration\Malas\doom.cfg = Binaries\Data\Decoration\Malas\doom.cfg
+		Binaries\Data\Decoration\Malas\emino's undertaking quest.cfg = Binaries\Data\Decoration\Malas\emino's undertaking quest.cfg
+		Binaries\Data\Decoration\Malas\haochi's trials quest.cfg = Binaries\Data\Decoration\Malas\haochi's trials quest.cfg
+		Binaries\Data\Decoration\Malas\luna.cfg = Binaries\Data\Decoration\Malas\luna.cfg
+		Binaries\Data\Decoration\Malas\markcontainers.cfg = Binaries\Data\Decoration\Malas\markcontainers.cfg
+		Binaries\Data\Decoration\Malas\summoning quest.cfg = Binaries\Data\Decoration\Malas\summoning quest.cfg
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "RuinedMaginciaFel", "RuinedMaginciaFel", "{E7BE3324-F959-43E1-8D7E-289E9030FD9D}"
+	ProjectSection(SolutionItems) = preProject
+		Binaries\Data\Decoration\RuinedMaginciaFel\Mag-Fel.cfg = Binaries\Data\Decoration\RuinedMaginciaFel\Mag-Fel.cfg
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "RuinedMaginciaTram", "RuinedMaginciaTram", "{0BBF80F4-B99D-4440-B2F5-25D966BD7549}"
+	ProjectSection(SolutionItems) = preProject
+		Binaries\Data\Decoration\RuinedMaginciaTram\Mag-Tram.cfg = Binaries\Data\Decoration\RuinedMaginciaTram\Mag-Tram.cfg
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tokuno", "Tokuno", "{BAD5C1A1-3289-4112-80A2-56D9D64E0339}"
+	ProjectSection(SolutionItems) = preProject
+		Binaries\Data\Decoration\Tokuno\terrible hatchlings quest.cfg = Binaries\Data\Decoration\Tokuno\terrible hatchlings quest.cfg
+		Binaries\Data\Decoration\Tokuno\tokuno.cfg = Binaries\Data\Decoration\Tokuno\tokuno.cfg
+		Binaries\Data\Decoration\Tokuno\treasures of tokuno.cfg = Binaries\Data\Decoration\Tokuno\treasures of tokuno.cfg
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Trammel", "Trammel", "{5810E4F2-F461-4208-962F-EEBB77973170}"
+	ProjectSection(SolutionItems) = preProject
+		Binaries\Data\Decoration\Trammel\_haven additions.cfg = Binaries\Data\Decoration\Trammel\_haven additions.cfg
+		Binaries\Data\Decoration\Trammel\_minoc camp.cfg = Binaries\Data\Decoration\Trammel\_minoc camp.cfg
+		Binaries\Data\Decoration\Trammel\ambitious solen queen quest.cfg = Binaries\Data\Decoration\Trammel\ambitious solen queen quest.cfg
+		Binaries\Data\Decoration\Trammel\collector quest.cfg = Binaries\Data\Decoration\Trammel\collector quest.cfg
+		Binaries\Data\Decoration\Trammel\haven.cfg = Binaries\Data\Decoration\Trammel\haven.cfg
+		Binaries\Data\Decoration\Trammel\magincia.cfg = Binaries\Data\Decoration\Trammel\magincia.cfg
+		Binaries\Data\Decoration\Trammel\solen matriarch quest.cfg = Binaries\Data\Decoration\Trammel\solen matriarch quest.cfg
+		Binaries\Data\Decoration\Trammel\uzeraan turmoil quest.cfg = Binaries\Data\Decoration\Trammel\uzeraan turmoil quest.cfg
+		Binaries\Data\Decoration\Trammel\yew.cfg = Binaries\Data\Decoration\Trammel\yew.cfg
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Misc", "Misc", "{CA913F7A-0F1B-40F3-A6CC-18BF1025CC85}"
+	ProjectSection(SolutionItems) = preProject
+		Publish.bat = Publish.bat
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Misc", "Misc", "{35CB90F0-EFF2-403F-B4A3-A1469F3125ED}"
+	ProjectSection(SolutionItems) = preProject
+		Binaries\settings.ini = Binaries\settings.ini
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Utils", "Utils", "{A5104E8F-5A41-4857-B549-BAAACB71B87F}"
+	ProjectSection(SolutionItems) = preProject
+		Publish.bat = Publish.bat
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{3B0D3394-8CC0-4166-8DFE-9ED07A10538E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3B0D3394-8CC0-4166-8DFE-9ED07A10538E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3B0D3394-8CC0-4166-8DFE-9ED07A10538E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3B0D3394-8CC0-4166-8DFE-9ED07A10538E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{245722F3-378E-436B-A8B9-7D0C93CC2D40}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{245722F3-378E-436B-A8B9-7D0C93CC2D40}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{245722F3-378E-436B-A8B9-7D0C93CC2D40}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{245722F3-378E-436B-A8B9-7D0C93CC2D40}.Release|Any CPU.Build.0 = Release|Any CPU
+		{74EAA3E3-1223-4FBB-AECE-3880B991EA58}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{74EAA3E3-1223-4FBB-AECE-3880B991EA58}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{74EAA3E3-1223-4FBB-AECE-3880B991EA58}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{74EAA3E3-1223-4FBB-AECE-3880B991EA58}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{863CB287-E2F8-49AC-8BF1-F416E8C6D3F7} = {35CB90F0-EFF2-403F-B4A3-A1469F3125ED}
+		{3B72F13A-08A1-40A1-B4C9-78FEAA9C12FC} = {863CB287-E2F8-49AC-8BF1-F416E8C6D3F7}
+		{3C58DE27-DA34-4215-859B-E60C70A4DA09} = {863CB287-E2F8-49AC-8BF1-F416E8C6D3F7}
+		{32793652-D0FF-423B-830A-244C83047B31} = {863CB287-E2F8-49AC-8BF1-F416E8C6D3F7}
+		{9903B926-9FAB-4F18-BD27-DAE415D7D6B2} = {32793652-D0FF-423B-830A-244C83047B31}
+		{19E12A6A-273E-48F9-BB2A-0F7E7BDF651F} = {32793652-D0FF-423B-830A-244C83047B31}
+		{9F3BC99F-210E-468A-A9FB-36B1EF5B01AE} = {32793652-D0FF-423B-830A-244C83047B31}
+		{2817E3B6-3D1E-47AB-AE7F-4C9F685CCB4E} = {32793652-D0FF-423B-830A-244C83047B31}
+		{E7BE3324-F959-43E1-8D7E-289E9030FD9D} = {32793652-D0FF-423B-830A-244C83047B31}
+		{0BBF80F4-B99D-4440-B2F5-25D966BD7549} = {32793652-D0FF-423B-830A-244C83047B31}
+		{BAD5C1A1-3289-4112-80A2-56D9D64E0339} = {32793652-D0FF-423B-830A-244C83047B31}
+		{5810E4F2-F461-4208-962F-EEBB77973170} = {863CB287-E2F8-49AC-8BF1-F416E8C6D3F7}
+		{CA913F7A-0F1B-40F3-A6CC-18BF1025CC85} = {32793652-D0FF-423B-830A-244C83047B31}
+		{A5104E8F-5A41-4857-B549-BAAACB71B87F} = {35CB90F0-EFF2-403F-B4A3-A1469F3125ED}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {A3C344D8-62B7-47BA-84CD-426CB4223E37}
+	EndGlobalSection
+EndGlobal
