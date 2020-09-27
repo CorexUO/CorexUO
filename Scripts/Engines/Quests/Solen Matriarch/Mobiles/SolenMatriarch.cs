@@ -206,7 +206,7 @@ namespace Server.Engines.Quests.Matriarch
 
             protected override void OnTargetCancel(Mobile from, TargetCancelType cancelType)
             {
-                from.SendLocalizedMessage(1042021, "", 0x59); // Cancelled.
+                from.SendLocalizedMessage(1042021, 0x59); // Cancelled.
             }
 
             protected override void OnTarget(Mobile from, object targeted)

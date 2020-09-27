@@ -1195,7 +1195,7 @@ namespace Server.Items
 							if (player.PlaceInBackpack(bone))
 							{
 								obj.CorpseWithBone = null;
-								player.SendLocalizedMessage(1049341, "", 0x22); // You rummage through the bones and find a Daemon Bone!  You quickly place the item in your pack.
+								player.SendLocalizedMessage(1049341, 0x22); // You rummage through the bones and find a Daemon Bone!  You quickly place the item in your pack.
 
 								if (!obj.Completed)
 									obj.Complete();
@@ -1203,7 +1203,7 @@ namespace Server.Items
 							else
 							{
 								bone.Delete();
-								player.SendLocalizedMessage(1049342, "", 0x22); // Rummaging through the bones you find a Daemon Bone, but can't pick it up because your pack is too full.  Come back when you have more room in your pack.
+								player.SendLocalizedMessage(1049342, 0x22); // Rummaging through the bones you find a Daemon Bone, but can't pick it up because your pack is too full.  Come back when you have more room in your pack.
 							}
 
 							return;

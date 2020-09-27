@@ -276,7 +276,7 @@ namespace Server.Gumps
 				{
 					m_Book.Openers.Remove(from);
 
-					from.SendLocalizedMessage(502413, null, 0x35); // That cannot be done while the book is locked down.
+					from.SendLocalizedMessage(502413, 0x35); // That cannot be done while the book is locked down.
 				}
 			}
 			else
@@ -335,7 +335,7 @@ namespace Server.Gumps
 								{
 									m_Book.Openers.Remove(from);
 
-									from.SendLocalizedMessage(502413, null, 0x35); // That cannot be done while the book is locked down.
+									from.SendLocalizedMessage(502413, 0x35); // That cannot be done while the book is locked down.
 								}
 
 								break;

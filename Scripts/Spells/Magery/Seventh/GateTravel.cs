@@ -122,12 +122,12 @@ namespace Server.Spells.Seventh
 			}
 			else if (Caster.Criminal)
 			{
-				Caster.SendLocalizedMessage(1005561, "", 0x22); // Thou'rt a criminal and cannot escape so easily.
+				Caster.SendLocalizedMessage(1005561, 0x22); // Thou'rt a criminal and cannot escape so easily.
 				return false;
 			}
 			else if (SpellHelper.CheckCombat(Caster))
 			{
-				Caster.SendLocalizedMessage(1005564, "", 0x22); // Wouldst thou flee during the heat of battle??
+				Caster.SendLocalizedMessage(1005564, 0x22); // Wouldst thou flee during the heat of battle??
 				return false;
 			}
 
@@ -178,11 +178,11 @@ namespace Server.Spells.Seventh
 			}
 			else if (Caster.Criminal)
 			{
-				Caster.SendLocalizedMessage(1005561, "", 0x22); // Thou'rt a criminal and cannot escape so easily.
+				Caster.SendLocalizedMessage(1005561, 0x22); // Thou'rt a criminal and cannot escape so easily.
 			}
 			else if (SpellHelper.CheckCombat(Caster))
 			{
-				Caster.SendLocalizedMessage(1005564, "", 0x22); // Wouldst thou flee during the heat of battle??
+				Caster.SendLocalizedMessage(1005564, 0x22); // Wouldst thou flee during the heat of battle??
 			}
 			else if (!map.CanSpawnMobile(loc.X, loc.Y, loc.Z))
 			{

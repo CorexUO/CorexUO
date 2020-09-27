@@ -190,7 +190,7 @@ namespace Server.SkillHandlers
 				}
 				else if (si != null && m_Thief.Skills[SkillName.Stealing].Value < 100.0)
 				{
-					m_Thief.SendLocalizedMessage(1060025, "", 0x66D); // You're not skilled enough to attempt the theft of this item.
+					m_Thief.SendLocalizedMessage(1060025, 0x66D); // You're not skilled enough to attempt the theft of this item.
 				}
 				else if (toSteal.Parent is Mobile)
 				{

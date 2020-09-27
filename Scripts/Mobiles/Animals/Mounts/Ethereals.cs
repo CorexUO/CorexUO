@@ -149,7 +149,7 @@ namespace Server.Mobiles
 			}
 			else if (from.HasTrade)
 			{
-				from.SendLocalizedMessage(1042317, "", 0x41); // You may not ride at this time
+				from.SendLocalizedMessage(1042317, 0x41); // You may not ride at this time
 				return false;
 			}
 			else if ((from.Followers + FollowerSlots) > from.FollowersMax)

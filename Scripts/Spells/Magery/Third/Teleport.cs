@@ -30,7 +30,7 @@ namespace Server.Spells.Third
 			}
 			else if (Server.Misc.WeightOverloading.IsOverloaded(Caster))
 			{
-				Caster.SendLocalizedMessage(502359, "", 0x22); // Thou art too encumbered to move.
+				Caster.SendLocalizedMessage(502359, 0x22); // Thou art too encumbered to move.
 				return false;
 			}
 
@@ -68,7 +68,7 @@ namespace Server.Spells.Third
 			}
 			else if (Server.Misc.WeightOverloading.IsOverloaded(Caster))
 			{
-				Caster.SendLocalizedMessage(502359, "", 0x22); // Thou art too encumbered to move.
+				Caster.SendLocalizedMessage(502359, 0x22); // Thou art too encumbered to move.
 			}
 			else if (!SpellHelper.CheckTravel(Caster, TravelCheckType.TeleportFrom))
 			{

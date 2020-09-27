@@ -3276,7 +3276,7 @@ namespace Server.Mobiles
 				case TeachResult.SkillNotRaisable:
 					{
 						// Make sure this skill is marked to raise. If you are near the skill cap (700 points) you may need to lose some points in another skill first.
-						m.SendLocalizedMessage(501510, "", 0x22);
+						m.SendLocalizedMessage(501510, 0x22);
 						break;
 					}
 				case TeachResult.Success:

@@ -122,7 +122,7 @@ namespace Server.Misc
 			if (!Core.AOS && wasPositiveKarma && m.Karma < 0 && m is PlayerMobile && !((PlayerMobile)m).KarmaLocked)
 			{
 				((PlayerMobile)m).KarmaLocked = true;
-				m.SendLocalizedMessage(1042511, "", 0x22); // Karma is locked.  A mantra spoken at a shrine will unlock it again.
+				m.SendLocalizedMessage(1042511, 0x22); // Karma is locked.  A mantra spoken at a shrine will unlock it again.
 			}
 		}
 

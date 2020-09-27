@@ -33,7 +33,7 @@ namespace Server.Engines.Help
 		{
 			if (info.ButtonID == 0)
 			{
-				m_From.SendLocalizedMessage(501235, "", 0x35); // Help request aborted.
+				m_From.SendLocalizedMessage(501235, 0x35); // Help request aborted.
 			}
 			else
 			{
@@ -47,7 +47,7 @@ namespace Server.Engines.Help
 				}
 				else
 				{
-					m_From.SendLocalizedMessage(501234, "", 0x35); /* The next available Counselor/Game Master will respond as soon as possible.
+					m_From.SendLocalizedMessage(501234, 0x35); /* The next available Counselor/Game Master will respond as soon as possible.
 																	  * Please check your Journal for messages every few minutes.
 																	  */
 

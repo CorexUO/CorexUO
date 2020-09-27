@@ -10953,6 +10953,11 @@ namespace Server
 			SendLocalizedMessage(number, args, 0x3B2);
 		}
 
+		public void SendLocalizedMessage(int number, int hue)
+		{
+			SendLocalizedMessage(number, null, hue);
+		}
+
 		public void SendLocalizedMessage(int number, string args, int hue)
 		{
 			if (hue == 0x3B2 && (args == null || args.Length == 0))

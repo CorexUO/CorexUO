@@ -150,7 +150,7 @@ namespace Server.Misc
 					{
 						from.SendMessage("Your IP address does not match that which created this account.  A page has been entered into the help system on your behalf.");
 
-						from.SendLocalizedMessage(501234, "", 0x35); /* The next available Counselor/Game Master will respond as soon as possible.
+						from.SendLocalizedMessage(501234, 0x35); /* The next available Counselor/Game Master will respond as soon as possible.
 																		* Please check your Journal for messages every few minutes.
 																		*/
 

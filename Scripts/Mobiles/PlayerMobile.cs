@@ -1799,18 +1799,18 @@ namespace Server.Mobiles
 				if (target)
 					BeginTarget(-1, false, TargetFlags.None, new TargetCallback(ToggleItemInsurance_Callback));
 
-				SendLocalizedMessage(1060871, "", 0x23); // You can only insure items that you have equipped or that are in your backpack
+				SendLocalizedMessage(1060871, 0x23); // You can only insure items that you have equipped or that are in your backpack
 			}
 			else if (item.Insured)
 			{
 				item.Insured = false;
 
-				SendLocalizedMessage(1060874, "", 0x35); // You cancel the insurance on the item
+				SendLocalizedMessage(1060874, 0x35); // You cancel the insurance on the item
 
 				if (target)
 				{
 					BeginTarget(-1, false, TargetFlags.None, new TargetCallback(ToggleItemInsurance_Callback));
-					SendLocalizedMessage(1060868, "", 0x23); // Target the item you wish to toggle insurance status on <ESC> to cancel
+					SendLocalizedMessage(1060868, 0x23); // Target the item you wish to toggle insurance status on <ESC> to cancel
 				}
 			}
 			else if (!CanInsure(item))
@@ -1818,7 +1818,7 @@ namespace Server.Mobiles
 				if (target)
 					BeginTarget(-1, false, TargetFlags.None, new TargetCallback(ToggleItemInsurance_Callback));
 
-				SendLocalizedMessage(1060869, "", 0x23); // You cannot insure that
+				SendLocalizedMessage(1060869, 0x23); // You cannot insure that
 			}
 			else
 			{
@@ -1833,19 +1833,19 @@ namespace Server.Mobiles
 					}
 					else
 					{
-						SendLocalizedMessage(1061079, "", 0x23); // You lack the funds to purchase the insurance
+						SendLocalizedMessage(1061079, 0x23); // You lack the funds to purchase the insurance
 						return;
 					}
 				}
 
 				item.Insured = true;
 
-				SendLocalizedMessage(1060873, "", 0x23); // You have insured the item
+				SendLocalizedMessage(1060873, 0x23); // You have insured the item
 
 				if (target)
 				{
 					BeginTarget(-1, false, TargetFlags.None, new TargetCallback(ToggleItemInsurance_Callback));
-					SendLocalizedMessage(1060868, "", 0x23); // Target the item you wish to toggle insurance status on <ESC> to cancel
+					SendLocalizedMessage(1060868, 0x23); // Target the item you wish to toggle insurance status on <ESC> to cancel
 				}
 			}
 		}
@@ -1855,7 +1855,7 @@ namespace Server.Mobiles
 			if (!CheckAlive())
 				return;
 
-			SendLocalizedMessage(1060881, "", 0x23); // You have selected to automatically reinsure all insured items upon death
+			SendLocalizedMessage(1060881, 0x23); // You have selected to automatically reinsure all insured items upon death
 			AutoRenewInsurance = true;
 		}
 
@@ -1871,7 +1871,7 @@ namespace Server.Mobiles
 			}
 			else
 			{
-				SendLocalizedMessage(1061075, "", 0x23); // You have cancelled automatically reinsuring all insured items upon death
+				SendLocalizedMessage(1061075, 0x23); // You have cancelled automatically reinsuring all insured items upon death
 				AutoRenewInsurance = false;
 			}
 		}
@@ -1907,7 +1907,7 @@ namespace Server.Mobiles
 
 				if (info.ButtonID == 1)
 				{
-					m_Player.SendLocalizedMessage(1061075, "", 0x23); // You have cancelled automatically reinsuring all insured items upon death
+					m_Player.SendLocalizedMessage(1061075, 0x23); // You have cancelled automatically reinsuring all insured items upon death
 					m_Player.AutoRenewInsurance = false;
 				}
 				else
@@ -1943,7 +1943,7 @@ namespace Server.Mobiles
 			CloseGump(typeof(ItemInsuranceMenuGump));
 
 			if (items.Count == 0)
-				SendLocalizedMessage(1114915, "", 0x35); // None of your current items meet the requirements for insurance.
+				SendLocalizedMessage(1114915, 0x35); // None of your current items meet the requirements for insurance.
 			else
 				SendGump(new ItemInsuranceMenuGump(this, items.ToArray()));
 		}
@@ -2226,7 +2226,7 @@ namespace Server.Mobiles
 			}
 			else
 			{
-				SendLocalizedMessage(1072355, "", 0x23); // That item does not match any of your quest criteria
+				SendLocalizedMessage(1072355, 0x23); // That item does not match any of your quest criteria
 			}
 
 			ToggleQuestItemTarget();
@@ -2746,7 +2746,7 @@ namespace Server.Mobiles
 					}
 					else
 					{
-						SendLocalizedMessage(1061079, "", 0x23); // You lack the funds to purchase the insurance
+						SendLocalizedMessage(1061079, 0x23); // You lack the funds to purchase the insurance
 						item.PayedInsurance = false;
 						item.Insured = false;
 						m_NonAutoreinsuredItems++;
@@ -4648,9 +4648,9 @@ namespace Server.Mobiles
 				return;
 
 			if (DisplayChampionTitle)
-				SendLocalizedMessage(1062419, "", 0x23); // You have chosen to hide your monster kill title.
+				SendLocalizedMessage(1062419, 0x23); // You have chosen to hide your monster kill title.
 			else
-				SendLocalizedMessage(1062418, "", 0x23); // You have chosen to display your monster kill title.
+				SendLocalizedMessage(1062418, 0x23); // You have chosen to display your monster kill title.
 
 			DisplayChampionTitle = !DisplayChampionTitle;
 		}

@@ -289,22 +289,22 @@ namespace Server.Items
 			}
 			else if (from.Criminal)
 			{
-				from.SendLocalizedMessage(1005561, "", 0x22); // Thou'rt a criminal and cannot escape so easily.
+				from.SendLocalizedMessage(1005561, 0x22); // Thou'rt a criminal and cannot escape so easily.
 				return false;
 			}
 			else if (SpellHelper.CheckCombat(from))
 			{
-				from.SendLocalizedMessage(1005564, "", 0x22); // Wouldst thou flee during the heat of battle??
+				from.SendLocalizedMessage(1005564, 0x22); // Wouldst thou flee during the heat of battle??
 				return false;
 			}
 			else if (Server.Misc.WeightOverloading.IsOverloaded(from))
 			{
-				from.SendLocalizedMessage(502359, "", 0x22); // Thou art too encumbered to move.
+				from.SendLocalizedMessage(502359, 0x22); // Thou art too encumbered to move.
 				return false;
 			}
-			else if (from.Region.IsPartOf(typeof(Server.Regions.Jail)))
+			else if (from.Region.IsPartOf(typeof(Regions.Jail)))
 			{
-				from.SendLocalizedMessage(1114345, "", 0x35); // You'll need a better jailbreak plan than that!
+				from.SendLocalizedMessage(1114345, 0x35); // You'll need a better jailbreak plan than that!
 				return false;
 			}
 			else if (boundRoot.Region.IsPartOf(typeof(Server.Regions.Jail)))

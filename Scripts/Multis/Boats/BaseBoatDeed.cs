@@ -70,7 +70,7 @@ namespace Server.Multis
 			}
 			else if (from.AccessLevel < AccessLevel.GameMaster && (from.Map == Map.Ilshenar || from.Map == Map.Malas))
 			{
-				from.SendLocalizedMessage(1010567, null, 0x25); // You may not place a boat from this location.
+				from.SendLocalizedMessage(1010567, 0x25); // You may not place a boat from this location.
 			}
 			else
 			{
@@ -110,7 +110,7 @@ namespace Server.Multis
 
 				if (from.Region.IsPartOf(typeof(HouseRegion)) || BaseBoat.FindBoatAt(from, from.Map) != null)
 				{
-					from.SendLocalizedMessage(1010568, null, 0x25); // You may not place a ship while on another ship or inside a house.
+					from.SendLocalizedMessage(1010568, 0x25); // You may not place a ship while on another ship or inside a house.
 					return;
 				}
 

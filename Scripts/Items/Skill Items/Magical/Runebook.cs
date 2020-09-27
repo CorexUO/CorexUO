@@ -393,7 +393,7 @@ namespace Server.Items
 			{
 				if (IsLockedDown && from.AccessLevel < AccessLevel.GameMaster)
 				{
-					from.SendLocalizedMessage(502413, null, 0x35); // That cannot be done while the book is locked down.
+					from.SendLocalizedMessage(502413, 0x35); // That cannot be done while the book is locked down.
 				}
 				else if (IsOpen(from))
 				{

@@ -180,7 +180,7 @@ namespace Server
 				return;
 
 			if (def.m_Number > 0)
-				m.SendLocalizedMessage(def.m_Number, "", hue);
+				m.SendLocalizedMessage(def.m_Number, hue);
 			else if (def.m_String != null)
 				m.SendMessage(hue, def.m_String);
 		}

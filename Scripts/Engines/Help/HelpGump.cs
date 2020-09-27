@@ -18,14 +18,14 @@ namespace Server.Engines.Help
 
 		public override void OnCancel(NetState state)
 		{
-			m_From.SendLocalizedMessage(1005306, "", 0x35); // Help request unchanged.
+			m_From.SendLocalizedMessage(1005306, 0x35); // Help request unchanged.
 		}
 
 		public override void OnResponse(NetState state, int index)
 		{
 			if (index == 0)
 			{
-				m_From.SendLocalizedMessage(1005306, "", 0x35); // Help request unchanged.
+				m_From.SendLocalizedMessage(1005306, 0x35); // Help request unchanged.
 			}
 			else if (index == 1)
 			{
@@ -33,13 +33,13 @@ namespace Server.Engines.Help
 
 				if (entry != null && entry.Handler == null)
 				{
-					m_From.SendLocalizedMessage(1005307, "", 0x35); // Removed help request.
+					m_From.SendLocalizedMessage(1005307, 0x35); // Removed help request.
 					entry.AddResponse(entry.Sender, "[Canceled]");
 					PageQueue.Remove(entry);
 				}
 				else
 				{
-					m_From.SendLocalizedMessage(1005306, "", 0x35); // Help request unchanged.
+					m_From.SendLocalizedMessage(1005306, 0x35); // Help request unchanged.
 				}
 			}
 		}
@@ -211,7 +211,7 @@ namespace Server.Engines.Help
 			{
 				case 0: // Close/Cancel
 					{
-						from.SendLocalizedMessage(501235, "", 0x35); // Help request aborted.
+						from.SendLocalizedMessage(501235, 0x35); // Help request aborted.
 
 						break;
 					}
@@ -228,9 +228,9 @@ namespace Server.Engines.Help
 						{
 							from.Location = house.BanLocation;
 						}
-						else if (from.Region.IsPartOf(typeof(Server.Regions.Jail)))
+						else if (from.Region.IsPartOf(typeof(Regions.Jail)))
 						{
-							from.SendLocalizedMessage(1114345, "", 0x35); // You'll need a better jailbreak plan than that!
+							from.SendLocalizedMessage(1114345, 0x35); // You'll need a better jailbreak plan than that!
 						}
 						else if (Factions.Sigil.ExistsOn(from))
 						{
@@ -287,7 +287,7 @@ namespace Server.Engines.Help
 						{
 							if (from.Region.IsPartOf(typeof(Regions.Jail)))
 							{
-								from.SendLocalizedMessage(1114345, "", 0x35); // You'll need a better jailbreak plan than that!
+								from.SendLocalizedMessage(1114345, 0x35); // You'll need a better jailbreak plan than that!
 							}
 							else if (from.Region.IsPartOf("Haven Island"))
 							{

@@ -13,12 +13,12 @@ namespace Server.Engines.Help
 
 		public override void OnCancel(Mobile from)
 		{
-			from.SendLocalizedMessage(501235, "", 0x35); // Help request aborted.
+			from.SendLocalizedMessage(501235, 0x35); // Help request aborted.
 		}
 
 		public override void OnResponse(Mobile from, string text)
 		{
-			from.SendLocalizedMessage(501234, "", 0x35); /* The next available Counselor/Game Master will respond as soon as possible.
+			from.SendLocalizedMessage(501234, 0x35); /* The next available Counselor/Game Master will respond as soon as possible.
 															* Please check your Journal for messages every few minutes.
 															*/
 
