@@ -5,6 +5,10 @@ namespace Server.Spells
 {
 	public abstract class MagerySpell : Spell
 	{
+		private const double ChanceOffset = 20.0, ChanceLength = 100.0 / 7.0;
+
+		private static readonly int[] m_ManaTable = new int[] { 4, 6, 9, 11, 14, 20, 40, 50 };
+
 		public MagerySpell(Mobile caster, Item scroll, SpellInfo info)
 			: base(caster, scroll, info)
 		{
@@ -23,7 +27,7 @@ namespace Server.Spells
 			return false;
 		}
 
-		private const double ChanceOffset = 20.0, ChanceLength = 100.0 / 7.0;
+
 
 		public override void GetCastSkills(out double min, out double max)
 		{
@@ -37,8 +41,6 @@ namespace Server.Spells
 			min = avg - ChanceOffset;
 			max = avg + ChanceOffset;
 		}
-
-		private static readonly int[] m_ManaTable = new int[] { 4, 6, 9, 11, 14, 20, 40, 50 };
 
 		public override int GetMana()
 		{

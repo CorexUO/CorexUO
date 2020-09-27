@@ -13,36 +13,6 @@ using Server.Spells.Ninjitsu;
 using Server.Spells.Seventh;
 using Server.Targeting;
 
-namespace Server
-{
-	public class DefensiveSpell
-	{
-		public static void Nullify(Mobile from)
-		{
-			if (!from.CanBeginAction(typeof(DefensiveSpell)))
-				new InternalTimer(from).Start();
-		}
-
-		private class InternalTimer : Timer
-		{
-			private Mobile m_Mobile;
-
-			public InternalTimer(Mobile m)
-				: base(TimeSpan.FromMinutes(1.0))
-			{
-				m_Mobile = m;
-
-				Priority = TimerPriority.OneSecond;
-			}
-
-			protected override void OnTick()
-			{
-				m_Mobile.EndAction(typeof(DefensiveSpell));
-			}
-		}
-	}
-}
-
 namespace Server.Spells
 {
 	public enum TravelCheckType
@@ -58,8 +28,8 @@ namespace Server.Spells
 
 	public class SpellHelper
 	{
-		private static TimeSpan AosDamageDelay = TimeSpan.FromSeconds(1.0);
-		private static TimeSpan OldDamageDelay = TimeSpan.FromSeconds(0.5);
+		private static readonly TimeSpan AosDamageDelay = TimeSpan.FromSeconds(1.0);
+		private static readonly TimeSpan OldDamageDelay = TimeSpan.FromSeconds(0.5);
 
 		public static TimeSpan GetDamageDelayForSpell(Spell sp)
 		{
