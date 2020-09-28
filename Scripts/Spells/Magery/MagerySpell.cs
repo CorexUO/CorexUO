@@ -27,8 +27,6 @@ namespace Server.Spells
 			return false;
 		}
 
-
-
 		public override void GetCastSkills(out double min, out double max)
 		{
 			int circle = (int)Circle;

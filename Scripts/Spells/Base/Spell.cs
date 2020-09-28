@@ -21,7 +21,6 @@ namespace Server.Spells
 		private SpellState m_State;
 		private long m_StartCastTime;
 
-
 		public SpellState State { get { return m_State; } set { m_State = value; } }
 		public Mobile Caster { get { return m_Caster; } }
 		public object SpellTarget { get { return m_SpellTarget; } set { m_SpellTarget = value; } }
@@ -197,12 +196,12 @@ namespace Server.Spells
 
 			if (IsCasting)
 			{
-				object o = ProtectionSpell.Registry[m_Caster];
+				object protectChance = ProtectionSpell.Registry[m_Caster];
 				bool disturb = true;
 
-				if (o != null && o is double)
+				if (protectChance != null && protectChance is double prob)
 				{
-					if (((double)o) > Utility.RandomDouble() * 100.0)
+					if (prob > Utility.RandomDouble() * 100.0)
 						disturb = false;
 				}
 
@@ -458,7 +457,7 @@ namespace Server.Spells
 
 				OnDisturb(type, false);
 
-				Targeting.Target.Cancel(m_Caster);
+				Target.Cancel(m_Caster);
 
 				if (Core.AOS && m_Caster.Player && type == DisturbType.Hurt)
 					DoHurtFizzle();
@@ -575,7 +574,7 @@ namespace Server.Spells
 				m_Caster.SendLocalizedMessage(1072060); // You cannot cast a spell while calmed.
 			}
 			#region Dueling
-			else if (m_Caster is PlayerMobile && ((PlayerMobile)m_Caster).DuelContext != null && !((PlayerMobile)m_Caster).DuelContext.AllowSpellCast(m_Caster, this))
+			else if (m_Caster is PlayerMobile pm && pm.DuelContext != null && !pm.DuelContext.AllowSpellCast(m_Caster, this))
 			{
 			}
 			#endregion

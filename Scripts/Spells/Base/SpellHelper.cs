@@ -31,6 +31,9 @@ namespace Server.Spells
 		private static readonly TimeSpan AosDamageDelay = TimeSpan.FromSeconds(1.0);
 		private static readonly TimeSpan OldDamageDelay = TimeSpan.FromSeconds(0.5);
 
+		private static readonly TimeSpan CombatHeatDelay = TimeSpan.FromSeconds(30.0);
+		private static readonly bool RestrictTravelCombat = true;
+
 		public static TimeSpan GetDamageDelayForSpell(Spell sp)
 		{
 			if (!sp.DelayedDamage)
@@ -60,10 +63,8 @@ namespace Server.Spells
 			{
 				BaseMulti multi = sector.Multis[i];
 
-				if (multi is BaseHouse)
+				if (multi is BaseHouse bh)
 				{
-					BaseHouse bh = (BaseHouse)multi;
-
 					if ((houses && bh.IsInside(p, 16)) || (housingrange > 0 && bh.InRange(p, housingrange)))
 						return true;
 				}
@@ -78,15 +79,11 @@ namespace Server.Spells
 
 		public static void Turn(Mobile from, object to)
 		{
-			IPoint3D target = to as IPoint3D;
-
-			if (target == null)
+			if (!(to is IPoint3D target))
 				return;
 
-			if (target is Item)
+			if (target is Item item)
 			{
-				Item item = (Item)target;
-
 				if (item.RootParent != from)
 					from.Direction = from.GetDirectionTo(item.GetWorldLocation());
 			}
@@ -95,9 +92,6 @@ namespace Server.Spells
 				from.Direction = from.GetDirectionTo(target);
 			}
 		}
-
-		private static TimeSpan CombatHeatDelay = TimeSpan.FromSeconds(30.0);
-		private static bool RestrictTravelCombat = true;
 
 		public static bool CheckCombat(Mobile m)
 		{
@@ -112,7 +106,7 @@ namespace Server.Spells
 					return true;
 			}
 
-			if (Core.Expansion == Expansion.AOS)
+			if (Core.AOS)
 			{
 				for (int i = 0; i < m.Aggressors.Count; ++i)
 				{
@@ -147,11 +141,9 @@ namespace Server.Spells
 
 		public static bool CanRevealCaster(Mobile m)
 		{
-			if (m is BaseCreature)
+			if (m is BaseCreature bc)
 			{
-				BaseCreature c = (BaseCreature)m;
-
-				if (!c.Controlled)
+				if (!bc.Controlled)
 					return true;
 			}
 
@@ -368,24 +360,20 @@ namespace Server.Spells
 			if (p != null && p.Contains(to))
 				return false;
 
-			if (to is BaseCreature)
+			if (to is BaseCreature bc)
 			{
-				BaseCreature c = (BaseCreature)to;
-
-				if (c.Controlled || c.Summoned)
+				if (bc.Controlled || bc.Summoned)
 				{
-					if (c.ControlMaster == from || c.SummonMaster == from)
+					if (bc.ControlMaster == from || bc.SummonMaster == from)
 						return false;
 
-					if (p != null && (p.Contains(c.ControlMaster) || p.Contains(c.SummonMaster)))
+					if (p != null && (p.Contains(bc.ControlMaster) || p.Contains(bc.SummonMaster)))
 						return false;
 				}
 			}
 
-			if (from is BaseCreature)
+			if (from is BaseCreature c)
 			{
-				BaseCreature c = (BaseCreature)from;
-
 				if (c.Controlled || c.Summoned)
 				{
 					if (c.ControlMaster == to || c.SummonMaster == to)
@@ -398,7 +386,7 @@ namespace Server.Spells
 				}
 			}
 
-			if (to is BaseCreature && !((BaseCreature)to).Controlled && ((BaseCreature)to).InitialInnocent)
+			if (to is BaseCreature creature && !creature.Controlled && creature.InitialInnocent)
 				return true;
 
 			int noto = Notoriety.Compute(from, to);
@@ -581,11 +569,9 @@ namespace Server.Spells
 			}
 
 			// Always allow monsters to teleport
-			if (caster is BaseCreature && (type == TravelCheckType.TeleportTo || type == TravelCheckType.TeleportFrom))
+			if (caster is BaseCreature creature && (type == TravelCheckType.TeleportTo || type == TravelCheckType.TeleportFrom))
 			{
-				BaseCreature bc = (BaseCreature)caster;
-
-				if (!bc.Controlled && !bc.Summoned)
+				if (!creature.Controlled && !creature.Summoned)
 					return true;
 			}
 
@@ -803,8 +789,8 @@ namespace Server.Spells
 		//towns
 		public static bool IsTown(IPoint3D loc, Mobile caster)
 		{
-			if (loc is Item)
-				loc = ((Item)loc).GetWorldLocation();
+			if (loc is Item item)
+				loc = item.GetWorldLocation();
 
 			return IsTown(new Point3D(loc), caster);
 		}
@@ -835,8 +821,8 @@ namespace Server.Spells
 
 		public static bool CheckTown(IPoint3D loc, Mobile caster)
 		{
-			if (loc is Item)
-				loc = ((Item)loc).GetWorldLocation();
+			if (loc is Item item)
+				loc = item.GetWorldLocation();
 
 			return CheckTown(new Point3D(loc), caster);
 		}
@@ -870,8 +856,8 @@ namespace Server.Spells
 
 				bool reflect = (target.MagicDamageAbsorb >= 0);
 
-				if (target is BaseCreature)
-					((BaseCreature)target).CheckReflect(caster, ref reflect);
+				if (target is BaseCreature creature)
+					creature.CheckReflect(caster, ref reflect);
 
 				if (target.MagicDamageAbsorb <= 0)
 				{
@@ -888,11 +874,11 @@ namespace Server.Spells
 					target = temp;
 				}
 			}
-			else if (target is BaseCreature)
+			else if (target is BaseCreature creature)
 			{
 				bool reflect = false;
 
-				((BaseCreature)target).CheckReflect(caster, ref reflect);
+				creature.CheckReflect(caster, ref reflect);
 
 				if (reflect)
 				{
@@ -928,11 +914,11 @@ namespace Server.Spells
 
 			if (delay == TimeSpan.Zero)
 			{
-				if (from is BaseCreature)
-					((BaseCreature)from).AlterSpellDamageTo(target, ref iDamage);
+				if (from is BaseCreature creature)
+					creature.AlterSpellDamageTo(target, ref iDamage);
 
-				if (target is BaseCreature)
-					((BaseCreature)target).AlterSpellDamageFrom(from, ref iDamage);
+				if (target is BaseCreature targetCreature)
+					targetCreature.AlterSpellDamageFrom(from, ref iDamage);
 
 				target.Damage(iDamage, from);
 			}
@@ -941,12 +927,10 @@ namespace Server.Spells
 				new SpellDamageTimer(spell, target, from, iDamage, delay).Start();
 			}
 
-			if (target is BaseCreature && from != null && delay == TimeSpan.Zero)
+			if (target is BaseCreature bc && from != null && delay == TimeSpan.Zero)
 			{
-				BaseCreature c = (BaseCreature)target;
-
-				c.OnHarmfulSpell(from);
-				c.OnDamagedBySpell(from);
+				bc.OnHarmfulSpell(from);
+				bc.OnDamagedBySpell(from);
 			}
 		}
 
@@ -985,11 +969,11 @@ namespace Server.Spells
 
 			if (delay == TimeSpan.Zero)
 			{
-				if (from is BaseCreature)
-					((BaseCreature)from).AlterSpellDamageTo(target, ref iDamage);
+				if (from is BaseCreature bc)
+					bc.AlterSpellDamageTo(target, ref iDamage);
 
-				if (target is BaseCreature)
-					((BaseCreature)target).AlterSpellDamageFrom(from, ref iDamage);
+				if (target is BaseCreature tbc)
+					tbc.AlterSpellDamageFrom(from, ref iDamage);
 
 				WeightOverloading.DFA = dfa;
 
@@ -1007,10 +991,8 @@ namespace Server.Spells
 				new SpellDamageTimerAOS(spell, target, from, iDamage, phys, fire, cold, pois, nrgy, delay, dfa).Start();
 			}
 
-			if (target is BaseCreature && from != null && delay == TimeSpan.Zero)
+			if (target is BaseCreature c && from != null && delay == TimeSpan.Zero)
 			{
-				BaseCreature c = (BaseCreature)target;
-
 				c.OnHarmfulSpell(from);
 				c.OnDamagedBySpell(from);
 			}
@@ -1052,9 +1034,9 @@ namespace Server.Spells
 
 		private class SpellDamageTimer : Timer
 		{
-			private Mobile m_Target, m_From;
+			private readonly Mobile m_Target, m_From;
 			private int m_Damage;
-			private Spell m_Spell;
+			private readonly Spell m_Spell;
 
 			public SpellDamageTimer(Spell s, Mobile target, Mobile from, int damage, TimeSpan delay)
 				: base(delay)
@@ -1072,11 +1054,11 @@ namespace Server.Spells
 
 			protected override void OnTick()
 			{
-				if (m_From is BaseCreature)
-					((BaseCreature)m_From).AlterSpellDamageTo(m_Target, ref m_Damage);
+				if (m_From is BaseCreature bc)
+					bc.AlterSpellDamageTo(m_Target, ref m_Damage);
 
-				if (m_Target is BaseCreature)
-					((BaseCreature)m_Target).AlterSpellDamageFrom(m_From, ref m_Damage);
+				if (m_Target is BaseCreature tbc)
+					tbc.AlterSpellDamageFrom(m_From, ref m_Damage);
 
 				m_Target.Damage(m_Damage);
 				if (m_Spell != null)
@@ -1086,11 +1068,11 @@ namespace Server.Spells
 
 		private class SpellDamageTimerAOS : Timer
 		{
-			private Mobile m_Target, m_From;
+			private readonly Mobile m_Target, m_From;
 			private int m_Damage;
-			private int m_Phys, m_Fire, m_Cold, m_Pois, m_Nrgy;
-			private DFAlgorithm m_DFA;
-			private Spell m_Spell;
+			private readonly int m_Phys, m_Fire, m_Cold, m_Pois, m_Nrgy;
+			private readonly DFAlgorithm m_DFA;
+			private readonly Spell m_Spell;
 
 			public SpellDamageTimerAOS(Spell s, Mobile target, Mobile from, int damage, int phys, int fire, int cold, int pois, int nrgy, TimeSpan delay, DFAlgorithm dfa)
 				: base(delay)
@@ -1113,11 +1095,11 @@ namespace Server.Spells
 
 			protected override void OnTick()
 			{
-				if (m_From is BaseCreature && m_Target != null)
-					((BaseCreature)m_From).AlterSpellDamageTo(m_Target, ref m_Damage);
+				if (m_From is BaseCreature bc && m_Target != null)
+					bc.AlterSpellDamageTo(m_Target, ref m_Damage);
 
-				if (m_Target is BaseCreature && m_From != null)
-					((BaseCreature)m_Target).AlterSpellDamageFrom(m_From, ref m_Damage);
+				if (m_Target is BaseCreature tbc && m_From != null)
+					tbc.AlterSpellDamageFrom(m_From, ref m_Damage);
 
 				WeightOverloading.DFA = m_DFA;
 
@@ -1130,10 +1112,8 @@ namespace Server.Spells
 
 				WeightOverloading.DFA = DFAlgorithm.Standard;
 
-				if (m_Target is BaseCreature && m_From != null)
+				if (m_Target is BaseCreature c && m_From != null)
 				{
-					BaseCreature c = (BaseCreature)m_Target;
-
 					c.OnHarmfulSpell(m_From);
 					c.OnDamagedBySpell(m_From);
 				}
@@ -1187,9 +1167,7 @@ namespace Server.Spells
 
 		public static TransformContext GetContext(Mobile m)
 		{
-			TransformContext context = null;
-
-			m_Table.TryGetValue(m, out context);
+			m_Table.TryGetValue(m, out TransformContext context);
 
 			return context;
 		}
@@ -1230,9 +1208,7 @@ namespace Server.Spells
 
 		public static bool OnCast(Mobile caster, Spell spell)
 		{
-			ITransformationSpell transformSpell = spell as ITransformationSpell;
-
-			if (transformSpell == null)
+			if (!(spell is ITransformationSpell transformSpell))
 				return false;
 
 			if (Factions.Sigil.ExistsOn(caster))
@@ -1340,13 +1316,12 @@ namespace Server.Spells
 		void RemoveEffect(Mobile m);
 	}
 
-
 	public class TransformContext
 	{
-		private Timer m_Timer;
-		private List<ResistanceMod> m_Mods;
-		private Type m_Type;
-		private ITransformationSpell m_Spell;
+		private readonly Timer m_Timer;
+		private readonly List<ResistanceMod> m_Mods;
+		private readonly Type m_Type;
+		private readonly ITransformationSpell m_Spell;
 
 		public Timer Timer { get { return m_Timer; } }
 		public List<ResistanceMod> Mods { get { return m_Mods; } }
@@ -1364,8 +1339,8 @@ namespace Server.Spells
 
 	public class TransformTimer : Timer
 	{
-		private Mobile m_Mobile;
-		private ITransformationSpell m_Spell;
+		private readonly Mobile m_Mobile;
+		private readonly ITransformationSpell m_Spell;
 
 		public TransformTimer(Mobile from, ITransformationSpell spell)
 			: base(TimeSpan.FromSeconds(spell.TickRate), TimeSpan.FromSeconds(spell.TickRate))
