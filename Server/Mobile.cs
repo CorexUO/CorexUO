@@ -1,23 +1,3 @@
-/***************************************************************************
- *                                Mobile.cs
- *                            -------------------
- *   begin                : May 1, 2002
- *   copyright            : (C) The RunUO Software Team
- *   email                : info@runuo.com
- *
- *   $Id$
- *
- ***************************************************************************/
-
-/***************************************************************************
- *
- *   This program is free software; you can redistribute it and/or modify
- *   it under the terms of the GNU General Public License as published by
- *   the Free Software Foundation; either version 2 of the License, or
- *   (at your option) any later version.
- *
- ***************************************************************************/
-
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -658,6 +638,32 @@ namespace Server
 				return m_DefaultManaRate;
 			else
 				return m_ManaRegenRate(m);
+		}
+
+		private static int m_HitsRegenBonus, m_ManaRegenBonus, m_StamRegenBonus;
+		public int HitsRegenBonus { get { return m_HitsRegenBonus; } set { m_HitsRegenBonus = value; } }
+
+		public int ManaRegenBonus { get { return m_ManaRegenBonus; } set { m_ManaRegenBonus = value; } }
+
+		public int StamRegenBonus { get { return m_StamRegenBonus; } set { m_StamRegenBonus = value; } }
+
+		public virtual int HitsRegenBaseValue { get { return 1; } }
+		public virtual int ManaRegenBaseValue { get { return 1; } }
+		public virtual int StamRegenBaseValue { get { return 1; } }
+
+		public virtual int GetHitsRegenValue()
+		{
+			return HitsRegenBaseValue + m_HitsRegenBonus;
+		}
+
+		public virtual int GetManaRegenValue()
+		{
+			return ManaRegenBaseValue + m_ManaRegenBonus;
+		}
+
+		public virtual int GetStamRegenValue()
+		{
+			return StamRegenBaseValue + m_StamRegenBonus;
 		}
 
 		#endregion
@@ -1919,7 +1925,6 @@ namespace Server
 			}
 		}
 
-
 		private static bool m_GlobalRegenThroughPoison = true;
 
 		public static bool GlobalRegenThroughPoison
@@ -1938,7 +1943,7 @@ namespace Server
 
 		private class ManaTimer : Timer
 		{
-			private Mobile m_Owner;
+			private readonly Mobile m_Owner;
 
 			public ManaTimer(Mobile m)
 				: base(Mobile.GetManaRegenRate(m), Mobile.GetManaRegenRate(m))
@@ -1949,8 +1954,8 @@ namespace Server
 
 			protected override void OnTick()
 			{
-				if (m_Owner.CanRegenMana)// m_Owner.Alive )
-					m_Owner.Mana++;
+				if (m_Owner.CanRegenMana)
+					m_Owner.Mana += m_Owner.GetManaRegenValue();
 
 				Delay = Interval = Mobile.GetManaRegenRate(m_Owner);
 			}
@@ -1958,7 +1963,7 @@ namespace Server
 
 		private class HitsTimer : Timer
 		{
-			private Mobile m_Owner;
+			private readonly Mobile m_Owner;
 
 			public HitsTimer(Mobile m)
 				: base(Mobile.GetHitsRegenRate(m), Mobile.GetHitsRegenRate(m))
@@ -1970,7 +1975,7 @@ namespace Server
 			protected override void OnTick()
 			{
 				if (m_Owner.CanRegenHits)// m_Owner.Alive && !m_Owner.Poisoned )
-					m_Owner.Hits++;
+					m_Owner.Hits += m_Owner.GetHitsRegenValue();
 
 				Delay = Interval = Mobile.GetHitsRegenRate(m_Owner);
 			}
@@ -1978,7 +1983,7 @@ namespace Server
 
 		private class StamTimer : Timer
 		{
-			private Mobile m_Owner;
+			private readonly Mobile m_Owner;
 
 			public StamTimer(Mobile m)
 				: base(Mobile.GetStamRegenRate(m), Mobile.GetStamRegenRate(m))
@@ -1989,8 +1994,8 @@ namespace Server
 
 			protected override void OnTick()
 			{
-				if (m_Owner.CanRegenStam)// m_Owner.Alive )
-					m_Owner.Stam++;
+				if (m_Owner.CanRegenStam)
+					m_Owner.Stam += m_Owner.GetManaRegenValue();
 
 				Delay = Interval = Mobile.GetStamRegenRate(m_Owner);
 			}
@@ -1998,7 +2003,7 @@ namespace Server
 
 		private class LogoutTimer : Timer
 		{
-			private Mobile m_Mobile;
+			private readonly Mobile m_Mobile;
 
 			public LogoutTimer(Mobile m)
 				: base(TimeSpan.FromDays(1.0))
@@ -2023,7 +2028,7 @@ namespace Server
 
 		private class ParalyzedTimer : Timer
 		{
-			private Mobile m_Mobile;
+			private readonly Mobile m_Mobile;
 
 			public ParalyzedTimer(Mobile m, TimeSpan duration)
 				: base(duration)
@@ -2040,7 +2045,7 @@ namespace Server
 
 		private class FrozenTimer : Timer
 		{
-			private Mobile m_Mobile;
+			private readonly Mobile m_Mobile;
 
 			public FrozenTimer(Mobile m, TimeSpan duration)
 				: base(duration)
@@ -2057,7 +2062,7 @@ namespace Server
 
 		private class CombatTimer : Timer
 		{
-			private Mobile m_Mobile;
+			private readonly Mobile m_Mobile;
 
 			public CombatTimer(Mobile m)
 				: base(TimeSpan.FromSeconds(0.0), TimeSpan.FromSeconds(0.01), 0)
@@ -2098,7 +2103,7 @@ namespace Server
 
 		private class ExpireCombatantTimer : Timer
 		{
-			private Mobile m_Mobile;
+			private readonly Mobile m_Mobile;
 
 			public ExpireCombatantTimer(Mobile m)
 				: base(TimeSpan.FromMinutes(1.0))
@@ -2114,7 +2119,6 @@ namespace Server
 		}
 
 		private static TimeSpan m_ExpireCriminalDelay = TimeSpan.FromMinutes(2.0);
-
 		public static TimeSpan ExpireCriminalDelay
 		{
 			get { return m_ExpireCriminalDelay; }
@@ -2123,7 +2127,7 @@ namespace Server
 
 		private class ExpireCriminalTimer : Timer
 		{
-			private Mobile m_Mobile;
+			private readonly Mobile m_Mobile;
 
 			public ExpireCriminalTimer(Mobile m)
 				: base(m_ExpireCriminalDelay)
@@ -2140,7 +2144,7 @@ namespace Server
 
 		private class ExpireAggressorsTimer : Timer
 		{
-			private Mobile m_Mobile;
+			private readonly Mobile m_Mobile;
 
 			public ExpireAggressorsTimer(Mobile m)
 				: base(TimeSpan.FromSeconds(5.0), TimeSpan.FromSeconds(5.0))
@@ -11247,7 +11251,7 @@ namespace Server
 			}
 		}
 
-		private static string[] m_GuildTypes = new string[]
+		private static readonly string[] m_GuildTypes = new string[]
 			{
 				"",
 				" (Chaos)",
