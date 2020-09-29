@@ -273,15 +273,18 @@ namespace Server
 
 				if (!close && !m_Service)
 				{
-					try
+					if (m_MessagePump != null)
 					{
-						foreach (Listener l in m_MessagePump.Listeners)
+						try
 						{
-							l.Dispose();
+							foreach (Listener l in m_MessagePump.Listeners)
+							{
+								l.Dispose();
+							}
 						}
-					}
-					catch
-					{
+						catch
+						{
+						}
 					}
 
 					Console.WriteLine("This exception is fatal, press return to exit");

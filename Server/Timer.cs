@@ -679,6 +679,8 @@ namespace Server
 				m_Running = true;
 				TimerThread.AddTimer(this);
 
+				OnStart();
+
 				TimerProfile prof = GetProfile();
 
 				if (prof != null)
@@ -703,6 +705,11 @@ namespace Server
 					prof.Stopped++;
 				}
 			}
+		}
+
+
+		protected virtual void OnStart()
+		{
 		}
 
 		protected virtual void OnTick()
