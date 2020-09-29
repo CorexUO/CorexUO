@@ -80,7 +80,7 @@ namespace Server.SkillHandlers
 				}
 				else if (targeted is Item)
 				{
-					((Item)targeted).SendLocalizedMessageTo(from, 500908, ""); // It looks smarter than a rock, but dumber than a piece of wood.
+					((Item)targeted).SendLocalizedMessageTo(from, 500908); // It looks smarter than a rock, but dumber than a piece of wood.
 				}
 			}
 		}

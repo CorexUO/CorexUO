@@ -14,7 +14,7 @@ namespace Server.SkillHandlers
 		public static double HidingRequirement { get { return (Core.ML ? 30.0 : (Core.SE ? 50.0 : 80.0)); } }
 
 		public static int[,] ArmorTable { get { return m_ArmorTable; } }
-		private static int[,] m_ArmorTable = new int[,]
+		private static readonly int[,] m_ArmorTable = new int[,]
 			{
 							//	Gorget	Gloves	Helmet	Arms	Legs	Chest	Shield
 				/* Cloth	*/	{ 0, 0,      0,      0,      0,      0,      0 },
@@ -39,9 +39,7 @@ namespace Server.SkillHandlers
 
 			for (int i = 0; i < m.Items.Count; i++)
 			{
-				BaseArmor armor = m.Items[i] as BaseArmor;
-
-				if (armor == null)
+				if (!(m.Items[i] is BaseArmor armor))
 					continue;
 
 				int materialType = (int)armor.MaterialType;
@@ -91,9 +89,8 @@ namespace Server.SkillHandlers
 
 					m.AllowedStealthSteps = steps;
 
-					PlayerMobile pm = m as PlayerMobile; // IsStealthing should be moved to Server.Mobiles
-
-					if (pm != null)
+					// IsStealthing should be moved to Server.Mobiles
+					if (m is PlayerMobile pm)
 						pm.IsStealthing = true;
 
 					m.SendLocalizedMessage(502730); // You begin to move quietly.

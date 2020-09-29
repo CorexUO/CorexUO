@@ -34,7 +34,7 @@ namespace Server.Misc
 			set { m_LockdownLevel = value; }
 		}
 
-		private static CityInfo[] StartingCities = new CityInfo[]
+		private static readonly CityInfo[] StartingCities = new CityInfo[]
 			{
 				new CityInfo( "New Haven",  "New Haven Bank",   1150168, 3667,  2625,   0  ),
 				new CityInfo( "Yew",        "The Empath Abbey", 1075072, 633,   858,    0  ),
@@ -79,9 +79,8 @@ namespace Server.Misc
 		public static void Password_OnCommand(CommandEventArgs e)
 		{
 			Mobile from = e.Mobile;
-			Account acct = from.Account as Account;
 
-			if (acct == null)
+			if (!(from.Account is Account acct))
 				return;
 
 			IPAddress[] accessList = acct.LoginIPs;
@@ -169,9 +168,8 @@ namespace Server.Misc
 			NetState state = e.State;
 			int index = e.Index;
 
-			Account acct = state.Account as Account;
 
-			if (acct == null)
+			if (!(state.Account is Account acct))
 			{
 				state.Dispose();
 			}
@@ -302,8 +300,8 @@ namespace Server.Misc
 
 				Console.WriteLine("Login: {0}: Past IP limit threshold", e.State);
 
-				using (StreamWriter op = new StreamWriter("ipLimits.log", true))
-					op.WriteLine("{0}\tPast IP limit threshold\t{1}", e.State, DateTime.UtcNow);
+				using StreamWriter op = new StreamWriter("ipLimits.log", true);
+				op.WriteLine("{0}\tPast IP limit threshold\t{1}", e.State, DateTime.UtcNow);
 
 				return;
 			}
@@ -312,14 +310,13 @@ namespace Server.Misc
 			string pw = e.Password;
 
 			e.Accepted = false;
-			Account acct = Accounts.GetAccount(un) as Account;
 
-			if (acct == null)
+			if (!(Accounts.GetAccount(un) is Account acct))
 			{
 				if (AutoAccountCreation && un.Trim().Length > 0) // To prevent someone from making an account of just '' or a bunch of meaningless spaces
 				{
 					e.State.Account = acct = CreateAccount(e.State, un, pw);
-					e.Accepted = acct == null ? false : acct.CheckAccess(e.State);
+					e.Accepted = acct != null && acct.CheckAccess(e.State);
 
 					if (!e.Accepted)
 						e.RejectReason = ALRReason.BadComm;
@@ -366,8 +363,8 @@ namespace Server.Misc
 
 				Console.WriteLine("Login: {0}: Past IP limit threshold", e.State);
 
-				using (StreamWriter op = new StreamWriter("ipLimits.log", true))
-					op.WriteLine("{0}\tPast IP limit threshold\t{1}", e.State, DateTime.UtcNow);
+				using StreamWriter op = new StreamWriter("ipLimits.log", true);
+				op.WriteLine("{0}\tPast IP limit threshold\t{1}", e.State, DateTime.UtcNow);
 
 				return;
 			}
@@ -375,9 +372,7 @@ namespace Server.Misc
 			string un = e.Username;
 			string pw = e.Password;
 
-			Account acct = Accounts.GetAccount(un) as Account;
-
-			if (acct == null)
+			if (!(Accounts.GetAccount(un) is Account acct))
 			{
 				e.Accepted = false;
 			}
@@ -414,9 +409,7 @@ namespace Server.Misc
 		{
 			if (accCheck != null)
 			{
-				Account a = accCheck.Account as Account;
-
-				if (a != null)
+				if (accCheck.Account is Account a)
 				{
 					for (int i = 0; i < a.Length; ++i)
 					{

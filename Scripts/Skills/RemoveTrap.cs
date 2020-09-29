@@ -45,10 +45,8 @@ namespace Server.SkillHandlers
 				{
 					from.SendLocalizedMessage(502816); // You feel that such an action would be inappropriate
 				}
-				else if (targeted is TrapableContainer)
+				else if (targeted is TrapableContainer targ)
 				{
-					TrapableContainer targ = (TrapableContainer)targeted;
-
 					from.Direction = from.GetDirectionTo(targ);
 
 					if (targ.TrapType == TrapType.None)
@@ -71,9 +69,8 @@ namespace Server.SkillHandlers
 						from.SendLocalizedMessage(502372); // You fail to disarm the trap... but you don't set it off
 					}
 				}
-				else if (targeted is BaseFactionTrap)
+				else if (targeted is BaseFactionTrap trap)
 				{
-					BaseFactionTrap trap = (BaseFactionTrap)targeted;
 					Faction faction = Faction.Find(from);
 
 					FactionTrapRemovalKit kit = (from.Backpack == null ? null : from.Backpack.FindItemByType(typeof(FactionTrapRemovalKit)) as FactionTrapRemovalKit);

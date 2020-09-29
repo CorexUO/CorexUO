@@ -36,8 +36,7 @@ namespace Server.SkillHandlers
 
 		public static Mobile GetUser(BaseBook book)
 		{
-			Mobile m = null;
-			m_UseTable.TryGetValue(book, out m);
+			m_UseTable.TryGetValue(book, out Mobile m);
 			return m;
 		}
 
@@ -108,7 +107,7 @@ namespace Server.SkillHandlers
 
 		private class InternalTargetDst : Target
 		{
-			private BaseBook m_BookSrc;
+			private readonly BaseBook m_BookSrc;
 
 			public InternalTargetDst(BaseBook bookSrc) : base(3, false, TargetFlags.None)
 			{
@@ -120,9 +119,7 @@ namespace Server.SkillHandlers
 				if (m_BookSrc.Deleted)
 					return;
 
-				BaseBook bookDst = targeted as BaseBook;
-
-				if (bookDst == null)
+				if (!(targeted is BaseBook bookDst))
 					from.SendLocalizedMessage(1046296); // That is not a book
 				else if (Inscribe.IsEmpty(m_BookSrc))
 					from.SendLocalizedMessage(501611); // Can't copy an empty book.

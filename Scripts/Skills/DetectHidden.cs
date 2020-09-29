@@ -32,12 +32,12 @@ namespace Server.SkillHandlers
 				bool foundAnyone = false;
 
 				Point3D p;
-				if (targ is Mobile)
-					p = ((Mobile)targ).Location;
-				else if (targ is Item)
-					p = ((Item)targ).Location;
-				else if (targ is IPoint3D)
-					p = new Point3D((IPoint3D)targ);
+				if (targ is Mobile mob)
+					p = mob.Location;
+				else if (targ is Item item)
+					p = item.Location;
+				else if (targ is IPoint3D point)
+					p = new Point3D(point);
 				else
 					p = src.Location;
 
@@ -85,10 +85,8 @@ namespace Server.SkillHandlers
 
 						foreach (Item item in itemsInRange)
 						{
-							if (item is BaseFactionTrap)
+							if (item is BaseFactionTrap trap)
 							{
-								BaseFactionTrap trap = (BaseFactionTrap)item;
-
 								if (src.CheckTargetSkill(SkillName.DetectHidden, trap, 80.0, 100.0))
 								{
 									src.SendLocalizedMessage(1042712, true, " " + (trap.Faction == null ? "" : trap.Faction.Definition.FriendlyName)); // You reveal a trap placed by a faction:

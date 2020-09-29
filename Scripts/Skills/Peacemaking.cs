@@ -31,7 +31,7 @@ namespace Server.SkillHandlers
 
 		private class InternalTarget : Target
 		{
-			private BaseInstrument m_Instrument;
+			private readonly BaseInstrument m_Instrument;
 			private bool m_SetSkillTime = true;
 
 			public InternalTarget(Mobile from, BaseInstrument instrument) : base(BaseInstrument.GetBardRange(from, SkillName.Peacemaking), false, TargetFlags.None)
@@ -111,8 +111,8 @@ namespace Server.SkillHandlers
 									m.Combatant = null;
 									m.Warmode = false;
 
-									if (m is BaseCreature && !((BaseCreature)m).BardPacified)
-										((BaseCreature)m).Pacify(from, DateTime.UtcNow + TimeSpan.FromSeconds(1.0));
+									if (m is BaseCreature bc && !bc.BardPacified)
+										bc.Pacify(from, DateTime.UtcNow + TimeSpan.FromSeconds(1.0));
 								}
 
 								if (!calmed)
@@ -133,12 +133,12 @@ namespace Server.SkillHandlers
 							from.SendLocalizedMessage(1049528);
 							m_SetSkillTime = true;
 						}
-						else if (targ is BaseCreature && ((BaseCreature)targ).Uncalmable)
+						else if (targ is BaseCreature tbc && tbc.Uncalmable)
 						{
 							from.SendLocalizedMessage(1049526); // You have no chance of calming that creature.
 							m_SetSkillTime = true;
 						}
-						else if (targ is BaseCreature && ((BaseCreature)targ).BardPacified)
+						else if (targ is BaseCreature bc && bc.BardPacified)
 						{
 							from.SendLocalizedMessage(1049527); // That creature is already being calmed.
 							m_SetSkillTime = true;
@@ -170,10 +170,8 @@ namespace Server.SkillHandlers
 								m_Instrument.ConsumeUse(from);
 
 								from.NextSkillTime = Core.TickCount + 5000;
-								if (targ is BaseCreature)
+								if (targ is BaseCreature targbc)
 								{
-									BaseCreature bc = (BaseCreature)targ;
-
 									from.SendLocalizedMessage(1049532); // You play hypnotic music, calming your target.
 
 									targ.Combatant = null;
@@ -186,7 +184,7 @@ namespace Server.SkillHandlers
 									else if (seconds < 10)
 										seconds = 10;
 
-									bc.Pacify(from, DateTime.UtcNow + TimeSpan.FromSeconds(seconds));
+									targbc.Pacify(from, DateTime.UtcNow + TimeSpan.FromSeconds(seconds));
 								}
 								else
 								{

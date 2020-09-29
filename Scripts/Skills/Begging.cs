@@ -45,10 +45,8 @@ namespace Server.SkillHandlers
 
 				int number = -1;
 
-				if (targeted is Mobile)
+				if (targeted is Mobile targ)
 				{
-					Mobile targ = (Mobile)targeted;
-
 					if (targ.Player) // We can't beg from players
 					{
 						number = 500398; // Perhaps just asking would work better.
@@ -92,7 +90,8 @@ namespace Server.SkillHandlers
 
 			private class InternalTimer : Timer
 			{
-				private Mobile m_From, m_Target;
+				private readonly Mobile m_From;
+				private readonly Mobile m_Target;
 
 				public InternalTimer(Mobile from, Mobile target) : base(TimeSpan.FromSeconds(2.0))
 				{

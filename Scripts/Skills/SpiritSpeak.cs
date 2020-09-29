@@ -57,7 +57,7 @@ namespace Server.SkillHandlers
 
 		private class SpiritSpeakTimer : Timer
 		{
-			private Mobile m_Owner;
+			private readonly Mobile m_Owner;
 			public SpiritSpeakTimer(Mobile m) : base(TimeSpan.FromMinutes(2.0))
 			{
 				m_Owner = m;
@@ -73,7 +73,7 @@ namespace Server.SkillHandlers
 
 		private class SpiritSpeakSpell : Spell
 		{
-			private static SpellInfo m_Info = new SpellInfo("Spirit Speak", "", 269);
+			private static readonly SpellInfo m_Info = new SpellInfo("Spirit Speak", "", 269);
 
 			public override bool BlockedByHorrificBeast { get { return false; } }
 

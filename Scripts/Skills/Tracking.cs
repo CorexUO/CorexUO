@@ -78,8 +78,8 @@ namespace Server.SkillHandlers
 
 	public class TrackWhatGump : Gump
 	{
-		private Mobile m_From;
-		private bool m_Success;
+		private readonly Mobile m_From;
+		private readonly bool m_Success;
 
 		public TrackWhatGump(Mobile from) : base(20, 30)
 		{
@@ -121,10 +121,10 @@ namespace Server.SkillHandlers
 
 	public class TrackWhoGump : Gump
 	{
-		private Mobile m_From;
-		private int m_Range;
+		private readonly Mobile m_From;
+		private readonly int m_Range;
 
-		private static TrackTypeDelegate[] m_Delegates = new TrackTypeDelegate[]
+		private static readonly TrackTypeDelegate[] m_Delegates = new TrackTypeDelegate[]
 			{
 				new TrackTypeDelegate( IsAnimal ),
 				new TrackTypeDelegate( IsMonster ),
@@ -134,7 +134,7 @@ namespace Server.SkillHandlers
 
 		private class InternalSorter : IComparer<Mobile>
 		{
-			private Mobile m_From;
+			private readonly Mobile m_From;
 
 			public InternalSorter(Mobile from)
 			{
@@ -260,7 +260,7 @@ namespace Server.SkillHandlers
 			return m.Player;
 		}
 
-		private List<Mobile> m_List;
+		private readonly List<Mobile> m_List;
 
 		private TrackWhoGump(Mobile from, List<Mobile> list, int range) : base(20, 30)
 		{
@@ -322,7 +322,7 @@ namespace Server.SkillHandlers
 	public class TrackArrow : QuestArrow
 	{
 		private Mobile m_From;
-		private Timer m_Timer;
+		private readonly Timer m_Timer;
 
 		public TrackArrow(Mobile from, Mobile target, int range) : base(from, target)
 		{
@@ -358,10 +358,10 @@ namespace Server.SkillHandlers
 
 	public class TrackTimer : Timer
 	{
-		private Mobile m_From, m_Target;
-		private int m_Range;
+		private readonly Mobile m_From, m_Target;
+		private readonly int m_Range;
 		private int m_LastX, m_LastY;
-		private QuestArrow m_Arrow;
+		private readonly QuestArrow m_Arrow;
 
 		public TrackTimer(Mobile from, Mobile target, int range, QuestArrow arrow) : base(TimeSpan.FromSeconds(0.25), TimeSpan.FromSeconds(2.5))
 		{
