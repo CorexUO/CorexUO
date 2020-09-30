@@ -35,8 +35,9 @@ namespace Server.Engines.Craft
 			return 0.0; // 0%
 		}
 
-		private DefCooking() : base(1, 1, 1.25)// base( 1, 1, 1.5 )
+		public DefCooking() : base(1, 1, 1.25)// base( 1, 1, 1.5 )
 		{
+			m_CraftSystem = this;
 		}
 
 		public override int CanCraft(Mobile from, BaseTool tool, Type itemType)
@@ -80,10 +81,8 @@ namespace Server.Engines.Craft
 
 		public override void InitCraftList()
 		{
-			int index = -1;
-
 			/* Begin Ingredients */
-			index = AddCraft(typeof(SackFlour), 1044495, 1024153, 0.0, 100.0, typeof(WheatSheaf), 1044489, 2, 1044490);
+			int index = AddCraft(typeof(SackFlour), 1044495, 1024153, 0.0, 100.0, typeof(WheatSheaf), 1044489, 2, 1044490);
 			SetNeedMill(index, true);
 
 			index = AddCraft(typeof(Dough), 1044495, 1024157, 0.0, 100.0, typeof(SackFlour), 1044468, 1, 1044253);

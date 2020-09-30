@@ -33,8 +33,9 @@ namespace Server.Engines.Craft
 			}
 		}
 
-		private DefCartography() : base(1, 1, 1.25)// base( 1, 1, 3.0 )
+		public DefCartography() : base(1, 1, 1.25)// base( 1, 1, 3.0 )
 		{
+			m_CraftSystem = this;
 		}
 
 		public override int CanCraft(Mobile from, BaseTool tool, Type itemType)

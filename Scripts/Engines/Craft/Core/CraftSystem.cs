@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Server.Items;
 
 namespace Server.Engines.Craft
@@ -56,6 +57,22 @@ namespace Server.Engines.Craft
 			return false;
 		}
 
+		public static void Configure()
+		{
+			List<CraftSystem> temp = new List<CraftSystem>();
+			foreach (var asm in ScriptCompiler.Assemblies)
+			{
+				foreach (Type type in asm.GetTypes().Where(t => t.IsSubclassOf(typeof(CraftSystem))))
+				{
+					if (type.GetConstructor(Type.EmptyTypes) != null && !type.IsAbstract)
+					{
+						CraftSystem craftSystem = (CraftSystem)Activator.CreateInstance(type);
+						craftSystem.AddSystem();
+					}
+				}
+			}
+		}
+
 		public CraftContext GetContext(Mobile m)
 		{
 			if (m == null)
@@ -67,8 +84,7 @@ namespace Server.Engines.Craft
 				return null;
 			}
 
-			CraftContext c = null;
-			m_ContextTable.TryGetValue(m, out c);
+			m_ContextTable.TryGetValue(m, out CraftContext c);
 
 			if (c == null)
 				m_ContextTable[m] = c = new CraftContext();
@@ -88,9 +104,9 @@ namespace Server.Engines.Craft
 		{
 			Item source;
 
-			if (tool is Item)
+			if (tool is Item item)
 			{
-				source = (Item)tool;
+				source = item;
 			}
 			else
 			{
@@ -139,7 +155,6 @@ namespace Server.Engines.Craft
 			m_RareRecipes = new List<int>();
 
 			InitCraftList();
-			AddSystem(this);
 		}
 
 		private void AddSystem(CraftSystem system)
@@ -148,6 +163,11 @@ namespace Server.Engines.Craft
 				Systems = new List<CraftSystem>();
 
 			Systems.Add(system);
+		}
+
+		private void AddSystem()
+		{
+			AddSystem(this);
 		}
 
 		public virtual bool ConsumeOnFailure(Mobile from, Type resourceType, CraftItem craftItem)

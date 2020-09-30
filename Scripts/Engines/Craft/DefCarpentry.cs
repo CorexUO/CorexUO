@@ -33,8 +33,9 @@ namespace Server.Engines.Craft
 			return 0.5; // 50%
 		}
 
-		private DefCarpentry() : base(1, 1, 1.25)// base( 1, 1, 3.0 )
+		public DefCarpentry() : base(1, 1, 1.25)// base( 1, 1, 3.0 )
 		{
+			m_CraftSystem = this;
 		}
 
 		public override int CanCraft(Mobile from, BaseTool tool, Type itemType)
@@ -83,8 +84,7 @@ namespace Server.Engines.Craft
 
 		public override void InitCraftList()
 		{
-			int index = -1;
-
+			int index;
 			// Other Items
 			if (Core.Expansion == Expansion.AOS || Core.Expansion == Expansion.SE)
 			{

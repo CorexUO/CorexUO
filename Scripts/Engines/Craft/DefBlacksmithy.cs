@@ -35,7 +35,7 @@ namespace Server.Engines.Craft
 			return 0.0; // 0%
 		}
 
-		private DefBlacksmithy() : base(1, 1, 1.25)// base( 1, 2, 1.7 )
+		public DefBlacksmithy() : base(1, 1, 1.25)// base( 1, 2, 1.7 )
 		{
 			/*
 
@@ -49,10 +49,11 @@ namespace Server.Engines.Craft
 			function between 3 and 6 time, with a 1.7 second delay each time.
 
 			*/
+			m_CraftSystem = this;
 		}
 
-		private static Type typeofAnvil = typeof(AnvilAttribute);
-		private static Type typeofForge = typeof(ForgeAttribute);
+		private static readonly Type typeofAnvil = typeof(AnvilAttribute);
+		private static readonly Type typeofForge = typeof(ForgeAttribute);
 
 		public static void CheckAnvilAndForge(Mobile from, int range, out bool anvil, out bool forge)
 		{
@@ -123,8 +124,7 @@ namespace Server.Engines.Craft
 			else if (!BaseTool.CheckAccessible(tool, from))
 				return 1044263; // The tool must be on your person to use.
 
-			bool anvil, forge;
-			CheckAnvilAndForge(from, 2, out anvil, out forge);
+			CheckAnvilAndForge(from, 2, out bool anvil, out bool forge);
 
 			if (anvil && forge)
 				return 0;
@@ -145,7 +145,7 @@ namespace Server.Engines.Craft
 		// Delay to synchronize the sound with the hit on the anvil
 		private class InternalTimer : Timer
 		{
-			private Mobile m_From;
+			private readonly Mobile m_From;
 
 			public InternalTimer(Mobile from) : base(TimeSpan.FromSeconds(0.7))
 			{

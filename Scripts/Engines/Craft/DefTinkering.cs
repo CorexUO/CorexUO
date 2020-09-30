@@ -30,8 +30,9 @@ namespace Server.Engines.Craft
 			}
 		}
 
-		private DefTinkering() : base(1, 1, 1.25)// base( 1, 1, 3.0 )
+		public DefTinkering() : base(1, 1, 1.25)// base( 1, 1, 3.0 )
 		{
+			m_CraftSystem = this;
 		}
 
 		public override double GetChanceAtMin(CraftItem item)
@@ -54,7 +55,7 @@ namespace Server.Engines.Craft
 			return 0;
 		}
 
-		private static Type[] m_TinkerColorables = new Type[]
+		private static readonly Type[] m_TinkerColorables = new Type[]
 			{
 				typeof( ForkLeft ), typeof( ForkRight ),
 				typeof( SpoonLeft ), typeof( SpoonRight ),
@@ -439,7 +440,7 @@ namespace Server.Engines.Craft
 
 		private class ContainerTarget : Target
 		{
-			private TrapCraft m_TrapCraft;
+			private readonly TrapCraft m_TrapCraft;
 
 			public ContainerTarget(TrapCraft trapCraft) : base(-1, false, TargetFlags.None)
 			{
@@ -448,9 +449,7 @@ namespace Server.Engines.Craft
 
 			protected override void OnTarget(Mobile from, object targeted)
 			{
-				int message;
-
-				if (m_TrapCraft.Acquire(targeted, out message))
+				if (m_TrapCraft.Acquire(targeted, out int message))
 					m_TrapCraft.CraftItem.CompleteCraft(m_TrapCraft.Quality, false, m_TrapCraft.From, m_TrapCraft.CraftSystem, m_TrapCraft.TypeRes, m_TrapCraft.Tool, m_TrapCraft);
 				else
 					Failure(message);

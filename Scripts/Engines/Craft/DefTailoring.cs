@@ -35,8 +35,9 @@ namespace Server.Engines.Craft
 			return 0.5; // 50%
 		}
 
-		private DefTailoring() : base(1, 1, 1.25)// base( 1, 1, 4.5 )
+		public DefTailoring() : base(1, 1, 1.25)// base( 1, 1, 4.5 )
 		{
+			m_CraftSystem = this;
 		}
 
 		public override int CanCraft(Mobile from, BaseTool tool, Type itemType)
@@ -49,7 +50,7 @@ namespace Server.Engines.Craft
 			return 0;
 		}
 
-		private static Type[] m_TailorColorables = new Type[]
+		private static readonly Type[] m_TailorColorables = new Type[]
 			{
 				typeof( GozaMatEastDeed ), typeof( GozaMatSouthDeed ),
 				typeof( SquareGozaMatEastDeed ), typeof( SquareGozaMatSouthDeed ),

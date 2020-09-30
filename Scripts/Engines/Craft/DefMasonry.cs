@@ -34,8 +34,9 @@ namespace Server.Engines.Craft
 			return 0.0; // 0%
 		}
 
-		private DefMasonry() : base(1, 1, 1.25)// base( 1, 2, 1.7 )
+		public DefMasonry() : base(1, 1, 1.25)// base( 1, 2, 1.7 )
 		{
+			m_CraftSystem = this;
 		}
 
 		public override bool RetainsColorFrom(CraftItem item, Type type)
@@ -49,7 +50,7 @@ namespace Server.Engines.Craft
 				return 1044038; // You have worn out your tool!
 			else if (!BaseTool.CheckTool(tool, from))
 				return 1048146; // If you have a tool equipped, you must use that tool.
-			else if (!(from is PlayerMobile && ((PlayerMobile)from).Masonry && from.Skills[SkillName.Carpentry].Base >= 100.0))
+			else if (!(from is PlayerMobile mobile && mobile.Masonry && from.Skills[SkillName.Carpentry].Base >= 100.0))
 				return 1044633; // You havent learned stonecraft.
 			else if (!BaseTool.CheckAccessible(tool, from))
 				return 1044263; // The tool must be on your person to use.
@@ -68,7 +69,7 @@ namespace Server.Engines.Craft
 		// Delay to synchronize the sound with the hit on the anvil
 		private class InternalTimer : Timer
 		{
-			private Mobile m_From;
+			private readonly Mobile m_From;
 
 			public InternalTimer(Mobile from) : base(TimeSpan.FromSeconds(0.7))
 			{

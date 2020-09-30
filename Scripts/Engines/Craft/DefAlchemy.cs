@@ -33,8 +33,9 @@ namespace Server.Engines.Craft
 			return 0.0; // 0%
 		}
 
-		private DefAlchemy() : base(1, 1, 1.25)// base( 1, 1, 3.1 )
+		public DefAlchemy() : base(1, 1, 1.25)// base( 1, 1, 3.1 )
 		{
+			m_CraftSystem = this;
 		}
 
 		public override int CanCraft(Mobile from, BaseTool tool, Type itemType)
@@ -52,7 +53,7 @@ namespace Server.Engines.Craft
 			from.PlaySound(0x242);
 		}
 
-		private static Type typeofPotion = typeof(BasePotion);
+		private static readonly Type typeofPotion = typeof(BasePotion);
 
 		public static bool IsPotion(Type type)
 		{
@@ -96,10 +97,8 @@ namespace Server.Engines.Craft
 
 		public override void InitCraftList()
 		{
-			int index = -1;
-
 			// Refresh Potion
-			index = AddCraft(typeof(RefreshPotion), 1044530, 1044538, -25, 25.0, typeof(BlackPearl), 1044353, 1, 1044361);
+			int index = AddCraft(typeof(RefreshPotion), 1044530, 1044538, -25, 25.0, typeof(BlackPearl), 1044353, 1, 1044361);
 			AddRes(index, typeof(Bottle), 1044529, 1, 500315);
 			index = AddCraft(typeof(TotalRefreshPotion), 1044530, 1044539, 25.0, 75.0, typeof(BlackPearl), 1044353, 5, 1044361);
 			AddRes(index, typeof(Bottle), 1044529, 1, 500315);

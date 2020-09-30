@@ -34,9 +34,9 @@ namespace Server.Engines.Craft
 			return 0.0; // 0%
 		}
 
-		private DefInscription()
-			: base(1, 1, 1.25) // base( 1, 1, 3.0 )
+		public DefInscription(): base(1, 1, 1.25) // base( 1, 1, 3.0 )
 		{
+			m_CraftSystem = this;
 		}
 
 		public override int CanCraft(Mobile from, BaseTool tool, Type typeItem)
@@ -50,9 +50,8 @@ namespace Server.Engines.Craft
 			{
 				var o = Activator.CreateInstance(typeItem);
 
-				if (o is SpellScroll)
+				if (o is SpellScroll scroll)
 				{
-					var scroll = (SpellScroll)o;
 					var book = Spellbook.Find(from, scroll.SpellID);
 
 					var hasSpell = (book != null && book.HasSpell(scroll.SpellID));
@@ -61,9 +60,9 @@ namespace Server.Engines.Craft
 
 					return (hasSpell ? 0 : 1042404); // null : You don't have that spell!
 				}
-				else if (o is Item)
+				else if (o is Item item)
 				{
-					((Item)o).Delete();
+					item.Delete();
 				}
 			}
 
@@ -75,7 +74,7 @@ namespace Server.Engines.Craft
 			from.PlaySound(0x249);
 		}
 
-		private static Type typeofSpellScroll = typeof(SpellScroll);
+		private static readonly Type typeofSpellScroll = typeof(SpellScroll);
 
 		public override int PlayEndingEffect(Mobile from, bool failed, bool lostMaterial, bool toolBroken, int quality, bool makersMark, CraftItem item)
 		{
@@ -126,7 +125,7 @@ namespace Server.Engines.Craft
 			SpidersSilk
 		}
 
-		private Type[] m_RegTypes = new Type[]
+		private readonly Type[] m_RegTypes = new Type[]
 		{
 			typeof( BlackPearl ),
 			typeof( Bloodmoss ),

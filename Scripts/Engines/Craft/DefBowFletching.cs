@@ -33,8 +33,9 @@ namespace Server.Engines.Craft
 			return 0.5; // 50%
 		}
 
-		private DefBowFletching() : base(1, 1, 1.25)// base( 1, 2, 1.7 )
+		public DefBowFletching() : base(1, 1, 1.25)// base( 1, 2, 1.7 )
 		{
+			m_CraftSystem = this;
 		}
 
 		public override int CanCraft(Mobile from, BaseTool tool, Type itemType)
@@ -85,12 +86,10 @@ namespace Server.Engines.Craft
 
 		public override void InitCraftList()
 		{
-			int index = -1;
-
 			// Materials
 			AddCraft(typeof(Kindling), 1044457, 1023553, 0.0, 00.0, typeof(Log), 1044041, 1, 1044351);
 
-			index = AddCraft(typeof(Shaft), 1044457, 1027124, 0.0, 40.0, typeof(Log), 1044041, 1, 1044351);
+			int index = AddCraft(typeof(Shaft), 1044457, 1027124, 0.0, 40.0, typeof(Log), 1044041, 1, 1044351);
 			SetUseAllRes(index, true);
 
 			// Ammunition
