@@ -66,8 +66,11 @@ namespace Server.Engines.Craft
 				{
 					if (type.GetConstructor(Type.EmptyTypes) != null && !type.IsAbstract)
 					{
-						CraftSystem craftSystem = (CraftSystem)Activator.CreateInstance(type);
-						craftSystem.AddSystem();
+						try
+						{
+							CraftSystem craftSystem = (CraftSystem)Activator.CreateInstance(type);
+							craftSystem.AddSystem();
+						} catch { }
 					}
 				}
 			}
