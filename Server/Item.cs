@@ -1214,6 +1214,18 @@ namespace Server
 			return (m_Layer == layer);
 		}
 
+		public bool IsEquipped(Mobile m)
+		{
+			if (m == null)
+				return false;
+
+			Item tocheck = m.FindItemOnLayer(m_Layer);
+			if (tocheck == this)
+				return true;
+
+			return false;
+		}
+
 		public virtual bool CanEquip(Mobile m)
 		{
 			return (m_Layer != Layer.Invalid && m.FindItemOnLayer(m_Layer) == null && CheckEquip(m));
