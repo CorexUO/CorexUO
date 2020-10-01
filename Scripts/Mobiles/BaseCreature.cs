@@ -5014,6 +5014,8 @@ namespace Server.Mobiles
 
 				EventSink.InvokeOnCreatureDeath(new OnCreatureDeathEventArgs(this, LastKiller, c));
 
+				base.OnDeath(c);
+
 				if (DeleteCorpseOnDeath)
 				{
 					c.Delete();
