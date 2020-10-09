@@ -12,7 +12,14 @@ Change the core to work with .Net Core framework.
 ## Requirements to Compile
 - [.NET Core 3.1 SDK](https://dotnet.microsoft.com/download/dotnet-core/3.1)
 
-### Run
+
+### Requirements for run in Ubuntu/Debian
+
+```shell
+apt-get install zlib1g-dev
+```
+
+## Run
 
 ```shell
 dotnet run Binaries/CorexUO.dll
