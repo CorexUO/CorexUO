@@ -102,25 +102,6 @@ namespace Server.Items
 			}
 		}
 
-		public override void OnAdded(IEntity parent)
-		{
-			base.OnAdded(parent);
-
-			if (parent is Mobile mob)
-			{
-
-			}
-		}
-
-		public override void OnRemoved(IEntity parent)
-		{
-			base.OnRemoved(parent);
-			if (parent is Mobile mob)
-			{
-
-			}
-		}
-
 		public override void Serialize(GenericWriter writer)
 		{
 			base.Serialize(writer);
