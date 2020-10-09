@@ -21,6 +21,7 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Runtime.Serialization;
 using System.Threading.Tasks;
 using Server.ContextMenus;
 using Server.Items;
@@ -2060,7 +2061,7 @@ namespace Server
 
 		public virtual void Serialize(GenericWriter writer)
 		{
-			writer.Write(9); // version
+			writer.Write(0); // version
 
 			SaveFlag flags = SaveFlag.None;
 
@@ -2381,24 +2382,14 @@ namespace Server
 
 			switch (version)
 			{
-				case 9:
-				case 8:
-				case 7:
-				case 6:
+				case 0:
 					{
 						SaveFlag flags = (SaveFlag)reader.ReadInt();
 
-						if (version < 7)
-						{
-							LastMoved = reader.ReadDeltaTime();
-						}
-						else
-						{
-							int minutes = reader.ReadEncodedInt();
+						int minutes = reader.ReadEncodedInt();
 
-							try { LastMoved = DateTime.UtcNow - TimeSpan.FromMinutes(minutes); }
-							catch { LastMoved = DateTime.UtcNow; }
-						}
+						try { LastMoved = DateTime.UtcNow - TimeSpan.FromMinutes(minutes); }
+						catch { LastMoved = DateTime.UtcNow; }
 
 						if (GetSaveFlag(flags, SaveFlag.Direction))
 							m_Direction = (Direction)reader.ReadByte();
@@ -2533,200 +2524,6 @@ namespace Server
 
 						if (GetSaveFlag(flags, SaveFlag.SavedFlags))
 							AcquireCompactInfo().m_SavedFlags = reader.ReadEncodedInt();
-
-						if (m_Map != null && m_Parent == null)
-							m_Map.OnEnter(this);
-
-						break;
-					}
-				case 5:
-					{
-						SaveFlag flags = (SaveFlag)reader.ReadInt();
-
-						LastMoved = reader.ReadDeltaTime();
-
-						if (GetSaveFlag(flags, SaveFlag.Direction))
-							m_Direction = (Direction)reader.ReadByte();
-
-						if (GetSaveFlag(flags, SaveFlag.Bounce))
-							AcquireCompactInfo().m_Bounce = BounceInfo.Deserialize(reader);
-
-						if (GetSaveFlag(flags, SaveFlag.LootType))
-							m_LootType = (LootType)reader.ReadByte();
-
-						if (GetSaveFlag(flags, SaveFlag.LocationFull))
-							m_Location = reader.ReadPoint3D();
-
-						if (GetSaveFlag(flags, SaveFlag.ItemID))
-							m_ItemID = reader.ReadInt();
-
-						if (GetSaveFlag(flags, SaveFlag.Hue))
-							m_Hue = reader.ReadInt();
-
-						if (GetSaveFlag(flags, SaveFlag.Amount))
-							m_Amount = reader.ReadInt();
-						else
-							m_Amount = 1;
-
-						if (GetSaveFlag(flags, SaveFlag.Layer))
-							m_Layer = (Layer)reader.ReadByte();
-
-						if (GetSaveFlag(flags, SaveFlag.Name))
-						{
-							string name = reader.ReadString();
-
-							if (name != this.DefaultName)
-								AcquireCompactInfo().m_Name = name;
-						}
-
-						if (GetSaveFlag(flags, SaveFlag.Parent))
-						{
-							Serial parent = reader.ReadInt();
-
-							if (parent.IsMobile)
-								m_Parent = World.FindMobile(parent);
-							else if (parent.IsItem)
-								m_Parent = World.FindItem(parent);
-							else
-								m_Parent = null;
-
-							if (m_Parent == null && (parent.IsMobile || parent.IsItem))
-								Delete();
-						}
-
-						if (GetSaveFlag(flags, SaveFlag.Items))
-						{
-							List<Item> items = reader.ReadStrongItemList();
-
-							if (this is Container)
-								(this as Container).m_Items = items;
-							else
-								AcquireCompactInfo().m_Items = items;
-						}
-
-						double weight;
-
-						if (GetSaveFlag(flags, SaveFlag.IntWeight))
-							weight = reader.ReadEncodedInt();
-						else if (GetSaveFlag(flags, SaveFlag.WeightNot1or0))
-							weight = reader.ReadDouble();
-						else if (GetSaveFlag(flags, SaveFlag.WeightIs0))
-							weight = 0.0;
-						else
-							weight = 1.0;
-
-						if (weight != DefaultWeight)
-							AcquireCompactInfo().m_Weight = weight;
-
-						if (GetSaveFlag(flags, SaveFlag.Map))
-							m_Map = reader.ReadMap();
-						else
-							m_Map = Map.Internal;
-
-						if (GetSaveFlag(flags, SaveFlag.Visible))
-							SetFlag(ImplFlag.Visible, reader.ReadBool());
-						else
-							SetFlag(ImplFlag.Visible, true);
-
-						if (GetSaveFlag(flags, SaveFlag.Movable))
-							SetFlag(ImplFlag.Movable, reader.ReadBool());
-						else
-							SetFlag(ImplFlag.Movable, true);
-
-						if (GetSaveFlag(flags, SaveFlag.Stackable))
-							SetFlag(ImplFlag.Stackable, reader.ReadBool());
-
-						if (m_Map != null && m_Parent == null)
-							m_Map.OnEnter(this);
-
-						break;
-					}
-				case 4: // Just removed variables
-				case 3:
-					{
-						m_Direction = (Direction)reader.ReadInt();
-
-						goto case 2;
-					}
-				case 2:
-					{
-						AcquireCompactInfo().m_Bounce = BounceInfo.Deserialize(reader);
-						LastMoved = reader.ReadDeltaTime();
-
-						goto case 1;
-					}
-				case 1:
-					{
-						m_LootType = (LootType)reader.ReadByte();//m_Newbied = reader.ReadBool();
-
-						goto case 0;
-					}
-				case 0:
-					{
-						m_Location = reader.ReadPoint3D();
-						m_ItemID = reader.ReadInt();
-						m_Hue = reader.ReadInt();
-						m_Amount = reader.ReadInt();
-						m_Layer = (Layer)reader.ReadByte();
-
-						string name = reader.ReadString();
-
-						if (name != this.DefaultName)
-							AcquireCompactInfo().m_Name = name;
-
-						Serial parent = reader.ReadInt();
-
-						if (parent.IsMobile)
-							m_Parent = World.FindMobile(parent);
-						else if (parent.IsItem)
-							m_Parent = World.FindItem(parent);
-						else
-							m_Parent = null;
-
-						if (m_Parent == null && (parent.IsMobile || parent.IsItem))
-							Delete();
-
-						int count = reader.ReadInt();
-
-						if (count > 0)
-						{
-							List<Item> items = new List<Item>(count);
-
-							for (int i = 0; i < count; ++i)
-							{
-								Item item = reader.ReadItem();
-
-								if (item != null)
-									items.Add(item);
-							}
-
-							if (this is Container)
-								(this as Container).m_Items = items;
-							else
-								AcquireCompactInfo().m_Items = items;
-						}
-
-						double weight = reader.ReadDouble();
-
-						if (weight != DefaultWeight)
-							AcquireCompactInfo().m_Weight = weight;
-
-						if (version <= 3)
-						{
-							reader.ReadInt();
-							reader.ReadInt();
-							reader.ReadInt();
-						}
-
-						m_Map = reader.ReadMap();
-						SetFlag(ImplFlag.Visible, reader.ReadBool());
-						SetFlag(ImplFlag.Movable, reader.ReadBool());
-
-						if (version <= 3)
-							/*m_Deleted =*/
-							reader.ReadBool();
-
-						Stackable = reader.ReadBool();
 
 						if (m_Map != null && m_Parent == null)
 							m_Map.OnEnter(this);

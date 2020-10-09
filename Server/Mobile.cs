@@ -5477,21 +5477,12 @@ namespace Server
 
 			switch (version)
 			{
-				case 32:
-					{
-						// Removed StuckMenu
-						goto case 31;
-					}
-				case 31:
+				case 0:
 					{
 						m_LastStrGain = reader.ReadDeltaTime();
 						m_LastIntGain = reader.ReadDeltaTime();
 						m_LastDexGain = reader.ReadDeltaTime();
 
-						goto case 30;
-					}
-				case 30:
-					{
 						byte hairflag = reader.ReadByte();
 
 						if ((hairflag & 0x01) != 0)
@@ -5499,195 +5490,53 @@ namespace Server
 						if ((hairflag & 0x02) != 0)
 							m_FacialHair = new FacialHairInfo(reader);
 
-						goto case 29;
-					}
-				case 29:
-					{
 						m_Race = reader.ReadRace();
-						goto case 28;
-					}
-				case 28:
-					{
-						if (version <= 30)
-							LastStatGain = reader.ReadDeltaTime();
 
-						goto case 27;
-					}
-				case 27:
-					{
 						m_TithingPoints = reader.ReadInt();
 
-						goto case 26;
-					}
-				case 26:
-				case 25:
-				case 24:
-					{
 						m_Corpse = reader.ReadItem() as Container;
 
-						goto case 23;
-					}
-				case 23:
-					{
 						m_CreationTime = reader.ReadDateTime();
 
-						goto case 22;
-					}
-				case 22: // Just removed followers
-				case 21:
-					{
 						m_Stabled = reader.ReadStrongMobileList();
 
-						goto case 20;
-					}
-				case 20:
-					{
 						m_CantWalk = reader.ReadBool();
 
-						goto case 19;
-					}
-				case 19: // Just removed variables
-				case 18:
-					{
 						m_Virtues = new VirtueInfo(reader);
 
-						goto case 17;
-					}
-				case 17:
-					{
 						m_Thirst = reader.ReadInt();
 						m_BAC = reader.ReadInt();
 
-						goto case 16;
-					}
-				case 16:
-					{
 						m_ShortTermMurders = reader.ReadInt();
-
-						if (version <= 24)
-						{
-							reader.ReadDateTime();
-							reader.ReadDateTime();
-						}
-
-						goto case 15;
-					}
-				case 15:
-					{
-						if (version < 22)
-							reader.ReadInt(); // followers
 
 						m_FollowersMax = reader.ReadInt();
 
-						goto case 14;
-					}
-				case 14:
-					{
 						m_MagicDamageAbsorb = reader.ReadInt();
 
-						goto case 13;
-					}
-				case 13:
-					{
 						m_GuildFealty = reader.ReadMobile();
 
-						goto case 12;
-					}
-				case 12:
-					{
 						m_Guild = reader.ReadGuild();
 
-						goto case 11;
-					}
-				case 11:
-					{
 						m_DisplayGuildTitle = reader.ReadBool();
 
-						goto case 10;
-					}
-				case 10:
-					{
 						m_CanSwim = reader.ReadBool();
 
-						goto case 9;
-					}
-				case 9:
-					{
 						m_Squelched = reader.ReadBool();
 
-						goto case 8;
-					}
-				case 8:
-					{
 						m_Holding = reader.ReadItem();
 
-						goto case 7;
-					}
-				case 7:
-					{
 						m_VirtualArmor = reader.ReadInt();
 
-						goto case 6;
-					}
-				case 6:
-					{
 						m_BaseSoundID = reader.ReadInt();
 
-						goto case 5;
-					}
-				case 5:
-					{
 						m_DisarmReady = reader.ReadBool();
 						m_StunReady = reader.ReadBool();
 
-						goto case 4;
-					}
-				case 4:
-					{
-						if (version <= 25)
-						{
-							Poison.Deserialize(reader);
-						}
-
-						goto case 3;
-					}
-				case 3:
-					{
 						m_StatCap = reader.ReadInt();
 
-						goto case 2;
-					}
-				case 2:
-					{
 						m_NameHue = reader.ReadInt();
 
-						goto case 1;
-					}
-				case 1:
-					{
 						m_Hunger = reader.ReadInt();
-
-						goto case 0;
-					}
-				case 0:
-					{
-						if (version < 21)
-							m_Stabled = new List<Mobile>();
-
-						if (version < 18)
-							m_Virtues = new VirtueInfo();
-
-						if (version < 11)
-							m_DisplayGuildTitle = true;
-
-						if (version < 3)
-							m_StatCap = 225;
-
-						if (version < 15)
-						{
-							m_Followers = 0;
-							m_FollowersMax = 5;
-						}
 
 						m_Location = reader.ReadPoint3D();
 						m_Body = new Body(reader.ReadInt());
@@ -5726,13 +5575,6 @@ namespace Server
 						m_Profile = reader.ReadString();
 						m_ProfileLocked = reader.ReadBool();
 
-						if (version <= 18)
-						{
-							reader.ReadInt();
-							reader.ReadInt();
-							reader.ReadInt();
-						}
-
 						m_AutoPageNotify = reader.ReadBool();
 
 						m_LogoutLocation = reader.ReadPoint3D();
@@ -5744,18 +5586,6 @@ namespace Server
 
 						m_StatMods = new List<StatMod>();
 						m_SkillMods = new List<SkillMod>();
-
-						if (version < 32)
-						{
-							if (reader.ReadBool())
-							{
-								int count = reader.ReadInt();
-								for (int i = 0; i < count; ++i)
-								{
-									reader.ReadDateTime();
-								}
-							}
-						}
 
 						if (m_Player && m_Map != Map.Internal)
 						{
@@ -5797,12 +5627,6 @@ namespace Server
 
 			Utility.Intern(ref m_Title);
 			Utility.Intern(ref m_Language);
-
-			/*	//Moved into cleanup in scripts.
-			if( version < 30 )
-				Timer.DelayCall( TimeSpan.Zero, new TimerCallback( ConvertHair ) );
-			 * */
-
 		}
 
 		public void ConvertHair()
@@ -5912,7 +5736,7 @@ namespace Server
 
 		public virtual void Serialize(GenericWriter writer)
 		{
-			writer.Write((int)32); // version
+			writer.Write((int)0); // version
 
 			writer.WriteDeltaTime(m_LastStrGain);
 			writer.WriteDeltaTime(m_LastIntGain);
@@ -5950,10 +5774,7 @@ namespace Server
 			writer.Write(m_BAC);
 
 			writer.Write(m_ShortTermMurders);
-			//writer.Write( m_ShortTermElapse );
-			//writer.Write( m_LongTermElapse );
 
-			//writer.Write( m_Followers );
 			writer.Write(m_FollowersMax);
 
 			writer.Write(m_MagicDamageAbsorb);
@@ -5976,8 +5797,6 @@ namespace Server
 
 			writer.Write(m_DisarmReady);
 			writer.Write(m_StunReady);
-
-			//Poison.Serialize( m_Poison, writer );
 
 			writer.Write(m_StatCap);
 

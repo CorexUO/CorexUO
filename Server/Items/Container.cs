@@ -108,7 +108,7 @@ namespace Server.Items
 		{
 			get
 			{
-				if (Parent is Container && ((Container)Parent).MaxWeight == 0)
+				if (Parent is Container container && container.MaxWeight == 0)
 				{
 					return 0;
 				}
@@ -267,7 +267,7 @@ namespace Server.Items
 
 		private class GroupComparer : IComparer
 		{
-			private CheckItemGroup m_Grouper;
+			private readonly CheckItemGroup m_Grouper;
 
 			public GroupComparer(CheckItemGroup grouper)
 			{
@@ -298,9 +298,10 @@ namespace Server.Items
 			while (idx < typedItems.Length)
 			{
 				Item a = typedItems[idx++];
-				List<Item> group = new List<Item>();
-
-				group.Add(a);
+				List<Item> group = new List<Item>
+				{
+					a
+				};
 
 				while (idx < typedItems.Length)
 				{
@@ -393,9 +394,10 @@ namespace Server.Items
 				while (idx < typedItems.Length)
 				{
 					Item a = typedItems[idx++];
-					List<Item> group = new List<Item>();
-
-					group.Add(a);
+					List<Item> group = new List<Item>
+					{
+						a
+					};
 
 					while (idx < typedItems.Length)
 					{
@@ -492,9 +494,10 @@ namespace Server.Items
 				while (idx < typedItems.Length)
 				{
 					Item a = typedItems[idx++];
-					List<Item> group = new List<Item>();
-
-					group.Add(a);
+					List<Item> group = new List<Item>
+					{
+						a
+					};
 
 					while (idx < typedItems.Length)
 					{
@@ -1245,7 +1248,6 @@ namespace Server.Items
 		}
 		#endregion
 
-
 		private static bool InTypeList(Item item, Type[] types)
 		{
 			Type t = item.GetType();
@@ -1282,7 +1284,7 @@ namespace Server.Items
 		{
 			base.Serialize(writer);
 
-			writer.Write((int)2); // version
+			writer.Write((int)0); // version
 
 			SaveFlag flags = SaveFlag.None;
 
@@ -1311,7 +1313,7 @@ namespace Server.Items
 
 			switch (version)
 			{
-				case 2:
+				case 0:
 					{
 						SaveFlag flags = (SaveFlag)reader.ReadByte();
 
@@ -1331,34 +1333,6 @@ namespace Server.Items
 							m_DropSound = -1;
 
 						m_LiftOverride = GetSaveFlag(flags, SaveFlag.LiftOverride);
-
-						break;
-					}
-				case 1:
-					{
-						m_MaxItems = reader.ReadInt();
-						goto case 0;
-					}
-				case 0:
-					{
-						if (version < 1)
-							m_MaxItems = GlobalMaxItems;
-
-						m_GumpID = reader.ReadInt();
-						m_DropSound = reader.ReadInt();
-
-						if (m_GumpID == DefaultGumpID)
-							m_GumpID = -1;
-
-						if (m_DropSound == DefaultDropSound)
-							m_DropSound = -1;
-
-						if (m_MaxItems == DefaultMaxItems)
-							m_MaxItems = -1;
-
-						//m_Bounds = new Rectangle2D( reader.ReadPoint2D(), reader.ReadPoint2D() );
-						reader.ReadPoint2D();
-						reader.ReadPoint2D();
 
 						break;
 					}

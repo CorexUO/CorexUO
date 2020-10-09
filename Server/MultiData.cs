@@ -433,7 +433,7 @@ namespace Server
 
 		public void Serialize(GenericWriter writer)
 		{
-			writer.Write((int)1); // version;
+			writer.Write((int)0); // version;
 
 			writer.Write(m_Min);
 			writer.Write(m_Max);
@@ -470,31 +470,13 @@ namespace Server
 
 			MultiTileEntry[] allTiles = m_List = new MultiTileEntry[length];
 
-			if (version == 0)
+			for (int i = 0; i < length; ++i)
 			{
-				for (int i = 0; i < length; ++i)
-				{
-					int id = reader.ReadShort();
-					if (id >= 0x4000)
-						id -= 0x4000;
-
-					allTiles[i].m_ItemID = (ushort)id;
-					allTiles[i].m_OffsetX = reader.ReadShort();
-					allTiles[i].m_OffsetY = reader.ReadShort();
-					allTiles[i].m_OffsetZ = reader.ReadShort();
-					allTiles[i].m_Flags = reader.ReadInt();
-				}
-			}
-			else
-			{
-				for (int i = 0; i < length; ++i)
-				{
-					allTiles[i].m_ItemID = reader.ReadUShort();
-					allTiles[i].m_OffsetX = reader.ReadShort();
-					allTiles[i].m_OffsetY = reader.ReadShort();
-					allTiles[i].m_OffsetZ = reader.ReadShort();
-					allTiles[i].m_Flags = reader.ReadInt();
-				}
+				allTiles[i].m_ItemID = reader.ReadUShort();
+				allTiles[i].m_OffsetX = reader.ReadShort();
+				allTiles[i].m_OffsetY = reader.ReadShort();
+				allTiles[i].m_OffsetZ = reader.ReadShort();
+				allTiles[i].m_Flags = reader.ReadInt();
 			}
 
 			TileList[][] tiles = new TileList[m_Width][];
