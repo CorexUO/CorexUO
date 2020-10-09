@@ -1753,7 +1753,7 @@ namespace Server.Mobiles
 		{
 			base.Serialize(writer);
 
-			writer.Write((int)18); // version
+			writer.Write((int)0); // version
 
 			writer.Write((int)m_CurrentAI);
 			writer.Write((int)m_DefaultAI);
@@ -1890,229 +1890,175 @@ namespace Server.Mobiles
 
 			int version = reader.ReadInt();
 
-			m_CurrentAI = (AIType)reader.ReadInt();
-			m_DefaultAI = (AIType)reader.ReadInt();
-
-			m_iRangePerception = reader.ReadInt();
-			m_iRangeFight = reader.ReadInt();
-
-			m_iTeam = reader.ReadInt();
-
-			m_dActiveSpeed = reader.ReadDouble();
-			m_dPassiveSpeed = reader.ReadDouble();
-			m_dCurrentSpeed = reader.ReadDouble();
-
-			if (m_iRangePerception == OldRangePerception)
-				m_iRangePerception = DefaultRangePerception;
-
-			m_pHome.X = reader.ReadInt();
-			m_pHome.Y = reader.ReadInt();
-			m_pHome.Z = reader.ReadInt();
-
-			if (version >= 1)
+			switch (version)
 			{
-				m_iRangeHome = reader.ReadInt();
-
-				int i, iCount;
-
-				iCount = reader.ReadInt();
-				for (i = 0; i < iCount; i++)
-				{
-					string str = reader.ReadString();
-					Type type = Type.GetType(str);
-
-					if (type != null)
+				case 0:
 					{
-						m_arSpellAttack.Add(type);
+						m_CurrentAI = (AIType)reader.ReadInt();
+						m_DefaultAI = (AIType)reader.ReadInt();
+
+						m_iRangePerception = reader.ReadInt();
+						m_iRangeFight = reader.ReadInt();
+
+						m_iTeam = reader.ReadInt();
+
+						m_dActiveSpeed = reader.ReadDouble();
+						m_dPassiveSpeed = reader.ReadDouble();
+						m_dCurrentSpeed = reader.ReadDouble();
+
+						if (m_iRangePerception == OldRangePerception)
+							m_iRangePerception = DefaultRangePerception;
+
+						m_pHome.X = reader.ReadInt();
+						m_pHome.Y = reader.ReadInt();
+						m_pHome.Z = reader.ReadInt();
+
+						m_iRangeHome = reader.ReadInt();
+
+
+						int iCount = reader.ReadInt();
+						for (int i = 0; i < iCount; i++)
+						{
+							string str = reader.ReadString();
+							Type type = Type.GetType(str);
+
+							if (type != null)
+							{
+								m_arSpellAttack.Add(type);
+							}
+						}
+
+						iCount = reader.ReadInt();
+						for (int i = 0; i < iCount; i++)
+						{
+							string str = reader.ReadString();
+							Type type = Type.GetType(str);
+
+							if (type != null)
+							{
+								m_arSpellDefense.Add(type);
+							}
+						}
+
+						m_FightMode = (FightMode)reader.ReadInt();
+
+						m_bControlled = reader.ReadBool();
+						m_ControlMaster = reader.ReadMobile();
+						m_ControlTarget = reader.ReadMobile();
+						m_ControlDest = reader.ReadPoint3D();
+						m_ControlOrder = (OrderType)reader.ReadInt();
+
+						m_dMinTameSkill = reader.ReadDouble();
+
+						m_bTamable = reader.ReadBool();
+						m_bSummoned = reader.ReadBool();
+
+						if (m_bSummoned)
+						{
+							m_SummonEnd = reader.ReadDeltaTime();
+							UnsummonTimer = new UnsummonTimer(m_ControlMaster, this, m_SummonEnd - DateTime.UtcNow);
+							UnsummonTimer.Start();
+						}
+
+						m_iControlSlots = reader.ReadInt();
+
+						m_Loyalty = reader.ReadInt();
+
+						m_CurrentWayPoint = reader.ReadItem() as WayPoint;
+
+						m_SummonMaster = reader.ReadMobile();
+
+						m_HitsMax = reader.ReadInt();
+						m_StamMax = reader.ReadInt();
+						m_ManaMax = reader.ReadInt();
+						m_DamageMin = reader.ReadInt();
+						m_DamageMax = reader.ReadInt();
+
+						m_PhysicalResistance = reader.ReadInt();
+						m_PhysicalDamage = reader.ReadInt();
+
+						m_FireResistance = reader.ReadInt();
+						m_FireDamage = reader.ReadInt();
+
+						m_ColdResistance = reader.ReadInt();
+						m_ColdDamage = reader.ReadInt();
+
+						m_PoisonResistance = reader.ReadInt();
+						m_PoisonDamage = reader.ReadInt();
+
+						m_EnergyResistance = reader.ReadInt();
+						m_EnergyDamage = reader.ReadInt();
+
+						m_Owners = reader.ReadStrongMobileList();
+
+						m_IsDeadPet = reader.ReadBool();
+						m_IsBonded = reader.ReadBool();
+						m_BondingBegin = reader.ReadDateTime();
+						m_OwnerAbandonTime = reader.ReadDateTime();
+
+						m_HasGeneratedLoot = reader.ReadBool();
+
+						m_Paragon = reader.ReadBool();
+
+						if (reader.ReadBool())
+							m_Friends = reader.ReadStrongMobileList();
+
+						double activeSpeed = m_dActiveSpeed;
+						double passiveSpeed = m_dPassiveSpeed;
+
+						SpeedInfo.GetSpeeds(this, ref activeSpeed, ref passiveSpeed);
+
+						bool isStandardActive = false;
+						for (int i = 0; !isStandardActive && i < m_StandardActiveSpeeds.Length; ++i)
+							isStandardActive = (m_dActiveSpeed == m_StandardActiveSpeeds[i]);
+
+						bool isStandardPassive = false;
+						for (int i = 0; !isStandardPassive && i < m_StandardPassiveSpeeds.Length; ++i)
+							isStandardPassive = (m_dPassiveSpeed == m_StandardPassiveSpeeds[i]);
+
+						if (isStandardActive && m_dCurrentSpeed == m_dActiveSpeed)
+							m_dCurrentSpeed = activeSpeed;
+						else if (isStandardPassive && m_dCurrentSpeed == m_dPassiveSpeed)
+							m_dCurrentSpeed = passiveSpeed;
+
+						if (isStandardActive && !m_Paragon)
+							m_dActiveSpeed = activeSpeed;
+
+						if (isStandardPassive && !m_Paragon)
+							m_dPassiveSpeed = passiveSpeed;
+
+
+						m_RemoveIfUntamed = reader.ReadBool();
+						m_RemoveStep = reader.ReadInt();
+
+						TimeSpan deleteTime = reader.ReadTimeSpan();
+
+						if (deleteTime > TimeSpan.Zero || LastOwner != null && !Controlled && !IsStabled)
+						{
+							if (deleteTime == TimeSpan.Zero)
+								deleteTime = TimeSpan.FromDays(3.0);
+
+							m_DeleteTimer = new DeleteTimer(this, deleteTime);
+							m_DeleteTimer.Start();
+						}
+
+						m_CorpseNameOverride = reader.ReadString();
+
+						if (Core.AOS && NameHue == 0x35)
+							NameHue = -1;
+
+						CheckStatTimers();
+
+						ChangeAIType(m_CurrentAI);
+
+						AddFollowers();
+
+						if (IsAnimatedDead)
+							AnimateDeadSpell.Register(m_SummonMaster, this);
+
+						break;
 					}
-				}
-
-				iCount = reader.ReadInt();
-				for (i = 0; i < iCount; i++)
-				{
-					string str = reader.ReadString();
-					Type type = Type.GetType(str);
-
-					if (type != null)
-					{
-						m_arSpellDefense.Add(type);
-					}
-				}
 			}
-			else
-			{
-				m_iRangeHome = 0;
-			}
-
-			if (version >= 2)
-			{
-				m_FightMode = (FightMode)reader.ReadInt();
-
-				m_bControlled = reader.ReadBool();
-				m_ControlMaster = reader.ReadMobile();
-				m_ControlTarget = reader.ReadMobile();
-				m_ControlDest = reader.ReadPoint3D();
-				m_ControlOrder = (OrderType)reader.ReadInt();
-
-				m_dMinTameSkill = reader.ReadDouble();
-
-				if (version < 9)
-					reader.ReadDouble();
-
-				m_bTamable = reader.ReadBool();
-				m_bSummoned = reader.ReadBool();
-
-				if (m_bSummoned)
-				{
-					m_SummonEnd = reader.ReadDeltaTime();
-					UnsummonTimer = new UnsummonTimer(m_ControlMaster, this, m_SummonEnd - DateTime.UtcNow);
-					UnsummonTimer.Start();
-				}
-
-				m_iControlSlots = reader.ReadInt();
-			}
-			else
-			{
-				m_FightMode = FightMode.Closest;
-
-				m_bControlled = false;
-				m_ControlMaster = null;
-				m_ControlTarget = null;
-				m_ControlOrder = OrderType.None;
-			}
-
-			if (version >= 3)
-				m_Loyalty = reader.ReadInt();
-			else
-				m_Loyalty = MaxLoyalty; // Wonderfully Happy
-
-			if (version >= 4)
-				m_CurrentWayPoint = reader.ReadItem() as WayPoint;
-
-			if (version >= 5)
-				m_SummonMaster = reader.ReadMobile();
-
-			if (version >= 6)
-			{
-				m_HitsMax = reader.ReadInt();
-				m_StamMax = reader.ReadInt();
-				m_ManaMax = reader.ReadInt();
-				m_DamageMin = reader.ReadInt();
-				m_DamageMax = reader.ReadInt();
-			}
-
-			if (version >= 7)
-			{
-				m_PhysicalResistance = reader.ReadInt();
-				m_PhysicalDamage = reader.ReadInt();
-
-				m_FireResistance = reader.ReadInt();
-				m_FireDamage = reader.ReadInt();
-
-				m_ColdResistance = reader.ReadInt();
-				m_ColdDamage = reader.ReadInt();
-
-				m_PoisonResistance = reader.ReadInt();
-				m_PoisonDamage = reader.ReadInt();
-
-				m_EnergyResistance = reader.ReadInt();
-				m_EnergyDamage = reader.ReadInt();
-			}
-
-			if (version >= 8)
-				m_Owners = reader.ReadStrongMobileList();
-			else
-				m_Owners = new List<Mobile>();
-
-			if (version >= 10)
-			{
-				m_IsDeadPet = reader.ReadBool();
-				m_IsBonded = reader.ReadBool();
-				m_BondingBegin = reader.ReadDateTime();
-				m_OwnerAbandonTime = reader.ReadDateTime();
-			}
-
-			if (version >= 11)
-				m_HasGeneratedLoot = reader.ReadBool();
-			else
-				m_HasGeneratedLoot = true;
-
-			if (version >= 12)
-				m_Paragon = reader.ReadBool();
-			else
-				m_Paragon = false;
-
-			if (version >= 13 && reader.ReadBool())
-				m_Friends = reader.ReadStrongMobileList();
-			else if (version < 13 && m_ControlOrder >= OrderType.Unfriend)
-				++m_ControlOrder;
-
-			if (version < 16 && Loyalty != MaxLoyalty)
-				Loyalty *= 10;
-
-			double activeSpeed = m_dActiveSpeed;
-			double passiveSpeed = m_dPassiveSpeed;
-
-			SpeedInfo.GetSpeeds(this, ref activeSpeed, ref passiveSpeed);
-
-			bool isStandardActive = false;
-			for (int i = 0; !isStandardActive && i < m_StandardActiveSpeeds.Length; ++i)
-				isStandardActive = (m_dActiveSpeed == m_StandardActiveSpeeds[i]);
-
-			bool isStandardPassive = false;
-			for (int i = 0; !isStandardPassive && i < m_StandardPassiveSpeeds.Length; ++i)
-				isStandardPassive = (m_dPassiveSpeed == m_StandardPassiveSpeeds[i]);
-
-			if (isStandardActive && m_dCurrentSpeed == m_dActiveSpeed)
-				m_dCurrentSpeed = activeSpeed;
-			else if (isStandardPassive && m_dCurrentSpeed == m_dPassiveSpeed)
-				m_dCurrentSpeed = passiveSpeed;
-
-			if (isStandardActive && !m_Paragon)
-				m_dActiveSpeed = activeSpeed;
-
-			if (isStandardPassive && !m_Paragon)
-				m_dPassiveSpeed = passiveSpeed;
-
-			if (version >= 14)
-			{
-				m_RemoveIfUntamed = reader.ReadBool();
-				m_RemoveStep = reader.ReadInt();
-			}
-
-			TimeSpan deleteTime = TimeSpan.Zero;
-
-			if (version >= 17)
-				deleteTime = reader.ReadTimeSpan();
-
-			if (deleteTime > TimeSpan.Zero || LastOwner != null && !Controlled && !IsStabled)
-			{
-				if (deleteTime == TimeSpan.Zero)
-					deleteTime = TimeSpan.FromDays(3.0);
-
-				m_DeleteTimer = new DeleteTimer(this, deleteTime);
-				m_DeleteTimer.Start();
-			}
-
-			if (version >= 18)
-				m_CorpseNameOverride = reader.ReadString();
-
-			if (version <= 14 && m_Paragon && Hue == 0x31)
-			{
-				Hue = Paragon.Hue; //Paragon hue fixed, should now be 0x501.
-			}
-
-			if (Core.AOS && NameHue == 0x35)
-				NameHue = -1;
-
-			CheckStatTimers();
-
-			ChangeAIType(m_CurrentAI);
-
-			AddFollowers();
-
-			if (IsAnimatedDead)
-				AnimateDeadSpell.Register(m_SummonMaster, this);
 		}
 
 		public virtual bool IsHumanInTown()

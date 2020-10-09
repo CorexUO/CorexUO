@@ -1191,9 +1191,7 @@ namespace Server.Mobiles
 
 		private static void EventSink_Connected(ConnectedEventArgs e)
 		{
-			PlayerMobile pm = e.Mobile as PlayerMobile;
-
-			if (pm != null)
+			if (e.Mobile is PlayerMobile pm)
 			{
 				pm.m_SessionStart = DateTime.UtcNow;
 
@@ -3354,7 +3352,7 @@ namespace Server.Mobiles
 
 			switch (version)
 			{
-				case 29:
+				case 0:
 					{
 						if (reader.ReadBool())
 						{
@@ -3369,29 +3367,12 @@ namespace Server.Mobiles
 						{
 							m_StuckMenuUses = null;
 						}
-
-						goto case 28;
-					}
-				case 28:
-					{
 						m_PeacedUntil = reader.ReadDateTime();
 
-						goto case 27;
-					}
-				case 27:
-					{
 						m_AnkhNextUse = reader.ReadDateTime();
 
-						goto case 26;
-					}
-				case 26:
-					{
 						m_AutoStabled = reader.ReadStrongMobileList();
 
-						goto case 25;
-					}
-				case 25:
-					{
 						int recipeCount = reader.ReadInt();
 
 						if (recipeCount > 0)
@@ -3405,38 +3386,19 @@ namespace Server.Mobiles
 									m_AcquiredRecipes.Add(r, true);
 							}
 						}
-						goto case 24;
-					}
-				case 24:
-					{
+
 						m_LastHonorLoss = reader.ReadDeltaTime();
-						goto case 23;
-					}
-				case 23:
-					{
+
 						m_ChampionTitles = new ChampionTitleInfo(reader);
-						goto case 22;
-					}
-				case 22:
-					{
+
 						m_LastValorLoss = reader.ReadDateTime();
-						goto case 21;
-					}
-				case 21:
-					{
+
 						m_ToTItemsTurnedIn = reader.ReadEncodedInt();
 						m_ToTTotalMonsterFame = reader.ReadInt();
-						goto case 20;
-					}
-				case 20:
-					{
+
 						m_AllianceMessageHue = reader.ReadEncodedInt();
 						m_GuildMessageHue = reader.ReadEncodedInt();
 
-						goto case 19;
-					}
-				case 19:
-					{
 						int rank = reader.ReadEncodedInt();
 						int maxRank = Guilds.RankDefinition.Ranks.Length - 1;
 						if (rank > maxRank)
@@ -3444,17 +3406,9 @@ namespace Server.Mobiles
 
 						m_GuildRank = Guilds.RankDefinition.Ranks[rank];
 						m_LastOnline = reader.ReadDateTime();
-						goto case 18;
-					}
-				case 18:
-					{
+
 						m_SolenFriendship = (SolenFriendship)reader.ReadEncodedInt();
 
-						goto case 17;
-					}
-				case 17: // changed how DoneQuests is serialized
-				case 16:
-					{
 						m_Quest = QuestSerializer.DeserializeQuest(reader);
 
 						if (m_Quest != null)
@@ -3471,52 +3425,23 @@ namespace Server.Mobiles
 								Type questType = QuestSerializer.ReadType(QuestSystem.QuestTypes, reader);
 								DateTime restartTime;
 
-								if (version < 17)
-									restartTime = DateTime.MaxValue;
-								else
-									restartTime = reader.ReadDateTime();
+								restartTime = reader.ReadDateTime();
 
 								m_DoneQuests.Add(new QuestRestartInfo(questType, restartTime));
 							}
 						}
 
 						m_Profession = reader.ReadEncodedInt();
-						goto case 15;
-					}
-				case 15:
-					{
+
 						m_LastCompassionLoss = reader.ReadDeltaTime();
-						goto case 14;
-					}
-				case 14:
-					{
+
 						m_CompassionGains = reader.ReadEncodedInt();
 
 						if (m_CompassionGains > 0)
 							m_NextCompassionDay = reader.ReadDeltaTime();
 
-						goto case 13;
-					}
-				case 13: // just removed m_PayedInsurance list
-				case 12:
-					{
 						m_BOBFilter = new Engines.BulkOrders.BOBFilter(reader);
-						goto case 11;
-					}
-				case 11:
-					{
-						if (version < 13)
-						{
-							List<Item> payed = reader.ReadStrongItemList();
 
-							for (int i = 0; i < payed.Count; ++i)
-								payed[i].PayedInsurance = true;
-						}
-
-						goto case 10;
-					}
-				case 10:
-					{
 						if (reader.ReadBool())
 						{
 							m_HairModID = reader.ReadInt();
@@ -3525,10 +3450,6 @@ namespace Server.Mobiles
 							m_BeardModHue = reader.ReadInt();
 						}
 
-						goto case 9;
-					}
-				case 9:
-					{
 						SavagePaintExpiration = reader.ReadTimeSpan();
 
 						if (SavagePaintExpiration > TimeSpan.Zero)
@@ -3537,59 +3458,29 @@ namespace Server.Mobiles
 							HueMod = 0;
 						}
 
-						goto case 8;
-					}
-				case 8:
-					{
 						m_NpcGuild = (NpcGuild)reader.ReadInt();
 						m_NpcGuildJoinTime = reader.ReadDateTime();
 						m_NpcGuildGameTime = reader.ReadTimeSpan();
-						goto case 7;
-					}
-				case 7:
-					{
+
 						m_PermaFlags = reader.ReadStrongMobileList();
-						goto case 6;
-					}
-				case 6:
-					{
+
 						NextTailorBulkOrder = reader.ReadTimeSpan();
-						goto case 5;
-					}
-				case 5:
-					{
+
 						NextSmithBulkOrder = reader.ReadTimeSpan();
-						goto case 4;
-					}
-				case 4:
-					{
+
 						m_LastJusticeLoss = reader.ReadDeltaTime();
 						m_JusticeProtectors = reader.ReadStrongMobileList();
-						goto case 3;
-					}
-				case 3:
-					{
+
 						m_LastSacrificeGain = reader.ReadDeltaTime();
 						m_LastSacrificeLoss = reader.ReadDeltaTime();
 						m_AvailableResurrects = reader.ReadInt();
-						goto case 2;
-					}
-				case 2:
-					{
+
 						m_Flags = (PlayerFlag)reader.ReadInt();
-						goto case 1;
-					}
-				case 1:
-					{
+
 						m_LongTermElapse = reader.ReadTimeSpan();
 						m_ShortTermElapse = reader.ReadTimeSpan();
 						m_GameTime = reader.ReadTimeSpan();
-						goto case 0;
-					}
-				case 0:
-					{
-						if (version < 26)
-							m_AutoStabled = new List<Mobile>();
+
 						break;
 					}
 			}
@@ -3663,7 +3554,7 @@ namespace Server.Mobiles
 
 			base.Serialize(writer);
 
-			writer.Write((int)29); // version
+			writer.Write((int)0); // version
 
 			if (m_StuckMenuUses != null)
 			{
@@ -3791,8 +3682,8 @@ namespace Server.Mobiles
 			CompassionVirtue.CheckAtrophy(m);
 			ValorVirtue.CheckAtrophy(m);
 
-			if (m is PlayerMobile)
-				ChampionTitleInfo.CheckAtrophy((PlayerMobile)m);
+			if (m is PlayerMobile mobile)
+				ChampionTitleInfo.CheckAtrophy(mobile);
 		}
 
 		public void CheckKillDecay()
