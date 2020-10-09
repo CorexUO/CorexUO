@@ -167,7 +167,7 @@ namespace Server.Mobiles
 		}
 	}
 
-	public partial class BaseCreature : Mobile, IHonorTarget, IQuestGiver
+	public partial class BaseCreature : BaseMobile, IHonorTarget, IQuestGiver
 	{
 		public const int MaxLoyalty = 100;
 

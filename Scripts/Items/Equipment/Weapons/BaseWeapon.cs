@@ -18,7 +18,7 @@ namespace Server.Items
 		SlayerName Slayer2 { get; set; }
 	}
 
-	public abstract class BaseWeapon : Item, IWeapon, IFactionItem, ICraftable, ISlayer, IDurability, ICraftResource
+	public abstract class BaseWeapon : BaseEquipment, IWeapon, IFactionItem, ICraftable, ISlayer, IDurability, ICraftResource
 	{
 		private string m_EngravedText;
 
@@ -85,7 +85,6 @@ namespace Server.Items
 		private bool m_Cursed; // Is this weapon cursed via Curse Weapon necromancer spell? Temporary; not serialized.
 		private bool m_Consecrated; // Is this weapon blessed via Consecrate Weapon paladin ability? Temporary; not serialized.
 
-		private AosAttributes m_AosAttributes;
 		private AosWeaponAttributes m_AosWeaponAttributes;
 		private AosSkillBonuses m_AosSkillBonuses;
 		private AosElementAttributes m_AosElementDamages;
@@ -154,13 +153,6 @@ namespace Server.Items
 		#endregion
 
 		#region Getters & Setters
-		[CommandProperty(AccessLevel.GameMaster)]
-		public AosAttributes Attributes
-		{
-			get { return m_AosAttributes; }
-			set { }
-		}
-
 		[CommandProperty(AccessLevel.GameMaster)]
 		public AosWeaponAttributes WeaponAttributes
 		{
@@ -440,7 +432,6 @@ namespace Server.Items
 			if (weap == null)
 				return;
 
-			weap.m_AosAttributes = new AosAttributes(newItem, m_AosAttributes);
 			weap.m_AosElementDamages = new AosElementAttributes(newItem, m_AosElementDamages);
 			weap.m_AosSkillBonuses = new AosSkillBonuses(newItem, m_AosSkillBonuses);
 			weap.m_AosWeaponAttributes = new AosWeaponAttributes(newItem, m_AosWeaponAttributes);
@@ -497,7 +488,7 @@ namespace Server.Items
 			return bonus;
 		}
 
-		public int GetLowerStatReq()
+		public override int GetLowerStatReq()
 		{
 			if (!Core.AOS)
 				return 0;
@@ -613,9 +604,9 @@ namespace Server.Items
 
 		public override bool OnEquip(Mobile from)
 		{
-			int strBonus = m_AosAttributes.BonusStr;
-			int dexBonus = m_AosAttributes.BonusDex;
-			int intBonus = m_AosAttributes.BonusInt;
+			int strBonus = Attributes.BonusStr;
+			int dexBonus = Attributes.BonusDex;
+			int intBonus = Attributes.BonusInt;
 
 			if ((strBonus != 0 || dexBonus != 0 || intBonus != 0))
 			{
@@ -2279,6 +2270,68 @@ namespace Server.Items
 			return (int)ScaleDamageAOS(attacker, GetBaseDamage(attacker), true);
 		}
 
+		public virtual double GetTacticsModifier(Mobile attacker)
+		{
+			/* Compute tactics modifier
+			 * :   0.0 = 50% loss
+			 * :  50.0 = unchanged
+			 * : 100.0 = 50% bonus
+			 */
+			return (attacker.Skills[SkillName.Tactics].Value - 50.0) / 100.0;
+		}
+
+		public virtual double GetDamageModifiers(Mobile attacker)
+		{
+			/* Compute strength modifier
+			 * : 1% bonus for every 5 strength
+			 */
+			double modifier = (attacker.Str / 5.0) / 100.0;
+
+			/* Compute anatomy modifier
+			 * : 1% bonus for every 5 points of anatomy
+			 * : +10% bonus at Grandmaster or higher
+			 */
+			double anatomyValue = attacker.Skills[SkillName.Anatomy].Value;
+			modifier += ((anatomyValue / 5.0) / 100.0);
+
+			if (anatomyValue >= 100.0)
+				modifier += 0.1;
+
+			//Add the weapon damage bonus
+			modifier += GetWeaponModifiers(attacker);
+
+			return modifier;
+		}
+
+		public virtual double GetWeaponModifiers(Mobile attacker)
+		{
+			double modifier = 0;
+
+			/* Compute lumberjacking bonus
+			 * : 1% bonus for every 5 points of lumberjacking
+			 * : +10% bonus at Grandmaster or higher
+			 */
+			if (Type == WeaponType.Axe)
+			{
+				double lumberValue = attacker.Skills[SkillName.Lumberjacking].Value;
+
+				modifier += ((lumberValue / 5.0) / 100.0);
+
+				if (lumberValue >= 100.0)
+					modifier += 0.1;
+			}
+
+			// New quality bonus:
+			if (m_Quality != WeaponQuality.Regular)
+				modifier += (((int)m_Quality - 1) * 0.2);
+
+			// Virtual damage bonus:
+			if (VirtualDamageBonus != 0)
+				modifier += (VirtualDamageBonus / 100.0);
+
+			return modifier;
+		}
+
 		public virtual double ScaleDamageOld(Mobile attacker, double damage, bool checkSkills)
 		{
 			if (checkSkills)
@@ -2290,50 +2343,11 @@ namespace Server.Items
 					attacker.CheckSkill(SkillName.Lumberjacking, 0.0, 100.0); // Passively check Lumberjacking for gain
 			}
 
-			/* Compute tactics modifier
-			 * :   0.0 = 50% loss
-			 * :  50.0 = unchanged
-			 * : 100.0 = 50% bonus
-			 */
-			damage += (damage * ((attacker.Skills[SkillName.Tactics].Value - 50.0) / 100.0));
+			// Compute tactics modifier
+			damage += damage * GetTacticsModifier(attacker);
 
-
-			/* Compute strength modifier
-			 * : 1% bonus for every 5 strength
-			 */
-			double modifiers = (attacker.Str / 5.0) / 100.0;
-
-			/* Compute anatomy modifier
-			 * : 1% bonus for every 5 points of anatomy
-			 * : +10% bonus at Grandmaster or higher
-			 */
-			double anatomyValue = attacker.Skills[SkillName.Anatomy].Value;
-			modifiers += ((anatomyValue / 5.0) / 100.0);
-
-			if (anatomyValue >= 100.0)
-				modifiers += 0.1;
-
-			/* Compute lumberjacking bonus
-			 * : 1% bonus for every 5 points of lumberjacking
-			 * : +10% bonus at Grandmaster or higher
-			 */
-			if (Type == WeaponType.Axe)
-			{
-				double lumberValue = attacker.Skills[SkillName.Lumberjacking].Value;
-
-				modifiers += ((lumberValue / 5.0) / 100.0);
-
-				if (lumberValue >= 100.0)
-					modifiers += 0.1;
-			}
-
-			// New quality bonus:
-			if (m_Quality != WeaponQuality.Regular)
-				modifiers += (((int)m_Quality - 1) * 0.2);
-
-			// Virtual damage bonus:
-			if (VirtualDamageBonus != 0)
-				modifiers += (VirtualDamageBonus / 100.0);
+			//Get the modifiers damage
+			double modifiers = GetWeaponModifiers(attacker);
 
 			// Apply bonuses
 			damage += (damage * modifiers);
@@ -2477,7 +2491,7 @@ namespace Server.Items
 		{
 			base.Serialize(writer);
 
-			writer.Write((int)9); // version
+			writer.Write((int)0); // version
 
 			SaveFlag flags = SaveFlag.None;
 
@@ -2505,7 +2519,6 @@ namespace Server.Items
 			SetSaveFlag(ref flags, SaveFlag.Type, m_Type != (WeaponType)(-1));
 			SetSaveFlag(ref flags, SaveFlag.Animation, m_Animation != (WeaponAnimation)(-1));
 			SetSaveFlag(ref flags, SaveFlag.Resource, m_Resource != CraftResource.Iron);
-			SetSaveFlag(ref flags, SaveFlag.xAttributes, !m_AosAttributes.IsEmpty);
 			SetSaveFlag(ref flags, SaveFlag.xWeaponAttributes, !m_AosWeaponAttributes.IsEmpty);
 			SetSaveFlag(ref flags, SaveFlag.PlayerConstructed, m_PlayerConstructed);
 			SetSaveFlag(ref flags, SaveFlag.SkillBonuses, !m_AosSkillBonuses.IsEmpty);
@@ -2584,9 +2597,6 @@ namespace Server.Items
 			if (GetSaveFlag(flags, SaveFlag.Resource))
 				writer.Write((int)m_Resource);
 
-			if (GetSaveFlag(flags, SaveFlag.xAttributes))
-				m_AosAttributes.Serialize(writer);
-
 			if (GetSaveFlag(flags, SaveFlag.xWeaponAttributes))
 				m_AosWeaponAttributes.Serialize(writer);
 
@@ -2648,11 +2658,7 @@ namespace Server.Items
 
 			switch (version)
 			{
-				case 9:
-				case 8:
-				case 7:
-				case 6:
-				case 5:
+				case 0:
 					{
 						SaveFlag flags = (SaveFlag)reader.ReadInt();
 
@@ -2704,7 +2710,7 @@ namespace Server.Items
 							m_Crafter = reader.ReadMobile();
 
 						if (GetSaveFlag(flags, SaveFlag.Identified))
-							m_Identified = (version >= 6 || reader.ReadBool());
+							m_Identified = true;
 
 						if (GetSaveFlag(flags, SaveFlag.StrReq))
 							m_StrReq = reader.ReadInt();
@@ -2743,10 +2749,7 @@ namespace Server.Items
 
 						if (GetSaveFlag(flags, SaveFlag.Speed))
 						{
-							if (version < 9)
-								m_Speed = reader.ReadInt();
-							else
-								m_Speed = reader.ReadFloat();
+							m_Speed = reader.ReadFloat();
 						}
 						else
 							m_Speed = -1;
@@ -2776,11 +2779,6 @@ namespace Server.Items
 						else
 							m_Resource = CraftResource.Iron;
 
-						if (GetSaveFlag(flags, SaveFlag.xAttributes))
-							m_AosAttributes = new AosAttributes(this, reader);
-						else
-							m_AosAttributes = new AosAttributes(this);
-
 						if (GetSaveFlag(flags, SaveFlag.xWeaponAttributes))
 							m_AosWeaponAttributes = new AosWeaponAttributes(this, reader);
 						else
@@ -2791,9 +2789,6 @@ namespace Server.Items
 							m_SkillMod = new DefaultSkillMod(AccuracySkill, true, (int)m_AccuracyLevel * 5);
 							((Mobile)Parent).AddSkillMod(m_SkillMod);
 						}
-
-						if (version < 7 && m_AosWeaponAttributes.MageWeapon != 0)
-							m_AosWeaponAttributes.MageWeapon = 30 - m_AosWeaponAttributes.MageWeapon;
 
 						if (Core.AOS && m_AosWeaponAttributes.MageWeapon != 0 && m_AosWeaponAttributes.MageWeapon != 30 && Parent is Mobile)
 						{
@@ -2822,119 +2817,14 @@ namespace Server.Items
 
 						break;
 					}
-				case 4:
-					{
-						m_Slayer = (SlayerName)reader.ReadInt();
-
-						goto case 3;
-					}
-				case 3:
-					{
-						m_StrReq = reader.ReadInt();
-						m_DexReq = reader.ReadInt();
-						m_IntReq = reader.ReadInt();
-
-						goto case 2;
-					}
-				case 2:
-					{
-						m_Identified = reader.ReadBool();
-
-						goto case 1;
-					}
-				case 1:
-					{
-						m_MaxRange = reader.ReadInt();
-
-						goto case 0;
-					}
-				case 0:
-					{
-						if (version == 0)
-							m_MaxRange = 1; // default
-
-						if (version < 5)
-						{
-							m_Resource = CraftResource.Iron;
-							m_AosAttributes = new AosAttributes(this);
-							m_AosWeaponAttributes = new AosWeaponAttributes(this);
-							m_AosElementDamages = new AosElementAttributes(this);
-							m_AosSkillBonuses = new AosSkillBonuses(this);
-						}
-
-						m_MinDamage = reader.ReadInt();
-						m_MaxDamage = reader.ReadInt();
-
-						m_Speed = reader.ReadInt();
-
-						m_HitSound = reader.ReadInt();
-						m_MissSound = reader.ReadInt();
-
-						m_Skill = (SkillName)reader.ReadInt();
-						m_Type = (WeaponType)reader.ReadInt();
-						m_Animation = (WeaponAnimation)reader.ReadInt();
-						m_DamageLevel = (WeaponDamageLevel)reader.ReadInt();
-						m_AccuracyLevel = (WeaponAccuracyLevel)reader.ReadInt();
-						m_DurabilityLevel = (WeaponDurabilityLevel)reader.ReadInt();
-						m_Quality = (WeaponQuality)reader.ReadInt();
-
-						m_Crafter = reader.ReadMobile();
-
-						m_Poison = Poison.Deserialize(reader);
-						m_PoisonCharges = reader.ReadInt();
-
-						if (m_StrReq == OldStrengthReq)
-							m_StrReq = -1;
-
-						if (m_DexReq == OldDexterityReq)
-							m_DexReq = -1;
-
-						if (m_IntReq == OldIntelligenceReq)
-							m_IntReq = -1;
-
-						if (m_MinDamage == OldMinDamage)
-							m_MinDamage = -1;
-
-						if (m_MaxDamage == OldMaxDamage)
-							m_MaxDamage = -1;
-
-						if (m_HitSound == OldHitSound)
-							m_HitSound = -1;
-
-						if (m_MissSound == OldMissSound)
-							m_MissSound = -1;
-
-						if (m_Speed == OldSpeed)
-							m_Speed = -1;
-
-						if (m_MaxRange == OldMaxRange)
-							m_MaxRange = -1;
-
-						if (m_Skill == OldSkill)
-							m_Skill = (SkillName)(-1);
-
-						if (m_Type == OldType)
-							m_Type = (WeaponType)(-1);
-
-						if (m_Animation == OldAnimation)
-							m_Animation = (WeaponAnimation)(-1);
-
-						if (UseSkillMod && m_AccuracyLevel != WeaponAccuracyLevel.Regular && Parent is Mobile)
-						{
-							m_SkillMod = new DefaultSkillMod(AccuracySkill, true, (int)m_AccuracyLevel * 5);
-							((Mobile)Parent).AddSkillMod(m_SkillMod);
-						}
-
-						break;
-					}
 			}
 
 			if (Core.AOS && Parent is Mobile)
 				m_AosSkillBonuses.AddTo((Mobile)Parent);
 
-			int strBonus = m_AosAttributes.BonusStr;
-			int dexBonus = m_AosAttributes.BonusDex;
-			int intBonus = m_AosAttributes.BonusInt;
+			int strBonus = Attributes.BonusStr;
+			int dexBonus = Attributes.BonusDex;
+			int intBonus = Attributes.BonusInt;
 
 			if (this.Parent is Mobile && (strBonus != 0 || dexBonus != 0 || intBonus != 0))
 			{
@@ -2952,16 +2842,13 @@ namespace Server.Items
 					m.AddStatMod(new StatMod(StatType.Int, modName + "Int", intBonus, TimeSpan.Zero));
 			}
 
-			if (Parent is Mobile)
-				((Mobile)Parent).CheckStatTimers();
+			if (Parent is Mobile mob)
+				mob.CheckStatTimers();
 
 			if (m_Hits <= 0 && m_MaxHits <= 0)
 			{
 				m_Hits = m_MaxHits = Utility.RandomMinMax(InitMinHits, InitMaxHits);
 			}
-
-			if (version < 6)
-				m_PlayerConstructed = true; // we don't know, so, assume it's crafted
 		}
 		#endregion
 
@@ -2987,7 +2874,6 @@ namespace Server.Items
 
 			m_Resource = CraftResource.Iron;
 
-			m_AosAttributes = new AosAttributes(this);
 			m_AosWeaponAttributes = new AosWeaponAttributes(this);
 			m_AosSkillBonuses = new AosSkillBonuses(this);
 			m_AosElementDamages = new AosElementAttributes(this);
@@ -3102,20 +2988,12 @@ namespace Server.Items
 			/* list.Add( 1062613, Utility.FixHtml( m_EngravedText ) ); */
 		}
 
-		public override bool AllowEquipedCast(Mobile from)
-		{
-			if (base.AllowEquipedCast(from))
-				return true;
-
-			return (m_AosAttributes.SpellChanneling != 0);
-		}
-
 		public virtual int ArtifactRarity
 		{
 			get { return 0; }
 		}
 
-		public virtual int GetLuckBonus()
+		public override int GetLuckBonus()
 		{
 			CraftResourceInfo resInfo = CraftResources.GetInfo(m_Resource);
 
@@ -3185,22 +3063,22 @@ namespace Server.Items
 			if ((prop = m_AosWeaponAttributes.UseBestSkill) != 0)
 				list.Add(1060400); // use best weapon skill
 
-			if ((prop = (GetDamageBonus() + m_AosAttributes.WeaponDamage)) != 0)
+			if ((prop = (GetDamageBonus() + Attributes.WeaponDamage)) != 0)
 				list.Add(1060401, prop.ToString()); // damage increase ~1_val~%
 
-			if ((prop = m_AosAttributes.DefendChance) != 0)
+			if ((prop = Attributes.DefendChance) != 0)
 				list.Add(1060408, prop.ToString()); // defense chance increase ~1_val~%
 
-			if ((prop = m_AosAttributes.EnhancePotions) != 0)
+			if ((prop = Attributes.EnhancePotions) != 0)
 				list.Add(1060411, prop.ToString()); // enhance potions ~1_val~%
 
-			if ((prop = m_AosAttributes.CastRecovery) != 0)
+			if ((prop = Attributes.CastRecovery) != 0)
 				list.Add(1060412, prop.ToString()); // faster cast recovery ~1_val~
 
-			if ((prop = m_AosAttributes.CastSpeed) != 0)
+			if ((prop = Attributes.CastSpeed) != 0)
 				list.Add(1060413, prop.ToString()); // faster casting ~1_val~
 
-			if ((prop = (GetHitChanceBonus() + m_AosAttributes.AttackChance)) != 0)
+			if ((prop = (GetHitChanceBonus() + Attributes.AttackChance)) != 0)
 				list.Add(1060415, prop.ToString()); // hit chance increase ~1_val~%
 
 			if ((prop = m_AosWeaponAttributes.HitColdArea) != 0)
@@ -3254,67 +3132,67 @@ namespace Server.Items
 			if (Core.ML && this is BaseRanged && (prop = ((BaseRanged)this).Velocity) != 0)
 				list.Add(1072793, prop.ToString()); // Velocity ~1_val~%
 
-			if ((prop = m_AosAttributes.BonusDex) != 0)
+			if ((prop = Attributes.BonusDex) != 0)
 				list.Add(1060409, prop.ToString()); // dexterity bonus ~1_val~
 
-			if ((prop = m_AosAttributes.BonusHits) != 0)
+			if ((prop = Attributes.BonusHits) != 0)
 				list.Add(1060431, prop.ToString()); // hit point increase ~1_val~
 
-			if ((prop = m_AosAttributes.BonusInt) != 0)
+			if ((prop = Attributes.BonusInt) != 0)
 				list.Add(1060432, prop.ToString()); // intelligence bonus ~1_val~
 
-			if ((prop = m_AosAttributes.LowerManaCost) != 0)
+			if ((prop = Attributes.LowerManaCost) != 0)
 				list.Add(1060433, prop.ToString()); // lower mana cost ~1_val~%
 
-			if ((prop = m_AosAttributes.LowerRegCost) != 0)
+			if ((prop = Attributes.LowerRegCost) != 0)
 				list.Add(1060434, prop.ToString()); // lower reagent cost ~1_val~%
 
 			if ((prop = GetLowerStatReq()) != 0)
 				list.Add(1060435, prop.ToString()); // lower requirements ~1_val~%
 
-			if ((prop = (GetLuckBonus() + m_AosAttributes.Luck)) != 0)
+			if ((prop = (GetLuckBonus() + Attributes.Luck)) != 0)
 				list.Add(1060436, prop.ToString()); // luck ~1_val~
 
 			if ((prop = m_AosWeaponAttributes.MageWeapon) != 0)
 				list.Add(1060438, (30 - prop).ToString()); // mage weapon -~1_val~ skill
 
-			if ((prop = m_AosAttributes.BonusMana) != 0)
+			if ((prop = Attributes.BonusMana) != 0)
 				list.Add(1060439, prop.ToString()); // mana increase ~1_val~
 
-			if ((prop = m_AosAttributes.RegenMana) != 0)
+			if ((prop = Attributes.RegenMana) != 0)
 				list.Add(1060440, prop.ToString()); // mana regeneration ~1_val~
 
-			if ((prop = m_AosAttributes.NightSight) != 0)
+			if ((prop = Attributes.NightSight) != 0)
 				list.Add(1060441); // night sight
 
-			if ((prop = m_AosAttributes.ReflectPhysical) != 0)
+			if ((prop = Attributes.ReflectPhysical) != 0)
 				list.Add(1060442, prop.ToString()); // reflect physical damage ~1_val~%
 
-			if ((prop = m_AosAttributes.RegenStam) != 0)
+			if ((prop = Attributes.RegenStam) != 0)
 				list.Add(1060443, prop.ToString()); // stamina regeneration ~1_val~
 
-			if ((prop = m_AosAttributes.RegenHits) != 0)
+			if ((prop = Attributes.RegenHits) != 0)
 				list.Add(1060444, prop.ToString()); // hit point regeneration ~1_val~
 
 			if ((prop = m_AosWeaponAttributes.SelfRepair) != 0)
 				list.Add(1060450, prop.ToString()); // self repair ~1_val~
 
-			if ((prop = m_AosAttributes.SpellChanneling) != 0)
+			if ((prop = Attributes.SpellChanneling) != 0)
 				list.Add(1060482); // spell channeling
 
-			if ((prop = m_AosAttributes.SpellDamage) != 0)
+			if ((prop = Attributes.SpellDamage) != 0)
 				list.Add(1060483, prop.ToString()); // spell damage increase ~1_val~%
 
-			if ((prop = m_AosAttributes.BonusStam) != 0)
+			if ((prop = Attributes.BonusStam) != 0)
 				list.Add(1060484, prop.ToString()); // stamina increase ~1_val~
 
-			if ((prop = m_AosAttributes.BonusStr) != 0)
+			if ((prop = Attributes.BonusStr) != 0)
 				list.Add(1060485, prop.ToString()); // strength bonus ~1_val~
 
-			if ((prop = m_AosAttributes.WeaponSpeed) != 0)
+			if ((prop = Attributes.WeaponSpeed) != 0)
 				list.Add(1060486, prop.ToString()); // swing speed increase ~1_val~%
 
-			if (Core.ML && (prop = m_AosAttributes.IncreasedKarmaLoss) != 0)
+			if (Core.ML && (prop = Attributes.IncreasedKarmaLoss) != 0)
 				list.Add(1075210, prop.ToString()); // Increased Karma Loss ~1val~%
 
 			int phys, fire, cold, pois, nrgy, chaos, direct;
