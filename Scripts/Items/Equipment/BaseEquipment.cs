@@ -13,7 +13,11 @@ namespace Server.Items
 
 		private AosAttributes m_AosAttributes;
 		[CommandProperty(AccessLevel.GameMaster)]
-		public AosAttributes Attributes => m_AosAttributes;
+		public AosAttributes Attributes
+		{
+			get { return m_AosAttributes; }
+			set { }
+		}
 
 		public BaseEquipment(int itemID): base(itemID)
 		{
@@ -26,12 +30,58 @@ namespace Server.Items
 
 		public virtual int GetLuckBonus()
 		{
-			return 0;
+			return m_AosAttributes.Luck;
 		}
 
 		public virtual int GetLowerStatReq()
 		{
 			return 0;
+		}
+
+		public virtual int ComputeStatReq(StatType type)
+		{
+			return 0;
+		}
+
+		public virtual int ComputeStatBonus(StatType type)
+		{
+			return 0;
+		}
+
+		public virtual void AddStatBonuses(Mobile parent)
+		{
+			if (parent != null)
+			{
+				int strBonus = ComputeStatBonus(StatType.Str);
+				int dexBonus = ComputeStatBonus(StatType.Dex);
+				int intBonus = ComputeStatBonus(StatType.Int);
+
+				if (strBonus == 0 && dexBonus == 0 && intBonus == 0)
+					return;
+
+				string modName = this.Serial.ToString();
+
+				if (strBonus != 0)
+					parent.AddStatMod(new StatMod(StatType.Str, modName + "Str", strBonus, TimeSpan.Zero));
+
+				if (dexBonus != 0)
+					parent.AddStatMod(new StatMod(StatType.Dex, modName + "Dex", dexBonus, TimeSpan.Zero));
+
+				if (intBonus != 0)
+					parent.AddStatMod(new StatMod(StatType.Int, modName + "Int", intBonus, TimeSpan.Zero));
+			}
+		}
+
+		public virtual void RemoveStatBonuses(Mobile parent)
+		{
+			if (parent != null)
+			{
+				string modName = this.Serial.ToString();
+
+				parent.RemoveStatMod(modName + "Str");
+				parent.RemoveStatMod(modName + "Dex");
+				parent.RemoveStatMod(modName + "Int");
+			}
 		}
 
 		public override bool AllowEquipedCast(Mobile from)

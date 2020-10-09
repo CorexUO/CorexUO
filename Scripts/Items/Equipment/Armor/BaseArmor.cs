@@ -75,7 +75,6 @@ namespace Server.Items
 		public virtual AMA AosMedAllowance { get { return DefMedAllowance; } }
 		public virtual AMA OldMedAllowance { get { return DefMedAllowance; } }
 
-
 		public virtual int AosStrBonus { get { return 0; } }
 		public virtual int AosDexBonus { get { return 0; } }
 		public virtual int AosIntBonus { get { return 0; } }
@@ -367,7 +366,7 @@ namespace Server.Items
 			set { }
 		}
 
-		public int ComputeStatReq(StatType type)
+		public override int ComputeStatReq(StatType type)
 		{
 			int v;
 
@@ -381,7 +380,7 @@ namespace Server.Items
 			return AOS.Scale(v, 100 - GetLowerStatReq());
 		}
 
-		public int ComputeStatBonus(StatType type)
+		public override int ComputeStatBonus(StatType type)
 		{
 			if (type == StatType.Str)
 				return StrBonus + Attributes.BonusStr;
@@ -963,26 +962,11 @@ namespace Server.Items
 			if (Core.AOS && Parent is Mobile mobile)
 				m_AosSkillBonuses.AddTo(mobile);
 
-			int strBonus = ComputeStatBonus(StatType.Str);
-			int dexBonus = ComputeStatBonus(StatType.Dex);
-			int intBonus = ComputeStatBonus(StatType.Int);
-
-			if (Parent is Mobile parentMob && (strBonus != 0 || dexBonus != 0 || intBonus != 0))
-			{
-				string modName = Serial.ToString();
-
-				if (strBonus != 0)
-					parentMob.AddStatMod(new StatMod(StatType.Str, modName + "Str", strBonus, TimeSpan.Zero));
-
-				if (dexBonus != 0)
-					parentMob.AddStatMod(new StatMod(StatType.Dex, modName + "Dex", dexBonus, TimeSpan.Zero));
-
-				if (intBonus != 0)
-					parentMob.AddStatMod(new StatMod(StatType.Int, modName + "Int", intBonus, TimeSpan.Zero));
-			}
-
 			if (Parent is Mobile mob)
+			{
+				AddStatBonuses(mob);
 				mob.CheckStatTimers();
+			}
 		}
 
 		public virtual CraftResource DefaultResource { get { return CraftResource.Iron; } }
@@ -1093,37 +1077,16 @@ namespace Server.Items
 		{
 			from.CheckStatTimers();
 
-			int strBonus = ComputeStatBonus(StatType.Str);
-			int dexBonus = ComputeStatBonus(StatType.Dex);
-			int intBonus = ComputeStatBonus(StatType.Int);
-
-			if (strBonus != 0 || dexBonus != 0 || intBonus != 0)
-			{
-				string modName = this.Serial.ToString();
-
-				if (strBonus != 0)
-					from.AddStatMod(new StatMod(StatType.Str, modName + "Str", strBonus, TimeSpan.Zero));
-
-				if (dexBonus != 0)
-					from.AddStatMod(new StatMod(StatType.Dex, modName + "Dex", dexBonus, TimeSpan.Zero));
-
-				if (intBonus != 0)
-					from.AddStatMod(new StatMod(StatType.Int, modName + "Int", intBonus, TimeSpan.Zero));
-			}
+			AddStatBonuses(from);
 
 			return base.OnEquip(from);
 		}
 
 		public override void OnRemoved(IEntity parent)
 		{
-			if (parent is Mobile)
+			if (parent is Mobile m)
 			{
-				Mobile m = (Mobile)parent;
-				string modName = this.Serial.ToString();
-
-				m.RemoveStatMod(modName + "Str");
-				m.RemoveStatMod(modName + "Dex");
-				m.RemoveStatMod(modName + "Int");
+				RemoveStatBonuses(m);
 
 				if (Core.AOS)
 					m_AosSkillBonuses.Remove();

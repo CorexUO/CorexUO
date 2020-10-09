@@ -670,11 +670,7 @@ namespace Server.Items
 				Mobile m = (Mobile)parent;
 				BaseWeapon weapon = m.Weapon as BaseWeapon;
 
-				string modName = this.Serial.ToString();
-
-				m.RemoveStatMod(modName + "Str");
-				m.RemoveStatMod(modName + "Dex");
-				m.RemoveStatMod(modName + "Int");
+				RemoveStatBonuses(m);
 
 				if (weapon != null)
 					m.NextCombatTime = Core.TickCount + (int)weapon.GetDelay(m).TotalMilliseconds;

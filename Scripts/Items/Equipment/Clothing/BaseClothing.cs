@@ -230,7 +230,7 @@ namespace Server.Items
 		public virtual bool AllowFemaleWearer { get { return true; } }
 		public virtual bool CanBeBlessed { get { return true; } }
 
-		public int ComputeStatReq(StatType type)
+		public override int ComputeStatReq(StatType type)
 		{
 			int v;
 
@@ -240,7 +240,7 @@ namespace Server.Items
 			return AOS.Scale(v, 100 - GetLowerStatReq());
 		}
 
-		public int ComputeStatBonus(StatType type)
+		public override int ComputeStatBonus(StatType type)
 		{
 			if (type == StatType.Str)
 				return BaseStrBonus + Attributes.BonusStr;
@@ -248,30 +248,6 @@ namespace Server.Items
 				return BaseDexBonus + Attributes.BonusDex;
 			else
 				return BaseIntBonus + Attributes.BonusInt;
-		}
-
-		public virtual void AddStatBonuses(Mobile parent)
-		{
-			if (parent == null)
-				return;
-
-			int strBonus = ComputeStatBonus(StatType.Str);
-			int dexBonus = ComputeStatBonus(StatType.Dex);
-			int intBonus = ComputeStatBonus(StatType.Int);
-
-			if (strBonus == 0 && dexBonus == 0 && intBonus == 0)
-				return;
-
-			string modName = this.Serial.ToString();
-
-			if (strBonus != 0)
-				parent.AddStatMod(new StatMod(StatType.Str, modName + "Str", strBonus, TimeSpan.Zero));
-
-			if (dexBonus != 0)
-				parent.AddStatMod(new StatMod(StatType.Dex, modName + "Dex", dexBonus, TimeSpan.Zero));
-
-			if (intBonus != 0)
-				parent.AddStatMod(new StatMod(StatType.Int, modName + "Int", intBonus, TimeSpan.Zero));
 		}
 
 		public static void ValidateMobile(Mobile m)
@@ -344,18 +320,12 @@ namespace Server.Items
 
 		public override void OnRemoved(IEntity parent)
 		{
-			Mobile mob = parent as Mobile;
-
-			if (mob != null)
+			if (parent is Mobile mob)
 			{
 				if (Core.AOS)
 					m_AosSkillBonuses.Remove();
 
-				string modName = this.Serial.ToString();
-
-				mob.RemoveStatMod(modName + "Str");
-				mob.RemoveStatMod(modName + "Dex");
-				mob.RemoveStatMod(modName + "Int");
+				RemoveStatBonuses(mob);
 
 				mob.CheckStatTimers();
 			}
