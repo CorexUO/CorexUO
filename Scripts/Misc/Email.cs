@@ -21,16 +21,16 @@ namespace Server.Misc
 		 *  public static readonly string SpeechLogPageAddresses = "first@email.here,second@email.here,third@email.here";
 		 */
 
-		public static readonly bool Enabled = Settings.Get<bool>("Email", "Enabled");
-		public static readonly string EmailServer = Settings.Get<string>("Email", "Server");
-		public static readonly int EmailPort = Settings.Get<int>("Email", "Port");
+		public static readonly bool Enabled = Settings.Get<bool>("Email", "Enabled", false);
+		public static readonly string EmailServer = Settings.Get<string>("Email", "Server", null);
+		public static readonly int EmailPort = Settings.Get<int>("Email", "Port", 25);
 
-		public static readonly string FromAddress = Settings.Get<string>("Email", "FromAddress");
-		public static readonly string EmailUsername = Settings.Get<string>("Email", "Username");
-		public static readonly string EmailPassword = Settings.Get<string>("Email", "Password");
+		public static readonly string FromAddress = Settings.Get<string>("Email", "FromAddress", null);
+		public static readonly string EmailUsername = Settings.Get<string>("Email", "Username", null);
+		public static readonly string EmailPassword = Settings.Get<string>("Email", "Password", null);
 
-		public static readonly string CrashAddresses = Settings.Get<string>("Email", "CrashAddresses");
-		public static readonly string SpeechLogPageAddresses = Settings.Get<string>("Email", "SpeechLogPageAddresses");
+		public static readonly string CrashAddresses = Settings.Get<string>("Email", "CrashAddresses", null);
+		public static readonly string SpeechLogPageAddresses = Settings.Get<string>("Email", "SpeechLogPageAddresses", null);
 
 		private static Regex _pattern = new Regex(@"^[a-z0-9.+_-]+@([a-z0-9-]+\.)+[a-z]+$", RegexOptions.Compiled | RegexOptions.IgnoreCase);
 

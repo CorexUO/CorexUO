@@ -73,7 +73,7 @@ namespace Server.Spells.Third
 		{
 			private MagicLockSpell m_Owner;
 
-			public InternalTarget(MagicLockSpell owner) : base(Core.ML ? 10 : 12, false, TargetFlags.None)
+			public InternalTarget(MagicLockSpell owner) : base(owner.SpellRange, false, TargetFlags.None)
 			{
 				m_Owner = owner;
 			}

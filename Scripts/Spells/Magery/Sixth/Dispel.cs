@@ -74,7 +74,7 @@ namespace Server.Spells.Sixth
 		{
 			private DispelSpell m_Owner;
 
-			public InternalTarget(DispelSpell owner) : base(Core.ML ? 10 : 12, false, TargetFlags.Harmful)
+			public InternalTarget(DispelSpell owner) : base(owner.SpellRange, false, TargetFlags.Harmful)
 			{
 				m_Owner = owner;
 			}

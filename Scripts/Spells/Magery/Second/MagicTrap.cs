@@ -71,7 +71,7 @@ namespace Server.Spells.Second
 		{
 			private MagicTrapSpell m_Owner;
 
-			public InternalTarget(MagicTrapSpell owner) : base(Core.ML ? 10 : 12, false, TargetFlags.None)
+			public InternalTarget(MagicTrapSpell owner) : base(owner.SpellRange, false, TargetFlags.None)
 			{
 				m_Owner = owner;
 			}

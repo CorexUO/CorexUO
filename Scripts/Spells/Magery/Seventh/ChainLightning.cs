@@ -128,7 +128,7 @@ namespace Server.Spells.Seventh
 		{
 			private ChainLightningSpell m_Owner;
 
-			public InternalTarget(ChainLightningSpell owner) : base(Core.ML ? 10 : 12, true, TargetFlags.None)
+			public InternalTarget(ChainLightningSpell owner) : base(owner.SpellRange, true, TargetFlags.None)
 			{
 				m_Owner = owner;
 			}

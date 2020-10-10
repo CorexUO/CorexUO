@@ -74,7 +74,7 @@ namespace Server.Spells.Second
 		{
 			private StrengthSpell m_Owner;
 
-			public InternalTarget(StrengthSpell owner) : base(Core.ML ? 10 : 12, false, TargetFlags.Beneficial)
+			public InternalTarget(StrengthSpell owner) : base(owner.SpellRange, false, TargetFlags.Beneficial)
 			{
 				m_Owner = owner;
 			}

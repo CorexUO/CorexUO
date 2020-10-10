@@ -216,7 +216,7 @@ namespace Server.Spells.Fourth
 		{
 			private readonly RecallSpell m_Owner;
 
-			public InternalTarget(RecallSpell owner) : base(Core.ML ? 10 : 12, false, TargetFlags.None)
+			public InternalTarget(RecallSpell owner) : base(owner.SpellRange, false, TargetFlags.None)
 			{
 				m_Owner = owner;
 

@@ -126,7 +126,7 @@ namespace Server.Spells.Sixth
 		{
 			private InvisibilitySpell m_Owner;
 
-			public InternalTarget(InvisibilitySpell owner) : base(Core.ML ? 10 : 12, false, TargetFlags.Beneficial)
+			public InternalTarget(InvisibilitySpell owner) : base(owner.SpellRange, false, TargetFlags.Beneficial)
 			{
 				m_Owner = owner;
 			}

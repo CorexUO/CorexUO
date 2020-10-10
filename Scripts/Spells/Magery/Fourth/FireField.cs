@@ -305,7 +305,7 @@ namespace Server.Spells.Fourth
 		{
 			private FireFieldSpell m_Owner;
 
-			public InternalTarget(FireFieldSpell owner) : base(Core.ML ? 10 : 12, true, TargetFlags.None)
+			public InternalTarget(FireFieldSpell owner) : base(owner.SpellRange, true, TargetFlags.None)
 			{
 				m_Owner = owner;
 			}

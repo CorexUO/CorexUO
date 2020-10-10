@@ -92,7 +92,7 @@ namespace Server.Spells.Sixth
 		{
 			private MassCurseSpell m_Owner;
 
-			public InternalTarget(MassCurseSpell owner) : base(Core.ML ? 10 : 12, true, TargetFlags.None)
+			public InternalTarget(MassCurseSpell owner) : base(owner.SpellRange, true, TargetFlags.None)
 			{
 				m_Owner = owner;
 			}

@@ -176,7 +176,7 @@ namespace Server.Spells.Fourth
 		{
 			private ArchCureSpell m_Owner;
 
-			public InternalTarget(ArchCureSpell owner) : base(Core.ML ? 10 : 12, true, TargetFlags.None)
+			public InternalTarget(ArchCureSpell owner) : base(owner.SpellRange, true, TargetFlags.None)
 			{
 				m_Owner = owner;
 			}

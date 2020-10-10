@@ -5,6 +5,8 @@ namespace Server.Spells.Eighth
 {
 	public class ResurrectionSpell : MagerySpell
 	{
+		public override int SpellRange => 1;
+
 		private static SpellInfo m_Info = new SpellInfo(
 				"Resurrection", "An Corp",
 				245,
@@ -101,9 +103,9 @@ namespace Server.Spells.Eighth
 
 		private class InternalTarget : Target
 		{
-			private ResurrectionSpell m_Owner;
+			private readonly ResurrectionSpell m_Owner;
 
-			public InternalTarget(ResurrectionSpell owner) : base(1, false, TargetFlags.Beneficial)
+			public InternalTarget(ResurrectionSpell owner) : base(owner.SpellRange, false, TargetFlags.Beneficial)
 			{
 				m_Owner = owner;
 			}

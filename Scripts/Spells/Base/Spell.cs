@@ -44,6 +44,7 @@ namespace Server.Spells
 		private static readonly bool m_ConsumeRegs = Settings.Get<bool>("Spells", "ConsumeRegs");
 
 		private static readonly bool m_PreCast = Settings.Get<bool>("Spells", "Precast");
+		private static readonly int m_SpellRange = Settings.Get<int>("Spells", "SpellRange", Core.ML ? 10 : 12);
 
 		public virtual bool RevealOnCast { get { return m_RevealOnCast; } }
 		public virtual bool ClearHandsOnCast { get { return m_ClearHandsOnCast; } }
@@ -52,6 +53,7 @@ namespace Server.Spells
 		public virtual bool ConsumeRegs { get { return m_ConsumeRegs; } }
 
 		public virtual bool Precast { get { return m_PreCast; } }
+		public virtual int SpellRange { get { return m_SpellRange; } }
 
 		public virtual bool CanTargetGround { get { return false; } }
 		public virtual bool RequireTarget { get { return true; } }

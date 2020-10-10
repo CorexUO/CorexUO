@@ -81,7 +81,7 @@ namespace Server.Spells.Seventh
 		{
 			private FlameStrikeSpell m_Owner;
 
-			public InternalTarget(FlameStrikeSpell owner) : base(Core.ML ? 10 : 12, false, TargetFlags.Harmful)
+			public InternalTarget(FlameStrikeSpell owner) : base(owner.SpellRange, false, TargetFlags.Harmful)
 			{
 				m_Owner = owner;
 			}

@@ -130,21 +130,34 @@ namespace Server
 
 		private static string InternalGet(string section, string key)
 		{
+			string result = null;
 			if (m_Settings.TryGetValue(section, out Dictionary<string, Entry> sec) && sec != null)
 			{
 				if (sec.TryGetValue(key, out Entry entry) && entry != null)
 				{
-					return entry.Value;
+					result = entry.Value;
 				}
 			}
 
-			Utility.WriteConsole(ConsoleColor.Red, $"[Settings] Failed to get {key} value in {section} section");
-
-			return null;
+			return result;
 		}
 
 		public static T Get<T>(string section, string key)
 		{
+			string returnValue = InternalGet(section, key);
+			if (string.IsNullOrEmpty(returnValue))
+			{
+				Utility.WriteConsole(ConsoleColor.Red, $"[Settings] Failed to get {key} value in {section} section");
+			}
+			return (T)Convert.ChangeType(InternalGet(section, key), typeof(T));
+		}
+
+		public static T Get<T>(string section, string key, T defaultValue)
+		{
+			if (string.IsNullOrEmpty(InternalGet(section, key)))
+			{
+				return defaultValue;
+			}
 			return (T)Convert.ChangeType(InternalGet(section, key), typeof(T));
 		}
 	}
