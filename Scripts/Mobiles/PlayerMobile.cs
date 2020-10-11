@@ -4169,7 +4169,7 @@ namespace Server.Mobiles
 
 		private void DeltaEnemies(Type oldType, Type newType)
 		{
-			foreach (Mobile m in this.GetMobilesInRange(18))
+			foreach (Mobile m in this.GetMobilesInRange(Map.GlobalUpdateRange))
 			{
 				Type t = m.GetType();
 

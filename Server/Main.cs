@@ -575,22 +575,6 @@ namespace Server
 			}
 		}
 
-		private static int m_GlobalUpdateRange = 18;
-
-		public static int GlobalUpdateRange
-		{
-			get { return m_GlobalUpdateRange; }
-			set { m_GlobalUpdateRange = value; }
-		}
-
-		private static int m_GlobalMaxUpdateRange = 24;
-
-		public static int GlobalMaxUpdateRange
-		{
-			get { return m_GlobalMaxUpdateRange; }
-			set { m_GlobalMaxUpdateRange = value; }
-		}
-
 		private static int m_ItemCount, m_MobileCount;
 
 		public static int ScriptItems { get { return m_ItemCount; } }

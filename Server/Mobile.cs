@@ -3305,7 +3305,7 @@ namespace Server
 
 			if (m_Map != null)
 			{
-				IPooledEnumerable<IEntity> eable = m_Map.GetObjectsInRange(m_Location, Core.GlobalMaxUpdateRange);
+				IPooledEnumerable<IEntity> eable = m_Map.GetObjectsInRange(m_Location, Map.GlobalMaxUpdateRange);
 
 				foreach (IEntity o in eable)
 				{
@@ -6525,7 +6525,7 @@ namespace Server
 
 			if (m_Map != null && ns != null)
 			{
-				IPooledEnumerable<IEntity> eable = m_Map.GetObjectsInRange(m_Location, Core.GlobalMaxUpdateRange);
+				IPooledEnumerable<IEntity> eable = m_Map.GetObjectsInRange(m_Location, Map.GlobalMaxUpdateRange);
 
 				foreach (IEntity o in eable)
 				{
@@ -6775,7 +6775,7 @@ namespace Server
 
 			if (m_Map != null && ns != null)
 			{
-				IPooledEnumerable<IEntity> eable = m_Map.GetObjectsInRange(m_Location, Core.GlobalMaxUpdateRange);
+				IPooledEnumerable<IEntity> eable = m_Map.GetObjectsInRange(m_Location, Map.GlobalMaxUpdateRange);
 
 				foreach (IEntity o in eable)
 				{
@@ -9144,7 +9144,7 @@ namespace Server
 					// Check to see if we are attached to a client
 					if (ourState != null)
 					{
-						IPooledEnumerable<IEntity> eeable = map.GetObjectsInRange(newLocation, Core.GlobalMaxUpdateRange);
+						IPooledEnumerable<IEntity> eeable = map.GetObjectsInRange(newLocation, Map.GlobalMaxUpdateRange);
 
 						// We are attached to a client, so it's a bit more complex. We need to send new items and people to ourself, and ourself to other clients
 

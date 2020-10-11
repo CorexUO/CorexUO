@@ -67,9 +67,9 @@
  * UseMaxRange
  *
  * When defined, enables a minor update that forces Get*InRange methods to
- * use Core.GlobalMaxUpdateRange, when no range is specified.
+ * use GlobalMaxUpdateRange, when no range is specified.
  *
- * By default, a constant range of 18 is used however, Core.GlobalMaxUpdateRange
+ * By default, a constant range of 18 is used however, GlobalMaxUpdateRange
  * is usually greater than that with a default value of 24.
  *
  * This update will allow things such as Effects to be displayed to more players,
@@ -392,6 +392,22 @@ namespace Server
 	//[CustomEnum( new string[]{ "Felucca", "Trammel", "Ilshenar", "Malas", "Internal" } )]
 	public sealed class Map : IComparable, IComparable<Map>
 	{
+		private static int m_GlobalUpdateRange = Settings.Get<int>("Map", "UpdateRange", 18);
+
+		public static int GlobalUpdateRange
+		{
+			get { return m_GlobalUpdateRange; }
+			set { m_GlobalUpdateRange = value; }
+		}
+
+		private static int m_GlobalMaxUpdateRange = Settings.Get<int>("Map", "MaxUpdateRange", 24);
+
+		public static int GlobalMaxUpdateRange
+		{
+			get { return m_GlobalMaxUpdateRange; }
+			set { m_GlobalMaxUpdateRange = value; }
+		}
+
 		#region Compile-Time -> Run-Time Support
 #if Map_NewEnumerables || Map_AllUpdates
 		public static readonly bool NewEnumerables = true;
@@ -610,9 +626,9 @@ namespace Server
 		public IPooledEnumerable<IEntity> GetObjectsInRange(Point3D p)
 		{
 #if Map_UseMaxRange || Map_AllUpdates
-			return GetObjectsInRange(p, Core.GlobalMaxUpdateRange);
+			return GetObjectsInRange(p, GlobalMaxUpdateRange);
 #else
-			return GetObjectsInRange(p, 18);
+			return GetObjectsInRange(p, GlobalUpdateRange);
 #endif
 		}
 
@@ -629,9 +645,9 @@ namespace Server
 		public IPooledEnumerable<NetState> GetClientsInRange(Point3D p)
 		{
 #if Map_UseMaxRange || Map_AllUpdates
-			return GetClientsInRange(p, Core.GlobalMaxUpdateRange);
+			return GetClientsInRange(p, GlobalMaxUpdateRange);
 #else
-			return GetClientsInRange(p, 18);
+			return GetClientsInRange(p, GlobalUpdateRange);
 #endif
 		}
 
@@ -648,9 +664,9 @@ namespace Server
 		public IPooledEnumerable<Item> GetItemsInRange(Point3D p)
 		{
 #if Map_UseMaxRange || Map_AllUpdates
-			return GetItemsInRange(p, Core.GlobalMaxUpdateRange);
+			return GetItemsInRange(p, GlobalMaxUpdateRange);
 #else
-			return GetItemsInRange(p, 18);
+			return GetItemsInRange(p, GlobalUpdateRange);
 #endif
 		}
 
@@ -667,9 +683,9 @@ namespace Server
 		public IPooledEnumerable<Mobile> GetMobilesInRange(Point3D p)
 		{
 #if Map_UseMaxRange || Map_AllUpdates
-			return GetMobilesInRange(p, Core.GlobalMaxUpdateRange);
+			return GetMobilesInRange(p, GlobalMaxUpdateRange);
 #else
-			return GetMobilesInRange(p, 18);
+			return GetMobilesInRange(p, GlobalUpdateRange);
 #endif
 		}
 
@@ -693,9 +709,9 @@ namespace Server
 		public IPooledEnumerable<IEntity> GetObjectsInRange(Point3D p)
 		{
 #if Map_UseMaxRange || Map_AllUpdates
-			return GetObjectsInRange(p, Core.GlobalMaxUpdateRange);
+			return GetObjectsInRange(p, GlobalMaxUpdateRange);
 #else
-			return GetObjectsInRange(p, 18);
+			return GetObjectsInRange(p, GlobalUpdateRange);
 #endif
 		}
 
@@ -718,9 +734,9 @@ namespace Server
 		public IPooledEnumerable<NetState> GetClientsInRange(Point3D p)
 		{
 #if Map_UseMaxRange || Map_AllUpdates
-			return GetClientsInRange(p, Core.GlobalMaxUpdateRange);
+			return GetClientsInRange(p, GlobalMaxUpdateRange);
 #else
-			return GetClientsInRange(p, 18);
+			return GetClientsInRange(p, GlobalUpdateRange);
 #endif
 		}
 
@@ -743,9 +759,9 @@ namespace Server
 		public IPooledEnumerable<Item> GetItemsInRange(Point3D p)
 		{
 #if Map_UseMaxRange || Map_AllUpdates
-			return GetItemsInRange(p, Core.GlobalMaxUpdateRange);
+			return GetItemsInRange(p, GlobalMaxUpdateRange);
 #else
-			return GetItemsInRange(p, 18);
+			return GetItemsInRange(p, GlobalUpdateRange);
 #endif
 		}
 
@@ -768,9 +784,9 @@ namespace Server
 		public IPooledEnumerable<Mobile> GetMobilesInRange(Point3D p)
 		{
 #if Map_UseMaxRange || Map_AllUpdates
-			return GetMobilesInRange(p, Core.GlobalMaxUpdateRange);
+			return GetMobilesInRange(p, GlobalMaxUpdateRange);
 #else
-			return GetMobilesInRange(p, 18);
+			return GetMobilesInRange(p, GlobalUpdateRange);
 #endif
 		}
 
