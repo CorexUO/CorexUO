@@ -21,7 +21,6 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Runtime.Serialization;
 using System.Threading.Tasks;
 using Server.ContextMenus;
 using Server.Items;
@@ -2474,7 +2473,7 @@ namespace Server
 								AcquireCompactInfo().m_Items = items;
 						}
 
-						if (version < 8 || !GetSaveFlag(flags, SaveFlag.NullWeight))
+						if (!GetSaveFlag(flags, SaveFlag.NullWeight))
 						{
 							double weight;
 
