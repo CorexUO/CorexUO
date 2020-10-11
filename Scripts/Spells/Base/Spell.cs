@@ -909,6 +909,11 @@ namespace Server.Spells
 				m_Caster.SendLocalizedMessage(501857); // This spell won't work on that!
 				return false;
 			}
+			else if (!Caster.InRange(target, SpellRange))
+			{
+				m_Caster.SendLocalizedMessage(500237); // Target can not be seen.
+				return false;
+			}
 			else if (Caster.CanBeHarmful(target) && CheckSequence())
 			{
 				Caster.DoHarmful(target);
