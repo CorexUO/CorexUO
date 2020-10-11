@@ -11312,7 +11312,7 @@ namespace Server
 		}
 
 		[CommandProperty(AccessLevel.GameMaster)]
-		public bool Meditating
+		public virtual bool Meditating
 		{
 			get
 			{

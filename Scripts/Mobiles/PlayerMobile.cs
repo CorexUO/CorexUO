@@ -3932,6 +3932,23 @@ namespace Server.Mobiles
 			}
 		}
 
+		[CommandProperty(AccessLevel.GameMaster)]
+		public override bool Meditating
+		{
+			get
+			{
+				return base.Meditating;
+			}
+			set
+			{
+				base.Meditating = value;
+				if (value == false)
+				{
+					RemoveBuff(BuffIcon.ActiveMeditation);
+				}
+			}
+		}
+
 		#region Ethics
 		private Ethics.Player m_EthicPlayer;
 
