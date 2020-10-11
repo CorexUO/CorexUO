@@ -589,7 +589,7 @@ namespace Server.Engines.CannedEvil
 									//No delay on Valor gains
 								}
 
-								PlayerMobile.ChampionTitleInfo info = ((PlayerMobile)killer).ChampionTitles;
+								ChampionTitleInfo info = ((PlayerMobile)killer).ChampionTitles;
 
 								info.Award(m_Type, mobSubLevel);
 							}

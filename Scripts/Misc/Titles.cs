@@ -174,7 +174,7 @@ namespace Server.Misc
 
 			if (beheld is PlayerMobile && ((PlayerMobile)beheld).DisplayChampionTitle)
 			{
-				PlayerMobile.ChampionTitleInfo info = ((PlayerMobile)beheld).ChampionTitles;
+				ChampionTitleInfo info = ((PlayerMobile)beheld).ChampionTitles;
 
 				if (info.Harrower > 0)
 					title.AppendFormat(": {0} of Evil", HarrowerTitles[Math.Min(HarrowerTitles.Length, info.Harrower) - 1]);

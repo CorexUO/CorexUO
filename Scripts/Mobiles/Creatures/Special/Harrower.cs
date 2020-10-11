@@ -1,6 +1,6 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
+using Server.Engines.CannedEvil;
 using Server.Items;
 
 namespace Server.Mobiles
@@ -28,7 +28,7 @@ namespace Server.Mobiles
 			}
 		}
 
-		private static SpawnEntry[] m_Entries = new SpawnEntry[]
+		private static readonly SpawnEntry[] m_Entries = new SpawnEntry[]
 			{
 				new SpawnEntry( new Point3D( 5242, 945, -40 ), new Point3D( 1176, 2638, 0 ) ),	// Destard
 				new SpawnEntry( new Point3D( 5225, 798, 0 ), new Point3D( 1176, 2638, 0 ) ),	// Destard
@@ -47,9 +47,9 @@ namespace Server.Mobiles
 				new SpawnEntry( new Point3D( 5579, 1858, 0 ), new Point3D( 2499, 919, 0 ) )		// Covetous
 			};
 
-		private static ArrayList m_Instances = new ArrayList();
+		private static List<Harrower> m_Instances = new List<Harrower>();
 
-		public static ArrayList Instances { get { return m_Instances; } }
+		public static List<Harrower> Instances { get { return m_Instances; } }
 
 		public static Harrower Spawn(Point3D platLoc, Map platMap)
 		{
@@ -299,10 +299,8 @@ namespace Server.Mobiles
 				m.SendLocalizedMessage(1049524); // You have received a scroll of power!
 				m.AddToBackpack(new StatCapScroll(225 + level));
 
-				if (m is PlayerMobile)
+				if (m is PlayerMobile pm)
 				{
-					PlayerMobile pm = (PlayerMobile)m;
-
 					for (int j = 0; j < pm.JusticeProtectors.Count; ++j)
 					{
 						Mobile prot = (Mobile)pm.JusticeProtectors[j];
@@ -340,7 +338,7 @@ namespace Server.Mobiles
 					DamageStore ds = rights[i];
 
 					if (ds.m_HasRight && ds.m_Mobile is PlayerMobile)
-						PlayerMobile.ChampionTitleInfo.AwardHarrowerTitle((PlayerMobile)ds.m_Mobile);
+						ChampionTitleInfo.AwardHarrowerTitle((PlayerMobile)ds.m_Mobile);
 				}
 
 				if (!NoKillAwards)
@@ -506,9 +504,9 @@ namespace Server.Mobiles
 
 		private class TeleportTimer : Timer
 		{
-			private Mobile m_Owner;
+			private readonly Mobile m_Owner;
 
-			private static int[] m_Offsets = new int[]
+			private static readonly int[] m_Offsets = new int[]
 			{
 				-1, -1,
 				-1,  0,
@@ -588,8 +586,8 @@ namespace Server.Mobiles
 
 					m.Location = to;
 
-					Server.Spells.SpellHelper.Turn(m_Owner, toTeleport);
-					Server.Spells.SpellHelper.Turn(toTeleport, m_Owner);
+					Spells.SpellHelper.Turn(m_Owner, toTeleport);
+					Spells.SpellHelper.Turn(toTeleport, m_Owner);
 
 					m.ProcessDelta();
 
@@ -605,8 +603,8 @@ namespace Server.Mobiles
 
 		private class GoodiesTimer : Timer
 		{
-			private Map m_Map;
-			private int m_X, m_Y;
+			private readonly Map m_Map;
+			private readonly int m_X, m_Y;
 
 			public GoodiesTimer(Map map, int x, int y) : base(TimeSpan.FromSeconds(Utility.RandomDouble() * 10.0))
 			{
