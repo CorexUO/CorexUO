@@ -202,7 +202,7 @@ namespace Server.Items
 
 			if (index >= 0 && index < m_Entries.Length)
 			{
-				if (m_From.AccessLevel < AccessLevel.GameMaster && BaseHouse.HasAccountHouse(m_From))
+				if (m_From.AccessLevel < AccessLevel.GameMaster && BaseHouse.HasReachedHouseLimit(m_From))
 					m_From.SendLocalizedMessage(501271); // You already own a house, you may not place another!
 				else
 					m_From.Target = new NewHousePlacementTarget(m_Entries, m_Entries[index]);
@@ -366,7 +366,7 @@ namespace Server.Items
 			{
 				case HousePlacementResult.Valid:
 					{
-						if (from.AccessLevel < AccessLevel.GameMaster && BaseHouse.HasAccountHouse(from))
+						if (from.AccessLevel < AccessLevel.GameMaster && BaseHouse.HasReachedHouseLimit(from))
 						{
 							from.SendLocalizedMessage(501271); // You already own a house, you may not place another!
 						}
@@ -458,7 +458,7 @@ namespace Server.Items
 			{
 				case HousePlacementResult.Valid:
 					{
-						if (from.AccessLevel < AccessLevel.GameMaster && BaseHouse.HasAccountHouse(from))
+						if (from.AccessLevel < AccessLevel.GameMaster && BaseHouse.HasReachedHouseLimit(from))
 						{
 							from.SendLocalizedMessage(501271); // You already own a house, you may not place another!
 						}

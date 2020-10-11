@@ -2470,6 +2470,10 @@ namespace Server.Gumps
 
 										for (int i = 0; i < acct.Length && !hasHouse; ++i)
 											if (acct[i] != null && BaseHouse.HasHouse(acct[i]))
+											{
+
+												hasHouse = true;
+											}
 												hasHouse = true;
 
 										if (!hasHouse)

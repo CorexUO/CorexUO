@@ -3,9 +3,30 @@ using Server.Items;
 
 namespace Server.Spells
 {
+	public enum Reg
+	{
+		BlackPearl,
+		Bloodmoss,
+		Garlic,
+		Ginseng,
+		MandrakeRoot,
+		Nightshade,
+		SulfurousAsh,
+		SpidersSilk,
+		BatWing,
+		GraveDust,
+		DaemonBlood,
+		NoxCrystal,
+		PigIron,
+		Bone,
+		FertileDirt,
+		DragonBlood,
+		DaemonBone
+	}
+
 	public class Reagent
 	{
-		private static Type[] m_Types = {
+		private static readonly Type[] m_Types = {
 				typeof( BlackPearl ),
 				typeof( Bloodmoss ),
 				typeof( Garlic ),
@@ -25,7 +46,7 @@ namespace Server.Spells
 				typeof( DaemonBone )
 			};
 
-		public Type[] Types
+		public static Type[] Types
 		{
 			get { return m_Types; }
 		}
@@ -130,6 +151,29 @@ namespace Server.Spells
 		{
 			get { return m_Types[16]; }
 			set { m_Types[16] = value; }
+		}
+
+		public static int GetRegLocalization(Reg reg)
+		{
+			int loc = 0;
+
+			switch (reg)
+			{
+				case Reg.BatWing: loc = 1023960; break;
+				case Reg.GraveDust: loc = 1023983; break;
+				case Reg.DaemonBlood: loc = 1023965; break;
+				case Reg.NoxCrystal: loc = 1023982; break;
+				case Reg.PigIron: loc = 1023978; break;
+				case Reg.Bone: loc = 1023966; break;
+				case Reg.DragonBlood: loc = 1023970; break;
+				case Reg.FertileDirt: loc = 1023969; break;
+				case Reg.DaemonBone: loc = 1023968; break;
+			}
+
+			if (loc == 0)
+				loc = 1044353 + (int)reg;
+
+			return loc;
 		}
 	}
 }

@@ -17,7 +17,9 @@ namespace Server.Multis
 {
 	public abstract class BaseHouse : BaseMulti
 	{
-		public static bool NewVendorSystem { get { return Core.AOS; } } // Is new player vendor system enabled?
+		public static int HouseLimit { get; } = Settings.Get<int>("Houses", "HouseLimit");
+		public static bool NewVendorSystem { get { return Settings.Get<bool>("Houses", "NewVendorSystem", Core.AOS); } } // Is new player vendor system enabled?
+		public static readonly bool DecayEnabled = Settings.Get<bool>("Houses", "DecayEnabled");
 
 		public const int MaxCoOwners = 15;
 		public static int MaxFriends { get { return !Core.AOS ? 50 : 140; } }
@@ -50,8 +52,6 @@ namespace Server.Multis
 				m_NextDecayStage = DateTime.MinValue;
 		}
 		#endregion
-
-		public const bool DecayEnabled = true;
 
 		public static void Decay_OnTick()
 		{
@@ -987,9 +987,7 @@ namespace Server.Multis
 
 			if (m != null)
 			{
-				m_Table.TryGetValue(m, out List<BaseHouse> exists);
-
-				if (exists != null)
+				if (m_Table.TryGetValue(m, out List<BaseHouse> exists))
 				{
 					for (int i = 0; i < exists.Count; ++i)
 					{
@@ -1243,8 +1241,7 @@ namespace Server.Multis
 
 			if (owner != null)
 			{
-				List<BaseHouse> list = null;
-				m_Table.TryGetValue(owner, out list);
+				m_Table.TryGetValue(owner, out List<BaseHouse>  list);
 
 				if (list == null)
 					m_Table[owner] = list = new List<BaseHouse>();
@@ -1725,7 +1722,7 @@ namespace Server.Multis
 				if (Deleted || m_House == null || m_House.Deleted || !m_House.IsOwner(from) || !from.CheckAlive() || !to.CheckAlive())
 					return false;
 
-				if (BaseHouse.HasAccountHouse(to))
+				if (HasReachedHouseLimit(to))
 				{
 					from.SendLocalizedMessage(501388); // You cannot transfer ownership to another house owner or co-owner!
 					return false;
@@ -1810,7 +1807,7 @@ namespace Server.Multis
 			}
 			else if (to.Player)
 			{
-				if (BaseHouse.HasAccountHouse(to))
+				if (HasReachedHouseLimit(to))
 				{
 					from.SendLocalizedMessage(501388); // You cannot transfer ownership to another house owner or co-owner!
 				}
@@ -1874,7 +1871,7 @@ namespace Server.Multis
 			}
 			else if (to.Player)
 			{
-				if (BaseHouse.HasAccountHouse(to))
+				if (HasReachedHouseLimit(to))
 				{
 					from.SendLocalizedMessage(501388); // You cannot transfer ownership to another house owner or co-owner!
 				}
@@ -2295,7 +2292,7 @@ namespace Server.Multis
 			{
 				from.SendLocalizedMessage(501362); // That can't be a co-owner of the house.
 			}
-			else if (!Core.AOS && HasAccountHouse(targ))
+			else if (!Core.AOS && HasReachedHouseLimit(targ))
 			{
 				from.SendLocalizedMessage(501364); // That person is already a house owner.
 			}
@@ -2699,8 +2696,7 @@ namespace Server.Multis
 
 						if (m_Owner != null)
 						{
-							List<BaseHouse> list = null;
-							m_Table.TryGetValue(m_Owner, out list);
+							m_Table.TryGetValue(m_Owner, out List<BaseHouse>  list);
 
 							if (list == null)
 								m_Table[m_Owner] = list = new List<BaseHouse>();
@@ -2818,8 +2814,7 @@ namespace Server.Multis
 			{
 				if (m_Owner != null)
 				{
-					List<BaseHouse> list = null;
-					m_Table.TryGetValue(m_Owner, out list);
+					m_Table.TryGetValue(m_Owner, out List<BaseHouse> list);
 
 					if (list == null)
 						m_Table[m_Owner] = list = new List<BaseHouse>();
@@ -2832,8 +2827,7 @@ namespace Server.Multis
 
 				if (m_Owner != null)
 				{
-					List<BaseHouse> list = null;
-					m_Table.TryGetValue(m_Owner, out list);
+					m_Table.TryGetValue(m_Owner, out List<BaseHouse> list);
 
 					if (list == null)
 						m_Table[m_Owner] = list = new List<BaseHouse>();
@@ -3082,8 +3076,7 @@ namespace Server.Multis
 
 			if (m_Owner != null)
 			{
-				List<BaseHouse> list = null;
-				m_Table.TryGetValue(m_Owner, out list);
+				m_Table.TryGetValue(m_Owner, out List<BaseHouse> list);
 
 				if (list == null)
 					m_Table[m_Owner] = list = new List<BaseHouse>();
@@ -3236,8 +3229,7 @@ namespace Server.Multis
 			if (m == null)
 				return false;
 
-			List<BaseHouse> list = null;
-			m_Table.TryGetValue(m, out list);
+			m_Table.TryGetValue(m, out List<BaseHouse> list);
 
 			if (list == null)
 				return false;
@@ -3253,16 +3245,41 @@ namespace Server.Multis
 			return false;
 		}
 
-		public static bool HasAccountHouse(Mobile m)
+		public static int GetHouseCount(Mobile m)
+		{
+			int count = 0;
+			if (m != null)
+			{
+				if (m_Table.TryGetValue(m, out List<BaseHouse> houseList))
+				{
+					foreach (var house in houseList)
+					{
+						if (!house.Deleted)
+						{
+							count++;
+						}
+					}
+				}
+			}
+
+			return count;
+		}
+
+		public static bool HasReachedHouseLimit(Mobile m)
 		{
 			if (!(m.Account is Account a))
 				return false;
 
+			int houses = 0;
 			for (int i = 0; i < a.Length; ++i)
-				if (a[i] != null && HasHouse(a[i]))
-					return true;
+			{
+				if (a[i] != null)
+				{
+					houses += GetHouseCount(a[i]);
+				}
+			}
 
-			return false;
+			return houses >= HouseLimit;
 		}
 
 		public bool IsOwner(Mobile m)
