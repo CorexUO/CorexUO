@@ -103,12 +103,12 @@ namespace Server.Targeting
 
 		private class TimeoutTimer : Timer
 		{
-			private Target m_Target;
-			private Mobile m_Mobile;
+			private readonly Target m_Target;
+			private readonly Mobile m_Mobile;
 
-			private static TimeSpan ThirtySeconds = TimeSpan.FromSeconds(30.0);
-			private static TimeSpan TenSeconds = TimeSpan.FromSeconds(10.0);
-			private static TimeSpan OneSecond = TimeSpan.FromSeconds(1.0);
+			private readonly static TimeSpan ThirtySeconds = TimeSpan.FromSeconds(30.0);
+			private readonly static TimeSpan TenSeconds = TimeSpan.FromSeconds(10.0);
+			private readonly static TimeSpan OneSecond = TimeSpan.FromSeconds(1.0);
 
 			public TimeoutTimer(Target target, Mobile m, TimeSpan delay) : base(delay)
 			{

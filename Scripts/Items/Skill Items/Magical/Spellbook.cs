@@ -488,11 +488,7 @@ namespace Server.Items
 
 				m_AosSkillBonuses.Remove();
 
-				string modName = this.Serial.ToString();
-
-				from.RemoveStatMod(modName + "Str");
-				from.RemoveStatMod(modName + "Dex");
-				from.RemoveStatMod(modName + "Int");
+				RemoveStatBonuses(from);
 
 				from.CheckStatTimers();
 			}

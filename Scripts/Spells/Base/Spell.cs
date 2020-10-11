@@ -508,13 +508,13 @@ namespace Server.Spells
 		{
 			if (m_Caster.Target != null)
 			{
-				m_Caster.SendMessage("Targeting cancelled");
+				//m_Caster.SendMessage("Targeting cancelled");
 				Caster.Target.Cancel(Caster, TargetCancelType.Canceled);
 			}
 			else if (RequireTarget)
 			{
 				m_Caster.BeginTarget(15, CanTargetGround, SpellTargetFlags, SpellTargetCallback).CheckLOS = true;
-				m_Caster.SendMessage("Select target");
+				//m_Caster.SendMessage("Select target");
 			}
 			else
 			{
