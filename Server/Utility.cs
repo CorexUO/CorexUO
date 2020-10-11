@@ -68,9 +68,7 @@ namespace Server
 				_ipAddressTable = new Dictionary<IPAddress, IPAddress>();
 			}
 
-			IPAddress interned;
-
-			if (!_ipAddressTable.TryGetValue(ipAddress, out interned))
+			if (!_ipAddressTable.TryGetValue(ipAddress, out IPAddress interned))
 			{
 				interned = ipAddress;
 				_ipAddressTable[ipAddress] = interned;
@@ -466,24 +464,21 @@ namespace Server
 		#region To[Something]
 		public static bool ToBoolean(string value)
 		{
-			bool b;
-			bool.TryParse(value, out b);
+			bool.TryParse(value, out bool b);
 
 			return b;
 		}
 
 		public static double ToDouble(string value)
 		{
-			double d;
-			double.TryParse(value, out d);
+			double.TryParse(value, out double d);
 
 			return d;
 		}
 
 		public static TimeSpan ToTimeSpan(string value)
 		{
-			TimeSpan t;
-			TimeSpan.TryParse(value, out t);
+			TimeSpan.TryParse(value, out TimeSpan t);
 
 			return t;
 		}
@@ -510,8 +505,7 @@ namespace Server
 			}
 			catch
 			{
-				double val;
-				if (double.TryParse(doubleString, out val))
+				if (double.TryParse(doubleString, out double val))
 					return val;
 
 				return defaultValue;
@@ -526,8 +520,7 @@ namespace Server
 			}
 			catch
 			{
-				int val;
-				if (int.TryParse(intString, out val))
+				if (int.TryParse(intString, out int val))
 					return val;
 
 				return defaultValue;
@@ -542,9 +535,7 @@ namespace Server
 			}
 			catch
 			{
-				DateTime d;
-
-				if (DateTime.TryParse(dateTimeString, out d))
+				if (DateTime.TryParse(dateTimeString, out DateTime d))
 					return d;
 
 				return defaultValue;
@@ -559,9 +550,7 @@ namespace Server
 			}
 			catch
 			{
-				DateTimeOffset d;
-
-				if (DateTimeOffset.TryParse(dateTimeOffsetString, out d))
+				if (DateTimeOffset.TryParse(dateTimeOffsetString, out DateTimeOffset d))
 					return d;
 
 				return defaultValue;
@@ -632,26 +621,26 @@ namespace Server
 
 		public static bool InUpdateRange(Point3D p1, Point3D p2)
 		{
-			return (p1.m_X >= (p2.m_X - 18))
-				&& (p1.m_X <= (p2.m_X + 18))
-				&& (p1.m_Y >= (p2.m_Y - 18))
-				&& (p1.m_Y <= (p2.m_Y + 18));
+			return (p1.m_X >= (p2.m_X - Map.GlobalUpdateRange))
+				&& (p1.m_X <= (p2.m_X + Map.GlobalUpdateRange))
+				&& (p1.m_Y >= (p2.m_Y - Map.GlobalUpdateRange))
+				&& (p1.m_Y <= (p2.m_Y + Map.GlobalUpdateRange));
 		}
 
 		public static bool InUpdateRange(Point2D p1, Point2D p2)
 		{
-			return (p1.m_X >= (p2.m_X - 18))
-				&& (p1.m_X <= (p2.m_X + 18))
-				&& (p1.m_Y >= (p2.m_Y - 18))
-				&& (p1.m_Y <= (p2.m_Y + 18));
+			return (p1.m_X >= (p2.m_X - Map.GlobalUpdateRange))
+				&& (p1.m_X <= (p2.m_X + Map.GlobalUpdateRange))
+				&& (p1.m_Y >= (p2.m_Y - Map.GlobalUpdateRange))
+				&& (p1.m_Y <= (p2.m_Y + Map.GlobalUpdateRange));
 		}
 
 		public static bool InUpdateRange(IPoint2D p1, IPoint2D p2)
 		{
-			return (p1.X >= (p2.X - 18))
-				&& (p1.X <= (p2.X + 18))
-				&& (p1.Y >= (p2.Y - 18))
-				&& (p1.Y <= (p2.Y + 18));
+			return (p1.X >= (p2.X - Map.GlobalUpdateRange))
+				&& (p1.X <= (p2.X + Map.GlobalUpdateRange))
+				&& (p1.Y >= (p2.Y - Map.GlobalUpdateRange))
+				&& (p1.Y <= (p2.Y + Map.GlobalUpdateRange));
 		}
 		#endregion
 
@@ -852,6 +841,8 @@ namespace Server
 				case 3: return RandomOrangeHue();
 				case 4: return RandomRedHue();
 				case 5: return RandomYellowHue();
+				default:
+					break;
 			}
 
 			return 0;
@@ -1018,7 +1009,7 @@ namespace Server
 
 		#endregion
 
-		private static SkillName[] m_AllSkills = new SkillName[]
+		private static readonly SkillName[] m_AllSkills = new SkillName[]
 			{
 				SkillName.Alchemy,
 				SkillName.Anatomy,
@@ -1077,7 +1068,7 @@ namespace Server
 				SkillName.Spellweaving
 			};
 
-		private static SkillName[] m_CombatSkills = new SkillName[]
+		private static readonly SkillName[] m_CombatSkills = new SkillName[]
 			{
 				SkillName.Archery,
 				SkillName.Swords,
@@ -1086,7 +1077,7 @@ namespace Server
 				SkillName.Wrestling
 			};
 
-		private static SkillName[] m_CraftSkills = new SkillName[]
+		private static readonly SkillName[] m_CraftSkills = new SkillName[]
 			{
 				SkillName.Alchemy,
 				SkillName.Blacksmith,
