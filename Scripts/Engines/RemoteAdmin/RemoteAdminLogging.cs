@@ -11,7 +11,7 @@ namespace Server.RemoteAdmin
 		const string LogSubDirectory = "RemoteAdmin";
 
 		private static StreamWriter m_Output;
-		private static bool m_Enabled = true;
+		private static bool m_Enabled = Settings.Get<bool>("Misc", "RemoteAdminEnabled");
 
 		public static bool Enabled { get { return m_Enabled; } set { m_Enabled = value; } }
 
@@ -33,9 +33,10 @@ namespace Server.RemoteAdmin
 
 			try
 			{
-				m_Output = new StreamWriter(Path.Combine(directory, String.Format(LogSubDirectory + "{0}.log", DateTime.UtcNow.ToString("yyyyMMdd"))), true);
-
-				m_Output.AutoFlush = true;
+				m_Output = new StreamWriter(Path.Combine(directory, String.Format(LogSubDirectory + "{0}.log", DateTime.UtcNow.ToString("yyyyMMdd"))), true)
+				{
+					AutoFlush = true
+				};
 
 				m_Output.WriteLine("##############################");
 				m_Output.WriteLine("Log started on {0}", DateTime.UtcNow);
