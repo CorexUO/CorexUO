@@ -101,58 +101,6 @@ namespace Server.Mobiles
 		}
 		#endregion
 
-		private class BulkOrderInfoEntry : ContextMenuEntry
-		{
-			private Mobile m_From;
-			private BaseVendor m_Vendor;
-
-			public BulkOrderInfoEntry(Mobile from, BaseVendor vendor)
-				: base(6152)
-			{
-				m_From = from;
-				m_Vendor = vendor;
-			}
-
-			public override void OnClick()
-			{
-				if (m_Vendor.SupportsBulkOrders(m_From))
-				{
-					TimeSpan ts = m_Vendor.GetNextBulkOrder(m_From);
-
-					int totalSeconds = (int)ts.TotalSeconds;
-					int totalHours = (totalSeconds + 3599) / 3600;
-					int totalMinutes = (totalSeconds + 59) / 60;
-
-					if (((Core.SE) ? totalMinutes == 0 : totalHours == 0))
-					{
-						m_From.SendLocalizedMessage(1049038); // You can get an order now.
-
-						if (Core.AOS)
-						{
-							Item bulkOrder = m_Vendor.CreateBulkOrder(m_From, true);
-
-							if (bulkOrder is LargeBOD)
-								m_From.SendGump(new LargeBODAcceptGump(m_From, (LargeBOD)bulkOrder));
-							else if (bulkOrder is SmallBOD)
-								m_From.SendGump(new SmallBODAcceptGump(m_From, (SmallBOD)bulkOrder));
-						}
-					}
-					else
-					{
-						int oldSpeechHue = m_Vendor.SpeechHue;
-						m_Vendor.SpeechHue = 0x3B2;
-
-						if (Core.SE)
-							m_Vendor.SayTo(m_From, 1072058, totalMinutes.ToString()); // An offer may be available in about ~1_minutes~ minutes.
-						else
-							m_Vendor.SayTo(m_From, 1049039, totalHours.ToString()); // An offer may be available in about ~1_hours~ hours.
-
-						m_Vendor.SpeechHue = oldSpeechHue;
-					}
-				}
-			}
-		}
-
 		public BaseVendor(string title)
 			: base(AIType.AI_Vendor, FightMode.None, 2, 1, 0.5, 2)
 		{
@@ -1280,14 +1228,14 @@ namespace Server.Mobiles
 
 				seller.PlaySound(0x0037);//Gold dropping sound
 
-				if (SupportsBulkOrders(seller))
+				if (BODSystem.Enabled && SupportsBulkOrders(seller))
 				{
 					Item bulkOrder = CreateBulkOrder(seller, false);
 
-					if (bulkOrder is LargeBOD)
-						seller.SendGump(new LargeBODAcceptGump(seller, (LargeBOD)bulkOrder));
-					else if (bulkOrder is SmallBOD)
-						seller.SendGump(new SmallBODAcceptGump(seller, (SmallBOD)bulkOrder));
+					if (bulkOrder is LargeBOD largeBod)
+						seller.SendGump(new LargeBODAcceptGump(seller, largeBod));
+					else if (bulkOrder is SmallBOD smallBod)
+						seller.SendGump(new SmallBODAcceptGump(seller, smallBod));
 				}
 			}
 			//no cliloc for this?
@@ -1404,7 +1352,7 @@ namespace Server.Mobiles
 		{
 			if (from.Alive && IsActiveVendor)
 			{
-				if (SupportsBulkOrders(from))
+				if (BODSystem.Enabled && SupportsBulkOrders(from))
 					list.Add(new BulkOrderInfoEntry(from, this));
 
 				if (IsActiveSeller)
