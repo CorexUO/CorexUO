@@ -6,7 +6,7 @@ namespace Server.Multis.Deeds
 {
 	public class HousePlacementTarget : MultiTarget
 	{
-		private HouseDeed m_Deed;
+		private readonly HouseDeed m_Deed;
 
 		public HousePlacementTarget(HouseDeed deed) : base(deed.MultiID, deed.Offset)
 		{
@@ -175,10 +175,10 @@ namespace Server.Multis.Deeds
 							{
 								object o = toMove[i];
 
-								if (o is Mobile)
-									((Mobile)o).Location = house.BanLocation;
-								else if (o is Item)
-									((Item)o).Location = house.BanLocation;
+								if (o is Mobile mobile)
+									mobile.Location = house.BanLocation;
+								else if (o is Item item)
+									item.Location = house.BanLocation;
 							}
 
 							break;

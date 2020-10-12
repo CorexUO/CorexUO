@@ -2782,11 +2782,8 @@ namespace Server
 			get
 			{
 				IEntity p = m_Parent;
-
-				while (p is Item)
+				while (p is Item item)
 				{
-					Item item = (Item)p;
-
 					if (item.m_Parent == null)
 					{
 						break;
