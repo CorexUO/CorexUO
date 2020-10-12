@@ -5,6 +5,7 @@
 [![Discord](https://img.shields.io/discord/756152523290705921.svg)](https://discord.gg/DPFd6JM)
 [![Github cide lines](https://img.shields.io/tokei/lines/github/CorexUO/CorexUO.svg)](https://github.com/CorexUO/CorexUO/)
 [![GitHub repo size](https://img.shields.io/github/repo-size/CorexUO/CorexUO.svg)](https://github.com/CorexUO/CorexUO/)
+[![GitHub contributors](https://img.shields.io/github/contributors/CorexUO/CorexUO.svg)](https://github.com/CorexUO/CorexUO/graphs/contributors)
 
 CorexUO is an Ultima Online server emulator based on RunUO [https://github.com/runuo/runuo]
 
