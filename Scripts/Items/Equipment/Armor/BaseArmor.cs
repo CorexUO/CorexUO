@@ -68,7 +68,6 @@ namespace Server.Items
 
 		public abstract AMT MaterialType { get; }
 
-		public virtual int RevertArmorBase { get { return ArmorBase; } }
 		public virtual int ArmorBase { get { return 0; } }
 
 		public virtual AMA DefMedAllowance { get { return AMA.None; } }
@@ -95,13 +94,11 @@ namespace Server.Items
 		{
 			base.OnAfterDuped(newItem);
 
-			BaseArmor armor = newItem as BaseArmor;
-
-			if (armor == null)
-				return;
-
-			armor.m_AosArmorAttributes = new AosArmorAttributes(newItem, m_AosArmorAttributes);
-			armor.m_AosSkillBonuses = new AosSkillBonuses(newItem, m_AosSkillBonuses);
+			if (newItem != null && newItem is BaseArmor armor)
+			{
+				armor.m_AosArmorAttributes = new AosArmorAttributes(newItem, m_AosArmorAttributes);
+				armor.m_AosSkillBonuses = new AosSkillBonuses(newItem, m_AosSkillBonuses);
+			}
 		}
 
 		[CommandProperty(AccessLevel.GameMaster)]
@@ -251,8 +248,8 @@ namespace Server.Items
 					Invalidate();
 					InvalidateProperties();
 
-					if (Parent is Mobile)
-						((Mobile)Parent).UpdateResistances();
+					if (Parent is Mobile mob)
+						mob.UpdateResistances();
 
 					ScaleDurability();
 				}
@@ -265,8 +262,8 @@ namespace Server.Items
 			{
 				int pos = (int)BodyPosition;
 
-				if (pos >= 0 && pos < m_ArmorScalars.Length)
-					return m_ArmorScalars[pos];
+				if (pos >= 0 && pos < ArmorScalars.Length)
+					return ArmorScalars[pos];
 
 				return 1.0;
 			}
@@ -346,8 +343,8 @@ namespace Server.Items
 					Invalidate();
 					InvalidateProperties();
 
-					if (Parent is Mobile)
-						((Mobile)Parent).UpdateResistances();
+					if (Parent is Mobile mobile)
+						mobile.UpdateResistances();
 				}
 			}
 		}
@@ -572,19 +569,7 @@ namespace Server.Items
 			return false;
 		}
 
-		private static double[] m_ArmorScalars = { 0.07, 0.07, 0.14, 0.15, 0.22, 0.35 };
-
-		public static double[] ArmorScalars
-		{
-			get
-			{
-				return m_ArmorScalars;
-			}
-			set
-			{
-				m_ArmorScalars = value;
-			}
-		}
+		public static double[] ArmorScalars { get; set; } = { 0.07, 0.07, 0.14, 0.15, 0.22, 0.35 };
 
 		public static void ValidateMobile(Mobile m)
 		{
@@ -595,10 +580,8 @@ namespace Server.Items
 
 				Item item = m.Items[i];
 
-				if (item is BaseArmor)
+				if (item is BaseArmor armor)
 				{
-					BaseArmor armor = (BaseArmor)item;
-
 					if (armor.RequiredRace != null && m.Race != armor.RequiredRace)
 					{
 						if (armor.RequiredRace == Race.Elf)
@@ -655,10 +638,8 @@ namespace Server.Items
 
 		public override void OnAdded(IEntity parent)
 		{
-			if (parent is Mobile)
+			if (parent is Mobile from)
 			{
-				Mobile from = (Mobile)parent;
-
 				if (Core.AOS)
 					m_AosSkillBonuses.AddTo(from);
 
@@ -678,8 +659,8 @@ namespace Server.Items
 
 		protected void Invalidate()
 		{
-			if (Parent is Mobile)
-				((Mobile)Parent).Delta(MobileDelta.Armor); // Tell them armor rating has changed
+			if (Parent is Mobile mobile)
+				mobile.Delta(MobileDelta.Armor); // Tell them armor rating has changed
 		}
 
 		public BaseArmor(Serial serial) : base(serial)
@@ -1144,8 +1125,8 @@ namespace Server.Items
 							{
 								MaxHitPoints -= wear;
 
-								if (Parent is Mobile)
-									((Mobile)Parent).LocalOverheadMessage(MessageType.Regular, 0x3B2, 1061121); // Your equipment is severely damaged.
+								if (Parent is Mobile mobile)
+									mobile.LocalOverheadMessage(MessageType.Regular, 0x3B2, 1061121); // Your equipment is severely damaged.
 							}
 							else
 							{
@@ -1296,7 +1277,7 @@ namespace Server.Items
 			if ((prop = (GetLuckBonus() + Attributes.Luck)) != 0)
 				list.Add(1060436, prop.ToString()); // luck ~1_val~
 
-			if ((prop = m_AosArmorAttributes.MageArmor) != 0)
+			if (m_AosArmorAttributes.MageArmor != 0)
 				list.Add(1060437); // mage armor
 
 			if ((prop = Attributes.BonusMana) != 0)
@@ -1305,7 +1286,7 @@ namespace Server.Items
 			if ((prop = Attributes.RegenMana) != 0)
 				list.Add(1060440, prop.ToString()); // mana regeneration ~1_val~
 
-			if ((prop = Attributes.NightSight) != 0)
+			if (Attributes.NightSight != 0)
 				list.Add(1060441); // night sight
 
 			if ((prop = Attributes.ReflectPhysical) != 0)
@@ -1320,7 +1301,7 @@ namespace Server.Items
 			if ((prop = m_AosArmorAttributes.SelfRepair) != 0)
 				list.Add(1060450, prop.ToString()); // self repair ~1_val~
 
-			if ((prop = Attributes.SpellChanneling) != 0)
+			if (Attributes.SpellChanneling != 0)
 				list.Add(1060482); // spell channeling
 
 			if ((prop = Attributes.SpellDamage) != 0)
@@ -1448,8 +1429,8 @@ namespace Server.Items
 				}
 			}
 
-			if (Core.AOS && tool is BaseRunicTool)
-				((BaseRunicTool)tool).ApplyAttributesTo(this);
+			if (Core.AOS && tool is BaseRunicTool runicTool)
+				runicTool.ApplyAttributesTo(this);
 
 			return quality;
 		}
