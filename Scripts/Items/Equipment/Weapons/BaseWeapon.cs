@@ -407,10 +407,10 @@ namespace Server.Items
 
 							m_SkillMod = null;
 						}
-						else if (m_SkillMod == null && Parent is Mobile)
+						else if (m_SkillMod == null && Parent is Mobile mob)
 						{
 							m_SkillMod = new DefaultSkillMod(AccuracySkill, true, (int)m_AccuracyLevel * 5);
-							((Mobile)Parent).AddSkillMod(m_SkillMod);
+							mob.AddSkillMod(m_SkillMod);
 						}
 						else if (m_SkillMod != null)
 						{
@@ -427,14 +427,14 @@ namespace Server.Items
 
 		public override void OnAfterDuped(Item newItem)
 		{
-			BaseWeapon weap = newItem as BaseWeapon;
+			base.OnAfterDuped(newItem);
 
-			if (weap == null)
-				return;
-
-			weap.m_AosElementDamages = new AosElementAttributes(newItem, m_AosElementDamages);
-			weap.m_AosSkillBonuses = new AosSkillBonuses(newItem, m_AosSkillBonuses);
-			weap.m_AosWeaponAttributes = new AosWeaponAttributes(newItem, m_AosWeaponAttributes);
+			if (newItem != null && newItem is BaseWeapon weapon)
+			{
+				weapon.m_AosElementDamages = new AosElementAttributes(weapon, m_AosElementDamages);
+				weapon.m_AosSkillBonuses = new AosSkillBonuses(weapon, m_AosSkillBonuses);
+				weapon.m_AosWeaponAttributes = new AosWeaponAttributes(weapon, m_AosWeaponAttributes);
+			}
 		}
 
 		public virtual void UnscaleDurability()
@@ -519,7 +519,7 @@ namespace Server.Items
 
 		private class ResetEquipTimer : Timer
 		{
-			private Mobile m_Mobile;
+			private readonly Mobile m_Mobile;
 
 			public ResetEquipTimer(Mobile m, TimeSpan duration) : base(duration)
 			{
@@ -651,10 +651,8 @@ namespace Server.Items
 		{
 			base.OnAdded(parent);
 
-			if (parent is Mobile)
+			if (parent is Mobile from)
 			{
-				Mobile from = (Mobile)parent;
-
 				if (Core.AOS)
 					m_AosSkillBonuses.AddTo(from);
 
@@ -665,9 +663,8 @@ namespace Server.Items
 
 		public override void OnRemoved(IEntity parent)
 		{
-			if (parent is Mobile)
+			if (parent is Mobile m)
 			{
-				Mobile m = (Mobile)parent;
 				BaseWeapon weapon = m.Weapon as BaseWeapon;
 
 				RemoveStatBonuses(m);
@@ -1515,9 +1512,7 @@ namespace Server.Items
 
 			AddBlood(attacker, defender, damage);
 
-			int phys, fire, cold, pois, nrgy, chaos, direct;
-
-			GetDamageTypes(attacker, out phys, out fire, out cold, out pois, out nrgy, out chaos, out direct);
+			GetDamageTypes(attacker, out int phys, out int fire, out int cold, out int pois, out int nrgy, out int chaos, out int direct);
 
 			if (Core.ML && this is BaseRanged)
 			{
@@ -1641,8 +1636,8 @@ namespace Server.Items
 					{
 						--MaxHitPoints;
 
-						if (Parent is Mobile)
-							((Mobile)Parent).LocalOverheadMessage(MessageType.Regular, 0x3B2, 1061121); // Your equipment is severely damaged.
+						if (Parent is Mobile mob)
+							mob.LocalOverheadMessage(MessageType.Regular, 0x3B2, 1061121); // Your equipment is severely damaged.
 					}
 					else
 					{
@@ -2082,10 +2077,8 @@ namespace Server.Items
 
 		public virtual void GetBaseDamageRange(Mobile attacker, out int min, out int max)
 		{
-			if (attacker is BaseCreature)
+			if (attacker is BaseCreature c)
 			{
-				BaseCreature c = (BaseCreature)attacker;
-
 				if (c.DamageMin >= 0)
 				{
 					min = c.DamageMin;
@@ -2107,13 +2100,12 @@ namespace Server.Items
 
 		public virtual double GetBaseDamage(Mobile attacker)
 		{
-			int min, max;
-
-			GetBaseDamageRange(attacker, out min, out max);
+			GetBaseDamageRange(attacker, out int min, out int max);
 
 			int damage = Utility.RandomMinMax(min, max);
 
-			if (Core.AOS) return damage;
+			if (Core.AOS)
+				return damage;
 
 			/* Apply damage level offset
 			 * : Regular : 0
@@ -2182,9 +2174,7 @@ namespace Server.Items
 
 		public virtual void GetStatusDamage(Mobile from, out int min, out int max)
 		{
-			int baseMin, baseMax;
-
-			GetBaseDamageRange(from, out baseMin, out baseMax);
+			GetBaseDamageRange(from, out int baseMin, out int baseMax);
 
 			if (Core.AOS)
 			{
@@ -2898,8 +2888,7 @@ namespace Server.Items
 
 		public int GetElementalDamageHue()
 		{
-			int phys, fire, cold, pois, nrgy, chaos, direct;
-			GetDamageTypes(null, out phys, out fire, out cold, out pois, out nrgy, out chaos, out direct);
+			GetDamageTypes(null, out int phys, out int fire, out int cold, out int pois, out int nrgy, out int chaos, out int direct);
 			//Order is Cold, Energy, Fire, Poison, Physical left
 
 			int currentMax = 50;
@@ -3191,9 +3180,7 @@ namespace Server.Items
 			if (Core.ML && (prop = Attributes.IncreasedKarmaLoss) != 0)
 				list.Add(1075210, prop.ToString()); // Increased Karma Loss ~1val~%
 
-			int phys, fire, cold, pois, nrgy, chaos, direct;
-
-			GetDamageTypes(null, out phys, out fire, out cold, out pois, out nrgy, out chaos, out direct);
+			GetDamageTypes(null, out int phys, out int fire, out int cold, out int pois, out int nrgy, out int chaos, out int direct);
 
 			if (phys != 0)
 				list.Add(1060403, phys.ToString()); // physical damage ~1_val~%

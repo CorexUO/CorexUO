@@ -442,12 +442,12 @@ namespace Server.Items
 
 		public override void OnAfterDuped(Item newItem)
 		{
-			Spellbook book = newItem as Spellbook;
+			base.OnAfterDuped(newItem);
 
-			if (book == null)
-				return;
-
-			book.m_AosSkillBonuses = new AosSkillBonuses(newItem, m_AosSkillBonuses);
+			if (newItem != null && newItem is Spellbook book)
+			{
+				book.m_AosSkillBonuses = new AosSkillBonuses(newItem, m_AosSkillBonuses);
+			}	
 		}
 
 		public override void OnAdded(IEntity parent)

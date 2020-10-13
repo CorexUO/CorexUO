@@ -108,13 +108,13 @@ namespace Server.Items
 
 		public override void OnAfterDuped(Item newItem)
 		{
-			BaseJewel jewel = newItem as BaseJewel;
+			base.OnAfterDuped(newItem);
 
-			if (jewel == null)
-				return;
-
-			jewel.m_AosResistances = new AosElementAttributes(newItem, m_AosResistances);
-			jewel.m_AosSkillBonuses = new AosSkillBonuses(newItem, m_AosSkillBonuses);
+			if (newItem != null && newItem is BaseJewel jewel)
+			{
+				jewel.m_AosResistances = new AosElementAttributes(newItem, m_AosResistances);
+				jewel.m_AosSkillBonuses = new AosSkillBonuses(newItem, m_AosSkillBonuses);
+			}
 		}
 
 		public virtual int ArtifactRarity { get { return 0; } }

@@ -412,14 +412,14 @@ namespace Server.Items
 
 		public override void OnAfterDuped(Item newItem)
 		{
-			BaseClothing clothing = newItem as BaseClothing;
+			base.OnAfterDuped(newItem);
 
-			if (clothing == null)
-				return;
-
-			clothing.m_AosResistances = new AosElementAttributes(newItem, m_AosResistances);
-			clothing.m_AosSkillBonuses = new AosSkillBonuses(newItem, m_AosSkillBonuses);
-			clothing.m_AosClothingAttributes = new AosArmorAttributes(newItem, m_AosClothingAttributes);
+			if (newItem != null && newItem is BaseClothing clothing)
+			{
+				clothing.m_AosResistances = new AosElementAttributes(newItem, m_AosResistances);
+				clothing.m_AosSkillBonuses = new AosSkillBonuses(newItem, m_AosSkillBonuses);
+				clothing.m_AosClothingAttributes = new AosArmorAttributes(newItem, m_AosClothingAttributes);
+			}
 		}
 
 		public BaseClothing(Serial serial) : base(serial)

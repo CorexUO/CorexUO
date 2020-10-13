@@ -202,15 +202,15 @@ namespace Server.Items
 
 		public override void OnAfterDuped(Item newItem)
 		{
-			BaseTalisman talisman = newItem as BaseTalisman;
+			base.OnAfterDuped(newItem);
 
-			if (talisman == null)
-				return;
-
-			talisman.m_Summoner = new TalismanAttribute(m_Summoner);
-			talisman.m_Protection = new TalismanAttribute(m_Protection);
-			talisman.m_Killer = new TalismanAttribute(m_Killer);
-			talisman.m_AosSkillBonuses = new AosSkillBonuses(newItem, m_AosSkillBonuses);
+			if (newItem != null && newItem is BaseTalisman talisman)
+			{
+				talisman.m_Summoner = new TalismanAttribute(m_Summoner);
+				talisman.m_Protection = new TalismanAttribute(m_Protection);
+				talisman.m_Killer = new TalismanAttribute(m_Killer);
+				talisman.m_AosSkillBonuses = new AosSkillBonuses(newItem, m_AosSkillBonuses);
+			}
 		}
 
 		public override bool CanEquip(Mobile from)
