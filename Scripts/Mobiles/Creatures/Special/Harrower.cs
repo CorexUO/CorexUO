@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using Server.Engines.CannedEvil;
 using Server.Items;
+using Server.Misc;
 
 namespace Server.Mobiles
 {
@@ -506,18 +507,6 @@ namespace Server.Mobiles
 		{
 			private readonly Mobile m_Owner;
 
-			private static readonly int[] m_Offsets = new int[]
-			{
-				-1, -1,
-				-1,  0,
-				-1,  1,
-				0, -1,
-				0,  1,
-				1, -1,
-				1,  0,
-				1,  1
-			};
-
 			public TeleportTimer(Mobile owner) : base(TimeSpan.FromSeconds(5.0), TimeSpan.FromSeconds(5.0))
 			{
 				Priority = TimerPriority.TwoFiftyMS;
@@ -558,10 +547,10 @@ namespace Server.Mobiles
 
 					Point3D to = m_Owner.Location;
 
-					for (int i = 0; i < m_Offsets.Length; i += 2)
+					for (int i = 0; i < Helpers.Offsets.Length; i += 2)
 					{
-						int x = m_Owner.X + m_Offsets[(offset + i) % m_Offsets.Length];
-						int y = m_Owner.Y + m_Offsets[(offset + i + 1) % m_Offsets.Length];
+						int x = m_Owner.X + Helpers.Offsets[(offset + i) % Helpers.Offsets.Length];
+						int y = m_Owner.Y + Helpers.Offsets[(offset + i + 1) % Helpers.Offsets.Length];
 
 						if (map.CanSpawnMobile(x, y, m_Owner.Z))
 						{

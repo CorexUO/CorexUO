@@ -1,5 +1,6 @@
 using System;
 using Server.Items;
+using Server.Misc;
 using Server.Mobiles;
 using Server.Targeting;
 
@@ -267,18 +268,6 @@ namespace Server.Engines.Harvest
 			return base.MutateVein(from, tool, def, bank, toHarvest, vein);
 		}
 
-		private static int[] m_Offsets = new int[]
-			{
-				-1, -1,
-				-1,  0,
-				-1,  1,
-				 0, -1,
-				 0,  1,
-				 1, -1,
-				 1,  0,
-				 1,  1
-			};
-
 		public override void OnHarvestFinished(Mobile from, Item tool, HarvestDefinition def, HarvestVein vein, HarvestBank bank, HarvestResource resource, object harvested)
 		{
 			if (tool is GargoylesPickaxe && def == m_OreAndStone && 0.1 > Utility.RandomDouble())
@@ -300,10 +289,10 @@ namespace Server.Engines.Harvest
 						{
 							int offset = Utility.Random(8) * 2;
 
-							for (int i = 0; i < m_Offsets.Length; i += 2)
+							for (int i = 0; i < Helpers.Offsets.Length; i += 2)
 							{
-								int x = from.X + m_Offsets[(offset + i) % m_Offsets.Length];
-								int y = from.Y + m_Offsets[(offset + i + 1) % m_Offsets.Length];
+								int x = from.X + Helpers.Offsets[(offset + i) % Helpers.Offsets.Length];
+								int y = from.Y + Helpers.Offsets[(offset + i + 1) % Helpers.Offsets.Length];
 
 								if (map.CanSpawnMobile(x, y, from.Z))
 								{

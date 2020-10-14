@@ -293,9 +293,8 @@ namespace Server.Spells
 		{
 			Guild g = m.Guild as Guild;
 
-			if (g == null && m is BaseCreature)
+			if (g == null && m is BaseCreature c)
 			{
-				BaseCreature c = (BaseCreature)m;
 				m = c.ControlMaster;
 
 				if (m != null)
@@ -325,20 +324,14 @@ namespace Server.Spells
 			PlayerMobile pmFrom = from as PlayerMobile;
 			PlayerMobile pmTarg = to as PlayerMobile;
 
-			if (pmFrom == null && from is BaseCreature)
+			if (pmFrom == null && from is BaseCreature bcFrom && bcFrom.Summoned)
 			{
-				BaseCreature bcFrom = (BaseCreature)from;
-
-				if (bcFrom.Summoned)
-					pmFrom = bcFrom.SummonMaster as PlayerMobile;
+				pmFrom = bcFrom.SummonMaster as PlayerMobile;
 			}
 
-			if (pmTarg == null && to is BaseCreature)
+			if (pmTarg == null && to is BaseCreature bcTarg && bcTarg.Summoned)
 			{
-				BaseCreature bcTarg = (BaseCreature)to;
-
-				if (bcTarg.Summoned)
-					pmTarg = bcTarg.SummonMaster as PlayerMobile;
+				pmTarg = bcTarg.SummonMaster as PlayerMobile;
 			}
 
 			if (pmFrom != null && pmTarg != null)
@@ -392,18 +385,6 @@ namespace Server.Spells
 
 			return (noto != Notoriety.Innocent || from.Murderer);
 		}
-
-		private static int[] m_Offsets = new int[]
-			{
-				-1, -1,
-				-1,  0,
-				-1,  1,
-				0, -1,
-				0,  1,
-				1, -1,
-				1,  0,
-				1,  1
-			};
 
 		public static void Summon(BaseCreature creature, Mobile caster, int sound, TimeSpan duration, bool scaleDuration, bool scaleStats)
 		{
@@ -466,10 +447,10 @@ namespace Server.Spells
 
 			int offset = Utility.Random(8) * 2;
 
-			for (int i = 0; i < m_Offsets.Length; i += 2)
+			for (int i = 0; i < Helpers.Offsets.Length; i += 2)
 			{
-				int x = p.X + m_Offsets[(offset + i) % m_Offsets.Length];
-				int y = p.Y + m_Offsets[(offset + i + 1) % m_Offsets.Length];
+				int x = p.X + Helpers.Offsets[(offset + i) % Helpers.Offsets.Length];
+				int y = p.Y + Helpers.Offsets[(offset + i + 1) % Helpers.Offsets.Length];
 
 				if (map.CanSpawnMobile(x, y, p.Z))
 				{
@@ -493,7 +474,7 @@ namespace Server.Spells
 
 		private delegate bool TravelValidator(Map map, Point3D loc);
 
-		private static TravelValidator[] m_Validators = new TravelValidator[]
+		private static readonly TravelValidator[] m_Validators = new TravelValidator[]
 			{
 				new TravelValidator( IsFeluccaT2A ),
 				new TravelValidator( IsKhaldun ),
@@ -516,7 +497,7 @@ namespace Server.Spells
 				new TravelValidator( IsMLDungeon )
 			};
 
-		private static bool[,] m_Rules = new bool[,]
+		private static readonly bool[,] m_Rules = new bool[,]
 			{
 					/*T2A(Fel),	Khaldun,	Ilshenar,	Wind(Tram),	Wind(Fel),	Dungeons(Fel),	Solen(Tram),	Solen(Fel),	CrystalCave(Malas),	Gauntlet(Malas),	Gauntlet(Ferry),	SafeZone,	Stronghold,	ChampionSpawn,	Dungeons(Tokuno[Malas]),	LampRoom(Doom),	GuardianRoom(Doom),	Heartwood,	MLDungeons */
 /* Recall From */	{ false, false,      true,       true,       false,      false,          true,           false,      false,              false,              false,              true,       true,       false,          true,                       false,          false,              false,      false },
