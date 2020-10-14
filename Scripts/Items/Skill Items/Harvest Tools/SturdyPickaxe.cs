@@ -2,57 +2,53 @@ using Server.Engines.Harvest;
 
 namespace Server.Items
 {
-    public class SturdyPickaxe : BaseAxe, IUsesRemaining
-    {
-        public override int LabelNumber { get { return 1045126; } } // sturdy pickaxe
-        public override HarvestSystem HarvestSystem { get { return Mining.System; } }
+	public class SturdyPickaxe : BaseAxe, IUsesRemaining
+	{
+		public override int LabelNumber { get { return 1045126; } } // sturdy pickaxe
+		public override HarvestSystem HarvestSystem { get { return Mining.System; } }
 
-        public override WeaponAbility PrimaryAbility { get { return WeaponAbility.DoubleStrike; } }
-        public override WeaponAbility SecondaryAbility { get { return WeaponAbility.Disarm; } }
+		public override WeaponAbility PrimaryAbility { get { return WeaponAbility.DoubleStrike; } }
+		public override WeaponAbility SecondaryAbility { get { return WeaponAbility.Disarm; } }
 
-        public override int AosStrengthReq { get { return 50; } }
-        public override int AosMinDamage { get { return 13; } }
-        public override int AosMaxDamage { get { return 15; } }
-        public override int AosSpeed { get { return 35; } }
-        public override float MlSpeed { get { return 3.00f; } }
+		public override int StrReq { get { return Core.AOS ? 50 : 25; } }
 
-        public override int OldStrengthReq { get { return 25; } }
-        public override int OldMinDamage { get { return 1; } }
-        public override int OldMaxDamage { get { return 15; } }
-        public override int OldSpeed { get { return 35; } }
+		public override int MinDamageBase { get { return Core.AOS ? 13 : 1; } }
+		public override int MaxDamageBase { get { return Core.AOS ? 15 : 15; } }
+		public override float SpeedBase { get { return Core.ML ? 3.00f : Core.AOS ? 35 : 35; } }
 
-        public override WeaponAnimation DefAnimation { get { return WeaponAnimation.Slash1H; } }
 
-        [Constructable]
-        public SturdyPickaxe() : this(180)
-        {
-        }
+		public override WeaponAnimation DefAnimation { get { return WeaponAnimation.Slash1H; } }
 
-        [Constructable]
-        public SturdyPickaxe(int uses) : base(0xE86)
-        {
-            Weight = 11.0;
-            Hue = 0x973;
-            UsesRemaining = uses;
-            ShowUsesRemaining = true;
-        }
+		[Constructable]
+		public SturdyPickaxe() : this(180)
+		{
+		}
 
-        public SturdyPickaxe(Serial serial) : base(serial)
-        {
-        }
+		[Constructable]
+		public SturdyPickaxe(int uses) : base(0xE86)
+		{
+			Weight = 11.0;
+			Hue = 0x973;
+			UsesRemaining = uses;
+			ShowUsesRemaining = true;
+		}
 
-        public override void Serialize(GenericWriter writer)
-        {
-            base.Serialize(writer);
+		public SturdyPickaxe(Serial serial) : base(serial)
+		{
+		}
 
-            writer.Write((int)0); // version
-        }
+		public override void Serialize(GenericWriter writer)
+		{
+			base.Serialize(writer);
 
-        public override void Deserialize(GenericReader reader)
-        {
-            base.Deserialize(reader);
+			writer.Write((int)0); // version
+		}
 
-            int version = reader.ReadInt();
-        }
-    }
+		public override void Deserialize(GenericReader reader)
+		{
+			base.Deserialize(reader);
+
+			int version = reader.ReadInt();
+		}
+	}
 }

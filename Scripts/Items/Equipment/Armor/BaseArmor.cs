@@ -71,22 +71,14 @@ namespace Server.Items
 		public virtual int ArmorBase { get { return 0; } }
 
 		public virtual AMA DefMedAllowance { get { return AMA.None; } }
-		public virtual AMA AosMedAllowance { get { return DefMedAllowance; } }
-		public virtual AMA OldMedAllowance { get { return DefMedAllowance; } }
 
-		public virtual int AosStrBonus { get { return 0; } }
-		public virtual int AosDexBonus { get { return 0; } }
-		public virtual int AosIntBonus { get { return 0; } }
-		public virtual int AosStrReq { get { return 0; } }
-		public virtual int AosDexReq { get { return 0; } }
-		public virtual int AosIntReq { get { return 0; } }
+		public virtual int StrReq { get { return 0; } }
+		public virtual int DexReq { get { return 0; } }
+		public virtual int IntReq { get { return 0; } }
 
-		public virtual int OldStrBonus { get { return 0; } }
-		public virtual int OldDexBonus { get { return 0; } }
-		public virtual int OldIntBonus { get { return 0; } }
-		public virtual int OldStrReq { get { return 0; } }
-		public virtual int OldDexReq { get { return 0; } }
-		public virtual int OldIntReq { get { return 0; } }
+		public virtual int StrBonusValue { get { return 0; } }
+		public virtual int DexBonusValue { get { return 0; } }
+		public virtual int IntBonusValue { get { return 0; } }
 
 		public virtual bool CanFortify { get { return true; } }
 
@@ -104,7 +96,7 @@ namespace Server.Items
 		[CommandProperty(AccessLevel.GameMaster)]
 		public AMA MeditationAllowance
 		{
-			get { return (m_Meditate == (AMA)(-1) ? Core.AOS ? AosMedAllowance : OldMedAllowance : m_Meditate); }
+			get { return (m_Meditate == (AMA)(-1) ? DefMedAllowance : m_Meditate); }
 			set { m_Meditate = value; }
 		}
 
@@ -172,42 +164,42 @@ namespace Server.Items
 		[CommandProperty(AccessLevel.GameMaster)]
 		public int StrBonus
 		{
-			get { return (m_StrBonus == -1 ? Core.AOS ? AosStrBonus : OldStrBonus : m_StrBonus); }
+			get { return (m_StrBonus == -1 ? StrBonusValue : m_StrBonus); }
 			set { m_StrBonus = value; InvalidateProperties(); }
 		}
 
 		[CommandProperty(AccessLevel.GameMaster)]
 		public int DexBonus
 		{
-			get { return (m_DexBonus == -1 ? Core.AOS ? AosDexBonus : OldDexBonus : m_DexBonus); }
+			get { return (m_DexBonus == -1 ? DexBonusValue : m_DexBonus); }
 			set { m_DexBonus = value; InvalidateProperties(); }
 		}
 
 		[CommandProperty(AccessLevel.GameMaster)]
 		public int IntBonus
 		{
-			get { return (m_IntBonus == -1 ? Core.AOS ? AosIntBonus : OldIntBonus : m_IntBonus); }
+			get { return (m_IntBonus == -1 ? IntBonusValue : m_IntBonus); }
 			set { m_IntBonus = value; InvalidateProperties(); }
 		}
 
 		[CommandProperty(AccessLevel.GameMaster)]
 		public int StrRequirement
 		{
-			get { return (m_StrReq == -1 ? Core.AOS ? AosStrReq : OldStrReq : m_StrReq); }
+			get { return (m_StrReq == -1 ? StrReq : m_StrReq); }
 			set { m_StrReq = value; InvalidateProperties(); }
 		}
 
 		[CommandProperty(AccessLevel.GameMaster)]
 		public int DexRequirement
 		{
-			get { return (m_DexReq == -1 ? Core.AOS ? AosDexReq : OldDexReq : m_DexReq); }
+			get { return (m_DexReq == -1 ? DexReq : m_DexReq); }
 			set { m_DexReq = value; InvalidateProperties(); }
 		}
 
 		[CommandProperty(AccessLevel.GameMaster)]
 		public int IntRequirement
 		{
-			get { return (m_IntReq == -1 ? Core.AOS ? AosIntReq : OldIntReq : m_IntReq); }
+			get { return (m_IntReq == -1 ? IntReq : m_IntReq); }
 			set { m_IntReq = value; InvalidateProperties(); }
 		}
 
@@ -477,6 +469,10 @@ namespace Server.Items
 				case ArmorProtectionLevel.Hardening: return 2;
 				case ArmorProtectionLevel.Fortification: return 3;
 				case ArmorProtectionLevel.Invulnerability: return 4;
+				case ArmorProtectionLevel.Regular:
+				case ArmorProtectionLevel.Defense:
+				default:
+					break;
 			}
 
 			return 0;
@@ -1180,7 +1176,19 @@ namespace Server.Items
 				case CraftResource.GreenScales: oreType = 1060819; break; // green
 				case CraftResource.WhiteScales: oreType = 1060821; break; // white
 				case CraftResource.BlueScales: oreType = 1060815; break; // blue
-				default: oreType = 0; break;
+				case CraftResource.None:
+				case CraftResource.Iron:
+				case CraftResource.RegularLeather:
+				case CraftResource.RegularWood:
+				case CraftResource.OakWood:
+				case CraftResource.AshWood:
+				case CraftResource.YewWood:
+				case CraftResource.Heartwood:
+				case CraftResource.Bloodwood:
+				case CraftResource.Frostwood:
+				default:
+					oreType = 0;
+					break;
 			}
 
 			if (m_Quality == ArmorQuality.Exceptional)

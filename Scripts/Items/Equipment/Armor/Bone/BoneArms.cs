@@ -12,10 +12,9 @@ namespace Server.Items
 		public override int InitMinHits { get { return 25; } }
 		public override int InitMaxHits { get { return 30; } }
 
-		public override int AosStrReq { get { return 55; } }
-		public override int OldStrReq { get { return 40; } }
+		public override int StrReq { get { return Core.AOS ? 55 : 40; } }
 
-		public override int OldDexBonus { get { return -2; } }
+		public override int DexBonusValue { get { return Core.AOS ? 0 : -2; } }
 
 		public override int ArmorBase { get { return 30; } }
 

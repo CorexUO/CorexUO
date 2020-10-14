@@ -111,32 +111,13 @@ namespace Server.Items
 		public virtual WeaponType DefType { get { return WeaponType.Slashing; } }
 		public virtual WeaponAnimation DefAnimation { get { return WeaponAnimation.Slash1H; } }
 
-		public virtual int AosStrengthReq { get { return 0; } }
-		public virtual int AosDexterityReq { get { return 0; } }
-		public virtual int AosIntelligenceReq { get { return 0; } }
-		public virtual int AosMinDamage { get { return 0; } }
-		public virtual int AosMaxDamage { get { return 0; } }
-		public virtual int AosSpeed { get { return 0; } }
-		public virtual float MlSpeed { get { return 0.0f; } }
-		public virtual int AosMaxRange { get { return DefMaxRange; } }
-		public virtual int AosHitSound { get { return DefHitSound; } }
-		public virtual int AosMissSound { get { return DefMissSound; } }
-		public virtual SkillName AosSkill { get { return DefSkill; } }
-		public virtual WeaponType AosType { get { return DefType; } }
-		public virtual WeaponAnimation AosAnimation { get { return DefAnimation; } }
+		public virtual int StrReq { get { return 0; } }
+		public virtual int DexReq { get { return 0; } }
+		public virtual int IntReq { get { return 0; } }
 
-		public virtual int OldStrengthReq { get { return 0; } }
-		public virtual int OldDexterityReq { get { return 0; } }
-		public virtual int OldIntelligenceReq { get { return 0; } }
-		public virtual int OldMinDamage { get { return 0; } }
-		public virtual int OldMaxDamage { get { return 0; } }
-		public virtual int OldSpeed { get { return 0; } }
-		public virtual int OldMaxRange { get { return DefMaxRange; } }
-		public virtual int OldHitSound { get { return DefHitSound; } }
-		public virtual int OldMissSound { get { return DefMissSound; } }
-		public virtual SkillName OldSkill { get { return DefSkill; } }
-		public virtual WeaponType OldType { get { return DefType; } }
-		public virtual WeaponAnimation OldAnimation { get { return DefAnimation; } }
+		public virtual int MinDamageBase { get { return 0; } }
+		public virtual int MaxDamageBase { get { return 0; } }
+		public virtual float SpeedBase { get { return 0; } }
 
 		public virtual int InitMinHits { get { return 0; } }
 		public virtual int InitMaxHits { get { return 0; } }
@@ -293,56 +274,56 @@ namespace Server.Items
 		[CommandProperty(AccessLevel.GameMaster)]
 		public int MaxRange
 		{
-			get { return (m_MaxRange == -1 ? Core.AOS ? AosMaxRange : OldMaxRange : m_MaxRange); }
+			get { return (m_MaxRange == -1 ? DefMaxRange : m_MaxRange); }
 			set { m_MaxRange = value; InvalidateProperties(); }
 		}
 
 		[CommandProperty(AccessLevel.GameMaster)]
 		public WeaponAnimation Animation
 		{
-			get { return (m_Animation == (WeaponAnimation)(-1) ? Core.AOS ? AosAnimation : OldAnimation : m_Animation); }
+			get { return (m_Animation == (WeaponAnimation)(-1) ? DefAnimation : m_Animation); }
 			set { m_Animation = value; }
 		}
 
 		[CommandProperty(AccessLevel.GameMaster)]
 		public WeaponType Type
 		{
-			get { return (m_Type == (WeaponType)(-1) ? Core.AOS ? AosType : OldType : m_Type); }
+			get { return (m_Type == (WeaponType)(-1) ? DefType : m_Type); }
 			set { m_Type = value; }
 		}
 
 		[CommandProperty(AccessLevel.GameMaster)]
 		public SkillName Skill
 		{
-			get { return (m_Skill == (SkillName)(-1) ? Core.AOS ? AosSkill : OldSkill : m_Skill); }
+			get { return (m_Skill == (SkillName)(-1) ? DefSkill : m_Skill); }
 			set { m_Skill = value; InvalidateProperties(); }
 		}
 
 		[CommandProperty(AccessLevel.GameMaster)]
 		public int HitSound
 		{
-			get { return (m_HitSound == -1 ? Core.AOS ? AosHitSound : OldHitSound : m_HitSound); }
+			get { return (m_HitSound == -1 ? DefHitSound : m_HitSound); }
 			set { m_HitSound = value; }
 		}
 
 		[CommandProperty(AccessLevel.GameMaster)]
 		public int MissSound
 		{
-			get { return (m_MissSound == -1 ? Core.AOS ? AosMissSound : OldMissSound : m_MissSound); }
+			get { return (m_MissSound == -1 ? DefMissSound : m_MissSound); }
 			set { m_MissSound = value; }
 		}
 
 		[CommandProperty(AccessLevel.GameMaster)]
 		public int MinDamage
 		{
-			get { return (m_MinDamage == -1 ? Core.AOS ? AosMinDamage : OldMinDamage : m_MinDamage); }
+			get { return (m_MinDamage == -1 ? MinDamageBase : m_MinDamage); }
 			set { m_MinDamage = value; InvalidateProperties(); }
 		}
 
 		[CommandProperty(AccessLevel.GameMaster)]
 		public int MaxDamage
 		{
-			get { return (m_MaxDamage == -1 ? Core.AOS ? AosMaxDamage : OldMaxDamage : m_MaxDamage); }
+			get { return (m_MaxDamage == -1 ? MaxDamageBase : m_MaxDamage); }
 			set { m_MaxDamage = value; InvalidateProperties(); }
 		}
 
@@ -351,15 +332,7 @@ namespace Server.Items
 		{
 			get
 			{
-				if (m_Speed != -1)
-					return m_Speed;
-
-				if (Core.ML)
-					return MlSpeed;
-				else if (Core.AOS)
-					return AosSpeed;
-
-				return OldSpeed;
+				return SpeedBase;
 			}
 			set { m_Speed = value; InvalidateProperties(); }
 		}
@@ -367,21 +340,21 @@ namespace Server.Items
 		[CommandProperty(AccessLevel.GameMaster)]
 		public int StrRequirement
 		{
-			get { return (m_StrReq == -1 ? Core.AOS ? AosStrengthReq : OldStrengthReq : m_StrReq); }
+			get { return (m_StrReq == -1 ? StrReq : m_StrReq); }
 			set { m_StrReq = value; InvalidateProperties(); }
 		}
 
 		[CommandProperty(AccessLevel.GameMaster)]
 		public int DexRequirement
 		{
-			get { return (m_DexReq == -1 ? Core.AOS ? AosDexterityReq : OldDexterityReq : m_DexReq); }
+			get { return (m_DexReq == -1 ? DexReq : m_DexReq); }
 			set { m_DexReq = value; }
 		}
 
 		[CommandProperty(AccessLevel.GameMaster)]
 		public int IntRequirement
 		{
-			get { return (m_IntReq == -1 ? Core.AOS ? AosIntelligenceReq : OldIntelligenceReq : m_IntReq); }
+			get { return (m_IntReq == -1 ? IntReq : m_IntReq); }
 			set { m_IntReq = value; }
 		}
 

@@ -13,10 +13,9 @@ namespace Server.Items
         public override int InitMinHits { get { return 30; } }
         public override int InitMaxHits { get { return 40; } }
 
-        public override int AosStrReq { get { return 15; } }
-        public override int OldStrReq { get { return 15; } }
+		public override int StrReq { get { return Core.AOS ? 15 : 15; } }
 
-        public override int ArmorBase { get { return 13; } }
+		public override int ArmorBase { get { return 13; } }
 
         public override ArmorMaterialType MaterialType { get { return ArmorMaterialType.Leather; } }
         public override CraftResource DefaultResource { get { return CraftResource.RegularLeather; } }
