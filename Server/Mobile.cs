@@ -4410,7 +4410,7 @@ namespace Server
 							if (liftSound != -1)
 								from.Send(new PlaySound(liftSound, from));
 
-							from.NextActionTime = Core.TickCount + m_ActionDelay;
+							from.NextActionTime = Core.TickCount + ActionDelay;
 
 							if (fixMap != null && shouldFix)
 								fixMap.FixColumn(fixLoc.m_X, fixLoc.m_Y);
