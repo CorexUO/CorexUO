@@ -4275,13 +4275,7 @@ namespace Server
 				m.OnDoubleClick(this);
 		}
 
-		private static int m_ActionDelay = 500;
-
-		public static int ActionDelay
-		{
-			get { return m_ActionDelay; }
-			set { m_ActionDelay = value; }
-		}
+		public static int ActionDelay { get; set; } = 750;
 
 		public virtual void Lift(Item item, int amount, out bool rejected, out LRReason reject)
 		{
