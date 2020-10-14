@@ -15,6 +15,14 @@ namespace Server.Mobiles
 		{
 		}
 
+		public override double ArmorRating
+		{
+			get
+			{
+				return VirtualArmor + VirtualArmorMod;
+			}
+		}
+
 		public override bool OnDragLift(Item item)
 		{
 			//Only check if the item don't have parent or the parent is different to the player mobile
