@@ -1,9 +1,12 @@
 using Server.Misc;
+using System;
 
 namespace Server.Mobiles
 {
 	public abstract partial class BaseMobile : Mobile
 	{
+		public static TimeSpan CombatHeatDelay = TimeSpan.FromSeconds(30.0);
+
 		public BaseMobile() : base()
 		{
 		}
@@ -25,6 +28,30 @@ namespace Server.Mobiles
 			}
 
 			return base.OnDragLift(item);
+		}
+
+		public bool CheckCombat()
+		{
+			for (int i = 0; i < Aggressed.Count; ++i)
+			{
+				AggressorInfo info = Aggressed[i];
+
+				if (info.Defender.Player && (DateTime.UtcNow - info.LastCombatTime) < CombatHeatDelay)
+					return true;
+			}
+
+			if (Core.AOS)
+			{
+				for (int i = 0; i < Aggressors.Count; ++i)
+				{
+					AggressorInfo info = Aggressors[i];
+
+					if (info.Attacker.Player && (DateTime.UtcNow - info.LastCombatTime) < CombatHeatDelay)
+						return true;
+				}
+			}
+
+			return false;
 		}
 
 		public override void Serialize(GenericWriter writer)

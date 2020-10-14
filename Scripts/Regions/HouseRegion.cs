@@ -202,8 +202,6 @@ namespace Server.Regions
 				return base.OnDecay(item);
 		}
 
-		public static TimeSpan CombatHeatDelay = TimeSpan.FromSeconds(30.0);
-
 		public override TimeSpan GetLogoutDelay(Mobile m)
 		{
 			if (m_House.IsFriend(m) && m_House.IsInside(m))
@@ -212,7 +210,7 @@ namespace Server.Regions
 				{
 					AggressorInfo info = m.Aggressed[i];
 
-					if (info.Defender.Player && (DateTime.UtcNow - info.LastCombatTime) < CombatHeatDelay)
+					if (info.Defender.Player && (DateTime.UtcNow - info.LastCombatTime) < BaseMobile.CombatHeatDelay)
 						return base.GetLogoutDelay(m);
 				}
 

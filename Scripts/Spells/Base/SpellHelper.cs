@@ -31,7 +31,6 @@ namespace Server.Spells
 		private static readonly TimeSpan AosDamageDelay = TimeSpan.FromSeconds(1.0);
 		private static readonly TimeSpan OldDamageDelay = TimeSpan.FromSeconds(0.5);
 
-		private static readonly TimeSpan CombatHeatDelay = TimeSpan.FromSeconds(30.0);
 		private static readonly bool RestrictTravelCombat = true;
 
 		public static TimeSpan GetDamageDelayForSpell(Spell sp)
@@ -102,7 +101,7 @@ namespace Server.Spells
 			{
 				AggressorInfo info = m.Aggressed[i];
 
-				if (info.Defender.Player && (DateTime.UtcNow - info.LastCombatTime) < CombatHeatDelay)
+				if (info.Defender.Player && (DateTime.UtcNow - info.LastCombatTime) < BaseMobile.CombatHeatDelay)
 					return true;
 			}
 
@@ -112,7 +111,7 @@ namespace Server.Spells
 				{
 					AggressorInfo info = m.Aggressors[i];
 
-					if (info.Attacker.Player && (DateTime.UtcNow - info.LastCombatTime) < CombatHeatDelay)
+					if (info.Attacker.Player && (DateTime.UtcNow - info.LastCombatTime) < BaseMobile.CombatHeatDelay)
 						return true;
 				}
 			}

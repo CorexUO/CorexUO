@@ -1241,7 +1241,7 @@ namespace Server.Multis
 
 			if (owner != null)
 			{
-				m_Table.TryGetValue(owner, out List<BaseHouse>  list);
+				m_Table.TryGetValue(owner, out List<BaseHouse> list);
 
 				if (list == null)
 					m_Table[owner] = list = new List<BaseHouse>();
@@ -2014,7 +2014,7 @@ namespace Server.Multis
 				Guild attackerGuild = m.Guild as Guild;
 				Guild defenderGuild = info.Defender.Guild as Guild;
 
-				if (info.Defender.Player && info.Defender.Alive && (DateTime.UtcNow - info.LastCombatTime) < HouseRegion.CombatHeatDelay && (attackerGuild == null || defenderGuild == null || defenderGuild != attackerGuild && !defenderGuild.IsEnemy(attackerGuild)))
+				if (info.Defender.Player && info.Defender.Alive && (DateTime.UtcNow - info.LastCombatTime) < BaseMobile.CombatHeatDelay && (attackerGuild == null || defenderGuild == null || defenderGuild != attackerGuild && !defenderGuild.IsEnemy(attackerGuild)))
 					return true;
 			}
 
@@ -2696,7 +2696,7 @@ namespace Server.Multis
 
 						if (m_Owner != null)
 						{
-							m_Table.TryGetValue(m_Owner, out List<BaseHouse>  list);
+							m_Table.TryGetValue(m_Owner, out List<BaseHouse> list);
 
 							if (list == null)
 								m_Table[m_Owner] = list = new List<BaseHouse>();
