@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Server.Accounting;
@@ -7139,47 +7140,29 @@ namespace Server
 
 		public bool RemoveStatMod(string name)
 		{
-			for (int i = 0; i < m_StatMods.Count; ++i)
+			StatMod statsMod = m_StatMods.FirstOrDefault(stat => stat.Name == name);
+			if (statsMod != null)
 			{
-				StatMod check = m_StatMods[i];
-
-				if (check.Name == name)
-				{
-					m_StatMods.RemoveAt(i);
-					CheckStatTimers();
-					Delta(MobileDelta.Stat | GetStatDelta(check.Type));
-					return true;
-				}
+				m_StatMods.Remove(statsMod);
+				CheckStatTimers();
+				Delta(MobileDelta.Stat | GetStatDelta(statsMod.Type));
 			}
 
-			return false;
+			return statsMod != null;
 		}
 
 		public StatMod GetStatMod(string name)
 		{
-			for (int i = 0; i < m_StatMods.Count; ++i)
-			{
-				StatMod check = m_StatMods[i];
-
-				if (check.Name == name)
-					return check;
-			}
-
-			return null;
+			return m_StatMods.FirstOrDefault(stat => stat.Name == name);
 		}
 
 		public void AddStatMod(StatMod mod)
 		{
-			for (int i = 0; i < m_StatMods.Count; ++i)
+			StatMod statsMod = m_StatMods.FirstOrDefault(stat => stat.Name == mod.Name);
+			if (statsMod != null)
 			{
-				StatMod check = m_StatMods[i];
-
-				if (check.Name == mod.Name)
-				{
-					Delta(MobileDelta.Stat | GetStatDelta(check.Type));
-					m_StatMods.RemoveAt(i);
-					break;
-				}
+				Delta(MobileDelta.Stat | GetStatDelta(statsMod.Type));
+				m_StatMods.Remove(statsMod);
 			}
 
 			m_StatMods.Add(mod);
