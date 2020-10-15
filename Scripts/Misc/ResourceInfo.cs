@@ -649,29 +649,6 @@ namespace Server.Items
 
 			return CraftResource.None;
 		}
-
-		/// <summary>
-		/// Returns the <see cref="CraftResource"/> value which represents '<paramref name="info"/>', using '<paramref name="material"/>' to help resolve leather OreInfo instances.
-		/// </summary>
-		public static CraftResource GetFromOreInfo(OreInfo info, ArmorMaterialType material)
-		{
-			if (material == ArmorMaterialType.Studded || material == ArmorMaterialType.Leather || material == ArmorMaterialType.Spined ||
-				material == ArmorMaterialType.Horned || material == ArmorMaterialType.Barbed)
-			{
-				if (info.Level == 0)
-					return CraftResource.RegularLeather;
-				else if (info.Level == 1)
-					return CraftResource.SpinedLeather;
-				else if (info.Level == 2)
-					return CraftResource.HornedLeather;
-				else if (info.Level == 3)
-					return CraftResource.BarbedLeather;
-
-				return CraftResource.None;
-			}
-
-			return GetFromOreInfo(info);
-		}
 	}
 
 	// NOTE: This class is only for compatability with very old RunUO versions.
