@@ -110,11 +110,11 @@ namespace Server.Items
 
 			SaveFlag flags = SaveFlag.None;
 
-			SetSaveFlag(ref flags, SaveFlag.Attributes, !m_AosAttributes.IsEmpty);
+			Utility.SetSaveFlag(ref flags, SaveFlag.Attributes, !m_AosAttributes.IsEmpty);
 
 			writer.WriteEncodedInt((int)flags);
 
-			if (GetSaveFlag(flags, SaveFlag.Attributes))
+			if (flags.HasFlag(SaveFlag.Attributes))
 				m_AosAttributes.Serialize(writer);
 
 		}
@@ -131,7 +131,7 @@ namespace Server.Items
 					{
 						SaveFlag flags = (SaveFlag)reader.ReadEncodedInt();
 
-						if (GetSaveFlag(flags, SaveFlag.Attributes))
+						if (flags.HasFlag(SaveFlag.Attributes))
 							m_AosAttributes = new AosAttributes(this, reader);
 						else
 							m_AosAttributes = new AosAttributes(this);
@@ -139,17 +139,6 @@ namespace Server.Items
 						break;
 					}
 			}
-		}
-
-		private static void SetSaveFlag(ref SaveFlag flags, SaveFlag toSet, bool setIf)
-		{
-			if (setIf)
-				flags |= toSet;
-		}
-
-		private static bool GetSaveFlag(SaveFlag flags, SaveFlag toGet)
-		{
-			return ((flags & toGet) != 0);
 		}
 	}
 }

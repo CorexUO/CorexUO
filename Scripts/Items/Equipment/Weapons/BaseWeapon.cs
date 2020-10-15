@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using Server.Engines.Craft;
 using Server.Factions;
+using Server.Misc;
 using Server.Mobiles;
 using Server.Network;
 using Server.Spells;
@@ -2435,17 +2436,6 @@ namespace Server.Items
 		}
 
 		#region Serialization/Deserialization
-		private static void SetSaveFlag(ref SaveFlag flags, SaveFlag toSet, bool setIf)
-		{
-			if (setIf)
-				flags |= toSet;
-		}
-
-		private static bool GetSaveFlag(SaveFlag flags, SaveFlag toGet)
-		{
-			return ((flags & toGet) != 0);
-		}
-
 		public override void Serialize(GenericWriter writer)
 		{
 			base.Serialize(writer);
@@ -2454,121 +2444,121 @@ namespace Server.Items
 
 			SaveFlag flags = SaveFlag.None;
 
-			SetSaveFlag(ref flags, SaveFlag.DamageLevel, m_DamageLevel != WeaponDamageLevel.Regular);
-			SetSaveFlag(ref flags, SaveFlag.AccuracyLevel, m_AccuracyLevel != WeaponAccuracyLevel.Regular);
-			SetSaveFlag(ref flags, SaveFlag.DurabilityLevel, m_DurabilityLevel != WeaponDurabilityLevel.Regular);
-			SetSaveFlag(ref flags, SaveFlag.Quality, m_Quality != WeaponQuality.Regular);
-			SetSaveFlag(ref flags, SaveFlag.Hits, m_Hits != 0);
-			SetSaveFlag(ref flags, SaveFlag.MaxHits, m_MaxHits != 0);
-			SetSaveFlag(ref flags, SaveFlag.Slayer, m_Slayer != SlayerName.None);
-			SetSaveFlag(ref flags, SaveFlag.Poison, m_Poison != null);
-			SetSaveFlag(ref flags, SaveFlag.PoisonCharges, m_PoisonCharges != 0);
-			SetSaveFlag(ref flags, SaveFlag.Crafter, m_Crafter != null);
-			SetSaveFlag(ref flags, SaveFlag.Identified, m_Identified != false);
-			SetSaveFlag(ref flags, SaveFlag.StrReq, m_StrReq != -1);
-			SetSaveFlag(ref flags, SaveFlag.DexReq, m_DexReq != -1);
-			SetSaveFlag(ref flags, SaveFlag.IntReq, m_IntReq != -1);
-			SetSaveFlag(ref flags, SaveFlag.MinDamage, m_MinDamage != -1);
-			SetSaveFlag(ref flags, SaveFlag.MaxDamage, m_MaxDamage != -1);
-			SetSaveFlag(ref flags, SaveFlag.HitSound, m_HitSound != -1);
-			SetSaveFlag(ref flags, SaveFlag.MissSound, m_MissSound != -1);
-			SetSaveFlag(ref flags, SaveFlag.Speed, m_Speed != -1);
-			SetSaveFlag(ref flags, SaveFlag.MaxRange, m_MaxRange != -1);
-			SetSaveFlag(ref flags, SaveFlag.Skill, m_Skill != (SkillName)(-1));
-			SetSaveFlag(ref flags, SaveFlag.Type, m_Type != (WeaponType)(-1));
-			SetSaveFlag(ref flags, SaveFlag.Animation, m_Animation != (WeaponAnimation)(-1));
-			SetSaveFlag(ref flags, SaveFlag.Resource, m_Resource != CraftResource.Iron);
-			SetSaveFlag(ref flags, SaveFlag.xWeaponAttributes, !m_AosWeaponAttributes.IsEmpty);
-			SetSaveFlag(ref flags, SaveFlag.PlayerConstructed, m_PlayerConstructed);
-			SetSaveFlag(ref flags, SaveFlag.SkillBonuses, !m_AosSkillBonuses.IsEmpty);
-			SetSaveFlag(ref flags, SaveFlag.Slayer2, m_Slayer2 != SlayerName.None);
-			SetSaveFlag(ref flags, SaveFlag.ElementalDamages, !m_AosElementDamages.IsEmpty);
-			SetSaveFlag(ref flags, SaveFlag.EngravedText, !String.IsNullOrEmpty(m_EngravedText));
+			Utility.SetSaveFlag(ref flags, SaveFlag.DamageLevel, m_DamageLevel != WeaponDamageLevel.Regular);
+			Utility.SetSaveFlag(ref flags, SaveFlag.AccuracyLevel, m_AccuracyLevel != WeaponAccuracyLevel.Regular);
+			Utility.SetSaveFlag(ref flags, SaveFlag.DurabilityLevel, m_DurabilityLevel != WeaponDurabilityLevel.Regular);
+			Utility.SetSaveFlag(ref flags, SaveFlag.Quality, m_Quality != WeaponQuality.Regular);
+			Utility.SetSaveFlag(ref flags, SaveFlag.Hits, m_Hits != 0);
+			Utility.SetSaveFlag(ref flags, SaveFlag.MaxHits, m_MaxHits != 0);
+			Utility.SetSaveFlag(ref flags, SaveFlag.Slayer, m_Slayer != SlayerName.None);
+			Utility.SetSaveFlag(ref flags, SaveFlag.Poison, m_Poison != null);
+			Utility.SetSaveFlag(ref flags, SaveFlag.PoisonCharges, m_PoisonCharges != 0);
+			Utility.SetSaveFlag(ref flags, SaveFlag.Crafter, m_Crafter != null);
+			Utility.SetSaveFlag(ref flags, SaveFlag.Identified, m_Identified != false);
+			Utility.SetSaveFlag(ref flags, SaveFlag.StrReq, m_StrReq != -1);
+			Utility.SetSaveFlag(ref flags, SaveFlag.DexReq, m_DexReq != -1);
+			Utility.SetSaveFlag(ref flags, SaveFlag.IntReq, m_IntReq != -1);
+			Utility.SetSaveFlag(ref flags, SaveFlag.MinDamage, m_MinDamage != -1);
+			Utility.SetSaveFlag(ref flags, SaveFlag.MaxDamage, m_MaxDamage != -1);
+			Utility.SetSaveFlag(ref flags, SaveFlag.HitSound, m_HitSound != -1);
+			Utility.SetSaveFlag(ref flags, SaveFlag.MissSound, m_MissSound != -1);
+			Utility.SetSaveFlag(ref flags, SaveFlag.Speed, m_Speed != -1);
+			Utility.SetSaveFlag(ref flags, SaveFlag.MaxRange, m_MaxRange != -1);
+			Utility.SetSaveFlag(ref flags, SaveFlag.Skill, m_Skill != (SkillName)(-1));
+			Utility.SetSaveFlag(ref flags, SaveFlag.Type, m_Type != (WeaponType)(-1));
+			Utility.SetSaveFlag(ref flags, SaveFlag.Animation, m_Animation != (WeaponAnimation)(-1));
+			Utility.SetSaveFlag(ref flags, SaveFlag.Resource, m_Resource != CraftResource.Iron);
+			Utility.SetSaveFlag(ref flags, SaveFlag.xWeaponAttributes, !m_AosWeaponAttributes.IsEmpty);
+			Utility.SetSaveFlag(ref flags, SaveFlag.PlayerConstructed, m_PlayerConstructed);
+			Utility.SetSaveFlag(ref flags, SaveFlag.SkillBonuses, !m_AosSkillBonuses.IsEmpty);
+			Utility.SetSaveFlag(ref flags, SaveFlag.Slayer2, m_Slayer2 != SlayerName.None);
+			Utility.SetSaveFlag(ref flags, SaveFlag.ElementalDamages, !m_AosElementDamages.IsEmpty);
+			Utility.SetSaveFlag(ref flags, SaveFlag.EngravedText, !String.IsNullOrEmpty(m_EngravedText));
 
 			writer.Write((int)flags);
 
-			if (GetSaveFlag(flags, SaveFlag.DamageLevel))
+			if (flags.HasFlag(SaveFlag.DamageLevel))
 				writer.Write((int)m_DamageLevel);
 
-			if (GetSaveFlag(flags, SaveFlag.AccuracyLevel))
+			if (flags.HasFlag(SaveFlag.AccuracyLevel))
 				writer.Write((int)m_AccuracyLevel);
 
-			if (GetSaveFlag(flags, SaveFlag.DurabilityLevel))
+			if (flags.HasFlag(SaveFlag.DurabilityLevel))
 				writer.Write((int)m_DurabilityLevel);
 
-			if (GetSaveFlag(flags, SaveFlag.Quality))
+			if (flags.HasFlag(SaveFlag.Quality))
 				writer.Write((int)m_Quality);
 
-			if (GetSaveFlag(flags, SaveFlag.Hits))
+			if (flags.HasFlag(SaveFlag.Hits))
 				writer.Write((int)m_Hits);
 
-			if (GetSaveFlag(flags, SaveFlag.MaxHits))
+			if (flags.HasFlag(SaveFlag.MaxHits))
 				writer.Write((int)m_MaxHits);
 
-			if (GetSaveFlag(flags, SaveFlag.Slayer))
+			if (flags.HasFlag(SaveFlag.Slayer))
 				writer.Write((int)m_Slayer);
 
-			if (GetSaveFlag(flags, SaveFlag.Poison))
+			if (flags.HasFlag(SaveFlag.Poison))
 				Poison.Serialize(m_Poison, writer);
 
-			if (GetSaveFlag(flags, SaveFlag.PoisonCharges))
+			if (flags.HasFlag(SaveFlag.PoisonCharges))
 				writer.Write((int)m_PoisonCharges);
 
-			if (GetSaveFlag(flags, SaveFlag.Crafter))
+			if (flags.HasFlag(SaveFlag.Crafter))
 				writer.Write((Mobile)m_Crafter);
 
-			if (GetSaveFlag(flags, SaveFlag.StrReq))
+			if (flags.HasFlag(SaveFlag.StrReq))
 				writer.Write((int)m_StrReq);
 
-			if (GetSaveFlag(flags, SaveFlag.DexReq))
+			if (flags.HasFlag(SaveFlag.DexReq))
 				writer.Write((int)m_DexReq);
 
-			if (GetSaveFlag(flags, SaveFlag.IntReq))
+			if (flags.HasFlag(SaveFlag.IntReq))
 				writer.Write((int)m_IntReq);
 
-			if (GetSaveFlag(flags, SaveFlag.MinDamage))
+			if (flags.HasFlag(SaveFlag.MinDamage))
 				writer.Write((int)m_MinDamage);
 
-			if (GetSaveFlag(flags, SaveFlag.MaxDamage))
+			if (flags.HasFlag(SaveFlag.MaxDamage))
 				writer.Write((int)m_MaxDamage);
 
-			if (GetSaveFlag(flags, SaveFlag.HitSound))
+			if (flags.HasFlag(SaveFlag.HitSound))
 				writer.Write((int)m_HitSound);
 
-			if (GetSaveFlag(flags, SaveFlag.MissSound))
+			if (flags.HasFlag(SaveFlag.MissSound))
 				writer.Write((int)m_MissSound);
 
-			if (GetSaveFlag(flags, SaveFlag.Speed))
+			if (flags.HasFlag(SaveFlag.Speed))
 				writer.Write((float)m_Speed);
 
-			if (GetSaveFlag(flags, SaveFlag.MaxRange))
+			if (flags.HasFlag(SaveFlag.MaxRange))
 				writer.Write((int)m_MaxRange);
 
-			if (GetSaveFlag(flags, SaveFlag.Skill))
+			if (flags.HasFlag(SaveFlag.Skill))
 				writer.Write((int)m_Skill);
 
-			if (GetSaveFlag(flags, SaveFlag.Type))
+			if (flags.HasFlag(SaveFlag.Type))
 				writer.Write((int)m_Type);
 
-			if (GetSaveFlag(flags, SaveFlag.Animation))
+			if (flags.HasFlag(SaveFlag.Animation))
 				writer.Write((int)m_Animation);
 
-			if (GetSaveFlag(flags, SaveFlag.Resource))
+			if (flags.HasFlag(SaveFlag.Resource))
 				writer.Write((int)m_Resource);
 
-			if (GetSaveFlag(flags, SaveFlag.xWeaponAttributes))
+			if (flags.HasFlag(SaveFlag.xWeaponAttributes))
 				m_AosWeaponAttributes.Serialize(writer);
 
-			if (GetSaveFlag(flags, SaveFlag.SkillBonuses))
+			if (flags.HasFlag(SaveFlag.SkillBonuses))
 				m_AosSkillBonuses.Serialize(writer);
 
-			if (GetSaveFlag(flags, SaveFlag.Slayer2))
+			if (flags.HasFlag(SaveFlag.Slayer2))
 				writer.Write((int)m_Slayer2);
 
-			if (GetSaveFlag(flags, SaveFlag.ElementalDamages))
+			if (flags.HasFlag(SaveFlag.ElementalDamages))
 				m_AosElementDamages.Serialize(writer);
 
-			if (GetSaveFlag(flags, SaveFlag.EngravedText))
+			if (flags.HasFlag(SaveFlag.EngravedText))
 				writer.Write((string)m_EngravedText);
 		}
 
@@ -2621,7 +2611,7 @@ namespace Server.Items
 					{
 						SaveFlag flags = (SaveFlag)reader.ReadInt();
 
-						if (GetSaveFlag(flags, SaveFlag.DamageLevel))
+						if (flags.HasFlag(SaveFlag.DamageLevel))
 						{
 							m_DamageLevel = (WeaponDamageLevel)reader.ReadInt();
 
@@ -2629,7 +2619,7 @@ namespace Server.Items
 								m_DamageLevel = WeaponDamageLevel.Ruin;
 						}
 
-						if (GetSaveFlag(flags, SaveFlag.AccuracyLevel))
+						if (flags.HasFlag(SaveFlag.AccuracyLevel))
 						{
 							m_AccuracyLevel = (WeaponAccuracyLevel)reader.ReadInt();
 
@@ -2637,7 +2627,7 @@ namespace Server.Items
 								m_AccuracyLevel = WeaponAccuracyLevel.Accurate;
 						}
 
-						if (GetSaveFlag(flags, SaveFlag.DurabilityLevel))
+						if (flags.HasFlag(SaveFlag.DurabilityLevel))
 						{
 							m_DurabilityLevel = (WeaponDurabilityLevel)reader.ReadInt();
 
@@ -2645,100 +2635,100 @@ namespace Server.Items
 								m_DurabilityLevel = WeaponDurabilityLevel.Durable;
 						}
 
-						if (GetSaveFlag(flags, SaveFlag.Quality))
+						if (flags.HasFlag(SaveFlag.Quality))
 							m_Quality = (WeaponQuality)reader.ReadInt();
 						else
 							m_Quality = WeaponQuality.Regular;
 
-						if (GetSaveFlag(flags, SaveFlag.Hits))
+						if (flags.HasFlag(SaveFlag.Hits))
 							m_Hits = reader.ReadInt();
 
-						if (GetSaveFlag(flags, SaveFlag.MaxHits))
+						if (flags.HasFlag(SaveFlag.MaxHits))
 							m_MaxHits = reader.ReadInt();
 
-						if (GetSaveFlag(flags, SaveFlag.Slayer))
+						if (flags.HasFlag(SaveFlag.Slayer))
 							m_Slayer = (SlayerName)reader.ReadInt();
 
-						if (GetSaveFlag(flags, SaveFlag.Poison))
+						if (flags.HasFlag(SaveFlag.Poison))
 							m_Poison = Poison.Deserialize(reader);
 
-						if (GetSaveFlag(flags, SaveFlag.PoisonCharges))
+						if (flags.HasFlag(SaveFlag.PoisonCharges))
 							m_PoisonCharges = reader.ReadInt();
 
-						if (GetSaveFlag(flags, SaveFlag.Crafter))
+						if (flags.HasFlag(SaveFlag.Crafter))
 							m_Crafter = reader.ReadMobile();
 
-						if (GetSaveFlag(flags, SaveFlag.Identified))
+						if (flags.HasFlag(SaveFlag.Identified))
 							m_Identified = true;
 
-						if (GetSaveFlag(flags, SaveFlag.StrReq))
+						if (flags.HasFlag(SaveFlag.StrReq))
 							m_StrReq = reader.ReadInt();
 						else
 							m_StrReq = -1;
 
-						if (GetSaveFlag(flags, SaveFlag.DexReq))
+						if (flags.HasFlag(SaveFlag.DexReq))
 							m_DexReq = reader.ReadInt();
 						else
 							m_DexReq = -1;
 
-						if (GetSaveFlag(flags, SaveFlag.IntReq))
+						if (flags.HasFlag(SaveFlag.IntReq))
 							m_IntReq = reader.ReadInt();
 						else
 							m_IntReq = -1;
 
-						if (GetSaveFlag(flags, SaveFlag.MinDamage))
+						if (flags.HasFlag(SaveFlag.MinDamage))
 							m_MinDamage = reader.ReadInt();
 						else
 							m_MinDamage = -1;
 
-						if (GetSaveFlag(flags, SaveFlag.MaxDamage))
+						if (flags.HasFlag(SaveFlag.MaxDamage))
 							m_MaxDamage = reader.ReadInt();
 						else
 							m_MaxDamage = -1;
 
-						if (GetSaveFlag(flags, SaveFlag.HitSound))
+						if (flags.HasFlag(SaveFlag.HitSound))
 							m_HitSound = reader.ReadInt();
 						else
 							m_HitSound = -1;
 
-						if (GetSaveFlag(flags, SaveFlag.MissSound))
+						if (flags.HasFlag(SaveFlag.MissSound))
 							m_MissSound = reader.ReadInt();
 						else
 							m_MissSound = -1;
 
-						if (GetSaveFlag(flags, SaveFlag.Speed))
+						if (flags.HasFlag(SaveFlag.Speed))
 						{
 							m_Speed = reader.ReadFloat();
 						}
 						else
 							m_Speed = -1;
 
-						if (GetSaveFlag(flags, SaveFlag.MaxRange))
+						if (flags.HasFlag(SaveFlag.MaxRange))
 							m_MaxRange = reader.ReadInt();
 						else
 							m_MaxRange = -1;
 
-						if (GetSaveFlag(flags, SaveFlag.Skill))
+						if (flags.HasFlag(SaveFlag.Skill))
 							m_Skill = (SkillName)reader.ReadInt();
 						else
 							m_Skill = (SkillName)(-1);
 
-						if (GetSaveFlag(flags, SaveFlag.Type))
+						if (flags.HasFlag(SaveFlag.Type))
 							m_Type = (WeaponType)reader.ReadInt();
 						else
 							m_Type = (WeaponType)(-1);
 
-						if (GetSaveFlag(flags, SaveFlag.Animation))
+						if (flags.HasFlag(SaveFlag.Animation))
 							m_Animation = (WeaponAnimation)reader.ReadInt();
 						else
 							m_Animation = (WeaponAnimation)(-1);
 
-						if (GetSaveFlag(flags, SaveFlag.Resource))
+						if (flags.HasFlag(SaveFlag.Resource))
 							m_Resource = (CraftResource)reader.ReadInt();
 						else
 							m_Resource = CraftResource.Iron;
 
-						if (GetSaveFlag(flags, SaveFlag.xWeaponAttributes))
+						if (flags.HasFlag(SaveFlag.xWeaponAttributes))
 							m_AosWeaponAttributes = new AosWeaponAttributes(this, reader);
 						else
 							m_AosWeaponAttributes = new AosWeaponAttributes(this);
@@ -2755,23 +2745,23 @@ namespace Server.Items
 							((Mobile)Parent).AddSkillMod(m_MageMod);
 						}
 
-						if (GetSaveFlag(flags, SaveFlag.PlayerConstructed))
+						if (flags.HasFlag(SaveFlag.PlayerConstructed))
 							m_PlayerConstructed = true;
 
-						if (GetSaveFlag(flags, SaveFlag.SkillBonuses))
+						if (flags.HasFlag(SaveFlag.SkillBonuses))
 							m_AosSkillBonuses = new AosSkillBonuses(this, reader);
 						else
 							m_AosSkillBonuses = new AosSkillBonuses(this);
 
-						if (GetSaveFlag(flags, SaveFlag.Slayer2))
+						if (flags.HasFlag(SaveFlag.Slayer2))
 							m_Slayer2 = (SlayerName)reader.ReadInt();
 
-						if (GetSaveFlag(flags, SaveFlag.ElementalDamages))
+						if (flags.HasFlag(SaveFlag.ElementalDamages))
 							m_AosElementDamages = new AosElementAttributes(this, reader);
 						else
 							m_AosElementDamages = new AosElementAttributes(this);
 
-						if (GetSaveFlag(flags, SaveFlag.EngravedText))
+						if (flags.HasFlag(SaveFlag.EngravedText))
 							m_EngravedText = reader.ReadString();
 
 						break;

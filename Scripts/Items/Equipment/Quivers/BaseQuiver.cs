@@ -343,17 +343,6 @@ namespace Server.Items
 				list.Add(1072210, prop.ToString()); // Weight reduction: ~1_PERCENTAGE~%
 		}
 
-		private static void SetSaveFlag(ref SaveFlag flags, SaveFlag toSet, bool setIf)
-		{
-			if (setIf)
-				flags |= toSet;
-		}
-
-		private static bool GetSaveFlag(SaveFlag flags, SaveFlag toGet)
-		{
-			return ((flags & toGet) != 0);
-		}
-
 		[Flags]
 		private enum SaveFlag
 		{
@@ -376,35 +365,35 @@ namespace Server.Items
 
 			SaveFlag flags = SaveFlag.None;
 
-			SetSaveFlag(ref flags, SaveFlag.Attributes, !m_Attributes.IsEmpty);
-			SetSaveFlag(ref flags, SaveFlag.LowerAmmoCost, m_LowerAmmoCost != 0);
-			SetSaveFlag(ref flags, SaveFlag.WeightReduction, m_WeightReduction != 0);
-			SetSaveFlag(ref flags, SaveFlag.DamageIncrease, m_DamageIncrease != 0);
-			SetSaveFlag(ref flags, SaveFlag.Crafter, m_Crafter != null);
-			SetSaveFlag(ref flags, SaveFlag.Quality, true);
-			SetSaveFlag(ref flags, SaveFlag.Capacity, m_Capacity > 0);
+			Utility.SetSaveFlag(ref flags, SaveFlag.Attributes, !m_Attributes.IsEmpty);
+			Utility.SetSaveFlag(ref flags, SaveFlag.LowerAmmoCost, m_LowerAmmoCost != 0);
+			Utility.SetSaveFlag(ref flags, SaveFlag.WeightReduction, m_WeightReduction != 0);
+			Utility.SetSaveFlag(ref flags, SaveFlag.DamageIncrease, m_DamageIncrease != 0);
+			Utility.SetSaveFlag(ref flags, SaveFlag.Crafter, m_Crafter != null);
+			Utility.SetSaveFlag(ref flags, SaveFlag.Quality, true);
+			Utility.SetSaveFlag(ref flags, SaveFlag.Capacity, m_Capacity > 0);
 
 			writer.WriteEncodedInt((int)flags);
 
-			if (GetSaveFlag(flags, SaveFlag.Attributes))
+			if (flags.HasFlag(SaveFlag.Attributes))
 				m_Attributes.Serialize(writer);
 
-			if (GetSaveFlag(flags, SaveFlag.LowerAmmoCost))
+			if (flags.HasFlag(SaveFlag.LowerAmmoCost))
 				writer.Write((int)m_LowerAmmoCost);
 
-			if (GetSaveFlag(flags, SaveFlag.WeightReduction))
+			if (flags.HasFlag(SaveFlag.WeightReduction))
 				writer.Write((int)m_WeightReduction);
 
-			if (GetSaveFlag(flags, SaveFlag.DamageIncrease))
+			if (flags.HasFlag(SaveFlag.DamageIncrease))
 				writer.Write((int)m_DamageIncrease);
 
-			if (GetSaveFlag(flags, SaveFlag.Crafter))
+			if (flags.HasFlag(SaveFlag.Crafter))
 				writer.Write((Mobile)m_Crafter);
 
-			if (GetSaveFlag(flags, SaveFlag.Quality))
+			if (flags.HasFlag(SaveFlag.Quality))
 				writer.Write((int)m_Quality);
 
-			if (GetSaveFlag(flags, SaveFlag.Capacity))
+			if (flags.HasFlag(SaveFlag.Capacity))
 				writer.Write((int)m_Capacity);
 		}
 
@@ -416,27 +405,27 @@ namespace Server.Items
 
 			SaveFlag flags = (SaveFlag)reader.ReadEncodedInt();
 
-			if (GetSaveFlag(flags, SaveFlag.Attributes))
+			if (flags.HasFlag(SaveFlag.Attributes))
 				m_Attributes = new AosAttributes(this, reader);
 			else
 				m_Attributes = new AosAttributes(this);
 
-			if (GetSaveFlag(flags, SaveFlag.LowerAmmoCost))
+			if (flags.HasFlag(SaveFlag.LowerAmmoCost))
 				m_LowerAmmoCost = reader.ReadInt();
 
-			if (GetSaveFlag(flags, SaveFlag.WeightReduction))
+			if (flags.HasFlag(SaveFlag.WeightReduction))
 				m_WeightReduction = reader.ReadInt();
 
-			if (GetSaveFlag(flags, SaveFlag.DamageIncrease))
+			if (flags.HasFlag(SaveFlag.DamageIncrease))
 				m_DamageIncrease = reader.ReadInt();
 
-			if (GetSaveFlag(flags, SaveFlag.Crafter))
+			if (flags.HasFlag(SaveFlag.Crafter))
 				m_Crafter = reader.ReadMobile();
 
-			if (GetSaveFlag(flags, SaveFlag.Quality))
+			if (flags.HasFlag(SaveFlag.Quality))
 				m_Quality = (ClothingQuality)reader.ReadInt();
 
-			if (GetSaveFlag(flags, SaveFlag.Capacity))
+			if (flags.HasFlag(SaveFlag.Capacity))
 				m_Capacity = reader.ReadInt();
 		}
 

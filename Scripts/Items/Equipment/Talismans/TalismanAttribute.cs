@@ -73,13 +73,13 @@ namespace Server.Items
 
 			SaveFlag flags = (SaveFlag)reader.ReadEncodedInt();
 
-			if (GetSaveFlag(flags, SaveFlag.Type))
+			if (flags.HasFlag(SaveFlag.Type))
 				m_Type = ScriptCompiler.FindTypeByFullName(reader.ReadString(), false);
 
-			if (GetSaveFlag(flags, SaveFlag.Name))
+			if (flags.HasFlag(SaveFlag.Name))
 				m_Name = TextDefinition.Deserialize(reader);
 
-			if (GetSaveFlag(flags, SaveFlag.Amount))
+			if (flags.HasFlag(SaveFlag.Amount))
 				m_Amount = reader.ReadEncodedInt();
 		}
 
@@ -89,17 +89,6 @@ namespace Server.Items
 				return m_Type.Name;
 
 			return "None";
-		}
-
-		private static void SetSaveFlag(ref SaveFlag flags, SaveFlag toSet, bool setIf)
-		{
-			if (setIf)
-				flags |= toSet;
-		}
-
-		private static bool GetSaveFlag(SaveFlag flags, SaveFlag toGet)
-		{
-			return ((flags & toGet) != 0);
 		}
 
 		[Flags]
@@ -117,19 +106,19 @@ namespace Server.Items
 
 			SaveFlag flags = SaveFlag.None;
 
-			SetSaveFlag(ref flags, SaveFlag.Type, m_Type != null);
-			SetSaveFlag(ref flags, SaveFlag.Name, m_Name != null);
-			SetSaveFlag(ref flags, SaveFlag.Amount, m_Amount != 0);
+			Utility.SetSaveFlag(ref flags, SaveFlag.Type, m_Type != null);
+			Utility.SetSaveFlag(ref flags, SaveFlag.Name, m_Name != null);
+			Utility.SetSaveFlag(ref flags, SaveFlag.Amount, m_Amount != 0);
 
 			writer.WriteEncodedInt((int)flags);
 
-			if (GetSaveFlag(flags, SaveFlag.Type))
+			if (flags.HasFlag(SaveFlag.Type))
 				writer.Write(m_Type.FullName);
 
-			if (GetSaveFlag(flags, SaveFlag.Name))
+			if (flags.HasFlag(SaveFlag.Name))
 				TextDefinition.Serialize(writer, m_Name);
 
-			if (GetSaveFlag(flags, SaveFlag.Amount))
+			if (flags.HasFlag(SaveFlag.Amount))
 				writer.WriteEncodedInt(m_Amount);
 		}
 

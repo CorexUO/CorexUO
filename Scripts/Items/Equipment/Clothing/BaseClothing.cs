@@ -665,17 +665,6 @@ namespace Server.Items
 		}
 
 		#region Serialization
-		private static void SetSaveFlag(ref SaveFlag flags, SaveFlag toSet, bool setIf)
-		{
-			if (setIf)
-				flags |= toSet;
-		}
-
-		private static bool GetSaveFlag(SaveFlag flags, SaveFlag toGet)
-		{
-			return ((flags & toGet) != 0);
-		}
-
 		[Flags]
 		private enum SaveFlag
 		{
@@ -701,44 +690,44 @@ namespace Server.Items
 
 			SaveFlag flags = SaveFlag.None;
 
-			SetSaveFlag(ref flags, SaveFlag.Resource, m_Resource != DefaultResource);
-			SetSaveFlag(ref flags, SaveFlag.ClothingAttributes, !m_AosClothingAttributes.IsEmpty);
-			SetSaveFlag(ref flags, SaveFlag.SkillBonuses, !m_AosSkillBonuses.IsEmpty);
-			SetSaveFlag(ref flags, SaveFlag.Resistances, !m_AosResistances.IsEmpty);
-			SetSaveFlag(ref flags, SaveFlag.MaxHitPoints, m_MaxHitPoints != 0);
-			SetSaveFlag(ref flags, SaveFlag.HitPoints, m_HitPoints != 0);
-			SetSaveFlag(ref flags, SaveFlag.PlayerConstructed, m_PlayerConstructed != false);
-			SetSaveFlag(ref flags, SaveFlag.Crafter, m_Crafter != null);
-			SetSaveFlag(ref flags, SaveFlag.Quality, m_Quality != ClothingQuality.Regular);
-			SetSaveFlag(ref flags, SaveFlag.StrReq, m_StrReq != -1);
+			Utility.SetSaveFlag(ref flags, SaveFlag.Resource, m_Resource != DefaultResource);
+			Utility.SetSaveFlag(ref flags, SaveFlag.ClothingAttributes, !m_AosClothingAttributes.IsEmpty);
+			Utility.SetSaveFlag(ref flags, SaveFlag.SkillBonuses, !m_AosSkillBonuses.IsEmpty);
+			Utility.SetSaveFlag(ref flags, SaveFlag.Resistances, !m_AosResistances.IsEmpty);
+			Utility.SetSaveFlag(ref flags, SaveFlag.MaxHitPoints, m_MaxHitPoints != 0);
+			Utility.SetSaveFlag(ref flags, SaveFlag.HitPoints, m_HitPoints != 0);
+			Utility.SetSaveFlag(ref flags, SaveFlag.PlayerConstructed, m_PlayerConstructed != false);
+			Utility.SetSaveFlag(ref flags, SaveFlag.Crafter, m_Crafter != null);
+			Utility.SetSaveFlag(ref flags, SaveFlag.Quality, m_Quality != ClothingQuality.Regular);
+			Utility.SetSaveFlag(ref flags, SaveFlag.StrReq, m_StrReq != -1);
 
 			writer.WriteEncodedInt((int)flags);
 
-			if (GetSaveFlag(flags, SaveFlag.Resource))
+			if (flags.HasFlag(SaveFlag.Resource))
 				writer.WriteEncodedInt((int)m_Resource);
 
-			if (GetSaveFlag(flags, SaveFlag.ClothingAttributes))
+			if (flags.HasFlag(SaveFlag.ClothingAttributes))
 				m_AosClothingAttributes.Serialize(writer);
 
-			if (GetSaveFlag(flags, SaveFlag.SkillBonuses))
+			if (flags.HasFlag(SaveFlag.SkillBonuses))
 				m_AosSkillBonuses.Serialize(writer);
 
-			if (GetSaveFlag(flags, SaveFlag.Resistances))
+			if (flags.HasFlag(SaveFlag.Resistances))
 				m_AosResistances.Serialize(writer);
 
-			if (GetSaveFlag(flags, SaveFlag.MaxHitPoints))
+			if (flags.HasFlag(SaveFlag.MaxHitPoints))
 				writer.WriteEncodedInt((int)m_MaxHitPoints);
 
-			if (GetSaveFlag(flags, SaveFlag.HitPoints))
+			if (flags.HasFlag(SaveFlag.HitPoints))
 				writer.WriteEncodedInt((int)m_HitPoints);
 
-			if (GetSaveFlag(flags, SaveFlag.Crafter))
+			if (flags.HasFlag(SaveFlag.Crafter))
 				writer.Write((Mobile)m_Crafter);
 
-			if (GetSaveFlag(flags, SaveFlag.Quality))
+			if (flags.HasFlag(SaveFlag.Quality))
 				writer.WriteEncodedInt((int)m_Quality);
 
-			if (GetSaveFlag(flags, SaveFlag.StrReq))
+			if (flags.HasFlag(SaveFlag.StrReq))
 				writer.WriteEncodedInt((int)m_StrReq);
 		}
 
@@ -754,46 +743,46 @@ namespace Server.Items
 					{
 						SaveFlag flags = (SaveFlag)reader.ReadEncodedInt();
 
-						if (GetSaveFlag(flags, SaveFlag.Resource))
+						if (flags.HasFlag(SaveFlag.Resource))
 							m_Resource = (CraftResource)reader.ReadEncodedInt();
 						else
 							m_Resource = DefaultResource;
 
-						if (GetSaveFlag(flags, SaveFlag.ClothingAttributes))
+						if (flags.HasFlag(SaveFlag.ClothingAttributes))
 							m_AosClothingAttributes = new AosArmorAttributes(this, reader);
 						else
 							m_AosClothingAttributes = new AosArmorAttributes(this);
 
-						if (GetSaveFlag(flags, SaveFlag.SkillBonuses))
+						if (flags.HasFlag(SaveFlag.SkillBonuses))
 							m_AosSkillBonuses = new AosSkillBonuses(this, reader);
 						else
 							m_AosSkillBonuses = new AosSkillBonuses(this);
 
-						if (GetSaveFlag(flags, SaveFlag.Resistances))
+						if (flags.HasFlag(SaveFlag.Resistances))
 							m_AosResistances = new AosElementAttributes(this, reader);
 						else
 							m_AosResistances = new AosElementAttributes(this);
 
-						if (GetSaveFlag(flags, SaveFlag.MaxHitPoints))
+						if (flags.HasFlag(SaveFlag.MaxHitPoints))
 							m_MaxHitPoints = reader.ReadEncodedInt();
 
-						if (GetSaveFlag(flags, SaveFlag.HitPoints))
+						if (flags.HasFlag(SaveFlag.HitPoints))
 							m_HitPoints = reader.ReadEncodedInt();
 
-						if (GetSaveFlag(flags, SaveFlag.Crafter))
+						if (flags.HasFlag(SaveFlag.Crafter))
 							m_Crafter = reader.ReadMobile();
 
-						if (GetSaveFlag(flags, SaveFlag.Quality))
+						if (flags.HasFlag(SaveFlag.Quality))
 							m_Quality = (ClothingQuality)reader.ReadEncodedInt();
 						else
 							m_Quality = ClothingQuality.Regular;
 
-						if (GetSaveFlag(flags, SaveFlag.StrReq))
+						if (flags.HasFlag(SaveFlag.StrReq))
 							m_StrReq = reader.ReadEncodedInt();
 						else
 							m_StrReq = -1;
 
-						if (GetSaveFlag(flags, SaveFlag.PlayerConstructed))
+						if (flags.HasFlag(SaveFlag.PlayerConstructed))
 							m_PlayerConstructed = true;
 
 						break;

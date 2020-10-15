@@ -663,17 +663,6 @@ namespace Server.Items
 		{
 		}
 
-		private static void SetSaveFlag(ref SaveFlag flags, SaveFlag toSet, bool setIf)
-		{
-			if (setIf)
-				flags |= toSet;
-		}
-
-		private static bool GetSaveFlag(SaveFlag flags, SaveFlag toGet)
-		{
-			return ((flags & toGet) != 0);
-		}
-
 		[Flags]
 		private enum SaveFlag
 		{
@@ -713,97 +702,97 @@ namespace Server.Items
 
 			SaveFlag flags = SaveFlag.None;
 
-			SetSaveFlag(ref flags, SaveFlag.ArmorAttributes, !m_AosArmorAttributes.IsEmpty);
-			SetSaveFlag(ref flags, SaveFlag.PhysicalBonus, m_PhysicalBonus != 0);
-			SetSaveFlag(ref flags, SaveFlag.FireBonus, m_FireBonus != 0);
-			SetSaveFlag(ref flags, SaveFlag.ColdBonus, m_ColdBonus != 0);
-			SetSaveFlag(ref flags, SaveFlag.PoisonBonus, m_PoisonBonus != 0);
-			SetSaveFlag(ref flags, SaveFlag.EnergyBonus, m_EnergyBonus != 0);
-			SetSaveFlag(ref flags, SaveFlag.Identified, m_Identified != false);
-			SetSaveFlag(ref flags, SaveFlag.MaxHitPoints, m_MaxHitPoints != 0);
-			SetSaveFlag(ref flags, SaveFlag.HitPoints, m_HitPoints != 0);
-			SetSaveFlag(ref flags, SaveFlag.Crafter, m_Crafter != null);
-			SetSaveFlag(ref flags, SaveFlag.Quality, m_Quality != ArmorQuality.Regular);
-			SetSaveFlag(ref flags, SaveFlag.Durability, m_Durability != ArmorDurabilityLevel.Regular);
-			SetSaveFlag(ref flags, SaveFlag.Protection, m_Protection != ArmorProtectionLevel.Regular);
-			SetSaveFlag(ref flags, SaveFlag.Resource, m_Resource != DefaultResource);
-			SetSaveFlag(ref flags, SaveFlag.BaseArmor, m_ArmorBase != -1);
-			SetSaveFlag(ref flags, SaveFlag.StrBonus, m_StrBonus != -1);
-			SetSaveFlag(ref flags, SaveFlag.DexBonus, m_DexBonus != -1);
-			SetSaveFlag(ref flags, SaveFlag.IntBonus, m_IntBonus != -1);
-			SetSaveFlag(ref flags, SaveFlag.StrReq, m_StrReq != -1);
-			SetSaveFlag(ref flags, SaveFlag.DexReq, m_DexReq != -1);
-			SetSaveFlag(ref flags, SaveFlag.IntReq, m_IntReq != -1);
-			SetSaveFlag(ref flags, SaveFlag.MedAllowance, m_Meditate != (AMA)(-1));
-			SetSaveFlag(ref flags, SaveFlag.SkillBonuses, !m_AosSkillBonuses.IsEmpty);
-			SetSaveFlag(ref flags, SaveFlag.PlayerConstructed, m_PlayerConstructed != false);
+			Utility.SetSaveFlag(ref flags, SaveFlag.ArmorAttributes, !m_AosArmorAttributes.IsEmpty);
+			Utility.SetSaveFlag(ref flags, SaveFlag.PhysicalBonus, m_PhysicalBonus != 0);
+			Utility.SetSaveFlag(ref flags, SaveFlag.FireBonus, m_FireBonus != 0);
+			Utility.SetSaveFlag(ref flags, SaveFlag.ColdBonus, m_ColdBonus != 0);
+			Utility.SetSaveFlag(ref flags, SaveFlag.PoisonBonus, m_PoisonBonus != 0);
+			Utility.SetSaveFlag(ref flags, SaveFlag.EnergyBonus, m_EnergyBonus != 0);
+			Utility.SetSaveFlag(ref flags, SaveFlag.Identified, m_Identified != false);
+			Utility.SetSaveFlag(ref flags, SaveFlag.MaxHitPoints, m_MaxHitPoints != 0);
+			Utility.SetSaveFlag(ref flags, SaveFlag.HitPoints, m_HitPoints != 0);
+			Utility.SetSaveFlag(ref flags, SaveFlag.Crafter, m_Crafter != null);
+			Utility.SetSaveFlag(ref flags, SaveFlag.Quality, m_Quality != ArmorQuality.Regular);
+			Utility.SetSaveFlag(ref flags, SaveFlag.Durability, m_Durability != ArmorDurabilityLevel.Regular);
+			Utility.SetSaveFlag(ref flags, SaveFlag.Protection, m_Protection != ArmorProtectionLevel.Regular);
+			Utility.SetSaveFlag(ref flags, SaveFlag.Resource, m_Resource != DefaultResource);
+			Utility.SetSaveFlag(ref flags, SaveFlag.BaseArmor, m_ArmorBase != -1);
+			Utility.SetSaveFlag(ref flags, SaveFlag.StrBonus, m_StrBonus != -1);
+			Utility.SetSaveFlag(ref flags, SaveFlag.DexBonus, m_DexBonus != -1);
+			Utility.SetSaveFlag(ref flags, SaveFlag.IntBonus, m_IntBonus != -1);
+			Utility.SetSaveFlag(ref flags, SaveFlag.StrReq, m_StrReq != -1);
+			Utility.SetSaveFlag(ref flags, SaveFlag.DexReq, m_DexReq != -1);
+			Utility.SetSaveFlag(ref flags, SaveFlag.IntReq, m_IntReq != -1);
+			Utility.SetSaveFlag(ref flags, SaveFlag.MedAllowance, m_Meditate != (AMA)(-1));
+			Utility.SetSaveFlag(ref flags, SaveFlag.SkillBonuses, !m_AosSkillBonuses.IsEmpty);
+			Utility.SetSaveFlag(ref flags, SaveFlag.PlayerConstructed, m_PlayerConstructed != false);
 
 			writer.WriteEncodedInt((int)flags);
 
-			if (GetSaveFlag(flags, SaveFlag.ArmorAttributes))
+			if (flags.HasFlag(SaveFlag.ArmorAttributes))
 				m_AosArmorAttributes.Serialize(writer);
 
-			if (GetSaveFlag(flags, SaveFlag.PhysicalBonus))
+			if (flags.HasFlag(SaveFlag.PhysicalBonus))
 				writer.WriteEncodedInt((int)m_PhysicalBonus);
 
-			if (GetSaveFlag(flags, SaveFlag.FireBonus))
+			if (flags.HasFlag(SaveFlag.FireBonus))
 				writer.WriteEncodedInt((int)m_FireBonus);
 
-			if (GetSaveFlag(flags, SaveFlag.ColdBonus))
+			if (flags.HasFlag(SaveFlag.ColdBonus))
 				writer.WriteEncodedInt((int)m_ColdBonus);
 
-			if (GetSaveFlag(flags, SaveFlag.PoisonBonus))
+			if (flags.HasFlag(SaveFlag.PoisonBonus))
 				writer.WriteEncodedInt((int)m_PoisonBonus);
 
-			if (GetSaveFlag(flags, SaveFlag.EnergyBonus))
+			if (flags.HasFlag(SaveFlag.EnergyBonus))
 				writer.WriteEncodedInt((int)m_EnergyBonus);
 
-			if (GetSaveFlag(flags, SaveFlag.MaxHitPoints))
+			if (flags.HasFlag(SaveFlag.MaxHitPoints))
 				writer.WriteEncodedInt((int)m_MaxHitPoints);
 
-			if (GetSaveFlag(flags, SaveFlag.HitPoints))
+			if (flags.HasFlag(SaveFlag.HitPoints))
 				writer.WriteEncodedInt((int)m_HitPoints);
 
-			if (GetSaveFlag(flags, SaveFlag.Crafter))
+			if (flags.HasFlag(SaveFlag.Crafter))
 				writer.Write((Mobile)m_Crafter);
 
-			if (GetSaveFlag(flags, SaveFlag.Quality))
+			if (flags.HasFlag(SaveFlag.Quality))
 				writer.WriteEncodedInt((int)m_Quality);
 
-			if (GetSaveFlag(flags, SaveFlag.Durability))
+			if (flags.HasFlag(SaveFlag.Durability))
 				writer.WriteEncodedInt((int)m_Durability);
 
-			if (GetSaveFlag(flags, SaveFlag.Protection))
+			if (flags.HasFlag(SaveFlag.Protection))
 				writer.WriteEncodedInt((int)m_Protection);
 
-			if (GetSaveFlag(flags, SaveFlag.Resource))
+			if (flags.HasFlag(SaveFlag.Resource))
 				writer.WriteEncodedInt((int)m_Resource);
 
-			if (GetSaveFlag(flags, SaveFlag.BaseArmor))
+			if (flags.HasFlag(SaveFlag.BaseArmor))
 				writer.WriteEncodedInt((int)m_ArmorBase);
 
-			if (GetSaveFlag(flags, SaveFlag.StrBonus))
+			if (flags.HasFlag(SaveFlag.StrBonus))
 				writer.WriteEncodedInt((int)m_StrBonus);
 
-			if (GetSaveFlag(flags, SaveFlag.DexBonus))
+			if (flags.HasFlag(SaveFlag.DexBonus))
 				writer.WriteEncodedInt((int)m_DexBonus);
 
-			if (GetSaveFlag(flags, SaveFlag.IntBonus))
+			if (flags.HasFlag(SaveFlag.IntBonus))
 				writer.WriteEncodedInt((int)m_IntBonus);
 
-			if (GetSaveFlag(flags, SaveFlag.StrReq))
+			if (flags.HasFlag(SaveFlag.StrReq))
 				writer.WriteEncodedInt((int)m_StrReq);
 
-			if (GetSaveFlag(flags, SaveFlag.DexReq))
+			if (flags.HasFlag(SaveFlag.DexReq))
 				writer.WriteEncodedInt((int)m_DexReq);
 
-			if (GetSaveFlag(flags, SaveFlag.IntReq))
+			if (flags.HasFlag(SaveFlag.IntReq))
 				writer.WriteEncodedInt((int)m_IntReq);
 
-			if (GetSaveFlag(flags, SaveFlag.MedAllowance))
+			if (flags.HasFlag(SaveFlag.MedAllowance))
 				writer.WriteEncodedInt((int)m_Meditate);
 
-			if (GetSaveFlag(flags, SaveFlag.SkillBonuses))
+			if (flags.HasFlag(SaveFlag.SkillBonuses))
 				m_AosSkillBonuses.Serialize(writer);
 		}
 
@@ -819,39 +808,39 @@ namespace Server.Items
 					{
 						SaveFlag flags = (SaveFlag)reader.ReadEncodedInt();
 
-						if (GetSaveFlag(flags, SaveFlag.ArmorAttributes))
+						if (flags.HasFlag(SaveFlag.ArmorAttributes))
 							m_AosArmorAttributes = new AosArmorAttributes(this, reader);
 						else
 							m_AosArmorAttributes = new AosArmorAttributes(this);
 
-						if (GetSaveFlag(flags, SaveFlag.PhysicalBonus))
+						if (flags.HasFlag(SaveFlag.PhysicalBonus))
 							m_PhysicalBonus = reader.ReadEncodedInt();
 
-						if (GetSaveFlag(flags, SaveFlag.FireBonus))
+						if (flags.HasFlag(SaveFlag.FireBonus))
 							m_FireBonus = reader.ReadEncodedInt();
 
-						if (GetSaveFlag(flags, SaveFlag.ColdBonus))
+						if (flags.HasFlag(SaveFlag.ColdBonus))
 							m_ColdBonus = reader.ReadEncodedInt();
 
-						if (GetSaveFlag(flags, SaveFlag.PoisonBonus))
+						if (flags.HasFlag(SaveFlag.PoisonBonus))
 							m_PoisonBonus = reader.ReadEncodedInt();
 
-						if (GetSaveFlag(flags, SaveFlag.EnergyBonus))
+						if (flags.HasFlag(SaveFlag.EnergyBonus))
 							m_EnergyBonus = reader.ReadEncodedInt();
 
-						if (GetSaveFlag(flags, SaveFlag.Identified))
+						if (flags.HasFlag(SaveFlag.Identified))
 							m_Identified = (version >= 7 || reader.ReadBool());
 
-						if (GetSaveFlag(flags, SaveFlag.MaxHitPoints))
+						if (flags.HasFlag(SaveFlag.MaxHitPoints))
 							m_MaxHitPoints = reader.ReadEncodedInt();
 
-						if (GetSaveFlag(flags, SaveFlag.HitPoints))
+						if (flags.HasFlag(SaveFlag.HitPoints))
 							m_HitPoints = reader.ReadEncodedInt();
 
-						if (GetSaveFlag(flags, SaveFlag.Crafter))
+						if (flags.HasFlag(SaveFlag.Crafter))
 							m_Crafter = reader.ReadMobile();
 
-						if (GetSaveFlag(flags, SaveFlag.Quality))
+						if (flags.HasFlag(SaveFlag.Quality))
 							m_Quality = (ArmorQuality)reader.ReadEncodedInt();
 						else
 							m_Quality = ArmorQuality.Regular;
@@ -859,7 +848,7 @@ namespace Server.Items
 						if (m_Quality == ArmorQuality.Low)
 							m_Quality = ArmorQuality.Regular;
 
-						if (GetSaveFlag(flags, SaveFlag.Durability))
+						if (flags.HasFlag(SaveFlag.Durability))
 						{
 							m_Durability = (ArmorDurabilityLevel)reader.ReadEncodedInt();
 
@@ -867,7 +856,7 @@ namespace Server.Items
 								m_Durability = ArmorDurabilityLevel.Durable;
 						}
 
-						if (GetSaveFlag(flags, SaveFlag.Protection))
+						if (flags.HasFlag(SaveFlag.Protection))
 						{
 							m_Protection = (ArmorProtectionLevel)reader.ReadEncodedInt();
 
@@ -875,7 +864,7 @@ namespace Server.Items
 								m_Protection = ArmorProtectionLevel.Defense;
 						}
 
-						if (GetSaveFlag(flags, SaveFlag.Resource))
+						if (flags.HasFlag(SaveFlag.Resource))
 							m_Resource = (CraftResource)reader.ReadEncodedInt();
 						else
 							m_Resource = DefaultResource;
@@ -883,50 +872,50 @@ namespace Server.Items
 						if (m_Resource == CraftResource.None)
 							m_Resource = DefaultResource;
 
-						if (GetSaveFlag(flags, SaveFlag.BaseArmor))
+						if (flags.HasFlag(SaveFlag.BaseArmor))
 							m_ArmorBase = reader.ReadEncodedInt();
 						else
 							m_ArmorBase = -1;
 
-						if (GetSaveFlag(flags, SaveFlag.StrBonus))
+						if (flags.HasFlag(SaveFlag.StrBonus))
 							m_StrBonus = reader.ReadEncodedInt();
 						else
 							m_StrBonus = -1;
 
-						if (GetSaveFlag(flags, SaveFlag.DexBonus))
+						if (flags.HasFlag(SaveFlag.DexBonus))
 							m_DexBonus = reader.ReadEncodedInt();
 						else
 							m_DexBonus = -1;
 
-						if (GetSaveFlag(flags, SaveFlag.IntBonus))
+						if (flags.HasFlag(SaveFlag.IntBonus))
 							m_IntBonus = reader.ReadEncodedInt();
 						else
 							m_IntBonus = -1;
 
-						if (GetSaveFlag(flags, SaveFlag.StrReq))
+						if (flags.HasFlag(SaveFlag.StrReq))
 							m_StrReq = reader.ReadEncodedInt();
 						else
 							m_StrReq = -1;
 
-						if (GetSaveFlag(flags, SaveFlag.DexReq))
+						if (flags.HasFlag(SaveFlag.DexReq))
 							m_DexReq = reader.ReadEncodedInt();
 						else
 							m_DexReq = -1;
 
-						if (GetSaveFlag(flags, SaveFlag.IntReq))
+						if (flags.HasFlag(SaveFlag.IntReq))
 							m_IntReq = reader.ReadEncodedInt();
 						else
 							m_IntReq = -1;
 
-						if (GetSaveFlag(flags, SaveFlag.MedAllowance))
+						if (flags.HasFlag(SaveFlag.MedAllowance))
 							m_Meditate = (AMA)reader.ReadEncodedInt();
 						else
 							m_Meditate = (AMA)(-1);
 
-						if (GetSaveFlag(flags, SaveFlag.SkillBonuses))
+						if (flags.HasFlag(SaveFlag.SkillBonuses))
 							m_AosSkillBonuses = new AosSkillBonuses(this, reader);
 
-						if (GetSaveFlag(flags, SaveFlag.PlayerConstructed))
+						if (flags.HasFlag(SaveFlag.PlayerConstructed))
 							m_PlayerConstructed = true;
 
 						break;

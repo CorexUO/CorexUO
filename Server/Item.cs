@@ -1,23 +1,3 @@
-/***************************************************************************
- *                                  Item.cs
- *                            -------------------
- *   begin                : May 1, 2002
- *   copyright            : (C) The RunUO Software Team
- *   email                : info@runuo.com
- *
- *   $Id$
- *
- ***************************************************************************/
-
-/***************************************************************************
- *
- *   This program is free software; you can redistribute it and/or modify
- *   it under the terms of the GNU General Public License as published by
- *   the Free Software Foundation; either version 2 of the License, or
- *   (at your option) any later version.
- *
- ***************************************************************************/
-
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -2037,17 +2017,6 @@ namespace Server
 			NullWeight = 0x04000000
 		}
 
-		private static void SetSaveFlag(ref SaveFlag flags, SaveFlag toSet, bool setIf)
-		{
-			if (setIf)
-				flags |= toSet;
-		}
-
-		private static bool GetSaveFlag(SaveFlag flags, SaveFlag toGet)
-		{
-			return ((flags & toGet) != 0);
-		}
-
 		int ISerializable.TypeReference
 		{
 			get { return m_TypeRef; }
@@ -2166,16 +2135,16 @@ namespace Server
 			writer.WriteEncodedInt((int)minutes);
 			/* end */
 
-			if (GetSaveFlag(flags, SaveFlag.Direction))
+			if (flags.HasFlag(SaveFlag.Direction))
 				writer.Write((byte)m_Direction);
 
-			if (GetSaveFlag(flags, SaveFlag.Bounce))
+			if (flags.HasFlag(SaveFlag.Bounce))
 				BounceInfo.Serialize(info.m_Bounce, writer);
 
-			if (GetSaveFlag(flags, SaveFlag.LootType))
+			if (flags.HasFlag(SaveFlag.LootType))
 				writer.Write((byte)m_LootType);
 
-			if (GetSaveFlag(flags, SaveFlag.LocationFull))
+			if (flags.HasFlag(SaveFlag.LocationFull))
 			{
 				writer.WriteEncodedInt(x);
 				writer.WriteEncodedInt(y);
@@ -2183,37 +2152,37 @@ namespace Server
 			}
 			else
 			{
-				if (GetSaveFlag(flags, SaveFlag.LocationByteXY))
+				if (flags.HasFlag(SaveFlag.LocationByteXY))
 				{
 					writer.Write((byte)x);
 					writer.Write((byte)y);
 				}
-				else if (GetSaveFlag(flags, SaveFlag.LocationShortXY))
+				else if (flags.HasFlag(SaveFlag.LocationShortXY))
 				{
 					writer.Write((short)x);
 					writer.Write((short)y);
 				}
 
-				if (GetSaveFlag(flags, SaveFlag.LocationSByteZ))
+				if (flags.HasFlag(SaveFlag.LocationSByteZ))
 					writer.Write((sbyte)z);
 			}
 
-			if (GetSaveFlag(flags, SaveFlag.ItemID))
+			if (flags.HasFlag(SaveFlag.ItemID))
 				writer.WriteEncodedInt((int)m_ItemID);
 
-			if (GetSaveFlag(flags, SaveFlag.Hue))
+			if (flags.HasFlag(SaveFlag.Hue))
 				writer.WriteEncodedInt((int)m_Hue);
 
-			if (GetSaveFlag(flags, SaveFlag.Amount))
+			if (flags.HasFlag(SaveFlag.Amount))
 				writer.WriteEncodedInt((int)m_Amount);
 
-			if (GetSaveFlag(flags, SaveFlag.Layer))
+			if (flags.HasFlag(SaveFlag.Layer))
 				writer.Write((byte)m_Layer);
 
-			if (GetSaveFlag(flags, SaveFlag.Name))
+			if (flags.HasFlag(SaveFlag.Name))
 				writer.Write((string)info.m_Name);
 
-			if (GetSaveFlag(flags, SaveFlag.Parent))
+			if (flags.HasFlag(SaveFlag.Parent))
 			{
 				if (m_Parent != null && !m_Parent.Deleted)
 					writer.Write(m_Parent.Serial);
@@ -2221,30 +2190,30 @@ namespace Server
 					writer.Write((int)Serial.MinusOne);
 			}
 
-			if (GetSaveFlag(flags, SaveFlag.Items))
+			if (flags.HasFlag(SaveFlag.Items))
 				writer.Write(items, false);
 
-			if (GetSaveFlag(flags, SaveFlag.IntWeight))
+			if (flags.HasFlag(SaveFlag.IntWeight))
 				writer.WriteEncodedInt((int)info.m_Weight);
-			else if (GetSaveFlag(flags, SaveFlag.WeightNot1or0))
+			else if (flags.HasFlag(SaveFlag.WeightNot1or0))
 				writer.Write((double)info.m_Weight);
 
-			if (GetSaveFlag(flags, SaveFlag.Map))
+			if (flags.HasFlag(SaveFlag.Map))
 				writer.Write((Map)m_Map);
 
-			if (GetSaveFlag(flags, SaveFlag.ImplFlags))
+			if (flags.HasFlag(SaveFlag.ImplFlags))
 				writer.WriteEncodedInt((int)implFlags);
 
-			if (GetSaveFlag(flags, SaveFlag.InsuredFor))
+			if (flags.HasFlag(SaveFlag.InsuredFor))
 				writer.Write((Mobile)null);
 
-			if (GetSaveFlag(flags, SaveFlag.BlessedFor))
+			if (flags.HasFlag(SaveFlag.BlessedFor))
 				writer.Write(info.m_BlessedFor);
 
-			if (GetSaveFlag(flags, SaveFlag.HeldBy))
+			if (flags.HasFlag(SaveFlag.HeldBy))
 				writer.Write(info.m_HeldBy);
 
-			if (GetSaveFlag(flags, SaveFlag.SavedFlags))
+			if (flags.HasFlag(SaveFlag.SavedFlags))
 				writer.WriteEncodedInt(info.m_SavedFlags);
 		}
 
@@ -2390,18 +2359,18 @@ namespace Server
 						try { LastMoved = DateTime.UtcNow - TimeSpan.FromMinutes(minutes); }
 						catch { LastMoved = DateTime.UtcNow; }
 
-						if (GetSaveFlag(flags, SaveFlag.Direction))
+						if (flags.HasFlag(SaveFlag.Direction))
 							m_Direction = (Direction)reader.ReadByte();
 
-						if (GetSaveFlag(flags, SaveFlag.Bounce))
+						if (flags.HasFlag(SaveFlag.Bounce))
 							AcquireCompactInfo().m_Bounce = BounceInfo.Deserialize(reader);
 
-						if (GetSaveFlag(flags, SaveFlag.LootType))
+						if (flags.HasFlag(SaveFlag.LootType))
 							m_LootType = (LootType)reader.ReadByte();
 
 						int x = 0, y = 0, z = 0;
 
-						if (GetSaveFlag(flags, SaveFlag.LocationFull))
+						if (flags.HasFlag(SaveFlag.LocationFull))
 						{
 							x = reader.ReadEncodedInt();
 							y = reader.ReadEncodedInt();
@@ -2409,38 +2378,38 @@ namespace Server
 						}
 						else
 						{
-							if (GetSaveFlag(flags, SaveFlag.LocationByteXY))
+							if (flags.HasFlag(SaveFlag.LocationByteXY))
 							{
 								x = reader.ReadByte();
 								y = reader.ReadByte();
 							}
-							else if (GetSaveFlag(flags, SaveFlag.LocationShortXY))
+							else if (flags.HasFlag(SaveFlag.LocationShortXY))
 							{
 								x = reader.ReadShort();
 								y = reader.ReadShort();
 							}
 
-							if (GetSaveFlag(flags, SaveFlag.LocationSByteZ))
+							if (flags.HasFlag(SaveFlag.LocationSByteZ))
 								z = reader.ReadSByte();
 						}
 
 						m_Location = new Point3D(x, y, z);
 
-						if (GetSaveFlag(flags, SaveFlag.ItemID))
+						if (flags.HasFlag(SaveFlag.ItemID))
 							m_ItemID = reader.ReadEncodedInt();
 
-						if (GetSaveFlag(flags, SaveFlag.Hue))
+						if (flags.HasFlag(SaveFlag.Hue))
 							m_Hue = reader.ReadEncodedInt();
 
-						if (GetSaveFlag(flags, SaveFlag.Amount))
+						if (flags.HasFlag(SaveFlag.Amount))
 							m_Amount = reader.ReadEncodedInt();
 						else
 							m_Amount = 1;
 
-						if (GetSaveFlag(flags, SaveFlag.Layer))
+						if (flags.HasFlag(SaveFlag.Layer))
 							m_Layer = (Layer)reader.ReadByte();
 
-						if (GetSaveFlag(flags, SaveFlag.Name))
+						if (flags.HasFlag(SaveFlag.Name))
 						{
 							string name = reader.ReadString();
 
@@ -2448,7 +2417,7 @@ namespace Server
 								AcquireCompactInfo().m_Name = name;
 						}
 
-						if (GetSaveFlag(flags, SaveFlag.Parent))
+						if (flags.HasFlag(SaveFlag.Parent))
 						{
 							Serial parent = reader.ReadInt();
 
@@ -2463,7 +2432,7 @@ namespace Server
 								Delete();
 						}
 
-						if (GetSaveFlag(flags, SaveFlag.Items))
+						if (flags.HasFlag(SaveFlag.Items))
 						{
 							List<Item> items = reader.ReadStrongItemList();
 
@@ -2473,15 +2442,15 @@ namespace Server
 								AcquireCompactInfo().m_Items = items;
 						}
 
-						if (!GetSaveFlag(flags, SaveFlag.NullWeight))
+						if (!flags.HasFlag(SaveFlag.NullWeight))
 						{
 							double weight;
 
-							if (GetSaveFlag(flags, SaveFlag.IntWeight))
+							if (flags.HasFlag(SaveFlag.IntWeight))
 								weight = reader.ReadEncodedInt();
-							else if (GetSaveFlag(flags, SaveFlag.WeightNot1or0))
+							else if (flags.HasFlag(SaveFlag.WeightNot1or0))
 								weight = reader.ReadDouble();
-							else if (GetSaveFlag(flags, SaveFlag.WeightIs0))
+							else if (flags.HasFlag(SaveFlag.WeightIs0))
 								weight = 0.0;
 							else
 								weight = 1.0;
@@ -2490,38 +2459,38 @@ namespace Server
 								AcquireCompactInfo().m_Weight = weight;
 						}
 
-						if (GetSaveFlag(flags, SaveFlag.Map))
+						if (flags.HasFlag(SaveFlag.Map))
 							m_Map = reader.ReadMap();
 						else
 							m_Map = Map.Internal;
 
-						if (GetSaveFlag(flags, SaveFlag.Visible))
+						if (flags.HasFlag(SaveFlag.Visible))
 							SetFlag(ImplFlag.Visible, reader.ReadBool());
 						else
 							SetFlag(ImplFlag.Visible, true);
 
-						if (GetSaveFlag(flags, SaveFlag.Movable))
+						if (flags.HasFlag(SaveFlag.Movable))
 							SetFlag(ImplFlag.Movable, reader.ReadBool());
 						else
 							SetFlag(ImplFlag.Movable, true);
 
-						if (GetSaveFlag(flags, SaveFlag.Stackable))
+						if (flags.HasFlag(SaveFlag.Stackable))
 							SetFlag(ImplFlag.Stackable, reader.ReadBool());
 
-						if (GetSaveFlag(flags, SaveFlag.ImplFlags))
+						if (flags.HasFlag(SaveFlag.ImplFlags))
 							m_Flags = (ImplFlag)reader.ReadEncodedInt();
 
-						if (GetSaveFlag(flags, SaveFlag.InsuredFor))
+						if (flags.HasFlag(SaveFlag.InsuredFor))
 							/*m_InsuredFor = */
 							reader.ReadMobile();
 
-						if (GetSaveFlag(flags, SaveFlag.BlessedFor))
+						if (flags.HasFlag(SaveFlag.BlessedFor))
 							AcquireCompactInfo().m_BlessedFor = reader.ReadMobile();
 
-						if (GetSaveFlag(flags, SaveFlag.HeldBy))
+						if (flags.HasFlag(SaveFlag.HeldBy))
 							AcquireCompactInfo().m_HeldBy = reader.ReadMobile();
 
-						if (GetSaveFlag(flags, SaveFlag.SavedFlags))
+						if (flags.HasFlag(SaveFlag.SavedFlags))
 							AcquireCompactInfo().m_SavedFlags = reader.ReadEncodedInt();
 
 						if (m_Map != null && m_Parent == null)

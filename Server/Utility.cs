@@ -1352,5 +1352,15 @@ namespace Server
 
 			return output;
 		}
+
+		public static void SetSaveFlag<T>(ref T flags, T toSet, bool setIf) where T : Enum
+		{
+			if (setIf)
+			{
+				ulong numericValue = Convert.ToUInt64(flags);
+				numericValue |= Convert.ToUInt64(toSet);
+				flags = (T)Enum.ToObject(typeof(T), numericValue);
+			}
+		}
 	}
 }

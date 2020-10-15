@@ -485,17 +485,6 @@ namespace Server.Items
 				list.Add(1072503 + (int)m_Slayer);
 		}
 
-		private static void SetSaveFlag(ref SaveFlag flags, SaveFlag toSet, bool setIf)
-		{
-			if (setIf)
-				flags |= toSet;
-		}
-
-		private static bool GetSaveFlag(SaveFlag flags, SaveFlag toGet)
-		{
-			return ((flags & toGet) != 0);
-		}
-
 		[Flags]
 		private enum SaveFlag
 		{
@@ -527,60 +516,60 @@ namespace Server.Items
 
 			SaveFlag flags = SaveFlag.None;
 
-			SetSaveFlag(ref flags, SaveFlag.SkillBonuses, !m_AosSkillBonuses.IsEmpty);
-			SetSaveFlag(ref flags, SaveFlag.Protection, m_Protection != null && !m_Protection.IsEmpty);
-			SetSaveFlag(ref flags, SaveFlag.Killer, m_Killer != null && !m_Killer.IsEmpty);
-			SetSaveFlag(ref flags, SaveFlag.Summoner, m_Summoner != null && !m_Summoner.IsEmpty);
-			SetSaveFlag(ref flags, SaveFlag.Removal, m_Removal != TalismanRemoval.None);
-			SetSaveFlag(ref flags, SaveFlag.Skill, (int)m_Skill != 0);
-			SetSaveFlag(ref flags, SaveFlag.SuccessBonus, m_SuccessBonus != 0);
-			SetSaveFlag(ref flags, SaveFlag.ExceptionalBonus, m_ExceptionalBonus != 0);
-			SetSaveFlag(ref flags, SaveFlag.MaxCharges, m_MaxCharges != 0);
-			SetSaveFlag(ref flags, SaveFlag.Charges, m_Charges != 0);
-			SetSaveFlag(ref flags, SaveFlag.MaxChargeTime, m_MaxChargeTime != 0);
-			SetSaveFlag(ref flags, SaveFlag.ChargeTime, m_ChargeTime != 0);
-			SetSaveFlag(ref flags, SaveFlag.Blessed, m_Blessed);
-			SetSaveFlag(ref flags, SaveFlag.Slayer, m_Slayer != TalismanSlayerName.None);
+			Utility.SetSaveFlag(ref flags, SaveFlag.SkillBonuses, !m_AosSkillBonuses.IsEmpty);
+			Utility.SetSaveFlag(ref flags, SaveFlag.Protection, m_Protection != null && !m_Protection.IsEmpty);
+			Utility.SetSaveFlag(ref flags, SaveFlag.Killer, m_Killer != null && !m_Killer.IsEmpty);
+			Utility.SetSaveFlag(ref flags, SaveFlag.Summoner, m_Summoner != null && !m_Summoner.IsEmpty);
+			Utility.SetSaveFlag(ref flags, SaveFlag.Removal, m_Removal != TalismanRemoval.None);
+			Utility.SetSaveFlag(ref flags, SaveFlag.Skill, (int)m_Skill != 0);
+			Utility.SetSaveFlag(ref flags, SaveFlag.SuccessBonus, m_SuccessBonus != 0);
+			Utility.SetSaveFlag(ref flags, SaveFlag.ExceptionalBonus, m_ExceptionalBonus != 0);
+			Utility.SetSaveFlag(ref flags, SaveFlag.MaxCharges, m_MaxCharges != 0);
+			Utility.SetSaveFlag(ref flags, SaveFlag.Charges, m_Charges != 0);
+			Utility.SetSaveFlag(ref flags, SaveFlag.MaxChargeTime, m_MaxChargeTime != 0);
+			Utility.SetSaveFlag(ref flags, SaveFlag.ChargeTime, m_ChargeTime != 0);
+			Utility.SetSaveFlag(ref flags, SaveFlag.Blessed, m_Blessed);
+			Utility.SetSaveFlag(ref flags, SaveFlag.Slayer, m_Slayer != TalismanSlayerName.None);
 
 			writer.WriteEncodedInt((int)flags);
 
-			if (GetSaveFlag(flags, SaveFlag.SkillBonuses))
+			if (flags.HasFlag(SaveFlag.SkillBonuses))
 				m_AosSkillBonuses.Serialize(writer);
 
-			if (GetSaveFlag(flags, SaveFlag.Protection))
+			if (flags.HasFlag(SaveFlag.Protection))
 				m_Protection.Serialize(writer);
 
-			if (GetSaveFlag(flags, SaveFlag.Killer))
+			if (flags.HasFlag(SaveFlag.Killer))
 				m_Killer.Serialize(writer);
 
-			if (GetSaveFlag(flags, SaveFlag.Summoner))
+			if (flags.HasFlag(SaveFlag.Summoner))
 				m_Summoner.Serialize(writer);
 
-			if (GetSaveFlag(flags, SaveFlag.Removal))
+			if (flags.HasFlag(SaveFlag.Removal))
 				writer.WriteEncodedInt((int)m_Removal);
 
-			if (GetSaveFlag(flags, SaveFlag.Skill))
+			if (flags.HasFlag(SaveFlag.Skill))
 				writer.WriteEncodedInt((int)m_Skill);
 
-			if (GetSaveFlag(flags, SaveFlag.SuccessBonus))
+			if (flags.HasFlag(SaveFlag.SuccessBonus))
 				writer.WriteEncodedInt(m_SuccessBonus);
 
-			if (GetSaveFlag(flags, SaveFlag.ExceptionalBonus))
+			if (flags.HasFlag(SaveFlag.ExceptionalBonus))
 				writer.WriteEncodedInt(m_ExceptionalBonus);
 
-			if (GetSaveFlag(flags, SaveFlag.MaxCharges))
+			if (flags.HasFlag(SaveFlag.MaxCharges))
 				writer.WriteEncodedInt(m_MaxCharges);
 
-			if (GetSaveFlag(flags, SaveFlag.Charges))
+			if (flags.HasFlag(SaveFlag.Charges))
 				writer.WriteEncodedInt(m_Charges);
 
-			if (GetSaveFlag(flags, SaveFlag.MaxChargeTime))
+			if (flags.HasFlag(SaveFlag.MaxChargeTime))
 				writer.WriteEncodedInt(m_MaxChargeTime);
 
-			if (GetSaveFlag(flags, SaveFlag.ChargeTime))
+			if (flags.HasFlag(SaveFlag.ChargeTime))
 				writer.WriteEncodedInt(m_ChargeTime);
 
-			if (GetSaveFlag(flags, SaveFlag.Slayer))
+			if (flags.HasFlag(SaveFlag.Slayer))
 				writer.WriteEncodedInt((int)m_Slayer);
 		}
 
@@ -596,61 +585,61 @@ namespace Server.Items
 					{
 						SaveFlag flags = (SaveFlag)reader.ReadEncodedInt();
 
-						if (GetSaveFlag(flags, SaveFlag.SkillBonuses))
+						if (flags.HasFlag(SaveFlag.SkillBonuses))
 							m_AosSkillBonuses = new AosSkillBonuses(this, reader);
 						else
 							m_AosSkillBonuses = new AosSkillBonuses(this);
 
 						// Backward compatibility
-						if (GetSaveFlag(flags, SaveFlag.Owner))
+						if (flags.HasFlag(SaveFlag.Owner))
 							BlessedFor = reader.ReadMobile();
 
-						if (GetSaveFlag(flags, SaveFlag.Protection))
+						if (flags.HasFlag(SaveFlag.Protection))
 							m_Protection = new TalismanAttribute(reader);
 						else
 							m_Protection = new TalismanAttribute();
 
-						if (GetSaveFlag(flags, SaveFlag.Killer))
+						if (flags.HasFlag(SaveFlag.Killer))
 							m_Killer = new TalismanAttribute(reader);
 						else
 							m_Killer = new TalismanAttribute();
 
-						if (GetSaveFlag(flags, SaveFlag.Summoner))
+						if (flags.HasFlag(SaveFlag.Summoner))
 							m_Summoner = new TalismanAttribute(reader);
 						else
 							m_Summoner = new TalismanAttribute();
 
-						if (GetSaveFlag(flags, SaveFlag.Removal))
+						if (flags.HasFlag(SaveFlag.Removal))
 							m_Removal = (TalismanRemoval)reader.ReadEncodedInt();
 
-						if (GetSaveFlag(flags, SaveFlag.OldKarmaLoss))
+						if (flags.HasFlag(SaveFlag.OldKarmaLoss))
 							Attributes.IncreasedKarmaLoss = reader.ReadEncodedInt();
 
-						if (GetSaveFlag(flags, SaveFlag.Skill))
+						if (flags.HasFlag(SaveFlag.Skill))
 							m_Skill = (SkillName)reader.ReadEncodedInt();
 
-						if (GetSaveFlag(flags, SaveFlag.SuccessBonus))
+						if (flags.HasFlag(SaveFlag.SuccessBonus))
 							m_SuccessBonus = reader.ReadEncodedInt();
 
-						if (GetSaveFlag(flags, SaveFlag.ExceptionalBonus))
+						if (flags.HasFlag(SaveFlag.ExceptionalBonus))
 							m_ExceptionalBonus = reader.ReadEncodedInt();
 
-						if (GetSaveFlag(flags, SaveFlag.MaxCharges))
+						if (flags.HasFlag(SaveFlag.MaxCharges))
 							m_MaxCharges = reader.ReadEncodedInt();
 
-						if (GetSaveFlag(flags, SaveFlag.Charges))
+						if (flags.HasFlag(SaveFlag.Charges))
 							m_Charges = reader.ReadEncodedInt();
 
-						if (GetSaveFlag(flags, SaveFlag.MaxChargeTime))
+						if (flags.HasFlag(SaveFlag.MaxChargeTime))
 							m_MaxChargeTime = reader.ReadEncodedInt();
 
-						if (GetSaveFlag(flags, SaveFlag.ChargeTime))
+						if (flags.HasFlag(SaveFlag.ChargeTime))
 							m_ChargeTime = reader.ReadEncodedInt();
 
-						if (GetSaveFlag(flags, SaveFlag.Slayer))
+						if (flags.HasFlag(SaveFlag.Slayer))
 							m_Slayer = (TalismanSlayerName)reader.ReadEncodedInt();
 
-						m_Blessed = GetSaveFlag(flags, SaveFlag.Blessed);
+						m_Blessed = flags.HasFlag(SaveFlag.Blessed);
 
 						break;
 					}

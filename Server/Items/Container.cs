@@ -1,23 +1,3 @@
-/***************************************************************************
- *                               Container.cs
- *                            -------------------
- *   begin                : May 1, 2002
- *   copyright            : (C) The RunUO Software Team
- *   email                : info@runuo.com
- *
- *   $Id$
- *
- ***************************************************************************/
-
-/***************************************************************************
- *
- *   This program is free software; you can redistribute it and/or modify
- *   it under the terms of the GNU General Public License as published by
- *   the Free Software Foundation; either version 2 of the License, or
- *   (at your option) any later version.
- *
- ***************************************************************************/
-
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -1259,17 +1239,6 @@ namespace Server.Items
 			return false;
 		}
 
-		private static void SetSaveFlag(ref SaveFlag flags, SaveFlag toSet, bool setIf)
-		{
-			if (setIf)
-				flags |= toSet;
-		}
-
-		private static bool GetSaveFlag(SaveFlag flags, SaveFlag toGet)
-		{
-			return ((flags & toGet) != 0);
-		}
-
 		[Flags]
 		private enum SaveFlag : byte
 		{
@@ -1288,20 +1257,20 @@ namespace Server.Items
 
 			SaveFlag flags = SaveFlag.None;
 
-			SetSaveFlag(ref flags, SaveFlag.MaxItems, m_MaxItems != -1);
-			SetSaveFlag(ref flags, SaveFlag.GumpID, m_GumpID != -1);
-			SetSaveFlag(ref flags, SaveFlag.DropSound, m_DropSound != -1);
-			SetSaveFlag(ref flags, SaveFlag.LiftOverride, m_LiftOverride);
+			Utility.SetSaveFlag(ref flags, SaveFlag.MaxItems, m_MaxItems != -1);
+			Utility.SetSaveFlag(ref flags, SaveFlag.GumpID, m_GumpID != -1);
+			Utility.SetSaveFlag(ref flags, SaveFlag.DropSound, m_DropSound != -1);
+			Utility.SetSaveFlag(ref flags, SaveFlag.LiftOverride, m_LiftOverride);
 
 			writer.Write((byte)flags);
 
-			if (GetSaveFlag(flags, SaveFlag.MaxItems))
+			if (flags.HasFlag(SaveFlag.MaxItems))
 				writer.WriteEncodedInt((int)m_MaxItems);
 
-			if (GetSaveFlag(flags, SaveFlag.GumpID))
+			if (flags.HasFlag(SaveFlag.GumpID))
 				writer.WriteEncodedInt((int)m_GumpID);
 
-			if (GetSaveFlag(flags, SaveFlag.DropSound))
+			if (flags.HasFlag(SaveFlag.DropSound))
 				writer.WriteEncodedInt((int)m_DropSound);
 		}
 
@@ -1317,22 +1286,22 @@ namespace Server.Items
 					{
 						SaveFlag flags = (SaveFlag)reader.ReadByte();
 
-						if (GetSaveFlag(flags, SaveFlag.MaxItems))
+						if (flags.HasFlag(SaveFlag.MaxItems))
 							m_MaxItems = reader.ReadEncodedInt();
 						else
 							m_MaxItems = -1;
 
-						if (GetSaveFlag(flags, SaveFlag.GumpID))
+						if (flags.HasFlag(SaveFlag.GumpID))
 							m_GumpID = reader.ReadEncodedInt();
 						else
 							m_GumpID = -1;
 
-						if (GetSaveFlag(flags, SaveFlag.DropSound))
+						if (flags.HasFlag(SaveFlag.DropSound))
 							m_DropSound = reader.ReadEncodedInt();
 						else
 							m_DropSound = -1;
 
-						m_LiftOverride = GetSaveFlag(flags, SaveFlag.LiftOverride);
+						m_LiftOverride = flags.HasFlag(SaveFlag.LiftOverride);
 
 						break;
 					}

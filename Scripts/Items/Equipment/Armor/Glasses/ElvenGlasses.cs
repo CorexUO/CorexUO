@@ -10,9 +10,6 @@ namespace Server.Items
 		public override int BasePoisonResistance { get { return 3; } }
 		public override int BaseEnergyResistance { get { return 2; } }
 
-		public override int InitMinHits { get { return 36; } }
-		public override int InitMaxHits { get { return 48; } }
-
 		public override int StrReq { get { return Core.AOS ? 45 : 40; } }
 
 		public override int ArmorBase { get { return 30; } }
@@ -93,17 +90,6 @@ namespace Server.Items
 				list.Add(1060430, prop.ToString()); // hit stamina leech ~1_val~%
 		}
 
-		private static void SetSaveFlag(ref SaveFlag flags, SaveFlag toSet, bool setIf)
-		{
-			if (setIf)
-				flags |= toSet;
-		}
-
-		private static bool GetSaveFlag(SaveFlag flags, SaveFlag toGet)
-		{
-			return ((flags & toGet) != 0);
-		}
-
 		private enum SaveFlag
 		{
 			None = 0x00000000,
@@ -118,11 +104,11 @@ namespace Server.Items
 
 			SaveFlag flags = SaveFlag.None;
 
-			SetSaveFlag(ref flags, SaveFlag.WeaponAttributes, !m_AosWeaponAttributes.IsEmpty);
+			Utility.SetSaveFlag(ref flags, SaveFlag.WeaponAttributes, !m_AosWeaponAttributes.IsEmpty);
 
 			writer.Write((int)flags);
 
-			if (GetSaveFlag(flags, SaveFlag.WeaponAttributes))
+			if (flags.HasFlag(SaveFlag.WeaponAttributes))
 				m_AosWeaponAttributes.Serialize(writer);
 		}
 
@@ -134,7 +120,7 @@ namespace Server.Items
 
 			SaveFlag flags = (SaveFlag)reader.ReadInt();
 
-			if (GetSaveFlag(flags, SaveFlag.WeaponAttributes))
+			if (flags.HasFlag(SaveFlag.WeaponAttributes))
 				m_AosWeaponAttributes = new AosWeaponAttributes(this, reader);
 			else
 				m_AosWeaponAttributes = new AosWeaponAttributes(this);
