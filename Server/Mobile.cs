@@ -7143,6 +7143,8 @@ namespace Server
 			if (m_StatMods.Contains(mod))
 			{
 				m_StatMods.Remove(mod);
+				CheckStatTimers();
+				Delta(MobileDelta.Stat | GetStatDelta(mod.Type));
 				return true;
 			}
 			return false;
@@ -7154,8 +7156,6 @@ namespace Server
 			if (statsMod != null)
 			{
 				RemoveStatMod(statsMod);
-				CheckStatTimers();
-				Delta(MobileDelta.Stat | GetStatDelta(statsMod.Type));
 			}
 
 			return statsMod != null;
