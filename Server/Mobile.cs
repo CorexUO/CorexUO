@@ -7138,12 +7138,22 @@ namespace Server
 		/// </summary>
 		public List<StatMod> StatMods { get { return m_StatMods; } }
 
+		public bool RemoveStatMod(StatMod mod)
+		{
+			if (m_StatMods.Contains(mod))
+			{
+				m_StatMods.Remove(mod);
+				return true;
+			}
+			return false;
+		}
+
 		public bool RemoveStatMod(string name)
 		{
 			StatMod statsMod = m_StatMods.FirstOrDefault(stat => stat.Name == name);
 			if (statsMod != null)
 			{
-				m_StatMods.Remove(statsMod);
+				RemoveStatMod(statsMod);
 				CheckStatTimers();
 				Delta(MobileDelta.Stat | GetStatDelta(statsMod.Type));
 			}
