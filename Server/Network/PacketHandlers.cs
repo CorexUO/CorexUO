@@ -1,23 +1,3 @@
-/***************************************************************************
- *                             PacketHandlers.cs
- *                            -------------------
- *   begin                : May 1, 2002
- *   copyright            : (C) The RunUO Software Team
- *   email                : info@runuo.com
- *
- *   $Id$
- *
- ***************************************************************************/
-
-/***************************************************************************
- *
- *   This program is free software; you can redistribute it and/or modify
- *   it under the terms of the GNU General Public License as published by
- *   the Free Software Foundation; either version 2 of the License, or
- *   (at your option) any later version.
- *
- ***************************************************************************/
-
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -55,7 +35,6 @@ namespace Server.Network
 
 	public static class PacketHandlers
 	{
-		private static PacketHandler[] m_Handlers;
 		private static PacketHandler[] m_6017Handlers;
 
 		private static PacketHandler[] m_ExtendedHandlersLow;
@@ -64,14 +43,11 @@ namespace Server.Network
 		private static EncodedPacketHandler[] m_EncodedHandlersLow;
 		private static Dictionary<int, EncodedPacketHandler> m_EncodedHandlersHigh;
 
-		public static PacketHandler[] Handlers
-		{
-			get { return m_Handlers; }
-		}
+		public static PacketHandler[] Handlers { get; private set; }
 
 		static PacketHandlers()
 		{
-			m_Handlers = new PacketHandler[0x100];
+			Handlers = new PacketHandler[0x100];
 			m_6017Handlers = new PacketHandler[0x100];
 
 			m_ExtendedHandlersLow = new PacketHandler[0x100];
@@ -175,7 +151,7 @@ namespace Server.Network
 
 		public static void Register(int packetID, int length, bool ingame, OnPacketReceive onReceive)
 		{
-			m_Handlers[packetID] = new PacketHandler(packetID, length, ingame, onReceive);
+			Handlers[packetID] = new PacketHandler(packetID, length, ingame, onReceive);
 
 			if (m_6017Handlers[packetID] == null)
 				m_6017Handlers[packetID] = new PacketHandler(packetID, length, ingame, onReceive);
@@ -183,7 +159,7 @@ namespace Server.Network
 
 		public static PacketHandler GetHandler(int packetID)
 		{
-			return m_Handlers[packetID];
+			return Handlers[packetID];
 		}
 
 		public static void Register6017(int packetID, int length, bool ingame, OnPacketReceive onReceive)
@@ -210,8 +186,7 @@ namespace Server.Network
 				return m_ExtendedHandlersLow[packetID];
 			else
 			{
-				PacketHandler handler;
-				m_ExtendedHandlersHigh.TryGetValue(packetID, out handler);
+				m_ExtendedHandlersHigh.TryGetValue(packetID, out PacketHandler handler);
 				return handler;
 			}
 		}
@@ -238,8 +213,7 @@ namespace Server.Network
 				return m_EncodedHandlersLow[packetID];
 			else
 			{
-				EncodedPacketHandler handler;
-				m_EncodedHandlersHigh.TryGetValue(packetID, out handler);
+				m_EncodedHandlersHigh.TryGetValue(packetID, out EncodedPacketHandler handler);
 				return handler;
 			}
 		}
@@ -334,9 +308,7 @@ namespace Server.Network
 					{
 						Serial serial = pvSrc.ReadInt32();
 
-						SecureTradeContainer cont = World.FindItem(serial) as SecureTradeContainer;
-
-						if (cont != null && cont.Trade != null && (cont.Trade.From.Mobile == state.Mobile || cont.Trade.To.Mobile == state.Mobile))
+						if (World.FindItem(serial) is SecureTradeContainer cont && cont.Trade != null && (cont.Trade.From.Mobile == state.Mobile || cont.Trade.To.Mobile == state.Mobile))
 							cont.Trade.Cancel();
 
 						break;
@@ -345,9 +317,7 @@ namespace Server.Network
 					{
 						Serial serial = pvSrc.ReadInt32();
 
-						SecureTradeContainer cont = World.FindItem(serial) as SecureTradeContainer;
-
-						if (cont != null)
+						if (World.FindItem(serial) is SecureTradeContainer cont)
 						{
 							SecureTrade trade = cont.Trade;
 
@@ -371,9 +341,7 @@ namespace Server.Network
 					{
 						Serial serial = pvSrc.ReadInt32();
 
-						SecureTradeContainer cont = World.FindItem(serial) as SecureTradeContainer;
-
-						if (cont != null)
+						if (World.FindItem(serial) is SecureTradeContainer cont)
 						{
 							int gold = pvSrc.ReadInt32();
 							int plat = pvSrc.ReadInt32();
@@ -1529,13 +1497,7 @@ namespace Server.Network
 			}
 		}
 
-		private static bool m_SingleClickProps;
-
-		public static bool SingleClickProps
-		{
-			get { return m_SingleClickProps; }
-			set { m_SingleClickProps = value; }
-		}
+		public static bool SingleClickProps { get; set; }
 
 		public static void LookReq(NetState state, PacketReader pvSrc)
 		{
@@ -1549,7 +1511,7 @@ namespace Server.Network
 
 				if (m != null && from.CanSee(m) && Utility.InUpdateRange(from, m))
 				{
-					if (m_SingleClickProps)
+					if (SingleClickProps)
 					{
 						m.OnAosSingleClick(from);
 					}
@@ -1566,7 +1528,7 @@ namespace Server.Network
 
 				if (item != null && !item.Deleted && from.CanSee(item) && Utility.InUpdateRange(from.Location, item.GetWorldLocation()))
 				{
-					if (m_SingleClickProps)
+					if (SingleClickProps)
 					{
 						item.OnAosSingleClick(from);
 					}
@@ -2054,7 +2016,7 @@ namespace Server.Network
 
 		public static PlayCharCallback ThirdPartyAuthCallback = null, ThirdPartyHackedCallback = null;
 
-		private static byte[] m_ThirdPartyAuthKey = new byte[]
+		private static readonly byte[] m_ThirdPartyAuthKey = new byte[]
 			{
 				0x9, 0x11, 0x83, (byte)'+', 0x4, 0x17, 0x83,
 				0x5, 0x24, 0x85,
@@ -2530,13 +2492,7 @@ namespace Server.Network
 			}
 		}
 
-		private static bool m_ClientVerification = true;
-
-		public static bool ClientVerification
-		{
-			get { return m_ClientVerification; }
-			set { m_ClientVerification = value; }
-		}
+		public static bool ClientVerification { get; set; } = true;
 
 		internal struct AuthIDPersistence
 		{
@@ -2606,7 +2562,7 @@ namespace Server.Network
 
 				state.Version = ap.Version;
 			}
-			else if (m_ClientVerification)
+			else if (ClientVerification)
 			{
 				Console.WriteLine("Login: {0}: Invalid client detected, disconnecting", state);
 				state.Dispose();
