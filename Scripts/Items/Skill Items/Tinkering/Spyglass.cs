@@ -6,7 +6,7 @@ using Server.Network;
 namespace Server.Items
 {
     [Flipable(0x14F5, 0x14F6)]
-    public class Spyglass : Item
+    public class Spyglass : BaseItem
     {
         [Constructable]
         public Spyglass() : base(0x14F5)

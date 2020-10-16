@@ -2,7 +2,7 @@ using Server.Network;
 
 namespace Server.Items
 {
-    public class PowerCrystal : Item
+    public class PowerCrystal : BaseItem
     {
         public override string DefaultName
         {

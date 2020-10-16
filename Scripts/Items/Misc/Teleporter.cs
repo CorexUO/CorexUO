@@ -7,7 +7,7 @@ using Server.Spells;
 
 namespace Server.Items
 {
-	public class Teleporter : Item
+	public class Teleporter : BaseItem
 	{
 		private bool m_Active, m_Creatures, m_CombatCheck, m_CriminalCheck;
 		private Point3D m_PointDest;
@@ -846,7 +846,7 @@ namespace Server.Items
 		}
 	}
 
-	public class TimeoutGoal : Item
+	public class TimeoutGoal : BaseItem
 	{
 		private TimeoutTeleporter m_Teleporter;
 

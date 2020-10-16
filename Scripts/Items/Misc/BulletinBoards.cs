@@ -31,7 +31,7 @@ namespace Server.Items
         }
     }
 
-    public abstract class BaseBulletinBoard : Item
+    public abstract class BaseBulletinBoard : BaseItem
     {
         private string m_BoardName;
 
@@ -327,7 +327,7 @@ namespace Server.Items
         }
     }
 
-    public class BulletinMessage : Item
+    public class BulletinMessage : BaseItem
     {
         private Mobile m_Poster;
         private string m_Subject;

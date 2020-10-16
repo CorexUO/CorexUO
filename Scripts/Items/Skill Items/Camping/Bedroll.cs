@@ -6,7 +6,7 @@ using Server.Network;
 namespace Server.Items
 {
     [FlipableAttribute(0xA57, 0xA58, 0xA59)]
-    public class Bedroll : Item
+    public class Bedroll : BaseItem
     {
         [Constructable]
         public Bedroll() : base(0xA57)

@@ -5,8 +5,8 @@ using Server.Network;
 
 namespace Server.Engines.ConPVP
 {
-    public class LadderItem : Item
-    {
+    public class LadderItem : BaseItem
+	{
         private LadderController m_Ladder;
 
         [CommandProperty(AccessLevel.GameMaster)]

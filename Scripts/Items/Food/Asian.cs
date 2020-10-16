@@ -1,6 +1,6 @@
 namespace Server.Items
 {
-    public class Wasabi : Item
+    public class Wasabi : BaseItem
     {
         [Constructable]
         public Wasabi() : base(0x24E8)
@@ -56,7 +56,7 @@ namespace Server.Items
         }
     }
 
-    public class EmptyBentoBox : Item
+    public class EmptyBentoBox : BaseItem
     {
         [Constructable]
         public EmptyBentoBox() : base(0x2834)
@@ -179,7 +179,7 @@ namespace Server.Items
         }
     }
 
-    public class GreenTeaBasket : Item
+    public class GreenTeaBasket : BaseItem
     {
         [Constructable]
         public GreenTeaBasket() : base(0x284B)

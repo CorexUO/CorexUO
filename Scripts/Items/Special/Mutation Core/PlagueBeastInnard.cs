@@ -3,7 +3,7 @@ using Server.Network;
 
 namespace Server.Items
 {
-	public class PlagueBeastInnard : Item, IScissorable, ICarvable
+	public class PlagueBeastInnard : BaseItem, IScissorable, ICarvable
 	{
 		public PlagueBeastLord Owner
 		{

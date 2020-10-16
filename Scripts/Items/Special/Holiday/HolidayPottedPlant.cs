@@ -3,7 +3,7 @@ using Server.Network;
 
 namespace Server.Items
 {
-    public class HolidayPottedPlant : Item
+    public class HolidayPottedPlant : BaseItem
     {
         public override bool ForceShowProperties { get { return ObjectPropertyList.Enabled; } }
 
@@ -39,7 +39,7 @@ namespace Server.Items
         }
     }
 
-    public class PottedPlantDeed : Item
+    public class PottedPlantDeed : BaseItem
     {
         public override int LabelNumber { get { return 1041114; } } // A deed for a potted plant.
         public override double DefaultWeight { get { return 1.0; } }

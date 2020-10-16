@@ -16,7 +16,7 @@ namespace Server.Items
         Exceptional
     }
 
-    public abstract class BaseInstrument : Item, ICraftable, ISlayer
+    public abstract class BaseInstrument : BaseItem, ICraftable, ISlayer
     {
         private int m_WellSound, m_BadlySound;
         private SlayerName m_Slayer, m_Slayer2;

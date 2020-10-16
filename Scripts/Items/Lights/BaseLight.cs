@@ -2,7 +2,7 @@ using System;
 
 namespace Server.Items
 {
-    public abstract class BaseLight : Item
+    public abstract class BaseLight : BaseItem
     {
         private Timer m_Timer;
         private DateTime m_End;

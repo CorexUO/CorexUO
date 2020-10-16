@@ -3,7 +3,7 @@ using Server.Network;
 
 namespace Server.Items
 {
-	public abstract class FarmableCrop : Item
+	public abstract class FarmableCrop : BaseItem
 	{
 		private bool m_Picked;
 

@@ -5,7 +5,7 @@ using Server.Network;
 
 namespace Server.Items
 {
-    public class PrismaticCrystal : Item
+    public class PrismaticCrystal : BaseItem
     {
         public override int LabelNumber { get { return 1074269; } } // prismatic crystal
 

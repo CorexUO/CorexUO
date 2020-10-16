@@ -1,6 +1,6 @@
 namespace Server.Items
 {
-	public class EnchantedSwitch : Item
+	public class EnchantedSwitch : BaseItem
 	{
 		public override int LabelNumber { get { return 1072893; } } // enchanted switch
 

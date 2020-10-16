@@ -1,6 +1,6 @@
 namespace Server.Items
 {
-    public abstract class BaseSuit : Item
+    public abstract class BaseSuit : BaseItem
     {
         private AccessLevel m_AccessLevel;
 

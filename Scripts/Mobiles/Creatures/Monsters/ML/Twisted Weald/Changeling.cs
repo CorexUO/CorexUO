@@ -265,7 +265,7 @@ namespace Server.Mobiles
             Revert();
         }
 
-        private class ClonedItem : Item
+        private class ClonedItem : BaseItem
         {
             public ClonedItem(Item item)
                 : base(item.ItemID)

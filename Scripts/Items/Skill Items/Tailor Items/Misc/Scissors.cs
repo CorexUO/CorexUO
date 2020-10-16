@@ -8,7 +8,7 @@ namespace Server.Items
     }
 
     [FlipableAttribute(0xf9f, 0xf9e)]
-    public class Scissors : Item
+    public class Scissors : BaseItem
     {
         [Constructable]
         public Scissors() : base(0xF9F)

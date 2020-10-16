@@ -3,7 +3,7 @@ using Server.Network;
 
 namespace Server.Items
 {
-    public abstract class BaseMagicFish : Item
+    public abstract class BaseMagicFish : BaseItem
     {
         public virtual int Bonus { get { return 0; } }
         public virtual StatType Type { get { return StatType.Str; } }

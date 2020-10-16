@@ -10,7 +10,7 @@ using Server.Prompts;
 
 namespace Server.Engines.BulkOrders
 {
-	public class BulkOrderBook : Item, ISecurable
+	public class BulkOrderBook : BaseItem, ISecurable
 	{
 		private ArrayList m_Entries;
 		private BOBFilter m_Filter;

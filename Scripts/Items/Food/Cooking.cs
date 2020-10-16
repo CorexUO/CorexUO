@@ -19,7 +19,7 @@ namespace Server.Items
     }
 
     // ********** Dough **********
-    public class Dough : Item
+    public class Dough : BaseItem
     {
         [Constructable]
         public Dough() : base(0x103d)
@@ -116,7 +116,7 @@ namespace Server.Items
     }
 
     // ********** SweetDough **********
-    public class SweetDough : Item
+    public class SweetDough : BaseItem
     {
         public override int LabelNumber { get { return 1041340; } } // sweet dough
 
@@ -222,7 +222,7 @@ namespace Server.Items
     }
 
     // ********** JarHoney **********
-    public class JarHoney : Item
+    public class JarHoney : BaseItem
     {
         [Constructable]
         public JarHoney() : base(0x9ec)
@@ -291,7 +291,7 @@ namespace Server.Items
     }
 
     // ********** BowlFlour **********
-    public class BowlFlour : Item
+    public class BowlFlour : BaseItem
     {
         [Constructable]
         public BowlFlour() : base(0xa1e)
@@ -319,7 +319,7 @@ namespace Server.Items
     }
 
     // ********** WoodenBowl **********
-    public class WoodenBowl : Item
+    public class WoodenBowl : BaseItem
     {
         [Constructable]
         public WoodenBowl() : base(0x15f8)
@@ -347,7 +347,7 @@ namespace Server.Items
     }
 
     // ********** PitcherWater **********
-    /*public class PitcherWater : Item
+    /*public class PitcherWater : BaseItem
 	{
 		[Constructable]
 		public PitcherWater() : base(Utility.Random( 0x1f9d, 2 ))
@@ -408,7 +408,7 @@ namespace Server.Items
 
     // ********** SackFlour **********
     [TypeAlias("Server.Items.SackFlourOpen")]
-    public class SackFlour : Item, IHasQuantity
+    public class SackFlour : BaseItem, IHasQuantity
     {
         private int m_Quantity;
 
@@ -496,7 +496,7 @@ namespace Server.Items
 
 #if false
 	// ********** SackFlourOpen **********
-	public class SackFlourOpen : Item
+	public class SackFlourOpen : BaseItem
 	{
 		public override int LabelNumber{ get{ return 1024166; } } // open sack of flour
 
@@ -574,7 +574,7 @@ namespace Server.Items
 #endif
 
     // ********** Eggshells **********
-    public class Eggshells : Item
+    public class Eggshells : BaseItem
     {
         [Constructable]
         public Eggshells() : base(0x9b4)
@@ -601,7 +601,7 @@ namespace Server.Items
         }
     }
 
-    public class WheatSheaf : Item
+    public class WheatSheaf : BaseItem
     {
         [Constructable]
         public WheatSheaf() : this(1)

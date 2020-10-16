@@ -4,7 +4,7 @@ using Server.Spells;
 
 namespace Server.Items
 {
-    public class SpellScroll : Item, ICommodity
+    public class SpellScroll : BaseItem, ICommodity
     {
         private int m_SpellID;
 

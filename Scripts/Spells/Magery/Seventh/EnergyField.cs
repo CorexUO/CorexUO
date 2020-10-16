@@ -107,7 +107,7 @@ namespace Server.Spells.Seventh
 		}
 
 		[DispellableField]
-		private class InternalItem : Item
+		private class InternalItem : BaseItem
 		{
 			private Timer m_Timer;
 			private Mobile m_Caster;

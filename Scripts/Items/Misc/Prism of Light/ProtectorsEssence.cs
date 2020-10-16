@@ -1,6 +1,6 @@
 namespace Server.Items
 {
-    public class ProtectorsEssence : Item
+    public class ProtectorsEssence : BaseItem
     {
         public override int LabelNumber { get { return 1073159; } } // Protector's Essence
 

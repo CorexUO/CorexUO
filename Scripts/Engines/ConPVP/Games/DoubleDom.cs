@@ -7,8 +7,8 @@ using Server.Mobiles;
 
 namespace Server.Engines.ConPVP
 {
-    public sealed class DDBoard : Item
-    {
+    public sealed class DDBoard : BaseItem
+	{
         public DDTeamInfo m_TeamInfo;
 
         public override string DefaultName

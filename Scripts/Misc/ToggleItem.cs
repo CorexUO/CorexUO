@@ -3,7 +3,7 @@ using Server.Commands.Generic;
 
 namespace Server.Items
 {
-	public class ToggleItem : Item
+	public class ToggleItem : BaseItem
 	{
 		public class ToggleCommand : BaseCommand
 		{

@@ -1,6 +1,6 @@
 namespace Server.Items
 {
-    public class SweatOfParoxysmus : Item
+    public class SweatOfParoxysmus : BaseItem
     {
         public override int LabelNumber { get { return 1072081; } } // Sweat of Paroxysmus
 

@@ -12,7 +12,7 @@ namespace Server.Items
         Off
     }
 
-    public class Campfire : Item
+    public class Campfire : BaseItem
     {
         public static readonly int SecureRange = 7;
 

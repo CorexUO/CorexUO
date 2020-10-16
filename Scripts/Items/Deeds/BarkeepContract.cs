@@ -4,7 +4,7 @@ using Server.Network;
 
 namespace Server.Items
 {
-	public class BarkeepContract : Item
+	public class BarkeepContract : BaseItem
 	{
 		public override string DefaultName
 		{

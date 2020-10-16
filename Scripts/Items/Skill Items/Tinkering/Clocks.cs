@@ -15,7 +15,7 @@ namespace Server.Items
     }
 
     [Flipable(0x104B, 0x104C)]
-    public class Clock : Item
+    public class Clock : BaseItem
     {
         private static DateTime m_ServerStart;
 

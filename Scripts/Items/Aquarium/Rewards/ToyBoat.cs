@@ -1,7 +1,7 @@
 namespace Server.Items
 {
     [FlipableAttribute(0x14F3, 0x14F4)]
-    public class ToyBoat : Item
+    public class ToyBoat : BaseItem
     {
         public override int LabelNumber { get { return 1074363; } } // A toy boat
         public override double DefaultWeight { get { return 1.0; } }

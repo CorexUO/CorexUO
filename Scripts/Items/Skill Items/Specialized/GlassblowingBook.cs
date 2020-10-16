@@ -2,7 +2,7 @@ using Server.Mobiles;
 
 namespace Server.Items
 {
-    public class GlassblowingBook : Item
+    public class GlassblowingBook : BaseItem
     {
         public override string DefaultName
         {

@@ -5,7 +5,7 @@ using Server.Network;
 
 namespace Server.Items
 {
-    public class RewardBrazier : Item, IRewardItem
+    public class RewardBrazier : BaseItem, IRewardItem
     {
         public override bool ForceShowProperties { get { return ObjectPropertyList.Enabled; } }
 
@@ -126,7 +126,7 @@ namespace Server.Items
         }
     }
 
-    public class RewardBrazierDeed : Item, IRewardItem
+    public class RewardBrazierDeed : BaseItem, IRewardItem
     {
         public override int LabelNumber { get { return 1080527; } } // Brazier Deed
 

@@ -3,8 +3,8 @@ using System.Collections;
 
 namespace Server.Engines.ConPVP
 {
-    public class LadderController : Item
-    {
+    public class LadderController : BaseItem
+	{
         private Ladder m_Ladder;
 
         //[CommandProperty( AccessLevel.GameMaster )]

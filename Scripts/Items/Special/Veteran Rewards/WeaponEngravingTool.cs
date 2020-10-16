@@ -6,7 +6,7 @@ using Server.Targeting;
 
 namespace Server.Items
 {
-    public class WeaponEngravingTool : Item, IUsesRemaining, IRewardItem
+    public class WeaponEngravingTool : BaseItem, IUsesRemaining, IRewardItem
     {
         public override int LabelNumber { get { return 1076158; } } // Weapon Engraving Tool
 

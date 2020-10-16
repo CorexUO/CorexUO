@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Globalization;
 using Server.Accounting;
 using Server.Mobiles;
@@ -8,7 +8,7 @@ using Necro = Server.Engines.Quests.Necro;
 
 namespace Server.Items
 {
-    public class BankCheck : Item
+    public class BankCheck : BaseItem
     {
         private int m_Worth;
 

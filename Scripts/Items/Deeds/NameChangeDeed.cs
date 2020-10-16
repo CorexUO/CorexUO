@@ -5,7 +5,7 @@ using Server.Network;
 
 namespace Server.Items
 {
-	public class NameChangeDeed : Item
+	public class NameChangeDeed : BaseItem
 	{
 		public override string DefaultName
 		{

@@ -2,7 +2,7 @@ using Server.Targeting;
 
 namespace Server.Items
 {
-    public abstract class BaseClothMaterial : Item, IDyable
+    public abstract class BaseClothMaterial : BaseItem, IDyable
     {
         public BaseClothMaterial(int itemID) : this(itemID, 1)
         {

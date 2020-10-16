@@ -1,6 +1,6 @@
 namespace Server.Items
 {
-    public class Emerald : Item
+    public class Emerald : BaseItem
     {
         public override double DefaultWeight
         {

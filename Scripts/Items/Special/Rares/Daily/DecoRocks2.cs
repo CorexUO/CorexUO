@@ -1,6 +1,6 @@
 namespace Server.Items
 {
-    public class DecoRocks2 : Item
+    public class DecoRocks2 : BaseItem
     {
 
         [Constructable]

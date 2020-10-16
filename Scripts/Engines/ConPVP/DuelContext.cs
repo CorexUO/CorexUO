@@ -1738,7 +1738,7 @@ namespace Server.Engines.ConPVP
 		public bool StartedBeginCountdown { get { return m_StartedBeginCountdown; } }
 		public bool StartedReadyCountdown { get { return m_StartedReadyCountdown; } }
 
-		private class InternalWall : Item
+		private class InternalWall : BaseItem
 		{
 			public InternalWall() : base(0x80)
 			{
@@ -2131,7 +2131,7 @@ namespace Server.Engines.ConPVP
 			}
 		}
 
-		private class ExitTeleporter : Item
+		private class ExitTeleporter : BaseItem
 		{
 			private ArrayList m_Entries;
 

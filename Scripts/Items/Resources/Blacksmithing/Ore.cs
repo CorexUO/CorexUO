@@ -4,7 +4,7 @@ using Server.Targeting;
 
 namespace Server.Items
 {
-	public abstract class BaseOre : Item, ICraftResource
+	public abstract class BaseOre : BaseItem, ICraftResource
 	{
 		private CraftResource m_Resource;
 

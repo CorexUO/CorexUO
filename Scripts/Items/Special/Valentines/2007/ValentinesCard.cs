@@ -4,7 +4,7 @@ using Server.Targeting;
 
 namespace Server.Items
 {
-    public class ValentinesCard : Item
+    public class ValentinesCard : BaseItem
     {
         public override string DefaultName { get { return "a Valentine's card"; } }
 

@@ -1,6 +1,6 @@
 namespace Server.Items
 {
-    public class ZoogiFungus : Item, ICommodity
+    public class ZoogiFungus : BaseItem, ICommodity
     {
         int ICommodity.DescriptionNumber { get { return LabelNumber; } }
         bool ICommodity.IsDeedable { get { return (Core.ML); } }

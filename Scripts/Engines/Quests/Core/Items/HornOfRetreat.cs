@@ -3,7 +3,7 @@ using Server.Items;
 
 namespace Server.Engines.Quests
 {
-    public class HornOfRetreat : Item
+    public class HornOfRetreat : BaseItem
     {
         private Point3D m_DestLoc;
         private Map m_DestMap;

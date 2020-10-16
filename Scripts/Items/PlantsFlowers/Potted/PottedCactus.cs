@@ -1,6 +1,6 @@
 namespace Server.Items
 {
-    public class PottedCactus : Item
+    public class PottedCactus : BaseItem
     {
         [Constructable]
         public PottedCactus() : base(0x1E0F)
@@ -27,7 +27,7 @@ namespace Server.Items
         }
     }
 
-    public class PottedCactus1 : Item
+    public class PottedCactus1 : BaseItem
     {
         [Constructable]
         public PottedCactus1() : base(0x1E10)
@@ -54,7 +54,7 @@ namespace Server.Items
         }
     }
 
-    public class PottedCactus2 : Item
+    public class PottedCactus2 : BaseItem
     {
         [Constructable]
         public PottedCactus2() : base(0x1E11)
@@ -81,7 +81,7 @@ namespace Server.Items
         }
     }
 
-    public class PottedCactus3 : Item
+    public class PottedCactus3 : BaseItem
     {
         [Constructable]
         public PottedCactus3() : base(0x1E12)
@@ -108,7 +108,7 @@ namespace Server.Items
         }
     }
 
-    public class PottedCactus4 : Item
+    public class PottedCactus4 : BaseItem
     {
         [Constructable]
         public PottedCactus4() : base(0x1E13)
@@ -135,7 +135,7 @@ namespace Server.Items
         }
     }
 
-    public class PottedCactus5 : Item
+    public class PottedCactus5 : BaseItem
     {
         [Constructable]
         public PottedCactus5() : base(0x1E14)

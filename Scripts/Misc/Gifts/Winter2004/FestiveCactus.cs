@@ -1,6 +1,6 @@
 namespace Server.Items
 {
-	public class FestiveCactus : Item
+	public class FestiveCactus : BaseItem
 	{
 		[Constructable]
 		public FestiveCactus() : base(0x2376)

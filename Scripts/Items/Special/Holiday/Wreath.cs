@@ -6,7 +6,7 @@ using Server.Targeting;
 
 namespace Server.Items
 {
-    public class WreathAddon : Item, IDyable, IAddon
+    public class WreathAddon : BaseItem, IDyable, IAddon
     {
         [Constructable]
         public WreathAddon() : this(Utility.RandomDyedHue())
@@ -166,7 +166,7 @@ namespace Server.Items
     }
 
     [Flipable(0x14F0, 0x14EF)]
-    public class WreathDeed : Item
+    public class WreathDeed : BaseItem
     {
         public override int LabelNumber { get { return 1062837; } } // holiday wreath deed
 

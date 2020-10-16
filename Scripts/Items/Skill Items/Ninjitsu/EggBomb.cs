@@ -1,6 +1,6 @@
 namespace Server.Items
 {
-    public class EggBomb : Item
+    public class EggBomb : BaseItem
     {
         public override int LabelNumber
         {

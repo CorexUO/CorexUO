@@ -3,7 +3,7 @@ using Server.Mobiles;
 
 namespace Server.Items
 {
-    public class ClockworkAssembly : Item
+    public class ClockworkAssembly : BaseItem
     {
         public override string DefaultName
         {

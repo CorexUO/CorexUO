@@ -2,7 +2,7 @@ using System;
 
 namespace Server.Items
 {
-    public class BigFish : Item, ICarvable
+    public class BigFish : BaseItem, ICarvable
     {
         private Mobile m_Fisher;
 

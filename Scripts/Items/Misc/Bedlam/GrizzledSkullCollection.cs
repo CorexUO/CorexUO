@@ -1,6 +1,6 @@
 namespace Server.Items
 {
-    public class GrizzledSkullCollection : Item
+    public class GrizzledSkullCollection : BaseItem
     {
         public override int LabelNumber { get { return 1072116; } } // Grizzled Skull collection
 

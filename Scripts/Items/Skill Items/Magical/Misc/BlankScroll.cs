@@ -1,6 +1,6 @@
 namespace Server.Items
 {
-    public class BlankScroll : Item, ICommodity
+    public class BlankScroll : BaseItem, ICommodity
     {
         [Constructable]
         public BlankScroll() : this(1)

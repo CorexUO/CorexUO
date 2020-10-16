@@ -1,6 +1,6 @@
 namespace Server.Items
 {
-    public class Cards4 : Item
+    public class Cards4 : BaseItem
     {
 
         [Constructable]

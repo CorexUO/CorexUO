@@ -1,6 +1,6 @@
 namespace Server.Items
 {
-    public class IcyHeart : Item
+    public class IcyHeart : BaseItem
     {
         public override int LabelNumber { get { return 1073162; } } // Icy Heart
 

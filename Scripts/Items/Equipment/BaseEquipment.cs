@@ -2,7 +2,7 @@ using System;
 
 namespace Server.Items
 {
-	public abstract partial class BaseEquipment : Item, IAosAttribute
+	public abstract partial class BaseEquipment : BaseItem, IAosAttribute
 	{
 		[Flags]
 		private enum SaveFlag

@@ -3,7 +3,7 @@ using Server.Mobiles;
 
 namespace Server.Items
 {
-    public class UnholyBone : Item, ICarvable
+    public class UnholyBone : BaseItem, ICarvable
     {
         private SpawnTimer m_Timer;
 

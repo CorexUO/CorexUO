@@ -1,6 +1,6 @@
 namespace Server.Items
 {
-    public class TravestysFineTeakwoodTray : Item
+    public class TravestysFineTeakwoodTray : BaseItem
     {
         public override int LabelNumber { get { return 1075094; } } // Travesty's Fine Teakwood Tray
 

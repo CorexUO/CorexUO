@@ -1,6 +1,6 @@
 namespace Server.Items
 {
-	public class ScribeStone : Item
+	public class ScribeStone : BaseItem
 	{
 		public override string DefaultName
 		{

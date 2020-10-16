@@ -4,7 +4,7 @@ using Server.Network;
 namespace Server.Items
 {
     [Flipable(0x456E, 0x456F)]
-    public class SnowStatuePegasus : Item
+    public class SnowStatuePegasus : BaseItem
     {
         public override bool ForceShowProperties { get { return ObjectPropertyList.Enabled; } }
 
@@ -35,7 +35,7 @@ namespace Server.Items
     }
 
     [Flipable(0x4578, 0x4579)]
-    public class SnowStatueSeahorse : Item
+    public class SnowStatueSeahorse : BaseItem
     {
         public override bool ForceShowProperties { get { return ObjectPropertyList.Enabled; } }
 
@@ -66,7 +66,7 @@ namespace Server.Items
     }
 
     [Flipable(0x457A, 0x457B)]
-    public class SnowStatueMermaid : Item
+    public class SnowStatueMermaid : BaseItem
     {
         public override bool ForceShowProperties { get { return ObjectPropertyList.Enabled; } }
 
@@ -97,7 +97,7 @@ namespace Server.Items
     }
 
     [Flipable(0x457C, 0x457D)]
-    public class SnowStatueGriffon : Item
+    public class SnowStatueGriffon : BaseItem
     {
         public override bool ForceShowProperties { get { return ObjectPropertyList.Enabled; } }
 
@@ -127,7 +127,7 @@ namespace Server.Items
         }
     }
 
-    public class SnowStatueDeed : Item
+    public class SnowStatueDeed : BaseItem
     {
         public override int LabelNumber { get { return 1114296; } } // snow statue deed
         public override double DefaultWeight { get { return 1.0; } }

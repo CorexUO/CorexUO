@@ -40,7 +40,7 @@ namespace Server.Multis.Deeds
 		}
 	}
 
-	public abstract class HouseDeed : Item
+	public abstract class HouseDeed : BaseItem
 	{
 		private int m_MultiID;
 		private Point3D m_Offset;

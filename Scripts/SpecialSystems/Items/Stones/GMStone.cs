@@ -5,7 +5,7 @@ using Server.Commands;
 
 namespace Server.Items
 {
-	public class GMStone : Item
+	public class GMStone : BaseItem
 	{
 		public override string DefaultName
 		{

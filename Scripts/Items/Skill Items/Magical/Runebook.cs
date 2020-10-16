@@ -9,7 +9,7 @@ using Server.Network;
 
 namespace Server.Items
 {
-	public class Runebook : Item, ISecurable, ICraftable
+	public class Runebook : BaseItem, ISecurable, ICraftable
 	{
 		public static readonly TimeSpan UseDelay = TimeSpan.FromSeconds(7.0);
 

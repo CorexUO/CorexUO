@@ -9,7 +9,7 @@ namespace Server.Items
 		bool IsDeedable { get; }
 	}
 
-	public class CommodityDeed : Item
+	public class CommodityDeed : BaseItem
 	{
 		private Item m_Commodity;
 

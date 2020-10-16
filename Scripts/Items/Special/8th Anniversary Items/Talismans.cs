@@ -12,7 +12,7 @@ namespace Server.Items
         Reptalon = 1075202
     }
 
-    public class BaseFormTalisman : Item, ITokunoDyable
+    public class BaseFormTalisman : BaseItem, ITokunoDyable
     {
         public virtual TalismanForm Form { get { return TalismanForm.Squirrel; } }
 

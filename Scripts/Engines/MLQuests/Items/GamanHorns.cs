@@ -1,6 +1,6 @@
 namespace Server.Items
 {
-    public class GamanHorns : Item
+    public class GamanHorns : BaseItem
     {
         public override int LabelNumber { get { return 1074557; } } // Gaman Horns
 

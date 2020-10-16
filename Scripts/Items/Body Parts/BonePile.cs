@@ -1,7 +1,7 @@
 namespace Server.Items
 {
     [FlipableAttribute(0x1B09, 0x1B10)]
-    public class BonePile : Item, IScissorable
+    public class BonePile : BaseItem, IScissorable
     {
         [Constructable]
         public BonePile() : base(0x1B09 + Utility.Random(8))

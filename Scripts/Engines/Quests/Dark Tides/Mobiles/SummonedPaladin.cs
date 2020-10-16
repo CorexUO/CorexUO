@@ -206,7 +206,7 @@ namespace Server.Engines.Quests.Necro
 		}
 	}
 
-	public class SummonedPaladinMoongate : Item
+	public class SummonedPaladinMoongate : BaseItem
 	{
 		public SummonedPaladinMoongate() : base(0xF6C)
 		{

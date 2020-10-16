@@ -1,6 +1,6 @@
 namespace Server.Items
 {
-    public class SwampTile : Item
+    public class SwampTile : BaseItem
     {
         [Constructable]
         public SwampTile() : base(0x320D)

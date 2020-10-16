@@ -1,6 +1,6 @@
 namespace Server.Engines.Quests.Doom
 {
-    public class GoldenSkull : Item
+    public class GoldenSkull : BaseItem
     {
         public override int LabelNumber { get { return 1061619; } } // a golden skull
 

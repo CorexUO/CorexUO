@@ -1,6 +1,6 @@
 namespace Server.Items
 {
-    public class EmptyToolKit : Item
+    public class EmptyToolKit : BaseItem
     {
 
         [Constructable]

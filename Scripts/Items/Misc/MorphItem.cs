@@ -2,7 +2,7 @@ using System;
 
 namespace Server.Items
 {
-    public class MorphItem : Item
+    public class MorphItem : BaseItem
     {
         private int m_InactiveItemID;
         private int m_ActiveItemID;

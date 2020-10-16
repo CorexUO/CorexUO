@@ -1,6 +1,6 @@
 namespace Server.Items
 {
-	public class RegStone : Item
+	public class RegStone : BaseItem
 	{
 		public override string DefaultName
 		{

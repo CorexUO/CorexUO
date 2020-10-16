@@ -19,7 +19,7 @@ namespace Server.Items
         uint KeyValue { get; set; }
     }
 
-    public class Key : Item
+    public class Key : BaseItem
     {
         private string m_Description;
         private uint m_KeyVal;

@@ -4,7 +4,7 @@ using Server.Network;
 
 namespace Server.Items
 {
-    public class PlagueBeastMutationCore : Item, IScissorable
+    public class PlagueBeastMutationCore : BaseItem, IScissorable
     {
         private bool m_Cut;
 

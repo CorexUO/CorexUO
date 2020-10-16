@@ -4,7 +4,7 @@ using Server.Network;
 
 namespace Server.Items
 {
-    public abstract class SpecialScroll : Item
+    public abstract class SpecialScroll : BaseItem
     {
         private SkillName m_Skill;
         private double m_Value;

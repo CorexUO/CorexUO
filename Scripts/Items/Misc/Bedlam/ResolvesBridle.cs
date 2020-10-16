@@ -1,6 +1,6 @@
 namespace Server.Items
 {
-    public class ResolvesBridle : Item
+    public class ResolvesBridle : BaseItem
     {
         public override int LabelNumber { get { return 1074761; } } // Resolve's Bridle
 

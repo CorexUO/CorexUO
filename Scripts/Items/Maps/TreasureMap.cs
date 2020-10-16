@@ -894,7 +894,7 @@ namespace Server.Items
         }
     }
 
-    public class TreasureChestDirt : Item
+    public class TreasureChestDirt : BaseItem
     {
         public TreasureChestDirt() : base(0x912)
         {

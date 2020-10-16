@@ -67,7 +67,7 @@ namespace Server.Items
         }
     }
 
-    public abstract class BasePlayerBB : Item, ISecurable
+    public abstract class BasePlayerBB : BaseItem, ISecurable
     {
         private PlayerBBMessage m_Greeting;
         private List<PlayerBBMessage> m_Messages;

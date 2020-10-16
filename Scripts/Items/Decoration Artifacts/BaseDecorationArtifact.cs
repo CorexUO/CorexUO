@@ -1,6 +1,6 @@
 namespace Server.Items
 {
-    public abstract class BaseDecorationArtifact : Item
+    public abstract class BaseDecorationArtifact : BaseItem
     {
         public abstract int ArtifactRarity { get; }
 

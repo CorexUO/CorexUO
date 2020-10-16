@@ -5,7 +5,7 @@ using Server.Targeting;
 
 namespace Server.Items
 {
-    public class Fireflies : Item, IAddon
+    public class Fireflies : BaseItem, IAddon
     {
         public override int LabelNumber { get { return 1150061; } }
 
@@ -93,7 +93,7 @@ namespace Server.Items
         }
     }
 
-    public class FirefliesDeed : Item
+    public class FirefliesDeed : BaseItem
     {
         public override int LabelNumber { get { return 1150061; } }
 

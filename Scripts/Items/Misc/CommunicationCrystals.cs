@@ -43,7 +43,7 @@ namespace Server.Items
         }
     }
 
-    public class BroadcastCrystal : Item
+    public class BroadcastCrystal : BaseItem
     {
         public static readonly int MaxCharges = 2000;
 
@@ -299,7 +299,7 @@ namespace Server.Items
         }
     }
 
-    public class ReceiverCrystal : Item
+    public class ReceiverCrystal : BaseItem
     {
         public override int LabelNumber { get { return 1060740; } } // communication crystal
 

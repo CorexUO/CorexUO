@@ -5,7 +5,7 @@ using Server.Targeting;
 
 namespace Server.Items
 {
-    public class GreenThorns : Item
+    public class GreenThorns : BaseItem
     {
         public override int LabelNumber { get { return 1060837; } } // green thorns
 
@@ -649,7 +649,7 @@ namespace Server.Items
         }
     }
 
-    public class GreenThornsSHTeleporter : Item
+    public class GreenThornsSHTeleporter : BaseItem
     {
         public static readonly Point3D Destination = new Point3D(5738, 1856, 0);
 

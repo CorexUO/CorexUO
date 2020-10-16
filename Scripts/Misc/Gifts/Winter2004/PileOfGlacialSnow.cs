@@ -3,7 +3,7 @@ using Server.Targeting;
 
 namespace Server.Items
 {
-	public class PileOfGlacialSnow : Item
+	public class PileOfGlacialSnow : BaseItem
 	{
 		[Constructable]
 		public PileOfGlacialSnow() : base(0x913)

@@ -1,6 +1,6 @@
 namespace Server.Items
 {
-    public class ExcellentIronMaiden : Item
+    public class ExcellentIronMaiden : BaseItem
     {
         public override double DefaultWeight { get { return 5; } }
 

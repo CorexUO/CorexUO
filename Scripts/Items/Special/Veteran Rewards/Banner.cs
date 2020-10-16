@@ -6,7 +6,7 @@ using Server.Targeting;
 
 namespace Server.Items
 {
-    public class Banner : Item, IAddon, IDyable, IRewardItem
+    public class Banner : BaseItem, IAddon, IDyable, IRewardItem
     {
         public override bool ForceShowProperties { get { return ObjectPropertyList.Enabled; } }
 
@@ -112,7 +112,7 @@ namespace Server.Items
         }
     }
 
-    public class BannerDeed : Item, IRewardItem
+    public class BannerDeed : BaseItem, IRewardItem
     {
         public override int LabelNumber { get { return 1041007; } } // a banner deed
 

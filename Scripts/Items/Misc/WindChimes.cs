@@ -4,7 +4,7 @@ using Server.Network;
 
 namespace Server.Items
 {
-    public abstract class BaseWindChimes : Item
+    public abstract class BaseWindChimes : BaseItem
     {
         private bool m_TurnedOn;
 

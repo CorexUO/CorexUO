@@ -4,8 +4,8 @@ using Server.Mobiles;
 
 namespace Server.Engines.ConPVP
 {
-    public class ArenaController : Item
-    {
+    public class ArenaController : BaseItem
+	{
         private Arena m_Arena;
         private bool m_IsPrivate;
 

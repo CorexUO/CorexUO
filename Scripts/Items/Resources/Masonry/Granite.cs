@@ -1,6 +1,6 @@
 namespace Server.Items
 {
-	public abstract class BaseGranite : Item, ICraftResource
+	public abstract class BaseGranite : BaseItem, ICraftResource
 	{
 		private CraftResource m_Resource;
 

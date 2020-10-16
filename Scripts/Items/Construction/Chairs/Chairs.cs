@@ -2,7 +2,7 @@ namespace Server.Items
 {
     [Furniture]
     [Flipable(0xB4F, 0xB4E, 0xB50, 0xB51)]
-    public class FancyWoodenChairCushion : Item
+    public class FancyWoodenChairCushion : BaseItem
     {
         [Constructable]
         public FancyWoodenChairCushion() : base(0xB4F)
@@ -34,7 +34,7 @@ namespace Server.Items
 
     [Furniture]
     [Flipable(0xB53, 0xB52, 0xB54, 0xB55)]
-    public class WoodenChairCushion : Item
+    public class WoodenChairCushion : BaseItem
     {
         [Constructable]
         public WoodenChairCushion() : base(0xB53)
@@ -66,7 +66,7 @@ namespace Server.Items
 
     [Furniture]
     [Flipable(0xB57, 0xB56, 0xB59, 0xB58)]
-    public class WoodenChair : Item
+    public class WoodenChair : BaseItem
     {
         [Constructable]
         public WoodenChair() : base(0xB57)
@@ -98,7 +98,7 @@ namespace Server.Items
 
     [Furniture]
     [Flipable(0xB5B, 0xB5A, 0xB5C, 0xB5D)]
-    public class BambooChair : Item
+    public class BambooChair : BaseItem
     {
         [Constructable]
         public BambooChair() : base(0xB5B)
@@ -130,7 +130,7 @@ namespace Server.Items
 
     [DynamicFliping]
     [Flipable(0x1218, 0x1219, 0x121A, 0x121B)]
-    public class StoneChair : Item
+    public class StoneChair : BaseItem
     {
         [Constructable]
         public StoneChair() : base(0x1218)
@@ -159,7 +159,7 @@ namespace Server.Items
 
     [DynamicFliping]
     [Flipable(0x2DE3, 0x2DE4, 0x2DE5, 0x2DE6)]
-    public class OrnateElvenChair : Item
+    public class OrnateElvenChair : BaseItem
     {
         [Constructable]
         public OrnateElvenChair() : base(0x2DE3)
@@ -188,7 +188,7 @@ namespace Server.Items
 
     [DynamicFliping]
     [Flipable(0x2DEB, 0x2DEC, 0x2DED, 0x2DEE)]
-    public class BigElvenChair : Item
+    public class BigElvenChair : BaseItem
     {
         [Constructable]
         public BigElvenChair() : base(0x2DEB)
@@ -216,7 +216,7 @@ namespace Server.Items
 
     [DynamicFliping]
     [Flipable(0x2DF5, 0x2DF6)]
-    public class ElvenReadingChair : Item
+    public class ElvenReadingChair : BaseItem
     {
         [Constructable]
         public ElvenReadingChair() : base(0x2DF5)

@@ -1,6 +1,6 @@
 namespace Server.Items
 {
-    public abstract class BaseWall : Item
+    public abstract class BaseWall : BaseItem
     {
         public BaseWall(int itemID) : base(itemID)
         {

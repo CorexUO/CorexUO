@@ -1,6 +1,6 @@
 namespace Server.Items
 {
-    public class DecoRoseOfTrinsic : Item
+    public class DecoRoseOfTrinsic : BaseItem
     {
 
         [Constructable]

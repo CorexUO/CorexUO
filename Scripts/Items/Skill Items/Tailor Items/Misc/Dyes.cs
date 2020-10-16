@@ -3,7 +3,7 @@ using Server.Targeting;
 
 namespace Server.Items
 {
-    public class Dyes : Item /* , IUsesRemaining */ /* TODO complete usesremaing */
+    public class Dyes : BaseItem /* , IUsesRemaining */ /* TODO complete usesremaing */
     {
         /*
 		public bool ShowUsesRemaining { get { return false; } set { } }

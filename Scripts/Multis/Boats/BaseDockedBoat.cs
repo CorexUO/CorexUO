@@ -4,7 +4,7 @@ using Server.Targeting;
 
 namespace Server.Multis
 {
-	public abstract class BaseDockedBoat : Item
+	public abstract class BaseDockedBoat : BaseItem
 	{
 		private int m_MultiID;
 		private Point3D m_Offset;

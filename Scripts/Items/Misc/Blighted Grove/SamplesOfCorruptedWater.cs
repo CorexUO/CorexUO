@@ -1,6 +1,6 @@
 namespace Server.Items
 {
-    public class SamplesOfCorruptedWater : Item
+    public class SamplesOfCorruptedWater : BaseItem
     {
         public override int LabelNumber { get { return 1074999; } } // samples of corrupted water
 

@@ -1,6 +1,6 @@
 namespace Server.Items
 {
-    public class ColoredSmallWebs : Item
+    public class ColoredSmallWebs : BaseItem
     {
         public override double DefaultWeight { get { return 5; } }
 

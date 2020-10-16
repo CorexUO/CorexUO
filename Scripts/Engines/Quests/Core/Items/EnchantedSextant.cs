@@ -2,7 +2,7 @@ using Server.Network;
 
 namespace Server.Items
 {
-    public class EnchantedSextant : Item
+    public class EnchantedSextant : BaseItem
     {
         //TODO: Trammel/Haven
         private static readonly Point2D[] m_TrammelBanks = new Point2D[]

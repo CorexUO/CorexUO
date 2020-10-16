@@ -7,7 +7,7 @@ using Server.Regions;
 
 namespace Server.Engines.CannedEvil
 {
-	public class ChampionSpawn : Item
+	public class ChampionSpawn : BaseItem
 	{
 		[CommandProperty(AccessLevel.GameMaster)]
 		public int SpawnSzMod
@@ -1282,7 +1282,7 @@ namespace Server.Engines.CannedEvil
 		}
 	}
 
-	public class IdolOfTheChampion : Item
+	public class IdolOfTheChampion : BaseItem
 	{
 		private ChampionSpawn m_Spawn;
 

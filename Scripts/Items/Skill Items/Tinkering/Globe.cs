@@ -1,6 +1,6 @@
 namespace Server.Items
 {
-    public class Globe : Item
+    public class Globe : BaseItem
     {
         [Constructable]
         public Globe() : base(0x1047) // It isn't flipable

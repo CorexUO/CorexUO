@@ -3,7 +3,7 @@ using Server.Targeting;
 
 namespace Server.Items
 {
-	public class SnowPile : Item
+	public class SnowPile : BaseItem
 	{
 		[Constructable]
 		public SnowPile() : base(0x913)

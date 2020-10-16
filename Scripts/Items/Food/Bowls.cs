@@ -1,6 +1,6 @@
 namespace Server.Items
 {
-    public class EmptyWoodenBowl : Item
+    public class EmptyWoodenBowl : BaseItem
     {
         [Constructable]
         public EmptyWoodenBowl() : base(0x15F8)
@@ -27,7 +27,7 @@ namespace Server.Items
         }
     }
 
-    public class EmptyPewterBowl : Item
+    public class EmptyPewterBowl : BaseItem
     {
         [Constructable]
         public EmptyPewterBowl() : base(0x15FD)
@@ -397,7 +397,7 @@ namespace Server.Items
     }
 
     [TypeAlias("Server.Items.EmptyLargeWoodenBowl")]
-    public class EmptyWoodenTub : Item
+    public class EmptyWoodenTub : BaseItem
     {
         [Constructable]
         public EmptyWoodenTub() : base(0x1605)
@@ -425,7 +425,7 @@ namespace Server.Items
     }
 
     [TypeAlias("Server.Items.EmptyLargePewterBowl")]
-    public class EmptyPewterTub : Item
+    public class EmptyPewterTub : BaseItem
     {
         [Constructable]
         public EmptyPewterTub() : base(0x1603)

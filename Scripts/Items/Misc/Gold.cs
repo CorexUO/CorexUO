@@ -4,7 +4,7 @@ using Server.Accounting;
 
 namespace Server.Items
 {
-	public class Gold : Item
+	public class Gold : BaseItem
 	{
 		public override double DefaultWeight
 		{

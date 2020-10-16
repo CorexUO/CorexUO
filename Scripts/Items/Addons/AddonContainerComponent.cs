@@ -3,7 +3,7 @@ using Server.ContextMenus;
 
 namespace Server.Items
 {
-    public class AddonContainerComponent : Item, IChopable
+    public class AddonContainerComponent : BaseItem, IChopable
     {
         public virtual bool NeedsWall { get { return false; } }
         public virtual Point3D WallPosition { get { return Point3D.Zero; } }

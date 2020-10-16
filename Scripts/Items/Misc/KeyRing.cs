@@ -3,7 +3,7 @@ using Server.Targeting;
 
 namespace Server.Items
 {
-    public class KeyRing : Item
+    public class KeyRing : BaseItem
     {
         public static readonly int MaxKeys = 20;
 

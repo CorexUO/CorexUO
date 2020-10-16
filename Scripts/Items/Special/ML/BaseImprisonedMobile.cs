@@ -3,7 +3,7 @@ using Server.Mobiles;
 
 namespace Server.Items
 {
-    public abstract class BaseImprisonedMobile : Item
+    public abstract class BaseImprisonedMobile : BaseItem
     {
         public abstract BaseCreature Summon { get; }
 

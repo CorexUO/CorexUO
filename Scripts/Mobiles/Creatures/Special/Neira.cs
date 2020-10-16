@@ -146,7 +146,7 @@ namespace Server.Mobiles
 			}
 		}
 
-		private class VirtualMountItem : Item, IMountItem
+		private class VirtualMountItem : BaseItem, IMountItem
 		{
 			private Mobile m_Rider;
 			private VirtualMount m_Mount;

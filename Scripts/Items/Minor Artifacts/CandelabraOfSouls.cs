@@ -1,6 +1,6 @@
 namespace Server.Items
 {
-    public class CandelabraOfSouls : Item
+    public class CandelabraOfSouls : BaseItem
     {
         public override int LabelNumber { get { return 1063478; } }
 

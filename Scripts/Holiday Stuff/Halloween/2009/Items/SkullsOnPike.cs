@@ -5,7 +5,7 @@
 	2011 and 2012. GM Beggar-only Semi-Rare Treats
 	*/
 
-    public class SkullsOnPike : Item
+    public class SkullsOnPike : BaseItem
     {
         public override double DefaultWeight { get { return 1; } }
 

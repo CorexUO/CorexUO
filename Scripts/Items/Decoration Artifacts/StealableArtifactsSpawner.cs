@@ -4,7 +4,7 @@ using Server.Commands;
 
 namespace Server.Items
 {
-    public class StealableArtifactsSpawner : Item
+    public class StealableArtifactsSpawner : BaseItem
     {
         public class StealableEntry
         {

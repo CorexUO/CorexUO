@@ -1,6 +1,6 @@
 namespace Server.Items
 {
-    public class CrossbowBolts : Item
+    public class CrossbowBolts : BaseItem
     {
 
         [Constructable]

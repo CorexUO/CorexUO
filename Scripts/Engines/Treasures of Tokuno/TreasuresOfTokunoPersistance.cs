@@ -1,6 +1,6 @@
 namespace Server.Misc
 {
-    public class TreasuresOfTokunoPersistance : Item
+    public class TreasuresOfTokunoPersistance : BaseItem
     {
         private static TreasuresOfTokunoPersistance m_Instance;
 

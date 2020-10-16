@@ -1,6 +1,6 @@
 namespace Server.Engines.MLQuests
 {
-	public class MLQuestPersistence : Item
+	public class MLQuestPersistence : BaseItem
 	{
 		private static MLQuestPersistence m_Instance;
 

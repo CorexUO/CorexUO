@@ -1,7 +1,7 @@
 namespace Server.Items
 {
     [FlipableAttribute(0x1B17, 0x1B18)]
-    public class RibCage : Item, IScissorable
+    public class RibCage : BaseItem, IScissorable
     {
         [Constructable]
         public RibCage() : base(0x1B17 + Utility.Random(2))

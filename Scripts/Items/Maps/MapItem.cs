@@ -6,7 +6,7 @@ using Server.Network;
 namespace Server.Items
 {
     [Flipable(0x14EB, 0x14EC)]
-    public class MapItem : Item, ICraftable
+    public class MapItem : BaseItem, ICraftable
     {
         private Rectangle2D m_Bounds;
 

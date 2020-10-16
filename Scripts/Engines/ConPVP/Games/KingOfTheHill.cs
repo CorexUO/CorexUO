@@ -9,8 +9,8 @@ using Server.Network;
 
 namespace Server.Engines.ConPVP
 {
-    public class HillOfTheKing : Item
-    {
+    public class HillOfTheKing : BaseItem
+	{
         private int m_ScoreInterval;
         private KHGame m_Game;
         private Mobile m_King;
@@ -291,8 +291,8 @@ namespace Server.Engines.ConPVP
         }
     }
 
-    public class KHBoard : Item
-    {
+    public class KHBoard : BaseItem
+	{
         public KHGame m_Game;
         private KHController m_Controller;
 

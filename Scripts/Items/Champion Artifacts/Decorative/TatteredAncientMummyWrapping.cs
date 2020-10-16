@@ -1,6 +1,6 @@
 namespace Server.Items
 {
-    public class TatteredAncientMummyWrapping : Item
+    public class TatteredAncientMummyWrapping : BaseItem
     {
         public override int LabelNumber { get { return 1094912; } } // Tattered Ancient Mummy Wrapping [Replica]
 

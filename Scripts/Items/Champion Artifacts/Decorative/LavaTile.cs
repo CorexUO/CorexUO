@@ -1,6 +1,6 @@
 namespace Server.Items
 {
-    public class LavaTile : Item
+    public class LavaTile : BaseItem
     {
         [Constructable]
         public LavaTile() : base(0x12EE)

@@ -6,7 +6,7 @@ using Server.Targeting;
 
 namespace Server.Items
 {
-    public class Firebomb : Item
+    public class Firebomb : BaseItem
     {
         private Timer m_Timer;
         private int m_Ticks = 0;
@@ -225,7 +225,7 @@ namespace Server.Items
         }
     }
 
-    public class FirebombField : Item
+    public class FirebombField : BaseItem
     {
         private List<Mobile> m_Burning;
         private Timer m_Timer;

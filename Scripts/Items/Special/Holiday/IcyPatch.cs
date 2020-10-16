@@ -4,7 +4,7 @@ using Server.Spells;
 
 namespace Server.Items
 {
-    public class IcyPatch : Item
+    public class IcyPatch : BaseItem
     {
         public override int LabelNumber { get { return 1095159; } } //An Icy Patch
         public override double DefaultWeight { get { return 5.0; } }

@@ -5,7 +5,7 @@ using Server.Network;
 
 namespace Server.Items
 {
-    public class FishingPole : Item
+    public class FishingPole : BaseItem
     {
         [Constructable]
         public FishingPole() : base(0x0DC0)

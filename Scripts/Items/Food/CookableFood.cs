@@ -3,7 +3,7 @@ using Server.Targeting;
 
 namespace Server.Items
 {
-    public abstract class CookableFood : Item
+    public abstract class CookableFood : BaseItem
     {
         private int m_CookingLevel;
 

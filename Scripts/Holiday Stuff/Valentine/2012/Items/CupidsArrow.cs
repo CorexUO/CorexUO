@@ -3,7 +3,7 @@ using Server.Targeting;
 
 namespace Server.Items
 {
-    public class CupidsArrow : Item
+    public class CupidsArrow : BaseItem
     {
         // TODO: Check messages
 

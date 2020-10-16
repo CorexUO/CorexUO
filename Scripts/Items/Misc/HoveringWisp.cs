@@ -1,6 +1,6 @@
 namespace Server.Items
 {
-    public class HoveringWisp : Item
+    public class HoveringWisp : BaseItem
     {
         public override int LabelNumber { get { return 1072881; } } // hovering wisp
 

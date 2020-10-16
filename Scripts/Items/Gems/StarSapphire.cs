@@ -1,6 +1,6 @@
 namespace Server.Items
 {
-    public class StarSapphire : Item
+    public class StarSapphire : BaseItem
     {
         public override double DefaultWeight
         {

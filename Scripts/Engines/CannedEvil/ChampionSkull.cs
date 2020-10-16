@@ -2,7 +2,7 @@ using Server.Engines.CannedEvil;
 
 namespace Server.Items
 {
-	public class ChampionSkull : Item
+	public class ChampionSkull : BaseItem
 	{
 		private ChampionSkullType m_Type;
 

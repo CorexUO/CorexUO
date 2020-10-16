@@ -2,7 +2,7 @@ namespace Server.Items
 {
 
     [FlipableAttribute(0x156C, 0x156D)]
-    public class DecorativeShield1 : Item
+    public class DecorativeShield1 : BaseItem
     {
         [Constructable]
         public DecorativeShield1() : base(0x156C)
@@ -29,7 +29,7 @@ namespace Server.Items
         }
     }
     [FlipableAttribute(0x156E, 0x156F)]
-    public class DecorativeShield2 : Item
+    public class DecorativeShield2 : BaseItem
     {
         [Constructable]
         public DecorativeShield2() : base(0x156E)
@@ -57,7 +57,7 @@ namespace Server.Items
     }
 
     [FlipableAttribute(0x1570, 0x1571)]
-    public class DecorativeShield3 : Item
+    public class DecorativeShield3 : BaseItem
     {
         [Constructable]
         public DecorativeShield3() : base(0x1570)
@@ -85,7 +85,7 @@ namespace Server.Items
     }
 
     [FlipableAttribute(0x1572, 0x1573)]
-    public class DecorativeShield4 : Item
+    public class DecorativeShield4 : BaseItem
     {
         [Constructable]
         public DecorativeShield4() : base(0x1572)
@@ -113,7 +113,7 @@ namespace Server.Items
     }
 
     [FlipableAttribute(0x1574, 0x1575)]
-    public class DecorativeShield5 : Item
+    public class DecorativeShield5 : BaseItem
     {
         [Constructable]
         public DecorativeShield5() : base(0x1574)
@@ -141,7 +141,7 @@ namespace Server.Items
     }
 
     [FlipableAttribute(0x1576, 0x1577)]
-    public class DecorativeShield6 : Item
+    public class DecorativeShield6 : BaseItem
     {
         [Constructable]
         public DecorativeShield6() : base(0x1576)
@@ -169,7 +169,7 @@ namespace Server.Items
     }
 
     [FlipableAttribute(0x1578, 0x1579)]
-    public class DecorativeShield7 : Item
+    public class DecorativeShield7 : BaseItem
     {
         [Constructable]
         public DecorativeShield7() : base(0x1578)
@@ -197,7 +197,7 @@ namespace Server.Items
     }
 
     [FlipableAttribute(0x157A, 0x157B)]
-    public class DecorativeShield8 : Item
+    public class DecorativeShield8 : BaseItem
     {
         [Constructable]
         public DecorativeShield8() : base(0x157A)
@@ -225,7 +225,7 @@ namespace Server.Items
     }
 
     [FlipableAttribute(0x157C, 0x157D)]
-    public class DecorativeShield9 : Item
+    public class DecorativeShield9 : BaseItem
     {
         [Constructable]
         public DecorativeShield9() : base(0x157C)
@@ -253,7 +253,7 @@ namespace Server.Items
     }
 
     [FlipableAttribute(0x157E, 0x157F)]
-    public class DecorativeShield10 : Item
+    public class DecorativeShield10 : BaseItem
     {
         [Constructable]
         public DecorativeShield10() : base(0x157E)
@@ -281,7 +281,7 @@ namespace Server.Items
     }
 
     [FlipableAttribute(0x1580, 0x1581)]
-    public class DecorativeShield11 : Item
+    public class DecorativeShield11 : BaseItem
     {
         [Constructable]
         public DecorativeShield11() : base(0x1580)
@@ -309,7 +309,7 @@ namespace Server.Items
     }
 
     [FlipableAttribute(0x1582, 0x1583, 0x1634, 0x1635)]
-    public class DecorativeShieldSword1North : Item
+    public class DecorativeShieldSword1North : BaseItem
     {
         [Constructable]
         public DecorativeShieldSword1North() : base(Utility.Random(0x1582, 2))
@@ -337,7 +337,7 @@ namespace Server.Items
     }
 
     [FlipableAttribute(0x1634, 0x1635, 0x1582, 0x1583)]
-    public class DecorativeShieldSword1West : Item
+    public class DecorativeShieldSword1West : BaseItem
     {
         [Constructable]
         public DecorativeShieldSword1West() : base(Utility.Random(0x1634, 2))
@@ -365,7 +365,7 @@ namespace Server.Items
     }
 
     [FlipableAttribute(0x1584, 0x1585, 0x1636, 0x1637)]
-    public class DecorativeShieldSword2North : Item
+    public class DecorativeShieldSword2North : BaseItem
     {
         [Constructable]
         public DecorativeShieldSword2North() : base(Utility.Random(0x1584, 2))
@@ -393,7 +393,7 @@ namespace Server.Items
     }
 
     [FlipableAttribute(0x1636, 0x1637, 0x1584, 0x1585)]
-    public class DecorativeShieldSword2West : Item
+    public class DecorativeShieldSword2West : BaseItem
     {
         [Constructable]
         public DecorativeShieldSword2West() : base(Utility.Random(0x1636, 2))

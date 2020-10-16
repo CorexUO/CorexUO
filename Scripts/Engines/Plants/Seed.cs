@@ -3,7 +3,7 @@ using Server.Targeting;
 
 namespace Server.Engines.Plants
 {
-    public class Seed : Item
+    public class Seed : BaseItem
     {
         private PlantType m_PlantType;
         private PlantHue m_PlantHue;

@@ -4,7 +4,7 @@ using Server.Targeting;
 
 namespace Server.Engines.Plants
 {
-    public class PlantBowl : Item
+    public class PlantBowl : BaseItem
     {
         public override int LabelNumber { get { return 1060834; } } // a plant bowl
 

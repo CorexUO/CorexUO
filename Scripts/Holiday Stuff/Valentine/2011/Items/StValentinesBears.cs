@@ -4,7 +4,7 @@ using Server.Network;
 
 namespace Server.Items
 {
-    public abstract class StValentinesBear : Item
+    public abstract class StValentinesBear : BaseItem
     {
         public override string DefaultName
         {

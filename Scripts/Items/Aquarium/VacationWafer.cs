@@ -1,6 +1,6 @@
 namespace Server.Items
 {
-    public class VacationWafer : Item
+    public class VacationWafer : BaseItem
     {
         public const int VacationDays = 7;
 

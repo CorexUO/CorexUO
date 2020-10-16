@@ -1,6 +1,6 @@
 namespace Server.Items
 {
-    public class KhaldunPitTeleporter : Item
+    public class KhaldunPitTeleporter : BaseItem
     {
         private bool m_Active;
         private Point3D m_PointDest;

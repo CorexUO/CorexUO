@@ -5,7 +5,7 @@ using Server.Gumps;
 
 namespace Server.Multis
 {
-	public class HouseSign : Item
+	public class HouseSign : BaseItem
 	{
 		private BaseHouse m_Owner;
 		private Mobile m_OrgOwner;

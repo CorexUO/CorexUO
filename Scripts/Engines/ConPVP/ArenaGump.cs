@@ -7,8 +7,8 @@ using Server.Network;
 
 namespace Server.Engines.ConPVP
 {
-    public class ArenasMoongate : Item
-    {
+    public class ArenasMoongate : BaseItem
+	{
         public override string DefaultName
         {
             get { return "arena moongate"; }

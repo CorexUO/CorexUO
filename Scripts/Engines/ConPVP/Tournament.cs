@@ -132,7 +132,7 @@ namespace Server.Engines.ConPVP
 		}
 	}
 
-	public class TournamentSignupItem : Item
+	public class TournamentSignupItem : BaseItem
 	{
 		private TournamentController m_Tournament;
 		private Mobile m_Registrar;
@@ -1221,7 +1221,7 @@ namespace Server.Engines.ConPVP
 		}
 	}
 
-	public class TournamentController : Item
+	public class TournamentController : BaseItem
 	{
 		private Tournament m_Tournament;
 
@@ -3598,7 +3598,7 @@ namespace Server.Engines.ConPVP
 		}
 	}
 
-	public class TournamentBracketItem : Item
+	public class TournamentBracketItem : BaseItem
 	{
 		private TournamentController m_Tournament;
 

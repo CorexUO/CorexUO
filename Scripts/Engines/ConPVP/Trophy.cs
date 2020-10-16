@@ -10,8 +10,8 @@ namespace Server.Items
     }
 
     [Flipable(5020, 4647)]
-    public class Trophy : Item
-    {
+    public class Trophy : BaseItem
+	{
         private string m_Title;
         private TrophyRank m_Rank;
         private Mobile m_Owner;

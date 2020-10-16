@@ -1,6 +1,6 @@
 namespace Server.Items
 {
-    public class Lockpicks : Item
+    public class Lockpicks : BaseItem
     {
 
         [Constructable]

@@ -2,7 +2,7 @@ using Server.Mobiles;
 
 namespace Server.Engines.Quests.Necro
 {
-	public class CrystalCaveBarrier : Item
+	public class CrystalCaveBarrier : BaseItem
 	{
 		[Constructable]
 		public CrystalCaveBarrier() : base(0x3967)

@@ -1,7 +1,7 @@
 namespace Server.Items
 {
     [Flipable(0x1053, 0x1054)]
-    public class Gears : Item
+    public class Gears : BaseItem
     {
         [Constructable]
         public Gears() : this(1)

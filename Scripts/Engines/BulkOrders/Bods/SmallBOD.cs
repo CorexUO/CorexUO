@@ -6,7 +6,7 @@ using Server.Mobiles;
 namespace Server.Engines.BulkOrders
 {
 	[TypeAlias("Scripts.Engines.BulkOrders.SmallBOD")]
-	public abstract class SmallBOD : Item
+	public abstract class SmallBOD : BaseItem
 	{
 		private int m_AmountCur, m_AmountMax;
 		private Type m_Type;

@@ -1,6 +1,6 @@
 namespace Server.Items
 {
-    public class AbscessTail : Item
+    public class AbscessTail : BaseItem
     {
         public override int LabelNumber { get { return 1074231; } } // Abscess' Tail
 

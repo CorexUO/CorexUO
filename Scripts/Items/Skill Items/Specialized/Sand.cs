@@ -1,7 +1,7 @@
 namespace Server.Items
 {
     [FlipableAttribute(0x11EA, 0x11EB)]
-    public class Sand : Item, ICommodity
+    public class Sand : BaseItem, ICommodity
     {
         int ICommodity.DescriptionNumber { get { return LabelNumber; } }
         bool ICommodity.IsDeedable { get { return true; } }

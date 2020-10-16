@@ -5,7 +5,7 @@ using Server.Targeting;
 
 namespace Server.Items
 {
-    public class Bola : Item
+    public class Bola : BaseItem
     {
         [Constructable]
         public Bola() : this(1)

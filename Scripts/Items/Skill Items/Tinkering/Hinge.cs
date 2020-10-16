@@ -1,7 +1,7 @@
 namespace Server.Items
 {
     [Flipable(0x1055, 0x1056)]
-    public class Hinge : Item
+    public class Hinge : BaseItem
     {
         [Constructable]
         public Hinge() : this(1)

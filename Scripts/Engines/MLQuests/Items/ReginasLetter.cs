@@ -1,6 +1,6 @@
 namespace Server.Items
 {
-    public class ReginasLetter : Item
+    public class ReginasLetter : BaseItem
     {
         public override int LabelNumber { get { return 1075306; } } // Regina's Letter
 

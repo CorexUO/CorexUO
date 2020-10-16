@@ -1,6 +1,6 @@
 namespace Server.Items
 {
-    public class LeftArm : Item
+    public class LeftArm : BaseItem
     {
         [Constructable]
         public LeftArm() : base(0x1DA1)

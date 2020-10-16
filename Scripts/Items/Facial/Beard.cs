@@ -1,6 +1,6 @@
 namespace Server.Items
 {
-	public abstract class Beard : Item
+	public abstract class Beard : BaseItem
 	{
 		/*public static Beard CreateByID( int id, int hue )
 		{

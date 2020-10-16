@@ -2,8 +2,8 @@ using Server.Items;
 
 namespace Server.Engines.ConPVP
 {
-    public abstract class EventController : Item
-    {
+    public abstract class EventController : BaseItem
+	{
         public abstract EventGame Construct(DuelContext dc);
 
         public abstract string Title { get; }

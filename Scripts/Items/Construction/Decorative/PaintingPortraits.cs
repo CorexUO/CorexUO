@@ -1,6 +1,6 @@
 namespace Server.Items
 {
-    public class LargePainting : Item
+    public class LargePainting : BaseItem
     {
         [Constructable]
         public LargePainting() : base(0x0EA0)
@@ -28,7 +28,7 @@ namespace Server.Items
     }
 
     [FlipableAttribute(0x0E9F, 0x0EC8)]
-    public class WomanPortrait1 : Item
+    public class WomanPortrait1 : BaseItem
     {
         [Constructable]
         public WomanPortrait1() : base(0x0E9F)
@@ -56,7 +56,7 @@ namespace Server.Items
     }
 
     [FlipableAttribute(0x0EE7, 0x0EC9)]
-    public class WomanPortrait2 : Item
+    public class WomanPortrait2 : BaseItem
     {
         [Constructable]
         public WomanPortrait2() : base(0x0EE7)
@@ -84,7 +84,7 @@ namespace Server.Items
     }
 
     [FlipableAttribute(0x0EA2, 0x0EA1)]
-    public class ManPortrait1 : Item
+    public class ManPortrait1 : BaseItem
     {
         [Constructable]
         public ManPortrait1() : base(0x0EA2)
@@ -112,7 +112,7 @@ namespace Server.Items
     }
 
     [FlipableAttribute(0x0EA3, 0x0EA4)]
-    public class ManPortrait2 : Item
+    public class ManPortrait2 : BaseItem
     {
         [Constructable]
         public ManPortrait2() : base(0x0EA3)
@@ -140,7 +140,7 @@ namespace Server.Items
     }
 
     [FlipableAttribute(0x0EA6, 0x0EA5)]
-    public class LadyPortrait1 : Item
+    public class LadyPortrait1 : BaseItem
     {
         [Constructable]
         public LadyPortrait1() : base(0x0EA6)
@@ -168,7 +168,7 @@ namespace Server.Items
     }
 
     [FlipableAttribute(0x0EA7, 0x0EA8)]
-    public class LadyPortrait2 : Item
+    public class LadyPortrait2 : BaseItem
     {
         [Constructable]
         public LadyPortrait2() : base(0x0EA7)

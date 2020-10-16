@@ -14,7 +14,7 @@ namespace Server.Engines.Doom
 		Completed
 	}
 
-	public class GauntletSpawner : Item
+	public class GauntletSpawner : BaseItem
 	{
 		public const int PlayersPerSpawn = 5;
 

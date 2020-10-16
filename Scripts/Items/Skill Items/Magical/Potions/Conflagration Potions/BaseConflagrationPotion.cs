@@ -189,7 +189,7 @@ namespace Server.Items
 			}
 		}
 
-		public class InternalItem : Item
+		public class InternalItem : BaseItem
 		{
 			private Mobile m_From;
 			private int m_MinDamage;

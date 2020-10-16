@@ -7,7 +7,7 @@ using Server.Network;
 
 namespace Server.Items
 {
-	public class Guildstone : Item, IAddon, IChopable
+	public class Guildstone : BaseItem, IAddon, IChopable
 	{
 		private Guild m_Guild;
 		private string m_GuildName;
@@ -272,7 +272,7 @@ namespace Server.Items
 	}
 
 	[Flipable(0x14F0, 0x14EF)]
-	public class GuildstoneDeed : Item
+	public class GuildstoneDeed : BaseItem
 	{
 		public override int LabelNumber { get { return 1041233; } } // deed to a guildstone
 

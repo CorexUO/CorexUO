@@ -1,6 +1,6 @@
 namespace Server.Items
 {
-    public class StoutWhip : Item
+    public class StoutWhip : BaseItem
     {
         public override int LabelNumber { get { return 1074812; } } // Stout Whip
 

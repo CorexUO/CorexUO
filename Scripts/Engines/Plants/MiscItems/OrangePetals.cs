@@ -4,7 +4,7 @@ using Server.Network;
 
 namespace Server.Items
 {
-    public class OrangePetals : Item
+    public class OrangePetals : BaseItem
     {
         public override int LabelNumber { get { return 1053122; } } // orange petals
 

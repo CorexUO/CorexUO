@@ -1,6 +1,6 @@
 namespace Server.Items
 {
-    public class Fish : Item, ICarvable
+    public class Fish : BaseItem, ICarvable
     {
         public void Carve(Mobile from, Item item)
         {

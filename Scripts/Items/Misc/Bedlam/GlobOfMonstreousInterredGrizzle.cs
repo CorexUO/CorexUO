@@ -1,6 +1,6 @@
 namespace Server.Items
 {
-    public class GlobOfMonstreousInterredGrizzle : Item
+    public class GlobOfMonstreousInterredGrizzle : BaseItem
     {
         public override int LabelNumber { get { return 1072117; } } // Glob of Monsterous Interred Grizzle
 

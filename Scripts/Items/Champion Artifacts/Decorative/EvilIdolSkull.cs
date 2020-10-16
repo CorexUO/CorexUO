@@ -1,6 +1,6 @@
 namespace Server.Items
 {
-    public class EvilIdolSkull : Item
+    public class EvilIdolSkull : BaseItem
     {
         public override int LabelNumber { get { return 1095237; } } // Evil Idol
 

@@ -1,6 +1,6 @@
 namespace Server.Items
 {
-    public class StatueSouth : Item
+    public class StatueSouth : BaseItem
     {
         [Constructable]
         public StatueSouth() : base(0x139A)
@@ -29,7 +29,7 @@ namespace Server.Items
         }
     }
 
-    public class StatueSouth2 : Item
+    public class StatueSouth2 : BaseItem
     {
         [Constructable]
         public StatueSouth2() : base(0x1227)
@@ -58,7 +58,7 @@ namespace Server.Items
         }
     }
 
-    public class StatueNorth : Item
+    public class StatueNorth : BaseItem
     {
         [Constructable]
         public StatueNorth() : base(0x139B)
@@ -87,7 +87,7 @@ namespace Server.Items
         }
     }
 
-    public class StatueWest : Item
+    public class StatueWest : BaseItem
     {
         [Constructable]
         public StatueWest() : base(0x1226)
@@ -116,7 +116,7 @@ namespace Server.Items
         }
     }
 
-    public class StatueEast : Item
+    public class StatueEast : BaseItem
     {
         [Constructable]
         public StatueEast() : base(0x139C)
@@ -145,7 +145,7 @@ namespace Server.Items
         }
     }
 
-    public class StatueEast2 : Item
+    public class StatueEast2 : BaseItem
     {
         [Constructable]
         public StatueEast2() : base(0x1224)
@@ -174,7 +174,7 @@ namespace Server.Items
         }
     }
 
-    public class StatueSouthEast : Item
+    public class StatueSouthEast : BaseItem
     {
         [Constructable]
         public StatueSouthEast() : base(0x1225)
@@ -203,7 +203,7 @@ namespace Server.Items
         }
     }
 
-    public class BustSouth : Item
+    public class BustSouth : BaseItem
     {
         [Constructable]
         public BustSouth() : base(0x12CB)
@@ -232,7 +232,7 @@ namespace Server.Items
         }
     }
 
-    public class BustEast : Item
+    public class BustEast : BaseItem
     {
         [Constructable]
         public BustEast() : base(0x12CA)
@@ -261,7 +261,7 @@ namespace Server.Items
         }
     }
 
-    public class StatuePegasus : Item
+    public class StatuePegasus : BaseItem
     {
         [Constructable]
         public StatuePegasus() : base(0x139D)
@@ -290,7 +290,7 @@ namespace Server.Items
         }
     }
 
-    public class StatuePegasus2 : Item
+    public class StatuePegasus2 : BaseItem
     {
         [Constructable]
         public StatuePegasus2() : base(0x1228)
@@ -319,7 +319,7 @@ namespace Server.Items
         }
     }
 
-    public class SmallTowerSculpture : Item
+    public class SmallTowerSculpture : BaseItem
     {
         [Constructable]
         public SmallTowerSculpture() : base(0x241A)

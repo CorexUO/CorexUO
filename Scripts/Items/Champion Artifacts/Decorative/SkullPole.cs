@@ -1,6 +1,6 @@
 namespace Server.Items
 {
-    public class SkullPole : Item
+    public class SkullPole : BaseItem
     {
         [Constructable]
         public SkullPole() : base(0x2204)

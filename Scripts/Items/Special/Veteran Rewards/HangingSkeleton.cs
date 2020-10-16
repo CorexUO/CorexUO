@@ -6,7 +6,7 @@ using Server.Targeting;
 
 namespace Server.Items
 {
-    public class HangingSkeleton : Item, IAddon, IRewardItem
+    public class HangingSkeleton : BaseItem, IAddon, IRewardItem
     {
         public override bool ForceShowProperties { get { return ObjectPropertyList.Enabled; } }
 
@@ -114,7 +114,7 @@ namespace Server.Items
         }
     }
 
-    public class HangingSkeletonDeed : Item, IRewardItem
+    public class HangingSkeletonDeed : BaseItem, IRewardItem
     {
         public override int LabelNumber { get { return 1049772; } } // deed for a hanging skeleton decoration
 

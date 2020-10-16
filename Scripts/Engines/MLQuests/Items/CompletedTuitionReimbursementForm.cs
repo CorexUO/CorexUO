@@ -1,6 +1,6 @@
 namespace Server.Items
 {
-    public class CompletedTuitionReimbursementForm : Item
+    public class CompletedTuitionReimbursementForm : BaseItem
     {
         public override int LabelNumber { get { return 1074625; } } // Completed Tuition Reimbursement Form
 

@@ -3,7 +3,7 @@ using Server.Network;
 
 namespace Server.Engines.Quests.Collector
 {
-    public class PaintedImage : Item
+    public class PaintedImage : BaseItem
     {
         private ImageType m_Image;
 

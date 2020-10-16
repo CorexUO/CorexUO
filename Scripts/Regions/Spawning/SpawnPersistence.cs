@@ -1,6 +1,6 @@
 namespace Server.Regions
 {
-	public class SpawnPersistence : Item
+	public class SpawnPersistence : BaseItem
 	{
 		private static SpawnPersistence m_Instance;
 

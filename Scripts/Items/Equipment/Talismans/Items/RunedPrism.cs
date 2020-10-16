@@ -1,6 +1,6 @@
 namespace Server.Items
 {
-	public class RunedPrism : Item
+	public class RunedPrism : BaseItem
 	{
 		public override int LabelNumber { get { return 1073465; } } // runed prism
 

@@ -2,7 +2,7 @@ using Server.Network;
 
 namespace Server.Items
 {
-    public class Dices : Item, ITelekinesisable
+    public class Dices : BaseItem, ITelekinesisable
     {
         [Constructable]
         public Dices() : base(0xFA7)

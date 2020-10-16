@@ -2,7 +2,7 @@
 
 namespace Server.Items
 {
-    public class HolidayBell : Item
+    public class HolidayBell : BaseItem
     {
         private static string[] m_StaffNames = new string[]
         {

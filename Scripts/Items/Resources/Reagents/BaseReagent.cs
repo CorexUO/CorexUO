@@ -1,6 +1,6 @@
 namespace Server.Items
 {
-    public abstract class BaseReagent : Item
+    public abstract class BaseReagent : BaseItem
     {
         public override double DefaultWeight
         {

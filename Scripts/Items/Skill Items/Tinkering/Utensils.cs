@@ -1,7 +1,7 @@
 namespace Server.Items
 {
     [Flipable(0x9F4, 0x9F5, 0x9A3, 0x9A4)]
-    public class Fork : Item
+    public class Fork : BaseItem
     {
         [Constructable]
         public Fork() : base(0x9F4)
@@ -28,7 +28,7 @@ namespace Server.Items
         }
     }
 
-    public class ForkLeft : Item
+    public class ForkLeft : BaseItem
     {
         [Constructable]
         public ForkLeft() : base(0x9F4)
@@ -55,7 +55,7 @@ namespace Server.Items
         }
     }
 
-    public class ForkRight : Item
+    public class ForkRight : BaseItem
     {
         [Constructable]
         public ForkRight() : base(0x9F5)
@@ -83,7 +83,7 @@ namespace Server.Items
     }
 
     [Flipable(0x9F8, 0x9F9, 0x9C2, 0x9C3)]
-    public class Spoon : Item
+    public class Spoon : BaseItem
     {
         [Constructable]
         public Spoon() : base(0x9F8)
@@ -110,7 +110,7 @@ namespace Server.Items
         }
     }
 
-    public class SpoonLeft : Item
+    public class SpoonLeft : BaseItem
     {
         [Constructable]
         public SpoonLeft() : base(0x9F8)
@@ -137,7 +137,7 @@ namespace Server.Items
         }
     }
 
-    public class SpoonRight : Item
+    public class SpoonRight : BaseItem
     {
         [Constructable]
         public SpoonRight() : base(0x9F9)
@@ -165,7 +165,7 @@ namespace Server.Items
     }
 
     [Flipable(0x9F6, 0x9F7, 0x9A5, 0x9A6)]
-    public class Knife : Item
+    public class Knife : BaseItem
     {
         [Constructable]
         public Knife() : base(0x9F6)
@@ -192,7 +192,7 @@ namespace Server.Items
         }
     }
 
-    public class KnifeLeft : Item
+    public class KnifeLeft : BaseItem
     {
         [Constructable]
         public KnifeLeft() : base(0x9F6)
@@ -219,7 +219,7 @@ namespace Server.Items
         }
     }
 
-    public class KnifeRight : Item
+    public class KnifeRight : BaseItem
     {
         [Constructable]
         public KnifeRight() : base(0x9F7)
@@ -246,7 +246,7 @@ namespace Server.Items
         }
     }
 
-    public class Plate : Item
+    public class Plate : BaseItem
     {
         [Constructable]
         public Plate() : base(0x9D7)

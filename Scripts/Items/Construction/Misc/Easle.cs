@@ -2,7 +2,7 @@ namespace Server.Items
 {
     [Furniture]
     [Flipable(0xF65, 0xF67, 0xF69)]
-    public class Easle : Item
+    public class Easle : BaseItem
     {
         [Constructable]
         public Easle() : base(0xF65)

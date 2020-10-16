@@ -3,7 +3,7 @@ using Server.Multis;
 
 namespace Server.Items
 {
-	public class ContractOfEmployment : Item
+	public class ContractOfEmployment : BaseItem
 	{
 		public override int LabelNumber { get { return 1041243; } } // a contract of employment
 

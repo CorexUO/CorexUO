@@ -4,7 +4,7 @@ using Server.Mobiles;
 
 namespace Server.Items
 {
-    public abstract class BasePigmentsOfTokuno : Item, IUsesRemaining
+    public abstract class BasePigmentsOfTokuno : BaseItem, IUsesRemaining
     {
         private static Type[] m_Glasses = new Type[]
         {

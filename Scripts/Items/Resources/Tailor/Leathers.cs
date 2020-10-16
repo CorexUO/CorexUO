@@ -1,6 +1,6 @@
 namespace Server.Items
 {
-	public abstract class BaseLeather : Item, ICommodity, ICraftResource
+	public abstract class BaseLeather : BaseItem, ICommodity, ICraftResource
 	{
 		private CraftResource m_Resource;
 

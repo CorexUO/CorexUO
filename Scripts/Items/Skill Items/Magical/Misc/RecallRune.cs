@@ -6,7 +6,7 @@ using Server.Regions;
 namespace Server.Items
 {
     [FlipableAttribute(0x1f14, 0x1f15, 0x1f16, 0x1f17)]
-    public class RecallRune : Item
+    public class RecallRune : BaseItem
     {
         private string m_Description;
         private bool m_Marked;

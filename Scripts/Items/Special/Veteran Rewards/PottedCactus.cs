@@ -4,7 +4,7 @@ using Server.Network;
 
 namespace Server.Items
 {
-    public class RewardPottedCactus : Item, IRewardItem
+    public class RewardPottedCactus : BaseItem, IRewardItem
     {
         public override bool ForceShowProperties { get { return ObjectPropertyList.Enabled; } }
 
@@ -57,7 +57,7 @@ namespace Server.Items
         }
     }
 
-    public class PottedCactusDeed : Item, IRewardItem
+    public class PottedCactusDeed : BaseItem, IRewardItem
     {
         public override int LabelNumber { get { return 1080407; } } // Potted Cactus Deed
 

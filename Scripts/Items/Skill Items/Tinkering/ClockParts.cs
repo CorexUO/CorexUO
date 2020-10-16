@@ -1,7 +1,7 @@
 namespace Server.Items
 {
     [Flipable(0x104F, 0x1050)]
-    public class ClockParts : Item
+    public class ClockParts : BaseItem
     {
         [Constructable]
         public ClockParts() : this(1)

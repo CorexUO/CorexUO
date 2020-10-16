@@ -12,7 +12,7 @@ just simply Unpatch/delete, Stick these in, Same location.. Restart
 
 namespace Server.Engines.Doom
 {
-	public class LeverPuzzleController : Item
+	public class LeverPuzzleController : BaseItem
 	{
 		private bool m_Enabled;
 		private static bool installed;

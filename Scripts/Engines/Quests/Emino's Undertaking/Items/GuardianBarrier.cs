@@ -2,7 +2,7 @@ using Server.Mobiles;
 
 namespace Server.Engines.Quests.Ninja
 {
-    public class GuardianBarrier : Item
+    public class GuardianBarrier : BaseItem
     {
         [Constructable]
         public GuardianBarrier() : base(0x3967)

@@ -1,7 +1,7 @@
 namespace Server.Items
 {
     [Flipable]
-    public class Futon : Item
+    public class Futon : BaseItem
     {
         [Constructable]
         public Futon() : base(Utility.RandomDouble() > 0.5 ? 0x295C : 0x295E)

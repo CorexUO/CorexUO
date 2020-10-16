@@ -1,6 +1,6 @@
 namespace Server.Items
 {
-    public class FriendsOfTheLibraryApplication : Item
+    public class FriendsOfTheLibraryApplication : BaseItem
     {
         public override int LabelNumber { get { return 1073131; } } // Friends of the Library Application
 

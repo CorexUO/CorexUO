@@ -1,6 +1,6 @@
 namespace Server.Items
 {
-    public class Web : Item
+    public class Web : BaseItem
     {
         private static int[] m_itemids = new int[]
         {

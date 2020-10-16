@@ -2,7 +2,7 @@ using Server.Gumps;
 
 namespace Server.Items
 {
-	public class ResGate : Item
+	public class ResGate : BaseItem
 	{
 		public override string DefaultName
 		{

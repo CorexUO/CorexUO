@@ -6,7 +6,7 @@ using Server.Network;
 
 namespace Server.Engines.MLQuests.Items
 {
-    public abstract class QuestGiverItem : Item, IQuestGiver
+    public abstract class QuestGiverItem : BaseItem, IQuestGiver
     {
         private List<MLQuest> m_MLQuests;
 

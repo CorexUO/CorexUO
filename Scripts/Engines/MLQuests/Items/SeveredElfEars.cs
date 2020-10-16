@@ -1,7 +1,7 @@
 namespace Server.Items
 {
     [Flipable(0x312D, 0x312E)]
-    public class SeveredElfEars : Item
+    public class SeveredElfEars : BaseItem
     {
         [Constructable]
         public SeveredElfEars() : this(1)

@@ -2,7 +2,7 @@ using Server.Network;
 
 namespace Server.Items
 {
-    public class RewardCake : Item
+    public class RewardCake : BaseItem
     {
         public override int LabelNumber { get { return 1049786; } } // Happy Birthday!  ...
 

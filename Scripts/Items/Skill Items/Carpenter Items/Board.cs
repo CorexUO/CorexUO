@@ -1,7 +1,7 @@
 namespace Server.Items
 {
 	[FlipableAttribute(0x1BD7, 0x1BDA)]
-	public class Board : Item, ICommodity, ICraftResource
+	public class Board : BaseItem, ICommodity, ICraftResource
 	{
 		private CraftResource m_Resource;
 

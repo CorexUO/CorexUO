@@ -9,7 +9,7 @@ namespace Server.Items
 		Felucca, Trammel
 	}
 
-	public class Moonstone : Item
+	public class Moonstone : BaseItem
 	{
 		private MoonstoneType m_Type;
 

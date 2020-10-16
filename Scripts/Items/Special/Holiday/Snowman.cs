@@ -1,7 +1,7 @@
 namespace Server.Items
 {
     [Flipable(0x2328, 0x2329)]
-    public class Snowman : Item, IDyable
+    public class Snowman : BaseItem, IDyable
     {
         public static string GetRandomTitle()
         {

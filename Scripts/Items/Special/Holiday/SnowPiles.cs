@@ -1,6 +1,6 @@
 ﻿namespace Server.Items
 {
-    public class SnowPileDeco : Item
+    public class SnowPileDeco : BaseItem
     {
         public override string DefaultName { get { return "Snow Pile"; } }
         public override double DefaultWeight { get { return 2.0; } }

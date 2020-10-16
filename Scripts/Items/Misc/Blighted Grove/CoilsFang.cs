@@ -1,6 +1,6 @@
 namespace Server.Items
 {
-    public class CoilsFang : Item
+    public class CoilsFang : BaseItem
     {
         public override int LabelNumber { get { return 1074229; } } // Coil's Fang
 

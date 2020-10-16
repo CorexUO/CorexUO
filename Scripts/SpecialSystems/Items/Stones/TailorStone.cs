@@ -1,6 +1,6 @@
 namespace Server.Items
 {
-	public class TailorStone : Item
+	public class TailorStone : BaseItem
 	{
 		public override string DefaultName
 		{

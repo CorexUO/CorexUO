@@ -1,6 +1,6 @@
 namespace Server.Items
 {
-    public class Pier : Item
+    public class Pier : BaseItem
     {
         /*
 		 * This does not make a lot of sense, being a "Pier"

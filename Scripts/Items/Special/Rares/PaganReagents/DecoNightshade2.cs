@@ -1,6 +1,6 @@
 namespace Server.Items
 {
-    public class DecoNightshade2 : Item
+    public class DecoNightshade2 : BaseItem
     {
 
         [Constructable]

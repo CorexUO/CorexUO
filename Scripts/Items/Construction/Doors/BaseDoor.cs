@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using Server.Commands;
 using Server.Network;
@@ -6,7 +6,7 @@ using Server.Targeting;
 
 namespace Server.Items
 {
-    public abstract class BaseDoor : Item, ILockable, ITelekinesisable
+    public abstract class BaseDoor : BaseItem, ILockable, ITelekinesisable
     {
         private bool m_Open, m_Locked;
         private int m_OpenedID, m_OpenedSound;

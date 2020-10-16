@@ -1,6 +1,6 @@
 namespace Server.Items
 {
-    public class OfficialSealingWax : Item
+    public class OfficialSealingWax : BaseItem
     {
         public override int LabelNumber { get { return 1072744; } } // Official Sealing Wax
 

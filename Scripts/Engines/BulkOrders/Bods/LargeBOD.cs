@@ -4,7 +4,7 @@ using Server.Mobiles;
 namespace Server.Engines.BulkOrders
 {
 	[TypeAlias("Scripts.Engines.BulkOrders.LargeBOD")]
-	public abstract class LargeBOD : Item
+	public abstract class LargeBOD : BaseItem
 	{
 		private int m_AmountMax;
 		private bool m_RequireExceptional;

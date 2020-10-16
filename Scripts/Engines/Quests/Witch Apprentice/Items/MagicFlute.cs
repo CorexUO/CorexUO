@@ -2,7 +2,7 @@ using Server.Mobiles;
 
 namespace Server.Engines.Quests.Hag
 {
-    public class MagicFlute : Item
+    public class MagicFlute : BaseItem
     {
         public override int LabelNumber { get { return 1055051; } } // magic flute
 

@@ -2,7 +2,7 @@
 {
     [TypeAlias("Server.Items.RockingHorse")]
     [Flipable(0x4214, 0x4215)]
-    public class RockingHorse : Item
+    public class RockingHorse : BaseItem
     {
         public RockingHorse() : base(0x4214)
         {

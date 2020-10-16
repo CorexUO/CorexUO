@@ -100,7 +100,7 @@ namespace Server.Spells.Fourth
 		}
 
 		[DispellableField]
-		public class FireFieldItem : Item
+		public class FireFieldItem : BaseItem
 		{
 			private Timer m_Timer;
 			private DateTime m_End;

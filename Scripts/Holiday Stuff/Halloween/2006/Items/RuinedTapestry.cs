@@ -1,6 +1,6 @@
 ﻿namespace Server.Items
 {
-    public class RuinedTapestry : Item
+    public class RuinedTapestry : BaseItem
     {
         public override string DefaultName { get { return "Ruined Tapestry "; } }
 

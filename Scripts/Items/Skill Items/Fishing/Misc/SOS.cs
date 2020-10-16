@@ -4,7 +4,7 @@ using Server.Gumps;
 namespace Server.Items
 {
     [Flipable(0x14ED, 0x14EE)]
-    public class SOS : Item
+    public class SOS : BaseItem
     {
         public override int LabelNumber
         {

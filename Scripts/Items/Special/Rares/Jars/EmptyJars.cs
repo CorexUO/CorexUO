@@ -1,6 +1,6 @@
 ﻿namespace Server.Items
 {
-    public class EmptyJar : Item
+    public class EmptyJar : BaseItem
     {
         [Constructable]
         public EmptyJar()
@@ -30,7 +30,7 @@
         }
     }
 
-    public class EmptyJars : Item
+    public class EmptyJars : BaseItem
     {
         [Constructable]
         public EmptyJars()
@@ -60,7 +60,7 @@
         }
     }
 
-    public class EmptyJars2 : Item
+    public class EmptyJars2 : BaseItem
     {
         [Constructable]
         public EmptyJars2()
@@ -91,7 +91,7 @@
         }
     }
 
-    public class EmptyJars3 : Item
+    public class EmptyJars3 : BaseItem
     {
         [Constructable]
         public EmptyJars3()
@@ -121,7 +121,7 @@
         }
     }
 
-    public class EmptyJars4 : Item
+    public class EmptyJars4 : BaseItem
     {
         [Constructable]
         public EmptyJars4()

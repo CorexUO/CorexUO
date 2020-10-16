@@ -1,6 +1,6 @@
 namespace Server.Items
 {
-    public class Bolt : Item, ICommodity
+    public class Bolt : BaseItem, ICommodity
     {
         int ICommodity.DescriptionNumber { get { return LabelNumber; } }
         bool ICommodity.IsDeedable { get { return true; } }

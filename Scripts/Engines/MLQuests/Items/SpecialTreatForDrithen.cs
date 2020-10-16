@@ -1,6 +1,6 @@
 namespace Server.Items
 {
-    public class SpecialTreatForDrithen : Item
+    public class SpecialTreatForDrithen : BaseItem
     {
         public override int LabelNumber { get { return 1074517; } } // Special Treat for Drithen
 

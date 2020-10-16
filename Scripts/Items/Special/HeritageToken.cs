@@ -7,7 +7,7 @@ namespace Server.Items
     {
     }
 
-    public class HeritageToken : Item
+    public class HeritageToken : BaseItem
     {
         public override int LabelNumber { get { return 1076596; } } // A Heritage Token
 

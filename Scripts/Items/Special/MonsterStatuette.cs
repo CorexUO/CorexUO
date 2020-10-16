@@ -128,7 +128,7 @@ namespace Server.Items
         }
     }
 
-    public class MonsterStatuette : Item, IRewardItem
+    public class MonsterStatuette : BaseItem, IRewardItem
     {
         private MonsterStatuetteType m_Type;
         private bool m_TurnedOn;

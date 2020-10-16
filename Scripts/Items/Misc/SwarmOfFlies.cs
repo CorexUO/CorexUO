@@ -1,6 +1,6 @@
 namespace Server.Items
 {
-    public class SwarmOfFlies : Item
+    public class SwarmOfFlies : BaseItem
     {
         public override string DefaultName
         {

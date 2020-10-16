@@ -1,6 +1,6 @@
 namespace Server.Items
 {
-    public class DecoGinseng : Item
+    public class DecoGinseng : BaseItem
     {
 
         [Constructable]

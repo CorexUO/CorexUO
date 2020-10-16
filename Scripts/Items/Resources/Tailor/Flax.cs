@@ -2,7 +2,7 @@ using Server.Targeting;
 
 namespace Server.Items
 {
-    public class Flax : Item
+    public class Flax : BaseItem
     {
         [Constructable]
         public Flax() : this(1)

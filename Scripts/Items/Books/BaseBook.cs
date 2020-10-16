@@ -54,7 +54,7 @@ namespace Server.Items
         }
     }
 
-    public class BaseBook : Item, ISecurable
+    public class BaseBook : BaseItem, ISecurable
     {
         private string m_Title;
         private string m_Author;

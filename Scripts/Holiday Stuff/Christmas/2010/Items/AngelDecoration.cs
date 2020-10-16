@@ -1,8 +1,8 @@
-﻿namespace Server.Items.Holiday
+namespace Server.Items.Holiday
 {
     [TypeAlias("Server.Items.AngelDecoration")]
     [Flipable(0x46FA, 0x46FB)]
-    public class AngelDecoration : Item
+    public class AngelDecoration : BaseItem
     {
         public AngelDecoration() : base(0x46FA)
         {

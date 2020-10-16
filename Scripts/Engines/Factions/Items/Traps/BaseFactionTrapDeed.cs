@@ -4,7 +4,7 @@ using Server.Items;
 
 namespace Server.Factions
 {
-	public abstract class BaseFactionTrapDeed : Item, ICraftable
+	public abstract class BaseFactionTrapDeed : BaseItem, ICraftable
 	{
 		public abstract Type TrapType { get; }
 

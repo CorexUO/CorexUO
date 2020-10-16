@@ -1,6 +1,6 @@
 namespace Server.Items
 {
-    public class ArtifactVase : Item
+    public class ArtifactVase : BaseItem
     {
         [Constructable]
         public ArtifactVase() : base(0x0B48)

@@ -14,7 +14,7 @@ namespace Server.Items
         bool ShowUsesRemaining { get; set; }
     }
 
-    public abstract class BaseHarvestTool : Item, IUsesRemaining, ICraftable
+    public abstract class BaseHarvestTool : BaseItem, IUsesRemaining, ICraftable
     {
         private Mobile m_Crafter;
         private ToolQuality m_Quality;

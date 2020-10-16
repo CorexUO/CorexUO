@@ -1,4 +1,4 @@
-﻿
+
 using System;
 using System.Collections;
 using System.Text;
@@ -10,7 +10,7 @@ using Server.Targeting;
 
 namespace Server.Engines.ConPVP
 {
-	public class BRBomb : Item
+	public class BRBomb : BaseItem
 	{
 		private BRGame m_Game;
 		private Mobile m_Thrower;
@@ -946,7 +946,7 @@ namespace Server.Engines.ConPVP
 		}
 	}
 
-	public sealed class BRBoard : Item
+	public sealed class BRBoard : BaseItem
 	{
 		public BRTeamInfo m_TeamInfo;
 

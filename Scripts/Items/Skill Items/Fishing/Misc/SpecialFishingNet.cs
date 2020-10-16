@@ -6,7 +6,7 @@ using Server.Targeting;
 
 namespace Server.Items
 {
-    public class SpecialFishingNet : Item
+    public class SpecialFishingNet : BaseItem
     {
         public override int LabelNumber { get { return 1041079; } } // a special fishing net
 

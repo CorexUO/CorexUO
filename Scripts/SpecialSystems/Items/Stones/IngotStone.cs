@@ -1,6 +1,6 @@
 namespace Server.Items
 {
-	public class IngotStone : Item
+	public class IngotStone : BaseItem
 	{
 		public override string DefaultName
 		{

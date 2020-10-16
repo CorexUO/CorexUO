@@ -103,7 +103,7 @@ namespace Server.Items
         }
     }
 
-    public class AddonComponent : Item, IChopable
+    public class AddonComponent : BaseItem, IChopable
     {
         private Point3D m_Offset;
         private BaseAddon m_Addon;

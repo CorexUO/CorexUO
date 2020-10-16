@@ -8,7 +8,7 @@ using Server.Prompts;
 
 namespace Server.Misc
 {
-	public class ShardPoller : Item
+	public class ShardPoller : BaseItem
 	{
 		private string m_Title;
 

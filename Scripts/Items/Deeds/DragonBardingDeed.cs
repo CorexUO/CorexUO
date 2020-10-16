@@ -5,7 +5,7 @@ using Server.Targeting;
 namespace Server.Items
 {
 	[TypeAlias("Server.Items.DragonBarding")]
-	public class DragonBardingDeed : Item, ICraftable, ICraftResource
+	public class DragonBardingDeed : BaseItem, ICraftable, ICraftResource
 	{
 		private bool m_Exceptional;
 		private Mobile m_Crafter;

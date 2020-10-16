@@ -1,6 +1,6 @@
 namespace Server.Items
 {
-    public class AlchemistsBandage : Item
+    public class AlchemistsBandage : BaseItem
     {
         public override int LabelNumber { get { return 1075452; } } // Alchemist's Bandage
 

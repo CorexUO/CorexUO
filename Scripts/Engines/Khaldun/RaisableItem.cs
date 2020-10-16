@@ -2,7 +2,7 @@ using System;
 
 namespace Server.Items
 {
-    public class RaisableItem : Item
+    public class RaisableItem : BaseItem
     {
         private int m_MaxElevation;
         private int m_MoveSound;

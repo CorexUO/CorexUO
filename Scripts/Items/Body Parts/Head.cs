@@ -9,7 +9,7 @@ namespace Server.Items
         Tournament
     }
 
-    public class Head : Item
+    public class Head : BaseItem
     {
         private string m_PlayerName;
         private HeadType m_HeadType;

@@ -3,7 +3,7 @@ using Server.Network;
 namespace Server.Items
 {
     [FlipableAttribute(0x1765, 0x1767)]
-    public class UncutCloth : Item, IScissorable, IDyable, ICommodity
+    public class UncutCloth : BaseItem, IScissorable, IDyable, ICommodity
     {
         int ICommodity.DescriptionNumber { get { return LabelNumber; } }
         bool ICommodity.IsDeedable { get { return true; } }

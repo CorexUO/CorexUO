@@ -1,6 +1,6 @@
 namespace Server.Items
 {
-    public class DecoBridle2 : Item
+    public class DecoBridle2 : BaseItem
     {
 
         [Constructable]

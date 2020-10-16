@@ -1,6 +1,6 @@
 namespace Server.Items
 {
-    public class UnfinishedBarrel : Item
+    public class UnfinishedBarrel : BaseItem
     {
 
         [Constructable]

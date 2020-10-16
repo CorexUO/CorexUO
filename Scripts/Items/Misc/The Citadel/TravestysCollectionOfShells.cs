@@ -1,6 +1,6 @@
 namespace Server.Items
 {
-    public class TravestysCollectionOfShells : Item
+    public class TravestysCollectionOfShells : BaseItem
     {
         public override int LabelNumber { get { return 1072090; } } // Travesty's Collection of Shells
 

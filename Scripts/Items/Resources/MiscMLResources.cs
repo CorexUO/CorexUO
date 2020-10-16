@@ -1,6 +1,6 @@
 namespace Server.Items
 {
-    public class Blight : Item
+    public class Blight : BaseItem
     {
         [Constructable]
         public Blight()
@@ -36,7 +36,7 @@ namespace Server.Items
         }
     }
 
-    public class LuminescentFungi : Item
+    public class LuminescentFungi : BaseItem
     {
         [Constructable]
         public LuminescentFungi()
@@ -73,7 +73,7 @@ namespace Server.Items
     }
 
 
-    public class CapturedEssence : Item
+    public class CapturedEssence : BaseItem
     {
         [Constructable]
         public CapturedEssence()
@@ -110,7 +110,7 @@ namespace Server.Items
     }
 
 
-    public class EyeOfTheTravesty : Item
+    public class EyeOfTheTravesty : BaseItem
     {
         [Constructable]
         public EyeOfTheTravesty()
@@ -153,7 +153,7 @@ namespace Server.Items
     }
 
 
-    public class Corruption : Item
+    public class Corruption : BaseItem
     {
         [Constructable]
         public Corruption()
@@ -196,7 +196,7 @@ namespace Server.Items
     }
 
 
-    public class DreadHornMane : Item
+    public class DreadHornMane : BaseItem
     {
         [Constructable]
         public DreadHornMane()
@@ -239,7 +239,7 @@ namespace Server.Items
     }
 
 
-    public class ParasiticPlant : Item
+    public class ParasiticPlant : BaseItem
     {
         [Constructable]
         public ParasiticPlant()
@@ -282,7 +282,7 @@ namespace Server.Items
     }
 
 
-    public class Muculent : Item
+    public class Muculent : BaseItem
     {
         [Constructable]
         public Muculent()
@@ -325,7 +325,7 @@ namespace Server.Items
     }
 
 
-    public class DiseasedBark : Item
+    public class DiseasedBark : BaseItem
     {
         [Constructable]
         public DiseasedBark()
@@ -368,7 +368,7 @@ namespace Server.Items
     }
 
 
-    public class BarkFragment : Item
+    public class BarkFragment : BaseItem
     {
         [Constructable]
         public BarkFragment()
@@ -411,7 +411,7 @@ namespace Server.Items
     }
 
 
-    public class GrizzledBones : Item
+    public class GrizzledBones : BaseItem
     {
         [Constructable]
         public GrizzledBones()
@@ -457,7 +457,7 @@ namespace Server.Items
     }
 
 
-    public class LardOfParoxysmus : Item
+    public class LardOfParoxysmus : BaseItem
     {
         [Constructable]
         public LardOfParoxysmus()
@@ -499,7 +499,7 @@ namespace Server.Items
         }
     }
 
-    public class PerfectEmerald : Item
+    public class PerfectEmerald : BaseItem
     {
         [Constructable]
         public PerfectEmerald()
@@ -541,7 +541,7 @@ namespace Server.Items
         }
     }
 
-    public class DarkSapphire : Item
+    public class DarkSapphire : BaseItem
     {
         [Constructable]
         public DarkSapphire()
@@ -584,7 +584,7 @@ namespace Server.Items
     }
 
 
-    public class Turquoise : Item
+    public class Turquoise : BaseItem
     {
         [Constructable]
         public Turquoise()
@@ -627,7 +627,7 @@ namespace Server.Items
     }
 
 
-    public class EcruCitrine : Item
+    public class EcruCitrine : BaseItem
     {
         [Constructable]
         public EcruCitrine()
@@ -670,7 +670,7 @@ namespace Server.Items
     }
 
 
-    public class WhitePearl : Item
+    public class WhitePearl : BaseItem
     {
         [Constructable]
         public WhitePearl()
@@ -713,7 +713,7 @@ namespace Server.Items
     }
 
 
-    public class FireRuby : Item
+    public class FireRuby : BaseItem
     {
         [Constructable]
         public FireRuby()
@@ -756,7 +756,7 @@ namespace Server.Items
     }
 
 
-    public class BlueDiamond : Item
+    public class BlueDiamond : BaseItem
     {
         [Constructable]
         public BlueDiamond()
@@ -799,7 +799,7 @@ namespace Server.Items
     }
 
 
-    public class BrilliantAmber : Item
+    public class BrilliantAmber : BaseItem
     {
         [Constructable]
         public BrilliantAmber()
@@ -841,7 +841,7 @@ namespace Server.Items
         }
     }
 
-    public class Scourge : Item
+    public class Scourge : BaseItem
     {
         [Constructable]
         public Scourge()
@@ -885,7 +885,7 @@ namespace Server.Items
     }
 
 
-    public class Putrefication : Item
+    public class Putrefication : BaseItem
     {
         [Constructable]
         public Putrefication()
@@ -929,7 +929,7 @@ namespace Server.Items
     }
 
 
-    public class Taint : Item
+    public class Taint : BaseItem
     {
         [Constructable]
         public Taint()
@@ -973,7 +973,7 @@ namespace Server.Items
     }
 
     [Flipable(0x315A, 0x315B)]
-    public class PristineDreadHorn : Item
+    public class PristineDreadHorn : BaseItem
     {
         [Constructable]
         public PristineDreadHorn()
@@ -1002,7 +1002,7 @@ namespace Server.Items
         }
     }
 
-    public class SwitchItem : Item
+    public class SwitchItem : BaseItem
     {
         [Constructable]
         public SwitchItem()

@@ -1,6 +1,6 @@
 namespace Server.Items
 {
-    public class DecoEyeOfNewt : Item
+    public class DecoEyeOfNewt : BaseItem
     {
 
         [Constructable]

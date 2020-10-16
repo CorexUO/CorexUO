@@ -1,6 +1,6 @@
 namespace Server.Items
 {
-    public class DecoMandrake3 : Item
+    public class DecoMandrake3 : BaseItem
     {
 
         [Constructable]

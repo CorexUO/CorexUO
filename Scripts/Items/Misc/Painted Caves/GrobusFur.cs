@@ -1,6 +1,6 @@
 namespace Server.Items
 {
-    public class GrobusFur : Item
+    public class GrobusFur : BaseItem
     {
         public override int LabelNumber { get { return 1074676; } } // Grobu's Fur
 

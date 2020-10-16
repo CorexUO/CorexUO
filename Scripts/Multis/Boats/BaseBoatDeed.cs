@@ -5,7 +5,7 @@ using Server.Targeting;
 
 namespace Server.Multis
 {
-	public abstract class BaseBoatDeed : Item
+	public abstract class BaseBoatDeed : BaseItem
 	{
 		private int m_MultiID;
 		private Point3D m_Offset;

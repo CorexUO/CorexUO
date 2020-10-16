@@ -1,6 +1,6 @@
 namespace Server.Items
 {
-    public class TribalBerry : Item
+    public class TribalBerry : BaseItem
     {
         public override int LabelNumber { get { return 1040001; } } // tribal berry
 

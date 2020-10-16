@@ -1645,7 +1645,7 @@ namespace Server.Multis
 			return false;
 		}
 
-		private class TransferItem : Item
+		private class TransferItem : BaseItem
 		{
 			private BaseHouse m_House;
 

@@ -9,8 +9,8 @@ using Server.Targeting;
 
 namespace Server.Engines.ConPVP
 {
-    public sealed class CTFBoard : Item
-    {
+    public sealed class CTFBoard : BaseItem
+	{
         public CTFTeamInfo m_TeamInfo;
 
         public override string DefaultName
@@ -229,8 +229,8 @@ namespace Server.Engines.ConPVP
         }
     }
 
-    public sealed class CTFFlag : Item
-    {
+    public sealed class CTFFlag : BaseItem
+	{
         public CTFTeamInfo m_TeamInfo;
 
         public override string DefaultName

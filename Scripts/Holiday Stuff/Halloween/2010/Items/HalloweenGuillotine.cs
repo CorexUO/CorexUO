@@ -1,6 +1,6 @@
 namespace Server.Items
 {
-    public class HalloweenGuillotine : Item
+    public class HalloweenGuillotine : BaseItem
     {
         public override double DefaultWeight { get { return 5; } }
 

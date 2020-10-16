@@ -29,7 +29,7 @@ using CPA = Server.CommandPropertyAttribute;
 
 namespace Server.Mobiles
 {
-	public class Spawner : Item, ISpawner
+	public class Spawner : BaseItem, ISpawner
 	{
 		private int m_Team;
 		private int m_HomeRange;

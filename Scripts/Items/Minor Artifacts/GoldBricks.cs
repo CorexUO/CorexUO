@@ -1,6 +1,6 @@
 namespace Server.Items
 {
-    public class GoldBricks : Item
+    public class GoldBricks : BaseItem
     {
         public override int LabelNumber { get { return 1063489; } }
 

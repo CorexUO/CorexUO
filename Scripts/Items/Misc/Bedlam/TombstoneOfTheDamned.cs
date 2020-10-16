@@ -1,6 +1,6 @@
 namespace Server.Items
 {
-    public class TombstoneOfTheDamned : Item
+    public class TombstoneOfTheDamned : BaseItem
     {
         public override int LabelNumber { get { return 1072123; } } // Tombstone of the Damned
 

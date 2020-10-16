@@ -1,6 +1,6 @@
 namespace Server.Items
 {
-    public class ExecutionersCap : Item
+    public class ExecutionersCap : BaseItem
     {
         [Constructable]
         public ExecutionersCap() : base(0xF83)

@@ -8,7 +8,7 @@ using Server.Targeting;
 
 namespace Server.Items
 {
-	public class HousePlacementTool : Item
+	public class HousePlacementTool : BaseItem
 	{
 		public override int LabelNumber { get { return 1060651; } } // a house placement tool
 

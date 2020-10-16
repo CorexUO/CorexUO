@@ -1656,7 +1656,7 @@ namespace Server.Mobiles
 
 	}
 
-	public class PlayerVendorPlaceholder : Item
+	public class PlayerVendorPlaceholder : BaseItem
 	{
 		private PlayerVendor m_Vendor;
 		private ExpireTimer m_Timer;

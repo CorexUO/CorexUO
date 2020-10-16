@@ -8,7 +8,7 @@ using Server.Spells;
 
 namespace Server.Items
 {
-	public class PublicMoongate : Item
+	public class PublicMoongate : BaseItem
 	{
 		public override bool ForceShowProperties { get { return ObjectPropertyList.Enabled; } }
 

@@ -4,7 +4,7 @@ using Server.Regions;
 
 namespace Server.Items
 {
-    public class Kindling : Item
+    public class Kindling : BaseItem
     {
         [Constructable]
         public Kindling() : this(1)

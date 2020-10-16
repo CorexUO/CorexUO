@@ -2,7 +2,7 @@ using Server.Mobiles;
 
 namespace Server.Engines.Quests.Necro
 {
-	public class VaultOfSecretsBarrier : Item
+	public class VaultOfSecretsBarrier : BaseItem
 	{
 		[Constructable]
 		public VaultOfSecretsBarrier() : base(0x49E)

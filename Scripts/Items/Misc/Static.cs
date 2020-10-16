@@ -1,6 +1,6 @@
 namespace Server.Items
 {
-    public class Static : Item
+    public class Static : BaseItem
     {
         public Static() : base(0x80)
         {

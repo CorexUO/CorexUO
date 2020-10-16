@@ -99,7 +99,7 @@ namespace Server.Spells.Third
 		}
 
 		[DispellableField]
-		private class InternalItem : Item
+		private class InternalItem : BaseItem
 		{
 			private Timer m_Timer;
 			private DateTime m_End;

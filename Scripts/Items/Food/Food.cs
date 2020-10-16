@@ -3,7 +3,7 @@ using Server.ContextMenus;
 
 namespace Server.Items
 {
-    public abstract class Food : Item
+    public abstract class Food : BaseItem
     {
         private Mobile m_Poisoner;
         private Poison m_Poison;
@@ -1260,7 +1260,7 @@ namespace Server.Items
         }
     }
 
-    public class SheafOfHay : Item
+    public class SheafOfHay : BaseItem
     {
         [Constructable]
         public SheafOfHay() : base(0xF36)

@@ -1,6 +1,6 @@
 namespace Server.Items
 {
-    public class GhostShipAnchor : Item
+    public class GhostShipAnchor : BaseItem
     {
         public override int LabelNumber { get { return 1070816; } } // Ghost Ship Anchor
 

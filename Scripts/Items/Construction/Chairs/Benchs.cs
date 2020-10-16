@@ -2,7 +2,7 @@ namespace Server.Items
 {
     [Furniture]
     [Flipable(0xB2D, 0xB2C)]
-    public class WoodenBench : Item
+    public class WoodenBench : BaseItem
     {
         [Constructable]
         public WoodenBench() : base(0xB2D)

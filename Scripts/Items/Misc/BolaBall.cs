@@ -1,6 +1,6 @@
 namespace Server.Items
 {
-    public class BolaBall : Item
+    public class BolaBall : BaseItem
     {
         [Constructable]
         public BolaBall() : this(1)

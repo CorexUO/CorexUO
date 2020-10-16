@@ -3,7 +3,7 @@ using Server.Network;
 
 namespace Server.Items
 {
-    public class Guillotine : Item
+    public class Guillotine : BaseItem
     {
         [Constructable]
         public Guillotine()

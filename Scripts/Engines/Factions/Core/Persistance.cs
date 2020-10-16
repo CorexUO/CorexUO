@@ -2,7 +2,7 @@ using System.Collections.Generic;
 
 namespace Server.Factions
 {
-    public class FactionPersistance : Item
+    public class FactionPersistance : BaseItem
     {
         private static FactionPersistance m_Instance;
 

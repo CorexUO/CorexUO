@@ -623,7 +623,7 @@ namespace Server.Items
 
     //Non weapon/armor ones:
 
-    public class AncientUrn : Item
+    public class AncientUrn : BaseItem
     {
         private static string[] m_Names = new string[]
             {
@@ -723,7 +723,7 @@ namespace Server.Items
 
     }
 
-    public class HonorableSwords : Item
+    public class HonorableSwords : BaseItem
     {
         private string m_SwordsName;
 

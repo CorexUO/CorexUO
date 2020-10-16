@@ -30,7 +30,7 @@ namespace Server.Engines.Plants
         Stage9 = 9
     }
 
-    public class PlantItem : Item, ISecurable
+    public class PlantItem : BaseItem, ISecurable
     {
         /*
 		 * Clients 7.0.12.0+ expect a container type in the plant label.

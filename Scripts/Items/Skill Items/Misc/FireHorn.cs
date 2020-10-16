@@ -6,7 +6,7 @@ using Server.Targeting;
 
 namespace Server.Items
 {
-	public class FireHorn : Item
+	public class FireHorn : BaseItem
 	{
 		public override int LabelNumber { get { return 1060456; } } // fire horn
 

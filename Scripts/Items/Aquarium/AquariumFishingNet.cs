@@ -129,7 +129,7 @@ namespace Server.Items
     }
 
     // Legacy code
-    public class AquariumFishingNet : Item
+    public class AquariumFishingNet : BaseItem
     {
         public override int LabelNumber { get { return 1074463; } } // An aquarium fishing net
 

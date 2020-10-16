@@ -4,7 +4,7 @@ using Server.Mobiles;
 
 namespace Server.Items
 {
-    public class PoolOfAcid : Item
+    public class PoolOfAcid : BaseItem
     {
         private TimeSpan m_Duration;
         private int m_MinDamage;

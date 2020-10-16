@@ -8,7 +8,7 @@ using Server.Network;
 namespace Server.Items
 {
     [FlipableAttribute(0x234C, 0x234D)]
-    public class RoseOfTrinsic : Item, ISecurable
+    public class RoseOfTrinsic : BaseItem, ISecurable
     {
         private static readonly TimeSpan m_SpawnTime = TimeSpan.FromHours(4.0);
 
@@ -160,7 +160,7 @@ namespace Server.Items
         }
     }
 
-    public class RoseOfTrinsicPetal : Item
+    public class RoseOfTrinsicPetal : BaseItem
     {
         public override int LabelNumber { get { return 1062926; } } // Petal of the Rose of Trinsic
 

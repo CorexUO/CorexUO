@@ -13,7 +13,7 @@ namespace Server.Items
         Down
     }
 
-    public class InteriorDecorator : Item
+    public class InteriorDecorator : BaseItem
     {
         private DecorateCommand m_Command;
 

@@ -3,7 +3,7 @@ using Server.Targeting;
 
 namespace Server.Items
 {
-    public class PowderOfTemperament : Item, IUsesRemaining
+    public class PowderOfTemperament : BaseItem, IUsesRemaining
     {
         private int m_UsesRemaining;
 

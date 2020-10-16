@@ -51,7 +51,7 @@ namespace Server.Mobiles
             AddLoot(LootPack.Rich, 2);
         }
 
-        public class BunnyHole : Item
+        public class BunnyHole : BaseItem
         {
             public BunnyHole() : base(0x913)
             {

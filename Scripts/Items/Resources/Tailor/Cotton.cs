@@ -2,7 +2,7 @@ using Server.Targeting;
 
 namespace Server.Items
 {
-    public class Cotton : Item, IDyable
+    public class Cotton : BaseItem, IDyable
     {
         [Constructable]
         public Cotton() : this(1)

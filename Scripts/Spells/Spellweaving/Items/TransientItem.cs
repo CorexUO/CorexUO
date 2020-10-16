@@ -2,7 +2,7 @@ using System;
 
 namespace Server.Items
 {
-    public class TransientItem : Item
+    public class TransientItem : BaseItem
     {
         private TimeSpan m_LifeSpan;
 

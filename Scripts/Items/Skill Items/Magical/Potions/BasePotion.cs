@@ -37,7 +37,7 @@ namespace Server.Items
 		Darkglow,
 	}
 
-	public abstract class BasePotion : Item, ICraftable, ICommodity
+	public abstract class BasePotion : BaseItem, ICraftable, ICommodity
 	{
 		public virtual bool RequireFreeHand { get { return Settings.Get<bool>("Gameplay", "PotionsRequiredFreeHands"); } }
 

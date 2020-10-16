@@ -2,7 +2,7 @@ using System;
 
 namespace Server.Items
 {
-    public class BaseFish : Item
+    public class BaseFish : BaseItem
     {
         private static readonly TimeSpan DeathDelay = TimeSpan.FromMinutes(5);
 

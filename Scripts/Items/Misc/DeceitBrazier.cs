@@ -4,7 +4,7 @@ using Server.Network;
 
 namespace Server.Items
 {
-    public class DeceitBrazier : Item
+    public class DeceitBrazier : BaseItem
     {
         private static Type[] m_Creatures = new Type[]
             {

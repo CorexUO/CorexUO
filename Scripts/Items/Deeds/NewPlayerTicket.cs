@@ -4,7 +4,7 @@ using Server.Targeting;
 
 namespace Server.Items
 {
-	public class NewPlayerTicket : Item
+	public class NewPlayerTicket : BaseItem
 	{
 		private Mobile m_Owner;
 

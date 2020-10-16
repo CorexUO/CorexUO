@@ -1,6 +1,6 @@
 namespace Server.Items
 {
-    public class OrdersFromMinax : Item
+    public class OrdersFromMinax : BaseItem
     {
         public override int LabelNumber { get { return 1074639; } } // Orders from Minax
 

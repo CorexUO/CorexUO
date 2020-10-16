@@ -3,7 +3,7 @@ using Server.Targeting;
 
 namespace Server.Items
 {
-    public class ArcaneGem : Item
+    public class ArcaneGem : BaseItem
     {
         public override string DefaultName
         {

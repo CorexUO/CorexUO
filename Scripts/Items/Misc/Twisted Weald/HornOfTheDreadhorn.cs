@@ -1,7 +1,7 @@
 namespace Server.Items
 {
     [Flipable(0x315C, 0x315D)]
-    public class HornOfTheDreadhorn : Item
+    public class HornOfTheDreadhorn : BaseItem
     {
         public override int LabelNumber { get { return 1072089; } } // Horn of the Dread
 

@@ -1,6 +1,6 @@
 namespace Server.Items
 {
-    public class RedPoinsettia : Item
+    public class RedPoinsettia : BaseItem
     {
         [Constructable]
         public RedPoinsettia() : base(0x2330)
@@ -28,7 +28,7 @@ namespace Server.Items
         }
     }
 
-    public class WhitePoinsettia : Item
+    public class WhitePoinsettia : BaseItem
     {
         [Constructable]
         public WhitePoinsettia() : base(0x2331)

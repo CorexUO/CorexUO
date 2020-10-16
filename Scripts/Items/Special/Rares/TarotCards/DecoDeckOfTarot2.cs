@@ -1,6 +1,6 @@
 namespace Server.Items
 {
-    public class DecoDeckOfTarot2 : Item
+    public class DecoDeckOfTarot2 : BaseItem
     {
 
         [Constructable]

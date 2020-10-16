@@ -7,7 +7,7 @@ namespace Server.Items
         bool IsShipwreckedItem { get; set; }
     }
 
-    public class ShipwreckedItem : Item, IDyable, IShipwreckedItem
+    public class ShipwreckedItem : BaseItem, IDyable, IShipwreckedItem
     {
         public ShipwreckedItem(int itemID) : base(itemID)
         {

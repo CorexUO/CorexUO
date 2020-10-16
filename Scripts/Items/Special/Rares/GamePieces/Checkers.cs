@@ -1,6 +1,6 @@
 namespace Server.Items
 {
-    public class Checkers : Item
+    public class Checkers : BaseItem
     {
 
         [Constructable]

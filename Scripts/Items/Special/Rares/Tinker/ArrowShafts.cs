@@ -1,6 +1,6 @@
 namespace Server.Items
 {
-    public class DecoArrowShafts : Item
+    public class DecoArrowShafts : BaseItem
     {
 
         [Constructable]

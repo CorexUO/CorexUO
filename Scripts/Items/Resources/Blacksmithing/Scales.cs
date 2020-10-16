@@ -1,6 +1,6 @@
 namespace Server.Items
 {
-	public abstract class BaseScales : Item, ICommodity, ICraftResource
+	public abstract class BaseScales : BaseItem, ICommodity, ICraftResource
 	{
 		public override int LabelNumber { get { return 1053139; } } // dragon scales
 

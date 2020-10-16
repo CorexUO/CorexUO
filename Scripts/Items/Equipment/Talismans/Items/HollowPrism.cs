@@ -1,6 +1,6 @@
 namespace Server.Items
 {
-	public class HollowPrism : Item
+	public class HollowPrism : BaseItem
 	{
 		public override int LabelNumber { get { return 1072895; } } // hollow prism
 

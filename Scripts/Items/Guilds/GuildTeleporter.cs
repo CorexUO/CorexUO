@@ -3,7 +3,7 @@ using Server.Multis;
 
 namespace Server.Items
 {
-	public class GuildTeleporter : Item
+	public class GuildTeleporter : BaseItem
 	{
 		private Item m_Stone;
 

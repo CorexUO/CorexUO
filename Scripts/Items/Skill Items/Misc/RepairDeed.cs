@@ -5,7 +5,7 @@ using Server.Regions;
 
 namespace Server.Items
 {
-	public class RepairDeed : Item
+	public class RepairDeed : BaseItem
 	{
 		private class RepairSkillInfo
 		{

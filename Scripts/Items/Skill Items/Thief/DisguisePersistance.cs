@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace Server.Items
 {
-    public class DisguisePersistance : Item
+    public class DisguisePersistance : BaseItem
     {
         private static DisguisePersistance m_Instance;
 

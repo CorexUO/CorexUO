@@ -1,6 +1,6 @@
 namespace Server.Items
 {
-    public class DragonFlameSectBadge : Item
+    public class DragonFlameSectBadge : BaseItem
     {
         public override int LabelNumber { get { return 1073141; } } // A Dragon Flame Sect Badge
 

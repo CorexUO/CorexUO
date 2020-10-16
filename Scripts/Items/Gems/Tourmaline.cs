@@ -1,6 +1,6 @@
 namespace Server.Items
 {
-    public class Tourmaline : Item
+    public class Tourmaline : BaseItem
     {
         public override double DefaultWeight
         {

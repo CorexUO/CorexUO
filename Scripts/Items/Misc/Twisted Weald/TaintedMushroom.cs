@@ -1,6 +1,6 @@
 namespace Server.Items
 {
-    public class TaintedMushroom : Item
+    public class TaintedMushroom : BaseItem
     {
         public override int LabelNumber { get { return 1075088; } } // Dread Horn Tainted Mushroom
         public override bool ForceShowProperties { get { return true; } }

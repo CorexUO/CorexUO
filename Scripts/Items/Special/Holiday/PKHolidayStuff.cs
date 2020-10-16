@@ -1,6 +1,6 @@
 namespace Server.Items
 {
-    public class Coal : Item
+    public class Coal : BaseItem
     {
         public override string DefaultName { get { return "Coal"; } }
 
@@ -29,7 +29,7 @@ namespace Server.Items
         }
     }
 
-    public class BadCard : Item
+    public class BadCard : BaseItem
     {
         public override int LabelNumber { get { return 1041428; } } // Maybe next year youll get a better...
 

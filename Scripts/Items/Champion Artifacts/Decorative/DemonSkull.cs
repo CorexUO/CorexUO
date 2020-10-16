@@ -1,6 +1,6 @@
 namespace Server.Items
 {
-    public class DemonSkull : Item
+    public class DemonSkull : BaseItem
     {
         [Constructable]
         public DemonSkull() : base(0x224e + Utility.Random(4))

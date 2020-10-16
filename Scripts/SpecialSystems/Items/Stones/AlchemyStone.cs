@@ -1,6 +1,6 @@
 namespace Server.Items
 {
-	public class AlchemyStone : Item
+	public class AlchemyStone : BaseItem
 	{
 		public override string DefaultName
 		{

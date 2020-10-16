@@ -1,6 +1,6 @@
 ﻿namespace Server.Items
 {
-    public class PumpkinScarecrow : Item
+    public class PumpkinScarecrow : BaseItem
     {
         public override int LabelNumber { get { return 1096947; } }
 

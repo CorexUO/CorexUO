@@ -1,7 +1,7 @@
 namespace Server.Items
 {
     [FlipableAttribute(0xec6, 0xec7)]
-    public class Dressform : Item
+    public class Dressform : BaseItem
     {
         [Constructable]
         public Dressform() : base(0xec6)

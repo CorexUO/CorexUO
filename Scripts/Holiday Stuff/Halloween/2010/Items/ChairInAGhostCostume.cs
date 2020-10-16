@@ -1,6 +1,6 @@
 namespace Server.Items
 {
-    public class ChairInAGhostCostume : Item
+    public class ChairInAGhostCostume : BaseItem
     {
         public override double DefaultWeight { get { return 5; } }
 

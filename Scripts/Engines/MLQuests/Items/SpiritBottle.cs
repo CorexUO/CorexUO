@@ -1,6 +1,6 @@
 namespace Server.Items
 {
-    public class SpiritBottle : Item
+    public class SpiritBottle : BaseItem
     {
         public override int LabelNumber { get { return 1075283; } } // Spirit bottle
 

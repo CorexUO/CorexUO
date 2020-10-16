@@ -10,7 +10,7 @@ using Server.Spells.Seventh;
 
 namespace Server.Items
 {
-    public class DisguiseKit : Item
+    public class DisguiseKit : BaseItem
     {
         public override int LabelNumber { get { return 1041078; } } // a disguise kit
 

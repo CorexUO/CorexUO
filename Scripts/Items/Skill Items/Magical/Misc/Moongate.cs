@@ -8,7 +8,7 @@ using Server.Regions;
 namespace Server.Items
 {
 	[DispellableFieldAttribute]
-	public class Moongate : Item
+	public class Moongate : BaseItem
 	{
 		private Point3D m_Target;
 		private Map m_TargetMap;

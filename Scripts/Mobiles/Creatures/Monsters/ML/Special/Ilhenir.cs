@@ -319,7 +319,7 @@ namespace Server.Mobiles
         }
     }
 
-    public class StainedOoze : Item
+    public class StainedOoze : BaseItem
     {
         private bool m_Corrosive;
         private Timer m_Timer;

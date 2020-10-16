@@ -1,6 +1,6 @@
 namespace Server.Items
 {
-    public class OrigamiPaper : Item
+    public class OrigamiPaper : BaseItem
     {
         public override int LabelNumber { get { return 1030288; } } // origami paper
 
@@ -57,7 +57,7 @@ namespace Server.Items
         }
     }
 
-    public class OrigamiButterfly : Item
+    public class OrigamiButterfly : BaseItem
     {
         public override int LabelNumber { get { return 1030296; } } // a delicate origami butterfly
 
@@ -86,7 +86,7 @@ namespace Server.Items
         }
     }
 
-    public class OrigamiSwan : Item
+    public class OrigamiSwan : BaseItem
     {
         public override int LabelNumber { get { return 1030297; } } // a delicate origami swan
 
@@ -117,7 +117,7 @@ namespace Server.Items
         }
     }
 
-    public class OrigamiFrog : Item
+    public class OrigamiFrog : BaseItem
     {
         public override int LabelNumber { get { return 1030298; } } // a delicate origami frog
 
@@ -148,7 +148,7 @@ namespace Server.Items
         }
     }
 
-    public class OrigamiShape : Item
+    public class OrigamiShape : BaseItem
     {
         public override int LabelNumber { get { return 1030299; } } // an intricate geometric origami shape
 
@@ -179,7 +179,7 @@ namespace Server.Items
         }
     }
 
-    public class OrigamiSongbird : Item
+    public class OrigamiSongbird : BaseItem
     {
         public override int LabelNumber { get { return 1030300; } } // a delicate origami songbird
 
@@ -210,7 +210,7 @@ namespace Server.Items
         }
     }
 
-    public class OrigamiFish : Item
+    public class OrigamiFish : BaseItem
     {
         public override int LabelNumber { get { return 1030301; } } // a delicate origami fish
 

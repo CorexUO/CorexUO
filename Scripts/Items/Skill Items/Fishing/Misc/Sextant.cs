@@ -3,7 +3,7 @@ using Server.Network;
 
 namespace Server.Items
 {
-    public class Sextant : Item
+    public class Sextant : BaseItem
     {
         [Constructable]
         public Sextant() : base(0x1058)

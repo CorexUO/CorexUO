@@ -84,7 +84,7 @@ namespace Server.Items
     }
 
     [FlipableAttribute(0xEDD, 0xEDE)]
-    public class HouseRaffleStone : Item
+    public class HouseRaffleStone : BaseItem
     {
         private const int EntryLimitPerIP = 4;
         private const int DefaultTicketPrice = 5000;

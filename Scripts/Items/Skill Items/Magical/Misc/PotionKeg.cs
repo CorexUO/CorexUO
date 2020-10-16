@@ -2,7 +2,7 @@ using System;
 
 namespace Server.Items
 {
-    public class PotionKeg : Item
+    public class PotionKeg : BaseItem
     {
         private PotionEffect m_Type;
         private int m_Held;

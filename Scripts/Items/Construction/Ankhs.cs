@@ -96,7 +96,7 @@ namespace Server.Items
 		}
 	}
 
-	public class AnkhWest : Item
+	public class AnkhWest : BaseItem
 	{
 		private InternalItem m_Item;
 
@@ -181,7 +181,7 @@ namespace Server.Items
 			m_Item = reader.ReadItem() as InternalItem;
 		}
 
-		private class InternalItem : Item
+		private class InternalItem : BaseItem
 		{
 			private AnkhWest m_Item;
 
@@ -263,7 +263,7 @@ namespace Server.Items
 	}
 
 	[TypeAlias("Server.Items.AnkhEast")]
-	public class AnkhNorth : Item
+	public class AnkhNorth : BaseItem
 	{
 		private InternalItem m_Item;
 
@@ -350,7 +350,7 @@ namespace Server.Items
 		}
 
 		[TypeAlias("Server.Items.AnkhEast+InternalItem")]
-		private class InternalItem : Item
+		private class InternalItem : BaseItem
 		{
 			private AnkhNorth m_Item;
 

@@ -2,7 +2,7 @@ using Server.Multis;
 
 namespace Server.Items
 {
-    public class SerpentPillar : Item
+    public class SerpentPillar : BaseItem
     {
         private bool m_Active;
         private string m_Word;

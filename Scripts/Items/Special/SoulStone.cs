@@ -8,7 +8,7 @@ using Server.Network;
 
 namespace Server.Items
 {
-    public class SoulStone : Item, ISecurable
+    public class SoulStone : BaseItem, ISecurable
     {
         public override int LabelNumber { get { return 1030899; } } // soulstone
 

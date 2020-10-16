@@ -2,7 +2,7 @@ using System;
 
 namespace Server.Items
 {
-	public class SnowGlobe : Item
+	public class SnowGlobe : BaseItem
 	{
 		public override double DefaultWeight { get { return 1.0; } }
 

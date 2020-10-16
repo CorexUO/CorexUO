@@ -1,6 +1,6 @@
 namespace Server.Items
 {
-    public class PlagueBeastGland : Item
+    public class PlagueBeastGland : BaseItem
     {
         [Constructable]
         public PlagueBeastGland() : base(0x1CEF)

@@ -1,6 +1,6 @@
 namespace Server.Items
 {
-    public class DreadSpiderSilk : Item
+    public class DreadSpiderSilk : BaseItem
     {
         public override int LabelNumber { get { return 1075319; } } // Dread Spider Silk
 

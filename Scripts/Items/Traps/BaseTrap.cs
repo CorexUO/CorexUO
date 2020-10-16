@@ -2,7 +2,7 @@ using System;
 
 namespace Server.Items
 {
-	public abstract class BaseTrap : Item
+	public abstract class BaseTrap : BaseItem
 	{
 		public virtual bool PassivelyTriggered { get { return false; } }
 		public virtual TimeSpan PassiveTriggerDelay { get { return TimeSpan.Zero; } }

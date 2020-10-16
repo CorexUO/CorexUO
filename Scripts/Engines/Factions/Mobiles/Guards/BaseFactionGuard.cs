@@ -464,7 +464,7 @@ namespace Server.Factions
 		}
 	}
 
-	public class VirtualMountItem : Item, IMountItem
+	public class VirtualMountItem : BaseItem, IMountItem
 	{
 		private Mobile m_Rider;
 		private VirtualMount m_Mount;

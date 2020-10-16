@@ -545,7 +545,7 @@ namespace Server.Items
 		}
 	}
 
-	public abstract class BaseBeverage : Item, IHasQuantity
+	public abstract class BaseBeverage : BaseItem, IHasQuantity
 	{
 		private BeverageType m_Content;
 		private int m_Quantity;

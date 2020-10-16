@@ -3,7 +3,7 @@ using Server.Targeting;
 
 namespace Server.Items
 {
-	public class Scales : Item
+	public class Scales : BaseItem
 	{
 		[Constructable]
 		public Scales() : base(0x1852)

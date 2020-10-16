@@ -10,7 +10,7 @@ using Server.Targeting;
 
 namespace Server.Items
 {
-	public class BallOfSummoning : Item, TranslocationItem
+	public class BallOfSummoning : BaseItem, TranslocationItem
 	{
 		private int m_Charges;
 		private int m_Recharges;

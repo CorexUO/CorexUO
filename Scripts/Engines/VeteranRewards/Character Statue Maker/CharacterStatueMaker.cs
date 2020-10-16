@@ -3,7 +3,7 @@ using Server.Mobiles;
 
 namespace Server.Items
 {
-	public class CharacterStatueMaker : Item, IRewardItem
+	public class CharacterStatueMaker : BaseItem, IRewardItem
 	{
 		public override int LabelNumber { get { return 1076173; } } // Character Statue Maker
 

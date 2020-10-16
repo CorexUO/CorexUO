@@ -3,7 +3,7 @@ using Server.Network;
 
 namespace Server.Items
 {
-	public class TillerMan : Item
+	public class TillerMan : BaseItem
 	{
 		private BaseBoat m_Boat;
 

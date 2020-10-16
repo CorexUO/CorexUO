@@ -5,7 +5,7 @@ using Server.Network;
 
 namespace Server.Engines.Quests.Doom
 {
-    public class BellOfTheDead : Item
+    public class BellOfTheDead : BaseItem
     {
         public override int LabelNumber { get { return 1050018; } } // bell of the dead
 

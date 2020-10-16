@@ -1,6 +1,6 @@
 namespace Server.Items
 {
-    public class DirtPatch : Item
+    public class DirtPatch : BaseItem
     {
         [Constructable]
         public DirtPatch() : base(0x0913)

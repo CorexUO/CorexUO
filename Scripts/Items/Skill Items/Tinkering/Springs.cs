@@ -1,7 +1,7 @@
 namespace Server.Items
 {
     [Flipable(0x105D, 0x105E)]
-    public class Springs : Item
+    public class Springs : BaseItem
     {
         [Constructable]
         public Springs() : this(1)

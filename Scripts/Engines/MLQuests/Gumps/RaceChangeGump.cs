@@ -285,7 +285,7 @@ namespace Server.Engines.MLQuests.Gumps
 
     #region For testing
 
-    public class RaceChangeDeed : Item, IRaceChanger
+    public class RaceChangeDeed : BaseItem, IRaceChanger
     {
         public override string DefaultName { get { return "a race change deed"; } }
 

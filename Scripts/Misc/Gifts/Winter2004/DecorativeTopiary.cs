@@ -1,6 +1,6 @@
 namespace Server.Items
 {
-	public class DecorativeTopiary : Item
+	public class DecorativeTopiary : BaseItem
 	{
 		[Constructable]
 		public DecorativeTopiary() : base(0x2378)

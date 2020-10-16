@@ -1,6 +1,6 @@
 namespace Server.Items
 {
-    public class FertileDirt : Item
+    public class FertileDirt : BaseItem
     {
         [Constructable]
         public FertileDirt() : this(1)

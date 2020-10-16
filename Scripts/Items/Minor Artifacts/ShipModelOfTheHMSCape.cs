@@ -1,6 +1,6 @@
 namespace Server.Items
 {
-    public class ShipModelOfTheHMSCape : Item
+    public class ShipModelOfTheHMSCape : BaseItem
     {
         public override int LabelNumber { get { return 1063476; } }
 

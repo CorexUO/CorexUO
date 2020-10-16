@@ -1,6 +1,6 @@
 namespace Server.Items
 {
-    public class PrimitiveFetish : Item
+    public class PrimitiveFetish : BaseItem
     {
         public override int LabelNumber { get { return 1074675; } } // Primitive Fetish
 

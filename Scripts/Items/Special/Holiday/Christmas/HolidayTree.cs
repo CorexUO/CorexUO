@@ -10,7 +10,7 @@ namespace Server.Items
         Modern
     }
 
-    public class HolidayTree : Item, IAddon
+    public class HolidayTree : BaseItem, IAddon
     {
         private ArrayList m_Components;
         private Mobile m_Placer;
@@ -22,7 +22,7 @@ namespace Server.Items
             set { m_Placer = value; }
         }
 
-        private class Ornament : Item
+        private class Ornament : BaseItem
         {
             public override int LabelNumber { get { return 1041118; } } // a tree ornament
 
@@ -50,7 +50,7 @@ namespace Server.Items
             }
         }
 
-        private class TreeTrunk : Item
+        private class TreeTrunk : BaseItem
         {
             private HolidayTree m_Tree;
 

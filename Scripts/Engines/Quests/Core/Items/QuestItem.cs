@@ -2,7 +2,7 @@ using Server.Mobiles;
 
 namespace Server.Engines.Quests
 {
-    public abstract class QuestItem : Item
+    public abstract class QuestItem : BaseItem
     {
         public QuestItem(int itemID) : base(itemID)
         {

@@ -1,6 +1,6 @@
 namespace Server.Items
 {
-    public class EternallyCorruptTree : Item
+    public class EternallyCorruptTree : BaseItem
     {
         public override int LabelNumber { get { return 1072093; } } // Eternally Corrupt Tree
 

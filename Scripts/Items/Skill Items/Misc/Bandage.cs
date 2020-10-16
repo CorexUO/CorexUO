@@ -6,7 +6,7 @@ using Server.Targeting;
 
 namespace Server.Items
 {
-	public class Bandage : Item, IDyable
+	public class Bandage : BaseItem, IDyable
 	{
 		public static int Range = (Core.AOS ? 2 : 1);
 

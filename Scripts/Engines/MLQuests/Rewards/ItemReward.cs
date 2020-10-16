@@ -50,7 +50,7 @@ namespace Server.Engines.MLQuests.Rewards
 			catch (Exception e)
 			{
 				if (MLQuestSystem.Debug)
-					Console.WriteLine("WARNING: ItemReward.CreateItem failed for {0}: {1}", m_Type, e);
+					Console.WriteLine("WARNING: BaseItemReward.CreateItem failed for {0}: {1}", m_Type, e);
 			}
 
 			return spawnedItem;

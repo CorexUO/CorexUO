@@ -3,7 +3,7 @@ using Server.Engines.Craft;
 namespace Server.Items
 {
     [Anvil, Flipable(0xFAF, 0xFB0)]
-    public class ColoredAnvil : Item
+    public class ColoredAnvil : BaseItem
     {
         [Constructable]
         public ColoredAnvil() : this(CraftResources.GetHue((CraftResource)Utility.RandomMinMax((int)CraftResource.DullCopper, (int)CraftResource.Valorite)))

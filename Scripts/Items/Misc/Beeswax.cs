@@ -1,6 +1,6 @@
 namespace Server.Items
 {
-    public class Beeswax : Item
+    public class Beeswax : BaseItem
     {
         [Constructable]
         public Beeswax() : this(1)

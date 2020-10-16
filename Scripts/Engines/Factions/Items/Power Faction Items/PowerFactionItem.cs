@@ -5,7 +5,7 @@ using Server.Mobiles;
 
 namespace Server
 {
-    public abstract class PowerFactionItem : Item
+    public abstract class PowerFactionItem : BaseItem
     {
         public abstract bool Use(Mobile mob);
 

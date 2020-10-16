@@ -1,6 +1,6 @@
 namespace Server.Items
 {
-    public class DecoMagicalCrystal : Item
+    public class DecoMagicalCrystal : BaseItem
     {
 
         [Constructable]

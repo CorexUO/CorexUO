@@ -2,7 +2,7 @@ namespace Server.Items
 {
     [Furniture]
     [Flipable(0xEBB, 0xEBC)]
-    public class TallMusicStand : Item
+    public class TallMusicStand : BaseItem
     {
         [Constructable]
         public TallMusicStand() : base(0xEBB)
@@ -34,7 +34,7 @@ namespace Server.Items
 
     [Furniture]
     [Flipable(0xEB6, 0xEB8)]
-    public class ShortMusicStand : Item
+    public class ShortMusicStand : BaseItem
     {
         [Constructable]
         public ShortMusicStand() : base(0xEB6)

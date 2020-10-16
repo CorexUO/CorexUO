@@ -3,7 +3,7 @@ using Server.Network;
 
 namespace Server.Items
 {
-    public class RaiseSwitch : Item
+    public class RaiseSwitch : BaseItem
     {
         private RaisableItem m_RaisableItem;
 

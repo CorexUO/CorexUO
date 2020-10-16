@@ -1,6 +1,6 @@
 namespace Server.Items
 {
-    public class DecoBottlesOfLiquor : Item
+    public class DecoBottlesOfLiquor : BaseItem
     {
 
         [Constructable]

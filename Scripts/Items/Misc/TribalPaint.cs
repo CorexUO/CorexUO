@@ -4,7 +4,7 @@ using Server.Spells;
 
 namespace Server.Items
 {
-    public class TribalPaint : Item
+    public class TribalPaint : BaseItem
     {
         public override int LabelNumber { get { return 1040000; } } // savage kin paint
 

@@ -1,6 +1,6 @@
 namespace Server.Items
 {
-    public class ThrashersTail : Item
+    public class ThrashersTail : BaseItem
     {
         public override int LabelNumber { get { return 1074230; } } // Thrasher's Tail
 

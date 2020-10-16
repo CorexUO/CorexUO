@@ -1,6 +1,6 @@
 namespace Server.Items
 {
-    public class DecoSilverIngots5 : Item
+    public class DecoSilverIngots5 : BaseItem
     {
 
         [Constructable]

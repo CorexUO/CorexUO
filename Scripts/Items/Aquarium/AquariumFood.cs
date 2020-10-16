@@ -1,6 +1,6 @@
 namespace Server.Items
 {
-    public class AquariumFood : Item
+    public class AquariumFood : BaseItem
     {
         public override int LabelNumber { get { return 1074819; } } // Aquarium food
 

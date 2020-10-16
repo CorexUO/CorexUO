@@ -1,6 +1,6 @@
 namespace Server.Factions
 {
-    public class FactionTrapRemovalKit : Item
+    public class FactionTrapRemovalKit : BaseItem
     {
         private int m_Charges;
 

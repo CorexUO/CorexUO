@@ -6,7 +6,7 @@ using Server.Targeting;
 
 namespace Server.Items
 {
-	public class HolidayTreeDeed : Item
+	public class HolidayTreeDeed : BaseItem
 	{
 		public override int LabelNumber { get { return 1041116; } } // a deed for a holiday tree
 

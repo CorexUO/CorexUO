@@ -6,8 +6,8 @@ using Server.Network;
 
 namespace Server.Engines.ConPVP
 {
-    public class PreferencesController : Item
-    {
+    public class PreferencesController : BaseItem
+	{
         private Preferences m_Preferences;
 
         //[CommandProperty( AccessLevel.GameMaster )]

@@ -1,6 +1,6 @@
 namespace Server.Items
 {
-    public class SmokeBomb : Item
+    public class SmokeBomb : BaseItem
     {
         [Constructable]
         public SmokeBomb() : base(0x2808)

@@ -108,7 +108,7 @@ namespace Server.Items
         }
     }
 
-    public class FlamingHeadDeed : Item, IRewardItem
+    public class FlamingHeadDeed : BaseItem, IRewardItem
     {
         public override int LabelNumber { get { return 1041050; } } // a flaming head deed
 

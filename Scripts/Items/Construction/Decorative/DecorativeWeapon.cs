@@ -1,7 +1,7 @@
 namespace Server.Items
 {
     [FlipableAttribute(0x155E, 0x155F, 0x155C, 0x155D)]
-    public class DecorativeBowWest : Item
+    public class DecorativeBowWest : BaseItem
     {
         [Constructable]
         public DecorativeBowWest() : base(Utility.Random(0x155E, 2))
@@ -29,7 +29,7 @@ namespace Server.Items
     }
 
     [FlipableAttribute(0x155C, 0x155D, 0x155E, 0x155F)]
-    public class DecorativeBowNorth : Item
+    public class DecorativeBowNorth : BaseItem
     {
         [Constructable]
         public DecorativeBowNorth() : base(Utility.Random(0x155C, 2))
@@ -57,7 +57,7 @@ namespace Server.Items
     }
 
     [FlipableAttribute(0x1560, 0x1561, 0x1562, 0x1563)]
-    public class DecorativeAxeNorth : Item
+    public class DecorativeAxeNorth : BaseItem
     {
         [Constructable]
         public DecorativeAxeNorth() : base(Utility.Random(0x1560, 2))
@@ -85,7 +85,7 @@ namespace Server.Items
     }
 
     [FlipableAttribute(0x1562, 0x1563, 0x1560, 0x1561)]
-    public class DecorativeAxeWest : Item
+    public class DecorativeAxeWest : BaseItem
     {
         [Constructable]
         public DecorativeAxeWest() : base(Utility.Random(0x1562, 2))
@@ -112,7 +112,7 @@ namespace Server.Items
         }
     }
 
-    public class DecorativeSwordNorth : Item
+    public class DecorativeSwordNorth : BaseItem
     {
         private InternalItem m_Item;
 
@@ -165,7 +165,7 @@ namespace Server.Items
 
             m_Item = reader.ReadItem() as InternalItem;
         }
-        private class InternalItem : Item
+        private class InternalItem : BaseItem
         {
             private DecorativeSwordNorth m_Item;
 
@@ -219,7 +219,7 @@ namespace Server.Items
             }
         }
     }
-    public class DecorativeSwordWest : Item
+    public class DecorativeSwordWest : BaseItem
     {
         private InternalItem m_Item;
 
@@ -272,7 +272,7 @@ namespace Server.Items
 
             m_Item = reader.ReadItem() as InternalItem;
         }
-        private class InternalItem : Item
+        private class InternalItem : BaseItem
         {
             private DecorativeSwordWest m_Item;
 
@@ -326,7 +326,7 @@ namespace Server.Items
             }
         }
     }
-    public class DecorativeDAxeNorth : Item
+    public class DecorativeDAxeNorth : BaseItem
     {
         private InternalItem m_Item;
 
@@ -379,7 +379,7 @@ namespace Server.Items
 
             m_Item = reader.ReadItem() as InternalItem;
         }
-        private class InternalItem : Item
+        private class InternalItem : BaseItem
         {
             private DecorativeDAxeNorth m_Item;
 
@@ -433,7 +433,7 @@ namespace Server.Items
             }
         }
     }
-    public class DecorativeDAxeWest : Item
+    public class DecorativeDAxeWest : BaseItem
     {
         private InternalItem m_Item;
 
@@ -486,7 +486,7 @@ namespace Server.Items
 
             m_Item = reader.ReadItem() as InternalItem;
         }
-        private class InternalItem : Item
+        private class InternalItem : BaseItem
         {
             private DecorativeDAxeWest m_Item;
 

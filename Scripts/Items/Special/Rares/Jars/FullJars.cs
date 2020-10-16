@@ -1,6 +1,6 @@
 ﻿namespace Server.Items
 {
-    public class DecoFullJar : Item
+    public class DecoFullJar : BaseItem
     {
         [Constructable]
         public DecoFullJar()
@@ -30,7 +30,7 @@
         }
     }
 
-    public class DecoFullJars3 : Item
+    public class DecoFullJars3 : BaseItem
     {
         [Constructable]
         public DecoFullJars3()
@@ -60,7 +60,7 @@
         }
     }
 
-    public class DecoFullJars4 : Item
+    public class DecoFullJars4 : BaseItem
     {
         [Constructable]
         public DecoFullJars4()

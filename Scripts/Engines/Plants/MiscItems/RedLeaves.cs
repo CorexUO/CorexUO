@@ -2,7 +2,7 @@ using Server.Targeting;
 
 namespace Server.Items
 {
-    public class RedLeaves : Item
+    public class RedLeaves : BaseItem
     {
         public override int LabelNumber { get { return 1053123; } } // red leaves
 

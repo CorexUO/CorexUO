@@ -6,7 +6,7 @@ using Server.Mobiles;
 namespace Server.Items
 {
     [FlipableAttribute(0x27AA, 0x27F5)]
-    public class Fukiya : Item, INinjaWeapon
+    public class Fukiya : BaseItem, INinjaWeapon
     {
         public virtual int WrongAmmoMessage { get { return 1063329; } } //You can only load fukiya darts
         public virtual int NoFreeHandMessage { get { return 1063327; } } //You must have a free hand to use a fukiya.

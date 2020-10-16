@@ -4,7 +4,7 @@ using System;
 namespace Server.Items.Holiday
 {
 	[TypeAlias("Server.Items.ClownMask", "Server.Items.DaemonMask", "Server.Items.PlagueMask")]
-	public class BasePaintedMask : Item
+	public class BasePaintedMask : BaseItem
 	{
 		public override string DefaultName
 		{
