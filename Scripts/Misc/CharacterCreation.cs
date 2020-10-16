@@ -554,7 +554,7 @@ namespace Server.Misc
 			return null;
 		}
 
-		private static void EventSink_CharacterCreated(CharacterCreatedEventArgs args)
+		public static void EventSink_CharacterCreated(CharacterCreatedEventArgs args)
 		{
 			if (!VerifyProfession(args.Profession))
 				args.Profession = 0;
