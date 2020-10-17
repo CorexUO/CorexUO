@@ -2817,16 +2817,6 @@ namespace Server.Items
 		{
 		}
 
-		private string GetNameString()
-		{
-			string name = this.Name;
-
-			if (name == null)
-				name = String.Format("#{0}", LabelNumber);
-
-			return name;
-		}
-
 		[Hue, CommandProperty(AccessLevel.GameMaster)]
 		public override int Hue
 		{

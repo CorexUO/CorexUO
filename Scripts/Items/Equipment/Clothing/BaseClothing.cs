@@ -440,16 +440,6 @@ namespace Server.Items
 			return false;
 		}
 
-		private string GetNameString()
-		{
-			string name = this.Name;
-
-			if (name == null)
-				name = String.Format("#{0}", LabelNumber);
-
-			return name;
-		}
-
 		public override void AddNameProperty(ObjectPropertyList list)
 		{
 			int oreType;
