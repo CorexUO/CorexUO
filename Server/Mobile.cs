@@ -4351,7 +4351,7 @@ namespace Server
 								item.Spawner = null;
 							}
 
-							if (amount == 0)
+							if (amount < 0)
 								amount = 1;
 
 							if (amount > item.Amount)
