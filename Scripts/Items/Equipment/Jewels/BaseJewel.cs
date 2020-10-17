@@ -28,6 +28,9 @@ namespace Server.Items
 		private GemType m_GemType;
 
 		[CommandProperty(AccessLevel.GameMaster)]
+		public Mobile Crafter { get; set; }
+
+		[CommandProperty(AccessLevel.GameMaster)]
 		public int MaxHitPoints
 		{
 			get { return m_MaxHitPoints; }
@@ -335,7 +338,7 @@ namespace Server.Items
 		}
 		#region ICraftable Members
 
-		public int OnCraft(int quality, bool makersMark, Mobile from, CraftSystem craftSystem, Type typeRes, BaseTool tool, CraftItem craftItem, int resHue)
+		public ItemQuality OnCraft(ItemQuality quality, bool makersMark, Mobile from, CraftSystem craftSystem, Type typeRes, BaseTool tool, CraftItem craftItem, int resHue)
 		{
 			Type resourceType = typeRes;
 
@@ -373,7 +376,7 @@ namespace Server.Items
 					GemType = GemType.Diamond;
 			}
 
-			return 1;
+			return ItemQuality.Normal;
 		}
 
 		#endregion

@@ -11,6 +11,9 @@ namespace Server.Factions
 		private Faction m_Faction;
 
 		[CommandProperty(AccessLevel.GameMaster)]
+		public Mobile Crafter { get; set; }
+
+		[CommandProperty(AccessLevel.GameMaster)]
 		public Faction Faction
 		{
 			get { return m_Faction; }
@@ -96,12 +99,12 @@ namespace Server.Factions
 		}
 		#region ICraftable Members
 
-		public int OnCraft(int quality, bool makersMark, Mobile from, CraftSystem craftSystem, Type typeRes, BaseTool tool, CraftItem craftItem, int resHue)
+		public ItemQuality OnCraft(ItemQuality quality, bool makersMark, Mobile from, CraftSystem craftSystem, Type typeRes, BaseTool tool, CraftItem craftItem, int resHue)
 		{
 			ItemID = 0x14F0;
 			Faction = Faction.Find(from);
 
-			return 1;
+			return ItemQuality.Normal;
 		}
 
 		#endregion

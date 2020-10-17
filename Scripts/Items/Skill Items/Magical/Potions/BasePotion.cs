@@ -46,6 +46,9 @@ namespace Server.Items
 		int ICommodity.DescriptionNumber { get { return LabelNumber; } }
 		bool ICommodity.IsDeedable { get { return (Core.ML); } }
 
+		[CommandProperty(AccessLevel.GameMaster)]
+		public Mobile Crafter { get; set; }
+
 		private PotionEffect m_PotionEffect;
 
 		public PotionEffect PotionEffect
@@ -230,7 +233,7 @@ namespace Server.Items
 
 		#region ICraftable Members
 
-		public int OnCraft(int quality, bool makersMark, Mobile from, CraftSystem craftSystem, Type typeRes, BaseTool tool, CraftItem craftItem, int resHue)
+		public ItemQuality OnCraft(ItemQuality quality, bool makersMark, Mobile from, CraftSystem craftSystem, Type typeRes, BaseTool tool, CraftItem craftItem, int resHue)
 		{
 			if (craftSystem is DefAlchemy)
 			{
@@ -239,7 +242,7 @@ namespace Server.Items
 				if (pack != null)
 				{
 					if ((int)PotionEffect >= (int)PotionEffect.Invisibility)
-						return 1;
+						return ItemQuality.Normal;
 
 					List<PotionKeg> kegs = pack.FindItemsByType<PotionKeg>();
 
@@ -261,12 +264,12 @@ namespace Server.Items
 						Consume();
 						from.AddToBackpack(new Bottle());
 
-						return -1; // signal placed in keg
+						return ItemQuality.Low; // signal placed in keg
 					}
 				}
 			}
 
-			return 1;
+			return ItemQuality.Normal; ;
 		}
 
 		#endregion

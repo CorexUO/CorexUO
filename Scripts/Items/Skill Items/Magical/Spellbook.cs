@@ -20,29 +20,15 @@ namespace Server.Items
 		Mystic
 	}
 
-	public enum BookQuality
-	{
-		Regular,
-		Exceptional,
-	}
-
 	public class Spellbook : BaseEquipment, ICraftable, ISlayer
 	{
 		private string m_EngravedText;
-		private BookQuality m_Quality;
 
 		[CommandProperty(AccessLevel.GameMaster)]
 		public string EngravedText
 		{
 			get { return m_EngravedText; }
 			set { m_EngravedText = value; InvalidateProperties(); }
-		}
-
-		[CommandProperty(AccessLevel.GameMaster)]
-		public BookQuality Quality
-		{
-			get { return m_Quality; }
-			set { m_Quality = value; InvalidateProperties(); }
 		}
 
 		public static void Initialize()
@@ -583,7 +569,7 @@ namespace Server.Items
 		{
 			base.GetProperties(list);
 
-			if (m_Quality == BookQuality.Exceptional)
+			if (Quality == ItemQuality.Exceptional)
 				list.Add(1063341); // exceptional
 
 			if (m_EngravedText != null)
@@ -730,8 +716,6 @@ namespace Server.Items
 
 			writer.Write((int)0); // version
 
-			writer.Write((byte)m_Quality);
-
 			writer.Write((string)m_EngravedText);
 
 			writer.Write(m_Crafter);
@@ -755,8 +739,6 @@ namespace Server.Items
 			{
 				case 0:
 					{
-						m_Quality = (BookQuality)reader.ReadByte();
-
 						m_EngravedText = reader.ReadString();
 
 						m_Crafter = reader.ReadMobile();
@@ -841,7 +823,7 @@ namespace Server.Items
 				1								// 1 property   : 1/4 : 25%
 			};
 
-		public virtual int OnCraft(int quality, bool makersMark, Mobile from, CraftSystem craftSystem, Type typeRes, BaseTool tool, CraftItem craftItem, int resHue)
+		public virtual ItemQuality OnCraft(ItemQuality quality, bool makersMark, Mobile from, CraftSystem craftSystem, Type typeRes, BaseTool tool, CraftItem craftItem, int resHue)
 		{
 			int magery = from.Skills.Magery.BaseFixedPoint;
 
@@ -884,7 +866,7 @@ namespace Server.Items
 			if (makersMark)
 				Crafter = from;
 
-			m_Quality = (BookQuality)(quality - 1);
+			Quality = quality;
 
 			return quality;
 		}

@@ -1,12 +1,5 @@
 namespace Server.Items
 {
-	public enum WeaponQuality
-	{
-		Low,
-		Regular,
-		Exceptional
-	}
-
 	public enum WeaponType
 	{
 		Axe,        // Axes, Hatches, etc. These can give concussion blows

@@ -198,12 +198,8 @@ namespace Server.Engines.BulkOrders
 					{
 						bool isExceptional = false;
 
-						if (o is BaseWeapon)
-							isExceptional = (((BaseWeapon)o).Quality == WeaponQuality.Exceptional);
-						else if (o is BaseArmor)
-							isExceptional = (((BaseArmor)o).Quality == ArmorQuality.Exceptional);
-						else if (o is BaseClothing)
-							isExceptional = (((BaseClothing)o).Quality == ClothingQuality.Exceptional);
+						if (o is BaseEquipment equipment)
+							isExceptional = equipment.Quality == ItemQuality.Exceptional;
 
 						if (m_RequireExceptional && !isExceptional)
 						{

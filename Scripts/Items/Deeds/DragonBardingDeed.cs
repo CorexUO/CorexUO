@@ -17,9 +17,6 @@ namespace Server.Items
 		public Mobile Crafter { get { return m_Crafter; } set { m_Crafter = value; InvalidateProperties(); } }
 
 		[CommandProperty(AccessLevel.GameMaster)]
-		public bool Exceptional { get { return m_Exceptional; } set { m_Exceptional = value; InvalidateProperties(); } }
-
-		[CommandProperty(AccessLevel.GameMaster)]
 		public CraftResource Resource { get { return m_Resource; } set { m_Resource = value; Hue = CraftResources.GetHue(value); InvalidateProperties(); } }
 
 		public DragonBardingDeed() : base(0x14F0)
@@ -31,7 +28,7 @@ namespace Server.Items
 		{
 			base.GetProperties(list);
 
-			if (m_Exceptional && m_Crafter != null)
+			if (Quality == ItemQuality.Exceptional && m_Crafter != null)
 				list.Add(1050043, m_Crafter.Name); // crafted by ~1_NAME~
 		}
 
@@ -69,7 +66,7 @@ namespace Server.Items
 			}
 			else
 			{
-				pet.BardingExceptional = this.Exceptional;
+				pet.BardingExceptional = this.Quality == ItemQuality.Exceptional;
 				pet.BardingCrafter = this.Crafter;
 				pet.BardingHP = pet.BardingMaxHP;
 				pet.BardingResource = this.Resource;
@@ -121,9 +118,9 @@ namespace Server.Items
 		}
 		#region ICraftable Members
 
-		public int OnCraft(int quality, bool makersMark, Mobile from, CraftSystem craftSystem, Type typeRes, BaseTool tool, CraftItem craftItem, int resHue)
+		public ItemQuality OnCraft(ItemQuality quality, bool makersMark, Mobile from, CraftSystem craftSystem, Type typeRes, BaseTool tool, CraftItem craftItem, int resHue)
 		{
-			Exceptional = (quality >= 2);
+			Quality = quality;
 
 			if (makersMark)
 				Crafter = from;

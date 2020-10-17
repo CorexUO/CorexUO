@@ -432,7 +432,7 @@ namespace Server.Engines.Craft
 		public abstract void InitCraftList();
 
 		public abstract void PlayCraftEffect(Mobile from);
-		public abstract int PlayEndingEffect(Mobile from, bool failed, bool lostMaterial, bool toolBroken, int quality, bool makersMark, CraftItem item);
+		public abstract int PlayEndingEffect(Mobile from, bool failed, bool lostMaterial, bool toolBroken, ItemQuality quality, bool makersMark, CraftItem item);
 
 		public abstract int CanCraft(Mobile from, BaseTool tool, Type itemType);
 	}

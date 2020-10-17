@@ -13,15 +13,6 @@ namespace Server.Items
 	{
 		public static readonly TimeSpan UseDelay = TimeSpan.FromSeconds(7.0);
 
-		private BookQuality m_Quality;
-
-		[CommandProperty(AccessLevel.GameMaster)]
-		public BookQuality Quality
-		{
-			get { return m_Quality; }
-			set { m_Quality = value; InvalidateProperties(); }
-		}
-
 		private List<RunebookEntry> m_Entries;
 		private string m_Description;
 		private int m_CurCharges, m_MaxCharges;
@@ -178,8 +169,6 @@ namespace Server.Items
 
 			writer.Write((int)3);
 
-			writer.Write((byte)m_Quality);
-
 			writer.Write(m_Crafter);
 
 			writer.Write((int)m_Level);
@@ -210,7 +199,6 @@ namespace Server.Items
 			{
 				case 3:
 					{
-						m_Quality = (BookQuality)reader.ReadByte();
 						goto case 2;
 					}
 				case 2:
@@ -290,7 +278,7 @@ namespace Server.Items
 		{
 			base.GetProperties(list);
 
-			if (m_Quality == BookQuality.Exceptional)
+			if (Quality == ItemQuality.Exceptional)
 				list.Add(1063341); // exceptional
 
 			if (m_Crafter != null)
@@ -461,9 +449,9 @@ namespace Server.Items
 		}
 		#region ICraftable Members
 
-		public int OnCraft(int quality, bool makersMark, Mobile from, CraftSystem craftSystem, Type typeRes, BaseTool tool, CraftItem craftItem, int resHue)
+		public ItemQuality OnCraft(ItemQuality quality, bool makersMark, Mobile from, CraftSystem craftSystem, Type typeRes, BaseTool tool, CraftItem craftItem, int resHue)
 		{
-			int charges = 5 + quality + (int)(from.Skills[SkillName.Inscribe].Value / 30);
+			int charges = 5 + (int)quality + (int)(from.Skills[SkillName.Inscribe].Value / 30);
 
 			if (charges > 10)
 				charges = 10;
@@ -473,7 +461,7 @@ namespace Server.Items
 			if (makersMark)
 				Crafter = from;
 
-			m_Quality = (BookQuality)(quality - 1);
+			Quality = quality;
 
 			return quality;
 		}

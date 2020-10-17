@@ -1,12 +1,5 @@
 namespace Server.Items
 {
-	public enum ArmorQuality
-	{
-		Low,
-		Regular,
-		Exceptional
-	}
-
 	public enum ArmorDurabilityLevel
 	{
 		Regular,

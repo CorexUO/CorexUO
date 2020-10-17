@@ -10,6 +10,9 @@ namespace Server.Items
 	{
 		public abstract BaseAddonContainer Addon { get; }
 
+		[CommandProperty(AccessLevel.GameMaster)]
+		public Mobile Crafter { get; set; }
+
 		private CraftResource m_Resource;
 
 		[CommandProperty(AccessLevel.GameMaster)]
@@ -81,7 +84,7 @@ namespace Server.Items
 		}
 
 		#region ICraftable
-		public virtual int OnCraft(int quality, bool makersMark, Mobile from, CraftSystem craftSystem, Type typeRes, BaseTool tool, CraftItem craftItem, int resHue)
+		public virtual ItemQuality OnCraft(ItemQuality quality, bool makersMark, Mobile from, CraftSystem craftSystem, Type typeRes, BaseTool tool, CraftItem craftItem, int resHue)
 		{
 			Type resourceType = typeRes;
 

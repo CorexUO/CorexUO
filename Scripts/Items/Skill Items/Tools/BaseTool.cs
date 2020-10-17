@@ -14,17 +14,9 @@ namespace Server.Items
 		bool CheckAccessible(Mobile from, ref int num);
 	}
 
-	public enum ToolQuality
-	{
-		Low,
-		Regular,
-		Exceptional
-	}
-
 	public abstract class BaseTool : BaseItem, ITool, IUsesRemaining, ICraftable
 	{
 		private Mobile m_Crafter;
-		private ToolQuality m_Quality;
 		private int m_UsesRemaining;
 
 		[CommandProperty(AccessLevel.GameMaster)]
@@ -35,10 +27,10 @@ namespace Server.Items
 		}
 
 		[CommandProperty(AccessLevel.GameMaster)]
-		public ToolQuality Quality
+		public override ItemQuality Quality
 		{
-			get { return m_Quality; }
-			set { UnscaleUses(); m_Quality = value; InvalidateProperties(); ScaleUses(); }
+			get { return base.Quality; }
+			set { UnscaleUses(); base.Quality = value; InvalidateProperties(); ScaleUses(); }
 		}
 
 		[CommandProperty(AccessLevel.GameMaster)]
@@ -63,7 +55,7 @@ namespace Server.Items
 
 		public int GetUsesScalar()
 		{
-			if (m_Quality == ToolQuality.Exceptional)
+			if (Quality == ItemQuality.Exceptional)
 				return 200;
 
 			return 100;
@@ -80,7 +72,6 @@ namespace Server.Items
 		public BaseTool(int uses, int itemID) : base(itemID)
 		{
 			m_UsesRemaining = uses;
-			m_Quality = ToolQuality.Regular;
 		}
 
 		public BaseTool(Serial serial) : base(serial)
@@ -95,7 +86,7 @@ namespace Server.Items
 			//if ( m_Crafter != null )
 			//	list.Add( 1050043, m_Crafter.Name ); // crafted by ~1_NAME~
 
-			if (m_Quality == ToolQuality.Exceptional)
+			if (Quality == ItemQuality.Exceptional)
 				list.Add(1060636); // exceptional
 
 			list.Add(1060584, m_UsesRemaining.ToString()); // uses remaining: ~1_val~
@@ -176,7 +167,6 @@ namespace Server.Items
 			writer.Write((int)1); // version
 
 			writer.Write((Mobile)m_Crafter);
-			writer.Write((int)m_Quality);
 
 			writer.Write((int)m_UsesRemaining);
 		}
@@ -192,7 +182,6 @@ namespace Server.Items
 				case 1:
 					{
 						m_Crafter = reader.ReadMobile();
-						m_Quality = (ToolQuality)reader.ReadInt();
 						goto case 0;
 					}
 				case 0:
@@ -204,9 +193,9 @@ namespace Server.Items
 		}
 		#region ICraftable Members
 
-		public int OnCraft(int quality, bool makersMark, Mobile from, CraftSystem craftSystem, Type typeRes, BaseTool tool, CraftItem craftItem, int resHue)
+		public ItemQuality OnCraft(ItemQuality quality, bool makersMark, Mobile from, CraftSystem craftSystem, Type typeRes, BaseTool tool, CraftItem craftItem, int resHue)
 		{
-			Quality = (ToolQuality)quality;
+			Quality = quality;
 
 			if (makersMark)
 				Crafter = from;

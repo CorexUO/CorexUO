@@ -14,7 +14,9 @@ namespace Server.Engines.Craft
 
 	public interface ICraftable
 	{
-		int OnCraft(int quality, bool makersMark, Mobile from, CraftSystem craftSystem, Type typeRes, BaseTool tool, CraftItem craftItem, int resHue);
+		public Mobile Crafter { get; set; }
+
+		ItemQuality OnCraft(ItemQuality quality, bool makersMark, Mobile from, CraftSystem craftSystem, Type typeRes, BaseTool tool, CraftItem craftItem, int resHue);
 	}
 
 	public class CraftItem
@@ -917,17 +919,17 @@ namespace Server.Engines.Craft
 			return chance;
 		}
 
-		public bool CheckSkills(Mobile from, Type typeRes, CraftSystem craftSystem, ref int quality, ref bool allRequiredSkills)
+		public bool CheckSkills(Mobile from, Type typeRes, CraftSystem craftSystem, ref ItemQuality quality, ref bool allRequiredSkills)
 		{
 			return CheckSkills(from, typeRes, craftSystem, ref quality, ref allRequiredSkills, true);
 		}
 
-		public bool CheckSkills(Mobile from, Type typeRes, CraftSystem craftSystem, ref int quality, ref bool allRequiredSkills, bool gainSkills)
+		public bool CheckSkills(Mobile from, Type typeRes, CraftSystem craftSystem, ref ItemQuality quality, ref bool allRequiredSkills, bool gainSkills)
 		{
 			double chance = GetSuccessChance(from, typeRes, craftSystem, gainSkills, ref allRequiredSkills);
 
 			if (GetExceptionalChance(craftSystem, chance, from) > Utility.RandomDouble())
-				quality = 2;
+				quality = ItemQuality.Exceptional;
 
 			return (chance > Utility.RandomDouble());
 		}
@@ -1076,7 +1078,7 @@ namespace Server.Engines.Craft
 			}
 		}
 
-		public void CompleteCraft(int quality, bool makersMark, Mobile from, CraftSystem craftSystem, Type typeRes, BaseTool tool, CustomCraft customCraft)
+		public void CompleteCraft(ItemQuality quality, bool makersMark, Mobile from, CraftSystem craftSystem, Type typeRes, BaseTool tool, CustomCraft customCraft)
 		{
 			int badCraft = craftSystem.CanCraft(from, tool, m_Type);
 
@@ -1119,8 +1121,8 @@ namespace Server.Engines.Craft
 
 			bool toolBroken = false;
 
-			int ignored = 1;
-			int endquality = 1;
+			ItemQuality ignored = ItemQuality.Normal;
+			ItemQuality endquality = ItemQuality.Normal;
 
 			bool allRequiredSkills = true;
 
@@ -1194,15 +1196,15 @@ namespace Server.Engines.Craft
 
 				if (item != null)
 				{
-					if (item is ICraftable)
-						endquality = ((ICraftable)item).OnCraft(quality, makersMark, from, craftSystem, typeRes, tool, this, resHue);
+					if (item is ICraftable craftable)
+						endquality = craftable.OnCraft(quality, makersMark, from, craftSystem, typeRes, tool, this, resHue);
 					else if (item.Hue == 0)
 						item.Hue = resHue;
 
 					if (maxAmount > 0)
 					{
-						if (!item.Stackable && item is IUsesRemaining)
-							((IUsesRemaining)item).UsesRemaining *= maxAmount;
+						if (!item.Stackable && item is IUsesRemaining remaining)
+							remaining.UsesRemaining *= maxAmount;
 						else
 							item.Amount = maxAmount;
 					}
@@ -1256,7 +1258,7 @@ namespace Server.Engines.Craft
 				// TODO: Scroll imbuing
 
 				if (queryFactionImbue)
-					from.SendGump(new FactionImbueGump(quality, item, from, craftSystem, tool, num, availableSilver, faction, def));
+					from.SendGump(new FactionImbueGump((int)quality, item, from, craftSystem, tool, num, availableSilver, faction, def));
 				else if (tool != null && !tool.Deleted && tool.UsesRemaining > 0)
 					from.SendGump(new CraftGump(from, craftSystem, tool, num));
 				else if (num > 0)
@@ -1355,7 +1357,7 @@ namespace Server.Engines.Craft
 						return;
 					}
 
-					int quality = 1;
+					ItemQuality quality = ItemQuality.Normal;
 					bool allRequiredSkills = true;
 
 					m_CraftItem.CheckSkills(m_From, m_TypeRes, m_CraftSystem, ref quality, ref allRequiredSkills, false);
@@ -1380,7 +1382,7 @@ namespace Server.Engines.Craft
 
 					bool makersMark = false;
 
-					if (quality == 2 && m_From.Skills[m_CraftSystem.MainSkill].Base >= 100.0)
+					if (quality == ItemQuality.Exceptional && m_From.Skills[m_CraftSystem.MainSkill].Base >= 100.0)
 						makersMark = m_CraftItem.IsMarkable(m_CraftItem.ItemType);
 
 					if (makersMark && context.MarkOption == CraftMarkOption.PromptForMark)

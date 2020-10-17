@@ -52,7 +52,7 @@ namespace Server.Items
 		}
 
 		private Mobile m_Crafter;
-		private ClothingQuality m_Quality;
+		private ItemQuality m_Quality;
 
 		[CommandProperty(AccessLevel.GameMaster)]
 		public Mobile Crafter
@@ -62,7 +62,7 @@ namespace Server.Items
 		}
 
 		[CommandProperty(AccessLevel.GameMaster)]
-		public ClothingQuality Quality
+		public ItemQuality Quality
 		{
 			get { return m_Quality; }
 			set { m_Quality = value; InvalidateProperties(); }
@@ -218,7 +218,7 @@ namespace Server.Items
 			if (m_Crafter != null)
 				list.Add(1050043, m_Crafter.Name); // crafted by ~1_NAME~
 
-			if (m_Quality == ClothingQuality.Exceptional)
+			if (m_Quality == ItemQuality.Exceptional)
 				list.Add(1063341); // exceptional
 
 			Item ammo = Ammo;
@@ -423,7 +423,7 @@ namespace Server.Items
 				m_Crafter = reader.ReadMobile();
 
 			if (flags.HasFlag(SaveFlag.Quality))
-				m_Quality = (ClothingQuality)reader.ReadInt();
+				m_Quality = (ItemQuality)reader.ReadInt();
 
 			if (flags.HasFlag(SaveFlag.Capacity))
 				m_Capacity = reader.ReadInt();
@@ -444,9 +444,9 @@ namespace Server.Items
 		}
 
 		#region ICraftable
-		public virtual int OnCraft(int quality, bool makersMark, Mobile from, CraftSystem craftSystem, Type typeRes, BaseTool tool, CraftItem craftItem, int resHue)
+		public virtual ItemQuality OnCraft(ItemQuality quality, bool makersMark, Mobile from, CraftSystem craftSystem, Type typeRes, BaseTool tool, CraftItem craftItem, int resHue)
 		{
-			Quality = (ClothingQuality)quality;
+			Quality = quality;
 
 			if (makersMark)
 				Crafter = from;

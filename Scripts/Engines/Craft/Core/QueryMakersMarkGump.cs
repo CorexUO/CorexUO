@@ -6,14 +6,14 @@ namespace Server.Engines.Craft
 {
 	public class QueryMakersMarkGump : Gump
 	{
-		private int m_Quality;
+		private ItemQuality m_Quality;
 		private Mobile m_From;
 		private CraftItem m_CraftItem;
 		private CraftSystem m_CraftSystem;
 		private Type m_TypeRes;
 		private BaseTool m_Tool;
 
-		public QueryMakersMarkGump(int quality, Mobile from, CraftItem craftItem, CraftSystem craftSystem, Type typeRes, BaseTool tool) : base(100, 200)
+		public QueryMakersMarkGump(ItemQuality quality, Mobile from, CraftItem craftItem, CraftSystem craftSystem, Type typeRes, BaseTool tool) : base(100, 200)
 		{
 			from.CloseGump(typeof(QueryMakersMarkGump));
 

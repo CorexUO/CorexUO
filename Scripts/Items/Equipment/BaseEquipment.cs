@@ -1,4 +1,8 @@
+using Server.Engines.Craft;
+using Server.Factions;
+using Server.Network;
 using System;
+using System.Collections.Generic;
 
 namespace Server.Items
 {
@@ -19,13 +23,113 @@ namespace Server.Items
 			set { }
 		}
 
-		public BaseEquipment(int itemID): base(itemID)
+		public BaseEquipment(int itemID) : base(itemID)
 		{
 			m_AosAttributes = new AosAttributes(this);
 		}
 
 		public BaseEquipment(Serial serial) : base(serial)
 		{
+		}
+
+		public override void OnSingleClick(Mobile from)
+		{
+			List<EquipInfoAttribute> attrs = new List<EquipInfoAttribute>();
+
+			if (DisplayLootType)
+			{
+				if (LootType == LootType.Blessed)
+					attrs.Add(new EquipInfoAttribute(1038021)); // blessed
+				else if (LootType == LootType.Cursed)
+					attrs.Add(new EquipInfoAttribute(1049643)); // cursed
+			}
+
+			#region Factions
+			if (this is IFactionItem factionItem && factionItem != null && factionItem.FactionItemState != null)
+				attrs.Add(new EquipInfoAttribute(1041350)); // faction item
+			#endregion
+
+			//Quality
+			if (Quality == ItemQuality.Exceptional)
+				attrs.Add(new EquipInfoAttribute(1018305 - (int)Quality));
+
+			if (Identified || from.AccessLevel >= AccessLevel.GameMaster)
+			{
+				//Slayer
+				if (this is ISlayer slayerItem)
+				{
+					if (slayerItem.Slayer != SlayerName.None)
+					{
+						SlayerEntry entry = SlayerGroup.GetEntryByName(slayerItem.Slayer);
+						if (entry != null)
+							attrs.Add(new EquipInfoAttribute(entry.Title));
+					}
+
+					if (slayerItem.Slayer2 != SlayerName.None)
+					{
+						SlayerEntry entry = SlayerGroup.GetEntryByName(slayerItem.Slayer2);
+						if (entry != null)
+							attrs.Add(new EquipInfoAttribute(entry.Title));
+					}
+				}
+
+				if (this is BaseArmor armor)
+				{
+					if (armor.Durability != ArmorDurabilityLevel.Regular)
+						attrs.Add(new EquipInfoAttribute(1038000 + (int)armor.Durability));
+
+					if (armor.ProtectionLevel > ArmorProtectionLevel.Regular && armor.ProtectionLevel <= ArmorProtectionLevel.Invulnerability)
+						attrs.Add(new EquipInfoAttribute(1038005 + (int)armor.ProtectionLevel));
+				}
+				else if (this is BaseWeapon weapon)
+				{
+					if (weapon.DurabilityLevel != WeaponDurabilityLevel.Regular)
+						attrs.Add(new EquipInfoAttribute(1038000 + (int)weapon.DurabilityLevel));
+
+					if (weapon.DamageLevel != WeaponDamageLevel.Regular)
+						attrs.Add(new EquipInfoAttribute(1038015 + (int)weapon.DamageLevel));
+
+					if (weapon.AccuracyLevel != WeaponAccuracyLevel.Regular)
+						attrs.Add(new EquipInfoAttribute(1038010 + (int)weapon.AccuracyLevel));
+				}
+			}
+			else
+			{
+				//Maybe need to improve this
+				if (this is BaseArmor armor && (armor.Durability != ArmorDurabilityLevel.Regular || (armor.ProtectionLevel > ArmorProtectionLevel.Regular && armor.ProtectionLevel <= ArmorProtectionLevel.Invulnerability)))
+				{
+					attrs.Add(new EquipInfoAttribute(1038000)); // Unidentified
+				}
+				else if (this is BaseWeapon weapon && (weapon.Slayer != SlayerName.None || weapon.Slayer2 != SlayerName.None || weapon.DurabilityLevel != WeaponDurabilityLevel.Regular || weapon.DamageLevel != WeaponDamageLevel.Regular || weapon.AccuracyLevel != WeaponAccuracyLevel.Regular))
+				{
+					attrs.Add(new EquipInfoAttribute(1038000)); // Unidentified
+				}
+			}
+
+			if (this is BaseWeapon poisonWeapon && poisonWeapon.Poison != null && poisonWeapon.PoisonCharges > 0)
+				attrs.Add(new EquipInfoAttribute(1017383, poisonWeapon.PoisonCharges));
+
+			int number;
+
+			if (Name == null)
+			{
+				number = LabelNumber;
+			}
+			else
+			{
+				LabelTo(from, Name);
+				number = 1041000;
+			}
+
+			Mobile crafter = null;
+			if (this is ICraftable craftable)
+				crafter = craftable.Crafter;
+
+			if (attrs.Count == 0 && crafter != null && Name != null)
+				return;
+
+			EquipmentInfo eqInfo = new EquipmentInfo(number, crafter, false, attrs.ToArray());
+			from.Send(new DisplayEquipmentInfo(this, eqInfo));
 		}
 
 		public virtual int GetLuckBonus()
@@ -116,7 +220,6 @@ namespace Server.Items
 
 			if (flags.HasFlag(SaveFlag.Attributes))
 				m_AosAttributes.Serialize(writer);
-
 		}
 
 		public override void Deserialize(GenericReader reader)

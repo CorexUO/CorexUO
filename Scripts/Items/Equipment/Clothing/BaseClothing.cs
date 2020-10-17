@@ -6,13 +6,6 @@ using Server.Network;
 
 namespace Server.Items
 {
-	public enum ClothingQuality
-	{
-		Low,
-		Regular,
-		Exceptional
-	}
-
 	public interface IArcaneEquip
 	{
 		bool IsArcane { get; }
@@ -45,7 +38,6 @@ namespace Server.Items
 		private int m_MaxHitPoints;
 		private int m_HitPoints;
 		private Mobile m_Crafter;
-		private ClothingQuality m_Quality;
 		private bool m_PlayerConstructed;
 		protected CraftResource m_Resource;
 		private int m_StrReq = -1;
@@ -96,13 +88,6 @@ namespace Server.Items
 		{
 			get { return (m_StrReq == -1 ? (Core.AOS ? AosStrReq : OldStrReq) : m_StrReq); }
 			set { m_StrReq = value; InvalidateProperties(); }
-		}
-
-		[CommandProperty(AccessLevel.GameMaster)]
-		public ClothingQuality Quality
-		{
-			get { return m_Quality; }
-			set { m_Quality = value; InvalidateProperties(); }
 		}
 
 		[CommandProperty(AccessLevel.GameMaster)]
@@ -397,7 +382,6 @@ namespace Server.Items
 			Hue = hue;
 
 			m_Resource = DefaultResource;
-			m_Quality = ClothingQuality.Regular;
 
 			m_HitPoints = m_MaxHitPoints = Utility.RandomMinMax(InitMinHits, InitMaxHits);
 
@@ -512,7 +496,7 @@ namespace Server.Items
 				list.Add(1041350); // faction item
 			#endregion
 
-			if (m_Quality == ClothingQuality.Exceptional)
+			if (Quality == ItemQuality.Exceptional)
 				list.Add(1060636); // exceptional
 
 			if (RequiredRace == Race.Elf)
@@ -619,51 +603,6 @@ namespace Server.Items
 				list.Add(1060639, "{0}\t{1}", m_HitPoints, m_MaxHitPoints); // durability ~1_val~ / ~2_val~
 		}
 
-		public override void OnSingleClick(Mobile from)
-		{
-			List<EquipInfoAttribute> attrs = new List<EquipInfoAttribute>();
-
-			AddEquipInfoAttributes(from, attrs);
-
-			int number;
-
-			if (Name == null)
-			{
-				number = LabelNumber;
-			}
-			else
-			{
-				this.LabelTo(from, Name);
-				number = 1041000;
-			}
-
-			if (attrs.Count == 0 && Crafter == null && Name != null)
-				return;
-
-			EquipmentInfo eqInfo = new EquipmentInfo(number, m_Crafter, false, attrs.ToArray());
-
-			from.Send(new DisplayEquipmentInfo(this, eqInfo));
-		}
-
-		public virtual void AddEquipInfoAttributes(Mobile from, List<EquipInfoAttribute> attrs)
-		{
-			if (DisplayLootType)
-			{
-				if (LootType == LootType.Blessed)
-					attrs.Add(new EquipInfoAttribute(1038021)); // blessed
-				else if (LootType == LootType.Cursed)
-					attrs.Add(new EquipInfoAttribute(1049643)); // cursed
-			}
-
-			#region Factions
-			if (m_FactionState != null)
-				attrs.Add(new EquipInfoAttribute(1041350)); // faction item
-			#endregion
-
-			if (m_Quality == ClothingQuality.Exceptional)
-				attrs.Add(new EquipInfoAttribute(1018305 - (int)m_Quality));
-		}
-
 		#region Serialization
 		[Flags]
 		private enum SaveFlag
@@ -698,7 +637,6 @@ namespace Server.Items
 			Utility.SetSaveFlag(ref flags, SaveFlag.HitPoints, m_HitPoints != 0);
 			Utility.SetSaveFlag(ref flags, SaveFlag.PlayerConstructed, m_PlayerConstructed != false);
 			Utility.SetSaveFlag(ref flags, SaveFlag.Crafter, m_Crafter != null);
-			Utility.SetSaveFlag(ref flags, SaveFlag.Quality, m_Quality != ClothingQuality.Regular);
 			Utility.SetSaveFlag(ref flags, SaveFlag.StrReq, m_StrReq != -1);
 
 			writer.WriteEncodedInt((int)flags);
@@ -723,9 +661,6 @@ namespace Server.Items
 
 			if (flags.HasFlag(SaveFlag.Crafter))
 				writer.Write((Mobile)m_Crafter);
-
-			if (flags.HasFlag(SaveFlag.Quality))
-				writer.WriteEncodedInt((int)m_Quality);
 
 			if (flags.HasFlag(SaveFlag.StrReq))
 				writer.WriteEncodedInt((int)m_StrReq);
@@ -771,11 +706,6 @@ namespace Server.Items
 
 						if (flags.HasFlag(SaveFlag.Crafter))
 							m_Crafter = reader.ReadMobile();
-
-						if (flags.HasFlag(SaveFlag.Quality))
-							m_Quality = (ClothingQuality)reader.ReadEncodedInt();
-						else
-							m_Quality = ClothingQuality.Regular;
 
 						if (flags.HasFlag(SaveFlag.StrReq))
 							m_StrReq = reader.ReadEncodedInt();
@@ -883,9 +813,9 @@ namespace Server.Items
 
 		#region ICraftable Members
 
-		public virtual int OnCraft(int quality, bool makersMark, Mobile from, CraftSystem craftSystem, Type typeRes, BaseTool tool, CraftItem craftItem, int resHue)
+		public virtual ItemQuality OnCraft(ItemQuality quality, bool makersMark, Mobile from, CraftSystem craftSystem, Type typeRes, BaseTool tool, CraftItem craftItem, int resHue)
 		{
-			Quality = (ClothingQuality)quality;
+			Quality = quality;
 
 			if (makersMark)
 				Crafter = from;

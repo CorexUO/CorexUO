@@ -2,7 +2,6 @@ using System;
 using System.Collections.Generic;
 using Server.Engines.Craft;
 using Server.Factions;
-using Server.Misc;
 using Server.Mobiles;
 using Server.Network;
 using Server.Spells;
@@ -70,11 +69,9 @@ namespace Server.Items
 		private WeaponDamageLevel m_DamageLevel;
 		private WeaponAccuracyLevel m_AccuracyLevel;
 		private WeaponDurabilityLevel m_DurabilityLevel;
-		private WeaponQuality m_Quality;
 		private Mobile m_Crafter;
 		private Poison m_Poison;
 		private int m_PoisonCharges;
-		private bool m_Identified;
 		private int m_Hits;
 		private int m_MaxHits;
 		private SlayerName m_Slayer;
@@ -171,13 +168,6 @@ namespace Server.Items
 		}
 
 		[CommandProperty(AccessLevel.GameMaster)]
-		public bool Identified
-		{
-			get { return m_Identified; }
-			set { m_Identified = value; InvalidateProperties(); }
-		}
-
-		[CommandProperty(AccessLevel.GameMaster)]
 		public int HitPoints
 		{
 			get { return m_Hits; }
@@ -217,10 +207,19 @@ namespace Server.Items
 		}
 
 		[CommandProperty(AccessLevel.GameMaster)]
-		public WeaponQuality Quality
+		public override ItemQuality Quality
 		{
-			get { return m_Quality; }
-			set { UnscaleDurability(); m_Quality = value; ScaleDurability(); InvalidateProperties(); }
+			get
+			{
+				return base.Quality;
+			}
+			set
+			{
+				UnscaleDurability();
+				base.Quality = value;
+				ScaleDurability();
+				InvalidateProperties();
+			}
 		}
 
 		[CommandProperty(AccessLevel.GameMaster)]
@@ -433,7 +432,7 @@ namespace Server.Items
 		{
 			int bonus = 0;
 
-			if (m_Quality == WeaponQuality.Exceptional)
+			if (Quality == ItemQuality.Exceptional)
 				bonus += 20;
 
 			switch (m_DurabilityLevel)
@@ -2128,10 +2127,10 @@ namespace Server.Items
 		{
 			int bonus = VirtualDamageBonus;
 
-			switch (m_Quality)
+			switch (Quality)
 			{
-				case WeaponQuality.Low: bonus -= 20; break;
-				case WeaponQuality.Exceptional: bonus += 20; break;
+				case ItemQuality.Low: bonus -= 20; break;
+				case ItemQuality.Exceptional: bonus += 20; break;
 			}
 
 			switch (m_DamageLevel)
@@ -2282,8 +2281,8 @@ namespace Server.Items
 			}
 
 			// New quality bonus:
-			if (m_Quality != WeaponQuality.Regular)
-				modifier += (((int)m_Quality - 1) * 0.2);
+			if (Quality != ItemQuality.Normal)
+				modifier += (((int)Quality - 1) * 0.2);
 
 			// Virtual damage bonus:
 			if (VirtualDamageBonus != 0)
@@ -2447,14 +2446,12 @@ namespace Server.Items
 			Utility.SetSaveFlag(ref flags, SaveFlag.DamageLevel, m_DamageLevel != WeaponDamageLevel.Regular);
 			Utility.SetSaveFlag(ref flags, SaveFlag.AccuracyLevel, m_AccuracyLevel != WeaponAccuracyLevel.Regular);
 			Utility.SetSaveFlag(ref flags, SaveFlag.DurabilityLevel, m_DurabilityLevel != WeaponDurabilityLevel.Regular);
-			Utility.SetSaveFlag(ref flags, SaveFlag.Quality, m_Quality != WeaponQuality.Regular);
 			Utility.SetSaveFlag(ref flags, SaveFlag.Hits, m_Hits != 0);
 			Utility.SetSaveFlag(ref flags, SaveFlag.MaxHits, m_MaxHits != 0);
 			Utility.SetSaveFlag(ref flags, SaveFlag.Slayer, m_Slayer != SlayerName.None);
 			Utility.SetSaveFlag(ref flags, SaveFlag.Poison, m_Poison != null);
 			Utility.SetSaveFlag(ref flags, SaveFlag.PoisonCharges, m_PoisonCharges != 0);
 			Utility.SetSaveFlag(ref flags, SaveFlag.Crafter, m_Crafter != null);
-			Utility.SetSaveFlag(ref flags, SaveFlag.Identified, m_Identified != false);
 			Utility.SetSaveFlag(ref flags, SaveFlag.StrReq, m_StrReq != -1);
 			Utility.SetSaveFlag(ref flags, SaveFlag.DexReq, m_DexReq != -1);
 			Utility.SetSaveFlag(ref flags, SaveFlag.IntReq, m_IntReq != -1);
@@ -2485,9 +2482,6 @@ namespace Server.Items
 
 			if (flags.HasFlag(SaveFlag.DurabilityLevel))
 				writer.Write((int)m_DurabilityLevel);
-
-			if (flags.HasFlag(SaveFlag.Quality))
-				writer.Write((int)m_Quality);
 
 			if (flags.HasFlag(SaveFlag.Hits))
 				writer.Write((int)m_Hits);
@@ -2635,11 +2629,6 @@ namespace Server.Items
 								m_DurabilityLevel = WeaponDurabilityLevel.Durable;
 						}
 
-						if (flags.HasFlag(SaveFlag.Quality))
-							m_Quality = (WeaponQuality)reader.ReadInt();
-						else
-							m_Quality = WeaponQuality.Regular;
-
 						if (flags.HasFlag(SaveFlag.Hits))
 							m_Hits = reader.ReadInt();
 
@@ -2657,9 +2646,6 @@ namespace Server.Items
 
 						if (flags.HasFlag(SaveFlag.Crafter))
 							m_Crafter = reader.ReadMobile();
-
-						if (flags.HasFlag(SaveFlag.Identified))
-							m_Identified = true;
 
 						if (flags.HasFlag(SaveFlag.StrReq))
 							m_StrReq = reader.ReadInt();
@@ -2805,7 +2791,6 @@ namespace Server.Items
 		{
 			Layer = (Layer)ItemData.Quality;
 
-			m_Quality = WeaponQuality.Regular;
 			m_StrReq = -1;
 			m_DexReq = -1;
 			m_IntReq = -1;
@@ -2971,7 +2956,7 @@ namespace Server.Items
 			if (m_AosSkillBonuses != null)
 				m_AosSkillBonuses.GetProperties(list);
 
-			if (m_Quality == WeaponQuality.Exceptional)
+			if (Quality == ItemQuality.Exceptional)
 				list.Add(1060636); // exceptional
 
 			if (RequiredRace == Race.Elf)
@@ -3201,77 +3186,6 @@ namespace Server.Items
 				list.Add(1060639, "{0}\t{1}", m_Hits, m_MaxHits); // durability ~1_val~ / ~2_val~
 		}
 
-		public override void OnSingleClick(Mobile from)
-		{
-			List<EquipInfoAttribute> attrs = new List<EquipInfoAttribute>();
-
-			if (DisplayLootType)
-			{
-				if (LootType == LootType.Blessed)
-					attrs.Add(new EquipInfoAttribute(1038021)); // blessed
-				else if (LootType == LootType.Cursed)
-					attrs.Add(new EquipInfoAttribute(1049643)); // cursed
-			}
-
-			#region Factions
-			if (m_FactionState != null)
-				attrs.Add(new EquipInfoAttribute(1041350)); // faction item
-			#endregion
-
-			if (m_Quality == WeaponQuality.Exceptional)
-				attrs.Add(new EquipInfoAttribute(1018305 - (int)m_Quality));
-
-			if (m_Identified || from.AccessLevel >= AccessLevel.GameMaster)
-			{
-				if (m_Slayer != SlayerName.None)
-				{
-					SlayerEntry entry = SlayerGroup.GetEntryByName(m_Slayer);
-					if (entry != null)
-						attrs.Add(new EquipInfoAttribute(entry.Title));
-				}
-
-				if (m_Slayer2 != SlayerName.None)
-				{
-					SlayerEntry entry = SlayerGroup.GetEntryByName(m_Slayer2);
-					if (entry != null)
-						attrs.Add(new EquipInfoAttribute(entry.Title));
-				}
-
-				if (m_DurabilityLevel != WeaponDurabilityLevel.Regular)
-					attrs.Add(new EquipInfoAttribute(1038000 + (int)m_DurabilityLevel));
-
-				if (m_DamageLevel != WeaponDamageLevel.Regular)
-					attrs.Add(new EquipInfoAttribute(1038015 + (int)m_DamageLevel));
-
-				if (m_AccuracyLevel != WeaponAccuracyLevel.Regular)
-					attrs.Add(new EquipInfoAttribute(1038010 + (int)m_AccuracyLevel));
-			}
-			else if (m_Slayer != SlayerName.None || m_Slayer2 != SlayerName.None || m_DurabilityLevel != WeaponDurabilityLevel.Regular || m_DamageLevel != WeaponDamageLevel.Regular || m_AccuracyLevel != WeaponAccuracyLevel.Regular)
-				attrs.Add(new EquipInfoAttribute(1038000)); // Unidentified
-
-			if (m_Poison != null && m_PoisonCharges > 0)
-				attrs.Add(new EquipInfoAttribute(1017383, m_PoisonCharges));
-
-			int number;
-
-			if (Name == null)
-			{
-				number = LabelNumber;
-			}
-			else
-			{
-				this.LabelTo(from, Name);
-				number = 1041000;
-			}
-
-			if (attrs.Count == 0 && Crafter == null && Name != null)
-				return;
-
-			EquipmentInfo eqInfo = new EquipmentInfo(number, m_Crafter, false, attrs.ToArray());
-
-			from.Send(new DisplayEquipmentInfo(this, eqInfo));
-		}
-
 		private static BaseWeapon m_Fists; // This value holds the default--fist--weapon
 
 		public static BaseWeapon Fists
@@ -3282,9 +3196,9 @@ namespace Server.Items
 
 		#region ICraftable Members
 
-		public int OnCraft(int quality, bool makersMark, Mobile from, CraftSystem craftSystem, Type typeRes, BaseTool tool, CraftItem craftItem, int resHue)
+		public ItemQuality OnCraft(ItemQuality quality, bool makersMark, Mobile from, CraftSystem craftSystem, Type typeRes, BaseTool tool, CraftItem craftItem, int resHue)
 		{
-			Quality = (WeaponQuality)quality;
+			Quality = quality;
 
 			if (makersMark)
 				Crafter = from;
@@ -3308,7 +3222,7 @@ namespace Server.Items
 				if (tool is BaseRunicTool)
 					((BaseRunicTool)tool).ApplyAttributesTo(this);
 
-				if (Quality == WeaponQuality.Exceptional)
+				if (Quality == ItemQuality.Exceptional)
 				{
 					if (Attributes.WeaponDamage > 35)
 						Attributes.WeaponDamage -= 20;
