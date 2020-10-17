@@ -32,16 +32,6 @@ namespace Server.Items
 		Supremely
 	}
 
-	public enum WeaponDurabilityLevel
-	{
-		Regular,
-		Durable,
-		Substantial,
-		Massive,
-		Fortified,
-		Indestructible
-	}
-
 	public enum WeaponAnimation
 	{
 		Slash1H = 9,

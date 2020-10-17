@@ -68,7 +68,7 @@ namespace Server.Items
 		// Instance values. These values are unique to each weapon.
 		private WeaponDamageLevel m_DamageLevel;
 		private WeaponAccuracyLevel m_AccuracyLevel;
-		private WeaponDurabilityLevel m_DurabilityLevel;
+		private DurabilityLevel m_DurabilityLevel;
 		private Mobile m_Crafter;
 		private Poison m_Poison;
 		private int m_PoisonCharges;
@@ -258,7 +258,7 @@ namespace Server.Items
 		}
 
 		[CommandProperty(AccessLevel.GameMaster)]
-		public WeaponDurabilityLevel DurabilityLevel
+		public DurabilityLevel DurabilityLevel
 		{
 			get { return m_DurabilityLevel; }
 			set { UnscaleDurability(); m_DurabilityLevel = value; InvalidateProperties(); ScaleDurability(); }
@@ -437,11 +437,11 @@ namespace Server.Items
 
 			switch (m_DurabilityLevel)
 			{
-				case WeaponDurabilityLevel.Durable: bonus += 20; break;
-				case WeaponDurabilityLevel.Substantial: bonus += 50; break;
-				case WeaponDurabilityLevel.Massive: bonus += 70; break;
-				case WeaponDurabilityLevel.Fortified: bonus += 100; break;
-				case WeaponDurabilityLevel.Indestructible: bonus += 120; break;
+				case DurabilityLevel.Durable: bonus += 20; break;
+				case DurabilityLevel.Substantial: bonus += 50; break;
+				case DurabilityLevel.Massive: bonus += 70; break;
+				case DurabilityLevel.Fortified: bonus += 100; break;
+				case DurabilityLevel.Indestructible: bonus += 120; break;
 			}
 
 			if (Core.AOS)
@@ -2445,7 +2445,7 @@ namespace Server.Items
 
 			Utility.SetSaveFlag(ref flags, SaveFlag.DamageLevel, m_DamageLevel != WeaponDamageLevel.Regular);
 			Utility.SetSaveFlag(ref flags, SaveFlag.AccuracyLevel, m_AccuracyLevel != WeaponAccuracyLevel.Regular);
-			Utility.SetSaveFlag(ref flags, SaveFlag.DurabilityLevel, m_DurabilityLevel != WeaponDurabilityLevel.Regular);
+			Utility.SetSaveFlag(ref flags, SaveFlag.DurabilityLevel, m_DurabilityLevel != DurabilityLevel.Regular);
 			Utility.SetSaveFlag(ref flags, SaveFlag.Hits, m_Hits != 0);
 			Utility.SetSaveFlag(ref flags, SaveFlag.MaxHits, m_MaxHits != 0);
 			Utility.SetSaveFlag(ref flags, SaveFlag.Slayer, m_Slayer != SlayerName.None);
@@ -2623,10 +2623,10 @@ namespace Server.Items
 
 						if (flags.HasFlag(SaveFlag.DurabilityLevel))
 						{
-							m_DurabilityLevel = (WeaponDurabilityLevel)reader.ReadInt();
+							m_DurabilityLevel = (DurabilityLevel)reader.ReadInt();
 
-							if (m_DurabilityLevel > WeaponDurabilityLevel.Indestructible)
-								m_DurabilityLevel = WeaponDurabilityLevel.Durable;
+							if (m_DurabilityLevel > DurabilityLevel.Indestructible)
+								m_DurabilityLevel = DurabilityLevel.Durable;
 						}
 
 						if (flags.HasFlag(SaveFlag.Hits))
@@ -3226,21 +3226,21 @@ namespace Server.Items
 						case CraftResource.DullCopper:
 							{
 								Identified = true;
-								DurabilityLevel = WeaponDurabilityLevel.Durable;
+								DurabilityLevel = DurabilityLevel.Durable;
 								AccuracyLevel = WeaponAccuracyLevel.Accurate;
 								break;
 							}
 						case CraftResource.ShadowIron:
 							{
 								Identified = true;
-								DurabilityLevel = WeaponDurabilityLevel.Durable;
+								DurabilityLevel = DurabilityLevel.Durable;
 								DamageLevel = WeaponDamageLevel.Ruin;
 								break;
 							}
 						case CraftResource.Copper:
 							{
 								Identified = true;
-								DurabilityLevel = WeaponDurabilityLevel.Fortified;
+								DurabilityLevel = DurabilityLevel.Fortified;
 								DamageLevel = WeaponDamageLevel.Ruin;
 								AccuracyLevel = WeaponAccuracyLevel.Surpassingly;
 								break;
@@ -3248,7 +3248,7 @@ namespace Server.Items
 						case CraftResource.Bronze:
 							{
 								Identified = true;
-								DurabilityLevel = WeaponDurabilityLevel.Fortified;
+								DurabilityLevel = DurabilityLevel.Fortified;
 								DamageLevel = WeaponDamageLevel.Might;
 								AccuracyLevel = WeaponAccuracyLevel.Surpassingly;
 								break;
@@ -3256,7 +3256,7 @@ namespace Server.Items
 						case CraftResource.Gold:
 							{
 								Identified = true;
-								DurabilityLevel = WeaponDurabilityLevel.Indestructible;
+								DurabilityLevel = DurabilityLevel.Indestructible;
 								DamageLevel = WeaponDamageLevel.Force;
 								AccuracyLevel = WeaponAccuracyLevel.Eminently;
 								break;
@@ -3264,7 +3264,7 @@ namespace Server.Items
 						case CraftResource.Agapite:
 							{
 								Identified = true;
-								DurabilityLevel = WeaponDurabilityLevel.Indestructible;
+								DurabilityLevel = DurabilityLevel.Indestructible;
 								DamageLevel = WeaponDamageLevel.Power;
 								AccuracyLevel = WeaponAccuracyLevel.Eminently;
 								break;
@@ -3272,7 +3272,7 @@ namespace Server.Items
 						case CraftResource.Verite:
 							{
 								Identified = true;
-								DurabilityLevel = WeaponDurabilityLevel.Indestructible;
+								DurabilityLevel = DurabilityLevel.Indestructible;
 								DamageLevel = WeaponDamageLevel.Power;
 								AccuracyLevel = WeaponAccuracyLevel.Exceedingly;
 								break;
@@ -3280,7 +3280,7 @@ namespace Server.Items
 						case CraftResource.Valorite:
 							{
 								Identified = true;
-								DurabilityLevel = WeaponDurabilityLevel.Indestructible;
+								DurabilityLevel = DurabilityLevel.Indestructible;
 								DamageLevel = WeaponDamageLevel.Vanq;
 								AccuracyLevel = WeaponAccuracyLevel.Supremely;
 								break;

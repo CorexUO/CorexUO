@@ -1,15 +1,5 @@
 namespace Server.Items
 {
-	public enum ArmorDurabilityLevel
-	{
-		Regular,
-		Durable,
-		Substantial,
-		Massive,
-		Fortified,
-		Indestructible
-	}
-
 	public enum ArmorProtectionLevel
 	{
 		Regular,

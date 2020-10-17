@@ -613,7 +613,7 @@ namespace Server.Items
 					{
 						weapon.DamageLevel = (WeaponDamageLevel)Utility.Random(6);
 						weapon.AccuracyLevel = (WeaponAccuracyLevel)Utility.Random(6);
-						weapon.DurabilityLevel = (WeaponDurabilityLevel)Utility.Random(6);
+						weapon.DurabilityLevel = (DurabilityLevel)Utility.Random(6);
 					}
 
 					DropItem(item);
@@ -634,7 +634,7 @@ namespace Server.Items
 					else
 					{
 						armor.ProtectionLevel = (ArmorProtectionLevel)Utility.Random(6);
-						armor.Durability = (ArmorDurabilityLevel)Utility.Random(6);
+						armor.Durability = (DurabilityLevel)Utility.Random(6);
 					}
 
 					DropItem(item);

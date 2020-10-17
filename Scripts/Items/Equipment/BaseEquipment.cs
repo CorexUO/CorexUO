@@ -75,7 +75,7 @@ namespace Server.Items
 
 				if (this is BaseArmor armor)
 				{
-					if (armor.Durability != ArmorDurabilityLevel.Regular)
+					if (armor.Durability != DurabilityLevel.Regular)
 						attrs.Add(new EquipInfoAttribute(1038000 + (int)armor.Durability));
 
 					if (armor.ProtectionLevel > ArmorProtectionLevel.Regular && armor.ProtectionLevel <= ArmorProtectionLevel.Invulnerability)
@@ -83,7 +83,7 @@ namespace Server.Items
 				}
 				else if (this is BaseWeapon weapon)
 				{
-					if (weapon.DurabilityLevel != WeaponDurabilityLevel.Regular)
+					if (weapon.DurabilityLevel != DurabilityLevel.Regular)
 						attrs.Add(new EquipInfoAttribute(1038000 + (int)weapon.DurabilityLevel));
 
 					if (weapon.DamageLevel != WeaponDamageLevel.Regular)
@@ -96,11 +96,11 @@ namespace Server.Items
 			else
 			{
 				//Maybe need to improve this
-				if (this is BaseArmor armor && (armor.Durability != ArmorDurabilityLevel.Regular || (armor.ProtectionLevel > ArmorProtectionLevel.Regular && armor.ProtectionLevel <= ArmorProtectionLevel.Invulnerability)))
+				if (this is BaseArmor armor && (armor.Durability != DurabilityLevel.Regular || (armor.ProtectionLevel > ArmorProtectionLevel.Regular && armor.ProtectionLevel <= ArmorProtectionLevel.Invulnerability)))
 				{
 					attrs.Add(new EquipInfoAttribute(1038000)); // Unidentified
 				}
-				else if (this is BaseWeapon weapon && (weapon.Slayer != SlayerName.None || weapon.Slayer2 != SlayerName.None || weapon.DurabilityLevel != WeaponDurabilityLevel.Regular || weapon.DamageLevel != WeaponDamageLevel.Regular || weapon.AccuracyLevel != WeaponAccuracyLevel.Regular))
+				else if (this is BaseWeapon weapon && (weapon.Slayer != SlayerName.None || weapon.Slayer2 != SlayerName.None || weapon.DurabilityLevel != DurabilityLevel.Regular || weapon.DamageLevel != WeaponDamageLevel.Regular || weapon.AccuracyLevel != WeaponAccuracyLevel.Regular))
 				{
 					attrs.Add(new EquipInfoAttribute(1038000)); // Unidentified
 				}

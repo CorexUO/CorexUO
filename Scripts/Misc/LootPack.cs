@@ -680,7 +680,7 @@ namespace Server
 								weapon.DamageLevel = (WeaponDamageLevel)GetRandomOldBonus();
 
 							if (40 > Utility.Random(100))
-								weapon.DurabilityLevel = (WeaponDurabilityLevel)GetRandomOldBonus();
+								weapon.DurabilityLevel = (DurabilityLevel)GetRandomOldBonus();
 
 							if (5 > Utility.Random(100))
 								weapon.Slayer = SlayerName.Silver;
@@ -694,7 +694,7 @@ namespace Server
 								armor.ProtectionLevel = (ArmorProtectionLevel)GetRandomOldBonus();
 
 							if (40 > Utility.Random(100))
-								armor.Durability = (ArmorDurabilityLevel)GetRandomOldBonus();
+								armor.Durability = (DurabilityLevel)GetRandomOldBonus();
 						}
 					}
 				}

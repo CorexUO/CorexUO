@@ -2,13 +2,6 @@ using System;
 
 namespace Server
 {
-	public enum ItemQuality
-	{
-		Low,
-		Normal,
-		Exceptional
-	}
-
 	public abstract partial class BaseItem : Item
 	{
 		[Flags]

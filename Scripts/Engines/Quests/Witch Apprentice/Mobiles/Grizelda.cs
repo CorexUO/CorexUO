@@ -122,7 +122,7 @@ namespace Server.Engines.Quests.Hag
                                     {
                                         weapon.DamageLevel = (WeaponDamageLevel)BaseCreature.RandomMinMaxScaled(2, 3);
                                         weapon.AccuracyLevel = (WeaponAccuracyLevel)BaseCreature.RandomMinMaxScaled(2, 3);
-                                        weapon.DurabilityLevel = (WeaponDurabilityLevel)BaseCreature.RandomMinMaxScaled(2, 3);
+                                        weapon.DurabilityLevel = (DurabilityLevel)BaseCreature.RandomMinMaxScaled(2, 3);
                                     }
 
                                     cont.DropItem(weapon);
@@ -146,7 +146,7 @@ namespace Server.Engines.Quests.Hag
                                         item = armor;
 
                                         armor.ProtectionLevel = (ArmorProtectionLevel)BaseCreature.RandomMinMaxScaled(2, 3);
-                                        armor.Durability = (ArmorDurabilityLevel)BaseCreature.RandomMinMaxScaled(2, 3);
+                                        armor.Durability = (DurabilityLevel)BaseCreature.RandomMinMaxScaled(2, 3);
                                     }
 
                                     cont.DropItem(item);

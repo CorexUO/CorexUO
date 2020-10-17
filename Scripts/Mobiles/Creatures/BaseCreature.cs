@@ -4093,7 +4093,7 @@ namespace Server.Mobiles
 					return false;
 
 				armor.ProtectionLevel = (ArmorProtectionLevel)RandomMinMaxScaled(minLevel, maxLevel);
-				armor.Durability = (ArmorDurabilityLevel)RandomMinMaxScaled(minLevel, maxLevel);
+				armor.Durability = (DurabilityLevel)RandomMinMaxScaled(minLevel, maxLevel);
 
 				PackItem(armor);
 			}
@@ -4255,7 +4255,7 @@ namespace Server.Mobiles
 
 				weapon.DamageLevel = (WeaponDamageLevel)RandomMinMaxScaled(minLevel, maxLevel);
 				weapon.AccuracyLevel = (WeaponAccuracyLevel)RandomMinMaxScaled(minLevel, maxLevel);
-				weapon.DurabilityLevel = (WeaponDurabilityLevel)RandomMinMaxScaled(minLevel, maxLevel);
+				weapon.DurabilityLevel = (DurabilityLevel)RandomMinMaxScaled(minLevel, maxLevel);
 
 				PackItem(weapon);
 			}

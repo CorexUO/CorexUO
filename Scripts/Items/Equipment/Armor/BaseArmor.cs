@@ -47,7 +47,7 @@ namespace Server.Items
 		private int m_MaxHitPoints;
 		private int m_HitPoints;
 		private Mobile m_Crafter;
-		private ArmorDurabilityLevel m_Durability;
+		private DurabilityLevel m_Durability;
 		private ArmorProtectionLevel m_Protection;
 		private CraftResource m_Resource;
 		private bool m_PlayerConstructed;
@@ -308,7 +308,7 @@ namespace Server.Items
 		}
 
 		[CommandProperty(AccessLevel.GameMaster)]
-		public ArmorDurabilityLevel Durability
+		public DurabilityLevel Durability
 		{
 			get { return m_Durability; }
 			set { UnscaleDurability(); m_Durability = value; ScaleDurability(); InvalidateProperties(); }
@@ -505,11 +505,11 @@ namespace Server.Items
 
 			switch (m_Durability)
 			{
-				case ArmorDurabilityLevel.Durable: bonus += 20; break;
-				case ArmorDurabilityLevel.Substantial: bonus += 50; break;
-				case ArmorDurabilityLevel.Massive: bonus += 70; break;
-				case ArmorDurabilityLevel.Fortified: bonus += 100; break;
-				case ArmorDurabilityLevel.Indestructible: bonus += 120; break;
+				case DurabilityLevel.Durable: bonus += 20; break;
+				case DurabilityLevel.Substantial: bonus += 50; break;
+				case DurabilityLevel.Massive: bonus += 70; break;
+				case DurabilityLevel.Fortified: bonus += 100; break;
+				case DurabilityLevel.Indestructible: bonus += 120; break;
 			}
 
 			if (Core.AOS)
@@ -711,7 +711,7 @@ namespace Server.Items
 			Utility.SetSaveFlag(ref flags, SaveFlag.MaxHitPoints, m_MaxHitPoints != 0);
 			Utility.SetSaveFlag(ref flags, SaveFlag.HitPoints, m_HitPoints != 0);
 			Utility.SetSaveFlag(ref flags, SaveFlag.Crafter, m_Crafter != null);
-			Utility.SetSaveFlag(ref flags, SaveFlag.Durability, m_Durability != ArmorDurabilityLevel.Regular);
+			Utility.SetSaveFlag(ref flags, SaveFlag.Durability, m_Durability != DurabilityLevel.Regular);
 			Utility.SetSaveFlag(ref flags, SaveFlag.Protection, m_Protection != ArmorProtectionLevel.Regular);
 			Utility.SetSaveFlag(ref flags, SaveFlag.Resource, m_Resource != DefaultResource);
 			Utility.SetSaveFlag(ref flags, SaveFlag.BaseArmor, m_ArmorBase != -1);
@@ -834,10 +834,10 @@ namespace Server.Items
 
 						if (flags.HasFlag(SaveFlag.Durability))
 						{
-							m_Durability = (ArmorDurabilityLevel)reader.ReadEncodedInt();
+							m_Durability = (DurabilityLevel)reader.ReadEncodedInt();
 
-							if (m_Durability > ArmorDurabilityLevel.Indestructible)
-								m_Durability = ArmorDurabilityLevel.Durable;
+							if (m_Durability > DurabilityLevel.Indestructible)
+								m_Durability = DurabilityLevel.Durable;
 						}
 
 						if (flags.HasFlag(SaveFlag.Protection))
@@ -923,7 +923,7 @@ namespace Server.Items
 
 		public BaseArmor(int itemID) : base(itemID)
 		{
-			m_Durability = ArmorDurabilityLevel.Regular;
+			m_Durability = DurabilityLevel.Regular;
 			m_Crafter = null;
 
 			m_Resource = DefaultResource;
