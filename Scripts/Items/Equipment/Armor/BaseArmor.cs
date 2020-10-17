@@ -8,7 +8,7 @@ using AMT = Server.Items.ArmorMaterialType;
 
 namespace Server.Items
 {
-	public abstract class BaseArmor : BaseEquipment, IScissorable, IFactionItem, ICraftable, IWearableDurability, ICraftResource
+	public abstract class BaseArmor : BaseEquipment, IScissorable, IFactionItem, ICraftable, IWearableDurability, IResource
 	{
 		#region Factions
 		private FactionItem m_FactionState;

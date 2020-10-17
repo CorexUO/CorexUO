@@ -4,7 +4,7 @@ using Server.Multis;
 
 namespace Server.Items
 {
-    public abstract class BaseAddonContainer : BaseContainer, IChopable, IAddon, ICraftResource
+    public abstract class BaseAddonContainer : BaseContainer, IChopable, IAddon, IResource
 	{
         public override bool DisplayWeight { get { return false; } }
 

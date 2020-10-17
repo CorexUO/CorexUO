@@ -3,7 +3,7 @@ using Server.Items;
 
 namespace Server
 {
-	public interface ICraftResource
+	public interface IResource
 	{
 		public CraftResource Resource { get; set; }
 	}

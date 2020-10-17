@@ -152,7 +152,6 @@ namespace Server.Items
 			return 0;
 		}
 
-
 		public virtual string GetNameString()
 		{
 			string name = this.Name;

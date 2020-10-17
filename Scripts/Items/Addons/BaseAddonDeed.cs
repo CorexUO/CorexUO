@@ -4,7 +4,7 @@ using Server.Targeting;
 namespace Server.Items
 {
 	[Flipable(0x14F0, 0x14EF)]
-	public abstract class BaseAddonDeed : BaseItem, ICraftResource
+	public abstract class BaseAddonDeed : BaseItem, IResource
 	{
 		public abstract BaseAddon Addon
 		{

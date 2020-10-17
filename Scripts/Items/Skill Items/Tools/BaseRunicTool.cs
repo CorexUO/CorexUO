@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace Server.Items
 {
-	public abstract class BaseRunicTool : BaseTool, ICraftResource
+	public abstract class BaseRunicTool : BaseTool, IResource
 	{
 		private CraftResource m_Resource;
 
