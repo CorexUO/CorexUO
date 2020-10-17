@@ -239,13 +239,14 @@ namespace Server.Items
 
 			m_Entries.RemoveAt(index);
 
-			RecallRune rune = new RecallRune();
-
-			rune.Target = e.Location;
-			rune.TargetMap = e.Map;
-			rune.Description = e.Description;
-			rune.House = e.House;
-			rune.Marked = true;
+			RecallRune rune = new RecallRune
+			{
+				Target = e.Location,
+				TargetMap = e.Map,
+				Description = e.Description,
+				House = e.House,
+				Marked = true
+			};
 
 			from.AddToBackpack(rune);
 
@@ -260,9 +261,7 @@ namespace Server.Items
 			{
 				foreach (Gump gump in ns.Gumps)
 				{
-					RunebookGump bookGump = gump as RunebookGump;
-
-					if (bookGump != null && bookGump.Book == this)
+					if (gump is RunebookGump bookGump && bookGump.Book == this)
 					{
 						return true;
 					}
@@ -347,9 +346,7 @@ namespace Server.Items
 
 		public override void OnAfterDuped(Item newItem)
 		{
-			Runebook book = newItem as Runebook;
-
-			if (book == null)
+			if (!(newItem is Runebook book))
 				return;
 
 			book.m_Entries = new List<RunebookEntry>();
@@ -377,7 +374,7 @@ namespace Server.Items
 
 		public override bool OnDragDrop(Mobile from, Item dropped)
 		{
-			if (dropped is RecallRune)
+			if (dropped is RecallRune recallRune)
 			{
 				if (IsLockedDown && from.AccessLevel < AccessLevel.GameMaster)
 				{
@@ -389,7 +386,7 @@ namespace Server.Items
 				}
 				else if (m_Entries.Count < 16)
 				{
-					RecallRune rune = (RecallRune)dropped;
+					RecallRune rune = recallRune;
 
 					if (rune.Marked && rune.TargetMap != null)
 					{
@@ -451,7 +448,9 @@ namespace Server.Items
 
 		public ItemQuality OnCraft(ItemQuality quality, bool makersMark, Mobile from, CraftSystem craftSystem, Type typeRes, BaseTool tool, CraftItem craftItem, int resHue)
 		{
-			int charges = 5 + (int)quality + (int)(from.Skills[SkillName.Inscribe].Value / 30);
+			Quality = quality;
+
+			int charges = 5 + (int)Quality + (int)(from.Skills[SkillName.Inscribe].Value / 30);
 
 			if (charges > 10)
 				charges = 10;
@@ -461,8 +460,6 @@ namespace Server.Items
 			if (makersMark)
 				Crafter = from;
 
-			Quality = quality;
-
 			return quality;
 		}
 
@@ -471,10 +468,10 @@ namespace Server.Items
 
 	public class RunebookEntry
 	{
-		private Point3D m_Location;
-		private Map m_Map;
-		private string m_Description;
-		private BaseHouse m_House;
+		private readonly Point3D m_Location;
+		private readonly Map m_Map;
+		private readonly string m_Description;
+		private readonly BaseHouse m_House;
 
 		public Point3D Location
 		{
