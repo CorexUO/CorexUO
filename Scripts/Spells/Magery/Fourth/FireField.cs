@@ -150,7 +150,7 @@ namespace Server.Spells.Fourth
 			{
 				base.Serialize(writer);
 
-				writer.Write((int)2); // version
+				writer.Write((int)0); // version
 
 				writer.Write(m_Damage);
 				writer.Write(m_Caster);
@@ -165,19 +165,11 @@ namespace Server.Spells.Fourth
 
 				switch (version)
 				{
-					case 2:
-						{
-							m_Damage = reader.ReadInt();
-							goto case 1;
-						}
-					case 1:
-						{
-							m_Caster = reader.ReadMobile();
-
-							goto case 0;
-						}
 					case 0:
 						{
+							m_Damage = reader.ReadInt();
+							m_Caster = reader.ReadMobile();
+
 							m_End = reader.ReadDeltaTime();
 
 							m_Timer = new InternalTimer(this, TimeSpan.Zero, true, true);

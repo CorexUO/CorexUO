@@ -2405,7 +2405,7 @@ namespace Server.Multis
 		{
 			base.Serialize(writer);
 
-			writer.Write((int)15); // version
+			writer.Write((int)0); // version
 
 			if (!DynamicDecay.Enabled)
 			{
@@ -2461,16 +2461,7 @@ namespace Server.Multis
 
 			writer.Write(m_Public);
 
-			//writer.Write( BanLocation );
-
 			writer.Write(m_Owner);
-
-			// Version 5 no longer serializes region coords
-			/*writer.Write( (int)m_Region.Coords.Count );
-			foreach( Rectangle2D rect in m_Region.Coords )
-			{
-				writer.Write( rect );
-			}*/
 
 			writer.WriteMobileList(m_CoOwners, true);
 			writer.WriteMobileList(m_Friends, true);
@@ -2481,7 +2472,6 @@ namespace Server.Multis
 
 			writer.WriteItemList(m_Doors, true);
 			writer.WriteItemList(m_LockDowns, true);
-			//writer.WriteItemList( m_Secures, true );
 
 			writer.Write((int)m_MaxLockDowns);
 			writer.Write((int)m_MaxSecures);
@@ -2517,7 +2507,7 @@ namespace Server.Multis
 
 			switch (version)
 			{
-				case 15:
+				case 0:
 					{
 						int stage = reader.ReadInt();
 
@@ -2527,17 +2517,8 @@ namespace Server.Multis
 							m_NextDecayStage = reader.ReadDateTime();
 							loadedDynamicDecay = true;
 						}
-
-						goto case 14;
-					}
-				case 14:
-					{
 						m_RelativeBanLocation = reader.ReadPoint3D();
-						goto case 13;
-					}
-				case 13: // removed ban location serialization
-				case 12:
-					{
+
 						m_VendorRentalContracts = reader.ReadItemList();
 						m_InternalizedVendors = reader.ReadMobileList();
 
@@ -2558,44 +2539,20 @@ namespace Server.Multis
 							m_VendorInventories.Add(inventory);
 						}
 
-						goto case 11;
-					}
-				case 11:
-					{
 						m_LastRefreshed = reader.ReadDateTime();
 						m_RestrictDecay = reader.ReadBool();
-						goto case 10;
-					}
-				case 10: // just a signal for updates
-				case 9:
-					{
+
 						m_Visits = reader.ReadInt();
-						goto case 8;
-					}
-				case 8:
-					{
+
 						m_Price = reader.ReadInt();
-						goto case 7;
-					}
-				case 7:
-					{
+
 						m_Access = reader.ReadMobileList();
-						goto case 6;
-					}
-				case 6:
-					{
+
 						m_BuiltOn = reader.ReadDateTime();
 						m_LastTraded = reader.ReadDateTime();
-						goto case 5;
-					}
-				case 5: // just removed fields
-				case 4:
-					{
+
 						m_Addons = reader.ReadItemList();
-						goto case 3;
-					}
-				case 3:
-					{
+
 						count = reader.ReadInt();
 						m_Secures = new ArrayList(count);
 
@@ -2610,48 +2567,9 @@ namespace Server.Multis
 							}
 						}
 
-						goto case 2;
-					}
-				case 2:
-					{
 						m_Public = reader.ReadBool();
-						goto case 1;
-					}
-				case 1:
-					{
-						if (version < 13)
-							reader.ReadPoint3D(); // house ban location
-						goto case 0;
-					}
-				case 0:
-					{
-						if (version < 14)
-							m_RelativeBanLocation = this.BaseBanLocation;
-
-						if (version < 12)
-						{
-							m_VendorRentalContracts = new ArrayList();
-							m_InternalizedVendors = new ArrayList();
-						}
-
-						if (version < 4)
-							m_Addons = new ArrayList();
-
-						if (version < 7)
-							m_Access = new ArrayList();
-
-						if (version < 8)
-							m_Price = DefaultPrice;
 
 						m_Owner = reader.ReadMobile();
-
-						if (version < 5)
-						{
-							count = reader.ReadInt();
-
-							for (int i = 0; i < count; i++)
-								reader.ReadRect2D();
-						}
 
 						UpdateRegion();
 
@@ -2670,23 +2588,6 @@ namespace Server.Multis
 
 						for (int i = 0; i < m_VendorRentalContracts.Count; ++i)
 							((Item)m_VendorRentalContracts[i]).IsLockedDown = true;
-
-						if (version < 3)
-						{
-							ArrayList items = reader.ReadItemList();
-							m_Secures = new ArrayList(items.Count);
-
-							for (int i = 0; i < items.Count; ++i)
-							{
-								Container c = items[i] as Container;
-
-								if (c != null)
-								{
-									c.IsSecure = true;
-									m_Secures.Add(new SecureInfo(c, SecureLevel.CoOwners));
-								}
-							}
-						}
 
 						m_MaxLockDowns = reader.ReadInt();
 						m_MaxSecures = reader.ReadInt();
@@ -2707,21 +2608,6 @@ namespace Server.Multis
 					}
 			}
 
-			if (version <= 1)
-				ChangeSignType(0xBD2);//private house, plain brass sign
-
-			if (version < 10)
-			{
-				/* NOTE: This can exceed the house lockdown limit. It must be this way, because
-				 * we do not want players' items to decay without them knowing. Or not even
-				 * having a chance to fix it themselves.
-				 */
-
-				Timer.DelayCall(TimeSpan.Zero, new TimerCallback(FixLockdowns_Sandbox));
-			}
-
-			if (version < 11)
-				m_LastRefreshed = DateTime.UtcNow + TimeSpan.FromHours(24 * Utility.RandomDouble());
 
 			if (DynamicDecay.Enabled && !loadedDynamicDecay)
 			{

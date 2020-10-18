@@ -137,7 +137,7 @@ namespace Server.Spells.Fifth
 			{
 				base.Serialize(writer);
 
-				writer.Write((int)1); // version
+				writer.Write((int)0); // version
 
 				writer.Write(m_Caster);
 				writer.WriteDeltaTime(m_End);
@@ -151,14 +151,10 @@ namespace Server.Spells.Fifth
 
 				switch (version)
 				{
-					case 1:
+					case 0:
 						{
 							m_Caster = reader.ReadMobile();
 
-							goto case 0;
-						}
-					case 0:
-						{
 							m_End = reader.ReadDeltaTime();
 
 							m_Timer = new InternalTimer(this, TimeSpan.Zero, true, true);

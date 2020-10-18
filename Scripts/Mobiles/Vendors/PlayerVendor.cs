@@ -333,7 +333,7 @@ namespace Server.Mobiles
 		{
 			base.Serialize(writer);
 
-			writer.Write((int)2); // version
+			writer.Write((int)0); // version
 
 			writer.Write((bool)BaseHouse.NewVendorSystem);
 			writer.Write((string)m_ShopName);
@@ -365,18 +365,13 @@ namespace Server.Mobiles
 
 			switch (version)
 			{
-				case 2:
-				case 1:
+				case 0:
 					{
 						newVendorSystem = reader.ReadBool();
 						m_ShopName = reader.ReadString();
 						m_NextPayTime = reader.ReadDeltaTime();
 						House = (BaseHouse)reader.ReadItem();
 
-						goto case 0;
-					}
-				case 0:
-					{
 						m_Owner = reader.ReadMobile();
 						m_BankAccount = reader.ReadInt();
 						m_HoldGold = reader.ReadInt();
@@ -408,30 +403,6 @@ namespace Server.Mobiles
 			}
 
 			bool newVendorSystemActivated = BaseHouse.NewVendorSystem && !newVendorSystem;
-
-			if (version < 1 || newVendorSystemActivated)
-			{
-				if (version < 1)
-				{
-					m_ShopName = "Shop Not Yet Named";
-					Timer.DelayCall(TimeSpan.Zero, new TimerStateCallback(UpgradeFromVersion0), newVendorSystemActivated);
-				}
-				else
-				{
-					Timer.DelayCall(TimeSpan.Zero, new TimerCallback(FixDresswear));
-				}
-
-				m_NextPayTime = DateTime.UtcNow + PayTimer.GetInterval();
-
-				if (newVendorSystemActivated)
-				{
-					m_HoldGold += m_BankAccount;
-					m_BankAccount = 0;
-				}
-			}
-
-			if (version < 2 && RawStr == 75 && RawDex == 75 && RawInt == 75)
-				InitStats(100, 100, 25);
 
 			TimeSpan delay = m_NextPayTime - DateTime.UtcNow;
 

@@ -989,7 +989,7 @@ namespace Server
 		{
 			m_Total = 0;
 
-			writer.Write((int)3); // version
+			writer.Write((int)0); // version
 
 			writer.Write((int)m_Cap);
 			writer.Write((int)m_Skills.Length);
@@ -1031,21 +1031,9 @@ namespace Server
 
 			switch (version)
 			{
-				case 3:
-				case 2:
+				case 0:
 					{
 						m_Cap = reader.ReadInt();
-
-						goto case 1;
-					}
-				case 1:
-					{
-						if (version < 2)
-							m_Cap = 7000;
-
-						if (version < 3)
-							/*m_Total =*/
-							reader.ReadInt();
 
 						SkillInfo[] info = SkillInfo.Table;
 
@@ -1070,17 +1058,7 @@ namespace Server
 								new Skill(this, null, reader);
 							}
 						}
-
-						//for ( int i = count; i < info.Length; ++i )
-						//	m_Skills[i] = new Skill( this, info[i], 0, 1000, SkillLock.Up );
-
 						break;
-					}
-				case 0:
-					{
-						reader.ReadInt();
-
-						goto case 1;
 					}
 			}
 		}

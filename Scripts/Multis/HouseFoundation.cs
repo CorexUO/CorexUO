@@ -694,7 +694,7 @@ namespace Server.Multis
 
 		public override void Serialize(GenericWriter writer)
 		{
-			writer.Write((int)5); // version
+			writer.Write((int)0); // version
 
 			writer.Write(m_Signpost);
 			writer.Write((int)m_SignpostGraphic);
@@ -713,50 +713,20 @@ namespace Server.Multis
 			base.Serialize(writer);
 		}
 
-		private int m_DefaultPrice;
-
-		public override int DefaultPrice { get { return m_DefaultPrice; } }
-
 		public override void Deserialize(GenericReader reader)
 		{
 			int version = reader.ReadInt();
 
 			switch (version)
 			{
-				case 5:
-				case 4:
+				case 0:
 					{
 						m_Signpost = reader.ReadItem();
 						m_SignpostGraphic = reader.ReadInt();
 
-						goto case 3;
-					}
-				case 3:
-					{
 						m_Type = (FoundationType)reader.ReadInt();
 
-						goto case 2;
-					}
-				case 2:
-					{
 						m_SignHanger = reader.ReadItem();
-
-						goto case 1;
-					}
-				case 1:
-					{
-						if (version < 5)
-							m_DefaultPrice = reader.ReadInt();
-
-						goto case 0;
-					}
-				case 0:
-					{
-						if (version < 3)
-							m_Type = FoundationType.Stone;
-
-						if (version < 4)
-							m_SignpostGraphic = 9;
 
 						m_LastRevision = reader.ReadInt();
 						m_Fixtures = reader.ReadStrongItemList();

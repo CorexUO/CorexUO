@@ -215,7 +215,7 @@ namespace Server.Multis
 		{
 			base.Serialize(writer);
 
-			writer.Write((int)3);
+			writer.Write((int)0);
 
 			writer.Write((Item)m_MapItem);
 			writer.Write((int)m_NextNavPoint);
@@ -243,41 +243,14 @@ namespace Server.Multis
 
 			switch (version)
 			{
-				case 3:
+				case 0:
 					{
 						m_MapItem = (MapItem)reader.ReadItem();
 						m_NextNavPoint = reader.ReadInt();
 
-						goto case 2;
-					}
-				case 2:
-					{
 						m_Facing = (Direction)reader.ReadInt();
 
-						goto case 1;
-					}
-				case 1:
-					{
 						m_DecayTime = reader.ReadDeltaTime();
-
-						goto case 0;
-					}
-				case 0:
-					{
-						if (version < 3)
-							m_NextNavPoint = -1;
-
-						if (version < 2)
-						{
-							if (ItemID == NorthID)
-								m_Facing = Direction.North;
-							else if (ItemID == SouthID)
-								m_Facing = Direction.South;
-							else if (ItemID == EastID)
-								m_Facing = Direction.East;
-							else if (ItemID == WestID)
-								m_Facing = Direction.West;
-						}
 
 						m_Owner = reader.ReadMobile();
 						m_PPlank = reader.ReadItem() as Plank;
@@ -286,9 +259,6 @@ namespace Server.Multis
 						m_Hold = reader.ReadItem() as Hold;
 						m_Anchored = reader.ReadBool();
 						m_ShipName = reader.ReadString();
-
-						if (version < 1)
-							Refresh();
 
 						break;
 					}

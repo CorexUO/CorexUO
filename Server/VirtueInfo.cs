@@ -88,7 +88,6 @@ namespace Server
 
 			switch (version)
 			{
-				case 1: //Changed the values throughout the virtue system
 				case 0:
 					{
 						int mask = reader.ReadByte();
@@ -105,22 +104,11 @@ namespace Server
 						break;
 					}
 			}
-
-			if (version == 0)
-			{
-				Compassion *= 200;
-				Sacrifice *= 250;   //Even though 40 (the max) only gives 10k, It's because it was formerly too easy
-
-				//No direct conversion factor for Justice, this is just an approximation
-				Justice *= 500;
-
-				//All the other virtues haven't been defined at 'version 0' point in time in the scripts.
-			}
 		}
 
 		public static void Serialize(GenericWriter writer, VirtueInfo info)
 		{
-			writer.Write((byte)1); // version
+			writer.Write((byte)0); // version
 
 			if (info.m_Values == null)
 			{

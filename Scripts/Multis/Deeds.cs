@@ -88,10 +88,9 @@ namespace Server.Multis.Deeds
 		{
 			base.Serialize(writer);
 
-			writer.Write((int)1); // version
+			writer.Write((int)0); // version
 
 			writer.Write(m_Offset);
-
 			writer.Write(m_MultiID);
 		}
 
@@ -106,11 +105,6 @@ namespace Server.Multis.Deeds
 				case 1:
 					{
 						m_Offset = reader.ReadPoint3D();
-
-						goto case 0;
-					}
-				case 0:
-					{
 						m_MultiID = reader.ReadInt();
 
 						break;

@@ -138,7 +138,7 @@ namespace Server.Spells.Third
 			{
 				base.Serialize(writer);
 
-				writer.Write((int)1); // version
+				writer.Write((int)0); // version
 
 				writer.WriteDeltaTime(m_End);
 			}
@@ -151,23 +151,12 @@ namespace Server.Spells.Third
 
 				switch (version)
 				{
-					case 1:
+					case 0:
 						{
 							m_End = reader.ReadDeltaTime();
 
 							m_Timer = new InternalTimer(this, m_End - DateTime.UtcNow);
 							m_Timer.Start();
-
-							break;
-						}
-					case 0:
-						{
-							TimeSpan duration = TimeSpan.FromSeconds(10.0);
-
-							m_Timer = new InternalTimer(this, duration);
-							m_Timer.Start();
-
-							m_End = DateTime.UtcNow + duration;
 
 							break;
 						}

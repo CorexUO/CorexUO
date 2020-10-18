@@ -38,7 +38,7 @@ namespace Server.Multis
 		{
 			base.Serialize(writer);
 
-			writer.Write((int)1); // version
+			writer.Write((int)0); // version
 
 			writer.Write(m_MultiID);
 			writer.Write(m_Offset);
@@ -53,15 +53,11 @@ namespace Server.Multis
 
 			switch (version)
 			{
-				case 1:
 				case 0:
 					{
 						m_MultiID = reader.ReadInt();
 						m_Offset = reader.ReadPoint3D();
 						m_ShipName = reader.ReadString();
-
-						if (version == 0)
-							reader.ReadUInt();
 
 						break;
 					}

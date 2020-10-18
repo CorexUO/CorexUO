@@ -83,7 +83,7 @@ namespace Server.Items
 		{
 			base.Serialize(writer);
 
-			writer.Write((int)1); // version
+			writer.Write((int)0); // version
 
 			writer.Write((int)m_Level);
 
@@ -98,13 +98,10 @@ namespace Server.Items
 
 			switch (version)
 			{
-				case 1:
-					{
-						m_Level = (SecureLevel)reader.ReadInt();
-						goto case 0;
-					}
 				case 0:
 					{
+						m_Level = (SecureLevel)reader.ReadInt();
+
 						m_Target = reader.ReadItem();
 
 						if (version < 0)

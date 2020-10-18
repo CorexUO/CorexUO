@@ -170,7 +170,7 @@ namespace Server.Multis
 		{
 			base.Serialize(writer);
 
-			writer.Write((int)1); // version
+			writer.Write((int)0); // version
 
 			writer.Write(m_Prisoner);
 		}
@@ -183,15 +183,9 @@ namespace Server.Multis
 
 			switch (version)
 			{
-				case 1:
-					{
-						m_Prisoner = reader.ReadMobile();
-						break;
-					}
 				case 0:
 					{
 						m_Prisoner = reader.ReadMobile();
-						reader.ReadItem();
 						break;
 					}
 			}
