@@ -185,7 +185,7 @@ namespace Server.Engines.BulkOrders
 		{
 			base.Serialize(writer);
 
-			writer.Write((int)2); // version
+			writer.Write((int)0); // version
 
 			writer.Write((int)m_ItemCount);
 
@@ -226,18 +226,12 @@ namespace Server.Engines.BulkOrders
 
 			switch (version)
 			{
-				case 2:
-					{
-						m_ItemCount = reader.ReadInt();
-						goto case 1;
-					}
-				case 1:
-					{
-						m_Level = (SecureLevel)reader.ReadInt();
-						goto case 0;
-					}
 				case 0:
 					{
+						m_ItemCount = reader.ReadInt();
+
+						m_Level = (SecureLevel)reader.ReadInt();
+
 						m_BookName = reader.ReadString();
 
 						m_Filter = new BOBFilter(reader);

@@ -952,7 +952,7 @@ namespace Server.Items
 		{
 			base.Serialize(writer);
 
-			writer.Write((int)2); // version
+			writer.Write((int)0); // version
 		}
 
 		public override void Deserialize(GenericReader reader)
@@ -960,12 +960,6 @@ namespace Server.Items
 			base.Deserialize(reader);
 
 			int version = reader.ReadInt();
-
-			if (version == 0 && Weight == 15)
-				Weight = -1;
-
-			if (version < 2)
-				GumpID = 0x10B;
 		}
 	}
 

@@ -405,7 +405,7 @@ namespace Server.Items
 		{
 			base.Serialize(writer);
 
-			writer.Write((int)2); // version
+			writer.Write((int)0); // version
 
 			writer.Write(m_Guardians, true);
 			writer.Write((bool)m_Temporary);
@@ -425,27 +425,16 @@ namespace Server.Items
 
 			switch (version)
 			{
-				case 2:
+				case 0:
 					{
 						m_Guardians = reader.ReadStrongMobileList();
 						m_Temporary = reader.ReadBool();
 
-						goto case 1;
-					}
-				case 1:
-					{
 						m_Owner = reader.ReadMobile();
 
-						goto case 0;
-					}
-				case 0:
-					{
 						m_Level = reader.ReadInt();
 						m_DeleteTime = reader.ReadDeltaTime();
 						m_Lifted = reader.ReadStrongItemList();
-
-						if (version < 2)
-							m_Guardians = new List<Mobile>();
 
 						break;
 					}
