@@ -70,7 +70,7 @@ namespace Server.Items
 		{
 			base.Serialize(writer);
 
-			writer.Write((int)1); // version
+			writer.Write((int)0); // version
 
 			writer.Write((string)m_Dipper);
 		}
@@ -83,14 +83,9 @@ namespace Server.Items
 
 			switch (version)
 			{
-				case 1:
-					{
-						m_Dipper = reader.ReadString();
-						break;
-					}
 				case 0:
 					{
-						m_Dipper = m_StaffNames[Utility.Random(m_StaffNames.Length)];
+						m_Dipper = reader.ReadString();
 						break;
 					}
 			}

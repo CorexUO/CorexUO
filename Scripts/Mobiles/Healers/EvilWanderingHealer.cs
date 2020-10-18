@@ -61,7 +61,7 @@ namespace Server.Mobiles
 		{
 			base.Serialize(writer);
 
-			writer.Write((int)1); // version
+			writer.Write((int)0); // version
 		}
 
 		public override void Deserialize(GenericReader reader)
@@ -69,9 +69,6 @@ namespace Server.Mobiles
 			base.Deserialize(reader);
 
 			int version = reader.ReadInt();
-
-			if (version < 1 && Title == "the wandering healer" && Core.AOS)
-				Title = "the priest of Mondain";
 		}
 	}
 }

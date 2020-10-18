@@ -345,7 +345,7 @@ namespace Server.Items
 		{
 			base.Serialize(writer);
 
-			writer.WriteEncodedInt((int)1); // version
+			writer.WriteEncodedInt((int)0); // version
 
 			writer.WriteEncodedInt((int)m_Recharges);
 
@@ -362,13 +362,9 @@ namespace Server.Items
 
 			switch (version)
 			{
-				case 1:
-					{
-						m_Recharges = reader.ReadEncodedInt();
-						goto case 0;
-					}
 				case 0:
 					{
+						m_Recharges = reader.ReadEncodedInt();
 						m_Charges = Math.Min(reader.ReadEncodedInt(), MaxCharges);
 						this.Pet = (BaseCreature)reader.ReadMobile();
 						m_PetName = reader.ReadString();

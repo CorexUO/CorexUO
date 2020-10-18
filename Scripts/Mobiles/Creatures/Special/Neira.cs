@@ -279,7 +279,7 @@ namespace Server.Mobiles
 		{
 			base.Serialize(writer);
 
-			writer.Write((int)1); // version
+			writer.Write((int)0); // version
 			writer.Write(m_SpeedBoost);
 		}
 
@@ -291,7 +291,7 @@ namespace Server.Mobiles
 
 			switch (version)
 			{
-				case 1:
+				case 0:
 					{
 						m_SpeedBoost = reader.ReadBool();
 						break;

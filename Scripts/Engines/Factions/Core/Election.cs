@@ -508,7 +508,7 @@ namespace Server.Factions
 
 			switch (version)
 			{
-				case 1:
+				case 0:
 					{
 						m_Mobile = reader.ReadMobile();
 
@@ -523,10 +523,6 @@ namespace Server.Factions
 								m_Voters.Add(voter);
 						}
 
-						break;
-					}
-				case 0:
-					{
 						m_Mobile = reader.ReadMobile();
 
 						List<Mobile> mobs = reader.ReadStrongMobileList();
@@ -542,7 +538,7 @@ namespace Server.Factions
 
 		public void Serialize(GenericWriter writer)
 		{
-			writer.WriteEncodedInt((int)1); // version
+			writer.WriteEncodedInt((int)0); // version
 
 			writer.Write((Mobile)m_Mobile);
 

@@ -536,7 +536,7 @@ namespace Server.Mobiles
 		{
 			base.Serialize(writer);
 
-			writer.WriteEncodedInt((int)1); // version
+			writer.WriteEncodedInt((int)0); // version
 
 			writer.Write((int)m_Type);
 
@@ -550,10 +550,7 @@ namespace Server.Mobiles
 
 			int version = reader.ReadEncodedInt();
 
-			if (version >= 1)
-			{
-				m_Type = (StatueType)reader.ReadInt();
-			}
+			m_Type = (StatueType)reader.ReadInt();
 
 			m_Statue = reader.ReadMobile() as CharacterStatue;
 			m_IsRewardItem = reader.ReadBool();

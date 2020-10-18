@@ -511,7 +511,7 @@ namespace Server.Mobiles
 		{
 			base.Serialize(writer);
 
-			writer.Write((int)1); // version;
+			writer.Write((int)0); // version;
 
 			writer.Write((Item)m_House);
 
@@ -533,14 +533,10 @@ namespace Server.Mobiles
 
 			switch (version)
 			{
-				case 1:
+				case 0:
 					{
 						House = (BaseHouse)reader.ReadItem();
 
-						goto case 0;
-					}
-				case 0:
-					{
 						m_Owner = reader.ReadMobile();
 
 						m_Rumors = new BarkeeperRumor[reader.ReadEncodedInt()];

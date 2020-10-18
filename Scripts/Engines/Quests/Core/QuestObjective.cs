@@ -6,271 +6,268 @@ using Server.Network;
 
 namespace Server.Engines.Quests
 {
-    public abstract class QuestObjective
-    {
-        private QuestSystem m_System;
-        private bool m_HasBeenRead;
-        private int m_CurProgress;
-        private bool m_HasCompleted;
+	public abstract class QuestObjective
+	{
+		private QuestSystem m_System;
+		private bool m_HasBeenRead;
+		private int m_CurProgress;
+		private bool m_HasCompleted;
 
-        public abstract object Message { get; }
+		public abstract object Message { get; }
 
-        public virtual int MaxProgress { get { return 1; } }
-        public virtual QuestItemInfo[] Info { get { return null; } }
+		public virtual int MaxProgress { get { return 1; } }
+		public virtual QuestItemInfo[] Info { get { return null; } }
 
-        public QuestSystem System
-        {
-            get { return m_System; }
-            set { m_System = value; }
-        }
+		public QuestSystem System
+		{
+			get { return m_System; }
+			set { m_System = value; }
+		}
 
-        public bool HasBeenRead
-        {
-            get { return m_HasBeenRead; }
-            set { m_HasBeenRead = value; }
-        }
+		public bool HasBeenRead
+		{
+			get { return m_HasBeenRead; }
+			set { m_HasBeenRead = value; }
+		}
 
-        public int CurProgress
-        {
-            get { return m_CurProgress; }
-            set { m_CurProgress = value; CheckCompletionStatus(); }
-        }
+		public int CurProgress
+		{
+			get { return m_CurProgress; }
+			set { m_CurProgress = value; CheckCompletionStatus(); }
+		}
 
-        public bool HasCompleted
-        {
-            get { return m_HasCompleted; }
-            set { m_HasCompleted = value; }
-        }
+		public bool HasCompleted
+		{
+			get { return m_HasCompleted; }
+			set { m_HasCompleted = value; }
+		}
 
-        public virtual bool Completed
-        {
-            get { return m_CurProgress >= MaxProgress; }
-        }
+		public virtual bool Completed
+		{
+			get { return m_CurProgress >= MaxProgress; }
+		}
 
-        public bool IsSingleObjective
-        {
-            get { return (MaxProgress == 1); }
-        }
+		public bool IsSingleObjective
+		{
+			get { return (MaxProgress == 1); }
+		}
 
-        public QuestObjective()
-        {
-        }
+		public QuestObjective()
+		{
+		}
 
-        public virtual void BaseDeserialize(GenericReader reader)
-        {
-            int version = reader.ReadEncodedInt();
+		public virtual void BaseDeserialize(GenericReader reader)
+		{
+			int version = reader.ReadEncodedInt();
 
-            switch (version)
-            {
-                case 1:
-                    {
-                        m_HasBeenRead = reader.ReadBool();
-                        goto case 0;
-                    }
-                case 0:
-                    {
-                        m_CurProgress = reader.ReadEncodedInt();
-                        m_HasCompleted = reader.ReadBool();
+			switch (version)
+			{
+				case 0:
+					{
+						m_HasBeenRead = reader.ReadBool();
 
-                        break;
-                    }
-            }
+						m_CurProgress = reader.ReadEncodedInt();
+						m_HasCompleted = reader.ReadBool();
 
-            ChildDeserialize(reader);
-        }
+						break;
+					}
+			}
 
-        public virtual void ChildDeserialize(GenericReader reader)
-        {
-            int version = reader.ReadEncodedInt();
-        }
+			ChildDeserialize(reader);
+		}
 
-        public virtual void BaseSerialize(GenericWriter writer)
-        {
-            writer.WriteEncodedInt((int)1); // version
+		public virtual void ChildDeserialize(GenericReader reader)
+		{
+			int version = reader.ReadEncodedInt();
+		}
 
-            writer.Write((bool)m_HasBeenRead);
-            writer.WriteEncodedInt((int)m_CurProgress);
-            writer.Write((bool)m_HasCompleted);
+		public virtual void BaseSerialize(GenericWriter writer)
+		{
+			writer.WriteEncodedInt((int)0); // version
 
-            ChildSerialize(writer);
-        }
+			writer.Write((bool)m_HasBeenRead);
+			writer.WriteEncodedInt((int)m_CurProgress);
+			writer.Write((bool)m_HasCompleted);
 
-        public virtual void ChildSerialize(GenericWriter writer)
-        {
-            writer.WriteEncodedInt((int)0); // version
-        }
+			ChildSerialize(writer);
+		}
 
-        public virtual void Complete()
-        {
-            CurProgress = MaxProgress;
-        }
+		public virtual void ChildSerialize(GenericWriter writer)
+		{
+			writer.WriteEncodedInt((int)0); // version
+		}
 
-        public virtual void RenderMessage(BaseQuestGump gump)
-        {
-            gump.AddHtmlObject(70, 130, 300, 100, this.Message, BaseQuestGump.Blue, false, false);
-        }
+		public virtual void Complete()
+		{
+			CurProgress = MaxProgress;
+		}
 
-        public virtual void RenderProgress(BaseQuestGump gump)
-        {
-            gump.AddHtmlObject(70, 260, 270, 100, this.Completed ? 1049077 : 1049078, BaseQuestGump.Blue, false, false);
-        }
+		public virtual void RenderMessage(BaseQuestGump gump)
+		{
+			gump.AddHtmlObject(70, 130, 300, 100, this.Message, BaseQuestGump.Blue, false, false);
+		}
 
-        public virtual void CheckCompletionStatus()
-        {
-            if (Completed && !HasCompleted)
-            {
-                HasCompleted = true;
-                OnComplete();
-            }
-        }
+		public virtual void RenderProgress(BaseQuestGump gump)
+		{
+			gump.AddHtmlObject(70, 260, 270, 100, this.Completed ? 1049077 : 1049078, BaseQuestGump.Blue, false, false);
+		}
 
-        public virtual void OnRead()
-        {
-        }
+		public virtual void CheckCompletionStatus()
+		{
+			if (Completed && !HasCompleted)
+			{
+				HasCompleted = true;
+				OnComplete();
+			}
+		}
 
-        public virtual bool GetTimerEvent()
-        {
-            return !Completed;
-        }
+		public virtual void OnRead()
+		{
+		}
 
-        public virtual void CheckProgress()
-        {
-        }
+		public virtual bool GetTimerEvent()
+		{
+			return !Completed;
+		}
 
-        public virtual void OnComplete()
-        {
-        }
+		public virtual void CheckProgress()
+		{
+		}
 
-        public virtual bool GetKillEvent(BaseCreature creature, Container corpse)
-        {
-            return !Completed;
-        }
+		public virtual void OnComplete()
+		{
+		}
 
-        public virtual void OnKill(BaseCreature creature, Container corpse)
-        {
-        }
+		public virtual bool GetKillEvent(BaseCreature creature, Container corpse)
+		{
+			return !Completed;
+		}
 
-        public virtual bool IgnoreYoungProtection(Mobile from)
-        {
-            return false;
-        }
-    }
+		public virtual void OnKill(BaseCreature creature, Container corpse)
+		{
+		}
 
-    public class QuestLogUpdatedGump : BaseQuestGump
-    {
-        private QuestSystem m_System;
+		public virtual bool IgnoreYoungProtection(Mobile from)
+		{
+			return false;
+		}
+	}
 
-        public QuestLogUpdatedGump(QuestSystem system) : base(3, 30)
-        {
-            m_System = system;
+	public class QuestLogUpdatedGump : BaseQuestGump
+	{
+		private QuestSystem m_System;
 
-            AddPage(0);
+		public QuestLogUpdatedGump(QuestSystem system) : base(3, 30)
+		{
+			m_System = system;
 
-            AddImage(20, 5, 1417);
+			AddPage(0);
 
-            AddHtmlLocalized(0, 78, 120, 40, 1049079, White, false, false); // Quest Log Updated
+			AddImage(20, 5, 1417);
 
-            AddImageTiled(0, 78, 120, 40, 2624);
-            AddAlphaRegion(0, 78, 120, 40);
+			AddHtmlLocalized(0, 78, 120, 40, 1049079, White, false, false); // Quest Log Updated
 
-            AddButton(30, 15, 5575, 5576, 1, GumpButtonType.Reply, 0);
-        }
+			AddImageTiled(0, 78, 120, 40, 2624);
+			AddAlphaRegion(0, 78, 120, 40);
 
-        public override void OnResponse(NetState sender, RelayInfo info)
-        {
-            if (info.ButtonID == 1)
-                m_System.ShowQuestLog();
-        }
-    }
+			AddButton(30, 15, 5575, 5576, 1, GumpButtonType.Reply, 0);
+		}
 
-    public class QuestObjectivesGump : BaseQuestGump
-    {
-        private ArrayList m_Objectives;
+		public override void OnResponse(NetState sender, RelayInfo info)
+		{
+			if (info.ButtonID == 1)
+				m_System.ShowQuestLog();
+		}
+	}
 
-        public QuestObjectivesGump(QuestObjective obj) : this(BuildList(obj))
-        {
-        }
+	public class QuestObjectivesGump : BaseQuestGump
+	{
+		private ArrayList m_Objectives;
 
-        public QuestObjectivesGump(ArrayList objectives) : base(90, 50)
-        {
-            m_Objectives = objectives;
+		public QuestObjectivesGump(QuestObjective obj) : this(BuildList(obj))
+		{
+		}
 
-            Closable = false;
+		public QuestObjectivesGump(ArrayList objectives) : base(90, 50)
+		{
+			m_Objectives = objectives;
 
-            AddPage(0);
+			Closable = false;
 
-            AddImage(0, 0, 3600);
-            AddImageTiled(0, 14, 15, 375, 3603);
-            AddImageTiled(380, 14, 14, 375, 3605);
-            AddImage(0, 376, 3606);
-            AddImageTiled(15, 376, 370, 16, 3607);
-            AddImageTiled(15, 0, 370, 16, 3601);
-            AddImage(380, 0, 3602);
-            AddImage(380, 376, 3608);
+			AddPage(0);
 
-            AddImageTiled(15, 15, 365, 365, 2624);
-            AddAlphaRegion(15, 15, 365, 365);
+			AddImage(0, 0, 3600);
+			AddImageTiled(0, 14, 15, 375, 3603);
+			AddImageTiled(380, 14, 14, 375, 3605);
+			AddImage(0, 376, 3606);
+			AddImageTiled(15, 376, 370, 16, 3607);
+			AddImageTiled(15, 0, 370, 16, 3601);
+			AddImage(380, 0, 3602);
+			AddImage(380, 376, 3608);
 
-            AddImage(20, 87, 1231);
-            AddImage(75, 62, 9307);
+			AddImageTiled(15, 15, 365, 365, 2624);
+			AddAlphaRegion(15, 15, 365, 365);
 
-            AddHtmlLocalized(117, 35, 230, 20, 1046026, Blue, false, false); // Quest Log
+			AddImage(20, 87, 1231);
+			AddImage(75, 62, 9307);
 
-            AddImage(77, 33, 9781);
-            AddImage(65, 110, 2104);
+			AddHtmlLocalized(117, 35, 230, 20, 1046026, Blue, false, false); // Quest Log
 
-            AddHtmlLocalized(79, 106, 230, 20, 1049073, Blue, false, false); // Objective:
+			AddImage(77, 33, 9781);
+			AddImage(65, 110, 2104);
 
-            AddImageTiled(68, 125, 120, 1, 9101);
-            AddImage(65, 240, 2104);
+			AddHtmlLocalized(79, 106, 230, 20, 1049073, Blue, false, false); // Objective:
 
-            AddHtmlLocalized(79, 237, 230, 20, 1049076, Blue, false, false); // Progress details:
+			AddImageTiled(68, 125, 120, 1, 9101);
+			AddImage(65, 240, 2104);
 
-            AddImageTiled(68, 255, 120, 1, 9101);
-            AddButton(175, 355, 2313, 2312, 1, GumpButtonType.Reply, 0);
+			AddHtmlLocalized(79, 237, 230, 20, 1049076, Blue, false, false); // Progress details:
 
-            AddImage(341, 15, 10450);
-            AddImage(341, 330, 10450);
-            AddImage(15, 330, 10450);
-            AddImage(15, 15, 10450);
+			AddImageTiled(68, 255, 120, 1, 9101);
+			AddButton(175, 355, 2313, 2312, 1, GumpButtonType.Reply, 0);
 
-            AddPage(1);
+			AddImage(341, 15, 10450);
+			AddImage(341, 330, 10450);
+			AddImage(15, 330, 10450);
+			AddImage(15, 15, 10450);
 
-            for (int i = 0; i < objectives.Count; ++i)
-            {
-                QuestObjective obj = (QuestObjective)objectives[objectives.Count - 1 - i];
+			AddPage(1);
 
-                if (i > 0)
-                {
-                    AddButton(55, 346, 9909, 9911, 0, GumpButtonType.Page, 1 + i);
-                    AddHtmlLocalized(82, 347, 50, 20, 1043354, White, false, false); // Previous
+			for (int i = 0; i < objectives.Count; ++i)
+			{
+				QuestObjective obj = (QuestObjective)objectives[objectives.Count - 1 - i];
 
-                    AddPage(1 + i);
-                }
+				if (i > 0)
+				{
+					AddButton(55, 346, 9909, 9911, 0, GumpButtonType.Page, 1 + i);
+					AddHtmlLocalized(82, 347, 50, 20, 1043354, White, false, false); // Previous
 
-                obj.RenderMessage(this);
-                obj.RenderProgress(this);
+					AddPage(1 + i);
+				}
 
-                if (i > 0)
-                {
-                    AddButton(317, 346, 9903, 9905, 0, GumpButtonType.Page, i);
-                    AddHtmlLocalized(278, 347, 50, 20, 1043353, White, false, false); // Next
-                }
-            }
-        }
+				obj.RenderMessage(this);
+				obj.RenderProgress(this);
 
-        public override void OnResponse(NetState sender, RelayInfo info)
-        {
-            for (int i = m_Objectives.Count - 1; i >= 0; --i)
-            {
-                QuestObjective obj = (QuestObjective)m_Objectives[i];
+				if (i > 0)
+				{
+					AddButton(317, 346, 9903, 9905, 0, GumpButtonType.Page, i);
+					AddHtmlLocalized(278, 347, 50, 20, 1043353, White, false, false); // Next
+				}
+			}
+		}
 
-                if (!obj.HasBeenRead)
-                {
-                    obj.HasBeenRead = true;
-                    obj.OnRead();
-                }
-            }
-        }
-    }
+		public override void OnResponse(NetState sender, RelayInfo info)
+		{
+			for (int i = m_Objectives.Count - 1; i >= 0; --i)
+			{
+				QuestObjective obj = (QuestObjective)m_Objectives[i];
+
+				if (!obj.HasBeenRead)
+				{
+					obj.HasBeenRead = true;
+					obj.OnRead();
+				}
+			}
+		}
+	}
 }

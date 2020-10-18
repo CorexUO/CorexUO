@@ -4,183 +4,155 @@ using Server.Network;
 
 namespace Server.Items
 {
-    public abstract class SpecialScroll : BaseItem
-    {
-        private SkillName m_Skill;
-        private double m_Value;
+	public abstract class SpecialScroll : BaseItem
+	{
+		private SkillName m_Skill;
+		private double m_Value;
 
-        #region Old Item Serialization Vars
-        /* DO NOT USE! Only used in serialization of special scrolls that originally derived from Item */
-        private bool m_InheritsItem;
+		public abstract int Message { get; }
+		public virtual int Title { get { return 0; } }
+		public abstract string DefaultTitle { get; }
 
-        protected bool InheritsItem
-        {
-            get { return m_InheritsItem; }
-        }
-        #endregion
+		public SpecialScroll(SkillName skill, double value) : base(0x14F0)
+		{
+			LootType = LootType.Cursed;
+			Weight = 1.0;
 
-        public abstract int Message { get; }
-        public virtual int Title { get { return 0; } }
-        public abstract string DefaultTitle { get; }
+			m_Skill = skill;
+			m_Value = value;
+		}
 
-        public SpecialScroll(SkillName skill, double value) : base(0x14F0)
-        {
-            LootType = LootType.Cursed;
-            Weight = 1.0;
+		public SpecialScroll(Serial serial) : base(serial)
+		{
+		}
 
-            m_Skill = skill;
-            m_Value = value;
-        }
+		[CommandProperty(AccessLevel.GameMaster)]
+		public SkillName Skill
+		{
+			get { return m_Skill; }
+			set { m_Skill = value; }
+		}
 
-        public SpecialScroll(Serial serial) : base(serial)
-        {
-        }
+		[CommandProperty(AccessLevel.GameMaster)]
+		public double Value
+		{
+			get { return m_Value; }
+			set { m_Value = value; }
+		}
 
-        [CommandProperty(AccessLevel.GameMaster)]
-        public SkillName Skill
-        {
-            get { return m_Skill; }
-            set { m_Skill = value; }
-        }
+		public virtual string GetNameLocalized()
+		{
+			return String.Concat("#", AosSkillBonuses.GetLabel(m_Skill).ToString());
+		}
 
-        [CommandProperty(AccessLevel.GameMaster)]
-        public double Value
-        {
-            get { return m_Value; }
-            set { m_Value = value; }
-        }
+		public virtual string GetName()
+		{
+			int index = (int)m_Skill;
+			SkillInfo[] table = SkillInfo.Table;
 
-        public virtual string GetNameLocalized()
-        {
-            return String.Concat("#", AosSkillBonuses.GetLabel(m_Skill).ToString());
-        }
+			if (index >= 0 && index < table.Length)
+				return table[index].Name.ToLower();
+			else
+				return "???";
+		}
 
-        public virtual string GetName()
-        {
-            int index = (int)m_Skill;
-            SkillInfo[] table = SkillInfo.Table;
+		public virtual bool CanUse(Mobile from)
+		{
+			if (Deleted)
+				return false;
 
-            if (index >= 0 && index < table.Length)
-                return table[index].Name.ToLower();
-            else
-                return "???";
-        }
+			if (!IsChildOf(from.Backpack))
+			{
+				from.SendLocalizedMessage(1042001); // That must be in your pack for you to use it.
+				return false;
+			}
 
-        public virtual bool CanUse(Mobile from)
-        {
-            if (Deleted)
-                return false;
+			return true;
+		}
 
-            if (!IsChildOf(from.Backpack))
-            {
-                from.SendLocalizedMessage(1042001); // That must be in your pack for you to use it.
-                return false;
-            }
+		public virtual void Use(Mobile from)
+		{
+		}
 
-            return true;
-        }
+		public override void OnDoubleClick(Mobile from)
+		{
+			if (!CanUse(from))
+				return;
 
-        public virtual void Use(Mobile from)
-        {
-        }
+			from.CloseGump(typeof(SpecialScroll.InternalGump));
+			from.SendGump(new InternalGump(from, this));
+		}
 
-        public override void OnDoubleClick(Mobile from)
-        {
-            if (!CanUse(from))
-                return;
+		public override void Serialize(GenericWriter writer)
+		{
+			base.Serialize(writer);
 
-            from.CloseGump(typeof(SpecialScroll.InternalGump));
-            from.SendGump(new InternalGump(from, this));
-        }
+			writer.Write((int)0); // version
 
-        public override void Serialize(GenericWriter writer)
-        {
-            base.Serialize(writer);
+			writer.Write((int)m_Skill);
+			writer.Write((double)m_Value);
+		}
 
-            writer.Write((int)1); // version
+		public override void Deserialize(GenericReader reader)
+		{
+			base.Deserialize(reader);
 
-            writer.Write((int)m_Skill);
-            writer.Write((double)m_Value);
-        }
+			int version = reader.ReadInt();
 
-        public override void Deserialize(GenericReader reader)
-        {
-            base.Deserialize(reader);
+			switch (version)
+			{
+				case 0:
+					{
+						m_Skill = (SkillName)reader.ReadInt();
+						m_Value = reader.ReadDouble();
+						break;
+					}
+			}
+		}
 
-            int version = reader.ReadInt();
+		public class InternalGump : Gump
+		{
+			private Mobile m_Mobile;
+			private SpecialScroll m_Scroll;
 
-            switch (version)
-            {
-                case 1:
-                    {
-                        m_Skill = (SkillName)reader.ReadInt();
-                        m_Value = reader.ReadDouble();
-                        break;
-                    }
-                case 0:
-                    {
-                        m_InheritsItem = true;
+			public InternalGump(Mobile mobile, SpecialScroll scroll) : base(25, 50)
+			{
+				m_Mobile = mobile;
+				m_Scroll = scroll;
 
-                        if (!(this is StatCapScroll))
-                            m_Skill = (SkillName)reader.ReadInt();
-                        else
-                            m_Skill = SkillName.Alchemy;
+				AddPage(0);
 
-                        if (this is ScrollofAlacrity)
-                            m_Value = 0.0;
-                        else if (this is StatCapScroll)
-                            m_Value = (double)reader.ReadInt();
-                        else
-                            m_Value = reader.ReadDouble();
+				AddBackground(25, 10, 420, 200, 5054);
 
-                        break;
-                    }
-            }
-        }
+				AddImageTiled(33, 20, 401, 181, 2624);
+				AddAlphaRegion(33, 20, 401, 181);
 
-        public class InternalGump : Gump
-        {
-            private Mobile m_Mobile;
-            private SpecialScroll m_Scroll;
+				AddHtmlLocalized(40, 48, 387, 100, m_Scroll.Message, true, true);
 
-            public InternalGump(Mobile mobile, SpecialScroll scroll) : base(25, 50)
-            {
-                m_Mobile = mobile;
-                m_Scroll = scroll;
+				AddHtmlLocalized(125, 148, 200, 20, 1049478, 0xFFFFFF, false, false); // Do you wish to use this scroll?
 
-                AddPage(0);
+				AddButton(100, 172, 4005, 4007, 1, GumpButtonType.Reply, 0);
+				AddHtmlLocalized(135, 172, 120, 20, 1046362, 0xFFFFFF, false, false); // Yes
 
-                AddBackground(25, 10, 420, 200, 5054);
+				AddButton(275, 172, 4005, 4007, 0, GumpButtonType.Reply, 0);
+				AddHtmlLocalized(310, 172, 120, 20, 1046363, 0xFFFFFF, false, false); // No
 
-                AddImageTiled(33, 20, 401, 181, 2624);
-                AddAlphaRegion(33, 20, 401, 181);
+				if (m_Scroll.Title != 0)
+					AddHtmlLocalized(40, 20, 260, 20, m_Scroll.Title, 0xFFFFFF, false, false);
+				else
+					AddHtml(40, 20, 260, 20, m_Scroll.DefaultTitle, false, false);
 
-                AddHtmlLocalized(40, 48, 387, 100, m_Scroll.Message, true, true);
+				if (m_Scroll is StatCapScroll)
+					AddHtmlLocalized(310, 20, 120, 20, 1038019, 0xFFFFFF, false, false); // Power
+				else
+					AddHtmlLocalized(310, 20, 120, 20, AosSkillBonuses.GetLabel(m_Scroll.Skill), 0xFFFFFF, false, false);
+			}
 
-                AddHtmlLocalized(125, 148, 200, 20, 1049478, 0xFFFFFF, false, false); // Do you wish to use this scroll?
-
-                AddButton(100, 172, 4005, 4007, 1, GumpButtonType.Reply, 0);
-                AddHtmlLocalized(135, 172, 120, 20, 1046362, 0xFFFFFF, false, false); // Yes
-
-                AddButton(275, 172, 4005, 4007, 0, GumpButtonType.Reply, 0);
-                AddHtmlLocalized(310, 172, 120, 20, 1046363, 0xFFFFFF, false, false); // No
-
-                if (m_Scroll.Title != 0)
-                    AddHtmlLocalized(40, 20, 260, 20, m_Scroll.Title, 0xFFFFFF, false, false);
-                else
-                    AddHtml(40, 20, 260, 20, m_Scroll.DefaultTitle, false, false);
-
-                if (m_Scroll is StatCapScroll)
-                    AddHtmlLocalized(310, 20, 120, 20, 1038019, 0xFFFFFF, false, false); // Power
-                else
-                    AddHtmlLocalized(310, 20, 120, 20, AosSkillBonuses.GetLabel(m_Scroll.Skill), 0xFFFFFF, false, false);
-            }
-
-            public override void OnResponse(NetState state, RelayInfo info)
-            {
-                if (info.ButtonID == 1)
-                    m_Scroll.Use(m_Mobile);
-            }
-        }
-    }
+			public override void OnResponse(NetState state, RelayInfo info)
+			{
+				if (info.ButtonID == 1)
+					m_Scroll.Use(m_Mobile);
+			}
+		}
+	}
 }

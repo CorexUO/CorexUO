@@ -219,14 +219,11 @@ namespace Server.Factions
 
 			switch (version)
 			{
-				case 1:
+				case 0:
 					{
 						m_IsActive = reader.ReadBool();
 						m_LastHonorTime = reader.ReadDateTime();
-						goto case 0;
-					}
-				case 0:
-					{
+
 						m_Mobile = reader.ReadMobile();
 
 						m_KillPoints = reader.ReadEncodedInt();
@@ -243,7 +240,7 @@ namespace Server.Factions
 
 		public void Serialize(GenericWriter writer)
 		{
-			writer.WriteEncodedInt((int)1); // version
+			writer.WriteEncodedInt((int)0); // version
 
 			writer.Write(m_IsActive);
 			writer.Write(m_LastHonorTime);

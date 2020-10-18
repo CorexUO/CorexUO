@@ -81,7 +81,7 @@ namespace Server.Mobiles
 		{
 			base.Serialize(writer);
 
-			writer.Write((int)1); // version
+			writer.Write((int)0); // version
 
 			writer.Write(m_NextMountAbility);
 
@@ -100,10 +100,7 @@ namespace Server.Mobiles
 				case 1:
 					{
 						m_NextMountAbility = reader.ReadDateTime();
-						goto case 0;
-					}
-				case 0:
-					{
+
 						m_Rider = reader.ReadMobile();
 						m_InternalItem = reader.ReadItem();
 

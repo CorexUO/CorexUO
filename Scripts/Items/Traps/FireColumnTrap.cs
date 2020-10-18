@@ -76,7 +76,7 @@ namespace Server.Items
 		{
 			base.Serialize(writer);
 
-			writer.Write((int)1); // version
+			writer.Write((int)0); // version
 
 			writer.Write(m_WarningFlame);
 			writer.Write(m_MinDamage);
@@ -91,20 +91,13 @@ namespace Server.Items
 
 			switch (version)
 			{
-				case 1:
+				case 0:
 					{
 						m_WarningFlame = reader.ReadBool();
 						m_MinDamage = reader.ReadInt();
 						m_MaxDamage = reader.ReadInt();
 						break;
 					}
-			}
-
-			if (version == 0)
-			{
-				m_WarningFlame = true;
-				m_MinDamage = 10;
-				m_MaxDamage = 40;
 			}
 		}
 	}
