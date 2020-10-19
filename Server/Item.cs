@@ -545,7 +545,7 @@ namespace Server
 		public static readonly List<Item> EmptyItems = new List<Item>();
 
 		[CommandProperty(AccessLevel.Counselor, true)]
-		public virtual int NameColor { get { return 0x3B2; } }
+		public virtual int DefaultMessageColor { get { return 0x3B2; } }
 
 		public int CompareTo(IEntity other)
 		{
@@ -1303,17 +1303,27 @@ namespace Server
 
 		public void LabelTo(Mobile to, int number)
 		{
-			to.Send(new MessageLocalized(m_Serial, m_ItemID, MessageType.Label, NameColor, 3, number, "", ""));
+			to.Send(new MessageLocalized(m_Serial, m_ItemID, MessageType.Label, DefaultMessageColor, 3, number, "", ""));
+		}
+
+		public void LabelTo(Mobile to, int hue, int number)
+		{
+			to.Send(new MessageLocalized(m_Serial, m_ItemID, MessageType.Label, hue, 3, number, "", ""));
 		}
 
 		public void LabelTo(Mobile to, int number, string args)
 		{
-			to.Send(new MessageLocalized(m_Serial, m_ItemID, MessageType.Label, NameColor, 3, number, "", args));
+			to.Send(new MessageLocalized(m_Serial, m_ItemID, MessageType.Label, DefaultMessageColor, 3, number, "", args));
+		}
+
+		public void LabelTo(Mobile to, int hue, int number, string args)
+		{
+			to.Send(new MessageLocalized(m_Serial, m_ItemID, MessageType.Label, hue, 3, number, "", args));
 		}
 
 		public void LabelTo(Mobile to, string text)
 		{
-			to.Send(new UnicodeMessage(m_Serial, m_ItemID, MessageType.Label, NameColor, 3, "ENU", "", text));
+			to.Send(new UnicodeMessage(m_Serial, m_ItemID, MessageType.Label, DefaultMessageColor, 3, "ENU", "", text));
 		}
 
 		public void LabelTo(Mobile to, string format, params object[] args)
@@ -1323,12 +1333,12 @@ namespace Server
 
 		public void LabelToAffix(Mobile to, int number, AffixType type, string affix)
 		{
-			to.Send(new MessageLocalizedAffix(m_Serial, m_ItemID, MessageType.Label, NameColor, 3, number, "", type, affix, ""));
+			to.Send(new MessageLocalizedAffix(m_Serial, m_ItemID, MessageType.Label, DefaultMessageColor, 3, number, "", type, affix, ""));
 		}
 
 		public void LabelToAffix(Mobile to, int number, AffixType type, string affix, string args)
 		{
-			to.Send(new MessageLocalizedAffix(m_Serial, m_ItemID, MessageType.Label, NameColor, 3, number, "", type, affix, args));
+			to.Send(new MessageLocalizedAffix(m_Serial, m_ItemID, MessageType.Label, DefaultMessageColor, 3, number, "", type, affix, args));
 		}
 
 		public virtual void LabelLootTypeTo(Mobile to)
@@ -4074,7 +4084,7 @@ namespace Server
 			if (Deleted || !to.CanSee(this))
 				return;
 
-			to.Send(new MessageLocalized(Serial, ItemID, MessageType.Regular, NameColor, 3, number, "", ""));
+			to.Send(new MessageLocalized(Serial, ItemID, MessageType.Regular, DefaultMessageColor, 3, number, "", ""));
 		}
 
 		public void SendLocalizedMessageTo(Mobile to, int number, string args)
@@ -4082,7 +4092,7 @@ namespace Server
 			if (Deleted || !to.CanSee(this))
 				return;
 
-			to.Send(new MessageLocalized(Serial, ItemID, MessageType.Regular, NameColor, 3, number, "", args));
+			to.Send(new MessageLocalized(Serial, ItemID, MessageType.Regular, DefaultMessageColor, 3, number, "", args));
 		}
 
 		public void SendLocalizedMessageTo(Mobile to, int number, AffixType affixType, string affix, string args)
@@ -4090,7 +4100,7 @@ namespace Server
 			if (Deleted || !to.CanSee(this))
 				return;
 
-			to.Send(new MessageLocalizedAffix(Serial, ItemID, MessageType.Regular, NameColor, 3, number, "", affixType, affix, args));
+			to.Send(new MessageLocalizedAffix(Serial, ItemID, MessageType.Regular, DefaultMessageColor, 3, number, "", affixType, affix, args));
 		}
 
 		#region OnDoubleClick[...]
@@ -4109,7 +4119,7 @@ namespace Server
 
 		public virtual void OnDoubleClickDead(Mobile from)
 		{
-			from.LocalOverheadMessage(MessageType.Regular, NameColor, 1019048); // I am dead and cannot do that.
+			from.LocalOverheadMessage(MessageType.Regular, DefaultMessageColor, 1019048); // I am dead and cannot do that.
 		}
 
 		public virtual void OnDoubleClickNotAccessible(Mobile from)
@@ -4328,7 +4338,7 @@ namespace Server
 			ObjectPropertyList opl = this.PropertyList;
 
 			if (opl.Header > 0)
-				from.Send(new MessageLocalized(m_Serial, m_ItemID, MessageType.Label, NameColor, 3, opl.Header, this.Name, opl.HeaderArgs));
+				from.Send(new MessageLocalized(m_Serial, m_ItemID, MessageType.Label, DefaultMessageColor, 3, opl.Header, this.Name, opl.HeaderArgs));
 		}
 
 		public virtual void OnSingleClick(Mobile from)
@@ -4346,13 +4356,13 @@ namespace Server
 				if (this.Name == null)
 				{
 					if (m_Amount <= 1)
-						ns.Send(new MessageLocalized(m_Serial, m_ItemID, MessageType.Label, NameColor, 3, LabelNumber, "", ""));
+						ns.Send(new MessageLocalized(m_Serial, m_ItemID, MessageType.Label, DefaultMessageColor, 3, LabelNumber, "", ""));
 					else
-						ns.Send(new MessageLocalizedAffix(m_Serial, m_ItemID, MessageType.Label, NameColor, 3, LabelNumber, "", AffixType.Append, String.Format(" : {0}", m_Amount), ""));
+						ns.Send(new MessageLocalizedAffix(m_Serial, m_ItemID, MessageType.Label, DefaultMessageColor, 3, LabelNumber, "", AffixType.Append, String.Format(" : {0}", m_Amount), ""));
 				}
 				else
 				{
-					ns.Send(new UnicodeMessage(m_Serial, m_ItemID, MessageType.Label, NameColor, 3, "ENU", "", this.Name + (m_Amount > 1 ? " : " + m_Amount : "")));
+					ns.Send(new UnicodeMessage(m_Serial, m_ItemID, MessageType.Label, DefaultMessageColor, 3, "ENU", "", this.Name + (m_Amount > 1 ? " : " + m_Amount : "")));
 				}
 			}
 		}
