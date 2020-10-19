@@ -507,10 +507,10 @@ namespace Server
 				writer.Write(info.m_Location);
 				writer.Write(info.m_WorldLoc);
 
-				if (info.m_Parent is Mobile)
-					writer.Write((Mobile)info.m_Parent);
-				else if (info.m_Parent is Item)
-					writer.Write((Item)info.m_Parent);
+				if (info.m_Parent is Mobile mobile)
+					writer.Write(mobile);
+				else if (info.m_Parent is Item item)
+					writer.Write(item);
 				else
 					writer.Write((Serial)0);
 			}
@@ -543,6 +543,9 @@ namespace Server
 	public class Item : IEntity, IHued, IComparable<Item>, ISerializable, ISpawnable
 	{
 		public static readonly List<Item> EmptyItems = new List<Item>();
+
+		[CommandProperty(AccessLevel.Counselor, true)]
+		public virtual int NameColor { get { return 0x3B2; } }
 
 		public int CompareTo(IEntity other)
 		{
@@ -848,19 +851,15 @@ namespace Server
 				{
 					info.m_Bounce = null;
 
-					if (bounce.m_Parent is Item)
+					if (bounce.m_Parent is Item parentItem)
 					{
-						Item parent = (Item)bounce.m_Parent;
-
-						if (!parent.Deleted)
-							parent.OnItemBounceCleared(this);
+						if (!parentItem.Deleted)
+							parentItem.OnItemBounceCleared(this);
 					}
-					else if (bounce.m_Parent is Mobile)
+					else if (bounce.m_Parent is Mobile parentMob)
 					{
-						Mobile parent = (Mobile)bounce.m_Parent;
-
-						if (!parent.Deleted)
-							parent.OnItemBounceCleared(this);
+						if (!parentMob.Deleted)
+							parentMob.OnItemBounceCleared(this);
 					}
 
 					VerifyCompactInfo();
@@ -1095,10 +1094,10 @@ namespace Server
 		/// </summary>
 		public virtual void GetChildProperties(ObjectPropertyList list, Item item)
 		{
-			if (m_Parent is Item)
-				((Item)m_Parent).GetChildProperties(list, item);
-			else if (m_Parent is Mobile)
-				((Mobile)m_Parent).GetChildProperties(list, item);
+			if (m_Parent is Item parentItem)
+				parentItem.GetChildProperties(list, item);
+			else if (m_Parent is Mobile parentMob)
+				parentMob.GetChildProperties(list, item);
 		}
 
 		/// <summary>
@@ -1106,10 +1105,10 @@ namespace Server
 		/// </summary>
 		public virtual void GetChildNameProperties(ObjectPropertyList list, Item item)
 		{
-			if (m_Parent is Item)
-				((Item)m_Parent).GetChildNameProperties(list, item);
-			else if (m_Parent is Mobile)
-				((Mobile)m_Parent).GetChildNameProperties(list, item);
+			if (m_Parent is Item parentItem)
+				parentItem.GetChildNameProperties(list, item);
+			else if (m_Parent is Mobile parentMob)
+				parentMob.GetChildNameProperties(list, item);
 		}
 
 		public virtual bool IsChildVisibleTo(Mobile m, Item child)
@@ -1119,10 +1118,10 @@ namespace Server
 
 		public void Bounce(Mobile from)
 		{
-			if (m_Parent is Item)
-				((Item)m_Parent).RemoveItem(this);
-			else if (m_Parent is Mobile)
-				((Mobile)m_Parent).RemoveItem(this);
+			if (m_Parent is Item parentItem)
+				parentItem.RemoveItem(this);
+			else if (m_Parent is Mobile parentMob)
+				parentMob.RemoveItem(this);
 
 			m_Parent = null;
 
@@ -1136,9 +1135,8 @@ namespace Server
 				{
 					MoveToWorld(bounce.m_WorldLoc, bounce.m_Map);
 				}
-				else if (parent is Item)
+				else if (parent is Item p)
 				{
-					Item p = (Item)parent;
 					IEntity root = p.RootParent;
 					if (p.IsAccessibleTo(from) && (!(root is Mobile) || ((Mobile)root).CheckNonlocalDrop(from, this, p)))
 					{
@@ -1150,9 +1148,9 @@ namespace Server
 						MoveToWorld(from.Location, from.Map);
 					}
 				}
-				else if (parent is Mobile)
+				else if (parent is Mobile mobile)
 				{
-					if (!((Mobile)parent).EquipItem(this))
+					if (!mobile.EquipItem(this))
 						MoveToWorld(bounce.m_WorldLoc, bounce.m_Map);
 				}
 				else
@@ -1305,17 +1303,17 @@ namespace Server
 
 		public void LabelTo(Mobile to, int number)
 		{
-			to.Send(new MessageLocalized(m_Serial, m_ItemID, MessageType.Label, 0x3B2, 3, number, "", ""));
+			to.Send(new MessageLocalized(m_Serial, m_ItemID, MessageType.Label, NameColor, 3, number, "", ""));
 		}
 
 		public void LabelTo(Mobile to, int number, string args)
 		{
-			to.Send(new MessageLocalized(m_Serial, m_ItemID, MessageType.Label, 0x3B2, 3, number, "", args));
+			to.Send(new MessageLocalized(m_Serial, m_ItemID, MessageType.Label, NameColor, 3, number, "", args));
 		}
 
 		public void LabelTo(Mobile to, string text)
 		{
-			to.Send(new UnicodeMessage(m_Serial, m_ItemID, MessageType.Label, 0x3B2, 3, "ENU", "", text));
+			to.Send(new UnicodeMessage(m_Serial, m_ItemID, MessageType.Label, NameColor, 3, "ENU", "", text));
 		}
 
 		public void LabelTo(Mobile to, string format, params object[] args)
@@ -1325,12 +1323,12 @@ namespace Server
 
 		public void LabelToAffix(Mobile to, int number, AffixType type, string affix)
 		{
-			to.Send(new MessageLocalizedAffix(m_Serial, m_ItemID, MessageType.Label, 0x3B2, 3, number, "", type, affix, ""));
+			to.Send(new MessageLocalizedAffix(m_Serial, m_ItemID, MessageType.Label, NameColor, 3, number, "", type, affix, ""));
 		}
 
 		public void LabelToAffix(Mobile to, int number, AffixType type, string affix, string args)
 		{
-			to.Send(new MessageLocalizedAffix(m_Serial, m_ItemID, MessageType.Label, 0x3B2, 3, number, "", type, affix, args));
+			to.Send(new MessageLocalizedAffix(m_Serial, m_ItemID, MessageType.Label, NameColor, 3, number, "", type, affix, args));
 		}
 
 		public virtual void LabelLootTypeTo(Mobile to)
@@ -1588,8 +1586,8 @@ namespace Server
 
 		public virtual bool OnDragDrop(Mobile from, Item dropped)
 		{
-			if (Parent is Container)
-				return ((Container)Parent).OnStackAttempt(from, this, dropped);
+			if (Parent is Container container)
+				return container.OnStackAttempt(from, this, dropped);
 
 			return StackWith(from, dropped);
 		}
@@ -1641,7 +1639,7 @@ namespace Server
 			set { SetFlag(ImplFlag.Stackable, value); }
 		}
 
-		private object _rpl = new object();
+		private readonly object _rpl = new object();
 
 		public Packet RemovePacket
 		{
@@ -1663,8 +1661,7 @@ namespace Server
 			}
 		}
 
-		private object _opll = new object();
-
+		private readonly object _opll = new object();
 		public Packet OPLPacket
 		{
 			get
@@ -1706,18 +1703,18 @@ namespace Server
 
 		public virtual void AppendChildProperties(ObjectPropertyList list)
 		{
-			if (m_Parent is Item)
-				((Item)m_Parent).GetChildProperties(list, this);
-			else if (m_Parent is Mobile)
-				((Mobile)m_Parent).GetChildProperties(list, this);
+			if (m_Parent is Item parentItem)
+				parentItem.GetChildProperties(list, this);
+			else if (m_Parent is Mobile parentMob)
+				parentMob.GetChildProperties(list, this);
 		}
 
 		public virtual void AppendChildNameProperties(ObjectPropertyList list)
 		{
-			if (m_Parent is Item)
-				((Item)m_Parent).GetChildNameProperties(list, this);
-			else if (m_Parent is Mobile)
-				((Mobile)m_Parent).GetChildNameProperties(list, this);
+			if (m_Parent is Item parentItem)
+				parentItem.GetChildNameProperties(list, this);
+			else if (m_Parent is Mobile parentMob)
+				parentMob.GetChildNameProperties(list, this);
 		}
 
 		public void ClearProperties()
@@ -2771,12 +2768,10 @@ namespace Server
 		{
 			IEntity p = m_Parent;
 
-			while (p is Item)
+			while (p is Item item)
 			{
 				if (p is T)
 					return true;
-
-				Item item = (Item)p;
 
 				if (item.m_Parent == null)
 				{
@@ -2809,13 +2804,13 @@ namespace Server
 				Console.WriteLine(new System.Diagnostics.StackTrace());
 				return;
 			}
-			else if (item.m_Parent is Mobile)
+			else if (item.m_Parent is Mobile parentMob)
 			{
-				((Mobile)item.m_Parent).RemoveItem(item);
+				parentMob.RemoveItem(item);
 			}
-			else if (item.m_Parent is Item)
+			else if (item.m_Parent is Item parentItem)
 			{
-				((Item)item.m_Parent).RemoveItem(item);
+				parentItem.RemoveItem(item);
 			}
 			else
 			{
@@ -3216,10 +3211,10 @@ namespace Server
 
 			SetFlag(ImplFlag.Deleted, true);
 
-			if (Parent is Mobile)
-				((Mobile)Parent).RemoveItem(this);
-			else if (Parent is Item)
-				((Item)Parent).RemoveItem(this);
+			if (Parent is Mobile parentMob)
+				parentMob.RemoveItem(this);
+			else if (Parent is Item parentItem)
+				parentItem.RemoveItem(this);
 
 			ClearBounce();
 
@@ -3590,14 +3585,12 @@ namespace Server
 
 				if (!World.Loading)
 				{
-					if (oldParent is Item)
+					if (oldParent is Item parentItem)
 					{
-						oldParent = ((Item)oldParent).RootParent;
+						oldParent = parentItem.RootParent;
 					}
 
-					Mobile root = RootParent as Mobile;
-
-					if (root != null && oldParent != root)
+					if (RootParent is Mobile root && oldParent != root)
 					{
 						root.OnItemObtained(this);
 					}
@@ -3770,8 +3763,8 @@ namespace Server
 				return false;
 			else if (!from.OnDroppedItemToItem(this, target, p))
 				return false;
-			else if (target is Container && p.m_X != -1 && p.m_Y != -1)
-				return OnDroppedInto(from, (Container)target, p);
+			else if (target is Container container && p.m_X != -1 && p.m_Y != -1)
+				return OnDroppedInto(from, container, p);
 			else
 				return OnDroppedOnto(from, target);
 		}
@@ -4081,7 +4074,7 @@ namespace Server
 			if (Deleted || !to.CanSee(this))
 				return;
 
-			to.Send(new MessageLocalized(Serial, ItemID, MessageType.Regular, 0x3B2, 3, number, "", ""));
+			to.Send(new MessageLocalized(Serial, ItemID, MessageType.Regular, NameColor, 3, number, "", ""));
 		}
 
 		public void SendLocalizedMessageTo(Mobile to, int number, string args)
@@ -4089,7 +4082,7 @@ namespace Server
 			if (Deleted || !to.CanSee(this))
 				return;
 
-			to.Send(new MessageLocalized(Serial, ItemID, MessageType.Regular, 0x3B2, 3, number, "", args));
+			to.Send(new MessageLocalized(Serial, ItemID, MessageType.Regular, NameColor, 3, number, "", args));
 		}
 
 		public void SendLocalizedMessageTo(Mobile to, int number, AffixType affixType, string affix, string args)
@@ -4097,7 +4090,7 @@ namespace Server
 			if (Deleted || !to.CanSee(this))
 				return;
 
-			to.Send(new MessageLocalizedAffix(Serial, ItemID, MessageType.Regular, 0x3B2, 3, number, "", affixType, affix, args));
+			to.Send(new MessageLocalizedAffix(Serial, ItemID, MessageType.Regular, NameColor, 3, number, "", affixType, affix, args));
 		}
 
 		#region OnDoubleClick[...]
@@ -4116,7 +4109,7 @@ namespace Server
 
 		public virtual void OnDoubleClickDead(Mobile from)
 		{
-			from.LocalOverheadMessage(MessageType.Regular, 0x3B2, 1019048); // I am dead and cannot do that.
+			from.LocalOverheadMessage(MessageType.Regular, NameColor, 1019048); // I am dead and cannot do that.
 		}
 
 		public virtual void OnDoubleClickNotAccessible(Mobile from)
@@ -4146,12 +4139,12 @@ namespace Server
 		{
 			object p = this;
 
-			while (p is Item)
+			while (p is Item item)
 			{
-				if (p is SecureTradeContainer)
-					return (SecureTradeContainer)p;
+				if (p is SecureTradeContainer container)
+					return container;
 
-				p = ((Item)p).m_Parent;
+				p = item.m_Parent;
 			}
 
 			return null;
@@ -4159,66 +4152,66 @@ namespace Server
 
 		public virtual void OnItemAdded(Item item)
 		{
-			if (m_Parent is Item)
-				((Item)m_Parent).OnSubItemAdded(item);
-			else if (m_Parent is Mobile)
-				((Mobile)m_Parent).OnSubItemAdded(item);
+			if (m_Parent is Item parentItem)
+				parentItem.OnSubItemAdded(item);
+			else if (m_Parent is Mobile parentMob)
+				parentMob.OnSubItemAdded(item);
 		}
 
 		public virtual void OnItemRemoved(Item item)
 		{
-			if (m_Parent is Item)
-				((Item)m_Parent).OnSubItemRemoved(item);
-			else if (m_Parent is Mobile)
-				((Mobile)m_Parent).OnSubItemRemoved(item);
+			if (m_Parent is Item parentItem)
+				parentItem.OnSubItemRemoved(item);
+			else if (m_Parent is Mobile parentMob)
+				parentMob.OnSubItemRemoved(item);
 		}
 
 		public virtual void OnSubItemAdded(Item item)
 		{
-			if (m_Parent is Item)
-				((Item)m_Parent).OnSubItemAdded(item);
-			else if (m_Parent is Mobile)
-				((Mobile)m_Parent).OnSubItemAdded(item);
+			if (m_Parent is Item parentItem)
+				parentItem.OnSubItemAdded(item);
+			else if (m_Parent is Mobile parentMob)
+				parentMob.OnSubItemAdded(item);
 		}
 
 		public virtual void OnSubItemRemoved(Item item)
 		{
-			if (m_Parent is Item)
-				((Item)m_Parent).OnSubItemRemoved(item);
-			else if (m_Parent is Mobile)
-				((Mobile)m_Parent).OnSubItemRemoved(item);
+			if (m_Parent is Item parentItem)
+				parentItem.OnSubItemRemoved(item);
+			else if (m_Parent is Mobile parentMob)
+				parentMob.OnSubItemRemoved(item);
 		}
 
 		public virtual void OnItemBounceCleared(Item item)
 		{
-			if (m_Parent is Item)
-				((Item)m_Parent).OnSubItemBounceCleared(item);
-			else if (m_Parent is Mobile)
-				((Mobile)m_Parent).OnSubItemBounceCleared(item);
+			if (m_Parent is Item parentItem)
+				parentItem.OnSubItemBounceCleared(item);
+			else if (m_Parent is Mobile parentMob)
+				parentMob.OnSubItemBounceCleared(item);
 		}
 
 		public virtual void OnSubItemBounceCleared(Item item)
 		{
-			if (m_Parent is Item)
-				((Item)m_Parent).OnSubItemBounceCleared(item);
-			else if (m_Parent is Mobile)
-				((Mobile)m_Parent).OnSubItemBounceCleared(item);
+			if (m_Parent is Item parentItem)
+				parentItem.OnSubItemBounceCleared(item);
+			else if (m_Parent is Mobile parentMob)
+				parentMob.OnSubItemBounceCleared(item);
 		}
 
-		public virtual bool CheckTarget(Mobile from, Server.Targeting.Target targ, object targeted)
+		public virtual bool CheckTarget(Mobile from, Targeting.Target targ, object targeted)
 		{
-			if (m_Parent is Item)
-				return ((Item)m_Parent).CheckTarget(from, targ, targeted);
-			else if (m_Parent is Mobile)
-				return ((Mobile)m_Parent).CheckTarget(from, targ, targeted);
+			if (m_Parent is Item parentItem)
+				return parentItem.CheckTarget(from, targ, targeted);
+			else if (m_Parent is Mobile parentMob)
+				return parentMob.CheckTarget(from, targ, targeted);
 
 			return true;
 		}
 
 		public virtual bool IsAccessibleTo(Mobile check)
 		{
-			if (m_Parent is Item)
-				return ((Item)m_Parent).IsAccessibleTo(check);
+			if (m_Parent is Item parentItem)
+				return parentItem.IsAccessibleTo(check);
 
 			Region reg = Region.Find(GetWorldLocation(), m_Map);
 
@@ -4247,10 +4240,8 @@ namespace Server
 			if (p == o)
 				return true;
 
-			while (p is Item)
+			while (p is Item item)
 			{
-				Item item = (Item)p;
-
 				if (item.m_Parent == null)
 				{
 					break;
@@ -4277,10 +4268,10 @@ namespace Server
 
 		public virtual void OnItemUsed(Mobile from, Item item)
 		{
-			if (m_Parent is Item)
-				((Item)m_Parent).OnItemUsed(from, item);
-			else if (m_Parent is Mobile)
-				((Mobile)m_Parent).OnItemUsed(from, item);
+			if (m_Parent is Item parentItem)
+				parentItem.OnItemUsed(from, item);
+			else if (m_Parent is Mobile parentMob)
+				parentMob.OnItemUsed(from, item);
 		}
 
 		public bool CheckItemUse(Mobile from)
@@ -4290,20 +4281,20 @@ namespace Server
 
 		public virtual bool CheckItemUse(Mobile from, Item item)
 		{
-			if (m_Parent is Item)
-				return ((Item)m_Parent).CheckItemUse(from, item);
-			else if (m_Parent is Mobile)
-				return ((Mobile)m_Parent).CheckItemUse(from, item);
+			if (m_Parent is Item parentItem)
+				return parentItem.CheckItemUse(from, item);
+			else if (m_Parent is Mobile parentMob)
+				return parentMob.CheckItemUse(from, item);
 			else
 				return true;
 		}
 
 		public virtual void OnItemLifted(Mobile from, Item item)
 		{
-			if (m_Parent is Item)
-				((Item)m_Parent).OnItemLifted(from, item);
-			else if (m_Parent is Mobile)
-				((Mobile)m_Parent).OnItemLifted(from, item);
+			if (m_Parent is Item parentItem)
+				parentItem.OnItemLifted(from, item);
+			else if (m_Parent is Mobile parentMobile)
+				parentMobile.OnItemLifted(from, item);
 		}
 
 		public bool CheckLift(Mobile from)
@@ -4315,10 +4306,10 @@ namespace Server
 
 		public virtual bool CheckLift(Mobile from, Item item, ref LRReason reject)
 		{
-			if (m_Parent is Item)
-				return ((Item)m_Parent).CheckLift(from, item, ref reject);
-			else if (m_Parent is Mobile)
-				return ((Mobile)m_Parent).CheckLift(from, item, ref reject);
+			if (m_Parent is Item parentItem)
+				return parentItem.CheckLift(from, item, ref reject);
+			else if (m_Parent is Mobile parentMobile)
+				return parentMobile.CheckLift(from, item, ref reject);
 			else
 				return true;
 		}
@@ -4328,8 +4319,8 @@ namespace Server
 
 		public virtual void OnSingleClickContained(Mobile from, Item item)
 		{
-			if (m_Parent is Item)
-				((Item)m_Parent).OnSingleClickContained(from, item);
+			if (m_Parent is Item parent)
+				parent.OnSingleClickContained(from, item);
 		}
 
 		public virtual void OnAosSingleClick(Mobile from)
@@ -4337,7 +4328,7 @@ namespace Server
 			ObjectPropertyList opl = this.PropertyList;
 
 			if (opl.Header > 0)
-				from.Send(new MessageLocalized(m_Serial, m_ItemID, MessageType.Label, 0x3B2, 3, opl.Header, this.Name, opl.HeaderArgs));
+				from.Send(new MessageLocalized(m_Serial, m_ItemID, MessageType.Label, NameColor, 3, opl.Header, this.Name, opl.HeaderArgs));
 		}
 
 		public virtual void OnSingleClick(Mobile from)
@@ -4355,13 +4346,13 @@ namespace Server
 				if (this.Name == null)
 				{
 					if (m_Amount <= 1)
-						ns.Send(new MessageLocalized(m_Serial, m_ItemID, MessageType.Label, 0x3B2, 3, LabelNumber, "", ""));
+						ns.Send(new MessageLocalized(m_Serial, m_ItemID, MessageType.Label, NameColor, 3, LabelNumber, "", ""));
 					else
-						ns.Send(new MessageLocalizedAffix(m_Serial, m_ItemID, MessageType.Label, 0x3B2, 3, LabelNumber, "", AffixType.Append, String.Format(" : {0}", m_Amount), ""));
+						ns.Send(new MessageLocalizedAffix(m_Serial, m_ItemID, MessageType.Label, NameColor, 3, LabelNumber, "", AffixType.Append, String.Format(" : {0}", m_Amount), ""));
 				}
 				else
 				{
-					ns.Send(new UnicodeMessage(m_Serial, m_ItemID, MessageType.Label, 0x3B2, 3, "ENU", "", this.Name + (m_Amount > 1 ? " : " + m_Amount : "")));
+					ns.Send(new UnicodeMessage(m_Serial, m_ItemID, MessageType.Label, NameColor, 3, "ENU", "", this.Name + (m_Amount > 1 ? " : " + m_Amount : "")));
 				}
 			}
 		}
@@ -4405,7 +4396,7 @@ namespace Server
 			if (m_ScissorCopyLootType)
 				newItem.LootType = type;
 
-			if (!(thisParent is Container) || !((Container)thisParent).TryDropItem(from, newItem, false))
+			if (!(thisParent is Container container) || !container.TryDropItem(from, newItem, false))
 				newItem.MoveToWorld(worldLoc, thisMap);
 		}
 
@@ -4424,9 +4415,9 @@ namespace Server
 
 		public virtual void ReplaceWith(Item newItem)
 		{
-			if (m_Parent is Container)
+			if (m_Parent is Container parent)
 			{
-				((Container)m_Parent).AddItem(newItem);
+				parent.AddItem(newItem);
 				newItem.Location = m_Location;
 			}
 			else
