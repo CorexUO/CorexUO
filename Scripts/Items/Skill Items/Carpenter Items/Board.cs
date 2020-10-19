@@ -86,7 +86,7 @@ namespace Server.Items
 		{
 			base.Serialize(writer);
 
-			writer.Write((int)3);
+			writer.Write((int)0);
 
 			writer.Write((int)m_Resource);
 		}
@@ -99,19 +99,12 @@ namespace Server.Items
 
 			switch (version)
 			{
-				case 3:
-				case 2:
+				case 0:
 					{
 						m_Resource = (CraftResource)reader.ReadInt();
 						break;
 					}
 			}
-
-			if ((version == 0 && Weight == 0.1) || (version <= 2 && Weight == 2))
-				Weight = -1;
-
-			if (version <= 1)
-				m_Resource = CraftResource.RegularWood;
 		}
 	}
 

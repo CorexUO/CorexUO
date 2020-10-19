@@ -167,7 +167,7 @@ namespace Server.Items
 		{
 			base.Serialize(writer);
 
-			writer.Write((int)3);
+			writer.Write((int)0);
 
 			writer.Write(m_Crafter);
 
@@ -197,22 +197,12 @@ namespace Server.Items
 
 			switch (version)
 			{
-				case 3:
-					{
-						goto case 2;
-					}
-				case 2:
-					{
-						m_Crafter = reader.ReadMobile();
-						goto case 1;
-					}
-				case 1:
-					{
-						m_Level = (SecureLevel)reader.ReadInt();
-						goto case 0;
-					}
 				case 0:
 					{
+						m_Crafter = reader.ReadMobile();
+
+						m_Level = (SecureLevel)reader.ReadInt();
+
 						int count = reader.ReadInt();
 
 						m_Entries = new List<RunebookEntry>(count);

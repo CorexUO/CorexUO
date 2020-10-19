@@ -186,7 +186,7 @@ namespace Server.Mobiles
 		{
 			base.Serialize(writer);
 
-			writer.Write((int)3); // version
+			writer.Write((int)0); // version
 
 			writer.Write(m_IsDonationItem);
 			writer.Write(m_IsRewardItem);
@@ -205,19 +205,11 @@ namespace Server.Mobiles
 
 			switch (version)
 			{
-				case 3:
-					{
-						m_IsDonationItem = reader.ReadBool();
-						goto case 2;
-					}
-				case 2:
-					{
-						m_IsRewardItem = reader.ReadBool();
-						goto case 0;
-					}
-				case 1: reader.ReadInt(); goto case 0;
 				case 0:
 					{
+						m_IsDonationItem = reader.ReadBool();
+						m_IsRewardItem = reader.ReadBool();
+
 						m_MountedID = reader.ReadInt();
 						m_RegularID = reader.ReadInt();
 						m_Rider = reader.ReadMobile();
@@ -230,9 +222,6 @@ namespace Server.Mobiles
 			}
 
 			AddFollowers();
-
-			if (version < 3 && Weight == 0)
-				Weight = -1;
 		}
 
 		public override DeathMoveResult OnParentDeath(Mobile parent)

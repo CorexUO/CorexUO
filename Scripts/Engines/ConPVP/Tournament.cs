@@ -1551,7 +1551,7 @@ namespace Server.Engines.ConPVP
 
 		public void Serialize(GenericWriter writer)
 		{
-			writer.WriteEncodedInt((int)5); // version
+			writer.WriteEncodedInt((int)0); // version
 
 			writer.Write((bool)m_FactionRestricted);
 
@@ -1576,42 +1576,19 @@ namespace Server.Engines.ConPVP
 
 			switch (version)
 			{
-				case 5:
+				case 0:
 					{
 						m_FactionRestricted = reader.ReadBool();
 
-						goto case 4;
-					}
-				case 4:
-					{
 						m_EventController = reader.ReadItem() as EventController;
 
-						goto case 3;
-					}
-				case 3:
-					{
 						m_SuddenDeathRounds = reader.ReadEncodedInt();
 
-						goto case 2;
-					}
-				case 2:
-					{
 						m_TournyType = (TournyType)reader.ReadEncodedInt();
 
-						goto case 1;
-					}
-				case 1:
-					{
 						m_GroupType = (GroupingType)reader.ReadEncodedInt();
 						m_TieType = (TieType)reader.ReadEncodedInt();
 						m_SignupPeriod = reader.ReadTimeSpan();
-
-						goto case 0;
-					}
-				case 0:
-					{
-						if (version < 3)
-							m_SuddenDeathRounds = 3;
 
 						m_ParticipantsPerMatch = reader.ReadEncodedInt();
 						m_PlayersPerParticipant = reader.ReadEncodedInt();

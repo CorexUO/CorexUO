@@ -893,7 +893,7 @@ namespace Server.Mobiles
 		{
 			base.Serialize(writer);
 
-			writer.Write((int)6); // version
+			writer.Write((int)0); // version
 
 			writer.Write(m_MobilesSeekHome);
 
@@ -949,42 +949,20 @@ namespace Server.Mobiles
 
 			switch (version)
 			{
-				case 6:
+				case 0:
 					{
 						m_MobilesSeekHome = reader.ReadBool();
 						m_UsesSpawnerHome = reader.ReadBool();
-						goto case 5;
-					}
-				case 5:
-					{
+
 						m_SpawnArea = reader.ReadRect2D();
 						m_UsesSpawnerHome = reader.ReadBool();
 
-						goto case 4;
-					}
-				case 4:
-					{
 						m_WalkingRange = reader.ReadInt();
 
-						goto case 3;
-					}
-				case 3:
-				case 2:
-					{
 						m_WayPoint = reader.ReadItem() as WayPoint;
 
-						goto case 1;
-					}
-
-				case 1:
-					{
 						m_Group = reader.ReadBool();
 
-						goto case 0;
-					}
-
-				case 0:
-					{
 						m_MinDelay = reader.ReadTimeSpan();
 						m_MaxDelay = reader.ReadTimeSpan();
 						m_Count = reader.ReadInt();
@@ -1038,9 +1016,6 @@ namespace Server.Mobiles
 						break;
 					}
 			}
-
-			if (version < 3 && Weight == 0)
-				Weight = -1;
 		}
 
 		private class WarnTimer : Timer

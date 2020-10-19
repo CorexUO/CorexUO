@@ -1108,7 +1108,7 @@ namespace Server.Engines.CannedEvil
 		{
 			base.Serialize(writer);
 
-			writer.Write((int)6); // version
+			writer.Write((int)0); // version
 
 			writer.Write((int)m_SPawnSzMod);
 			writer.Write(m_DamageEntries.Count);
@@ -1156,13 +1156,10 @@ namespace Server.Engines.CannedEvil
 
 			switch (version)
 			{
-				case 6:
+				case 0:
 					{
 						m_SPawnSzMod = reader.ReadInt();
-						goto case 5;
-					}
-				case 5:
-					{
+
 						int entries = reader.ReadInt();
 						Mobile m;
 						int damage;
@@ -1177,45 +1174,15 @@ namespace Server.Engines.CannedEvil
 							m_DamageEntries.Add(m, damage);
 						}
 
-						goto case 4;
-					}
-				case 4:
-					{
 						m_ConfinedRoaming = reader.ReadBool();
 						m_Idol = reader.ReadItem<IdolOfTheChampion>();
 						m_HasBeenAdvanced = reader.ReadBool();
 
-						goto case 3;
-					}
-				case 3:
-					{
 						m_SpawnArea = reader.ReadRect2D();
 
-						goto case 2;
-					}
-				case 2:
-					{
 						m_RandomizeType = reader.ReadBool();
 
-						goto case 1;
-					}
-				case 1:
-					{
-						if (version < 3)
-						{
-							int oldRange = reader.ReadInt();
-
-							m_SpawnArea = new Rectangle2D(new Point2D(X - oldRange, Y - oldRange), new Point2D(X + oldRange, Y + oldRange));
-						}
-
 						m_Kills = reader.ReadInt();
-
-						goto case 0;
-					}
-				case 0:
-					{
-						if (version < 1)
-							m_SpawnArea = new Rectangle2D(new Point2D(X - 24, Y - 24), new Point2D(X + 24, Y + 24));    //Default was 24
 
 						bool active = reader.ReadBool();
 						m_Type = (ChampionSpawnType)reader.ReadInt();
@@ -1233,12 +1200,6 @@ namespace Server.Engines.CannedEvil
 						{
 							m_RestartTime = reader.ReadDeltaTime();
 							BeginRestart(m_RestartTime - DateTime.UtcNow);
-						}
-
-						if (version < 4)
-						{
-							m_Idol = new IdolOfTheChampion(this);
-							m_Idol.MoveToWorld(new Point3D(X, Y, Z - 15), Map);
 						}
 
 						if (m_Platform == null || m_Altar == null || m_Idol == null)

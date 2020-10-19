@@ -427,12 +427,11 @@ namespace Server.Items
 		{
 			base.Serialize(writer);
 
-			writer.Write((int)3); // version
+			writer.Write((int)0); // version
 
 			writer.Write(m_ReplenishesCharges);
 			if (m_ReplenishesCharges)
 				writer.Write(m_LastReplenished);
-
 
 			writer.Write(m_Crafter);
 
@@ -453,17 +452,13 @@ namespace Server.Items
 
 			switch (version)
 			{
-				case 3:
+				case 0:
 					{
 						m_ReplenishesCharges = reader.ReadBool();
 
 						if (m_ReplenishesCharges)
 							m_LastReplenished = reader.ReadDateTime();
 
-						goto case 2;
-					}
-				case 2:
-					{
 						m_Crafter = reader.ReadMobile();
 
 						m_Slayer = (SlayerName)reader.ReadEncodedInt();
@@ -473,27 +468,6 @@ namespace Server.Items
 
 						m_WellSound = reader.ReadEncodedInt();
 						m_BadlySound = reader.ReadEncodedInt();
-
-						break;
-					}
-				case 1:
-					{
-						m_Crafter = reader.ReadMobile();
-
-						m_Slayer = (SlayerName)reader.ReadEncodedInt();
-
-						UsesRemaining = reader.ReadEncodedInt();
-
-						m_WellSound = reader.ReadEncodedInt();
-						m_BadlySound = reader.ReadEncodedInt();
-
-						break;
-					}
-				case 0:
-					{
-						m_WellSound = reader.ReadInt();
-						m_BadlySound = reader.ReadInt();
-						UsesRemaining = Utility.RandomMinMax(InitMinUses, InitMaxUses);
 
 						break;
 					}

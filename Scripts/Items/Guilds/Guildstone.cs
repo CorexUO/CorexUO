@@ -65,7 +65,7 @@ namespace Server.Items
 				m_GuildAbbrev = m_Guild.Abbreviation;
 			}
 
-			writer.Write((int)3); // version
+			writer.Write((int)0); // version
 
 			writer.Write(m_BeforeChangeover);
 
@@ -84,26 +84,12 @@ namespace Server.Items
 
 			switch (version)
 			{
-				case 3:
-					{
-						m_BeforeChangeover = reader.ReadBool();
-						goto case 2;
-					}
-				case 2:
-					{
-						m_GuildName = reader.ReadString();
-						m_GuildAbbrev = reader.ReadString();
-
-						goto case 1;
-					}
-				case 1:
-					{
-						m_Guild = reader.ReadGuild() as Guild;
-
-						goto case 0;
-					}
 				case 0:
 					{
+						m_BeforeChangeover = reader.ReadBool();
+						m_GuildName = reader.ReadString();
+						m_GuildAbbrev = reader.ReadString();
+						m_Guild = reader.ReadGuild() as Guild;
 						break;
 					}
 			}
