@@ -752,12 +752,10 @@ namespace Server.Items
 		{
 			base.Serialize(writer);
 
-			writer.WriteEncodedInt(3); // version
+			writer.WriteEncodedInt(0); // version
 
-			//version 3
 			writer.Write((string)m_LastUserName);
 
-			//version 2
 			writer.Write((int)m_Level);
 
 			writer.Write(m_ActiveItemID);
@@ -778,25 +776,15 @@ namespace Server.Items
 
 			switch (version)
 			{
-				case 3:
+				case 0:
 					{
 						m_LastUserName = reader.ReadString();
-						goto case 2;
-					}
-				case 2:
-					{
+
 						m_Level = (SecureLevel)reader.ReadInt();
-						goto case 1;
-					}
-				case 1:
-					{
+
 						m_ActiveItemID = reader.ReadInt();
 						m_InactiveItemID = reader.ReadInt();
 
-						goto case 0;
-					}
-				case 0:
-					{
 						m_Account = reader.ReadString();
 						m_NextUse = reader.ReadDateTime(); //TODO: delete it in a harmless way
 
@@ -804,12 +792,6 @@ namespace Server.Items
 						m_SkillValue = reader.ReadDouble();
 						break;
 					}
-			}
-
-			if (version == 0)
-			{
-				m_ActiveItemID = 0x2A94;
-				m_InactiveItemID = 0x2A93;
 			}
 		}
 	}
@@ -865,7 +847,7 @@ namespace Server.Items
 		{
 			base.Serialize(writer);
 
-			writer.WriteEncodedInt(2); // version
+			writer.WriteEncodedInt(0); // version
 
 			writer.WriteEncodedInt(m_UsesRemaining);
 		}
@@ -877,23 +859,6 @@ namespace Server.Items
 			int version = reader.ReadEncodedInt();
 
 			m_UsesRemaining = reader.ReadEncodedInt();
-
-			if (version <= 1)
-			{
-				if (ItemID == 0x2A93 || ItemID == 0x2A94)
-				{
-					ActiveItemID = Utility.Random(0x2AA1, 9);
-				}
-				else
-				{
-					ActiveItemID = ItemID;
-				}
-
-				InactiveItemID = ActiveItemID;
-			}
-
-			if (version == 0 && Weight == 1)
-				Weight = -1;
 		}
 
 		public SoulstoneFragment(Serial serial) : base(serial)

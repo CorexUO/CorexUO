@@ -155,12 +155,11 @@ namespace Server.Items
 		{
 			base.Serialize(writer);
 
-			writer.Write((int)1); // version
+			writer.Write((int)0); // version
 
 			writer.Write(m_Target);
 			writer.Write(m_TargetMap);
 
-			// Version 1
 			writer.Write(m_bDispellable);
 		}
 
@@ -173,8 +172,7 @@ namespace Server.Items
 			m_Target = reader.ReadPoint3D();
 			m_TargetMap = reader.ReadMap();
 
-			if (version >= 1)
-				m_bDispellable = reader.ReadBool();
+			m_bDispellable = reader.ReadBool();
 		}
 
 		public virtual bool ValidateUse(Mobile from, bool message)

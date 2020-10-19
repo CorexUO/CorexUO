@@ -321,7 +321,7 @@ namespace Server.Multis
 		{
 			base.Serialize(writer);
 
-			writer.WriteEncodedInt(1); // version
+			writer.WriteEncodedInt(0); // version
 		}
 
 		public override void Deserialize(GenericReader reader)
@@ -329,9 +329,6 @@ namespace Server.Multis
 			base.Deserialize(reader);
 
 			int version = reader.ReadEncodedInt();
-
-			if (version == 0)
-				MaxItems = -1; // reset to default
 		}
 	}
 }

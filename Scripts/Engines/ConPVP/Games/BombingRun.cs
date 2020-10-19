@@ -877,7 +877,7 @@ namespace Server.Engines.ConPVP
 		{
 			base.Serialize(writer);
 
-			writer.Write((int)1); // version
+			writer.Write((int)0); // version
 
 			writer.Write(m_North);
 		}
@@ -890,13 +890,9 @@ namespace Server.Engines.ConPVP
 
 			switch (version)
 			{
-				case 1:
-					{
-						m_North = reader.ReadBool();
-						goto case 0;
-					}
 				case 0:
 					{
+						m_North = reader.ReadBool();
 						break;
 					}
 			}

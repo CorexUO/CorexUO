@@ -142,7 +142,7 @@ namespace Server.Items
 		{
 			base.Serialize(writer);
 
-			writer.Write((int)1); // version
+			writer.Write((int)0); // version
 
 			writer.Write((int)m_PotionEffect);
 		}
@@ -155,16 +155,12 @@ namespace Server.Items
 
 			switch (version)
 			{
-				case 1:
 				case 0:
 					{
 						m_PotionEffect = (PotionEffect)reader.ReadInt();
 						break;
 					}
 			}
-
-			if (version == 0)
-				Stackable = Core.ML;
 		}
 
 		public abstract void Drink(Mobile from);

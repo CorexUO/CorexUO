@@ -205,7 +205,7 @@ namespace Server.Items
 		{
 			base.Serialize(writer);
 
-			writer.Write((int)1); // version
+			writer.Write((int)0); // version
 		}
 
 		public override void Deserialize(GenericReader reader)
@@ -213,9 +213,6 @@ namespace Server.Items
 			base.Deserialize(reader);
 
 			int version = reader.ReadInt();
-
-			if (version == 0)
-				Weight = 13.0;
 		}
 	}
 
@@ -253,7 +250,7 @@ namespace Server.Items
 		{
 			base.Serialize(writer);
 
-			writer.Write((int)1); // version
+			writer.Write((int)0); // version
 		}
 
 		public override void Deserialize(GenericReader reader)
@@ -261,9 +258,6 @@ namespace Server.Items
 			base.Deserialize(reader);
 
 			int version = reader.ReadInt();
-
-			if (version == 0)
-				Weight = 13.0;
 		}
 	}
 
@@ -315,7 +309,7 @@ namespace Server.Items
 		{
 			base.Serialize(writer);
 
-			writer.Write((int)1); // version
+			writer.Write((int)0); // version
 		}
 
 		public override void Deserialize(GenericReader reader)
@@ -323,9 +317,6 @@ namespace Server.Items
 			base.Deserialize(reader);
 
 			int version = reader.ReadInt();
-
-			if (version == 0 && ItemID == 0x9B2)
-				ItemID = 0xE75;
 		}
 	}
 
@@ -733,7 +724,7 @@ namespace Server.Items
 		{
 			base.Serialize(writer);
 
-			writer.Write((int)1); // version
+			writer.Write((int)0); // version
 		}
 
 		public override void Deserialize(GenericReader reader)
@@ -741,9 +732,6 @@ namespace Server.Items
 			base.Deserialize(reader);
 
 			int version = reader.ReadInt();
-
-			if (version == 0 && Weight == 3)
-				Weight = -1;
 		}
 	}
 
@@ -764,7 +752,7 @@ namespace Server.Items
 		{
 			base.Serialize(writer);
 
-			writer.Write((int)1); // version
+			writer.Write((int)0); // version
 		}
 
 		public override void Deserialize(GenericReader reader)
@@ -772,9 +760,6 @@ namespace Server.Items
 			base.Deserialize(reader);
 
 			int version = reader.ReadInt();
-
-			if (version == 0 && Weight == 25)
-				Weight = -1;
 		}
 	}
 
@@ -795,7 +780,7 @@ namespace Server.Items
 		{
 			base.Serialize(writer);
 
-			writer.Write((int)1); // version
+			writer.Write((int)0); // version
 		}
 
 		public override void Deserialize(GenericReader reader)
@@ -803,9 +788,6 @@ namespace Server.Items
 			base.Deserialize(reader);
 
 			int version = reader.ReadInt();
-
-			if (version == 0 && Weight == 25)
-				Weight = -1;
 		}
 	}
 
@@ -858,7 +840,7 @@ namespace Server.Items
 		{
 			base.Serialize(writer);
 
-			writer.Write((int)1); // version
+			writer.Write((int)0); // version
 		}
 
 		public override void Deserialize(GenericReader reader)
@@ -866,9 +848,6 @@ namespace Server.Items
 			base.Deserialize(reader);
 
 			int version = reader.ReadInt();
-
-			if (version == 0 && Weight == 15)
-				Weight = -1;
 		}
 	}
 
@@ -889,7 +868,7 @@ namespace Server.Items
 		{
 			base.Serialize(writer);
 
-			writer.Write((int)1); // version
+			writer.Write((int)0); // version
 		}
 
 		public override void Deserialize(GenericReader reader)
@@ -897,9 +876,6 @@ namespace Server.Items
 			base.Deserialize(reader);
 
 			int version = reader.ReadInt();
-
-			if (version == 0 && Weight == 15)
-				Weight = -1;
 		}
 	}
 
@@ -920,7 +896,7 @@ namespace Server.Items
 		{
 			base.Serialize(writer);
 
-			writer.Write((int)1); // version
+			writer.Write((int)0); // version
 		}
 
 		public override void Deserialize(GenericReader reader)
@@ -928,9 +904,6 @@ namespace Server.Items
 			base.Deserialize(reader);
 
 			int version = reader.ReadInt();
-
-			if (version == 0 && Weight == 15)
-				Weight = -1;
 		}
 	}
 
@@ -980,7 +953,7 @@ namespace Server.Items
 		{
 			base.Serialize(writer);
 
-			writer.Write((int)1); // version
+			writer.Write((int)0); // version
 		}
 
 		public override void Deserialize(GenericReader reader)
@@ -988,9 +961,6 @@ namespace Server.Items
 			base.Deserialize(reader);
 
 			int version = reader.ReadInt();
-
-			if (version == 0 && Weight == 15)
-				Weight = -1;
 		}
 	}
 }

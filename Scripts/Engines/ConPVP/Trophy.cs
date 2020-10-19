@@ -2,107 +2,104 @@ using System;
 
 namespace Server.Items
 {
-    public enum TrophyRank
-    {
-        Bronze,
-        Silver,
-        Gold
-    }
-
-    [Flipable(5020, 4647)]
-    public class Trophy : BaseItem
+	public enum TrophyRank
 	{
-        private string m_Title;
-        private TrophyRank m_Rank;
-        private Mobile m_Owner;
-        private DateTime m_Date;
+		Bronze,
+		Silver,
+		Gold
+	}
 
-        [CommandProperty(AccessLevel.GameMaster)]
-        public string Title { get { return m_Title; } set { m_Title = value; } }
+	[Flipable(5020, 4647)]
+	public class Trophy : BaseItem
+	{
+		private string m_Title;
+		private TrophyRank m_Rank;
+		private Mobile m_Owner;
+		private DateTime m_Date;
 
-        [CommandProperty(AccessLevel.GameMaster)]
-        public TrophyRank Rank { get { return m_Rank; } set { m_Rank = value; UpdateStyle(); } }
+		[CommandProperty(AccessLevel.GameMaster)]
+		public string Title { get { return m_Title; } set { m_Title = value; } }
 
-        [CommandProperty(AccessLevel.GameMaster)]
-        public Mobile Owner { get { return m_Owner; } set { m_Owner = value; } }
+		[CommandProperty(AccessLevel.GameMaster)]
+		public TrophyRank Rank { get { return m_Rank; } set { m_Rank = value; UpdateStyle(); } }
 
-        [CommandProperty(AccessLevel.GameMaster)]
-        public DateTime Date { get { return m_Date; } }
+		[CommandProperty(AccessLevel.GameMaster)]
+		public Mobile Owner { get { return m_Owner; } set { m_Owner = value; } }
 
-        [Constructable]
-        public Trophy(string title, TrophyRank rank) : base(5020)
-        {
-            m_Title = title;
-            m_Rank = rank;
-            m_Date = DateTime.UtcNow;
+		[CommandProperty(AccessLevel.GameMaster)]
+		public DateTime Date { get { return m_Date; } }
 
-            LootType = LootType.Blessed;
+		[Constructable]
+		public Trophy(string title, TrophyRank rank) : base(5020)
+		{
+			m_Title = title;
+			m_Rank = rank;
+			m_Date = DateTime.UtcNow;
 
-            UpdateStyle();
-        }
+			LootType = LootType.Blessed;
 
-        public Trophy(Serial serial) : base(serial)
-        {
-        }
+			UpdateStyle();
+		}
 
-        public override void Serialize(GenericWriter writer)
-        {
-            base.Serialize(writer);
+		public Trophy(Serial serial) : base(serial)
+		{
+		}
 
-            writer.Write((int)1); // version
+		public override void Serialize(GenericWriter writer)
+		{
+			base.Serialize(writer);
 
-            writer.Write((string)m_Title);
-            writer.Write((int)m_Rank);
-            writer.Write((Mobile)m_Owner);
-            writer.Write((DateTime)m_Date);
-        }
+			writer.Write((int)0); // version
 
-        public override void Deserialize(GenericReader reader)
-        {
-            base.Deserialize(reader);
+			writer.Write((string)m_Title);
+			writer.Write((int)m_Rank);
+			writer.Write((Mobile)m_Owner);
+			writer.Write((DateTime)m_Date);
+		}
 
-            int version = reader.ReadInt();
+		public override void Deserialize(GenericReader reader)
+		{
+			base.Deserialize(reader);
 
-            m_Title = reader.ReadString();
-            m_Rank = (TrophyRank)reader.ReadInt();
-            m_Owner = reader.ReadMobile();
-            m_Date = reader.ReadDateTime();
+			int version = reader.ReadInt();
 
-            if (version == 0)
-                LootType = LootType.Blessed;
-        }
+			m_Title = reader.ReadString();
+			m_Rank = (TrophyRank)reader.ReadInt();
+			m_Owner = reader.ReadMobile();
+			m_Date = reader.ReadDateTime();
+		}
 
-        public override void OnAdded(IEntity parent)
-        {
-            base.OnAdded(parent);
+		public override void OnAdded(IEntity parent)
+		{
+			base.OnAdded(parent);
 
-            if (m_Owner == null)
-                m_Owner = this.RootParent as Mobile;
-        }
+			if (m_Owner == null)
+				m_Owner = this.RootParent as Mobile;
+		}
 
-        public override void OnSingleClick(Mobile from)
-        {
-            base.OnSingleClick(from);
+		public override void OnSingleClick(Mobile from)
+		{
+			base.OnSingleClick(from);
 
-            if (m_Owner != null)
-                LabelTo(from, "{0} -- {1}", m_Title, m_Owner.RawName);
-            else if (m_Title != null)
-                LabelTo(from, m_Title);
+			if (m_Owner != null)
+				LabelTo(from, "{0} -- {1}", m_Title, m_Owner.RawName);
+			else if (m_Title != null)
+				LabelTo(from, m_Title);
 
-            if (m_Date != DateTime.MinValue)
-                LabelTo(from, m_Date.ToString("d"));
-        }
+			if (m_Date != DateTime.MinValue)
+				LabelTo(from, m_Date.ToString("d"));
+		}
 
-        public void UpdateStyle()
-        {
-            Name = String.Format("{0} trophy", m_Rank.ToString().ToLower());
+		public void UpdateStyle()
+		{
+			Name = String.Format("{0} trophy", m_Rank.ToString().ToLower());
 
-            switch (m_Rank)
-            {
-                case TrophyRank.Gold: Hue = 2213; break;
-                case TrophyRank.Silver: Hue = 0; break;
-                case TrophyRank.Bronze: Hue = 2206; break;
-            }
-        }
-    }
+			switch (m_Rank)
+			{
+				case TrophyRank.Gold: Hue = 2213; break;
+				case TrophyRank.Silver: Hue = 0; break;
+				case TrophyRank.Bronze: Hue = 2206; break;
+			}
+		}
+	}
 }

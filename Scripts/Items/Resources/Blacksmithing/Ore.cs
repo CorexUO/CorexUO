@@ -21,7 +21,7 @@ namespace Server.Items
 		{
 			base.Serialize(writer);
 
-			writer.Write((int)1); // version
+			writer.Write((int)0); // version
 
 			writer.Write((int)m_Resource);
 		}
@@ -34,30 +34,9 @@ namespace Server.Items
 
 			switch (version)
 			{
-				case 1:
-					{
-						m_Resource = (CraftResource)reader.ReadInt();
-						break;
-					}
 				case 0:
 					{
-						OreInfo info;
-
-						switch (reader.ReadInt())
-						{
-							case 0: info = OreInfo.Iron; break;
-							case 1: info = OreInfo.DullCopper; break;
-							case 2: info = OreInfo.ShadowIron; break;
-							case 3: info = OreInfo.Copper; break;
-							case 4: info = OreInfo.Bronze; break;
-							case 5: info = OreInfo.Gold; break;
-							case 6: info = OreInfo.Agapite; break;
-							case 7: info = OreInfo.Verite; break;
-							case 8: info = OreInfo.Valorite; break;
-							default: info = null; break;
-						}
-
-						m_Resource = CraftResources.GetFromOreInfo(info);
+						m_Resource = (CraftResource)reader.ReadInt();
 						break;
 					}
 			}

@@ -322,7 +322,7 @@ namespace Server.Items
 				m_GuildAbbrev = m_Guild.Abbreviation;
 			}
 
-			writer.Write((int)1); // version
+			writer.Write((int)0); // version
 
 			writer.Write(m_GuildName);
 			writer.Write(m_GuildAbbrev);
@@ -338,7 +338,7 @@ namespace Server.Items
 
 			switch (version)
 			{
-				case 1:
+				case 0:
 					{
 						m_GuildName = reader.ReadString();
 						m_GuildAbbrev = reader.ReadString();

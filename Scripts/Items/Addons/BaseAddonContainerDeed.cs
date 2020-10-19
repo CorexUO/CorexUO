@@ -47,9 +47,8 @@ namespace Server.Items
 		{
 			base.Serialize(writer);
 
-			writer.Write((int)1); // version
+			writer.Write((int)0); // version
 
-			// version 1
 			writer.Write((int)m_Resource);
 		}
 
@@ -61,7 +60,7 @@ namespace Server.Items
 
 			switch (version)
 			{
-				case 1:
+				case 0:
 					m_Resource = (CraftResource)reader.ReadInt();
 					break;
 			}

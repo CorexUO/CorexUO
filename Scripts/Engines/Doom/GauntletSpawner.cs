@@ -413,7 +413,7 @@ namespace Server.Engines.Doom
 		{
 			base.Serialize(writer);
 
-			writer.Write((int)1); // version
+			writer.Write((int)0); // version
 
 			writer.Write(m_RegionBounds);
 
@@ -437,26 +437,16 @@ namespace Server.Engines.Doom
 
 			switch (version)
 			{
-				case 1:
+				case 0:
 					{
 						m_RegionBounds = reader.ReadRect2D();
 						m_Traps = reader.ReadStrongItemList<BaseTrap>();
 
-						goto case 0;
-					}
-				case 0:
-					{
-						if (version < 1)
-						{
-							m_Traps = new List<BaseTrap>();
-							m_RegionBounds = new Rectangle2D(X - 40, Y - 40, 80, 80);
-						}
-
 						m_Creatures = reader.ReadStrongMobileList();
 
 						m_TypeName = reader.ReadString();
-						m_Door = reader.ReadItem<BaseDoor>(); ;
-						m_Addon = reader.ReadItem<BaseAddon>(); ;
+						m_Door = reader.ReadItem<BaseDoor>();
+						m_Addon = reader.ReadItem<BaseAddon>();
 						m_Sequence = reader.ReadItem<GauntletSpawner>();
 
 						State = (GauntletSpawnerState)reader.ReadInt();

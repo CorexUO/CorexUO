@@ -739,20 +739,12 @@ namespace Server.Engines.ConPVP
 
 			switch (version)
 			{
-				case 2:
+				case 0:
 					{
 						m_Board = ip.ReadItem() as CTFBoard;
 
-						goto case 1;
-					}
-				case 1:
-					{
 						m_Name = ip.ReadString();
 
-						goto case 0;
-					}
-				case 0:
-					{
 						m_Color = ip.ReadEncodedInt();
 
 						m_Flag = ip.ReadItem() as CTFFlag;
@@ -764,7 +756,7 @@ namespace Server.Engines.ConPVP
 
 		public void Serialize(GenericWriter op)
 		{
-			op.WriteEncodedInt(2); // version
+			op.WriteEncodedInt(0); // version
 
 			op.Write(m_Board);
 

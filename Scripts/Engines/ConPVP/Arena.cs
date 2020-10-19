@@ -53,7 +53,7 @@ namespace Server.Engines.ConPVP
 		{
 			base.Serialize(writer);
 
-			writer.Write((int)1);
+			writer.Write((int)0);
 
 			writer.Write((bool)m_IsPrivate);
 
@@ -68,14 +68,10 @@ namespace Server.Engines.ConPVP
 
 			switch (version)
 			{
-				case 1:
+				case 0:
 					{
 						m_IsPrivate = reader.ReadBool();
 
-						goto case 0;
-					}
-				case 0:
-					{
 						m_Arena = new Arena(reader);
 						break;
 					}

@@ -143,7 +143,7 @@ namespace Server.Items
 		{
 			base.Serialize(writer);
 
-			writer.Write((int)1);
+			writer.Write((int)0);
 		}
 
 		public override void Deserialize(GenericReader reader)
@@ -151,12 +151,6 @@ namespace Server.Items
 			base.Deserialize(reader);
 
 			int version = reader.ReadInt();
-
-			if (version == 0)
-			{
-				MaxHitPoints = 255;
-				HitPoints = 255;
-			}
 		}
 	}
 
@@ -877,7 +871,7 @@ namespace Server.Items
 		{
 			base.Serialize(writer);
 
-			writer.Write((int)1); // version
+			writer.Write((int)0); // version
 		}
 
 		public override void Deserialize(GenericReader reader)
@@ -885,9 +879,6 @@ namespace Server.Items
 			base.Deserialize(reader);
 
 			int version = reader.ReadInt();
-
-			if (version == 0 && Slayer == SlayerName.Fey)
-				Slayer = SlayerGroup.Groups[Utility.Random(SlayerGroup.Groups.Length - 1)].Super.Name;
 		}
 	}
 
@@ -980,7 +971,7 @@ namespace Server.Items
 		{
 			base.Serialize(writer);
 
-			writer.Write((int)1);
+			writer.Write((int)0);
 
 			writer.WriteEncodedInt((int)m_Type);
 		}
@@ -989,12 +980,15 @@ namespace Server.Items
 		{
 			base.Deserialize(reader);
 
-			int version = (InheritsItem ? 0 : reader.ReadInt()); // Required for BasePigmentsOfTokuno insertion
+			int version = reader.ReadInt();
 
 			switch (version)
 			{
-				case 1: Type = (LesserPigmentType)reader.ReadEncodedInt(); break;
-				case 0: break;
+				case 0:
+					{
+						Type = (LesserPigmentType)reader.ReadEncodedInt();
+						break;
+					}
 			}
 		}
 	}
@@ -1032,7 +1026,7 @@ namespace Server.Items
 		{
 			base.Deserialize(reader);
 
-			int version = (InheritsItem ? 0 : reader.ReadInt()); // Required for BasePigmentsOfTokuno insertion
+			int version = reader.ReadInt(); // Required for BasePigmentsOfTokuno insertion
 		}
 	}
 }

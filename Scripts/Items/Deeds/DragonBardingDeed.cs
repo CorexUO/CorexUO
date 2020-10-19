@@ -87,7 +87,7 @@ namespace Server.Items
 		{
 			base.Serialize(writer);
 
-			writer.Write((int)1); // version
+			writer.Write((int)0); // version
 
 			writer.Write((bool)m_Exceptional);
 			writer.Write((Mobile)m_Crafter);
@@ -102,14 +102,10 @@ namespace Server.Items
 
 			switch (version)
 			{
-				case 1:
 				case 0:
 					{
 						m_Exceptional = reader.ReadBool();
 						m_Crafter = reader.ReadMobile();
-
-						if (version < 1)
-							reader.ReadInt();
 
 						m_Resource = (CraftResource)reader.ReadInt();
 						break;

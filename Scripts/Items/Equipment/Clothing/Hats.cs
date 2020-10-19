@@ -32,7 +32,7 @@ namespace Server.Items
 		{
 			base.Serialize(writer);
 
-			writer.Write((int)1); // version
+			writer.Write((int)0); // version
 
 			writer.Write(m_IsShipwreckedItem);
 		}
@@ -45,7 +45,7 @@ namespace Server.Items
 
 			switch (version)
 			{
-				case 1:
+				case 0:
 					{
 						m_IsShipwreckedItem = reader.ReadBool();
 						break;

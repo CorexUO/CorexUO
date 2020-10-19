@@ -72,7 +72,7 @@ namespace Server.Items
 		{
 			base.Serialize(writer);
 
-			writer.Write((int)1); // version
+			writer.Write((int)0); // version
 		}
 
 		public override void Deserialize(GenericReader reader)
@@ -80,34 +80,6 @@ namespace Server.Items
 			base.Deserialize(reader);
 
 			int version = reader.ReadInt();
-
-			switch (version)
-			{
-				case 0:
-					{
-						if (CheckType("BottleAle"))
-						{
-							Quantity = MaxQuantity;
-							Content = BeverageType.Ale;
-						}
-						else if (CheckType("BottleLiquor"))
-						{
-							Quantity = MaxQuantity;
-							Content = BeverageType.Liquor;
-						}
-						else if (CheckType("BottleWine"))
-						{
-							Quantity = MaxQuantity;
-							Content = BeverageType.Wine;
-						}
-						else
-						{
-							throw new Exception(World.LoadingType);
-						}
-
-						break;
-					}
-			}
 		}
 	}
 
@@ -141,7 +113,7 @@ namespace Server.Items
 		{
 			base.Serialize(writer);
 
-			writer.Write((int)1); // version
+			writer.Write((int)0); // version
 		}
 
 		public override void Deserialize(GenericReader reader)
@@ -189,7 +161,7 @@ namespace Server.Items
 		{
 			base.Serialize(writer);
 
-			writer.Write((int)1); // version
+			writer.Write((int)0); // version
 		}
 
 		public override void Deserialize(GenericReader reader)
@@ -235,7 +207,7 @@ namespace Server.Items
 		{
 			base.Serialize(writer);
 
-			writer.Write((int)1); // version
+			writer.Write((int)0); // version
 		}
 
 		public override void Deserialize(GenericReader reader)
@@ -281,7 +253,7 @@ namespace Server.Items
 		{
 			base.Serialize(writer);
 
-			writer.Write((int)1); // version
+			writer.Write((int)0); // version
 		}
 
 		public override void Deserialize(GenericReader reader)
@@ -340,7 +312,7 @@ namespace Server.Items
 		{
 			base.Serialize(writer);
 
-			writer.Write((int)1); // version
+			writer.Write((int)0); // version
 		}
 
 		public override void Deserialize(GenericReader reader)
@@ -483,7 +455,7 @@ namespace Server.Items
 		{
 			base.Serialize(writer);
 
-			writer.Write((int)1); // version
+			writer.Write((int)0); // version
 		}
 
 		public override void Deserialize(GenericReader reader)
@@ -1185,7 +1157,7 @@ namespace Server.Items
 		{
 			base.Serialize(writer);
 
-			writer.Write((int)1); // version
+			writer.Write((int)0); // version
 
 			writer.Write((Mobile)m_Poisoner);
 
@@ -1215,13 +1187,10 @@ namespace Server.Items
 
 			switch (version)
 			{
-				case 1:
-					{
-						m_Poisoner = reader.ReadMobile();
-						goto case 0;
-					}
 				case 0:
 					{
+						m_Poisoner = reader.ReadMobile();
+
 						m_Poison = Poison.Deserialize(reader);
 						m_Content = (BeverageType)reader.ReadInt();
 						m_Quantity = reader.ReadInt();

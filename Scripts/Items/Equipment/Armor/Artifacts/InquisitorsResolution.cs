@@ -1,47 +1,41 @@
 namespace Server.Items
 {
-    public class InquisitorsResolution : PlateGloves
-    {
-        public override int LabelNumber { get { return 1060206; } } // The Inquisitor's Resolution
-        public override int ArtifactRarity { get { return 10; } }
+	public class InquisitorsResolution : PlateGloves
+	{
+		public override int LabelNumber { get { return 1060206; } } // The Inquisitor's Resolution
+		public override int ArtifactRarity { get { return 10; } }
 
-        public override int BaseColdResistance { get { return 22; } }
-        public override int BaseEnergyResistance { get { return 17; } }
+		public override int BaseColdResistance { get { return 22; } }
+		public override int BaseEnergyResistance { get { return 17; } }
 
-        public override int InitMinHits { get { return 255; } }
-        public override int InitMaxHits { get { return 255; } }
+		public override int InitMinHits { get { return 255; } }
+		public override int InitMaxHits { get { return 255; } }
 
-        [Constructable]
-        public InquisitorsResolution()
-        {
-            Hue = 0x4F2;
-            Attributes.CastRecovery = 3;
-            Attributes.LowerManaCost = 8;
-            ArmorAttributes.MageArmor = 1;
-        }
+		[Constructable]
+		public InquisitorsResolution()
+		{
+			Hue = 0x4F2;
+			Attributes.CastRecovery = 3;
+			Attributes.LowerManaCost = 8;
+			ArmorAttributes.MageArmor = 1;
+		}
 
-        public InquisitorsResolution(Serial serial) : base(serial)
-        {
-        }
+		public InquisitorsResolution(Serial serial) : base(serial)
+		{
+		}
 
-        public override void Serialize(GenericWriter writer)
-        {
-            base.Serialize(writer);
+		public override void Serialize(GenericWriter writer)
+		{
+			base.Serialize(writer);
 
-            writer.Write((int)1);
-        }
+			writer.Write((int)0);
+		}
 
-        public override void Deserialize(GenericReader reader)
-        {
-            base.Deserialize(reader);
+		public override void Deserialize(GenericReader reader)
+		{
+			base.Deserialize(reader);
 
-            int version = reader.ReadInt();
-
-            if (version < 1)
-            {
-                ColdBonus = 0;
-                EnergyBonus = 0;
-            }
-        }
-    }
+			int version = reader.ReadInt();
+		}
+	}
 }

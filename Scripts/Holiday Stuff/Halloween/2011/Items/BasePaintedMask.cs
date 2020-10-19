@@ -55,7 +55,7 @@ namespace Server.Items.Holiday
 		{
 			base.Serialize(writer);
 
-			writer.Write((int)1); // version
+			writer.Write((int)0); // version
 			writer.Write((string)m_Staffer);
 		}
 
@@ -65,10 +65,7 @@ namespace Server.Items.Holiday
 
 			int version = reader.ReadInt();
 
-			if (version == 1)
-			{
-				m_Staffer = Utility.Intern(reader.ReadString());
-			}
+			m_Staffer = Utility.Intern(reader.ReadString());
 		}
 	}
 }

@@ -223,7 +223,7 @@ namespace Server.Items
 		{
 			base.Serialize(writer);
 
-			writer.WriteEncodedInt(1); // version
+			writer.WriteEncodedInt(0); // version
 
 			writer.Write((int)ContentType);
 
@@ -246,13 +246,10 @@ namespace Server.Items
 
 			switch (version)
 			{
-				case 1:
-					{
-						m_Content = FillableContent.Lookup((FillableContentType)reader.ReadInt());
-						goto case 0;
-					}
 				case 0:
 					{
+						m_Content = FillableContent.Lookup((FillableContentType)reader.ReadInt());
+
 						if (reader.ReadBool())
 						{
 							m_NextRespawnTime = reader.ReadDeltaTime();
@@ -490,7 +487,7 @@ namespace Server.Items
 		{
 			base.Serialize(writer);
 
-			writer.Write((int)1); // version
+			writer.Write((int)0); // version
 		}
 
 		public override void Deserialize(GenericReader reader)
@@ -498,9 +495,6 @@ namespace Server.Items
 			base.Deserialize(reader);
 
 			int version = reader.ReadInt();
-
-			if (version == 0 && Weight == 25)
-				Weight = -1;
 		}
 	}
 
@@ -522,7 +516,7 @@ namespace Server.Items
 		{
 			base.Serialize(writer);
 
-			writer.Write((int)1); // version
+			writer.Write((int)0); // version
 		}
 
 		public override void Deserialize(GenericReader reader)
@@ -530,9 +524,6 @@ namespace Server.Items
 			base.Deserialize(reader);
 
 			int version = reader.ReadInt();
-
-			if (version == 0 && Weight == 25)
-				Weight = -1;
 		}
 	}
 
@@ -554,7 +545,7 @@ namespace Server.Items
 		{
 			base.Serialize(writer);
 
-			writer.Write((int)1); // version
+			writer.Write((int)0); // version
 		}
 
 		public override void Deserialize(GenericReader reader)
@@ -562,9 +553,6 @@ namespace Server.Items
 			base.Deserialize(reader);
 
 			int version = reader.ReadInt();
-
-			if (version == 0 && Weight == 2)
-				Weight = -1;
 		}
 	}
 

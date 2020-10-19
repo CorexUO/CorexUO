@@ -44,7 +44,7 @@ namespace Server.Items
 		{
 			base.Serialize(writer);
 
-			writer.Write((int)1); // version
+			writer.Write((int)0); // version
 
 			writer.Write(m_Commodity);
 		}
@@ -56,18 +56,6 @@ namespace Server.Items
 			int version = reader.ReadInt();
 
 			m_Commodity = reader.ReadItem();
-
-			switch (version)
-			{
-				case 0:
-					{
-						if (m_Commodity != null)
-						{
-							Hue = 0x592;
-						}
-						break;
-					}
-			}
 		}
 
 		public CommodityDeed(Item commodity) : base(0x14F0)

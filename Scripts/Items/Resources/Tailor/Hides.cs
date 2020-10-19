@@ -18,7 +18,7 @@ namespace Server.Items
 		{
 			base.Serialize(writer);
 
-			writer.Write((int)1); // version
+			writer.Write((int)0); // version
 
 			writer.Write((int)m_Resource);
 		}
@@ -31,16 +31,9 @@ namespace Server.Items
 
 			switch (version)
 			{
-				case 1:
-					{
-						m_Resource = (CraftResource)reader.ReadInt();
-						break;
-					}
 				case 0:
 					{
-						OreInfo info = new OreInfo(reader.ReadInt(), reader.ReadInt(), reader.ReadString());
-
-						m_Resource = CraftResources.GetFromOreInfo(info);
+						m_Resource = (CraftResource)reader.ReadInt();
 						break;
 					}
 			}

@@ -470,7 +470,7 @@ namespace Server.Items
 		{
 			base.Serialize(writer);
 
-			writer.Write((int)1);
+			writer.Write((int)0);
 
 			writer.WriteEncodedInt((int)m_Type);
 		}
@@ -479,12 +479,15 @@ namespace Server.Items
 		{
 			base.Deserialize(reader);
 
-			int version = (InheritsItem ? 0 : reader.ReadInt()); // Required for BasePigmentsOfTokuno insertion
+			int version = reader.ReadInt(); 
 
 			switch (version)
 			{
-				case 1: Type = (PigmentType)reader.ReadEncodedInt(); break;
-				case 0: break;
+				case 0:
+					{
+						Type = (PigmentType)reader.ReadEncodedInt();
+						break;
+					}
 			}
 		}
 	}

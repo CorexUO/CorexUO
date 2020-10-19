@@ -265,7 +265,7 @@ namespace Server.Items
 		{
 			base.Serialize(writer);
 
-			writer.Write((int)1); // version
+			writer.Write((int)0); // version
 
 			writer.WriteItemList<AddonComponent>(m_Components);
 		}
@@ -278,16 +278,12 @@ namespace Server.Items
 
 			switch (version)
 			{
-				case 1:
 				case 0:
 					{
 						m_Components = reader.ReadStrongItemList<AddonComponent>();
 						break;
 					}
 			}
-
-			if (version < 1 && Weight == 0)
-				Weight = -1;
 		}
 	}
 }
