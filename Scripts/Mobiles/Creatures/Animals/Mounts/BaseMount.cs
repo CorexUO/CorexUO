@@ -97,7 +97,7 @@ namespace Server.Mobiles
 
 			switch (version)
 			{
-				case 1:
+				case 0:
 					{
 						m_NextMountAbility = reader.ReadDateTime();
 

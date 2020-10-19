@@ -320,49 +320,6 @@ namespace Server.Items
 			base.Deserialize(reader);
 
 			int version = reader.ReadInt();
-
-			switch (version)
-			{
-				case 0:
-					{
-						if (CheckType("MugAle"))
-						{
-							Quantity = MaxQuantity;
-							Content = BeverageType.Ale;
-						}
-						else if (CheckType("GlassCider"))
-						{
-							Quantity = MaxQuantity;
-							Content = BeverageType.Cider;
-						}
-						else if (CheckType("GlassLiquor"))
-						{
-							Quantity = MaxQuantity;
-							Content = BeverageType.Liquor;
-						}
-						else if (CheckType("GlassMilk"))
-						{
-							Quantity = MaxQuantity;
-							Content = BeverageType.Milk;
-						}
-						else if (CheckType("GlassWine"))
-						{
-							Quantity = MaxQuantity;
-							Content = BeverageType.Wine;
-						}
-						else if (CheckType("GlassWater"))
-						{
-							Quantity = MaxQuantity;
-							Content = BeverageType.Water;
-						}
-						else
-						{
-							throw new Exception(World.LoadingType);
-						}
-
-						break;
-					}
-			}
 		}
 	}
 
@@ -466,54 +423,6 @@ namespace Server.Items
 				base.InternalDeserialize(reader, true);
 
 			int version = reader.ReadInt();
-
-			switch (version)
-			{
-				case 0:
-					{
-						if (CheckType("PitcherAle"))
-						{
-							Quantity = MaxQuantity;
-							Content = BeverageType.Ale;
-						}
-						else if (CheckType("PitcherCider"))
-						{
-							Quantity = MaxQuantity;
-							Content = BeverageType.Cider;
-						}
-						else if (CheckType("PitcherLiquor"))
-						{
-							Quantity = MaxQuantity;
-							Content = BeverageType.Liquor;
-						}
-						else if (CheckType("PitcherMilk"))
-						{
-							Quantity = MaxQuantity;
-							Content = BeverageType.Milk;
-						}
-						else if (CheckType("PitcherWine"))
-						{
-							Quantity = MaxQuantity;
-							Content = BeverageType.Wine;
-						}
-						else if (CheckType("PitcherWater"))
-						{
-							Quantity = MaxQuantity;
-							Content = BeverageType.Water;
-						}
-						else if (CheckType("GlassPitcher"))
-						{
-							Quantity = 0;
-							Content = BeverageType.Water;
-						}
-						else
-						{
-							throw new Exception(World.LoadingType);
-						}
-
-						break;
-					}
-			}
 		}
 	}
 

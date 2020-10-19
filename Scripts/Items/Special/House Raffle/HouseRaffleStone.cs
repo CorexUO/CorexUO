@@ -54,9 +54,6 @@ namespace Server.Items
 		{
 			switch (version)
 			{
-				case 3: // HouseRaffleStone version changes
-				case 2:
-				case 1:
 				case 0:
 					{
 						m_From = reader.ReadMobile();
@@ -597,7 +594,7 @@ namespace Server.Items
 
 			switch (version)
 			{
-				case 3:
+				case 0:
 					{
 						m_State = (HouseRaffleState)reader.ReadEncodedInt();
 						m_ExpireAction = (HouseRaffleExpireAction)reader.ReadEncodedInt();

@@ -102,7 +102,7 @@ namespace Server.Multis.Deeds
 
 			switch (version)
 			{
-				case 1:
+				case 0:
 					{
 						m_Offset = reader.ReadPoint3D();
 						m_MultiID = reader.ReadInt();
@@ -110,9 +110,6 @@ namespace Server.Multis.Deeds
 						break;
 					}
 			}
-
-			if (Weight == 0.0)
-				Weight = 1.0;
 		}
 
 		public override void OnDoubleClick(Mobile from)
