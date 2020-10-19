@@ -1339,9 +1339,19 @@ namespace Server
 			to.Send(new MessageLocalizedAffix(m_Serial, m_ItemID, MessageType.Label, DisplayColor, 3, number, "", type, affix, ""));
 		}
 
+		public void LabelToAffix(Mobile to, int hue, int number, AffixType type, string affix)
+		{
+			to.Send(new MessageLocalizedAffix(m_Serial, m_ItemID, MessageType.Label, hue, 3, number, "", type, affix, ""));
+		}
+
 		public void LabelToAffix(Mobile to, int number, AffixType type, string affix, string args)
 		{
 			to.Send(new MessageLocalizedAffix(m_Serial, m_ItemID, MessageType.Label, DisplayColor, 3, number, "", type, affix, args));
+		}
+
+		public void LabelToAffix(Mobile to, int hue, int number, AffixType type, string affix, string args)
+		{
+			to.Send(new MessageLocalizedAffix(m_Serial, m_ItemID, MessageType.Label, hue, 3, number, "", type, affix, args));
 		}
 
 		public virtual void LabelLootTypeTo(Mobile to)
