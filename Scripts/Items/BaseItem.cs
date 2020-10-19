@@ -41,6 +41,16 @@ namespace Server
 		{
 		}
 
+		public virtual string GetNameString()
+		{
+			string name = this.Name;
+
+			if (name == null)
+				name = String.Format("#{0}", LabelNumber);
+
+			return name;
+		}
+
 		public override void Serialize(GenericWriter writer)
 		{
 			base.Serialize(writer);

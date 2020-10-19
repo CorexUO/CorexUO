@@ -34,15 +34,9 @@ namespace Server.Items
 
 		public override void OnSingleClick(Mobile from)
 		{
-			List<EquipInfoAttribute> attrs = new List<EquipInfoAttribute>();
+			base.OnSingleClick(from);
 
-			if (DisplayLootType)
-			{
-				if (LootType == LootType.Blessed)
-					attrs.Add(new EquipInfoAttribute(1038021)); // blessed
-				else if (LootType == LootType.Cursed)
-					attrs.Add(new EquipInfoAttribute(1049643)); // cursed
-			}
+			List<EquipInfoAttribute> attrs = new List<EquipInfoAttribute>();
 
 			#region Factions
 			if (this is IFactionItem factionItem && factionItem != null && factionItem.FactionItemState != null)
@@ -109,18 +103,6 @@ namespace Server.Items
 			if (this is BaseWeapon poisonWeapon && poisonWeapon.Poison != null && poisonWeapon.PoisonCharges > 0)
 				attrs.Add(new EquipInfoAttribute(1017383, poisonWeapon.PoisonCharges));
 
-			int number;
-
-			if (Name == null)
-			{
-				number = LabelNumber;
-			}
-			else
-			{
-				LabelTo(from, Name);
-				number = 1041000;
-			}
-
 			Mobile crafter = null;
 			if (this is ICraftable craftable)
 				crafter = craftable.Crafter;
@@ -128,7 +110,7 @@ namespace Server.Items
 			if (attrs.Count == 0 && crafter != null && Name != null)
 				return;
 
-			EquipmentInfo eqInfo = new EquipmentInfo(number, crafter, false, attrs.ToArray());
+			EquipmentInfo eqInfo = new EquipmentInfo(1041000, crafter, false, attrs.ToArray());
 			from.Send(new DisplayEquipmentInfo(this, eqInfo));
 		}
 
@@ -150,16 +132,6 @@ namespace Server.Items
 		public virtual int ComputeStatBonus(StatType type)
 		{
 			return 0;
-		}
-
-		public virtual string GetNameString()
-		{
-			string name = this.Name;
-
-			if (name == null)
-				name = String.Format("#{0}", LabelNumber);
-
-			return name;
 		}
 
 		public virtual void AddStatBonuses(Mobile parent)
