@@ -508,13 +508,11 @@ namespace Server.Spells
 		{
 			if (m_Caster.Target != null)
 			{
-				//m_Caster.SendMessage("Targeting cancelled");
 				Caster.Target.Cancel(Caster, TargetCancelType.Canceled);
 			}
 			else if (RequireTarget)
 			{
-				m_Caster.BeginTarget(15, CanTargetGround, SpellTargetFlags, SpellTargetCallback).CheckLOS = true;
-				//m_Caster.SendMessage("Select target");
+				m_Caster.Target = new SpellRequestTarget(this);
 			}
 			else
 			{
@@ -684,6 +682,12 @@ namespace Server.Spells
 				lmc = 40;
 
 			scalar -= (double)lmc / 100;
+
+			// [Shard] Reduce mana by /2 if is scroll
+			if (m_Scroll is SpellScroll)
+			{
+				scalar /= 2;
+			}
 
 			return (int)(mana * scalar);
 		}
@@ -997,6 +1001,21 @@ namespace Server.Spells
 			public void Tick()
 			{
 				OnTick();
+			}
+		}
+
+		public class SpellRequestTarget : Target
+		{
+			public Spell Spell { get; private set; }
+
+			public SpellRequestTarget(Spell spell) : base(spell.SpellRange, spell.CanTargetGround, spell.SpellTargetFlags)
+			{
+				Spell = spell;
+			}
+
+			protected override void OnTarget(Mobile from, object o)
+			{
+				Spell.SpellTargetCallback(from, o);
 			}
 		}
 	}

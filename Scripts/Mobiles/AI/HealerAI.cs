@@ -1,3 +1,4 @@
+using Server.Spells;
 using Server.Spells.First;
 using Server.Spells.Fourth;
 using Server.Spells.Second;
@@ -7,6 +8,9 @@ namespace Server.Mobiles
 {
 	public class HealerAI : BaseAI
 	{
+		private long m_NextCastTime;
+		private Spell m_CurrentSpell;
+
 		private static NeedDelegate m_Cure = new NeedDelegate(NeedCure);
 		private static NeedDelegate m_GHeal = new NeedDelegate(NeedGHeal);
 		private static NeedDelegate m_LHeal = new NeedDelegate(NeedLHeal);
@@ -28,28 +32,51 @@ namespace Server.Mobiles
 
 			if (targ != null)
 			{
-				if (targ is CureSpell.InternalTarget)
+				//When PreCast is disabled, the SpellRequestTarget is needed to set the target of the spell and know the spell
+				if (targ is Spell.SpellRequestTarget targetSpell)
 				{
-					ProcessTarget(targ, m_ACure);
-				}
-				else if (targ is GreaterHealSpell.InternalTarget)
-				{
-					ProcessTarget(targ, m_AGHeal);
-				}
-				else if (targ is HealSpell.InternalTarget)
-				{
-					ProcessTarget(targ, m_ALHeal);
+					if (targetSpell.Spell is CureSpell)
+					{
+						ProcessTarget(targ, m_ACure);
+					}
+					else if (targetSpell.Spell is GreaterHealSpell)
+					{
+						ProcessTarget(targ, m_AGHeal);
+					}
+					else if (targetSpell.Spell is HealSpell)
+					{
+						ProcessTarget(targ, m_ALHeal);
+					}
+					else
+					{
+						targ.Cancel(m_Mobile, TargetCancelType.Canceled);
+					}
 				}
 				else
 				{
-					targ.Cancel(m_Mobile, TargetCancelType.Canceled);
+					if (targ is CureSpell.InternalTarget)
+					{
+						ProcessTarget(targ, m_ACure);
+					}
+					else if (targ is GreaterHealSpell.InternalTarget)
+					{
+						ProcessTarget(targ, m_AGHeal);
+					}
+					else if (targ is HealSpell.InternalTarget)
+					{
+						ProcessTarget(targ, m_ALHeal);
+					}
+					else
+					{
+						targ.Cancel(m_Mobile, TargetCancelType.Canceled);
+					}
 				}
 			}
 			else
 			{
 				Mobile toHelp = Find(m_All);
 
-				if (toHelp != null)
+				if (toHelp != null && Core.TickCount - m_NextCastTime >= 0)
 				{
 					if (NeedCure(toHelp))
 					{
@@ -57,7 +84,10 @@ namespace Server.Mobiles
 							m_Mobile.DebugSay("{0} needs a cure", toHelp.Name);
 
 						if (!(new CureSpell(m_Mobile, null)).Cast())
-							new CureSpell(m_Mobile, null).Cast();
+						{
+							m_CurrentSpell = new CureSpell(m_Mobile, null);
+							m_CurrentSpell.Cast();
+						}
 					}
 					else if (NeedGHeal(toHelp))
 					{
@@ -65,14 +95,19 @@ namespace Server.Mobiles
 							m_Mobile.DebugSay("{0} needs a greater heal", toHelp.Name);
 
 						if (!(new GreaterHealSpell(m_Mobile, null)).Cast())
-							new HealSpell(m_Mobile, null).Cast();
+						{
+							m_CurrentSpell = new GreaterHealSpell(m_Mobile, null);
+							m_CurrentSpell.Cast();
+						}
+
 					}
 					else if (NeedLHeal(toHelp))
 					{
 						if (m_Mobile.Debug)
 							m_Mobile.DebugSay("{0} needs a lesser heal", toHelp.Name);
 
-						new HealSpell(m_Mobile, null).Cast();
+						m_CurrentSpell = new HealSpell(m_Mobile, null);
+						m_CurrentSpell.Cast();
 					}
 				}
 				else
@@ -106,11 +141,20 @@ namespace Server.Mobiles
 				else
 				{
 					targ.Invoke(m_Mobile, toHelp);
+					if (m_CurrentSpell != null)
+					{
+						m_NextCastTime = Core.TickCount + (int)m_CurrentSpell.GetCastDelay().TotalMilliseconds;
+						m_CurrentSpell = null;
+					}
 				}
 			}
 			else
 			{
 				targ.Cancel(m_Mobile, TargetCancelType.Canceled);
+				if (m_CurrentSpell != null)
+				{
+					m_CurrentSpell = null;
+				}
 			}
 		}
 
@@ -128,7 +172,7 @@ namespace Server.Mobiles
 
 				foreach (Mobile m in m_Mobile.GetMobilesInRange(m_Mobile.RangePerception))
 				{
-					if (!m_Mobile.CanSee(m) || !(m is BaseCreature) || ((BaseCreature)m).Team != m_Mobile.Team)
+					if (!m_Mobile.CanSee(m) || !(m is BaseCreature creature) || creature.Team != m_Mobile.Team)
 						continue;
 
 					for (int i = 0; i < funcs.Length; ++i)
