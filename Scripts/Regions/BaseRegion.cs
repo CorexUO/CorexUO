@@ -69,9 +69,7 @@ namespace Server.Regions
 		{
 			while (region != null)
 			{
-				BaseRegion br = region as BaseRegion;
-
-				if (br != null && br.m_RuneName != null)
+				if (region is BaseRegion br && br.m_RuneName != null)
 					return br.m_RuneName;
 
 				region = region.Parent;
@@ -98,9 +96,7 @@ namespace Server.Regions
 				if (!region.AllowSpawn())
 					return false;
 
-				BaseRegion br = region as BaseRegion;
-
-				if (br != null)
+				if (region is BaseRegion br)
 				{
 					if (br.Spawns != null)
 					{
@@ -125,7 +121,7 @@ namespace Server.Regions
 
 		public override void OnEnter(Mobile m)
 		{
-			if (m is PlayerMobile && ((PlayerMobile)m).Young)
+			if (m is PlayerMobile mobile && mobile.Young)
 			{
 				if (!this.YoungProtected)
 				{
@@ -514,9 +510,7 @@ namespace Server.Regions
 
 				foreach (XmlNode node in spawning.ChildNodes)
 				{
-					XmlElement el = node as XmlElement;
-
-					if (el != null)
+					if (node is XmlElement el)
 					{
 						SpawnDefinition def = SpawnDefinition.GetSpawnDefinition(el);
 						if (def == null)

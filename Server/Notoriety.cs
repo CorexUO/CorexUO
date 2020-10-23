@@ -32,13 +32,7 @@ namespace Server
 		public const int Murderer = 6;
 		public const int Invulnerable = 7;
 
-		private static NotorietyHandler m_Handler;
-
-		public static NotorietyHandler Handler
-		{
-			get { return m_Handler; }
-			set { m_Handler = value; }
-		}
+		public static NotorietyHandler Handler { get; set; }
 
 		private static int[] m_Hues = new int[]
 			{
@@ -68,7 +62,7 @@ namespace Server
 
 		public static int Compute(Mobile source, Mobile target)
 		{
-			return m_Handler == null ? CanBeAttacked : m_Handler(source, target);
+			return Handler == null ? CanBeAttacked : Handler(source, target);
 		}
 	}
 }
