@@ -11,11 +11,11 @@
 
 CorexUO is an Ultima Online server emulator based on RunUO [https://github.com/runuo/runuo]
 
-## .Net Core 3.1 Support
+## .Net 5 Support
 Change the core to work with .Net Core framework.
 
 ## Requirements to Compile
-- [.NET Core 3.1 SDK](https://dotnet.microsoft.com/download/dotnet-core/3.1)
+- [.NET 5 SDK](https://dotnet.microsoft.com/download/dotnet/5.0)
 
 
 ### Requirements for run in Ubuntu/Debian
