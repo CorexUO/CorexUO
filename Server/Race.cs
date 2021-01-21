@@ -1,23 +1,3 @@
-/***************************************************************************
- *                                  Race.cs
- *                            -------------------
- *   begin                : May 1, 2002
- *   copyright            : (C) The RunUO Software Team
- *   email                : info@runuo.com
- *
- *   $Id$
- *
- ***************************************************************************/
-
-/***************************************************************************
- *
- *   This program is free software; you can redistribute it and/or modify
- *   it under the terms of the GNU General Public License as published by
- *   the Free Software Foundation; either version 2 of the License, or
- *   (at your option) any later version.
- *
- ***************************************************************************/
-
 using System;
 using System.Collections.Generic;
 
@@ -28,7 +8,7 @@ namespace Server
 	{
 		public static Race DefaultRace { get { return m_Races[0]; } }
 
-		private static Race[] m_Races = new Race[0x100];
+		private static readonly Race[] m_Races = new Race[0x100];
 
 		public static Race[] Races { get { return m_Races; } }
 
@@ -36,11 +16,7 @@ namespace Server
 		public static Race Elf { get { return m_Races[1]; } }
 		public static Race Gargoyle { get { return m_Races[2]; } }
 
-		private static List<Race> m_AllRaces = new List<Race>();
-
-		public static List<Race> AllRaces { get { return m_AllRaces; } }
-
-		private int m_RaceID, m_RaceIndex;
+		public static List<Race> AllRaces { get; } = new List<Race>();
 
 		private string m_Name, m_PluralName;
 
@@ -69,8 +45,7 @@ namespace Server
 					return m_RaceValues[i];
 			}
 
-			int index;
-			if (int.TryParse(value, out index))
+			if (int.TryParse(value, out int index))
 			{
 				if (index >= 0 && index < m_Races.Length && m_Races[index] != null)
 					return m_Races[index];
@@ -81,15 +56,15 @@ namespace Server
 
 		private static void CheckNamesAndValues()
 		{
-			if (m_RaceNames != null && m_RaceNames.Length == m_AllRaces.Count)
+			if (m_RaceNames != null && m_RaceNames.Length == AllRaces.Count)
 				return;
 
-			m_RaceNames = new string[m_AllRaces.Count];
-			m_RaceValues = new Race[m_AllRaces.Count];
+			m_RaceNames = new string[AllRaces.Count];
+			m_RaceValues = new Race[AllRaces.Count];
 
-			for (int i = 0; i < m_AllRaces.Count; ++i)
+			for (int i = 0; i < AllRaces.Count; ++i)
 			{
-				Race race = m_AllRaces[i];
+				Race race = AllRaces[i];
 
 				m_RaceNames[i] = race.Name;
 				m_RaceValues[i] = race;
@@ -101,31 +76,27 @@ namespace Server
 			return m_Name;
 		}
 
-		private int m_MaleBody, m_FemaleBody, m_MaleGhostBody, m_FemaleGhostBody;
+		public Expansion RequiredExpansion { get; }
 
-		private Expansion m_RequiredExpansion;
+		public int MaleBody { get; }
+		public int MaleGhostBody { get; }
 
-		public Expansion RequiredExpansion { get { return m_RequiredExpansion; } }
-
-		public int MaleBody { get { return m_MaleBody; } }
-		public int MaleGhostBody { get { return m_MaleGhostBody; } }
-
-		public int FemaleBody { get { return m_FemaleBody; } }
-		public int FemaleGhostBody { get { return m_FemaleGhostBody; } }
+		public int FemaleBody { get; }
+		public int FemaleGhostBody { get; }
 
 		protected Race(int raceID, int raceIndex, string name, string pluralName, int maleBody, int femaleBody, int maleGhostBody, int femaleGhostBody, Expansion requiredExpansion)
 		{
-			m_RaceID = raceID;
-			m_RaceIndex = raceIndex;
+			RaceID = raceID;
+			RaceIndex = raceIndex;
 
 			m_Name = name;
 
-			m_MaleBody = maleBody;
-			m_FemaleBody = femaleBody;
-			m_MaleGhostBody = maleGhostBody;
-			m_FemaleGhostBody = femaleGhostBody;
+			MaleBody = maleBody;
+			FemaleBody = femaleBody;
+			MaleGhostBody = maleGhostBody;
+			FemaleGhostBody = femaleGhostBody;
 
-			m_RequiredExpansion = requiredExpansion;
+			RequiredExpansion = requiredExpansion;
 			m_PluralName = pluralName;
 		}
 
@@ -158,30 +129,18 @@ namespace Server
 		public virtual int AliveBody(Mobile m) { return AliveBody(m.Female); }
 		public virtual int AliveBody(bool female)
 		{
-			return (female ? m_FemaleBody : m_MaleBody);
+			return (female ? FemaleBody : MaleBody);
 		}
 
 		public virtual int GhostBody(Mobile m) { return GhostBody(m.Female); }
 		public virtual int GhostBody(bool female)
 		{
-			return (female ? m_FemaleGhostBody : m_MaleGhostBody);
+			return (female ? FemaleGhostBody : MaleGhostBody);
 		}
 
-		public int RaceID
-		{
-			get
-			{
-				return m_RaceID;
-			}
-		}
+		public int RaceID { get; }
 
-		public int RaceIndex
-		{
-			get
-			{
-				return m_RaceIndex;
-			}
-		}
+		public int RaceIndex { get; }
 
 		public string Name
 		{
