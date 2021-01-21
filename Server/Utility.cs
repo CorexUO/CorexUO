@@ -682,6 +682,25 @@ namespace Server
 			}
 		}
 
+		public static Point2D GetDirectionOffset(Direction d)
+		{
+			Point2D result = new Point2D(0, 0);
+
+			switch (d & Direction.Mask)
+			{
+				case Direction.North: --result.Y; break;
+				case Direction.South: ++result.Y; break;
+				case Direction.West: --result.X; break;
+				case Direction.East: ++result.X; break;
+				case Direction.Right: ++result.X; --result.Y; break;
+				case Direction.Left: --result.X; ++result.Y; break;
+				case Direction.Down: ++result.X; ++result.Y; break;
+				case Direction.Up: --result.X; --result.Y; break;
+			}
+
+			return result;
+		}
+
 		/* Should probably be rewritten to use an ITile interface
 
 		public static bool CanMobileFit( int z, StaticTile[] tiles )
