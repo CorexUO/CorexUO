@@ -1,23 +1,3 @@
-/***************************************************************************
- *                             Serialization.cs
- *                            -------------------
- *   begin                : May 1, 2002
- *   copyright            : (C) The RunUO Software Team
- *   email                : info@runuo.com
- *
- *   $Id$
- *
- ***************************************************************************/
-
-/***************************************************************************
- *
- *   This program is free software; you can redistribute it and/or modify
- *   it under the terms of the GNU General Public License as published by
- *   the Free Software Foundation; either version 2 of the License, or
- *   (at your option) any later version.
- *
- ***************************************************************************/
-
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -191,8 +171,8 @@ namespace Server
 
 	public class BinaryFileWriter : GenericWriter
 	{
-		private bool PrefixStrings;
-		private Stream m_File;
+		private readonly bool PrefixStrings;
+		private readonly Stream m_File;
 
 		protected virtual int BufferSize
 		{
@@ -202,11 +182,11 @@ namespace Server
 			}
 		}
 
-		private byte[] m_Buffer;
+		private readonly byte[] m_Buffer;
 
 		private int m_Index;
 
-		private Encoding m_Encoding;
+		private readonly Encoding m_Encoding;
 
 		public BinaryFileWriter(Stream strm, bool prefixStr)
 		{
@@ -939,7 +919,7 @@ namespace Server
 
 	public sealed class BinaryFileReader : GenericReader
 	{
-		private BinaryReader m_File;
+		private readonly BinaryReader m_File;
 
 		public BinaryFileReader(BinaryReader br) { m_File = br; }
 
@@ -1234,9 +1214,7 @@ namespace Server
 
 				for (int i = 0; i < count; ++i)
 				{
-					T item = ReadItem() as T;
-
-					if (item != null)
+					if (ReadItem() is T item)
 					{
 						list.Add(item);
 					}
@@ -1265,9 +1243,7 @@ namespace Server
 
 				for (int i = 0; i < count; ++i)
 				{
-					T item = ReadItem() as T;
-
-					if (item != null)
+					if (ReadItem() is T item)
 					{
 						set.Add(item);
 					}
@@ -1296,9 +1272,7 @@ namespace Server
 
 				for (int i = 0; i < count; ++i)
 				{
-					T m = ReadMobile() as T;
-
-					if (m != null)
+					if (ReadMobile() is T m)
 					{
 						list.Add(m);
 					}
@@ -1327,9 +1301,7 @@ namespace Server
 
 				for (int i = 0; i < count; ++i)
 				{
-					T item = ReadMobile() as T;
-
-					if (item != null)
+					if (ReadMobile() is T item)
 					{
 						set.Add(item);
 					}
@@ -1358,9 +1330,7 @@ namespace Server
 
 				for (int i = 0; i < count; ++i)
 				{
-					T g = ReadGuild() as T;
-
-					if (g != null)
+					if (ReadGuild() is T g)
 					{
 						list.Add(g);
 					}
@@ -1389,9 +1359,7 @@ namespace Server
 
 				for (int i = 0; i < count; ++i)
 				{
-					T item = ReadGuild() as T;
-
-					if (item != null)
+					if (ReadGuild() is T item)
 					{
 						set.Add(item);
 					}
@@ -1418,18 +1386,17 @@ namespace Server
 
 	public sealed class AsyncWriter : GenericWriter
 	{
-		private static int m_ThreadCount = 0;
-		public static int ThreadCount { get { return m_ThreadCount; } }
+		public static int ThreadCount { get; private set; }
 
-		private int BufferSize;
+		private readonly int BufferSize;
 
 		private long m_LastPos, m_CurPos;
 		private bool m_Closed;
-		private bool PrefixStrings;
+		private readonly bool PrefixStrings;
 
 		private MemoryStream m_Mem;
 		private BinaryWriter m_Bin;
-		private FileStream m_File;
+		private readonly FileStream m_File;
 
 		private Queue<MemoryStream> m_WriteQueue;
 		private Thread m_WorkerThread;
@@ -1458,8 +1425,10 @@ namespace Server
 
 			if (m_WorkerThread == null || !m_WorkerThread.IsAlive)
 			{
-				m_WorkerThread = new Thread(new ThreadStart(new WorkerThread(this).Worker));
-				m_WorkerThread.Priority = ThreadPriority.BelowNormal;
+				m_WorkerThread = new Thread(new ThreadStart(new WorkerThread(this).Worker))
+				{
+					Priority = ThreadPriority.BelowNormal
+				};
 				m_WorkerThread.Start();
 			}
 		}
@@ -1475,7 +1444,7 @@ namespace Server
 
 			public void Worker()
 			{
-				AsyncWriter.m_ThreadCount++;
+				AsyncWriter.ThreadCount++;
 
 				int lastCount = 0;
 
@@ -1496,9 +1465,9 @@ namespace Server
 				if (m_Owner.m_Closed)
 					m_Owner.m_File.Close();
 
-				AsyncWriter.m_ThreadCount--;
+				AsyncWriter.ThreadCount--;
 
-				if (AsyncWriter.m_ThreadCount <= 0)
+				if (AsyncWriter.ThreadCount <= 0)
 					World.NotifyDiskWriteComplete();
 			}
 		}

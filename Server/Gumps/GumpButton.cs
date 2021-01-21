@@ -1,23 +1,3 @@
-/***************************************************************************
- *                               GumpButton.cs
- *                            -------------------
- *   begin                : May 1, 2002
- *   copyright            : (C) The RunUO Software Team
- *   email                : info@runuo.com
- *
- *   $Id$
- *
- ***************************************************************************/
-
-/***************************************************************************
- *
- *   This program is free software; you can redistribute it and/or modify
- *   it under the terms of the GNU General Public License as published by
- *   the Free Software Foundation; either version 2 of the License, or
- *   (at your option) any later version.
- *
- ***************************************************************************/
-
 using System;
 using Server.Network;
 
@@ -124,7 +104,7 @@ namespace Server.Gumps
 
 					if (parent != null)
 					{
-						parent.Invalidate();
+						Gump.Invalidate();
 					}
 				}
 			}
@@ -147,7 +127,7 @@ namespace Server.Gumps
 			return String.Format("{{ button {0} {1} {2} {3} {4} {5} {6} }}", m_X, m_Y, m_ID1, m_ID2, (int)m_Type, m_Param, m_ButtonID);
 		}
 
-		private static byte[] m_LayoutName = Gump.StringToBuffer("button");
+		private static readonly byte[] m_LayoutName = Gump.StringToBuffer("button");
 
 		public override void AppendTo(IGumpWriter disp)
 		{
