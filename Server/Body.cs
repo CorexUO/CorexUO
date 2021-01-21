@@ -1,23 +1,3 @@
-/***************************************************************************
- *                                  Body.cs
- *                            -------------------
- *   begin                : May 1, 2002
- *   copyright            : (C) The RunUO Software Team
- *   email                : info@runuo.com
- *
- *   $Id$
- *
- ***************************************************************************/
-
-/***************************************************************************
- *
- *   This program is free software; you can redistribute it and/or modify
- *   it under the terms of the GNU General Public License as published by
- *   the Free Software Foundation; either version 2 of the License, or
- *   (at your option) any later version.
- *
- ***************************************************************************/
-
 using System;
 using System.IO;
 
@@ -35,9 +15,7 @@ namespace Server
 
 	public struct Body
 	{
-		private int m_BodyID;
-
-		private static BodyType[] m_Types;
+		private static readonly BodyType[] m_Types;
 
 		static Body()
 		{
@@ -56,10 +34,8 @@ namespace Server
 
 						string[] split = line.Split('\t');
 
-						BodyType type;
-						int bodyID;
 
-						if (int.TryParse(split[0], out bodyID) && Enum.TryParse(split[1], true, out type) && bodyID >= 0 && bodyID < m_Types.Length)
+						if (int.TryParse(split[0], out int bodyID) && Enum.TryParse(split[1], true, out BodyType type) && bodyID >= 0 && bodyID < m_Types.Length)
 						{
 							m_Types[bodyID] = type;
 						}
@@ -75,21 +51,21 @@ namespace Server
 			{
 				Console.WriteLine("Warning: Data/bodyTable.cfg does not exist");
 
-				m_Types = new BodyType[0];
+				m_Types = Array.Empty<BodyType>();
 			}
 		}
 
 		public Body(int bodyID)
 		{
-			m_BodyID = bodyID;
+			BodyID = bodyID;
 		}
 
 		public BodyType Type
 		{
 			get
 			{
-				if (m_BodyID >= 0 && m_BodyID < m_Types.Length)
-					return m_Types[m_BodyID];
+				if (BodyID >= 0 && BodyID < m_Types.Length)
+					return m_Types[BodyID];
 				else
 					return BodyType.Empty;
 			}
@@ -99,16 +75,16 @@ namespace Server
 		{
 			get
 			{
-				return m_BodyID >= 0
-					&& m_BodyID < m_Types.Length
-					&& m_Types[m_BodyID] == BodyType.Human
-					&& m_BodyID != 402
-					&& m_BodyID != 403
-					&& m_BodyID != 607
-					&& m_BodyID != 608
-					&& m_BodyID != 694
-					&& m_BodyID != 695
-					&& m_BodyID != 970;
+				return BodyID >= 0
+					&& BodyID < m_Types.Length
+					&& m_Types[BodyID] == BodyType.Human
+					&& BodyID != 402
+					&& BodyID != 403
+					&& BodyID != 607
+					&& BodyID != 608
+					&& BodyID != 694
+					&& BodyID != 695
+					&& BodyID != 970;
 			}
 		}
 
@@ -116,10 +92,10 @@ namespace Server
 		{
 			get
 			{
-				return m_BodyID == 666
-					|| m_BodyID == 667
-					|| m_BodyID == 694
-					|| m_BodyID == 695;
+				return BodyID == 666
+					|| BodyID == 667
+					|| BodyID == 694
+					|| BodyID == 695;
 			}
 		}
 
@@ -127,15 +103,15 @@ namespace Server
 		{
 			get
 			{
-				return m_BodyID == 183
-					|| m_BodyID == 185
-					|| m_BodyID == 400
-					|| m_BodyID == 402
-					|| m_BodyID == 605
-					|| m_BodyID == 607
-					|| m_BodyID == 666
-					|| m_BodyID == 694
-					|| m_BodyID == 750;
+				return BodyID == 183
+					|| BodyID == 185
+					|| BodyID == 400
+					|| BodyID == 402
+					|| BodyID == 605
+					|| BodyID == 607
+					|| BodyID == 666
+					|| BodyID == 694
+					|| BodyID == 750;
 			}
 		}
 
@@ -143,15 +119,15 @@ namespace Server
 		{
 			get
 			{
-				return m_BodyID == 184
-					|| m_BodyID == 186
-					|| m_BodyID == 401
-					|| m_BodyID == 403
-					|| m_BodyID == 606
-					|| m_BodyID == 608
-					|| m_BodyID == 667
-					|| m_BodyID == 695
-					|| m_BodyID == 751;
+				return BodyID == 184
+					|| BodyID == 186
+					|| BodyID == 401
+					|| BodyID == 403
+					|| BodyID == 606
+					|| BodyID == 608
+					|| BodyID == 667
+					|| BodyID == 695
+					|| BodyID == 751;
 			}
 		}
 
@@ -159,13 +135,13 @@ namespace Server
 		{
 			get
 			{
-				return m_BodyID == 402
-					|| m_BodyID == 403
-					|| m_BodyID == 607
-					|| m_BodyID == 608
-					|| m_BodyID == 694
-					|| m_BodyID == 695
-					|| m_BodyID == 970;
+				return BodyID == 402
+					|| BodyID == 403
+					|| BodyID == 607
+					|| BodyID == 608
+					|| BodyID == 694
+					|| BodyID == 695
+					|| BodyID == 970;
 			}
 		}
 
@@ -173,9 +149,9 @@ namespace Server
 		{
 			get
 			{
-				return m_BodyID >= 0
-					&& m_BodyID < m_Types.Length
-					&& m_Types[m_BodyID] == BodyType.Monster;
+				return BodyID >= 0
+					&& BodyID < m_Types.Length
+					&& m_Types[BodyID] == BodyType.Monster;
 			}
 		}
 
@@ -183,9 +159,9 @@ namespace Server
 		{
 			get
 			{
-				return m_BodyID >= 0
-					&& m_BodyID < m_Types.Length
-					&& m_Types[m_BodyID] == BodyType.Animal;
+				return BodyID >= 0
+					&& BodyID < m_Types.Length
+					&& m_Types[BodyID] == BodyType.Animal;
 			}
 		}
 
@@ -193,9 +169,9 @@ namespace Server
 		{
 			get
 			{
-				return m_BodyID >= 0
-					&& m_BodyID < m_Types.Length
-					&& m_Types[m_BodyID] == BodyType.Empty;
+				return BodyID >= 0
+					&& BodyID < m_Types.Length
+					&& m_Types[BodyID] == BodyType.Empty;
 			}
 		}
 
@@ -203,9 +179,9 @@ namespace Server
 		{
 			get
 			{
-				return m_BodyID >= 0
-					&& m_BodyID < m_Types.Length
-					&& m_Types[m_BodyID] == BodyType.Sea;
+				return BodyID >= 0
+					&& BodyID < m_Types.Length
+					&& m_Types[BodyID] == BodyType.Sea;
 			}
 		}
 
@@ -213,23 +189,17 @@ namespace Server
 		{
 			get
 			{
-				return m_BodyID >= 0
-					&& m_BodyID < m_Types.Length
-					&& m_Types[m_BodyID] == BodyType.Equipment;
+				return BodyID >= 0
+					&& BodyID < m_Types.Length
+					&& m_Types[BodyID] == BodyType.Equipment;
 			}
 		}
 
-		public int BodyID
-		{
-			get
-			{
-				return m_BodyID;
-			}
-		}
+		public int BodyID { get; }
 
 		public static implicit operator int(Body a)
 		{
-			return a.m_BodyID;
+			return a.BodyID;
 		}
 
 		public static implicit operator Body(int a)
@@ -239,49 +209,49 @@ namespace Server
 
 		public override string ToString()
 		{
-			return string.Format("0x{0:X}", m_BodyID);
+			return string.Format("0x{0:X}", BodyID);
 		}
 
 		public override int GetHashCode()
 		{
-			return m_BodyID;
+			return BodyID;
 		}
 
 		public override bool Equals(object o)
 		{
 			if (o == null || !(o is Body)) return false;
 
-			return ((Body)o).m_BodyID == m_BodyID;
+			return ((Body)o).BodyID == BodyID;
 		}
 
 		public static bool operator ==(Body l, Body r)
 		{
-			return l.m_BodyID == r.m_BodyID;
+			return l.BodyID == r.BodyID;
 		}
 
 		public static bool operator !=(Body l, Body r)
 		{
-			return l.m_BodyID != r.m_BodyID;
+			return l.BodyID != r.BodyID;
 		}
 
 		public static bool operator >(Body l, Body r)
 		{
-			return l.m_BodyID > r.m_BodyID;
+			return l.BodyID > r.BodyID;
 		}
 
 		public static bool operator >=(Body l, Body r)
 		{
-			return l.m_BodyID >= r.m_BodyID;
+			return l.BodyID >= r.BodyID;
 		}
 
 		public static bool operator <(Body l, Body r)
 		{
-			return l.m_BodyID < r.m_BodyID;
+			return l.BodyID < r.BodyID;
 		}
 
 		public static bool operator <=(Body l, Body r)
 		{
-			return l.m_BodyID <= r.m_BodyID;
+			return l.BodyID <= r.BodyID;
 		}
 	}
 }

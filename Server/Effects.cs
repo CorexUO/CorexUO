@@ -1,23 +1,3 @@
-/***************************************************************************
- *                                Effects.cs
- *                            -------------------
- *   begin                : May 1, 2002
- *   copyright            : (C) The RunUO Software Team
- *   email                : info@runuo.com
- *
- *   $Id$
- *
- ***************************************************************************/
-
-/***************************************************************************
- *
- *   This program is free software; you can redistribute it and/or modify
- *   it under the terms of the GNU General Public License as published by
- *   the Free Software Foundation; either version 2 of the License, or
- *   (at your option) any later version.
- *
- ***************************************************************************/
-
 using Server.Network;
 
 namespace Server
@@ -224,8 +204,8 @@ namespace Server
 
 		public static void SendTargetEffect(IEntity target, int itemID, int speed, int duration, int hue, int renderMode)
 		{
-			if (target is Mobile)
-				((Mobile)target).ProcessDelta();
+			if (target is Mobile mobile)
+				mobile.ProcessDelta();
 
 			SendPacket(target.Location, target.Map, new TargetEffect(target, itemID, speed, duration, hue, renderMode));
 		}
@@ -242,8 +222,8 @@ namespace Server
 
 		public static void SendTargetParticles(IEntity target, int itemID, int speed, int duration, int hue, int renderMode, int effect, EffectLayer layer, int unknown)
 		{
-			if (target is Mobile)
-				((Mobile)target).ProcessDelta();
+			if (target is Mobile mobile)
+				mobile.ProcessDelta();
 
 			Map map = target.Map;
 
@@ -289,11 +269,11 @@ namespace Server
 
 		public static void SendMovingEffect(IEntity from, IEntity to, int itemID, int speed, int duration, bool fixedDirection, bool explodes, int hue, int renderMode)
 		{
-			if (from is Mobile)
-				((Mobile)from).ProcessDelta();
+			if (from is Mobile mobile)
+				mobile.ProcessDelta();
 
-			if (to is Mobile)
-				((Mobile)to).ProcessDelta();
+			if (to is Mobile mobile1)
+				mobile1.ProcessDelta();
 
 			SendPacket(from.Location, from.Map, new MovingEffect(from, to, itemID, speed, duration, fixedDirection, explodes, hue, renderMode));
 		}
@@ -315,11 +295,11 @@ namespace Server
 
 		public static void SendMovingParticles(IEntity from, IEntity to, int itemID, int speed, int duration, bool fixedDirection, bool explodes, int hue, int renderMode, int effect, int explodeEffect, int explodeSound, EffectLayer layer, int unknown)
 		{
-			if (from is Mobile)
-				((Mobile)from).ProcessDelta();
+			if (from is Mobile mobile)
+				mobile.ProcessDelta();
 
-			if (to is Mobile)
-				((Mobile)to).ProcessDelta();
+			if (to is Mobile toMobile)
+				toMobile.ProcessDelta();
 
 			Map map = from.Map;
 

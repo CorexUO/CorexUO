@@ -1,23 +1,3 @@
-/***************************************************************************
- *                                 Guild.cs
- *                            -------------------
- *   begin                : May 1, 2002
- *   copyright            : (C) The RunUO Software Team
- *   email                : info@runuo.com
- *
- *   $Id$
- *
- ***************************************************************************/
-
-/***************************************************************************
- *
- *   This program is free software; you can redistribute it and/or modify
- *   it under the terms of the GNU General Public License as published by
- *   the Free Software Foundation; either version 2 of the License, or
- *   (at your option) any later version.
- *
- ***************************************************************************/
-
 using System;
 using System.Collections.Generic;
 
@@ -32,24 +12,24 @@ namespace Server.Guilds
 
 	public abstract class BaseGuild : ISerializable
 	{
-		private int m_Id;
+		[CommandProperty(AccessLevel.Counselor)]
+		public int Id { get; }
+
+		public static Dictionary<int, BaseGuild> List { get; } = new Dictionary<int, BaseGuild>();
 
 		protected BaseGuild(int Id)//serialization ctor
 		{
-			m_Id = Id;
-			m_GuildList.Add(m_Id, this);
-			if (m_Id + 1 > m_NextID)
-				m_NextID = m_Id + 1;
+			this.Id = Id;
+			List.Add(this.Id, this);
+			if (this.Id + 1 > m_NextID)
+				m_NextID = this.Id + 1;
 		}
 
 		protected BaseGuild()
 		{
-			m_Id = m_NextID++;
-			m_GuildList.Add(m_Id, this);
+			Id = m_NextID++;
+			List.Add(Id, this);
 		}
-
-		[CommandProperty(AccessLevel.Counselor)]
-		public int Id { get { return m_Id; } }
 
 		int ISerializable.TypeReference
 		{
@@ -58,7 +38,7 @@ namespace Server.Guilds
 
 		int ISerializable.SerialIdentity
 		{
-			get { return m_Id; }
+			get { return Id; }
 		}
 
 		public abstract void Deserialize(GenericReader reader);
@@ -70,29 +50,18 @@ namespace Server.Guilds
 		public abstract bool Disbanded { get; }
 		public abstract void OnDelete(Mobile mob);
 
-		private static Dictionary<int, BaseGuild> m_GuildList = new Dictionary<int, BaseGuild>();
 		private static int m_NextID = 1;
-
-		public static Dictionary<int, BaseGuild> List
-		{
-			get
-			{
-				return m_GuildList;
-			}
-		}
 
 		public static BaseGuild Find(int id)
 		{
-			BaseGuild g;
-
-			m_GuildList.TryGetValue(id, out g);
+			List.TryGetValue(id, out BaseGuild g);
 
 			return g;
 		}
 
 		public static BaseGuild FindByName(string name)
 		{
-			foreach (BaseGuild g in m_GuildList.Values)
+			foreach (BaseGuild g in List.Values)
 			{
 				if (g.Name == name)
 					return g;
@@ -103,7 +72,7 @@ namespace Server.Guilds
 
 		public static BaseGuild FindByAbbrev(string abbr)
 		{
-			foreach (BaseGuild g in m_GuildList.Values)
+			foreach (BaseGuild g in List.Values)
 			{
 				if (g.Abbreviation == abbr)
 					return g;
@@ -117,7 +86,7 @@ namespace Server.Guilds
 			string[] words = find.ToLower().Split(' ');
 			List<BaseGuild> results = new List<BaseGuild>();
 
-			foreach (BaseGuild g in m_GuildList.Values)
+			foreach (BaseGuild g in List.Values)
 			{
 				bool match = true;
 				string name = g.Name.ToLower();
@@ -139,7 +108,7 @@ namespace Server.Guilds
 
 		public override string ToString()
 		{
-			return String.Format("0x{0:X} \"{1} [{2}]\"", m_Id, Name, Abbreviation);
+			return String.Format("0x{0:X} \"{1} [{2}]\"", Id, Name, Abbreviation);
 		}
 	}
 }

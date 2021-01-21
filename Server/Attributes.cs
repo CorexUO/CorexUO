@@ -1,23 +1,3 @@
-/***************************************************************************
- *                               Attributes.cs
- *                            -------------------
- *   begin                : May 1, 2002
- *   copyright            : (C) The RunUO Software Team
- *   email                : info@runuo.com
- *
- *   $Id$
- *
- ***************************************************************************/
-
-/***************************************************************************
- *
- *   This program is free software; you can redistribute it and/or modify
- *   it under the terms of the GNU General Public License as published by
- *   the Free Software Foundation; either version 2 of the License, or
- *   (at your option) any later version.
- *
- ***************************************************************************/
-
 using System;
 using System.Collections.Generic;
 using System.Reflection;
@@ -105,7 +85,7 @@ namespace Server
 			return 0;
 		}
 
-		private int GetPriority(MethodInfo mi)
+		private static int GetPriority(MethodInfo mi)
 		{
 			object[] objs = mi.GetCustomAttributes(typeof(CallPriorityAttribute), true);
 
@@ -115,9 +95,8 @@ namespace Server
 			if (objs.Length == 0)
 				return 0;
 
-			CallPriorityAttribute attr = objs[0] as CallPriorityAttribute;
 
-			if (attr == null)
+			if (objs[0] is not CallPriorityAttribute attr)
 				return 0;
 
 			return attr.Priority;
@@ -127,19 +106,11 @@ namespace Server
 	[AttributeUsage(AttributeTargets.Class)]
 	public class TypeAliasAttribute : Attribute
 	{
-		private string[] m_Aliases;
-
-		public string[] Aliases
-		{
-			get
-			{
-				return m_Aliases;
-			}
-		}
+		public string[] Aliases { get; }
 
 		public TypeAliasAttribute(params string[] aliases)
 		{
-			m_Aliases = aliases;
+			Aliases = aliases;
 		}
 	}
 
@@ -154,32 +125,18 @@ namespace Server
 	[AttributeUsage(AttributeTargets.Class | AttributeTargets.Struct | AttributeTargets.Enum)]
 	public class CustomEnumAttribute : Attribute
 	{
-		private string[] m_Names;
-
-		public string[] Names
-		{
-			get
-			{
-				return m_Names;
-			}
-		}
+		public string[] Names { get; }
 
 		public CustomEnumAttribute(string[] names)
 		{
-			m_Names = names;
+			Names = names;
 		}
 	}
 
 	[AttributeUsage(AttributeTargets.Constructor)]
 	public class ConstructableAttribute : Attribute
 	{
-		private AccessLevel m_AccessLevel;
-
-		public AccessLevel AccessLevel
-		{
-			get { return m_AccessLevel; }
-			set { m_AccessLevel = value; }
-		}
+		public AccessLevel AccessLevel { get; set; }
 
 		public ConstructableAttribute() : this(AccessLevel.Player)  //Lowest accesslevel for current functionality (Level determined by access to [add)
 		{
@@ -187,44 +144,21 @@ namespace Server
 
 		public ConstructableAttribute(AccessLevel accessLevel)
 		{
-			m_AccessLevel = accessLevel;
+			AccessLevel = accessLevel;
 		}
 	}
 
 	[AttributeUsage(AttributeTargets.Property)]
 	public class CommandPropertyAttribute : Attribute
 	{
-		private AccessLevel m_ReadLevel, m_WriteLevel;
-		private bool m_ReadOnly;
-
-		public AccessLevel ReadLevel
-		{
-			get
-			{
-				return m_ReadLevel;
-			}
-		}
-
-		public AccessLevel WriteLevel
-		{
-			get
-			{
-				return m_WriteLevel;
-			}
-		}
-
-		public bool ReadOnly
-		{
-			get
-			{
-				return m_ReadOnly;
-			}
-		}
+		public AccessLevel ReadLevel { get; }
+		public AccessLevel WriteLevel { get; }
+		public bool ReadOnly { get; }
 
 		public CommandPropertyAttribute(AccessLevel level, bool readOnly)
 		{
-			m_ReadLevel = level;
-			m_ReadOnly = readOnly;
+			ReadLevel = level;
+			ReadOnly = readOnly;
 		}
 
 		public CommandPropertyAttribute(AccessLevel level) : this(level, level)
@@ -233,8 +167,8 @@ namespace Server
 
 		public CommandPropertyAttribute(AccessLevel readLevel, AccessLevel writeLevel)
 		{
-			m_ReadLevel = readLevel;
-			m_WriteLevel = writeLevel;
+			ReadLevel = readLevel;
+			WriteLevel = writeLevel;
 		}
 	}
 }

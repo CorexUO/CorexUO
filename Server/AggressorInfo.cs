@@ -1,23 +1,3 @@
-/***************************************************************************
- *                              AggressorInfo.cs
- *                            -------------------
- *   begin                : May 1, 2002
- *   copyright            : (C) The RunUO Software Team
- *   email                : info@runuo.com
- *
- *   $Id$
- *
- ***************************************************************************/
-
-/***************************************************************************
- *
- *   This program is free software; you can redistribute it and/or modify
- *   it under the terms of the GNU General Public License as published by
- *   the Free Software Foundation; either version 2 of the License, or
- *   (at your option) any later version.
- *
- ***************************************************************************/
-
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -34,7 +14,20 @@ namespace Server
 
 		private bool m_Queued;
 
-		private static Queue<AggressorInfo> m_Pool = new Queue<AggressorInfo>();
+		private static readonly Queue<AggressorInfo> m_Pool = new Queue<AggressorInfo>();
+
+		public static TimeSpan ExpireDelay { get; set; } = TimeSpan.FromMinutes(2.0);
+
+		private AggressorInfo(Mobile attacker, Mobile defender, bool criminal)
+		{
+			m_Attacker = attacker;
+			m_Defender = defender;
+
+			m_CanReportMurder = criminal;
+			m_CriminalAggression = criminal;
+
+			Refresh();
+		}
 
 		public static AggressorInfo Create(Mobile attacker, Mobile defender, bool criminal)
 		{
@@ -71,25 +64,6 @@ namespace Server
 			m_Pool.Enqueue(this);
 		}
 
-		private AggressorInfo(Mobile attacker, Mobile defender, bool criminal)
-		{
-			m_Attacker = attacker;
-			m_Defender = defender;
-
-			m_CanReportMurder = criminal;
-			m_CriminalAggression = criminal;
-
-			Refresh();
-		}
-
-		private static TimeSpan m_ExpireDelay = TimeSpan.FromMinutes(2.0);
-
-		public static TimeSpan ExpireDelay
-		{
-			get { return m_ExpireDelay; }
-			set { m_ExpireDelay = value; }
-		}
-
 		public static void DumpAccess()
 		{
 			using (StreamWriter op = new StreamWriter("warnings.log", true))
@@ -108,7 +82,7 @@ namespace Server
 				if (m_Queued)
 					DumpAccess();
 
-				return (m_Attacker.Deleted || m_Defender.Deleted || DateTime.UtcNow >= (m_LastCombatTime + m_ExpireDelay));
+				return (m_Attacker.Deleted || m_Defender.Deleted || DateTime.UtcNow >= (m_LastCombatTime + ExpireDelay));
 			}
 		}
 

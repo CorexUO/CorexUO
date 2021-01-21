@@ -1,23 +1,3 @@
-/***************************************************************************
- *                            TileMatrixPatch.cs
- *                            -------------------
- *   begin                : May 1, 2002
- *   copyright            : (C) The RunUO Software Team
- *   email                : info@runuo.com
- *
- *   $Id$
- *
- ***************************************************************************/
-
-/***************************************************************************
- *
- *   This program is free software; you can redistribute it and/or modify
- *   it under the terms of the GNU General Public License as published by
- *   the Free Software Foundation; either version 2 of the License, or
- *   (at your option) any later version.
- *
- ***************************************************************************/
-
 using System.IO;
 using System.Runtime.CompilerServices;
 
@@ -25,21 +5,9 @@ namespace Server
 {
 	public class TileMatrixPatch
 	{
-		private int m_LandBlocks, m_StaticBlocks;
+		private readonly int m_LandBlocks, m_StaticBlocks;
 
-		private static bool m_Enabled = true;
-
-		public static bool Enabled
-		{
-			get
-			{
-				return m_Enabled;
-			}
-			set
-			{
-				m_Enabled = value;
-			}
-		}
+		public static bool Enabled { get; set; } = true;
 
 		public int LandBlocks
 		{
@@ -61,7 +29,7 @@ namespace Server
 
 		public TileMatrixPatch(TileMatrix matrix, int index)
 		{
-			if (!m_Enabled)
+			if (!Enabled)
 				return;
 
 			string mapDataPath = Core.FindDataFile("mapdif{0}.mul", index);
@@ -177,7 +145,7 @@ namespace Server
 								while (pCur < pEnd)
 								{
 									lists[pCur->m_X & 0x7][pCur->m_Y & 0x7].Add((ushort)pCur->m_ID, pCur->m_Z);
-									pCur = pCur + 1;
+									pCur += 1;
 								}
 
 								StaticTile[][][] tiles = new StaticTile[8][][];
