@@ -90,10 +90,7 @@ namespace Server.Commands
 			else if (other == null)
 				return 1;
 
-			if (other is not CommandEntry e)
-				throw new ArgumentException();
-
-			return Command.CompareTo(e.Command);
+			return Command.CompareTo(other.Command);
 		}
 	}
 

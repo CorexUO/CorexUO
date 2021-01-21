@@ -26,7 +26,7 @@ namespace Server
 			if (other == null)
 				return 1;
 
-			return ((IComparable)Region).CompareTo(other.Region);
+			return Region.CompareTo(other.Region);
 		}
 	}
 
