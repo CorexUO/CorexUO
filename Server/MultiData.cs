@@ -1,23 +1,3 @@
-/***************************************************************************
- *                               MultiData.cs
- *                            -------------------
- *   begin                : May 1, 2002
- *   copyright            : (C) The RunUO Software Team
- *   email                : info@runuo.com
- *
- *   $Id$
- *
- ***************************************************************************/
-
-/***************************************************************************
- *
- *   This program is free software; you can redistribute it and/or modify
- *   it under the terms of the GNU General Public License as published by
- *   the Free Software Foundation; either version 2 of the License, or
- *   (at your option) any later version.
- *
- ***************************************************************************/
-
 using System;
 using System.IO;
 
@@ -25,21 +5,23 @@ namespace Server
 {
 	public static class MultiData
 	{
-		private static MultiComponentList[] m_Components;
+		public static FileStream Index { get; set; }
+		public static FileStream Stream { get; set; }
+		public static BinaryReader IndexReader { get; set; }
+		public static BinaryReader StreamReader { get; set; }
 
-		private static FileStream m_Index, m_Stream;
-		private static BinaryReader m_IndexReader, m_StreamReader;
+		public static MultiComponentList[] Components { get; private set; }
 
 		public static MultiComponentList GetComponents(int multiID)
 		{
 			MultiComponentList mcl;
 
-			if (multiID >= 0 && multiID < m_Components.Length)
+			if (multiID >= 0 && multiID < Components.Length)
 			{
-				mcl = m_Components[multiID];
+				mcl = Components[multiID];
 
 				if (mcl == null)
-					m_Components[multiID] = mcl = Load(multiID);
+					Components[multiID] = mcl = Load(multiID);
 			}
 			else
 			{
@@ -53,17 +35,17 @@ namespace Server
 		{
 			try
 			{
-				m_IndexReader.BaseStream.Seek(multiID * 12, SeekOrigin.Begin);
+				IndexReader.BaseStream.Seek(multiID * 12, SeekOrigin.Begin);
 
-				int lookup = m_IndexReader.ReadInt32();
-				int length = m_IndexReader.ReadInt32();
+				int lookup = IndexReader.ReadInt32();
+				int length = IndexReader.ReadInt32();
 
 				if (lookup < 0 || length <= 0)
 					return MultiComponentList.Empty;
 
-				m_StreamReader.BaseStream.Seek(lookup, SeekOrigin.Begin);
+				StreamReader.BaseStream.Seek(lookup, SeekOrigin.Begin);
 
-				return new MultiComponentList(m_StreamReader, length / (MultiComponentList.PostHSFormat ? 16 : 12));
+				return new MultiComponentList(StreamReader, length / (MultiComponentList.PostHSFormat ? 16 : 12));
 			}
 			catch
 			{
@@ -78,13 +60,13 @@ namespace Server
 
 			if (File.Exists(idxPath) && File.Exists(mulPath))
 			{
-				m_Index = new FileStream(idxPath, FileMode.Open, FileAccess.Read, FileShare.Read);
-				m_IndexReader = new BinaryReader(m_Index);
+				Index = new FileStream(idxPath, FileMode.Open, FileAccess.Read, FileShare.Read);
+				IndexReader = new BinaryReader(Index);
 
-				m_Stream = new FileStream(mulPath, FileMode.Open, FileAccess.Read, FileShare.Read);
-				m_StreamReader = new BinaryReader(m_Stream);
+				Stream = new FileStream(mulPath, FileMode.Open, FileAccess.Read, FileShare.Read);
+				StreamReader = new BinaryReader(Stream);
 
-				m_Components = new MultiComponentList[(int)(m_Index.Length / 12)];
+				Components = new MultiComponentList[(int)(Index.Length / 12)];
 
 				string vdPath = Core.FindDataFile("verdata.mul");
 
@@ -104,11 +86,11 @@ namespace Server
 							int length = bin.ReadInt32();
 							int extra = bin.ReadInt32();
 
-							if (file == 14 && index >= 0 && index < m_Components.Length && lookup >= 0 && length > 0)
+							if (file == 14 && index >= 0 && index < Components.Length && lookup >= 0 && length > 0)
 							{
 								bin.BaseStream.Seek(lookup, SeekOrigin.Begin);
 
-								m_Components[index] = new MultiComponentList(bin, length / 12);
+								Components[index] = new MultiComponentList(bin, length / 12);
 
 								bin.BaseStream.Seek(24 + (i * 20), SeekOrigin.Begin);
 							}
@@ -122,7 +104,7 @@ namespace Server
 			{
 				Console.WriteLine("Warning: Multi data files not found");
 
-				m_Components = new MultiComponentList[0];
+				Components = Array.Empty<MultiComponentList>();
 			}
 		}
 	}
@@ -353,7 +335,7 @@ namespace Server
 					if (x < oldWidth && y < oldHeight)
 						newTiles[x][y] = oldTiles[x][y];
 					else
-						newTiles[x][y] = new StaticTile[0];
+						newTiles[x][y] = Array.Empty<StaticTile>();
 
 					totalLength += newTiles[x][y].Length;
 				}
@@ -574,8 +556,8 @@ namespace Server
 
 		private MultiComponentList()
 		{
-			m_Tiles = new StaticTile[0][][];
-			m_List = new MultiTileEntry[0];
+			m_Tiles = Array.Empty<StaticTile[][]>();
+			m_List = Array.Empty<MultiTileEntry>();
 		}
 	}
 }

@@ -5,9 +5,7 @@ namespace Server
 	public class QuestArrow
 	{
 		public Mobile Mobile { get; }
-
 		public Mobile Target { get; }
-
 		public bool Running { get; private set; }
 
 		public QuestArrow(Mobile m, Mobile t)

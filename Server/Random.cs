@@ -1,12 +1,3 @@
-/***************************************************************************
- *
- *   This program is free software; you can redistribute it and/or modify
- *   it under the terms of the GNU General Public License as published by
- *   the Free Software Foundation; either version 2 of the License, or
- *   (at your option) any later version.
- *
- ***************************************************************************/
-
 using System;
 using System.IO;
 using System.Runtime.InteropServices;
@@ -41,9 +32,9 @@ namespace Server
 				_Random = new CSPRandom();
 			}
 
-			if (_Random is IHardwareRNG)
+			if (_Random is IHardwareRNG rNG)
 			{
-				if (!((IHardwareRNG)_Random).IsSupported())
+				if (!rNG.IsSupported())
 				{
 					_Random = new CSPRandom();
 				}
@@ -96,7 +87,7 @@ namespace Server
 
 	public sealed class SimpleRandom : IRandomImpl
 	{
-		private Random m_Random = new Random();
+		private readonly Random m_Random = new Random();
 
 		public SimpleRandom()
 		{
@@ -134,15 +125,15 @@ namespace Server
 	{
 		private RNGCryptoServiceProvider _CSP = new RNGCryptoServiceProvider();
 
-		private static int BUFFER_SIZE = 0x4000;
-		private static int LARGE_REQUEST = 0x40;
+		private static readonly int BUFFER_SIZE = 0x4000;
+		private static readonly int LARGE_REQUEST = 0x40;
 
 		private byte[] _Working = new byte[BUFFER_SIZE];
 		private byte[] _Buffer = new byte[BUFFER_SIZE];
 
 		private int _Index = 0;
 
-		private object _sync = new object();
+		private readonly object _sync = new object();
 
 		private ManualResetEvent _filled = new ManualResetEvent(false);
 
@@ -270,15 +261,15 @@ namespace Server
 			internal static extern RDRandError rdrand_get_bytes(int n, byte[] buffer);
 		}
 
-		private static int BUFFER_SIZE = 0x10000;
-		private static int LARGE_REQUEST = 0x40;
+		private static readonly int BUFFER_SIZE = 0x10000;
+		private static readonly int LARGE_REQUEST = 0x40;
 
 		private byte[] _Working = new byte[BUFFER_SIZE];
 		private byte[] _Buffer = new byte[BUFFER_SIZE];
 
 		private int _Index = 0;
 
-		private object _sync = new object();
+		private readonly object _sync = new object();
 
 		private ManualResetEvent _filled = new ManualResetEvent(false);
 
@@ -409,8 +400,8 @@ namespace Server
 			internal static extern RDRandError rdrand_get_bytes(int n, byte[] buffer);
 		}
 
-		private static int BUFFER_SIZE = 0x10000;
-		private static int LARGE_REQUEST = 0x40;
+		private static readonly int BUFFER_SIZE = 0x10000;
+		private static readonly int LARGE_REQUEST = 0x40;
 
 		private byte[] _Working = new byte[BUFFER_SIZE];
 		private byte[] _Buffer = new byte[BUFFER_SIZE];
@@ -456,7 +447,7 @@ namespace Server
 			_filled.Set();
 		}
 
-		private void _GetBytes(byte[] b)
+		private void GetBytes(byte[] b)
 		{
 			int c = b.Length;
 
@@ -468,7 +459,7 @@ namespace Server
 			}
 		}
 
-		private void _GetBytes(byte[] b, int offset, int count)
+		private void GetBytes(byte[] b, int offset, int count)
 		{
 			lock (_sync)
 			{
@@ -506,7 +497,7 @@ namespace Server
 				SafeNativeMethods.rdrand_get_bytes(c, b);
 				return;
 			}
-			_GetBytes(b);
+			GetBytes(b);
 		}
 
 		public unsafe double NextDouble()
@@ -516,12 +507,12 @@ namespace Server
 			if (BitConverter.IsLittleEndian)
 			{
 				b[7] = 0;
-				_GetBytes(b, 0, 7);
+				GetBytes(b, 0, 7);
 			}
 			else
 			{
 				b[0] = 0;
-				_GetBytes(b, 1, 7);
+				GetBytes(b, 1, 7);
 			}
 
 			ulong r = 0;

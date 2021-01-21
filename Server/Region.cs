@@ -78,7 +78,7 @@ namespace Server
 		ValoriaShips
 	}
 
-	public class Region : IComparable
+	public class Region : IComparable<Region>
 	{
 		public static List<Region> Regions { get; } = new List<Region>();
 
@@ -132,9 +132,8 @@ namespace Server
 			return ret;
 		}
 
-
-		private string m_Name;
-		private int m_Priority;
+		private readonly string m_Name;
+		private readonly int m_Priority;
 		private Point3D m_GoLocation;
 		private MusicName m_Music;
 
@@ -453,32 +452,29 @@ namespace Server
 			return count;
 		}
 
-		int IComparable.CompareTo(object obj)
+		public int CompareTo(Region other)
 		{
-			if (obj == null)
+			if (other == null)
 				return 1;
-
-			if (obj is not Region reg)
-				throw new ArgumentException("obj is not a Region", nameof(obj));
 
 			// Dynamic regions go first
 			if (Dynamic)
 			{
-				if (!reg.Dynamic)
+				if (!other.Dynamic)
 					return -1;
 			}
-			else if (reg.Dynamic)
+			else if (other.Dynamic)
 			{
 				return 1;
 			}
 
 			int thisPriority = this.Priority;
-			int regPriority = reg.Priority;
+			int regPriority = other.Priority;
 
 			if (thisPriority != regPriority)
 				return (regPriority - thisPriority);
 
-			return (reg.ChildLevel - this.ChildLevel);
+			return (other.ChildLevel - this.ChildLevel);
 		}
 
 		public override string ToString()

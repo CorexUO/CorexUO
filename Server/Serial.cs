@@ -1,47 +1,24 @@
-/***************************************************************************
- *                                Serial.cs
- *                            -------------------
- *   begin                : May 1, 2002
- *   copyright            : (C) The RunUO Software Team
- *   email                : info@runuo.com
- *
- *   $Id$
- *
- ***************************************************************************/
-
-/***************************************************************************
- *
- *   This program is free software; you can redistribute it and/or modify
- *   it under the terms of the GNU General Public License as published by
- *   the Free Software Foundation; either version 2 of the License, or
- *   (at your option) any later version.
- *
- ***************************************************************************/
-
 using System;
 
 namespace Server
 {
 	public struct Serial : IComparable, IComparable<Serial>
 	{
-		private int m_Serial;
-
-		private static Serial m_LastMobile = Zero;
-		private static Serial m_LastItem = 0x40000000;
-
-		public static Serial LastMobile { get { return m_LastMobile; } }
-		public static Serial LastItem { get { return m_LastItem; } }
+		public static Serial LastMobile { get; private set; } = Zero;
+		public static Serial LastItem { get; private set; } = 0x40000000;
 
 		public static readonly Serial MinusOne = new Serial(-1);
 		public static readonly Serial Zero = new Serial(0);
+
+		public int Value { get; }
 
 		public static Serial NewMobile
 		{
 			get
 			{
-				while (World.FindMobile(m_LastMobile = (m_LastMobile + 1)) != null) ;
+				while (World.FindMobile((Serial)(Serial.LastMobile += 1)) != null) ;
 
-				return m_LastMobile;
+				return LastMobile;
 			}
 		}
 
@@ -49,30 +26,22 @@ namespace Server
 		{
 			get
 			{
-				while (World.FindItem(m_LastItem = (m_LastItem + 1)) != null) ;
+				while (World.FindItem((Serial)(Serial.LastItem += 1)) != null) ;
 
-				return m_LastItem;
+				return LastItem;
 			}
 		}
 
 		private Serial(int serial)
 		{
-			m_Serial = serial;
-		}
-
-		public int Value
-		{
-			get
-			{
-				return m_Serial;
-			}
+			Value = serial;
 		}
 
 		public bool IsMobile
 		{
 			get
 			{
-				return (m_Serial > 0 && m_Serial < 0x40000000);
+				return (Value > 0 && Value < 0x40000000);
 			}
 		}
 
@@ -80,7 +49,7 @@ namespace Server
 		{
 			get
 			{
-				return (m_Serial >= 0x40000000 && m_Serial <= 0x7FFFFFFF);
+				return (Value >= 0x40000000 && Value <= 0x7FFFFFFF);
 			}
 		}
 
@@ -88,24 +57,24 @@ namespace Server
 		{
 			get
 			{
-				return (m_Serial > 0);
+				return (Value > 0);
 			}
 		}
 
 		public override int GetHashCode()
 		{
-			return m_Serial;
+			return Value;
 		}
 
 		public int CompareTo(Serial other)
 		{
-			return m_Serial.CompareTo(other.m_Serial);
+			return Value.CompareTo(other.Value);
 		}
 
 		public int CompareTo(object other)
 		{
-			if (other is Serial)
-				return this.CompareTo((Serial)other);
+			if (other is Serial serial)
+				return this.CompareTo(serial);
 			else if (other == null)
 				return -1;
 
@@ -116,37 +85,37 @@ namespace Server
 		{
 			if (o == null || !(o is Serial)) return false;
 
-			return ((Serial)o).m_Serial == m_Serial;
+			return ((Serial)o).Value == Value;
 		}
 
 		public static bool operator ==(Serial l, Serial r)
 		{
-			return l.m_Serial == r.m_Serial;
+			return l.Value == r.Value;
 		}
 
 		public static bool operator !=(Serial l, Serial r)
 		{
-			return l.m_Serial != r.m_Serial;
+			return l.Value != r.Value;
 		}
 
 		public static bool operator >(Serial l, Serial r)
 		{
-			return l.m_Serial > r.m_Serial;
+			return l.Value > r.Value;
 		}
 
 		public static bool operator <(Serial l, Serial r)
 		{
-			return l.m_Serial < r.m_Serial;
+			return l.Value < r.Value;
 		}
 
 		public static bool operator >=(Serial l, Serial r)
 		{
-			return l.m_Serial >= r.m_Serial;
+			return l.Value >= r.Value;
 		}
 
 		public static bool operator <=(Serial l, Serial r)
 		{
-			return l.m_Serial <= r.m_Serial;
+			return l.Value <= r.Value;
 		}
 
 		/*public static Serial operator ++ ( Serial l )
@@ -156,12 +125,12 @@ namespace Server
 
 		public override string ToString()
 		{
-			return String.Format("0x{0:X8}", m_Serial);
+			return String.Format("0x{0:X8}", Value);
 		}
 
 		public static implicit operator int(Serial a)
 		{
-			return a.m_Serial;
+			return a.Value;
 		}
 
 		public static implicit operator Serial(int a)

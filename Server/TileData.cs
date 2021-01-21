@@ -1,23 +1,3 @@
-/***************************************************************************
- *                                TileData.cs
- *                            -------------------
- *   begin                : May 1, 2002
- *   copyright            : (C) The RunUO Software Team
- *   email                : info@runuo.com
- *
- *   $Id$
- *
- ***************************************************************************/
-
-/***************************************************************************
- *
- *   This program is free software; you can redistribute it and/or modify
- *   it under the terms of the GNU General Public License as published by
- *   the Free Software Foundation; either version 2 of the License, or
- *   (at your option) any later version.
- *
- ***************************************************************************/
-
 using System;
 using System.IO;
 using System.Text;
@@ -26,32 +6,18 @@ namespace Server
 {
 	public struct LandData
 	{
-		private string m_Name;
-		private TileFlag m_Flags;
+		public string Name { get; set; }
+		public TileFlag Flags { get; set; }
 
 		public LandData(string name, TileFlag flags)
 		{
-			m_Name = name;
-			m_Flags = flags;
-		}
-
-		public string Name
-		{
-			get { return m_Name; }
-			set { m_Name = value; }
-		}
-
-		public TileFlag Flags
-		{
-			get { return m_Flags; }
-			set { m_Flags = value; }
+			Name = name;
+			Flags = flags;
 		}
 	}
 
 	public struct ItemData
 	{
-		private string m_Name;
-		private TileFlag m_Flags;
 		private byte m_Weight;
 		private byte m_Quality;
 		private byte m_Quantity;
@@ -60,8 +26,8 @@ namespace Server
 
 		public ItemData(string name, TileFlag flags, int weight, int quality, int quantity, int value, int height)
 		{
-			m_Name = name;
-			m_Flags = flags;
+			Name = name;
+			Flags = flags;
 			m_Weight = (byte)weight;
 			m_Quality = (byte)quality;
 			m_Quantity = (byte)quantity;
@@ -69,51 +35,43 @@ namespace Server
 			m_Height = (byte)height;
 		}
 
-		public string Name
-		{
-			get { return m_Name; }
-			set { m_Name = value; }
-		}
+		public string Name { get; set; }
 
-		public TileFlag Flags
-		{
-			get { return m_Flags; }
-			set { m_Flags = value; }
-		}
+		public TileFlag Flags { get; set; }
 
 		public bool Bridge
 		{
-			get { return (m_Flags & TileFlag.Bridge) != 0; }
+			get { return (Flags & TileFlag.Bridge) != 0; }
 			set
 			{
 				if (value)
-					m_Flags |= TileFlag.Bridge;
+					Flags |= TileFlag.Bridge;
 				else
-					m_Flags &= ~TileFlag.Bridge;
+					Flags &= ~TileFlag.Bridge;
 			}
 		}
 
 		public bool Impassable
 		{
-			get { return (m_Flags & TileFlag.Impassable) != 0; }
+			get { return (Flags & TileFlag.Impassable) != 0; }
 			set
 			{
 				if (value)
-					m_Flags |= TileFlag.Impassable;
+					Flags |= TileFlag.Impassable;
 				else
-					m_Flags &= ~TileFlag.Impassable;
+					Flags &= ~TileFlag.Impassable;
 			}
 		}
 
 		public bool Surface
 		{
-			get { return (m_Flags & TileFlag.Surface) != 0; }
+			get { return (Flags & TileFlag.Surface) != 0; }
 			set
 			{
 				if (value)
-					m_Flags |= TileFlag.Surface;
+					Flags |= TileFlag.Surface;
 				else
-					m_Flags &= ~TileFlag.Surface;
+					Flags &= ~TileFlag.Surface;
 			}
 		}
 
@@ -151,7 +109,7 @@ namespace Server
 		{
 			get
 			{
-				if ((m_Flags & TileFlag.Bridge) != 0)
+				if ((Flags & TileFlag.Bridge) != 0)
 					return m_Height / 2;
 				else
 					return m_Height;
@@ -199,39 +157,13 @@ namespace Server
 
 	public static class TileData
 	{
-		private static LandData[] m_LandData;
-		private static ItemData[] m_ItemData;
+		public static LandData[] LandTable { get; private set; }
+		public static ItemData[] ItemTable { get; private set; }
 
-		public static LandData[] LandTable
-		{
-			get
-			{
-				return m_LandData;
-			}
-		}
+		public static int MaxLandValue { get; private set; }
+		public static int MaxItemValue { get; private set; }
 
-		public static ItemData[] ItemTable
-		{
-			get
-			{
-				return m_ItemData;
-			}
-		}
-
-		private static int m_MaxLandValue;
-		private static int m_MaxItemValue;
-
-		public static int MaxLandValue
-		{
-			get { return m_MaxLandValue; }
-		}
-
-		public static int MaxItemValue
-		{
-			get { return m_MaxItemValue; }
-		}
-
-		private static byte[] m_StringBuffer = new byte[20];
+		private static readonly byte[] m_StringBuffer = new byte[20];
 
 		private static string ReadNameString(BinaryReader bin)
 		{
@@ -256,7 +188,7 @@ namespace Server
 
 					if (fs.Length == 3188736)
 					{ // 7.0.9.0
-						m_LandData = new LandData[0x4000];
+						LandTable = new LandData[0x4000];
 
 						for (int i = 0; i < 0x4000; ++i)
 						{
@@ -268,10 +200,10 @@ namespace Server
 							TileFlag flags = (TileFlag)bin.ReadInt64();
 							bin.ReadInt16(); // skip 2 bytes -- textureID
 
-							m_LandData[i] = new LandData(ReadNameString(bin), flags);
+							LandTable[i] = new LandData(ReadNameString(bin), flags);
 						}
 
-						m_ItemData = new ItemData[0x10000];
+						ItemTable = new ItemData[0x10000];
 
 						for (int i = 0; i < 0x10000; ++i)
 						{
@@ -291,12 +223,12 @@ namespace Server
 							int value = bin.ReadByte();
 							int height = bin.ReadByte();
 
-							m_ItemData[i] = new ItemData(ReadNameString(bin), flags, weight, quality, quantity, value, height);
+							ItemTable[i] = new ItemData(ReadNameString(bin), flags, weight, quality, quantity, value, height);
 						}
 					}
 					else
 					{
-						m_LandData = new LandData[0x4000];
+						LandTable = new LandData[0x4000];
 
 						for (int i = 0; i < 0x4000; ++i)
 						{
@@ -308,12 +240,12 @@ namespace Server
 							TileFlag flags = (TileFlag)bin.ReadInt32();
 							bin.ReadInt16(); // skip 2 bytes -- textureID
 
-							m_LandData[i] = new LandData(ReadNameString(bin), flags);
+							LandTable[i] = new LandData(ReadNameString(bin), flags);
 						}
 
 						if (fs.Length == 1644544)
 						{ // 7.0.0.0
-							m_ItemData = new ItemData[0x8000];
+							ItemTable = new ItemData[0x8000];
 
 							for (int i = 0; i < 0x8000; ++i)
 							{
@@ -333,12 +265,12 @@ namespace Server
 								int value = bin.ReadByte();
 								int height = bin.ReadByte();
 
-								m_ItemData[i] = new ItemData(ReadNameString(bin), flags, weight, quality, quantity, value, height);
+								ItemTable[i] = new ItemData(ReadNameString(bin), flags, weight, quality, quantity, value, height);
 							}
 						}
 						else
 						{
-							m_ItemData = new ItemData[0x4000];
+							ItemTable = new ItemData[0x4000];
 
 							for (int i = 0; i < 0x4000; ++i)
 							{
@@ -358,14 +290,14 @@ namespace Server
 								int value = bin.ReadByte();
 								int height = bin.ReadByte();
 
-								m_ItemData[i] = new ItemData(ReadNameString(bin), flags, weight, quality, quantity, value, height);
+								ItemTable[i] = new ItemData(ReadNameString(bin), flags, weight, quality, quantity, value, height);
 							}
 						}
 					}
 				}
 
-				m_MaxLandValue = m_LandData.Length - 1;
-				m_MaxItemValue = m_ItemData.Length - 1;
+				MaxLandValue = LandTable.Length - 1;
+				MaxItemValue = ItemTable.Length - 1;
 			}
 			else
 			{

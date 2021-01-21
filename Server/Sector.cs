@@ -1,23 +1,3 @@
-/***************************************************************************
- *                                 Sector.cs
- *                            -------------------
- *   begin                : May 1, 2002
- *   copyright            : (C) The RunUO Software Team
- *   email                : info@runuo.com
- *
- *   $Id$
- *
- ***************************************************************************/
-
-/***************************************************************************
- *
- *   This program is free software; you can redistribute it and/or modify
- *   it under the terms of the GNU General Public License as published by
- *   the Free Software Foundation; either version 2 of the License, or
- *   (at your option) any later version.
- *
- ***************************************************************************/
-
 using System;
 using System.Collections.Generic;
 using Server.Items;
@@ -25,39 +5,30 @@ using Server.Network;
 
 namespace Server
 {
-	public class RegionRect : IComparable
+	public class RegionRect : IComparable<RegionRect>
 	{
-		private Region m_Region;
-		private Rectangle3D m_Rect;
-
-		public Region Region { get { return m_Region; } }
-		public Rectangle3D Rect { get { return m_Rect; } }
+		public Region Region { get; }
+		public Rectangle3D Rect { get; private set; }
 
 		public RegionRect(Region region, Rectangle3D rect)
 		{
-			m_Region = region;
-			m_Rect = rect;
+			Region = region;
+			Rect = rect;
 		}
 
 		public bool Contains(Point3D loc)
 		{
-			return m_Rect.Contains(loc);
+			return Rect.Contains(loc);
 		}
 
-		int IComparable.CompareTo(object obj)
+		public int CompareTo(RegionRect other)
 		{
-			if (obj == null)
+			if (other == null)
 				return 1;
 
-			RegionRect regRect = obj as RegionRect;
-
-			if (regRect == null)
-				throw new ArgumentException("obj is not a RegionRect", "obj");
-
-			return ((IComparable)m_Region).CompareTo(regRect.m_Region);
+			return ((IComparable)Region).CompareTo(other.Region);
 		}
 	}
-
 
 	public class Sector
 	{

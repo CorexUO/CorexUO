@@ -1,23 +1,3 @@
-/***************************************************************************
- *                              ClientVersion.cs
- *                            -------------------
- *   begin                : May 1, 2002
- *   copyright            : (C) The RunUO Software Team
- *   email                : info@runuo.com
- *
- *   $Id$
- *
- ***************************************************************************/
-
-/***************************************************************************
- *
- *   This program is free software; you can redistribute it and/or modify
- *   it under the terms of the GNU General Public License as published by
- *   the Free Software Foundation; either version 2 of the License, or
- *   (at your option) any later version.
- *
- ***************************************************************************/
-
 using System;
 using System.Collections;
 using System.Text;
@@ -32,59 +12,15 @@ namespace Server
 		SA
 	}
 
-	public class ClientVersion : IComparable, IComparer
+	public class ClientVersion : IComparable<ClientVersion>, IComparer
 	{
-		private int m_Major, m_Minor, m_Revision, m_Patch;
-		private ClientType m_Type;
-		private string m_SourceString;
+		public int Major { get; }
+		public int Minor { get; }
+		public int Revision { get; }
+		public int Patch { get; }
+		public ClientType Type { get; }
 
-		public int Major
-		{
-			get
-			{
-				return m_Major;
-			}
-		}
-
-		public int Minor
-		{
-			get
-			{
-				return m_Minor;
-			}
-		}
-
-		public int Revision
-		{
-			get
-			{
-				return m_Revision;
-			}
-		}
-
-		public int Patch
-		{
-			get
-			{
-				return m_Patch;
-			}
-		}
-
-		public ClientType Type
-		{
-			get
-			{
-				return m_Type;
-			}
-		}
-
-		public string SourceString
-		{
-			get
-			{
-				return m_SourceString;
-			}
-		}
+		public string SourceString { get; }
 
 		public ClientVersion(int maj, int min, int rev, int pat) : this(maj, min, rev, pat, ClientType.Regular)
 		{
@@ -92,13 +28,13 @@ namespace Server
 
 		public ClientVersion(int maj, int min, int rev, int pat, ClientType type)
 		{
-			m_Major = maj;
-			m_Minor = min;
-			m_Revision = rev;
-			m_Patch = pat;
-			m_Type = type;
+			Major = maj;
+			Minor = min;
+			Revision = rev;
+			Patch = pat;
+			Type = type;
 
-			m_SourceString = _ToStringImpl();
+			SourceString = ToStringImpl();
 		}
 
 		public static bool operator ==(ClientVersion l, ClientVersion r)
@@ -133,7 +69,7 @@ namespace Server
 
 		public override int GetHashCode()
 		{
-			return m_Major ^ m_Minor ^ m_Revision ^ m_Patch ^ (int)m_Type;
+			return Major ^ Minor ^ Revision ^ Patch ^ (int)Type;
 		}
 
 		public override bool Equals(object obj)
@@ -146,38 +82,38 @@ namespace Server
 			if (v == null)
 				return false;
 
-			return m_Major == v.m_Major
-				&& m_Minor == v.m_Minor
-				&& m_Revision == v.m_Revision
-				&& m_Patch == v.m_Patch
-				&& m_Type == v.m_Type;
+			return Major == v.Major
+				&& Minor == v.Minor
+				&& Revision == v.Revision
+				&& Patch == v.Patch
+				&& Type == v.Type;
 		}
 
-		private string _ToStringImpl()
+		private string ToStringImpl()
 		{
 			StringBuilder builder = new StringBuilder(16);
 
-			builder.Append(m_Major);
+			builder.Append(Major);
 			builder.Append('.');
-			builder.Append(m_Minor);
+			builder.Append(Minor);
 			builder.Append('.');
-			builder.Append(m_Revision);
+			builder.Append(Revision);
 
-			if (m_Major <= 5 && m_Minor <= 0 && m_Revision <= 6)    //Anything before 5.0.7
+			if (Major <= 5 && Minor <= 0 && Revision <= 6)    //Anything before 5.0.7
 			{
-				if (m_Patch > 0)
-					builder.Append((char)('a' + (m_Patch - 1)));
+				if (Patch > 0)
+					builder.Append((char)('a' + (Patch - 1)));
 			}
 			else
 			{
 				builder.Append('.');
-				builder.Append(m_Patch);
+				builder.Append(Patch);
 			}
 
-			if (m_Type != ClientType.Regular)
+			if (Type != ClientType.Regular)
 			{
 				builder.Append(' ');
-				builder.Append(m_Type.ToString());
+				builder.Append(Type.ToString());
 			}
 
 			return builder.ToString();
@@ -185,12 +121,12 @@ namespace Server
 
 		public override string ToString()
 		{
-			return _ToStringImpl();
+			return ToStringImpl();
 		}
 
 		public ClientVersion(string fmt)
 		{
-			m_SourceString = fmt;
+			SourceString = fmt;
 
 			try
 			{
@@ -203,65 +139,60 @@ namespace Server
 				while (br3 < fmt.Length && Char.IsDigit(fmt, br3))
 					br3++;
 
-				m_Major = Utility.ToInt32(fmt.Substring(0, br1));
-				m_Minor = Utility.ToInt32(fmt.Substring(br1 + 1, br2 - br1 - 1));
-				m_Revision = Utility.ToInt32(fmt.Substring(br2 + 1, br3 - br2 - 1));
+				Major = Utility.ToInt32(fmt.Substring(0, br1));
+				Minor = Utility.ToInt32(fmt.Substring(br1 + 1, br2 - br1 - 1));
+				Revision = Utility.ToInt32(fmt.Substring(br2 + 1, br3 - br2 - 1));
 
 				if (br3 < fmt.Length)
 				{
-					if (m_Major <= 5 && m_Minor <= 0 && m_Revision <= 6)    //Anything before 5.0.7
+					if (Major <= 5 && Minor <= 0 && Revision <= 6)    //Anything before 5.0.7
 					{
 						if (!Char.IsWhiteSpace(fmt, br3))
-							m_Patch = (fmt[br3] - 'a') + 1;
+							Patch = (fmt[br3] - 'a') + 1;
 					}
 					else
 					{
-						m_Patch = Utility.ToInt32(fmt.Substring(br3 + 1, fmt.Length - br3 - 1));
+						Patch = Utility.ToInt32(fmt.Substring(br3 + 1, fmt.Length - br3 - 1));
 					}
 				}
 
 				if (fmt.IndexOf("god") >= 0 || fmt.IndexOf("gq") >= 0)
-					m_Type = ClientType.God;
+					Type = ClientType.God;
 				else if (fmt.IndexOf("third dawn") >= 0 || fmt.IndexOf("uo:td") >= 0 || fmt.IndexOf("uotd") >= 0 || fmt.IndexOf("uo3d") >= 0 || fmt.IndexOf("uo:3d") >= 0)
-					m_Type = ClientType.UOTD;
+					Type = ClientType.UOTD;
 				else
-					m_Type = ClientType.Regular;
+					Type = ClientType.Regular;
 			}
 			catch
 			{
-				m_Major = 0;
-				m_Minor = 0;
-				m_Revision = 0;
-				m_Patch = 0;
-				m_Type = ClientType.Regular;
+				Major = 0;
+				Minor = 0;
+				Revision = 0;
+				Patch = 0;
+				Type = ClientType.Regular;
 			}
 		}
 
-		public int CompareTo(object obj)
+		public int CompareTo(ClientVersion o)
 		{
-			if (obj == null)
-				return 1;
-
-			ClientVersion o = obj as ClientVersion;
-
 			if (o == null)
-				throw new ArgumentException();
+				return 1;
 
-			if (m_Major > o.m_Major)
+			if (Major > o.Major)
 				return 1;
-			else if (m_Major < o.m_Major)
+			else if (Major < o.Major)
 				return -1;
-			else if (m_Minor > o.m_Minor)
+			else if (Minor > o.Minor)
 				return 1;
-			else if (m_Minor < o.m_Minor)
+			else if (Minor < o.Minor)
 				return -1;
-			else if (m_Revision > o.m_Revision)
+			else if (Revision > o.Revision)
 				return 1;
-			else if (m_Revision < o.m_Revision)
+			else if (Revision < o.Revision)
 				return -1;
-			else if (m_Patch > o.m_Patch)
+			else if (Patch > o.Patch)
 				return 1;
-			else if (m_Patch < o.m_Patch)
+			else if (Patch < o.Patch)
 				return -1;
 			else
 				return 0;
@@ -269,7 +200,7 @@ namespace Server
 
 		public static bool IsNull(object x)
 		{
-			return Object.ReferenceEquals(x, null);
+			return x is null;
 		}
 
 		public int Compare(object x, object y)
