@@ -111,7 +111,7 @@ namespace Server.Engines.Quests.Haven
 
 		public override void OnSingleClick(Mobile from)
 		{
-			int hue = Notoriety.GetHue(Server.Misc.NotorietyHandlers.CorpseNotoriety(from, this));
+			int hue = Notoriety.GetHue(Notoriety.ComputeCorpse(from, this));
 
 			if (ItemID == 0x2006) // Corpse form
 				from.Send(new MessageLocalized(Serial, ItemID, MessageType.Label, hue, 3, 1049144, "", Name)); // the remains of ~1_NAME~ the apprentice

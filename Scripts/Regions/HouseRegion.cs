@@ -210,7 +210,7 @@ namespace Server.Regions
 				{
 					AggressorInfo info = m.Aggressed[i];
 
-					if (info.Defender.Player && (DateTime.UtcNow - info.LastCombatTime) < BaseMobile.CombatHeatDelay)
+					if (info.Defender.Player && (DateTime.UtcNow - info.LastCombatTime) < BaseMobile.COMBAT_HEAT_DELAY)
 						return base.GetLogoutDelay(m);
 				}
 

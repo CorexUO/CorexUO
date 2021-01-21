@@ -1,26 +1,7 @@
-/***************************************************************************
- *                               Notoriety.cs
- *                            -------------------
- *   begin                : May 1, 2002
- *   copyright            : (C) The RunUO Software Team
- *   email                : info@runuo.com
- *
- *   $Id$
- *
- ***************************************************************************/
-
-/***************************************************************************
- *
- *   This program is free software; you can redistribute it and/or modify
- *   it under the terms of the GNU General Public License as published by
- *   the Free Software Foundation; either version 2 of the License, or
- *   (at your option) any later version.
- *
- ***************************************************************************/
-
 namespace Server
 {
 	public delegate int NotorietyHandler(Mobile source, Mobile target);
+	public delegate int CorpseNotorietyHandler(Mobile source, Item target);
 
 	public static class Notoriety
 	{
@@ -33,6 +14,7 @@ namespace Server
 		public const int Invulnerable = 7;
 
 		public static NotorietyHandler Handler { get; set; }
+		public static CorpseNotorietyHandler CorpseHandler { get; set; }
 
 		private static int[] m_Hues = new int[]
 			{
@@ -63,6 +45,11 @@ namespace Server
 		public static int Compute(Mobile source, Mobile target)
 		{
 			return Handler == null ? CanBeAttacked : Handler(source, target);
+		}
+
+		public static int ComputeCorpse(Mobile source, Item target)
+		{
+			return Handler == null ? CanBeAttacked : CorpseHandler(source, target);
 		}
 	}
 }

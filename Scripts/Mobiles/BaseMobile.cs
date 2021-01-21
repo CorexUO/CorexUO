@@ -5,7 +5,10 @@ namespace Server.Mobiles
 {
 	public abstract partial class BaseMobile : Mobile
 	{
-		public static TimeSpan CombatHeatDelay = TimeSpan.FromSeconds(30.0);
+		public static readonly TimeSpan COMBAT_HEAT_DELAY = TimeSpan.FromSeconds(30.0);
+
+		//Duration of effect per second
+		public static readonly int EFFECT_DURATION_PER_SECOND = 20;
 
 		public BaseMobile() : base()
 		{
@@ -44,7 +47,7 @@ namespace Server.Mobiles
 			{
 				AggressorInfo info = Aggressed[i];
 
-				if (info.Defender.Player && (DateTime.UtcNow - info.LastCombatTime) < CombatHeatDelay)
+				if (info.Defender.Player && (DateTime.UtcNow - info.LastCombatTime) < COMBAT_HEAT_DELAY)
 					return true;
 			}
 
@@ -54,12 +57,27 @@ namespace Server.Mobiles
 				{
 					AggressorInfo info = Aggressors[i];
 
-					if (info.Attacker.Player && (DateTime.UtcNow - info.LastCombatTime) < CombatHeatDelay)
+					if (info.Attacker.Player && (DateTime.UtcNow - info.LastCombatTime) < COMBAT_HEAT_DELAY)
 						return true;
 				}
 			}
 
 			return false;
+		}
+
+		public void FixedEffect(int itemID, int seconds)
+		{
+			FixedEffect(itemID, 0, seconds * EFFECT_DURATION_PER_SECOND, 0, 0);
+		}
+
+		public void FixedEffect(int itemID, float seconds)
+		{
+			FixedEffect(itemID, 0, (int)seconds * EFFECT_DURATION_PER_SECOND, 0, 0);
+		}
+
+		public void FixedEffect(int itemID, int speed, float seconds)
+		{
+			Effects.SendTargetEffect(this, itemID, speed, (int)seconds * EFFECT_DURATION_PER_SECOND, 0, 0);
 		}
 
 		public override void Serialize(GenericWriter writer)

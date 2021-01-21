@@ -22,6 +22,7 @@ namespace Server.Misc
 			Notoriety.Hues[Notoriety.Invulnerable] = 0x35;
 
 			Notoriety.Handler = new NotorietyHandler(MobileNotoriety);
+			Notoriety.CorpseHandler = new CorpseNotorietyHandler(CorpseNotoriety);
 
 			Mobile.AllowBeneficialHandler = new AllowBeneficialHandler(Mobile_AllowBeneficial);
 			Mobile.AllowHarmfulHandler = new AllowHarmfulHandler(Mobile_AllowHarmful);
@@ -255,108 +256,115 @@ namespace Server.Misc
 			return g;
 		}
 
-		public static int CorpseNotoriety(Mobile source, Corpse target)
+		public static int CorpseNotoriety(Mobile source, Item item)
 		{
-			if (target.AccessLevel > AccessLevel.Player)
-				return Notoriety.CanBeAttacked;
-
-			Body body = (Body)target.Amount;
-
-			BaseCreature cretOwner = target.Owner as BaseCreature;
-
-			if (cretOwner != null)
+			if (item is Corpse target)
 			{
-				Guild sourceGuild = GetGuildFor(source.Guild as Guild, source);
-				Guild targetGuild = GetGuildFor(target.Guild as Guild, target.Owner);
-
-				if (sourceGuild != null && targetGuild != null)
-				{
-					if (sourceGuild == targetGuild || sourceGuild.IsAlly(targetGuild))
-						return Notoriety.Ally;
-					else if (sourceGuild.IsEnemy(targetGuild))
-						return Notoriety.Enemy;
-				}
-
-				Faction srcFaction = Faction.Find(source, true, true);
-				Faction trgFaction = Faction.Find(target.Owner, true, true);
-
-				if (srcFaction != null && trgFaction != null && srcFaction != trgFaction && source.Map == Faction.Facet)
-					return Notoriety.Enemy;
-
-				if (CheckHouseFlag(source, target.Owner, target.Location, target.Map))
+				if (target.AccessLevel > AccessLevel.Player)
 					return Notoriety.CanBeAttacked;
 
-				int actual = Notoriety.CanBeAttacked;
+				Body body = (Body)target.Amount;
 
-				if (target.Kills >= Mobile.MurderKills || (body.IsMonster && IsSummoned(target.Owner as BaseCreature)) || (target.Owner is BaseCreature && (((BaseCreature)target.Owner).AlwaysMurderer || ((BaseCreature)target.Owner).IsAnimatedDead)))
-					actual = Notoriety.Murderer;
+				BaseCreature cretOwner = target.Owner as BaseCreature;
 
-				if (DateTime.UtcNow >= (target.TimeOfDeath + Corpse.MonsterLootRightSacrifice))
-					return actual;
-
-				Party sourceParty = Party.Get(source);
-
-				List<Mobile> list = target.Aggressors;
-
-				for (int i = 0; i < list.Count; ++i)
+				if (cretOwner != null)
 				{
-					if (list[i] == source || (sourceParty != null && Party.Get(list[i]) == sourceParty))
-						return actual;
-				}
+					Guild sourceGuild = GetGuildFor(source.Guild as Guild, source);
+					Guild targetGuild = GetGuildFor(target.Guild as Guild, target.Owner);
 
-				return Notoriety.Innocent;
+					if (sourceGuild != null && targetGuild != null)
+					{
+						if (sourceGuild == targetGuild || sourceGuild.IsAlly(targetGuild))
+							return Notoriety.Ally;
+						else if (sourceGuild.IsEnemy(targetGuild))
+							return Notoriety.Enemy;
+					}
+
+					Faction srcFaction = Faction.Find(source, true, true);
+					Faction trgFaction = Faction.Find(target.Owner, true, true);
+
+					if (srcFaction != null && trgFaction != null && srcFaction != trgFaction && source.Map == Faction.Facet)
+						return Notoriety.Enemy;
+
+					if (CheckHouseFlag(source, target.Owner, target.Location, target.Map))
+						return Notoriety.CanBeAttacked;
+
+					int actual = Notoriety.CanBeAttacked;
+
+					if (target.Kills >= Mobile.MurderKills || (body.IsMonster && IsSummoned(target.Owner as BaseCreature)) || (target.Owner is BaseCreature && (((BaseCreature)target.Owner).AlwaysMurderer || ((BaseCreature)target.Owner).IsAnimatedDead)))
+						actual = Notoriety.Murderer;
+
+					if (DateTime.UtcNow >= (target.TimeOfDeath + Corpse.MonsterLootRightSacrifice))
+						return actual;
+
+					Party sourceParty = Party.Get(source);
+
+					List<Mobile> list = target.Aggressors;
+
+					for (int i = 0; i < list.Count; ++i)
+					{
+						if (list[i] == source || (sourceParty != null && Party.Get(list[i]) == sourceParty))
+							return actual;
+					}
+
+					return Notoriety.Innocent;
+				}
+				else
+				{
+					if (target.Kills >= Mobile.MurderKills || (body.IsMonster && IsSummoned(target.Owner as BaseCreature)) || (target.Owner is BaseCreature && (((BaseCreature)target.Owner).AlwaysMurderer || ((BaseCreature)target.Owner).IsAnimatedDead)))
+						return Notoriety.Murderer;
+
+					if (target.Criminal && target.Map != null && ((target.Map.Rules & MapRules.HarmfulRestrictions) == 0))
+						return Notoriety.Criminal;
+
+					Guild sourceGuild = GetGuildFor(source.Guild as Guild, source);
+					Guild targetGuild = GetGuildFor(target.Guild as Guild, target.Owner);
+
+					if (sourceGuild != null && targetGuild != null)
+					{
+						if (sourceGuild == targetGuild || sourceGuild.IsAlly(targetGuild))
+							return Notoriety.Ally;
+						else if (sourceGuild.IsEnemy(targetGuild))
+							return Notoriety.Enemy;
+					}
+
+					Faction srcFaction = Faction.Find(source, true, true);
+					Faction trgFaction = Faction.Find(target.Owner, true, true);
+
+					if (srcFaction != null && trgFaction != null && srcFaction != trgFaction && source.Map == Faction.Facet)
+					{
+						List<Mobile> secondList = target.Aggressors;
+
+						for (int i = 0; i < secondList.Count; ++i)
+						{
+							if (secondList[i] == source || secondList[i] is BaseFactionGuard)
+								return Notoriety.Enemy;
+						}
+					}
+
+					if (target.Owner != null && target.Owner is BaseCreature && ((BaseCreature)target.Owner).AlwaysAttackable)
+						return Notoriety.CanBeAttacked;
+
+					if (CheckHouseFlag(source, target.Owner, target.Location, target.Map))
+						return Notoriety.CanBeAttacked;
+
+					if (!(target.Owner is PlayerMobile) && !IsPet(target.Owner as BaseCreature))
+						return Notoriety.CanBeAttacked;
+
+					List<Mobile> list = target.Aggressors;
+
+					for (int i = 0; i < list.Count; ++i)
+					{
+						if (list[i] == source)
+							return Notoriety.CanBeAttacked;
+					}
+
+					return Notoriety.Innocent;
+				}
 			}
 			else
 			{
-				if (target.Kills >= Mobile.MurderKills || (body.IsMonster && IsSummoned(target.Owner as BaseCreature)) || (target.Owner is BaseCreature && (((BaseCreature)target.Owner).AlwaysMurderer || ((BaseCreature)target.Owner).IsAnimatedDead)))
-					return Notoriety.Murderer;
-
-				if (target.Criminal && target.Map != null && ((target.Map.Rules & MapRules.HarmfulRestrictions) == 0))
-					return Notoriety.Criminal;
-
-				Guild sourceGuild = GetGuildFor(source.Guild as Guild, source);
-				Guild targetGuild = GetGuildFor(target.Guild as Guild, target.Owner);
-
-				if (sourceGuild != null && targetGuild != null)
-				{
-					if (sourceGuild == targetGuild || sourceGuild.IsAlly(targetGuild))
-						return Notoriety.Ally;
-					else if (sourceGuild.IsEnemy(targetGuild))
-						return Notoriety.Enemy;
-				}
-
-				Faction srcFaction = Faction.Find(source, true, true);
-				Faction trgFaction = Faction.Find(target.Owner, true, true);
-
-				if (srcFaction != null && trgFaction != null && srcFaction != trgFaction && source.Map == Faction.Facet)
-				{
-					List<Mobile> secondList = target.Aggressors;
-
-					for (int i = 0; i < secondList.Count; ++i)
-					{
-						if (secondList[i] == source || secondList[i] is BaseFactionGuard)
-							return Notoriety.Enemy;
-					}
-				}
-
-				if (target.Owner != null && target.Owner is BaseCreature && ((BaseCreature)target.Owner).AlwaysAttackable)
-					return Notoriety.CanBeAttacked;
-
-				if (CheckHouseFlag(source, target.Owner, target.Location, target.Map))
-					return Notoriety.CanBeAttacked;
-
-				if (!(target.Owner is PlayerMobile) && !IsPet(target.Owner as BaseCreature))
-					return Notoriety.CanBeAttacked;
-
-				List<Mobile> list = target.Aggressors;
-
-				for (int i = 0; i < list.Count; ++i)
-				{
-					if (list[i] == source)
-						return Notoriety.CanBeAttacked;
-				}
-
-				return Notoriety.Innocent;
+				return Notoriety.CanBeAttacked;
 			}
 		}
 

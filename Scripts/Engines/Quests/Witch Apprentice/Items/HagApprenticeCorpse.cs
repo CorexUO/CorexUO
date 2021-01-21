@@ -33,7 +33,7 @@ namespace Server.Engines.Quests.Hag
 
         public override void OnSingleClick(Mobile from)
         {
-            int hue = Notoriety.GetHue(NotorietyHandlers.CorpseNotoriety(from, this));
+            int hue = Notoriety.GetHue(Notoriety.ComputeCorpse(from, this));
 
             from.Send(new AsciiMessage(Serial, ItemID, MessageType.Label, hue, 3, "", "a charred corpse"));
         }
