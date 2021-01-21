@@ -683,12 +683,6 @@ namespace Server.Spells
 
 			scalar -= (double)lmc / 100;
 
-			// [Shard] Reduce mana by /2 if is scroll
-			if (m_Scroll is SpellScroll)
-			{
-				scalar /= 2;
-			}
-
 			return (int)(mana * scalar);
 		}
 
