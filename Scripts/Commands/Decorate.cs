@@ -1064,7 +1064,7 @@ namespace Server.Commands
 
 			int indexOf = line.IndexOf(' ');
 
-			list.m_Type = ScriptCompiler.FindTypeByName(line.Substring(0, indexOf++), true);
+			list.m_Type = Assembler.FindTypeByName(line.Substring(0, indexOf++), true);
 
 			if (list.m_Type == null)
 				throw new ArgumentException(String.Format("Type not found for header: '{0}'", line));

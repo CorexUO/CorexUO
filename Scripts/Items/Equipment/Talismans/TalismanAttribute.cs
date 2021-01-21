@@ -74,7 +74,7 @@ namespace Server.Items
 			SaveFlag flags = (SaveFlag)reader.ReadEncodedInt();
 
 			if (flags.HasFlag(SaveFlag.Type))
-				m_Type = ScriptCompiler.FindTypeByFullName(reader.ReadString(), false);
+				m_Type = Assembler.FindTypeByFullName(reader.ReadString(), false);
 
 			if (flags.HasFlag(SaveFlag.Name))
 				m_Name = TextDefinition.Deserialize(reader);

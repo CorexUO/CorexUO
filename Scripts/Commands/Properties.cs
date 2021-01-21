@@ -447,7 +447,7 @@ namespace Server.Commands
 			{
 				try
 				{
-					toSet = ScriptCompiler.FindTypeByName(value);
+					toSet = Assembler.FindTypeByName(value);
 
 					if (toSet == null)
 						return "No type with that name was found.";

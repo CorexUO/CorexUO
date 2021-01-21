@@ -43,12 +43,12 @@ namespace Server.Factions
             m_Factions = new List<Faction>();
             m_Towns = new List<Town>();
 
-            Assembly[] asms = ScriptCompiler.Assemblies;
+            Assembly[] asms = Assembler.Assemblies;
 
             for (int i = 0; i < asms.Length; ++i)
             {
                 Assembly asm = asms[i];
-                TypeCache tc = ScriptCompiler.GetTypeCache(asm);
+                TypeCache tc = Assembler.GetTypeCache(asm);
                 Type[] types = tc.Types;
 
                 for (int j = 0; j < types.Length; ++j)

@@ -1,47 +1,16 @@
-/***************************************************************************
- *                             ScriptCompiler.cs
- *                            -------------------
- *   begin                : May 1, 2002
- *   copyright            : (C) The RunUO Software Team
- *   email                : info@runuo.com
- *
- *   $Id$
- *
- ***************************************************************************/
-
-/***************************************************************************
- *
- *   This program is free software; you can redistribute it and/or modify
- *   it under the terms of the GNU General Public License as published by
- *   the Free Software Foundation; either version 2 of the License, or
- *   (at your option) any later version.
- *
- ***************************************************************************/
-
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Text;
 
 namespace Server
 {
-	public static class ScriptCompiler
+	public static class Assembler
 	{
-		private static Assembly[] m_Assemblies;
-
-		public static Assembly[] Assemblies
-		{
-			get
-			{
-				return m_Assemblies;
-			}
-			set
-			{
-				m_Assemblies = value;
-			}
-		}
+		public static Assembly[] Assemblies { get; set; }
 
 		private static readonly Type[] m_SerialTypeArray = new Type[1] { typeof(Serial) };
 
@@ -89,20 +58,35 @@ namespace Server
 			}
 		}
 
-		public static bool Compile(bool debug, bool cache)
+		public static bool Load()
 		{
 			List<Assembly> assemblies = new List<Assembly>();
 
-			Console.Write("Scripts: Compiling C# scripts...");
+			Console.Write("Loading scripts...");
 
 			assemblies.Add(Assembly.LoadFrom("Scripts.dll"));
-			assemblies.Add(typeof(ScriptCompiler).Assembly);
 
 			Utility.WriteConsole(ConsoleColor.Green, "done (cached)");
 
-			m_Assemblies = assemblies.ToArray();
+			//Load modules
+			if (Directory.Exists("Modules"))
+			{
+				var scripts = Directory.EnumerateFiles($"{Directory.GetCurrentDirectory()}/Modules").Where(file => file.Contains(".dll")).ToArray();
+				foreach (var script in scripts)
+				{
+					Console.Write($"Loading module: {Path.GetFileName(script)} ");
 
-			Console.Write("Scripts: Verifying...");
+					assemblies.Add(Assembly.LoadFrom(script));
+
+					Utility.WriteConsole(ConsoleColor.Green, "done (cached)");
+				}
+			}
+
+			assemblies.Add(typeof(Assembler).Assembly);
+
+			Assemblies = assemblies.ToArray();
+
+			Console.Write("Verifying... ");
 
 			Stopwatch watch = Stopwatch.StartNew();
 
@@ -123,7 +107,7 @@ namespace Server
 
 		public static void Invoke(string method)
 		{
-			var types = m_Assemblies.SelectMany(a => a.GetTypes());
+			var types = Assemblies.SelectMany(a => a.GetTypes());
 
 			var methods = types.Select(t => t.GetMethod(method, BindingFlags.Static | BindingFlags.Public));
 
@@ -146,8 +130,7 @@ namespace Server
 				return m_NullCache;
 			}
 
-			TypeCache c = null;
-			m_TypeCaches.TryGetValue(asm, out c);
+			m_TypeCaches.TryGetValue(asm, out TypeCache c);
 
 			if (c == null)
 				m_TypeCaches[asm] = c = new TypeCache(asm);
@@ -167,8 +150,8 @@ namespace Server
 			if (string.IsNullOrWhiteSpace(fullName))
 				return null;
 
-			for (int i = 0; type == null && i < m_Assemblies.Length; ++i)
-				type = GetTypeCache(m_Assemblies[i]).GetTypeByFullName(fullName, ignoreCase);
+			for (int i = 0; type == null && i < Assemblies.Length; ++i)
+				type = GetTypeCache(Assemblies[i]).GetTypeByFullName(fullName, ignoreCase);
 
 			if (type == null)
 				type = GetTypeCache(Core.Assembly).GetTypeByFullName(fullName, ignoreCase);
@@ -188,8 +171,8 @@ namespace Server
 			if (string.IsNullOrWhiteSpace(name))
 				return null;
 
-			for (int i = 0; type == null && i < m_Assemblies.Length; ++i)
-				type = GetTypeCache(m_Assemblies[i]).GetTypeByName(name, ignoreCase);
+			for (int i = 0; type == null && i < Assemblies.Length; ++i)
+				type = GetTypeCache(Assemblies[i]).GetTypeByName(name, ignoreCase);
 
 			if (type == null)
 				type = GetTypeCache(Core.Assembly).GetTypeByName(name, ignoreCase);
@@ -200,39 +183,36 @@ namespace Server
 
 	public class TypeCache
 	{
-		private Type[] m_Types;
-		private TypeTable m_Names, m_FullNames;
-
-		public Type[] Types { get { return m_Types; } }
-		public TypeTable Names { get { return m_Names; } }
-		public TypeTable FullNames { get { return m_FullNames; } }
+		public Type[] Types { get; }
+		public TypeTable Names { get; }
+		public TypeTable FullNames { get; }
 
 		public Type GetTypeByName(string name, bool ignoreCase)
 		{
-			return m_Names.Get(name, ignoreCase);
+			return Names.Get(name, ignoreCase);
 		}
 
 		public Type GetTypeByFullName(string fullName, bool ignoreCase)
 		{
-			return m_FullNames.Get(fullName, ignoreCase);
+			return FullNames.Get(fullName, ignoreCase);
 		}
 
 		public TypeCache(Assembly asm)
 		{
 			if (asm == null)
-				m_Types = Type.EmptyTypes;
+				Types = Type.EmptyTypes;
 			else
-				m_Types = asm.GetTypes();
+				Types = asm.GetTypes();
 
-			m_Names = new TypeTable(m_Types.Length);
-			m_FullNames = new TypeTable(m_Types.Length);
+			Names = new TypeTable(Types.Length);
+			FullNames = new TypeTable(Types.Length);
 
-			for (int i = 0; i < m_Types.Length; ++i)
+			for (int i = 0; i < Types.Length; ++i)
 			{
-				Type type = m_Types[i];
+				Type type = Types[i];
 
-				m_Names.Add(type.Name, type);
-				m_FullNames.Add(type.FullName, type);
+				Names.Add(type.Name, type);
+				FullNames.Add(type.FullName, type);
 			}
 		}
 	}

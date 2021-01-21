@@ -1,23 +1,3 @@
-/***************************************************************************
- *                                 Region.cs
- *                            -------------------
- *   begin                : May 1, 2002
- *   copyright            : (C) The RunUO Software Team
- *   email                : info@runuo.com
- *
- *   $Id$
- *
- ***************************************************************************/
-
-/***************************************************************************
- *
- *   This program is free software; you can redistribute it and/or modify
- *   it under the terms of the GNU General Public License as published by
- *   the Free Software Foundation; either version 2 of the License, or
- *   (at your option) any later version.
- *
- ***************************************************************************/
-
 using System;
 using System.Collections.Generic;
 using System.Xml;
@@ -100,9 +80,7 @@ namespace Server
 
 	public class Region : IComparable
 	{
-		private static List<Region> m_Regions = new List<Region>();
-
-		public static List<Region> Regions { get { return m_Regions; } }
+		public static List<Region> Regions { get; } = new List<Region>();
 
 		public static Region Find(Point3D p, Map map)
 		{
@@ -156,35 +134,26 @@ namespace Server
 
 
 		private string m_Name;
-		private Map m_Map;
-		private Region m_Parent;
-		private List<Region> m_Children = new List<Region>();
-		private Rectangle3D[] m_Area;
-		private Sector[] m_Sectors;
-		private bool m_Dynamic;
 		private int m_Priority;
-		private int m_ChildLevel;
-		private bool m_Registered;
-
 		private Point3D m_GoLocation;
 		private MusicName m_Music;
 
 		public string Name { get { return m_Name; } }
-		public Map Map { get { return m_Map; } }
-		public Region Parent { get { return m_Parent; } }
-		public List<Region> Children { get { return m_Children; } }
-		public Rectangle3D[] Area { get { return m_Area; } }
-		public Sector[] Sectors { get { return m_Sectors; } }
-		public bool Dynamic { get { return m_Dynamic; } }
+		public Map Map { get; }
+		public Region Parent { get; }
+		public List<Region> Children { get; } = new List<Region>();
+		public Rectangle3D[] Area { get; }
+		public Sector[] Sectors { get; private set; }
+		public bool Dynamic { get; }
 		public int Priority { get { return m_Priority; } }
-		public int ChildLevel { get { return m_ChildLevel; } }
-		public bool Registered { get { return m_Registered; } }
+		public int ChildLevel { get; }
+		public bool Registered { get; private set; }
 
 		public Point3D GoLocation { get { return m_GoLocation; } set { m_GoLocation = value; } }
 		public MusicName Music { get { return m_Music; } set { m_Music = value; } }
 
-		public bool IsDefault { get { return m_Map.DefaultRegion == this; } }
-		public virtual MusicName DefaultMusic { get { return m_Parent != null ? m_Parent.Music : MusicName.Invalid; } }
+		public bool IsDefault { get { return Map.DefaultRegion == this; } }
+		public virtual MusicName DefaultMusic { get { return Parent != null ? Parent.Music : MusicName.Invalid; } }
 
 		public Region(string name, Map map, int priority, params Rectangle2D[] area) : this(name, map, priority, ConvertTo3D(area))
 		{
@@ -202,60 +171,60 @@ namespace Server
 		public Region(string name, Map map, Region parent, params Rectangle3D[] area)
 		{
 			m_Name = name;
-			m_Map = map;
-			m_Parent = parent;
-			m_Area = area;
-			m_Dynamic = true;
+			Map = map;
+			Parent = parent;
+			Area = area;
+			Dynamic = true;
 			m_Music = this.DefaultMusic;
 
-			if (m_Parent == null)
+			if (Parent == null)
 			{
-				m_ChildLevel = 0;
+				ChildLevel = 0;
 				m_Priority = DefaultPriority;
 			}
 			else
 			{
-				m_ChildLevel = m_Parent.ChildLevel + 1;
-				m_Priority = m_Parent.Priority;
+				ChildLevel = Parent.ChildLevel + 1;
+				m_Priority = Parent.Priority;
 			}
 		}
 
 		public void Register()
 		{
-			if (m_Registered)
+			if (Registered)
 				return;
 
 			OnRegister();
 
-			m_Registered = true;
+			Registered = true;
 
-			if (m_Parent != null)
+			if (Parent != null)
 			{
-				m_Parent.m_Children.Add(this);
-				m_Parent.OnChildAdded(this);
+				Parent.Children.Add(this);
+				Parent.OnChildAdded(this);
 			}
 
-			m_Regions.Add(this);
+			Regions.Add(this);
 
-			m_Map.RegisterRegion(this);
+			Map.RegisterRegion(this);
 
 			List<Sector> sectors = new List<Sector>();
 
-			for (int i = 0; i < m_Area.Length; i++)
+			for (int i = 0; i < Area.Length; i++)
 			{
-				Rectangle3D rect = m_Area[i];
+				Rectangle3D rect = Area[i];
 
-				Point2D start = m_Map.Bound(new Point2D(rect.Start));
-				Point2D end = m_Map.Bound(new Point2D(rect.End));
+				Point2D start = Map.Bound(new Point2D(rect.Start));
+				Point2D end = Map.Bound(new Point2D(rect.End));
 
-				Sector startSector = m_Map.GetSector(start);
-				Sector endSector = m_Map.GetSector(end);
+				Sector startSector = Map.GetSector(start);
+				Sector endSector = Map.GetSector(end);
 
 				for (int x = startSector.X; x <= endSector.X; x++)
 				{
 					for (int y = startSector.Y; y <= endSector.Y; y++)
 					{
-						Sector sector = m_Map.GetRealSector(x, y);
+						Sector sector = Map.GetRealSector(x, y);
 
 						sector.OnEnter(this, rect);
 
@@ -265,45 +234,45 @@ namespace Server
 				}
 			}
 
-			m_Sectors = sectors.ToArray();
+			Sectors = sectors.ToArray();
 		}
 
 		public void Unregister()
 		{
-			if (!m_Registered)
+			if (!Registered)
 				return;
 
 			OnUnregister();
 
-			m_Registered = false;
+			Registered = false;
 
-			if (m_Children.Count > 0)
+			if (Children.Count > 0)
 				Console.WriteLine("Warning: Unregistering region '{0}' with children", this);
 
-			if (m_Parent != null)
+			if (Parent != null)
 			{
-				m_Parent.m_Children.Remove(this);
-				m_Parent.OnChildRemoved(this);
+				Parent.Children.Remove(this);
+				Parent.OnChildRemoved(this);
 			}
 
-			m_Regions.Remove(this);
+			Regions.Remove(this);
 
-			m_Map.UnregisterRegion(this);
+			Map.UnregisterRegion(this);
 
-			if (m_Sectors != null)
+			if (Sectors != null)
 			{
-				for (int i = 0; i < m_Sectors.Length; i++)
-					m_Sectors[i].OnLeave(this);
+				for (int i = 0; i < Sectors.Length; i++)
+					Sectors[i].OnLeave(this);
 			}
 
-			m_Sectors = null;
+			Sectors = null;
 		}
 
 		public bool Contains(Point3D p)
 		{
-			for (int i = 0; i < m_Area.Length; i++)
+			for (int i = 0; i < Area.Length; i++)
 			{
-				Rectangle3D rect = m_Area[i];
+				Rectangle3D rect = Area[i];
 
 				if (rect.Contains(p))
 					return true;
@@ -317,14 +286,14 @@ namespace Server
 			if (region == null)
 				return false;
 
-			Region p = m_Parent;
+			Region p = Parent;
 
 			while (p != null)
 			{
 				if (p == region)
 					return true;
 
-				p = p.m_Parent;
+				p = p.Parent;
 			}
 
 			return false;
@@ -342,7 +311,7 @@ namespace Server
 				if (regionType.IsAssignableFrom(r.GetType()))
 					return r;
 
-				r = r.m_Parent;
+				r = r.Parent;
 			}
 			while (r != null);
 
@@ -361,7 +330,7 @@ namespace Server
 				if (r.m_Name == regionName)
 					return r;
 
-				r = r.m_Parent;
+				r = r.Parent;
 			}
 			while (r != null);
 
@@ -394,8 +363,8 @@ namespace Server
 			if (region == this)
 				return true;
 
-			if (m_Parent != null)
-				return m_Parent.AcceptsSpawnsFrom(region);
+			if (Parent != null)
+				return Parent.AcceptsSpawnsFrom(region);
 
 			return false;
 		}
@@ -404,11 +373,11 @@ namespace Server
 		{
 			List<Mobile> list = new List<Mobile>();
 
-			if (m_Sectors != null)
+			if (Sectors != null)
 			{
-				for (int i = 0; i < m_Sectors.Length; i++)
+				for (int i = 0; i < Sectors.Length; i++)
 				{
-					Sector sector = m_Sectors[i];
+					Sector sector = Sectors[i];
 
 					foreach (Mobile player in sector.Players)
 					{
@@ -425,11 +394,11 @@ namespace Server
 		{
 			int count = 0;
 
-			if (m_Sectors != null)
+			if (Sectors != null)
 			{
-				for (int i = 0; i < m_Sectors.Length; i++)
+				for (int i = 0; i < Sectors.Length; i++)
 				{
-					Sector sector = m_Sectors[i];
+					Sector sector = Sectors[i];
 
 					foreach (Mobile player in sector.Players)
 					{
@@ -446,11 +415,11 @@ namespace Server
 		{
 			List<Mobile> list = new List<Mobile>();
 
-			if (m_Sectors != null)
+			if (Sectors != null)
 			{
-				for (int i = 0; i < m_Sectors.Length; i++)
+				for (int i = 0; i < Sectors.Length; i++)
 				{
-					Sector sector = m_Sectors[i];
+					Sector sector = Sectors[i];
 
 					foreach (Mobile mobile in sector.Mobiles)
 					{
@@ -467,11 +436,11 @@ namespace Server
 		{
 			int count = 0;
 
-			if (m_Sectors != null)
+			if (Sectors != null)
 			{
-				for (int i = 0; i < m_Sectors.Length; i++)
+				for (int i = 0; i < Sectors.Length; i++)
 				{
-					Sector sector = m_Sectors[i];
+					Sector sector = Sectors[i];
 
 					foreach (Mobile mobile in sector.Mobiles)
 					{
@@ -489,13 +458,11 @@ namespace Server
 			if (obj == null)
 				return 1;
 
-			Region reg = obj as Region;
-
-			if (reg == null)
-				throw new ArgumentException("obj is not a Region", "obj");
+			if (obj is not Region reg)
+				throw new ArgumentException("obj is not a Region", nameof(obj));
 
 			// Dynamic regions go first
-			if (this.Dynamic)
+			if (Dynamic)
 			{
 				if (!reg.Dynamic)
 					return -1;
@@ -554,102 +521,102 @@ namespace Server
 
 		public virtual void MakeGuard(Mobile focus)
 		{
-			if (m_Parent != null)
-				m_Parent.MakeGuard(focus);
+			if (Parent != null)
+				Parent.MakeGuard(focus);
 		}
 
 		public virtual Type GetResource(Type type)
 		{
-			if (m_Parent != null)
-				return m_Parent.GetResource(type);
+			if (Parent != null)
+				return Parent.GetResource(type);
 
 			return type;
 		}
 
 		public virtual bool CanUseStuckMenu(Mobile m)
 		{
-			if (m_Parent != null)
-				return m_Parent.CanUseStuckMenu(m);
+			if (Parent != null)
+				return Parent.CanUseStuckMenu(m);
 
 			return true;
 		}
 
 		public virtual void OnAggressed(Mobile aggressor, Mobile aggressed, bool criminal)
 		{
-			if (m_Parent != null)
-				m_Parent.OnAggressed(aggressor, aggressed, criminal);
+			if (Parent != null)
+				Parent.OnAggressed(aggressor, aggressed, criminal);
 		}
 
 		public virtual void OnDidHarmful(Mobile harmer, Mobile harmed)
 		{
-			if (m_Parent != null)
-				m_Parent.OnDidHarmful(harmer, harmed);
+			if (Parent != null)
+				Parent.OnDidHarmful(harmer, harmed);
 		}
 
 		public virtual void OnGotHarmful(Mobile harmer, Mobile harmed)
 		{
-			if (m_Parent != null)
-				m_Parent.OnGotHarmful(harmer, harmed);
+			if (Parent != null)
+				Parent.OnGotHarmful(harmer, harmed);
 		}
 
 		public virtual void OnLocationChanged(Mobile m, Point3D oldLocation)
 		{
-			if (m_Parent != null)
-				m_Parent.OnLocationChanged(m, oldLocation);
+			if (Parent != null)
+				Parent.OnLocationChanged(m, oldLocation);
 		}
 
 		public virtual bool OnTarget(Mobile m, Target t, object o)
 		{
-			if (m_Parent != null)
-				return m_Parent.OnTarget(m, t, o);
+			if (Parent != null)
+				return Parent.OnTarget(m, t, o);
 
 			return true;
 		}
 
 		public virtual bool OnCombatantChange(Mobile m, Mobile Old, Mobile New)
 		{
-			if (m_Parent != null)
-				return m_Parent.OnCombatantChange(m, Old, New);
+			if (Parent != null)
+				return Parent.OnCombatantChange(m, Old, New);
 
 			return true;
 		}
 
 		public virtual bool AllowHousing(Mobile from, Point3D p)
 		{
-			if (m_Parent != null)
-				return m_Parent.AllowHousing(from, p);
+			if (Parent != null)
+				return Parent.AllowHousing(from, p);
 
 			return true;
 		}
 
 		public virtual bool SendInaccessibleMessage(Item item, Mobile from)
 		{
-			if (m_Parent != null)
-				return m_Parent.SendInaccessibleMessage(item, from);
+			if (Parent != null)
+				return Parent.SendInaccessibleMessage(item, from);
 
 			return false;
 		}
 
 		public virtual bool CheckAccessibility(Item item, Mobile from)
 		{
-			if (m_Parent != null)
-				return m_Parent.CheckAccessibility(item, from);
+			if (Parent != null)
+				return Parent.CheckAccessibility(item, from);
 
 			return true;
 		}
 
 		public virtual bool OnDecay(Item item)
 		{
-			if (m_Parent != null)
-				return m_Parent.OnDecay(item);
+			if (Parent != null)
+				return Parent.OnDecay(item);
 
 			return true;
 		}
 
 		public virtual bool AllowHarmful(Mobile from, Mobile target)
 		{
-			if (m_Parent != null)
-				return m_Parent.AllowHarmful(from, target);
+			if (Parent != null)
+				return Parent.AllowHarmful(from, target);
 
 			if (Mobile.AllowHarmfulHandler != null)
 				return Mobile.AllowHarmfulHandler(from, target);
@@ -659,16 +626,16 @@ namespace Server
 
 		public virtual void OnCriminalAction(Mobile m, bool message)
 		{
-			if (m_Parent != null)
-				m_Parent.OnCriminalAction(m, message);
+			if (Parent != null)
+				Parent.OnCriminalAction(m, message);
 			else if (message)
 				m.SendLocalizedMessage(1005040); // You've committed a criminal act!!
 		}
 
 		public virtual bool AllowBeneficial(Mobile from, Mobile target)
 		{
-			if (m_Parent != null)
-				return m_Parent.AllowBeneficial(from, target);
+			if (Parent != null)
+				return Parent.AllowBeneficial(from, target);
 
 			if (Mobile.AllowBeneficialHandler != null)
 				return Mobile.AllowBeneficialHandler(from, target);
@@ -678,122 +645,122 @@ namespace Server
 
 		public virtual void OnBeneficialAction(Mobile helper, Mobile target)
 		{
-			if (m_Parent != null)
-				m_Parent.OnBeneficialAction(helper, target);
+			if (Parent != null)
+				Parent.OnBeneficialAction(helper, target);
 		}
 
 		public virtual void OnGotBeneficialAction(Mobile helper, Mobile target)
 		{
-			if (m_Parent != null)
-				m_Parent.OnGotBeneficialAction(helper, target);
+			if (Parent != null)
+				Parent.OnGotBeneficialAction(helper, target);
 		}
 
 		public virtual void SpellDamageScalar(Mobile caster, Mobile target, ref double damage)
 		{
-			if (m_Parent != null)
-				m_Parent.SpellDamageScalar(caster, target, ref damage);
+			if (Parent != null)
+				Parent.SpellDamageScalar(caster, target, ref damage);
 		}
 
 		public virtual void OnSpeech(SpeechEventArgs args)
 		{
-			if (m_Parent != null)
-				m_Parent.OnSpeech(args);
+			if (Parent != null)
+				Parent.OnSpeech(args);
 		}
 
 		public virtual bool OnSkillUse(Mobile m, int Skill)
 		{
-			if (m_Parent != null)
-				return m_Parent.OnSkillUse(m, Skill);
+			if (Parent != null)
+				return Parent.OnSkillUse(m, Skill);
 
 			return true;
 		}
 
 		public virtual bool OnBeginSpellCast(Mobile m, ISpell s)
 		{
-			if (m_Parent != null)
-				return m_Parent.OnBeginSpellCast(m, s);
+			if (Parent != null)
+				return Parent.OnBeginSpellCast(m, s);
 
 			return true;
 		}
 
 		public virtual void OnSpellCast(Mobile m, ISpell s)
 		{
-			if (m_Parent != null)
-				m_Parent.OnSpellCast(m, s);
+			if (Parent != null)
+				Parent.OnSpellCast(m, s);
 		}
 
 		public virtual bool OnResurrect(Mobile m)
 		{
-			if (m_Parent != null)
-				return m_Parent.OnResurrect(m);
+			if (Parent != null)
+				return Parent.OnResurrect(m);
 
 			return true;
 		}
 
 		public virtual bool OnBeforeDeath(Mobile m)
 		{
-			if (m_Parent != null)
-				return m_Parent.OnBeforeDeath(m);
+			if (Parent != null)
+				return Parent.OnBeforeDeath(m);
 
 			return true;
 		}
 
 		public virtual void OnDeath(Mobile m)
 		{
-			if (m_Parent != null)
-				m_Parent.OnDeath(m);
+			if (Parent != null)
+				Parent.OnDeath(m);
 		}
 
 		public virtual bool OnDamage(Mobile m, ref int Damage)
 		{
-			if (m_Parent != null)
-				return m_Parent.OnDamage(m, ref Damage);
+			if (Parent != null)
+				return Parent.OnDamage(m, ref Damage);
 
 			return true;
 		}
 
 		public virtual bool OnHeal(Mobile m, ref int Heal)
 		{
-			if (m_Parent != null)
-				return m_Parent.OnHeal(m, ref Heal);
+			if (Parent != null)
+				return Parent.OnHeal(m, ref Heal);
 
 			return true;
 		}
 
 		public virtual bool OnDoubleClick(Mobile m, object o)
 		{
-			if (m_Parent != null)
-				return m_Parent.OnDoubleClick(m, o);
+			if (Parent != null)
+				return Parent.OnDoubleClick(m, o);
 
 			return true;
 		}
 
 		public virtual bool OnSingleClick(Mobile m, object o)
 		{
-			if (m_Parent != null)
-				return m_Parent.OnSingleClick(m, o);
+			if (Parent != null)
+				return Parent.OnSingleClick(m, o);
 
 			return true;
 		}
 
 		public virtual bool AllowSpawn()
 		{
-			if (m_Parent != null)
-				return m_Parent.AllowSpawn();
+			if (Parent != null)
+				return Parent.AllowSpawn();
 
 			return true;
 		}
 
 		public virtual void AlterLightLevel(Mobile m, ref int global, ref int personal)
 		{
-			if (m_Parent != null)
-				m_Parent.AlterLightLevel(m, ref global, ref personal);
+			if (Parent != null)
+				Parent.AlterLightLevel(m, ref global, ref personal);
 		}
 
 		public virtual TimeSpan GetLogoutDelay(Mobile m)
 		{
-			if (m_Parent != null)
-				return m_Parent.GetLogoutDelay(m);
+			if (Parent != null)
+				return Parent.GetLogoutDelay(m);
 			else if (m.AccessLevel > AccessLevel.Player)
 				return m_StaffLogoutDelay;
 			else
@@ -811,10 +778,10 @@ namespace Server
 				if (!newRegion.OnMoveInto(m, d, newLocation, oldLocation))
 					return false;
 
-				if (newRegion.m_Parent == null)
+				if (newRegion.Parent == null)
 					return true;
 
-				newRegion = newRegion.m_Parent;
+				newRegion = newRegion.Parent;
 			}
 
 			return true;
@@ -907,7 +874,7 @@ namespace Server
 					continue;
 				}
 
-				Region region = null;
+				Region region;
 				try
 				{
 					region = (Region)Activator.CreateInstance(type, new object[] { xmlReg, map, parent });
@@ -926,19 +893,19 @@ namespace Server
 
 		public Region(XmlElement xml, Map map, Region parent)
 		{
-			m_Map = map;
-			m_Parent = parent;
-			m_Dynamic = false;
+			Map = map;
+			Parent = parent;
+			Dynamic = false;
 
-			if (m_Parent == null)
+			if (Parent == null)
 			{
-				m_ChildLevel = 0;
+				ChildLevel = 0;
 				m_Priority = DefaultPriority;
 			}
 			else
 			{
-				m_ChildLevel = m_Parent.ChildLevel + 1;
-				m_Priority = m_Parent.Priority;
+				ChildLevel = Parent.ChildLevel + 1;
+				m_Priority = Parent.Priority;
 			}
 
 			ReadString(xml, "name", ref m_Name, false);
@@ -963,21 +930,21 @@ namespace Server
 					area.Add(rect);
 			}
 
-			m_Area = area.ToArray();
+			Area = area.ToArray();
 
-			if (m_Area.Length == 0)
+			if (Area.Length == 0)
 				Console.WriteLine("Empty area for region '{0}'", this);
 
 
-			if (!ReadPoint3D(xml["go"], map, ref m_GoLocation, false) && m_Area.Length > 0)
+			if (!ReadPoint3D(xml["go"], map, ref m_GoLocation, false) && Area.Length > 0)
 			{
-				Point3D start = m_Area[0].Start;
-				Point3D end = m_Area[0].End;
+				Point3D start = Area[0].Start;
+				Point3D end = Area[0].End;
 
 				int x = start.X + (end.X - start.X) / 2;
 				int y = start.Y + (end.Y - start.Y) / 2;
 
-				m_GoLocation = new Point3D(x, y, m_Map.GetAverageZ(x, y));
+				m_GoLocation = new Point3D(x, y, Map.GetAverageZ(x, y));
 			}
 
 
@@ -1139,10 +1106,7 @@ namespace Server
 				return false;
 
 			Type type = typeof(T);
-
-			T tempVal;
-
-			if (type.IsEnum && Enum.TryParse(s, true, out tempVal))
+			if (type.IsEnum && Enum.TryParse(s, true, out T tempVal))
 			{
 				value = tempVal;
 				return true;
@@ -1194,7 +1158,7 @@ namespace Server
 			Type type;
 			try
 			{
-				type = ScriptCompiler.FindTypeByName(s, false);
+				type = Assembler.FindTypeByName(s, false);
 			}
 			catch
 			{

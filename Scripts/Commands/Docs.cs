@@ -411,7 +411,7 @@ namespace Server.Commands
 				Core.Assembly
 			};
 
-			foreach (Assembly asm in ScriptCompiler.Assemblies)
+			foreach (Assembly asm in Assembler.Assemblies)
 				assemblies.Add(asm);
 
 			Assembly[] asms = assemblies.ToArray();

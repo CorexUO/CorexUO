@@ -99,7 +99,7 @@ namespace Server.Engines.MLQuests.Items
             string typeName = reader.ReadString();
 
             if (typeName != null)
-                m_QuestType = ScriptCompiler.FindTypeByFullName(typeName, false);
+                m_QuestType = Assembler.FindTypeByFullName(typeName, false);
 
             m_Message = TextDefinition.Deserialize(reader);
         }
@@ -219,7 +219,7 @@ namespace Server.Engines.MLQuests.Items
             string typeName = reader.ReadString();
 
             if (typeName != null)
-                m_TicketType = ScriptCompiler.FindTypeByFullName(typeName, false);
+                m_TicketType = Assembler.FindTypeByFullName(typeName, false);
 
             m_Message = TextDefinition.Deserialize(reader);
         }

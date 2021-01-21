@@ -1,23 +1,3 @@
-/***************************************************************************
- *                               TileMatrix.cs
- *                            -------------------
- *   begin                : May 1, 2002
- *   copyright            : (C) The RunUO Software Team
- *   email                : info@runuo.com
- *
- *   $Id$
- *
- ***************************************************************************/
-
-/***************************************************************************
- *
- *   This program is free software; you can redistribute it and/or modify
- *   it under the terms of the GNU General Public License as published by
- *   the Free Software Foundation; either version 2 of the License, or
- *   (at your option) any later version.
- *
- ***************************************************************************/
-
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -42,9 +22,9 @@ namespace Server
 
 		private FileStream m_Statics;
 
-		private int m_FileIndex;
-		private int m_BlockWidth, m_BlockHeight;
-		private int m_Width, m_Height;
+		private readonly int m_FileIndex;
+		private readonly int m_BlockWidth, m_BlockHeight;
+		private readonly int m_Width, m_Height;
 
 		private Map m_Owner;
 
@@ -501,7 +481,7 @@ namespace Server
 
 		public void Force()
 		{
-			if (ScriptCompiler.Assemblies == null || ScriptCompiler.Assemblies.Length == 0)
+			if (Assembler.Assemblies == null || Assembler.Assemblies.Length == 0)
 				throw new Exception();
 		}
 

@@ -472,7 +472,7 @@ namespace Server
 
 			Utility.WriteConsole(ConsoleColor.Green, "RandomImpl: {0} ({1})", RandomImpl.Type.Name, RandomImpl.IsHardwareRNG ? "Hardware" : "Software");
 
-			while (!ScriptCompiler.Compile(m_Debug, m_Cache))
+			while (!Assembler.Load())
 			{
 				Utility.WriteConsole(ConsoleColor.Red, "Scripts: One or more scripts failed to compile or no script files were found.");
 
@@ -485,12 +485,12 @@ namespace Server
 					return;
 			}
 
-			ScriptCompiler.Invoke("Configure");
+			Assembler.Invoke("Configure");
 
 			Region.Load();
 			World.Load();
 
-			ScriptCompiler.Invoke("Initialize");
+			Assembler.Invoke("Initialize");
 
 			MessagePump messagePump = m_MessagePump = new MessagePump();
 
@@ -589,7 +589,7 @@ namespace Server
 
 			VerifySerialization(ca);
 
-			foreach (var a in ScriptCompiler.Assemblies.Where(a => a != ca))
+			foreach (var a in Assembler.Assemblies.Where(a => a != ca))
 			{
 				VerifySerialization(a);
 			}

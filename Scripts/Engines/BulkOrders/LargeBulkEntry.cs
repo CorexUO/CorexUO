@@ -171,7 +171,7 @@ namespace Server.Engines.BulkOrders
 			string type = reader.ReadString();
 
 			if (type != null)
-				realType = ScriptCompiler.FindTypeByFullName(type);
+				realType = Assembler.FindTypeByFullName(type);
 
 			m_Details = new SmallBulkEntry(realType, reader.ReadInt(), reader.ReadInt());
 		}

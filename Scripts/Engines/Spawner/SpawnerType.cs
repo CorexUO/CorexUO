@@ -6,7 +6,7 @@ namespace Server.Mobiles
 	{
 		public static Type GetType(string name)
 		{
-			return ScriptCompiler.FindTypeByName(name);
+			return Assembler.FindTypeByName(name);
 		}
 	}
 }

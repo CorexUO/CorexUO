@@ -102,7 +102,7 @@ namespace Server.Commands.Generic
 
 			int index = 0;
 
-			Type objectType = ScriptCompiler.FindTypeByName(args[offset + index], true);
+			Type objectType = Assembler.FindTypeByName(args[offset + index], true);
 
 			if (objectType == null)
 				throw new Exception(String.Format("No type with that name ({0}) was found.", args[offset + index]));

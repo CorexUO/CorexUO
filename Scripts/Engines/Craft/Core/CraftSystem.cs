@@ -60,7 +60,7 @@ namespace Server.Engines.Craft
 		public static void Configure()
 		{
 			List<CraftSystem> temp = new List<CraftSystem>();
-			foreach (var asm in ScriptCompiler.Assemblies)
+			foreach (var asm in Assembler.Assemblies)
 			{
 				foreach (Type type in asm.GetTypes().Where(t => t.IsSubclassOf(typeof(CraftSystem))))
 				{

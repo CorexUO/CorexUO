@@ -71,7 +71,7 @@ namespace Server.Mobiles
 
 						string t = Spawner.ParseType(str);
 
-						Type type = ScriptCompiler.FindTypeByName(t);
+						Type type = Assembler.FindTypeByName(t);
 
 						if (type != null)
 							creaturesName.Add(str);

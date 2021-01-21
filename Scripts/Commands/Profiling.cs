@@ -344,7 +344,7 @@ namespace Server.Commands
 					int count = bin.ReadInt32();
 
 					for (int i = 0; i < count; ++i)
-						types.Add(ScriptCompiler.FindTypeByFullName(bin.ReadString()));
+						types.Add(Assembler.FindTypeByFullName(bin.ReadString()));
 				}
 
 				long total = 0;

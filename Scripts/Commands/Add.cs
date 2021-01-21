@@ -84,7 +84,7 @@ namespace Server.Commands
 				}
 			}
 
-			Type type = ScriptCompiler.FindTypeByName(name);
+			Type type = Assembler.FindTypeByName(name);
 
 			if (!IsEntity(type))
 			{
@@ -222,7 +222,7 @@ namespace Server.Commands
 				}
 				else if (IsType(type))
 				{
-					return ScriptCompiler.FindTypeByName(value);
+					return Assembler.FindTypeByName(value);
 				}
 				else if (IsParsable(type))
 				{

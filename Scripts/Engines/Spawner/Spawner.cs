@@ -480,7 +480,7 @@ namespace Server.Mobiles
 			if (index >= m_SpawnNames.Count)
 				return null;
 
-			Type type = ScriptCompiler.FindTypeByName(ParseType(m_SpawnNames[index]));
+			Type type = Assembler.FindTypeByName(ParseType(m_SpawnNames[index]));
 
 			if (type != null)
 			{
@@ -800,7 +800,7 @@ namespace Server.Mobiles
 			foreach (string entry in m_SpawnNames)
 			{
 				string name = ParseType(entry);
-				Type type = ScriptCompiler.FindTypeByName(name);
+				Type type = Assembler.FindTypeByName(name);
 
 				if (type == null)
 					counts[name] = 0;
@@ -986,7 +986,7 @@ namespace Server.Mobiles
 							m_SpawnNames.Add(creatureString);
 							string typeName = ParseType(creatureString);
 
-							if (ScriptCompiler.FindTypeByName(typeName) == null)
+							if (Assembler.FindTypeByName(typeName) == null)
 							{
 								if (m_WarnTimer == null)
 									m_WarnTimer = new WarnTimer();

@@ -46,7 +46,7 @@ namespace Server.Gumps
 			m_Parent = parent;
 
 			if (xml.MoveToAttribute("type"))
-				m_Type = ScriptCompiler.FindTypeByFullName(xml.Value, false);
+				m_Type = Assembler.FindTypeByFullName(xml.Value, false);
 
 			if (xml.MoveToAttribute("gfx"))
 				m_ItemID = XmlConvert.ToInt32(xml.Value);

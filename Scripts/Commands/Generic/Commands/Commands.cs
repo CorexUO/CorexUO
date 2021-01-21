@@ -444,7 +444,7 @@ namespace Server.Commands.Generic
 		{
 			if (e.Length >= 1)
 			{
-				Type t = ScriptCompiler.FindTypeByName(e.GetString(0));
+				Type t = Assembler.FindTypeByName(e.GetString(0));
 
 				if (t == null)
 				{
