@@ -1,23 +1,3 @@
-/***************************************************************************
- *                              PacketProfile.cs
- *                            -------------------
- *   begin                : May 1, 2002
- *   copyright            : (C) The RunUO Software Team
- *   email                : info@runuo.com
- *
- *   $Id$
- *
- ***************************************************************************/
-
-/***************************************************************************
- *
- *   This program is free software; you can redistribute it and/or modify
- *   it under the terms of the GNU General Public License as published by
- *   the Free Software Foundation; either version 2 of the License, or
- *   (at your option) any later version.
- *
- ***************************************************************************/
-
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -81,9 +61,7 @@ namespace Server.Diagnostics
 		[MethodImpl(MethodImplOptions.Synchronized)]
 		public static PacketSendProfile Acquire(Type type)
 		{
-			PacketSendProfile prof;
-
-			if (!_profiles.TryGetValue(type, out prof))
+			if (!_profiles.TryGetValue(type, out PacketSendProfile prof))
 			{
 				_profiles.Add(type, prof = new PacketSendProfile(type));
 			}
@@ -126,9 +104,7 @@ namespace Server.Diagnostics
 		[MethodImpl(MethodImplOptions.Synchronized)]
 		public static PacketReceiveProfile Acquire(int packetId)
 		{
-			PacketReceiveProfile prof;
-
-			if (!_profiles.TryGetValue(packetId, out prof))
+			if (!_profiles.TryGetValue(packetId, out PacketReceiveProfile prof))
 			{
 				_profiles.Add(packetId, prof = new PacketReceiveProfile(packetId));
 			}

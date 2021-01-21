@@ -1,33 +1,10 @@
-/***************************************************************************
- *                              QuestionMenu.cs
- *                            -------------------
- *   begin                : May 1, 2002
- *   copyright            : (C) The RunUO Software Team
- *   email                : info@runuo.com
- *
- *   $Id$
- *
- ***************************************************************************/
-
-/***************************************************************************
- *
- *   This program is free software; you can redistribute it and/or modify
- *   it under the terms of the GNU General Public License as published by
- *   the Free Software Foundation; either version 2 of the License, or
- *   (at your option) any later version.
- *
- ***************************************************************************/
-
 using Server.Network;
 
 namespace Server.Menus.Questions
 {
 	public class QuestionMenu : IMenu
 	{
-		private string m_Question;
-		private string[] m_Answers;
-
-		private int m_Serial;
+		private readonly int m_Serial;
 		private static int m_NextSerial;
 
 		int IMenu.Serial
@@ -42,34 +19,18 @@ namespace Server.Menus.Questions
 		{
 			get
 			{
-				return m_Answers.Length;
+				return Answers.Length;
 			}
 		}
 
-		public string Question
-		{
-			get
-			{
-				return m_Question;
-			}
-			set
-			{
-				m_Question = value;
-			}
-		}
+		public string Question { get; set; }
 
-		public string[] Answers
-		{
-			get
-			{
-				return m_Answers;
-			}
-		}
+		public string[] Answers { get; }
 
 		public QuestionMenu(string question, string[] answers)
 		{
-			m_Question = question;
-			m_Answers = answers;
+			Question = question;
+			Answers = answers;
 
 			do
 			{

@@ -1,23 +1,3 @@
-/***************************************************************************
- *                              PacketProfile.cs
- *                            -------------------
- *   begin                : May 1, 2002
- *   copyright            : (C) The RunUO Software Team
- *   email                : info@runuo.com
- *
- *   $Id$
- *
- ***************************************************************************/
-
-/***************************************************************************
- *
- *   This program is free software; you can redistribute it and/or modify
- *   it under the terms of the GNU General Public License as published by
- *   the Free Software Foundation; either version 2 of the License, or
- *   (at your option) any later version.
- *
- ***************************************************************************/
-
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -43,86 +23,51 @@ namespace Server.Diagnostics
 			}
 		}
 
-		private string _name;
-
-		private long _count;
-
-		private TimeSpan _totalTime;
-		private TimeSpan _peakTime;
-
-		private Stopwatch _stopwatch;
-
-		public string Name
-		{
-			get
-			{
-				return _name;
-			}
-		}
-
-		public long Count
-		{
-			get
-			{
-				return _count;
-			}
-		}
+		public string Name { get; }
+		public long Count { get; private set; }
+		public TimeSpan PeakTime { get; private set; }
+		public TimeSpan TotalTime { get; private set; }
+		public Stopwatch Stopwatch { get; set; }
 
 		public TimeSpan AverageTime
 		{
 			get
 			{
-				return TimeSpan.FromTicks(_totalTime.Ticks / Math.Max(1, _count));
-			}
-		}
-
-		public TimeSpan PeakTime
-		{
-			get
-			{
-				return _peakTime;
-			}
-		}
-
-		public TimeSpan TotalTime
-		{
-			get
-			{
-				return _totalTime;
+				return TimeSpan.FromTicks(TotalTime.Ticks / Math.Max(1, Count));
 			}
 		}
 
 		protected BaseProfile(string name)
 		{
-			_name = name;
+			Name = name;
 
-			_stopwatch = new Stopwatch();
+			Stopwatch = new Stopwatch();
 		}
 
 		public virtual void Start()
 		{
-			if (_stopwatch.IsRunning)
+			if (Stopwatch.IsRunning)
 			{
-				_stopwatch.Reset();
+				Stopwatch.Reset();
 			}
 
-			_stopwatch.Start();
+			Stopwatch.Start();
 		}
 
 		public virtual void Finish()
 		{
-			TimeSpan elapsed = _stopwatch.Elapsed;
+			TimeSpan elapsed = Stopwatch.Elapsed;
 
-			_totalTime += elapsed;
+			TotalTime += elapsed;
 
-			if (elapsed > _peakTime)
+			if (elapsed > PeakTime)
 			{
-				_peakTime = elapsed;
+				PeakTime = elapsed;
 			}
 
-			_count++;
+			Count++;
 
-			_stopwatch.Reset();
+			Stopwatch.Reset();
 		}
 
 		public virtual void WriteTo(TextWriter op)

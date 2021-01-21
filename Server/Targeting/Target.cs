@@ -1,23 +1,3 @@
-/***************************************************************************
- *                                Target.cs
- *                            -------------------
- *   begin                : May 1, 2002
- *   copyright            : (C) The RunUO Software Team
- *   email                : info@runuo.com
- *
- *   $Id$
- *
- ***************************************************************************/
-
-/***************************************************************************
- *
- *   This program is free software; you can redistribute it and/or modify
- *   it under the terms of the GNU General Public License as published by
- *   the Free Software Foundation; either version 2 of the License, or
- *   (at your option) any later version.
- *
- ***************************************************************************/
-
 using System;
 using Server.Network;
 
@@ -25,35 +5,18 @@ namespace Server.Targeting
 {
 	public abstract class Target
 	{
-		private static int m_NextTargetID;
+		public static bool TargetIDValidation { get; set; } = true;
 
-		private static bool m_TargetIDValidation = true;
-
-		public static bool TargetIDValidation
-		{
-			get { return m_TargetIDValidation; }
-			set { m_TargetIDValidation = value; }
-		}
-
-		private int m_TargetID;
-		private int m_Range;
-		private bool m_AllowGround;
-		private bool m_CheckLOS;
-		private bool m_AllowNonlocal;
-		private bool m_DisallowMultis;
-		private TargetFlags m_Flags;
-		private DateTime m_TimeoutTime;
-
-		public DateTime TimeoutTime { get { return m_TimeoutTime; } }
+		public DateTime TimeoutTime { get; private set; }
 
 		protected Target(int range, bool allowGround, TargetFlags flags)
 		{
-			m_TargetID = ++m_NextTargetID;
-			m_Range = range;
-			m_AllowGround = allowGround;
-			m_Flags = flags;
+			TargetID = ++NextTargetID;
+			Range = range;
+			AllowGround = allowGround;
+			Flags = flags;
 
-			m_CheckLOS = true;
+			CheckLOS = true;
 		}
 
 		public static void Cancel(Mobile m)
@@ -73,7 +36,7 @@ namespace Server.Targeting
 
 		public void BeginTimeout(Mobile from, TimeSpan delay)
 		{
-			m_TimeoutTime = DateTime.UtcNow + delay;
+			TimeoutTime = DateTime.UtcNow + delay;
 
 			if (m_TimeoutTimer != null)
 				m_TimeoutTimer.Stop();
@@ -103,17 +66,17 @@ namespace Server.Targeting
 
 		private class TimeoutTimer : Timer
 		{
-			private readonly Target m_Target;
-			private readonly Mobile m_Mobile;
-
 			private readonly static TimeSpan ThirtySeconds = TimeSpan.FromSeconds(30.0);
 			private readonly static TimeSpan TenSeconds = TimeSpan.FromSeconds(10.0);
 			private readonly static TimeSpan OneSecond = TimeSpan.FromSeconds(1.0);
 
+			public Mobile Mobile { get; }
+			public Target Target { get; }
+
 			public TimeoutTimer(Target target, Mobile m, TimeSpan delay) : base(delay)
 			{
-				m_Target = target;
-				m_Mobile = m;
+				Target = target;
+				Mobile = m;
 
 				if (delay >= ThirtySeconds)
 					Priority = TimerPriority.FiveSeconds;
@@ -127,54 +90,18 @@ namespace Server.Targeting
 
 			protected override void OnTick()
 			{
-				if (m_Mobile.Target == m_Target)
-					m_Target.Timeout(m_Mobile);
+				if (Mobile.Target == Target)
+					Target.Timeout(Mobile);
 			}
 		}
 
-		public bool CheckLOS
-		{
-			get
-			{
-				return m_CheckLOS;
-			}
-			set
-			{
-				m_CheckLOS = value;
-			}
-		}
+		public bool CheckLOS { get; set; }
 
-		public bool DisallowMultis
-		{
-			get
-			{
-				return m_DisallowMultis;
-			}
-			set
-			{
-				m_DisallowMultis = value;
-			}
-		}
+		public bool DisallowMultis { get; set; }
 
-		public bool AllowNonlocal
-		{
-			get
-			{
-				return m_AllowNonlocal;
-			}
-			set
-			{
-				m_AllowNonlocal = value;
-			}
-		}
+		public bool AllowNonlocal { get; set; }
 
-		public int TargetID
-		{
-			get
-			{
-				return m_TargetID;
-			}
-		}
+		public int TargetID { get; }
 
 		public virtual Packet GetPacketFor(NetState ns)
 		{
@@ -205,38 +132,36 @@ namespace Server.Targeting
 			Point3D loc;
 			Map map;
 
-			if (targeted is LandTarget)
+			if (targeted is LandTarget target)
 			{
-				loc = ((LandTarget)targeted).Location;
+				loc = target.Location;
 				map = from.Map;
 			}
-			else if (targeted is StaticTarget)
+			else if (targeted is StaticTarget staticTarget)
 			{
-				loc = ((StaticTarget)targeted).Location;
+				loc = staticTarget.Location;
 				map = from.Map;
 			}
-			else if (targeted is Mobile)
+			else if (targeted is Mobile mobileTarget)
 			{
-				if (((Mobile)targeted).Deleted)
+				if (mobileTarget.Deleted)
 				{
 					OnTargetDeleted(from, targeted);
 					OnTargetFinish(from);
 					return;
 				}
-				else if (!((Mobile)targeted).CanTarget)
+				else if (!mobileTarget.CanTarget)
 				{
 					OnTargetUntargetable(from, targeted);
 					OnTargetFinish(from);
 					return;
 				}
 
-				loc = ((Mobile)targeted).Location;
-				map = ((Mobile)targeted).Map;
+				loc = mobileTarget.Location;
+				map = mobileTarget.Map;
 			}
-			else if (targeted is Item)
+			else if (targeted is Item item)
 			{
-				Item item = (Item)targeted;
-
 				if (item.Deleted)
 				{
 					OnTargetDeleted(from, targeted);
@@ -252,7 +177,7 @@ namespace Server.Targeting
 
 				object root = item.RootParent;
 
-				if (!m_AllowNonlocal && root is Mobile && root != from && from.AccessLevel == AccessLevel.Player)
+				if (!AllowNonlocal && root is Mobile && root != from && from.AccessLevel == AccessLevel.Player)
 				{
 					OnNonlocalTarget(from, targeted);
 					OnTargetFinish(from);
@@ -269,7 +194,7 @@ namespace Server.Targeting
 				return;
 			}
 
-			if (map == null || map != from.Map || (m_Range != -1 && !from.InRange(loc, m_Range)))
+			if (map == null || map != from.Map || (Range != -1 && !from.InRange(loc, Range)))
 			{
 				OnTargetOutOfRange(from, targeted);
 			}
@@ -277,15 +202,15 @@ namespace Server.Targeting
 			{
 				if (!from.CanSee(targeted))
 					OnCantSeeTarget(from, targeted);
-				else if (m_CheckLOS && !from.InLOS(targeted))
+				else if (CheckLOS && !from.InLOS(targeted))
 					OnTargetOutOfLOS(from, targeted);
-				else if (targeted is Item && ((Item)targeted).InSecureTrade)
+				else if (targeted is Item item && item.InSecureTrade)
 					OnTargetInSecureTrade(from, targeted);
-				else if (targeted is Item && !((Item)targeted).IsAccessibleTo(from))
+				else if (targeted is Item item1 && !item1.IsAccessibleTo(from))
 					OnTargetNotAccessible(from, targeted);
-				else if (targeted is Item && !((Item)targeted).CheckTarget(from, this, targeted))
+				else if (targeted is Item item2 && !item2.CheckTarget(from, this, targeted))
 					OnTargetUntargetable(from, targeted);
-				else if (targeted is Mobile && !((Mobile)targeted).CheckTarget(from, this, targeted))
+				else if (targeted is Mobile mobile && !mobile.CheckTarget(from, this, targeted))
 					OnTargetUntargetable(from, targeted);
 				else if (from.Region.OnTarget(from, this, targeted))
 					OnTarget(from, targeted);
@@ -345,40 +270,12 @@ namespace Server.Targeting
 		{
 		}
 
-		public int Range
-		{
-			get
-			{
-				return m_Range;
-			}
-			set
-			{
-				m_Range = value;
-			}
-		}
+		public int Range { get; set; }
 
-		public bool AllowGround
-		{
-			get
-			{
-				return m_AllowGround;
-			}
-			set
-			{
-				m_AllowGround = value;
-			}
-		}
+		public bool AllowGround { get; set; }
 
-		public TargetFlags Flags
-		{
-			get
-			{
-				return m_Flags;
-			}
-			set
-			{
-				m_Flags = value;
-			}
-		}
+		public TargetFlags Flags { get; set; }
+
+		public static int NextTargetID { get; set; }
 	}
 }

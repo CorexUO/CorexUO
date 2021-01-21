@@ -13,13 +13,7 @@ namespace Server.Items
 
 	public class Container : Item
 	{
-		private static ContainerSnoopHandler m_SnoopHandler;
-
-		public static ContainerSnoopHandler SnoopHandler
-		{
-			get { return m_SnoopHandler; }
-			set { m_SnoopHandler = value; }
-		}
+		public static ContainerSnoopHandler SnoopHandler { get; set; }
 
 		private ContainerData m_ContainerData;
 
@@ -132,7 +126,7 @@ namespace Server.Items
 
 		public override void OnSnoop(Mobile from)
 		{
-			m_SnoopHandler?.Invoke(this, from);
+			SnoopHandler?.Invoke(this, from);
 		}
 
 		public override bool CheckLift(Mobile from, Item item, ref LRReason reject)

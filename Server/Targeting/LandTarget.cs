@@ -1,29 +1,8 @@
-/***************************************************************************
- *                               LandTarget.cs
- *                            -------------------
- *   begin                : May 1, 2002
- *   copyright            : (C) The RunUO Software Team
- *   email                : info@runuo.com
- *
- *   $Id$
- *
- ***************************************************************************/
-
-/***************************************************************************
- *
- *   This program is free software; you can redistribute it and/or modify
- *   it under the terms of the GNU General Public License as published by
- *   the Free Software Foundation; either version 2 of the License, or
- *   (at your option) any later version.
- *
- ***************************************************************************/
-
 namespace Server.Targeting
 {
 	public class LandTarget : IPoint3D
 	{
 		private Point3D m_Location;
-		private int m_TileID;
 
 		public LandTarget(Point3D location, Map map)
 		{
@@ -32,7 +11,7 @@ namespace Server.Targeting
 			if (map != null)
 			{
 				m_Location.Z = map.GetAverageZ(m_Location.X, m_Location.Y);
-				m_TileID = map.Tiles.GetLandTile(m_Location.X, m_Location.Y).ID & TileData.MaxLandValue;
+				TileID = map.Tiles.GetLandTile(m_Location.X, m_Location.Y).ID & TileData.MaxLandValue;
 			}
 		}
 
@@ -41,7 +20,7 @@ namespace Server.Targeting
 		{
 			get
 			{
-				return TileData.LandTable[m_TileID].Name;
+				return TileData.LandTable[TileID].Name;
 			}
 		}
 
@@ -50,18 +29,12 @@ namespace Server.Targeting
 		{
 			get
 			{
-				return TileData.LandTable[m_TileID].Flags;
+				return TileData.LandTable[TileID].Flags;
 			}
 		}
 
 		[CommandProperty(AccessLevel.Counselor)]
-		public int TileID
-		{
-			get
-			{
-				return m_TileID;
-			}
-		}
+		public int TileID { get; }
 
 		[CommandProperty(AccessLevel.Counselor)]
 		public Point3D Location

@@ -1,23 +1,3 @@
-/***************************************************************************
- *                               ContextMenu.cs
- *                            -------------------
- *   begin                : May 1, 2002
- *   copyright            : (C) The RunUO Software Team
- *   email                : info@runuo.com
- *
- *   $Id$
- *
- ***************************************************************************/
-
-/***************************************************************************
- *
- *   This program is free software; you can redistribute it and/or modify
- *   it under the terms of the GNU General Public License as published by
- *   the Free Software Foundation; either version 2 of the License, or
- *   (at your option) any later version.
- *
- ***************************************************************************/
-
 using System.Collections.Generic;
 
 namespace Server.ContextMenus
@@ -28,33 +8,21 @@ namespace Server.ContextMenus
 	/// </summary>
 	public class ContextMenu
 	{
-		private Mobile m_From;
-		private object m_Target;
-		private ContextMenuEntry[] m_Entries;
 
 		/// <summary>
 		/// Gets the <see cref="Mobile" /> who opened this ContextMenu.
 		/// </summary>
-		public Mobile From
-		{
-			get { return m_From; }
-		}
+		public Mobile From { get; }
 
 		/// <summary>
 		/// Gets an object of the <see cref="Mobile" /> or <see cref="Item" /> for which this ContextMenu is on.
 		/// </summary>
-		public object Target
-		{
-			get { return m_Target; }
-		}
+		public object Target { get; }
 
 		/// <summary>
 		/// Gets the list of <see cref="ContextMenuEntry">entries</see> contained in this ContextMenu.
 		/// </summary>
-		public ContextMenuEntry[] Entries
-		{
-			get { return m_Entries; }
-		}
+		public ContextMenuEntry[] Entries { get; }
 
 		/// <summary>
 		/// Instantiates a new ContextMenu instance.
@@ -69,27 +37,27 @@ namespace Server.ContextMenus
 		/// </param>
 		public ContextMenu(Mobile from, object target)
 		{
-			m_From = from;
-			m_Target = target;
+			From = from;
+			Target = target;
 
 			List<ContextMenuEntry> list = new List<ContextMenuEntry>();
 
-			if (target is Mobile)
+			if (target is Mobile mobile)
 			{
-				((Mobile)target).GetContextMenuEntries(from, list);
+				mobile.GetContextMenuEntries(from, list);
 			}
-			else if (target is Item)
+			else if (target is Item item)
 			{
-				((Item)target).GetContextMenuEntries(from, list);
+				item.GetContextMenuEntries(from, list);
 			}
 
 			//m_Entries = (ContextMenuEntry[])list.ToArray( typeof( ContextMenuEntry ) );
 
-			m_Entries = list.ToArray();
+			Entries = list.ToArray();
 
-			for (int i = 0; i < m_Entries.Length; ++i)
+			for (int i = 0; i < Entries.Length; ++i)
 			{
-				m_Entries[i].Owner = this;
+				Entries[i].Owner = this;
 			}
 		}
 
@@ -100,9 +68,9 @@ namespace Server.ContextMenus
 		{
 			get
 			{
-				for (int i = 0; i < m_Entries.Length; ++i)
+				for (int i = 0; i < Entries.Length; ++i)
 				{
-					if (m_Entries[i].Number < 3000000 || m_Entries[i].Number > 3032767)
+					if (Entries[i].Number < 3000000 || Entries[i].Number > 3032767)
 						return true;
 				}
 

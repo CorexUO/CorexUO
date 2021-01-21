@@ -1,35 +1,14 @@
-/***************************************************************************
- *                              StaticTarget.cs
- *                            -------------------
- *   begin                : May 1, 2002
- *   copyright            : (C) The RunUO Software Team
- *   email                : info@runuo.com
- *
- *   $Id$
- *
- ***************************************************************************/
-
-/***************************************************************************
- *
- *   This program is free software; you can redistribute it and/or modify
- *   it under the terms of the GNU General Public License as published by
- *   the Free Software Foundation; either version 2 of the License, or
- *   (at your option) any later version.
- *
- ***************************************************************************/
-
 namespace Server.Targeting
 {
 	public class StaticTarget : IPoint3D
 	{
 		private Point3D m_Location;
-		private int m_ItemID;
 
 		public StaticTarget(Point3D location, int itemID)
 		{
 			m_Location = location;
-			m_ItemID = itemID & TileData.MaxItemValue;
-			m_Location.Z += TileData.ItemTable[m_ItemID].CalcHeight;
+			ItemID = itemID & TileData.MaxItemValue;
+			m_Location.Z += TileData.ItemTable[ItemID].CalcHeight;
 		}
 
 		[CommandProperty(AccessLevel.Counselor)]
@@ -46,7 +25,7 @@ namespace Server.Targeting
 		{
 			get
 			{
-				return TileData.ItemTable[m_ItemID].Name;
+				return TileData.ItemTable[ItemID].Name;
 			}
 		}
 
@@ -55,7 +34,7 @@ namespace Server.Targeting
 		{
 			get
 			{
-				return TileData.ItemTable[m_ItemID].Flags;
+				return TileData.ItemTable[ItemID].Flags;
 			}
 		}
 
@@ -87,12 +66,6 @@ namespace Server.Targeting
 		}
 
 		[CommandProperty(AccessLevel.Counselor)]
-		public int ItemID
-		{
-			get
-			{
-				return m_ItemID;
-			}
-		}
+		public int ItemID { get; }
 	}
 }
