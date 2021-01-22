@@ -123,7 +123,7 @@ namespace Server
 
 	public sealed class CSPRandom : IRandomImpl
 	{
-		private RNGCryptoServiceProvider _CSP = new RNGCryptoServiceProvider();
+		private readonly RNGCryptoServiceProvider _CSP = new RNGCryptoServiceProvider();
 
 		private static readonly int BUFFER_SIZE = 0x4000;
 		private static readonly int LARGE_REQUEST = 0x40;
@@ -168,7 +168,7 @@ namespace Server
 			_filled.Set();
 		}
 
-		private void _GetBytes(byte[] b)
+		private void GetBytes(byte[] b)
 		{
 			int c = b.Length;
 
@@ -180,7 +180,7 @@ namespace Server
 			}
 		}
 
-		private void _GetBytes(byte[] b, int offset, int count)
+		private void GetBytes(byte[] b, int offset, int count)
 		{
 			lock (_sync)
 			{
@@ -219,7 +219,7 @@ namespace Server
 					_CSP.GetBytes(b);
 				return;
 			}
-			_GetBytes(b);
+			GetBytes(b);
 		}
 
 		public unsafe double NextDouble()
@@ -229,12 +229,12 @@ namespace Server
 			if (BitConverter.IsLittleEndian)
 			{
 				b[7] = 0;
-				_GetBytes(b, 0, 7);
+				GetBytes(b, 0, 7);
 			}
 			else
 			{
 				b[0] = 0;
-				_GetBytes(b, 1, 7);
+				GetBytes(b, 1, 7);
 			}
 
 			ulong r = 0;
@@ -308,7 +308,7 @@ namespace Server
 			_filled.Set();
 		}
 
-		private void _GetBytes(byte[] b)
+		private void GetBytes(byte[] b)
 		{
 			int c = b.Length;
 
@@ -320,7 +320,7 @@ namespace Server
 			}
 		}
 
-		private void _GetBytes(byte[] b, int offset, int count)
+		private void GetBytes(byte[] b, int offset, int count)
 		{
 			lock (_sync)
 			{
@@ -358,7 +358,7 @@ namespace Server
 				SafeNativeMethods.rdrand_get_bytes(c, b);
 				return;
 			}
-			_GetBytes(b);
+			GetBytes(b);
 		}
 
 		public unsafe double NextDouble()
@@ -368,12 +368,12 @@ namespace Server
 			if (BitConverter.IsLittleEndian)
 			{
 				b[7] = 0;
-				_GetBytes(b, 0, 7);
+				GetBytes(b, 0, 7);
 			}
 			else
 			{
 				b[0] = 0;
-				_GetBytes(b, 1, 7);
+				GetBytes(b, 1, 7);
 			}
 
 			ulong r = 0;

@@ -11,21 +11,13 @@ namespace Server
 {
 	public static class World
 	{
-
-		private static Dictionary<Serial, Mobile> m_Mobiles;
-		private static Dictionary<Serial, Item> m_Items;
-
-		private static bool m_Loading;
-		private static bool m_Loaded;
-
-		private static bool m_Saving;
-		private static ManualResetEvent m_DiskWriteHandle = new ManualResetEvent(true);
+		private static readonly ManualResetEvent m_DiskWriteHandle = new ManualResetEvent(true);
 
 		private static Queue<IEntity> _addQueue, _deleteQueue;
 
-		public static bool Saving { get { return m_Saving; } }
-		public static bool Loaded { get { return m_Loaded; } }
-		public static bool Loading { get { return m_Loading; } }
+		public static bool Saving { get; private set; }
+		public static bool Loaded { get; private set; }
+		public static bool Loading { get; private set; }
 
 		public readonly static string MobileIndexPath = Path.Combine("Saves/Mobiles/", "Mobiles.idx");
 		public readonly static string MobileTypesPath = Path.Combine("Saves/Mobiles/", "Mobiles.tdb");
@@ -51,21 +43,15 @@ namespace Server
 			m_DiskWriteHandle.WaitOne();
 		}
 
-		public static Dictionary<Serial, Mobile> Mobiles
-		{
-			get { return m_Mobiles; }
-		}
+		public static Dictionary<Serial, Mobile> Mobiles { get; private set; }
 
-		public static Dictionary<Serial, Item> Items
-		{
-			get { return m_Items; }
-		}
+		public static Dictionary<Serial, Item> Items { get; private set; }
 
 		public static bool OnDelete(IEntity entity)
 		{
-			if (m_Saving || m_Loading)
+			if (Saving || Loading)
 			{
-				if (m_Saving)
+				if (Saving)
 				{
 					AppendSafetyLog("delete", entity);
 				}
@@ -119,23 +105,13 @@ namespace Server
 
 		private sealed class GuildEntry : IEntityEntry
 		{
-			private BaseGuild m_Guild;
-			private long m_Position;
-			private int m_Length;
-
-			public BaseGuild Guild
-			{
-				get
-				{
-					return m_Guild;
-				}
-			}
+			public BaseGuild Guild { get; }
 
 			public Serial Serial
 			{
 				get
 				{
-					return m_Guild == null ? 0 : m_Guild.Id;
+					return Guild == null ? 0 : Guild.Id;
 				}
 			}
 
@@ -147,159 +123,69 @@ namespace Server
 				}
 			}
 
-			public long Position
-			{
-				get
-				{
-					return m_Position;
-				}
-			}
+			public long Position { get; }
 
-			public int Length
-			{
-				get
-				{
-					return m_Length;
-				}
-			}
+			public int Length { get; }
 
 			public GuildEntry(BaseGuild g, long pos, int length)
 			{
-				m_Guild = g;
-				m_Position = pos;
-				m_Length = length;
+				Guild = g;
+				Position = pos;
+				Length = length;
 			}
 		}
 
 		private sealed class ItemEntry : IEntityEntry
 		{
-			private Item m_Item;
-			private int m_TypeID;
-			private string m_TypeName;
-			private long m_Position;
-			private int m_Length;
-
-			public Item Item
-			{
-				get
-				{
-					return m_Item;
-				}
-			}
+			public Item Item { get; }
 
 			public Serial Serial
 			{
 				get
 				{
-					return m_Item == null ? Serial.MinusOne : m_Item.Serial;
+					return Item == null ? Serial.MinusOne : Item.Serial;
 				}
 			}
 
-			public int TypeID
-			{
-				get
-				{
-					return m_TypeID;
-				}
-			}
-
-			public string TypeName
-			{
-				get
-				{
-					return m_TypeName;
-				}
-			}
-
-			public long Position
-			{
-				get
-				{
-					return m_Position;
-				}
-			}
-
-			public int Length
-			{
-				get
-				{
-					return m_Length;
-				}
-			}
+			public int TypeID { get; }
+			public string TypeName { get; }
+			public long Position { get; }
+			public int Length { get; }
 
 			public ItemEntry(Item item, int typeID, string typeName, long pos, int length)
 			{
-				m_Item = item;
-				m_TypeID = typeID;
-				m_TypeName = typeName;
-				m_Position = pos;
-				m_Length = length;
+				Item = item;
+				TypeID = typeID;
+				TypeName = typeName;
+				Position = pos;
+				Length = length;
 			}
 		}
 
 		private sealed class MobileEntry : IEntityEntry
 		{
-			private Mobile m_Mobile;
-			private int m_TypeID;
-			private string m_TypeName;
-			private long m_Position;
-			private int m_Length;
-
-			public Mobile Mobile
-			{
-				get
-				{
-					return m_Mobile;
-				}
-			}
+			public Mobile Mobile { get; }
 
 			public Serial Serial
 			{
 				get
 				{
-					return m_Mobile == null ? Serial.MinusOne : m_Mobile.Serial;
+					return Mobile == null ? Serial.MinusOne : Mobile.Serial;
 				}
 			}
 
-			public int TypeID
-			{
-				get
-				{
-					return m_TypeID;
-				}
-			}
-
-			public string TypeName
-			{
-				get
-				{
-					return m_TypeName;
-				}
-			}
-
-			public long Position
-			{
-				get
-				{
-					return m_Position;
-				}
-			}
-
-			public int Length
-			{
-				get
-				{
-					return m_Length;
-				}
-			}
+			public int TypeID { get; }
+			public string TypeName { get; }
+			public long Position { get; }
+			public int Length { get; }
 
 			public MobileEntry(Mobile mobile, int typeID, string typeName, long pos, int length)
 			{
-				m_Mobile = mobile;
-				m_TypeID = typeID;
-				m_TypeName = typeName;
-				m_Position = pos;
-				m_Length = length;
+				Mobile = mobile;
+				TypeID = typeID;
+				TypeName = typeName;
+				Position = pos;
+				Length = length;
 			}
 		}
 
@@ -366,17 +252,17 @@ namespace Server
 
 		public static void Load()
 		{
-			if (m_Loaded)
+			if (Loaded)
 				return;
 
-			m_Loaded = true;
+			Loaded = true;
 			m_LoadingType = null;
 
 			Console.Write("World: Loading...");
 
 			Stopwatch watch = Stopwatch.StartNew();
 
-			m_Loading = true;
+			Loading = true;
 
 			_addQueue = new Queue<IEntity>();
 			_deleteQueue = new Queue<IEntity>();
@@ -403,7 +289,7 @@ namespace Server
 
 						mobileCount = idxReader.ReadInt32();
 
-						m_Mobiles = new Dictionary<Serial, Mobile>(mobileCount);
+						Mobiles = new Dictionary<Serial, Mobile>(mobileCount);
 
 						for (int i = 0; i < mobileCount; ++i)
 						{
@@ -445,7 +331,7 @@ namespace Server
 			}
 			else
 			{
-				m_Mobiles = new Dictionary<Serial, Mobile>();
+				Mobiles = new Dictionary<Serial, Mobile>();
 			}
 
 			if (File.Exists(ItemIndexPath) && File.Exists(ItemTypesPath))
@@ -462,7 +348,7 @@ namespace Server
 
 						itemCount = idxReader.ReadInt32();
 
-						m_Items = new Dictionary<Serial, Item>(itemCount);
+						Items = new Dictionary<Serial, Item>(itemCount);
 
 						for (int i = 0; i < itemCount; ++i)
 						{
@@ -504,7 +390,7 @@ namespace Server
 			}
 			else
 			{
-				m_Items = new Dictionary<Serial, Item>();
+				Items = new Dictionary<Serial, Item>();
 			}
 
 			if (File.Exists(GuildIndexPath))
@@ -727,11 +613,11 @@ namespace Server
 
 			EventSink.InvokeWorldLoad();
 
-			m_Loading = false;
+			Loading = false;
 
 			ProcessSafetyQueues();
 
-			foreach (Item item in m_Items.Values)
+			foreach (Item item in Items.Values)
 			{
 				if (item.Parent == null)
 					item.UpdateTotals();
@@ -739,7 +625,7 @@ namespace Server
 				item.ClearProperties();
 			}
 
-			foreach (Mobile m in m_Mobiles.Values)
+			foreach (Mobile m in Mobiles.Values)
 			{
 				m.UpdateRegion(); // Is this really needed?
 				m.UpdateTotals();
@@ -749,7 +635,7 @@ namespace Server
 
 			watch.Stop();
 
-			Utility.WriteConsole(ConsoleColor.Green, "done ({1} items, {2} mobiles) ({0:F2} seconds)", watch.Elapsed.TotalSeconds, m_Items.Count, m_Mobiles.Count);
+			Utility.WriteConsole(ConsoleColor.Green, "done ({1} items, {2} mobiles) ({0:F2} seconds)", watch.Elapsed.TotalSeconds, Items.Count, Mobiles.Count);
 		}
 
 		private static void ProcessSafetyQueues()
@@ -854,7 +740,7 @@ namespace Server
 
 		public static void Save(bool message, bool permitBackgroundWrite)
 		{
-			if (m_Saving)
+			if (Saving)
 				return;
 
 			++m_Saves;
@@ -864,7 +750,7 @@ namespace Server
 
 			World.WaitForWriteCompletion();//Blocks Save until current disk flush is done.
 
-			m_Saving = true;
+			Saving = true;
 
 			m_DiskWriteHandle.Reset();
 
@@ -901,7 +787,7 @@ namespace Server
 
 			watch.Stop();
 
-			m_Saving = false;
+			Saving = false;
 
 			if (!permitBackgroundWrite)
 				World.NotifyDiskWriteComplete();    //Sets the DiskWriteHandle.  If we allow background writes, we leave this upto the individual save strategies.
@@ -933,52 +819,52 @@ namespace Server
 
 		public static Mobile FindMobile(Serial serial)
 		{
-			m_Mobiles.TryGetValue(serial, out Mobile mob);
+			Mobiles.TryGetValue(serial, out Mobile mob);
 
 			return mob;
 		}
 
 		public static void AddMobile(Mobile m)
 		{
-			if (m_Saving)
+			if (Saving)
 			{
 				AppendSafetyLog("add", m);
 				_addQueue.Enqueue(m);
 			}
 			else
 			{
-				m_Mobiles[m.Serial] = m;
+				Mobiles[m.Serial] = m;
 			}
 		}
 
 		public static Item FindItem(Serial serial)
 		{
-			m_Items.TryGetValue(serial, out Item item);
+			Items.TryGetValue(serial, out Item item);
 
 			return item;
 		}
 
 		public static void AddItem(Item item)
 		{
-			if (m_Saving)
+			if (Saving)
 			{
 				AppendSafetyLog("add", item);
 				_addQueue.Enqueue(item);
 			}
 			else
 			{
-				m_Items[item.Serial] = item;
+				Items[item.Serial] = item;
 			}
 		}
 
 		public static void RemoveMobile(Mobile m)
 		{
-			m_Mobiles.Remove(m.Serial);
+			Mobiles.Remove(m.Serial);
 		}
 
 		public static void RemoveItem(Item item)
 		{
-			m_Items.Remove(item.Serial);
+			Items.Remove(item.Serial);
 		}
 	}
 }
