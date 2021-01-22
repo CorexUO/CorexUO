@@ -1,23 +1,3 @@
-/***************************************************************************
- *                              PacketWriter.cs
- *                            -------------------
- *   begin                : May 1, 2002
- *   copyright            : (C) The RunUO Software Team
- *   email                : info@runuo.com
- *
- *   $Id$
- *
- ***************************************************************************/
-
-/***************************************************************************
- *
- *   This program is free software; you can redistribute it and/or modify
- *   it under the terms of the GNU General Public License as published by
- *   the Free Software Foundation; either version 2 of the License, or
- *   (at your option) any later version.
- *
- ***************************************************************************/
-
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -30,7 +10,7 @@ namespace Server.Network
 	/// </summary>
 	public class PacketWriter
 	{
-		private static Stack<PacketWriter> m_Pool = new Stack<PacketWriter>();
+		private static readonly Stack<PacketWriter> m_Pool = new Stack<PacketWriter>();
 
 		public static PacketWriter CreateInstance()
 		{
@@ -50,7 +30,7 @@ namespace Server.Network
 					if (pw != null)
 					{
 						pw.m_Capacity = capacity;
-						pw.m_Stream.SetLength(0);
+						pw.UnderlyingStream.SetLength(0);
 					}
 				}
 			}
@@ -86,17 +66,12 @@ namespace Server.Network
 			}
 		}
 
-		/// <summary>
-		/// Internal stream which holds the entire packet.
-		/// </summary>
-		private MemoryStream m_Stream;
-
 		private int m_Capacity;
 
 		/// <summary>
 		/// Internal format buffer.
 		/// </summary>
-		private byte[] m_Buffer = new byte[4];
+		private readonly byte[] m_Buffer = new byte[4];
 
 		/// <summary>
 		/// Instantiates a new PacketWriter instance with the default capacity of 4 bytes.
@@ -111,7 +86,7 @@ namespace Server.Network
 		/// <param name="capacity">Initial capacity for the internal stream.</param>
 		public PacketWriter(int capacity)
 		{
-			m_Stream = new MemoryStream(capacity);
+			UnderlyingStream = new MemoryStream(capacity);
 			m_Capacity = capacity;
 		}
 
@@ -120,7 +95,7 @@ namespace Server.Network
 		/// </summary>
 		public void Write(bool value)
 		{
-			m_Stream.WriteByte((byte)(value ? 1 : 0));
+			UnderlyingStream.WriteByte((byte)(value ? 1 : 0));
 		}
 
 		/// <summary>
@@ -128,7 +103,7 @@ namespace Server.Network
 		/// </summary>
 		public void Write(byte value)
 		{
-			m_Stream.WriteByte(value);
+			UnderlyingStream.WriteByte(value);
 		}
 
 		/// <summary>
@@ -136,7 +111,7 @@ namespace Server.Network
 		/// </summary>
 		public void Write(sbyte value)
 		{
-			m_Stream.WriteByte((byte)value);
+			UnderlyingStream.WriteByte((byte)value);
 		}
 
 		/// <summary>
@@ -147,7 +122,7 @@ namespace Server.Network
 			m_Buffer[0] = (byte)(value >> 8);
 			m_Buffer[1] = (byte)value;
 
-			m_Stream.Write(m_Buffer, 0, 2);
+			UnderlyingStream.Write(m_Buffer, 0, 2);
 		}
 
 		/// <summary>
@@ -158,7 +133,7 @@ namespace Server.Network
 			m_Buffer[0] = (byte)(value >> 8);
 			m_Buffer[1] = (byte)value;
 
-			m_Stream.Write(m_Buffer, 0, 2);
+			UnderlyingStream.Write(m_Buffer, 0, 2);
 		}
 
 		/// <summary>
@@ -171,7 +146,7 @@ namespace Server.Network
 			m_Buffer[2] = (byte)(value >> 8);
 			m_Buffer[3] = (byte)value;
 
-			m_Stream.Write(m_Buffer, 0, 4);
+			UnderlyingStream.Write(m_Buffer, 0, 4);
 		}
 
 		/// <summary>
@@ -184,7 +159,7 @@ namespace Server.Network
 			m_Buffer[2] = (byte)(value >> 8);
 			m_Buffer[3] = (byte)value;
 
-			m_Stream.Write(m_Buffer, 0, 4);
+			UnderlyingStream.Write(m_Buffer, 0, 4);
 		}
 
 		/// <summary>
@@ -192,7 +167,7 @@ namespace Server.Network
 		/// </summary>
 		public void Write(byte[] buffer, int offset, int size)
 		{
-			m_Stream.Write(buffer, offset, size);
+			UnderlyingStream.Write(buffer, offset, size);
 		}
 
 		/// <summary>
@@ -208,14 +183,14 @@ namespace Server.Network
 
 			int length = value.Length;
 
-			m_Stream.SetLength(m_Stream.Length + size);
+			UnderlyingStream.SetLength(UnderlyingStream.Length + size);
 
 			if (length >= size)
-				m_Stream.Position += Encoding.ASCII.GetBytes(value, 0, size, m_Stream.GetBuffer(), (int)m_Stream.Position);
+				UnderlyingStream.Position += Encoding.ASCII.GetBytes(value, 0, size, UnderlyingStream.GetBuffer(), (int)UnderlyingStream.Position);
 			else
 			{
-				Encoding.ASCII.GetBytes(value, 0, length, m_Stream.GetBuffer(), (int)m_Stream.Position);
-				m_Stream.Position += size;
+				Encoding.ASCII.GetBytes(value, 0, length, UnderlyingStream.GetBuffer(), (int)UnderlyingStream.Position);
+				UnderlyingStream.Position += size;
 			}
 
 			/*byte[] buffer = Encoding.ASCII.GetBytes( value );
@@ -244,10 +219,10 @@ namespace Server.Network
 
 			int length = value.Length;
 
-			m_Stream.SetLength(m_Stream.Length + length + 1);
+			UnderlyingStream.SetLength(UnderlyingStream.Length + length + 1);
 
-			Encoding.ASCII.GetBytes(value, 0, length, m_Stream.GetBuffer(), (int)m_Stream.Position);
-			m_Stream.Position += length + 1;
+			Encoding.ASCII.GetBytes(value, 0, length, UnderlyingStream.GetBuffer(), (int)UnderlyingStream.Position);
+			UnderlyingStream.Position += length + 1;
 
 			/*byte[] buffer = Encoding.ASCII.GetBytes( value );
 
@@ -268,10 +243,10 @@ namespace Server.Network
 
 			int length = value.Length;
 
-			m_Stream.SetLength(m_Stream.Length + ((length + 1) * 2));
+			UnderlyingStream.SetLength(UnderlyingStream.Length + ((length + 1) * 2));
 
-			m_Stream.Position += Encoding.Unicode.GetBytes(value, 0, length, m_Stream.GetBuffer(), (int)m_Stream.Position);
-			m_Stream.Position += 2;
+			UnderlyingStream.Position += Encoding.Unicode.GetBytes(value, 0, length, UnderlyingStream.GetBuffer(), (int)UnderlyingStream.Position);
+			UnderlyingStream.Position += 2;
 
 			/*byte[] buffer = Encoding.Unicode.GetBytes( value );
 
@@ -297,14 +272,14 @@ namespace Server.Network
 
 			int length = value.Length;
 
-			m_Stream.SetLength(m_Stream.Length + size);
+			UnderlyingStream.SetLength(UnderlyingStream.Length + size);
 
 			if ((length * 2) >= size)
-				m_Stream.Position += Encoding.Unicode.GetBytes(value, 0, length, m_Stream.GetBuffer(), (int)m_Stream.Position);
+				UnderlyingStream.Position += Encoding.Unicode.GetBytes(value, 0, length, UnderlyingStream.GetBuffer(), (int)UnderlyingStream.Position);
 			else
 			{
-				Encoding.Unicode.GetBytes(value, 0, length, m_Stream.GetBuffer(), (int)m_Stream.Position);
-				m_Stream.Position += size;
+				Encoding.Unicode.GetBytes(value, 0, length, UnderlyingStream.GetBuffer(), (int)UnderlyingStream.Position);
+				UnderlyingStream.Position += size;
 			}
 
 			/*size *= 2;
@@ -335,10 +310,10 @@ namespace Server.Network
 
 			int length = value.Length;
 
-			m_Stream.SetLength(m_Stream.Length + ((length + 1) * 2));
+			UnderlyingStream.SetLength(UnderlyingStream.Length + ((length + 1) * 2));
 
-			m_Stream.Position += Encoding.BigEndianUnicode.GetBytes(value, 0, length, m_Stream.GetBuffer(), (int)m_Stream.Position);
-			m_Stream.Position += 2;
+			UnderlyingStream.Position += Encoding.BigEndianUnicode.GetBytes(value, 0, length, UnderlyingStream.GetBuffer(), (int)UnderlyingStream.Position);
+			UnderlyingStream.Position += 2;
 
 			/*byte[] buffer = Encoding.BigEndianUnicode.GetBytes( value );
 
@@ -364,14 +339,14 @@ namespace Server.Network
 
 			int length = value.Length;
 
-			m_Stream.SetLength(m_Stream.Length + size);
+			UnderlyingStream.SetLength(UnderlyingStream.Length + size);
 
 			if ((length * 2) >= size)
-				m_Stream.Position += Encoding.BigEndianUnicode.GetBytes(value, 0, length, m_Stream.GetBuffer(), (int)m_Stream.Position);
+				UnderlyingStream.Position += Encoding.BigEndianUnicode.GetBytes(value, 0, length, UnderlyingStream.GetBuffer(), (int)UnderlyingStream.Position);
 			else
 			{
-				Encoding.BigEndianUnicode.GetBytes(value, 0, length, m_Stream.GetBuffer(), (int)m_Stream.Position);
-				m_Stream.Position += size;
+				Encoding.BigEndianUnicode.GetBytes(value, 0, length, UnderlyingStream.GetBuffer(), (int)UnderlyingStream.Position);
+				UnderlyingStream.Position += size;
 			}
 
 			/*size *= 2;
@@ -394,7 +369,7 @@ namespace Server.Network
 		/// </summary>
 		public void Fill()
 		{
-			Fill((int)(m_Capacity - m_Stream.Length));
+			Fill((int)(m_Capacity - UnderlyingStream.Length));
 		}
 
 		/// <summary>
@@ -402,14 +377,14 @@ namespace Server.Network
 		/// </summary>
 		public void Fill(int length)
 		{
-			if (m_Stream.Position == m_Stream.Length)
+			if (UnderlyingStream.Position == UnderlyingStream.Length)
 			{
-				m_Stream.SetLength(m_Stream.Length + length);
-				m_Stream.Seek(0, SeekOrigin.End);
+				UnderlyingStream.SetLength(UnderlyingStream.Length + length);
+				UnderlyingStream.Seek(0, SeekOrigin.End);
 			}
 			else
 			{
-				m_Stream.Write(new byte[length], 0, length);
+				UnderlyingStream.Write(new byte[length], 0, length);
 			}
 		}
 
@@ -420,7 +395,7 @@ namespace Server.Network
 		{
 			get
 			{
-				return m_Stream.Length;
+				return UnderlyingStream.Length;
 			}
 		}
 
@@ -431,31 +406,25 @@ namespace Server.Network
 		{
 			get
 			{
-				return m_Stream.Position;
+				return UnderlyingStream.Position;
 			}
 			set
 			{
-				m_Stream.Position = value;
+				UnderlyingStream.Position = value;
 			}
 		}
 
 		/// <summary>
 		/// The internal stream used by this PacketWriter instance.
 		/// </summary>
-		public MemoryStream UnderlyingStream
-		{
-			get
-			{
-				return m_Stream;
-			}
-		}
+		public MemoryStream UnderlyingStream { get; }
 
 		/// <summary>
 		/// Offsets the current position from an origin.
 		/// </summary>
 		public long Seek(long offset, SeekOrigin origin)
 		{
-			return m_Stream.Seek(offset, origin);
+			return UnderlyingStream.Seek(offset, origin);
 		}
 
 		/// <summary>
@@ -463,7 +432,7 @@ namespace Server.Network
 		/// </summary>
 		public byte[] ToArray()
 		{
-			return m_Stream.ToArray();
+			return UnderlyingStream.ToArray();
 		}
 	}
 }

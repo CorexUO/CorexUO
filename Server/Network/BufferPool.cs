@@ -1,23 +1,3 @@
-/***************************************************************************
- *                               BufferPool.cs
- *                            -------------------
- *   begin                : May 1, 2002
- *   copyright            : (C) The RunUO Software Team
- *   email                : info@runuo.com
- *
- *   $Id$
- *
- ***************************************************************************/
-
-/***************************************************************************
- *
- *   This program is free software; you can redistribute it and/or modify
- *   it under the terms of the GNU General Public License as published by
- *   the Free Software Foundation; either version 2 of the License, or
- *   (at your option) any later version.
- *
- ***************************************************************************/
-
 using System.Collections.Generic;
 
 namespace Server.Network
@@ -28,14 +8,14 @@ namespace Server.Network
 
 		public static List<BufferPool> Pools { get { return m_Pools; } set { m_Pools = value; } }
 
-		private string m_Name;
+		private readonly string m_Name;
 
-		private int m_InitialCapacity;
-		private int m_BufferSize;
+		private readonly int m_InitialCapacity;
+		private readonly int m_BufferSize;
 
 		private int m_Misses;
 
-		private Queue<byte[]> m_FreeBuffers;
+		private readonly Queue<byte[]> m_FreeBuffers;
 
 		public void GetInfo(out string name, out int freeCount, out int initialCapacity, out int currentCapacity, out int bufferSize, out int misses)
 		{

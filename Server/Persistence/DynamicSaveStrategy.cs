@@ -1,24 +1,3 @@
-/***************************************************************************
- *                          DynamicSaveStrategy.cs
- *                            -------------------
- *   begin                : December 16, 2010
- *   copyright            : (C) The RunUO Software Team
- *   email                : info@runuo.com
- *
- *   $Id$
- *
- ***************************************************************************/
-
-/***************************************************************************
- *
- *   This program is free software; you can redistribute it and/or modify
- *   it under the terms of the GNU General Public License as published by
- *   the Free Software Foundation; either version 2 of the License, or
- *   (at your option) any later version.
- *
- ***************************************************************************/
-
-
 using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
@@ -37,11 +16,11 @@ namespace Server
 		private SequentialFileWriter _mobileData, _mobileIndex;
 		private SequentialFileWriter _guildData, _guildIndex;
 
-		private ConcurrentBag<Item> _decayBag;
+		private readonly ConcurrentBag<Item> _decayBag;
 
-		private BlockingCollection<QueuedMemoryWriter> _itemThreadWriters;
-		private BlockingCollection<QueuedMemoryWriter> _mobileThreadWriters;
-		private BlockingCollection<QueuedMemoryWriter> _guildThreadWriters;
+		private readonly BlockingCollection<QueuedMemoryWriter> _itemThreadWriters;
+		private readonly BlockingCollection<QueuedMemoryWriter> _mobileThreadWriters;
+		private readonly BlockingCollection<QueuedMemoryWriter> _guildThreadWriters;
 
 		public DynamicSaveStrategy()
 		{
@@ -82,7 +61,7 @@ namespace Server
 			}
 		}
 
-		private Task StartCommitTask(BlockingCollection<QueuedMemoryWriter> threadWriter, SequentialFileWriter data, SequentialFileWriter index)
+		private static Task StartCommitTask(BlockingCollection<QueuedMemoryWriter> threadWriter, SequentialFileWriter data, SequentialFileWriter index)
 		{
 			Task commitTask = Task.Factory.StartNew(() =>
 			{
@@ -228,9 +207,7 @@ namespace Server
 
 		public override void ProcessDecay()
 		{
-			Item item;
-
-			while (_decayBag.TryTake(out item))
+			while (_decayBag.TryTake(out Item item))
 			{
 				if (item.OnDecay())
 				{
@@ -267,7 +244,7 @@ namespace Server
 			_guildIndex.Close();
 		}
 
-		private void WriteCount(SequentialFileWriter indexFile, int count)
+		private static void WriteCount(SequentialFileWriter indexFile, int count)
 		{
 			//Equiv to GenericWriter.Write( (int)count );
 			byte[] buffer = new byte[4];
@@ -286,7 +263,7 @@ namespace Server
 			SaveTypeDatabase(World.MobileTypesPath, World.m_MobileTypes);
 		}
 
-		private void SaveTypeDatabase(string path, List<Type> types)
+		private static void SaveTypeDatabase(string path, List<Type> types)
 		{
 			BinaryFileWriter bfw = new BinaryFileWriter(path, false);
 

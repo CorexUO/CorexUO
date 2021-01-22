@@ -1,23 +1,3 @@
-/***************************************************************************
- *                               FileQueue.cs
- *                            -------------------
- *   begin                : May 1, 2002
- *   copyright            : (C) The RunUO Software Team
- *   email                : info@runuo.com
- *
- *   $Id$
- *
- ***************************************************************************/
-
-/***************************************************************************
- *
- *   This program is free software; you can redistribute it and/or modify
- *   it under the terms of the GNU General Public License as published by
- *   the Free Software Foundation; either version 2 of the License, or
- *   (at your option) any later version.
- *
- ***************************************************************************/
-
 using System;
 using System.Collections.Generic;
 using System.Threading;
@@ -31,45 +11,24 @@ namespace Server
 	{
 		public sealed class Chunk
 		{
-			private FileQueue owner;
-			private int slot;
+			private readonly FileQueue owner;
+			private readonly int slot;
+			private readonly int offset;
 
-			private byte[] buffer;
-			private int offset;
-			private int size;
+			public byte[] Buffer { get; }
 
-			public byte[] Buffer
-			{
-				get
-				{
-					return buffer;
-				}
-			}
+			public static int Offset => 0;
 
-			public int Offset
-			{
-				get
-				{
-					return 0;
-				}
-			}
-
-			public int Size
-			{
-				get
-				{
-					return size;
-				}
-			}
+			public int Size { get; }
 
 			public Chunk(FileQueue owner, int slot, byte[] buffer, int offset, int size)
 			{
 				this.owner = owner;
 				this.slot = slot;
 
-				this.buffer = buffer;
+				this.Buffer = buffer;
 				this.offset = offset;
-				this.size = size;
+				this.Size = size;
 			}
 
 			public void Commit()
@@ -84,8 +43,8 @@ namespace Server
 			public int length;
 		}
 
-		private static int bufferSize;
-		private static BufferPool bufferPool;
+		private static readonly int bufferSize;
+		private static readonly BufferPool bufferPool;
 
 		static FileQueue()
 		{
@@ -93,15 +52,15 @@ namespace Server
 			bufferPool = new BufferPool("File Buffers", 64, bufferSize);
 		}
 
-		private object syncRoot;
+		private readonly object syncRoot;
 
-		private Chunk[] active;
+		private readonly Chunk[] active;
 		private int activeCount;
 
-		private Queue<Page> pending;
+		private readonly Queue<Page> pending;
 		private Page buffered;
 
-		private FileCommitCallback callback;
+		private readonly FileCommitCallback callback;
 
 		private ManualResetEvent idle;
 
@@ -130,14 +89,14 @@ namespace Server
 				throw new ArgumentNullException("callback");
 			}
 
-			this.syncRoot = new object();
+			syncRoot = new object();
 
-			this.active = new Chunk[concurrentWrites];
-			this.pending = new Queue<Page>();
+			active = new Chunk[concurrentWrites];
+			pending = new Queue<Page>();
 
 			this.callback = callback;
 
-			this.idle = new ManualResetEvent(true);
+			idle = new ManualResetEvent(true);
 		}
 
 		private void Append(Page page)

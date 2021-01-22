@@ -1,23 +1,3 @@
-/***************************************************************************
- *                                Listener.cs
- *                            -------------------
- *   begin                : May 1, 2002
- *   copyright            : (C) The RunUO Software Team
- *   email                : info@runuo.com
- *
- *   $Id$
- *
- ***************************************************************************/
-
-/***************************************************************************
- *
- *   This program is free software; you can redistribute it and/or modify
- *   it under the terms of the GNU General Public License as published by
- *   the Free Software Foundation; either version 2 of the License, or
- *   (at your option) any later version.
- *
- ***************************************************************************/
-
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -32,24 +12,18 @@ namespace Server.Network
 	{
 		private Socket m_Listener;
 
-		private Queue<Socket> m_Accepted;
-		private object m_AcceptedSyncRoot;
+		private readonly Queue<Socket> m_Accepted;
+		private readonly object m_AcceptedSyncRoot;
 
 #if NewAsyncSockets
 		private SocketAsyncEventArgs m_EventArgs;
 #else
-		private AsyncCallback m_OnAccept;
+		private readonly AsyncCallback m_OnAccept;
 #endif
 
-		private static Socket[] m_EmptySockets = new Socket[0];
+		private static readonly Socket[] m_EmptySockets = Array.Empty<Socket>();
 
-		private static IPEndPoint[] m_EndPoints;
-
-		public static IPEndPoint[] EndPoints
-		{
-			get { return m_EndPoints; }
-			set { m_EndPoints = value; }
-		}
+		public static IPEndPoint[] EndPoints { get; set; }
 
 		public Listener(IPEndPoint ipep)
 		{
@@ -83,7 +57,7 @@ namespace Server.Network
 #endif
 		}
 
-		private Socket Bind(IPEndPoint ipep)
+		private static Socket Bind(IPEndPoint ipep)
 		{
 			Socket s = new Socket(ipep.AddressFamily, SocketType.Stream, ProtocolType.Tcp);
 
@@ -99,10 +73,8 @@ namespace Server.Network
 			}
 			catch (Exception e)
 			{
-				if (e is SocketException)
+				if (e is SocketException se)
 				{
-					SocketException se = (SocketException)e;
-
 					if (se.ErrorCode == 10048)
 					{ // WSAEADDRINUSE
 						Console.WriteLine("Listener Failed: {0}:{1} (In Use)", ipep.Address, ipep.Port);
@@ -124,9 +96,7 @@ namespace Server.Network
 
 		private void DisplayListener()
 		{
-			IPEndPoint ipep = m_Listener.LocalEndPoint as IPEndPoint;
-
-			if (ipep == null)
+			if (m_Listener.LocalEndPoint is not IPEndPoint ipep)
 				return;
 
 			if (ipep.Address.Equals(IPAddress.Any) || ipep.Address.Equals(IPAddress.IPv6Any))
@@ -243,7 +213,7 @@ namespace Server.Network
 		}
 #endif
 
-		private bool VerifySocket(Socket socket)
+		private static bool VerifySocket(Socket socket)
 		{
 			try
 			{
@@ -271,7 +241,7 @@ namespace Server.Network
 			Core.Set();
 		}
 
-		private void Release(Socket socket)
+		private static void Release(Socket socket)
 		{
 			try
 			{

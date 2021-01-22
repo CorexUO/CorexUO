@@ -1,23 +1,3 @@
-/***************************************************************************
- *                               SendQueue.cs
- *                            -------------------
- *   begin                : May 1, 2002
- *   copyright            : (C) The RunUO Software Team
- *   email                : info@runuo.com
- *
- *   $Id$
- *
- ***************************************************************************/
-
-/***************************************************************************
- *
- *   This program is free software; you can redistribute it and/or modify
- *   it under the terms of the GNU General Public License as published by
- *   the Free Software Foundation; either version 2 of the License, or
- *   (at your option) any later version.
- *
- ***************************************************************************/
-
 using System;
 using System.Collections.Generic;
 
@@ -27,7 +7,7 @@ namespace Server.Network
 	{
 		public class Gram
 		{
-			private static Stack<Gram> _pool = new Stack<Gram>();
+			private static readonly Stack<Gram> _pool = new Stack<Gram>();
 
 			public static Gram Acquire()
 			{
@@ -151,7 +131,7 @@ namespace Server.Network
 					m_UnusedBuffers.ReleaseBuffer(buffer);
 		}
 
-		private Queue<Gram> _pending;
+		private readonly Queue<Gram> _pending;
 
 		private Gram _buffered;
 

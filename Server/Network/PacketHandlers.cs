@@ -35,13 +35,13 @@ namespace Server.Network
 
 	public static class PacketHandlers
 	{
-		private static PacketHandler[] m_6017Handlers;
+		private static readonly PacketHandler[] m_6017Handlers;
 
-		private static PacketHandler[] m_ExtendedHandlersLow;
-		private static Dictionary<int, PacketHandler> m_ExtendedHandlersHigh;
+		private static readonly PacketHandler[] m_ExtendedHandlersLow;
+		private static readonly Dictionary<int, PacketHandler> m_ExtendedHandlersHigh;
 
-		private static EncodedPacketHandler[] m_EncodedHandlersLow;
-		private static Dictionary<int, EncodedPacketHandler> m_EncodedHandlersHigh;
+		private static readonly EncodedPacketHandler[] m_EncodedHandlersLow;
+		private static readonly Dictionary<int, EncodedPacketHandler> m_EncodedHandlersHigh;
 
 		public static PacketHandler[] Handlers { get; private set; }
 

@@ -8,13 +8,13 @@ namespace Server
 		private const string PerformanceCategoryName = "RunUO 1.0";
 		private const string PerformanceCategoryDesc = "Performance counters for CorexUO 1.0";
 
-		private PerformanceCounter numberOfWorldSaves;
+		private readonly PerformanceCounter numberOfWorldSaves;
 
-		private PerformanceCounter itemsPerSecond;
-		private PerformanceCounter mobilesPerSecond;
+		private readonly PerformanceCounter itemsPerSecond;
+		private readonly PerformanceCounter mobilesPerSecond;
 
-		private PerformanceCounter serializedBytesPerSecond;
-		private PerformanceCounter writtenBytesPerSecond;
+		private readonly PerformanceCounter serializedBytesPerSecond;
+		private readonly PerformanceCounter writtenBytesPerSecond;
 
 		public SaveMetrics()
 		{

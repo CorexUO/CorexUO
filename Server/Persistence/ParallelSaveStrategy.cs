@@ -1,23 +1,3 @@
-/***************************************************************************
- *                          ParallelSaveStrategy.cs
- *                            -------------------
- *   begin                : May 1, 2002
- *   copyright            : (C) The RunUO Software Team
- *   email                : info@runuo.com
- *
- *   $Id$
- *
- ***************************************************************************/
-
-/***************************************************************************
- *
- *   This program is free software; you can redistribute it and/or modify
- *   it under the terms of the GNU General Public License as published by
- *   the Free Software Foundation; either version 2 of the License, or
- *   (at your option) any later version.
- *
- ***************************************************************************/
-
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -33,7 +13,7 @@ namespace Server
 			get { return "Parallel"; }
 		}
 
-		private int processorCount;
+		private readonly int processorCount;
 
 		public ParallelSaveStrategy(int processorCount)
 		{
@@ -53,7 +33,7 @@ namespace Server
 		private SequentialFileWriter mobileData, mobileIndex;
 		private SequentialFileWriter guildData, guildIndex;
 
-		private Queue<Item> _decayQueue;
+		private readonly Queue<Item> _decayQueue;
 
 		private Consumer[] consumers;
 		private int cycle;
@@ -124,7 +104,7 @@ namespace Server
 			SaveTypeDatabase(World.MobileTypesPath, World.m_MobileTypes);
 		}
 
-		private void SaveTypeDatabase(string path, List<Type> types)
+		private static void SaveTypeDatabase(string path, List<Type> types)
 		{
 			BinaryFileWriter bfw = new BinaryFileWriter(path, false);
 
@@ -156,7 +136,7 @@ namespace Server
 			WriteCount(guildIndex, BaseGuild.List.Count);
 		}
 
-		private void WriteCount(SequentialFileWriter indexFile, int count)
+		private static void WriteCount(SequentialFileWriter indexFile, int count)
 		{
 			byte[] buffer = new byte[4];
 
@@ -187,25 +167,19 @@ namespace Server
 			ISerializable value = entry.value;
 			BinaryMemoryWriter writer = entry.writer;
 
-			Item item = value as Item;
-
-			if (item != null)
+			if (value is Item item)
 			{
 				Save(item, writer);
 			}
 			else
 			{
-				Mobile mob = value as Mobile;
-
-				if (mob != null)
+				if (value is Mobile mob)
 				{
 					Save(mob, writer);
 				}
 				else
 				{
-					BaseGuild guild = value as BaseGuild;
-
-					if (guild != null)
+					if (value is BaseGuild guild)
 					{
 						Save(guild, writer);
 					}
@@ -288,9 +262,9 @@ namespace Server
 
 		private sealed class Producer : IEnumerable<ISerializable>
 		{
-			private IEnumerable<Item> items;
-			private IEnumerable<Mobile> mobiles;
-			private IEnumerable<BaseGuild> guilds;
+			private readonly IEnumerable<Item> items;
+			private readonly IEnumerable<Mobile> mobiles;
+			private readonly IEnumerable<BaseGuild> guilds;
 
 			public Producer()
 			{
@@ -331,14 +305,14 @@ namespace Server
 
 		private sealed class Consumer
 		{
-			private ParallelSaveStrategy owner;
+			private readonly ParallelSaveStrategy owner;
 
 			public ManualResetEvent completionEvent;
 
 			public ConsumableEntry[] buffer;
 			public int head, done, tail;
 
-			private Thread thread;
+			private readonly Thread thread;
 
 			public Consumer(ParallelSaveStrategy owner, int bufferSize)
 			{
@@ -353,10 +327,10 @@ namespace Server
 
 				this.completionEvent = new ManualResetEvent(false);
 
-				thread = new Thread(Processor);
-
-				thread.Name = "Parallel Serialization Thread";
-
+				thread = new Thread(Processor)
+				{
+					Name = "Parallel Serialization Thread"
+				};
 				thread.Start();
 			}
 
