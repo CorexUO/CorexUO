@@ -67,9 +67,7 @@ namespace Server
 			if (m_LevelOverride > int.MinValue)
 				return m_LevelOverride;
 
-			int hours, minutes;
-
-			Server.Items.Clock.GetTime(from.Map, from.X, from.Y, out hours, out minutes);
+			Items.Clock.GetTime(from.Map, from.X, from.Y, out int hours, out int minutes);
 
 			/* OSI times:
 			 *
@@ -121,7 +119,7 @@ namespace Server
 
 		public class NightSightTimer : Timer
 		{
-			private Mobile m_Owner;
+			private readonly Mobile m_Owner;
 
 			public NightSightTimer(Mobile owner) : base(TimeSpan.FromMinutes(Utility.Random(15, 25)))
 			{

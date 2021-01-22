@@ -14,8 +14,8 @@ namespace Server.Misc
 
 	public class ProfanityProtection
 	{
-		private static bool Enabled = Settings.Get<bool>("Profanity", "Enabled");
-		private static ProfanityAction Action = (ProfanityAction)Settings.Get<int>("Profanity", "Action"); // change here what to do when profanity is detected
+		private static readonly bool Enabled = Settings.Get<bool>("Profanity", "Enabled");
+		private static readonly ProfanityAction Action = (ProfanityAction)Settings.Get<int>("Profanity", "Action"); // change here what to do when profanity is detected
 
 		public static void Initialize()
 		{
@@ -55,22 +55,16 @@ namespace Server.Misc
 			if (from.AccessLevel > AccessLevel.Player)
 				return;
 
-			if (!NameVerification.Validate(e.Speech, 0, int.MaxValue, true, true, false, int.MaxValue, m_Exceptions, m_Disallowed, m_StartDisallowed))
+			if (!NameVerification.Validate(e.Speech, 0, int.MaxValue, true, true, false, int.MaxValue, Exceptions, Disallowed, StartDisallowed))
 				e.Blocked = !OnProfanityDetected(from, e.Speech);
 		}
 
-		public static char[] Exceptions { get { return m_Exceptions; } }
-		public static string[] StartDisallowed { get { return m_StartDisallowed; } }
-		public static string[] Disallowed { get { return m_Disallowed; } }
-
-		private static char[] m_Exceptions = new char[]
+		public static char[] Exceptions { get; } = new char[]
 			{
 				' ', '-', '.', '\'', '"', ',', '_', '+', '=', '~', '`', '!', '^', '*', '\\', '/', ';', ':', '<', '>', '[', ']', '{', '}', '?', '|', '(', ')', '%', '$', '&', '#', '@'
 			};
-
-		private static string[] m_StartDisallowed = new string[] { };
-
-		private static string[] m_Disallowed = new string[]
+		public static string[] StartDisallowed { get; } = System.Array.Empty<string>();
+		public static string[] Disallowed { get; } = new string[]
 			{
 				"jigaboo",
 				"chigaboo",

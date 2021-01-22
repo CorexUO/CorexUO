@@ -8,96 +8,83 @@ namespace Server
 {
 	public class HardwareInfo
 	{
-		private int m_InstanceID;
-		private int m_OSMajor, m_OSMinor, m_OSRevision;
-		private int m_CpuManufacturer, m_CpuFamily, m_CpuModel, m_CpuClockSpeed, m_CpuQuantity;
-		private int m_PhysicalMemory;
-		private int m_ScreenWidth, m_ScreenHeight, m_ScreenDepth;
-		private int m_DXMajor, m_DXMinor;
-		private int m_VCVendorID, m_VCDeviceID, m_VCMemory;
-		private int m_Distribution, m_ClientsRunning, m_ClientsInstalled, m_PartialInstalled;
-		private string m_VCDescription;
-		private string m_Language;
-		private string m_Unknown;
-		private DateTime m_TimeReceived;
+		[CommandProperty(AccessLevel.GameMaster)]
+		public int CpuModel { get; private set; }
 
 		[CommandProperty(AccessLevel.GameMaster)]
-		public int CpuModel { get { return m_CpuModel; } }
+		public int CpuClockSpeed { get; private set; }
 
 		[CommandProperty(AccessLevel.GameMaster)]
-		public int CpuClockSpeed { get { return m_CpuClockSpeed; } }
+		public int CpuQuantity { get; private set; }
 
 		[CommandProperty(AccessLevel.GameMaster)]
-		public int CpuQuantity { get { return m_CpuQuantity; } }
+		public int OSMajor { get; private set; }
 
 		[CommandProperty(AccessLevel.GameMaster)]
-		public int OSMajor { get { return m_OSMajor; } }
+		public int OSMinor { get; private set; }
 
 		[CommandProperty(AccessLevel.GameMaster)]
-		public int OSMinor { get { return m_OSMinor; } }
+		public int OSRevision { get; private set; }
 
 		[CommandProperty(AccessLevel.GameMaster)]
-		public int OSRevision { get { return m_OSRevision; } }
+		public int InstanceID { get; private set; }
 
 		[CommandProperty(AccessLevel.GameMaster)]
-		public int InstanceID { get { return m_InstanceID; } }
+		public int ScreenWidth { get; private set; }
 
 		[CommandProperty(AccessLevel.GameMaster)]
-		public int ScreenWidth { get { return m_ScreenWidth; } }
+		public int ScreenHeight { get; private set; }
 
 		[CommandProperty(AccessLevel.GameMaster)]
-		public int ScreenHeight { get { return m_ScreenHeight; } }
+		public int ScreenDepth { get; private set; }
 
 		[CommandProperty(AccessLevel.GameMaster)]
-		public int ScreenDepth { get { return m_ScreenDepth; } }
+		public int PhysicalMemory { get; private set; }
 
 		[CommandProperty(AccessLevel.GameMaster)]
-		public int PhysicalMemory { get { return m_PhysicalMemory; } }
+		public int CpuManufacturer { get; private set; }
 
 		[CommandProperty(AccessLevel.GameMaster)]
-		public int CpuManufacturer { get { return m_CpuManufacturer; } }
+		public int CpuFamily { get; private set; }
 
 		[CommandProperty(AccessLevel.GameMaster)]
-		public int CpuFamily { get { return m_CpuFamily; } }
+		public int VCVendorID { get; private set; }
 
 		[CommandProperty(AccessLevel.GameMaster)]
-		public int VCVendorID { get { return m_VCVendorID; } }
+		public int VCDeviceID { get; private set; }
 
 		[CommandProperty(AccessLevel.GameMaster)]
-		public int VCDeviceID { get { return m_VCDeviceID; } }
+		public int VCMemory { get; private set; }
 
 		[CommandProperty(AccessLevel.GameMaster)]
-		public int VCMemory { get { return m_VCMemory; } }
+		public int DXMajor { get; private set; }
 
 		[CommandProperty(AccessLevel.GameMaster)]
-		public int DXMajor { get { return m_DXMajor; } }
+		public int DXMinor { get; private set; }
 
 		[CommandProperty(AccessLevel.GameMaster)]
-		public int DXMinor { get { return m_DXMinor; } }
+		public string VCDescription { get; private set; }
 
 		[CommandProperty(AccessLevel.GameMaster)]
-		public string VCDescription { get { return m_VCDescription; } }
+		public string Language { get; private set; }
 
 		[CommandProperty(AccessLevel.GameMaster)]
-		public string Language { get { return m_Language; } }
+		public int Distribution { get; private set; }
 
 		[CommandProperty(AccessLevel.GameMaster)]
-		public int Distribution { get { return m_Distribution; } }
+		public int ClientsRunning { get; private set; }
 
 		[CommandProperty(AccessLevel.GameMaster)]
-		public int ClientsRunning { get { return m_ClientsRunning; } }
+		public int ClientsInstalled { get; private set; }
 
 		[CommandProperty(AccessLevel.GameMaster)]
-		public int ClientsInstalled { get { return m_ClientsInstalled; } }
+		public int PartialInstalled { get; private set; }
 
 		[CommandProperty(AccessLevel.GameMaster)]
-		public int PartialInstalled { get { return m_PartialInstalled; } }
+		public string Unknown { get; private set; }
 
 		[CommandProperty(AccessLevel.GameMaster)]
-		public string Unknown { get { return m_Unknown; } }
-
-		[CommandProperty(AccessLevel.GameMaster)]
-		public DateTime TimeReceived { get { return m_TimeReceived; } }
+		public DateTime TimeReceived { get; private set; }
 
 		public static void Initialize()
 		{
@@ -116,12 +103,11 @@ namespace Server
 
 		public static void HWInfo_OnTarget(Mobile from, object obj)
 		{
-			if (obj is Mobile && ((Mobile)obj).Player)
+			if (obj is Mobile mobile && mobile.Player)
 			{
-				Mobile m = (Mobile)obj;
-				Account acct = m.Account as Account;
+				Mobile m = mobile;
 
-				if (acct != null)
+				if (m.Account is Account acct)
 				{
 					HardwareInfo hwInfo = acct.HardwareInfo;
 
@@ -149,39 +135,38 @@ namespace Server
 		{
 			pvSrc.ReadByte(); // 1: <4.0.1a, 2>=4.0.1a
 
-			HardwareInfo info = new HardwareInfo();
+			HardwareInfo info = new HardwareInfo
+			{
+				InstanceID = pvSrc.ReadInt32(),
+				OSMajor = pvSrc.ReadInt32(),
+				OSMinor = pvSrc.ReadInt32(),
+				OSRevision = pvSrc.ReadInt32(),
+				CpuManufacturer = pvSrc.ReadByte(),
+				CpuFamily = pvSrc.ReadInt32(),
+				CpuModel = pvSrc.ReadInt32(),
+				CpuClockSpeed = pvSrc.ReadInt32(),
+				CpuQuantity = pvSrc.ReadByte(),
+				PhysicalMemory = pvSrc.ReadInt32(),
+				ScreenWidth = pvSrc.ReadInt32(),
+				ScreenHeight = pvSrc.ReadInt32(),
+				ScreenDepth = pvSrc.ReadInt32(),
+				DXMajor = pvSrc.ReadInt16(),
+				DXMinor = pvSrc.ReadInt16(),
+				VCDescription = pvSrc.ReadUnicodeStringLESafe(64),
+				VCVendorID = pvSrc.ReadInt32(),
+				VCDeviceID = pvSrc.ReadInt32(),
+				VCMemory = pvSrc.ReadInt32(),
+				Distribution = pvSrc.ReadByte(),
+				ClientsRunning = pvSrc.ReadByte(),
+				ClientsInstalled = pvSrc.ReadByte(),
+				PartialInstalled = pvSrc.ReadByte(),
+				Language = pvSrc.ReadUnicodeStringLESafe(4),
+				Unknown = pvSrc.ReadStringSafe(64),
 
-			info.m_InstanceID = pvSrc.ReadInt32();
-			info.m_OSMajor = pvSrc.ReadInt32();
-			info.m_OSMinor = pvSrc.ReadInt32();
-			info.m_OSRevision = pvSrc.ReadInt32();
-			info.m_CpuManufacturer = pvSrc.ReadByte();
-			info.m_CpuFamily = pvSrc.ReadInt32();
-			info.m_CpuModel = pvSrc.ReadInt32();
-			info.m_CpuClockSpeed = pvSrc.ReadInt32();
-			info.m_CpuQuantity = pvSrc.ReadByte();
-			info.m_PhysicalMemory = pvSrc.ReadInt32();
-			info.m_ScreenWidth = pvSrc.ReadInt32();
-			info.m_ScreenHeight = pvSrc.ReadInt32();
-			info.m_ScreenDepth = pvSrc.ReadInt32();
-			info.m_DXMajor = pvSrc.ReadInt16();
-			info.m_DXMinor = pvSrc.ReadInt16();
-			info.m_VCDescription = pvSrc.ReadUnicodeStringLESafe(64);
-			info.m_VCVendorID = pvSrc.ReadInt32();
-			info.m_VCDeviceID = pvSrc.ReadInt32();
-			info.m_VCMemory = pvSrc.ReadInt32();
-			info.m_Distribution = pvSrc.ReadByte();
-			info.m_ClientsRunning = pvSrc.ReadByte();
-			info.m_ClientsInstalled = pvSrc.ReadByte();
-			info.m_PartialInstalled = pvSrc.ReadByte();
-			info.m_Language = pvSrc.ReadUnicodeStringLESafe(4);
-			info.m_Unknown = pvSrc.ReadStringSafe(64);
+				TimeReceived = DateTime.UtcNow
+			};
 
-			info.m_TimeReceived = DateTime.UtcNow;
-
-			Account acct = state.Account as Account;
-
-			if (acct != null)
+			if (state.Account is Account acct)
 				acct.HardwareInfo = info;
 		}
 	}

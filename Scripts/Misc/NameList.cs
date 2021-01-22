@@ -7,16 +7,13 @@ namespace Server
 {
 	public class NameList
 	{
-		private string m_Type;
-		private string[] m_List;
-
-		public string Type { get { return m_Type; } }
-		public string[] List { get { return m_List; } }
+		public string Type { get; }
+		public string[] List { get; }
 
 		public bool ContainsName(string name)
 		{
-			for (int i = 0; i < m_List.Length; i++)
-				if (name == m_List[i])
+			for (int i = 0; i < List.Length; i++)
+				if (name == List[i])
 					return true;
 
 			return false;
@@ -24,25 +21,24 @@ namespace Server
 
 		public NameList(string type, XmlElement xml)
 		{
-			m_Type = type;
-			m_List = xml.InnerText.Split(',');
+			Type = type;
+			List = xml.InnerText.Split(',');
 
-			for (int i = 0; i < m_List.Length; ++i)
-				m_List[i] = Utility.Intern(m_List[i].Trim());
+			for (int i = 0; i < List.Length; ++i)
+				List[i] = Utility.Intern(List[i].Trim());
 		}
 
 		public string GetRandomName()
 		{
-			if (m_List.Length > 0)
-				return m_List[Utility.Random(m_List.Length)];
+			if (List.Length > 0)
+				return List[Utility.Random(List.Length)];
 
 			return "";
 		}
 
 		public static NameList GetNameList(string type)
 		{
-			NameList n = null;
-			m_Table.TryGetValue(type, out n);
+			m_Table.TryGetValue(type, out NameList n);
 			return n;
 		}
 
@@ -56,7 +52,7 @@ namespace Server
 			return "";
 		}
 
-		private static Dictionary<string, NameList> m_Table;
+		private static readonly Dictionary<string, NameList> m_Table;
 
 		static NameList()
 		{

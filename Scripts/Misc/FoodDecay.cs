@@ -17,12 +17,7 @@ namespace Server.Misc
 		public static float DecayDelay => Settings.Get<float>("FoodDecay", "DecayDelay");
 		public static FoodDecayType TimerType => (FoodDecayType)Settings.Get<int>("FoodDecay", "DecayType");
 
-		private static Dictionary<Mobile, Timer> m_Timers = new Dictionary<Mobile, Timer>();
-
-		public static Dictionary<Mobile, Timer> Timers
-		{
-			get { return m_Timers; }
-		}
+		public static Dictionary<Mobile, Timer> Timers { get; } = new Dictionary<Mobile, Timer>();
 
 		public static void Initialize()
 		{
@@ -115,20 +110,20 @@ namespace Server.Misc
 		{
 			if (mob != null)
 			{
-				if (!m_Timers.ContainsKey(mob))
+				if (!Timers.ContainsKey(mob))
 				{
-					m_Timers[mob] = new FoodDecayTimer(mob);
-					m_Timers[mob].Start();
+					Timers[mob] = new FoodDecayTimer(mob);
+					Timers[mob].Start();
 				}
 			}
 		}
 
 		public static bool StopTimer(Mobile m)
 		{
-			if (m_Timers.TryGetValue(m, out Timer timer))
+			if (Timers.TryGetValue(m, out Timer timer))
 			{
 				timer.Stop();
-				m_Timers.Remove(m);
+				Timers.Remove(m);
 			}
 
 			return (timer != null);

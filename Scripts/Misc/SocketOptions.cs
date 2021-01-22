@@ -11,7 +11,7 @@ namespace Server
 
 		private static readonly int DefaultPort = Settings.Get<int>("Server", "Port");
 
-		private static IPEndPoint[] m_ListenerEndPoints = new IPEndPoint[]
+		private static readonly IPEndPoint[] m_ListenerEndPoints = new IPEndPoint[]
 		{
 			new IPEndPoint( IPAddress.Any, DefaultPort ), // Default: Listen on port 2593 on all IP addresses
 

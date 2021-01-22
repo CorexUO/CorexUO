@@ -148,17 +148,17 @@ namespace Server.Misc
 				{
 					FameEntry fe = m_FameEntries[i];
 
-					if (fame <= fe.m_Fame || i == (m_FameEntries.Length - 1))
+					if (fame <= fe.Fame || i == (m_FameEntries.Length - 1))
 					{
-						KarmaEntry[] karmaEntries = fe.m_Karma;
+						KarmaEntry[] karmaEntries = fe.Karma;
 
 						for (int j = 0; j < karmaEntries.Length; ++j)
 						{
 							KarmaEntry ke = karmaEntries[j];
 
-							if (karma <= ke.m_Karma || j == (karmaEntries.Length - 1))
+							if (karma <= ke.Karma || j == (karmaEntries.Length - 1))
 							{
-								title.AppendFormat(ke.m_Title, beheld.Name, beheld.Female ? "Lady" : "Lord");
+								title.AppendFormat(ke.Title, beheld.Name, beheld.Female ? "Lady" : "Lord");
 								break;
 							}
 						}
@@ -301,7 +301,7 @@ namespace Server.Misc
 			return (fp - 300) / 100;
 		}
 
-		private static FameEntry[] m_FameEntries = new FameEntry[]
+		private static readonly FameEntry[] m_FameEntries = new FameEntry[]
 			{
 				new FameEntry( 1249, new KarmaEntry[]
 				{
@@ -378,25 +378,25 @@ namespace Server.Misc
 
 	public class FameEntry
 	{
-		public int m_Fame;
-		public KarmaEntry[] m_Karma;
+		public int Fame { get; set; }
+		public KarmaEntry[] Karma { get; set; }
 
 		public FameEntry(int fame, KarmaEntry[] karma)
 		{
-			m_Fame = fame;
-			m_Karma = karma;
+			Fame = fame;
+			Karma = karma;
 		}
 	}
 
 	public class KarmaEntry
 	{
-		public int m_Karma;
-		public string m_Title;
+		public int Karma { get; set; }
+		public string Title { get; set; }
 
 		public KarmaEntry(int karma, string title)
 		{
-			m_Karma = karma;
-			m_Title = title;
+			Karma = karma;
+			Title = title;
 		}
 	}
 }

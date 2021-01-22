@@ -6,20 +6,14 @@ namespace Server.Misc
 {
 	public class AutoSave : Timer
 	{
-		private static bool m_SavesEnabled = Settings.Get<bool>("AutoSave", "Enabled");
-		private static TimeSpan m_Delay = TimeSpan.FromMinutes(Settings.Get<int>("AutoSave", "Frequency"));
-		private static TimeSpan m_Warning = TimeSpan.FromSeconds(Settings.Get<int>("AutoSave", "WarningTime"));
+		public static bool SavesEnabled { get; set; } = Settings.Get<bool>("AutoSave", "Enabled");
+		private static readonly TimeSpan m_Delay = TimeSpan.FromMinutes(Settings.Get<int>("AutoSave", "Frequency"));
+		private static readonly TimeSpan m_Warning = TimeSpan.FromSeconds(Settings.Get<int>("AutoSave", "WarningTime"));
 
 		public static void Initialize()
 		{
 			new AutoSave().Start();
 			CommandSystem.Register("SetSaves", AccessLevel.Administrator, new CommandEventHandler(SetSaves_OnCommand));
-		}
-
-		public static bool SavesEnabled
-		{
-			get { return m_SavesEnabled; }
-			set { m_SavesEnabled = value; }
 		}
 
 		[Usage("SetSaves <true | false>")]
@@ -28,8 +22,8 @@ namespace Server.Misc
 		{
 			if (e.Length == 1)
 			{
-				m_SavesEnabled = e.GetBoolean(0);
-				e.Mobile.SendMessage("Saves have been {0}.", m_SavesEnabled ? "enabled" : "disabled");
+				SavesEnabled = e.GetBoolean(0);
+				e.Mobile.SendMessage("Saves have been {0}.", SavesEnabled ? "enabled" : "disabled");
 			}
 			else
 			{
@@ -44,7 +38,7 @@ namespace Server.Misc
 
 		protected override void OnTick()
 		{
-			if (!m_SavesEnabled || AutoRestart.Restarting)
+			if (!SavesEnabled || AutoRestart.Restarting)
 				return;
 
 			if (m_Warning == TimeSpan.Zero)
@@ -86,7 +80,7 @@ namespace Server.Misc
 			World.Save(true, permitBackgroundWrite);
 		}
 
-		private static string[] m_Backups = new string[]
+		private static readonly string[] m_Backups = new string[]
 			{
 				"Third Backup",
 				"Second Backup",

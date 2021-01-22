@@ -13,7 +13,7 @@ namespace Server
 			CommandSystem.Register("VendorGen", AccessLevel.Administrator, new CommandEventHandler(VendorGenerator.VendorGen_OnCommand));
 		}
 
-		private static Rectangle2D[] m_BritRegions = new Rectangle2D[]
+		private static readonly Rectangle2D[] m_BritRegions = new Rectangle2D[]
 			{
 				new Rectangle2D( new Point2D( 250, 750 ), new Point2D( 775, 1330 ) ),
 				new Rectangle2D( new Point2D( 525, 2095 ), new Point2D( 925, 2430 ) ),
@@ -33,7 +33,7 @@ namespace Server
 				new Rectangle2D( new Point2D( 5120, 2300 ), new Point2D( 6143, 4095 ) )
 			};
 
-		private static Rectangle2D[] m_IlshRegions = new Rectangle2D[]
+		private static readonly Rectangle2D[] m_IlshRegions = new Rectangle2D[]
 			{
 				new Rectangle2D( new Point2D( 0, 0 ), new Point2D( 288*8, 200*8 ) )
 			};
@@ -214,7 +214,6 @@ namespace Server
 				{
 					Point2D cp = Point2D.Zero;
 					int dist = 100000;
-					int tz;
 
 					for (int k = 0; k < si.m_Floor.Count; ++k)
 					{
@@ -227,7 +226,7 @@ namespace Server
 						if (fd > 0 && fd < 5)
 							fd -= Utility.Random(10);
 
-						if (fd < dist && GetFloorZ(map, fp.X, fp.Y, out tz))
+						if (fd < dist && GetFloorZ(map, fp.X, fp.Y, out int tz))
 						{
 							dist = fd;
 							cp = fp;
@@ -237,9 +236,7 @@ namespace Server
 					if (cp == Point2D.Zero)
 						continue;
 
-					int z;
-
-					if (!GetFloorZ(map, cp.X, cp.Y, out z))
+					if (!GetFloorZ(map, cp.X, cp.Y, out int z))
 						continue;
 
 					new Spawner(1, 1, 1, 0, 4, (string)names[j]).MoveToWorld(new Point3D(cp.X, cp.Y, z), map);
@@ -428,9 +425,11 @@ namespace Server
 					if (floor.Count == 0)
 						return;
 
-					si = new ShopInfo();
-					si.m_Flags = flags;
-					si.m_Floor = floor;
+					si = new ShopInfo
+					{
+						m_Flags = flags,
+						m_Floor = floor
+					};
 					m_ShopList.Add(si);
 
 					for (int i = 0; i < floor.Count; ++i)

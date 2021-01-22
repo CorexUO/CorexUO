@@ -35,21 +35,21 @@ namespace Server
 		{
 			Poison newPoison = (oldPoison == null ? null : GetPoison(oldPoison.Level + 1));
 
-			return (newPoison == null ? oldPoison : newPoison);
+			return newPoison ?? oldPoison;
 		}
 
 		// Info
-		private string m_Name;
-		private int m_Level;
+		private readonly string m_Name;
+		private readonly int m_Level;
 
 		// Damage
-		private int m_Minimum, m_Maximum;
-		private double m_Scalar;
+		private readonly int m_Minimum, m_Maximum;
+		private readonly double m_Scalar;
 
 		// Timers
-		private TimeSpan m_Delay;
-		private TimeSpan m_Interval;
-		private int m_Count, m_MessageInterval;
+		private readonly TimeSpan m_Delay;
+		private readonly TimeSpan m_Interval;
+		private readonly int m_Count, m_MessageInterval;
 
 		public PoisonImpl(string name, int level, int min, int max, double percent, double delay, double interval, int count, int messageInterval)
 		{
@@ -69,8 +69,8 @@ namespace Server
 
 		public class PoisonTimer : Timer
 		{
-			private PoisonImpl m_Poison;
-			private Mobile m_Mobile;
+			private readonly PoisonImpl m_Poison;
+			private readonly Mobile m_Mobile;
 			private Mobile m_From;
 			private int m_LastDamage;
 			private int m_Index;

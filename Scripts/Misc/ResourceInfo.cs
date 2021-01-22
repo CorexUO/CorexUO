@@ -48,57 +48,31 @@ namespace Server.Items
 
 	public class CraftAttributeInfo
 	{
-		private int m_WeaponFireDamage;
-		private int m_WeaponColdDamage;
-		private int m_WeaponPoisonDamage;
-		private int m_WeaponEnergyDamage;
-		private int m_WeaponChaosDamage;
-		private int m_WeaponDirectDamage;
-		private int m_WeaponDurability;
-		private int m_WeaponLuck;
-		private int m_WeaponGoldIncrease;
-		private int m_WeaponLowerRequirements;
+		public int WeaponFireDamage { get; set; }
+		public int WeaponColdDamage { get; set; }
+		public int WeaponPoisonDamage { get; set; }
+		public int WeaponEnergyDamage { get; set; }
+		public int WeaponChaosDamage { get; set; }
+		public int WeaponDirectDamage { get; set; }
+		public int WeaponDurability { get; set; }
+		public int WeaponLuck { get; set; }
+		public int WeaponGoldIncrease { get; set; }
+		public int WeaponLowerRequirements { get; set; }
 
-		private int m_ArmorPhysicalResist;
-		private int m_ArmorFireResist;
-		private int m_ArmorColdResist;
-		private int m_ArmorPoisonResist;
-		private int m_ArmorEnergyResist;
-		private int m_ArmorDurability;
-		private int m_ArmorLuck;
-		private int m_ArmorGoldIncrease;
-		private int m_ArmorLowerRequirements;
+		public int ArmorPhysicalResist { get; set; }
+		public int ArmorFireResist { get; set; }
+		public int ArmorColdResist { get; set; }
+		public int ArmorPoisonResist { get; set; }
+		public int ArmorEnergyResist { get; set; }
+		public int ArmorDurability { get; set; }
+		public int ArmorLuck { get; set; }
+		public int ArmorGoldIncrease { get; set; }
+		public int ArmorLowerRequirements { get; set; }
 
-		private int m_RunicMinAttributes;
-		private int m_RunicMaxAttributes;
-		private int m_RunicMinIntensity;
-		private int m_RunicMaxIntensity;
-
-		public int WeaponFireDamage { get { return m_WeaponFireDamage; } set { m_WeaponFireDamage = value; } }
-		public int WeaponColdDamage { get { return m_WeaponColdDamage; } set { m_WeaponColdDamage = value; } }
-		public int WeaponPoisonDamage { get { return m_WeaponPoisonDamage; } set { m_WeaponPoisonDamage = value; } }
-		public int WeaponEnergyDamage { get { return m_WeaponEnergyDamage; } set { m_WeaponEnergyDamage = value; } }
-		public int WeaponChaosDamage { get { return m_WeaponChaosDamage; } set { m_WeaponChaosDamage = value; } }
-		public int WeaponDirectDamage { get { return m_WeaponDirectDamage; } set { m_WeaponDirectDamage = value; } }
-		public int WeaponDurability { get { return m_WeaponDurability; } set { m_WeaponDurability = value; } }
-		public int WeaponLuck { get { return m_WeaponLuck; } set { m_WeaponLuck = value; } }
-		public int WeaponGoldIncrease { get { return m_WeaponGoldIncrease; } set { m_WeaponGoldIncrease = value; } }
-		public int WeaponLowerRequirements { get { return m_WeaponLowerRequirements; } set { m_WeaponLowerRequirements = value; } }
-
-		public int ArmorPhysicalResist { get { return m_ArmorPhysicalResist; } set { m_ArmorPhysicalResist = value; } }
-		public int ArmorFireResist { get { return m_ArmorFireResist; } set { m_ArmorFireResist = value; } }
-		public int ArmorColdResist { get { return m_ArmorColdResist; } set { m_ArmorColdResist = value; } }
-		public int ArmorPoisonResist { get { return m_ArmorPoisonResist; } set { m_ArmorPoisonResist = value; } }
-		public int ArmorEnergyResist { get { return m_ArmorEnergyResist; } set { m_ArmorEnergyResist = value; } }
-		public int ArmorDurability { get { return m_ArmorDurability; } set { m_ArmorDurability = value; } }
-		public int ArmorLuck { get { return m_ArmorLuck; } set { m_ArmorLuck = value; } }
-		public int ArmorGoldIncrease { get { return m_ArmorGoldIncrease; } set { m_ArmorGoldIncrease = value; } }
-		public int ArmorLowerRequirements { get { return m_ArmorLowerRequirements; } set { m_ArmorLowerRequirements = value; } }
-
-		public int RunicMinAttributes { get { return m_RunicMinAttributes; } set { m_RunicMinAttributes = value; } }
-		public int RunicMaxAttributes { get { return m_RunicMaxAttributes; } set { m_RunicMaxAttributes = value; } }
-		public int RunicMinIntensity { get { return m_RunicMinIntensity; } set { m_RunicMinIntensity = value; } }
-		public int RunicMaxIntensity { get { return m_RunicMaxIntensity; } set { m_RunicMaxIntensity = value; } }
+		public int RunicMinAttributes { get; set; }
+		public int RunicMaxAttributes { get; set; }
+		public int RunicMinIntensity { get; set; }
+		public int RunicMaxIntensity { get; set; }
 
 		public CraftAttributeInfo()
 		{
@@ -374,46 +348,33 @@ namespace Server.Items
 			blue.ArmorPoisonResist = -3;
 			blue.ArmorEnergyResist = 10;
 
-			//public static readonly CraftAttributeInfo OakWood, AshWood, YewWood, Heartwood, Bloodwood, Frostwood;
-
-			CraftAttributeInfo oak = OakWood = new CraftAttributeInfo();
-
-			CraftAttributeInfo ash = AshWood = new CraftAttributeInfo();
-
-			CraftAttributeInfo yew = YewWood = new CraftAttributeInfo();
-
-			CraftAttributeInfo heart = Heartwood = new CraftAttributeInfo();
-
-			CraftAttributeInfo blood = Bloodwood = new CraftAttributeInfo();
-
-			CraftAttributeInfo frost = Frostwood = new CraftAttributeInfo();
+			//TODO: Add ML Attributes
+			OakWood = new CraftAttributeInfo();
+			AshWood = new CraftAttributeInfo();
+			YewWood = new CraftAttributeInfo();
+			Heartwood = new CraftAttributeInfo();
+			Bloodwood = new CraftAttributeInfo();
+			Frostwood = new CraftAttributeInfo();
 		}
 	}
 
 	public class CraftResourceInfo
 	{
-		private int m_Hue;
-		private int m_Number;
-		private string m_Name;
-		private CraftAttributeInfo m_AttributeInfo;
-		private CraftResource m_Resource;
-		private Type[] m_ResourceTypes;
-
-		public int Hue { get { return m_Hue; } }
-		public int Number { get { return m_Number; } }
-		public string Name { get { return m_Name; } }
-		public CraftAttributeInfo AttributeInfo { get { return m_AttributeInfo; } }
-		public CraftResource Resource { get { return m_Resource; } }
-		public Type[] ResourceTypes { get { return m_ResourceTypes; } }
+		public int Hue { get; }
+		public int Number { get; }
+		public string Name { get; }
+		public CraftAttributeInfo AttributeInfo { get; }
+		public CraftResource Resource { get; }
+		public Type[] ResourceTypes { get; }
 
 		public CraftResourceInfo(int hue, int number, string name, CraftAttributeInfo attributeInfo, CraftResource resource, params Type[] resourceTypes)
 		{
-			m_Hue = hue;
-			m_Number = number;
-			m_Name = name;
-			m_AttributeInfo = attributeInfo;
-			m_Resource = resource;
-			m_ResourceTypes = resourceTypes;
+			Hue = hue;
+			Number = number;
+			Name = name;
+			AttributeInfo = attributeInfo;
+			Resource = resource;
+			ResourceTypes = resourceTypes;
 
 			for (int i = 0; i < resourceTypes.Length; ++i)
 				CraftResources.RegisterType(resourceTypes[i], resource);
@@ -660,42 +621,33 @@ namespace Server.Items
 		/// <returns></returns>
 		public static int GetResourceLabel(CraftResource resource)
 		{
-			int labelNumber;
-
-			switch (resource)
+			var labelNumber = resource switch
 			{
-				case CraftResource.DullCopper: labelNumber = 1053108; break; // dull copper
-				case CraftResource.ShadowIron: labelNumber = 1053107; break; // shadow iron
-				case CraftResource.Copper: labelNumber = 1053106; break; // copper
-				case CraftResource.Bronze: labelNumber = 1053105; break; // bronze
-				case CraftResource.Gold: labelNumber = 1053104; break; // golden
-				case CraftResource.Agapite: labelNumber = 1053103; break; // agapite
-				case CraftResource.Verite: labelNumber = 1053102; break; // verite
-				case CraftResource.Valorite: labelNumber = 1053101; break; // valorite
-				case CraftResource.SpinedLeather: labelNumber = 1061118; break; // spined
-				case CraftResource.HornedLeather: labelNumber = 1061117; break; // horned
-				case CraftResource.BarbedLeather: labelNumber = 1061116; break; // barbed
-				case CraftResource.RedScales: labelNumber = 1060814; break; // red
-				case CraftResource.YellowScales: labelNumber = 1060818; break; // yellow
-				case CraftResource.BlackScales: labelNumber = 1060820; break; // black
-				case CraftResource.GreenScales: labelNumber = 1060819; break; // green
-				case CraftResource.WhiteScales: labelNumber = 1060821; break; // white
-				case CraftResource.BlueScales: labelNumber = 1060815; break; // blue
-				case CraftResource.OakWood: labelNumber = 1072533; break; // oak
-				case CraftResource.AshWood: labelNumber = 1072534; break; // ash
-				case CraftResource.YewWood: labelNumber = 1072535; break; // yew
-				case CraftResource.Heartwood: labelNumber = 1072536; break; // heartwood
-				case CraftResource.Bloodwood: labelNumber = 1072538; break; // bloodwood
-				case CraftResource.Frostwood: labelNumber = 1072539; break; // frostwood
-				case CraftResource.None:
-				case CraftResource.Iron:
-				case CraftResource.RegularLeather:
-				case CraftResource.RegularWood:
-				default:
-					labelNumber = 0;
-					break;
-			}
-
+				CraftResource.DullCopper => 1053108,
+				CraftResource.ShadowIron => 1053107,
+				CraftResource.Copper => 1053106,
+				CraftResource.Bronze => 1053105,
+				CraftResource.Gold => 1053104,
+				CraftResource.Agapite => 1053103,
+				CraftResource.Verite => 1053102,
+				CraftResource.Valorite => 1053101,
+				CraftResource.SpinedLeather => 1061118,
+				CraftResource.HornedLeather => 1061117,
+				CraftResource.BarbedLeather => 1061116,
+				CraftResource.RedScales => 1060814,
+				CraftResource.YellowScales => 1060818,
+				CraftResource.BlackScales => 1060820,
+				CraftResource.GreenScales => 1060819,
+				CraftResource.WhiteScales => 1060821,
+				CraftResource.BlueScales => 1060815,
+				CraftResource.OakWood => 1072533,
+				CraftResource.AshWood => 1072534,
+				CraftResource.YewWood => 1072535,
+				CraftResource.Heartwood => 1072536,
+				CraftResource.Bloodwood => 1072538,
+				CraftResource.Frostwood => 1072539,
+				_ => 0,
+			};
 			return labelNumber;
 		}
 	}
@@ -714,39 +666,15 @@ namespace Server.Items
 		public static readonly OreInfo Verite = new OreInfo(7, 0x89F, "Verite");
 		public static readonly OreInfo Valorite = new OreInfo(8, 0x8AB, "Valorite");
 
-		private int m_Level;
-		private int m_Hue;
-		private string m_Name;
+		public int Level { get; }
+		public int Hue { get; }
+		public string Name { get; }
 
 		public OreInfo(int level, int hue, string name)
 		{
-			m_Level = level;
-			m_Hue = hue;
-			m_Name = name;
-		}
-
-		public int Level
-		{
-			get
-			{
-				return m_Level;
-			}
-		}
-
-		public int Hue
-		{
-			get
-			{
-				return m_Hue;
-			}
-		}
-
-		public string Name
-		{
-			get
-			{
-				return m_Name;
-			}
+			Level = level;
+			Hue = hue;
+			Name = name;
 		}
 	}
 }

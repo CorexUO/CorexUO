@@ -8,11 +8,8 @@ namespace Server.Misc
 	{
 		private static class Settings
 		{
-			private static readonly bool m_Enabled = Server.Settings.Get<bool>("Assistants", "Enabled");
-			private static readonly bool m_KickOnFailure = Server.Settings.Get<bool>("Assistants", "KickOnFailure"); // It will also kick clients running without assistants
-
-			public static bool Enabled { get { return m_Enabled; } }
-			public static bool KickOnFailure { get { return m_KickOnFailure; } }
+			public static bool Enabled { get; } = Server.Settings.Get<bool>("Assistants", "Enabled");
+			public static bool KickOnFailure { get; } = Server.Settings.Get<bool>("Assistants", "KickOnFailure");
 
 			public static readonly TimeSpan HandshakeTimeout = TimeSpan.FromSeconds(Server.Settings.Get<int>("Assistants", "HandshakeTimeout"));
 			public static readonly TimeSpan DisconnectDelay = TimeSpan.FromSeconds(Server.Settings.Get<int>("Assistants", "DisconnectDelay"));
@@ -88,10 +85,10 @@ namespace Server.Misc
 
 		private static class Negotiator
 		{
-			private static Dictionary<Mobile, Timer> m_Dictionary = new Dictionary<Mobile, Timer>();
+			private static readonly Dictionary<Mobile, Timer> m_Dictionary = new Dictionary<Mobile, Timer>();
 
-			private static TimerStateCallback OnHandshakeTimeout_Callback = new TimerStateCallback(OnHandshakeTimeout);
-			private static TimerStateCallback OnForceDisconnect_Callback = new TimerStateCallback(OnForceDisconnect);
+			private static readonly TimerStateCallback OnHandshakeTimeout_Callback = new TimerStateCallback(OnHandshakeTimeout);
+			private static readonly TimerStateCallback OnForceDisconnect_Callback = new TimerStateCallback(OnForceDisconnect);
 
 			public static void Initialize()
 			{
@@ -108,13 +105,12 @@ namespace Server.Misc
 
 				if (m != null && m.NetState != null && m.NetState.Running)
 				{
-					Timer t;
 					m.Send(new BeginHandshake());
 
 					if (Settings.KickOnFailure)
 						m.Send(new BeginHandshake());
 
-					if (m_Dictionary.TryGetValue(m, out t) && t != null)
+					if (m_Dictionary.TryGetValue(m, out Timer t) && t != null)
 						t.Stop();
 
 					m_Dictionary[m] = t = Timer.DelayCall(Settings.HandshakeTimeout, OnHandshakeTimeout_Callback, m);
@@ -129,10 +125,9 @@ namespace Server.Misc
 				if (state == null || state.Mobile == null || !state.Running)
 					return;
 
-				Timer t;
 				Mobile m = state.Mobile;
 
-				if (m_Dictionary.TryGetValue(m, out t))
+				if (m_Dictionary.TryGetValue(m, out Timer t))
 				{
 					if (t != null)
 						t.Stop();
@@ -144,9 +139,8 @@ namespace Server.Misc
 			private static void OnHandshakeTimeout(object state)
 			{
 				Timer t = null;
-				Mobile m = state as Mobile;
 
-				if (m == null)
+				if (state is not Mobile m)
 					return;
 
 				m_Dictionary.Remove(m);
@@ -169,10 +163,8 @@ namespace Server.Misc
 
 			private static void OnForceDisconnect(object state)
 			{
-				if (state is Mobile)
+				if (state is Mobile m)
 				{
-					Mobile m = (Mobile)state;
-
 					if (m.NetState != null && m.NetState.Running)
 						m.NetState.Dispose();
 

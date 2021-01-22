@@ -6,8 +6,7 @@ namespace Server
 {
 	public class BuffInfo
 	{
-		private static readonly bool m_Enabled = Settings.Get<bool>("Misc", "BuffsEnabled");
-		public static bool Enabled { get { return m_Enabled; } }
+		public static bool Enabled { get; } = Settings.Get<bool>("Misc", "BuffsEnabled");
 
 		public static void Initialize()
 		{
@@ -22,30 +21,14 @@ namespace Server
 		}
 
 		#region Properties
-		private BuffIcon m_ID;
-		public BuffIcon ID { get { return m_ID; } }
-
-		private int m_TitleCliloc;
-		public int TitleCliloc { get { return m_TitleCliloc; } }
-
-		private int m_SecondaryCliloc;
-		public int SecondaryCliloc { get { return m_SecondaryCliloc; } }
-
-		private TimeSpan m_TimeLength;
-		public TimeSpan TimeLength { get { return m_TimeLength; } }
-
-		private DateTime m_TimeStart;
-		public DateTime TimeStart { get { return m_TimeStart; } }
-
-		private Timer m_Timer;
-		public Timer Timer { get { return m_Timer; } }
-
-		private bool m_RetainThroughDeath;
-		public bool RetainThroughDeath { get { return m_RetainThroughDeath; } }
-
-		private TextDefinition m_Args;
-		public TextDefinition Args { get { return m_Args; } }
-
+		public BuffIcon ID { get; }
+		public int TitleCliloc { get; }
+		public int SecondaryCliloc { get; }
+		public TimeSpan TimeLength { get; }
+		public DateTime TimeStart { get; }
+		public Timer Timer { get; }
+		public bool RetainThroughDeath { get; }
+		public TextDefinition Args { get; }
 		#endregion
 
 		#region Constructors
@@ -56,9 +39,9 @@ namespace Server
 
 		public BuffInfo(BuffIcon iconID, int titleCliloc, int secondaryCliloc)
 		{
-			m_ID = iconID;
-			m_TitleCliloc = titleCliloc;
-			m_SecondaryCliloc = secondaryCliloc;
+			ID = iconID;
+			TitleCliloc = titleCliloc;
+			SecondaryCliloc = secondaryCliloc;
 		}
 
 		public BuffInfo(BuffIcon iconID, int titleCliloc, TimeSpan length, Mobile m)
@@ -70,15 +53,13 @@ namespace Server
 		public BuffInfo(BuffIcon iconID, int titleCliloc, int secondaryCliloc, TimeSpan length, Mobile m)
 			: this(iconID, titleCliloc, secondaryCliloc)
 		{
-			m_TimeLength = length;
-			m_TimeStart = DateTime.UtcNow;
+			TimeLength = length;
+			TimeStart = DateTime.UtcNow;
 
-			m_Timer = Timer.DelayCall(length, new TimerCallback(
+			Timer = Timer.DelayCall(length, new TimerCallback(
 				delegate
 				{
-					PlayerMobile pm = m as PlayerMobile;
-
-					if (pm == null)
+					if (m is not PlayerMobile pm)
 						return;
 
 					pm.RemoveBuff(this);
@@ -94,7 +75,7 @@ namespace Server
 		public BuffInfo(BuffIcon iconID, int titleCliloc, int secondaryCliloc, TextDefinition args)
 			: this(iconID, titleCliloc, secondaryCliloc)
 		{
-			m_Args = args;
+			Args = args;
 		}
 
 		public BuffInfo(BuffIcon iconID, int titleCliloc, bool retainThroughDeath)
@@ -105,7 +86,7 @@ namespace Server
 		public BuffInfo(BuffIcon iconID, int titleCliloc, int secondaryCliloc, bool retainThroughDeath)
 			: this(iconID, titleCliloc, secondaryCliloc)
 		{
-			m_RetainThroughDeath = retainThroughDeath;
+			RetainThroughDeath = retainThroughDeath;
 		}
 
 		public BuffInfo(BuffIcon iconID, int titleCliloc, TextDefinition args, bool retainThroughDeath)
@@ -116,7 +97,7 @@ namespace Server
 		public BuffInfo(BuffIcon iconID, int titleCliloc, int secondaryCliloc, TextDefinition args, bool retainThroughDeath)
 			: this(iconID, titleCliloc, secondaryCliloc, args)
 		{
-			m_RetainThroughDeath = retainThroughDeath;
+			RetainThroughDeath = retainThroughDeath;
 		}
 
 		public BuffInfo(BuffIcon iconID, int titleCliloc, TimeSpan length, Mobile m, TextDefinition args)
@@ -127,7 +108,7 @@ namespace Server
 		public BuffInfo(BuffIcon iconID, int titleCliloc, int secondaryCliloc, TimeSpan length, Mobile m, TextDefinition args)
 			: this(iconID, titleCliloc, secondaryCliloc, length, m)
 		{
-			m_Args = args;
+			Args = args;
 		}
 
 		public BuffInfo(BuffIcon iconID, int titleCliloc, TimeSpan length, Mobile m, TextDefinition args, bool retainThroughDeath)
@@ -138,8 +119,8 @@ namespace Server
 		public BuffInfo(BuffIcon iconID, int titleCliloc, int secondaryCliloc, TimeSpan length, Mobile m, TextDefinition args, bool retainThroughDeath)
 			: this(iconID, titleCliloc, secondaryCliloc, length, m)
 		{
-			m_Args = args;
-			m_RetainThroughDeath = retainThroughDeath;
+			Args = args;
+			RetainThroughDeath = retainThroughDeath;
 		}
 
 		#endregion
@@ -147,25 +128,19 @@ namespace Server
 		#region Convenience Methods
 		public static void AddBuff(Mobile m, BuffInfo b)
 		{
-			PlayerMobile pm = m as PlayerMobile;
-
-			if (pm != null)
+			if (m is PlayerMobile pm)
 				pm.AddBuff(b);
 		}
 
 		public static void RemoveBuff(Mobile m, BuffInfo b)
 		{
-			PlayerMobile pm = m as PlayerMobile;
-
-			if (pm != null)
+			if (m is PlayerMobile pm)
 				pm.RemoveBuff(b);
 		}
 
 		public static void RemoveBuff(Mobile m, BuffIcon b)
 		{
-			PlayerMobile pm = m as PlayerMobile;
-
-			if (pm != null)
+			if (m is PlayerMobile pm)
 				pm.RemoveBuff(b);
 		}
 		#endregion

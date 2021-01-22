@@ -16,19 +16,13 @@ namespace Server.Misc
 			EventSink.Movement += new MovementEventHandler(EventSink_Movement);
 		}
 
-		private static DFAlgorithm m_DFA;
-
-		public static DFAlgorithm DFA
-		{
-			get { return m_DFA; }
-			set { m_DFA = value; }
-		}
+		public static DFAlgorithm DFA { get; set; }
 
 		public static void FatigueOnDamage(Mobile m, int damage)
 		{
 			double fatigue = 0.0;
 
-			switch (m_DFA)
+			switch (DFA)
 			{
 				case DFAlgorithm.Standard:
 					{
@@ -95,10 +89,10 @@ namespace Server.Misc
 				return;
 			}
 
-			if (from is PlayerMobile)
+			if (from is PlayerMobile mobile)
 			{
 				int amt = (from.Mounted ? 48 : 16);
-				PlayerMobile pm = (PlayerMobile)from;
+				PlayerMobile pm = mobile;
 
 				if ((++pm.StepsTaken % amt) == 0)
 					--from.Stam;
