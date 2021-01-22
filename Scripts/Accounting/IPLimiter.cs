@@ -6,10 +6,9 @@ namespace Server.Misc
 {
 	public class IPLimiter
 	{
-		public static bool Enabled = Settings.Get<bool>("Accounts", "IpLimiterEnabled");
-		public static bool SocketBlock = Settings.Get<bool>("Accounts", "SocketBlock"); // true to block at connection, false to block at login request
-
-		public static int MaxAddresses = Settings.Get<int>("Accounts", "AddressPerIP");
+		public static bool Enabled { get; set; } = Settings.Get<bool>("Accounts", "IpLimiterEnabled");
+		public static bool SocketBlock { get; set; } = Settings.Get<bool>("Accounts", "SocketBlock"); // true to block at connection, false to block at login request
+		public static int MaxAddresses { get; set; } = Settings.Get<int>("Accounts", "AddressPerIP");
 
 		public static IPAddress[] Exemptions = new IPAddress[]	//For hosting services where there are cases where IPs can be proxied
 		{

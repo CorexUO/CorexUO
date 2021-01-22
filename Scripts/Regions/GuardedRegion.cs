@@ -8,15 +8,14 @@ namespace Server.Regions
 {
 	public class GuardedRegion : BaseRegion
 	{
-		private static object[] m_GuardParams = new object[1];
-		private Type m_GuardType;
-		private bool m_Disabled;
+		private static readonly object[] m_GuardParams = new object[1];
+		private readonly Type m_GuardType;
 
-		public bool Disabled { get { return m_Disabled; } set { m_Disabled = value; } }
+		public bool Disabled { get; set; }
 
 		public virtual bool IsDisabled()
 		{
-			return m_Disabled;
+			return Disabled;
 		}
 
 		public static void Initialize()
@@ -254,7 +253,7 @@ namespace Server.Regions
 				CheckGuardCandidate(m);
 		}
 
-		private Dictionary<Mobile, GuardTimer> m_GuardCandidates = new Dictionary<Mobile, GuardTimer>();
+		private readonly Dictionary<Mobile, GuardTimer> m_GuardCandidates = new Dictionary<Mobile, GuardTimer>();
 
 		public void CheckGuardCandidate(Mobile m)
 		{

@@ -116,10 +116,9 @@ namespace Server.Multis
 			}
 		}
 
-		private ColumnInfo[] m_Columns;
-		private DataRecord[] m_Records;
+		private readonly ColumnInfo[] m_Columns;
 
-		public DataRecord[] Records { get { return m_Records; } }
+		public DataRecord[] Records { get; }
 
 		public int GetColumnID(string name)
 		{
@@ -134,51 +133,49 @@ namespace Server.Multis
 
 		public Spreadsheet(string path)
 		{
-			using (StreamReader ip = new StreamReader(path))
-			{
-				string[] types = ReadLine(ip);
-				string[] names = ReadLine(ip);
+			using StreamReader ip = new StreamReader(path);
+			string[] types = ReadLine(ip);
+			string[] names = ReadLine(ip);
 
-				m_Columns = new ColumnInfo[types.Length];
+			m_Columns = new ColumnInfo[types.Length];
+
+			for (int i = 0; i < m_Columns.Length; ++i)
+				m_Columns[i] = new ColumnInfo(i, types[i], names[i]);
+
+			List<DataRecord> records = new List<DataRecord>();
+
+			string[] values;
+
+			while ((values = ReadLine(ip)) != null)
+			{
+				object[] data = new object[m_Columns.Length];
 
 				for (int i = 0; i < m_Columns.Length; ++i)
-					m_Columns[i] = new ColumnInfo(i, types[i], names[i]);
-
-				List<DataRecord> records = new List<DataRecord>();
-
-				string[] values;
-
-				while ((values = ReadLine(ip)) != null)
 				{
-					object[] data = new object[m_Columns.Length];
+					ColumnInfo ci = m_Columns[i];
 
-					for (int i = 0; i < m_Columns.Length; ++i)
+					switch (ci.m_Type)
 					{
-						ColumnInfo ci = m_Columns[i];
-
-						switch (ci.m_Type)
-						{
-							case "int":
-								{
-									data[i] = Utility.ToInt32(values[ci.m_DataIndex]);
-									break;
-								}
-							case "string":
-								{
-									data[i] = values[ci.m_DataIndex];
-									break;
-								}
-						}
+						case "int":
+							{
+								data[i] = Utility.ToInt32(values[ci.m_DataIndex]);
+								break;
+							}
+						case "string":
+							{
+								data[i] = values[ci.m_DataIndex];
+								break;
+							}
 					}
-
-					records.Add(new DataRecord(this, data));
 				}
 
-				m_Records = records.ToArray();
+				records.Add(new DataRecord(this, data));
 			}
+
+			Records = records.ToArray();
 		}
 
-		private string[] ReadLine(StreamReader ip)
+		private static string[] ReadLine(StreamReader ip)
 		{
 			string line;
 
@@ -196,16 +193,13 @@ namespace Server.Multis
 
 	public class DataRecord
 	{
-		private Spreadsheet m_Spreadsheet;
-		private object[] m_Data;
-
-		public Spreadsheet Spreadsheet { get { return m_Spreadsheet; } }
-		public object[] Data { get { return m_Data; } }
+		public Spreadsheet Spreadsheet { get; }
+		public object[] Data { get; }
 
 		public DataRecord(Spreadsheet ss, object[] data)
 		{
-			m_Spreadsheet = ss;
-			m_Data = data;
+			Spreadsheet = ss;
+			Data = data;
 		}
 
 		public int GetInt32(string name)
@@ -218,7 +212,7 @@ namespace Server.Multis
 			return GetInt32(this[id]);
 		}
 
-		public int GetInt32(object obj)
+		public static int GetInt32(object obj)
 		{
 			if (obj is int)
 				return (int)obj;
@@ -235,7 +229,7 @@ namespace Server.Multis
 		{
 			get
 			{
-				return this[m_Spreadsheet.GetColumnID(name)];
+				return this[Spreadsheet.GetColumnID(name)];
 			}
 		}
 
@@ -246,7 +240,7 @@ namespace Server.Multis
 				if (id < 0)
 					return null;
 
-				return m_Data[id];
+				return Data[id];
 			}
 		}
 	}

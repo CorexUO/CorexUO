@@ -14,11 +14,11 @@ namespace Server.Multis
 
 	public abstract class BaseBoat : BaseMulti
 	{
-		private static Rectangle2D[] m_BritWrap = new Rectangle2D[] { new Rectangle2D(16, 16, 5120 - 32, 4096 - 32), new Rectangle2D(5136, 2320, 992, 1760) };
-		private static Rectangle2D[] m_IlshWrap = new Rectangle2D[] { new Rectangle2D(16, 16, 2304 - 32, 1600 - 32) };
-		private static Rectangle2D[] m_TokunoWrap = new Rectangle2D[] { new Rectangle2D(16, 16, 1448 - 32, 1448 - 32) };
+		private static readonly Rectangle2D[] m_BritWrap = new Rectangle2D[] { new Rectangle2D(16, 16, 5120 - 32, 4096 - 32), new Rectangle2D(5136, 2320, 992, 1760) };
+		private static readonly Rectangle2D[] m_IlshWrap = new Rectangle2D[] { new Rectangle2D(16, 16, 2304 - 32, 1600 - 32) };
+		private static readonly Rectangle2D[] m_TokunoWrap = new Rectangle2D[] { new Rectangle2D(16, 16, 1448 - 32, 1448 - 32) };
 
-		private static TimeSpan BoatDecayDelay = TimeSpan.FromDays(9.0);
+		private static readonly TimeSpan BoatDecayDelay = TimeSpan.FromDays(9.0);
 
 		public static BaseBoat FindBoatAt(IPoint2D loc, Map map)
 		{
@@ -26,9 +26,7 @@ namespace Server.Multis
 
 			for (int i = 0; i < sector.Multis.Count; i++)
 			{
-				BaseBoat boat = sector.Multis[i] as BaseBoat;
-
-				if (boat != null && boat.Contains(loc.X, loc.Y))
+				if (sector.Multis[i] is BaseBoat boat && boat.Contains(loc.X, loc.Y))
 					return boat;
 			}
 
@@ -143,9 +141,7 @@ namespace Server.Multis
 
 		public virtual BaseDockedBoat DockedBoat { get { return null; } }
 
-		private static List<BaseBoat> m_Instances = new List<BaseBoat>();
-
-		public static List<BaseBoat> Boats { get { return m_Instances; } }
+		public static List<BaseBoat> Boats { get; } = new List<BaseBoat>();
 
 		public BaseBoat() : base(0x0)
 		{
@@ -166,7 +162,7 @@ namespace Server.Multis
 
 			Movable = false;
 
-			m_Instances.Add(this);
+			Boats.Add(this);
 		}
 
 		public BaseBoat(Serial serial) : base(serial)
@@ -264,7 +260,7 @@ namespace Server.Multis
 					}
 			}
 
-			m_Instances.Add(this);
+			Boats.Add(this);
 		}
 
 		public void RemoveKeys(Mobile m)
@@ -328,7 +324,7 @@ namespace Server.Multis
 			if (m_MoveTimer != null)
 				m_MoveTimer.Stop();
 
-			m_Instances.Remove(this);
+			Boats.Remove(this);
 		}
 
 		public override void OnLocationChange(Point3D old)
@@ -361,7 +357,7 @@ namespace Server.Multis
 				m_SPlank.Map = Map;
 		}
 
-		public bool CanCommand(Mobile m)
+		public static bool CanCommand(Mobile m)
 		{
 			return true;
 		}
@@ -405,28 +401,28 @@ namespace Server.Multis
 
 		private static bool NewBoatMovement { get { return Core.HS; } }
 
-		private static TimeSpan SlowInterval = TimeSpan.FromSeconds(NewBoatMovement ? 0.50 : 0.75);
-		private static TimeSpan FastInterval = TimeSpan.FromSeconds(NewBoatMovement ? 0.25 : 0.75);
+		private static readonly TimeSpan SlowInterval = TimeSpan.FromSeconds(NewBoatMovement ? 0.50 : 0.75);
+		private static readonly TimeSpan FastInterval = TimeSpan.FromSeconds(NewBoatMovement ? 0.25 : 0.75);
 
-		private static int SlowSpeed = 1;
-		private static int FastSpeed = NewBoatMovement ? 1 : 3;
+		private static readonly int SlowSpeed = 1;
+		private static readonly int FastSpeed = NewBoatMovement ? 1 : 3;
 
-		private static TimeSpan SlowDriftInterval = TimeSpan.FromSeconds(NewBoatMovement ? 0.50 : 1.50);
-		private static TimeSpan FastDriftInterval = TimeSpan.FromSeconds(NewBoatMovement ? 0.25 : 0.75);
+		private static readonly TimeSpan SlowDriftInterval = TimeSpan.FromSeconds(NewBoatMovement ? 0.50 : 1.50);
+		private static readonly TimeSpan FastDriftInterval = TimeSpan.FromSeconds(NewBoatMovement ? 0.25 : 0.75);
 
-		private static int SlowDriftSpeed = 1;
-		private static int FastDriftSpeed = 1;
+		private static readonly int SlowDriftSpeed = 1;
+		private static readonly int FastDriftSpeed = 1;
 
-		private static Direction Forward = Direction.North;
-		private static Direction ForwardLeft = Direction.Up;
-		private static Direction ForwardRight = Direction.Right;
-		private static Direction Backward = Direction.South;
-		private static Direction BackwardLeft = Direction.Left;
-		private static Direction BackwardRight = Direction.Down;
-		private static Direction Left = Direction.West;
-		private static Direction Right = Direction.East;
-		private static Direction Port = Left;
-		private static Direction Starboard = Right;
+		private static readonly Direction Forward = Direction.North;
+		private static readonly Direction ForwardLeft = Direction.Up;
+		private static readonly Direction ForwardRight = Direction.Right;
+		private static readonly Direction Backward = Direction.South;
+		private static readonly Direction BackwardLeft = Direction.Left;
+		private static readonly Direction BackwardRight = Direction.Down;
+		private static readonly Direction Left = Direction.West;
+		private static readonly Direction Right = Direction.East;
+		private static readonly Direction Port = Left;
+		private static readonly Direction Starboard = Right;
 
 		private bool m_Decaying;
 
@@ -440,7 +436,7 @@ namespace Server.Multis
 
 		private class DecayTimer : Timer
 		{
-			private BaseBoat m_Boat;
+			private readonly BaseBoat m_Boat;
 			private int m_Count;
 
 			public DecayTimer(BaseBoat boat) : base(TimeSpan.FromSeconds(1.0), TimeSpan.FromSeconds(5.0))
@@ -1072,8 +1068,8 @@ namespace Server.Multis
 
 		private class TurnTimer : Timer
 		{
-			private BaseBoat m_Boat;
-			private int m_Offset;
+			private readonly BaseBoat m_Boat;
+			private readonly int m_Offset;
 
 			public TurnTimer(BaseBoat boat, int offset) : base(TimeSpan.FromSeconds(0.5))
 			{
@@ -1328,13 +1324,11 @@ namespace Server.Multis
 			}
 			else
 			{
-				Point2D dest = (Point2D)MapItem.Pins[NextNavPoint];
+				Point2D dest = MapItem.Pins[NextNavPoint];
 
-				int x, y;
-				MapItem.ConvertToWorld(dest.X, dest.Y, out x, out y);
+				MapItem.ConvertToWorld(dest.X, dest.Y, out int x, out int y);
 
-				int maxSpeed;
-				dir = GetMovementFor(x, y, out maxSpeed);
+				dir = GetMovementFor(x, y, out int maxSpeed);
 
 				if (maxSpeed == 0)
 				{
@@ -1478,19 +1472,15 @@ namespace Server.Multis
 
 				foreach (IEntity e in toMove)
 				{
-					if (e is Item)
+					if (e is Item item)
 					{
-						Item item = (Item)e;
-
 						item.NoMoveHS = true;
 
 						if (!(item is TillerMan || item is Hold || item is Plank))
 							item.Location = new Point3D(item.X + xOffset, item.Y + yOffset, item.Z);
 					}
-					else if (e is Mobile)
+					else if (e is Mobile m)
 					{
-						Mobile m = (Mobile)e;
-
 						m.NoMoveHS = true;
 						m.Location = new Point3D(m.X + xOffset, m.Y + yOffset, m.Z);
 					}
@@ -1501,10 +1491,10 @@ namespace Server.Multis
 
 				foreach (IEntity e in toMove)
 				{
-					if (e is Item)
-						((Item)e).NoMoveHS = false;
-					else if (e is Mobile)
-						((Mobile)e).NoMoveHS = false;
+					if (e is Item item)
+						item.NoMoveHS = false;
+					else if (e is Mobile mobile)
+						mobile.NoMoveHS = false;
 				}
 
 				NoMoveHS = false;
@@ -1527,16 +1517,12 @@ namespace Server.Multis
 			{
 				IEntity e = toMove[i];
 
-				if (e is Item)
+				if (e is Item item)
 				{
-					Item item = (Item)e;
-
 					item.Location = new Point3D(item.X + xOffset, item.Y + yOffset, item.Z + zOffset);
 				}
-				else if (e is Mobile)
+				else if (e is Mobile m)
 				{
-					Mobile m = (Mobile)e;
-
 					m.Location = new Point3D(m.X + xOffset, m.Y + yOffset, m.Z + zOffset);
 				}
 			}
@@ -1560,17 +1546,13 @@ namespace Server.Multis
 				if (o == this || o is TillerMan || o is Hold || o is Plank)
 					continue;
 
-				if (o is Item)
+				if (o is Item item)
 				{
-					Item item = (Item)o;
-
 					if (Contains(item) && item.Visible && item.Z >= Z)
 						list.Add(item);
 				}
-				else if (o is Mobile)
+				else if (o is Mobile m)
 				{
-					Mobile m = (Mobile)o;
-
 					if (Contains(m))
 						list.Add(m);
 				}
@@ -1635,16 +1617,12 @@ namespace Server.Multis
 			{
 				IEntity e = toMove[i];
 
-				if (e is Item)
+				if (e is Item item)
 				{
-					Item item = (Item)e;
-
 					item.Location = Rotate(item.Location, count);
 				}
-				else if (e is Mobile)
+				else if (e is Mobile m)
 				{
-					Mobile m = (Mobile)e;
-
 					m.Direction = (m.Direction - old + facing) & Direction.Mask;
 					m.Location = Rotate(m.Location, count);
 				}
@@ -1663,7 +1641,7 @@ namespace Server.Multis
 
 		private class MoveTimer : Timer
 		{
-			private BaseBoat m_Boat;
+			private readonly BaseBoat m_Boat;
 
 			public MoveTimer(BaseBoat boat, TimeSpan interval, bool single) : base(interval, interval, single ? 1 : 0)
 			{
@@ -1680,8 +1658,8 @@ namespace Server.Multis
 
 		public static void UpdateAllComponents()
 		{
-			for (int i = m_Instances.Count - 1; i >= 0; --i)
-				m_Instances[i].UpdateComponents();
+			for (int i = Boats.Count - 1; i >= 0; --i)
+				Boats[i].UpdateComponents();
 		}
 
 		public static void Initialize()
@@ -1794,10 +1772,8 @@ namespace Server.Multis
 					m_Stream.Write((byte)0xF3);
 					m_Stream.Write((short)0x1);
 
-					if (ent is BaseMulti)
+					if (ent is BaseMulti bm)
 					{
-						BaseMulti bm = (BaseMulti)ent;
-
 						m_Stream.Write((byte)0x02);
 						m_Stream.Write((int)bm.Serial);
 						// TODO: Mask no longer needed, merge with Item case?
@@ -1815,10 +1791,8 @@ namespace Server.Multis
 						m_Stream.Write((short)bm.Hue);
 						m_Stream.Write((byte)bm.GetPacketFlags());
 					}
-					else if (ent is Mobile)
+					else if (ent is Mobile m)
 					{
-						Mobile m = (Mobile)ent;
-
 						m_Stream.Write((byte)0x01);
 						m_Stream.Write((int)m.Serial);
 						m_Stream.Write((short)m.Body);
@@ -1835,10 +1809,8 @@ namespace Server.Multis
 						m_Stream.Write((short)m.Hue);
 						m_Stream.Write((byte)m.GetPacketFlags());
 					}
-					else if (ent is Item)
+					else if (ent is Item item)
 					{
-						Item item = (Item)ent;
-
 						m_Stream.Write((byte)0x00);
 						m_Stream.Write((int)item.Serial);
 						m_Stream.Write((ushort)(item.ItemID & 0xFFFF));

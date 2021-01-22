@@ -10,7 +10,7 @@ namespace Server.Items
 {
 	public class HousePlacementTool : BaseItem
 	{
-		public override int LabelNumber { get { return 1060651; } } // a house placement tool
+		public override int LabelNumber => 1060651;  // a house placement tool
 
 		[Constructable]
 		public HousePlacementTool() : base(0x14F6)

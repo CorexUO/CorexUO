@@ -7,10 +7,10 @@ namespace Server.Multis
 	{
 		public static Rectangle2D[] AreaArray = new Rectangle2D[] { new Rectangle2D(-3, -3, 7, 7), new Rectangle2D(-1, 4, 3, 1) };
 
-		public override Rectangle2D[] Area { get { return AreaArray; } }
-		public override Point3D BaseBanLocation { get { return new Point3D(2, 4, 0); } }
+		public override Rectangle2D[] Area => AreaArray;
+		public override Point3D BaseBanLocation => new Point3D(2, 4, 0);
 
-		public override int DefaultPrice { get { return 43800; } }
+		public override int DefaultPrice => 43800;
 
 		public override HousePlacementEntry ConvertEntry { get { return HousePlacementEntry.TwoStoryFoundations[0]; } }
 

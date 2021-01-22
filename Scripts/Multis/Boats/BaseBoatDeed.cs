@@ -7,14 +7,11 @@ namespace Server.Multis
 {
 	public abstract class BaseBoatDeed : BaseItem
 	{
-		private int m_MultiID;
-		private Point3D m_Offset;
+		[CommandProperty(AccessLevel.GameMaster)]
+		public int MultiID { get; set; }
 
 		[CommandProperty(AccessLevel.GameMaster)]
-		public int MultiID { get { return m_MultiID; } set { m_MultiID = value; } }
-
-		[CommandProperty(AccessLevel.GameMaster)]
-		public Point3D Offset { get { return m_Offset; } set { m_Offset = value; } }
+		public Point3D Offset { get; set; }
 
 		public BaseBoatDeed(int id, Point3D offset) : base(0x14F2)
 		{
@@ -23,8 +20,8 @@ namespace Server.Multis
 			if (!Core.AOS)
 				LootType = LootType.Newbied;
 
-			m_MultiID = id;
-			m_Offset = offset;
+			MultiID = id;
+			Offset = offset;
 		}
 
 		public BaseBoatDeed(Serial serial) : base(serial)
@@ -37,8 +34,8 @@ namespace Server.Multis
 
 			writer.Write((int)0); // version
 
-			writer.Write(m_MultiID);
-			writer.Write(m_Offset);
+			writer.Write(MultiID);
+			writer.Write(Offset);
 		}
 
 		public override void Deserialize(GenericReader reader)
@@ -51,8 +48,8 @@ namespace Server.Multis
 			{
 				case 0:
 					{
-						m_MultiID = reader.ReadInt();
-						m_Offset = reader.ReadPoint3D();
+						MultiID = reader.ReadInt();
+						Offset = reader.ReadPoint3D();
 
 						break;
 					}
@@ -119,7 +116,7 @@ namespace Server.Multis
 				if (boat == null)
 					return;
 
-				p = new Point3D(p.X - m_Offset.X, p.Y - m_Offset.Y, p.Z - m_Offset.Z);
+				p = new Point3D(p.X - Offset.X, p.Y - Offset.Y, p.Z - Offset.Z);
 
 				if (BaseBoat.IsValidLocation(p, map) && boat.CanFit(p, map, boat.ItemID))
 				{
@@ -148,7 +145,7 @@ namespace Server.Multis
 
 		private class InternalTarget : MultiTarget
 		{
-			private BaseBoatDeed m_Deed;
+			private readonly BaseBoatDeed m_Deed;
 
 			public InternalTarget(BaseBoatDeed deed) : base(deed.MultiID, deed.Offset)
 			{
@@ -157,12 +154,10 @@ namespace Server.Multis
 
 			protected override void OnTarget(Mobile from, object o)
 			{
-				IPoint3D ip = o as IPoint3D;
-
-				if (ip != null)
+				if (o is IPoint3D ip)
 				{
-					if (ip is Item)
-						ip = ((Item)ip).GetWorldTop();
+					if (ip is Item item)
+						ip = item.GetWorldTop();
 
 					Point3D p = new Point3D(ip);
 

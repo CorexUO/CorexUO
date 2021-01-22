@@ -15,12 +15,10 @@ namespace Server.Multis.Deeds
 
 		protected override void OnTarget(Mobile from, object o)
 		{
-			IPoint3D ip = o as IPoint3D;
-
-			if (ip != null)
+			if (o is IPoint3D ip)
 			{
-				if (ip is Item)
-					ip = ((Item)ip).GetWorldTop();
+				if (ip is Item item)
+					ip = item.GetWorldTop();
 
 				Point3D p = new Point3D(ip);
 
@@ -42,42 +40,19 @@ namespace Server.Multis.Deeds
 
 	public abstract class HouseDeed : BaseItem
 	{
-		private int m_MultiID;
-		private Point3D m_Offset;
+		[CommandProperty(AccessLevel.GameMaster)]
+		public int MultiID { get; set; }
 
 		[CommandProperty(AccessLevel.GameMaster)]
-		public int MultiID
-		{
-			get
-			{
-				return m_MultiID;
-			}
-			set
-			{
-				m_MultiID = value;
-			}
-		}
-
-		[CommandProperty(AccessLevel.GameMaster)]
-		public Point3D Offset
-		{
-			get
-			{
-				return m_Offset;
-			}
-			set
-			{
-				m_Offset = value;
-			}
-		}
+		public Point3D Offset { get; set; }
 
 		public HouseDeed(int id, Point3D offset) : base(0x14F0)
 		{
 			Weight = 1.0;
 			LootType = LootType.Newbied;
 
-			m_MultiID = id;
-			m_Offset = offset;
+			MultiID = id;
+			Offset = offset;
 		}
 
 		public HouseDeed(Serial serial) : base(serial)
@@ -90,8 +65,8 @@ namespace Server.Multis.Deeds
 
 			writer.Write((int)0); // version
 
-			writer.Write(m_Offset);
-			writer.Write(m_MultiID);
+			writer.Write(Offset);
+			writer.Write(MultiID);
 		}
 
 		public override void Deserialize(GenericReader reader)
@@ -104,8 +79,8 @@ namespace Server.Multis.Deeds
 			{
 				case 0:
 					{
-						m_Offset = reader.ReadPoint3D();
-						m_MultiID = reader.ReadInt();
+						Offset = reader.ReadPoint3D();
+						MultiID = reader.ReadInt();
 
 						break;
 					}
@@ -150,9 +125,8 @@ namespace Server.Multis.Deeds
 			}
 			else
 			{
-				ArrayList toMove;
-				Point3D center = new Point3D(p.X - m_Offset.X, p.Y - m_Offset.Y, p.Z - m_Offset.Z);
-				HousePlacementResult res = HousePlacement.Check(from, m_MultiID, center, out toMove);
+				Point3D center = new Point3D(p.X - Offset.X, p.Y - Offset.Y, p.Z - Offset.Z);
+				HousePlacementResult res = HousePlacement.Check(from, MultiID, center, out ArrayList toMove);
 
 				switch (res)
 				{

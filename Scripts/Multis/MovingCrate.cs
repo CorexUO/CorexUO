@@ -256,7 +256,7 @@ namespace Server.Multis
 
 		public class InternalizeTimer : Timer
 		{
-			private MovingCrate m_Crate;
+			private readonly MovingCrate m_Crate;
 
 			public InternalizeTimer(MovingCrate crate) : base(TimeSpan.FromMinutes(5.0))
 			{

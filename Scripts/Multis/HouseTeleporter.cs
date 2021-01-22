@@ -8,22 +8,11 @@ namespace Server.Items
 {
 	public class HouseTeleporter : BaseItem, ISecurable
 	{
-		private Item m_Target;
-		private SecureLevel m_Level;
+		[CommandProperty(AccessLevel.GameMaster)]
+		public Item Target { get; set; }
 
 		[CommandProperty(AccessLevel.GameMaster)]
-		public Item Target
-		{
-			get { return m_Target; }
-			set { m_Target = value; }
-		}
-
-		[CommandProperty(AccessLevel.GameMaster)]
-		public SecureLevel Level
-		{
-			get { return m_Level; }
-			set { m_Level = value; }
-		}
+		public SecureLevel Level { get; set; }
 
 		[Constructable]
 		public HouseTeleporter(int itemID) : this(itemID, null)
@@ -34,9 +23,9 @@ namespace Server.Items
 		{
 			Movable = false;
 
-			m_Level = SecureLevel.Anyone;
+			Level = SecureLevel.Anyone;
 
-			m_Target = target;
+			Target = target;
 		}
 
 		public bool CheckAccess(Mobile m)
@@ -46,12 +35,12 @@ namespace Server.Items
 			if (house != null && (house.Public ? house.IsBanned(m) : !house.HasAccess(m)))
 				return false;
 
-			return (house != null && house.HasSecureAccess(m, m_Level));
+			return (house != null && house.HasSecureAccess(m, Level));
 		}
 
 		public override bool OnMoveOver(Mobile m)
 		{
-			if (m_Target != null && !m_Target.Deleted)
+			if (Target != null && !Target.Deleted)
 			{
 				if (CheckAccess(m))
 				{
@@ -85,9 +74,9 @@ namespace Server.Items
 
 			writer.Write((int)0); // version
 
-			writer.Write((int)m_Level);
+			writer.Write((int)Level);
 
-			writer.Write((Item)m_Target);
+			writer.Write((Item)Target);
 		}
 
 		public override void Deserialize(GenericReader reader)
@@ -100,12 +89,12 @@ namespace Server.Items
 			{
 				case 0:
 					{
-						m_Level = (SecureLevel)reader.ReadInt();
+						Level = (SecureLevel)reader.ReadInt();
 
-						m_Target = reader.ReadItem();
+						Target = reader.ReadItem();
 
 						if (version < 0)
-							m_Level = SecureLevel.Anyone;
+							Level = SecureLevel.Anyone;
 
 						break;
 					}
@@ -114,10 +103,10 @@ namespace Server.Items
 
 		private class EffectTimer : Timer
 		{
-			private Point3D m_Location;
-			private Map m_Map;
-			private int m_EffectID;
-			private int m_SoundID;
+			private readonly Point3D m_Location;
+			private readonly Map m_Map;
+			private readonly int m_EffectID;
+			private readonly int m_SoundID;
 
 			public EffectTimer(Point3D p, Map map, int effectID, int soundID, TimeSpan delay) : base(delay)
 			{
@@ -138,8 +127,8 @@ namespace Server.Items
 
 		private class DelayTimer : Timer
 		{
-			private HouseTeleporter m_Teleporter;
-			private Mobile m_Mobile;
+			private readonly HouseTeleporter m_Teleporter;
+			private readonly Mobile m_Mobile;
 
 			public DelayTimer(HouseTeleporter tp, Mobile m) : base(TimeSpan.FromSeconds(1.0))
 			{
@@ -149,7 +138,7 @@ namespace Server.Items
 
 			protected override void OnTick()
 			{
-				Item target = m_Teleporter.m_Target;
+				Item target = m_Teleporter.Target;
 
 				if (target != null && !target.Deleted)
 				{

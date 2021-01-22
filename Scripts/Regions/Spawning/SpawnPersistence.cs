@@ -2,14 +2,12 @@ namespace Server.Regions
 {
 	public class SpawnPersistence : BaseItem
 	{
-		private static SpawnPersistence m_Instance;
-
-		public SpawnPersistence Instance { get { return m_Instance; } }
+		public static SpawnPersistence Instance { get; private set; }
 
 		public static void EnsureExistence()
 		{
-			if (m_Instance == null)
-				m_Instance = new SpawnPersistence();
+			if (Instance == null)
+				Instance = new SpawnPersistence();
 		}
 
 		public override string DefaultName
@@ -24,7 +22,7 @@ namespace Server.Regions
 
 		public SpawnPersistence(Serial serial) : base(serial)
 		{
-			m_Instance = this;
+			Instance = this;
 		}
 
 		public override void Serialize(GenericWriter writer)

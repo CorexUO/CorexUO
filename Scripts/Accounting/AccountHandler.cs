@@ -25,7 +25,7 @@ namespace Server.Misc
 		private static readonly TimeSpan DeleteDelay = TimeSpan.FromDays(Settings.Get<int>("Accounts", "DeleteDaysDelay"));
 		private static readonly bool PasswordCommandEnabled = Settings.Get<bool>("Accounts", "PasswordCommandEnabled");
 
-		public static PasswordProtection ProtectPasswords = (PasswordProtection)Settings.Get<int>("Accounts", "ProtectPasswords");
+		public static readonly PasswordProtection ProtectPasswords = (PasswordProtection)Settings.Get<int>("Accounts", "ProtectPasswords");
 
 		private static AccessLevel m_LockdownLevel;
 		public static AccessLevel LockdownLevel
@@ -80,7 +80,7 @@ namespace Server.Misc
 		{
 			Mobile from = e.Mobile;
 
-			if (!(from.Account is Account acct))
+			if (from.Account is not Account acct)
 				return;
 
 			IPAddress[] accessList = acct.LoginIPs;
@@ -168,8 +168,7 @@ namespace Server.Misc
 			NetState state = e.State;
 			int index = e.Index;
 
-
-			if (!(state.Account is Account acct))
+			if (state.Account is not Account acct)
 			{
 				state.Dispose();
 			}
@@ -311,7 +310,7 @@ namespace Server.Misc
 
 			e.Accepted = false;
 
-			if (!(Accounts.GetAccount(un) is Account acct))
+			if (Accounts.GetAccount(un) is not Account acct)
 			{
 				if (AutoAccountCreation && un.Trim().Length > 0) // To prevent someone from making an account of just '' or a bunch of meaningless spaces
 				{
@@ -372,7 +371,7 @@ namespace Server.Misc
 			string un = e.Username;
 			string pw = e.Password;
 
-			if (!(Accounts.GetAccount(un) is Account acct))
+			if (Accounts.GetAccount(un) is not Account acct)
 			{
 				e.Accepted = false;
 			}

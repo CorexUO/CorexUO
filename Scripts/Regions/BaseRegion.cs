@@ -142,8 +142,8 @@ namespace Server.Regions
 		private int[] m_RectangleWeights;
 		private int m_TotalWeight;
 
-		private static List<Rectangle3D> m_RectBuffer1 = new List<Rectangle3D>();
-		private static List<Rectangle3D> m_RectBuffer2 = new List<Rectangle3D>();
+		private static readonly List<Rectangle3D> m_RectBuffer1 = new List<Rectangle3D>();
+		private static readonly List<Rectangle3D> m_RectBuffer2 = new List<Rectangle3D>();
 
 		private void InitRectangles()
 		{
@@ -214,8 +214,8 @@ namespace Server.Regions
 			}
 		}
 
-		private static List<Int32> m_SpawnBuffer1 = new List<Int32>();
-		private static List<Item> m_SpawnBuffer2 = new List<Item>();
+		private static readonly List<int> m_SpawnBuffer1 = new List<int>();
+		private static readonly List<Item> m_SpawnBuffer2 = new List<Item>();
 
 		public Point3D RandomSpawnLocation(int spawnHeight, bool land, bool water, Point3D home, int range)
 		{

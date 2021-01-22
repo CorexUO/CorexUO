@@ -7,7 +7,7 @@ namespace Server.Multis
 	{
 		public static bool Enabled { get { return Core.ML; } }
 
-		private static Dictionary<DecayLevel, DecayStageInfo> m_Stages;
+		private static readonly Dictionary<DecayLevel, DecayStageInfo> m_Stages;
 
 		static DynamicDecay()
 		{
@@ -51,23 +51,13 @@ namespace Server.Multis
 
 	public class DecayStageInfo
 	{
-		private TimeSpan m_MinDuration;
-		private TimeSpan m_MaxDuration;
-
-		public TimeSpan MinDuration
-		{
-			get { return m_MinDuration; }
-		}
-
-		public TimeSpan MaxDuration
-		{
-			get { return m_MaxDuration; }
-		}
+		public TimeSpan MinDuration { get; }
+		public TimeSpan MaxDuration { get; }
 
 		public DecayStageInfo(TimeSpan min, TimeSpan max)
 		{
-			m_MinDuration = min;
-			m_MaxDuration = max;
+			MinDuration = min;
+			MaxDuration = max;
 		}
 	}
 }

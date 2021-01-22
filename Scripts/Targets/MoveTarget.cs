@@ -6,7 +6,7 @@ namespace Server.Targets
 {
 	public class MoveTarget : Target
 	{
-		private object m_Object;
+		private readonly object m_Object;
 
 		public MoveTarget(object o) : base(-1, true, TargetFlags.None)
 		{
@@ -15,9 +15,7 @@ namespace Server.Targets
 
 		protected override void OnTarget(Mobile from, object o)
 		{
-			IPoint3D p = o as IPoint3D;
-
-			if (p != null)
+			if (o is IPoint3D p)
 			{
 				if (!BaseCommand.IsAccessible(from, m_Object))
 				{
@@ -25,22 +23,18 @@ namespace Server.Targets
 					return;
 				}
 
-				if (p is Item)
-					p = ((Item)p).GetWorldTop();
+				if (p is Item item)
+					p = item.GetWorldTop();
 
 				CommandLogging.WriteLine(from, "{0} {1} moving {2} to {3}", from.AccessLevel, CommandLogging.Format(from), CommandLogging.Format(m_Object), new Point3D(p));
 
-				if (m_Object is Item)
+				if (m_Object is Item objectItem)
 				{
-					Item item = (Item)m_Object;
-
-					if (!item.Deleted)
-						item.MoveToWorld(new Point3D(p), from.Map);
+					if (!objectItem.Deleted)
+						objectItem.MoveToWorld(new Point3D(p), from.Map);
 				}
-				else if (m_Object is Mobile)
+				else if (m_Object is Mobile m)
 				{
-					Mobile m = (Mobile)m_Object;
-
 					if (!m.Deleted)
 						m.MoveToWorld(new Point3D(p), from.Map);
 				}

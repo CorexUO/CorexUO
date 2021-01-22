@@ -2664,7 +2664,7 @@ namespace Server.Mobiles
 
 				SpawnEntry se = m_Mobile.Spawner as SpawnEntry;
 
-				if (se != null && se.ReturnOnDeactivate && !m_Mobile.Controlled)
+				if (se != null && SpawnEntry.ReturnOnDeactivate && !m_Mobile.Controlled)
 				{
 					if (se.HomeLocation == Point3D.Zero)
 					{

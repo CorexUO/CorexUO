@@ -5,7 +5,7 @@ namespace Server.Spells
 {
 	public class SpellRegistry
 	{
-		private static Type[] m_Types = new Type[700];
+		private static readonly Type[] m_Types = new Type[700];
 		private static int m_Count;
 
 		public static Type[] Types
@@ -35,10 +35,9 @@ namespace Server.Spells
 			}
 		}
 
-		private static Dictionary<Type, Int32> m_IDsFromTypes = new Dictionary<Type, Int32>(m_Types.Length);
+		private static readonly Dictionary<Type, int> m_IDsFromTypes = new Dictionary<Type, int>(m_Types.Length);
 
-		private static Dictionary<Int32, SpecialMove> m_SpecialMoves = new Dictionary<Int32, SpecialMove>();
-		public static Dictionary<Int32, SpecialMove> SpecialMoves { get { return m_SpecialMoves; } }
+		public static Dictionary<int, SpecialMove> SpecialMoves { get; } = new Dictionary<int, SpecialMove>();
 
 		public static int GetRegistryNumber(ISpell s)
 		{
@@ -84,7 +83,7 @@ namespace Server.Spells
 				}
 
 				if (spm != null)
-					m_SpecialMoves.Add(spellID, spm);
+					SpecialMoves.Add(spellID, spm);
 			}
 		}
 
@@ -95,13 +94,13 @@ namespace Server.Spells
 
 			Type t = m_Types[spellID];
 
-			if (t == null || !t.IsSubclassOf(typeof(SpecialMove)) || !m_SpecialMoves.ContainsKey(spellID))
+			if (t == null || !t.IsSubclassOf(typeof(SpecialMove)) || !SpecialMoves.ContainsKey(spellID))
 				return null;
 
-			return m_SpecialMoves[spellID];
+			return SpecialMoves[spellID];
 		}
 
-		private static object[] m_Params = new object[2];
+		private static readonly object[] m_Params = new object[2];
 
 		public static Spell NewSpell(int spellID, Mobile caster, Item scroll)
 		{
@@ -127,7 +126,7 @@ namespace Server.Spells
 			return null;
 		}
 
-		private static string[] m_CircleNames = new string[]
+		private static readonly string[] m_CircleNames = new string[]
 			{
 				"First",
 				"Second",

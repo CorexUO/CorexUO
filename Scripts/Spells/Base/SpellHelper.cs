@@ -78,7 +78,7 @@ namespace Server.Spells
 
 		public static void Turn(Mobile from, object to)
 		{
-			if (!(to is IPoint3D target))
+			if (to is not IPoint3D target)
 				return;
 
 			if (target is Item item)
@@ -654,9 +654,7 @@ namespace Server.Spells
 			{
 				if (m_TravelType == TravelCheckType.TeleportTo || m_TravelType == TravelCheckType.TeleportFrom)
 				{
-					PlayerMobile pm = m_TravelCaster as PlayerMobile;
-
-					if (pm != null && pm.DuelPlayer != null && !pm.DuelPlayer.Eliminated)
+					if (m_TravelCaster is PlayerMobile pm && pm.DuelPlayer != null && !pm.DuelPlayer.Eliminated)
 						return true;
 				}
 
@@ -706,7 +704,8 @@ namespace Server.Spells
 			if (map != Map.Malas)
 				return false;
 
-			int x = loc.X, y = loc.Y, z = loc.Z;
+			int x = loc.X, y = loc.Y;
+			_ = loc.Z;
 
 			bool r1 = (x >= 0 && y >= 0 && x <= 128 && y <= 128);
 			bool r2 = (x >= 45 && y >= 320 && x < 195 && y < 710);
@@ -1108,7 +1107,7 @@ namespace Server.Spells
 	public class TransformationSpellHelper
 	{
 		#region Context Stuff
-		private static Dictionary<Mobile, TransformContext> m_Table = new Dictionary<Mobile, TransformContext>();
+		private static readonly Dictionary<Mobile, TransformContext> m_Table = new Dictionary<Mobile, TransformContext>();
 
 		public static void AddContext(Mobile m, TransformContext context)
 		{
@@ -1188,7 +1187,7 @@ namespace Server.Spells
 
 		public static bool OnCast(Mobile caster, Spell spell)
 		{
-			if (!(spell is ITransformationSpell transformSpell))
+			if (spell is not ITransformationSpell transformSpell)
 				return false;
 
 			if (Factions.Sigil.ExistsOn(caster))

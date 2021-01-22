@@ -78,9 +78,8 @@ namespace Server.Multis
 
 			int zavg = Map.GetAverageZ(X + xOffset, Y + yOffset);
 			Point3D loc = new Point3D(X + xOffset, Y + yOffset, zavg + zOffset);
-			BaseCreature bc = m as BaseCreature;
 
-			if (bc != null)
+			if (m is BaseCreature bc)
 			{
 				bc.RangeHome = wanderRange;
 				bc.Home = loc;
