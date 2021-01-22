@@ -38,10 +38,5 @@ namespace Server
 				Mobile.AOSStatusHandler = new AOSStatusHandler(AOS.GetStatus);
 			}
 		}
-
-		public static void Initialize()
-		{
-
-		}
 	}
 }
