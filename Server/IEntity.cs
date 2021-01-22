@@ -47,7 +47,7 @@ namespace Server
 		public int CompareTo(object other)
 		{
 			if (other == null || other is IEntity)
-				return this.CompareTo((IEntity)other);
+				return CompareTo((IEntity)other);
 
 			throw new ArgumentException();
 		}

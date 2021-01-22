@@ -266,9 +266,6 @@ namespace Server
 
 			_addQueue = new Queue<IEntity>();
 			_deleteQueue = new Queue<IEntity>();
-
-			int mobileCount = 0, itemCount = 0, guildCount = 0;
-
 			object[] ctorArgs = new object[1];
 
 			List<ItemEntry> items = new List<ItemEntry>();
@@ -287,8 +284,7 @@ namespace Server
 
 						List<Tuple<ConstructorInfo, string>> types = ReadTypes(tdbReader);
 
-						mobileCount = idxReader.ReadInt32();
-
+						int mobileCount = idxReader.ReadInt32();
 						Mobiles = new Dictionary<Serial, Mobile>(mobileCount);
 
 						for (int i = 0; i < mobileCount; ++i)
@@ -346,7 +342,7 @@ namespace Server
 
 						List<Tuple<ConstructorInfo, string>> types = ReadTypes(tdbReader);
 
-						itemCount = idxReader.ReadInt32();
+						int itemCount = idxReader.ReadInt32();
 
 						Items = new Dictionary<Serial, Item>(itemCount);
 
@@ -399,8 +395,7 @@ namespace Server
 				{
 					BinaryReader idxReader = new BinaryReader(idx);
 
-					guildCount = idxReader.ReadInt32();
-
+					int guildCount = idxReader.ReadInt32();
 					CreateGuildEventArgs createEventArgs = new CreateGuildEventArgs(-1);
 					for (int i = 0; i < guildCount; ++i)
 					{

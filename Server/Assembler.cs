@@ -117,7 +117,7 @@ namespace Server
 			}
 		}
 
-		private static Dictionary<Assembly, TypeCache> m_TypeCaches = new Dictionary<Assembly, TypeCache>();
+		private static readonly Dictionary<Assembly, TypeCache> m_TypeCaches = new Dictionary<Assembly, TypeCache>();
 		private static TypeCache m_NullCache;
 
 		public static TypeCache GetTypeCache(Assembly asm)
@@ -219,7 +219,7 @@ namespace Server
 
 	public class TypeTable
 	{
-		private Dictionary<string, Type> m_Sensitive, m_Insensitive;
+		private readonly Dictionary<string, Type> m_Sensitive, m_Insensitive;
 
 		public void Add(string key, Type type)
 		{
@@ -229,8 +229,7 @@ namespace Server
 
 		public Type Get(string key, bool ignoreCase)
 		{
-			Type t = null;
-
+			Type t;
 			if (ignoreCase)
 				m_Insensitive.TryGetValue(key, out t);
 			else
