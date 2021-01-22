@@ -1,10 +1,12 @@
-
 using Server.Accounting;
 using Server.Network;
 
 namespace Server
 {
-	public class CurrentExpansion
+	/// <summary>
+	/// All basic server configuration
+	/// </summary>
+	public class Configuration
 	{
 		private static readonly Expansion Expansion = (Expansion)Settings.Get<int>("Server", "Expansion");
 
@@ -35,6 +37,11 @@ namespace Server
 				Mobile.ActionDelay = 1000;
 				Mobile.AOSStatusHandler = new AOSStatusHandler(AOS.GetStatus);
 			}
+		}
+
+		public static void Initialize()
+		{
+
 		}
 	}
 }
