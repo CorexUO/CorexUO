@@ -34,7 +34,6 @@ namespace Server.Items
                 new Point3D( 0, 0, 0 )
             };
 
-        // Called by RunUO
         public static void Initialize()
         {
             EventSink.OpenDoorMacroUsed += new OpenDoorMacroEventHandler(EventSink_OpenDoorMacroUsed);

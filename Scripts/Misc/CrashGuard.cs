@@ -43,11 +43,11 @@ namespace Server.Misc
 		{
 			Console.Write("Crash: Sending email...");
 
-			MailMessage message = new MailMessage(Email.FromAddress, Email.CrashAddresses);
-
-			message.Subject = "Automated RunUO Crash Report";
-
-			message.Body = "Automated RunUO Crash Report. See attachment for details.";
+			MailMessage message = new MailMessage(Email.FromAddress, Email.CrashAddresses)
+			{
+				Subject = "Automated CorexUO Crash Report",
+				Body = "Automated CorexUO Crash Report. See attachment for details."
+			};
 
 			message.Attachments.Add(new Attachment(filePath));
 

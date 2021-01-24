@@ -356,11 +356,11 @@ namespace Server.Engines.Help
 
 			MailMessage mail = new MailMessage(Email.FromAddress, Email.SpeechLogPageAddresses);
 
-			mail.Subject = "RunUO Speech Log Page Forwarding";
+			mail.Subject = "CorexUO Speech Log Page Forwarding";
 
 			using (StringWriter writer = new StringWriter())
 			{
-				writer.WriteLine("RunUO Speech Log Page - {0}", PageQueue.GetPageTypeName(entry.Type));
+				writer.WriteLine("CorexUO Speech Log Page - {0}", PageQueue.GetPageTypeName(entry.Type));
 				writer.WriteLine();
 
 				writer.WriteLine("From: '{0}', Account: '{1}'", sender.RawName, sender.Account is Account ? sender.Account.Username : "???");

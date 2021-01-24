@@ -5,7 +5,7 @@ namespace Server
 {
 	public sealed class SaveMetrics : IDisposable
 	{
-		private const string PerformanceCategoryName = "RunUO 1.0";
+		private const string PerformanceCategoryName = "CorexUO 1.0";
 		private const string PerformanceCategoryDesc = "Performance counters for CorexUO 1.0";
 
 		private readonly PerformanceCounter numberOfWorldSaves;
