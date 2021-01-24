@@ -118,7 +118,7 @@ namespace Server.Commands
 							{
 								if (targ.CanSee(from))
 								{
-									ns.Send(MobileIncoming.Create(ns, targ, from));
+									from.Replicate(targ);
 
 									if (ObjectPropertyList.Enabled)
 									{

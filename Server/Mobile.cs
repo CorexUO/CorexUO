@@ -1100,7 +1100,7 @@ namespace Server
 
 					if (m_NetState != null && this.CanSee(attacker) && Utility.InUpdateRange(m_Location, attacker.m_Location))
 					{
-						m_NetState.Send(MobileIncoming.Create(m_NetState, this, attacker));
+						attacker.Replicate(this);
 					}
 				}
 			}
@@ -1122,7 +1122,7 @@ namespace Server
 
 					if (m_NetState != null && this.CanSee(defender) && Utility.InUpdateRange(m_Location, defender.m_Location))
 					{
-						m_NetState.Send(MobileIncoming.Create(m_NetState, this, defender));
+						defender.Replicate(this);
 					}
 				}
 			}
@@ -2117,7 +2117,7 @@ namespace Server
 
 				if (this.CanSee(aggressor) && m_NetState != null)
 				{
-					m_NetState.Send(MobileIncoming.Create(m_NetState, this, aggressor));
+					aggressor.Replicate(this);
 				}
 
 				if (Combatant == null)
@@ -2132,7 +2132,7 @@ namespace Server
 
 				if (this.CanSee(aggressor) && m_NetState != null)
 				{
-					m_NetState.Send(MobileIncoming.Create(m_NetState, this, aggressor));
+					aggressor.Replicate(this);
 				}
 
 				if (Combatant == null)
@@ -2165,7 +2165,7 @@ namespace Server
 
 					if (m_NetState != null && this.CanSee(aggressed))
 					{
-						m_NetState.Send(MobileIncoming.Create(m_NetState, this, aggressed));
+						aggressed.Replicate(this);
 					}
 
 					break;
@@ -2193,7 +2193,7 @@ namespace Server
 
 					if (m_NetState != null && this.CanSee(aggressor))
 					{
-						m_NetState.Send(MobileIncoming.Create(m_NetState, this, aggressor));
+						aggressor.Replicate(this);
 					}
 
 					break;
@@ -6302,27 +6302,10 @@ namespace Server
 					{
 						if (CanSee(m) && Utility.InUpdateRange(m_Location, m.m_Location))
 						{
-							ns.Send(MobileIncoming.Create(ns, this, m));
-
-							if (ns.StygianAbyss)
-							{
-								if (m.Poisoned)
-									ns.Send(new HealthbarPoison(m));
-
-								if (m.Blessed || m.YellowHealthbar)
-									ns.Send(new HealthbarYellow(m));
-							}
+							m.Replicate(this, MobileDelta.HealthbarPoison | MobileDelta.HealthbarYellow | MobileDelta.Properties);
 
 							if (m.IsDeadBondedPet)
 								ns.Send(new BondedStatus(0, m.Serial, 1));
-
-							if (ObjectPropertyList.Enabled)
-							{
-								ns.Send(m.OPLPacket);
-
-								//foreach ( Item item in m.m_Items )
-								//	ns.Send( item.OPLPacket );
-							}
 						}
 					}
 				}
@@ -6393,7 +6376,7 @@ namespace Server
 						ns.Sequence = 0;
 						ClearFastwalkStack();
 
-						ns.Send(MobileIncoming.Create(ns, this, this));
+						Replicate(this);
 
 						if (ns.StygianAbyss)
 						{
@@ -6417,7 +6400,7 @@ namespace Server
 						ns.Sequence = 0;
 						ClearFastwalkStack();
 
-						ns.Send(MobileIncoming.Create(ns, this, this));
+						Replicate(this);
 
 						if (ns.StygianAbyss)
 						{
@@ -7484,18 +7467,10 @@ namespace Server
 					}
 					else
 					{
-						state.Send(MobileIncoming.Create(state, state.Mobile, this));
+						Replicate(state.Mobile, MobileDelta.Properties);
 
 						if (IsDeadBondedPet)
 							state.Send(new BondedStatus(0, Serial, 1));
-
-						if (ObjectPropertyList.Enabled)
-						{
-							state.Send(OPLPacket);
-
-							//foreach ( Item item in m_Items )
-							//	state.Send( item.OPLPacket );
-						}
 					}
 				}
 
@@ -8426,7 +8401,7 @@ namespace Server
 				ns.Sequence = 0;
 				ClearFastwalkStack();
 
-				ns.Send(MobileIncoming.Create(ns, this, this));
+				Replicate(this);
 
 				if (ns.StygianAbyss)
 				{
@@ -8450,7 +8425,7 @@ namespace Server
 				ns.Sequence = 0;
 				ClearFastwalkStack();
 
-				ns.Send(MobileIncoming.Create(ns, this, this));
+				Replicate(this);
 
 				if (ns.StygianAbyss)
 				{
@@ -8560,52 +8535,18 @@ namespace Server
 
 								if (m.m_NetState != null && ((isTeleport && (!m.m_NetState.HighSeas || !m_NoMoveHS)) || !inOldRange) && m.CanSee(this))
 								{
-									m.m_NetState.Send(MobileIncoming.Create(m.m_NetState, m, this));
-
-									if (m.m_NetState.StygianAbyss)
-									{
-										//if ( m_Poison != null )
-										m.m_NetState.Send(new HealthbarPoison(this));
-
-										//if ( m_Blessed || m_YellowHealthbar )
-										m.m_NetState.Send(new HealthbarYellow(this));
-									}
+									Replicate(m, MobileDelta.HealthbarPoison | MobileDelta.HealthbarYellow | MobileDelta.Properties);
 
 									if (IsDeadBondedPet)
 										m.m_NetState.Send(new BondedStatus(0, Serial, 1));
-
-									if (ObjectPropertyList.Enabled)
-									{
-										m.m_NetState.Send(OPLPacket);
-
-										//foreach ( Item item in m_Items )
-										//	m.m_NetState.Send( item.OPLPacket );
-									}
 								}
 
 								if (!inOldRange && CanSee(m))
 								{
-									ourState.Send(MobileIncoming.Create(ourState, this, m));
-
-									if (ourState.StygianAbyss)
-									{
-										//if ( m.Poisoned )
-										ourState.Send(new HealthbarPoison(m));
-
-										//if ( m.Blessed || m.YellowHealthbar )
-										ourState.Send(new HealthbarYellow(m));
-									}
+									m.Replicate(this, MobileDelta.HealthbarPoison | MobileDelta.HealthbarYellow | MobileDelta.Properties);
 
 									if (m.IsDeadBondedPet)
 										ourState.Send(new BondedStatus(0, m.Serial, 1));
-
-									if (ObjectPropertyList.Enabled)
-									{
-										ourState.Send(m.OPLPacket);
-
-										//foreach ( Item item in m.m_Items )
-										//	ourState.Send( item.OPLPacket );
-									}
 								}
 							}
 						}
@@ -8621,27 +8562,10 @@ namespace Server
 						{
 							if (((isTeleport && (!ns.HighSeas || !m_NoMoveHS)) || !Utility.InUpdateRange(oldLocation, ns.Mobile.Location)) && ns.Mobile.CanSee(this))
 							{
-								ns.Send(MobileIncoming.Create(ns, ns.Mobile, this));
-
-								if (ns.StygianAbyss)
-								{
-									//if ( m_Poison != null )
-									ns.Send(new HealthbarPoison(this));
-
-									//if ( m_Blessed || m_YellowHealthbar )
-									ns.Send(new HealthbarYellow(this));
-								}
+								Replicate(ns.Mobile, MobileDelta.HealthbarPoison | MobileDelta.HealthbarYellow | MobileDelta.Properties);
 
 								if (IsDeadBondedPet)
 									ns.Send(new BondedStatus(0, Serial, 1));
-
-								if (ObjectPropertyList.Enabled)
-								{
-									ns.Send(OPLPacket);
-
-									//foreach ( Item item in m_Items )
-									//	ns.Send( item.OPLPacket );
-								}
 							}
 						}
 
@@ -8972,27 +8896,10 @@ namespace Server
 				{
 					if (state.Mobile.CanSee(this))
 					{
-						state.Send(MobileIncoming.Create(state, state.Mobile, this));
-
-						if (state.StygianAbyss)
-						{
-							if (m_Poison != null)
-								state.Send(new HealthbarPoison(this));
-
-							if (m_Blessed || m_YellowHealthbar)
-								state.Send(new HealthbarYellow(this));
-						}
+						Replicate(state.Mobile, MobileDelta.HealthbarPoison | MobileDelta.HealthbarYellow | MobileDelta.Properties);
 
 						if (IsDeadBondedPet)
 							state.Send(new BondedStatus(0, Serial, 1));
-
-						if (ObjectPropertyList.Enabled)
-						{
-							state.Send(OPLPacket);
-
-							//foreach ( Item item in m_Items )
-							//	state.Send( item.OPLPacket );
-						}
 					}
 				}
 
@@ -9515,17 +9422,6 @@ namespace Server
 				sendIncoming = true;
 			}
 
-			/*if ( (delta & MobileDelta.Hue) != 0 )
-				{
-					sendNonlocalIncoming = true;
-					sendUpdate = true;
-				}
-				else if ( (delta & (MobileDelta.Direction | MobileDelta.Body)) != 0 )
-				{
-					sendNonlocalMoving = true;
-					sendUpdate = true;
-				}
-				else*/
 			if ((delta & (MobileDelta.Flags | MobileDelta.Noto)) != 0)
 			{
 				sendMoving = true;
@@ -9591,7 +9487,9 @@ namespace Server
 				}
 
 				if (sendIncoming)
-					ourState.Send(MobileIncoming.Create(ourState, m, m));
+				{
+					Replicate(m);
+				}
 
 				if (ourState.StygianAbyss)
 				{
@@ -9697,7 +9595,7 @@ namespace Server
 
 						if (sendIncoming)
 						{
-							state.Send(MobileIncoming.Create(state, beholder, m));
+							m.Replicate(beholder);
 
 							if (m.IsDeadBondedPet)
 							{
@@ -10417,6 +10315,63 @@ namespace Server
 		/// </summary>
 		public virtual void OnRegionChange(Region Old, Region New)
 		{
+		}
+
+		/// <summary>
+		/// Overridable. Virtual method to replicate the mobile to specify mobile, checking that mobile have NetState
+		/// </summary>
+		public virtual void Replicate(Mobile to, MobileDelta delta = MobileDelta.None)
+		{
+			if (to.NetState != null)
+			{
+				NetState ns = to.NetState;
+
+				ns.Send(MobileIncoming.Create(ns, to, this));
+
+				if (ns.StygianAbyss)
+				{
+					if ((delta & (MobileDelta.Flags | MobileDelta.Noto)) != 0)
+					{
+						int noto = Notoriety.Compute(this, to);
+						ns.Send(Packet.Acquire(new MobileMoving(this, noto)));
+					}
+
+					if ((delta & MobileDelta.HealthbarPoison) != 0)
+					{
+						if (m_Poison != null)
+							ns.Send(new HealthbarPoison(this));
+					}
+
+					if ((delta & MobileDelta.HealthbarYellow) != 0)
+					{
+						if (m_Blessed || m_YellowHealthbar)
+							ns.Send(new HealthbarYellow(this));
+					}
+				}
+				else
+				{
+					if ((delta & (MobileDelta.Flags | MobileDelta.Noto)) != 0)
+					{
+						int noto = Notoriety.Compute(this, to);
+						ns.Send(Packet.Acquire(new MobileMoving(this, noto)));
+					}
+				}
+
+				if (ObjectPropertyList.Enabled && (delta & MobileDelta.Properties) != 0)
+				{
+					ns.Send(OPLPacket);
+				}
+
+				OnReplicated(to, delta);
+			}
+		}
+
+		/// <summary>
+		/// Overridable. Virtual event invoked when mobile are replicated to another mobile
+		/// </summary>
+		public virtual void OnReplicated(Mobile to, MobileDelta delta)
+		{
+
 		}
 
 		private Item m_MountItem;
