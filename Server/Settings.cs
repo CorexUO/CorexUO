@@ -6,7 +6,7 @@ namespace Server
 {
 	public static class Settings
 	{
-		private static readonly string m_FileName = "settings.ini";
+		private const string m_FileName = "settings.ini";
 
 		private static readonly Dictionary<string, Dictionary<string, Entry>> m_Settings = new Dictionary<string, Dictionary<string, Entry>>(StringComparer.OrdinalIgnoreCase);
 

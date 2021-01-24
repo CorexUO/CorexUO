@@ -14,7 +14,7 @@ namespace Server.Items
 
     public class Campfire : BaseItem
     {
-        public static readonly int SecureRange = 7;
+        public const int SecureRange = 7;
 
         private static readonly Hashtable m_Table = new Hashtable();
 
