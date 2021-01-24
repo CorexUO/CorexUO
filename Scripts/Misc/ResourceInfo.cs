@@ -579,42 +579,6 @@ namespace Server.Items
 		}
 
 		/// <summary>
-		/// Returns the <see cref="CraftResource"/> value which represents '<paramref name="info"/>' -or- CraftResource.None if unable to convert.
-		/// </summary>
-		public static CraftResource GetFromOreInfo(OreInfo info)
-		{
-			if (info.Name.IndexOf("Spined") >= 0)
-				return CraftResource.SpinedLeather;
-			else if (info.Name.IndexOf("Horned") >= 0)
-				return CraftResource.HornedLeather;
-			else if (info.Name.IndexOf("Barbed") >= 0)
-				return CraftResource.BarbedLeather;
-			else if (info.Name.IndexOf("Leather") >= 0)
-				return CraftResource.RegularLeather;
-
-			if (info.Level == 0)
-				return CraftResource.Iron;
-			else if (info.Level == 1)
-				return CraftResource.DullCopper;
-			else if (info.Level == 2)
-				return CraftResource.ShadowIron;
-			else if (info.Level == 3)
-				return CraftResource.Copper;
-			else if (info.Level == 4)
-				return CraftResource.Bronze;
-			else if (info.Level == 5)
-				return CraftResource.Gold;
-			else if (info.Level == 6)
-				return CraftResource.Agapite;
-			else if (info.Level == 7)
-				return CraftResource.Verite;
-			else if (info.Level == 8)
-				return CraftResource.Valorite;
-
-			return CraftResource.None;
-		}
-
-		/// <summary>
 		/// Get the label number of resource
 		/// </summary>
 		/// <param name="resource"></param>
@@ -649,32 +613,6 @@ namespace Server.Items
 				_ => 0,
 			};
 			return labelNumber;
-		}
-	}
-
-	// NOTE: This class is only for compatability with very old RunUO versions.
-	// No changes to it should be required for custom resources.
-	public class OreInfo
-	{
-		public static readonly OreInfo Iron = new OreInfo(0, 0x000, "Iron");
-		public static readonly OreInfo DullCopper = new OreInfo(1, 0x973, "Dull Copper");
-		public static readonly OreInfo ShadowIron = new OreInfo(2, 0x966, "Shadow Iron");
-		public static readonly OreInfo Copper = new OreInfo(3, 0x96D, "Copper");
-		public static readonly OreInfo Bronze = new OreInfo(4, 0x972, "Bronze");
-		public static readonly OreInfo Gold = new OreInfo(5, 0x8A5, "Gold");
-		public static readonly OreInfo Agapite = new OreInfo(6, 0x979, "Agapite");
-		public static readonly OreInfo Verite = new OreInfo(7, 0x89F, "Verite");
-		public static readonly OreInfo Valorite = new OreInfo(8, 0x8AB, "Valorite");
-
-		public int Level { get; }
-		public int Hue { get; }
-		public string Name { get; }
-
-		public OreInfo(int level, int hue, string name)
-		{
-			Level = level;
-			Hue = hue;
-			Name = name;
 		}
 	}
 }
