@@ -469,6 +469,7 @@ namespace Server
 	{
 		private static readonly int m_ConfigStatsCap = Settings.Get<int>("Gameplay", "StatsCap");
 		private static readonly int m_ConfigFollowersMax = Settings.Get<int>("Gameplay", "FollowersMax");
+		public static readonly int MurderKills = Settings.Get<int>("Gameplay", "MurderKills");
 
 		#region CompareTo(...)
 		public int CompareTo(IEntity other)
@@ -719,6 +720,9 @@ namespace Server
 		private static readonly TimeSpan WarmodeSpamCatch = TimeSpan.FromSeconds((Core.SE ? 1.0 : 0.5));
 		private static readonly TimeSpan WarmodeSpamDelay = TimeSpan.FromSeconds((Core.SE ? 4.0 : 2.0));
 		private const int WarmodeCatchCount = 4; // Allow four warmode changes in 0.5 seconds, any more will be delay for two seconds
+
+		//Duration of effect per second
+		public const int EFFECT_DURATION_PER_SECOND = 20;
 
 		[CommandProperty(AccessLevel.GameMaster)]
 		public Race Race
@@ -8911,6 +8915,21 @@ namespace Server
 			Effects.SendTargetEffect(this, itemID, speed, duration, hue, renderMode);
 		}
 
+		public void FixedEffect(int itemID, int seconds)
+		{
+			FixedEffect(itemID, 0, seconds * EFFECT_DURATION_PER_SECOND, 0, 0);
+		}
+
+		public void FixedEffect(int itemID, float seconds)
+		{
+			FixedEffect(itemID, 0, (int)seconds * EFFECT_DURATION_PER_SECOND, 0, 0);
+		}
+
+		public void FixedEffect(int itemID, int speed, float seconds)
+		{
+			Effects.SendTargetEffect(this, itemID, speed, (int)seconds * EFFECT_DURATION_PER_SECOND, 0, 0);
+		}
+
 		public void FixedEffect(int itemID, int speed, int duration)
 		{
 			Effects.SendTargetEffect(this, itemID, speed, duration, 0, 0);
@@ -9915,8 +9934,6 @@ namespace Server
 				}
 			}
 		}
-
-		public static readonly int MurderKills = Settings.Get<int>("Gameplay", "MurderKills");
 
 		[CommandProperty(AccessLevel.Counselor, true)]
 		public virtual bool Murderer { get { return m_Kills >= MurderKills; } }

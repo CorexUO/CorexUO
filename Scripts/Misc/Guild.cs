@@ -696,10 +696,10 @@ namespace Server.Guilds
 		public static bool NewGuildSystem { get { return m_NewGuildSystem; } }
 		public static bool OrderChaos { get { return m_OrderChaos; } }
 
-		public static readonly int RegistrationFee = 25000;
-		public static readonly int AbbrevLimit = 4;
-		public static readonly int NameLimit = 40;
-		public static readonly int MajorityPercentage = 66;
+		public const int RegistrationFee = 25000;
+		public const int AbbrevLimit = 4;
+		public const int NameLimit = 40;
+		public const int MajorityPercentage = 66;
 		public static readonly TimeSpan InactiveTime = TimeSpan.FromDays(30);
 
 
