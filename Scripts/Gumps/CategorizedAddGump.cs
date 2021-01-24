@@ -158,7 +158,7 @@ namespace Server.Gumps
 	{
 		public static bool OldStyle = PropsConfig.OldStyle;
 
-		public static readonly int EntryHeight = 24;//PropsConfig.EntryHeight;
+		public const int EntryHeight = 24;//PropsConfig.EntryHeight;
 
 		public static readonly int OffsetSize = PropsConfig.OffsetSize;
 		public static readonly int BorderSize = PropsConfig.BorderSize;

@@ -110,7 +110,7 @@ namespace Server
 		public static TimeSpan StaffLogoutDelay { get { return m_StaffLogoutDelay; } set { m_StaffLogoutDelay = value; } }
 		public static TimeSpan DefaultLogoutDelay { get { return m_DefaultLogoutDelay; } set { m_DefaultLogoutDelay = value; } }
 
-		public static readonly int DefaultPriority = 50;
+		public const int DefaultPriority = 50;
 
 		public static readonly int MinZ = sbyte.MinValue;
 		public static readonly int MaxZ = sbyte.MaxValue + 1;

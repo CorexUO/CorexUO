@@ -5,7 +5,7 @@ namespace Server.Items
 {
     public class KeyRing : BaseItem
     {
-        public static readonly int MaxKeys = 20;
+        public const int MaxKeys = 20;
 
         private List<Key> m_Keys;
 

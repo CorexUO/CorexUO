@@ -9,7 +9,7 @@ namespace Server.Items
 {
 	public class BallotBox : AddonComponent
 	{
-		public static readonly int MaxTopicLines = 6;
+		public const int MaxTopicLines = 6;
 
 		public override int LabelNumber { get { return 1041006; } } // a ballot box
 

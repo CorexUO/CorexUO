@@ -7,9 +7,6 @@ namespace Server.Mobiles
 	{
 		public static readonly TimeSpan COMBAT_HEAT_DELAY = TimeSpan.FromSeconds(30.0);
 
-		//Duration of effect per second
-		public static readonly int EFFECT_DURATION_PER_SECOND = 20;
-
 		public BaseMobile() : base()
 		{
 		}
@@ -63,21 +60,6 @@ namespace Server.Mobiles
 			}
 
 			return false;
-		}
-
-		public void FixedEffect(int itemID, int seconds)
-		{
-			FixedEffect(itemID, 0, seconds * EFFECT_DURATION_PER_SECOND, 0, 0);
-		}
-
-		public void FixedEffect(int itemID, float seconds)
-		{
-			FixedEffect(itemID, 0, (int)seconds * EFFECT_DURATION_PER_SECOND, 0, 0);
-		}
-
-		public void FixedEffect(int itemID, int speed, float seconds)
-		{
-			Effects.SendTargetEffect(this, itemID, speed, (int)seconds * EFFECT_DURATION_PER_SECOND, 0, 0);
 		}
 
 		public override void Serialize(GenericWriter writer)

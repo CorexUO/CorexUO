@@ -387,27 +387,27 @@ namespace Server
 
 		#region Compile-Time -> Run-Time Support
 #if Map_NewEnumerables || Map_AllUpdates
-		public static readonly bool NewEnumerables = true;
+		public const bool NewEnumerables = true;
 #else
-		public static readonly bool NewEnumerables = false;
+		public const bool NewEnumerables = false;
 #endif
 
 #if Map_UseMaxRange || Map_AllUpdates
-		public static readonly bool UseMaxRange = true;
+		public const bool UseMaxRange = true;
 #else
-		public static readonly bool UseMaxRange = false;
+		public const bool UseMaxRange = false;
 #endif
 
 #if Map_PoolFixColumn || Map_AllUpdates
-		public static readonly bool PoolFixColumn = true;
+		public const bool PoolFixColumn = true;
 #else
-		public static readonly bool PoolFixColumn = false;
+		public const bool PoolFixColumn = false;
 #endif
 
 #if Map_InternalProtection || Map_AllUpdates
-		public static readonly bool InternalProtection = true;
+		public const bool InternalProtection = true;
 #else
-		public static readonly bool InternalProtection = false;
+		public const bool InternalProtection = false;
 #endif
 		#endregion
 

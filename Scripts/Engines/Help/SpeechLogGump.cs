@@ -9,7 +9,7 @@ namespace Server.Engines.Help
 {
 	public class SpeechLogGump : Gump
 	{
-		public static readonly int MaxEntriesPerPage = 30;
+		public const int MaxEntriesPerPage = 30;
 
 		private Mobile m_Player;
 		private List<SpeechLogEntry> m_Log;

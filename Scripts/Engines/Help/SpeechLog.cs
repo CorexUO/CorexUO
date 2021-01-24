@@ -11,13 +11,13 @@ namespace Server.Engines.Help
 	public class SpeechLog : IEnumerable<SpeechLogEntry>
 	{
 		// Are speech logs enabled?
-		public static readonly bool Enabled = true;
+		public const bool Enabled = true;
 
 		// How long should we maintain each speech entry?
 		public static readonly TimeSpan EntryDuration = TimeSpan.FromMinutes(20.0);
 
 		// What is the maximum number of entries a log can contain? (0 -> no limit)
-		public static readonly int MaxLength = 0;
+		public const int MaxLength = 0;
 
 		public static void Initialize()
 		{
