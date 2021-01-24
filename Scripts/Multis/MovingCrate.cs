@@ -7,11 +7,11 @@ namespace Server.Multis
 {
 	public class MovingCrate : Container
 	{
-		public static readonly int MaxItemsPerSubcontainer = 20;
-		public static readonly int Rows = 3;
-		public static readonly int Columns = 5;
-		public static readonly int HorizontalSpacing = 25;
-		public static readonly int VerticalSpacing = 25;
+		public const int MaxItemsPerSubcontainer = 20;
+		public const int Rows = 3;
+		public const int Columns = 5;
+		public const int HorizontalSpacing = 25;
+		public const int VerticalSpacing = 25;
 
 		public override int LabelNumber { get { return 1061690; } } // Packing Crate
 

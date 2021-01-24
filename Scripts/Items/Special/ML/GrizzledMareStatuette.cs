@@ -40,7 +40,7 @@ namespace Server.Mobiles
 	{
 		public override bool DeleteOnRelease { get { return true; } }
 
-		private static readonly string m_Myname = "a grizzled mare";
+		private const string m_Myname = "a grizzled mare";
 
 		[Constructable]
 		public GrizzledMare()

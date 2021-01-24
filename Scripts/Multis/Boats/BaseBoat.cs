@@ -404,25 +404,25 @@ namespace Server.Multis
 		private static readonly TimeSpan SlowInterval = TimeSpan.FromSeconds(NewBoatMovement ? 0.50 : 0.75);
 		private static readonly TimeSpan FastInterval = TimeSpan.FromSeconds(NewBoatMovement ? 0.25 : 0.75);
 
-		private static readonly int SlowSpeed = 1;
+		private const int SlowSpeed = 1;
 		private static readonly int FastSpeed = NewBoatMovement ? 1 : 3;
 
 		private static readonly TimeSpan SlowDriftInterval = TimeSpan.FromSeconds(NewBoatMovement ? 0.50 : 1.50);
 		private static readonly TimeSpan FastDriftInterval = TimeSpan.FromSeconds(NewBoatMovement ? 0.25 : 0.75);
 
-		private static readonly int SlowDriftSpeed = 1;
-		private static readonly int FastDriftSpeed = 1;
+		private const int SlowDriftSpeed = 1;
+		private const int FastDriftSpeed = 1;
 
-		private static readonly Direction Forward = Direction.North;
-		private static readonly Direction ForwardLeft = Direction.Up;
-		private static readonly Direction ForwardRight = Direction.Right;
-		private static readonly Direction Backward = Direction.South;
-		private static readonly Direction BackwardLeft = Direction.Left;
-		private static readonly Direction BackwardRight = Direction.Down;
-		private static readonly Direction Left = Direction.West;
-		private static readonly Direction Right = Direction.East;
-		private static readonly Direction Port = Left;
-		private static readonly Direction Starboard = Right;
+		private const Direction Forward = Direction.North;
+		private const Direction ForwardLeft = Direction.Up;
+		private const Direction ForwardRight = Direction.Right;
+		private const Direction Backward = Direction.South;
+		private const Direction BackwardLeft = Direction.Left;
+		private const Direction BackwardRight = Direction.Down;
+		private const Direction Left = Direction.West;
+		private const Direction Right = Direction.East;
+		private const Direction Port = Left;
+		private const Direction Starboard = Right;
 
 		private bool m_Decaying;
 
