@@ -34,7 +34,6 @@
                 "build",
                 "Application/CorexUO.csproj"
             ],
-            "dependsOn": ["Build-Debug-Scripts"],
             "problemMatcher": "$msCompile"
         }
     ]
