@@ -150,7 +150,7 @@ namespace Server
 			{
 				if (m_Skill != value)
 				{
-					Skill oldUpdate = (m_Owner != null ? m_Owner.Skills[m_Skill] : null);
+					Skill oldUpdate = m_Owner?.Skills[m_Skill];
 
 					m_Skill = value;
 
@@ -1360,9 +1360,10 @@ namespace Server
 		{
 			if (_actions == null)
 			{
-				_actions = new List<object>();
-
-				_actions.Add(toLock);
+				_actions = new List<object>
+				{
+					toLock
+				};
 
 				return true;
 			}
@@ -2408,8 +2409,7 @@ namespace Server
 
 			protected override void OnTarget(Mobile from, object targeted)
 			{
-				if (m_Callback != null)
-					m_Callback(from, targeted, m_State);
+				m_Callback?.Invoke(from, targeted, m_State);
 			}
 		}
 		public Target BeginTarget<T>(int range, bool allowGround, TargetFlags flags, TargetStateCallback<T> callback, T state)
@@ -2772,9 +2772,7 @@ namespace Server
 					return false;
 				}
 
-				int newZ;
-
-				if (CheckMovement(d, out newZ))
+				if (CheckMovement(d, out int newZ))
 				{
 					int x = oldLocation.m_X, y = oldLocation.m_Y;
 					int oldX = x, oldY = y;
@@ -2956,17 +2954,14 @@ namespace Server
 					if (o == this)
 						continue;
 
-					if (o is Mobile)
+					if (o is Mobile mob)
 					{
-						Mobile mob = o as Mobile;
 						if (mob.NetState != null)
 							m_MoveClientList.Add(mob);
 						m_MoveList.Add(o);
 					}
-					else if (o is Item)
+					else if (o is Item item)
 					{
-						Item item = (Item)o;
-
 						if (item.HandlesOnMovement)
 							m_MoveList.Add(item);
 					}
@@ -4085,13 +4080,13 @@ namespace Server
 			oldItem.Amount = amount;
 			oldItem.OnAfterDuped(item);
 
-			if (oldItem.Parent is Mobile)
+			if (oldItem.Parent is Mobile mobile)
 			{
-				((Mobile)oldItem.Parent).AddItem(item);
+				mobile.AddItem(item);
 			}
-			else if (oldItem.Parent is Item)
+			else if (oldItem.Parent is Item item1)
 			{
-				((Item)oldItem.Parent).AddItem(item);
+				item1.AddItem(item);
 			}
 
 			item.Delta(ItemDelta.Update);
@@ -4234,7 +4229,7 @@ namespace Server
 			return !bounced;
 		}
 
-		private static object m_GhostMutateContext = new object();
+		private static readonly object m_GhostMutateContext = new object();
 
 		public virtual bool MutateSpeech(List<Mobile> hears, ref string text, ref object context)
 		{
@@ -4301,8 +4296,8 @@ namespace Server
 				if (item.HandlesOnSpeech)
 					list.Add(item);
 
-				if (item is Container)
-					AddSpeechItemsFrom(list, (Container)item);
+				if (item is Container container)
+					AddSpeechItemsFrom(list, container);
 			}
 		}
 
@@ -4460,8 +4455,8 @@ namespace Server
 								if (item.HandlesOnSpeech)
 									onSpeech.Add(item);
 
-								if (item is Container)
-									AddSpeechItemsFrom(onSpeech, (Container)item);
+								if (item is Container container)
+									AddSpeechItemsFrom(onSpeech, container);
 							}
 						}
 					}
@@ -4482,7 +4477,7 @@ namespace Server
 				SpeechEventArgs mutatedArgs = null;
 
 				if (MutateSpeech(hears, ref mutatedText, ref mutateContext))
-					mutatedArgs = new SpeechEventArgs(this, mutatedText, type, hue, new int[0]);
+					mutatedArgs = new SpeechEventArgs(this, mutatedText, type, hue, Array.Empty<int>());
 
 				CheckSpeechManifest();
 
@@ -4835,7 +4830,7 @@ namespace Server
 
 		public void SendVisibleDamageRelated(Mobile from, int amount)
 		{
-			NetState ourState = m_NetState, theirState = (from == null ? null : from.m_NetState);
+			NetState ourState = m_NetState, theirState = from?.m_NetState;
 
 			if (ourState == null)
 			{
@@ -4931,17 +4926,15 @@ namespace Server
 			eable.Free();
 		}
 
-		public static bool m_DefaultShowVisibleDamage, m_DefaultCanSeeVisibleDamage;
+		public static bool DefaultShowVisibleDamage { get; set; }
+		public static bool DefaultCanSeeVisibleDamage { get; set; }
 
-		public static bool DefaultShowVisibleDamage { get { return m_DefaultShowVisibleDamage; } set { m_DefaultShowVisibleDamage = value; } }
-		public static bool DefaultCanSeeVisibleDamage { get { return m_DefaultCanSeeVisibleDamage; } set { m_DefaultCanSeeVisibleDamage = value; } }
-
-		public virtual bool ShowVisibleDamage { get { return m_DefaultShowVisibleDamage; } }
-		public virtual bool CanSeeVisibleDamage { get { return m_DefaultCanSeeVisibleDamage; } }
+		public virtual bool ShowVisibleDamage => DefaultShowVisibleDamage;
+		public virtual bool CanSeeVisibleDamage => DefaultCanSeeVisibleDamage;
 
 		public void SendVisibleDamageSelective(Mobile from, int amount)
 		{
-			NetState ourState = m_NetState, theirState = (from == null ? null : from.m_NetState);
+			NetState ourState = m_NetState, theirState = from?.m_NetState;
 
 			Mobile damager = from;
 			Mobile damaged = this;
@@ -8134,7 +8127,7 @@ namespace Server
 			}
 		}
 
-		private static int[] m_InvalidBodies = new int[]
+		private static readonly int[] m_InvalidBodies = new int[]
 			{
 				32,
 				95,
@@ -8251,7 +8244,7 @@ namespace Server
 		}
 
 		private Packet m_RemovePacket;
-		private object rpLock = new object();
+		private readonly object rpLock = new object();
 
 		public Packet RemovePacket
 		{
@@ -8274,7 +8267,7 @@ namespace Server
 		}
 
 		private Packet m_OPLPacket;
-		private object oplLock = new object();
+		private readonly object oplLock = new object();
 
 		public Packet OPLPacket
 		{
@@ -8372,9 +8365,6 @@ namespace Server
 
 			Point3D oldLocation = m_Location;
 			Map oldMap = m_Map;
-
-			Region oldRegion = m_Region;
-
 			if (oldMap != null)
 			{
 				oldMap.OnLeave(this);
@@ -8539,20 +8529,16 @@ namespace Server
 
 						foreach (IEntity o in eeable)
 						{
-							if (o is Item)
+							if (o is Item item)
 							{
-								Item item = (Item)o;
-
 								int range = item.GetUpdateRange(this);
 								Point3D loc = item.Location;
 
 								if (!Utility.InRange(oldLocation, loc, range) && Utility.InRange(newLocation, loc, range) && CanSee(item))
 									item.SendInfoTo(ourState);
 							}
-							else if (o != this && o is Mobile)
+							else if (o != this && o is Mobile m)
 							{
-								Mobile m = (Mobile)o;
-
 								if (!Utility.InUpdateRange(newLocation, m.m_Location))
 									continue;
 
@@ -8782,8 +8768,8 @@ namespace Server
 				if (item == null)
 					item = FindItemOnLayer(Layer.TwoHanded);
 
-				if (item is IWeapon)
-					return (m_Weapon = (IWeapon)item);
+				if (item is IWeapon weapon)
+					return (m_Weapon = weapon);
 				else
 					return GetDefaultWeapon();
 			}
@@ -10133,8 +10119,7 @@ namespace Server
 		{
 			if (m_Map != null)
 			{
-				Packet p = null;
-
+				Packet p;
 				if (ascii)
 					p = new AsciiMessage(Serial, Body, type, hue, 3, Name, text);
 				else
@@ -10397,9 +10382,7 @@ namespace Server
 			if (from == this)
 				Send(new StatLockInfo(this));
 
-			IParty ip = m_Party as IParty;
-
-			if (ip != null)
+			if (m_Party is IParty ip)
 				ip.OnStatsQuery(from, this);
 		}
 
