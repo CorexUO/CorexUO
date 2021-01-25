@@ -97,9 +97,7 @@ namespace Server.Engines.Craft
 
 		public static int ItemIDOf(Type type)
 		{
-			int itemId;
-
-			if (!_itemIds.TryGetValue(type, out itemId))
+			if (!_itemIds.TryGetValue(type, out int itemId))
 			{
 				if (type == typeof(FactionExplosionTrap))
 				{

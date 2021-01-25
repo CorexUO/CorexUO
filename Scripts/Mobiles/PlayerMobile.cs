@@ -143,9 +143,8 @@ namespace Server.Mobiles
 				if (!Flying)
 				{
 					// No message?
-					if (Spell is FlySpell)
+					if (Spell is FlySpell spell)
 					{
-						FlySpell spell = (FlySpell)Spell;
 						spell.Stop();
 					}
 					new FlySpell(this).Cast();
@@ -472,18 +471,13 @@ namespace Server.Mobiles
 		#endregion
 
 		#region Auto Arrow Recovery
-		private Dictionary<Type, int> m_RecoverableAmmo = new Dictionary<Type, int>();
-
-		public Dictionary<Type, int> RecoverableAmmo
-		{
-			get { return m_RecoverableAmmo; }
-		}
+		public Dictionary<Type, int> RecoverableAmmo { get; } = new Dictionary<Type, int>();
 
 		public void RecoverAmmo()
 		{
 			if (Core.SE && Alive)
 			{
-				foreach (KeyValuePair<Type, int> kvp in m_RecoverableAmmo)
+				foreach (KeyValuePair<Type, int> kvp in RecoverableAmmo)
 				{
 					if (kvp.Value > 0)
 					{
@@ -522,7 +516,7 @@ namespace Server.Mobiles
 					}
 				}
 
-				m_RecoverableAmmo.Clear();
+				RecoverableAmmo.Clear();
 			}
 		}
 
@@ -627,9 +621,7 @@ namespace Server.Mobiles
 
 					if (objs != null && objs.Length > 0)
 					{
-						FlipableAttribute fp = objs[0] as FlipableAttribute;
-
-						if (fp != null)
+						if (objs[0] is FlipableAttribute fp)
 						{
 							int[] itemIDs = fp.ItemIDs;
 
@@ -728,10 +720,8 @@ namespace Server.Mobiles
 		{
 			foreach (Mobile m in World.Mobiles.Values)
 			{
-				if (m is PlayerMobile)
+				if (m is PlayerMobile pm)
 				{
-					PlayerMobile pm = (PlayerMobile)m;
-
 					if (((!pm.Mounted || (pm.Mount != null && pm.Mount is EtherealMount)) && (pm.AllFollowers.Count > pm.AutoStabled.Count)) ||
 						(pm.Mounted && (pm.AllFollowers.Count > (pm.AutoStabled.Count + 1))))
 					{
@@ -851,9 +841,7 @@ namespace Server.Mobiles
 			if (ns == null)
 				return;
 
-			int global, personal;
-
-			ComputeLightLevels(out global, out personal);
+			ComputeLightLevels(out int global, out int personal);
 
 			if (!forceResend)
 				forceResend = (global != m_LastGlobalLight || personal != m_LastPersonalLight);
@@ -911,9 +899,7 @@ namespace Server.Mobiles
 			{
 				string notice;
 
-				Accounting.Account acct = from.Account as Accounting.Account;
-
-				if (acct == null || !acct.HasAccess(from.NetState))
+				if (from.Account is not Account acct || !acct.HasAccess(from.NetState))
 				{
 					if (from.AccessLevel == AccessLevel.Player)
 						notice = "The server is currently under lockdown. No players are allowed to log in at this time.";
@@ -935,8 +921,8 @@ namespace Server.Mobiles
 				return;
 			}
 
-			if (from is PlayerMobile)
-				((PlayerMobile)from).ClaimAutoStabledPets();
+			if (from is PlayerMobile pm)
+				pm.ClaimAutoStabledPets();
 		}
 
 		private bool m_NoDeltaRecursion;
@@ -1017,10 +1003,8 @@ namespace Server.Mobiles
 					}
 					#endregion
 
-					if (item is BaseWeapon)
+					if (item is BaseWeapon weapon)
 					{
-						BaseWeapon weapon = (BaseWeapon)item;
-
 						bool drop = false;
 
 						if (dex < weapon.DexRequirement)
@@ -1044,10 +1028,8 @@ namespace Server.Mobiles
 							moved = true;
 						}
 					}
-					else if (item is BaseArmor)
+					else if (item is BaseArmor armor)
 					{
-						BaseArmor armor = (BaseArmor)item;
-
 						bool drop = false;
 
 						if (!armor.AllowMaleWearer && !from.Female && from.AccessLevel < AccessLevel.GameMaster)
@@ -1092,10 +1074,8 @@ namespace Server.Mobiles
 							moved = true;
 						}
 					}
-					else if (item is BaseClothing)
+					else if (item is BaseClothing clothing)
 					{
-						BaseClothing clothing = (BaseClothing)item;
-
 						bool drop = false;
 
 						if (!clothing.AllowMaleWearer && !from.Female && from.AccessLevel < AccessLevel.GameMaster)
@@ -1185,8 +1165,8 @@ namespace Server.Mobiles
 
 		private static void OnLogout(LogoutEventArgs e)
 		{
-			if (e.Mobile is PlayerMobile)
-				((PlayerMobile)e.Mobile).AutoStablePets();
+			if (e.Mobile is PlayerMobile pm)
+				pm.AutoStablePets();
 		}
 
 		private static void EventSink_Connected(ConnectedEventArgs e)
@@ -1243,9 +1223,7 @@ namespace Server.Mobiles
 				context.Foundation.RestoreRelocatedEntities();
 			}
 
-			PlayerMobile pm = e.Mobile as PlayerMobile;
-
-			if (pm != null)
+			if (e.Mobile is PlayerMobile pm)
 			{
 				pm.m_GameTime += (DateTime.UtcNow - pm.m_SessionStart);
 
@@ -1303,10 +1281,10 @@ namespace Server.Mobiles
 
 		public override bool CanBeHarmful(Mobile target, bool message, bool ignoreOurBlessedness)
 		{
-			if (m_DesignContext != null || (target is PlayerMobile && ((PlayerMobile)target).m_DesignContext != null))
+			if (m_DesignContext != null || (target is PlayerMobile pm && pm.m_DesignContext != null))
 				return false;
 
-			if ((target is BaseCreature && ((BaseCreature)target).IsInvulnerable) || target is PlayerVendor || target is TownCrier)
+			if ((target is BaseCreature creature && creature.IsInvulnerable) || target is PlayerVendor || target is TownCrier)
 			{
 				if (message)
 				{
@@ -1324,7 +1302,7 @@ namespace Server.Mobiles
 
 		public override bool CanBeBeneficial(Mobile target, bool message, bool allowDead)
 		{
-			if (m_DesignContext != null || (target is PlayerMobile && ((PlayerMobile)target).m_DesignContext != null))
+			if (m_DesignContext != null || (target is PlayerMobile pm && pm.m_DesignContext != null))
 				return false;
 
 			return base.CanBeBeneficial(target, message, allowDead);
@@ -1341,7 +1319,9 @@ namespace Server.Mobiles
 
 			if (item is BaseArmor || item is BaseWeapon)
 			{
-				Hits = Hits; Stam = Stam; Mana = Mana;
+				Hits = Hits;
+				Stam = Stam;
+				Mana = Mana;
 			}
 
 			if (this.NetState != null)
@@ -1354,7 +1334,9 @@ namespace Server.Mobiles
 
 			if (item is BaseArmor || item is BaseWeapon)
 			{
-				Hits = Hits; Stam = Stam; Mana = Mana;
+				Hits = Hits;
+				Stam = Stam;
+				Mana = Mana;
 			}
 
 			if (this.NetState != null)
@@ -1380,11 +1362,9 @@ namespace Server.Mobiles
 			}
 		}
 
-		private void AddArmorRating(ref double rating, Item armor)
+		private static void AddArmorRating(ref double rating, Item armor)
 		{
-			BaseArmor ar = armor as BaseArmor;
-
-			if (ar != null && (!Core.AOS || ar.ArmorAttributes.MageArmor == 0))
+			if (armor is BaseArmor ar && (!Core.AOS || ar.ArmorAttributes.MageArmor == 0))
 				rating += ar.ArmorRatingScaled;
 		}
 
@@ -1553,9 +1533,7 @@ namespace Server.Mobiles
 			return DesignContext.Check(this);
 		}
 
-		public SkillName[] AnimalFormRestrictedSkills { get { return m_AnimalFormRestrictedSkills; } }
-
-		private SkillName[] m_AnimalFormRestrictedSkills = new SkillName[]
+		public SkillName[] AnimalFormRestrictedSkills { get; } = new SkillName[]
 		{
 			SkillName.ArmsLore, SkillName.Begging, SkillName.Discordance, SkillName.Forensics,
 			SkillName.Inscribe, SkillName.ItemID, SkillName.Meditation, SkillName.Peacemaking,
@@ -1567,9 +1545,9 @@ namespace Server.Mobiles
 		{
 			if (AnimalForm.UnderTransformation(this))
 			{
-				for (int i = 0; i < m_AnimalFormRestrictedSkills.Length; i++)
+				for (int i = 0; i < AnimalFormRestrictedSkills.Length; i++)
 				{
-					if (m_AnimalFormRestrictedSkills[i] == skill)
+					if (AnimalFormRestrictedSkills[i] == skill)
 					{
 						SendLocalizedMessage(1070771); // You cannot use that skill in this form.
 						return false;
@@ -1876,8 +1854,8 @@ namespace Server.Mobiles
 
 		private class CancelRenewInventoryInsuranceGump : Gump
 		{
-			private PlayerMobile m_Player;
-			private ItemInsuranceMenuGump m_InsuranceGump;
+			private readonly PlayerMobile m_Player;
+			private readonly ItemInsuranceMenuGump m_InsuranceGump;
 
 			public CancelRenewInventoryInsuranceGump(PlayerMobile player, ItemInsuranceMenuGump insuranceGump) : base(250, 200)
 			{
@@ -1953,10 +1931,10 @@ namespace Server.Mobiles
 
 		private class ItemInsuranceMenuGump : Gump
 		{
-			private PlayerMobile m_From;
-			private Item[] m_Items;
-			private bool[] m_Insure;
-			private int m_Page;
+			private readonly PlayerMobile m_From;
+			private readonly Item[] m_Items;
+			private readonly bool[] m_Insure;
+			private readonly int m_Page;
 
 			public ItemInsuranceMenuGump(PlayerMobile from, Item[] items)
 				: this(from, items, null, 0)
@@ -2124,10 +2102,10 @@ namespace Server.Mobiles
 
 		private class ItemInsuranceMenuConfirmGump : Gump
 		{
-			private PlayerMobile m_From;
-			private Item[] m_Items;
-			private bool[] m_Insure;
-			private int m_Page;
+			private readonly PlayerMobile m_From;
+			private readonly Item[] m_Items;
+			private readonly bool[] m_Insure;
+			private readonly int m_Page;
 
 			public ItemInsuranceMenuConfirmGump(PlayerMobile from, Item[] items, bool[] insure, int page)
 				: base(250, 200)
@@ -2204,9 +2182,7 @@ namespace Server.Mobiles
 			if (!CheckAlive())
 				return;
 
-			Item item = obj as Item;
-
-			if (item == null)
+			if (obj is not Item item)
 				return;
 
 			if (from.Backpack == null || item.Parent != from.Backpack)
@@ -2260,7 +2236,7 @@ namespace Server.Mobiles
 
 		private class CallbackEntry : ContextMenuEntry
 		{
-			private ContextCallback m_Callback;
+			private readonly ContextCallback m_Callback;
 
 			public CallbackEntry(int number, ContextCallback callback) : this(number, -1, callback)
 			{
@@ -2273,8 +2249,7 @@ namespace Server.Mobiles
 
 			public override void OnClick()
 			{
-				if (m_Callback != null)
-					m_Callback();
+				m_Callback?.Invoke();
 			}
 		}
 
@@ -2357,17 +2332,15 @@ namespace Server.Mobiles
 			}
 			#endregion
 
-			if (this.AccessLevel < AccessLevel.GameMaster && item.Layer != Layer.Mount && this.HasTrade)
+			if (AccessLevel < AccessLevel.GameMaster && item.Layer != Layer.Mount && HasTrade)
 			{
 				BounceInfo bounce = item.GetBounce();
 
 				if (bounce != null)
 				{
-					if (bounce.m_Parent is Item)
+					if (bounce.m_Parent is Item parent)
 					{
-						Item parent = (Item)bounce.m_Parent;
-
-						if (parent == this.Backpack || parent.IsChildOf(this.Backpack))
+						if (parent == this.Backpack || parent.IsChildOf(Backpack))
 							return true;
 					}
 					else if (bounce.m_Parent == this)
@@ -2395,7 +2368,7 @@ namespace Server.Mobiles
 					msgNum = 1062781; // You are already trading with someone else!
 				else if (to.HasTrade)
 					msgNum = 1062779; // That person is already involved in a trade
-				else if (to is PlayerMobile && ((PlayerMobile)to).RefuseTrades)
+				else if (to is PlayerMobile pm && pm.RefuseTrades)
 					msgNum = 1154111; // ~1_NAME~ is refusing all trades.
 			}
 
@@ -2433,7 +2406,7 @@ namespace Server.Mobiles
 
 		private static int CheckContentForTrade(Item item)
 		{
-			if (item is TrapableContainer && ((TrapableContainer)item).TrapType != TrapType.None)
+			if (item is TrapableContainer  tContainer&& tContainer.TrapType != TrapType.None)
 				return 1004044; // You may not trade trapped items.
 
 			if (SkillHandlers.StolenItem.IsStolen(item))
@@ -2466,10 +2439,8 @@ namespace Server.Mobiles
 			{
 				BounceInfo bounce = item.GetBounce();
 
-				if (bounce != null && bounce.m_Parent is Item)
+				if (bounce != null && bounce.m_Parent is Item parent)
 				{
-					Item parent = (Item)bounce.m_Parent;
-
 					if (parent == pack || parent.IsChildOf(pack))
 						return true;
 				}
@@ -2524,14 +2495,12 @@ namespace Server.Mobiles
 
 		public override bool OnMoveOver(Mobile m)
 		{
-			if (m is BaseCreature && !((BaseCreature)m).Controlled)
+			if (m is BaseCreature bc && !bc.Controlled)
 				return (!Alive || !m.Alive || IsDeadBondedPet || m.IsDeadBondedPet) || (Hidden && AccessLevel > AccessLevel.Player);
 
 			#region Dueling
-			if (Region.IsPartOf(typeof(Engines.ConPVP.SafeZone)) && m is PlayerMobile)
+			if (Region.IsPartOf(typeof(Engines.ConPVP.SafeZone)) && m is PlayerMobile pm)
 			{
-				PlayerMobile pm = (PlayerMobile)m;
-
 				if (pm.DuelContext == null || pm.DuelPlayer == null || !pm.DuelContext.Started || pm.DuelContext.Finished || pm.DuelPlayer.Eliminated)
 					return true;
 			}
@@ -2610,8 +2579,8 @@ namespace Server.Mobiles
 			if (m_SentHonorContext != null)
 				m_SentHonorContext.OnSourceDamaged(from, amount);
 
-			if (willKill && from is PlayerMobile)
-				Timer.DelayCall(TimeSpan.FromSeconds(10), new TimerCallback(((PlayerMobile)from).RecoverAmmo));
+			if (willKill && from is PlayerMobile pm)
+				Timer.DelayCall(TimeSpan.FromSeconds(10), new TimerCallback(pm.RecoverAmmo));
 
 			base.OnDamage(amount, from, willKill);
 		}
@@ -2652,12 +2621,7 @@ namespace Server.Mobiles
 		private int m_InsuranceCost;
 		private int m_InsuranceBonus;
 
-		private List<Item> m_EquipSnapshot;
-
-		public List<Item> EquipSnapshot
-		{
-			get { return m_EquipSnapshot; }
-		}
+		public List<Item> EquipSnapshot { get; private set; }
 
 		private bool FindItems_Callback(Item item)
 		{
@@ -2690,15 +2654,15 @@ namespace Server.Mobiles
 				}
 			}
 
-			m_EquipSnapshot = new List<Item>(this.Items);
+			EquipSnapshot = new List<Item>(this.Items);
 
 			m_NonAutoreinsuredItems = 0;
 			m_InsuranceCost = 0;
 			m_InsuranceAward = base.FindMostRecentDamager(false);
 
-			if (m_InsuranceAward is BaseCreature)
+			if (m_InsuranceAward is BaseCreature bc)
 			{
-				Mobile master = ((BaseCreature)m_InsuranceAward).GetMaster();
+				Mobile master = bc.GetMaster();
 
 				if (master != null)
 					m_InsuranceAward = master;
@@ -2707,8 +2671,8 @@ namespace Server.Mobiles
 			if (m_InsuranceAward != null && (!m_InsuranceAward.Player || m_InsuranceAward == this))
 				m_InsuranceAward = null;
 
-			if (m_InsuranceAward is PlayerMobile)
-				((PlayerMobile)m_InsuranceAward).m_InsuranceBonus = 0;
+			if (m_InsuranceAward is PlayerMobile pm)
+				pm.m_InsuranceBonus = 0;
 
 			if (m_ReceivedHonorContext != null)
 				m_ReceivedHonorContext.OnTargetKilled();
@@ -2760,8 +2724,8 @@ namespace Server.Mobiles
 				{
 					if (Banker.Deposit(m_InsuranceAward, 300))
 					{
-						if (m_InsuranceAward is PlayerMobile)
-							((PlayerMobile)m_InsuranceAward).m_InsuranceBonus += 300;
+						if (m_InsuranceAward is PlayerMobile pm)
+							pm.m_InsuranceBonus += 300;
 					}
 				}
 
@@ -2814,7 +2778,7 @@ namespace Server.Mobiles
 
 			base.OnDeath(c);
 
-			m_EquipSnapshot = null;
+			EquipSnapshot = null;
 
 			HueMod = -1;
 			NameMod = null;
@@ -2845,8 +2809,8 @@ namespace Server.Mobiles
 			{
 				m_PermaFlags.Clear();
 
-				if (c is Corpse)
-					((Corpse)c).Criminal = true;
+				if (c is Corpse corpse)
+					corpse.Criminal = true;
 
 				if (SkillHandlers.Stealing.ClassicMode)
 					Criminal = true;
@@ -2856,8 +2820,8 @@ namespace Server.Mobiles
 			{
 				Mobile m = FindMostRecentDamager(false);
 
-				if (m is BaseCreature)
-					m = ((BaseCreature)m).GetMaster();
+				if (m is BaseCreature baseCreature)
+					m = baseCreature.GetMaster();
 
 				if (m != null && m is PlayerMobile && m != this)
 				{
@@ -2884,20 +2848,16 @@ namespace Server.Mobiles
 				}
 			}
 
-			if (m_InsuranceAward is PlayerMobile)
+			if (m_InsuranceAward is PlayerMobile pm)
 			{
-				PlayerMobile pm = (PlayerMobile)m_InsuranceAward;
-
 				if (pm.m_InsuranceBonus > 0)
 					pm.SendLocalizedMessage(1060397, pm.m_InsuranceBonus.ToString()); // ~1_AMOUNT~ gold has been deposited into your bank box.
 			}
 
 			Mobile killer = this.FindMostRecentDamager(true);
 
-			if (killer is BaseCreature)
+			if (killer is BaseCreature bc)
 			{
-				BaseCreature bc = (BaseCreature)killer;
-
 				Mobile master = bc.GetMaster();
 				if (master != null)
 					killer = master;
@@ -2982,8 +2942,8 @@ namespace Server.Mobiles
 		#endregion
 
 		private List<Mobile> m_PermaFlags;
-		private List<Mobile> m_VisList;
-		private Hashtable m_AntiMacroTable;
+		private readonly List<Mobile> m_VisList;
+		private readonly Hashtable m_AntiMacroTable;
 		private TimeSpan m_GameTime;
 		private TimeSpan m_ShortTermElapse;
 		private TimeSpan m_LongTermElapse;
@@ -3118,8 +3078,7 @@ namespace Server.Mobiles
 		{
 			if (Guilds.Guild.NewGuildSystem && (type == MessageType.Guild || type == MessageType.Alliance))
 			{
-				Guilds.Guild g = this.Guild as Guilds.Guild;
-				if (g == null)
+				if (Guild is not Guilds.Guild g)
 				{
 					SendLocalizedMessage(1063142); // You are not in a guild!
 				}
@@ -3179,10 +3138,10 @@ namespace Server.Mobiles
 
 		public override void Damage(int amount, Mobile from)
 		{
-			if (Spells.Necromancy.EvilOmenSpell.TryEndEffect(this))
+			if (EvilOmenSpell.TryEndEffect(this))
 				amount = (int)(amount * 1.25);
 
-			Mobile oath = Spells.Necromancy.BloodOathSpell.GetBloodOath(from);
+			Mobile oath = BloodOathSpell.GetBloodOath(from);
 
 			/* Per EA's UO Herald Pub48 (ML):
 			 * ((resist spellsx10)/20 + 10=percentage of damage resisted)
@@ -3207,10 +3166,8 @@ namespace Server.Mobiles
 				}
 			}
 
-			if (from != null && Talisman is BaseTalisman)
+			if (from != null && Talisman is BaseTalisman talisman)
 			{
-				BaseTalisman talisman = (BaseTalisman)Talisman;
-
 				if (talisman.Protection != null && talisman.Protection.Type != null)
 				{
 					Type type = talisman.Protection.Type;
@@ -3279,7 +3236,7 @@ namespace Server.Mobiles
 
 		public override bool IsHarmfulCriminal(Mobile target)
 		{
-			if (SkillHandlers.Stealing.ClassicMode && target is PlayerMobile && ((PlayerMobile)target).m_PermaFlags.Count > 0)
+			if (SkillHandlers.Stealing.ClassicMode && target is PlayerMobile pm && pm.m_PermaFlags.Count > 0)
 			{
 				int noto = Notoriety.Compute(this, target);
 
@@ -3289,10 +3246,10 @@ namespace Server.Mobiles
 				return false;
 			}
 
-			if (target is BaseCreature && ((BaseCreature)target).InitialInnocent && !((BaseCreature)target).Controlled)
+			if (target is BaseCreature bc && bc.InitialInnocent && !bc.Controlled)
 				return false;
 
-			if (Core.ML && target is BaseCreature && ((BaseCreature)target).Controlled && this == ((BaseCreature)target).ControlMaster)
+			if (Core.ML && target is BaseCreature targetBc&& targetBc.Controlled && this == targetBc.ControlMaster)
 				return false;
 
 			return base.IsHarmfulCriminal(target);
@@ -3331,11 +3288,6 @@ namespace Server.Mobiles
 
 				return true;
 			}
-		}
-
-		private void RevertHair()
-		{
-			SetHairMods(-1, -1);
 		}
 
 		private Engines.BulkOrders.BOBFilter m_BOBFilter;
@@ -3513,13 +3465,9 @@ namespace Server.Mobiles
 			if (AccessLevel > AccessLevel.Player)
 				m_IgnoreMobiles = true;
 
-			List<Mobile> list = this.Stabled;
-
-			for (int i = 0; i < list.Count; ++i)
+			foreach (var pet in Stabled)
 			{
-				BaseCreature bc = list[i] as BaseCreature;
-
-				if (bc != null)
+				if (pet is BaseCreature bc)
 				{
 					bc.IsStabled = true;
 					bc.StabledBy = this;
@@ -3729,28 +3677,28 @@ namespace Server.Mobiles
 
 		public override bool CanSee(Mobile m)
 		{
-			if (m is CharacterStatue)
-				((CharacterStatue)m).OnRequestedAnimation(this);
+			if (m is CharacterStatue statue)
+				statue.OnRequestedAnimation(this);
 
-			if (m is PlayerMobile && ((PlayerMobile)m).m_VisList.Contains(this))
+			if (m is PlayerMobile pm && pm.m_VisList.Contains(this))
 				return true;
 
 			if (m_DuelContext != null && m_DuelPlayer != null && !m_DuelContext.Finished && m_DuelContext.m_Tournament != null && !m_DuelPlayer.Eliminated)
 			{
 				Mobile owner = m;
 
-				if (owner is BaseCreature)
+				if (owner is BaseCreature bc)
 				{
-					BaseCreature bc = (BaseCreature)owner;
-
 					Mobile master = bc.GetMaster();
 
 					if (master != null)
 						owner = master;
 				}
 
-				if (m.AccessLevel == AccessLevel.Player && owner is PlayerMobile && ((PlayerMobile)owner).DuelContext != m_DuelContext)
+				if (m.AccessLevel == AccessLevel.Player && owner is PlayerMobile pmOwner && pmOwner.DuelContext != m_DuelContext)
+				{
 					return false;
+				}
 			}
 
 			return base.CanSee(m);
@@ -3824,9 +3772,7 @@ namespace Server.Mobiles
 			{
 				for (int i = AllFollowers.Count - 1; i >= 0; i--)
 				{
-					BaseCreature c = AllFollowers[i] as BaseCreature;
-
-					if (c != null && c.ControlOrder == OrderType.Guard)
+					if (AllFollowers[i] is BaseCreature c && c.ControlOrder == OrderType.Guard)
 					{
 						list.Add(501129); // guarded
 						break;
@@ -4029,11 +3975,9 @@ namespace Server.Mobiles
 
 		public override void OnKillsChange(int oldValue)
 		{
-			if (this.Young && this.Kills > oldValue)
+			if (Young && Kills > oldValue)
 			{
-				Account acc = this.Account as Account;
-
-				if (acc != null)
+				if (Account is Account acc)
 					acc.RemoveYoungStatus(0);
 			}
 
@@ -4066,11 +4010,9 @@ namespace Server.Mobiles
 
 		public override void OnSkillChange(SkillName skill, double oldBase)
 		{
-			if (this.Young && this.SkillsTotal >= 4500)
+			if (Young && SkillsTotal >= 4500)
 			{
-				Account acc = this.Account as Account;
-
-				if (acc != null)
+				if (Account is Account acc)
 					acc.RemoveYoungStatus(1019036); // You have successfully obtained a respectable skill level, and have outgrown your status as a young player!
 			}
 
@@ -4099,8 +4041,8 @@ namespace Server.Mobiles
 		}
 
 		#region Fastwalk Prevention
-		private static bool FastwalkPrevention = true; // Is fastwalk prevention enabled?
-		private static int FastwalkThreshold = 400; // Fastwalk prevention will become active after 0.4 seconds
+		private static readonly bool FastwalkPrevention = true; // Is fastwalk prevention enabled?
+		private static readonly int FastwalkThreshold = 400; // Fastwalk prevention will become active after 0.4 seconds
 
 		private long m_NextMovementTime;
 		private bool m_HasMoved;
@@ -4131,9 +4073,7 @@ namespace Server.Mobiles
 
 		public static bool MovementThrottle_Callback(NetState ns)
 		{
-			PlayerMobile pm = ns.Mobile as PlayerMobile;
-
-			if (pm == null || !pm.UsesFastwalkPrevention)
+			if (ns.Mobile is not PlayerMobile pm || !pm.UsesFastwalkPrevention)
 				return true;
 
 			if (!pm.m_HasMoved)
@@ -4376,16 +4316,16 @@ namespace Server.Mobiles
 
 		public bool CheckYoungProtection(Mobile from)
 		{
-			if (!this.Young)
+			if (!Young)
 				return false;
 
-			if (Region is BaseRegion && !((BaseRegion)Region).YoungProtected)
+			if (Region is BaseRegion baseRegion && !baseRegion.YoungProtected)
 				return false;
 
-			if (from is BaseCreature && ((BaseCreature)from).IgnoreYoungProtection)
+			if (from is BaseCreature bc && bc.IgnoreYoungProtection)
 				return false;
 
-			if (this.Quest != null && this.Quest.IgnoreYoungProtection(from))
+			if (Quest != null && Quest.IgnoreYoungProtection(from))
 				return false;
 
 			if (DateTime.UtcNow - m_LastYoungMessage > TimeSpan.FromMinutes(1.0))
@@ -4410,7 +4350,7 @@ namespace Server.Mobiles
 			return false;
 		}
 
-		private static Point3D[] m_TrammelDeathDestinations = new Point3D[]
+		private static readonly Point3D[] m_TrammelDeathDestinations = new Point3D[]
 			{
 				new Point3D( 1481, 1612, 20 ),
 				new Point3D( 2708, 2153,  0 ),
@@ -4429,7 +4369,7 @@ namespace Server.Mobiles
 				new Point3D( 3665, 2587,  0 )
 			};
 
-		private static Point3D[] m_IlshenarDeathDestinations = new Point3D[]
+		private static readonly Point3D[] m_IlshenarDeathDestinations = new Point3D[]
 			{
 				new Point3D( 1216,  468, -13 ),
 				new Point3D(  723, 1367, -60 ),
@@ -4442,13 +4382,13 @@ namespace Server.Mobiles
 				new Point3D( 1722,  219,  96 )
 			};
 
-		private static Point3D[] m_MalasDeathDestinations = new Point3D[]
+		private static readonly Point3D[] m_MalasDeathDestinations = new Point3D[]
 			{
 				new Point3D( 2079, 1376, -70 ),
 				new Point3D(  944,  519, -71 )
 			};
 
-		private static Point3D[] m_TokunoDeathDestinations = new Point3D[]
+		private static readonly Point3D[] m_TokunoDeathDestinations = new Point3D[]
 			{
 				new Point3D( 1166,  801, 27 ),
 				new Point3D(  782, 1228, 25 ),
@@ -4698,9 +4638,7 @@ namespace Server.Mobiles
 			{
 				for (int i = m_AllFollowers.Count - 1; i >= 0; --i)
 				{
-					BaseCreature pet = AllFollowers[i] as BaseCreature;
-
-					if (pet == null || pet.ControlMaster == null)
+					if (AllFollowers[i] is not BaseCreature pet || pet.ControlMaster == null)
 						continue;
 
 					if (pet.Summoned)
@@ -4713,7 +4651,7 @@ namespace Server.Mobiles
 						continue;
 					}
 
-					if (pet is IMount && ((IMount)pet).Rider != null)
+					if (pet is IMount mount && mount.Rider != null)
 						continue;
 
 					if ((pet is PackLlama || pet is PackHorse || pet is Beetle) && (pet.Backpack != null && pet.Backpack.Items.Count > 0))

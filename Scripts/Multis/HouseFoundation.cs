@@ -499,9 +499,7 @@ namespace Server.Multis
 
 		public static void ApplyFoundation(FoundationType type, MultiComponentList mcl)
 		{
-			int east, south, post, corner;
-
-			GetFoundationGraphics(type, out east, out south, out post, out corner);
+			GetFoundationGraphics(type, out int east, out int south, out int post, out int corner);
 
 			int xCenter = mcl.Center.X;
 			int yCenter = mcl.Center.Y;
@@ -1681,7 +1679,7 @@ namespace Server.Multis
 		{
 			m_Foundation = foundation;
 			m_Components = components;
-			m_Fixtures = new MultiTileEntry[0];
+			m_Fixtures = Array.Empty<MultiTileEntry>();
 		}
 
 		public DesignState(DesignState toCopy)
@@ -1793,7 +1791,7 @@ namespace Server.Multis
 				m_Components.Add(mte.m_ItemID, mte.m_OffsetX, mte.m_OffsetY, mte.m_OffsetZ);
 			}
 
-			m_Fixtures = new MultiTileEntry[0];
+			m_Fixtures = Array.Empty<MultiTileEntry>();
 		}
 
 		public void MeltFixtures()
@@ -1972,8 +1970,7 @@ namespace Server.Multis
 			if (from == null)
 				return null;
 
-			DesignContext d;
-			m_Table.TryGetValue(from, out d);
+			m_Table.TryGetValue(from, out DesignContext d);
 
 			return d;
 		}
@@ -2417,8 +2414,10 @@ namespace Server.Multis
 			m_SendQueueSyncRoot = ((ICollection)m_SendQueue).SyncRoot;
 			m_Sync = new AutoResetEvent(false);
 
-			m_Thread = new Thread(new ThreadStart(CompressionThread));
-			m_Thread.Name = "Housing Compression Thread";
+			m_Thread = new Thread(new ThreadStart(CompressionThread))
+			{
+				Name = "Housing Compression Thread"
+			};
 			m_Thread.Start();
 		}
 

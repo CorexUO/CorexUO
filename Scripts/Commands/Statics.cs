@@ -189,8 +189,7 @@ namespace Server
 
 						foreach (DeltaState state in table.Values)
 						{
-							int oldTileCount;
-							StaticTile[] oldTiles = ReadStaticBlock(idxReader, mulStream, state.m_X, state.m_Y, matrix.BlockWidth, matrix.BlockHeight, out oldTileCount);
+							StaticTile[] oldTiles = ReadStaticBlock(idxReader, mulStream, state.m_X, state.m_Y, matrix.BlockWidth, matrix.BlockHeight, out int oldTileCount);
 
 							if (oldTileCount < 0)
 								continue;
@@ -358,8 +357,7 @@ namespace Server
 					{
 						for (int y = yStartBlock; y <= yEndBlock; ++y)
 						{
-							int oldTileCount;
-							StaticTile[] oldTiles = ReadStaticBlock(idxReader, mulStream, x, y, matrix.BlockWidth, matrix.BlockHeight, out oldTileCount);
+							StaticTile[] oldTiles = ReadStaticBlock(idxReader, mulStream, x, y, matrix.BlockWidth, matrix.BlockHeight, out int oldTileCount);
 
 							if (oldTileCount < 0)
 								continue;
@@ -384,9 +382,10 @@ namespace Server
 								{
 									++totalUnfrozen;
 
-									Item item = new Static(oldTile.ID);
-
-									item.Hue = oldTile.Hue;
+									Item item = new Static(oldTile.ID)
+									{
+										Hue = oldTile.Hue
+									};
 
 									item.MoveToWorld(new Point3D(px + xTileStart, py + yTileStart, oldTile.Z), map);
 								}

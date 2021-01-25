@@ -792,10 +792,11 @@ namespace Server.Engines.ConPVP
 
 		public void QueryRematch()
 		{
-			DuelContext dc = new DuelContext(m_Initiator, m_Ruleset.Layout, false);
-
-			dc.m_Ruleset = m_Ruleset;
-			dc.m_Rematch = true;
+			DuelContext dc = new DuelContext(m_Initiator, m_Ruleset.Layout, false)
+			{
+				m_Ruleset = m_Ruleset,
+				m_Rematch = true
+			};
 
 			dc.m_Participants.Clear();
 
