@@ -1509,7 +1509,7 @@ namespace Server
 		public bool StunReady { get; set; }
 
 		[CommandProperty(AccessLevel.GameMaster)]
-		public bool Frozen
+		public virtual bool Frozen
 		{
 			get
 			{
@@ -1531,7 +1531,7 @@ namespace Server
 			}
 		}
 
-		public void Paralyze(TimeSpan duration)
+		public virtual void Paralyze(TimeSpan duration)
 		{
 			if (!m_Paralyzed)
 			{
@@ -1542,7 +1542,7 @@ namespace Server
 			}
 		}
 
-		public void Freeze(TimeSpan duration)
+		public virtual void Freeze(TimeSpan duration)
 		{
 			if (!m_Frozen)
 			{
@@ -7386,7 +7386,7 @@ namespace Server
 		}
 
 		[CommandProperty(AccessLevel.GameMaster)]
-		public bool Warmode
+		public virtual bool Warmode
 		{
 			get
 			{
@@ -7435,7 +7435,7 @@ namespace Server
 		}
 
 		[CommandProperty(AccessLevel.GameMaster)]
-		public bool Hidden
+		public virtual bool Hidden
 		{
 			get
 			{
