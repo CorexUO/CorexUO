@@ -4049,7 +4049,7 @@ namespace Server
 				else if (item.Parent is Mobile)
 					state.Send(new EquipUpdate(item));
 				else
-					item.SendInfoTo(state);
+					item.ReplicateTo(state);
 
 				if (ObjectPropertyList.Enabled && item.Parent != null)
 					state.Send(item.OPLPacket);
@@ -6296,7 +6296,7 @@ namespace Server
 					if (o is Item item)
 					{
 						if (CanSee(item) && InRange(item.Location, item.GetUpdateRange(this)))
-							item.SendInfoTo(ns);
+							item.ReplicateTo(ns);
 					}
 					else if (o is Mobile m)
 					{
@@ -8522,7 +8522,7 @@ namespace Server
 								Point3D loc = item.Location;
 
 								if (!Utility.InRange(oldLocation, loc, range) && Utility.InRange(newLocation, loc, range) && CanSee(item))
-									item.SendInfoTo(ourState);
+									item.ReplicateTo(ourState);
 							}
 							else if (o != this && o is Mobile)
 							{

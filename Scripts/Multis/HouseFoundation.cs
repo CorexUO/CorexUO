@@ -672,14 +672,14 @@ namespace Server.Multis
 
 			NetState ns = m.NetState;
 			if (ns != null)
-				SendInfoTo(ns);
+				ReplicateTo(ns);
 
 			DesignState.SendDetailedInfoTo(ns);
 		}
 
-		public override void SendInfoTo(NetState state, bool sendOplPacket)
+		public override void ReplicateTo(NetState state, bool sendOplPacket)
 		{
-			base.SendInfoTo(state, sendOplPacket);
+			base.ReplicateTo(state, sendOplPacket);
 
 			DesignContext context = DesignContext.Find(state.Mobile);
 			DesignState stateToSend;
@@ -822,7 +822,7 @@ namespace Server.Multis
 				newDesign.OnRevised();
 
 				// Update client with new state
-				context.Foundation.SendInfoTo(state);
+				context.Foundation.ReplicateTo(state);
 				newDesign.SendDetailedInfoTo(state);
 			}
 		}
@@ -852,7 +852,7 @@ namespace Server.Multis
 				backupDesign.OnRevised();
 
 				// Update client with new state
-				context.Foundation.SendInfoTo(state);
+				context.Foundation.ReplicateTo(state);
 				backupDesign.SendDetailedInfoTo(state);
 			}
 		}
@@ -910,7 +910,7 @@ namespace Server.Multis
 				copyState.OnRevised();
 
 				// Update client with new state
-				context.Foundation.SendInfoTo(state);
+				context.Foundation.ReplicateTo(state);
 				copyState.SendDetailedInfoTo(state);
 			}
 		}
@@ -1498,7 +1498,7 @@ namespace Server.Multis
 				from.Send(new EndHouseCustomization(context.Foundation));
 
 				// Refresh client with current visible design state
-				context.Foundation.SendInfoTo(state);
+				context.Foundation.ReplicateTo(state);
 				context.Foundation.CurrentState.SendDetailedInfoTo(state);
 
 				// If a signpost is needed, add it
@@ -1548,7 +1548,7 @@ namespace Server.Multis
 				from.Location = new Point3D(from.X, from.Y, context.Foundation.Z + GetLevelZ(newLevel, context.Foundation));
 
 				// Update client
-				context.Foundation.SendInfoTo(state);
+				context.Foundation.ReplicateTo(state);
 			}
 		}
 
@@ -2058,17 +2058,17 @@ namespace Server.Multis
 			{
 				Item item = fixtures[i];
 
-				item.SendInfoTo(state);
+				item.ReplicateTo(state);
 			}
 
 			if (context.Foundation.Signpost != null)
-				context.Foundation.Signpost.SendInfoTo(state);
+				context.Foundation.Signpost.ReplicateTo(state);
 
 			if (context.Foundation.SignHanger != null)
-				context.Foundation.SignHanger.SendInfoTo(state);
+				context.Foundation.SignHanger.ReplicateTo(state);
 
 			if (context.Foundation.Sign != null)
-				context.Foundation.Sign.SendInfoTo(state);
+				context.Foundation.Sign.ReplicateTo(state);
 		}
 	}
 

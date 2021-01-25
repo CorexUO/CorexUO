@@ -545,7 +545,7 @@ namespace Server
 		public static readonly List<Item> EmptyItems = new List<Item>();
 
 		//Default hue color for item messages
-		public readonly static int DefaultDisplayColor = 0x3B2;
+		public static readonly int DefaultDisplayColor = 0x3B2;
 
 		[CommandProperty(AccessLevel.Counselor, true)]
 		public virtual int DisplayColor { get { return DefaultDisplayColor; } }
@@ -555,24 +555,23 @@ namespace Server
 			if (other == null)
 				return -1;
 
-			return m_Serial.CompareTo(other.Serial);
+			return Serial.CompareTo(other.Serial);
 		}
 
 		public int CompareTo(Item other)
 		{
-			return this.CompareTo((IEntity)other);
+			return CompareTo((IEntity)other);
 		}
 
 		public int CompareTo(object other)
 		{
 			if (other == null || other is IEntity)
-				return this.CompareTo((IEntity)other);
+				return CompareTo((IEntity)other);
 
 			throw new ArgumentException();
 		}
 
 		#region Standard fields
-		private Serial m_Serial;
 		private Point3D m_Location;
 		private int m_ItemID;
 		private int m_Hue;
@@ -581,7 +580,6 @@ namespace Server
 		private IEntity m_Parent; // Mobile, Item, or null=World
 		private Map m_Map;
 		private LootType m_LootType;
-		private DateTime m_LastMovedTime;
 		private Direction m_Direction;
 		#endregion
 
@@ -1141,7 +1139,7 @@ namespace Server
 				else if (parent is Item p)
 				{
 					IEntity root = p.RootParent;
-					if (p.IsAccessibleTo(from) && (!(root is Mobile) || ((Mobile)root).CheckNonlocalDrop(from, this, p)))
+					if (p.IsAccessibleTo(from) && (root is not Mobile mobile || mobile.CheckNonlocalDrop(from, this, p)))
 					{
 						Location = bounce.m_Location;
 						p.AddItem(this);
@@ -1245,18 +1243,18 @@ namespace Server
 
 		public virtual void GetChildContextMenuEntries(Mobile from, List<ContextMenuEntry> list, Item item)
 		{
-			if (m_Parent is Item)
-				((Item)m_Parent).GetChildContextMenuEntries(from, list, item);
-			else if (m_Parent is Mobile)
-				((Mobile)m_Parent).GetChildContextMenuEntries(from, list, item);
+			if (m_Parent is Item item1)
+				item1.GetChildContextMenuEntries(from, list, item);
+			else if (m_Parent is Mobile mobile)
+				mobile.GetChildContextMenuEntries(from, list, item);
 		}
 
 		public virtual void GetContextMenuEntries(Mobile from, List<ContextMenuEntry> list)
 		{
-			if (m_Parent is Item)
-				((Item)m_Parent).GetChildContextMenuEntries(from, list, this);
-			else if (m_Parent is Mobile)
-				((Mobile)m_Parent).GetChildContextMenuEntries(from, list, this);
+			if (m_Parent is Item item)
+				item.GetChildContextMenuEntries(from, list, this);
+			else if (m_Parent is Mobile mobile)
+				mobile.GetChildContextMenuEntries(from, list, this);
 		}
 
 		public virtual bool VerifyMove(Mobile from)
@@ -1306,27 +1304,27 @@ namespace Server
 
 		public void LabelTo(Mobile to, int number)
 		{
-			to.Send(new MessageLocalized(m_Serial, m_ItemID, MessageType.Label, DisplayColor, 3, number, "", ""));
+			to.Send(new MessageLocalized(Serial, m_ItemID, MessageType.Label, DisplayColor, 3, number, "", ""));
 		}
 
 		public void LabelTo(Mobile to, int hue, int number)
 		{
-			to.Send(new MessageLocalized(m_Serial, m_ItemID, MessageType.Label, hue, 3, number, "", ""));
+			to.Send(new MessageLocalized(Serial, m_ItemID, MessageType.Label, hue, 3, number, "", ""));
 		}
 
 		public void LabelTo(Mobile to, int number, string args)
 		{
-			to.Send(new MessageLocalized(m_Serial, m_ItemID, MessageType.Label, DisplayColor, 3, number, "", args));
+			to.Send(new MessageLocalized(Serial, m_ItemID, MessageType.Label, DisplayColor, 3, number, "", args));
 		}
 
 		public void LabelTo(Mobile to, int hue, int number, string args)
 		{
-			to.Send(new MessageLocalized(m_Serial, m_ItemID, MessageType.Label, hue, 3, number, "", args));
+			to.Send(new MessageLocalized(Serial, m_ItemID, MessageType.Label, hue, 3, number, "", args));
 		}
 
 		public void LabelTo(Mobile to, string text)
 		{
-			to.Send(new UnicodeMessage(m_Serial, m_ItemID, MessageType.Label, DisplayColor, 3, "ENU", "", text));
+			to.Send(new UnicodeMessage(Serial, m_ItemID, MessageType.Label, DisplayColor, 3, "ENU", "", text));
 		}
 
 		public void LabelTo(Mobile to, string format, params object[] args)
@@ -1336,22 +1334,22 @@ namespace Server
 
 		public void LabelToAffix(Mobile to, int number, AffixType type, string affix)
 		{
-			to.Send(new MessageLocalizedAffix(m_Serial, m_ItemID, MessageType.Label, DisplayColor, 3, number, "", type, affix, ""));
+			to.Send(new MessageLocalizedAffix(Serial, m_ItemID, MessageType.Label, DisplayColor, 3, number, "", type, affix, ""));
 		}
 
 		public void LabelToAffix(Mobile to, int hue, int number, AffixType type, string affix)
 		{
-			to.Send(new MessageLocalizedAffix(m_Serial, m_ItemID, MessageType.Label, hue, 3, number, "", type, affix, ""));
+			to.Send(new MessageLocalizedAffix(Serial, m_ItemID, MessageType.Label, hue, 3, number, "", type, affix, ""));
 		}
 
 		public void LabelToAffix(Mobile to, int number, AffixType type, string affix, string args)
 		{
-			to.Send(new MessageLocalizedAffix(m_Serial, m_ItemID, MessageType.Label, DisplayColor, 3, number, "", type, affix, args));
+			to.Send(new MessageLocalizedAffix(Serial, m_ItemID, MessageType.Label, DisplayColor, 3, number, "", type, affix, args));
 		}
 
 		public void LabelToAffix(Mobile to, int hue, int number, AffixType type, string affix, string args)
 		{
-			to.Send(new MessageLocalizedAffix(m_Serial, m_ItemID, MessageType.Label, hue, 3, number, "", type, affix, args));
+			to.Send(new MessageLocalizedAffix(Serial, m_ItemID, MessageType.Label, hue, 3, number, "", type, affix, args));
 		}
 
 		public virtual void LabelLootTypeTo(Mobile to)
@@ -1385,10 +1383,10 @@ namespace Server
 
 			SetLastMoved();
 
-			if (Parent is Mobile)
-				((Mobile)Parent).RemoveItem(this);
-			else if (Parent is Item)
-				((Item)Parent).RemoveItem(this);
+			if (Parent is Mobile mobile)
+				mobile.RemoveItem(this);
+			else if (Parent is Item item)
+				item.RemoveItem(this);
 
 			if (m_Map != map)
 			{
@@ -1445,7 +1443,7 @@ namespace Server
 						Mobile m = state.Mobile;
 
 						if (m.CanSee(this) && m.InRange(m_Location, GetUpdateRange(m)))
-							SendInfoTo(state);
+							ReplicateTo(state);
 					}
 
 					eable.Free();
@@ -1491,7 +1489,7 @@ namespace Server
 					Mobile m = state.Mobile;
 
 					if (m.CanSee(this) && m.InRange(m_Location, GetUpdateRange(m)))
-						SendInfoTo(state);
+						ReplicateTo(state);
 				}
 
 				eable.Free();
@@ -1561,20 +1559,10 @@ namespace Server
 
 		public void SetLastMoved()
 		{
-			m_LastMovedTime = DateTime.UtcNow;
+			LastMoved = DateTime.UtcNow;
 		}
 
-		public DateTime LastMoved
-		{
-			get
-			{
-				return m_LastMovedTime;
-			}
-			set
-			{
-				m_LastMovedTime = value;
-			}
-		}
+		public DateTime LastMoved { get; set; }
 
 		public bool StackWith(Mobile from, Item dropped)
 		{
@@ -1769,9 +1757,9 @@ namespace Server
 			}
 		}
 
-		private object _wpl = new object();
-		private object _wplsa = new object();
-		private object _wplhs = new object();
+		private readonly object _wpl = new object();
+		private readonly object _wplsa = new object();
+		private readonly object _wplhs = new object();
 
 		public Packet WorldPacket
 		{
@@ -2044,7 +2032,7 @@ namespace Server
 
 		int ISerializable.SerialIdentity
 		{
-			get { return m_Serial; }
+			get { return Serial; }
 		}
 
 		public virtual void Serialize(GenericWriter writer)
@@ -2137,7 +2125,7 @@ namespace Server
 			writer.Write((int)flags);
 
 			/* begin last moved time optimization */
-			long ticks = m_LastMovedTime.Ticks;
+			long ticks = LastMoved.Ticks;
 			long now = DateTime.UtcNow.Ticks;
 
 			TimeSpan d;
@@ -2548,20 +2536,20 @@ namespace Server
 
 		public virtual int GetMaxUpdateRange()
 		{
-			return 18;
+			return Map.GlobalMaxUpdateRange;
 		}
 
 		public virtual int GetUpdateRange(Mobile m)
 		{
-			return 18;
+			return Map.GlobalUpdateRange;
 		}
 
-		public void SendInfoTo(NetState state)
+		public void ReplicateTo(NetState state)
 		{
-			SendInfoTo(state, ObjectPropertyList.Enabled);
+			ReplicateTo(state, ObjectPropertyList.Enabled);
 		}
 
-		public virtual void SendInfoTo(NetState state, bool sendOplPacket)
+		public virtual void ReplicateTo(NetState state, bool sendOplPacket)
 		{
 			state.Send(GetWorldPacketFor(state));
 
@@ -2574,11 +2562,11 @@ namespace Server
 		protected virtual Packet GetWorldPacketFor(NetState state)
 		{
 			if (state.HighSeas)
-				return this.WorldPacketHS;
+				return WorldPacketHS;
 			else if (state.StygianAbyss)
-				return this.WorldPacketSA;
+				return WorldPacketSA;
 			else
-				return this.WorldPacket;
+				return WorldPacket;
 		}
 
 		public virtual bool IsVirtualItem { get { return false; } }
@@ -2860,7 +2848,7 @@ namespace Server
 			OnItemAdded(item);
 		}
 
-		private static List<Item> m_DeltaQueue = new List<Item>();
+		private static readonly List<Item> m_DeltaQueue = new List<Item>();
 
 		public void Delta(ItemDelta flags)
 		{
@@ -2877,12 +2865,10 @@ namespace Server
 				{
 					try
 					{
-						using (StreamWriter op = new StreamWriter("delta-recursion.log", true))
-						{
-							op.WriteLine("# {0}", DateTime.UtcNow);
-							op.WriteLine(new System.Diagnostics.StackTrace());
-							op.WriteLine();
-						}
+						using StreamWriter op = new StreamWriter("delta-recursion.log", true);
+						op.WriteLine("# {0}", DateTime.UtcNow);
+						op.WriteLine(new System.Diagnostics.StackTrace());
+						op.WriteLine();
 					}
 					catch { }
 				}
@@ -2907,12 +2893,10 @@ namespace Server
 				{
 					try
 					{
-						using (StreamWriter op = new StreamWriter("delta-recursion.log", true))
-						{
-							op.WriteLine("# {0}", DateTime.UtcNow);
-							op.WriteLine(new System.Diagnostics.StackTrace());
-							op.WriteLine();
-						}
+						using StreamWriter op = new StreamWriter("delta-recursion.log", true);
+						op.WriteLine("# {0}", DateTime.UtcNow);
+						op.WriteLine(new System.Diagnostics.StackTrace());
+						op.WriteLine();
 					}
 					catch { }
 				}
@@ -2923,13 +2907,7 @@ namespace Server
 			}
 		}
 
-		private bool m_NoMoveHS;
-
-		public bool NoMoveHS
-		{
-			get { return m_NoMoveHS; }
-			set { m_NoMoveHS = value; }
-		}
+		public bool NoMoveHS { get; set; }
 
 		public void ProcessDelta()
 		{
@@ -2944,9 +2922,7 @@ namespace Server
 			{
 				bool sendOPLUpdate = ObjectPropertyList.Enabled && (flags & ItemDelta.Properties) != 0;
 
-				Container contParent = m_Parent as Container;
-
-				if (contParent != null && !contParent.IsPublicContainer)
+				if (m_Parent is Container contParent && !contParent.IsPublicContainer)
 				{
 					if ((flags & ItemDelta.Update) != 0)
 					{
@@ -2974,7 +2950,7 @@ namespace Server
 							}
 						}
 
-						SecureTradeContainer stc = this.GetSecureTradeCont();
+						SecureTradeContainer stc = GetSecureTradeCont();
 
 						if (stc != null)
 						{
@@ -3075,7 +3051,7 @@ namespace Server
 						{
 							if (m_Parent == null)
 							{
-								SendInfoTo(state, ObjectPropertyList.Enabled);
+								ReplicateTo(state, ObjectPropertyList.Enabled);
 							}
 							else
 							{
@@ -3273,9 +3249,9 @@ namespace Server
 						if (p == null)
 						{
 							if (ascii)
-								p = new AsciiMessage(m_Serial, m_ItemID, type, hue, 3, this.Name, text);
+								p = new AsciiMessage(Serial, m_ItemID, type, hue, 3, this.Name, text);
 							else
-								p = new UnicodeMessage(m_Serial, m_ItemID, type, hue, 3, "ENU", this.Name, text);
+								p = new UnicodeMessage(Serial, m_ItemID, type, hue, 3, "ENU", this.Name, text);
 
 							p.Acquire();
 						}
@@ -3311,7 +3287,7 @@ namespace Server
 					if (m.CanSee(this) && m.InRange(worldLoc, GetUpdateRange(m)))
 					{
 						if (p == null)
-							p = Packet.Acquire(new MessageLocalized(m_Serial, m_ItemID, type, hue, 3, number, this.Name, args));
+							p = Packet.Acquire(new MessageLocalized(Serial, m_ItemID, type, hue, 3, number, this.Name, args));
 
 						state.Send(p);
 					}
@@ -3404,13 +3380,7 @@ namespace Server
 		public virtual int EnergyResistance { get { return 0; } }
 
 		[CommandProperty(AccessLevel.Counselor)]
-		public Serial Serial
-		{
-			get
-			{
-				return m_Serial;
-			}
-		}
+		public Serial Serial { get; }
 
 		#region Location Location Location!
 
@@ -3466,8 +3436,8 @@ namespace Server
 							{
 								Mobile m = state.Mobile;
 
-								if (m.CanSee(this) && m.InRange(m_Location, GetUpdateRange(m)) && (!state.HighSeas || !m_NoMoveHS || (m_DeltaFlags & ItemDelta.Update) != 0 || !m.InRange(oldLoc, GetUpdateRange(m))))
-									SendInfoTo(state);
+								if (m.CanSee(this) && m.InRange(m_Location, GetUpdateRange(m)) && (!state.HighSeas || !NoMoveHS || (m_DeltaFlags & ItemDelta.Update) != 0 || !m.InRange(oldLoc, GetUpdateRange(m))))
+									ReplicateTo(state);
 							}
 
 							eable.Free();
@@ -3689,7 +3659,7 @@ namespace Server
 						InvalidateProperties();
 
 					if (!Stackable && m_Amount > 1)
-						Console.WriteLine("Warning: 0x{0:X}: Amount changed for non-stackable item '{2}'. ({1})", m_Serial.Value, m_Amount, GetType().Name);
+						Console.WriteLine("Warning: 0x{0:X}: Amount changed for non-stackable item '{2}'. ({1})", Serial.Value, m_Amount, GetType().Name);
 				}
 			}
 		}
@@ -3782,7 +3752,7 @@ namespace Server
 				return false;
 			else if (!target.IsAccessibleTo(from))
 				return false;
-			else if (root is Mobile && !((Mobile)root).CheckNonlocalDrop(from, this, target))
+			else if (root is Mobile mobile && !mobile.CheckNonlocalDrop(from, this, target))
 				return false;
 			else if (!from.OnDroppedItemToItem(this, target, p))
 				return false;
@@ -4348,10 +4318,10 @@ namespace Server
 
 		public virtual void OnAosSingleClick(Mobile from)
 		{
-			ObjectPropertyList opl = this.PropertyList;
+			ObjectPropertyList opl = PropertyList;
 
 			if (opl.Header > 0)
-				from.Send(new MessageLocalized(m_Serial, m_ItemID, MessageType.Label, DisplayColor, 3, opl.Header, this.Name, opl.HeaderArgs));
+				from.Send(new MessageLocalized(Serial, m_ItemID, MessageType.Label, DisplayColor, 3, opl.Header, this.Name, opl.HeaderArgs));
 		}
 
 		public virtual void OnSingleClick(Mobile from)
@@ -4366,27 +4336,21 @@ namespace Server
 
 			if (ns != null)
 			{
-				if (this.Name == null)
+				if (Name == null)
 				{
 					if (m_Amount <= 1)
-						ns.Send(new MessageLocalized(m_Serial, m_ItemID, MessageType.Label, DisplayColor, 3, LabelNumber, "", ""));
+						ns.Send(new MessageLocalized(Serial, m_ItemID, MessageType.Label, DisplayColor, 3, LabelNumber, "", ""));
 					else
-						ns.Send(new MessageLocalizedAffix(m_Serial, m_ItemID, MessageType.Label, DisplayColor, 3, LabelNumber, "", AffixType.Append, String.Format(" : {0}", m_Amount), ""));
+						ns.Send(new MessageLocalizedAffix(Serial, m_ItemID, MessageType.Label, DisplayColor, 3, LabelNumber, "", AffixType.Append, string.Format(" : {0}", m_Amount), ""));
 				}
 				else
 				{
-					ns.Send(new UnicodeMessage(m_Serial, m_ItemID, MessageType.Label, DisplayColor, 3, "ENU", "", this.Name + (m_Amount > 1 ? " : " + m_Amount : "")));
+					ns.Send(new UnicodeMessage(Serial, m_ItemID, MessageType.Label, DisplayColor, 3, "ENU", "", Name + (m_Amount > 1 ? " : " + m_Amount : "")));
 				}
 			}
 		}
 
-		private static bool m_ScissorCopyLootType;
-
-		public static bool ScissorCopyLootType
-		{
-			get { return m_ScissorCopyLootType; }
-			set { m_ScissorCopyLootType = value; }
-		}
+		public static bool ScissorCopyLootType { get; set; }
 
 		public virtual void ScissorHelper(Mobile from, Item newItem, int amountPerOldItem)
 		{
@@ -4403,10 +4367,10 @@ namespace Server
 			Amount -= amount;
 
 			int ourHue = Hue;
-			Map thisMap = this.Map;
-			IEntity thisParent = this.m_Parent;
-			Point3D worldLoc = this.GetWorldLocation();
-			LootType type = this.LootType;
+			Map thisMap = Map;
+			IEntity thisParent = m_Parent;
+			Point3D worldLoc = GetWorldLocation();
+			LootType type = LootType;
 
 			if (Amount == 0)
 				Delete();
@@ -4416,10 +4380,10 @@ namespace Server
 			if (carryHue)
 				newItem.Hue = ourHue;
 
-			if (m_ScissorCopyLootType)
+			if (ScissorCopyLootType)
 				newItem.LootType = type;
 
-			if (!(thisParent is Container container) || !container.TryDropItem(from, newItem, false))
+			if (thisParent is not Container container || !container.TryDropItem(from, newItem, false))
 				newItem.MoveToWorld(worldLoc, thisMap);
 		}
 
@@ -4430,10 +4394,10 @@ namespace Server
 
 		public virtual void Consume(int amount)
 		{
-			this.Amount -= amount;
+			Amount -= amount;
 
-			if (this.Amount <= 0)
-				this.Delete();
+			if (Amount <= 0)
+				Delete();
 		}
 
 		public virtual void ReplaceWith(Item newItem)
@@ -4513,7 +4477,7 @@ namespace Server
 			if (m_LootType == LootType.Blessed || (Mobile.InsuranceEnabled && Insured))
 				return true;
 
-			return (m != null && m == this.BlessedFor);
+			return m != null && m == BlessedFor;
 		}
 
 		public virtual bool CheckNewbied()
@@ -4526,7 +4490,7 @@ namespace Server
 			if (Mobile.InsuranceEnabled && Insured)
 				return false;
 
-			if (this.BlessedFor != null)
+			if (BlessedFor != null)
 				return false;
 
 			return (m_LootType == LootType.Regular);
@@ -4534,14 +4498,14 @@ namespace Server
 
 		public override string ToString()
 		{
-			return String.Format("0x{0:X} \"{1}\"", m_Serial.Value, GetType().Name);
+			return String.Format("0x{0:X} \"{1}\"", Serial.Value, GetType().Name);
 		}
 
 		internal int m_TypeRef;
 
 		public Item()
 		{
-			m_Serial = Serial.NewItem;
+			Serial = Serial.NewItem;
 
 			//m_Items = new ArrayList( 1 );
 			Visible = true;
@@ -4553,7 +4517,7 @@ namespace Server
 
 			World.AddItem(this);
 
-			Type ourType = this.GetType();
+			Type ourType = GetType();
 			m_TypeRef = World.m_ItemTypes.IndexOf(ourType);
 
 			if (m_TypeRef == -1)
@@ -4573,9 +4537,9 @@ namespace Server
 
 		public Item(Serial serial)
 		{
-			m_Serial = serial;
+			Serial = serial;
 
-			Type ourType = this.GetType();
+			Type ourType = GetType();
 			m_TypeRef = World.m_ItemTypes.IndexOf(ourType);
 
 			if (m_TypeRef == -1)

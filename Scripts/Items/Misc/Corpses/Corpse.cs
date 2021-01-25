@@ -793,9 +793,9 @@ namespace Server.Items
 			return m_Devourer.Devour(this); // Devour the corpse if it hasn't
 		}
 
-		public override void SendInfoTo(NetState state, bool sendOplPacket)
+		public override void ReplicateTo(NetState state, bool sendOplPacket)
 		{
-			base.SendInfoTo(state, sendOplPacket);
+			base.ReplicateTo(state, sendOplPacket);
 
 			if (((Body)Amount).IsHuman && ItemID == 0x2006)
 			{
