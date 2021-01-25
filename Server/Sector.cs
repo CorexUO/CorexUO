@@ -32,8 +32,6 @@ namespace Server
 
 	public class Sector
 	{
-		private int m_X, m_Y;
-		private Map m_Owner;
 		private List<Mobile> m_Mobiles;
 		private List<Mobile> m_Players;
 		private List<Item> m_Items;
@@ -43,21 +41,21 @@ namespace Server
 		private bool m_Active;
 
 		// TODO: Can we avoid this?
-		private static List<Mobile> m_DefaultMobileList = new List<Mobile>();
-		private static List<Item> m_DefaultItemList = new List<Item>();
-		private static List<NetState> m_DefaultClientList = new List<NetState>();
-		private static List<BaseMulti> m_DefaultMultiList = new List<BaseMulti>();
-		private static List<RegionRect> m_DefaultRectList = new List<RegionRect>();
+		private static readonly List<Mobile> m_DefaultMobileList = new List<Mobile>();
+		private static readonly List<Item> m_DefaultItemList = new List<Item>();
+		private static readonly List<NetState> m_DefaultClientList = new List<NetState>();
+		private static readonly List<BaseMulti> m_DefaultMultiList = new List<BaseMulti>();
+		private static readonly List<RegionRect> m_DefaultRectList = new List<RegionRect>();
 
 		public Sector(int x, int y, Map owner)
 		{
-			m_X = x;
-			m_Y = y;
-			m_Owner = owner;
+			X = x;
+			Y = y;
+			Owner = owner;
 			m_Active = false;
 		}
 
-		private void Add<T>(ref List<T> list, T value)
+		private static void Add<T>(ref List<T> list, T value)
 		{
 			if (list == null)
 			{
@@ -67,7 +65,7 @@ namespace Server
 			list.Add(value);
 		}
 
-		private void Remove<T>(ref List<T> list, T value)
+		private static void Remove<T>(ref List<T> list, T value)
 		{
 			if (list != null)
 			{
@@ -80,7 +78,7 @@ namespace Server
 			}
 		}
 
-		private void Replace<T>(ref List<T> list, T oldValue, T newValue)
+		private static void Replace<T>(ref List<T> list, T oldValue, T newValue)
 		{
 			if (oldValue != null && newValue != null)
 			{
@@ -133,7 +131,7 @@ namespace Server
 			{
 				if (m_Players == null)
 				{
-					m_Owner.ActivateSectors(m_X, m_Y);
+					Owner.ActivateSectors(X, Y);
 				}
 
 				Add(ref m_Players, mob);
@@ -155,7 +153,7 @@ namespace Server
 
 				if (m_Players == null)
 				{
-					m_Owner.DeactivateSectors(m_X, m_Y);
+					Owner.DeactivateSectors(X, Y);
 				}
 			}
 		}
@@ -217,7 +215,7 @@ namespace Server
 
 		public void Activate()
 		{
-			if (!Active && m_Owner != Map.Internal)
+			if (!Active && Owner != Map.Internal)
 			{
 				if (m_Items != null)
 				{
@@ -333,32 +331,14 @@ namespace Server
 		{
 			get
 			{
-				return (m_Active && m_Owner != Map.Internal);
+				return (m_Active && Owner != Map.Internal);
 			}
 		}
 
-		public Map Owner
-		{
-			get
-			{
-				return m_Owner;
-			}
-		}
+		public Map Owner { get; }
 
-		public int X
-		{
-			get
-			{
-				return m_X;
-			}
-		}
+		public int X { get; }
 
-		public int Y
-		{
-			get
-			{
-				return m_Y;
-			}
-		}
+		public int Y { get; }
 	}
 }

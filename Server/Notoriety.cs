@@ -16,7 +16,7 @@ namespace Server
 		public static NotorietyHandler Handler { get; set; }
 		public static CorpseNotorietyHandler CorpseHandler { get; set; }
 
-		private static int[] m_Hues = new int[]
+		public static int[] Hues { get; set; } = new int[]
 			{
 				0x000,
 				0x059,
@@ -28,18 +28,12 @@ namespace Server
 				0x035
 			};
 
-		public static int[] Hues
-		{
-			get { return m_Hues; }
-			set { m_Hues = value; }
-		}
-
 		public static int GetHue(int noto)
 		{
-			if (noto < 0 || noto >= m_Hues.Length)
+			if (noto < 0 || noto >= Hues.Length)
 				return 0;
 
-			return m_Hues[noto];
+			return Hues[noto];
 		}
 
 		public static int Compute(Mobile source, Mobile target)

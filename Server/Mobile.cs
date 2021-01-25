@@ -3014,13 +3014,13 @@ namespace Server
 				{
 					IEntity o = m_MoveList[i];
 
-					if (o is Mobile)
+					if (o is Mobile mob)
 					{
-						((Mobile)o).OnMovement(this, oldLocation);
+						mob.OnMovement(this, oldLocation);
 					}
-					else if (o is Item)
+					else if (o is Item item)
 					{
-						((Item)o).OnMovement(this, oldLocation);
+						item.OnMovement(this, oldLocation);
 					}
 				}
 
@@ -3612,15 +3612,6 @@ namespace Server
 
 			Container c = (m_CreateCorpse == null ? null : m_CreateCorpse(this, hair, facialhair, content, equip));
 
-
-			/*m_Corpse = c;
-
-			for ( int i = 0; c != null && i < content.Count; ++i )
-				c.DropItem( (Item)content[i] );
-
-			if ( c != null )
-				c.MoveToWorld( this.Location, this.Map );*/
-
 			if (m_Map != null)
 			{
 				Packet animPacket = null;
@@ -3692,10 +3683,11 @@ namespace Server
 				//Body = this.Female ? 0x193 : 0x192;
 				Body = Race.GhostBody(this);
 
-				Item deathShroud = new Item(0x204E);
-
-				deathShroud.Movable = false;
-				deathShroud.Layer = Layer.OuterTorso;
+				Item deathShroud = new Item(0x204E)
+				{
+					Movable = false,
+					Layer = Layer.OuterTorso
+				};
 
 				AddItem(deathShroud);
 
@@ -3782,7 +3774,7 @@ namespace Server
 
 		private class AutoManifestTimer : Timer
 		{
-			private Mobile m_Mobile;
+			private readonly Mobile m_Mobile;
 
 			public AutoManifestTimer(Mobile m, TimeSpan delay)
 				: base(delay)
@@ -3836,7 +3828,7 @@ namespace Server
 				okay = false;
 			else if (!item.CheckItemUse(this, item))
 				okay = false;
-			else if (root != null && root is Mobile && ((Mobile)root).IsSnoop(this))
+			else if (root != null && root is Mobile mob && mob.IsSnoop(this))
 				item.OnSnoop(this);
 			else if (Region.OnDoubleClick(this, item))
 				okay = true;
@@ -3924,7 +3916,7 @@ namespace Server
 					{
 						object root = item.RootParent;
 
-						if (root != null && root is Mobile && !((Mobile)root).CheckNonlocalLift(from, item))
+						if (root != null && root is Mobile mob && !mob.CheckNonlocalLift(from, item))
 						{
 							reject = LRReason.TryToSteal;
 						}
@@ -9357,12 +9349,10 @@ namespace Server
 
 						try
 						{
-							using (StreamWriter op = new StreamWriter("delta-recursion.log", true))
-							{
-								op.WriteLine("# {0}", DateTime.UtcNow);
-								op.WriteLine(new System.Diagnostics.StackTrace());
-								op.WriteLine();
-							}
+							using StreamWriter op = new StreamWriter("delta-recursion.log", true);
+							op.WriteLine("# {0}", DateTime.UtcNow);
+							op.WriteLine(new System.Diagnostics.StackTrace());
+							op.WriteLine();
 						}
 						catch { }
 					}
@@ -10303,9 +10293,7 @@ namespace Server
 			EventSink.InvokePaperdollRequest(new PaperdollRequestEventArgs(to, this));
 		}
 
-		private static bool m_DisableDismountInWarmode;
-
-		public static bool DisableDismountInWarmode { get { return m_DisableDismountInWarmode; } set { m_DisableDismountInWarmode = value; } }
+		public static bool DisableDismountInWarmode { get; set; }
 
 		#region OnDoubleClick[..]
 
@@ -10316,7 +10304,7 @@ namespace Server
 		/// </summary>
 		public virtual void OnDoubleClick(Mobile from)
 		{
-			if (this == from && (!m_DisableDismountInWarmode || !m_Warmode))
+			if (this == from && (!DisableDismountInWarmode || !m_Warmode))
 			{
 				IMount mount = Mount;
 
@@ -10424,6 +10412,19 @@ namespace Server
 		[CommandProperty(AccessLevel.GameMaster)]
 		public bool Mounted => Mount != null;
 
+		public virtual bool Dismount()
+		{
+			bool dismounted = false;
+			IMount mount = Mount;
+
+			if (mount != null)
+			{
+				mount.Rider = null;
+				dismounted = true;
+			}
+
+			return dismounted;
+		}
 		private QuestArrow m_QuestArrow;
 
 		public QuestArrow QuestArrow

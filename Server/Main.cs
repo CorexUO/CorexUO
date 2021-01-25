@@ -428,7 +428,7 @@ namespace Server
 				Directory.SetCurrentDirectory(BaseDirectory);
 
 			Timer.TimerThread ttObj = new Timer.TimerThread();
-			timerThread = new Thread(ttObj.TimerMain)
+			timerThread = new Thread(Timer.TimerThread.TimerMain)
 			{
 				Name = "Timer Thread"
 			};
@@ -497,7 +497,7 @@ namespace Server
 			timerThread.Start();
 
 			foreach (Map m in Map.AllMaps)
-				m.Tiles.Force();
+				TileMatrix.Force();
 
 			NetState.Initialize();
 

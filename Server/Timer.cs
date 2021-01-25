@@ -144,8 +144,7 @@ namespace Server
 
 						var key = t.ToString();
 
-						List<Timer> list;
-						hash.TryGetValue(key, out list);
+						hash.TryGetValue(key, out List<Timer> list);
 
 						if (list == null)
 						{
@@ -299,7 +298,7 @@ namespace Server
 				m_Signal.Set();
 			}
 
-			public void TimerMain()
+			public static void TimerMain()
 			{
 				long now;
 				int i, j;
@@ -373,6 +372,7 @@ namespace Server
 		public static int BreakCount { get => m_BreakCount; set => m_BreakCount = value; }
 
 		private static int m_QueueCountAtSlice;
+		public static int QueueCountAtSlice { get => m_QueueCountAtSlice; set => m_QueueCountAtSlice = value; }
 
 		private bool m_Queued;
 
@@ -380,7 +380,7 @@ namespace Server
 		{
 			lock (m_Queue)
 			{
-				m_QueueCountAtSlice = m_Queue.Count;
+				QueueCountAtSlice = m_Queue.Count;
 
 				var index = 0;
 
@@ -683,10 +683,7 @@ namespace Server
 
 			protected override void OnTick()
 			{
-				if (m_Callback != null)
-				{
-					m_Callback();
-				}
+				m_Callback?.Invoke();
 			}
 
 			public override string ToString()
@@ -715,10 +712,7 @@ namespace Server
 
 			protected override void OnTick()
 			{
-				if (m_Callback != null)
-				{
-					m_Callback(m_State);
-				}
+				m_Callback?.Invoke(m_State);
 			}
 
 			public override string ToString()
@@ -747,10 +741,7 @@ namespace Server
 
 			protected override void OnTick()
 			{
-				if (m_Callback != null)
-				{
-					m_Callback(m_State);
-				}
+				m_Callback?.Invoke(m_State);
 			}
 
 			public override string ToString()
@@ -781,10 +772,7 @@ namespace Server
 
 			protected override void OnTick()
 			{
-				if (m_Callback != null)
-				{
-					m_Callback(m_State1, m_State2);
-				}
+				m_Callback?.Invoke(m_State1, m_State2);
 			}
 
 			public override string ToString()
@@ -817,10 +805,7 @@ namespace Server
 
 			protected override void OnTick()
 			{
-				if (m_Callback != null)
-				{
-					m_Callback(m_State1, m_State2, m_State3);
-				}
+				m_Callback?.Invoke(m_State1, m_State2, m_State3);
 			}
 
 			public override string ToString()
@@ -855,10 +840,7 @@ namespace Server
 
 			protected override void OnTick()
 			{
-				if (m_Callback != null)
-				{
-					m_Callback(m_State1, m_State2, m_State3, m_State4);
-				}
+				m_Callback?.Invoke(m_State1, m_State2, m_State3, m_State4);
 			}
 
 			public override string ToString()

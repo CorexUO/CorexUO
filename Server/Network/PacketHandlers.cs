@@ -759,9 +759,7 @@ namespace Server.Network
 					}
 				case 0x24: // Use skill
 					{
-						int skillIndex;
-
-						if (!int.TryParse(command.Split(' ')[0], out skillIndex))
+						if (!int.TryParse(command.Split(' ')[0], out int skillIndex))
 							break;
 
 						Skills.UseSkill(m, skillIndex);
@@ -770,9 +768,7 @@ namespace Server.Network
 					}
 				case 0x43: // Open spellbook
 					{
-						int booktype;
-
-						if (!int.TryParse(command, out booktype))
+						if (!int.TryParse(command, out int booktype))
 							booktype = 1;
 
 						EventSink.InvokeOpenSpellbookRequest(new OpenSpellbookRequestEventArgs(m, booktype));
@@ -969,10 +965,7 @@ namespace Server.Network
 			int amount = pvSrc.ReadUInt16();
 			Item item = World.FindItem(serial);
 
-			bool rejected;
-			LRReason reject;
-
-			state.Mobile.Lift(item, amount, out rejected, out reject);
+			state.Mobile.Lift(item, amount, out bool rejected, out LRReason reject);
 		}
 
 		public static void EquipReq(NetState state, PacketReader pvSrc)
@@ -1364,7 +1357,7 @@ namespace Server.Network
 			m.ClearFastwalkStack();
 		}
 
-		private static int[] m_EmptyInts = new int[0];
+		private static int[] m_EmptyInts = Array.Empty<int>();
 
 		public static void AsciiSpeech(NetState state, PacketReader pvSrc)
 		{
