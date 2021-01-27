@@ -1,15 +1,15 @@
 namespace Server.Mobiles
 {
     [CorpseName("a llama corpse")]
-    public class RidableLlama : BaseMount
+    public class Llama : BaseMount
     {
         [Constructable]
-        public RidableLlama() : this("a ridable llama")
+        public Llama() : this("a llama")
         {
         }
 
         [Constructable]
-        public RidableLlama(string name) : base(name, 0xDC, 0x3EA6, AIType.AI_Animal, FightMode.Aggressor, 10, 1, 0.2, 0.4)
+        public Llama(string name) : base(name, 0xDC, 0x3EA6, AIType.AI_Animal, FightMode.Aggressor, 10, 1, 0.2, 0.4)
         {
             BaseSoundID = 0x3F3;
 
@@ -37,6 +37,8 @@ namespace Server.Mobiles
             Fame = 300;
             Karma = 0;
 
+            VirtualArmor = 16;
+
             Tamable = true;
             ControlSlots = 1;
             MinTameSkill = 29.1;
@@ -46,7 +48,7 @@ namespace Server.Mobiles
         public override int Hides { get { return 12; } }
         public override FoodType FavoriteFood { get { return FoodType.FruitsAndVegies | FoodType.GrainsAndHay; } }
 
-        public RidableLlama(Serial serial) : base(serial)
+        public Llama(Serial serial) : base(serial)
         {
         }
 
@@ -61,7 +63,7 @@ namespace Server.Mobiles
         {
             base.Deserialize(reader);
 
-            int version = reader.ReadInt();
+            reader.ReadInt();
         }
     }
 }

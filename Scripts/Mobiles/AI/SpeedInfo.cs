@@ -186,7 +186,7 @@ namespace Server
 					typeof( PlagueSpawn ),      typeof( PolarBear ),        typeof( Rabbit ),
 					typeof( Ratman ),           typeof( RatmanArcher ),     typeof( RatmanMage ),
 					typeof( RedSolenInfiltratorQueen ), typeof( RedSolenInfiltratorWarrior ), typeof( RedSolenQueen ),
-					typeof( RedSolenWarrior ),  typeof( RedSolenWorker ),   typeof( RidableLlama ),
+					typeof( RedSolenWarrior ),  typeof( RedSolenWorker ),   typeof( Llama ),
 					typeof( Ridgeback ),        typeof( Scorpion ),         typeof( SeaSerpent ),
 					typeof( SerpentineDragon ), typeof( Shade ),            typeof( ShadowIronElemental ),
 					typeof( ShadowWisp ),       typeof( ShadowWyrm ),       typeof( Sheep ),
