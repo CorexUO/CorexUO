@@ -24,9 +24,6 @@ namespace Server.Items
 		private int m_TotalItems;
 		private int m_TotalWeight;
 		private int m_TotalGold;
-
-		private bool m_LiftOverride;
-
 		internal List<Item> m_Items;
 
 		public ContainerData ContainerData
@@ -94,11 +91,7 @@ namespace Server.Items
 		}
 
 		[CommandProperty(AccessLevel.GameMaster)]
-		public bool LiftOverride
-		{
-			get { return m_LiftOverride; }
-			set { m_LiftOverride = value; }
-		}
+		public bool LiftOverride { get; set; }
 
 		public virtual void UpdateContainerData()
 		{
@@ -114,7 +107,7 @@ namespace Server.Items
 
 		public virtual bool IsDecoContainer
 		{
-			get { return !Movable && !IsLockedDown && !IsSecure && Parent == null && !m_LiftOverride; }
+			get { return !Movable && !IsLockedDown && !IsSecure && Parent == null && !LiftOverride; }
 		}
 
 		public virtual int GetDroppedSound(Item item)
@@ -1254,7 +1247,7 @@ namespace Server.Items
 			Utility.SetSaveFlag(ref flags, SaveFlag.MaxItems, m_MaxItems != -1);
 			Utility.SetSaveFlag(ref flags, SaveFlag.GumpID, m_GumpID != -1);
 			Utility.SetSaveFlag(ref flags, SaveFlag.DropSound, m_DropSound != -1);
-			Utility.SetSaveFlag(ref flags, SaveFlag.LiftOverride, m_LiftOverride);
+			Utility.SetSaveFlag(ref flags, SaveFlag.LiftOverride, LiftOverride);
 
 			writer.Write((byte)flags);
 
@@ -1295,7 +1288,7 @@ namespace Server.Items
 						else
 							m_DropSound = -1;
 
-						m_LiftOverride = flags.HasFlag(SaveFlag.LiftOverride);
+						LiftOverride = flags.HasFlag(SaveFlag.LiftOverride);
 
 						break;
 					}
@@ -1528,13 +1521,7 @@ namespace Server.Items
 			//LabelTo(from, 1050044, String.Format("{0}\t{1}", TotalItems, TotalWeight)); // ~1_COUNT~ items, ~2_WEIGHT~ stones
 		}
 
-		private List<Mobile> m_Openers;
-
-		public List<Mobile> Openers
-		{
-			get { return m_Openers; }
-			set { m_Openers = value; }
-		}
+		public List<Mobile> Openers { get; set; }
 
 		public virtual bool IsPublicContainer { get { return false; } }
 
@@ -1542,7 +1529,7 @@ namespace Server.Items
 		{
 			base.OnDelete();
 
-			m_Openers = null;
+			Openers = null;
 		}
 
 		public virtual void DisplayTo(Mobile to)
@@ -1579,14 +1566,14 @@ namespace Server.Items
 			{
 				bool contains = false;
 
-				if (m_Openers != null)
+				if (Openers != null)
 				{
 					Point3D worldLoc = GetWorldLocation();
 					Map map = this.Map;
 
-					for (int i = 0; i < m_Openers.Count; ++i)
+					for (int i = 0; i < Openers.Count; ++i)
 					{
-						Mobile mob = m_Openers[i];
+						Mobile mob = Openers[i];
 
 						if (mob == opener)
 						{
@@ -1597,23 +1584,23 @@ namespace Server.Items
 							int range = GetUpdateRange(mob);
 
 							if (mob.Map != map || !mob.InRange(worldLoc, range))
-								m_Openers.RemoveAt(i--);
+								Openers.RemoveAt(i--);
 						}
 					}
 				}
 
 				if (!contains)
 				{
-					if (m_Openers == null)
+					if (Openers == null)
 					{
-						m_Openers = new List<Mobile>();
+						Openers = new List<Mobile>();
 					}
 
-					m_Openers.Add(opener);
+					Openers.Add(opener);
 				}
-				else if (m_Openers != null && m_Openers.Count == 0)
+				else if (Openers != null && Openers.Count == 0)
 				{
-					m_Openers = null;
+					Openers = null;
 				}
 			}
 		}
@@ -1659,7 +1646,7 @@ namespace Server.Items
 
 			if (!File.Exists(path))
 			{
-				m_Default = new ContainerData(0x3C, new Rectangle2D(44, 65, 142, 94), 0x48);
+				Default = new ContainerData(0x3C, new Rectangle2D(44, 65, 142, 94), 0x48);
 				return;
 			}
 
@@ -1697,8 +1684,8 @@ namespace Server.Items
 
 							ContainerData data = new ContainerData(gumpID, bounds, dropSound);
 
-							if (m_Default == null)
-								m_Default = data;
+							if (Default == null)
+								Default = data;
 
 							if (split.Length >= 4)
 							{
@@ -1726,18 +1713,13 @@ namespace Server.Items
 				}
 			}
 
-			if (m_Default == null)
-				m_Default = new ContainerData(0x3C, new Rectangle2D(44, 65, 142, 94), 0x48);
+			if (Default == null)
+				Default = new ContainerData(0x3C, new Rectangle2D(44, 65, 142, 94), 0x48);
 		}
 
-		private static ContainerData m_Default;
-		private static Dictionary<int, ContainerData> m_Table;
+		private static readonly Dictionary<int, ContainerData> m_Table;
 
-		public static ContainerData Default
-		{
-			get { return m_Default; }
-			set { m_Default = value; }
-		}
+		public static ContainerData Default { get; set; }
 
 		public static ContainerData GetData(int itemID)
 		{
@@ -1746,22 +1728,20 @@ namespace Server.Items
 			if (data != null)
 				return data;
 			else
-				return m_Default;
+				return Default;
 		}
 
-		private readonly int m_GumpID;
 		private Rectangle2D m_Bounds;
-		private readonly int m_DropSound;
 
-		public int GumpID { get { return m_GumpID; } }
+		public int GumpID { get; }
 		public Rectangle2D Bounds { get { return m_Bounds; } }
-		public int DropSound { get { return m_DropSound; } }
+		public int DropSound { get; }
 
 		public ContainerData(int gumpID, Rectangle2D bounds, int dropSound)
 		{
-			m_GumpID = gumpID;
+			GumpID = gumpID;
 			m_Bounds = bounds;
-			m_DropSound = dropSound;
+			DropSound = dropSound;
 		}
 	}
 }

@@ -29,15 +29,12 @@ namespace Server.Regions
 		}
 
 		private string m_RuneName;
-		private bool m_NoLogoutDelay;
-
 		private SpawnEntry[] m_Spawns;
-		private SpawnZLevel m_SpawnZLevel;
 		private bool m_ExcludeFromParentSpawns;
 
 		public string RuneName { get { return m_RuneName; } set { m_RuneName = value; } }
 
-		public bool NoLogoutDelay { get { return m_NoLogoutDelay; } set { m_NoLogoutDelay = value; } }
+		public bool NoLogoutDelay { get; set; }
 
 		public SpawnEntry[] Spawns
 		{
@@ -54,7 +51,7 @@ namespace Server.Regions
 			}
 		}
 
-		public SpawnZLevel SpawnZLevel { get { return m_SpawnZLevel; } set { m_SpawnZLevel = value; } }
+		public SpawnZLevel SpawnZLevel { get; set; }
 
 		public bool ExcludeFromParentSpawns { get { return m_ExcludeFromParentSpawns; } set { m_ExcludeFromParentSpawns = value; } }
 
@@ -80,7 +77,7 @@ namespace Server.Regions
 
 		public override TimeSpan GetLogoutDelay(Mobile m)
 		{
-			if (m_NoLogoutDelay)
+			if (NoLogoutDelay)
 			{
 				if (m.Aggressors.Count == 0 && m.Aggressed.Count == 0 && !m.Criminal)
 					return TimeSpan.Zero;
@@ -356,7 +353,7 @@ namespace Server.Regions
 				}
 
 				int z;
-				switch (m_SpawnZLevel)
+				switch (SpawnZLevel)
 				{
 					case SpawnZLevel.Lowest:
 						{
@@ -493,7 +490,7 @@ namespace Server.Regions
 
 			bool logoutDelayActive = true;
 			ReadBoolean(xml["logoutDelay"], "active", ref logoutDelayActive, false);
-			m_NoLogoutDelay = !logoutDelayActive;
+			NoLogoutDelay = !logoutDelayActive;
 
 
 			XmlElement spawning = xml["spawning"];
@@ -503,7 +500,7 @@ namespace Server.Regions
 
 				SpawnZLevel zLevel = SpawnZLevel.Lowest;
 				ReadEnum(spawning, "zLevel", ref zLevel, false);
-				m_SpawnZLevel = zLevel;
+				SpawnZLevel = zLevel;
 
 
 				List<SpawnEntry> list = new List<SpawnEntry>();

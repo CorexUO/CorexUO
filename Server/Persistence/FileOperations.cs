@@ -18,52 +18,17 @@ namespace Server
 			internal static extern SafeFileHandle CreateFile(string lpFileName, int dwDesiredAccess, FileShare dwShareMode, IntPtr securityAttrs, FileMode dwCreationDisposition, int dwFlagsAndAttributes, IntPtr hTemplateFile);
 		}
 
-		private static int bufferSize = 1 * MB;
-		private static int concurrency = 1;
+		public static int BufferSize { get; set; } = 1 * MB;
 
-		private static bool unbuffered = true;
+		public static int Concurrency { get; set; } = 1;
 
-		public static int BufferSize
-		{
-			get
-			{
-				return bufferSize;
-			}
-			set
-			{
-				bufferSize = value;
-			}
-		}
-
-		public static int Concurrency
-		{
-			get
-			{
-				return concurrency;
-			}
-			set
-			{
-				concurrency = value;
-			}
-		}
-
-		public static bool Unbuffered
-		{
-			get
-			{
-				return unbuffered;
-			}
-			set
-			{
-				unbuffered = value;
-			}
-		}
+		public static bool Unbuffered { get; set; } = true;
 
 		public static bool AreSynchronous
 		{
 			get
 			{
-				return (concurrency < 1);
+				return (Concurrency < 1);
 			}
 		}
 
@@ -71,7 +36,7 @@ namespace Server
 		{
 			get
 			{
-				return (concurrency > 0);
+				return (Concurrency > 0);
 			}
 		}
 
@@ -79,18 +44,18 @@ namespace Server
 		{
 			FileOptions options = FileOptions.SequentialScan;
 
-			if (concurrency > 0)
+			if (Concurrency > 0)
 			{
 				options |= FileOptions.Asynchronous;
 			}
 
-			if (unbuffered)
+			if (Unbuffered)
 			{
 				options |= NoBuffering;
 			}
 			else
 			{
-				return new FileStream(path, mode, access, share, bufferSize, options);
+				return new FileStream(path, mode, access, share, BufferSize, options);
 			}
 
 			SafeFileHandle fileHandle = UnsafeNativeMethods.CreateFile(path, (int)access, share, IntPtr.Zero, mode, (int)options, IntPtr.Zero);
@@ -100,7 +65,7 @@ namespace Server
 				throw new IOException();
 			}
 
-			return new UnbufferedFileStream(fileHandle, access, bufferSize, (concurrency > 0));
+			return new UnbufferedFileStream(fileHandle, access, BufferSize, (Concurrency > 0));
 		}
 
 		private class UnbufferedFileStream : FileStream
@@ -115,12 +80,12 @@ namespace Server
 
 			public override void Write(byte[] array, int offset, int count)
 			{
-				base.Write(array, offset, bufferSize);
+				base.Write(array, offset, BufferSize);
 			}
 
 			public override IAsyncResult BeginWrite(byte[] array, int offset, int numBytes, AsyncCallback userCallback, object stateObject)
 			{
-				return base.BeginWrite(array, offset, bufferSize, userCallback, stateObject);
+				return base.BeginWrite(array, offset, BufferSize, userCallback, stateObject);
 			}
 
 			protected override void Dispose(bool disposing)

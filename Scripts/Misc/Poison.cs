@@ -71,15 +71,14 @@ namespace Server
 		{
 			private readonly PoisonImpl m_Poison;
 			private readonly Mobile m_Mobile;
-			private Mobile m_From;
 			private int m_LastDamage;
 			private int m_Index;
 
-			public Mobile From { get { return m_From; } set { m_From = value; } }
+			public Mobile From { get; set; }
 
 			public PoisonTimer(Mobile m, PoisonImpl p) : base(p.m_Delay, p.m_Interval)
 			{
-				m_From = m;
+				From = m;
 				m_Mobile = m;
 				m_Poison = p;
 			}
@@ -130,20 +129,20 @@ namespace Server
 					m_LastDamage = damage;
 				}
 
-				if (m_From != null)
-					m_From.DoHarmful(m_Mobile, true);
+				if (From != null)
+					From.DoHarmful(m_Mobile, true);
 
 				IHonorTarget honorTarget = m_Mobile as IHonorTarget;
 				if (honorTarget != null && honorTarget.ReceivedHonorContext != null)
 					honorTarget.ReceivedHonorContext.OnTargetPoisoned();
 
-				AOS.Damage(m_Mobile, m_From, damage, 0, 0, 0, 100, 0);
+				AOS.Damage(m_Mobile, From, damage, 0, 0, 0, 100, 0);
 
 				if (0.60 <= Utility.RandomDouble()) // OSI: randomly revealed between first and third damage tick, guessing 60% chance
 					m_Mobile.RevealingAction();
 
 				if ((m_Index % m_Poison.m_MessageInterval) == 0)
-					m_Mobile.OnPoisoned(m_From, m_Poison, m_Poison);
+					m_Mobile.OnPoisoned(From, m_Poison, m_Poison);
 			}
 		}
 

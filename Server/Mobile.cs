@@ -498,57 +498,20 @@ namespace Server
 
 		#region Handlers
 
-		private static AllowBeneficialHandler m_AllowBeneficialHandler;
-		private static AllowHarmfulHandler m_AllowHarmfulHandler;
 
-		public static AllowBeneficialHandler AllowBeneficialHandler
-		{
-			get { return m_AllowBeneficialHandler; }
-			set { m_AllowBeneficialHandler = value; }
-		}
+		public static AllowBeneficialHandler AllowBeneficialHandler { get; set; }
 
-		public static AllowHarmfulHandler AllowHarmfulHandler
-		{
-			get { return m_AllowHarmfulHandler; }
-			set { m_AllowHarmfulHandler = value; }
-		}
+		public static AllowHarmfulHandler AllowHarmfulHandler { get; set; }
 
-		private static SkillCheckTargetHandler m_SkillCheckTargetHandler;
-		private static SkillCheckLocationHandler m_SkillCheckLocationHandler;
-		private static SkillCheckDirectTargetHandler m_SkillCheckDirectTargetHandler;
-		private static SkillCheckDirectLocationHandler m_SkillCheckDirectLocationHandler;
+		public static SkillCheckTargetHandler SkillCheckTargetHandler { get; set; }
 
-		public static SkillCheckTargetHandler SkillCheckTargetHandler
-		{
-			get { return m_SkillCheckTargetHandler; }
-			set { m_SkillCheckTargetHandler = value; }
-		}
+		public static SkillCheckLocationHandler SkillCheckLocationHandler { get; set; }
 
-		public static SkillCheckLocationHandler SkillCheckLocationHandler
-		{
-			get { return m_SkillCheckLocationHandler; }
-			set { m_SkillCheckLocationHandler = value; }
-		}
+		public static SkillCheckDirectTargetHandler SkillCheckDirectTargetHandler { get; set; }
 
-		public static SkillCheckDirectTargetHandler SkillCheckDirectTargetHandler
-		{
-			get { return m_SkillCheckDirectTargetHandler; }
-			set { m_SkillCheckDirectTargetHandler = value; }
-		}
+		public static SkillCheckDirectLocationHandler SkillCheckDirectLocationHandler { get; set; }
 
-		public static SkillCheckDirectLocationHandler SkillCheckDirectLocationHandler
-		{
-			get { return m_SkillCheckDirectLocationHandler; }
-			set { m_SkillCheckDirectLocationHandler = value; }
-		}
-
-		private static AOSStatusHandler m_AOSStatusHandler;
-
-		public static AOSStatusHandler AOSStatusHandler
-		{
-			get { return m_AOSStatusHandler; }
-			set { m_AOSStatusHandler = value; }
-		}
+		public static AOSStatusHandler AOSStatusHandler { get; set; }
 
 		#endregion
 
@@ -657,7 +620,6 @@ namespace Server
 		private Body m_Body;
 		private int m_Hue;
 		private Poison m_Poison;
-		private Timer m_PoisonTimer;
 		private BaseGuild m_Guild;
 		private string m_GuildTitle;
 		private bool m_Criminal;
@@ -672,20 +634,15 @@ namespace Server
 		private int m_Fame, m_Karma;
 		private AccessLevel m_AccessLevel;
 		private Skills m_Skills;
-		private List<Item> m_Items;
 		private bool m_Player;
 		private string m_Title;
 		private int m_LightLevel;
 		private int m_TotalGold, m_TotalItems, m_TotalWeight;
-		private List<StatMod> m_StatMods;
 		private ISpell m_Spell;
 		private Target m_Target;
 		private Prompt m_Prompt;
 		private ContextMenu m_ContextMenu;
-		private List<AggressorInfo> m_Aggressors, m_Aggressed;
 		private Mobile m_Combatant;
-		private List<Mobile> m_Stabled;
-		private bool m_AutoPageNotify;
 		private bool m_CanHearGhosts;
 		private int m_TithingPoints;
 		private bool m_DisplayGuildTitle;
@@ -710,8 +667,6 @@ namespace Server
 		private WarmodeTimer m_WarmodeTimer;
 		private int m_VirtualArmorMod;
 		private VirtueInfo m_Virtues;
-		private object m_Party;
-		private List<SkillMod> m_SkillMods;
 		private Body m_BodyMod;
 		private Race m_Race;
 
@@ -881,9 +836,7 @@ namespace Server
 			UpdateResistances();
 		}
 
-		private static int m_MaxPlayerResistance = 70;
-
-		public static int MaxPlayerResistance { get { return m_MaxPlayerResistance; } set { m_MaxPlayerResistance = value; } }
+		public static int MaxPlayerResistance { get; set; } = 70;
 
 		public virtual void ComputeResistances()
 		{
@@ -908,9 +861,9 @@ namespace Server
 					Resistances[v] += mod.Offset;
 			}
 
-			for (int i = 0; i < m_Items.Count; ++i)
+			for (int i = 0; i < Items.Count; ++i)
 			{
-				Item item = m_Items[i];
+				Item item = Items[i];
 
 				if (item.CheckPropertyConfliction(this))
 					continue;
@@ -945,14 +898,14 @@ namespace Server
 		public virtual int GetMaxResistance(ResistanceType type)
 		{
 			if (m_Player)
-				return m_MaxPlayerResistance;
+				return MaxPlayerResistance;
 
 			return int.MaxValue;
 		}
 
 		public int GetAOSStatus(int index)
 		{
-			return (m_AOSStatusHandler == null) ? 0 : m_AOSStatusHandler(this, index);
+			return (AOSStatusHandler == null) ? 0 : AOSStatusHandler(this, index);
 		}
 
 		public virtual void SendPropertiesTo(Mobile from)
@@ -1062,7 +1015,7 @@ namespace Server
 
 		private void UpdateAggrExpire()
 		{
-			if (Deleted || (m_Aggressors.Count == 0 && m_Aggressed.Count == 0))
+			if (Deleted || (Aggressors.Count == 0 && Aggressed.Count == 0))
 			{
 				StopAggrExpire();
 			}
@@ -1083,19 +1036,19 @@ namespace Server
 
 		private void CheckAggrExpire()
 		{
-			for (int i = m_Aggressors.Count - 1; i >= 0; --i)
+			for (int i = Aggressors.Count - 1; i >= 0; --i)
 			{
-				if (i >= m_Aggressors.Count)
+				if (i >= Aggressors.Count)
 					continue;
 
-				AggressorInfo info = m_Aggressors[i];
+				AggressorInfo info = Aggressors[i];
 
 				if (info.Expired)
 				{
 					Mobile attacker = info.Attacker;
 					attacker.RemoveAggressed(this);
 
-					m_Aggressors.RemoveAt(i);
+					Aggressors.RemoveAt(i);
 					info.Free();
 
 					if (m_NetState != null && this.CanSee(attacker) && Utility.InUpdateRange(m_Location, attacker.m_Location))
@@ -1105,19 +1058,19 @@ namespace Server
 				}
 			}
 
-			for (int i = m_Aggressed.Count - 1; i >= 0; --i)
+			for (int i = Aggressed.Count - 1; i >= 0; --i)
 			{
-				if (i >= m_Aggressed.Count)
+				if (i >= Aggressed.Count)
 					continue;
 
-				AggressorInfo info = m_Aggressed[i];
+				AggressorInfo info = Aggressed[i];
 
 				if (info.Expired)
 				{
 					Mobile defender = info.Defender;
 					defender.RemoveAggressor(this);
 
-					m_Aggressed.RemoveAt(i);
+					Aggressed.RemoveAt(i);
 					info.Free();
 
 					if (m_NetState != null && this.CanSee(defender) && Utility.InUpdateRange(m_Location, defender.m_Location))
@@ -1130,13 +1083,13 @@ namespace Server
 			UpdateAggrExpire();
 		}
 
-		public List<Mobile> Stabled { get { return m_Stabled; } }
+		public List<Mobile> Stabled { get; private set; }
 
 		[CommandProperty(AccessLevel.Counselor, AccessLevel.GameMaster)]
 		public VirtueInfo Virtues { get { return m_Virtues; } set { } }
 
-		public object Party { get { return m_Party; } set { m_Party = value; } }
-		public List<SkillMod> SkillMods { get { return m_SkillMods; } }
+		public object Party { get; set; }
+		public List<SkillMod> SkillMods { get; private set; }
 
 		[CommandProperty(AccessLevel.GameMaster)]
 		public int VirtualArmorMod
@@ -1167,9 +1120,9 @@ namespace Server
 		{
 			ValidateSkillMods();
 
-			for (int i = 0; i < m_SkillMods.Count; ++i)
+			for (int i = 0; i < SkillMods.Count; ++i)
 			{
-				SkillMod mod = m_SkillMods[i];
+				SkillMod mod = SkillMods[i];
 
 				Skill sk = m_Skills[mod.Skill];
 
@@ -1180,9 +1133,9 @@ namespace Server
 
 		public virtual void ValidateSkillMods()
 		{
-			for (int i = 0; i < m_SkillMods.Count;)
+			for (int i = 0; i < SkillMods.Count;)
 			{
-				SkillMod mod = m_SkillMods[i];
+				SkillMod mod = SkillMods[i];
 
 				if (mod.CheckCondition())
 					++i;
@@ -1198,9 +1151,9 @@ namespace Server
 
 			ValidateSkillMods();
 
-			if (!m_SkillMods.Contains(mod))
+			if (!SkillMods.Contains(mod))
 			{
-				m_SkillMods.Add(mod);
+				SkillMods.Add(mod);
 				mod.Owner = this;
 
 				Skill sk = m_Skills[mod.Skill];
@@ -1222,9 +1175,9 @@ namespace Server
 
 		private void InternalRemoveSkillMod(SkillMod mod)
 		{
-			if (m_SkillMods.Contains(mod))
+			if (SkillMods.Contains(mod))
 			{
-				m_SkillMods.Remove(mod);
+				SkillMods.Remove(mod);
 				mod.Owner = null;
 
 				Skill sk = m_Skills[mod.Skill];
@@ -1899,8 +1852,8 @@ namespace Server
 
 		public long NextSkillTime { get; set; }
 
-		public List<AggressorInfo> Aggressors => m_Aggressors;
-		public List<AggressorInfo> Aggressed => m_Aggressed;
+		public List<AggressorInfo> Aggressors { get; private set; }
+		public List<AggressorInfo> Aggressed { get; private set; }
 
 		private int m_ChangingCombatant;
 
@@ -2048,7 +2001,7 @@ namespace Server
 
 			bool addAggressor = true;
 
-			List<AggressorInfo> list = m_Aggressors;
+			List<AggressorInfo> list = Aggressors;
 
 			for (int i = 0; i < list.Count; ++i)
 			{
@@ -2064,7 +2017,7 @@ namespace Server
 				}
 			}
 
-			list = aggressor.m_Aggressors;
+			list = aggressor.Aggressors;
 
 			for (int i = 0; i < list.Count; ++i)
 			{
@@ -2080,7 +2033,7 @@ namespace Server
 
 			bool addAggressed = true;
 
-			list = m_Aggressed;
+			list = Aggressed;
 
 			for (int i = 0; i < list.Count; ++i)
 			{
@@ -2094,7 +2047,7 @@ namespace Server
 				}
 			}
 
-			list = aggressor.m_Aggressed;
+			list = aggressor.Aggressed;
 
 			for (int i = 0; i < list.Count; ++i)
 			{
@@ -2114,7 +2067,7 @@ namespace Server
 
 			if (addAggressor)
 			{
-				m_Aggressors.Add(AggressorInfo.Create(aggressor, this, criminal)); // new AggressorInfo( aggressor, this, criminal, true ) );
+				Aggressors.Add(AggressorInfo.Create(aggressor, this, criminal)); // new AggressorInfo( aggressor, this, criminal, true ) );
 
 				if (this.CanSee(aggressor) && m_NetState != null)
 				{
@@ -2129,7 +2082,7 @@ namespace Server
 
 			if (addAggressed)
 			{
-				aggressor.m_Aggressed.Add(AggressorInfo.Create(aggressor, this, criminal)); // new AggressorInfo( aggressor, this, criminal, false ) );
+				aggressor.Aggressed.Add(AggressorInfo.Create(aggressor, this, criminal)); // new AggressorInfo( aggressor, this, criminal, false ) );
 
 				if (this.CanSee(aggressor) && m_NetState != null)
 				{
@@ -2153,7 +2106,7 @@ namespace Server
 			if (Deleted)
 				return;
 
-			List<AggressorInfo> list = m_Aggressed;
+			List<AggressorInfo> list = Aggressed;
 
 			for (int i = 0; i < list.Count; ++i)
 			{
@@ -2161,7 +2114,7 @@ namespace Server
 
 				if (info.Defender == aggressed)
 				{
-					m_Aggressed.RemoveAt(i);
+					Aggressed.RemoveAt(i);
 					info.Free();
 
 					if (m_NetState != null && this.CanSee(aggressed))
@@ -2181,7 +2134,7 @@ namespace Server
 			if (Deleted)
 				return;
 
-			List<AggressorInfo> list = m_Aggressors;
+			List<AggressorInfo> list = Aggressors;
 
 			for (int i = 0; i < list.Count; ++i)
 			{
@@ -2189,7 +2142,7 @@ namespace Server
 
 				if (info.Attacker == aggressor)
 				{
-					m_Aggressors.RemoveAt(i);
+					Aggressors.RemoveAt(i);
 					info.Free();
 
 					if (m_NetState != null && this.CanSee(aggressor))
@@ -2301,7 +2254,7 @@ namespace Server
 
 		public virtual void UpdateTotals()
 		{
-			if (m_Items == null)
+			if (Items == null)
 				return;
 
 			int oldWeight = m_TotalWeight;
@@ -2310,9 +2263,9 @@ namespace Server
 			m_TotalItems = 0;
 			m_TotalWeight = 0;
 
-			for (int i = 0; i < m_Items.Count; ++i)
+			for (int i = 0; i < Items.Count; ++i)
 			{
-				Item item = m_Items[i];
+				Item item = Items[i];
 
 				item.UpdateTotals();
 
@@ -3147,17 +3100,7 @@ namespace Server
 		}
 
 		[CommandProperty(AccessLevel.Administrator)]
-		public bool AutoPageNotify
-		{
-			get
-			{
-				return m_AutoPageNotify;
-			}
-			set
-			{
-				m_AutoPageNotify = value;
-			}
-		}
+		public bool AutoPageNotify { get; set; }
 
 		public virtual void CriminalAction(bool message)
 		{
@@ -3230,12 +3173,12 @@ namespace Server
 
 				ProcessDeltaQueue();
 
-				for (int i = m_Items.Count - 1; i >= 0; --i)
+				for (int i = Items.Count - 1; i >= 0; --i)
 				{
-					if (i >= m_Items.Count)
+					if (i >= Items.Count)
 						continue;
 
-					Item item = m_Items[i];
+					Item item = Items[i];
 
 					if (item.ItemID == 0x204E)
 						item.Delete();
@@ -3320,12 +3263,12 @@ namespace Server
 
 			OnDelete();
 
-			for (int i = m_Items.Count - 1; i >= 0; --i)
-				if (i < m_Items.Count)
-					m_Items[i].OnParentDeleted(this);
+			for (int i = Items.Count - 1; i >= 0; --i)
+				if (i < Items.Count)
+					Items[i].OnParentDeleted(this);
 
-			for (int i = 0; i < m_Stabled.Count; i++)
-				m_Stabled[i].Delete();
+			for (int i = 0; i < Stabled.Count; i++)
+				Stabled[i].Delete();
 
 			SendRemovePacket();
 
@@ -3411,8 +3354,8 @@ namespace Server
 
 			CheckAggrExpire();
 
-			if (m_PoisonTimer != null)
-				m_PoisonTimer.Stop();
+			if (PoisonTimer != null)
+				PoisonTimer.Stop();
 
 			if (m_HitsTimer != null)
 				m_HitsTimer.Stop();
@@ -3465,13 +3408,7 @@ namespace Server
 			return Skills.UseSkill(this, skillID);
 		}
 
-		private static CreateCorpseHandler m_CreateCorpse;
-
-		public static CreateCorpseHandler CreateCorpseHandler
-		{
-			get { return m_CreateCorpse; }
-			set { m_CreateCorpse = value; }
-		}
+		public static CreateCorpseHandler CreateCorpseHandler { get; set; }
 
 		public virtual DeathMoveResult GetParentMoveResultFor(Item item)
 		{
@@ -3546,7 +3483,7 @@ namespace Server
 			List<Item> equip = new List<Item>();
 			List<Item> moveToPack = new List<Item>();
 
-			List<Item> itemsCopy = new List<Item>(m_Items);
+			List<Item> itemsCopy = new List<Item>(Items);
 
 			Container pack = this.Backpack;
 
@@ -3610,7 +3547,7 @@ namespace Server
 			if (m_FacialHair != null)
 				facialhair = new FacialHairInfo(m_FacialHair.ItemID, m_FacialHair.Hue);
 
-			Container c = (m_CreateCorpse == null ? null : m_CreateCorpse(this, hair, facialhair, content, equip));
+			Container c = (CreateCorpseHandler == null ? null : CreateCorpseHandler(this, hair, facialhair, content, equip));
 
 			if (m_Map != null)
 			{
@@ -3691,8 +3628,8 @@ namespace Server
 
 				AddItem(deathShroud);
 
-				m_Items.Remove(deathShroud);
-				m_Items.Insert(0, deathShroud);
+				Items.Remove(deathShroud);
+				Items.Insert(0, deathShroud);
 
 				Poison = null;
 				Combatant = null;
@@ -5041,7 +4978,7 @@ namespace Server
 
 						CreationTime = reader.ReadDateTime();
 
-						m_Stabled = reader.ReadStrongMobileList();
+						Stabled = reader.ReadStrongMobileList();
 
 						CantWalk = reader.ReadBool();
 
@@ -5111,14 +5048,14 @@ namespace Server
 
 						m_Skills = new Skills(this, reader);
 
-						m_Items = reader.ReadStrongItemList();
+						Items = reader.ReadStrongItemList();
 
 						m_Player = reader.ReadBool();
 						m_Title = reader.ReadString();
 						Profile = reader.ReadString();
 						ProfileLocked = reader.ReadBool();
 
-						m_AutoPageNotify = reader.ReadBool();
+						AutoPageNotify = reader.ReadBool();
 
 						LogoutLocation = reader.ReadPoint3D();
 						LogoutMap = reader.ReadMap();
@@ -5127,8 +5064,8 @@ namespace Server
 						m_DexLock = (StatLockType)reader.ReadByte();
 						m_IntLock = (StatLockType)reader.ReadByte();
 
-						m_StatMods = new List<StatMod>();
-						m_SkillMods = new List<SkillMod>();
+						StatMods = new List<StatMod>();
+						SkillMods = new List<SkillMod>();
 
 						if (m_Player && m_Map != Map.Internal)
 						{
@@ -5299,7 +5236,7 @@ namespace Server
 
 			writer.Write(CreationTime);
 
-			writer.Write(m_Stabled, true);
+			writer.Write(Stabled, true);
 
 			writer.Write(CantWalk);
 
@@ -5370,13 +5307,13 @@ namespace Server
 			writer.Write((byte)m_AccessLevel);
 			m_Skills.Serialize(writer);
 
-			writer.Write(m_Items);
+			writer.Write(Items);
 
 			writer.Write(m_Player);
 			writer.Write(m_Title);
 			writer.Write(Profile);
 			writer.Write(ProfileLocked);
-			writer.Write(m_AutoPageNotify);
+			writer.Write(AutoPageNotify);
 
 			writer.Write(LogoutLocation);
 			writer.Write(LogoutMap);
@@ -5490,13 +5427,7 @@ namespace Server
 			Map = Map.Internal;
 		}
 
-		public List<Item> Items
-		{
-			get
-			{
-				return m_Items;
-			}
-		}
+		public List<Item> Items { get; private set; }
 
 		/// <summary>
 		/// Overridable. Virtual event invoked when <paramref name="item" /> is <see cref="AddItem">added</see> from the Mobile, such as when it is equiped.
@@ -5577,7 +5508,7 @@ namespace Server
 			item.Parent = this;
 			item.Map = m_Map;
 
-			m_Items.Add(item);
+			Items.Add(item);
 
 			if (!item.IsVirtualItem)
 			{
@@ -5600,16 +5531,16 @@ namespace Server
 
 		public void RemoveItem(Item item)
 		{
-			if (item == null || m_Items == null)
+			if (item == null || Items == null)
 				return;
 
-			if (m_Items.Contains(item))
+			if (Items.Contains(item))
 			{
 				item.SendRemovePacket();
 
 				//int oldCount = m_Items.Count;
 
-				m_Items.Remove(item);
+				Items.Remove(item);
 
 				if (!item.IsVirtualItem)
 				{
@@ -6343,8 +6274,8 @@ namespace Server
 						SendRemovePacket();
 					}
 
-					for (int i = 0; i < m_Items.Count; ++i)
-						m_Items[i].Map = value;
+					for (int i = 0; i < Items.Count; ++i)
+						Items[i].Map = value;
 
 					m_Map = value;
 
@@ -6636,13 +6567,13 @@ namespace Server
 		/// <summary>
 		/// Gets a list of all <see cref="StatMod">StatMod's</see> currently active for the Mobile.
 		/// </summary>
-		public List<StatMod> StatMods { get { return m_StatMods; } }
+		public List<StatMod> StatMods { get; private set; }
 
 		public bool RemoveStatMod(StatMod mod)
 		{
-			if (m_StatMods.Contains(mod))
+			if (StatMods.Contains(mod))
 			{
-				m_StatMods.Remove(mod);
+				StatMods.Remove(mod);
 				CheckStatTimers();
 				Delta(MobileDelta.Stat | GetStatDelta(mod.Type));
 				return true;
@@ -6652,7 +6583,7 @@ namespace Server
 
 		public bool RemoveStatMod(string name)
 		{
-			StatMod statsMod = m_StatMods.FirstOrDefault(stat => stat.Name == name);
+			StatMod statsMod = StatMods.FirstOrDefault(stat => stat.Name == name);
 			if (statsMod != null)
 			{
 				RemoveStatMod(statsMod);
@@ -6663,19 +6594,19 @@ namespace Server
 
 		public StatMod GetStatMod(string name)
 		{
-			return m_StatMods.FirstOrDefault(stat => stat.Name == name);
+			return StatMods.FirstOrDefault(stat => stat.Name == name);
 		}
 
 		public void AddStatMod(StatMod mod)
 		{
-			StatMod statsMod = m_StatMods.FirstOrDefault(stat => stat.Name == mod.Name);
+			StatMod statsMod = StatMods.FirstOrDefault(stat => stat.Name == mod.Name);
 			if (statsMod != null)
 			{
 				Delta(MobileDelta.Stat | GetStatDelta(statsMod.Type));
-				m_StatMods.Remove(statsMod);
+				StatMods.Remove(statsMod);
 			}
 
-			m_StatMods.Add(mod);
+			StatMods.Add(mod);
 			Delta(MobileDelta.Stat | GetStatDelta(mod.Type));
 			CheckStatTimers();
 		}
@@ -6703,13 +6634,13 @@ namespace Server
 		{
 			int offset = 0;
 
-			for (int i = 0; i < m_StatMods.Count; ++i)
+			for (int i = 0; i < StatMods.Count; ++i)
 			{
-				StatMod mod = m_StatMods[i];
+				StatMod mod = StatMods[i];
 
 				if (mod.HasElapsed())
 				{
-					m_StatMods.RemoveAt(i);
+					StatMods.RemoveAt(i);
 					Delta(MobileDelta.Stat | GetStatDelta(mod.Type));
 					CheckStatTimers();
 
@@ -6830,7 +6761,7 @@ namespace Server
 			}
 			set
 			{
-				if (m_StatMods.Count == 0)
+				if (StatMods.Count == 0)
 					RawStr = value;
 			}
 		}
@@ -6904,7 +6835,7 @@ namespace Server
 			}
 			set
 			{
-				if (m_StatMods.Count == 0)
+				if (StatMods.Count == 0)
 					RawDex = value;
 			}
 		}
@@ -6978,7 +6909,7 @@ namespace Server
 			}
 			set
 			{
-				if (m_StatMods.Count == 0)
+				if (StatMods.Count == 0)
 					RawInt = value;
 			}
 		}
@@ -7021,8 +6952,8 @@ namespace Server
 					if (m_HitsTimer != null)
 						m_HitsTimer.Stop();
 
-					for (int i = 0; i < m_Aggressors.Count; i++) //reset reports on full HP
-						m_Aggressors[i].CanReportMurder = false;
+					for (int i = 0; i < Aggressors.Count; i++) //reset reports on full HP
+						Aggressors[i].CanReportMurder = false;
 
 					if (DamageEntries.Count > 0)
 						DamageEntries.Clear(); // reset damage entries on full HP
@@ -7578,12 +7509,12 @@ namespace Server
 						}
 					}
 
-					for (int i = m_Items.Count - 1; i >= 0; --i)
+					for (int i = Items.Count - 1; i >= 0; --i)
 					{
-						if (i >= m_Items.Count)
+						if (i >= Items.Count)
 							continue;
 
-						Item item = m_Items[i];
+						Item item = Items[i];
 
 						if (item is SecureTradeContainer)
 						{
@@ -7880,10 +7811,7 @@ namespace Server
 
 		#region Poison/Curing
 
-		public Timer PoisonTimer
-		{
-			get { return m_PoisonTimer; }
-		}
+		public Timer PoisonTimer { get; private set; }
 
 		[CommandProperty(AccessLevel.GameMaster)]
 		public Poison Poison
@@ -7899,18 +7827,18 @@ namespace Server
 				m_Poison = value;
 				Delta(MobileDelta.HealthbarPoison);
 
-				if (m_PoisonTimer != null)
+				if (PoisonTimer != null)
 				{
-					m_PoisonTimer.Stop();
-					m_PoisonTimer = null;
+					PoisonTimer.Stop();
+					PoisonTimer = null;
 				}
 
 				if (m_Poison != null)
 				{
-					m_PoisonTimer = m_Poison.ConstructTimer(this);
+					PoisonTimer = m_Poison.ConstructTimer(this);
 
-					if (m_PoisonTimer != null)
-						m_PoisonTimer.Start();
+					if (PoisonTimer != null)
+						PoisonTimer.Start();
 				}
 
 				CheckStatTimers();
@@ -8365,8 +8293,8 @@ namespace Server
 				SendRemovePacket();
 			}
 
-			for (int i = 0; i < m_Items.Count; ++i)
-				m_Items[i].Map = map;
+			for (int i = 0; i < Items.Count; ++i)
+				Items[i].Map = map;
 
 			m_Map = map;
 
@@ -8478,7 +8406,7 @@ namespace Server
 				if (m_Map != null)
 					m_Map.OnMove(oldLocation, this);
 
-				if (isTeleport && m_NetState != null && (!m_NetState.HighSeas || !m_NoMoveHS))
+				if (isTeleport && m_NetState != null && (!m_NetState.HighSeas || !NoMoveHS))
 				{
 					m_NetState.Sequence = 0;
 
@@ -8536,7 +8464,7 @@ namespace Server
 
 								bool inOldRange = Utility.InUpdateRange(oldLocation, m.m_Location);
 
-								if (m.m_NetState != null && ((isTeleport && (!m.m_NetState.HighSeas || !m_NoMoveHS)) || !inOldRange) && m.CanSee(this))
+								if (m.m_NetState != null && ((isTeleport && (!m.m_NetState.HighSeas || !NoMoveHS)) || !inOldRange) && m.CanSee(this))
 								{
 									m.m_NetState.Send(MobileIncoming.Create(m.m_NetState, m, this));
 
@@ -8597,7 +8525,7 @@ namespace Server
 						// We're not attached to a client, so simply send an Incoming
 						foreach (NetState ns in eable)
 						{
-							if (((isTeleport && (!ns.HighSeas || !m_NoMoveHS)) || !Utility.InUpdateRange(oldLocation, ns.Mobile.Location)) && ns.Mobile.CanSee(this))
+							if (((isTeleport && (!ns.HighSeas || !NoMoveHS)) || !Utility.InUpdateRange(oldLocation, ns.Mobile.Location)) && ns.Mobile.CanSee(this))
 							{
 								ns.Send(MobileIncoming.Create(ns, ns.Mobile, this));
 
@@ -8819,7 +8747,7 @@ namespace Server
 
 		public Item FindItemOnLayer(Layer layer)
 		{
-			List<Item> eq = m_Items;
+			List<Item> eq = Items;
 			int count = eq.Count;
 
 			for (int i = 0; i < count; ++i)
@@ -9105,8 +9033,8 @@ namespace Server
 
 		public virtual bool CheckEquip(Item item)
 		{
-			for (int i = 0; i < m_Items.Count; ++i)
-				if (m_Items[i].CheckConflictingLayer(this, item, item.Layer) || item.CheckConflictingLayer(this, m_Items[i], m_Items[i].Layer))
+			for (int i = 0; i < Items.Count; ++i)
+				if (Items[i].CheckConflictingLayer(this, item, item.Layer) || item.CheckConflictingLayer(this, Items[i], Items[i].Layer))
 					return false;
 
 			return true;
@@ -9268,8 +9196,8 @@ namespace Server
 		{
 			m_Region = Map.Internal.DefaultRegion;
 			Serial = serial;
-			m_Aggressors = new List<AggressorInfo>();
-			m_Aggressed = new List<AggressorInfo>();
+			Aggressors = new List<AggressorInfo>();
+			Aggressed = new List<AggressorInfo>();
 			NextSkillTime = Core.TickCount;
 			DamageEntries = new List<DamageEntry>();
 
@@ -9309,15 +9237,15 @@ namespace Server
 			m_StatCap = m_ConfigStatsCap;
 			m_FollowersMax = m_ConfigFollowersMax;
 			m_Skills = new Skills(this);
-			m_Items = new List<Item>();
-			m_StatMods = new List<StatMod>();
-			m_SkillMods = new List<SkillMod>();
+			Items = new List<Item>();
+			StatMods = new List<StatMod>();
+			SkillMods = new List<SkillMod>();
 			Map = Map.Internal;
-			m_AutoPageNotify = true;
-			m_Aggressors = new List<AggressorInfo>();
-			m_Aggressed = new List<AggressorInfo>();
+			AutoPageNotify = true;
+			Aggressors = new List<AggressorInfo>();
+			Aggressed = new List<AggressorInfo>();
 			m_Virtues = new VirtueInfo();
-			m_Stabled = new List<Mobile>();
+			Stabled = new List<Mobile>();
 			DamageEntries = new List<DamageEntry>();
 
 			NextSkillTime = Core.TickCount;
@@ -9366,13 +9294,7 @@ namespace Server
 			Core.Set();
 		}
 
-		private bool m_NoMoveHS;
-
-		public bool NoMoveHS
-		{
-			get { return m_NoMoveHS; }
-			set { m_NoMoveHS = value; }
-		}
+		public bool NoMoveHS { get; set; }
 
 		#region GetDirectionTo[..]
 
@@ -9614,7 +9536,7 @@ namespace Server
 
 				if (sendStam || sendMana)
 				{
-					IParty ip = m_Party as IParty;
+					IParty ip = Party as IParty;
 
 					if (ip != null && sendStam)
 						ip.OnStamChanged(this);
@@ -10370,7 +10292,7 @@ namespace Server
 			if (from == this)
 				Send(new StatLockInfo(this));
 
-			if (m_Party is IParty ip)
+			if (Party is IParty ip)
 				ip.OnStatsQuery(from, this);
 		}
 
@@ -10541,34 +10463,34 @@ namespace Server
 
 		public bool CheckSkill(SkillName skill, double minSkill, double maxSkill)
 		{
-			if (m_SkillCheckLocationHandler == null)
+			if (SkillCheckLocationHandler == null)
 				return false;
 			else
-				return m_SkillCheckLocationHandler(this, skill, minSkill, maxSkill);
+				return SkillCheckLocationHandler(this, skill, minSkill, maxSkill);
 		}
 
 		public bool CheckSkill(SkillName skill, double chance)
 		{
-			if (m_SkillCheckDirectLocationHandler == null)
+			if (SkillCheckDirectLocationHandler == null)
 				return false;
 			else
-				return m_SkillCheckDirectLocationHandler(this, skill, chance);
+				return SkillCheckDirectLocationHandler(this, skill, chance);
 		}
 
 		public bool CheckTargetSkill(SkillName skill, object target, double minSkill, double maxSkill)
 		{
-			if (m_SkillCheckTargetHandler == null)
+			if (SkillCheckTargetHandler == null)
 				return false;
 			else
-				return m_SkillCheckTargetHandler(this, skill, target, minSkill, maxSkill);
+				return SkillCheckTargetHandler(this, skill, target, minSkill, maxSkill);
 		}
 
 		public bool CheckTargetSkill(SkillName skill, object target, double chance)
 		{
-			if (m_SkillCheckDirectTargetHandler == null)
+			if (SkillCheckDirectTargetHandler == null)
 				return false;
 			else
-				return m_SkillCheckDirectTargetHandler(this, skill, target, chance);
+				return SkillCheckDirectTargetHandler(this, skill, target, chance);
 		}
 
 		public virtual void DisruptiveAction()

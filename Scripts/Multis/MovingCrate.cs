@@ -15,15 +15,9 @@ namespace Server.Multis
 
 		public override int LabelNumber { get { return 1061690; } } // Packing Crate
 
-		private BaseHouse m_House;
-
 		private Timer m_InternalizeTimer;
 
-		public BaseHouse House
-		{
-			get { return m_House; }
-			set { m_House = value; }
-		}
+		public BaseHouse House { get; set; }
 
 		public override int DefaultMaxItems { get { return 0; } }
 		public override int DefaultMaxWeight { get { return 0; } }
@@ -33,7 +27,7 @@ namespace Server.Multis
 			Hue = 0x8A5;
 			Movable = false;
 
-			m_House = house;
+			House = house;
 		}
 
 		public MovingCrate(Serial serial) : base(serial)
@@ -229,7 +223,7 @@ namespace Server.Multis
 
 			writer.WriteEncodedInt(1);
 
-			writer.Write((Item)m_House);
+			writer.Write((Item)House);
 		}
 
 		public override void Deserialize(GenericReader reader)
@@ -238,11 +232,11 @@ namespace Server.Multis
 
 			int version = reader.ReadEncodedInt();
 
-			m_House = reader.ReadItem() as BaseHouse;
+			House = reader.ReadItem() as BaseHouse;
 
-			if (m_House != null)
+			if (House != null)
 			{
-				m_House.MovingCrate = this;
+				House.MovingCrate = this;
 				Timer.DelayCall(TimeSpan.Zero, new TimerCallback(Hide));
 			}
 			else
@@ -327,8 +321,7 @@ namespace Server.Multis
 		public override void Deserialize(GenericReader reader)
 		{
 			base.Deserialize(reader);
-
-			int version = reader.ReadEncodedInt();
+			_ = reader.ReadEncodedInt();
 		}
 	}
 }

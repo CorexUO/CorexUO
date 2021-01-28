@@ -20,20 +20,19 @@ namespace Server
 		}
 
 		private readonly Queue<Item> _decayQueue;
-		private bool _permitBackgroundWrite;
 
 		public StandardSaveStrategy()
 		{
 			_decayQueue = new Queue<Item>();
 		}
 
-		protected bool PermitBackgroundWrite { get { return _permitBackgroundWrite; } set { _permitBackgroundWrite = value; } }
+		protected bool PermitBackgroundWrite { get; set; }
 
-		protected bool UseSequentialWriters { get { return (StandardSaveStrategy.SaveType == SaveOption.Normal || !_permitBackgroundWrite); } }
+		protected bool UseSequentialWriters { get { return (StandardSaveStrategy.SaveType == SaveOption.Normal || !PermitBackgroundWrite); } }
 
 		public override void Save(SaveMetrics metrics, bool permitBackgroundWrite)
 		{
-			_permitBackgroundWrite = permitBackgroundWrite;
+			PermitBackgroundWrite = permitBackgroundWrite;
 
 			SaveMobiles(metrics);
 			SaveItems(metrics);

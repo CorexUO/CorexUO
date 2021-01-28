@@ -53,12 +53,7 @@ namespace Server.Multis
 
 		public override bool ForceShowProperties { get { return ObjectPropertyList.Enabled; } }
 
-		private bool m_GettingProperties;
-
-		public bool GettingProperties
-		{
-			get { return m_GettingProperties; }
-		}
+		public bool GettingProperties { get; private set; }
 
 		public override void GetProperties(ObjectPropertyList list)
 		{
@@ -71,9 +66,9 @@ namespace Server.Multis
 			{
 				list.Add(Owner.Public ? 1061641 : 1061642); // This House is Open to the Public : This is a Private Home
 
-				m_GettingProperties = true;
+				GettingProperties = true;
 				DecayLevel level = Owner.DecayLevel;
-				m_GettingProperties = false;
+				GettingProperties = false;
 
 				if (level == DecayLevel.DemolitionPending)
 				{

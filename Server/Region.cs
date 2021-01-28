@@ -101,14 +101,10 @@ namespace Server
 			return map.DefaultRegion;
 		}
 
-		private static Type m_DefaultRegionType = typeof(Region);
-		public static Type DefaultRegionType { get { return m_DefaultRegionType; } set { m_DefaultRegionType = value; } }
+		public static Type DefaultRegionType { get; set; } = typeof(Region);
 
-		private static TimeSpan m_StaffLogoutDelay = TimeSpan.FromMinutes(Settings.Get<double>("Gameplay", "StaffLogoutDelay"));
-		private static TimeSpan m_DefaultLogoutDelay = TimeSpan.FromMinutes(Settings.Get<double>("Gameplay", "DefaultLogoutDelay"));
-
-		public static TimeSpan StaffLogoutDelay { get { return m_StaffLogoutDelay; } set { m_StaffLogoutDelay = value; } }
-		public static TimeSpan DefaultLogoutDelay { get { return m_DefaultLogoutDelay; } set { m_DefaultLogoutDelay = value; } }
+		public static TimeSpan StaffLogoutDelay { get; set; } = TimeSpan.FromMinutes(Settings.Get<double>("Gameplay", "StaffLogoutDelay"));
+		public static TimeSpan DefaultLogoutDelay { get; set; } = TimeSpan.FromMinutes(Settings.Get<double>("Gameplay", "DefaultLogoutDelay"));
 
 		public const int DefaultPriority = 50;
 
@@ -135,7 +131,6 @@ namespace Server
 		private readonly string m_Name;
 		private readonly int m_Priority;
 		private Point3D m_GoLocation;
-		private MusicName m_Music;
 
 		public string Name { get { return m_Name; } }
 		public Map Map { get; }
@@ -149,7 +144,7 @@ namespace Server
 		public bool Registered { get; private set; }
 
 		public Point3D GoLocation { get { return m_GoLocation; } set { m_GoLocation = value; } }
-		public MusicName Music { get { return m_Music; } set { m_Music = value; } }
+		public MusicName Music { get; set; }
 
 		public bool IsDefault { get { return Map.DefaultRegion == this; } }
 		public virtual MusicName DefaultMusic { get { return Parent != null ? Parent.Music : MusicName.Invalid; } }
@@ -174,7 +169,7 @@ namespace Server
 			Parent = parent;
 			Area = area;
 			Dynamic = true;
-			m_Music = this.DefaultMusic;
+			Music = this.DefaultMusic;
 
 			if (Parent == null)
 			{
@@ -758,9 +753,9 @@ namespace Server
 			if (Parent != null)
 				return Parent.GetLogoutDelay(m);
 			else if (m.AccessLevel > AccessLevel.Player)
-				return m_StaffLogoutDelay;
+				return StaffLogoutDelay;
 			else
-				return m_DefaultLogoutDelay;
+				return DefaultLogoutDelay;
 		}
 
 
@@ -948,7 +943,7 @@ namespace Server
 
 			ReadEnum(xml["music"], "name", ref music, false);
 
-			m_Music = music;
+			Music = music;
 		}
 
 		protected static string GetAttribute(XmlElement xml, string attribute, bool mandatory)

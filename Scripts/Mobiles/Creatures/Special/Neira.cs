@@ -148,10 +148,9 @@ namespace Server.Mobiles
 
 		private class VirtualMountItem : BaseItem, IMountItem
 		{
-			private Mobile m_Rider;
 			private VirtualMount m_Mount;
 
-			public Mobile Rider { get { return m_Rider; } }
+			public Mobile Rider { get; private set; }
 
 			public VirtualMountItem(Mobile mob)
 				: base(0x3EBB)
@@ -160,7 +159,7 @@ namespace Server.Mobiles
 
 				Movable = false;
 
-				m_Rider = mob;
+				Rider = mob;
 				m_Mount = new VirtualMount(this);
 			}
 
@@ -181,18 +180,17 @@ namespace Server.Mobiles
 
 				writer.Write((int)0); // version
 
-				writer.Write((Mobile)m_Rider);
+				writer.Write((Mobile)Rider);
 			}
 
 			public override void Deserialize(GenericReader reader)
 			{
 				base.Deserialize(reader);
+				_ = reader.ReadInt();
 
-				int version = reader.ReadInt();
+				Rider = reader.ReadMobile();
 
-				m_Rider = reader.ReadMobile();
-
-				if (m_Rider == null)
+				if (Rider == null)
 					Delete();
 			}
 		}

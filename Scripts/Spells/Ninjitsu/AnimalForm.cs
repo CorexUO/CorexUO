@@ -125,7 +125,7 @@ namespace Server.Spells.Ninjitsu
 					if (GetLastAnimalForm(Caster) == -1 || !skipGump)
 					{
 						Caster.CloseGump(typeof(AnimalFormGump));
-						Caster.SendGump(new AnimalFormGump(Caster, m_Entries, this));
+						Caster.SendGump(new AnimalFormGump(Caster, Entries, this));
 					}
 					else
 					{
@@ -176,10 +176,10 @@ namespace Server.Spells.Ninjitsu
 
 		public static MorphResult Morph(Mobile m, int entryID)
 		{
-			if (entryID < 0 || entryID >= m_Entries.Length)
+			if (entryID < 0 || entryID >= Entries.Length)
 				return MorphResult.Fail;
 
-			AnimalFormEntry entry = m_Entries[entryID];
+			AnimalFormEntry entry = Entries[entryID];
 
 			m_LastAnimalForms[m] = entryID; //On OSI, it's the last /attempted/ one not the last succeeded one
 
@@ -312,61 +312,41 @@ namespace Server.Spells.Ninjitsu
 			return (context != null && context.Type == type);
 		}
 
-		/*
-				private delegate void AnimalFormCallback( Mobile from );
-				private delegate bool AnimalFormRequirementCallback( Mobile from );
-		*/
-
 		public class AnimalFormEntry
 		{
-			private Type m_Type;
-			private TextDefinition m_Name;
-			private int m_ItemID;
-			private int m_Hue;
-			private int m_Tooltip;
-			private double m_ReqSkill;
-			private int m_BodyMod;
 			private int m_HueModMin;
 			private int m_HueModMax;
-			private bool m_StealthBonus;
-			private bool m_SpeedBoost;
-			private bool m_StealingBonus;
 
-			public Type Type { get { return m_Type; } }
-			public TextDefinition Name { get { return m_Name; } }
-			public int ItemID { get { return m_ItemID; } }
-			public int Hue { get { return m_Hue; } }
-			public int Tooltip { get { return m_Tooltip; } }
-			public double ReqSkill { get { return m_ReqSkill; } }
-			public int BodyMod { get { return m_BodyMod; } }
+			public Type Type { get; }
+			public TextDefinition Name { get; }
+			public int ItemID { get; }
+			public int Hue { get; }
+			public int Tooltip { get; }
+			public double ReqSkill { get; }
+			public int BodyMod { get; }
 			public int HueMod { get { return Utility.RandomMinMax(m_HueModMin, m_HueModMax); } }
-			public bool StealthBonus { get { return m_StealthBonus; } }
-			public bool SpeedBoost { get { return m_SpeedBoost; } }
-			public bool StealingBonus { get { return m_StealingBonus; } }
-			/*
-			private AnimalFormCallback m_TransformCallback;
-			private AnimalFormCallback m_UntransformCallback;
-			private AnimalFormRequirementCallback m_RequirementCallback;
-			*/
+			public bool StealthBonus { get; }
+			public bool SpeedBoost { get; }
+			public bool StealingBonus { get; }
 
 			public AnimalFormEntry(Type type, TextDefinition name, int itemID, int hue, int tooltip, double reqSkill, int bodyMod, int hueModMin, int hueModMax, bool stealthBonus, bool speedBoost, bool stealingBonus)
 			{
-				m_Type = type;
-				m_Name = name;
-				m_ItemID = itemID;
-				m_Hue = hue;
-				m_Tooltip = tooltip;
-				m_ReqSkill = reqSkill;
-				m_BodyMod = bodyMod;
+				Type = type;
+				Name = name;
+				ItemID = itemID;
+				Hue = hue;
+				Tooltip = tooltip;
+				ReqSkill = reqSkill;
+				BodyMod = bodyMod;
 				m_HueModMin = hueModMin;
 				m_HueModMax = hueModMax;
-				m_StealthBonus = stealthBonus;
-				m_SpeedBoost = speedBoost;
-				m_StealingBonus = stealingBonus;
+				StealthBonus = stealthBonus;
+				SpeedBoost = speedBoost;
+				StealingBonus = stealingBonus;
 			}
 		}
 
-		private static AnimalFormEntry[] m_Entries = new AnimalFormEntry[]
+		public static AnimalFormEntry[] Entries { get; } = new AnimalFormEntry[]
 			{
 				new AnimalFormEntry( typeof( Kirin ),        1029632,  9632,    0, 1070811, 100.0,  0x84,     0,     0, false,  true, false ),
 				new AnimalFormEntry( typeof( Unicorn ),      1018214,  9678,    0, 1070812, 100.0,  0x7A,     0,     0, false,  true, false ),
@@ -385,8 +365,6 @@ namespace Server.Spells.Ninjitsu
 				new AnimalFormEntry( typeof( CuSidhe ),      1031670, 11670,    0, 1075221,  60.0, 0x115,     0,     0, false, false, false ),
 				new AnimalFormEntry( typeof( Reptalon ),     1075202, 11669,    0, 1075222,  90.0, 0x114,     0,     0, false, false, false ),
 			};
-
-		public static AnimalFormEntry[] Entries { get { return m_Entries; } }
 
 		public class AnimalFormGump : Gump
 		{
@@ -462,7 +440,7 @@ namespace Server.Spells.Ninjitsu
 			{
 				int entryID = info.ButtonID - 1;
 
-				if (entryID < 0 || entryID >= m_Entries.Length)
+				if (entryID < 0 || entryID >= AnimalForm.Entries.Length)
 					return;
 
 				int mana = m_Spell.ScaleMana(m_Spell.RequiredMana);
@@ -501,25 +479,19 @@ namespace Server.Spells.Ninjitsu
 
 	public class AnimalFormContext
 	{
-		private Timer m_Timer;
-		private SkillMod m_Mod;
-		private bool m_SpeedBoost;
-		private Type m_Type;
-		private SkillMod m_StealingMod;
-
-		public Timer Timer { get { return m_Timer; } }
-		public SkillMod Mod { get { return m_Mod; } }
-		public bool SpeedBoost { get { return m_SpeedBoost; } }
-		public Type Type { get { return m_Type; } }
-		public SkillMod StealingMod { get { return m_StealingMod; } }
+		public Timer Timer { get; }
+		public SkillMod Mod { get; }
+		public bool SpeedBoost { get; }
+		public Type Type { get; }
+		public SkillMod StealingMod { get; }
 
 		public AnimalFormContext(Timer timer, SkillMod mod, bool speedBoost, Type type, SkillMod stealingMod)
 		{
-			m_Timer = timer;
-			m_Mod = mod;
-			m_SpeedBoost = speedBoost;
-			m_Type = type;
-			m_StealingMod = stealingMod;
+			Timer = timer;
+			Mod = mod;
+			SpeedBoost = speedBoost;
+			Type = type;
+			StealingMod = stealingMod;
 		}
 	}
 

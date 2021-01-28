@@ -4,9 +4,7 @@ namespace Server.Network
 {
 	public class BufferPool
 	{
-		private static List<BufferPool> m_Pools = new List<BufferPool>();
-
-		public static List<BufferPool> Pools { get { return m_Pools; } set { m_Pools = value; } }
+		public static List<BufferPool> Pools { get; set; } = new List<BufferPool>();
 
 		private readonly string m_Name;
 
@@ -42,8 +40,8 @@ namespace Server.Network
 			for (int i = 0; i < initialCapacity; ++i)
 				m_FreeBuffers.Enqueue(new byte[bufferSize]);
 
-			lock (m_Pools)
-				m_Pools.Add(this);
+			lock (Pools)
+				Pools.Add(this);
 		}
 
 		public byte[] AcquireBuffer()
@@ -73,8 +71,8 @@ namespace Server.Network
 
 		public void Free()
 		{
-			lock (m_Pools)
-				m_Pools.Remove(this);
+			lock (Pools)
+				Pools.Remove(this);
 		}
 	}
 }

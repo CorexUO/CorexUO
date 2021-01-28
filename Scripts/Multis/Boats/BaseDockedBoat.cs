@@ -6,12 +6,11 @@ namespace Server.Multis
 {
 	public abstract class BaseDockedBoat : BaseItem
 	{
-		private int m_MultiID;
 		private Point3D m_Offset;
 		private string m_ShipName;
 
 		[CommandProperty(AccessLevel.GameMaster)]
-		public int MultiID { get { return m_MultiID; } set { m_MultiID = value; } }
+		public int MultiID { get; set; }
 
 		[CommandProperty(AccessLevel.GameMaster)]
 		public Point3D Offset { get { return m_Offset; } set { m_Offset = value; } }
@@ -24,7 +23,7 @@ namespace Server.Multis
 			Weight = 1.0;
 			LootType = LootType.Blessed;
 
-			m_MultiID = id;
+			MultiID = id;
 			m_Offset = offset;
 
 			m_ShipName = boat.ShipName;
@@ -40,7 +39,7 @@ namespace Server.Multis
 
 			writer.Write((int)0); // version
 
-			writer.Write(m_MultiID);
+			writer.Write(MultiID);
 			writer.Write(m_Offset);
 			writer.Write(m_ShipName);
 		}
@@ -55,7 +54,7 @@ namespace Server.Multis
 			{
 				case 0:
 					{
-						m_MultiID = reader.ReadInt();
+						MultiID = reader.ReadInt();
 						m_Offset = reader.ReadPoint3D();
 						m_ShipName = reader.ReadString();
 

@@ -24,37 +24,22 @@ namespace Server.Network
 						gram = new Gram();
 					}
 
-					gram._buffer = AcquireBuffer();
-					gram._length = 0;
+					gram.Buffer = AcquireBuffer();
+					gram.Length = 0;
 
 					return gram;
 				}
 			}
 
-			private byte[] _buffer;
-			private int _length;
+			public byte[] Buffer { get; private set; }
 
-			public byte[] Buffer
-			{
-				get
-				{
-					return _buffer;
-				}
-			}
-
-			public int Length
-			{
-				get
-				{
-					return _length;
-				}
-			}
+			public int Length { get; private set; }
 
 			public int Available
 			{
 				get
 				{
-					return (_buffer.Length - _length);
+					return (Buffer.Length - Length);
 				}
 			}
 
@@ -62,7 +47,7 @@ namespace Server.Network
 			{
 				get
 				{
-					return (_length == _buffer.Length);
+					return (Length == Buffer.Length);
 				}
 			}
 
@@ -74,9 +59,9 @@ namespace Server.Network
 			{
 				int write = Math.Min(length, this.Available);
 
-				System.Buffer.BlockCopy(buffer, offset, _buffer, _length, write);
+				System.Buffer.BlockCopy(buffer, offset, Buffer, Length, write);
 
-				_length += write;
+				Length += write;
 
 				return write;
 			}
@@ -86,7 +71,7 @@ namespace Server.Network
 				lock (_pool)
 				{
 					_pool.Push(this);
-					ReleaseBuffer(_buffer);
+					ReleaseBuffer(Buffer);
 				}
 			}
 		}

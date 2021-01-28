@@ -15,58 +15,49 @@ namespace Server.Gumps
 
 	public class CAGObject : CAGNode
 	{
-		private Type m_Type;
-		private int m_ItemID;
-		private int m_Hue;
-		private CAGCategory m_Parent;
+		public Type Type { get; }
+		public int ItemID { get; }
+		public int Hue { get; }
+		public CAGCategory Parent { get; }
 
-		public Type Type { get { return m_Type; } }
-		public int ItemID { get { return m_ItemID; } }
-		public int Hue { get { return m_Hue; } }
-		public CAGCategory Parent { get { return m_Parent; } }
-
-		public override string Caption { get { return (m_Type == null ? "bad type" : m_Type.Name); } }
+		public override string Caption { get { return (Type == null ? "bad type" : Type.Name); } }
 
 		public override void OnClick(Mobile from, int page)
 		{
-			if (m_Type == null)
+			if (Type == null)
 			{
 				from.SendMessage("That is an invalid type name.");
 			}
 			else
 			{
-				CommandSystem.Handle(from, String.Format("{0}Add {1}", CommandSystem.Prefix, m_Type.Name));
+				CommandSystem.Handle(from, String.Format("{0}Add {1}", CommandSystem.Prefix, Type.Name));
 
-				from.SendGump(new CategorizedAddGump(from, m_Parent, page));
+				from.SendGump(new CategorizedAddGump(from, Parent, page));
 			}
 		}
 
 		public CAGObject(CAGCategory parent, XmlTextReader xml)
 		{
-			m_Parent = parent;
+			Parent = parent;
 
 			if (xml.MoveToAttribute("type"))
-				m_Type = Assembler.FindTypeByFullName(xml.Value, false);
+				Type = Assembler.FindTypeByFullName(xml.Value, false);
 
 			if (xml.MoveToAttribute("gfx"))
-				m_ItemID = XmlConvert.ToInt32(xml.Value);
+				ItemID = XmlConvert.ToInt32(xml.Value);
 
 			if (xml.MoveToAttribute("hue"))
-				m_Hue = XmlConvert.ToInt32(xml.Value);
+				Hue = XmlConvert.ToInt32(xml.Value);
 		}
 	}
 
 	public class CAGCategory : CAGNode
 	{
-		private string m_Title;
-		private CAGNode[] m_Nodes;
-		private CAGCategory m_Parent;
+		public string Title { get; }
+		public CAGNode[] Nodes { get; }
+		public CAGCategory Parent { get; }
 
-		public string Title { get { return m_Title; } }
-		public CAGNode[] Nodes { get { return m_Nodes; } }
-		public CAGCategory Parent { get { return m_Parent; } }
-
-		public override string Caption { get { return m_Title; } }
+		public override string Caption { get { return Title; } }
 
 		public override void OnClick(Mobile from, int page)
 		{
@@ -75,25 +66,25 @@ namespace Server.Gumps
 
 		private CAGCategory()
 		{
-			m_Title = "no data";
-			m_Nodes = new CAGNode[0];
+			Title = "no data";
+			Nodes = new CAGNode[0];
 		}
 
 		public CAGCategory(CAGCategory parent, XmlTextReader xml)
 		{
-			m_Parent = parent;
+			Parent = parent;
 
 			if (xml.MoveToAttribute("title"))
-				m_Title = xml.Value;
+				Title = xml.Value;
 			else
-				m_Title = "empty";
+				Title = "empty";
 
-			if (m_Title == "Docked")
-				m_Title = "Docked 2";
+			if (Title == "Docked")
+				Title = "Docked 2";
 
 			if (xml.IsEmptyElement)
 			{
-				m_Nodes = new CAGNode[0];
+				Nodes = new CAGNode[0];
 			}
 			else
 			{
@@ -112,7 +103,7 @@ namespace Server.Gumps
 						xml.Skip();
 				}
 
-				m_Nodes = (CAGNode[])nodes.ToArray(typeof(CAGNode));
+				Nodes = (CAGNode[])nodes.ToArray(typeof(CAGNode));
 			}
 		}
 

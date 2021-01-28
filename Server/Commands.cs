@@ -162,9 +162,7 @@ namespace Server.Commands
 			Entries[command] = new CommandEntry(command, handler, access);
 		}
 
-		private static AccessLevel m_BadCommandIngoreLevel = AccessLevel.Player;
-
-		public static AccessLevel BadCommandIgnoreLevel { get { return m_BadCommandIngoreLevel; } set { m_BadCommandIngoreLevel = value; } }
+		public static AccessLevel BadCommandIgnoreLevel { get; set; } = AccessLevel.Player;
 
 		public static bool Handle(Mobile from, string text)
 		{
@@ -198,8 +196,7 @@ namespace Server.Commands
 					args = Array.Empty<string>();
 				}
 
-				Entries.TryGetValue(command, out CommandEntry entry);
-
+				_ = Entries.TryGetValue(command, out CommandEntry entry);
 				if (entry != null)
 				{
 					if (from.AccessLevel >= entry.AccessLevel)
@@ -213,7 +210,7 @@ namespace Server.Commands
 					}
 					else
 					{
-						if (from.AccessLevel <= m_BadCommandIngoreLevel)
+						if (from.AccessLevel <= BadCommandIgnoreLevel)
 							return false;
 
 						from.SendMessage("You do not have access to that command.");
@@ -221,7 +218,7 @@ namespace Server.Commands
 				}
 				else
 				{
-					if (from.AccessLevel <= m_BadCommandIngoreLevel)
+					if (from.AccessLevel <= BadCommandIgnoreLevel)
 						return false;
 
 					from.SendMessage("That is not a valid command.");

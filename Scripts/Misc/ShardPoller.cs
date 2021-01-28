@@ -265,20 +265,18 @@ namespace Server.Misc
 	public class ShardPollOption
 	{
 		private string m_Title;
-		private int m_LineBreaks;
-		private IPAddress[] m_Voters;
 
-		public string Title { get { return m_Title; } set { m_Title = value; m_LineBreaks = GetBreaks(m_Title); } }
-		public int LineBreaks { get { return m_LineBreaks; } }
+		public string Title { get { return m_Title; } set { m_Title = value; LineBreaks = GetBreaks(m_Title); } }
+		public int LineBreaks { get; private set; }
 
-		public int Votes { get { return m_Voters.Length; } }
-		public IPAddress[] Voters { get { return m_Voters; } set { m_Voters = value; } }
+		public int Votes { get { return Voters.Length; } }
+		public IPAddress[] Voters { get; set; }
 
 		public ShardPollOption(string title)
 		{
 			m_Title = title;
-			m_LineBreaks = GetBreaks(m_Title);
-			m_Voters = Array.Empty<IPAddress>();
+			LineBreaks = GetBreaks(m_Title);
+			Voters = Array.Empty<IPAddress>();
 		}
 
 		public bool HasAlreadyVoted(NetState ns)
@@ -288,9 +286,9 @@ namespace Server.Misc
 
 			IPAddress ipAddress = ns.Address;
 
-			for (int i = 0; i < m_Voters.Length; ++i)
+			for (int i = 0; i < Voters.Length; ++i)
 			{
-				if (Utility.IPMatchClassC(m_Voters[i], ipAddress))
+				if (Utility.IPMatchClassC(Voters[i], ipAddress))
 					return true;
 			}
 
@@ -302,18 +300,18 @@ namespace Server.Misc
 			if (ns == null)
 				return;
 
-			IPAddress[] old = m_Voters;
-			m_Voters = new IPAddress[old.Length + 1];
+			IPAddress[] old = Voters;
+			Voters = new IPAddress[old.Length + 1];
 
 			for (int i = 0; i < old.Length; ++i)
-				m_Voters[i] = old[i];
+				Voters[i] = old[i];
 
-			m_Voters[old.Length] = ns.Address;
+			Voters[old.Length] = ns.Address;
 		}
 
 		public int ComputeHeight()
 		{
-			int height = m_LineBreaks * 18;
+			int height = LineBreaks * 18;
 
 			if (height > 30)
 				return height;
@@ -347,12 +345,12 @@ namespace Server.Misc
 				case 0:
 					{
 						m_Title = reader.ReadString();
-						m_LineBreaks = GetBreaks(m_Title);
+						LineBreaks = GetBreaks(m_Title);
 
-						m_Voters = new IPAddress[reader.ReadInt()];
+						Voters = new IPAddress[reader.ReadInt()];
 
-						for (int i = 0; i < m_Voters.Length; ++i)
-							m_Voters[i] = Utility.Intern(reader.ReadIPAddress());
+						for (int i = 0; i < Voters.Length; ++i)
+							Voters[i] = Utility.Intern(reader.ReadIPAddress());
 
 						break;
 					}
@@ -365,10 +363,10 @@ namespace Server.Misc
 
 			writer.Write(m_Title);
 
-			writer.Write(m_Voters.Length);
+			writer.Write(Voters.Length);
 
-			for (int i = 0; i < m_Voters.Length; ++i)
-				writer.Write(m_Voters[i]);
+			for (int i = 0; i < Voters.Length; ++i)
+				writer.Write(Voters[i]);
 		}
 	}
 

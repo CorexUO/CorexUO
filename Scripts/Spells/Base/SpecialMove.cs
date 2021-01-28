@@ -187,9 +187,7 @@ namespace Server.Spells
 			m.CheckSkill(MoveSkill, RequiredSkill, RequiredSkill + 37.5);
 		}
 
-		private static Dictionary<Mobile, SpecialMove> m_Table = new Dictionary<Mobile, SpecialMove>();
-
-		public static Dictionary<Mobile, SpecialMove> Table { get { return m_Table; } }
+		public static Dictionary<Mobile, SpecialMove> Table { get; } = new Dictionary<Mobile, SpecialMove>();
 
 		public static void ClearAllMoves(Mobile m)
 		{
@@ -215,8 +213,7 @@ namespace Server.Spells
 				return null;
 			}
 
-			SpecialMove move = null;
-			m_Table.TryGetValue(m, out move);
+			Table.TryGetValue(m, out SpecialMove move);
 
 			if (move != null && move.ValidatesDuringHit && !move.Validate(m))
 			{
@@ -252,7 +249,7 @@ namespace Server.Spells
 			{
 				WeaponAbility.ClearCurrentAbility(m);
 
-				m_Table[m] = move;
+				Table[m] = move;
 
 				move.OnUse(m);
 
@@ -269,7 +266,7 @@ namespace Server.Spells
 
 		public static void ClearCurrentMove(Mobile m)
 		{
-			m_Table.TryGetValue(m, out SpecialMove move);
+			Table.TryGetValue(m, out SpecialMove move);
 
 			if (move != null)
 			{
@@ -281,7 +278,7 @@ namespace Server.Spells
 					m.Send(new ToggleSpecialAbility(moveID + 1, false));
 			}
 
-			m_Table.Remove(m);
+			Table.Remove(m);
 		}
 
 		public SpecialMove()
@@ -341,16 +338,13 @@ namespace Server.Spells
 
 		public class SpecialMoveContext
 		{
-			private Timer m_Timer;
-			private Type m_Type;
-
-			public Timer Timer { get { return m_Timer; } }
-			public Type Type { get { return m_Type; } }
+			public Timer Timer { get; }
+			public Type Type { get; }
 
 			public SpecialMoveContext(Timer timer, Type type)
 			{
-				m_Timer = timer;
-				m_Type = type;
+				Timer = timer;
+				Type = type;
 			}
 		}
 	}

@@ -27,19 +27,14 @@ namespace Server.Multis
 
 		#region Dynamic decay system
 		private DecayLevel m_CurrentStage;
-		private DateTime m_NextDecayStage;
 
 		[CommandProperty(AccessLevel.GameMaster)]
-		public DateTime NextDecayStage
-		{
-			get { return m_NextDecayStage; }
-			set { m_NextDecayStage = value; }
-		}
+		public DateTime NextDecayStage { get; set; }
 
 		public void ResetDynamicDecay()
 		{
 			m_CurrentStage = DecayLevel.Ageless;
-			m_NextDecayStage = DateTime.MinValue;
+			NextDecayStage = DateTime.MinValue;
 		}
 
 		public void SetDynamicDecay(DecayLevel level)
@@ -47,16 +42,16 @@ namespace Server.Multis
 			m_CurrentStage = level;
 
 			if (DynamicDecay.Decays(level))
-				m_NextDecayStage = DateTime.UtcNow + DynamicDecay.GetRandomDuration(level);
+				NextDecayStage = DateTime.UtcNow + DynamicDecay.GetRandomDuration(level);
 			else
-				m_NextDecayStage = DateTime.MinValue;
+				NextDecayStage = DateTime.MinValue;
 		}
 		#endregion
 
 		public static void Decay_OnTick()
 		{
-			for (int i = 0; i < m_AllHouses.Count; ++i)
-				m_AllHouses[i].CheckDecay();
+			for (int i = 0; i < AllHouses.Count; ++i)
+				AllHouses[i].CheckDecay();
 		}
 
 		[CommandProperty(AccessLevel.GameMaster)]
@@ -163,7 +158,7 @@ namespace Server.Multis
 				{
 					DecayLevel stage = m_CurrentStage;
 
-					if (stage == DecayLevel.Ageless || (DynamicDecay.Decays(stage) && m_NextDecayStage <= DateTime.UtcNow))
+					if (stage == DecayLevel.Ageless || (DynamicDecay.Decays(stage) && NextDecayStage <= DateTime.UtcNow))
 						SetDynamicDecay(++stage);
 
 					if (stage == DecayLevel.Collapsed && (HasRentedVendors || VendorInventories.Count > 0))
@@ -272,8 +267,6 @@ namespace Server.Multis
 
 		private HouseRegion m_Region;
 		private TrashBarrel m_Trash;
-		private ArrayList m_Doors;
-
 		private Mobile m_Owner;
 		private Point3D m_RelativeBanLocation;
 
@@ -1154,23 +1147,18 @@ namespace Server.Multis
 			return SecureAccessResult.Insecure;
 		}
 
-		private static List<BaseHouse> m_AllHouses = new List<BaseHouse>();
-
-		public static List<BaseHouse> AllHouses
-		{
-			get { return m_AllHouses; }
-		}
+		public static List<BaseHouse> AllHouses { get; } = new List<BaseHouse>();
 
 		public BaseHouse(int multiID, Mobile owner, int MaxLockDown, int MaxSecure) : base(multiID)
 		{
-			m_AllHouses.Add(this);
+			AllHouses.Add(this);
 
 			LastRefreshed = DateTime.UtcNow;
 
 			BuiltOn = DateTime.UtcNow;
 			LastTraded = DateTime.MinValue;
 
-			m_Doors = new ArrayList();
+			Doors = new ArrayList();
 			LockDowns = new ArrayList();
 			Secures = new ArrayList();
 			Addons = new ArrayList();
@@ -1207,7 +1195,7 @@ namespace Server.Multis
 
 		public BaseHouse(Serial serial) : base(serial)
 		{
-			m_AllHouses.Add(this);
+			AllHouses.Add(this);
 		}
 
 		public override void OnMapChange()
@@ -1220,9 +1208,9 @@ namespace Server.Multis
 			if (Sign != null && !Sign.Deleted)
 				Sign.Map = this.Map;
 
-			if (m_Doors != null)
+			if (Doors != null)
 			{
-				foreach (Item item in m_Doors)
+				foreach (Item item in Doors)
 					item.Map = this.Map;
 			}
 
@@ -1274,9 +1262,9 @@ namespace Server.Multis
 
 			UpdateRegion();
 
-			if (m_Doors != null)
+			if (Doors != null)
 			{
-				foreach (Item item in m_Doors)
+				foreach (Item item in Doors)
 				{
 					if (!item.Deleted)
 						item.Location = new Point3D(item.X + x, item.Y + y, item.Z + z);
@@ -1437,7 +1425,7 @@ namespace Server.Multis
 		public void AddDoor(BaseDoor door, int xoff, int yoff, int zoff)
 		{
 			door.MoveToWorld(new Point3D(xoff + this.X, yoff + this.Y, zoff + this.Z), this.Map);
-			m_Doors.Add(door);
+			Doors.Add(door);
 		}
 
 		public void AddTrashBarrel(Mobile from)
@@ -1445,9 +1433,9 @@ namespace Server.Multis
 			if (!IsActive)
 				return;
 
-			for (int i = 0; m_Doors != null && i < m_Doors.Count; ++i)
+			for (int i = 0; Doors != null && i < Doors.Count; ++i)
 			{
-				BaseDoor door = m_Doors[i] as BaseDoor;
+				BaseDoor door = Doors[i] as BaseDoor;
 				Point3D p = door.Location;
 
 				if (door.Open)
@@ -2062,9 +2050,9 @@ namespace Server.Multis
 				}
 			}
 
-			for (int i = 0; m_Doors != null && i < m_Doors.Count; ++i)
+			for (int i = 0; Doors != null && i < Doors.Count; ++i)
 			{
-				BaseDoor door = m_Doors[i] as BaseDoor;
+				BaseDoor door = Doors[i] as BaseDoor;
 				Point3D p = door.Location;
 
 				if (door.Open)
@@ -2368,7 +2356,7 @@ namespace Server.Multis
 			else
 			{
 				writer.Write((int)m_CurrentStage);
-				writer.Write(m_NextDecayStage);
+				writer.Write(NextDecayStage);
 			}
 
 			writer.Write((Point3D)m_RelativeBanLocation);
@@ -2424,7 +2412,7 @@ namespace Server.Multis
 			writer.Write(Sign);
 			writer.Write(m_Trash);
 
-			writer.WriteItemList(m_Doors, true);
+			writer.WriteItemList(Doors, true);
 			writer.WriteItemList(LockDowns, true);
 
 			writer.Write((int)MaxLockDowns);
@@ -2468,7 +2456,7 @@ namespace Server.Multis
 						if (stage != -1)
 						{
 							m_CurrentStage = (DecayLevel)stage;
-							m_NextDecayStage = reader.ReadDateTime();
+							NextDecayStage = reader.ReadDateTime();
 							loadedDynamicDecay = true;
 						}
 						m_RelativeBanLocation = reader.ReadPoint3D();
@@ -2534,7 +2522,7 @@ namespace Server.Multis
 						Sign = reader.ReadItem() as HouseSign;
 						m_Trash = reader.ReadItem() as TrashBarrel;
 
-						m_Doors = reader.ReadItemList();
+						Doors = reader.ReadItemList();
 						LockDowns = reader.ReadItemList();
 
 						for (int i = 0; i < LockDowns.Count; ++i)
@@ -2750,7 +2738,7 @@ namespace Server.Multis
 		public ArrayList Friends { get; set; }
 		public ArrayList Access { get; set; }
 		public ArrayList Bans { get; set; }
-		public ArrayList Doors { get { return m_Doors; } set { m_Doors = value; } }
+		public ArrayList Doors { get; set; }
 
 		public int GetLockdowns()
 		{
@@ -2904,17 +2892,17 @@ namespace Server.Multis
 			if (m_Trash != null)
 				m_Trash.Delete();
 
-			if (m_Doors != null)
+			if (Doors != null)
 			{
-				for (int i = 0; i < m_Doors.Count; ++i)
+				for (int i = 0; i < Doors.Count; ++i)
 				{
-					Item item = (Item)m_Doors[i];
+					Item item = (Item)Doors[i];
 
 					if (item != null)
 						item.Delete();
 				}
 
-				m_Doors.Clear();
+				Doors.Clear();
 			}
 
 			if (LockDowns != null)
@@ -3029,7 +3017,7 @@ namespace Server.Multis
 
 			KillVendors();
 
-			m_AllHouses.Remove(this);
+			AllHouses.Remove(this);
 		}
 
 		public static bool HasHouse(Mobile m)
@@ -3122,13 +3110,13 @@ namespace Server.Multis
 
 		public void RemoveKeys(Mobile m)
 		{
-			if (m_Doors != null)
+			if (Doors != null)
 			{
 				uint keyValue = 0;
 
-				for (int i = 0; keyValue == 0 && i < m_Doors.Count; ++i)
+				for (int i = 0; keyValue == 0 && i < Doors.Count; ++i)
 				{
-					BaseDoor door = m_Doors[i] as BaseDoor;
+					BaseDoor door = Doors[i] as BaseDoor;
 
 					if (door != null)
 						keyValue = door.KeyValue;
@@ -3142,11 +3130,11 @@ namespace Server.Multis
 		{
 			uint keyValue = CreateKeys(m);
 
-			if (m_Doors != null)
+			if (Doors != null)
 			{
-				for (int i = 0; i < m_Doors.Count; ++i)
+				for (int i = 0; i < Doors.Count; ++i)
 				{
-					BaseDoor door = m_Doors[i] as BaseDoor;
+					BaseDoor door = Doors[i] as BaseDoor;
 
 					if (door != null)
 						door.KeyValue = keyValue;
@@ -3156,11 +3144,11 @@ namespace Server.Multis
 
 		public void RemoveLocks()
 		{
-			if (m_Doors != null)
+			if (Doors != null)
 			{
-				for (int i = 0; i < m_Doors.Count; ++i)
+				for (int i = 0; i < Doors.Count; ++i)
 				{
-					BaseDoor door = m_Doors[i] as BaseDoor;
+					BaseDoor door = Doors[i] as BaseDoor;
 
 					if (door != null)
 					{

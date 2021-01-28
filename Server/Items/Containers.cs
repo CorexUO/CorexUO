@@ -73,15 +73,13 @@ namespace Server.Items
 				this.ItemID = 0xE7C;
 		}
 
-		private static bool m_SendRemovePacket;
-
-		public static bool SendDeleteOnClose { get { return m_SendRemovePacket; } set { m_SendRemovePacket = value; } }
+		public static bool SendDeleteOnClose { get; set; }
 
 		public void Close()
 		{
 			Opened = false;
 
-			if (Owner != null && m_SendRemovePacket)
+			if (Owner != null && SendDeleteOnClose)
 				Owner.Send(this.RemovePacket);
 		}
 

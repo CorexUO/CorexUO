@@ -312,9 +312,7 @@ namespace Server
 			}
 		}
 
-		private static bool m_UseStatMods;
-
-		public static bool UseStatMods { get { return m_UseStatMods; } set { m_UseStatMods = value; } }
+		public static bool UseStatMods { get; set; }
 
 		public int Fixed
 		{
@@ -350,7 +348,7 @@ namespace Server
 
 				inv /= 100.0;
 
-				double statsOffset = ((m_UseStatMods ? Owner.Owner.Str : Owner.Owner.RawStr) * Info.StrScale) + ((m_UseStatMods ? Owner.Owner.Dex : Owner.Owner.RawDex) * Info.DexScale) + ((m_UseStatMods ? Owner.Owner.Int : Owner.Owner.RawInt) * Info.IntScale);
+				double statsOffset = ((UseStatMods ? Owner.Owner.Str : Owner.Owner.RawStr) * Info.StrScale) + ((UseStatMods ? Owner.Owner.Dex : Owner.Owner.RawDex) * Info.DexScale) + ((UseStatMods ? Owner.Owner.Int : Owner.Owner.RawInt) * Info.IntScale);
 				double statTotal = Info.StatTotal * inv;
 
 				statsOffset *= inv;

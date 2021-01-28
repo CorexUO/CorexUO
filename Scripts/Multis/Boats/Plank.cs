@@ -8,19 +8,14 @@ namespace Server.Items
 
 	public class Plank : BaseItem, ILockable
 	{
-		private BaseBoat m_Boat;
-		private PlankSide m_Side;
-		private bool m_Locked;
-		private uint m_KeyValue;
-
 		private Timer m_CloseTimer;
 
 		public Plank(BaseBoat boat, PlankSide side, uint keyValue) : base(0x3EB1 + (int)side)
 		{
-			m_Boat = boat;
-			m_Side = side;
-			m_KeyValue = keyValue;
-			m_Locked = true;
+			Boat = boat;
+			Side = side;
+			KeyValue = keyValue;
+			Locked = true;
 
 			Movable = false;
 		}
@@ -35,10 +30,10 @@ namespace Server.Items
 
 			writer.Write((int)0);//version
 
-			writer.Write(m_Boat);
-			writer.Write((int)m_Side);
-			writer.Write(m_Locked);
-			writer.Write(m_KeyValue);
+			writer.Write(Boat);
+			writer.Write((int)Side);
+			writer.Write(Locked);
+			writer.Write(KeyValue);
 		}
 
 		public override void Deserialize(GenericReader reader)
@@ -51,12 +46,12 @@ namespace Server.Items
 			{
 				case 0:
 					{
-						m_Boat = reader.ReadItem() as BaseBoat;
-						m_Side = (PlankSide)reader.ReadInt();
-						m_Locked = reader.ReadBool();
-						m_KeyValue = reader.ReadUInt();
+						Boat = reader.ReadItem() as BaseBoat;
+						Side = (PlankSide)reader.ReadInt();
+						Locked = reader.ReadBool();
+						KeyValue = reader.ReadUInt();
 
-						if (m_Boat == null)
+						if (Boat == null)
 							Delete();
 
 						break;
@@ -71,22 +66,22 @@ namespace Server.Items
 		}
 
 		[CommandProperty(AccessLevel.GameMaster)]
-		public BaseBoat Boat { get { return m_Boat; } set { m_Boat = value; } }
+		public BaseBoat Boat { get; set; }
 
 		[CommandProperty(AccessLevel.GameMaster)]
-		public PlankSide Side { get { return m_Side; } set { m_Side = value; } }
+		public PlankSide Side { get; set; }
 
 		[CommandProperty(AccessLevel.GameMaster)]
-		public bool Locked { get { return m_Locked; } set { m_Locked = value; } }
+		public bool Locked { get; set; }
 
 		[CommandProperty(AccessLevel.GameMaster)]
-		public uint KeyValue { get { return m_KeyValue; } set { m_KeyValue = value; } }
+		public uint KeyValue { get; set; }
 
 		[CommandProperty(AccessLevel.GameMaster)]
 		public bool IsOpen { get { return (ItemID == 0x3ED5 || ItemID == 0x3ED4 || ItemID == 0x3E84 || ItemID == 0x3E89); } }
 
 		[CommandProperty(AccessLevel.GameMaster)]
-		public bool Starboard { get { return (m_Side == PlankSide.Starboard); } }
+		public bool Starboard { get { return (Side == PlankSide.Starboard); } }
 
 		public void SetFacing(Direction dir)
 		{
@@ -131,8 +126,8 @@ namespace Server.Items
 				case 0x3E85: ItemID = 0x3E84; break;
 			}
 
-			if (m_Boat != null)
-				m_Boat.Refresh();
+			if (Boat != null)
+				Boat.Refresh();
 		}
 
 		public override bool OnMoveOver(Mobile from)
@@ -142,7 +137,7 @@ namespace Server.Items
 				if (from is BaseFactionGuard)
 					return false;
 
-				if ((from.Direction & Direction.Running) != 0 || (m_Boat != null && !m_Boat.Contains(from)))
+				if ((from.Direction & Direction.Running) != 0 || (Boat != null && !Boat.Contains(from)))
 					return true;
 
 				Map map = Map;
@@ -235,8 +230,8 @@ namespace Server.Items
 				case 0x3E84: ItemID = 0x3E85; break;
 			}
 
-			if (m_Boat != null)
-				m_Boat.Refresh();
+			if (Boat != null)
+				Boat.Refresh();
 		}
 
 		public override void OnDoubleClickDead(Mobile from)
@@ -246,12 +241,12 @@ namespace Server.Items
 
 		public override void OnDoubleClick(Mobile from)
 		{
-			if (m_Boat == null)
+			if (Boat == null)
 				return;
 
 			if (from.InRange(GetWorldLocation(), 8))
 			{
-				if (m_Boat.Contains(from))
+				if (Boat.Contains(from))
 				{
 					if (IsOpen)
 						Close();

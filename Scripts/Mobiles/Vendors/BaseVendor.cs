@@ -29,9 +29,6 @@ namespace Server.Mobiles
 
 		private ArrayList m_ArmorBuyInfo = new ArrayList();
 		private ArrayList m_ArmorSellInfo = new ArrayList();
-
-		private DateTime m_LastRestock;
-
 		private DateTime m_NextTrickOrTreat;
 
 		public override bool CanTeach { get { return true; } }
@@ -124,7 +121,7 @@ namespace Server.Mobiles
 			pack.Visible = false;
 			AddItem(pack);
 
-			m_LastRestock = DateTime.UtcNow;
+			LastRestock = DateTime.UtcNow;
 		}
 
 		public BaseVendor(Serial serial)
@@ -132,17 +129,7 @@ namespace Server.Mobiles
 		{
 		}
 
-		public DateTime LastRestock
-		{
-			get
-			{
-				return m_LastRestock;
-			}
-			set
-			{
-				m_LastRestock = value;
-			}
-		}
+		public DateTime LastRestock { get; set; }
 
 		public virtual TimeSpan RestockDelay
 		{
@@ -176,7 +163,7 @@ namespace Server.Mobiles
 
 		protected void LoadSBInfo()
 		{
-			m_LastRestock = DateTime.UtcNow;
+			LastRestock = DateTime.UtcNow;
 
 			for (int i = 0; i < m_ArmorBuyInfo.Count; ++i)
 			{
@@ -458,7 +445,7 @@ namespace Server.Mobiles
 
 		public virtual void Restock()
 		{
-			m_LastRestock = DateTime.UtcNow;
+			LastRestock = DateTime.UtcNow;
 
 			IBuyItemInfo[] buyInfo = this.GetBuyInfo();
 
@@ -482,7 +469,7 @@ namespace Server.Mobiles
 				return;
 			}
 
-			if (DateTime.UtcNow - m_LastRestock > RestockDelay)
+			if (DateTime.UtcNow - LastRestock > RestockDelay)
 				Restock();
 
 			UpdateBuyInfo();
@@ -885,13 +872,11 @@ namespace Server.Mobiles
 			}
 
 			UpdateBuyInfo();
-
-			IBuyItemInfo[] buyInfo = this.GetBuyInfo();
+			_ = GetBuyInfo();
 			IShopSellInfo[] info = GetSellInfo();
 			int totalCost = 0;
 			List<BuyItemResponse> validBuy = new List<BuyItemResponse>(list.Count);
 			Container cont;
-			bool bought = false;
 			bool fromBank = false;
 			bool fullPurchase = true;
 			int controlSlots = buyer.FollowersMax - buyer.Followers;
@@ -958,7 +943,7 @@ namespace Server.Mobiles
 			if (validBuy.Count == 0)
 				return false;
 
-			bought = (buyer.AccessLevel >= AccessLevel.GameMaster);
+			bool bought = buyer.AccessLevel >= AccessLevel.GameMaster;
 
 			cont = buyer.Backpack;
 			if (!bought && cont != null)

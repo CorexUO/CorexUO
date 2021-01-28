@@ -4,25 +4,13 @@ namespace Server.Items
 {
     public class TransientItem : BaseItem
     {
-        private TimeSpan m_LifeSpan;
+		[CommandProperty(AccessLevel.GameMaster)]
+		public TimeSpan LifeSpan { get; set; }
 
-        [CommandProperty(AccessLevel.GameMaster)]
-        public TimeSpan LifeSpan
-        {
-            get { return m_LifeSpan; }
-            set { m_LifeSpan = value; }
-        }
+		[CommandProperty(AccessLevel.GameMaster)]
+		public DateTime CreationTime { get; set; }
 
-        private DateTime m_CreationTime;
-
-        [CommandProperty(AccessLevel.GameMaster)]
-        public DateTime CreationTime
-        {
-            get { return m_CreationTime; }
-            set { m_CreationTime = value; }
-        }
-
-        private Timer m_Timer;
+		private Timer m_Timer;
 
         public override bool Nontransferable { get { return true; } }
         public override void HandleInvalidTransfer(Mobile from)
@@ -48,7 +36,7 @@ namespace Server.Items
 
         public virtual void SendTimeRemainingMessage(Mobile to)
         {
-            to.SendLocalizedMessage(1072516, String.Format("{0}\t{1}", (this.Name == null ? String.Format("#{0}", LabelNumber) : this.Name), (int)m_LifeSpan.TotalSeconds)); // ~1_name~ will expire in ~2_val~ seconds!
+            to.SendLocalizedMessage(1072516, String.Format("{0}\t{1}", (this.Name == null ? String.Format("#{0}", LabelNumber) : this.Name), (int)LifeSpan.TotalSeconds)); // ~1_name~ will expire in ~2_val~ seconds!
         }
 
         public override void OnDelete()
@@ -61,7 +49,7 @@ namespace Server.Items
 
         public virtual void CheckExpiry()
         {
-            if ((m_CreationTime + m_LifeSpan) < DateTime.UtcNow)
+            if ((CreationTime + LifeSpan) < DateTime.UtcNow)
                 Expire(RootParent as Mobile);
             else
                 InvalidateProperties();
@@ -71,8 +59,8 @@ namespace Server.Items
         public TransientItem(int itemID, TimeSpan lifeSpan)
             : base(itemID)
         {
-            m_CreationTime = DateTime.UtcNow;
-            m_LifeSpan = lifeSpan;
+            CreationTime = DateTime.UtcNow;
+            LifeSpan = lifeSpan;
 
             m_Timer = Timer.DelayCall(TimeSpan.FromSeconds(5), TimeSpan.FromSeconds(5), new TimerCallback(CheckExpiry));
         }
@@ -86,7 +74,7 @@ namespace Server.Items
         {
             base.GetProperties(list);
 
-            TimeSpan remaining = ((m_CreationTime + m_LifeSpan) - DateTime.UtcNow);
+            TimeSpan remaining = ((CreationTime + LifeSpan) - DateTime.UtcNow);
 
             list.Add(1072517, ((int)remaining.TotalSeconds).ToString()); // Lifespan: ~1_val~ seconds
         }
@@ -96,8 +84,8 @@ namespace Server.Items
             base.Serialize(writer);
             writer.Write((int)0);
 
-            writer.Write(m_LifeSpan);
-            writer.Write(m_CreationTime);
+            writer.Write(LifeSpan);
+            writer.Write(CreationTime);
         }
 
         public override void Deserialize(GenericReader reader)
@@ -105,8 +93,8 @@ namespace Server.Items
             base.Deserialize(reader);
             int version = reader.ReadInt();
 
-            m_LifeSpan = reader.ReadTimeSpan();
-            m_CreationTime = reader.ReadDateTime();
+            LifeSpan = reader.ReadTimeSpan();
+            CreationTime = reader.ReadDateTime();
 
             m_Timer = Timer.DelayCall(TimeSpan.FromSeconds(5), TimeSpan.FromSeconds(5), new TimerCallback(CheckExpiry));
         }

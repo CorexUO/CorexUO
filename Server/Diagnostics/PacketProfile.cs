@@ -8,21 +8,13 @@ namespace Server.Diagnostics
 {
 	public abstract class BasePacketProfile : BaseProfile
 	{
-		private long _totalLength;
-
-		public long TotalLength
-		{
-			get
-			{
-				return _totalLength;
-			}
-		}
+		public long TotalLength { get; private set; }
 
 		public double AverageLength
 		{
 			get
 			{
-				return (double)_totalLength / Math.Max(1, this.Count);
+				return (double)TotalLength / Math.Max(1, this.Count);
 			}
 		}
 
@@ -35,7 +27,7 @@ namespace Server.Diagnostics
 		{
 			Finish();
 
-			_totalLength += length;
+			TotalLength += length;
 		}
 
 		public override void WriteTo(TextWriter op)

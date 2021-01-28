@@ -52,8 +52,6 @@ namespace Server.Network
 
 		public IPAddress Address { get; }
 
-		private ClientFlags m_Flags;
-
 		private static bool m_Paused;
 
 		[Flags]
@@ -66,49 +64,11 @@ namespace Server.Network
 		private AsyncState m_AsyncState;
 		private readonly object m_AsyncLock = new object();
 
-		private IPacketEncoder m_Encoder = null;
-
-		public IPacketEncoder PacketEncoder
-		{
-			get
-			{
-				return m_Encoder;
-			}
-			set
-			{
-				m_Encoder = value;
-			}
-		}
-
-		private static NetStateCreatedCallback m_CreatedCallback;
-
-		public static NetStateCreatedCallback CreatedCallback
-		{
-			get
-			{
-				return m_CreatedCallback;
-			}
-			set
-			{
-				m_CreatedCallback = value;
-			}
-		}
-
+		public IPacketEncoder PacketEncoder { get; set; } = null;
+		public static NetStateCreatedCallback CreatedCallback { get; set; }
 		public bool SentFirstPacket { get; set; }
-
 		public bool BlockAllPackets { get; set; }
-
-		public ClientFlags Flags
-		{
-			get
-			{
-				return m_Flags;
-			}
-			set
-			{
-				m_Flags = value;
-			}
-		}
+		public ClientFlags Flags { get; set; }
 
 		public ClientVersion Version
 		{
@@ -245,7 +205,7 @@ namespace Server.Network
 		public bool NewSecureTrading { get { return ((_ProtocolChanges & ProtocolChanges.NewSecureTrading) != 0); } }
 
 		[CommandProperty(AccessLevel.Administrator, true)]
-		public bool IsUOTDClient{ get { return ((m_Flags & ClientFlags.UOTD) != 0 || (m_Version != null && m_Version.Type == ClientType.UOTD)); } }
+		public bool IsUOTDClient{ get { return ((Flags & ClientFlags.UOTD) != 0 || (m_Version != null && m_Version.Type == ClientType.UOTD)); } }
 
 		[CommandProperty(AccessLevel.Administrator, true)]
 		public bool IsSAClient{ get { return (m_Version != null && m_Version.Type == ClientType.SA); } }
@@ -339,50 +299,13 @@ namespace Server.Network
 		public bool CompressionEnabled { get; set; }
 
 		public int Sequence { get; set; }
-
 		public List<Gump> Gumps { get; private set; }
-
 		public List<HuePicker> HuePickers { get; private set; }
-
 		public List<IMenu> Menus { get; private set; }
 
-		private static int m_GumpCap = 512, m_HuePickerCap = 512, m_MenuCap = 512;
-
-		public static int GumpCap
-		{
-			get
-			{
-				return m_GumpCap;
-			}
-			set
-			{
-				m_GumpCap = value;
-			}
-		}
-
-		public static int HuePickerCap
-		{
-			get
-			{
-				return m_HuePickerCap;
-			}
-			set
-			{
-				m_HuePickerCap = value;
-			}
-		}
-
-		public static int MenuCap
-		{
-			get
-			{
-				return m_MenuCap;
-			}
-			set
-			{
-				m_MenuCap = value;
-			}
-		}
+		public static int GumpCap { get; set; } = 512;
+		public static int HuePickerCap { get; set; } = 512;
+		public static int MenuCap { get; set; } = 512;
 
 		public void WriteConsole(string text)
 		{
@@ -401,7 +324,7 @@ namespace Server.Network
 				Menus = new List<IMenu>();
 			}
 
-			if (Menus.Count < m_MenuCap)
+			if (Menus.Count < MenuCap)
 			{
 				Menus.Add(menu);
 			}
@@ -443,7 +366,7 @@ namespace Server.Network
 				HuePickers = new List<HuePicker>();
 			}
 
-			if (HuePickers.Count < m_HuePickerCap)
+			if (HuePickers.Count < HuePickerCap)
 			{
 				HuePickers.Add(huePicker);
 			}
@@ -485,7 +408,7 @@ namespace Server.Network
 				Gumps = new List<Gump>();
 			}
 
-			if (Gumps.Count < m_GumpCap)
+			if (Gumps.Count < GumpCap)
 			{
 				Gumps.Add(gump);
 			}
@@ -576,9 +499,9 @@ namespace Server.Network
 
 			ConnectedOn = DateTime.UtcNow;
 
-			if (m_CreatedCallback != null)
+			if (CreatedCallback != null)
 			{
-				m_CreatedCallback(this);
+				CreatedCallback(this);
 			}
 		}
 
@@ -612,9 +535,9 @@ namespace Server.Network
 					prof.Start();
 				}
 
-				if (m_Encoder != null)
+				if (PacketEncoder != null)
 				{
-					m_Encoder.EncodeOutgoingPacket(this, ref buffer, ref length);
+					PacketEncoder.EncodeOutgoingPacket(this, ref buffer, ref length);
 				}
 
 				try
@@ -915,8 +838,8 @@ namespace Server.Network
 
 					byte[] buffer = m_RecvBuffer;
 
-					if (m_Encoder != null)
-						m_Encoder.DecodeIncomingPacket(this, ref buffer, ref byteCount);
+					if (PacketEncoder != null)
+						PacketEncoder.DecodeIncomingPacket(this, ref buffer, ref byteCount);
 
 					lock (Buffer)
 						Buffer.Enqueue(buffer, 0, byteCount);
@@ -968,9 +891,9 @@ namespace Server.Network
 
 				m_NextCheckActivity = Core.TickCount + 90000;
 
-				if (m_CoalesceSleep >= 0)
+				if (CoalesceSleep >= 0)
 				{
-					Thread.Sleep(m_CoalesceSleep);
+					Thread.Sleep(CoalesceSleep);
 				}
 
 				SendQueue.Gram gram;
@@ -1112,19 +1035,7 @@ namespace Server.Network
 				}
 		}
 
-		private static int m_CoalesceSleep = -1;
-
-		public static int CoalesceSleep
-		{
-			get
-			{
-				return m_CoalesceSleep;
-			}
-			set
-			{
-				m_CoalesceSleep = value;
-			}
-		}
+		public static int CoalesceSleep { get; set; } = -1;
 
 		private long m_NextCheckActivity;
 
@@ -1174,9 +1085,7 @@ namespace Server.Network
 			}
 		}
 
-		private bool m_Disposing;
-
-		public bool IsDisposing { get { return m_Disposing; } }
+		public bool IsDisposing { get; private set; }
 
 		public void Dispose()
 		{
@@ -1185,12 +1094,12 @@ namespace Server.Network
 
 		public virtual void Dispose(bool flush)
 		{
-			if (Socket == null || m_Disposing)
+			if (Socket == null || IsDisposing)
 			{
 				return;
 			}
 
-			m_Disposing = true;
+			IsDisposing = true;
 
 			if (flush)
 				flush = Flush();

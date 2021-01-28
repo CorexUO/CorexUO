@@ -8,8 +8,7 @@ namespace Server.Misc
 {
 	public class TestCenter
 	{
-		private static readonly bool m_Enabled = Settings.Get<bool>("Misc", "TestCenterEnabled");
-		public static bool Enabled { get { return m_Enabled; } }
+		public static bool Enabled { get; } = Settings.Get<bool>("Misc", "TestCenterEnabled");
 
 		public static void Initialize()
 		{

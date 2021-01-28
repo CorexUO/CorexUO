@@ -236,13 +236,7 @@ namespace Server.Spells
 			return TimeSpan.FromSeconds(caster.Skills[SkillName.Magery].Value * 1.2);
 		}
 
-		private static bool m_DisableSkillCheck;
-
-		public static bool DisableSkillCheck
-		{
-			get { return m_DisableSkillCheck; }
-			set { m_DisableSkillCheck = value; }
-		}
+		public static bool DisableSkillCheck { get; set; }
 
 		public static double GetOffsetScalar(Mobile caster, Mobile target, bool curse)
 		{
@@ -265,7 +259,7 @@ namespace Server.Spells
 		{
 			if (Core.AOS)
 			{
-				if (!m_DisableSkillCheck)
+				if (!DisableSkillCheck)
 				{
 					caster.CheckSkill(SkillName.EvalInt, 0.0, 120.0);
 
@@ -1297,22 +1291,17 @@ namespace Server.Spells
 
 	public class TransformContext
 	{
-		private readonly Timer m_Timer;
-		private readonly List<ResistanceMod> m_Mods;
-		private readonly Type m_Type;
-		private readonly ITransformationSpell m_Spell;
-
-		public Timer Timer { get { return m_Timer; } }
-		public List<ResistanceMod> Mods { get { return m_Mods; } }
-		public Type Type { get { return m_Type; } }
-		public ITransformationSpell Spell { get { return m_Spell; } }
+		public Timer Timer { get; }
+		public List<ResistanceMod> Mods { get; }
+		public Type Type { get; }
+		public ITransformationSpell Spell { get; }
 
 		public TransformContext(Timer timer, List<ResistanceMod> mods, Type type, ITransformationSpell spell)
 		{
-			m_Timer = timer;
-			m_Mods = mods;
-			m_Type = type;
-			m_Spell = spell;
+			Timer = timer;
+			Mods = mods;
+			Type = type;
+			Spell = spell;
 		}
 	}
 

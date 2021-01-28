@@ -234,12 +234,7 @@ namespace Server.Mobiles
 			return false;
 		}
 
-		private static Hashtable m_EscortTable = new Hashtable();
-
-		public static Hashtable EscortTable
-		{
-			get { return m_EscortTable; }
-		}
+		public static Hashtable EscortTable { get; } = new Hashtable();
 
 		public virtual bool AcceptEscorter(Mobile m)
 		{
@@ -253,7 +248,7 @@ namespace Server.Mobiles
 			if (escorter != null || !m.Alive)
 				return false;
 
-			BaseEscortable escortable = (BaseEscortable)m_EscortTable[m];
+			BaseEscortable escortable = (BaseEscortable)EscortTable[m];
 
 			if (escortable != null && !escortable.Deleted && escortable.GetEscorter() == m)
 			{
@@ -275,7 +270,7 @@ namespace Server.Mobiles
 					((PlayerMobile)m).LastEscortTime = DateTime.UtcNow;
 
 				Say("Lead on! Payment will be made when we arrive in {0}.", (dest.Name == "Ocllo" && m.Map == Map.Trammel) ? "Haven" : dest.Name);
-				m_EscortTable[m] = this;
+				EscortTable[m] = this;
 				StartFollow();
 				return true;
 			}
@@ -395,7 +390,7 @@ namespace Server.Mobiles
 					Say(1005653); // Hmmm. I seem to have lost my master.
 
 					SetControlMaster(null);
-					m_EscortTable.Remove(master);
+					EscortTable.Remove(master);
 
 					Timer.DelayCall(TimeSpan.FromSeconds(5.0), new TimerCallback(Delete));
 					return null;
@@ -460,7 +455,7 @@ namespace Server.Mobiles
 
 				StopFollow();
 				SetControlMaster(null);
-				m_EscortTable.Remove(escorter);
+				EscortTable.Remove(escorter);
 				BeginDelete();
 
 				Misc.Titles.AwardFame(escorter, 10, true);
@@ -542,8 +537,7 @@ namespace Server.Mobiles
 		public override void Deserialize(GenericReader reader)
 		{
 			base.Deserialize(reader);
-
-			int version = reader.ReadInt();
+			_ = reader.ReadInt();
 
 			if (reader.ReadBool())
 				m_DestinationString = reader.ReadString(); // NOTE: We cannot EDI.Find here, regions have not yet been loaded :-(
@@ -654,34 +648,18 @@ namespace Server.Mobiles
 
 	public class EscortDestinationInfo
 	{
-		private string m_Name;
-		private Region m_Region;
-		//private Rectangle2D[] m_Bounds;
-
-		public string Name
-		{
-			get { return m_Name; }
-		}
-
-		public Region Region
-		{
-			get { return m_Region; }
-		}
-
-		/*public Rectangle2D[] Bounds
-		{
-			get{ return m_Bounds; }
-		}*/
+		public string Name { get; }
+		public Region Region { get; }
 
 		public bool Contains(Point3D p)
 		{
-			return m_Region.Contains(p);
+			return Region.Contains(p);
 		}
 
 		public EscortDestinationInfo(string name, Region region)
 		{
-			m_Name = name;
-			m_Region = region;
+			Name = name;
+			Region = region;
 		}
 
 		private static Hashtable m_Table;

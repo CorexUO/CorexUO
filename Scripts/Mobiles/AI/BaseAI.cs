@@ -379,10 +379,7 @@ namespace Server.Mobiles
 					}
 					else
 					{
-						int generalNumber;
-						string exactTime;
-
-						Clock.GetTime(m_Mobile, out generalNumber, out exactTime);
+						Clock.GetTime(m_Mobile, out int generalNumber, out string _);
 
 						m_Mobile.PublicOverheadMessage(MessageType.Regular, 0x3B2, generalNumber);
 					}
@@ -1650,8 +1647,7 @@ namespace Server.Mobiles
 			public override void Deserialize(GenericReader reader)
 			{
 				base.Deserialize(reader);
-
-				int version = reader.ReadInt();
+				_ = reader.ReadInt();
 
 				Delete();
 			}
@@ -1996,17 +1992,11 @@ namespace Server.Mobiles
 			return delay;
 		}
 
-		private long m_NextMove;
-
-		public long NextMove
-		{
-			get { return m_NextMove; }
-			set { m_NextMove = value; }
-		}
+		public long NextMove { get; set; }
 
 		public virtual bool CheckMove()
 		{
-			return (Core.TickCount - m_NextMove >= 0);
+			return (Core.TickCount - NextMove >= 0);
 		}
 
 		public virtual bool DoMove(Direction d)
@@ -2035,10 +2025,10 @@ namespace Server.Mobiles
 
 			int delay = (int)(TransformMoveDelay(m_Mobile.CurrentSpeed) * 1000);
 
-			m_NextMove += delay;
+			NextMove += delay;
 
-			if (Core.TickCount - m_NextMove > 0)
-				m_NextMove = Core.TickCount;
+			if (Core.TickCount - NextMove > 0)
+				NextMove = Core.TickCount;
 
 			m_Mobile.Pushing = false;
 

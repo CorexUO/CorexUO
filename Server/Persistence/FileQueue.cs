@@ -64,15 +64,7 @@ namespace Server
 
 		private ManualResetEvent idle;
 
-		private long position;
-
-		public long Position
-		{
-			get
-			{
-				return position;
-			}
-		}
+		public long Position { get; private set; }
 
 		public FileQueue(int concurrentWrites, FileCommitCallback callback)
 		{
@@ -223,7 +215,7 @@ namespace Server
 				throw new ArgumentException();
 			}
 
-			position += size;
+			Position += size;
 
 			while (size > 0)
 			{

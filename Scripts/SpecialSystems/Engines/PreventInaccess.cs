@@ -75,16 +75,13 @@ namespace Server.Misc
 
 		private class LocationInfo
 		{
-			private Point3D m_Location;
-			private Map m_Map;
-
-			public Point3D Location { get { return m_Location; } }
-			public Map Map { get { return m_Map; } }
+			public Point3D Location { get; }
+			public Map Map { get; }
 
 			public LocationInfo(Point3D loc, Map map)
 			{
-				m_Location = loc;
-				m_Map = map;
+				Location = loc;
+				Map = map;
 			}
 		}
 	}

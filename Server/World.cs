@@ -189,12 +189,7 @@ namespace Server
 			}
 		}
 
-		private static string m_LoadingType;
-
-		public static string LoadingType
-		{
-			get { return m_LoadingType; }
-		}
+		public static string LoadingType { get; private set; }
 
 		private static readonly Type[] m_SerialTypeArray = new Type[1] { typeof(Serial) };
 
@@ -256,7 +251,7 @@ namespace Server
 				return;
 
 			Loaded = true;
-			m_LoadingType = null;
+			LoadingType = null;
 
 			Console.Write("World: Loading...");
 
@@ -438,7 +433,7 @@ namespace Server
 
 							try
 							{
-								m_LoadingType = entry.TypeName;
+								LoadingType = entry.TypeName;
 								m.Deserialize(reader);
 
 								if (reader.Position != (entry.Position + entry.Length))
@@ -480,7 +475,7 @@ namespace Server
 
 							try
 							{
-								m_LoadingType = entry.TypeName;
+								LoadingType = entry.TypeName;
 								item.Deserialize(reader);
 
 								if (reader.Position != (entry.Position + entry.Length))
@@ -505,7 +500,7 @@ namespace Server
 				}
 			}
 
-			m_LoadingType = null;
+			LoadingType = null;
 
 			if (!failedMobiles && !failedItems && File.Exists(GuildDataPath))
 			{

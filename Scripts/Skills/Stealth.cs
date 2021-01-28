@@ -13,8 +13,7 @@ namespace Server.SkillHandlers
 
 		public static double HidingRequirement { get { return (Core.ML ? 30.0 : (Core.SE ? 50.0 : 80.0)); } }
 
-		public static int[,] ArmorTable { get { return m_ArmorTable; } }
-		private static readonly int[,] m_ArmorTable = new int[,]
+		public static int[,] ArmorTable { get; } = new int[,]
 			{
 							//	Gorget	Gloves	Helmet	Arms	Legs	Chest	Shield
 				/* Cloth	*/	{ 0, 0,      0,      0,      0,      0,      0 },
@@ -45,11 +44,11 @@ namespace Server.SkillHandlers
 				int materialType = (int)armor.MaterialType;
 				int bodyPosition = (int)armor.BodyPosition;
 
-				if (materialType >= m_ArmorTable.GetLength(0) || bodyPosition >= m_ArmorTable.GetLength(1))
+				if (materialType >= ArmorTable.GetLength(0) || bodyPosition >= ArmorTable.GetLength(1))
 					continue;
 
 				if (armor.ArmorAttributes.MageArmor == 0)
-					ar += m_ArmorTable[materialType, bodyPosition];
+					ar += ArmorTable[materialType, bodyPosition];
 			}
 
 			return ar;

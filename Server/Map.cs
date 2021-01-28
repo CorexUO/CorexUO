@@ -369,21 +369,9 @@ namespace Server
 	//[CustomEnum( new string[]{ "Felucca", "Trammel", "Ilshenar", "Malas", "Internal" } )]
 	public sealed class Map : IComparable, IComparable<Map>
 	{
-		private static int m_GlobalUpdateRange = Settings.Get<int>("Map", "UpdateRange", 18);
+		public static int GlobalUpdateRange { get; set; } = Settings.Get<int>("Map", "UpdateRange", 18);
 
-		public static int GlobalUpdateRange
-		{
-			get { return m_GlobalUpdateRange; }
-			set { m_GlobalUpdateRange = value; }
-		}
-
-		private static int m_GlobalMaxUpdateRange = Settings.Get<int>("Map", "MaxUpdateRange", 24);
-
-		public static int GlobalMaxUpdateRange
-		{
-			get { return m_GlobalMaxUpdateRange; }
-			set { m_GlobalMaxUpdateRange = value; }
-		}
+		public static int GlobalMaxUpdateRange { get; set; } = Settings.Get<int>("Map", "MaxUpdateRange", 24);
 
 		#region Compile-Time -> Run-Time Support
 #if Map_NewEnumerables || Map_AllUpdates
@@ -2476,8 +2464,6 @@ namespace Server
 
 			if (!Utility.InRange(org, dest, MaxLOSDistance))
 				return false;
-
-			Point3D start = org;
 			Point3D end = dest;
 
 			if (org.X > dest.X || (org.X == dest.X && org.Y > dest.Y) || (org.X == dest.X && org.Y == dest.Y && org.Z > dest.Z))
@@ -2578,8 +2564,8 @@ namespace Server
 				bool contains = false;
 				int ltID = landTile.ID;
 
-				for (int j = 0; !contains && j < m_InvalidLandTiles.Length; ++j)
-					contains = (ltID == m_InvalidLandTiles[j]);
+				for (int j = 0; !contains && j < InvalidLandTiles.Length; ++j)
+					contains = (ltID == InvalidLandTiles[j]);
 
 				if (contains && statics.Length == 0)
 				{
@@ -2729,13 +2715,8 @@ namespace Server
 		}
 		#endregion
 
-		private static int[] m_InvalidLandTiles = new int[] { 0x244 };
 
-		public static int[] InvalidLandTiles
-		{
-			get { return m_InvalidLandTiles; }
-			set { m_InvalidLandTiles = value; }
-		}
+		public static int[] InvalidLandTiles { get; set; } = new int[] { 0x244 };
 
 		public int CompareTo(Map other)
 		{

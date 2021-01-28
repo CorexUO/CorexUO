@@ -6,19 +6,15 @@ namespace Server
 	[Parsable]
 	public abstract class Race
 	{
-		public static Race DefaultRace { get { return m_Races[0]; } }
+		public static Race DefaultRace { get { return Races[0]; } }
 
-		private static readonly Race[] m_Races = new Race[0x100];
+		public static Race[] Races { get; } = new Race[0x100];
 
-		public static Race[] Races { get { return m_Races; } }
-
-		public static Race Human { get { return m_Races[0]; } }
-		public static Race Elf { get { return m_Races[1]; } }
-		public static Race Gargoyle { get { return m_Races[2]; } }
+		public static Race Human { get { return Races[0]; } }
+		public static Race Elf { get { return Races[1]; } }
+		public static Race Gargoyle { get { return Races[2]; } }
 
 		public static List<Race> AllRaces { get; } = new List<Race>();
-
-		private string m_Name, m_PluralName;
 
 		private static string[] m_RaceNames;
 		private static Race[] m_RaceValues;
@@ -47,8 +43,8 @@ namespace Server
 
 			if (int.TryParse(value, out int index))
 			{
-				if (index >= 0 && index < m_Races.Length && m_Races[index] != null)
-					return m_Races[index];
+				if (index >= 0 && index < Races.Length && Races[index] != null)
+					return Races[index];
 			}
 
 			throw new ArgumentException("Invalid race name");
@@ -73,7 +69,7 @@ namespace Server
 
 		public override string ToString()
 		{
-			return m_Name;
+			return Name;
 		}
 
 		public Expansion RequiredExpansion { get; }
@@ -89,7 +85,7 @@ namespace Server
 			RaceID = raceID;
 			RaceIndex = raceIndex;
 
-			m_Name = name;
+			Name = name;
 
 			MaleBody = maleBody;
 			FemaleBody = femaleBody;
@@ -97,7 +93,7 @@ namespace Server
 			FemaleGhostBody = femaleGhostBody;
 
 			RequiredExpansion = requiredExpansion;
-			m_PluralName = pluralName;
+			PluralName = pluralName;
 		}
 
 		public virtual bool ValidateHair(Mobile m, int itemID) { return ValidateHair(m.Female, itemID); }
@@ -142,28 +138,8 @@ namespace Server
 
 		public int RaceIndex { get; }
 
-		public string Name
-		{
-			get
-			{
-				return m_Name;
-			}
-			set
-			{
-				m_Name = value;
-			}
-		}
+		public string Name { get; set; }
 
-		public string PluralName
-		{
-			get
-			{
-				return m_PluralName;
-			}
-			set
-			{
-				m_PluralName = value;
-			}
-		}
+		public string PluralName { get; set; }
 	}
 }

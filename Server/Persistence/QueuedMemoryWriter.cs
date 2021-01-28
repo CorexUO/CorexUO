@@ -62,10 +62,9 @@ namespace Server
 				for (int i = 0; i < _orderedIndexInfo.Count; i++)
 				{
 					IndexInfo info = _orderedIndexInfo[i];
-
-					int typeCode = info.typeCode;
-					int serial = info.serial;
-					int length = info.size;
+					_ = info.typeCode;
+					_ = info.serial;
+					_ = info.size;
 
 
 					indexBuffer[0] = (byte)(info.typeCode);
