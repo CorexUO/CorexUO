@@ -185,7 +185,7 @@ namespace Server.Items
 
 		private class InternalTarget : Target
 		{
-			private FireHorn m_Horn;
+			private readonly FireHorn m_Horn;
 
 			public InternalTarget(FireHorn horn) : base(Core.AOS ? 3 : 2, true, TargetFlags.Harmful)
 			{
@@ -198,8 +198,8 @@ namespace Server.Items
 					return;
 
 				IPoint3D loc;
-				if (targeted is Item)
-					loc = ((Item)targeted).GetWorldLocation();
+				if (targeted is Item item)
+					loc = item.GetWorldLocation();
 				else
 					loc = targeted as IPoint3D;
 
@@ -218,7 +218,7 @@ namespace Server.Items
 		{
 			base.Deserialize(reader);
 
-			int version = reader.ReadEncodedInt();
+			reader.ReadEncodedInt();
 		}
 	}
 }

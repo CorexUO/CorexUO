@@ -18,14 +18,14 @@ namespace Server.Misc
 			Kick
 		}
 
-		private static bool m_DetectClientRequirement = true;
-		private static OldClientResponse m_OldClientResponse = OldClientResponse.LenientKick;
+		private static readonly bool m_DetectClientRequirement = true;
+		private static readonly OldClientResponse m_OldClientResponse = OldClientResponse.LenientKick;
 
 		private static ClientVersion m_Required;
 		private static bool m_AllowRegular = true, m_AllowUOTD = true, m_AllowGod = true;
 
-		private static TimeSpan m_AgeLeniency = TimeSpan.FromDays(10);
-		private static TimeSpan m_GameTimeLeniency = TimeSpan.FromHours(25);
+		private static readonly TimeSpan m_AgeLeniency = TimeSpan.FromDays(10);
+		private static readonly TimeSpan m_GameTimeLeniency = TimeSpan.FromHours(25);
 
 		private static TimeSpan m_KickDelay = TimeSpan.FromSeconds(20.0);
 
@@ -128,7 +128,7 @@ namespace Server.Misc
 			if (state.Mobile == null || state.Mobile.AccessLevel > AccessLevel.Player)
 				return;
 
-			if (Required != null && version < Required && (m_OldClientResponse == OldClientResponse.Kick || (m_OldClientResponse == OldClientResponse.LenientKick && (DateTime.UtcNow - state.Mobile.CreationTime) > m_AgeLeniency && state.Mobile is PlayerMobile && ((PlayerMobile)state.Mobile).GameTime > m_GameTimeLeniency)))
+			if (Required != null && version < Required && (m_OldClientResponse == OldClientResponse.Kick || (m_OldClientResponse == OldClientResponse.LenientKick && (DateTime.UtcNow - state.Mobile.CreationTime) > m_AgeLeniency && state.Mobile is PlayerMobile mobile && mobile.GameTime > m_GameTimeLeniency)))
 			{
 				kickMessage = String.Format("This server requires your client version be at least {0}.", Required);
 			}
@@ -207,11 +207,12 @@ namespace Server.Misc
 							m.SendMessage("Old clients will be kicked after {0} days of character age and {1} hours of play time", m_AgeLeniency, m_GameTimeLeniency);
 
 						Timer.DelayCall(TimeSpan.FromMinutes(Utility.Random(5, 15)), delegate { SendAnnoyGump(m); });
-					}, null, false);
-
-				g.Dragable = false;
-				g.Closable = false;
-				g.Resizable = false;
+					}, null, false)
+				{
+					Dragable = false,
+					Closable = false,
+					Resizable = false
+				};
 
 				m.SendGump(g);
 			}

@@ -12,24 +12,12 @@ namespace Server.Items
 	public class Runebook : BaseItem, ISecurable, ICraftable
 	{
 		public static readonly TimeSpan UseDelay = TimeSpan.FromSeconds(7.0);
-
-		private List<RunebookEntry> m_Entries;
 		private string m_Description;
-		private int m_CurCharges, m_MaxCharges;
 		private int m_DefaultIndex;
-		private SecureLevel m_Level;
 		private Mobile m_Crafter;
 
-		private DateTime m_NextUse;
-
-		private List<Mobile> m_Openers = new List<Mobile>();
-
 		[CommandProperty(AccessLevel.GameMaster)]
-		public DateTime NextUse
-		{
-			get { return m_NextUse; }
-			set { m_NextUse = value; }
-		}
+		public DateTime NextUse { get; set; }
 
 		[CommandProperty(AccessLevel.GameMaster)]
 		public Mobile Crafter
@@ -39,11 +27,7 @@ namespace Server.Items
 		}
 
 		[CommandProperty(AccessLevel.GameMaster)]
-		public SecureLevel Level
-		{
-			get { return m_Level; }
-			set { m_Level = value; }
-		}
+		public SecureLevel Level { get; set; }
 
 		[CommandProperty(AccessLevel.GameMaster)]
 		public string Description
@@ -60,42 +44,12 @@ namespace Server.Items
 		}
 
 		[CommandProperty(AccessLevel.GameMaster)]
-		public int CurCharges
-		{
-			get
-			{
-				return m_CurCharges;
-			}
-			set
-			{
-				m_CurCharges = value;
-			}
-		}
+		public int CurCharges { get; set; }
 
 		[CommandProperty(AccessLevel.GameMaster)]
-		public int MaxCharges
-		{
-			get
-			{
-				return m_MaxCharges;
-			}
-			set
-			{
-				m_MaxCharges = value;
-			}
-		}
+		public int MaxCharges { get; set; }
 
-		public List<Mobile> Openers
-		{
-			get
-			{
-				return m_Openers;
-			}
-			set
-			{
-				m_Openers = value;
-			}
-		}
+		public List<Mobile> Openers { get; set; } = new List<Mobile>();
 
 		public override int LabelNumber { get { return 1041267; } } // runebook
 
@@ -108,13 +62,13 @@ namespace Server.Items
 
 			Layer = (Core.AOS ? Layer.Invalid : Layer.OneHanded);
 
-			m_Entries = new List<RunebookEntry>();
+			Entries = new List<RunebookEntry>();
 
-			m_MaxCharges = maxCharges;
+			MaxCharges = maxCharges;
 
 			m_DefaultIndex = -1;
 
-			m_Level = SecureLevel.CoOwners;
+			Level = SecureLevel.CoOwners;
 		}
 
 		[Constructable]
@@ -122,20 +76,14 @@ namespace Server.Items
 		{
 		}
 
-		public List<RunebookEntry> Entries
-		{
-			get
-			{
-				return m_Entries;
-			}
-		}
+		public List<RunebookEntry> Entries { get; private set; }
 
 		public RunebookEntry Default
 		{
 			get
 			{
-				if (m_DefaultIndex >= 0 && m_DefaultIndex < m_Entries.Count)
-					return m_Entries[m_DefaultIndex];
+				if (m_DefaultIndex >= 0 && m_DefaultIndex < Entries.Count)
+					return Entries[m_DefaultIndex];
 
 				return null;
 			}
@@ -144,7 +92,7 @@ namespace Server.Items
 				if (value == null)
 					m_DefaultIndex = -1;
 				else
-					m_DefaultIndex = m_Entries.IndexOf(value);
+					m_DefaultIndex = Entries.IndexOf(value);
 			}
 		}
 
@@ -171,16 +119,16 @@ namespace Server.Items
 
 			writer.Write(m_Crafter);
 
-			writer.Write((int)m_Level);
+			writer.Write((int)Level);
 
-			writer.Write(m_Entries.Count);
+			writer.Write(Entries.Count);
 
-			for (int i = 0; i < m_Entries.Count; ++i)
-				m_Entries[i].Serialize(writer);
+			for (int i = 0; i < Entries.Count; ++i)
+				Entries[i].Serialize(writer);
 
 			writer.Write(m_Description);
-			writer.Write(m_CurCharges);
-			writer.Write(m_MaxCharges);
+			writer.Write(CurCharges);
+			writer.Write(MaxCharges);
 			writer.Write(m_DefaultIndex);
 		}
 
@@ -201,18 +149,18 @@ namespace Server.Items
 					{
 						m_Crafter = reader.ReadMobile();
 
-						m_Level = (SecureLevel)reader.ReadInt();
+						Level = (SecureLevel)reader.ReadInt();
 
 						int count = reader.ReadInt();
 
-						m_Entries = new List<RunebookEntry>(count);
+						Entries = new List<RunebookEntry>(count);
 
 						for (int i = 0; i < count; ++i)
-							m_Entries.Add(new RunebookEntry(reader));
+							Entries.Add(new RunebookEntry(reader));
 
 						m_Description = reader.ReadString();
-						m_CurCharges = reader.ReadInt();
-						m_MaxCharges = reader.ReadInt();
+						CurCharges = reader.ReadInt();
+						MaxCharges = reader.ReadInt();
 						m_DefaultIndex = reader.ReadInt();
 
 						break;
@@ -227,7 +175,7 @@ namespace Server.Items
 			else if (m_DefaultIndex == index)
 				m_DefaultIndex = -1;
 
-			m_Entries.RemoveAt(index);
+			Entries.RemoveAt(index);
 
 			RecallRune rune = new RecallRune
 			{
@@ -285,11 +233,11 @@ namespace Server.Items
 				return false;
 			}
 
-			foreach (Mobile m in m_Openers)
+			foreach (Mobile m in Openers)
 				if (IsOpen(m))
 					m.CloseGump(typeof(RunebookGump));
 
-			m_Openers.Clear();
+			Openers.Clear();
 
 			return true;
 		}
@@ -315,7 +263,7 @@ namespace Server.Items
 					return;
 				}
 
-				if (DateTime.UtcNow < m_NextUse)
+				if (DateTime.UtcNow < NextUse)
 				{
 					from.SendLocalizedMessage(502406); // This book needs time to recharge.
 					return;
@@ -324,28 +272,28 @@ namespace Server.Items
 				from.CloseGump(typeof(RunebookGump));
 				from.SendGump(new RunebookGump(from, this));
 
-				m_Openers.Add(from);
+				Openers.Add(from);
 			}
 		}
 
 		public virtual void OnTravel()
 		{
 			if (!Core.SA)
-				m_NextUse = DateTime.UtcNow + UseDelay;
+				NextUse = DateTime.UtcNow + UseDelay;
 		}
 
 		public override void OnAfterDuped(Item newItem)
 		{
-			if (!(newItem is Runebook book))
+			if (newItem is not Runebook book)
 				return;
 
-			book.m_Entries = new List<RunebookEntry>();
+			book.Entries = new List<RunebookEntry>();
 
-			for (int i = 0; i < m_Entries.Count; i++)
+			for (int i = 0; i < Entries.Count; i++)
 			{
-				RunebookEntry entry = m_Entries[i];
+				RunebookEntry entry = Entries[i];
 
-				book.m_Entries.Add(new RunebookEntry(entry.Location, entry.Map, entry.Description, entry.House));
+				book.Entries.Add(new RunebookEntry(entry.Location, entry.Map, entry.Description, entry.House));
 			}
 		}
 
@@ -359,7 +307,7 @@ namespace Server.Items
 			if (house != null && house.IsAosRules && (house.Public ? house.IsBanned(m) : !house.HasAccess(m)))
 				return false;
 
-			return (house != null && house.HasSecureAccess(m, m_Level));
+			return (house != null && house.HasSecureAccess(m, Level));
 		}
 
 		public override bool OnDragDrop(Mobile from, Item dropped)
@@ -374,13 +322,13 @@ namespace Server.Items
 				{
 					from.SendLocalizedMessage(1005571); // You cannot place objects in the book while viewing the contents.
 				}
-				else if (m_Entries.Count < 16)
+				else if (Entries.Count < 16)
 				{
 					RecallRune rune = recallRune;
 
 					if (rune.Marked && rune.TargetMap != null)
 					{
-						m_Entries.Add(new RunebookEntry(rune.Target, rune.TargetMap, rune.Description, rune.House));
+						Entries.Add(new RunebookEntry(rune.Target, rune.TargetMap, rune.Description, rune.House));
 
 						dropped.Delete();
 
@@ -407,20 +355,20 @@ namespace Server.Items
 			}
 			else if (dropped is RecallScroll)
 			{
-				if (m_CurCharges < m_MaxCharges)
+				if (CurCharges < MaxCharges)
 				{
 					from.Send(new PlaySound(0x249, GetWorldLocation()));
 
 					int amount = dropped.Amount;
 
-					if (amount > (m_MaxCharges - m_CurCharges))
+					if (amount > (MaxCharges - CurCharges))
 					{
-						dropped.Consume(m_MaxCharges - m_CurCharges);
-						m_CurCharges = m_MaxCharges;
+						dropped.Consume(MaxCharges - CurCharges);
+						CurCharges = MaxCharges;
 					}
 					else
 					{
-						m_CurCharges += amount;
+						CurCharges += amount;
 						dropped.Delete();
 
 						return true;

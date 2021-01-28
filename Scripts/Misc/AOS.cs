@@ -799,7 +799,7 @@ namespace Server
 
 		public SkillName GetSkill(int index)
 		{
-			GetValues(index, out SkillName skill, out double bonus);
+			GetValues(index, out SkillName skill, out double _);
 
 			return skill;
 		}
@@ -811,7 +811,7 @@ namespace Server
 
 		public double GetBonus(int index)
 		{
-			GetValues(index, out SkillName skill, out double bonus);
+			GetValues(index, out SkillName _, out double bonus);
 
 			return bonus;
 		}
@@ -826,7 +826,7 @@ namespace Server
 			return "...";
 		}
 
-		public void CheckCancelMorph(Mobile m)
+		public static void CheckCancelMorph(Mobile m)
 		{
 			if (m == null)
 				return;
@@ -837,7 +837,7 @@ namespace Server
 			if (context != null)
 			{
 				Spell spell = context.Spell as Spell;
-				spell.GetCastSkills(out double minSkill, out double maxSkill);
+				spell.GetCastSkills(out double minSkill, out double _);
 				if (m.Skills[spell.CastSkill].Value < minSkill)
 					TransformationSpellHelper.RemoveContext(m, context, true);
 			}
@@ -975,7 +975,7 @@ namespace Server
 		private uint m_Names;
 		private int[] m_Values;
 
-		private static readonly int[] m_Empty = new int[0];
+		private static readonly int[] m_Empty = Array.Empty<int>();
 
 		public bool IsEmpty { get { return (m_Names == 0); } }
 		public Item Owner { get { return m_Owner; } }

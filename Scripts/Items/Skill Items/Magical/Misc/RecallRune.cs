@@ -5,7 +5,7 @@ using Server.Regions;
 
 namespace Server.Items
 {
-	[FlipableAttribute(0x1f14, 0x1f15, 0x1f16, 0x1f17)]
+	[Flipable(0x1f14, 0x1f15, 0x1f16, 0x1f17)]
 	public class RecallRune : BaseItem
 	{
 		private string m_Description;
@@ -287,7 +287,7 @@ namespace Server.Items
 
 		private class RenamePrompt : Prompt
 		{
-			private RecallRune m_Rune;
+			private readonly RecallRune m_Rune;
 
 			public RenamePrompt(RecallRune rune)
 			{

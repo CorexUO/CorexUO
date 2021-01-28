@@ -194,7 +194,7 @@ namespace Server.Items
 				possibleSkills.Remove(sk);
 
 				for (int i = 0; !found && i < 5; ++i)
-					found = (attrs.GetValues(i, out SkillName check, out double bonus) && check == sk);
+					found = (attrs.GetValues(i, out SkillName check, out double _) && check == sk);
 			} while (found && count > 0);
 
 			attrs.SetValues(index, sk, Scale(min, max, low, high));
@@ -213,8 +213,8 @@ namespace Server.Items
 		}
 
 		private const int MaxProperties = 32;
-		private static BitArray m_Props = new BitArray(MaxProperties);
-		private static int[] m_Possible = new int[MaxProperties];
+		private static readonly BitArray m_Props = new BitArray(MaxProperties);
+		private static readonly int[] m_Possible = new int[MaxProperties];
 
 		public static int GetUniqueRandom(int count)
 		{
@@ -350,7 +350,7 @@ namespace Server.Items
 
 		public static void GetElementalDamages(BaseWeapon weapon, bool randomizeOrder)
 		{
-			weapon.GetDamageTypes(null, out int phys, out int fire, out int cold, out int pois, out int nrgy, out int chaos, out int direct);
+			weapon.GetDamageTypes(null, out int phys, out _, out _, out int _, out int _, out int _, out int _);
 
 			int totalDamage = phys;
 

@@ -122,7 +122,7 @@ namespace Server.Items
 			{
 				m.SendLocalizedMessage(1061632); // You can't do that while carrying the sigil.
 			}
-			else if (m_TargetMap == Map.Felucca && m is PlayerMobile && ((PlayerMobile)m).Young)
+			else if (m_TargetMap == Map.Felucca && m is PlayerMobile mobile && mobile.Young)
 			{
 				m.SendLocalizedMessage(1049543); // You decide against traveling to Felucca while you are still young.
 			}
@@ -169,10 +169,17 @@ namespace Server.Items
 
 			int version = reader.ReadInt();
 
-			m_Target = reader.ReadPoint3D();
-			m_TargetMap = reader.ReadMap();
+			switch (version)
+			{
+				case 0:
+					m_Target = reader.ReadPoint3D();
+					m_TargetMap = reader.ReadMap();
 
-			m_bDispellable = reader.ReadBool();
+					m_bDispellable = reader.ReadBool();
+					break;
+				default:
+					break;
+			}
 		}
 
 		public virtual bool ValidateUse(Mobile from, bool message)
@@ -237,9 +244,9 @@ namespace Server.Items
 
 		private class DelayTimer : Timer
 		{
-			private Mobile m_From;
-			private Moongate m_Gate;
-			private int m_Range;
+			private readonly Mobile m_From;
+			private readonly Moongate m_Gate;
+			private readonly int m_Range;
 
 			public DelayTimer(Mobile from, Moongate gate, int range) : base(TimeSpan.FromSeconds(1.0))
 			{
@@ -397,8 +404,8 @@ namespace Server.Items
 
 	public class MoongateConfirmGump : Gump
 	{
-		private Mobile m_From;
-		private Moongate m_Gate;
+		private readonly Mobile m_From;
+		private readonly Moongate m_Gate;
 
 		public MoongateConfirmGump(Mobile from, Moongate gate) : base(Core.AOS ? 110 : 20, Core.AOS ? 100 : 30)
 		{

@@ -49,10 +49,8 @@ namespace Server.Items
 
 		private static void AllSpells_OnTarget(Mobile from, object obj)
 		{
-			if (obj is Spellbook)
+			if (obj is Spellbook book)
 			{
-				Spellbook book = (Spellbook)obj;
-
 				if (book.BookCount == 64)
 					book.Content = ulong.MaxValue;
 				else
@@ -76,21 +74,18 @@ namespace Server.Items
 			if (!Multis.DesignContext.Check(from))
 				return; // They are customizing
 
-			SpellbookType type;
-
-			switch (e.Type)
+			var type = e.Type switch
 			{
-				default:
-				case 1: type = SpellbookType.Regular; break;
-				case 2: type = SpellbookType.Necromancer; break;
-				case 3: type = SpellbookType.Paladin; break;
-				case 4: type = SpellbookType.Ninja; break;
-				case 5: type = SpellbookType.Samurai; break;
-				case 6: type = SpellbookType.Arcanist; break;
-				case 7: type = SpellbookType.Mystic; break;
-			}
+				2 => SpellbookType.Necromancer,
+				3 => SpellbookType.Paladin,
+				4 => SpellbookType.Ninja,
+				5 => SpellbookType.Samurai,
+				6 => SpellbookType.Arcanist,
+				7 => SpellbookType.Mystic,
+				_ => SpellbookType.Regular,
+			};
 
-			Spellbook book = Spellbook.Find(from, -1, type);
+			Spellbook book = Find(from, -1, type);
 
 			if (book != null)
 				book.DisplayTo(from);
@@ -103,10 +98,9 @@ namespace Server.Items
 			if (!Multis.DesignContext.Check(from))
 				return; // They are customizing
 
-			Spellbook book = e.Spellbook as Spellbook;
 			int spellID = e.SpellID;
 
-			if (book == null || !book.HasSpell(spellID))
+			if (e.Spellbook is not Spellbook book || !book.HasSpell(spellID))
 				book = Find(from, spellID);
 
 			if (book != null && book.HasSpell(spellID))
@@ -133,7 +127,7 @@ namespace Server.Items
 			}
 		}
 
-		private static Dictionary<Mobile, List<Spellbook>> m_Table = new Dictionary<Mobile, List<Spellbook>>();
+		private static readonly Dictionary<Mobile, List<Spellbook>> m_Table = new Dictionary<Mobile, List<Spellbook>>();
 
 		public static SpellbookType GetTypeForSpell(int spellID)
 		{
@@ -253,8 +247,8 @@ namespace Server.Items
 
 			Item item = from.FindItemOnLayer(Layer.OneHanded);
 
-			if (item is Spellbook)
-				list.Add((Spellbook)item);
+			if (item is Spellbook spellbook)
+				list.Add(spellbook);
 
 			Container pack = from.Backpack;
 
@@ -265,8 +259,8 @@ namespace Server.Items
 			{
 				item = pack.Items[i];
 
-				if (item is Spellbook)
-					list.Add((Spellbook)item);
+				if (item is Spellbook spb)
+					list.Add(spb);
 			}
 
 			return list;
@@ -329,9 +323,9 @@ namespace Server.Items
 
 		public override bool OnDragDrop(Mobile from, Item dropped)
 		{
-			if (dropped is SpellScroll && dropped.Amount == 1)
+			if (dropped is SpellScroll scroll1 && dropped.Amount == 1)
 			{
-				SpellScroll scroll = (SpellScroll)dropped;
+				SpellScroll scroll = scroll1;
 
 				SpellbookType type = GetTypeForSpell(scroll.SpellID);
 
@@ -438,10 +432,8 @@ namespace Server.Items
 
 		public override void OnAdded(IEntity parent)
 		{
-			if (Core.AOS && parent is Mobile)
+			if (Core.AOS && parent is Mobile from)
 			{
-				Mobile from = (Mobile)parent;
-
 				m_AosSkillBonuses.AddTo(from);
 
 				int strBonus = Attributes.BonusStr;
@@ -468,10 +460,8 @@ namespace Server.Items
 
 		public override void OnRemoved(IEntity parent)
 		{
-			if (Core.AOS && parent is Mobile)
+			if (Core.AOS && parent is Mobile from)
 			{
-				Mobile from = (Mobile)parent;
-
 				m_AosSkillBonuses.Remove();
 
 				RemoveStatBonuses(from);
@@ -638,7 +628,7 @@ namespace Server.Items
 			if ((prop = Attributes.RegenMana) != 0)
 				list.Add(1060440, prop.ToString()); // mana regeneration ~1_val~
 
-			if ((prop = Attributes.NightSight) != 0)
+			if (Attributes.NightSight != 0)
 				list.Add(1060441); // night sight
 
 			if ((prop = Attributes.ReflectPhysical) != 0)
@@ -650,7 +640,7 @@ namespace Server.Items
 			if ((prop = Attributes.RegenHits) != 0)
 				list.Add(1060444, prop.ToString()); // hit point regeneration ~1_val~
 
-			if ((prop = Attributes.SpellChanneling) != 0)
+			if (Attributes.SpellChanneling != 0)
 				list.Add(1060482); // spell channeling
 
 			if ((prop = Attributes.SpellDamage) != 0)
@@ -758,17 +748,15 @@ namespace Server.Items
 			if (m_AosSkillBonuses == null)
 				m_AosSkillBonuses = new AosSkillBonuses(this);
 
-			if (Core.AOS && Parent is Mobile)
-				m_AosSkillBonuses.AddTo((Mobile)Parent);
+			if (Core.AOS && Parent is Mobile parentMobile)
+				m_AosSkillBonuses.AddTo(parentMobile);
 
 			int strBonus = Attributes.BonusStr;
 			int dexBonus = Attributes.BonusDex;
 			int intBonus = Attributes.BonusInt;
 
-			if (Parent is Mobile && (strBonus != 0 || dexBonus != 0 || intBonus != 0))
+			if (Parent is Mobile m && (strBonus != 0 || dexBonus != 0 || intBonus != 0))
 			{
-				Mobile m = (Mobile)Parent;
-
 				string modName = Serial.ToString();
 
 				if (strBonus != 0)
@@ -781,8 +769,8 @@ namespace Server.Items
 					m.AddStatMod(new StatMod(StatType.Int, modName + "Int", intBonus, TimeSpan.Zero));
 			}
 
-			if (Parent is Mobile)
-				((Mobile)Parent).CheckStatTimers();
+			if (Parent is Mobile mob)
+				mob.CheckStatTimers();
 		}
 
 		private static readonly int[] m_LegendPropertyCounts = new int[]

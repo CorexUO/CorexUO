@@ -38,8 +38,8 @@ namespace Server.Items
 
 		private static void Hide_Callback(object obj)
 		{
-			if (obj is Mobile)
-				Hide((Mobile)obj);
+			if (obj is Mobile mob)
+				Hide(mob);
 		}
 
 		public static void Hide(Mobile m)
@@ -59,8 +59,8 @@ namespace Server.Items
 
 		private static void EndHide_Callback(object obj)
 		{
-			if (obj is Mobile)
-				EndHide((Mobile)obj);
+			if (obj is Mobile mob)
+				EndHide(mob);
 		}
 
 		public static void EndHide(Mobile m)
@@ -69,7 +69,7 @@ namespace Server.Items
 			RemoveTimer(m);
 		}
 
-		private static Hashtable m_Table = new Hashtable();
+		private static readonly Hashtable m_Table = new Hashtable();
 
 		public static bool HasTimer(Mobile m)
 		{
@@ -104,7 +104,7 @@ namespace Server.Items
 		{
 			base.Deserialize(reader);
 
-			int version = reader.ReadInt();
+			reader.ReadInt();
 		}
 	}
 }

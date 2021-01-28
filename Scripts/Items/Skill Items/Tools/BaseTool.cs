@@ -4,7 +4,6 @@ using Server.Network;
 
 namespace Server.Items
 {
-
 	public interface ITool : IEntity, IUsesRemaining
 	{
 		CraftSystem CraftSystem { get; }
@@ -149,7 +148,7 @@ namespace Server.Items
 				}
 				else
 				{
-					CraftContext context = system.GetContext(from);
+					_ = system.GetContext(from);
 
 					from.SendGump(new CraftGump(from, system, this, null));
 				}

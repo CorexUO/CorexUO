@@ -26,7 +26,7 @@ namespace Server.Items
 		{
 			base.Deserialize(reader);
 
-			int version = reader.ReadInt();
+			reader.ReadInt();
 		}
 
 		public void DoPoison(Mobile from)
@@ -38,10 +38,10 @@ namespace Server.Items
 		{
 			DoPoison(from);
 
-			BasePotion.PlayDrinkEffect(from);
+			PlayDrinkEffect(from);
 
 			if (!Engines.ConPVP.DuelContext.IsFreeConsume(from))
-				this.Consume();
+				Consume();
 		}
 	}
 }

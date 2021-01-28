@@ -38,7 +38,7 @@ namespace Server.Items
 		{
 			base.Deserialize(reader);
 
-			int version = reader.ReadInt();
+			reader.ReadInt();
 		}
 
 		public virtual object FindParent(Mobile from)
@@ -73,10 +73,9 @@ namespace Server.Items
 				return;
 			}
 
-			ThrowTarget targ = from.Target as ThrowTarget;
 			this.Stackable = false; // Scavenged explosion potions won't stack with those ones in backpack, and still will explode.
 
-			if (targ != null && targ.Potion == this)
+			if (from.Target is ThrowTarget targ && targ.Potion == this)
 				return;
 
 			from.RevealingAction();
@@ -116,17 +115,13 @@ namespace Server.Items
 				Point3D loc;
 				Map map;
 
-				if (parent is Item)
+				if (parent is Item item)
 				{
-					Item item = (Item)parent;
-
 					loc = item.GetWorldLocation();
 					map = item.Map;
 				}
-				else if (parent is Mobile)
+				else if (parent is Mobile m)
 				{
-					Mobile m = (Mobile)parent;
-
 					loc = m.Location;
 					map = m.Map;
 				}
@@ -140,10 +135,10 @@ namespace Server.Items
 			}
 			else
 			{
-				if (parent is Item)
-					((Item)parent).PublicOverheadMessage(MessageType.Regular, 0x22, false, timer.ToString());
-				else if (parent is Mobile)
-					((Mobile)parent).PublicOverheadMessage(MessageType.Regular, 0x22, false, timer.ToString());
+				if (parent is Item item)
+					item.PublicOverheadMessage(MessageType.Regular, 0x22, false, timer.ToString());
+				else if (parent is Mobile mobile)
+					mobile.PublicOverheadMessage(MessageType.Regular, 0x22, false, timer.ToString());
 
 				states[1] = timer - 1;
 			}
@@ -169,7 +164,7 @@ namespace Server.Items
 
 		private class ThrowTarget : Target
 		{
-			private BaseExplosionPotion m_Potion;
+			private readonly BaseExplosionPotion m_Potion;
 
 			public BaseExplosionPotion Potion
 			{
@@ -186,9 +181,8 @@ namespace Server.Items
 				if (m_Potion.Deleted || m_Potion.Map == Map.Internal)
 					return;
 
-				IPoint3D p = targeted as IPoint3D;
 
-				if (p == null)
+				if (targeted is not IPoint3D p)
 					return;
 
 				Map map = from.Map;
@@ -204,12 +198,12 @@ namespace Server.Items
 
 				to = new Entity(Serial.Zero, new Point3D(p), map);
 
-				if (p is Mobile)
+				if (p is Mobile mobile)
 				{
 					if (!RelativeLocation) // explosion location = current mob location.
-						p = ((Mobile)p).Location;
+						p = mobile.Location;
 					else
-						to = (Mobile)p;
+						to = mobile;
 				}
 
 				Effects.SendMovingEffect(from, to, m_Potion.ItemID, 7, 0, false, false, m_Potion.Hue, 0);
@@ -234,9 +228,8 @@ namespace Server.Items
 			for (int i = 0; m_Users != null && i < m_Users.Count; ++i)
 			{
 				Mobile m = m_Users[i];
-				ThrowTarget targ = m.Target as ThrowTarget;
 
-				if (targ != null && targ.Potion == this)
+				if (m.Target is ThrowTarget targ && targ.Potion == this)
 					Target.Cancel(m);
 			}
 
@@ -258,7 +251,7 @@ namespace Server.Items
 
 			foreach (object o in eable)
 			{
-				if (o is Mobile && (from == null || (SpellHelper.ValidIndirectTarget(from, (Mobile)o) && from.CanBeHarmful((Mobile)o, false))))
+				if (o is Mobile mobile && (from == null || (SpellHelper.ValidIndirectTarget(from, mobile) && from.CanBeHarmful(mobile, false))))
 				{
 					toExplode.Add(o);
 					++toDamage;
@@ -278,10 +271,8 @@ namespace Server.Items
 			{
 				object o = toExplode[i];
 
-				if (o is Mobile)
+				if (o is Mobile m)
 				{
-					Mobile m = (Mobile)o;
-
 					if (from != null)
 						from.DoHarmful(m);
 
@@ -296,10 +287,8 @@ namespace Server.Items
 
 					AOS.Damage(m, from, damage, 0, 100, 0, 0, 0);
 				}
-				else if (o is BaseExplosionPotion)
+				else if (o is BaseExplosionPotion pot)
 				{
-					BaseExplosionPotion pot = (BaseExplosionPotion)o;
-
 					pot.Explode(from, false, pot.GetWorldLocation(), pot.Map);
 				}
 			}

@@ -10,14 +10,9 @@ namespace Server.Misc
 		private static readonly TimeSpan RestartTime = TimeSpan.FromHours(Settings.Get<int>("AutoRestart", "Time")); // time of day at which to restart
 		private static readonly TimeSpan RestartDelay = TimeSpan.FromSeconds(Settings.Get<int>("AutoRestart", "Delay")); // how long the server should remain active before restart (period of 'server wars')
 		private static readonly TimeSpan WarningDelay = TimeSpan.FromMinutes(Settings.Get<int>("AutoRestart", "WarningDelay")); // at what interval should the shutdown message be displayed?
-
-		private static bool m_Restarting;
 		private static DateTime m_RestartTime;
 
-		public static bool Restarting
-		{
-			get { return m_Restarting; }
-		}
+		public static bool Restarting { get; private set; }
 
 		public static void Initialize()
 		{
@@ -27,7 +22,7 @@ namespace Server.Misc
 
 		public static void Restart_OnCommand(CommandEventArgs e)
 		{
-			if (m_Restarting)
+			if (Restarting)
 			{
 				e.Mobile.SendMessage("The server is already restarting.");
 			}
@@ -61,7 +56,7 @@ namespace Server.Misc
 
 		protected override void OnTick()
 		{
-			if (m_Restarting || !Enabled)
+			if (Restarting || !Enabled)
 				return;
 
 			if (DateTime.UtcNow < m_RestartTime)
@@ -70,14 +65,14 @@ namespace Server.Misc
 			if (WarningDelay > TimeSpan.Zero)
 			{
 				Warning_Callback();
-				Timer.DelayCall(WarningDelay, WarningDelay, new TimerCallback(Warning_Callback));
+				DelayCall(WarningDelay, WarningDelay, new TimerCallback(Warning_Callback));
 			}
 
 			AutoSave.Save();
 
-			m_Restarting = true;
+			Restarting = true;
 
-			Timer.DelayCall(RestartDelay, new TimerCallback(Restart_Callback));
+			DelayCall(RestartDelay, new TimerCallback(Restart_Callback));
 		}
 	}
 }

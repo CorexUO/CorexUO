@@ -9,23 +9,19 @@ namespace Server.Items
 	{
 		private class RepairSkillInfo
 		{
-			private CraftSystem m_System;
-			private Type[] m_NearbyTypes;
-			private TextDefinition m_NotNearbyMessage, m_Name;
-
-			public TextDefinition NotNearbyMessage { get { return m_NotNearbyMessage; } }
-			public TextDefinition Name { get { return m_Name; } }
+			public TextDefinition NotNearbyMessage { get; }
+			public TextDefinition Name { get; }
 
 
-			public CraftSystem System { get { return m_System; } }
-			public Type[] NearbyTypes { get { return m_NearbyTypes; } }
+			public CraftSystem System { get; }
+			public Type[] NearbyTypes { get; }
 
 			public RepairSkillInfo(CraftSystem system, Type[] nearbyTypes, TextDefinition notNearbyMessage, TextDefinition name)
 			{
-				m_System = system;
-				m_NearbyTypes = nearbyTypes;
-				m_NotNearbyMessage = notNearbyMessage;
-				m_Name = name;
+				System = system;
+				NearbyTypes = nearbyTypes;
+				NotNearbyMessage = notNearbyMessage;
+				Name = name;
 			}
 
 			public RepairSkillInfo(CraftSystem system, Type nearbyType, TextDefinition notNearbyMessage, TextDefinition name)
@@ -33,8 +29,7 @@ namespace Server.Items
 			{
 			}
 
-			public static RepairSkillInfo[] Table { get { return m_Table; } }
-			private static RepairSkillInfo[] m_Table = new RepairSkillInfo[]
+			public static RepairSkillInfo[] Table { get; } = new RepairSkillInfo[]
 				{
 					new RepairSkillInfo( DefBlacksmithy.CraftSystem, typeof( Blacksmith ), 1047013, 1023015 ),
 					new RepairSkillInfo( DefTailoring.CraftSystem, typeof( Tailor ), 1061132, 1022981 ),
@@ -47,10 +42,10 @@ namespace Server.Items
 			{
 				int v = (int)type;
 
-				if (v < 0 || v >= m_Table.Length)
+				if (v < 0 || v >= Table.Length)
 					v = 0;
 
-				return m_Table[v];
+				return Table[v];
 			}
 		}
 		public enum RepairSkillType
@@ -161,15 +156,12 @@ namespace Server.Items
 			else if (skill >= 5)
 				return (1061123 + skill - 5);
 
-			switch (skill)
+			return skill switch
 			{
-				case 4:
-					return "a Novice";
-				case 3:
-					return "a Neophyte";
-				default:
-					return "a Newbie";      //On OSI, it shouldn't go below 50, but, this is for 'custom' support.
-			}
+				4 => "a Novice",
+				3 => "a Neophyte",
+				_ => "a Newbie",//On OSI, it shouldn't go below 50, but, this is for 'custom' support.
+			};
 		}
 
 		public static RepairSkillType GetTypeFor(CraftSystem s)

@@ -4,23 +4,13 @@ namespace Server.Items
 {
 	public class CureLevelInfo
 	{
-		private Poison m_Poison;
-		private double m_Chance;
-
-		public Poison Poison
-		{
-			get { return m_Poison; }
-		}
-
-		public double Chance
-		{
-			get { return m_Chance; }
-		}
+		public Poison Poison { get; }
+		public double Chance { get; }
 
 		public CureLevelInfo(Poison poison, double chance)
 		{
-			m_Poison = poison;
-			m_Chance = chance;
+			Poison = poison;
+			Chance = chance;
 		}
 	}
 
@@ -47,7 +37,7 @@ namespace Server.Items
 		{
 			base.Deserialize(reader);
 
-			int version = reader.ReadInt();
+			reader.ReadInt();
 		}
 
 		public void DoCure(Mobile from)
