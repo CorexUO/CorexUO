@@ -1,6 +1,3 @@
-using System;
-using System.Collections.Generic;
-using System.IO;
 using Server.Accounting;
 using Server.ContextMenus;
 using Server.Diagnostics;
@@ -11,6 +8,9 @@ using Server.Menus;
 using Server.Mobiles;
 using Server.Prompts;
 using Server.Targeting;
+using System;
+using System.Collections.Generic;
+using System.IO;
 using CV = Server.ClientVersion;
 
 namespace Server.Network
@@ -1357,7 +1357,7 @@ namespace Server.Network
 			m.ClearFastwalkStack();
 		}
 
-		private static int[] m_EmptyInts = Array.Empty<int>();
+		private static readonly int[] m_EmptyInts = Array.Empty<int>();
 
 		public static void AsciiSpeech(NetState state, PacketReader pvSrc)
 		{
@@ -1377,7 +1377,7 @@ namespace Server.Network
 			from.DoSpeech(text, m_EmptyInts, type, Utility.ClipDyedHue(hue));
 		}
 
-		private static KeywordList m_KeywordList = new KeywordList();
+		private static readonly KeywordList m_KeywordList = new KeywordList();
 
 		public static void UnicodeSpeech(NetState state, PacketReader pvSrc)
 		{
@@ -2019,8 +2019,8 @@ namespace Server.Network
 
 		private class LoginTimer : Timer
 		{
-			private NetState m_State;
-			private Mobile m_Mobile;
+			private readonly NetState m_State;
+			private readonly Mobile m_Mobile;
 
 			public LoginTimer(NetState state, Mobile m) : base(TimeSpan.FromSeconds(1.0), TimeSpan.FromSeconds(1.0))
 			{
@@ -2054,7 +2054,7 @@ namespace Server.Network
 			{
 				bool authOK = false;
 
-				ulong razorFeatures = (((ulong)pvSrc.ReadUInt32()) << 32) | ((ulong)pvSrc.ReadUInt32());
+				ulong razorFeatures = (((ulong)pvSrc.ReadUInt32()) << 32) | pvSrc.ReadUInt32();
 
 				if (razorFeatures == (ulong)FeatureProtection.DisabledFeatures)
 				{
@@ -2500,7 +2500,7 @@ namespace Server.Network
 		}
 
 		private const int m_AuthIDWindowSize = 128;
-		private static Dictionary<int, AuthIDPersistence> m_AuthIDWindow = new Dictionary<int, AuthIDPersistence>(m_AuthIDWindowSize);
+		private static readonly Dictionary<int, AuthIDPersistence> m_AuthIDWindow = new Dictionary<int, AuthIDPersistence>(m_AuthIDWindowSize);
 
 		private static int GenerateAuthID(NetState state)
 		{
@@ -2671,7 +2671,7 @@ namespace Server.Network
 
 			int offset = pvSrc.ReadInt32();
 
-			int count = (int)pvSrc.ReadByte();
+			int count = pvSrc.ReadByte();
 
 			for (int i = 0; i < count; i++)
 			{

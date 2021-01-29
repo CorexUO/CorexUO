@@ -1,7 +1,7 @@
+using Server.Network;
 using System;
 using System.Collections.Generic;
 using System.Text;
-using Server.Network;
 
 namespace Server.Gumps
 {

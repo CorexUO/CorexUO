@@ -1,9 +1,3 @@
-using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Server.Accounting;
 using Server.Commands;
 using Server.ContextMenus;
@@ -16,6 +10,12 @@ using Server.Mobiles;
 using Server.Network;
 using Server.Prompts;
 using Server.Targeting;
+using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace Server
 {
@@ -5208,7 +5208,7 @@ namespace Server
 
 		public virtual void Serialize(GenericWriter writer)
 		{
-			writer.Write((int)0); // version
+			writer.Write(0); // version
 
 			writer.WriteDeltaTime(LastStrGain);
 			writer.WriteDeltaTime(LastIntGain);
@@ -5221,7 +5221,7 @@ namespace Server
 			if (m_FacialHair != null)
 				hairflag |= 0x02;
 
-			writer.Write((byte)hairflag);
+			writer.Write(hairflag);
 
 			if ((hairflag & 0x01) != 0)
 				m_Hair.Serialize(writer);
@@ -5230,7 +5230,7 @@ namespace Server
 
 			writer.Write(this.Race);
 
-			writer.Write((int)m_TithingPoints);
+			writer.Write(m_TithingPoints);
 
 			writer.Write(Corpse);
 
@@ -5277,7 +5277,7 @@ namespace Server
 			writer.Write(m_Hunger);
 
 			writer.Write(m_Location);
-			writer.Write((int)m_Body);
+			writer.Write(m_Body);
 			writer.Write(m_Name);
 			writer.Write(m_GuildTitle);
 			writer.Write(m_Criminal);

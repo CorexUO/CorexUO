@@ -227,7 +227,7 @@ namespace Server.Network
 			bool isSafe = true;
 
 			for (int i = 0; isSafe && i < s.Length; ++i)
-				isSafe = IsSafeChar((int)s[i]);
+				isSafe = IsSafeChar(s[i]);
 
 			m_Index = start + fixedLength;
 
@@ -237,7 +237,7 @@ namespace Server.Network
 			StringBuilder sb = new StringBuilder(s.Length);
 
 			for (int i = 0; i < s.Length; ++i)
-				if (IsSafeChar((int)s[i]))
+				if (IsSafeChar(s[i]))
 					sb.Append(s[i]);
 
 			return sb.ToString();
@@ -266,7 +266,7 @@ namespace Server.Network
 			bool isSafe = true;
 
 			for (int i = 0; isSafe && i < s.Length; ++i)
-				isSafe = IsSafeChar((int)s[i]);
+				isSafe = IsSafeChar(s[i]);
 
 			if (isSafe)
 				return s;
@@ -275,7 +275,7 @@ namespace Server.Network
 
 			for (int i = 0; i < s.Length; ++i)
 			{
-				if (IsSafeChar((int)s[i]))
+				if (IsSafeChar(s[i]))
 					sb.Append(s[i]);
 			}
 

@@ -1,6 +1,6 @@
+using Server.Network;
 using System;
 using System.Text;
-using Server.Network;
 
 namespace Server
 {
@@ -29,10 +29,10 @@ namespace Server
 			Entity = e;
 
 			m_Stream.Write((short)1);
-			m_Stream.Write((int)e.Serial);
+			m_Stream.Write(e.Serial);
 			m_Stream.Write((byte)0);
 			m_Stream.Write((byte)0);
-			m_Stream.Write((int)e.Serial);
+			m_Stream.Write(e.Serial);
 		}
 
 		public void Add(int number)
@@ -54,10 +54,10 @@ namespace Server
 
 		public void Terminate()
 		{
-			m_Stream.Write((int)0);
+			m_Stream.Write(0);
 
 			m_Stream.Seek(11, System.IO.SeekOrigin.Begin);
-			m_Stream.Write((int)m_Hash);
+			m_Stream.Write(m_Hash);
 		}
 
 		private static byte[] m_Buffer = new byte[1024];
@@ -163,8 +163,8 @@ namespace Server
 
 		public OPLInfo(ObjectPropertyList list) : base(0xDC, 9)
 		{
-			m_Stream.Write((int)list.Entity.Serial);
-			m_Stream.Write((int)list.Hash);
+			m_Stream.Write(list.Entity.Serial);
+			m_Stream.Write(list.Hash);
 		}
 	}
 }

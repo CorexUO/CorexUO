@@ -405,26 +405,26 @@ namespace Server
 
 		public void Serialize(GenericWriter writer)
 		{
-			writer.Write((int)0); // version;
+			writer.Write(0); // version;
 
 			writer.Write(m_Min);
 			writer.Write(m_Max);
 			writer.Write(m_Center);
 
-			writer.Write((int)Width);
-			writer.Write((int)Height);
+			writer.Write(Width);
+			writer.Write(Height);
 
-			writer.Write((int)List.Length);
+			writer.Write(List.Length);
 
 			for (int i = 0; i < List.Length; ++i)
 			{
 				MultiTileEntry ent = List[i];
 
-				writer.Write((ushort)ent.m_ItemID);
-				writer.Write((short)ent.m_OffsetX);
-				writer.Write((short)ent.m_OffsetY);
-				writer.Write((short)ent.m_OffsetZ);
-				writer.Write((int)ent.m_Flags);
+				writer.Write(ent.m_ItemID);
+				writer.Write(ent.m_OffsetX);
+				writer.Write(ent.m_OffsetY);
+				writer.Write(ent.m_OffsetZ);
+				writer.Write(ent.m_Flags);
 			}
 		}
 
@@ -470,7 +470,7 @@ namespace Server
 					int xOffset = allTiles[i].m_OffsetX + m_Center.m_X;
 					int yOffset = allTiles[i].m_OffsetY + m_Center.m_Y;
 
-					tiles[xOffset][yOffset].Add((ushort)allTiles[i].m_ItemID, (sbyte)allTiles[i].m_OffsetZ);
+					tiles[xOffset][yOffset].Add(allTiles[i].m_ItemID, (sbyte)allTiles[i].m_OffsetZ);
 				}
 			}
 
@@ -535,7 +535,7 @@ namespace Server
 					int xOffset = allTiles[i].m_OffsetX + m_Center.m_X;
 					int yOffset = allTiles[i].m_OffsetY + m_Center.m_Y;
 
-					tiles[xOffset][yOffset].Add((ushort)allTiles[i].m_ItemID, (sbyte)allTiles[i].m_OffsetZ);
+					tiles[xOffset][yOffset].Add(allTiles[i].m_ItemID, (sbyte)allTiles[i].m_OffsetZ);
 				}
 			}
 

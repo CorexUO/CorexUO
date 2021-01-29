@@ -1,8 +1,8 @@
+using Server.Network;
 using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
-using Server.Network;
 
 namespace Server.Items
 {
@@ -964,7 +964,7 @@ namespace Server.Items
 		}
 		#endregion
 
-		private static List<Item> m_FindItemsList = new List<Item>();
+		private static readonly List<Item> m_FindItemsList = new List<Item>();
 
 		#region Non-Generic FindItem[s] by Type
 		public Item[] FindItemsByType(Type type)
@@ -1240,7 +1240,7 @@ namespace Server.Items
 		{
 			base.Serialize(writer);
 
-			writer.Write((int)0); // version
+			writer.Write(0); // version
 
 			SaveFlag flags = SaveFlag.None;
 
@@ -1252,13 +1252,13 @@ namespace Server.Items
 			writer.Write((byte)flags);
 
 			if (flags.HasFlag(SaveFlag.MaxItems))
-				writer.WriteEncodedInt((int)m_MaxItems);
+				writer.WriteEncodedInt(m_MaxItems);
 
 			if (flags.HasFlag(SaveFlag.GumpID))
-				writer.WriteEncodedInt((int)m_GumpID);
+				writer.WriteEncodedInt(m_GumpID);
 
 			if (flags.HasFlag(SaveFlag.DropSound))
-				writer.WriteEncodedInt((int)m_DropSound);
+				writer.WriteEncodedInt(m_DropSound);
 		}
 
 		public override void Deserialize(GenericReader reader)

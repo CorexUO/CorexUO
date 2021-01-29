@@ -1,8 +1,8 @@
+using Server.Network;
+using Server.Targeting;
 using System;
 using System.Collections.Generic;
 using System.Xml;
-using Server.Network;
-using Server.Targeting;
 
 namespace Server
 {

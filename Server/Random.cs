@@ -135,7 +135,7 @@ namespace Server
 
 		private readonly object _sync = new object();
 
-		private ManualResetEvent _filled = new ManualResetEvent(false);
+		private readonly ManualResetEvent _filled = new ManualResetEvent(false);
 
 		public CSPRandom()
 		{
@@ -271,7 +271,7 @@ namespace Server
 
 		private readonly object _sync = new object();
 
-		private ManualResetEvent _filled = new ManualResetEvent(false);
+		private readonly ManualResetEvent _filled = new ManualResetEvent(false);
 
 		public RDRand32()
 		{
@@ -408,9 +408,9 @@ namespace Server
 
 		private int _Index = 0;
 
-		private object _sync = new object();
+		private readonly object _sync = new object();
 
-		private ManualResetEvent _filled = new ManualResetEvent(false);
+		private readonly ManualResetEvent _filled = new ManualResetEvent(false);
 
 		public RDRand64()
 		{

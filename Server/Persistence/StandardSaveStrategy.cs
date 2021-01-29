@@ -1,6 +1,6 @@
+using Server.Guilds;
 using System;
 using System.Collections.Generic;
-using Server.Guilds;
 
 namespace Server
 {
@@ -63,14 +63,14 @@ namespace Server
 				bin = new AsyncWriter(World.MobileDataPath, true);
 			}
 
-			idx.Write((int)mobiles.Count);
+			idx.Write(mobiles.Count);
 			foreach (Mobile m in mobiles.Values)
 			{
 				long start = bin.Position;
 
-				idx.Write((int)m.m_TypeRef);
-				idx.Write((int)m.Serial);
-				idx.Write((long)start);
+				idx.Write(m.m_TypeRef);
+				idx.Write(m.Serial);
+				idx.Write(start);
 
 				m.Serialize(bin);
 
@@ -84,7 +84,7 @@ namespace Server
 				m.FreeCache();
 			}
 
-			tdb.Write((int)World.m_MobileTypes.Count);
+			tdb.Write(World.m_MobileTypes.Count);
 
 			for (int i = 0; i < World.m_MobileTypes.Count; ++i)
 				tdb.Write(World.m_MobileTypes[i].FullName);
@@ -115,7 +115,7 @@ namespace Server
 				bin = new AsyncWriter(World.ItemDataPath, true);
 			}
 
-			idx.Write((int)items.Count);
+			idx.Write(items.Count);
 
 			DateTime n = DateTime.UtcNow;
 
@@ -128,9 +128,9 @@ namespace Server
 
 				long start = bin.Position;
 
-				idx.Write((int)item.m_TypeRef);
-				idx.Write((int)item.Serial);
-				idx.Write((long)start);
+				idx.Write(item.m_TypeRef);
+				idx.Write(item.Serial);
+				idx.Write(start);
 
 				item.Serialize(bin);
 
@@ -144,7 +144,7 @@ namespace Server
 				item.FreeCache();
 			}
 
-			tdb.Write((int)World.m_ItemTypes.Count);
+			tdb.Write(World.m_ItemTypes.Count);
 			for (int i = 0; i < World.m_ItemTypes.Count; ++i)
 				tdb.Write(World.m_ItemTypes[i].FullName);
 
@@ -169,14 +169,14 @@ namespace Server
 				bin = new AsyncWriter(World.GuildDataPath, true);
 			}
 
-			idx.Write((int)BaseGuild.List.Count);
+			idx.Write(BaseGuild.List.Count);
 			foreach (BaseGuild guild in BaseGuild.List.Values)
 			{
 				long start = bin.Position;
 
-				idx.Write((int)0);//guilds have no typeid
-				idx.Write((int)guild.Id);
-				idx.Write((long)start);
+				idx.Write(0);//guilds have no typeid
+				idx.Write(guild.Id);
+				idx.Write(start);
 
 				guild.Serialize(bin);
 

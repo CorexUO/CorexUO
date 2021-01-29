@@ -45,7 +45,7 @@ namespace Server
 			++Count;
 		}
 
-		private static StaticTile[] m_EmptyTiles = Array.Empty<StaticTile>();
+		private static readonly StaticTile[] m_EmptyTiles = Array.Empty<StaticTile>();
 
 		public StaticTile[] ToArray()
 		{

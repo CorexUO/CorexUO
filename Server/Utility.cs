@@ -178,7 +178,7 @@ namespace Server
 
 				for (int j = 0; j < pattern.Length; j++)
 				{
-					char c = (char)pattern[j];
+					char c = pattern[j];
 
 
 					if (c == 'x' || c == 'X')
@@ -290,15 +290,15 @@ namespace Server
 			if (bytes.Length != 4)
 				return 0;
 
-			return (uint)((((bytes[0] << 0x18) | (bytes[1] << 0x10)) | (bytes[2] << 8)) | bytes[3]) & ((uint)0xffffffff);
+			return (uint)((((bytes[0] << 0x18) | (bytes[1] << 0x10)) | (bytes[2] << 8)) | bytes[3]) & 0xffffffff;
 		}
 
 		private static uint SwapUnsignedInt(uint source)
 		{
-			return (uint)((((source & 0x000000FF) << 0x18)
+			return (((source & 0x000000FF) << 0x18)
 			| ((source & 0x0000FF00) << 8)
 			| ((source & 0x00FF0000) >> 8)
-			| ((source & 0xFF000000) >> 0x18)));
+			| ((source & 0xFF000000) >> 0x18));
 		}
 
 		public static bool TryConvertIPv6toIPv4(ref IPAddress address)
@@ -367,7 +367,7 @@ namespace Server
 
 						for (int j = 0; j < pattern.Length; ++j)
 						{
-							char c = (char)pattern[j];
+							char c = pattern[j];
 
 							if (c == '?')
 							{

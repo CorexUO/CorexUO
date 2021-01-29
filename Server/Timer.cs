@@ -1,8 +1,8 @@
+using Server.Diagnostics;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Threading;
-using Server.Diagnostics;
 
 namespace Server
 {

@@ -1,9 +1,8 @@
+using Server.Network;
 using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-
-using Server.Network;
 
 namespace Server
 {
@@ -260,7 +259,7 @@ namespace Server
 		{
 			get
 			{
-				return ((double)m_Base / 10.0);
+				return (m_Base / 10.0);
 			}
 			set
 			{
@@ -297,7 +296,7 @@ namespace Server
 		{
 			get
 			{
-				return ((double)m_Cap / 10.0);
+				return (m_Cap / 10.0);
 			}
 			set
 			{
@@ -800,10 +799,10 @@ namespace Server
 		{
 			Total = 0;
 
-			writer.Write((int)0); // version
+			writer.Write(0); // version
 
-			writer.Write((int)Cap);
-			writer.Write((int)m_Skills.Length);
+			writer.Write(Cap);
+			writer.Write(m_Skills.Length);
 
 			for (int i = 0; i < m_Skills.Length; ++i)
 			{

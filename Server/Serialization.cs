@@ -1,3 +1,4 @@
+using Server.Guilds;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -5,7 +6,6 @@ using System.IO;
 using System.Net;
 using System.Text;
 using System.Threading;
-using Server.Guilds;
 
 namespace Server
 {
@@ -478,7 +478,7 @@ namespace Server
 			m_Index += 4;
 		}
 
-		private char[] m_SingleCharBuffer = new char[1];
+		private readonly char[] m_SingleCharBuffer = new char[1];
 
 		public override void Write(char value)
 		{
@@ -1398,7 +1398,7 @@ namespace Server
 		private BinaryWriter m_Bin;
 		private readonly FileStream m_File;
 
-		private Queue<MemoryStream> m_WriteQueue;
+		private readonly Queue<MemoryStream> m_WriteQueue;
 		private Thread m_WorkerThread;
 
 		public AsyncWriter(string filename, bool prefix)
@@ -1435,7 +1435,7 @@ namespace Server
 
 		private class WorkerThread
 		{
-			private AsyncWriter m_Owner;
+			private readonly AsyncWriter m_Owner;
 
 			public WorkerThread(AsyncWriter owner)
 			{

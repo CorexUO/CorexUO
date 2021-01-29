@@ -5,7 +5,7 @@ namespace Server.Diagnostics
 {
 	public class TargetProfile : BaseProfile
 	{
-		private static Dictionary<Type, TargetProfile> _profiles = new Dictionary<Type, TargetProfile>();
+		private static readonly Dictionary<Type, TargetProfile> _profiles = new Dictionary<Type, TargetProfile>();
 
 		public static IEnumerable<TargetProfile> Profiles
 		{

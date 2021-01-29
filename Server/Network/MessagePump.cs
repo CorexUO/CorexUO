@@ -1,9 +1,9 @@
+using Server.Diagnostics;
 using System;
 using System.Collections.Generic;
 using System.Net;
 using System.Net.Sockets;
 using System.Threading;
-using Server.Diagnostics;
 
 namespace Server.Network
 {
@@ -69,7 +69,7 @@ namespace Server.Network
 					ns.Start();
 
 					if (ns.Running)
-						Utility.WriteConsole(ConsoleColor.Cyan,"Client: {0}: Connected. [{1} Online]", ns, NetState.Instances.Count);
+						Utility.WriteConsole(ConsoleColor.Cyan, "Client: {0}: Connected. [{1} Online]", ns, NetState.Instances.Count);
 				}
 			}
 		}

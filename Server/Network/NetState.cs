@@ -1,3 +1,9 @@
+using Server.Accounting;
+using Server.Diagnostics;
+using Server.Gumps;
+using Server.HuePickers;
+using Server.Items;
+using Server.Menus;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -5,12 +11,6 @@ using System.Net;
 using System.Net.Sockets;
 using System.Threading;
 using System.Threading.Tasks;
-using Server.Accounting;
-using Server.Diagnostics;
-using Server.Gumps;
-using Server.HuePickers;
-using Server.Items;
-using Server.Menus;
 
 namespace Server.Network
 {
@@ -205,10 +205,10 @@ namespace Server.Network
 		public bool NewSecureTrading { get { return ((_ProtocolChanges & ProtocolChanges.NewSecureTrading) != 0); } }
 
 		[CommandProperty(AccessLevel.Administrator, true)]
-		public bool IsUOTDClient{ get { return ((Flags & ClientFlags.UOTD) != 0 || (m_Version != null && m_Version.Type == ClientType.UOTD)); } }
+		public bool IsUOTDClient { get { return ((Flags & ClientFlags.UOTD) != 0 || (m_Version != null && m_Version.Type == ClientType.UOTD)); } }
 
 		[CommandProperty(AccessLevel.Administrator, true)]
-		public bool IsSAClient{ get { return (m_Version != null && m_Version.Type == ClientType.SA); } }
+		public bool IsSAClient { get { return (m_Version != null && m_Version.Type == ClientType.SA); } }
 
 		[CommandProperty(AccessLevel.Administrator, true)]
 		public bool IsEnhancedClient { get { return IsUOTDClient || (m_Version != null && m_Version.Major >= 67); } }

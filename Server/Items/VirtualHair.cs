@@ -38,9 +38,9 @@ namespace Server
 
 		public virtual void Serialize(GenericWriter writer)
 		{
-			writer.Write((int)0); //version
-			writer.Write((int)ItemID);
-			writer.Write((int)Hue);
+			writer.Write(0); //version
+			writer.Write(ItemID);
+			writer.Write(Hue);
 		}
 	}
 
@@ -102,11 +102,11 @@ namespace Server
 
 			int hairSerial = HairInfo.FakeSerial(parent);
 
-			m_Stream.Write((int)hairSerial);
+			m_Stream.Write(hairSerial);
 			m_Stream.Write((short)parent.HairItemID);
 			m_Stream.Write((byte)0);
 			m_Stream.Write((byte)Layer.Hair);
-			m_Stream.Write((int)parent.Serial);
+			m_Stream.Write(parent.Serial);
 			m_Stream.Write((short)hue);
 		}
 	}
@@ -123,11 +123,11 @@ namespace Server
 
 			int hairSerial = FacialHairInfo.FakeSerial(parent);
 
-			m_Stream.Write((int)hairSerial);
+			m_Stream.Write(hairSerial);
 			m_Stream.Write((short)parent.FacialHairItemID);
 			m_Stream.Write((byte)0);
 			m_Stream.Write((byte)Layer.FacialHair);
-			m_Stream.Write((int)parent.Serial);
+			m_Stream.Write(parent.Serial);
 			m_Stream.Write((short)hue);
 		}
 	}
@@ -137,7 +137,7 @@ namespace Server
 		public RemoveHair(Mobile parent)
 			: base(0x1D, 5)
 		{
-			m_Stream.Write((int)HairInfo.FakeSerial(parent));
+			m_Stream.Write(HairInfo.FakeSerial(parent));
 		}
 	}
 
@@ -146,7 +146,7 @@ namespace Server
 		public RemoveFacialHair(Mobile parent)
 			: base(0x1D, 5)
 		{
-			m_Stream.Write((int)FacialHairInfo.FakeSerial(parent));
+			m_Stream.Write(FacialHairInfo.FakeSerial(parent));
 		}
 	}
 }

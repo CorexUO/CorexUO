@@ -98,7 +98,7 @@ namespace Server
 
 				for (int i = 0; i < 8; ++i)
 					if (info.Values[i] != 0)
-						writer.Write((int)info.Values[i]);
+						writer.Write(info.Values[i]);
 			}
 		}
 	}

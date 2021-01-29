@@ -16,7 +16,7 @@ namespace Server
 		{
 			get
 			{
-				while (World.FindMobile((Serial)(Serial.LastMobile += 1)) != null) ;
+				while (World.FindMobile(Serial.LastMobile += 1) != null) ;
 
 				return LastMobile;
 			}
@@ -26,7 +26,7 @@ namespace Server
 		{
 			get
 			{
-				while (World.FindItem((Serial)(Serial.LastItem += 1)) != null) ;
+				while (World.FindItem(Serial.LastItem += 1) != null) ;
 
 				return LastItem;
 			}

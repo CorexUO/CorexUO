@@ -1,10 +1,10 @@
+using Server.ContextMenus;
+using Server.Items;
+using Server.Network;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Threading.Tasks;
-using Server.ContextMenus;
-using Server.Items;
-using Server.Network;
 
 namespace Server
 {
@@ -1755,9 +1755,9 @@ namespace Server
 			}
 		}
 
-		private object _wpl = new object();
-		private object _wplsa = new object();
-		private object _wplhs = new object();
+		private readonly object _wpl = new object();
+		private readonly object _wplsa = new object();
+		private readonly object _wplhs = new object();
 
 		public Packet WorldPacket
 		{
@@ -2174,26 +2174,26 @@ namespace Server
 			}
 
 			if (flags.HasFlag(SaveFlag.ItemID))
-				writer.WriteEncodedInt((int)m_ItemID);
+				writer.WriteEncodedInt(m_ItemID);
 
 			if (flags.HasFlag(SaveFlag.Hue))
-				writer.WriteEncodedInt((int)m_Hue);
+				writer.WriteEncodedInt(m_Hue);
 
 			if (flags.HasFlag(SaveFlag.Amount))
-				writer.WriteEncodedInt((int)m_Amount);
+				writer.WriteEncodedInt(m_Amount);
 
 			if (flags.HasFlag(SaveFlag.Layer))
 				writer.Write((byte)m_Layer);
 
 			if (flags.HasFlag(SaveFlag.Name))
-				writer.Write((string)info.m_Name);
+				writer.Write(info.m_Name);
 
 			if (flags.HasFlag(SaveFlag.Parent))
 			{
 				if (m_Parent != null && !m_Parent.Deleted)
 					writer.Write(m_Parent.Serial);
 				else
-					writer.Write((int)Serial.MinusOne);
+					writer.Write(Serial.MinusOne);
 			}
 
 			if (flags.HasFlag(SaveFlag.Items))
@@ -2202,10 +2202,10 @@ namespace Server
 			if (flags.HasFlag(SaveFlag.IntWeight))
 				writer.WriteEncodedInt((int)info.m_Weight);
 			else if (flags.HasFlag(SaveFlag.WeightNot1or0))
-				writer.Write((double)info.m_Weight);
+				writer.Write(info.m_Weight);
 
 			if (flags.HasFlag(SaveFlag.Map))
-				writer.Write((Map)m_Map);
+				writer.Write(m_Map);
 
 			if (flags.HasFlag(SaveFlag.ImplFlags))
 				writer.WriteEncodedInt((int)implFlags);
@@ -2572,7 +2572,7 @@ namespace Server
 				else if (m_Parent is Mobile)
 					(m_Parent as Mobile).UpdateTotal(sender, type, delta);
 				else if (this.HeldBy != null)
-					(this.HeldBy as Mobile).UpdateTotal(sender, type, delta);
+					HeldBy.UpdateTotal(sender, type, delta);
 			}
 		}
 
@@ -2835,7 +2835,7 @@ namespace Server
 			OnItemAdded(item);
 		}
 
-		private static List<Item> m_DeltaQueue = new List<Item>();
+		private static readonly List<Item> m_DeltaQueue = new List<Item>();
 
 		public void Delta(ItemDelta flags)
 		{

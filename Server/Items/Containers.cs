@@ -1,6 +1,6 @@
-using System;
 using Server.Accounting;
 using Server.Network;
+using System;
 
 namespace Server.Items
 {
@@ -43,10 +43,10 @@ namespace Server.Items
 		{
 			base.Serialize(writer);
 
-			writer.Write((int)0); // version
+			writer.Write(0); // version
 
-			writer.Write((Mobile)Owner);
-			writer.Write((bool)Opened);
+			writer.Write(Owner);
+			writer.Write(Opened);
 		}
 
 		public override void Deserialize(GenericReader reader)
