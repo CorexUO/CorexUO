@@ -1,12 +1,12 @@
+using Server.Commands.Generic;
+using Server.Engines.BulkOrders;
+using Server.Items;
 using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using System.Reflection;
 using System.Text;
-using Server.Commands.Generic;
-using Server.Engines.BulkOrders;
-using Server.Items;
 
 namespace Server.Commands
 {
@@ -162,7 +162,7 @@ namespace Server.Commands
 			public Type m_Type, m_BaseType, m_Declaring;
 			public List<TypeInfo> m_Derived, m_Nested;
 			public Type[] m_Interfaces;
-			private string m_FileName, m_TypeName, m_LinkName;
+			private readonly string m_FileName, m_TypeName, m_LinkName;
 
 			public TypeInfo(Type type)
 			{
@@ -217,7 +217,7 @@ namespace Server.Commands
 			return file;
 		}
 
-		private static string m_RootDirectory = Path.GetDirectoryName(Environment.GetCommandLineArgs()[0]);
+		private static readonly string m_RootDirectory = Path.GetDirectoryName(Environment.GetCommandLineArgs()[0]);
 
 		private static void EnsureDirectory(string path)
 		{
@@ -248,7 +248,7 @@ namespace Server.Commands
 
 		#region GetPair
 
-		private static string[,] m_Aliases = new string[,]
+		private static readonly string[,] m_Aliases = new string[,]
 			{
 				{ "System.Object",  "<font color=\"blue\">object</font>" },
 				{ "System.String",  "<font color=\"blue\">string</font>" },
@@ -268,7 +268,7 @@ namespace Server.Commands
 				{ "System.Void",    "<font color=\"blue\">void</font>" },
 			};
 
-		private static int m_AliasLength = m_Aliases.GetLength(0);
+		private static readonly int m_AliasLength = m_Aliases.GetLength(0);
 
 		public static string GetPair(Type varType, string name, bool ignoreRef)
 		{
@@ -335,8 +335,7 @@ namespace Server.Commands
 			string fullName = realType.FullName;
 			string aliased = null;// = realType.Name;
 
-			TypeInfo info = null;
-			m_Types.TryGetValue(realType, out info);
+			m_Types.TryGetValue(realType, out TypeInfo info);
 
 			if (info != null)
 			{
@@ -884,7 +883,7 @@ namespace Server.Commands
 
 			for (int i = 0; i < items.Count; ++i)
 			{
-				Item item = (Item)items[i];
+				Item item = items[i];
 
 				if (item is Sandals)
 					rewards[5] = true;
@@ -1122,7 +1121,7 @@ namespace Server.Commands
 
 			for (int i = 0; i < items.Count; ++i)
 			{
-				Item item = (Item)items[i];
+				Item item = items[i];
 
 				if (item is SturdyPickaxe || item is SturdyShovel)
 					rewards[0] = true;
@@ -1416,8 +1415,8 @@ namespace Server.Commands
 
 		private class SpeechEntry
 		{
-			private int m_Index;
-			private List<string> m_Strings;
+			private readonly int m_Index;
+			private readonly List<string> m_Strings;
 
 			public int Index { get { return m_Index; } }
 			public List<string> Strings { get { return m_Strings; } }
@@ -1471,8 +1470,7 @@ namespace Server.Commands
 
 						lastIndex = index;
 
-						SpeechEntry entry = null;
-						table.TryGetValue(index, out entry);
+						table.TryGetValue(index, out SpeechEntry entry);
 
 						if (entry == null)
 							table[index] = entry = new SpeechEntry(index);
@@ -1490,11 +1488,11 @@ namespace Server.Commands
 
 		public class DocCommandEntry
 		{
-			private AccessLevel m_AccessLevel;
-			private string m_Name;
-			private string[] m_Aliases;
-			private string m_Usage;
-			private string m_Description;
+			private readonly AccessLevel m_AccessLevel;
+			private readonly string m_Name;
+			private readonly string[] m_Aliases;
+			private readonly string m_Usage;
+			private readonly string m_Description;
 
 			public AccessLevel AccessLevel { get { return m_AccessLevel; } }
 			public string Name { get { return m_Name; } }
@@ -1767,8 +1765,7 @@ namespace Server.Commands
 				TypeInfo info = new TypeInfo(type);
 				m_Types[type] = info;
 
-				List<TypeInfo> nspaces = null;
-				m_Namespaces.TryGetValue(nspace, out nspaces);
+				m_Namespaces.TryGetValue(nspace, out List<TypeInfo> nspaces);
 
 				if (nspaces == null)
 					m_Namespaces[nspace] = nspaces = new List<TypeInfo>();
@@ -1779,8 +1776,7 @@ namespace Server.Commands
 
 				if (baseType != null && InAssemblies(baseType, asms))
 				{
-					TypeInfo baseInfo = null;
-					m_Types.TryGetValue(baseType, out baseInfo);
+					m_Types.TryGetValue(baseType, out TypeInfo baseInfo);
 
 					if (baseInfo == null)
 						m_Types[baseType] = baseInfo = new TypeInfo(baseType);
@@ -1795,8 +1791,7 @@ namespace Server.Commands
 
 				if (decType != null)
 				{
-					TypeInfo decInfo = null;
-					m_Types.TryGetValue(decType, out decInfo);
+					m_Types.TryGetValue(decType, out TypeInfo decInfo);
 
 					if (decInfo == null)
 						m_Types[decType] = decInfo = new TypeInfo(decType);
@@ -1814,8 +1809,7 @@ namespace Server.Commands
 					if (!InAssemblies(iface, asms))
 						continue;
 
-					TypeInfo ifaceInfo = null;
-					m_Types.TryGetValue(iface, out ifaceInfo);
+					m_Types.TryGetValue(iface, out TypeInfo ifaceInfo);
 
 					if (ifaceInfo == null)
 						m_Types[iface] = ifaceInfo = new TypeInfo(iface);
@@ -1840,8 +1834,8 @@ namespace Server.Commands
 		}
 
 		#region Constructable Objects
-		private static Type typeofItem = typeof(Item), typeofMobile = typeof(Mobile), typeofMap = typeof(Map);
-		private static Type typeofCustomEnum = typeof(CustomEnumAttribute);
+		private static readonly Type typeofItem = typeof(Item), typeofMobile = typeof(Mobile), typeofMap = typeof(Map);
+		private static readonly Type typeofCustomEnum = typeof(CustomEnumAttribute);
 
 		private static bool IsConstructable(Type t, out bool isItem)
 		{
@@ -1866,9 +1860,8 @@ namespace Server.Commands
 			for (int i = 0; i < types.Count; ++i)
 			{
 				Type t = types[i].m_Type;
-				bool isItem;
 
-				if (t.IsAbstract || !IsConstructable(t, out isItem))
+				if (t.IsAbstract || !IsConstructable(t, out bool isItem))
 					continue;
 
 				ConstructorInfo[] ctors = t.GetConstructors();
@@ -1948,8 +1941,7 @@ namespace Server.Commands
 				{
 					html.Write(" <a ");
 
-					TypeInfo typeInfo = null;
-					m_Types.TryGetValue(parms[j].ParameterType, out typeInfo);
+					m_Types.TryGetValue(parms[j].ParameterType, out TypeInfo typeInfo);
 
 					if (typeInfo != null)
 						html.Write("href=\"types/{0}\" ", typeInfo.FileName);
@@ -1967,7 +1959,7 @@ namespace Server.Commands
 
 		private const string HtmlNewLine = "&#13;";
 
-		private static object[,] m_Tooltips = new object[,]
+		private static readonly object[,] m_Tooltips = new object[,]
 		{
 			{ typeof( Byte ), "Numeric value in the range from 0 to 255, inclusive." },
 			{ typeof( SByte ), "Numeric value in the range from negative 128 to positive 127, inclusive." },
@@ -2178,8 +2170,7 @@ namespace Server.Commands
 
 				typeHtml.Write('(');
 
-				TypeInfo decInfo = null;
-				m_Types.TryGetValue(decType, out decInfo);
+				m_Types.TryGetValue(decType, out TypeInfo decInfo);
 
 				if (decInfo == null)
 					typeHtml.Write(decType.Name);
@@ -2201,8 +2192,7 @@ namespace Server.Commands
 			{
 				typeHtml.Write(" : ");
 
-				TypeInfo baseInfo = null;
-				m_Types.TryGetValue(baseType, out baseInfo);
+				m_Types.TryGetValue(baseType, out TypeInfo baseInfo);
 
 				if (baseInfo == null)
 					typeHtml.Write(baseType.Name);
@@ -2222,8 +2212,7 @@ namespace Server.Commands
 				for (int i = 0; i < ifaces.Length; ++i)
 				{
 					Type iface = ifaces[i];
-					TypeInfo ifaceInfo = null;
-					m_Types.TryGetValue(iface, out ifaceInfo);
+					m_Types.TryGetValue(iface, out TypeInfo ifaceInfo);
 
 					if (extendCount != 0)
 						typeHtml.Write(", ");
@@ -2561,9 +2550,9 @@ namespace Server.Commands
 
 	public class BodyEntry
 	{
-		private Body m_Body;
-		private ModelBodyType m_BodyType;
-		private string m_Name;
+		private readonly Body m_Body;
+		private readonly ModelBodyType m_BodyType;
+		private readonly string m_Name;
 
 		public Body Body { get { return m_Body; } }
 		public ModelBodyType BodyType { get { return m_BodyType; } }

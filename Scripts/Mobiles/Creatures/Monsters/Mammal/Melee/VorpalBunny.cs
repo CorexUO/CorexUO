@@ -1,144 +1,144 @@
-using System;
 using Server.Items;
+using System;
 
 namespace Server.Mobiles
 {
-    [CorpseName("a vorpal bunny corpse")]
-    public class VorpalBunny : BaseCreature
-    {
-        [Constructable]
-        public VorpalBunny() : base(AIType.AI_Melee, FightMode.Closest, 10, 1, 0.2, 0.4)
-        {
-            Name = "a vorpal bunny";
-            Body = 205;
-            Hue = 0x480;
+	[CorpseName("a vorpal bunny corpse")]
+	public class VorpalBunny : BaseCreature
+	{
+		[Constructable]
+		public VorpalBunny() : base(AIType.AI_Melee, FightMode.Closest, 10, 1, 0.2, 0.4)
+		{
+			Name = "a vorpal bunny";
+			Body = 205;
+			Hue = 0x480;
 
-            SetStr(15);
-            SetDex(2000);
-            SetInt(1000);
+			SetStr(15);
+			SetDex(2000);
+			SetInt(1000);
 
-            SetHits(2000);
-            SetStam(500);
-            SetMana(0);
+			SetHits(2000);
+			SetStam(500);
+			SetMana(0);
 
-            SetDamage(1);
+			SetDamage(1);
 
-            SetDamageType(ResistanceType.Physical, 100);
+			SetDamageType(ResistanceType.Physical, 100);
 
-            SetSkill(SkillName.MagicResist, 200.0);
-            SetSkill(SkillName.Tactics, 5.0);
-            SetSkill(SkillName.Wrestling, 5.0);
+			SetSkill(SkillName.MagicResist, 200.0);
+			SetSkill(SkillName.Tactics, 5.0);
+			SetSkill(SkillName.Wrestling, 5.0);
 
-            Fame = 1000;
-            Karma = 0;
+			Fame = 1000;
+			Karma = 0;
 
-            VirtualArmor = 4;
+			VirtualArmor = 4;
 
-            int carrots = Utility.RandomMinMax(5, 10);
-            PackItem(new Carrot(carrots));
+			int carrots = Utility.RandomMinMax(5, 10);
+			PackItem(new Carrot(carrots));
 
-            if (Utility.Random(5) == 0)
-                PackItem(new BrightlyColoredEggs());
+			if (Utility.Random(5) == 0)
+				PackItem(new BrightlyColoredEggs());
 
-            PackStatue();
+			PackStatue();
 
-            DelayBeginTunnel();
-        }
+			DelayBeginTunnel();
+		}
 
-        public override void GenerateLoot()
-        {
-            AddLoot(LootPack.FilthyRich);
-            AddLoot(LootPack.Rich, 2);
-        }
+		public override void GenerateLoot()
+		{
+			AddLoot(LootPack.FilthyRich);
+			AddLoot(LootPack.Rich, 2);
+		}
 
-        public class BunnyHole : BaseItem
-        {
-            public BunnyHole() : base(0x913)
-            {
-                Movable = false;
-                Hue = 1;
-                Name = "a mysterious rabbit hole";
+		public class BunnyHole : BaseItem
+		{
+			public BunnyHole() : base(0x913)
+			{
+				Movable = false;
+				Hue = 1;
+				Name = "a mysterious rabbit hole";
 
-                Timer.DelayCall(TimeSpan.FromSeconds(40.0), new TimerCallback(Delete));
-            }
+				Timer.DelayCall(TimeSpan.FromSeconds(40.0), new TimerCallback(Delete));
+			}
 
-            public BunnyHole(Serial serial) : base(serial)
-            {
-            }
+			public BunnyHole(Serial serial) : base(serial)
+			{
+			}
 
-            public override void Serialize(GenericWriter writer)
-            {
-                base.Serialize(writer);
+			public override void Serialize(GenericWriter writer)
+			{
+				base.Serialize(writer);
 
-                writer.Write((int)0);
-            }
+				writer.Write(0);
+			}
 
-            public override void Deserialize(GenericReader reader)
-            {
-                base.Deserialize(reader);
+			public override void Deserialize(GenericReader reader)
+			{
+				base.Deserialize(reader);
 
-                int version = reader.ReadInt();
+				int version = reader.ReadInt();
 
-                Delete();
-            }
-        }
+				Delete();
+			}
+		}
 
-        public virtual void DelayBeginTunnel()
-        {
-            Timer.DelayCall(TimeSpan.FromMinutes(3.0), new TimerCallback(BeginTunnel));
-        }
+		public virtual void DelayBeginTunnel()
+		{
+			Timer.DelayCall(TimeSpan.FromMinutes(3.0), new TimerCallback(BeginTunnel));
+		}
 
-        public virtual void BeginTunnel()
-        {
-            if (Deleted)
-                return;
+		public virtual void BeginTunnel()
+		{
+			if (Deleted)
+				return;
 
-            new BunnyHole().MoveToWorld(Location, Map);
+			new BunnyHole().MoveToWorld(Location, Map);
 
-            Frozen = true;
-            Say("* The bunny begins to dig a tunnel back to its underground lair *");
-            PlaySound(0x247);
+			Frozen = true;
+			Say("* The bunny begins to dig a tunnel back to its underground lair *");
+			PlaySound(0x247);
 
-            Timer.DelayCall(TimeSpan.FromSeconds(5.0), new TimerCallback(Delete));
-        }
+			Timer.DelayCall(TimeSpan.FromSeconds(5.0), new TimerCallback(Delete));
+		}
 
-        public override int Meat { get { return 1; } }
-        public override int Hides { get { return 1; } }
-        public override bool BardImmune { get { return !Core.AOS; } }
+		public override int Meat { get { return 1; } }
+		public override int Hides { get { return 1; } }
+		public override bool BardImmune { get { return !Core.AOS; } }
 
-        public VorpalBunny(Serial serial) : base(serial)
-        {
-        }
+		public VorpalBunny(Serial serial) : base(serial)
+		{
+		}
 
-        public override int GetAttackSound()
-        {
-            return 0xC9;
-        }
+		public override int GetAttackSound()
+		{
+			return 0xC9;
+		}
 
-        public override int GetHurtSound()
-        {
-            return 0xCA;
-        }
+		public override int GetHurtSound()
+		{
+			return 0xCA;
+		}
 
-        public override int GetDeathSound()
-        {
-            return 0xCB;
-        }
+		public override int GetDeathSound()
+		{
+			return 0xCB;
+		}
 
-        public override void Serialize(GenericWriter writer)
-        {
-            base.Serialize(writer);
+		public override void Serialize(GenericWriter writer)
+		{
+			base.Serialize(writer);
 
-            writer.Write((int)0);
-        }
+			writer.Write(0);
+		}
 
-        public override void Deserialize(GenericReader reader)
-        {
-            base.Deserialize(reader);
+		public override void Deserialize(GenericReader reader)
+		{
+			base.Deserialize(reader);
 
-            int version = reader.ReadInt();
+			int version = reader.ReadInt();
 
-            DelayBeginTunnel();
-        }
-    }
+			DelayBeginTunnel();
+		}
+	}
 }

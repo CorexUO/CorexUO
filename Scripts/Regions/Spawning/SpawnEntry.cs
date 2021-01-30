@@ -1,8 +1,8 @@
+using Server.Commands;
+using Server.Mobiles;
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using Server.Commands;
-using Server.Mobiles;
 
 namespace Server.Regions
 {
@@ -200,7 +200,7 @@ namespace Server.Regions
 
 		public void Serialize(GenericWriter writer)
 		{
-			writer.Write((int)SpawnedObjects.Count);
+			writer.Write(SpawnedObjects.Count);
 
 			for (int i = 0; i < SpawnedObjects.Count; i++)
 			{
@@ -208,15 +208,15 @@ namespace Server.Regions
 
 				int serial = spawn.Serial;
 
-				writer.Write((int)serial);
+				writer.Write(serial);
 			}
 
-			writer.Write((bool)Running);
+			writer.Write(Running);
 
 			if (m_SpawnTimer != null)
 			{
 				writer.Write(true);
-				writer.WriteDeltaTime((DateTime)m_NextSpawn);
+				writer.WriteDeltaTime(m_NextSpawn);
 			}
 			else
 			{

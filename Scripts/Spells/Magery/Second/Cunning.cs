@@ -1,11 +1,11 @@
-using System;
 using Server.Targeting;
+using System;
 
 namespace Server.Spells.Second
 {
 	public class CunningSpell : MagerySpell
 	{
-		private static SpellInfo m_Info = new SpellInfo(
+		private static readonly SpellInfo m_Info = new SpellInfo(
 				"Cunning", "Uus Wis",
 				212,
 				9061,
@@ -72,7 +72,7 @@ namespace Server.Spells.Second
 
 		private class InternalTarget : Target
 		{
-			private CunningSpell m_Owner;
+			private readonly CunningSpell m_Owner;
 
 			public InternalTarget(CunningSpell owner) : base(owner.SpellRange, false, TargetFlags.Beneficial)
 			{

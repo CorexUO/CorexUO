@@ -1,6 +1,6 @@
-using System.Collections;
 using Server.Regions;
 using Server.Targeting;
+using System.Collections;
 
 namespace Server.Multis.Deeds
 {
@@ -63,7 +63,7 @@ namespace Server.Multis.Deeds
 		{
 			base.Serialize(writer);
 
-			writer.Write((int)0); // version
+			writer.Write(0); // version
 
 			writer.Write(Offset);
 			writer.Write(MultiID);
@@ -204,7 +204,7 @@ namespace Server.Multis.Deeds
 		{
 			base.Serialize(writer);
 
-			writer.Write((int)0); // version
+			writer.Write(0); // version
 		}
 
 		public override void Deserialize(GenericReader reader)
@@ -238,7 +238,7 @@ namespace Server.Multis.Deeds
 		{
 			base.Serialize(writer);
 
-			writer.Write((int)0); // version
+			writer.Write(0); // version
 		}
 
 		public override void Deserialize(GenericReader reader)
@@ -272,7 +272,7 @@ namespace Server.Multis.Deeds
 		{
 			base.Serialize(writer);
 
-			writer.Write((int)0); // version
+			writer.Write(0); // version
 		}
 
 		public override void Deserialize(GenericReader reader)
@@ -306,7 +306,7 @@ namespace Server.Multis.Deeds
 		{
 			base.Serialize(writer);
 
-			writer.Write((int)0); // version
+			writer.Write(0); // version
 		}
 
 		public override void Deserialize(GenericReader reader)
@@ -340,7 +340,7 @@ namespace Server.Multis.Deeds
 		{
 			base.Serialize(writer);
 
-			writer.Write((int)0); // version
+			writer.Write(0); // version
 		}
 
 		public override void Deserialize(GenericReader reader)
@@ -374,7 +374,7 @@ namespace Server.Multis.Deeds
 		{
 			base.Serialize(writer);
 
-			writer.Write((int)0); // version
+			writer.Write(0); // version
 		}
 
 		public override void Deserialize(GenericReader reader)
@@ -408,7 +408,7 @@ namespace Server.Multis.Deeds
 		{
 			base.Serialize(writer);
 
-			writer.Write((int)0); // version
+			writer.Write(0); // version
 		}
 
 		public override void Deserialize(GenericReader reader)
@@ -442,7 +442,7 @@ namespace Server.Multis.Deeds
 		{
 			base.Serialize(writer);
 
-			writer.Write((int)0); // version
+			writer.Write(0); // version
 		}
 
 		public override void Deserialize(GenericReader reader)
@@ -476,7 +476,7 @@ namespace Server.Multis.Deeds
 		{
 			base.Serialize(writer);
 
-			writer.Write((int)0); // version
+			writer.Write(0); // version
 		}
 
 		public override void Deserialize(GenericReader reader)
@@ -510,7 +510,7 @@ namespace Server.Multis.Deeds
 		{
 			base.Serialize(writer);
 
-			writer.Write((int)0); // version
+			writer.Write(0); // version
 		}
 
 		public override void Deserialize(GenericReader reader)
@@ -544,7 +544,7 @@ namespace Server.Multis.Deeds
 		{
 			base.Serialize(writer);
 
-			writer.Write((int)0); // version
+			writer.Write(0); // version
 		}
 
 		public override void Deserialize(GenericReader reader)
@@ -578,7 +578,7 @@ namespace Server.Multis.Deeds
 		{
 			base.Serialize(writer);
 
-			writer.Write((int)0); // version
+			writer.Write(0); // version
 		}
 
 		public override void Deserialize(GenericReader reader)
@@ -612,7 +612,7 @@ namespace Server.Multis.Deeds
 		{
 			base.Serialize(writer);
 
-			writer.Write((int)0); // version
+			writer.Write(0); // version
 		}
 
 		public override void Deserialize(GenericReader reader)
@@ -646,7 +646,7 @@ namespace Server.Multis.Deeds
 		{
 			base.Serialize(writer);
 
-			writer.Write((int)0); // version
+			writer.Write(0); // version
 		}
 
 		public override void Deserialize(GenericReader reader)
@@ -680,7 +680,7 @@ namespace Server.Multis.Deeds
 		{
 			base.Serialize(writer);
 
-			writer.Write((int)0); // version
+			writer.Write(0); // version
 		}
 
 		public override void Deserialize(GenericReader reader)
@@ -714,7 +714,7 @@ namespace Server.Multis.Deeds
 		{
 			base.Serialize(writer);
 
-			writer.Write((int)0); // version
+			writer.Write(0); // version
 		}
 
 		public override void Deserialize(GenericReader reader)
@@ -748,7 +748,7 @@ namespace Server.Multis.Deeds
 		{
 			base.Serialize(writer);
 
-			writer.Write((int)0); // version
+			writer.Write(0); // version
 		}
 
 		public override void Deserialize(GenericReader reader)
@@ -782,7 +782,7 @@ namespace Server.Multis.Deeds
 		{
 			base.Serialize(writer);
 
-			writer.Write((int)0); // version
+			writer.Write(0); // version
 		}
 
 		public override void Deserialize(GenericReader reader)
@@ -816,7 +816,7 @@ namespace Server.Multis.Deeds
 		{
 			base.Serialize(writer);
 
-			writer.Write((int)0); // version
+			writer.Write(0); // version
 		}
 
 		public override void Deserialize(GenericReader reader)
@@ -850,7 +850,7 @@ namespace Server.Multis.Deeds
 		{
 			base.Serialize(writer);
 
-			writer.Write((int)0); // version
+			writer.Write(0); // version
 		}
 
 		public override void Deserialize(GenericReader reader)

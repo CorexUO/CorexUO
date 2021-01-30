@@ -1,11 +1,11 @@
-using System;
-using System.Collections.Generic;
 using Server.Items;
 using Server.Mobiles;
 using Server.Spells;
 using Server.Spells.Fifth;
 using Server.Spells.Ninjitsu;
 using Server.Spells.Seventh;
+using System;
+using System.Collections.Generic;
 
 namespace Server
 {
@@ -1029,11 +1029,11 @@ namespace Server
 		{
 			writer.Write((byte)1); // version;
 
-			writer.Write((uint)m_Names);
-			writer.WriteEncodedInt((int)m_Values.Length);
+			writer.Write(m_Names);
+			writer.WriteEncodedInt(m_Values.Length);
 
 			for (int i = 0; i < m_Values.Length; ++i)
-				writer.WriteEncodedInt((int)m_Values[i]);
+				writer.WriteEncodedInt(m_Values[i]);
 		}
 
 		public int GetValue(int bitmask)

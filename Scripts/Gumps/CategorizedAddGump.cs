@@ -1,9 +1,9 @@
+using Server.Commands;
+using Server.Network;
 using System;
 using System.Collections;
 using System.IO;
 using System.Xml;
-using Server.Commands;
-using Server.Network;
 
 namespace Server.Gumps
 {
@@ -181,7 +181,7 @@ namespace Server.Gumps
 		public static readonly int NextButtonID1 = PropsConfig.NextButtonID1;
 		public static readonly int NextButtonID2 = PropsConfig.NextButtonID2;
 
-		private static bool PrevLabel = false, NextLabel = false;
+		private static readonly bool PrevLabel = false, NextLabel = false;
 
 		private static readonly int PrevLabelOffsetX = PrevWidth + 1;
 		private static readonly int PrevLabelOffsetY = 0;
@@ -198,8 +198,8 @@ namespace Server.Gumps
 		private static readonly int BackWidth = BorderSize + TotalWidth + BorderSize;
 		private static readonly int BackHeight = BorderSize + TotalHeight + BorderSize;
 
-		private Mobile m_Owner;
-		private CAGCategory m_Category;
+		private readonly Mobile m_Owner;
+		private readonly CAGCategory m_Category;
 		private int m_Page;
 
 		public CategorizedAddGump(Mobile owner) : this(owner, CAGCategory.Root, 0)

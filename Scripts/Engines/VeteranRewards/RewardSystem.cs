@@ -1,8 +1,8 @@
-using System;
-using System.Collections.Generic;
 using Server.Accounting;
 using Server.Items;
 using Server.Mobiles;
+using System;
+using System.Collections.Generic;
 
 namespace Server.Engines.VeteranRewards
 {
@@ -59,8 +59,7 @@ namespace Server.Engines.VeteranRewards
 				return false;
 			}
 
-			TimeSpan ts;
-			return HasAccess(mob, entry.List, out ts);
+			return HasAccess(mob, entry.List, out TimeSpan ts);
 		}
 
 		public static bool HasAccess(Mobile mob, RewardList list, out TimeSpan ts)
@@ -132,9 +131,8 @@ namespace Server.Engines.VeteranRewards
 
 		public static bool ConsumeRewardPoint(Mobile mob)
 		{
-			int cur, max;
 
-			ComputeRewardInfo(mob, out cur, out max);
+			ComputeRewardInfo(mob, out int cur, out int max);
 
 			if (cur >= max)
 				return false;
@@ -152,9 +150,8 @@ namespace Server.Engines.VeteranRewards
 
 		public static void ComputeRewardInfo(Mobile mob, out int cur, out int max)
 		{
-			int level;
 
-			ComputeRewardInfo(mob, out cur, out max, out level);
+			ComputeRewardInfo(mob, out cur, out max, out int level);
 		}
 
 		public static void ComputeRewardInfo(Mobile mob, out int cur, out int max, out int level)
@@ -487,9 +484,8 @@ namespace Server.Engines.VeteranRewards
 			if (!e.Mobile.Alive)
 				return;
 
-			int cur, max, level;
 
-			ComputeRewardInfo(e.Mobile, out cur, out max, out level);
+			ComputeRewardInfo(e.Mobile, out int cur, out int max, out int level);
 
 			if (e.Mobile.SkillsCap == 7000 || e.Mobile.SkillsCap == 7050 || e.Mobile.SkillsCap == 7100 || e.Mobile.SkillsCap == 7150 || e.Mobile.SkillsCap == 7200)
 			{

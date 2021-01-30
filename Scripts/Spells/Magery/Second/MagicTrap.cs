@@ -5,7 +5,7 @@ namespace Server.Spells.Second
 {
 	public class MagicTrapSpell : MagerySpell
 	{
-		private static SpellInfo m_Info = new SpellInfo(
+		private static readonly SpellInfo m_Info = new SpellInfo(
 				"Magic Trap", "In Jux",
 				212,
 				9001,
@@ -69,7 +69,7 @@ namespace Server.Spells.Second
 
 		private class InternalTarget : Target
 		{
-			private MagicTrapSpell m_Owner;
+			private readonly MagicTrapSpell m_Owner;
 
 			public InternalTarget(MagicTrapSpell owner) : base(owner.SpellRange, false, TargetFlags.None)
 			{

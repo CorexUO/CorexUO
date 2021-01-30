@@ -4,14 +4,14 @@ namespace Server.Engines.Craft
 {
 	public class CraftRes
 	{
-		private Type m_Type;
-		private int m_Amount;
+		private readonly Type m_Type;
+		private readonly int m_Amount;
 
-		private string m_MessageString;
-		private int m_MessageNumber;
+		private readonly string m_MessageString;
+		private readonly int m_MessageNumber;
 
-		private string m_NameString;
-		private int m_NameNumber;
+		private readonly string m_NameString;
+		private readonly int m_NameNumber;
 
 		public CraftRes(Type type, int amount)
 		{

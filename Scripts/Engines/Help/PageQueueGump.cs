@@ -1,15 +1,15 @@
+using Server.Gumps;
+using Server.Network;
 using System;
 using System.Collections;
 using System.IO;
-using Server.Gumps;
-using Server.Network;
 
 namespace Server.Engines.Help
 {
 	public class MessageSentGump : Gump
 	{
-		private string m_Name, m_Text;
-		private Mobile m_Mobile;
+		private readonly string m_Name, m_Text;
+		private readonly Mobile m_Mobile;
 
 		public MessageSentGump(Mobile mobile, string name, string text) : base(30, 30)
 		{
@@ -43,7 +43,7 @@ namespace Server.Engines.Help
 
 	public class PageQueueGump : Gump
 	{
-		private PageEntry[] m_List;
+		private readonly PageEntry[] m_List;
 
 		public PageQueueGump() : base(30, 30)
 		{
@@ -253,8 +253,8 @@ namespace Server.Engines.Help
 			AddTextEntry(x + 3, y + 1, w - 4, h - 2, 0x480, id, def);
 		}
 
-		private Mobile m_From;
-		private PredefinedResponse m_Response;
+		private readonly Mobile m_From;
+		private readonly PredefinedResponse m_Response;
 
 		public PredefGump(Mobile from, PredefinedResponse response) : base(30, 30)
 		{
@@ -461,10 +461,10 @@ namespace Server.Engines.Help
 
 	public class PageEntryGump : Gump
 	{
-		private PageEntry m_Entry;
-		private Mobile m_Mobile;
+		private readonly PageEntry m_Entry;
+		private readonly Mobile m_Mobile;
 
-		private static int[] m_AccessLevelHues = new int[]
+		private static readonly int[] m_AccessLevelHues = new int[]
 			{
 				2100,
 				2122,

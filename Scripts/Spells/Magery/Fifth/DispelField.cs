@@ -1,13 +1,13 @@
-using System;
 using Server.Items;
 using Server.Misc;
 using Server.Targeting;
+using System;
 
 namespace Server.Spells.Fifth
 {
 	public class DispelFieldSpell : MagerySpell
 	{
-		private static SpellInfo m_Info = new SpellInfo(
+		private static readonly SpellInfo m_Info = new SpellInfo(
 				"Dispel Field", "An Grav",
 				206,
 				9002,
@@ -69,7 +69,7 @@ namespace Server.Spells.Fifth
 
 		private class InternalTarget : Target
 		{
-			private DispelFieldSpell m_Owner;
+			private readonly DispelFieldSpell m_Owner;
 
 			public InternalTarget(DispelFieldSpell owner) : base(owner.SpellRange, false, TargetFlags.None)
 			{

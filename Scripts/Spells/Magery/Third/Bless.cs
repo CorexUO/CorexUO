@@ -1,11 +1,11 @@
-using System;
 using Server.Targeting;
+using System;
 
 namespace Server.Spells.Third
 {
 	public class BlessSpell : MagerySpell
 	{
-		private static SpellInfo m_Info = new SpellInfo(
+		private static readonly SpellInfo m_Info = new SpellInfo(
 				"Bless", "Rel Sanct",
 				203,
 				9061,
@@ -76,7 +76,7 @@ namespace Server.Spells.Third
 
 		private class InternalTarget : Target
 		{
-			private BlessSpell m_Owner;
+			private readonly BlessSpell m_Owner;
 
 			public InternalTarget(BlessSpell owner) : base(owner.SpellRange, false, TargetFlags.Beneficial)
 			{

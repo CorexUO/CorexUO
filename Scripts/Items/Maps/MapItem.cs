@@ -1,7 +1,7 @@
-using System;
-using System.Collections.Generic;
 using Server.Engines.Craft;
 using Server.Network;
+using System;
+using System.Collections.Generic;
 
 namespace Server.Items
 {
@@ -15,7 +15,7 @@ namespace Server.Items
 		private bool m_Protected;
 		private bool m_Editable;
 
-		private List<Point2D> m_Pins = new List<Point2D>();
+		private readonly List<Point2D> m_Pins = new List<Point2D>();
 
 		private const int MaxUserPins = 50;
 
@@ -215,8 +215,7 @@ namespace Server.Items
 
 		public virtual void AddWorldPin(int x, int y)
 		{
-			int mapX, mapY;
-			ConvertToMap(x, y, out mapX, out mapY);
+			ConvertToMap(x, y, out int mapX, out int mapY);
 
 			AddPin(mapX, mapY);
 		}
@@ -255,7 +254,7 @@ namespace Server.Items
 		{
 			base.Serialize(writer);
 
-			writer.Write((int)0);
+			writer.Write(0);
 
 			writer.Write(m_Bounds);
 
@@ -329,7 +328,7 @@ namespace Server.Items
 		{
 			public MapDetails(MapItem map) : base(0x90, 19)
 			{
-				m_Stream.Write((int)map.Serial);
+				m_Stream.Write(map.Serial);
 				m_Stream.Write((short)0x139D);
 				m_Stream.Write((short)map.Bounds.Start.X);
 				m_Stream.Write((short)map.Bounds.Start.Y);
@@ -362,7 +361,7 @@ namespace Server.Items
 		{
 			public MapCommand(MapItem map, int command, int number, int x, int y) : base(0x56, 11)
 			{
-				m_Stream.Write((int)map.Serial);
+				m_Stream.Write(map.Serial);
 				m_Stream.Write((byte)command);
 				m_Stream.Write((byte)number);
 				m_Stream.Write((short)x);

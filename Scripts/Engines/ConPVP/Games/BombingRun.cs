@@ -1,23 +1,23 @@
 
-using System;
-using System.Collections;
-using System.Text;
 using Server.Gumps;
 using Server.Items;
 using Server.Mobiles;
 using Server.Network;
 using Server.Targeting;
+using System;
+using System.Collections;
+using System.Text;
 
 namespace Server.Engines.ConPVP
 {
 	public class BRBomb : BaseItem
 	{
-		private BRGame m_Game;
+		private readonly BRGame m_Game;
 		private Mobile m_Thrower;
-		private EffectTimer m_Timer;
+		private readonly EffectTimer m_Timer;
 		private bool m_Flying;
 
-		private ArrayList m_Helpers;
+		private readonly ArrayList m_Helpers;
 
 		private Mobile FindOwner(object parent)
 		{
@@ -46,7 +46,7 @@ namespace Server.Engines.ConPVP
 
 		private class EffectTimer : Timer
 		{
-			private BRBomb m_Bomb;
+			private readonly BRBomb m_Bomb;
 			private int m_Count;
 
 			public EffectTimer(BRBomb bomb) : base(TimeSpan.Zero, TimeSpan.FromSeconds(1.0))
@@ -111,7 +111,7 @@ namespace Server.Engines.ConPVP
 		{
 			base.Serialize(writer);
 
-			writer.Write((int)0); // version
+			writer.Write(0); // version
 		}
 
 		public override void OnAdded(IEntity parent)
@@ -217,8 +217,8 @@ namespace Server.Engines.ConPVP
 
 		private class BombTarget : Target
 		{
-			private BRBomb m_Bomb;
-			private Mobile m_Mob;
+			private readonly BRBomb m_Bomb;
+			private readonly Mobile m_Mob;
 			private bool m_Resend = true;
 
 			public BombTarget(BRBomb bomb, Mobile from) : base(10, true, TargetFlags.None)
@@ -353,7 +353,7 @@ namespace Server.Engines.ConPVP
 				this.MoveToWorld(m.Location, m.Map);
 		}
 
-		private Point3DList m_Path = new Point3DList();
+		private readonly Point3DList m_Path = new Point3DList();
 		private int m_PathIdx = 0;
 
 		private void BeginFlight(Point3D dest)
@@ -389,9 +389,9 @@ namespace Server.Engines.ConPVP
 			run = ((float)xd) / dist3d;
 			zslp = ((float)zd) / dist3d;
 
-			x = (int)org.X;
-			y = (int)org.Y;
-			z = (int)org.Z;
+			x = org.X;
+			y = org.Y;
+			z = org.Z;
 			while (Utility.NumberBetween(x, dest.X, org.X, 0.5) && Utility.NumberBetween(y, dest.Y, org.Y, 0.5) && Utility.NumberBetween(z, dest.Z, org.Z, 0.5))
 			{
 				int ix = (int)Math.Round(x);
@@ -877,7 +877,7 @@ namespace Server.Engines.ConPVP
 		{
 			base.Serialize(writer);
 
-			writer.Write((int)0); // version
+			writer.Write(0); // version
 
 			writer.Write(m_North);
 		}
@@ -972,7 +972,7 @@ namespace Server.Engines.ConPVP
 		{
 			base.Serialize(writer);
 
-			writer.Write((int)0);
+			writer.Write(0);
 		}
 
 		public override void Deserialize(GenericReader reader)
@@ -1015,7 +1015,7 @@ namespace Server.Engines.ConPVP
 		private const int LabelColor32 = 0xFFFFFF;
 		private const int BlackColor32 = 0x000000;
 
-		private BRGame m_Game;
+		private readonly BRGame m_Game;
 
 		public BRBoardGump(Mobile mob, BRGame game)
 			: this(mob, game, null)
@@ -1162,9 +1162,9 @@ namespace Server.Engines.ConPVP
 
 	public sealed class BRPlayerInfo : IRankedCTF, IComparable
 	{
-		private BRTeamInfo m_TeamInfo;
+		private readonly BRTeamInfo m_TeamInfo;
 
-		private Mobile m_Player;
+		private readonly Mobile m_Player;
 
 		private int m_Kills;
 		private int m_Captures;
@@ -1245,7 +1245,7 @@ namespace Server.Engines.ConPVP
 	public sealed class BRTeamInfo : IRankedCTF, IComparable
 	{
 		private BRGame m_Game;
-		private int m_TeamID;
+		private readonly int m_TeamID;
 
 		private int m_Color;
 		private string m_Name;
@@ -1258,7 +1258,7 @@ namespace Server.Engines.ConPVP
 
 		private int m_Score;
 
-		private Hashtable m_Players;
+		private readonly Hashtable m_Players;
 
 		public int CompareTo(object obj)
 		{
@@ -1489,7 +1489,7 @@ namespace Server.Engines.ConPVP
 		{
 			base.Serialize(writer);
 
-			writer.Write((int)0);
+			writer.Write(0);
 
 			writer.Write(m_BombHome);
 
@@ -1566,7 +1566,7 @@ namespace Server.Engines.ConPVP
 			}
 		}
 
-		private BRController m_Controller;
+		private readonly BRController m_Controller;
 
 		public BRController Controller { get { return m_Controller; } }
 

@@ -5,7 +5,7 @@ namespace Server.Spells.Third
 {
 	public class TelekinesisSpell : MagerySpell
 	{
-		private static SpellInfo m_Info = new SpellInfo(
+		private static readonly SpellInfo m_Info = new SpellInfo(
 				"Telekinesis", "Ort Por Ylem",
 				203,
 				9031,
@@ -82,7 +82,7 @@ namespace Server.Spells.Third
 
 		public class InternalTarget : Target
 		{
-			private TelekinesisSpell m_Owner;
+			private readonly TelekinesisSpell m_Owner;
 
 			public InternalTarget(TelekinesisSpell owner) : base(owner.SpellRange, false, TargetFlags.None)
 			{

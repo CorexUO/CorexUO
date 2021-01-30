@@ -1,6 +1,6 @@
+using Server.Items;
 using System.Collections.Generic;
 using System.IO;
-using Server.Items;
 
 namespace Server.Commands
 {
@@ -94,7 +94,7 @@ namespace Server.Commands
 			}
 		}
 
-		private static Queue<Item> m_ToDelete = new Queue<Item>();
+		private static readonly Queue<Item> m_ToDelete = new Queue<Item>();
 
 		public static void Add_Static(int itemID, Point3D location, Map map, string name)
 		{

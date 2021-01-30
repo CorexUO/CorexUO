@@ -7,7 +7,7 @@ namespace Server.Engines.BulkOrders
 	{
 		private LargeBOD m_Owner;
 		private int m_Amount;
-		private SmallBulkEntry m_Details;
+		private readonly SmallBulkEntry m_Details;
 
 		public LargeBOD Owner { get { return m_Owner; } set { m_Owner = value; } }
 		public int Amount { get { return m_Amount; } set { m_Amount = value; if (m_Owner != null) m_Owner.InvalidateProperties(); } }
@@ -132,14 +132,12 @@ namespace Server.Engines.BulkOrders
 			if (m_Cache == null)
 				m_Cache = new Dictionary<string, Dictionary<string, SmallBulkEntry[]>>();
 
-			Dictionary<string, SmallBulkEntry[]> table = null;
 
-			if (!m_Cache.TryGetValue(type, out table))
+			if (!m_Cache.TryGetValue(type, out Dictionary<string, SmallBulkEntry[]> table))
 				m_Cache[type] = table = new Dictionary<string, SmallBulkEntry[]>();
 
-			SmallBulkEntry[] entries = null;
 
-			if (!table.TryGetValue(name, out entries))
+			if (!table.TryGetValue(name, out SmallBulkEntry[] entries))
 				table[name] = entries = SmallBulkEntry.LoadEntries(type, name);
 
 			return entries;

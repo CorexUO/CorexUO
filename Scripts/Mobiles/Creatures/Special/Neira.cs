@@ -1,6 +1,6 @@
-using System;
 using Server.Engines.CannedEvil;
 using Server.Items;
+using System;
 
 namespace Server.Mobiles
 {
@@ -128,7 +128,7 @@ namespace Server.Mobiles
 
 		private class VirtualMount : IMount
 		{
-			private VirtualMountItem m_Item;
+			private readonly VirtualMountItem m_Item;
 
 			public Mobile Rider
 			{
@@ -148,7 +148,7 @@ namespace Server.Mobiles
 
 		private class VirtualMountItem : BaseItem, IMountItem
 		{
-			private VirtualMount m_Mount;
+			private readonly VirtualMount m_Mount;
 
 			public Mobile Rider { get; private set; }
 
@@ -178,9 +178,9 @@ namespace Server.Mobiles
 			{
 				base.Serialize(writer);
 
-				writer.Write((int)0); // version
+				writer.Write(0); // version
 
-				writer.Write((Mobile)Rider);
+				writer.Write(Rider);
 			}
 
 			public override void Deserialize(GenericReader reader)
@@ -249,8 +249,8 @@ namespace Server.Mobiles
 
 		private class DelayTimer : Timer
 		{
-			private Mobile m_Mobile;
-			private Mobile m_Target;
+			private readonly Mobile m_Mobile;
+			private readonly Mobile m_Target;
 
 			public DelayTimer(Mobile m, Mobile target) : base(TimeSpan.FromSeconds(1.0))
 			{
@@ -277,7 +277,7 @@ namespace Server.Mobiles
 		{
 			base.Serialize(writer);
 
-			writer.Write((int)0); // version
+			writer.Write(0); // version
 			writer.Write(m_SpeedBoost);
 		}
 

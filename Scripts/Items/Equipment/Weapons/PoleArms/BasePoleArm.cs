@@ -1,7 +1,7 @@
-using System;
-using System.Collections.Generic;
 using Server.ContextMenus;
 using Server.Engines.Harvest;
+using System;
+using System.Collections.Generic;
 
 namespace Server.Items
 {
@@ -65,11 +65,11 @@ namespace Server.Items
 		{
 			base.Serialize(writer);
 
-			writer.Write((int)0); // version
+			writer.Write(0); // version
 
-			writer.Write((bool)m_ShowUsesRemaining);
+			writer.Write(m_ShowUsesRemaining);
 
-			writer.Write((int)m_UsesRemaining);
+			writer.Write(m_UsesRemaining);
 		}
 
 		public override void Deserialize(GenericReader reader)

@@ -1,6 +1,3 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using Server.Accounting;
 using Server.ContextMenus;
 using Server.Engines.VeteranRewards;
@@ -10,6 +7,9 @@ using Server.Multis;
 using Server.Network;
 using Server.Spells;
 using Server.Targeting;
+using System;
+using System.Collections;
+using System.Collections.Generic;
 
 namespace Server.Mobiles
 {
@@ -198,17 +198,17 @@ namespace Server.Mobiles
 		{
 			base.Serialize(writer);
 
-			writer.WriteEncodedInt((int)0); // version
+			writer.WriteEncodedInt(0); // version
 
 			writer.Write((int)m_Type);
 			writer.Write((int)m_Pose);
 			writer.Write((int)m_Material);
 
-			writer.Write((Mobile)m_SculptedBy);
-			writer.Write((DateTime)m_SculptedOn);
+			writer.Write(m_SculptedBy);
+			writer.Write(m_SculptedOn);
 
-			writer.Write((Item)m_Plinth);
-			writer.Write((bool)m_IsRewardItem);
+			writer.Write(m_Plinth);
+			writer.Write(m_IsRewardItem);
 		}
 
 		public override void Deserialize(GenericReader reader)
@@ -395,7 +395,7 @@ namespace Server.Mobiles
 
 		private class DemolishEntry : ContextMenuEntry
 		{
-			private CharacterStatue m_Statue;
+			private readonly CharacterStatue m_Statue;
 
 			public DemolishEntry(CharacterStatue statue) : base(6275, 2)
 			{
@@ -536,12 +536,12 @@ namespace Server.Mobiles
 		{
 			base.Serialize(writer);
 
-			writer.WriteEncodedInt((int)0); // version
+			writer.WriteEncodedInt(0); // version
 
 			writer.Write((int)m_Type);
 
-			writer.Write((Mobile)m_Statue);
-			writer.Write((bool)m_IsRewardItem);
+			writer.Write(m_Statue);
+			writer.Write(m_IsRewardItem);
 		}
 
 		public override void Deserialize(GenericReader reader)
@@ -559,8 +559,8 @@ namespace Server.Mobiles
 
 	public class CharacterStatueTarget : Target
 	{
-		private Item m_Maker;
-		private StatueType m_Type;
+		private readonly Item m_Maker;
+		private readonly StatueType m_Type;
 
 		public CharacterStatueTarget(Item maker, StatueType type) : base(-1, true, TargetFlags.None)
 		{

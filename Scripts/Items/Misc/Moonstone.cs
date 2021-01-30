@@ -1,6 +1,6 @@
-using System;
 using Server.Mobiles;
 using Server.Network;
+using System;
 
 namespace Server.Items
 {
@@ -112,10 +112,10 @@ namespace Server.Items
 
 		private class SettleTimer : Timer
 		{
-			private Item m_Stone;
+			private readonly Item m_Stone;
 			private Point3D m_Location;
-			private Map m_Map, m_TargetMap;
-			private Mobile m_Caster;
+			private readonly Map m_Map, m_TargetMap;
+			private readonly Mobile m_Caster;
 			private int m_Count;
 
 			public SettleTimer(Item stone, Point3D loc, Map map, Map targetMap, Mobile caster) : base(TimeSpan.FromSeconds(2.5), TimeSpan.FromSeconds(1.0))
@@ -177,7 +177,7 @@ namespace Server.Items
 		{
 			base.Serialize(writer);
 
-			writer.Write((int)0); // version
+			writer.Write(0); // version
 
 			writer.Write((int)m_Type);
 		}

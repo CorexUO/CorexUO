@@ -1,9 +1,9 @@
-using System;
-using System.Reflection;
 using Server.Commands;
 using Server.Commands.Generic;
 using Server.Gumps;
 using Server.Targeting;
+using System;
+using System.Reflection;
 using CPA = Server.CommandPropertyAttribute;
 
 namespace Server.Commands
@@ -63,7 +63,7 @@ namespace Server.Commands
 			return Insensitive.Equals(l, r);
 		}
 
-		private static Type typeofCPA = typeof(CPA);
+		private static readonly Type typeofCPA = typeof(CPA);
 
 		public static CPA GetCPA(PropertyInfo p)
 		{
@@ -348,35 +348,35 @@ namespace Server.Commands
 			return InternalSetValue(from, logObject, o, p, name, value, true);
 		}
 
-		private static Type typeofSerial = typeof(Serial);
+		private static readonly Type typeofSerial = typeof(Serial);
 
 		private static bool IsSerial(Type t)
 		{
 			return (t == typeofSerial);
 		}
 
-		private static Type typeofType = typeof(Type);
+		private static readonly Type typeofType = typeof(Type);
 
 		private static bool IsType(Type t)
 		{
 			return (t == typeofType);
 		}
 
-		private static Type typeofChar = typeof(Char);
+		private static readonly Type typeofChar = typeof(Char);
 
 		private static bool IsChar(Type t)
 		{
 			return (t == typeofChar);
 		}
 
-		private static Type typeofString = typeof(String);
+		private static readonly Type typeofString = typeof(String);
 
 		private static bool IsString(Type t)
 		{
 			return (t == typeofString);
 		}
 
-		private static Type typeofText = typeof(TextDefinition);
+		private static readonly Type typeofText = typeof(TextDefinition);
 
 		private static bool IsText(Type t)
 		{
@@ -388,16 +388,16 @@ namespace Server.Commands
 			return t.IsEnum;
 		}
 
-		private static Type typeofTimeSpan = typeof(TimeSpan);
-		private static Type typeofParsable = typeof(ParsableAttribute);
+		private static readonly Type typeofTimeSpan = typeof(TimeSpan);
+		private static readonly Type typeofParsable = typeof(ParsableAttribute);
 
 		private static bool IsParsable(Type t)
 		{
 			return (t == typeofTimeSpan || t.IsDefined(typeofParsable, false));
 		}
 
-		private static Type[] m_ParseTypes = new Type[] { typeof(string) };
-		private static object[] m_ParseParams = new object[1];
+		private static readonly Type[] m_ParseTypes = new Type[] { typeof(string) };
+		private static readonly object[] m_ParseParams = new object[1];
 
 		private static object Parse(object o, Type t, string value)
 		{
@@ -408,7 +408,7 @@ namespace Server.Commands
 			return method.Invoke(o, m_ParseParams);
 		}
 
-		private static Type[] m_NumericTypes = new Type[]
+		private static readonly Type[] m_NumericTypes = new Type[]
 			{
 				typeof( Byte ), typeof( SByte ),
 				typeof( Int16 ), typeof( UInt16 ),
@@ -707,7 +707,7 @@ namespace Server
 
 	public sealed class Property
 	{
-		private string m_Binding;
+		private readonly string m_Binding;
 
 		private PropertyInfo[] m_Chain;
 		private PropertyAccess m_Access;

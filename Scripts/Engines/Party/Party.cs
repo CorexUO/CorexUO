@@ -1,18 +1,18 @@
-using System;
-using System.Collections.Generic;
 using Server.Commands;
 using Server.Factions;
 using Server.Network;
 using Server.Targeting;
+using System;
+using System.Collections.Generic;
 
 namespace Server.Engines.PartySystem
 {
 	public class Party : IParty
 	{
-		private Mobile m_Leader;
-		private List<PartyMemberInfo> m_Members;
-		private List<Mobile> m_Candidates;
-		private List<Mobile> m_Listeners; // staff listening
+		private readonly Mobile m_Leader;
+		private readonly List<PartyMemberInfo> m_Members;
+		private readonly List<Mobile> m_Candidates;
+		private readonly List<Mobile> m_Listeners; // staff listening
 
 		public const int Capacity = 10;
 
@@ -74,7 +74,7 @@ namespace Server.Engines.PartySystem
 
 		private class RejoinTimer : Timer
 		{
-			private Mobile m_Mobile;
+			private readonly Mobile m_Mobile;
 
 			public RejoinTimer(Mobile m) : base(TimeSpan.FromSeconds(1.0))
 			{
@@ -168,7 +168,7 @@ namespace Server.Engines.PartySystem
 
 				for (int i = 0; i < m_Members.Count; ++i)
 				{
-					Mobile f = ((PartyMemberInfo)m_Members[i]).Mobile;
+					Mobile f = m_Members[i].Mobile;
 
 					f.Send(memberList);
 
@@ -240,7 +240,7 @@ namespace Server.Engines.PartySystem
 			{
 				for (int i = 0; i < m_Members.Count; ++i)
 				{
-					if (((PartyMemberInfo)m_Members[i]).Mobile == m)
+					if (m_Members[i].Mobile == m)
 					{
 						m_Members.RemoveAt(i);
 

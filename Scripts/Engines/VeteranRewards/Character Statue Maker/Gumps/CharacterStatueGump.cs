@@ -5,9 +5,9 @@ namespace Server.Gumps
 {
 	public class CharacterStatueGump : Gump
 	{
-		private Item m_Maker;
-		private CharacterStatue m_Statue;
-		private Mobile m_Owner;
+		private readonly Item m_Maker;
+		private readonly CharacterStatue m_Statue;
+		private readonly Mobile m_Owner;
 
 		private enum Buttons
 		{

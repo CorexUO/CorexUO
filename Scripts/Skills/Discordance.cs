@@ -1,8 +1,8 @@
-using System;
-using System.Collections;
 using Server.Items;
 using Server.Mobiles;
 using Server.Targeting;
+using System;
+using System.Collections;
 
 namespace Server.SkillHandlers
 {
@@ -83,7 +83,7 @@ namespace Server.SkillHandlers
 			}
 		}
 
-		private static Hashtable m_Table = new Hashtable();
+		private static readonly Hashtable m_Table = new Hashtable();
 
 		public static bool GetEffect(Mobile targ, ref int effect)
 		{
@@ -142,7 +142,7 @@ namespace Server.SkillHandlers
 
 		public class DiscordanceTarget : Target
 		{
-			private BaseInstrument m_Instrument;
+			private readonly BaseInstrument m_Instrument;
 
 			public DiscordanceTarget(Mobile from, BaseInstrument inst) : base(BaseInstrument.GetBardRange(from, SkillName.Discordance), false, TargetFlags.None)
 			{

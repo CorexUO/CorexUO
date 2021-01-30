@@ -1,12 +1,12 @@
+using Server.Targeting;
 using System;
 using System.Collections.Generic;
-using Server.Targeting;
 
 namespace Server.Spells.Fourth
 {
 	public class ManaDrainSpell : MagerySpell
 	{
-		private static SpellInfo m_Info = new SpellInfo(
+		private static readonly SpellInfo m_Info = new SpellInfo(
 				"Mana Drain", "Ort Rel",
 				215,
 				9031,
@@ -37,7 +37,7 @@ namespace Server.Spells.Fourth
 			}
 		}
 
-		private static Dictionary<Mobile, Timer> m_Table = new Dictionary<Mobile, Timer>();
+		private static readonly Dictionary<Mobile, Timer> m_Table = new Dictionary<Mobile, Timer>();
 
 		private void AosDelay_Callback(object state)
 		{
@@ -121,7 +121,7 @@ namespace Server.Spells.Fourth
 
 		private class InternalTarget : Target
 		{
-			private ManaDrainSpell m_Owner;
+			private readonly ManaDrainSpell m_Owner;
 
 			public InternalTarget(ManaDrainSpell owner) : base(owner.SpellRange, false, TargetFlags.Harmful)
 			{

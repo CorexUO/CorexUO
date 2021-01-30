@@ -1,7 +1,3 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Server.ContextMenus;
 using Server.Engines.MLQuests;
 using Server.Engines.PartySystem;
@@ -18,6 +14,10 @@ using Server.Spells.Bushido;
 using Server.Spells.Necromancy;
 using Server.Spells.Spellweaving;
 using Server.Targeting;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace Server.Mobiles
 {
@@ -1612,27 +1612,27 @@ namespace Server.Mobiles
 		{
 			base.Serialize(writer);
 
-			writer.Write((int)0); // version
+			writer.Write(0); // version
 
 			writer.Write((int)m_CurrentAI);
 			writer.Write((int)m_DefaultAI);
 
-			writer.Write((int)RangePerception);
-			writer.Write((int)RangeFight);
+			writer.Write(RangePerception);
+			writer.Write(RangeFight);
 
-			writer.Write((int)m_iTeam);
+			writer.Write(m_iTeam);
 
 			writer.Write((double)ActiveSpeed);
 			writer.Write((double)PassiveSpeed);
-			writer.Write((double)m_dCurrentSpeed);
+			writer.Write(m_dCurrentSpeed);
 
-			writer.Write((int)m_pHome.X);
-			writer.Write((int)m_pHome.Y);
-			writer.Write((int)m_pHome.Z);
+			writer.Write(m_pHome.X);
+			writer.Write(m_pHome.Y);
+			writer.Write(m_pHome.Z);
 
 			// Version 1
-			writer.Write((int)RangeHome);
-			writer.Write((int)m_arSpellAttack.Count);
+			writer.Write(RangeHome);
+			writer.Write(m_arSpellAttack.Count);
 
 			int i;
 			for (i = 0; i < m_arSpellAttack.Count; i++)
@@ -1640,7 +1640,7 @@ namespace Server.Mobiles
 				writer.Write(m_arSpellAttack[i].ToString());
 			}
 
-			writer.Write((int)m_arSpellDefense.Count);
+			writer.Write(m_arSpellDefense.Count);
 			for (i = 0; i < m_arSpellDefense.Count; i++)
 			{
 				writer.Write(m_arSpellDefense[i].ToString());
@@ -1649,24 +1649,24 @@ namespace Server.Mobiles
 			// Version 2
 			writer.Write((int)FightMode);
 
-			writer.Write((bool)m_bControlled);
-			writer.Write((Mobile)m_ControlMaster);
-			writer.Write((Mobile)ControlTarget);
-			writer.Write((Point3D)m_ControlDest);
+			writer.Write(m_bControlled);
+			writer.Write(m_ControlMaster);
+			writer.Write(ControlTarget);
+			writer.Write(m_ControlDest);
 			writer.Write((int)m_ControlOrder);
 			writer.Write((double)MinTameSkill);
 			// Removed in version 9
 			//writer.Write( (double) m_dMaxTameSkill );
-			writer.Write((bool)m_bTamable);
-			writer.Write((bool)m_bSummoned);
+			writer.Write(m_bTamable);
+			writer.Write(m_bSummoned);
 
 			if (m_bSummoned)
 				writer.WriteDeltaTime(SummonEnd);
 
-			writer.Write((int)ControlSlots);
+			writer.Write(ControlSlots);
 
 			// Version 3
-			writer.Write((int)m_Loyalty);
+			writer.Write(m_Loyalty);
 
 			// Version 4
 			writer.Write(CurrentWayPoint);
@@ -1675,52 +1675,52 @@ namespace Server.Mobiles
 			writer.Write(m_SummonMaster);
 
 			// Version 6
-			writer.Write((int)HitsMaxSeed);
-			writer.Write((int)StamMaxSeed);
-			writer.Write((int)ManaMaxSeed);
-			writer.Write((int)m_DamageMin);
-			writer.Write((int)m_DamageMax);
+			writer.Write(HitsMaxSeed);
+			writer.Write(StamMaxSeed);
+			writer.Write(ManaMaxSeed);
+			writer.Write(m_DamageMin);
+			writer.Write(m_DamageMax);
 
 			// Version 7
-			writer.Write((int)m_PhysicalResistance);
-			writer.Write((int)PhysicalDamage);
+			writer.Write(m_PhysicalResistance);
+			writer.Write(PhysicalDamage);
 
-			writer.Write((int)m_FireResistance);
-			writer.Write((int)FireDamage);
+			writer.Write(m_FireResistance);
+			writer.Write(FireDamage);
 
-			writer.Write((int)m_ColdResistance);
-			writer.Write((int)ColdDamage);
+			writer.Write(m_ColdResistance);
+			writer.Write(ColdDamage);
 
-			writer.Write((int)m_PoisonResistance);
-			writer.Write((int)PoisonDamage);
+			writer.Write(m_PoisonResistance);
+			writer.Write(PoisonDamage);
 
-			writer.Write((int)m_EnergyResistance);
-			writer.Write((int)EnergyDamage);
+			writer.Write(m_EnergyResistance);
+			writer.Write(EnergyDamage);
 
 			// Version 8
 			writer.Write(Owners, true);
 
 			// Version 10
-			writer.Write((bool)IsDeadPet);
-			writer.Write((bool)m_IsBonded);
-			writer.Write((DateTime)BondingBegin);
-			writer.Write((DateTime)OwnerAbandonTime);
+			writer.Write(IsDeadPet);
+			writer.Write(m_IsBonded);
+			writer.Write(BondingBegin);
+			writer.Write(OwnerAbandonTime);
 
 			// Version 11
-			writer.Write((bool)m_HasGeneratedLoot);
+			writer.Write(m_HasGeneratedLoot);
 
 			// Version 12
-			writer.Write((bool)m_Paragon);
+			writer.Write(m_Paragon);
 
 			// Version 13
-			writer.Write((bool)(Friends != null && Friends.Count > 0));
+			writer.Write(Friends != null && Friends.Count > 0);
 
 			if (Friends != null && Friends.Count > 0)
 				writer.Write(Friends, true);
 
 			// Version 14
-			writer.Write((bool)RemoveIfUntamed);
-			writer.Write((int)RemoveStep);
+			writer.Write(RemoveIfUntamed);
+			writer.Write(RemoveStep);
 
 			// Version 17
 			if (IsStabled || (Controlled && ControlMaster != null))

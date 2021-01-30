@@ -1,7 +1,7 @@
-using System;
 using Server.Items;
 using Server.Mobiles;
 using Server.Network;
+using System;
 
 namespace Server.Engines.Quests.Necro
 {
@@ -85,7 +85,7 @@ namespace Server.Engines.Quests.Necro
 
 		private class CallingTimer : Timer
 		{
-			private PlayerMobile m_Player;
+			private readonly PlayerMobile m_Player;
 			private int m_Step;
 
 			public CallingTimer(PlayerMobile player) : base(TimeSpan.Zero, TimeSpan.FromSeconds(1.0), 6)
@@ -152,7 +152,7 @@ namespace Server.Engines.Quests.Necro
 		{
 			base.Serialize(writer);
 
-			writer.Write((int)0); // version
+			writer.Write(0); // version
 		}
 
 		public override void Deserialize(GenericReader reader)

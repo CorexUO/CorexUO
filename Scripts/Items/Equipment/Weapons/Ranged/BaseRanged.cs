@@ -1,7 +1,7 @@
-using System;
 using Server.Mobiles;
 using Server.Network;
 using Server.Spells;
+using System;
 
 namespace Server.Items
 {
@@ -194,10 +194,10 @@ namespace Server.Items
 		{
 			base.Serialize(writer);
 
-			writer.Write((int)0); // version
+			writer.Write(0); // version
 
-			writer.Write((bool)m_Balanced);
-			writer.Write((int)m_Velocity);
+			writer.Write(m_Balanced);
+			writer.Write(m_Velocity);
 		}
 
 		public override void Deserialize(GenericReader reader)

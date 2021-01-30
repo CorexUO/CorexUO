@@ -5,7 +5,7 @@ namespace Server.Spells.First
 {
 	public class ReactiveArmorSpell : MagerySpell
 	{
-		private static SpellInfo m_Info = new SpellInfo(
+		private static readonly SpellInfo m_Info = new SpellInfo(
 				"Reactive Armor", "Flam Sanct",
 				236,
 				9011,
@@ -40,7 +40,7 @@ namespace Server.Spells.First
 			return true;
 		}
 
-		private static Hashtable m_Table = new Hashtable();
+		private static readonly Hashtable m_Table = new Hashtable();
 
 		public override void OnCast()
 		{

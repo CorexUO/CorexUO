@@ -1,13 +1,13 @@
-using System;
-using System.Collections.Generic;
 using Server.Gumps;
 using Server.Network;
+using System;
+using System.Collections.Generic;
 
 namespace Server.Mobiles
 {
 	public class SpawnerGump : Gump
 	{
-		private Spawner m_Spawner;
+		private readonly Spawner m_Spawner;
 
 		public SpawnerGump(Spawner spawner) : base(50, 50)
 		{
@@ -43,7 +43,7 @@ namespace Server.Mobiles
 
 				if (i < spawner.SpawnNames.Count)
 				{
-					str = (string)spawner.SpawnNames[i];
+					str = spawner.SpawnNames[i];
 					int count = m_Spawner.CountCreatures(str);
 
 					AddLabel(382, (22 * i) + 20, 0, count.ToString());

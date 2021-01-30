@@ -1,5 +1,4 @@
 using System;
-using System.Collections.Generic;
 
 namespace Server.Guilds
 {
@@ -48,7 +47,7 @@ namespace Server.Guilds
 
 		public void Serialize(GenericWriter writer)
 		{
-			writer.Write((int)0);   //version
+			writer.Write(0);   //version
 
 			writer.Write(Kills);
 			writer.Write(MaxKills);

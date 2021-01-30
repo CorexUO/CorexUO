@@ -1,5 +1,5 @@
-using System;
 using Server.Items;
+using System;
 
 namespace Server.Engines.BulkOrders
 {
@@ -7,8 +7,8 @@ namespace Server.Engines.BulkOrders
 
 	public sealed class RewardType
 	{
-		private int m_Points;
-		private Type[] m_Types;
+		private readonly int m_Points;
+		private readonly Type[] m_Types;
 
 		public int Points { get { return m_Points; } }
 		public Type[] Types { get { return m_Types; } }
@@ -33,9 +33,9 @@ namespace Server.Engines.BulkOrders
 
 	public sealed class RewardItem
 	{
-		private int m_Weight;
-		private ConstructCallback m_Constructor;
-		private int m_Type;
+		private readonly int m_Weight;
+		private readonly ConstructCallback m_Constructor;
+		private readonly int m_Type;
 
 		public int Weight { get { return m_Weight; } }
 		public ConstructCallback Constructor { get { return m_Constructor; } }
@@ -61,8 +61,8 @@ namespace Server.Engines.BulkOrders
 
 	public sealed class RewardGroup
 	{
-		private int m_Points;
-		private RewardItem[] m_Items;
+		private readonly int m_Points;
+		private readonly RewardItem[] m_Items;
 
 		public int Points { get { return m_Points; } }
 		public RewardItem[] Items { get { return m_Items; } }
@@ -259,7 +259,7 @@ namespace Server.Engines.BulkOrders
 
 		public static readonly SmithRewardCalculator Instance = new SmithRewardCalculator();
 
-		private RewardType[] m_Types = new RewardType[]
+		private readonly RewardType[] m_Types = new RewardType[]
 			{
 				// Armors
 				new RewardType( 200, typeof( RingmailGloves ), typeof( RingmailChest ), typeof( RingmailArms ), typeof( RingmailLegs ) ),
@@ -297,7 +297,7 @@ namespace Server.Engines.BulkOrders
 			return points;
 		}
 
-		private static int[][][] m_GoldTable = new int[][][]
+		private static readonly int[][][] m_GoldTable = new int[][][]
 			{
 				new int[][] // 1-part (regular)
 				{
@@ -413,7 +413,7 @@ namespace Server.Engines.BulkOrders
 
 			int typeIndex = ComputeType(type, itemCount);
 			int quanIndex = (quantity == 20 ? 2 : quantity == 15 ? 1 : 0);
-			int mtrlIndex = (material >= BulkMaterialType.DullCopper && material <= BulkMaterialType.Valorite) ? 1 + (int)(material - BulkMaterialType.DullCopper) : 0;
+			int mtrlIndex = (material >= BulkMaterialType.DullCopper && material <= BulkMaterialType.Valorite) ? 1 + (material - BulkMaterialType.DullCopper) : 0;
 
 			if (exceptional)
 				typeIndex++;
@@ -469,7 +469,7 @@ namespace Server.Engines.BulkOrders
 		private static readonly ConstructCallback BearRug = new ConstructCallback(CreateBearRug);
 		private static readonly ConstructCallback ClothingBlessDeed = new ConstructCallback(CreateCBD);
 
-		private static int[][] m_ClothHues = new int[][]
+		private static readonly int[][] m_ClothHues = new int[][]
 			{
 				new int[]{ 0x483, 0x48C, 0x488, 0x48A },
 				new int[]{ 0x495, 0x48B, 0x486, 0x485 },
@@ -490,7 +490,7 @@ namespace Server.Engines.BulkOrders
 			throw new InvalidOperationException();
 		}
 
-		private static int[] m_SandalHues = new int[]
+		private static readonly int[] m_SandalHues = new int[]
 			{
 				0x489, 0x47F, 0x482,
 				0x47E, 0x48F, 0x494,
@@ -593,7 +593,7 @@ namespace Server.Engines.BulkOrders
 			return points;
 		}
 
-		private static int[][][] m_AosGoldTable = new int[][][]
+		private static readonly int[][][] m_AosGoldTable = new int[][][]
 			{
 				new int[][] // 1-part (regular)
 				{
@@ -645,7 +645,7 @@ namespace Server.Engines.BulkOrders
 				}
 			};
 
-		private static int[][][] m_OldGoldTable = new int[][][]
+		private static readonly int[][][] m_OldGoldTable = new int[][][]
 			{
 				new int[][] // 1-part (regular)
 				{

@@ -1,7 +1,7 @@
-using System;
 using Server.Engines.Craft;
 using Server.Multis;
 using Server.Targeting;
+using System;
 
 namespace Server.Items
 {
@@ -47,7 +47,7 @@ namespace Server.Items
 		{
 			base.Serialize(writer);
 
-			writer.Write((int)0); // version
+			writer.Write(0); // version
 
 			writer.Write((int)m_Resource);
 		}
@@ -103,7 +103,7 @@ namespace Server.Items
 
 		private class InternalTarget : Target
 		{
-			private BaseAddonContainerDeed m_Deed;
+			private readonly BaseAddonContainerDeed m_Deed;
 
 			public InternalTarget(BaseAddonContainerDeed deed) : base(-1, true, TargetFlags.None)
 			{

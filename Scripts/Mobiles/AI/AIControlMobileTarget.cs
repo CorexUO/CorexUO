@@ -1,13 +1,13 @@
-using System.Collections.Generic;
 using Server.Mobiles;
 using Server.Targeting;
+using System.Collections.Generic;
 
 namespace Server.Targets
 {
 	public class AIControlMobileTarget : Target
 	{
-		private List<BaseAI> m_List;
-		private OrderType m_Order;
+		private readonly List<BaseAI> m_List;
+		private readonly OrderType m_Order;
 
 		public OrderType Order
 		{

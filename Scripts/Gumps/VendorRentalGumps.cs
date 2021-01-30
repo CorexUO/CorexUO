@@ -221,7 +221,7 @@ namespace Server.Gumps
 
 	public class VendorRentalContractGump : BaseVendorRentalGump
 	{
-		private VendorRentalContract m_Contract;
+		private readonly VendorRentalContract m_Contract;
 
 		public VendorRentalContractGump(VendorRentalContract contract, Mobile from) : base(
 			contract.IsLockedDown ? GumpType.LockedContract : GumpType.UnlockedContract, contract.Duration,
@@ -266,7 +266,7 @@ namespace Server.Gumps
 
 		private class PricePerRentalPrompt : Prompt
 		{
-			private VendorRentalContract m_Contract;
+			private readonly VendorRentalContract m_Contract;
 
 			public PricePerRentalPrompt(VendorRentalContract contract)
 			{
@@ -280,9 +280,8 @@ namespace Server.Gumps
 
 				text = text.Trim();
 
-				int price;
 
-				if (!int.TryParse(text, out price))
+				if (!int.TryParse(text, out int price))
 					price = -1;
 
 				if (price < 0)
@@ -311,7 +310,7 @@ namespace Server.Gumps
 
 		private class OfferContractTarget : Target
 		{
-			private VendorRentalContract m_Contract;
+			private readonly VendorRentalContract m_Contract;
 
 			public OfferContractTarget(VendorRentalContract contract) : base(-1, false, TargetFlags.None)
 			{
@@ -353,8 +352,8 @@ namespace Server.Gumps
 
 	public class VendorRentalOfferGump : BaseVendorRentalGump
 	{
-		private VendorRentalContract m_Contract;
-		private Mobile m_Landlord;
+		private readonly VendorRentalContract m_Contract;
+		private readonly Mobile m_Landlord;
 
 		public VendorRentalOfferGump(VendorRentalContract contract, Mobile landlord) : base(
 			GumpType.Offer, contract.Duration, contract.Price, contract.Price,
@@ -436,7 +435,7 @@ namespace Server.Gumps
 
 	public class RenterVendorRentalGump : BaseVendorRentalGump
 	{
-		private RentedVendor m_Vendor;
+		private readonly RentedVendor m_Vendor;
 
 		public RenterVendorRentalGump(RentedVendor vendor) : base(
 			GumpType.VendorRenter, vendor.RentalDuration, vendor.RentalPrice, vendor.RenewalPrice,
@@ -460,7 +459,7 @@ namespace Server.Gumps
 
 	public class LandlordVendorRentalGump : BaseVendorRentalGump
 	{
-		private RentedVendor m_Vendor;
+		private readonly RentedVendor m_Vendor;
 
 		public LandlordVendorRentalGump(RentedVendor vendor) : base(
 			GumpType.VendorLandlord, vendor.RentalDuration, vendor.RentalPrice, vendor.RenewalPrice,
@@ -490,7 +489,7 @@ namespace Server.Gumps
 
 		private class ContractRenewalPricePrompt : Prompt
 		{
-			private RentedVendor m_Vendor;
+			private readonly RentedVendor m_Vendor;
 
 			public ContractRenewalPricePrompt(RentedVendor vendor)
 			{
@@ -504,9 +503,8 @@ namespace Server.Gumps
 
 				text = text.Trim();
 
-				int price;
 
-				if (!int.TryParse(text, out price))
+				if (!int.TryParse(text, out int price))
 					price = -1;
 
 				if (price < 0)
@@ -538,9 +536,9 @@ namespace Server.Gumps
 
 	public class VendorRentalRefundGump : Gump
 	{
-		private RentedVendor m_Vendor;
-		private Mobile m_Landlord;
-		private int m_RefundAmount;
+		private readonly RentedVendor m_Vendor;
+		private readonly Mobile m_Landlord;
+		private readonly int m_RefundAmount;
 
 		public VendorRentalRefundGump(RentedVendor vendor, Mobile landlord, int refundAmount) : base(50, 50)
 		{

@@ -1,10 +1,10 @@
-using System;
-using System.Collections.Generic;
 using Server.ContextMenus;
 using Server.Gumps;
 using Server.Mobiles;
 using Server.Multis;
 using Server.Targeting;
+using System;
+using System.Collections.Generic;
 
 namespace Server.Items
 {
@@ -210,7 +210,7 @@ namespace Server.Items
 
 		private class ContractOptionEntry : ContextMenuEntry
 		{
-			private VendorRentalContract m_Contract;
+			private readonly VendorRentalContract m_Contract;
 
 			public ContractOptionEntry(VendorRentalContract contract) : base(6209)
 			{
@@ -231,7 +231,7 @@ namespace Server.Items
 
 		private class RentTarget : Target
 		{
-			private VendorRentalContract m_Contract;
+			private readonly VendorRentalContract m_Contract;
 
 			public RentTarget(VendorRentalContract contract) : base(-1, false, TargetFlags.None)
 			{
@@ -282,8 +282,7 @@ namespace Server.Items
 				}
 				else
 				{
-					bool vendor, contract;
-					BaseHouse.IsThereVendor(pLocation, map, out vendor, out contract);
+					BaseHouse.IsThereVendor(pLocation, map, out bool vendor, out bool contract);
 
 					if (vendor)
 					{
@@ -313,7 +312,7 @@ namespace Server.Items
 
 		private class OfferExpireTimer : Timer
 		{
-			private VendorRentalContract m_Contract;
+			private readonly VendorRentalContract m_Contract;
 
 			public OfferExpireTimer(VendorRentalContract contract) : base(TimeSpan.FromSeconds(30.0))
 			{
@@ -343,8 +342,8 @@ namespace Server.Items
 
 			writer.WriteEncodedInt(m_Duration.ID);
 
-			writer.Write((int)m_Price);
-			writer.Write((bool)m_LandlordRenew);
+			writer.Write(m_Price);
+			writer.Write(m_LandlordRenew);
 		}
 
 		public override void Deserialize(GenericReader reader)

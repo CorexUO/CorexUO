@@ -1,6 +1,6 @@
-using System;
 using Server.Gumps;
 using Server.Network;
+using System;
 
 namespace Server.Items
 {
@@ -87,10 +87,10 @@ namespace Server.Items
 		{
 			base.Serialize(writer);
 
-			writer.Write((int)0); // version
+			writer.Write(0); // version
 
 			writer.Write((int)m_Skill);
-			writer.Write((double)m_Value);
+			writer.Write(m_Value);
 		}
 
 		public override void Deserialize(GenericReader reader)
@@ -112,8 +112,8 @@ namespace Server.Items
 
 		public class InternalGump : Gump
 		{
-			private Mobile m_Mobile;
-			private SpecialScroll m_Scroll;
+			private readonly Mobile m_Mobile;
+			private readonly SpecialScroll m_Scroll;
 
 			public InternalGump(Mobile mobile, SpecialScroll scroll) : base(25, 50)
 			{

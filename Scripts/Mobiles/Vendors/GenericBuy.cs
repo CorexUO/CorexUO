@@ -1,6 +1,6 @@
+using Server.Items;
 using System;
 using System.Collections.Generic;
-using Server.Items;
 
 namespace Server.Mobiles
 {
@@ -32,8 +32,7 @@ namespace Server.Mobiles
 
 			public IEntity Lookup(Type key)
 			{
-				IEntity e = null;
-				m_Table.TryGetValue(key, out e);
+				m_Table.TryGetValue(key, out IEntity e);
 				return e;
 			}
 
@@ -73,7 +72,7 @@ namespace Server.Mobiles
 			{
 				base.Serialize(writer);
 
-				writer.Write((int)0); // version
+				writer.Write(0); // version
 
 				writer.Write(m_Mobiles);
 			}

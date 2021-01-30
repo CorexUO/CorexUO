@@ -43,8 +43,8 @@ namespace Server.Items
 			if (IsArcane)
 			{
 				writer.Write(true);
-				writer.Write((int)m_CurArcaneCharges);
-				writer.Write((int)m_MaxArcaneCharges);
+				writer.Write(m_CurArcaneCharges);
+				writer.Write(m_MaxArcaneCharges);
 			}
 			else
 			{

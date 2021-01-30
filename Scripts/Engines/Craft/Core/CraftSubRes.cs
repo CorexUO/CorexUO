@@ -4,12 +4,12 @@ namespace Server.Engines.Craft
 {
 	public class CraftSubRes
 	{
-		private Type m_Type;
-		private double m_ReqSkill;
-		private string m_NameString;
-		private int m_NameNumber;
-		private int m_GenericNameNumber;
-		private object m_Message;
+		private readonly Type m_Type;
+		private readonly double m_ReqSkill;
+		private readonly string m_NameString;
+		private readonly int m_NameNumber;
+		private readonly int m_GenericNameNumber;
+		private readonly object m_Message;
 
 		public CraftSubRes(Type type, TextDefinition name, double reqSkill, object message) : this(type, name, reqSkill, 0, message)
 		{

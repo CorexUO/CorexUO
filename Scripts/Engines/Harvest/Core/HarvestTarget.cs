@@ -8,8 +8,8 @@ namespace Server.Engines.Harvest
 {
 	public class HarvestTarget : Target
 	{
-		private Item m_Tool;
-		private HarvestSystem m_System;
+		private readonly Item m_Tool;
+		private readonly HarvestSystem m_System;
 
 		public HarvestTarget(Item tool, HarvestSystem system) : base(-1, true, TargetFlags.None)
 		{
@@ -63,7 +63,7 @@ namespace Server.Engines.Harvest
 					from.PlaySound(0x13E);
 			}
 			else if (m_System is Lumberjacking && targeted is ICarvable)
-				((ICarvable)targeted).Carve(from, (Item)m_Tool);
+				((ICarvable)targeted).Carve(from, m_Tool);
 			else if (m_System is Lumberjacking && FurnitureAttribute.Check(targeted as Item))
 				DestroyFurniture(from, (Item)targeted);
 			else if (m_System is Mining && targeted is TreasureMap)

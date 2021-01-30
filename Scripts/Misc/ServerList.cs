@@ -1,9 +1,9 @@
+using Server.Network;
 using System;
 using System.IO;
 using System.Net;
 using System.Net.NetworkInformation;
 using System.Net.Sockets;
-using Server.Network;
 
 namespace Server.Misc
 {

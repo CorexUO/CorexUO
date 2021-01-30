@@ -1,7 +1,7 @@
-using System;
-using System.Collections.Generic;
 using Server.Engines.CannedEvil;
 using Server.Items;
+using System;
+using System.Collections.Generic;
 
 namespace Server.Mobiles
 {
@@ -35,7 +35,7 @@ namespace Server.Mobiles
 		{
 			base.Serialize(writer);
 
-			writer.Write((int)0); // version
+			writer.Write(0); // version
 		}
 
 		public override void Deserialize(GenericReader reader)
@@ -265,8 +265,8 @@ namespace Server.Mobiles
 
 		private class GoodiesTimer : Timer
 		{
-			private Map m_Map;
-			private int m_X, m_Y;
+			private readonly Map m_Map;
+			private readonly int m_X, m_Y;
 
 			public GoodiesTimer(Map map, int x, int y) : base(TimeSpan.FromSeconds(Utility.RandomDouble() * 10.0))
 			{

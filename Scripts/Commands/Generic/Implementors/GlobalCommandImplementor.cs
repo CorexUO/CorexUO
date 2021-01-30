@@ -21,9 +21,8 @@ namespace Server.Commands.Generic
 			{
 				Extensions ext = Extensions.Parse(from, ref args);
 
-				bool items, mobiles;
 
-				if (!CheckObjectTypes(from, command, ext, out items, out mobiles))
+				if (!CheckObjectTypes(from, command, ext, out bool items, out bool mobiles))
 					return;
 
 				ArrayList list = new ArrayList();

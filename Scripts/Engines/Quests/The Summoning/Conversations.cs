@@ -2,13 +2,13 @@ using Server.Mobiles;
 
 namespace Server.Engines.Quests.Doom
 {
-    public class AcceptConversation : QuestConversation
-    {
-        public override object Message
-        {
-            get
-            {
-                /* You have accepted Victoria's help.  She requires 1000 Daemon
+	public class AcceptConversation : QuestConversation
+	{
+		public override object Message
+		{
+			get
+			{
+				/* You have accepted Victoria's help.  She requires 1000 Daemon
 				 * bones to summon the devourer.<BR><BR>
 				 * 
 				 * You may hand Victoria the bones as you collect them and she
@@ -19,72 +19,72 @@ namespace Server.Engines.Quests.Doom
 				 * 
 				 * Good luck.
 				 */
-                return 1050027;
-            }
-        }
+				return 1050027;
+			}
+		}
 
-        public AcceptConversation()
-        {
-        }
+		public AcceptConversation()
+		{
+		}
 
-        public override void OnRead()
-        {
-            System.AddObjective(new CollectBonesObjective());
-        }
-    }
+		public override void OnRead()
+		{
+			System.AddObjective(new CollectBonesObjective());
+		}
+	}
 
-    public class VanquishDaemonConversation : QuestConversation
-    {
-        public override object Message
-        {
-            get
-            {
-                /* Well done brave soul.   I shall summon the beast to the circle
+	public class VanquishDaemonConversation : QuestConversation
+	{
+		public override object Message
+		{
+			get
+			{
+				/* Well done brave soul.   I shall summon the beast to the circle
 				 * of stones just South-East of here.  Take great care - the beast
 				 * takes many forms.  Now hurry...
 				 */
-                return 1050021;
-            }
-        }
+				return 1050021;
+			}
+		}
 
-        public VanquishDaemonConversation()
-        {
-        }
+		public VanquishDaemonConversation()
+		{
+		}
 
-        public override void OnRead()
-        {
-            Victoria victoria = ((TheSummoningQuest)System).Victoria;
+		public override void OnRead()
+		{
+			Victoria victoria = ((TheSummoningQuest)System).Victoria;
 
-            if (victoria == null)
-            {
-                System.From.SendMessage("Internal error: unable to find Victoria. Quest unable to continue.");
-                System.Cancel();
-            }
-            else
-            {
-                SummoningAltar altar = victoria.Altar;
+			if (victoria == null)
+			{
+				System.From.SendMessage("Internal error: unable to find Victoria. Quest unable to continue.");
+				System.Cancel();
+			}
+			else
+			{
+				SummoningAltar altar = victoria.Altar;
 
-                if (altar == null)
-                {
-                    System.From.SendMessage("Internal error: unable to find summoning altar. Quest unable to continue.");
-                    System.Cancel();
-                }
-                else if (altar.Daemon == null || !altar.Daemon.Alive)
-                {
-                    BoneDemon daemon = new BoneDemon();
+				if (altar == null)
+				{
+					System.From.SendMessage("Internal error: unable to find summoning altar. Quest unable to continue.");
+					System.Cancel();
+				}
+				else if (altar.Daemon == null || !altar.Daemon.Alive)
+				{
+					BoneDemon daemon = new BoneDemon();
 
-                    daemon.MoveToWorld(altar.Location, altar.Map);
-                    altar.Daemon = daemon;
+					daemon.MoveToWorld(altar.Location, altar.Map);
+					altar.Daemon = daemon;
 
-                    System.AddObjective(new VanquishDaemonObjective(daemon));
-                }
-                else
-                {
-                    victoria.SayTo(System.From, "The devourer has already been summoned.");
+					System.AddObjective(new VanquishDaemonObjective(daemon));
+				}
+				else
+				{
+					victoria.SayTo(System.From, "The devourer has already been summoned.");
 
-                    ((TheSummoningQuest)System).WaitForSummon = true;
-                }
-            }
-        }
-    }
+					((TheSummoningQuest)System).WaitForSummon = true;
+				}
+			}
+		}
+	}
 }

@@ -1,7 +1,7 @@
-using System;
-using System.Collections.Generic;
 using Server.ContextMenus;
 using Server.Gumps;
+using System;
+using System.Collections.Generic;
 
 namespace Server.Multis
 {
@@ -252,7 +252,7 @@ namespace Server.Multis
 		{
 			base.Serialize(writer);
 
-			writer.Write((int)0); // version
+			writer.Write(0); // version
 
 			writer.Write(Owner);
 			writer.Write(OriginalOwner);

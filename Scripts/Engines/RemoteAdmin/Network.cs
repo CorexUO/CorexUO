@@ -1,8 +1,8 @@
+using Server.Accounting;
+using Server.Network;
 using System;
 using System.Collections;
 using System.Text;
-using Server.Accounting;
-using Server.Network;
 
 namespace Server.RemoteAdmin
 {
@@ -12,7 +12,7 @@ namespace Server.RemoteAdmin
 
 		private static ArrayList m_Auth = new ArrayList();
 		private static bool m_NewLine = true;
-		private static StringBuilder m_ConsoleData = new StringBuilder();
+		private static readonly StringBuilder m_ConsoleData = new StringBuilder();
 
 		private const string DateFormat = "MMMM dd hh:mm:ss.f tt";
 
@@ -213,8 +213,7 @@ namespace Server.RemoteAdmin
 
 		public static Packet Compress(Packet p)
 		{
-			int length;
-			byte[] source = p.Compile(false, out length);
+			byte[] source = p.Compile(false, out int length);
 
 			if (length > 100 && length < 60000)
 			{
@@ -246,9 +245,9 @@ namespace Server.RemoteAdmin
 		public delegate void OnConsoleLine(string line);
 		public delegate void OnConsoleStr(string str);
 
-		private OnConsoleChar m_OnChar;
-		private OnConsoleLine m_OnLine;
-		private OnConsoleStr m_OnStr;
+		private readonly OnConsoleChar m_OnChar;
+		private readonly OnConsoleLine m_OnLine;
+		private readonly OnConsoleStr m_OnStr;
 
 		public EventTextWriter(OnConsoleChar onChar, OnConsoleLine onLine, OnConsoleStr onStr)
 		{

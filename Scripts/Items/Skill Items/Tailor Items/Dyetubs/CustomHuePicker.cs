@@ -3,64 +3,64 @@ using Server.Network;
 
 namespace Server.Items
 {
-    public class CustomHueGroup
-    {
-        private int m_Name;
-        private string m_NameString;
-        private int[] m_Hues;
+	public class CustomHueGroup
+	{
+		private readonly int m_Name;
+		private readonly string m_NameString;
+		private readonly int[] m_Hues;
 
-        public int Name { get { return m_Name; } }
-        public string NameString { get { return m_NameString; } }
+		public int Name { get { return m_Name; } }
+		public string NameString { get { return m_NameString; } }
 
-        public int[] Hues { get { return m_Hues; } }
+		public int[] Hues { get { return m_Hues; } }
 
-        public CustomHueGroup(int name, int[] hues)
-        {
-            m_Name = name;
-            m_Hues = hues;
-        }
+		public CustomHueGroup(int name, int[] hues)
+		{
+			m_Name = name;
+			m_Hues = hues;
+		}
 
-        public CustomHueGroup(string name, int[] hues)
-        {
-            m_NameString = name;
-            m_Hues = hues;
-        }
-    }
+		public CustomHueGroup(string name, int[] hues)
+		{
+			m_NameString = name;
+			m_Hues = hues;
+		}
+	}
 
-    public class CustomHuePicker
-    {
-        private CustomHueGroup[] m_Groups;
-        private bool m_DefaultSupported;
-        private int m_Title;
-        private string m_TitleString;
+	public class CustomHuePicker
+	{
+		private readonly CustomHueGroup[] m_Groups;
+		private readonly bool m_DefaultSupported;
+		private readonly int m_Title;
+		private readonly string m_TitleString;
 
-        public bool DefaultSupported { get { return m_DefaultSupported; } }
-        public CustomHueGroup[] Groups { get { return m_Groups; } }
-        public int Title { get { return m_Title; } }
-        public string TitleString { get { return m_TitleString; } }
+		public bool DefaultSupported { get { return m_DefaultSupported; } }
+		public CustomHueGroup[] Groups { get { return m_Groups; } }
+		public int Title { get { return m_Title; } }
+		public string TitleString { get { return m_TitleString; } }
 
-        public CustomHuePicker(CustomHueGroup[] groups, bool defaultSupported)
-        {
-            m_Groups = groups;
-            m_DefaultSupported = defaultSupported;
-        }
+		public CustomHuePicker(CustomHueGroup[] groups, bool defaultSupported)
+		{
+			m_Groups = groups;
+			m_DefaultSupported = defaultSupported;
+		}
 
-        public CustomHuePicker(CustomHueGroup[] groups, bool defaultSupported, int title)
-        {
-            m_Groups = groups;
-            m_DefaultSupported = defaultSupported;
-            m_Title = title;
-        }
+		public CustomHuePicker(CustomHueGroup[] groups, bool defaultSupported, int title)
+		{
+			m_Groups = groups;
+			m_DefaultSupported = defaultSupported;
+			m_Title = title;
+		}
 
-        public CustomHuePicker(CustomHueGroup[] groups, bool defaultSupported, string title)
-        {
-            m_Groups = groups;
-            m_DefaultSupported = defaultSupported;
-            m_TitleString = title;
-        }
+		public CustomHuePicker(CustomHueGroup[] groups, bool defaultSupported, string title)
+		{
+			m_Groups = groups;
+			m_DefaultSupported = defaultSupported;
+			m_TitleString = title;
+		}
 
-        public static readonly CustomHuePicker SpecialDyeTub = new CustomHuePicker(new CustomHueGroup[]
-            {
+		public static readonly CustomHuePicker SpecialDyeTub = new CustomHuePicker(new CustomHueGroup[]
+			{
 				/* Violet */
 				new CustomHueGroup( 1018345, new int[]{ 1230, 1231, 1232, 1233, 1234, 1235 } ),
 				/* Tan */
@@ -77,10 +77,10 @@ namespace Server.Items
 				new CustomHueGroup( 1018351, new int[]{ 1640, 1641, 1642, 1643, 1644 } ),
 				/* Olive */
 				new CustomHueGroup( 1018352, new int[]{ 2001, 2002, 2003, 2004, 2005 } )
-            }, false, 1018344);
+			}, false, 1018344);
 
-        public static readonly CustomHuePicker LeatherDyeTub = new CustomHuePicker(new CustomHueGroup[]
-            {
+		public static readonly CustomHuePicker LeatherDyeTub = new CustomHuePicker(new CustomHueGroup[]
+			{
 				/* Dull Copper */
 				new CustomHueGroup( 1018332, new int[]{ 2419, 2420, 2421, 2422, 2423, 2424 } ),
 				/* Shadow Iron */
@@ -105,118 +105,118 @@ namespace Server.Items
 				new CustomHueGroup( 1018342, new int[]{ 2126, 2127, 2128, 2129, 2130 } ),
 				/* Yellows */
 				new CustomHueGroup( 1018343, new int[]{ 2213, 2214, 2215, 2216, 2217, 2218 } )
-            }, true);
-    }
+			}, true);
+	}
 
-    public delegate void CustomHuePickerCallback(Mobile from, object state, int hue);
+	public delegate void CustomHuePickerCallback(Mobile from, object state, int hue);
 
-    public class CustomHuePickerGump : Gump
-    {
-        private Mobile m_From;
-        private CustomHuePicker m_Definition;
-        private CustomHuePickerCallback m_Callback;
-        private object m_State;
+	public class CustomHuePickerGump : Gump
+	{
+		private readonly Mobile m_From;
+		private readonly CustomHuePicker m_Definition;
+		private readonly CustomHuePickerCallback m_Callback;
+		private readonly object m_State;
 
-        private int GetRadioID(int group, int index)
-        {
-            return (index * m_Definition.Groups.Length) + group;
-        }
+		private int GetRadioID(int group, int index)
+		{
+			return (index * m_Definition.Groups.Length) + group;
+		}
 
-        private void RenderBackground()
-        {
-            AddPage(0);
+		private void RenderBackground()
+		{
+			AddPage(0);
 
-            AddBackground(0, 0, 450, 450, 5054);
-            AddBackground(10, 10, 430, 430, 3000);
+			AddBackground(0, 0, 450, 450, 5054);
+			AddBackground(10, 10, 430, 430, 3000);
 
-            if (m_Definition.TitleString != null)
-                AddHtml(20, 30, 400, 25, m_Definition.TitleString, false, false);
-            else if (m_Definition.Title > 0)
-                AddHtmlLocalized(20, 30, 400, 25, m_Definition.Title, false, false);
+			if (m_Definition.TitleString != null)
+				AddHtml(20, 30, 400, 25, m_Definition.TitleString, false, false);
+			else if (m_Definition.Title > 0)
+				AddHtmlLocalized(20, 30, 400, 25, m_Definition.Title, false, false);
 
-            AddButton(20, 400, 4005, 4007, 1, GumpButtonType.Reply, 0);
-            AddHtmlLocalized(55, 400, 200, 25, 1011036, false, false); // OKAY
+			AddButton(20, 400, 4005, 4007, 1, GumpButtonType.Reply, 0);
+			AddHtmlLocalized(55, 400, 200, 25, 1011036, false, false); // OKAY
 
-            if (m_Definition.DefaultSupported)
-            {
-                AddButton(200, 400, 4005, 4007, 2, GumpButtonType.Reply, 0);
-                AddLabel(235, 400, 0, "DEFAULT");
-            }
-        }
+			if (m_Definition.DefaultSupported)
+			{
+				AddButton(200, 400, 4005, 4007, 2, GumpButtonType.Reply, 0);
+				AddLabel(235, 400, 0, "DEFAULT");
+			}
+		}
 
-        private void RenderCategories()
-        {
-            CustomHueGroup[] groups = m_Definition.Groups;
+		private void RenderCategories()
+		{
+			CustomHueGroup[] groups = m_Definition.Groups;
 
-            for (int i = 0; i < groups.Length; ++i)
-            {
-                AddButton(30, 85 + (i * 25), 5224, 5224, 0, GumpButtonType.Page, 1 + i);
+			for (int i = 0; i < groups.Length; ++i)
+			{
+				AddButton(30, 85 + (i * 25), 5224, 5224, 0, GumpButtonType.Page, 1 + i);
 
-                if (groups[i].NameString != null)
-                    AddHtml(55, 85 + (i * 25), 200, 25, groups[i].NameString, false, false);
-                else
-                    AddHtmlLocalized(55, 85 + (i * 25), 200, 25, groups[i].Name, false, false);
-            }
+				if (groups[i].NameString != null)
+					AddHtml(55, 85 + (i * 25), 200, 25, groups[i].NameString, false, false);
+				else
+					AddHtmlLocalized(55, 85 + (i * 25), 200, 25, groups[i].Name, false, false);
+			}
 
-            for (int i = 0; i < groups.Length; ++i)
-            {
-                AddPage(1 + i);
+			for (int i = 0; i < groups.Length; ++i)
+			{
+				AddPage(1 + i);
 
-                int[] hues = groups[i].Hues;
+				int[] hues = groups[i].Hues;
 
-                for (int j = 0; j < hues.Length; ++j)
-                {
-                    AddRadio(260, 90 + (j * 25), 210, 211, false, GetRadioID(i, j));
-                    AddLabel(278, 90 + (j * 25), hues[j] - 1, "*****");
-                }
-            }
-        }
+				for (int j = 0; j < hues.Length; ++j)
+				{
+					AddRadio(260, 90 + (j * 25), 210, 211, false, GetRadioID(i, j));
+					AddLabel(278, 90 + (j * 25), hues[j] - 1, "*****");
+				}
+			}
+		}
 
-        public CustomHuePickerGump(Mobile from, CustomHuePicker definition, CustomHuePickerCallback callback, object state) : base(50, 50)
-        {
-            m_From = from;
-            m_Definition = definition;
-            m_Callback = callback;
-            m_State = state;
+		public CustomHuePickerGump(Mobile from, CustomHuePicker definition, CustomHuePickerCallback callback, object state) : base(50, 50)
+		{
+			m_From = from;
+			m_Definition = definition;
+			m_Callback = callback;
+			m_State = state;
 
-            RenderBackground();
-            RenderCategories();
-        }
+			RenderBackground();
+			RenderCategories();
+		}
 
-        public override void OnResponse(NetState sender, RelayInfo info)
-        {
-            switch (info.ButtonID)
-            {
-                case 1: // Okay
-                    {
-                        int[] switches = info.Switches;
+		public override void OnResponse(NetState sender, RelayInfo info)
+		{
+			switch (info.ButtonID)
+			{
+				case 1: // Okay
+					{
+						int[] switches = info.Switches;
 
-                        if (switches.Length > 0)
-                        {
-                            int index = switches[0];
+						if (switches.Length > 0)
+						{
+							int index = switches[0];
 
-                            int group = index % m_Definition.Groups.Length;
-                            index /= m_Definition.Groups.Length;
+							int group = index % m_Definition.Groups.Length;
+							index /= m_Definition.Groups.Length;
 
-                            if (group >= 0 && group < m_Definition.Groups.Length)
-                            {
-                                int[] hues = m_Definition.Groups[group].Hues;
+							if (group >= 0 && group < m_Definition.Groups.Length)
+							{
+								int[] hues = m_Definition.Groups[group].Hues;
 
-                                if (index >= 0 && index < hues.Length)
-                                    m_Callback(m_From, m_State, hues[index]);
-                            }
-                        }
+								if (index >= 0 && index < hues.Length)
+									m_Callback(m_From, m_State, hues[index]);
+							}
+						}
 
-                        break;
-                    }
-                case 2: // Default
-                    {
-                        if (m_Definition.DefaultSupported)
-                            m_Callback(m_From, m_State, 0);
+						break;
+					}
+				case 2: // Default
+					{
+						if (m_Definition.DefaultSupported)
+							m_Callback(m_From, m_State, 0);
 
-                        break;
-                    }
-            }
-        }
-    }
+						break;
+					}
+			}
+		}
+	}
 }

@@ -1,7 +1,7 @@
-using System;
-using System.Collections.Generic;
 using Server.Items;
 using Server.Targeting;
+using System;
+using System.Collections.Generic;
 
 namespace Server.SkillHandlers
 {
@@ -22,7 +22,7 @@ namespace Server.SkillHandlers
 			return TimeSpan.FromSeconds(1.0);
 		}
 
-		private static Dictionary<BaseBook, Mobile> m_UseTable = new Dictionary<BaseBook, Mobile>();
+		private static readonly Dictionary<BaseBook, Mobile> m_UseTable = new Dictionary<BaseBook, Mobile>();
 
 		private static void SetUser(BaseBook book, Mobile mob)
 		{

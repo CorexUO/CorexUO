@@ -1,6 +1,6 @@
+using Server.Multis;
 using System.Collections;
 using System.Collections.Generic;
-using Server.Multis;
 
 namespace Server.Items
 {
@@ -265,7 +265,7 @@ namespace Server.Items
 		{
 			base.Serialize(writer);
 
-			writer.Write((int)0); // version
+			writer.Write(0); // version
 
 			writer.WriteItemList<AddonComponent>(m_Components);
 		}

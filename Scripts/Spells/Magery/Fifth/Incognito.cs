@@ -1,14 +1,14 @@
-using System;
-using System.Collections;
 using Server.Items;
 using Server.Mobiles;
 using Server.Spells.Seventh;
+using System;
+using System.Collections;
 
 namespace Server.Spells.Fifth
 {
 	public class IncognitoSpell : MagerySpell
 	{
-		private static SpellInfo m_Info = new SpellInfo(
+		private static readonly SpellInfo m_Info = new SpellInfo(
 				"Incognito", "Kal In Ex",
 				206,
 				9002,
@@ -120,7 +120,7 @@ namespace Server.Spells.Fifth
 			FinishSequence();
 		}
 
-		private static Hashtable m_Timers = new Hashtable();
+		private static readonly Hashtable m_Timers = new Hashtable();
 
 		public static bool StopTimer(Mobile m)
 		{
@@ -136,7 +136,7 @@ namespace Server.Spells.Fifth
 			return (t != null);
 		}
 
-		private static int[] m_HairIDs = new int[]
+		private static readonly int[] m_HairIDs = new int[]
 			{
 				0x2044, 0x2045, 0x2046,
 				0x203C, 0x203B, 0x203D,
@@ -144,7 +144,7 @@ namespace Server.Spells.Fifth
 				0x204A, 0x0000
 			};
 
-		private static int[] m_BeardIDs = new int[]
+		private static readonly int[] m_BeardIDs = new int[]
 			{
 				0x203E, 0x203F, 0x2040,
 				0x2041, 0x204B, 0x204C,
@@ -153,7 +153,7 @@ namespace Server.Spells.Fifth
 
 		private class InternalTimer : Timer
 		{
-			private Mobile m_Owner;
+			private readonly Mobile m_Owner;
 
 			public InternalTimer(Mobile owner, TimeSpan length) : base(length)
 			{

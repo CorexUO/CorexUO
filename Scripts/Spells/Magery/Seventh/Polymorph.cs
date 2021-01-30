@@ -1,14 +1,14 @@
-using System;
-using System.Collections;
 using Server.Gumps;
 using Server.Items;
 using Server.Spells.Fifth;
+using System;
+using System.Collections;
 
 namespace Server.Spells.Seventh
 {
 	public class PolymorphSpell : MagerySpell
 	{
-		private static SpellInfo m_Info = new SpellInfo(
+		private static readonly SpellInfo m_Info = new SpellInfo(
 				"Polymorph", "Vas Ylem Rel",
 				221,
 				9002,
@@ -20,7 +20,7 @@ namespace Server.Spells.Seventh
 		public override SpellCircle Circle { get { return SpellCircle.Seventh; } }
 		public override bool RequireTarget { get { return false; } }
 
-		private int m_NewBody;
+		private readonly int m_NewBody;
 
 		public PolymorphSpell(Mobile caster, Item scroll, int body) : base(caster, scroll, m_Info)
 		{
@@ -161,7 +161,7 @@ namespace Server.Spells.Seventh
 			FinishSequence();
 		}
 
-		private static Hashtable m_Timers = new Hashtable();
+		private static readonly Hashtable m_Timers = new Hashtable();
 
 		public static bool StopTimer(Mobile m)
 		{
@@ -191,7 +191,7 @@ namespace Server.Spells.Seventh
 
 		private class InternalTimer : Timer
 		{
-			private Mobile m_Owner;
+			private readonly Mobile m_Owner;
 
 			public InternalTimer(Mobile owner) : base(TimeSpan.FromSeconds(0))
 			{

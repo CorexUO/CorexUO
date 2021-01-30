@@ -18,9 +18,9 @@
 *
 ***************************************************************************/
 
+using Server.Mobiles;
 using System;
 using System.Collections;
-using Server.Mobiles;
 
 namespace Server.Items
 {
@@ -135,7 +135,7 @@ namespace Server.Items
 			Delete();
 		}
 
-		private static Hashtable m_Table = new Hashtable();
+		private static readonly Hashtable m_Table = new Hashtable();
 
 		private static void Expire_Callback(object state)
 		{
@@ -152,7 +152,7 @@ namespace Server.Items
 		{
 			base.Serialize(writer);
 
-			writer.Write((int)0); // version
+			writer.Write(0); // version
 		}
 
 		public override void Deserialize(GenericReader reader)

@@ -1,17 +1,17 @@
-using System;
 using Server.Gumps;
 using Server.Items;
 using Server.Mobiles;
 using Server.Network;
+using System;
 
 namespace Server.Engines.Craft
 {
 	public class CraftGumpItem : Gump
 	{
-		private Mobile m_From;
-		private CraftSystem m_CraftSystem;
-		private CraftItem m_CraftItem;
-		private BaseTool m_Tool;
+		private readonly Mobile m_From;
+		private readonly CraftSystem m_CraftSystem;
+		private readonly CraftItem m_CraftItem;
+		private readonly BaseTool m_Tool;
 
 		private const int LabelHue = 0x480; // 0x384
 		private const int RedLabelHue = 0x20;
@@ -177,8 +177,8 @@ namespace Server.Engines.Craft
 			}
 		}
 
-		private static Type typeofBlankScroll = typeof(BlankScroll);
-		private static Type typeofSpellScroll = typeof(SpellScroll);
+		private static readonly Type typeofBlankScroll = typeof(BlankScroll);
+		private static readonly Type typeofSpellScroll = typeof(SpellScroll);
 
 		public void DrawResource()
 		{

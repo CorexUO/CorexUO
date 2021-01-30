@@ -1,12 +1,12 @@
-using System;
 using Server.Items;
 using Server.Mobiles;
+using System;
 
 namespace Server.Engines.Quests.Hag
 {
 	public class FindApprenticeObjective : QuestObjective
 	{
-		private static Point3D[] m_CorpseLocations = new Point3D[]
+		private static readonly Point3D[] m_CorpseLocations = new Point3D[]
 			{
 				new Point3D( 778, 1158, 0 ),
 				new Point3D( 698, 1443, 0 ),
@@ -111,10 +111,10 @@ namespace Server.Engines.Quests.Hag
 			if (m_Corpse != null && m_Corpse.Deleted)
 				m_Corpse = null;
 
-			writer.WriteEncodedInt((int)0); // version
+			writer.WriteEncodedInt(0); // version
 
-			writer.Write((Point3D)m_CorpseLocation);
-			writer.Write((Item)m_Corpse);
+			writer.Write(m_CorpseLocation);
+			writer.Write(m_Corpse);
 		}
 	}
 
@@ -211,9 +211,9 @@ namespace Server.Engines.Quests.Hag
 
 		public override void ChildSerialize(GenericWriter writer)
 		{
-			writer.WriteEncodedInt((int)0); // version
+			writer.WriteEncodedInt(0); // version
 
-			writer.Write((int)m_MaxProgress);
+			writer.Write(m_MaxProgress);
 		}
 	}
 
@@ -286,9 +286,9 @@ namespace Server.Engines.Quests.Hag
 
 		public override void ChildSerialize(GenericWriter writer)
 		{
-			writer.WriteEncodedInt((int)0); // version
+			writer.WriteEncodedInt(0); // version
 
-			writer.Write((Point3D)m_ImpLocation);
+			writer.Write(m_ImpLocation);
 		}
 	}
 
@@ -486,13 +486,13 @@ namespace Server.Engines.Quests.Hag
 
 		public override void ChildSerialize(GenericWriter writer)
 		{
-			writer.WriteEncodedInt((int)0); // version
+			writer.WriteEncodedInt(0); // version
 
-			writer.WriteEncodedInt((int)m_Ingredients.Length);
+			writer.WriteEncodedInt(m_Ingredients.Length);
 			for (int i = 0; i < m_Ingredients.Length; i++)
 				writer.WriteEncodedInt((int)m_Ingredients[i]);
 
-			writer.Write((bool)m_BlackheartMet);
+			writer.Write(m_BlackheartMet);
 		}
 	}
 

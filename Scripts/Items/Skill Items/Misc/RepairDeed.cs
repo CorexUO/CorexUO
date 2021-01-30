@@ -1,7 +1,7 @@
-using System;
 using Server.Engines.Craft;
 using Server.Mobiles;
 using Server.Regions;
+using System;
 
 namespace Server.Items
 {
@@ -207,7 +207,7 @@ namespace Server.Items
 		{
 			base.Serialize(writer);
 
-			writer.Write((int)0); // version
+			writer.Write(0); // version
 
 			writer.Write((int)m_Skill);
 			writer.Write(m_SkillLevel);

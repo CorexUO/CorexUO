@@ -1,5 +1,3 @@
-using System;
-using System.Collections.Generic;
 using Server.ContextMenus;
 using Server.Mobiles;
 using Server.Network;
@@ -7,6 +5,8 @@ using Server.Regions;
 using Server.Spells;
 using Server.Spells.Ninjitsu;
 using Server.Targeting;
+using System;
+using System.Collections.Generic;
 
 namespace Server.Items
 {
@@ -126,7 +126,7 @@ namespace Server.Items
 
 		private class BallEntry : ContextMenuEntry
 		{
-			private BallCallback m_Callback;
+			private readonly BallCallback m_Callback;
 
 			public BallEntry(BallCallback callback, int number) : base(number, 2)
 			{
@@ -181,7 +181,7 @@ namespace Server.Items
 
 		private class PetLinkTarget : Target
 		{
-			private BallOfSummoning m_Ball;
+			private readonly BallOfSummoning m_Ball;
 
 			public PetLinkTarget(BallOfSummoning ball) : base(-1, false, TargetFlags.None)
 			{
@@ -345,13 +345,13 @@ namespace Server.Items
 		{
 			base.Serialize(writer);
 
-			writer.WriteEncodedInt((int)0); // version
+			writer.WriteEncodedInt(0); // version
 
-			writer.WriteEncodedInt((int)m_Recharges);
+			writer.WriteEncodedInt(m_Recharges);
 
-			writer.WriteEncodedInt((int)m_Charges);
-			writer.Write((Mobile)this.Pet);
-			writer.Write((string)m_PetName);
+			writer.WriteEncodedInt(m_Charges);
+			writer.Write(Pet);
+			writer.Write(m_PetName);
 		}
 
 		public override void Deserialize(GenericReader reader)
@@ -375,10 +375,10 @@ namespace Server.Items
 
 		private class PetSummoningSpell : Spell
 		{
-			private static SpellInfo m_Info = new SpellInfo("Ball Of Summoning", "", 230);
+			private static readonly SpellInfo m_Info = new SpellInfo("Ball Of Summoning", "", 230);
 
-			private BallOfSummoning m_Ball;
-			private Mobile m_Caster;
+			private readonly BallOfSummoning m_Ball;
+			private readonly Mobile m_Caster;
 
 			public PetSummoningSpell(BallOfSummoning ball, Mobile caster)
 				: base(caster, null, m_Info)

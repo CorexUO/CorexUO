@@ -1,10 +1,10 @@
+using Server.Commands.Generic;
+using Server.Gumps;
+using Server.Network;
 using System;
 using System.Collections.Generic;
 using System.Reflection;
 using System.Text;
-using Server.Commands.Generic;
-using Server.Gumps;
-using Server.Network;
 using CommandInfo = Server.Commands.Docs.DocCommandEntry;
 using CommandInfoSorter = Server.Commands.Docs.CommandEntrySorter;
 
@@ -13,7 +13,7 @@ namespace Server.Commands
 	public class HelpInfo
 	{
 
-		private static Dictionary<string, CommandInfo> m_HelpInfos = new Dictionary<string, CommandInfo>();
+		private static readonly Dictionary<string, CommandInfo> m_HelpInfos = new Dictionary<string, CommandInfo>();
 		private static List<CommandInfo> m_SortedHelpInfo = new List<CommandInfo>();    //No need for SortedList cause it's only sorted once at creation...
 
 		public static Dictionary<string, CommandInfo> HelpInfos { get { return m_HelpInfos; } }
@@ -34,9 +34,8 @@ namespace Server.Commands
 			if (e.Length > 0)
 			{
 				string arg = e.GetString(0).ToLower();
-				CommandInfo c;
 
-				if (m_HelpInfos.TryGetValue(arg, out c))
+				if (m_HelpInfos.TryGetValue(arg, out CommandInfo c))
 				{
 					Mobile m = e.Mobile;
 
@@ -229,9 +228,8 @@ namespace Server.Commands
 		public class CommandListGump : BaseGridGump
 		{
 			private const int EntriesPerPage = 15;
-
-			int m_Page;
-			List<CommandInfo> m_List;
+			readonly int m_Page;
+			readonly List<CommandInfo> m_List;
 
 			public CommandListGump(int page, Mobile from, List<CommandInfo> list)
 				: base(30, 30)

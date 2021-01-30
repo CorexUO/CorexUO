@@ -1,7 +1,6 @@
 #region References
 using System;
 using System.IO;
-using System.Linq;
 #endregion
 
 namespace Server.Misc

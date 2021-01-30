@@ -30,7 +30,7 @@ namespace Server.Engines.MLQuests
 		{
 			base.Serialize(writer);
 
-			writer.Write((int)0); // version
+			writer.Write(0); // version
 			writer.Write(MLQuestSystem.Contexts.Count);
 
 			foreach (MLQuestContext context in MLQuestSystem.Contexts.Values)

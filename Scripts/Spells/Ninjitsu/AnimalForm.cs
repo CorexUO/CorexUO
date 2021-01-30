@@ -1,11 +1,11 @@
-using System;
-using System.Collections;
 using Server.Gumps;
 using Server.Items;
 using Server.Mobiles;
 using Server.Network;
 using Server.Spells.Fifth;
 using Server.Spells.Seventh;
+using System;
+using System.Collections;
 
 namespace Server.Spells.Ninjitsu
 {
@@ -24,7 +24,7 @@ namespace Server.Spells.Ninjitsu
 				e.Mobile.Send(SpeedControl.MountSpeed);
 		}
 
-		private static SpellInfo m_Info = new SpellInfo(
+		private static readonly SpellInfo m_Info = new SpellInfo(
 			"Animal Form", null,
 			-1,
 			9002
@@ -157,7 +157,7 @@ namespace Server.Spells.Ninjitsu
 			FinishSequence();
 		}
 
-		private static Hashtable m_LastAnimalForms = new Hashtable();
+		private static readonly Hashtable m_LastAnimalForms = new Hashtable();
 
 		public int GetLastAnimalForm(Mobile m)
 		{
@@ -249,7 +249,7 @@ namespace Server.Spells.Ninjitsu
 			return MorphResult.Success;
 		}
 
-		private static Hashtable m_Table = new Hashtable();
+		private static readonly Hashtable m_Table = new Hashtable();
 
 		public static void AddContext(Mobile m, AnimalFormContext context)
 		{
@@ -314,8 +314,8 @@ namespace Server.Spells.Ninjitsu
 
 		public class AnimalFormEntry
 		{
-			private int m_HueModMin;
-			private int m_HueModMax;
+			private readonly int m_HueModMin;
+			private readonly int m_HueModMax;
 
 			public Type Type { get; }
 			public TextDefinition Name { get; }
@@ -369,9 +369,9 @@ namespace Server.Spells.Ninjitsu
 		public class AnimalFormGump : Gump
 		{
 			//TODO: Convert this for ML to the BaseImageTileButtonsgump
-			private Mobile m_Caster;
-			private AnimalForm m_Spell;
-			private Item m_Talisman;
+			private readonly Mobile m_Caster;
+			private readonly AnimalForm m_Spell;
+			private readonly Item m_Talisman;
 
 			public AnimalFormGump(Mobile caster, AnimalFormEntry[] entries, AnimalForm spell)
 				: base(50, 50)
@@ -497,9 +497,9 @@ namespace Server.Spells.Ninjitsu
 
 	public class AnimalFormTimer : Timer
 	{
-		private Mobile m_Mobile;
-		private int m_Body;
-		private int m_Hue;
+		private readonly Mobile m_Mobile;
+		private readonly int m_Body;
+		private readonly int m_Hue;
 		private int m_Counter;
 		private Mobile m_LastTarget;
 

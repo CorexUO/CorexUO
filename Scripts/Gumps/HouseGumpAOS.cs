@@ -1,11 +1,11 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using Server.Items;
 using Server.Mobiles;
 using Server.Multis;
 using Server.Network;
 using Server.Prompts;
+using System;
+using System.Collections;
+using System.Collections.Generic;
 
 namespace Server.Gumps
 {
@@ -33,8 +33,8 @@ namespace Server.Gumps
 
 	public class HouseGumpAOS : Gump
 	{
-		private BaseHouse m_House;
-		private HouseGumpPageAOS m_Page;
+		private readonly BaseHouse m_House;
+		private readonly HouseGumpPageAOS m_Page;
 
 		private const int LabelColor = 0x7FFF;
 		private const int SelectedColor = 0x421F;
@@ -165,13 +165,13 @@ namespace Server.Gumps
 			return 1 + (index * 15) + type;
 		}
 
-		private static int[] m_HangerNumbers = new int[]
+		private static readonly int[] m_HangerNumbers = new int[]
 			{
 				2968, 2970, 2972,
 				2974, 2976, 2978
 			};
 
-		private static int[] m_FoundationNumbers = (Core.ML ? new int[]
+		private static readonly int[] m_FoundationNumbers = (Core.ML ? new int[]
 			{
 				20, 189, 765, 65, 101, 0x2DF7, 0x2DFB, 0x3672, 0x3676
 			} :
@@ -180,7 +180,7 @@ namespace Server.Gumps
 				20, 189, 765, 65, 101
 			});
 
-		private static int[] m_PostNumbers = new int[]
+		private static readonly int[] m_PostNumbers = new int[]
 			{
 				9, 29, 54, 90, 147, 169,
 				177, 204, 251, 257, 263,
@@ -190,7 +190,7 @@ namespace Server.Gumps
 				974, 982
 			};
 
-		private static List<int> _HouseSigns = new List<int>();
+		private static readonly List<int> _HouseSigns = new List<int>();
 
 		public HouseGumpAOS(HouseGumpPageAOS page, Mobile from, BaseHouse house) : base(50, 40)
 		{
@@ -370,10 +370,9 @@ namespace Server.Gumps
 						AddHtmlLocalized( 10, 230, 275, 20, 1011240, LabelColor, false, false ); // Maximum number of secure containers:
 						AddLabel( 310, 230, LabelHue, m_House.MaxSecures.ToString() );*/
 
-						int fromSecures, fromVendors, fromLockdowns, fromMovingCrate;
 
 						int maxSecures = house.GetAosMaxSecures();
-						int curSecures = house.GetAosCurSecures(out fromSecures, out fromVendors, out fromLockdowns, out fromMovingCrate);
+						int curSecures = house.GetAosCurSecures(out int fromSecures, out int fromVendors, out int fromLockdowns, out int fromMovingCrate);
 
 						int maxLockdowns = house.GetAosMaxLockdowns();
 						int curLockdowns = house.GetAosCurLockdowns();
@@ -1052,7 +1051,7 @@ namespace Server.Gumps
 
 										for (int i = 0; i < list.Count; ++i)
 										{
-											Mobile m = (Mobile)list[i];
+											Mobile m = list[i];
 
 											if (!m_House.HasAccess(m) && m_House.IsInside(m))
 												m.Location = m_House.BanLocation;
@@ -1085,7 +1084,7 @@ namespace Server.Gumps
 
 										for (int i = 0; i < list.Count; ++i)
 										{
-											Mobile m = (Mobile)list[i];
+											Mobile m = list[i];
 
 											if (m_House.IsBanned(m) && m_House.IsInside(m))
 												m.Location = m_House.BanLocation;

@@ -1,11 +1,11 @@
-using System.Collections.Generic;
 using Server.Targeting;
+using System.Collections.Generic;
 
 namespace Server.Spells.Seventh
 {
 	public class ChainLightningSpell : MagerySpell
 	{
-		private static SpellInfo m_Info = new SpellInfo(
+		private static readonly SpellInfo m_Info = new SpellInfo(
 				"Chain Lightning", "Vas Ort Grav",
 				209,
 				9022,
@@ -126,7 +126,7 @@ namespace Server.Spells.Seventh
 
 		private class InternalTarget : Target
 		{
-			private ChainLightningSpell m_Owner;
+			private readonly ChainLightningSpell m_Owner;
 
 			public InternalTarget(ChainLightningSpell owner) : base(owner.SpellRange, true, TargetFlags.None)
 			{

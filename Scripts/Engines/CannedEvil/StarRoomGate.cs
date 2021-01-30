@@ -54,7 +54,7 @@ namespace Server.Items
 		{
 			base.Serialize(writer);
 
-			writer.Write((int)0); // version
+			writer.Write(0); // version
 
 			writer.Write(m_Decays);
 
@@ -89,7 +89,7 @@ namespace Server.Items
 
 		private class InternalTimer : Timer
 		{
-			private Item m_Item;
+			private readonly Item m_Item;
 
 			public InternalTimer(Item item, DateTime end) : base(end - DateTime.UtcNow)
 			{

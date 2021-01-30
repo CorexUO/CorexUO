@@ -18,7 +18,7 @@ namespace Server.Factions.AI
 
 	public class Reaction
 	{
-		private Faction m_Faction;
+		private readonly Faction m_Faction;
 		private ReactionType m_Type;
 
 		public Faction Faction { get { return m_Faction; } }
@@ -48,7 +48,7 @@ namespace Server.Factions.AI
 
 		public void Serialize(GenericWriter writer)
 		{
-			writer.WriteEncodedInt((int)0); // version
+			writer.WriteEncodedInt(0); // version
 
 			Faction.WriteReference(writer, m_Faction);
 			writer.WriteEncodedInt((int)m_Type);
@@ -57,9 +57,9 @@ namespace Server.Factions.AI
 
 	public class Orders
 	{
-		private BaseFactionGuard m_Guard;
+		private readonly BaseFactionGuard m_Guard;
 
-		private List<Reaction> m_Reactions;
+		private readonly List<Reaction> m_Reactions;
 		private MovementType m_Movement;
 		private Mobile m_Follow;
 
@@ -127,11 +127,11 @@ namespace Server.Factions.AI
 
 		public void Serialize(GenericWriter writer)
 		{
-			writer.WriteEncodedInt((int)0); // version
+			writer.WriteEncodedInt(0); // version
 
-			writer.Write((Mobile)m_Follow);
+			writer.Write(m_Follow);
 
-			writer.WriteEncodedInt((int)m_Reactions.Count);
+			writer.WriteEncodedInt(m_Reactions.Count);
 
 			for (int i = 0; i < m_Reactions.Count; ++i)
 				m_Reactions[i].Serialize(writer);

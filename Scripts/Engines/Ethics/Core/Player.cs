@@ -1,5 +1,5 @@
-using System;
 using Server.Mobiles;
+using System;
 
 namespace Server.Ethics
 {
@@ -43,8 +43,8 @@ namespace Server.Ethics
 			return pl;
 		}
 
-		private Ethic m_Ethic;
-		private Mobile m_Mobile;
+		private readonly Ethic m_Ethic;
+		private readonly Mobile m_Mobile;
 
 		private int m_Power;
 		private int m_History;

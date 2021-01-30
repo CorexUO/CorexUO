@@ -1,5 +1,5 @@
-using System;
 using Server.Mobiles;
+using System;
 
 namespace Server
 {
@@ -62,21 +62,21 @@ namespace Server
 			return 21000;
 		}
 
-		public static bool Award( Mobile from, VirtueName virtue, int amount, ref bool gainedPath )
+		public static bool Award(Mobile from, VirtueName virtue, int amount, ref bool gainedPath)
 		{
-			int current = from.Virtues.GetValue( (int)virtue );
+			int current = from.Virtues.GetValue((int)virtue);
 
-			int maxAmount = GetMaxAmount( virtue );
+			int maxAmount = GetMaxAmount(virtue);
 
-			if ( current >= maxAmount )
+			if (current >= maxAmount)
 				return false;
 
-			if( (current + amount) >= maxAmount )
+			if ((current + amount) >= maxAmount)
 				amount = maxAmount - current;
 
-			VirtueLevel oldLevel = GetLevel( from, virtue );
+			VirtueLevel oldLevel = GetLevel(from, virtue);
 
-			from.Virtues.SetValue( (int)virtue, current + amount );
+			from.Virtues.SetValue((int)virtue, current + amount);
 
 			var newLevel = GetLevel(from, virtue);
 			gainedPath = (newLevel != oldLevel);

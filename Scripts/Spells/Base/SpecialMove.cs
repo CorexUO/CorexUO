@@ -1,9 +1,9 @@
-using System;
-using System.Collections.Generic;
 using Server.Items;
 using Server.Network;
 using Server.Spells.Bushido;
 using Server.Spells.Ninjitsu;
+using System;
+using System.Collections.Generic;
 
 namespace Server.Spells
 {
@@ -285,7 +285,7 @@ namespace Server.Spells
 		{
 		}
 
-		private static Dictionary<Mobile, SpecialMoveContext> m_PlayersTable = new Dictionary<Mobile, SpecialMoveContext>();
+		private static readonly Dictionary<Mobile, SpecialMoveContext> m_PlayersTable = new Dictionary<Mobile, SpecialMoveContext>();
 
 		private static void AddContext(Mobile m, SpecialMoveContext context)
 		{
@@ -321,7 +321,7 @@ namespace Server.Spells
 
 		private class SpecialMoveTimer : Timer
 		{
-			private Mobile m_Mobile;
+			private readonly Mobile m_Mobile;
 
 			public SpecialMoveTimer(Mobile from) : base(TimeSpan.FromSeconds(3.0))
 			{

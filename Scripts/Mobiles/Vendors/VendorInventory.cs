@@ -1,6 +1,6 @@
+using Server.Multis;
 using System;
 using System.Collections.Generic;
-using Server.Multis;
 
 namespace Server.Mobiles
 {
@@ -13,7 +13,7 @@ namespace Server.Mobiles
 		private string m_ShopName;
 		private Mobile m_Owner;
 
-		private List<Item> m_Items;
+		private readonly List<Item> m_Items;
 		private int m_Gold;
 
 		private readonly DateTime m_ExpireTime;
@@ -99,12 +99,12 @@ namespace Server.Mobiles
 		{
 			writer.WriteEncodedInt(0); // version
 
-			writer.Write((Mobile)m_Owner);
-			writer.Write((string)m_VendorName);
-			writer.Write((string)m_ShopName);
+			writer.Write(m_Owner);
+			writer.Write(m_VendorName);
+			writer.Write(m_ShopName);
 
 			writer.Write(m_Items, true);
-			writer.Write((int)m_Gold);
+			writer.Write(m_Gold);
 
 			writer.WriteDeltaTime(m_ExpireTime);
 		}
@@ -138,7 +138,7 @@ namespace Server.Mobiles
 
 		private class ExpireTimer : Timer
 		{
-			private VendorInventory m_Inventory;
+			private readonly VendorInventory m_Inventory;
 
 			public ExpireTimer(VendorInventory inventory, TimeSpan delay) : base(delay)
 			{

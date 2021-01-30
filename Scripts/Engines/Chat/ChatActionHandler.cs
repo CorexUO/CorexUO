@@ -4,9 +4,9 @@ namespace Server.Engines.Chat
 
 	public class ChatActionHandler
 	{
-		private bool m_RequireModerator;
-		private bool m_RequireConference;
-		private OnChatAction m_Callback;
+		private readonly bool m_RequireModerator;
+		private readonly bool m_RequireConference;
+		private readonly OnChatAction m_Callback;
 
 		public bool RequireModerator { get { return m_RequireModerator; } }
 		public bool RequireConference { get { return m_RequireConference; } }

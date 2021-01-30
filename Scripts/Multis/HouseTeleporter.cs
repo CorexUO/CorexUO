@@ -1,8 +1,8 @@
-using System;
-using System.Collections.Generic;
 using Server.ContextMenus;
 using Server.Gumps;
 using Server.Multis;
+using System;
+using System.Collections.Generic;
 
 namespace Server.Items
 {
@@ -72,11 +72,11 @@ namespace Server.Items
 		{
 			base.Serialize(writer);
 
-			writer.Write((int)0); // version
+			writer.Write(0); // version
 
 			writer.Write((int)Level);
 
-			writer.Write((Item)Target);
+			writer.Write(Target);
 		}
 
 		public override void Deserialize(GenericReader reader)

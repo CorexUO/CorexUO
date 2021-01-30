@@ -5,7 +5,7 @@ namespace Server
 {
 	public class VirtueStatusGump : Gump
 	{
-		private Mobile m_Beholder;
+		private readonly Mobile m_Beholder;
 
 		public VirtueStatusGump(Mobile beholder) : base(0, 0)
 		{

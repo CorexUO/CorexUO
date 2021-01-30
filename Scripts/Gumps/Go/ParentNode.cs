@@ -3,78 +3,78 @@ using System.Xml;
 
 namespace Server.Gumps
 {
-    public class ParentNode
-    {
-        private ParentNode m_Parent;
-        private object[] m_Children;
+	public class ParentNode
+	{
+		private readonly ParentNode m_Parent;
+		private object[] m_Children;
 
-        private string m_Name;
+		private string m_Name;
 
-        public ParentNode(XmlTextReader xml, ParentNode parent)
-        {
-            m_Parent = parent;
+		public ParentNode(XmlTextReader xml, ParentNode parent)
+		{
+			m_Parent = parent;
 
-            Parse(xml);
-        }
+			Parse(xml);
+		}
 
-        private void Parse(XmlTextReader xml)
-        {
-            if (xml.MoveToAttribute("name"))
-                m_Name = xml.Value;
-            else
-                m_Name = "empty";
+		private void Parse(XmlTextReader xml)
+		{
+			if (xml.MoveToAttribute("name"))
+				m_Name = xml.Value;
+			else
+				m_Name = "empty";
 
-            if (xml.IsEmptyElement)
-            {
-                m_Children = new object[0];
-            }
-            else
-            {
-                ArrayList children = new ArrayList();
+			if (xml.IsEmptyElement)
+			{
+				m_Children = new object[0];
+			}
+			else
+			{
+				ArrayList children = new ArrayList();
 
-                while (xml.Read() && (xml.NodeType == XmlNodeType.Element || xml.NodeType == XmlNodeType.Comment))
-                {
-                    if (xml.NodeType == XmlNodeType.Comment)
-                        continue;
+				while (xml.Read() && (xml.NodeType == XmlNodeType.Element || xml.NodeType == XmlNodeType.Comment))
+				{
+					if (xml.NodeType == XmlNodeType.Comment)
+						continue;
 
-                    if (xml.Name == "child")
-                    {
-                        ChildNode n = new ChildNode(xml, this);
+					if (xml.Name == "child")
+					{
+						ChildNode n = new ChildNode(xml, this);
 
-                        children.Add(n);
-                    }
-                    else
-                    {
-                        children.Add(new ParentNode(xml, this));
-                    }
-                }
+						children.Add(n);
+					}
+					else
+					{
+						children.Add(new ParentNode(xml, this));
+					}
+				}
 
-                m_Children = children.ToArray();
-            }
-        }
+				m_Children = children.ToArray();
+			}
+		}
 
-        public ParentNode Parent
-        {
-            get
-            {
-                return m_Parent;
-            }
-        }
+		public ParentNode Parent
+		{
+			get
+			{
+				return m_Parent;
+			}
+		}
 
-        public object[] Children
-        {
-            get
-            {
-                return m_Children;
-            }
-        }
+		public object[] Children
+		{
+			get
+			{
+				return m_Children;
+			}
+		}
 
-        public string Name
-        {
-            get
-            {
-                return m_Name;
-            }
-        }
-    }
+		public string Name
+		{
+			get
+			{
+				return m_Name;
+			}
+		}
+	}
 }

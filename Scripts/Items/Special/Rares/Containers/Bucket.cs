@@ -1,43 +1,43 @@
 ﻿namespace Server.Items
 {
-    class Bucket : BaseWaterContainer
-    {
-        public override int VoidItem_ID { get { return vItemID; } }
-        public override int FullItem_ID { get { return fItemID; } }
-        public override int MaxQuantity { get { return 25; } }
+	class Bucket : BaseWaterContainer
+	{
+		public override int VoidItem_ID { get { return vItemID; } }
+		public override int FullItem_ID { get { return fItemID; } }
+		public override int MaxQuantity { get { return 25; } }
 
-        private static int vItemID = 0x14e0;
-        private static int fItemID = 0x2004;
+		private static readonly int vItemID = 0x14e0;
+		private static readonly int fItemID = 0x2004;
 
-        [Constructable]
-        public Bucket()
-            : this(false)
-        {
-        }
+		[Constructable]
+		public Bucket()
+			: this(false)
+		{
+		}
 
-        [Constructable]
-        public Bucket(bool filled)
-            : base((filled) ? Bucket.fItemID : Bucket.vItemID, filled)
-        {
-        }
+		[Constructable]
+		public Bucket(bool filled)
+			: base((filled) ? Bucket.fItemID : Bucket.vItemID, filled)
+		{
+		}
 
-        public Bucket(Serial serial)
-            : base(serial)
-        {
-        }
+		public Bucket(Serial serial)
+			: base(serial)
+		{
+		}
 
-        public override void Serialize(GenericWriter writer)
-        {
-            base.Serialize(writer);
+		public override void Serialize(GenericWriter writer)
+		{
+			base.Serialize(writer);
 
-            writer.Write((int)0); // version
-        }
+			writer.Write(0); // version
+		}
 
-        public override void Deserialize(GenericReader reader)
-        {
-            base.Deserialize(reader);
+		public override void Deserialize(GenericReader reader)
+		{
+			base.Deserialize(reader);
 
-            int version = reader.ReadInt();
-        }
-    }
+			int version = reader.ReadInt();
+		}
+	}
 }

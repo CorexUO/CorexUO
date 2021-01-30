@@ -1,7 +1,7 @@
-using System;
 using Server.Multis;
 using Server.Prompts;
 using Server.Regions;
+using System;
 
 namespace Server.Items
 {
@@ -17,20 +17,20 @@ namespace Server.Items
 		public override void Serialize(GenericWriter writer)
 		{
 			base.Serialize(writer);
-			writer.Write((int)0); // version
+			writer.Write(0); // version
 
 			bool house = m_House != null && !m_House.Deleted;
 
 			writer.Write(house);
 			if (house)
 			{
-				writer.Write((Item)m_House);
+				writer.Write(m_House);
 			}
 
-			writer.Write((string)m_Description);
-			writer.Write((bool)m_Marked);
-			writer.Write((Point3D)m_Target);
-			writer.Write((Map)m_TargetMap);
+			writer.Write(m_Description);
+			writer.Write(m_Marked);
+			writer.Write(m_Target);
+			writer.Write(m_TargetMap);
 		}
 
 		public override void Deserialize(GenericReader reader)

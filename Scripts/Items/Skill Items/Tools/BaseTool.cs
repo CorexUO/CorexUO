@@ -1,6 +1,6 @@
-using System;
 using Server.Engines.Craft;
 using Server.Network;
+using System;
 
 namespace Server.Items
 {
@@ -163,11 +163,11 @@ namespace Server.Items
 		{
 			base.Serialize(writer);
 
-			writer.Write((int)0); // version
+			writer.Write(0); // version
 
-			writer.Write((Mobile)m_Crafter);
+			writer.Write(m_Crafter);
 
-			writer.Write((int)m_UsesRemaining);
+			writer.Write(m_UsesRemaining);
 		}
 
 		public override void Deserialize(GenericReader reader)

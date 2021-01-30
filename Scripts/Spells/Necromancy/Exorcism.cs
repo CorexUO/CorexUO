@@ -1,17 +1,17 @@
-using System;
-using System.Collections.Generic;
 using Server.Engines.CannedEvil;
 using Server.Engines.PartySystem;
 using Server.Factions;
 using Server.Guilds;
 using Server.Items;
 using Server.Regions;
+using System;
+using System.Collections.Generic;
 
 namespace Server.Spells.Necromancy
 {
 	public class ExorcismSpell : NecromancerSpell
 	{
-		private static SpellInfo m_Info = new SpellInfo(
+		private static readonly SpellInfo m_Info = new SpellInfo(
 				"Exorcism", "Ort Corp Grav",
 				203,
 				9031,

@@ -1,7 +1,7 @@
-using System.Collections.Generic;
 using Server.Items;
 using Server.Mobiles;
 using Server.Network;
+using System.Collections.Generic;
 
 namespace Server.Gumps
 {
@@ -15,10 +15,10 @@ namespace Server.Gumps
 
 	public class ResurrectGump : Gump
 	{
-		private Mobile m_Healer;
-		private int m_Price;
-		private bool m_FromSacrifice;
-		private double m_HitsScalar;
+		private readonly Mobile m_Healer;
+		private readonly int m_Price;
+		private readonly bool m_FromSacrifice;
+		private readonly double m_HitsScalar;
 
 		public ResurrectGump(Mobile owner)
 			: this(owner, owner, ResurrectMessage.Generic, false)

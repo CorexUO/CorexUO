@@ -1,13 +1,13 @@
-using System;
 using Server.Mobiles;
 using Server.Spells.Chivalry;
 using Server.Targeting;
+using System;
 
 namespace Server.Spells.Fifth
 {
 	public class ParalyzeSpell : MagerySpell
 	{
-		private static SpellInfo m_Info = new SpellInfo(
+		private static readonly SpellInfo m_Info = new SpellInfo(
 				"Paralyze", "An Ex Por",
 				218,
 				9012,
@@ -100,7 +100,7 @@ namespace Server.Spells.Fifth
 
 		public class InternalTarget : Target
 		{
-			private ParalyzeSpell m_Owner;
+			private readonly ParalyzeSpell m_Owner;
 
 			public InternalTarget(ParalyzeSpell owner) : base(owner.SpellRange, false, TargetFlags.Harmful)
 			{

@@ -2,47 +2,47 @@ using System.Collections.Generic;
 
 namespace Server.Mobiles
 {
-    [TypeAlias("Server.Mobiles.GargoyleStonecrafter")]
-    public class StoneCrafter : BaseVendor
-    {
-        private List<SBInfo> m_SBInfos = new List<SBInfo>();
-        protected override List<SBInfo> SBInfos { get { return m_SBInfos; } }
+	[TypeAlias("Server.Mobiles.GargoyleStonecrafter")]
+	public class StoneCrafter : BaseVendor
+	{
+		private readonly List<SBInfo> m_SBInfos = new List<SBInfo>();
+		protected override List<SBInfo> SBInfos { get { return m_SBInfos; } }
 
-        public override NpcGuild NpcGuild { get { return NpcGuild.TinkersGuild; } }
+		public override NpcGuild NpcGuild { get { return NpcGuild.TinkersGuild; } }
 
-        [Constructable]
-        public StoneCrafter() : base("the stone crafter")
-        {
-            SetSkill(SkillName.Carpentry, 85.0, 100.0);
-        }
+		[Constructable]
+		public StoneCrafter() : base("the stone crafter")
+		{
+			SetSkill(SkillName.Carpentry, 85.0, 100.0);
+		}
 
-        public override void InitSBInfo()
-        {
-            m_SBInfos.Add(new SBStoneCrafter());
-            m_SBInfos.Add(new SBStavesWeapon());
-            m_SBInfos.Add(new SBCarpenter());
-            m_SBInfos.Add(new SBWoodenShields());
-        }
+		public override void InitSBInfo()
+		{
+			m_SBInfos.Add(new SBStoneCrafter());
+			m_SBInfos.Add(new SBStavesWeapon());
+			m_SBInfos.Add(new SBCarpenter());
+			m_SBInfos.Add(new SBWoodenShields());
+		}
 
-        public StoneCrafter(Serial serial) : base(serial)
-        {
-        }
+		public StoneCrafter(Serial serial) : base(serial)
+		{
+		}
 
-        public override void Serialize(GenericWriter writer)
-        {
-            base.Serialize(writer);
+		public override void Serialize(GenericWriter writer)
+		{
+			base.Serialize(writer);
 
-            writer.Write((int)0); // version
-        }
+			writer.Write(0); // version
+		}
 
-        public override void Deserialize(GenericReader reader)
-        {
-            base.Deserialize(reader);
+		public override void Deserialize(GenericReader reader)
+		{
+			base.Deserialize(reader);
 
-            int version = reader.ReadInt();
+			int version = reader.ReadInt();
 
-            if (Title == "the stonecrafter")
-                Title = "the stone crafter";
-        }
-    }
+			if (Title == "the stonecrafter")
+				Title = "the stone crafter";
+		}
+	}
 }

@@ -7,8 +7,8 @@ namespace Server.Gumps
 {
 	public class HouseDemolishGump : Gump
 	{
-		private Mobile m_Mobile;
-		private BaseHouse m_House;
+		private readonly Mobile m_Mobile;
+		private readonly BaseHouse m_House;
 
 		public HouseDemolishGump(Mobile mobile, BaseHouse house) : base(110, 100)
 		{

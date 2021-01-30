@@ -1,8 +1,8 @@
+using Server.Commands;
+using Server.Mobiles;
 using System;
 using System.Collections;
 using System.IO;
-using Server.Commands;
-using Server.Mobiles;
 
 // Version 0.8
 
@@ -294,7 +294,7 @@ namespace Server
 			return z;
 		}
 
-		private static Queue m_ToDelete = new Queue();
+		private static readonly Queue m_ToDelete = new Queue();
 
 		public static void ClearSpawners(int x, int y, int z, Map map)
 		{

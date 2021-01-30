@@ -1,12 +1,12 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using Server.ContextMenus;
 using Server.Gumps;
 using Server.Items;
 using Server.Mobiles;
 using Server.Multis;
 using Server.Prompts;
+using System;
+using System.Collections;
+using System.Collections.Generic;
 
 namespace Server.Engines.BulkOrders
 {
@@ -185,9 +185,9 @@ namespace Server.Engines.BulkOrders
 		{
 			base.Serialize(writer);
 
-			writer.Write((int)0); // version
+			writer.Write(0); // version
 
-			writer.Write((int)m_ItemCount);
+			writer.Write(m_ItemCount);
 
 			writer.Write((int)m_Level);
 
@@ -195,7 +195,7 @@ namespace Server.Engines.BulkOrders
 
 			m_Filter.Serialize(writer);
 
-			writer.WriteEncodedInt((int)m_Entries.Count);
+			writer.WriteEncodedInt(m_Entries.Count);
 
 			for (int i = 0; i < m_Entries.Count; ++i)
 			{
@@ -288,8 +288,8 @@ namespace Server.Engines.BulkOrders
 
 		private class NameBookEntry : ContextMenuEntry
 		{
-			private Mobile m_From;
-			private BulkOrderBook m_Book;
+			private readonly Mobile m_From;
+			private readonly BulkOrderBook m_Book;
 
 			public NameBookEntry(Mobile from, BulkOrderBook book) : base(6216)
 			{
@@ -309,7 +309,7 @@ namespace Server.Engines.BulkOrders
 
 		private class NameBookPrompt : Prompt
 		{
-			private BulkOrderBook m_Book;
+			private readonly BulkOrderBook m_Book;
 
 			public NameBookPrompt(BulkOrderBook book)
 			{

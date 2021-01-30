@@ -18,7 +18,7 @@ namespace Server.Commands.Generic
 			get { return ExtInfo; }
 		}
 
-		private List<Property> m_Properties;
+		private readonly List<Property> m_Properties;
 
 		private IComparer m_Comparer;
 

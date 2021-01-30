@@ -4,7 +4,7 @@ namespace Server.Spells.Second
 {
 	public class HarmSpell : MagerySpell
 	{
-		private static SpellInfo m_Info = new SpellInfo(
+		private static readonly SpellInfo m_Info = new SpellInfo(
 				"Harm", "An Mani",
 				212,
 				Core.AOS ? 9001 : 9041,
@@ -98,7 +98,7 @@ namespace Server.Spells.Second
 
 		private class InternalTarget : Target
 		{
-			private HarmSpell m_Owner;
+			private readonly HarmSpell m_Owner;
 
 			public InternalTarget(HarmSpell owner) : base(owner.SpellRange, false, TargetFlags.Harmful)
 			{

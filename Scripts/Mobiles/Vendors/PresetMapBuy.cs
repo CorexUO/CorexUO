@@ -4,7 +4,7 @@ namespace Server.Mobiles
 {
 	public class PresetMapBuyInfo : GenericBuyInfo
 	{
-		private PresetMapEntry m_Entry;
+		private readonly PresetMapEntry m_Entry;
 
 		public override bool CanCacheDisplay { get { return false; } }
 

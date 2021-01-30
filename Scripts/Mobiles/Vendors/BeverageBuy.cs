@@ -1,11 +1,11 @@
-using System;
 using Server.Items;
+using System;
 
 namespace Server.Mobiles
 {
 	public class BeverageBuyInfo : GenericBuyInfo
 	{
-		private BeverageType m_Content;
+		private readonly BeverageType m_Content;
 
 		public override bool CanCacheDisplay { get { return false; } }
 

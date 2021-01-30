@@ -5,7 +5,7 @@ namespace Server.Items
 	[FlipableAttribute(0x236E, 0x2371)]
 	public class LightOfTheWinterSolstice : BaseItem
 	{
-		private static string[] m_StaffNames = new string[]
+		private static readonly string[] m_StaffNames = new string[]
 			{
 				"Aenima",
 				"Alkiser",
@@ -70,9 +70,9 @@ namespace Server.Items
 		{
 			base.Serialize(writer);
 
-			writer.Write((int)0); // version
+			writer.Write(0); // version
 
-			writer.Write((string)m_Dipper);
+			writer.Write(m_Dipper);
 		}
 
 		public override void Deserialize(GenericReader reader)

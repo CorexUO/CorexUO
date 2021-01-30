@@ -1,10 +1,10 @@
+using Server.Gumps;
+using Server.Network;
+using Server.Prompts;
 using System;
 using System.Collections.Generic;
 using System.Net;
 using System.Text.RegularExpressions;
-using Server.Gumps;
-using Server.Network;
-using Server.Prompts;
 
 namespace Server.Misc
 {
@@ -213,7 +213,7 @@ namespace Server.Misc
 		{
 			base.Serialize(writer);
 
-			writer.Write((int)0); // version
+			writer.Write(0); // version
 
 			writer.Write(m_Title);
 			writer.Write(Duration);
@@ -359,7 +359,7 @@ namespace Server.Misc
 
 		public void Serialize(GenericWriter writer)
 		{
-			writer.Write((int)0); // version
+			writer.Write(0); // version
 
 			writer.Write(m_Title);
 

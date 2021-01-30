@@ -1,6 +1,6 @@
-using System;
 using Server.Items;
 using Server.Network;
+using System;
 
 namespace Server.Engines.Harvest
 {
@@ -19,7 +19,7 @@ namespace Server.Engines.Harvest
 			}
 		}
 
-		private HarvestDefinition m_Definition;
+		private readonly HarvestDefinition m_Definition;
 
 		public HarvestDefinition Definition
 		{
@@ -185,7 +185,7 @@ namespace Server.Engines.Harvest
 		}
 
 		#region Tile lists
-		private static int[] m_TreeTiles = new int[]
+		private static readonly int[] m_TreeTiles = new int[]
 			{
 				0x4CCA, 0x4CCB, 0x4CCC, 0x4CCD, 0x4CD0, 0x4CD3, 0x4CD6, 0x4CD8,
 				0x4CDA, 0x4CDD, 0x4CE0, 0x4CE3, 0x4CE6, 0x4CF8, 0x4CFB, 0x4CFE,

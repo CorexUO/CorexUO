@@ -1,6 +1,3 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using Server.Accounting;
 using Server.ContextMenus;
 using Server.Guilds;
@@ -12,6 +9,9 @@ using Server.Multis.Deeds;
 using Server.Network;
 using Server.Regions;
 using Server.Targeting;
+using System;
+using System.Collections;
+using System.Collections.Generic;
 
 namespace Server.Multis
 {
@@ -1642,7 +1642,7 @@ namespace Server.Multis
 			{
 				base.Serialize(writer);
 
-				writer.Write((int)0); // version
+				writer.Write(0); // version
 			}
 
 			public override void Deserialize(GenericReader reader)
@@ -2347,11 +2347,11 @@ namespace Server.Multis
 		{
 			base.Serialize(writer);
 
-			writer.Write((int)0); // version
+			writer.Write(0); // version
 
 			if (!DynamicDecay.Enabled)
 			{
-				writer.Write((int)-1);
+				writer.Write(-1);
 			}
 			else
 			{
@@ -2359,7 +2359,7 @@ namespace Server.Multis
 				writer.Write(NextDecayStage);
 			}
 
-			writer.Write((Point3D)m_RelativeBanLocation);
+			writer.Write(m_RelativeBanLocation);
 
 			writer.WriteItemList(VendorRentalContracts, true);
 			writer.WriteMobileList(InternalizedVendors, true);
@@ -2367,12 +2367,12 @@ namespace Server.Multis
 			writer.WriteEncodedInt(RelocatedEntities.Count);
 			foreach (RelocatedEntity relEntity in RelocatedEntities)
 			{
-				writer.Write((Point3D)relEntity.RelativeLocation);
+				writer.Write(relEntity.RelativeLocation);
 
 				if (relEntity.Entity.Deleted)
-					writer.Write((int)Serial.MinusOne);
+					writer.Write(Serial.MinusOne);
 				else
-					writer.Write((int)relEntity.Entity.Serial);
+					writer.Write(relEntity.Entity.Serial);
 			}
 
 			writer.WriteEncodedInt(VendorInventories.Count);
@@ -2382,12 +2382,12 @@ namespace Server.Multis
 				inventory.Serialize(writer);
 			}
 
-			writer.Write((DateTime)LastRefreshed);
-			writer.Write((bool)RestrictDecay);
+			writer.Write(LastRefreshed);
+			writer.Write(RestrictDecay);
 
-			writer.Write((int)Visits);
+			writer.Write(Visits);
 
-			writer.Write((int)Price);
+			writer.Write(Price);
 
 			writer.WriteMobileList(Access);
 
@@ -2415,8 +2415,8 @@ namespace Server.Multis
 			writer.WriteItemList(Doors, true);
 			writer.WriteItemList(LockDowns, true);
 
-			writer.Write((int)MaxLockDowns);
-			writer.Write((int)MaxSecures);
+			writer.Write(MaxLockDowns);
+			writer.Write(MaxSecures);
 
 			// Items in locked down containers that aren't locked down themselves must decay!
 			for (int i = 0; i < LockDowns.Count; ++i)
@@ -2840,8 +2840,8 @@ namespace Server.Multis
 
 		private class FixColumnTimer : Timer
 		{
-			private Map m_Map;
-			private int m_StartX, m_StartY, m_EndX, m_EndY;
+			private readonly Map m_Map;
+			private readonly int m_StartX, m_StartY, m_EndX, m_EndY;
 
 			public FixColumnTimer(BaseMulti multi) : base(TimeSpan.Zero)
 			{
@@ -3368,7 +3368,7 @@ namespace Server.Multis
 	public class LockdownTarget : Target
 	{
 		private readonly bool m_Release;
-		private BaseHouse m_House;
+		private readonly BaseHouse m_House;
 
 		public LockdownTarget(bool release, BaseHouse house) : base(12, false, TargetFlags.None)
 		{
@@ -3447,8 +3447,8 @@ namespace Server.Multis
 
 	public class SecureTarget : Target
 	{
-		private bool m_Release;
-		private BaseHouse m_House;
+		private readonly bool m_Release;
+		private readonly BaseHouse m_House;
 
 		public SecureTarget(bool release, BaseHouse house) : base(12, false, TargetFlags.None)
 		{
@@ -3518,7 +3518,7 @@ namespace Server.Multis
 
 	public class HouseKickTarget : Target
 	{
-		private BaseHouse m_House;
+		private readonly BaseHouse m_House;
 
 		public HouseKickTarget(BaseHouse house) : base(-1, false, TargetFlags.None)
 		{
@@ -3545,8 +3545,8 @@ namespace Server.Multis
 
 	public class HouseBanTarget : Target
 	{
-		private BaseHouse m_House;
-		private bool m_Banning;
+		private readonly BaseHouse m_House;
+		private readonly bool m_Banning;
 
 		public HouseBanTarget(bool ban, BaseHouse house) : base(-1, false, TargetFlags.None)
 		{
@@ -3577,7 +3577,7 @@ namespace Server.Multis
 
 	public class HouseAccessTarget : Target
 	{
-		private BaseHouse m_House;
+		private readonly BaseHouse m_House;
 
 		public HouseAccessTarget(BaseHouse house) : base(-1, false, TargetFlags.None)
 		{
@@ -3600,8 +3600,8 @@ namespace Server.Multis
 
 	public class CoOwnerTarget : Target
 	{
-		private BaseHouse m_House;
-		private bool m_Add;
+		private readonly BaseHouse m_House;
+		private readonly bool m_Add;
 
 		public CoOwnerTarget(bool add, BaseHouse house) : base(12, false, TargetFlags.None)
 		{
@@ -3632,8 +3632,8 @@ namespace Server.Multis
 
 	public class HouseFriendTarget : Target
 	{
-		private BaseHouse m_House;
-		private bool m_Add;
+		private readonly BaseHouse m_House;
+		private readonly bool m_Add;
 
 		public HouseFriendTarget(bool add, BaseHouse house) : base(12, false, TargetFlags.None)
 		{
@@ -3664,7 +3664,7 @@ namespace Server.Multis
 
 	public class HouseOwnerTarget : Target
 	{
-		private BaseHouse m_House;
+		private readonly BaseHouse m_House;
 
 		public HouseOwnerTarget(BaseHouse house) : base(12, false, TargetFlags.None)
 		{
@@ -3687,7 +3687,7 @@ namespace Server.Multis
 	public class SetSecureLevelEntry : ContextMenuEntry
 	{
 		private readonly Item m_Item;
-		private ISecurable m_Securable;
+		private readonly ISecurable m_Securable;
 
 		public SetSecureLevelEntry(Item item, ISecurable securable) : base(6203, 6)
 		{

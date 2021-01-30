@@ -1,5 +1,5 @@
-using System;
 using Server.Gumps;
+using System;
 
 namespace Server.Items
 {
@@ -123,7 +123,7 @@ namespace Server.Items
 		{
 			base.Serialize(writer);
 
-			writer.Write((int)0); // version
+			writer.Write(0); // version
 
 			writer.Write(m_Stone);
 			writer.Write(m_PlotLocation);

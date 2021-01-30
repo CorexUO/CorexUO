@@ -1,14 +1,14 @@
-using System;
 using Server.Items;
 using Server.Mobiles;
 using Server.Regions;
 using Server.Targeting;
+using System;
 
 namespace Server.Spells.Ninjitsu
 {
 	public class Shadowjump : NinjaSpell
 	{
-		private static SpellInfo m_Info = new SpellInfo(
+		private static readonly SpellInfo m_Info = new SpellInfo(
 			"Shadowjump", null,
 			-1,
 			9002
@@ -107,7 +107,7 @@ namespace Server.Spells.Ninjitsu
 		}
 		public class InternalTarget : Target
 		{
-			private Shadowjump m_Owner;
+			private readonly Shadowjump m_Owner;
 
 			public InternalTarget(Shadowjump owner) : base(11, true, TargetFlags.None)
 			{

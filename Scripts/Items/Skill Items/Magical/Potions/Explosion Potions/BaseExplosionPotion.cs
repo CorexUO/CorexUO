@@ -1,9 +1,9 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using Server.Network;
 using Server.Spells;
 using Server.Targeting;
+using System;
+using System.Collections;
+using System.Collections.Generic;
 
 namespace Server.Items
 {
@@ -31,7 +31,7 @@ namespace Server.Items
 		{
 			base.Serialize(writer);
 
-			writer.Write((int)0); // version
+			writer.Write(0); // version
 		}
 
 		public override void Deserialize(GenericReader reader)
@@ -244,7 +244,7 @@ namespace Server.Items
 			if (direct)
 				alchemyBonus = (int)(from.Skills.Alchemy.Value / (Core.AOS ? 5 : 10));
 
-			IPooledEnumerable eable = LeveledExplosion ? (IPooledEnumerable)map.GetObjectsInRange(loc, ExplosionRange) : (IPooledEnumerable)map.GetMobilesInRange(loc, ExplosionRange);
+			IPooledEnumerable eable = LeveledExplosion ? map.GetObjectsInRange(loc, ExplosionRange) : (IPooledEnumerable)map.GetMobilesInRange(loc, ExplosionRange);
 			ArrayList toExplode = new ArrayList();
 
 			int toDamage = 0;

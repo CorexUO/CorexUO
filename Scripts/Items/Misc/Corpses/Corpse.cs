@@ -1,5 +1,3 @@
-using System;
-using System.Collections.Generic;
 using Server.ContextMenus;
 using Server.Engines.PartySystem;
 using Server.Engines.Quests;
@@ -9,6 +7,8 @@ using Server.Guilds;
 using Server.Misc;
 using Server.Mobiles;
 using Server.Network;
+using System;
+using System.Collections.Generic;
 
 namespace Server.Items
 {
@@ -618,7 +618,7 @@ namespace Server.Items
 		{
 			base.Serialize(writer);
 
-			writer.Write((int)0); // version
+			writer.Write(0); // version
 
 			if (RestoreEquip == null)
 			{
@@ -670,11 +670,11 @@ namespace Server.Items
 
 			writer.Write(Owner);
 
-			writer.Write((string)m_CorpseName);
+			writer.Write(m_CorpseName);
 
 			writer.Write((int)AccessLevel);
-			writer.Write((Guild)Guild);
-			writer.Write((int)Kills);
+			writer.Write(Guild);
+			writer.Write(Kills);
 
 			writer.Write(EquipItems);
 		}

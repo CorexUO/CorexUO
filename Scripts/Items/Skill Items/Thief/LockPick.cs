@@ -1,5 +1,5 @@
-using System;
 using Server.Targeting;
+using System;
 
 namespace Server.Items
 {
@@ -38,7 +38,7 @@ namespace Server.Items
 		{
 			base.Serialize(writer);
 
-			writer.Write((int)0); // version
+			writer.Write(0); // version
 		}
 
 		public override void Deserialize(GenericReader reader)
@@ -56,7 +56,7 @@ namespace Server.Items
 
 		private class InternalTarget : Target
 		{
-			private Lockpick m_Item;
+			private readonly Lockpick m_Item;
 
 			public InternalTarget(Lockpick item) : base(1, false, TargetFlags.None)
 			{
@@ -93,9 +93,9 @@ namespace Server.Items
 
 			private class InternalTimer : Timer
 			{
-				private Mobile m_From;
-				private ILockpickable m_Item;
-				private Lockpick m_Lockpick;
+				private readonly Mobile m_From;
+				private readonly ILockpickable m_Item;
+				private readonly Lockpick m_Lockpick;
 
 				public InternalTimer(Mobile from, ILockpickable item, Lockpick lockpick) : base(TimeSpan.FromSeconds(3.0))
 				{

@@ -29,7 +29,7 @@ namespace Server.Items
 		{
 			base.Serialize(writer);
 
-			writer.Write((int)0);
+			writer.Write(0);
 		}
 
 		public override void Deserialize(GenericReader reader)
@@ -68,7 +68,7 @@ namespace Server.Items
 		{
 			base.Serialize(writer);
 
-			writer.Write((int)0);
+			writer.Write(0);
 		}
 
 		public override void Deserialize(GenericReader reader)
@@ -107,7 +107,7 @@ namespace Server.Items
 		{
 			base.Serialize(writer);
 
-			writer.Write((int)0);
+			writer.Write(0);
 		}
 
 		public override void Deserialize(GenericReader reader)
@@ -146,7 +146,7 @@ namespace Server.Items
 		{
 			base.Serialize(writer);
 
-			writer.Write((int)0);
+			writer.Write(0);
 		}
 
 		public override void Deserialize(GenericReader reader)
@@ -187,7 +187,7 @@ namespace Server.Items
 		{
 			base.Serialize(writer);
 
-			writer.Write((int)0);
+			writer.Write(0);
 		}
 
 		public override void Deserialize(GenericReader reader)
@@ -229,7 +229,7 @@ namespace Server.Items
 		{
 			base.Serialize(writer);
 
-			writer.Write((int)0);
+			writer.Write(0);
 		}
 
 		public override void Deserialize(GenericReader reader)
@@ -268,7 +268,7 @@ namespace Server.Items
 		{
 			base.Serialize(writer);
 
-			writer.Write((int)0);
+			writer.Write(0);
 		}
 
 		public override void Deserialize(GenericReader reader)
@@ -303,7 +303,7 @@ namespace Server.Items
 		{
 			base.Serialize(writer);
 
-			writer.Write((int)0);
+			writer.Write(0);
 		}
 
 		public override void Deserialize(GenericReader reader)
@@ -343,7 +343,7 @@ namespace Server.Items
 		{
 			base.Serialize(writer);
 
-			writer.Write((int)0);
+			writer.Write(0);
 		}
 
 		public override void Deserialize(GenericReader reader)
@@ -383,7 +383,7 @@ namespace Server.Items
 
 	public class PigmentsOfTokuno : BasePigmentsOfTokuno
 	{
-		private static int[][] m_Table = new int[][]
+		private static readonly int[][] m_Table = new int[][]
 		{
 			// Hue, Label
 			new int[]{ /*PigmentType.None,*/ 0, -1 },
@@ -470,7 +470,7 @@ namespace Server.Items
 		{
 			base.Serialize(writer);
 
-			writer.Write((int)0);
+			writer.Write(0);
 
 			writer.WriteEncodedInt((int)m_Type);
 		}
@@ -479,7 +479,7 @@ namespace Server.Items
 		{
 			base.Deserialize(reader);
 
-			int version = reader.ReadInt(); 
+			int version = reader.ReadInt();
 
 			switch (version)
 			{

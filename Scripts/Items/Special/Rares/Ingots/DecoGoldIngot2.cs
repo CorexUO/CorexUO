@@ -1,31 +1,31 @@
 namespace Server.Items
 {
-    public class DecoGoldIngot2 : BaseItem
-    {
+	public class DecoGoldIngot2 : BaseItem
+	{
 
-        [Constructable]
-        public DecoGoldIngot2() : base(0x1BEC)
-        {
-            Movable = true;
-            Stackable = false;
-        }
+		[Constructable]
+		public DecoGoldIngot2() : base(0x1BEC)
+		{
+			Movable = true;
+			Stackable = false;
+		}
 
-        public DecoGoldIngot2(Serial serial) : base(serial)
-        {
-        }
+		public DecoGoldIngot2(Serial serial) : base(serial)
+		{
+		}
 
-        public override void Serialize(GenericWriter writer)
-        {
-            base.Serialize(writer);
+		public override void Serialize(GenericWriter writer)
+		{
+			base.Serialize(writer);
 
-            writer.Write((int)0);
-        }
+			writer.Write(0);
+		}
 
-        public override void Deserialize(GenericReader reader)
-        {
-            base.Deserialize(reader);
+		public override void Deserialize(GenericReader reader)
+		{
+			base.Deserialize(reader);
 
-            int version = reader.ReadInt();
-        }
-    }
+			int version = reader.ReadInt();
+		}
+	}
 }

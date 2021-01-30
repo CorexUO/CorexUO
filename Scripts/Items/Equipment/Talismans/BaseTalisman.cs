@@ -1,4 +1,3 @@
-using System;
 using Server.Commands;
 using Server.Mobiles;
 using Server.Spells.Fifth;
@@ -7,6 +6,7 @@ using Server.Spells.Fourth;
 using Server.Spells.Necromancy;
 using Server.Spells.Second;
 using Server.Targeting;
+using System;
 
 namespace Server.Items
 {
@@ -512,7 +512,7 @@ namespace Server.Items
 		{
 			base.Serialize(writer);
 
-			writer.Write((int)0); // version
+			writer.Write(0); // version
 
 			SaveFlag flags = SaveFlag.None;
 
@@ -521,7 +521,7 @@ namespace Server.Items
 			Utility.SetSaveFlag(ref flags, SaveFlag.Killer, m_Killer != null && !m_Killer.IsEmpty);
 			Utility.SetSaveFlag(ref flags, SaveFlag.Summoner, m_Summoner != null && !m_Summoner.IsEmpty);
 			Utility.SetSaveFlag(ref flags, SaveFlag.Removal, m_Removal != TalismanRemoval.None);
-			Utility.SetSaveFlag(ref flags, SaveFlag.Skill, (int)m_Skill != 0);
+			Utility.SetSaveFlag(ref flags, SaveFlag.Skill, m_Skill != 0);
 			Utility.SetSaveFlag(ref flags, SaveFlag.SuccessBonus, m_SuccessBonus != 0);
 			Utility.SetSaveFlag(ref flags, SaveFlag.ExceptionalBonus, m_ExceptionalBonus != 0);
 			Utility.SetSaveFlag(ref flags, SaveFlag.MaxCharges, m_MaxCharges != 0);
@@ -721,7 +721,7 @@ namespace Server.Items
 		#endregion
 
 		#region Randomize
-		private static int[] m_ItemIDs = new int[]
+		private static readonly int[] m_ItemIDs = new int[]
 		{
 			0x2F58, 0x2F59, 0x2F5A, 0x2F5B
 		};
@@ -731,7 +731,7 @@ namespace Server.Items
 			return Utility.RandomList(m_ItemIDs);
 		}
 
-		private static Type[] m_Summons = new Type[]
+		private static readonly Type[] m_Summons = new Type[]
 		{
 			typeof( SummonedAntLion ),
 			typeof( SummonedCow ),
@@ -756,7 +756,7 @@ namespace Server.Items
 			typeof( Bandage ),
 		};
 
-		private static int[] m_SummonLabels = new int[]
+		private static readonly int[] m_SummonLabels = new int[]
 		{
 			1075211, // Ant Lion
 			1072494, // Cow
@@ -809,7 +809,7 @@ namespace Server.Items
 			return TalismanRemoval.None;
 		}
 
-		private static Type[] m_Killers = new Type[]
+		private static readonly Type[] m_Killers = new Type[]
 		{
 			typeof( OrcBomber ),    typeof( OrcBrute ),                 typeof( Sewerrat ),         typeof( Rat ),              typeof( GiantRat ),
 			typeof( Ratman ),       typeof( RatmanArcher ),             typeof( GiantSpider ),      typeof( FrostSpider ),      typeof( GiantBlackWidow ),
@@ -827,7 +827,7 @@ namespace Server.Items
 			// TODO Meraktus, Tormented Minotaur, Minotaur
 		};
 
-		private static int[] m_KillerLabels = new int[]
+		private static readonly int[] m_KillerLabels = new int[]
 		{
 			1072413, 1072414, 1072418, 1072419, 1072420,
 			1072421, 1072423, 1072424, 1072425, 1072426,
@@ -874,7 +874,7 @@ namespace Server.Items
 			return new TalismanAttribute(m_Killers[num], m_KillerLabels[num], Utility.RandomMinMax(5, 60));
 		}
 
-		private static SkillName[] m_Skills = new SkillName[]
+		private static readonly SkillName[] m_Skills = new SkillName[]
 		{
 			SkillName.Alchemy,
 			SkillName.Blacksmith,
@@ -943,7 +943,7 @@ namespace Server.Items
 
 		private class TalismanTarget : Target
 		{
-			private BaseTalisman m_Talisman;
+			private readonly BaseTalisman m_Talisman;
 
 			public TalismanTarget(BaseTalisman talisman)
 				: base(12, false, TargetFlags.Beneficial)

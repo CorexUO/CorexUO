@@ -4,7 +4,7 @@ namespace Server.Spells.First
 {
 	public class MagicArrowSpell : MagerySpell
 	{
-		private static SpellInfo m_Info = new SpellInfo(
+		private static readonly SpellInfo m_Info = new SpellInfo(
 				"Magic Arrow", "In Por Ylem",
 				212,
 				9041,
@@ -82,7 +82,7 @@ namespace Server.Spells.First
 
 		private class InternalTarget : Target
 		{
-			private MagicArrowSpell m_Owner;
+			private readonly MagicArrowSpell m_Owner;
 
 			public InternalTarget(MagicArrowSpell owner) : base(owner.SpellRange, false, TargetFlags.Harmful)
 			{

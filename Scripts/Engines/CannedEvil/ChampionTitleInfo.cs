@@ -38,7 +38,7 @@ namespace Server.Engines.CannedEvil
 
 			public static void Serialize(GenericWriter writer, TitleInfo info)
 			{
-				writer.WriteEncodedInt((int)0); // version
+				writer.WriteEncodedInt(0); // version
 
 				writer.WriteEncodedInt(info.m_Value);
 				writer.Write(info.m_LastDecay);
@@ -210,7 +210,7 @@ namespace Server.Engines.CannedEvil
 
 		public static void Serialize(GenericWriter writer, ChampionTitleInfo titles)
 		{
-			writer.WriteEncodedInt((int)0); // version
+			writer.WriteEncodedInt(0); // version
 
 			writer.WriteEncodedInt(titles.m_Harrower);
 

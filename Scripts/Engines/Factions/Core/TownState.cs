@@ -137,20 +137,20 @@ namespace Server.Factions
 
 		public void Serialize(GenericWriter writer)
 		{
-			writer.WriteEncodedInt((int)0); // version
+			writer.WriteEncodedInt(0); // version
 
-			writer.Write((DateTime)m_LastIncome);
+			writer.Write(m_LastIncome);
 
-			writer.WriteEncodedInt((int)m_Tax);
-			writer.Write((DateTime)m_LastTaxChange);
+			writer.WriteEncodedInt(m_Tax);
+			writer.Write(m_LastTaxChange);
 
-			writer.WriteEncodedInt((int)m_Silver);
+			writer.WriteEncodedInt(m_Silver);
 
 			Town.WriteReference(writer, m_Town);
 			Faction.WriteReference(writer, m_Owner);
 
-			writer.Write((Mobile)m_Sheriff);
-			writer.Write((Mobile)m_Finance);
+			writer.Write(m_Sheriff);
+			writer.Write(m_Finance);
 		}
 	}
 }

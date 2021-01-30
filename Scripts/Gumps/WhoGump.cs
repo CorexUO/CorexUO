@@ -1,8 +1,8 @@
-using System;
-using System.Collections.Generic;
 using Server.Commands;
 using Server.Mobiles;
 using Server.Network;
+using System;
+using System.Collections.Generic;
 
 namespace Server.Gumps
 {
@@ -56,7 +56,7 @@ namespace Server.Gumps
 		public static readonly int EntryHeight = PropsConfig.EntryHeight;
 		public static readonly int BorderSize = PropsConfig.BorderSize;
 
-		private static bool PrevLabel = false, NextLabel = false;
+		private static readonly bool PrevLabel = false, NextLabel = false;
 
 		private static readonly int PrevLabelOffsetX = PrevWidth + 1;
 		private static readonly int PrevLabelOffsetY = 0;
@@ -73,8 +73,8 @@ namespace Server.Gumps
 		private static readonly int BackWidth = BorderSize + TotalWidth + BorderSize;
 		private static readonly int BackHeight = BorderSize + TotalHeight + BorderSize;
 
-		private Mobile m_Owner;
-		private List<Mobile> m_Mobiles;
+		private readonly Mobile m_Owner;
+		private readonly List<Mobile> m_Mobiles;
 		private int m_Page;
 
 		private class InternalComparer : IComparer<Mobile>

@@ -1,14 +1,14 @@
-using System;
 using Server.Items;
 using Server.Misc;
 using Server.Mobiles;
 using Server.Targeting;
+using System;
 
 namespace Server.Spells.Seventh
 {
 	public class EnergyFieldSpell : MagerySpell
 	{
-		private static SpellInfo m_Info = new SpellInfo(
+		private static readonly SpellInfo m_Info = new SpellInfo(
 				"Energy Field", "In Sanct Grav",
 				221,
 				9022,
@@ -109,8 +109,8 @@ namespace Server.Spells.Seventh
 		[DispellableField]
 		private class InternalItem : BaseItem
 		{
-			private Timer m_Timer;
-			private Mobile m_Caster;
+			private readonly Timer m_Timer;
+			private readonly Mobile m_Caster;
 
 			public override bool BlocksFit { get { return true; } }
 
@@ -146,7 +146,7 @@ namespace Server.Spells.Seventh
 			{
 				base.Serialize(writer);
 
-				writer.Write((int)0); // version
+				writer.Write(0); // version
 			}
 
 			public override void Deserialize(GenericReader reader)
@@ -179,7 +179,7 @@ namespace Server.Spells.Seventh
 
 			private class InternalTimer : Timer
 			{
-				private InternalItem m_Item;
+				private readonly InternalItem m_Item;
 
 				public InternalTimer(InternalItem item, TimeSpan duration) : base(duration)
 				{
@@ -196,7 +196,7 @@ namespace Server.Spells.Seventh
 
 		private class InternalTarget : Target
 		{
-			private EnergyFieldSpell m_Owner;
+			private readonly EnergyFieldSpell m_Owner;
 
 			public InternalTarget(EnergyFieldSpell owner) : base(owner.SpellRange, true, TargetFlags.None)
 			{

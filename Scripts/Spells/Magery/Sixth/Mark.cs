@@ -6,7 +6,7 @@ namespace Server.Spells.Sixth
 {
 	public class MarkSpell : MagerySpell
 	{
-		private static SpellInfo m_Info = new SpellInfo(
+		private static readonly SpellInfo m_Info = new SpellInfo(
 				"Mark", "Kal Por Ylem",
 				218,
 				9002,
@@ -74,7 +74,7 @@ namespace Server.Spells.Sixth
 
 		private class InternalTarget : Target
 		{
-			private MarkSpell m_Owner;
+			private readonly MarkSpell m_Owner;
 
 			public InternalTarget(MarkSpell owner) : base(owner.SpellRange, false, TargetFlags.None)
 			{

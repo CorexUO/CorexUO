@@ -11,8 +11,8 @@ namespace Server.Guilds
 		public static Dictionary<string, AllianceInfo> Alliances { get; } = new Dictionary<string, AllianceInfo>();
 
 		private Guild m_Leader;
-		private List<Guild> m_Members;
-		private List<Guild> m_PendingMembers;
+		private readonly List<Guild> m_Members;
+		private readonly List<Guild> m_PendingMembers;
 
 		public string Name { get; }
 
@@ -84,7 +84,7 @@ namespace Server.Guilds
 
 		public void Serialize(GenericWriter writer)
 		{
-			writer.Write((int)0);   //Version
+			writer.Write(0);   //Version
 
 			writer.Write(Name);
 			writer.Write(m_Leader);
@@ -298,7 +298,7 @@ namespace Server.Guilds
 		{
 			protected override bool AllowAdvancedSearch { get { return false; } }
 
-			private AllianceInfo m_Alliance;
+			private readonly AllianceInfo m_Alliance;
 
 			public AllianceRosterGump(PlayerMobile pm, Guild g, AllianceInfo alliance) : base(pm, g, true, "", 0, alliance.m_Members, alliance.Name)
 			{

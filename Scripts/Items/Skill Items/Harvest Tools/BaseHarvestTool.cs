@@ -1,10 +1,10 @@
-using System;
-using System.Collections.Generic;
 using Server.ContextMenus;
 using Server.Engines.Craft;
 using Server.Engines.Harvest;
 using Server.Mobiles;
 using Server.Network;
+using System;
+using System.Collections.Generic;
 
 namespace Server.Items
 {
@@ -136,8 +136,8 @@ namespace Server.Items
 
 		private class ToggleMiningStoneEntry : ContextMenuEntry
 		{
-			private PlayerMobile m_Mobile;
-			private bool m_Value;
+			private readonly PlayerMobile m_Mobile;
+			private readonly bool m_Value;
 
 			public ToggleMiningStoneEntry(PlayerMobile mobile, bool value, int number) : base(number)
 			{
@@ -193,11 +193,11 @@ namespace Server.Items
 		{
 			base.Serialize(writer);
 
-			writer.Write((int)0); // version
+			writer.Write(0); // version
 
-			writer.Write((Mobile)m_Crafter);
+			writer.Write(m_Crafter);
 
-			writer.Write((int)m_UsesRemaining);
+			writer.Write(m_UsesRemaining);
 		}
 
 		public override void Deserialize(GenericReader reader)

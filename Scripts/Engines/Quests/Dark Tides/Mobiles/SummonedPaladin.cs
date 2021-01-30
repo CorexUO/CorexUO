@@ -1,6 +1,6 @@
-using System;
 using Server.Items;
 using Server.Mobiles;
+using System;
 
 namespace Server.Engines.Quests.Necro
 {
@@ -118,10 +118,10 @@ namespace Server.Engines.Quests.Necro
 		{
 			base.Serialize(writer);
 
-			writer.Write((int)0); // version
+			writer.Write(0); // version
 
-			writer.Write((Mobile)m_Necromancer);
-			writer.Write((bool)m_ToDelete);
+			writer.Write(m_Necromancer);
+			writer.Write(m_ToDelete);
 		}
 
 		public override void Deserialize(GenericReader reader)
@@ -144,7 +144,7 @@ namespace Server.Engines.Quests.Necro
 
 		private class SummonTimer : Timer
 		{
-			private PlayerMobile m_Player;
+			private readonly PlayerMobile m_Player;
 			private SummonedPaladin m_Paladin;
 			private int m_Step;
 
@@ -225,7 +225,7 @@ namespace Server.Engines.Quests.Necro
 		{
 			base.Serialize(writer);
 
-			writer.Write((int)0); // version
+			writer.Write(0); // version
 		}
 
 		public override void Deserialize(GenericReader reader)

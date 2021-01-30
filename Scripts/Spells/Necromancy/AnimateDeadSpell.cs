@@ -1,16 +1,16 @@
-using System;
-using System.Collections.Generic;
 using Server.Engines.Quests;
 using Server.Engines.Quests.Necro;
 using Server.Items;
 using Server.Mobiles;
 using Server.Targeting;
+using System;
+using System.Collections.Generic;
 
 namespace Server.Spells.Necromancy
 {
 	public class AnimateDeadSpell : NecromancerSpell
 	{
-		private static SpellInfo m_Info = new SpellInfo(
+		private static readonly SpellInfo m_Info = new SpellInfo(
 				"Animate Dead", "Uus Corp",
 				203,
 				9031,
@@ -76,7 +76,7 @@ namespace Server.Spells.Necromancy
 			return null;
 		}
 
-		private static CreatureGroup[] m_Groups = new CreatureGroup[]
+		private static readonly CreatureGroup[] m_Groups = new CreatureGroup[]
 			{
 				// Undead group--empty
 				new CreatureGroup( SlayerGroup.GetEntryByName( SlayerName.Silver ).Types, new SummonEntry[0] ),
@@ -231,15 +231,14 @@ namespace Server.Spells.Necromancy
 			FinishSequence();
 		}
 
-		private static Dictionary<Mobile, List<Mobile>> m_Table = new Dictionary<Mobile, List<Mobile>>();
+		private static readonly Dictionary<Mobile, List<Mobile>> m_Table = new Dictionary<Mobile, List<Mobile>>();
 
 		public static void Unregister(Mobile master, Mobile summoned)
 		{
 			if (master == null)
 				return;
 
-			List<Mobile> list = null;
-			m_Table.TryGetValue(master, out list);
+			m_Table.TryGetValue(master, out List<Mobile> list);
 
 			if (list == null)
 				return;
@@ -255,8 +254,7 @@ namespace Server.Spells.Necromancy
 			if (master == null)
 				return;
 
-			List<Mobile> list = null;
-			m_Table.TryGetValue(master, out list);
+			m_Table.TryGetValue(master, out List<Mobile> list);
 
 			if (list == null)
 				m_Table[master] = list = new List<Mobile>();
@@ -399,7 +397,7 @@ namespace Server.Spells.Necromancy
 
 		private class InternalTarget : Target
 		{
-			private AnimateDeadSpell m_Owner;
+			private readonly AnimateDeadSpell m_Owner;
 
 			public InternalTarget(AnimateDeadSpell owner) : base(owner.SpellRange, false, TargetFlags.None)
 			{

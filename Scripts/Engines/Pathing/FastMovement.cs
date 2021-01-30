@@ -1,10 +1,9 @@
 #region References
+using Server.Items;
+using Server.Mobiles;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-
-using Server.Items;
-using Server.Mobiles;
 #endregion
 
 namespace Server.Movement
@@ -382,7 +381,6 @@ namespace Server.Movement
 				return false;
 			}
 
-			int startZ, startTop;
 
 			IEnumerable<Item> itemsStart, itemsForward, itemsLeft, itemsRight;
 
@@ -417,7 +415,7 @@ namespace Server.Movement
 				itemsRight = Enumerable.Empty<Item>();
 			}
 
-			GetStartZ(m, map, loc, itemsStart, out startZ, out startTop);
+			GetStartZ(m, map, loc, itemsStart, out int startZ, out int startTop);
 
 			List<Item> list = null;
 

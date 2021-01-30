@@ -1,6 +1,6 @@
-using System.Collections.Generic;
 using Server.ContextMenus;
 using Server.Items;
+using System.Collections.Generic;
 
 namespace Server.Mobiles
 {
@@ -142,7 +142,7 @@ namespace Server.Mobiles
 		{
 			base.Serialize(writer);
 
-			writer.Write((int)0);
+			writer.Write(0);
 		}
 
 		public override void Deserialize(GenericReader reader)

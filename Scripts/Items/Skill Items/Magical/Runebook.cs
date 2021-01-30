@@ -1,11 +1,11 @@
-using System;
-using System.Collections.Generic;
 using Server.ContextMenus;
 using Server.Engines.Craft;
 using Server.Gumps;
 using Server.Mobiles;
 using Server.Multis;
 using Server.Network;
+using System;
+using System.Collections.Generic;
 
 namespace Server.Items
 {
@@ -115,7 +115,7 @@ namespace Server.Items
 		{
 			base.Serialize(writer);
 
-			writer.Write((int)0);
+			writer.Write(0);
 
 			writer.Write(m_Crafter);
 

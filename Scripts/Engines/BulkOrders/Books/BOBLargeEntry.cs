@@ -2,12 +2,12 @@ namespace Server.Engines.BulkOrders
 {
 	public class BOBLargeEntry
 	{
-		private bool m_RequireExceptional;
-		private BODType m_DeedType;
-		private BulkMaterialType m_Material;
-		private int m_AmountMax;
+		private readonly bool m_RequireExceptional;
+		private readonly BODType m_DeedType;
+		private readonly BulkMaterialType m_Material;
+		private readonly int m_AmountMax;
 		private int m_Price;
-		private BOBLargeSubEntry[] m_Entries;
+		private readonly BOBLargeSubEntry[] m_Entries;
 
 		public bool RequireExceptional { get { return m_RequireExceptional; } }
 		public BODType DeedType { get { return m_DeedType; } }
@@ -92,14 +92,14 @@ namespace Server.Engines.BulkOrders
 		{
 			writer.WriteEncodedInt(0); // version
 
-			writer.Write((bool)m_RequireExceptional);
+			writer.Write(m_RequireExceptional);
 
 			writer.WriteEncodedInt((int)m_DeedType);
 			writer.WriteEncodedInt((int)m_Material);
-			writer.WriteEncodedInt((int)m_AmountMax);
-			writer.WriteEncodedInt((int)m_Price);
+			writer.WriteEncodedInt(m_AmountMax);
+			writer.WriteEncodedInt(m_Price);
 
-			writer.WriteEncodedInt((int)m_Entries.Length);
+			writer.WriteEncodedInt(m_Entries.Length);
 
 			for (int i = 0; i < m_Entries.Length; ++i)
 				m_Entries[i].Serialize(writer);

@@ -1,7 +1,7 @@
-using System.Collections.Generic;
 using Server.Items;
 using Server.Mobiles;
 using Server.Network;
+using System.Collections.Generic;
 
 namespace Server.Engines.Quests.Haven
 {
@@ -79,7 +79,7 @@ namespace Server.Engines.Quests.Haven
 		{
 			base.Serialize(writer);
 
-			writer.Write((int)0); // version
+			writer.Write(0); // version
 		}
 
 		public override void Deserialize(GenericReader reader)
@@ -135,7 +135,7 @@ namespace Server.Engines.Quests.Haven
 		{
 			base.Serialize(writer);
 
-			writer.Write((int)0); // version
+			writer.Write(0); // version
 		}
 
 		public override void Deserialize(GenericReader reader)

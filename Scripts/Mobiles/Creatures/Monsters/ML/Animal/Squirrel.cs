@@ -1,58 +1,58 @@
 namespace Server.Mobiles
 {
-    [CorpseName("a squirrel corpse")]
-    public class Squirrel : BaseCreature
-    {
-        [Constructable]
-        public Squirrel() : base(AIType.AI_Animal, FightMode.Aggressor, 10, 1, 0.2, 0.4)
-        {
-            Name = "a squirrel";
-            Body = 0x116;
+	[CorpseName("a squirrel corpse")]
+	public class Squirrel : BaseCreature
+	{
+		[Constructable]
+		public Squirrel() : base(AIType.AI_Animal, FightMode.Aggressor, 10, 1, 0.2, 0.4)
+		{
+			Name = "a squirrel";
+			Body = 0x116;
 
-            SetStr(44, 50);
-            SetDex(35);
-            SetInt(5);
+			SetStr(44, 50);
+			SetDex(35);
+			SetInt(5);
 
-            SetHits(42, 50);
+			SetHits(42, 50);
 
-            SetDamage(1, 2);
+			SetDamage(1, 2);
 
-            SetDamageType(ResistanceType.Physical, 100);
+			SetDamageType(ResistanceType.Physical, 100);
 
-            SetResistance(ResistanceType.Physical, 30, 34);
-            SetResistance(ResistanceType.Fire, 10, 14);
-            SetResistance(ResistanceType.Cold, 30, 35);
-            SetResistance(ResistanceType.Poison, 20, 25);
-            SetResistance(ResistanceType.Energy, 20, 25);
+			SetResistance(ResistanceType.Physical, 30, 34);
+			SetResistance(ResistanceType.Fire, 10, 14);
+			SetResistance(ResistanceType.Cold, 30, 35);
+			SetResistance(ResistanceType.Poison, 20, 25);
+			SetResistance(ResistanceType.Energy, 20, 25);
 
-            SetSkill(SkillName.MagicResist, 4.0);
-            SetSkill(SkillName.Tactics, 4.0);
-            SetSkill(SkillName.Wrestling, 4.0);
+			SetSkill(SkillName.MagicResist, 4.0);
+			SetSkill(SkillName.Tactics, 4.0);
+			SetSkill(SkillName.Wrestling, 4.0);
 
-            Tamable = true;
-            ControlSlots = 1;
-            MinTameSkill = -21.3;
-        }
+			Tamable = true;
+			ControlSlots = 1;
+			MinTameSkill = -21.3;
+		}
 
-        public override int Meat { get { return 1; } }
-        public override FoodType FavoriteFood { get { return FoodType.FruitsAndVegies; } }
+		public override int Meat { get { return 1; } }
+		public override FoodType FavoriteFood { get { return FoodType.FruitsAndVegies; } }
 
-        public Squirrel(Serial serial) : base(serial)
-        {
-        }
+		public Squirrel(Serial serial) : base(serial)
+		{
+		}
 
-        public override void Serialize(GenericWriter writer)
-        {
-            base.Serialize(writer);
+		public override void Serialize(GenericWriter writer)
+		{
+			base.Serialize(writer);
 
-            writer.Write((int)0); // version
-        }
+			writer.Write(0); // version
+		}
 
-        public override void Deserialize(GenericReader reader)
-        {
-            base.Deserialize(reader);
+		public override void Deserialize(GenericReader reader)
+		{
+			base.Deserialize(reader);
 
-            int version = reader.ReadInt();
-        }
-    }
+			int version = reader.ReadInt();
+		}
+	}
 }

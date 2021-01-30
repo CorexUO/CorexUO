@@ -1,5 +1,3 @@
-using System;
-using System.Collections.Generic;
 using Server.Engines.Craft;
 using Server.Factions;
 using Server.Mobiles;
@@ -9,6 +7,8 @@ using Server.Spells.Bushido;
 using Server.Spells.Necromancy;
 using Server.Spells.Ninjitsu;
 using Server.Spells.Spellweaving;
+using System;
+using System.Collections.Generic;
 
 namespace Server.Items
 {
@@ -2217,7 +2217,7 @@ namespace Server.Items
 				damageBonus = 100;
 			#endregion
 
-			double totalBonus = strengthBonus + anatomyBonus + tacticsBonus + lumberBonus + ((double)(GetDamageBonus() + damageBonus) / 100.0);
+			double totalBonus = strengthBonus + anatomyBonus + tacticsBonus + lumberBonus + ((GetDamageBonus() + damageBonus) / 100.0);
 
 			return damage + (int)(damage * totalBonus);
 		}
@@ -2439,7 +2439,7 @@ namespace Server.Items
 		{
 			base.Serialize(writer);
 
-			writer.Write((int)0); // version
+			writer.Write(0); // version
 
 			SaveFlag flags = SaveFlag.None;
 
@@ -2484,10 +2484,10 @@ namespace Server.Items
 				writer.Write((int)m_DurabilityLevel);
 
 			if (flags.HasFlag(SaveFlag.Hits))
-				writer.Write((int)m_Hits);
+				writer.Write(m_Hits);
 
 			if (flags.HasFlag(SaveFlag.MaxHits))
-				writer.Write((int)m_MaxHits);
+				writer.Write(m_MaxHits);
 
 			if (flags.HasFlag(SaveFlag.Slayer))
 				writer.Write((int)m_Slayer);
@@ -2496,37 +2496,37 @@ namespace Server.Items
 				Poison.Serialize(m_Poison, writer);
 
 			if (flags.HasFlag(SaveFlag.PoisonCharges))
-				writer.Write((int)m_PoisonCharges);
+				writer.Write(m_PoisonCharges);
 
 			if (flags.HasFlag(SaveFlag.Crafter))
-				writer.Write((Mobile)m_Crafter);
+				writer.Write(m_Crafter);
 
 			if (flags.HasFlag(SaveFlag.StrReq))
-				writer.Write((int)m_StrReq);
+				writer.Write(m_StrReq);
 
 			if (flags.HasFlag(SaveFlag.DexReq))
-				writer.Write((int)m_DexReq);
+				writer.Write(m_DexReq);
 
 			if (flags.HasFlag(SaveFlag.IntReq))
-				writer.Write((int)m_IntReq);
+				writer.Write(m_IntReq);
 
 			if (flags.HasFlag(SaveFlag.MinDamage))
-				writer.Write((int)m_MinDamage);
+				writer.Write(m_MinDamage);
 
 			if (flags.HasFlag(SaveFlag.MaxDamage))
-				writer.Write((int)m_MaxDamage);
+				writer.Write(m_MaxDamage);
 
 			if (flags.HasFlag(SaveFlag.HitSound))
-				writer.Write((int)m_HitSound);
+				writer.Write(m_HitSound);
 
 			if (flags.HasFlag(SaveFlag.MissSound))
-				writer.Write((int)m_MissSound);
+				writer.Write(m_MissSound);
 
 			if (flags.HasFlag(SaveFlag.Speed))
-				writer.Write((float)m_Speed);
+				writer.Write(m_Speed);
 
 			if (flags.HasFlag(SaveFlag.MaxRange))
-				writer.Write((int)m_MaxRange);
+				writer.Write(m_MaxRange);
 
 			if (flags.HasFlag(SaveFlag.Skill))
 				writer.Write((int)m_Skill);
@@ -2553,7 +2553,7 @@ namespace Server.Items
 				m_AosElementDamages.Serialize(writer);
 
 			if (flags.HasFlag(SaveFlag.EngravedText))
-				writer.Write((string)m_EngravedText);
+				writer.Write(m_EngravedText);
 		}
 
 		[Flags]

@@ -1,11 +1,11 @@
-using System;
 using Server.Targeting;
+using System;
 
 namespace Server.Spells.Fifth
 {
 	public class MindBlastSpell : MagerySpell
 	{
-		private static SpellInfo m_Info = new SpellInfo(
+		private static readonly SpellInfo m_Info = new SpellInfo(
 				"Mind Blast", "Por Corp Wis",
 				218,
 				Core.AOS ? 9002 : 9032,
@@ -143,7 +143,7 @@ namespace Server.Spells.Fifth
 
 		private class InternalTarget : Target
 		{
-			private MindBlastSpell m_Owner;
+			private readonly MindBlastSpell m_Owner;
 
 			public InternalTarget(MindBlastSpell owner) : base(owner.SpellRange, false, TargetFlags.Harmful)
 			{

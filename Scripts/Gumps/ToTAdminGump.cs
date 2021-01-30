@@ -1,14 +1,14 @@
-using System;
 using Server.Commands;
 using Server.Misc;
 using Server.Network;
+using System;
 
 namespace Server.Gumps
 {
 	public class ToTAdminGump : Gump
 	{
-		private int m_ToTEras;
-		private static string[] m_ToTInfo =
+		private readonly int m_ToTEras;
+		private static readonly string[] m_ToTInfo =
 		{
 			//Opening Message
 			"<center>Treasures of Tokuno Admin</center><br>" +

@@ -4,7 +4,7 @@ namespace Server.Spells.Third
 {
 	public class FireballSpell : MagerySpell
 	{
-		private static SpellInfo m_Info = new SpellInfo(
+		private static readonly SpellInfo m_Info = new SpellInfo(
 				"Fireball", "Vas Flam",
 				203,
 				9041,
@@ -80,7 +80,7 @@ namespace Server.Spells.Third
 
 		private class InternalTarget : Target
 		{
-			private FireballSpell m_Owner;
+			private readonly FireballSpell m_Owner;
 
 			public InternalTarget(FireballSpell owner) : base(owner.SpellRange, false, TargetFlags.Harmful)
 			{

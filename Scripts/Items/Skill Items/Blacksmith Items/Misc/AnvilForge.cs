@@ -1,59 +1,59 @@
 namespace Server.Items
 {
-    [FlipableAttribute(0xFAF, 0xFB0)]
-    [Server.Engines.Craft.Anvil]
-    public class Anvil : BaseItem
-    {
-        [Constructable]
-        public Anvil() : base(0xFAF)
-        {
-            Movable = false;
-        }
+	[FlipableAttribute(0xFAF, 0xFB0)]
+	[Server.Engines.Craft.Anvil]
+	public class Anvil : BaseItem
+	{
+		[Constructable]
+		public Anvil() : base(0xFAF)
+		{
+			Movable = false;
+		}
 
-        public Anvil(Serial serial) : base(serial)
-        {
-        }
+		public Anvil(Serial serial) : base(serial)
+		{
+		}
 
-        public override void Serialize(GenericWriter writer)
-        {
-            base.Serialize(writer);
+		public override void Serialize(GenericWriter writer)
+		{
+			base.Serialize(writer);
 
-            writer.Write((int)0); // version
-        }
+			writer.Write(0); // version
+		}
 
-        public override void Deserialize(GenericReader reader)
-        {
-            base.Deserialize(reader);
+		public override void Deserialize(GenericReader reader)
+		{
+			base.Deserialize(reader);
 
-            int version = reader.ReadInt();
-        }
-    }
+			int version = reader.ReadInt();
+		}
+	}
 
-    [Server.Engines.Craft.Forge]
-    public class Forge : BaseItem
-    {
-        [Constructable]
-        public Forge() : base(0xFB1)
-        {
-            Movable = false;
-        }
+	[Server.Engines.Craft.Forge]
+	public class Forge : BaseItem
+	{
+		[Constructable]
+		public Forge() : base(0xFB1)
+		{
+			Movable = false;
+		}
 
-        public Forge(Serial serial) : base(serial)
-        {
-        }
+		public Forge(Serial serial) : base(serial)
+		{
+		}
 
-        public override void Serialize(GenericWriter writer)
-        {
-            base.Serialize(writer);
+		public override void Serialize(GenericWriter writer)
+		{
+			base.Serialize(writer);
 
-            writer.Write((int)0); // version
-        }
+			writer.Write(0); // version
+		}
 
-        public override void Deserialize(GenericReader reader)
-        {
-            base.Deserialize(reader);
+		public override void Deserialize(GenericReader reader)
+		{
+			base.Deserialize(reader);
 
-            int version = reader.ReadInt();
-        }
-    }
+			int version = reader.ReadInt();
+		}
+	}
 }

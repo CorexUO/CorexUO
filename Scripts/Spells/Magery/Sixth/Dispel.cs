@@ -6,7 +6,7 @@ namespace Server.Spells.Sixth
 {
 	public class DispelSpell : MagerySpell
 	{
-		private static SpellInfo m_Info = new SpellInfo(
+		private static readonly SpellInfo m_Info = new SpellInfo(
 				"Dispel", "An Ort",
 				218,
 				9002,
@@ -72,7 +72,7 @@ namespace Server.Spells.Sixth
 
 		public class InternalTarget : Target
 		{
-			private DispelSpell m_Owner;
+			private readonly DispelSpell m_Owner;
 
 			public InternalTarget(DispelSpell owner) : base(owner.SpellRange, false, TargetFlags.Harmful)
 			{

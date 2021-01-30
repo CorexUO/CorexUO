@@ -6,8 +6,8 @@ namespace Server.Gumps
 
 	public class NoticeGump : Gump
 	{
-		private NoticeGumpCallback m_Callback;
-		private object m_State;
+		private readonly NoticeGumpCallback m_Callback;
+		private readonly object m_State;
 
 		public NoticeGump(int header, int headerColor, object content, int contentColor, int width, int height, NoticeGumpCallback callback, object state) : base((640 - width) / 2, (480 - height) / 2)
 		{

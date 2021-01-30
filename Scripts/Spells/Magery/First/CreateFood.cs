@@ -1,11 +1,11 @@
-using System;
 using Server.Items;
+using System;
 
 namespace Server.Spells.First
 {
 	public class CreateFoodSpell : MagerySpell
 	{
-		private static SpellInfo m_Info = new SpellInfo(
+		private static readonly SpellInfo m_Info = new SpellInfo(
 				"Create Food", "In Mani Ylem",
 				224,
 				9011,
@@ -21,7 +21,7 @@ namespace Server.Spells.First
 		{
 		}
 
-		private static FoodInfo[] m_Food = new FoodInfo[]
+		private static readonly FoodInfo[] m_Food = new FoodInfo[]
 			{
 				new FoodInfo( typeof( Grapes ), "a grape bunch" ),
 				new FoodInfo( typeof( Ham ), "a ham" ),

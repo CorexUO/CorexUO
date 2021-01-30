@@ -1,8 +1,8 @@
-using System;
-using System.Collections;
 using Server.Network;
 using Server.Spells;
 using Server.Targeting;
+using System;
+using System.Collections;
 
 namespace Server.Items
 {
@@ -68,7 +68,7 @@ namespace Server.Items
 			int music = from.Skills[SkillName.Musicianship].Fixed;
 
 			int sucChance = 500 + (music - 775) * 2;
-			double dSucChance = ((double)sucChance) / 1000.0;
+			double dSucChance = sucChance / 1000.0;
 
 			if (!from.CheckSkill(SkillName.Musicianship, dSucChance))
 			{

@@ -1,7 +1,7 @@
+using Server.Network;
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using Server.Network;
 
 namespace Server.Commands.Generic
 {
@@ -23,9 +23,8 @@ namespace Server.Commands.Generic
 			{
 				Extensions ext = Extensions.Parse(from, ref args);
 
-				bool items, mobiles;
 
-				if (!CheckObjectTypes(from, command, ext, out items, out mobiles))
+				if (!CheckObjectTypes(from, command, ext, out bool items, out bool mobiles))
 					return;
 
 				if (!mobiles) // sanity check

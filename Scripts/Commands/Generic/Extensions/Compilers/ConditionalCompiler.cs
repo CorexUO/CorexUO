@@ -40,7 +40,7 @@ namespace Server.Commands.Generic
 
 	public sealed class PropertyValue
 	{
-		private Type m_Type;
+		private readonly Type m_Type;
 		private object m_Value;
 		private FieldInfo m_Field;
 
@@ -232,10 +232,10 @@ namespace Server.Commands.Generic
 
 	public sealed class StringCondition : PropertyCondition
 	{
-		private StringOperator m_Operator;
-		private PropertyValue m_Value;
+		private readonly StringOperator m_Operator;
+		private readonly PropertyValue m_Value;
 
-		private bool m_IgnoreCase;
+		private readonly bool m_IgnoreCase;
 
 		public StringCondition(Property property, bool not, StringOperator op, object value, bool ignoreCase)
 			: base(property, not)
@@ -365,8 +365,8 @@ namespace Server.Commands.Generic
 
 	public sealed class ComparisonCondition : PropertyCondition
 	{
-		private ComparisonOperator m_Operator;
-		private PropertyValue m_Value;
+		private readonly ComparisonOperator m_Operator;
+		private readonly PropertyValue m_Value;
 
 		public ComparisonCondition(Property property, bool not, ComparisonOperator op, object value)
 			: base(property, not)

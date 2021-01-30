@@ -6,7 +6,7 @@ namespace Server.Spells.Third
 {
 	public class UnlockSpell : MagerySpell
 	{
-		private static SpellInfo m_Info = new SpellInfo(
+		private static readonly SpellInfo m_Info = new SpellInfo(
 				"Unlock Spell", "Ex Por",
 				215,
 				9001,
@@ -75,7 +75,7 @@ namespace Server.Spells.Third
 
 		private class InternalTarget : Target
 		{
-			private UnlockSpell m_Owner;
+			private readonly UnlockSpell m_Owner;
 
 			public InternalTarget(UnlockSpell owner) : base(owner.SpellRange, false, TargetFlags.None)
 			{

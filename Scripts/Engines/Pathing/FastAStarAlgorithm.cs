@@ -1,5 +1,5 @@
-using System.Collections;
 using Server.Mobiles;
+using System.Collections;
 using CalcMoves = Server.Movement.Movement;
 using MoveImpl = Server.Movement.MovementImpl;
 
@@ -25,11 +25,11 @@ namespace Server.PathAlgorithms.FastAStar
 		private const int PlaneCount = 13;
 		private const int PlaneHeight = 20;
 
-		private static Direction[] m_Path = new Direction[AreaSize * AreaSize];
-		private static PathNode[] m_Nodes = new PathNode[NodeCount];
-		private static BitArray m_Touched = new BitArray(NodeCount);
-		private static BitArray m_OnOpen = new BitArray(NodeCount);
-		private static int[] m_Successors = new int[8];
+		private static readonly Direction[] m_Path = new Direction[AreaSize * AreaSize];
+		private static readonly PathNode[] m_Nodes = new PathNode[NodeCount];
+		private static readonly BitArray m_Touched = new BitArray(NodeCount);
+		private static readonly BitArray m_OnOpen = new BitArray(NodeCount);
+		private static readonly int[] m_Successors = new int[8];
 
 		private static int m_xOffset, m_yOffset;
 		private static int m_OpenList;
@@ -246,7 +246,7 @@ namespace Server.PathAlgorithms.FastAStar
 			int px = p % AreaSize;
 			int py = (p / AreaSize) % AreaSize;
 			int pz = m_Nodes[p].z;
-			int x, y, z;
+			int x, y;
 
 			Point3D p3D = new Point3D(px + m_xOffset, py + m_yOffset, pz);
 
@@ -274,7 +274,7 @@ namespace Server.PathAlgorithms.FastAStar
 				if (x < 0 || x >= AreaSize || y < 0 || y >= AreaSize)
 					continue;
 
-				if (CalcMoves.CheckMovement(m, map, p3D, (Direction)i, out z))
+				if (CalcMoves.CheckMovement(m, map, p3D, (Direction)i, out int z))
 				{
 					int idx = GetIndex(x + m_xOffset, y + m_yOffset, z);
 

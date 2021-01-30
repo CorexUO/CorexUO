@@ -1,8 +1,8 @@
+using Server.Network;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Net;
-using Server.Network;
 
 namespace Server.Accounting
 {
@@ -30,7 +30,7 @@ namespace Server.Accounting
 			return (DateTime.UtcNow >= (accessLog.LastAccessTime + ComputeThrottle(accessLog.Counts)));
 		}
 
-		private static List<InvalidAccountAccessLog> m_List = new List<InvalidAccountAccessLog>();
+		private static readonly List<InvalidAccountAccessLog> m_List = new List<InvalidAccountAccessLog>();
 
 		public static InvalidAccountAccessLog FindAccessLog(NetState ns)
 		{

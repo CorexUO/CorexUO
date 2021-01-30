@@ -1,113 +1,113 @@
 namespace Server.Items
 {
-    public class BarrelLid : BaseItem
-    {
-        [Constructable]
-        public BarrelLid() : base(0x1DB8)
-        {
-            Weight = 2;
-        }
+	public class BarrelLid : BaseItem
+	{
+		[Constructable]
+		public BarrelLid() : base(0x1DB8)
+		{
+			Weight = 2;
+		}
 
-        public BarrelLid(Serial serial) : base(serial)
-        {
-        }
+		public BarrelLid(Serial serial) : base(serial)
+		{
+		}
 
-        public override void Serialize(GenericWriter writer)
-        {
-            base.Serialize(writer);
+		public override void Serialize(GenericWriter writer)
+		{
+			base.Serialize(writer);
 
-            writer.Write((int)0);
-        }
+			writer.Write(0);
+		}
 
-        public override void Deserialize(GenericReader reader)
-        {
-            base.Deserialize(reader);
+		public override void Deserialize(GenericReader reader)
+		{
+			base.Deserialize(reader);
 
-            int version = reader.ReadInt();
-        }
-    }
+			int version = reader.ReadInt();
+		}
+	}
 
-    [FlipableAttribute(0x1EB1, 0x1EB2, 0x1EB3, 0x1EB4)]
-    public class BarrelStaves : BaseItem
-    {
-        [Constructable]
-        public BarrelStaves() : base(0x1EB1)
-        {
-            Weight = 1;
-        }
+	[FlipableAttribute(0x1EB1, 0x1EB2, 0x1EB3, 0x1EB4)]
+	public class BarrelStaves : BaseItem
+	{
+		[Constructable]
+		public BarrelStaves() : base(0x1EB1)
+		{
+			Weight = 1;
+		}
 
-        public BarrelStaves(Serial serial) : base(serial)
-        {
-        }
+		public BarrelStaves(Serial serial) : base(serial)
+		{
+		}
 
-        public override void Serialize(GenericWriter writer)
-        {
-            base.Serialize(writer);
+		public override void Serialize(GenericWriter writer)
+		{
+			base.Serialize(writer);
 
-            writer.Write((int)0);
-        }
+			writer.Write(0);
+		}
 
-        public override void Deserialize(GenericReader reader)
-        {
-            base.Deserialize(reader);
+		public override void Deserialize(GenericReader reader)
+		{
+			base.Deserialize(reader);
 
-            int version = reader.ReadInt();
-        }
-    }
+			int version = reader.ReadInt();
+		}
+	}
 
-    public class BarrelHoops : BaseItem
-    {
-        public override int LabelNumber { get { return 1011228; } } // Barrel hoops
+	public class BarrelHoops : BaseItem
+	{
+		public override int LabelNumber { get { return 1011228; } } // Barrel hoops
 
-        [Constructable]
-        public BarrelHoops() : base(0x1DB7)
-        {
-            Weight = 5;
-        }
+		[Constructable]
+		public BarrelHoops() : base(0x1DB7)
+		{
+			Weight = 5;
+		}
 
-        public BarrelHoops(Serial serial) : base(serial)
-        {
-        }
+		public BarrelHoops(Serial serial) : base(serial)
+		{
+		}
 
-        public override void Serialize(GenericWriter writer)
-        {
-            base.Serialize(writer);
+		public override void Serialize(GenericWriter writer)
+		{
+			base.Serialize(writer);
 
-            writer.Write((int)0);
-        }
+			writer.Write(0);
+		}
 
-        public override void Deserialize(GenericReader reader)
-        {
-            base.Deserialize(reader);
+		public override void Deserialize(GenericReader reader)
+		{
+			base.Deserialize(reader);
 
-            int version = reader.ReadInt();
-        }
-    }
+			int version = reader.ReadInt();
+		}
+	}
 
-    public class BarrelTap : BaseItem
-    {
-        [Constructable]
-        public BarrelTap() : base(0x1004)
-        {
-            Weight = 1;
-        }
+	public class BarrelTap : BaseItem
+	{
+		[Constructable]
+		public BarrelTap() : base(0x1004)
+		{
+			Weight = 1;
+		}
 
-        public BarrelTap(Serial serial) : base(serial)
-        {
-        }
+		public BarrelTap(Serial serial) : base(serial)
+		{
+		}
 
-        public override void Serialize(GenericWriter writer)
-        {
-            base.Serialize(writer);
+		public override void Serialize(GenericWriter writer)
+		{
+			base.Serialize(writer);
 
-            writer.Write((int)0);
-        }
+			writer.Write(0);
+		}
 
-        public override void Deserialize(GenericReader reader)
-        {
-            base.Deserialize(reader);
+		public override void Deserialize(GenericReader reader)
+		{
+			base.Deserialize(reader);
 
-            int version = reader.ReadInt();
-        }
-    }
+			int version = reader.ReadInt();
+		}
+	}
 }

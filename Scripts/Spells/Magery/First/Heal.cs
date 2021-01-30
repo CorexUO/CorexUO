@@ -6,7 +6,7 @@ namespace Server.Spells.First
 {
 	public class HealSpell : MagerySpell
 	{
-		private static SpellInfo m_Info = new SpellInfo(
+		private static readonly SpellInfo m_Info = new SpellInfo(
 				"Heal", "In Mani",
 				224,
 				9061,
@@ -101,7 +101,7 @@ namespace Server.Spells.First
 
 		public class InternalTarget : Target
 		{
-			private HealSpell m_Owner;
+			private readonly HealSpell m_Owner;
 
 			public InternalTarget(HealSpell owner) : base(owner.SpellRange, false, TargetFlags.Beneficial)
 			{

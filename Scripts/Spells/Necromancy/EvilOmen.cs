@@ -1,13 +1,13 @@
-using System;
-using System.Collections;
 using Server.Mobiles;
 using Server.Targeting;
+using System;
+using System.Collections;
 
 namespace Server.Spells.Necromancy
 {
 	public class EvilOmenSpell : NecromancerSpell
 	{
-		private static SpellInfo m_Info = new SpellInfo(
+		private static readonly SpellInfo m_Info = new SpellInfo(
 				"Evil Omen", "Pas Tym An Sanct",
 				203,
 				9031,
@@ -78,7 +78,7 @@ namespace Server.Spells.Necromancy
 			FinishSequence();
 		}
 
-		private static Hashtable m_Table = new Hashtable();
+		private static readonly Hashtable m_Table = new Hashtable();
 
 		private static void EffectExpire_Callback(object state)
 		{
@@ -108,7 +108,7 @@ namespace Server.Spells.Necromancy
 
 		private class InternalTarget : Target
 		{
-			private EvilOmenSpell m_Owner;
+			private readonly EvilOmenSpell m_Owner;
 
 			public InternalTarget(EvilOmenSpell owner) : base(owner.SpellRange, false, TargetFlags.Harmful)
 			{

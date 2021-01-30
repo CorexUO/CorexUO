@@ -1,12 +1,12 @@
 namespace Server.Engines.Quests.Samurai
 {
-    public class AcceptConversation : QuestConversation
-    {
-        public override object Message
-        {
-            get
-            {
-                /* <I><U>Important Quest Information</U></I><BR><BR>
+	public class AcceptConversation : QuestConversation
+	{
+		public override object Message
+		{
+			get
+			{
+				/* <I><U>Important Quest Information</U></I><BR><BR>
 				 * 
 				 * During your quest, any important information that a
 				 * <a href = "?ForceTopic31">NPC</a> gives you, will appear in a window
@@ -28,27 +28,27 @@ namespace Server.Engines.Quests.Samurai
 				 * Bringing up your avatar's context menu will give you options to cancel your quest
 				 * and review various quest information.<BR><BR>
 				 */
-                return 1049092;
-            }
-        }
+				return 1049092;
+			}
+		}
 
-        public AcceptConversation()
-        {
-        }
+		public AcceptConversation()
+		{
+		}
 
-        public override void OnRead()
-        {
-            System.AddObjective(new FindHaochiObjective());
-        }
-    }
+		public override void OnRead()
+		{
+			System.AddObjective(new FindHaochiObjective());
+		}
+	}
 
-    public class RadarConversation : QuestConversation
-    {
-        public override object Message
-        {
-            get
-            {
-                /* To view the surrounding area, you should learn about the Radar Map.<BR><BR>
+	public class RadarConversation : QuestConversation
+	{
+		public override object Message
+		{
+			get
+			{
+				/* To view the surrounding area, you should learn about the Radar Map.<BR><BR>
 				 * 
 				 * The Radar Map (or Overhead View) can be opened by pressing 'ALT-R'
 				 * on your keyboard. It shows your immediate surroundings from a
@@ -58,24 +58,24 @@ namespace Server.Engines.Quests.Samurai
 				 * Use the Radar Map often as you travel throughout the world
 				 * to familiarize yourself with your surroundings.
 				 * */
-                return 1063033;
-            }
-        }
+				return 1063033;
+			}
+		}
 
-        public override bool Logged { get { return false; } }
+		public override bool Logged { get { return false; } }
 
-        public RadarConversation()
-        {
-        }
-    }
+		public RadarConversation()
+		{
+		}
+	}
 
-    public class FirstTrialIntroConversation : QuestConversation
-    {
-        public override object Message
-        {
-            get
-            {
-                /* Greetings. I am Daimyo Haochi, the Feudal Lord of this region. <BR><BR>
+	public class FirstTrialIntroConversation : QuestConversation
+	{
+		public override object Message
+		{
+			get
+			{
+				/* Greetings. I am Daimyo Haochi, the Feudal Lord of this region. <BR><BR>
 				 * 
 				 * Since you are here at my side, you must wish to learn the ways of the Samurai.<BR><BR>
 				 * 
@@ -98,27 +98,27 @@ namespace Server.Engines.Quests.Samurai
 				 * but do so at your own risk. You may not be able to return and complete your
 				 * trials once you have chosen to escape.
 				 */
-                return 1063029;
-            }
-        }
+				return 1063029;
+			}
+		}
 
-        public FirstTrialIntroConversation()
-        {
-        }
+		public FirstTrialIntroConversation()
+		{
+		}
 
-        public override void OnRead()
-        {
-            System.AddObjective(new FirstTrialIntroObjective());
-        }
-    }
+		public override void OnRead()
+		{
+			System.AddObjective(new FirstTrialIntroObjective());
+		}
+	}
 
-    public class FirstTrialKillConversation : QuestConversation
-    {
-        public override object Message
-        {
-            get
-            {
-                /* Beyond you are two troubled groups.<BR><BR>
+	public class FirstTrialKillConversation : QuestConversation
+	{
+		public override object Message
+		{
+			get
+			{
+				/* Beyond you are two troubled groups.<BR><BR>
 				 * 
 				 * The Cursed Souls were once proud warriors that were ensorcelled
 				 * by an evil mage. The mage trapped and killed them later but the spell
@@ -137,76 +137,76 @@ namespace Server.Engines.Quests.Samurai
 				 * and you will be resurrected. You should retrieve your belongings from your
 				 * body before returning to the Daimyo or you may not be able to return to your corpse.
 				 */
-                return 1063031;
-            }
-        }
+				return 1063031;
+			}
+		}
 
-        public FirstTrialKillConversation()
-        {
-        }
+		public FirstTrialKillConversation()
+		{
+		}
 
-        public override void OnRead()
-        {
-            System.AddObjective(new FirstTrialKillObjective());
-        }
-    }
+		public override void OnRead()
+		{
+			System.AddObjective(new FirstTrialKillObjective());
+		}
+	}
 
-    public class GainKarmaConversation : QuestConversation
-    {
-        public override object Message
-        {
-            get
-            {
-                if (m_CursedSoul)
-                {
-                    // You have just gained some <a href="?ForceTopic45">Karma</a> for killing a Cursed Soul.
-                    return 1063040;
-                }
-                else
-                {
-                    // You have just gained some <a href="?ForceTopic45">Karma</a> for killing a Young Ronin.
-                    return 1063041;
-                }
-            }
-        }
+	public class GainKarmaConversation : QuestConversation
+	{
+		public override object Message
+		{
+			get
+			{
+				if (m_CursedSoul)
+				{
+					// You have just gained some <a href="?ForceTopic45">Karma</a> for killing a Cursed Soul.
+					return 1063040;
+				}
+				else
+				{
+					// You have just gained some <a href="?ForceTopic45">Karma</a> for killing a Young Ronin.
+					return 1063041;
+				}
+			}
+		}
 
-        public override bool Logged { get { return false; } }
+		public override bool Logged { get { return false; } }
 
-        private bool m_CursedSoul;
+		private bool m_CursedSoul;
 
-        public GainKarmaConversation(bool cursedSoul)
-        {
-            m_CursedSoul = cursedSoul;
-        }
+		public GainKarmaConversation(bool cursedSoul)
+		{
+			m_CursedSoul = cursedSoul;
+		}
 
-        public GainKarmaConversation()
-        {
-        }
+		public GainKarmaConversation()
+		{
+		}
 
-        public override void ChildDeserialize(GenericReader reader)
-        {
-            int version = reader.ReadEncodedInt();
+		public override void ChildDeserialize(GenericReader reader)
+		{
+			int version = reader.ReadEncodedInt();
 
-            m_CursedSoul = reader.ReadBool();
-        }
+			m_CursedSoul = reader.ReadBool();
+		}
 
-        public override void ChildSerialize(GenericWriter writer)
-        {
-            writer.WriteEncodedInt((int)0); // version
+		public override void ChildSerialize(GenericWriter writer)
+		{
+			writer.WriteEncodedInt(0); // version
 
-            writer.Write((bool)m_CursedSoul);
-        }
-    }
+			writer.Write(m_CursedSoul);
+		}
+	}
 
-    public class SecondTrialIntroConversation : QuestConversation
-    {
-        public override object Message
-        {
-            get
-            {
-                if (m_CursedSoul)
-                {
-                    /* It is good that you rid the land of the Cursed Souls so they can
+	public class SecondTrialIntroConversation : QuestConversation
+	{
+		public override object Message
+		{
+			get
+			{
+				if (m_CursedSoul)
+				{
+					/* It is good that you rid the land of the Cursed Souls so they can
 					 * be at peace in death. They had been cursed for doing what they
 					 * thought was an honorable deed. Now they can have respect in their death.<BR><BR>
 					 * 
@@ -215,11 +215,11 @@ namespace Server.Engines.Quests.Samurai
 					 * The second trial will test your courage. You only have to follow the yellow
 					 * path to see what awaits you.
 					 */
-                    return 1063045;
-                }
-                else
-                {
-                    /* It is good that you rid the land of those dishonorable Samurai.
+					return 1063045;
+				}
+				else
+				{
+					/* It is good that you rid the land of those dishonorable Samurai.
 					 * Perhaps they will learn a greater lesson in death.<BR><BR>
 					 * 
 					 * I have placed a reward in your pack.<BR><BR>
@@ -227,49 +227,49 @@ namespace Server.Engines.Quests.Samurai
 					 * The second trial will test your courage. You only have to follow
 					 * the yellow path to see what awaits you.
 					 */
-                    return 1063046;
-                }
-            }
-        }
+					return 1063046;
+				}
+			}
+		}
 
-        private bool m_CursedSoul;
+		private bool m_CursedSoul;
 
-        public SecondTrialIntroConversation(bool cursedSoul)
-        {
-            m_CursedSoul = cursedSoul;
-        }
+		public SecondTrialIntroConversation(bool cursedSoul)
+		{
+			m_CursedSoul = cursedSoul;
+		}
 
-        public SecondTrialIntroConversation()
-        {
-        }
+		public SecondTrialIntroConversation()
+		{
+		}
 
-        public override void OnRead()
-        {
-            System.AddObjective(new SecondTrialIntroObjective());
-        }
+		public override void OnRead()
+		{
+			System.AddObjective(new SecondTrialIntroObjective());
+		}
 
-        public override void ChildDeserialize(GenericReader reader)
-        {
-            int version = reader.ReadEncodedInt();
+		public override void ChildDeserialize(GenericReader reader)
+		{
+			int version = reader.ReadEncodedInt();
 
-            m_CursedSoul = reader.ReadBool();
-        }
+			m_CursedSoul = reader.ReadBool();
+		}
 
-        public override void ChildSerialize(GenericWriter writer)
-        {
-            writer.WriteEncodedInt((int)0); // version
+		public override void ChildSerialize(GenericWriter writer)
+		{
+			writer.WriteEncodedInt(0); // version
 
-            writer.Write((bool)m_CursedSoul);
-        }
-    }
+			writer.Write(m_CursedSoul);
+		}
+	}
 
-    public class SecondTrialAttackConversation : QuestConversation
-    {
-        public override object Message
-        {
-            get
-            {
-                /* Beyond the guards is a test of courage.  You must face your fear and attack a
+	public class SecondTrialAttackConversation : QuestConversation
+	{
+		public override object Message
+		{
+			get
+			{
+				/* Beyond the guards is a test of courage.  You must face your fear and attack a
 				 * great beast. You must choose which beast to slay for there is more than
 				 * one beyond the courtyard doors. <BR><BR>
 				 * 
@@ -279,29 +279,29 @@ namespace Server.Engines.Quests.Samurai
 				 * You must rid the courtyard of these beasts but you may only choose one to
 				 * attack. Go and choose wisely.
 				 */
-                return 1063057;
-            }
-        }
+				return 1063057;
+			}
+		}
 
-        public SecondTrialAttackConversation()
-        {
-        }
+		public SecondTrialAttackConversation()
+		{
+		}
 
-        public override void OnRead()
-        {
-            System.AddObjective(new SecondTrialAttackObjective());
-        }
-    }
+		public override void OnRead()
+		{
+			System.AddObjective(new SecondTrialAttackObjective());
+		}
+	}
 
-    public class ThirdTrialIntroConversation : QuestConversation
-    {
-        public override object Message
-        {
-            get
-            {
-                if (m_Dragon)
-                {
-                    /* You faced the dragon knowing it would be your certain death.
+	public class ThirdTrialIntroConversation : QuestConversation
+	{
+		public override object Message
+		{
+			get
+			{
+				if (m_Dragon)
+				{
+					/* You faced the dragon knowing it would be your certain death.
 					 * That is the courage of a Samurai. <BR><BR>
 					 * 
 					 * Your spirit speaks as a Samurai already. <BR><BR>
@@ -313,11 +313,11 @@ namespace Server.Engines.Quests.Samurai
 					 * 
 					 * The next trial will test your benevolence. You only have to walk the blue path.
 					 */
-                    return 1063060;
-                }
-                else
-                {
-                    /* Fear remains in your eyes but you have learned that not all is
+					return 1063060;
+				}
+				else
+				{
+					/* Fear remains in your eyes but you have learned that not all is
 					 * what it appears to be. <BR><BR>
 					 * 
 					 * You must have known the dragon would slay you instantly.
@@ -331,75 +331,75 @@ namespace Server.Engines.Quests.Samurai
 					 * 
 					 * The next trial will test your benevolence. You only have to walk the blue path.
 					 */
-                    return 1063059;
-                }
-            }
-        }
+					return 1063059;
+				}
+			}
+		}
 
-        private bool m_Dragon;
+		private bool m_Dragon;
 
-        public ThirdTrialIntroConversation(bool dragon)
-        {
-            m_Dragon = dragon;
-        }
+		public ThirdTrialIntroConversation(bool dragon)
+		{
+			m_Dragon = dragon;
+		}
 
-        public ThirdTrialIntroConversation()
-        {
-        }
+		public ThirdTrialIntroConversation()
+		{
+		}
 
-        public override void OnRead()
-        {
-            System.AddObjective(new ThirdTrialIntroObjective());
-        }
+		public override void OnRead()
+		{
+			System.AddObjective(new ThirdTrialIntroObjective());
+		}
 
-        public override void ChildDeserialize(GenericReader reader)
-        {
-            int version = reader.ReadEncodedInt();
+		public override void ChildDeserialize(GenericReader reader)
+		{
+			int version = reader.ReadEncodedInt();
 
-            m_Dragon = reader.ReadBool();
-        }
+			m_Dragon = reader.ReadBool();
+		}
 
-        public override void ChildSerialize(GenericWriter writer)
-        {
-            writer.WriteEncodedInt((int)0); // version
+		public override void ChildSerialize(GenericWriter writer)
+		{
+			writer.WriteEncodedInt(0); // version
 
-            writer.Write((bool)m_Dragon);
-        }
-    }
+			writer.Write(m_Dragon);
+		}
+	}
 
-    public class ThirdTrialKillConversation : QuestConversation
-    {
-        public override object Message
-        {
-            get
-            {
-                /* A pack of wolves circle your feet. They have been injured and are in pain.
+	public class ThirdTrialKillConversation : QuestConversation
+	{
+		public override object Message
+		{
+			get
+			{
+				/* A pack of wolves circle your feet. They have been injured and are in pain.
 				 * A quick death will end their suffering.<br><br>
 				 * 
 				 * Use your Honorable Execution skill or other means to finish off a wounded wolf.
 				 * Do so and return to Daimyo Haochi.
 				 */
-                return 1063062;
-            }
-        }
+				return 1063062;
+			}
+		}
 
-        public ThirdTrialKillConversation()
-        {
-        }
+		public ThirdTrialKillConversation()
+		{
+		}
 
-        public override void OnRead()
-        {
-            System.AddObjective(new ThirdTrialKillObjective());
-        }
-    }
+		public override void OnRead()
+		{
+			System.AddObjective(new ThirdTrialKillObjective());
+		}
+	}
 
-    public class FourthTrialIntroConversation : QuestConversation
-    {
-        public override object Message
-        {
-            get
-            {
-                /* <I>Daimyo Haochi smiles as you walk up to him. Quietly he says:</I><BR><BR>
+	public class FourthTrialIntroConversation : QuestConversation
+	{
+		public override object Message
+		{
+			get
+			{
+				/* <I>Daimyo Haochi smiles as you walk up to him. Quietly he says:</I><BR><BR>
 				 * 
 				 * A Samurai understands the need to help others even as he wields a blade against
 				 * them. <BR><BR>
@@ -410,27 +410,27 @@ namespace Server.Engines.Quests.Samurai
 				 * And now you must prove yourself again. Walk the red path.
 				 * We will talk again later.
 				 */
-                return 1063065;
-            }
-        }
+				return 1063065;
+			}
+		}
 
-        public FourthTrialIntroConversation()
-        {
-        }
+		public FourthTrialIntroConversation()
+		{
+		}
 
-        public override void OnRead()
-        {
-            System.AddObjective(new FourthTrialIntroObjective());
-        }
-    }
+		public override void OnRead()
+		{
+			System.AddObjective(new FourthTrialIntroObjective());
+		}
+	}
 
-    public class FourthTrialCatsConversation : QuestConversation
-    {
-        public override object Message
-        {
-            get
-            {
-                /* <I>You approach a disheveled gypsy standing near a small shed.
+	public class FourthTrialCatsConversation : QuestConversation
+	{
+		public override object Message
+		{
+			get
+			{
+				/* <I>You approach a disheveled gypsy standing near a small shed.
 				 * You sense that she has not eaten nor bathed in quite some time. <BR><BR>
 				 * 
 				 * Around her is a large colony of mangy and diseased cats. It appears
@@ -444,29 +444,29 @@ namespace Server.Engines.Quests.Samurai
 				 * If you elect to give the gypsy money, you can do so by clicking your stack
 				 * of gold and selecting ‘1’. Then dragging it and dropping it on the Gypsy.
 				 */
-                return 1063067;
-            }
-        }
+				return 1063067;
+			}
+		}
 
-        public FourthTrialCatsConversation()
-        {
-        }
+		public FourthTrialCatsConversation()
+		{
+		}
 
-        public override void OnRead()
-        {
-            System.AddObjective(new FourthTrialCatsObjective());
-        }
-    }
+		public override void OnRead()
+		{
+			System.AddObjective(new FourthTrialCatsObjective());
+		}
+	}
 
-    public class FifthTrialIntroConversation : QuestConversation
-    {
-        public override object Message
-        {
-            get
-            {
-                if (m_KilledCat)
-                {
-                    /* Respect comes from allowing another to make their own decisions.
+	public class FifthTrialIntroConversation : QuestConversation
+	{
+		public override object Message
+		{
+			get
+			{
+				if (m_KilledCat)
+				{
+					/* Respect comes from allowing another to make their own decisions.
 					 * By denying the gypsy her animals, you negate the respect she is due.
 					 * Perhaps you will have learned something to use next time a similar
 					 * situation arises. <BR><BR>
@@ -474,11 +474,11 @@ namespace Server.Engines.Quests.Samurai
 					 * And now you must prove yourself again. Please retrieve my katana
 					 * from the treasure room and return it to me.
 					 */
-                    return 1063071;
-                }
-                else
-                {
-                    /* You showed respect by helping another out while allowing the gypsy
+					return 1063071;
+				}
+				else
+				{
+					/* You showed respect by helping another out while allowing the gypsy
 					 * what little dignity she has left. <BR><BR>
 					 * 
 					 * Now she will be able to feed herself and gain enough energy to walk
@@ -493,49 +493,49 @@ namespace Server.Engines.Quests.Samurai
 					 * prove yourself again. <BR><BR>Please retrieve my katana from the
 					 * treasure room and return it to me.
 					 */
-                    return 1063070;
-                }
-            }
-        }
+					return 1063070;
+				}
+			}
+		}
 
-        private bool m_KilledCat;
+		private bool m_KilledCat;
 
-        public FifthTrialIntroConversation(bool killedCat)
-        {
-            m_KilledCat = killedCat;
-        }
+		public FifthTrialIntroConversation(bool killedCat)
+		{
+			m_KilledCat = killedCat;
+		}
 
-        public FifthTrialIntroConversation()
-        {
-        }
+		public FifthTrialIntroConversation()
+		{
+		}
 
-        public override void OnRead()
-        {
-            System.AddObjective(new FifthTrialIntroObjective());
-        }
+		public override void OnRead()
+		{
+			System.AddObjective(new FifthTrialIntroObjective());
+		}
 
-        public override void ChildDeserialize(GenericReader reader)
-        {
-            int version = reader.ReadEncodedInt();
+		public override void ChildDeserialize(GenericReader reader)
+		{
+			int version = reader.ReadEncodedInt();
 
-            m_KilledCat = reader.ReadBool();
-        }
+			m_KilledCat = reader.ReadBool();
+		}
 
-        public override void ChildSerialize(GenericWriter writer)
-        {
-            writer.WriteEncodedInt((int)0); // version
+		public override void ChildSerialize(GenericWriter writer)
+		{
+			writer.WriteEncodedInt(0); // version
 
-            writer.Write((bool)m_KilledCat);
-        }
-    }
+			writer.Write(m_KilledCat);
+		}
+	}
 
-    public class FifthTrialReturnConversation : QuestConversation
-    {
-        public override object Message
-        {
-            get
-            {
-                /* <i>The guards let you through without question, and pay you no mind as
+	public class FifthTrialReturnConversation : QuestConversation
+	{
+		public override object Message
+		{
+			get
+			{
+				/* <i>The guards let you through without question, and pay you no mind as
 				 * you walk into the Daimyo's treasure cache.  A vast fortune in gold,
 				 * gemstones, and jewelry is stored here!  Surely, the Daimyo wouldn't
 				 * miss a single small item...<br><br>
@@ -543,47 +543,47 @@ namespace Server.Engines.Quests.Samurai
 				 * You spot the sword quickly amongst the cache of gemstones and other valuables.
 				 * In one quick motion you retrieve it and stash it in your pack.</i>
 				 */
-                return 1063248;
-            }
-        }
+				return 1063248;
+			}
+		}
 
-        public FifthTrialReturnConversation()
-        {
-        }
+		public FifthTrialReturnConversation()
+		{
+		}
 
-        public override void OnRead()
-        {
-            System.AddObjective(new FifthTrialReturnObjective());
-        }
-    }
+		public override void OnRead()
+		{
+			System.AddObjective(new FifthTrialReturnObjective());
+		}
+	}
 
-    public class LostSwordConversation : QuestConversation
-    {
-        public override object Message
-        {
-            get
-            {
-                // What? You have returned without the sword? Go back and look for it again.
-                return 1063074;
-            }
-        }
+	public class LostSwordConversation : QuestConversation
+	{
+		public override object Message
+		{
+			get
+			{
+				// What? You have returned without the sword? Go back and look for it again.
+				return 1063074;
+			}
+		}
 
-        public override bool Logged { get { return false; } }
+		public override bool Logged { get { return false; } }
 
-        public LostSwordConversation()
-        {
-        }
-    }
+		public LostSwordConversation()
+		{
+		}
+	}
 
-    public class SixthTrialIntroConversation : QuestConversation
-    {
-        public override object Message
-        {
-            get
-            {
-                if (m_StolenTreasure)
-                {
-                    /* I thank you for returning this sword. However, you should admonished
+	public class SixthTrialIntroConversation : QuestConversation
+	{
+		public override object Message
+		{
+			get
+			{
+				if (m_StolenTreasure)
+				{
+					/* I thank you for returning this sword. However, you should admonished
 					 * for also taking treasure that was not asked for nor given back.  <BR><BR>
 					 * 
 					 * Think about your actions youngling. <BR><BR>
@@ -594,11 +594,11 @@ namespace Server.Engines.Quests.Samurai
 					 * Go into the Altar Room and light a candle for them.
 					 * Afterwards, return to me.
 					 */
-                    return 1063077;
-                }
-                else
-                {
-                    /* Thank you for returning this sword to me and leaving the remaining
+					return 1063077;
+				}
+				else
+				{
+					/* Thank you for returning this sword to me and leaving the remaining
 					 * treasure alone. <BR><BR>
 					 * 
 					 * Your training is nearly complete. Before you have your final trial,
@@ -606,49 +606,49 @@ namespace Server.Engines.Quests.Samurai
 					 * 
 					 * Go into the Altar Room and light a candle for them. Afterwards, return to me.
 					 */
-                    return 1063076;
-                }
-            }
-        }
+					return 1063076;
+				}
+			}
+		}
 
-        private bool m_StolenTreasure;
+		private bool m_StolenTreasure;
 
-        public SixthTrialIntroConversation(bool stolenTreasure)
-        {
-            m_StolenTreasure = stolenTreasure;
-        }
+		public SixthTrialIntroConversation(bool stolenTreasure)
+		{
+			m_StolenTreasure = stolenTreasure;
+		}
 
-        public SixthTrialIntroConversation()
-        {
-        }
+		public SixthTrialIntroConversation()
+		{
+		}
 
-        public override void OnRead()
-        {
-            System.AddObjective(new SixthTrialIntroObjective());
-        }
+		public override void OnRead()
+		{
+			System.AddObjective(new SixthTrialIntroObjective());
+		}
 
-        public override void ChildDeserialize(GenericReader reader)
-        {
-            int version = reader.ReadEncodedInt();
+		public override void ChildDeserialize(GenericReader reader)
+		{
+			int version = reader.ReadEncodedInt();
 
-            m_StolenTreasure = reader.ReadBool();
-        }
+			m_StolenTreasure = reader.ReadBool();
+		}
 
-        public override void ChildSerialize(GenericWriter writer)
-        {
-            writer.WriteEncodedInt((int)0); // version
+		public override void ChildSerialize(GenericWriter writer)
+		{
+			writer.WriteEncodedInt(0); // version
 
-            writer.Write((bool)m_StolenTreasure);
-        }
-    }
+			writer.Write(m_StolenTreasure);
+		}
+	}
 
-    public class SeventhTrialIntroConversation : QuestConversation
-    {
-        public override object Message
-        {
-            get
-            {
-                /* You have done well young Samurai. There is but one thing left to do. <BR><BR>
+	public class SeventhTrialIntroConversation : QuestConversation
+	{
+		public override object Message
+		{
+			get
+			{
+				/* You have done well young Samurai. There is but one thing left to do. <BR><BR>
 				 * 
 				 * In the final room is the holding cell containing young Ninjas who came to
 				 * take my life. They were caught and placed in my custody. <BR><BR>
@@ -657,27 +657,27 @@ namespace Server.Engines.Quests.Samurai
 				 * 
 				 * This is your final act as a Samurai in training.
 				 */
-                return 1063079;
-            }
-        }
+				return 1063079;
+			}
+		}
 
-        public SeventhTrialIntroConversation()
-        {
-        }
+		public SeventhTrialIntroConversation()
+		{
+		}
 
-        public override void OnRead()
-        {
-            System.AddObjective(new SeventhTrialIntroObjective());
-        }
-    }
+		public override void OnRead()
+		{
+			System.AddObjective(new SeventhTrialIntroObjective());
+		}
+	}
 
-    public class EndConversation : QuestConversation
-    {
-        public override object Message
-        {
-            get
-            {
-                /* You have proven yourself young one. You will continue to improve as your skills
+	public class EndConversation : QuestConversation
+	{
+		public override object Message
+		{
+			get
+			{
+				/* You have proven yourself young one. You will continue to improve as your skills
 				 * are honed with age. <BR><BR>
 				 * 
 				 * Now it is time for you to explore the lands. Beyond this path lies Zento
@@ -692,17 +692,17 @@ namespace Server.Engines.Quests.Samurai
 				 * Please accept the gifts I have placed in your pack. You have earned them.
 				 * Farewell for now.
 				 */
-                return 1063125;
-            }
-        }
+				return 1063125;
+			}
+		}
 
-        public EndConversation()
-        {
-        }
+		public EndConversation()
+		{
+		}
 
-        public override void OnRead()
-        {
-            System.Complete();
-        }
-    }
+		public override void OnRead()
+		{
+			System.Complete();
+		}
+	}
 }

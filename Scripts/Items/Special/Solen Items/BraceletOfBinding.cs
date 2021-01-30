@@ -1,11 +1,11 @@
-using System;
-using System.Collections.Generic;
 using Server.ContextMenus;
 using Server.Mobiles;
 using Server.Network;
 using Server.Prompts;
 using Server.Spells;
 using Server.Targeting;
+using System;
+using System.Collections.Generic;
 
 namespace Server.Items
 {
@@ -121,7 +121,7 @@ namespace Server.Items
 
 		private class BraceletEntry : ContextMenuEntry
 		{
-			private BraceletCallback m_Callback;
+			private readonly BraceletCallback m_Callback;
 
 			public BraceletEntry(BraceletCallback callback, int number, bool enabled) : base(number)
 			{
@@ -183,8 +183,8 @@ namespace Server.Items
 
 		private class TransportTimer : Timer
 		{
-			private BraceletOfBinding m_Bracelet;
-			private Mobile m_From;
+			private readonly BraceletOfBinding m_Bracelet;
+			private readonly Mobile m_From;
 
 			public TransportTimer(BraceletOfBinding bracelet, Mobile from) : base(TimeSpan.FromSeconds(2.0))
 			{
@@ -339,7 +339,7 @@ namespace Server.Items
 
 		private class BindTarget : Target
 		{
-			private BraceletOfBinding m_Bracelet;
+			private readonly BraceletOfBinding m_Bracelet;
 
 			public BindTarget(BraceletOfBinding bracelet) : base(-1, false, TargetFlags.None)
 			{
@@ -400,7 +400,7 @@ namespace Server.Items
 
 		private class InscribePrompt : Prompt
 		{
-			private BraceletOfBinding m_Bracelet;
+			private readonly BraceletOfBinding m_Bracelet;
 
 			public InscribePrompt(BraceletOfBinding bracelet)
 			{
@@ -437,13 +437,13 @@ namespace Server.Items
 		{
 			base.Serialize(writer);
 
-			writer.WriteEncodedInt((int)0); // version
+			writer.WriteEncodedInt(0); // version
 
-			writer.WriteEncodedInt((int)m_Recharges);
+			writer.WriteEncodedInt(m_Recharges);
 
-			writer.WriteEncodedInt((int)m_Charges);
-			writer.Write((string)m_Inscription);
-			writer.Write((Item)this.Bound);
+			writer.WriteEncodedInt(m_Charges);
+			writer.Write(m_Inscription);
+			writer.Write(Bound);
 		}
 
 		public override void Deserialize(GenericReader reader)

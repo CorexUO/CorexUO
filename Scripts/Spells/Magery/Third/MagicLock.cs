@@ -6,7 +6,7 @@ namespace Server.Spells.Third
 {
 	public class MagicLockSpell : MagerySpell
 	{
-		private static SpellInfo m_Info = new SpellInfo(
+		private static readonly SpellInfo m_Info = new SpellInfo(
 				"Magic Lock", "An Por",
 				215,
 				9001,
@@ -71,7 +71,7 @@ namespace Server.Spells.Third
 
 		private class InternalTarget : Target
 		{
-			private MagicLockSpell m_Owner;
+			private readonly MagicLockSpell m_Owner;
 
 			public InternalTarget(MagicLockSpell owner) : base(owner.SpellRange, false, TargetFlags.None)
 			{

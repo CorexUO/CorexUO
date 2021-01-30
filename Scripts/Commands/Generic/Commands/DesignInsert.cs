@@ -1,10 +1,10 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using Server.Gumps;
 using Server.Items;
 using Server.Multis;
 using Server.Targeting;
+using System;
+using System.Collections;
+using System.Collections.Generic;
 
 namespace Server.Commands.Generic
 {
@@ -34,8 +34,8 @@ namespace Server.Commands.Generic
 
 		private class DesignInsertTarget : Target
 		{
-			private List<HouseFoundation> m_Foundations;
-			private bool m_StaticsOnly;
+			private readonly List<HouseFoundation> m_Foundations;
+			private readonly bool m_StaticsOnly;
 
 			public DesignInsertTarget(List<HouseFoundation> foundations, bool staticsOnly)
 				: base(-1, false, TargetFlags.None)
@@ -57,8 +57,7 @@ namespace Server.Commands.Generic
 
 			protected override void OnTarget(Mobile from, object obj)
 			{
-				HouseFoundation house;
-				DesignInsertResult result = ProcessInsert(obj as Item, m_StaticsOnly, out house);
+				DesignInsertResult result = ProcessInsert(obj as Item, m_StaticsOnly, out HouseFoundation house);
 
 				switch (result)
 				{
@@ -115,8 +114,7 @@ namespace Server.Commands.Generic
 
 				for (int i = 0; i < list.Count; ++i)
 				{
-					HouseFoundation house;
-					DesignInsertResult result = ProcessInsert(list[i] as Item, staticsOnly, out house);
+					DesignInsertResult result = ProcessInsert(list[i] as Item, staticsOnly, out HouseFoundation house);
 
 					switch (result)
 					{

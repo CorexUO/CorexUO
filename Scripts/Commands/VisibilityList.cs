@@ -1,7 +1,7 @@
-using System.Collections.Generic;
 using Server.Mobiles;
 using Server.Network;
 using Server.Targeting;
+using System.Collections.Generic;
 
 namespace Server.Commands
 {

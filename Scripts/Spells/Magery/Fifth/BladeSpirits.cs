@@ -1,12 +1,12 @@
-using System;
 using Server.Mobiles;
 using Server.Targeting;
+using System;
 
 namespace Server.Spells.Fifth
 {
 	public class BladeSpiritsSpell : MagerySpell
 	{
-		private static SpellInfo m_Info = new SpellInfo(
+		private static readonly SpellInfo m_Info = new SpellInfo(
 				"Blade Spirits", "In Jux Hur Ylem",
 				266,
 				9040,

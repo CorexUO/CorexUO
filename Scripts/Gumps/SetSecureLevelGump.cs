@@ -11,7 +11,7 @@ namespace Server.Gumps
 
 	public class SetSecureLevelGump : Gump
 	{
-		private ISecurable m_Info;
+		private readonly ISecurable m_Info;
 
 		public SetSecureLevelGump(Mobile owner, ISecurable info, BaseHouse house) : base(50, 50)
 		{

@@ -1,10 +1,10 @@
+using Server.Gumps;
+using Server.Network;
+using Server.Targets;
 using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Reflection;
-using Server.Gumps;
-using Server.Network;
-using Server.Targets;
 
 namespace Server.Commands.Generic
 {
@@ -51,14 +51,14 @@ namespace Server.Commands.Generic
 
 	public class InterfaceGump : BaseGridGump
 	{
-		private Mobile m_From;
+		private readonly Mobile m_From;
 
-		private string[] m_Columns;
+		private readonly string[] m_Columns;
 
-		private ArrayList m_List;
-		private int m_Page;
+		private readonly ArrayList m_List;
+		private readonly int m_Page;
 
-		private object m_Select;
+		private readonly object m_Select;
 
 		private const int EntriesPerPage = 15;
 
@@ -245,14 +245,14 @@ namespace Server.Commands.Generic
 
 	public class InterfaceItemGump : BaseGridGump
 	{
-		private Mobile m_From;
+		private readonly Mobile m_From;
 
-		private string[] m_Columns;
+		private readonly string[] m_Columns;
 
-		private ArrayList m_List;
-		private int m_Page;
+		private readonly ArrayList m_List;
+		private readonly int m_Page;
 
-		private Item m_Item;
+		private readonly Item m_Item;
 
 		public InterfaceItemGump(Mobile from, string[] columns, ArrayList list, int page, Item item) : base(30, 30)
 		{
@@ -377,14 +377,14 @@ namespace Server.Commands.Generic
 
 	public class InterfaceMobileGump : BaseGridGump
 	{
-		private Mobile m_From;
+		private readonly Mobile m_From;
 
-		private string[] m_Columns;
+		private readonly string[] m_Columns;
 
-		private ArrayList m_List;
-		private int m_Page;
+		private readonly ArrayList m_List;
+		private readonly int m_Page;
 
-		private Mobile m_Mobile;
+		private readonly Mobile m_Mobile;
 
 		public InterfaceMobileGump(Mobile from, string[] columns, ArrayList list, int page, Mobile mob)
 			: base(30, 30)

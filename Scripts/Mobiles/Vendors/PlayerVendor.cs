@@ -1,6 +1,3 @@
-using System;
-using System.Collections.Generic;
-using System.Globalization;
 using Server.ContextMenus;
 using Server.Gumps;
 using Server.Items;
@@ -8,6 +5,9 @@ using Server.Misc;
 using Server.Multis;
 using Server.Prompts;
 using Server.Targeting;
+using System;
+using System.Collections.Generic;
+using System.Globalization;
 
 namespace Server.Mobiles
 {
@@ -21,10 +21,10 @@ namespace Server.Mobiles
 
 	public class VendorItem
 	{
-		private Item m_Item;
-		private int m_Price;
+		private readonly Item m_Item;
+		private readonly int m_Price;
 		private string m_Description;
-		private DateTime m_Created;
+		private readonly DateTime m_Created;
 
 		private bool m_Valid;
 
@@ -169,7 +169,7 @@ namespace Server.Mobiles
 
 		private class BuyEntry : ContextMenuEntry
 		{
-			private Item m_Item;
+			private readonly Item m_Item;
 
 			public BuyEntry(Item item) : base(6103)
 			{
@@ -260,7 +260,7 @@ namespace Server.Mobiles
 		{
 			base.Serialize(writer);
 
-			writer.Write((int)0); // version
+			writer.Write(0); // version
 		}
 
 		public override void Deserialize(GenericReader reader)
@@ -333,25 +333,25 @@ namespace Server.Mobiles
 		{
 			base.Serialize(writer);
 
-			writer.Write((int)0); // version
+			writer.Write(0); // version
 
-			writer.Write((bool)BaseHouse.NewVendorSystem);
-			writer.Write((string)m_ShopName);
-			writer.WriteDeltaTime((DateTime)m_NextPayTime);
-			writer.Write((Item)House);
+			writer.Write(BaseHouse.NewVendorSystem);
+			writer.Write(m_ShopName);
+			writer.WriteDeltaTime(m_NextPayTime);
+			writer.Write(House);
 
-			writer.Write((Mobile)m_Owner);
-			writer.Write((int)m_BankAccount);
-			writer.Write((int)m_HoldGold);
+			writer.Write(m_Owner);
+			writer.Write(m_BankAccount);
+			writer.Write(m_HoldGold);
 
-			writer.Write((int)m_SellItems.Count);
+			writer.Write(m_SellItems.Count);
 			foreach (VendorItem vi in m_SellItems.Values)
 			{
-				writer.Write((Item)vi.Item);
-				writer.Write((int)vi.Price);
-				writer.Write((string)vi.Description);
+				writer.Write(vi.Item);
+				writer.Write(vi.Price);
+				writer.Write(vi.Description);
 
-				writer.Write((DateTime)vi.Created);
+				writer.Write(vi.Created);
 			}
 		}
 
@@ -693,7 +693,7 @@ namespace Server.Mobiles
 		{
 			for (int i = 0; i < Items.Count; ++i)
 			{
-				Item item = Items[i] as Item;
+				Item item = Items[i];
 
 				if (item is BaseHat)
 					item.Layer = Layer.Helm;
@@ -748,8 +748,7 @@ namespace Server.Mobiles
 
 		public VendorItem GetVendorItem(Item item)
 		{
-			VendorItem v = null;
-			m_SellItems.TryGetValue(item, out v);
+			m_SellItems.TryGetValue(item, out VendorItem v);
 			return v;
 		}
 
@@ -1225,7 +1224,7 @@ namespace Server.Mobiles
 
 		private class ReturnVendorEntry : ContextMenuEntry
 		{
-			private PlayerVendor m_Vendor;
+			private readonly PlayerVendor m_Vendor;
 
 			public ReturnVendorEntry(PlayerVendor vendor) : base(6214)
 			{
@@ -1348,7 +1347,7 @@ namespace Server.Mobiles
 					return TimeSpan.FromMinutes(Clock.MinutesPerUODay);
 			}
 
-			private PlayerVendor m_Vendor;
+			private readonly PlayerVendor m_Vendor;
 
 			public PayTimer(PlayerVendor vendor, TimeSpan delay) : base(delay, GetInterval())
 			{
@@ -1418,8 +1417,8 @@ namespace Server.Mobiles
 
 		private class VendorPricePrompt : Prompt
 		{
-			private PlayerVendor m_Vendor;
-			private VendorItem m_VI;
+			private readonly PlayerVendor m_Vendor;
+			private readonly VendorItem m_VI;
 
 			public VendorPricePrompt(PlayerVendor vendor, VendorItem vi)
 			{
@@ -1440,10 +1439,9 @@ namespace Server.Mobiles
 				else
 					firstWord = text;
 
-				int price;
 				string description;
 
-				if (int.TryParse(firstWord, out price))
+				if (int.TryParse(firstWord, out int price))
 				{
 					if (sep >= 0)
 						description = text.Substring(sep + 1).Trim();
@@ -1519,7 +1517,7 @@ namespace Server.Mobiles
 
 		private class CollectGoldPrompt : Prompt
 		{
-			private PlayerVendor m_Vendor;
+			private readonly PlayerVendor m_Vendor;
 
 			public CollectGoldPrompt(PlayerVendor vendor)
 			{
@@ -1533,9 +1531,8 @@ namespace Server.Mobiles
 
 				text = text.Trim();
 
-				int amount;
 
-				if (!int.TryParse(text, out amount))
+				if (!int.TryParse(text, out int amount))
 					amount = 0;
 
 				GiveGold(from, amount);
@@ -1564,7 +1561,7 @@ namespace Server.Mobiles
 
 		private class VendorNamePrompt : Prompt
 		{
-			private PlayerVendor m_Vendor;
+			private readonly PlayerVendor m_Vendor;
 
 			public VendorNamePrompt(PlayerVendor vendor)
 			{
@@ -1594,7 +1591,7 @@ namespace Server.Mobiles
 
 		private class ShopNamePrompt : Prompt
 		{
-			private PlayerVendor m_Vendor;
+			private readonly PlayerVendor m_Vendor;
 
 			public ShopNamePrompt(PlayerVendor vendor)
 			{
@@ -1630,7 +1627,7 @@ namespace Server.Mobiles
 	public class PlayerVendorPlaceholder : BaseItem
 	{
 		private PlayerVendor m_Vendor;
-		private ExpireTimer m_Timer;
+		private readonly ExpireTimer m_Timer;
 
 		[CommandProperty(AccessLevel.GameMaster)]
 		public PlayerVendor Vendor { get { return m_Vendor; } }
@@ -1666,7 +1663,7 @@ namespace Server.Mobiles
 
 		private class ExpireTimer : Timer
 		{
-			private PlayerVendorPlaceholder m_Placeholder;
+			private readonly PlayerVendorPlaceholder m_Placeholder;
 
 			public ExpireTimer(PlayerVendorPlaceholder placeholder) : base(TimeSpan.FromMinutes(2.0))
 			{
@@ -1694,9 +1691,9 @@ namespace Server.Mobiles
 		{
 			base.Serialize(writer);
 
-			writer.WriteEncodedInt((int)0);
+			writer.WriteEncodedInt(0);
 
-			writer.Write((Mobile)m_Vendor);
+			writer.Write(m_Vendor);
 		}
 
 		public override void Deserialize(GenericReader reader)

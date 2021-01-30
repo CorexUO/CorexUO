@@ -1,7 +1,7 @@
-using System;
 using Server.Mobiles;
 using Server.Network;
 using Server.Spells;
+using System;
 
 namespace Server.Engines.Doom
 {
@@ -49,7 +49,7 @@ namespace Server.Engines.Doom
 		public override void Serialize(GenericWriter writer)
 		{
 			base.Serialize(writer);
-			writer.Write((int)0); // version
+			writer.Write(0); // version
 			writer.Write(m_Controller);
 		}
 
@@ -82,7 +82,7 @@ namespace Server.Engines.Doom
 		public override void Serialize(GenericWriter writer)
 		{
 			base.Serialize(writer);
-			writer.Write((int)0); // version
+			writer.Write(0); // version
 			writer.Write(m_Controller);
 		}
 		public override void Deserialize(GenericReader reader)
@@ -138,8 +138,8 @@ namespace Server.Engines.Doom
 		public override void Serialize(GenericWriter writer)
 		{
 			base.Serialize(writer);
-			writer.Write((int)0); // version
-			writer.Write((ushort)m_Code);
+			writer.Write(0); // version
+			writer.Write(m_Code);
 			writer.Write(m_Controller);
 		}
 		public override void Deserialize(GenericReader reader)
@@ -186,7 +186,7 @@ namespace Server.Engines.Doom
 		public override void Serialize(GenericWriter writer)
 		{
 			base.Serialize(writer);
-			writer.Write((int)0); // version
+			writer.Write(0); // version
 		}
 		public override void Deserialize(GenericReader reader)
 		{

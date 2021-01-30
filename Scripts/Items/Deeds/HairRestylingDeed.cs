@@ -23,7 +23,7 @@ namespace Server.Items
 		{
 			base.Serialize(writer);
 
-			writer.Write((int)0); // version
+			writer.Write(0); // version
 		}
 
 		public override void Deserialize(GenericReader reader)
@@ -46,8 +46,8 @@ namespace Server.Items
 
 		private class InternalGump : Gump
 		{
-			private Mobile m_From;
-			private HairRestylingDeed m_Deed;
+			private readonly Mobile m_From;
+			private readonly HairRestylingDeed m_Deed;
 
 			public InternalGump(Mobile from, HairRestylingDeed deed) : base(50, 50)
 			{
@@ -99,11 +99,12 @@ namespace Server.Items
 					m_Deed.Delete();
 				}
 			}
+
 			/*
 					gump data: bgX, bgY, htmlX, htmlY, imgX, imgY, butX, butY
 			*/
 
-			int[][] LayoutArray =
+			readonly int[][] LayoutArray =
 			{
 				new int[] { 0 }, /* padding: its more efficient than code to ++ the index/buttonid */
 				new int[] { 425, 280, 342, 295, 000, 000, 310, 292 },
@@ -121,7 +122,7 @@ namespace Server.Items
 			/*
 					racial arrays are: cliloc_F, cliloc_M, ItemID_F, ItemID_M, gump_img_F, gump_img_M
 			*/
-			int[][] HumanArray = /* why on earth cant these utilies be consistent with hex/dec */
+			readonly int[][] HumanArray = /* why on earth cant these utilies be consistent with hex/dec */
 			{
 				new int[] { 0 },
 				new int[] { 1011064, 1011064, 0, 0, 0, 0  },  // bald
@@ -135,7 +136,7 @@ namespace Server.Items
 				new int[] { 1011050, 1011050, 0x204A, 0x204A, 0xED29, 0xED29 }, // Topknot
 				new int[] { 1011396, 1011396, 0x2047, 0x2047, 0xed25, 0xc618 }  // Curly
 			};
-			int[][] ElvenArray =
+			readonly int[][] ElvenArray =
 			{
 				new int[] { 0 },
 				new int[] { 1011064, 1011064, 0, 0, 0, 0, },  // bald

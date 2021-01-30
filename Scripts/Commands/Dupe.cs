@@ -1,7 +1,7 @@
-using System;
-using System.Reflection;
 using Server.Items;
 using Server.Targeting;
+using System;
+using System.Reflection;
 
 namespace Server.Commands
 {
@@ -38,8 +38,8 @@ namespace Server.Commands
 
 		private class DupeTarget : Target
 		{
-			private bool m_InBag;
-			private int m_Amount;
+			private readonly bool m_InBag;
+			private readonly int m_Amount;
 
 			public DupeTarget(bool inbag, int amount)
 				: base(15, false, TargetFlags.None)

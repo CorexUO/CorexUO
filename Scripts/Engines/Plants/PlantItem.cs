@@ -1,11 +1,11 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using Server.ContextMenus;
 using Server.Gumps;
 using Server.Items;
 using Server.Multis;
 using Server.Network;
+using System;
+using System.Collections;
+using System.Collections.Generic;
 
 namespace Server.Engines.Plants
 {
@@ -183,7 +183,7 @@ namespace Server.Engines.Plants
 			get { return PlantHueInfo.CanReproduce(this.PlantHue) && PlantTypeInfo.CanReproduce(this.PlantType); }
 		}
 
-		private static ArrayList m_Instances = new ArrayList();
+		private static readonly ArrayList m_Instances = new ArrayList();
 
 		public static ArrayList Plants { get { return m_Instances; } }
 
@@ -430,8 +430,7 @@ namespace Server.Engines.Plants
 			{
 				BasePotion potion = (BasePotion)item;
 
-				int message;
-				if (ApplyPotion(potion.PotionEffect, false, out message))
+				if (ApplyPotion(potion.PotionEffect, false, out int message))
 				{
 					potion.Consume();
 					from.PlaySound(0x240);
@@ -449,8 +448,7 @@ namespace Server.Engines.Plants
 					return;
 				}
 
-				int message;
-				if (ApplyPotion(keg.Type, false, out message))
+				if (ApplyPotion(keg.Type, false, out int message))
 				{
 					keg.Held--;
 					from.PlaySound(0x240);
@@ -535,14 +533,14 @@ namespace Server.Engines.Plants
 		{
 			base.Serialize(writer);
 
-			writer.Write((int)0); // version
+			writer.Write(0); // version
 
 			writer.Write((int)m_Level);
 
 			writer.Write((int)m_PlantStatus);
 			writer.Write((int)m_PlantType);
 			writer.Write((int)m_PlantHue);
-			writer.Write((bool)m_ShowType);
+			writer.Write(m_ShowType);
 
 			if (m_PlantStatus < PlantStatus.DecorativePlant)
 				m_PlantSystem.Save(writer);

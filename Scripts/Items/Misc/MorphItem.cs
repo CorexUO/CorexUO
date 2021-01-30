@@ -105,13 +105,13 @@ namespace Server.Items
 		{
 			base.Serialize(writer);
 
-			writer.Write((int)0); // version
+			writer.Write(0); // version
 
-			writer.Write((int)m_OutRange);
+			writer.Write(m_OutRange);
 
-			writer.Write((int)m_InactiveItemID);
-			writer.Write((int)m_ActiveItemID);
-			writer.Write((int)m_InRange);
+			writer.Write(m_InactiveItemID);
+			writer.Write(m_ActiveItemID);
+			writer.Write(m_InRange);
 		}
 
 		public override void Deserialize(GenericReader reader)

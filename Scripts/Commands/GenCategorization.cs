@@ -1,9 +1,9 @@
+using Server.Items;
 using System;
 using System.Collections;
 using System.IO;
 using System.Reflection;
 using System.Xml;
-using Server.Items;
 
 namespace Server.Commands
 {
@@ -105,7 +105,7 @@ namespace Server.Commands
 					int itemID = item.ItemID;
 
 					if (item is BaseAddon && ((BaseAddon)item).Components.Count == 1)
-						itemID = ((AddonComponent)(((BaseAddon)item).Components[0])).ItemID;
+						itemID = ((BaseAddon)item).Components[0].ItemID;
 
 					if (itemID > TileData.MaxItemValue)
 						itemID = 1;
@@ -177,9 +177,9 @@ namespace Server.Commands
 			return new CategoryEntry();
 		}
 
-		private static Type typeofItem = typeof(Item);
-		private static Type typeofMobile = typeof(Mobile);
-		private static Type typeofConstructable = typeof(ConstructableAttribute);
+		private static readonly Type typeofItem = typeof(Item);
+		private static readonly Type typeofMobile = typeof(Mobile);
+		private static readonly Type typeofConstructable = typeof(ConstructableAttribute);
 
 		private static bool IsConstructable(Type type)
 		{
@@ -275,8 +275,8 @@ namespace Server.Commands
 
 	public class CategoryTypeEntry
 	{
-		private Type m_Type;
-		private object m_Object;
+		private readonly Type m_Type;
+		private readonly object m_Object;
 
 		public Type Type { get { return m_Type; } }
 		public object Object { get { return m_Object; } }
@@ -290,11 +290,11 @@ namespace Server.Commands
 
 	public class CategoryEntry
 	{
-		private string m_Title;
-		private Type[] m_Matches;
-		private CategoryEntry[] m_SubCategories;
-		private CategoryEntry m_Parent;
-		private ArrayList m_Matched;
+		private readonly string m_Title;
+		private readonly Type[] m_Matches;
+		private readonly CategoryEntry[] m_SubCategories;
+		private readonly CategoryEntry m_Parent;
+		private readonly ArrayList m_Matched;
 
 		public string Title { get { return m_Title; } }
 		public Type[] Matches { get { return m_Matches; } }
@@ -381,8 +381,8 @@ namespace Server.Commands
 
 	public class CategoryLine
 	{
-		private int m_Indentation;
-		private string m_Text;
+		private readonly int m_Indentation;
+		private readonly string m_Text;
 
 		public int Indentation { get { return m_Indentation; } }
 		public string Text { get { return m_Text; } }

@@ -1,6 +1,6 @@
-using System;
 using Server.Engines.Craft;
 using Server.Items;
+using System;
 
 namespace Server.Factions
 {
@@ -84,7 +84,7 @@ namespace Server.Factions
 		{
 			base.Serialize(writer);
 
-			writer.Write((int)0); // version
+			writer.Write(0); // version
 
 			Faction.WriteReference(writer, m_Faction);
 		}

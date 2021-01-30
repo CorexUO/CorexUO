@@ -1,7 +1,7 @@
-using System;
-using System.Collections;
 using Server.Accounting;
 using Server.Network;
+using System;
+using System.Collections;
 
 namespace Server.RemoteAdmin
 {
@@ -13,7 +13,7 @@ namespace Server.RemoteAdmin
 			IP = 1,
 		}
 
-		private static OnPacketReceive[] m_Handlers = new OnPacketReceive[256];
+		private static readonly OnPacketReceive[] m_Handlers = new OnPacketReceive[256];
 
 		static RemoteAdminHandlers()
 		{

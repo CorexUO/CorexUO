@@ -1,16 +1,16 @@
-using System;
-using System.Collections.Generic;
 using Server.Items;
 using Server.Mobiles;
 using Server.Spells;
 using Server.Spells.Necromancy;
 using Server.Spells.Ninjitsu;
+using System;
+using System.Collections.Generic;
 
 namespace Server.Spells.Ninjitsu
 {
 	public class MirrorImage : NinjaSpell
 	{
-		private static Dictionary<Mobile, int> m_CloneCount = new Dictionary<Mobile, int>();
+		private static readonly Dictionary<Mobile, int> m_CloneCount = new Dictionary<Mobile, int>();
 
 		public static bool HasClone(Mobile m)
 		{
@@ -42,7 +42,7 @@ namespace Server.Spells.Ninjitsu
 			}
 		}
 
-		private static SpellInfo m_Info = new SpellInfo(
+		private static readonly SpellInfo m_Info = new SpellInfo(
 			"Mirror Image", null,
 			-1,
 			9002

@@ -1,5 +1,5 @@
-using System;
 using Server.Engines.Craft;
+using System;
 
 namespace Server.Items
 {
@@ -275,10 +275,10 @@ namespace Server.Items
 		{
 			base.Serialize(writer);
 
-			writer.Write((int)0); // version
+			writer.Write(0); // version
 
-			writer.WriteEncodedInt((int)m_MaxHitPoints);
-			writer.WriteEncodedInt((int)m_HitPoints);
+			writer.WriteEncodedInt(m_MaxHitPoints);
+			writer.WriteEncodedInt(m_HitPoints);
 
 			writer.WriteEncodedInt((int)m_Resource);
 			writer.WriteEncodedInt((int)m_GemType);

@@ -1,11 +1,11 @@
-using System;
-using System.Collections.Generic;
 using Server.Engines.PartySystem;
 using Server.Factions;
 using Server.Guilds;
 using Server.Items;
 using Server.Mobiles;
 using Server.Multis;
+using System;
+using System.Collections.Generic;
 
 namespace Server.Misc
 {
@@ -263,14 +263,14 @@ namespace Server.Misc
 				if (target.AccessLevel > AccessLevel.Player)
 					return Notoriety.CanBeAttacked;
 
-				Body body = (Body)target.Amount;
+				Body body = target.Amount;
 
 				BaseCreature cretOwner = target.Owner as BaseCreature;
 
 				if (cretOwner != null)
 				{
 					Guild sourceGuild = GetGuildFor(source.Guild as Guild, source);
-					Guild targetGuild = GetGuildFor(target.Guild as Guild, target.Owner);
+					Guild targetGuild = GetGuildFor(target.Guild, target.Owner);
 
 					if (sourceGuild != null && targetGuild != null)
 					{
@@ -318,7 +318,7 @@ namespace Server.Misc
 						return Notoriety.Criminal;
 
 					Guild sourceGuild = GetGuildFor(source.Guild as Guild, source);
-					Guild targetGuild = GetGuildFor(target.Guild as Guild, target.Owner);
+					Guild targetGuild = GetGuildFor(target.Guild, target.Owner);
 
 					if (sourceGuild != null && targetGuild != null)
 					{

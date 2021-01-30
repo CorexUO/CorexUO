@@ -4,7 +4,7 @@ namespace Server.Engines.BulkOrders
 {
 	public class LargeBODTarget : Target
 	{
-		private LargeBOD m_Deed;
+		private readonly LargeBOD m_Deed;
 
 		public LargeBODTarget(LargeBOD deed) : base(18, false, TargetFlags.None)
 		{

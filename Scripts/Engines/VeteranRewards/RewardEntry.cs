@@ -5,12 +5,12 @@ namespace Server.Engines.VeteranRewards
 	public class RewardEntry
 	{
 		private RewardList m_List;
-		private RewardCategory m_Category;
-		private Type m_ItemType;
-		private Expansion m_RequiredExpansion;
-		private int m_Name;
-		private string m_NameString;
-		private object[] m_Args;
+		private readonly RewardCategory m_Category;
+		private readonly Type m_ItemType;
+		private readonly Expansion m_RequiredExpansion;
+		private readonly int m_Name;
+		private readonly string m_NameString;
+		private readonly object[] m_Args;
 
 		public RewardList List { get { return m_List; } set { m_List = value; } }
 		public RewardCategory Category { get { return m_Category; } }

@@ -116,10 +116,10 @@ namespace Server.Mobiles
 		{
 			base.Serialize(writer);
 
-			writer.Write((int)0);
+			writer.Write(0);
 
-			writer.Write((DateTime)m_MilkedOn);
-			writer.Write((int)m_Milk);
+			writer.Write(m_MilkedOn);
+			writer.Write(m_Milk);
 		}
 
 		public override void Deserialize(GenericReader reader)

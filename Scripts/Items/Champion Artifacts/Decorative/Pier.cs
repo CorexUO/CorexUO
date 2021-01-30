@@ -1,8 +1,8 @@
 namespace Server.Items
 {
-    public class Pier : BaseItem
-    {
-        /*
+	public class Pier : BaseItem
+	{
+		/*
 		 * This does not make a lot of sense, being a "Pier"
 		 * and having possible itemids that have nothing
 		 * to do with piers. The three items here are basically
@@ -16,38 +16,38 @@ namespace Server.Items
 		 *
 		 */
 
-        private static int[] m_itemids = new int[]
-        {
-            0x3486, 0x348b, 0x3ae
-        };
+		private static readonly int[] m_itemids = new int[]
+		{
+			0x3486, 0x348b, 0x3ae
+		};
 
-        [Constructable]
-        public Pier()
-            : base(m_itemids[Utility.Random(3)])
-        {
-        }
+		[Constructable]
+		public Pier()
+			: base(m_itemids[Utility.Random(3)])
+		{
+		}
 
-        public Pier(int itemid)
-            : base(itemid)
-        {
-        }
+		public Pier(int itemid)
+			: base(itemid)
+		{
+		}
 
-        public Pier(Serial serial) : base(serial)
-        {
-        }
+		public Pier(Serial serial) : base(serial)
+		{
+		}
 
-        public override void Serialize(GenericWriter writer)
-        {
-            base.Serialize(writer);
+		public override void Serialize(GenericWriter writer)
+		{
+			base.Serialize(writer);
 
-            writer.Write((int)0); // version
-        }
+			writer.Write(0); // version
+		}
 
-        public override void Deserialize(GenericReader reader)
-        {
-            base.Deserialize(reader);
+		public override void Deserialize(GenericReader reader)
+		{
+			base.Deserialize(reader);
 
-            int version = reader.ReadInt();
-        }
-    }
+			int version = reader.ReadInt();
+		}
+	}
 }

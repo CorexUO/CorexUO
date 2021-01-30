@@ -74,11 +74,8 @@ namespace Server.Targets
 				HarvestSystem system = Lumberjacking.System;
 				HarvestDefinition def = Lumberjacking.System.Definition;
 
-				int tileID;
-				Map map;
-				Point3D loc;
 
-				if (!system.GetHarvestDetails(from, m_Item, targeted, out tileID, out map, out loc))
+				if (!system.GetHarvestDetails(from, m_Item, targeted, out int tileID, out Map map, out Point3D loc))
 				{
 					from.SendLocalizedMessage(500494); // You can't use a bladed item on that!
 				}

@@ -1,6 +1,6 @@
+using Server.Accounting;
 using System;
 using System.IO;
-using Server.Accounting;
 
 namespace Server.Commands
 {
@@ -97,7 +97,7 @@ namespace Server.Commands
 			}
 		}
 
-		private static char[] m_NotSafe = new char[] { '\\', '/', ':', '*', '?', '"', '<', '>', '|' };
+		private static readonly char[] m_NotSafe = new char[] { '\\', '/', ':', '*', '?', '"', '<', '>', '|' };
 
 		public static void AppendPath(ref string path, string toAppend)
 		{

@@ -1,35 +1,35 @@
 namespace Server.Items
 {
-    public class WraithFormScroll : SpellScroll
-    {
-        [Constructable]
-        public WraithFormScroll() : this(1)
-        {
-        }
+	public class WraithFormScroll : SpellScroll
+	{
+		[Constructable]
+		public WraithFormScroll() : this(1)
+		{
+		}
 
-        [Constructable]
-        public WraithFormScroll(int amount) : base(115, 0x226F, amount)
-        {
-        }
+		[Constructable]
+		public WraithFormScroll(int amount) : base(115, 0x226F, amount)
+		{
+		}
 
-        public WraithFormScroll(Serial serial) : base(serial)
-        {
-        }
+		public WraithFormScroll(Serial serial) : base(serial)
+		{
+		}
 
-        public override void Serialize(GenericWriter writer)
-        {
-            base.Serialize(writer);
+		public override void Serialize(GenericWriter writer)
+		{
+			base.Serialize(writer);
 
-            writer.Write((int)0); // version
-        }
+			writer.Write(0); // version
+		}
 
-        public override void Deserialize(GenericReader reader)
-        {
-            base.Deserialize(reader);
+		public override void Deserialize(GenericReader reader)
+		{
+			base.Deserialize(reader);
 
-            int version = reader.ReadInt();
-        }
+			int version = reader.ReadInt();
+		}
 
 
-    }
+	}
 }

@@ -1,10 +1,10 @@
+using Server.Commands;
+using Server.Gumps;
+using Server.Items;
 using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
-using Server.Commands;
-using Server.Gumps;
-using Server.Items;
 
 namespace Server
 {
@@ -525,7 +525,7 @@ namespace Server
 					for (int i = 0; i < count; ++i)
 					{
 						staTiles[i].Set((ushort)(m_Buffer[index++] | (m_Buffer[index++] << 8)),
-								(byte)m_Buffer[index++], (byte)m_Buffer[index++], (sbyte)m_Buffer[index++],
+								m_Buffer[index++], m_Buffer[index++], (sbyte)m_Buffer[index++],
 								(short)(m_Buffer[index++] | (m_Buffer[index++] << 8)));
 					}
 				}

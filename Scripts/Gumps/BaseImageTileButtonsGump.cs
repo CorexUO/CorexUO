@@ -1,5 +1,5 @@
-using System.Collections;
 using Server.Network;
+using System.Collections;
 
 namespace Server.Gumps
 {
@@ -47,7 +47,7 @@ namespace Server.Gumps
 
 	public class BaseImageTileButtonsGump : Gump
 	{
-		private ImageTileButtonInfo[] m_Buttons;
+		private readonly ImageTileButtonInfo[] m_Buttons;
 
 		protected ImageTileButtonInfo[] Buttons { get { return m_Buttons; } }
 

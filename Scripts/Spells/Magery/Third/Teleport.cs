@@ -6,7 +6,7 @@ namespace Server.Spells.Third
 {
 	public class TeleportSpell : MagerySpell
 	{
-		private static SpellInfo m_Info = new SpellInfo(
+		private static readonly SpellInfo m_Info = new SpellInfo(
 				"Teleport", "Rel Por",
 				215,
 				9031,
@@ -54,13 +54,13 @@ namespace Server.Spells.Third
 
 		public void Target(IPoint3D p)
 		{
-				IPoint3D orig = p;
-				Map map = Caster.Map;
+			IPoint3D orig = p;
+			Map map = Caster.Map;
 
-				SpellHelper.GetSurfaceTop(ref p);
+			SpellHelper.GetSurfaceTop(ref p);
 
-				Point3D from = Caster.Location;
-				Point3D to = new Point3D(p);
+			Point3D from = Caster.Location;
+			Point3D to = new Point3D(p);
 
 			if (Factions.Sigil.ExistsOn(Caster))
 			{
@@ -125,7 +125,7 @@ namespace Server.Spells.Third
 
 		public class InternalTarget : Target
 		{
-			private TeleportSpell m_Owner;
+			private readonly TeleportSpell m_Owner;
 
 			public InternalTarget(TeleportSpell owner) : base(owner.SpellRange, true, TargetFlags.None)
 			{

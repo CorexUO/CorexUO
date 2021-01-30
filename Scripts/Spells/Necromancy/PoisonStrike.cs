@@ -1,14 +1,14 @@
-using System;
-using System.Collections.Generic;
 using Server.Items;
 using Server.Mobiles;
 using Server.Targeting;
+using System;
+using System.Collections.Generic;
 
 namespace Server.Spells.Necromancy
 {
 	public class PoisonStrikeSpell : NecromancerSpell
 	{
-		private static SpellInfo m_Info = new SpellInfo(
+		private static readonly SpellInfo m_Info = new SpellInfo(
 				"Poison Strike", "In Vas Nox",
 				203,
 				9031,
@@ -94,7 +94,7 @@ namespace Server.Spells.Necromancy
 
 		private class InternalTarget : Target
 		{
-			private PoisonStrikeSpell m_Owner;
+			private readonly PoisonStrikeSpell m_Owner;
 
 			public InternalTarget(PoisonStrikeSpell owner) : base(owner.SpellRange, false, TargetFlags.Harmful)
 			{

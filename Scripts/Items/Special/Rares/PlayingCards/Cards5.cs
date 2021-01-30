@@ -1,31 +1,31 @@
 namespace Server.Items
 {
-    public class DecoCards5 : BaseItem
-    {
+	public class DecoCards5 : BaseItem
+	{
 
-        [Constructable]
-        public DecoCards5() : base(0xE18)
-        {
-            Movable = true;
-            Stackable = false;
-        }
+		[Constructable]
+		public DecoCards5() : base(0xE18)
+		{
+			Movable = true;
+			Stackable = false;
+		}
 
-        public DecoCards5(Serial serial) : base(serial)
-        {
-        }
+		public DecoCards5(Serial serial) : base(serial)
+		{
+		}
 
-        public override void Serialize(GenericWriter writer)
-        {
-            base.Serialize(writer);
+		public override void Serialize(GenericWriter writer)
+		{
+			base.Serialize(writer);
 
-            writer.Write((int)0);
-        }
+			writer.Write(0);
+		}
 
-        public override void Deserialize(GenericReader reader)
-        {
-            base.Deserialize(reader);
+		public override void Deserialize(GenericReader reader)
+		{
+			base.Deserialize(reader);
 
-            int version = reader.ReadInt();
-        }
-    }
+			int version = reader.ReadInt();
+		}
+	}
 }

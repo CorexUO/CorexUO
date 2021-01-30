@@ -1,13 +1,13 @@
-using System;
 using Server.Gumps;
 using Server.Network;
+using System;
 
 namespace Server.Engines.Help
 {
 	public class PageResponseGump : Gump
 	{
-		private Mobile m_From;
-		private string m_Name, m_Text;
+		private readonly Mobile m_From;
+		private readonly string m_Name, m_Text;
 
 		public PageResponseGump(Mobile from, string name, string text) : base(0, 0)
 		{

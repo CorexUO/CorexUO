@@ -1,7 +1,7 @@
-using System;
 using Server.Engines.VeteranRewards;
 using Server.Items;
 using Server.Spells;
+using System;
 
 namespace Server.Mobiles
 {
@@ -186,13 +186,13 @@ namespace Server.Mobiles
 		{
 			base.Serialize(writer);
 
-			writer.Write((int)0); // version
+			writer.Write(0); // version
 
 			writer.Write(m_IsDonationItem);
 			writer.Write(m_IsRewardItem);
 
-			writer.Write((int)m_MountedID);
-			writer.Write((int)m_RegularID);
+			writer.Write(m_MountedID);
+			writer.Write(m_RegularID);
 			writer.Write(m_Rider);
 		}
 
@@ -343,10 +343,10 @@ namespace Server.Mobiles
 
 		private class EtherealSpell : Spell
 		{
-			private static SpellInfo m_Info = new SpellInfo("Ethereal Mount", "", 230);
+			private static readonly SpellInfo m_Info = new SpellInfo("Ethereal Mount", "", 230);
 
-			private EtherealMount m_Mount;
-			private Mobile m_Rider;
+			private readonly EtherealMount m_Mount;
+			private readonly Mobile m_Rider;
 
 			public EtherealSpell(EtherealMount mount, Mobile rider)
 				: base(rider, null, m_Info)
@@ -455,7 +455,7 @@ namespace Server.Mobiles
 		{
 			base.Serialize(writer);
 
-			writer.Write((int)0); // version
+			writer.Write(0); // version
 		}
 
 		public override void Deserialize(GenericReader reader)
@@ -491,7 +491,7 @@ namespace Server.Mobiles
 		{
 			base.Serialize(writer);
 
-			writer.Write((int)0); // version
+			writer.Write(0); // version
 		}
 
 		public override void Deserialize(GenericReader reader)
@@ -524,7 +524,7 @@ namespace Server.Mobiles
 		{
 			base.Serialize(writer);
 
-			writer.Write((int)0); // version
+			writer.Write(0); // version
 		}
 
 		public override void Deserialize(GenericReader reader)
@@ -557,7 +557,7 @@ namespace Server.Mobiles
 		{
 			base.Serialize(writer);
 
-			writer.Write((int)0); // version
+			writer.Write(0); // version
 		}
 
 		public override void Deserialize(GenericReader reader)
@@ -590,7 +590,7 @@ namespace Server.Mobiles
 		{
 			base.Serialize(writer);
 
-			writer.Write((int)0); // version
+			writer.Write(0); // version
 		}
 
 		public override void Deserialize(GenericReader reader)
@@ -623,7 +623,7 @@ namespace Server.Mobiles
 		{
 			base.Serialize(writer);
 
-			writer.Write((int)0); // version
+			writer.Write(0); // version
 		}
 
 		public override void Deserialize(GenericReader reader)
@@ -656,7 +656,7 @@ namespace Server.Mobiles
 		{
 			base.Serialize(writer);
 
-			writer.Write((int)0); // version
+			writer.Write(0); // version
 		}
 
 		public override void Deserialize(GenericReader reader)
@@ -689,7 +689,7 @@ namespace Server.Mobiles
 		{
 			base.Serialize(writer);
 
-			writer.Write((int)0); // version
+			writer.Write(0); // version
 		}
 
 		public override void Deserialize(GenericReader reader)
@@ -845,7 +845,7 @@ namespace Server.Mobiles
 		{
 			base.Serialize(writer);
 
-			writer.Write((int)0); // version
+			writer.Write(0); // version
 		}
 
 		public override void Deserialize(GenericReader reader)

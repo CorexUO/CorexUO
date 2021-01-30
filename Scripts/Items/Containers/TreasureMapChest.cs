@@ -1,9 +1,9 @@
-using System;
-using System.Collections.Generic;
 using Server.ContextMenus;
 using Server.Engines.PartySystem;
 using Server.Gumps;
 using Server.Network;
+using System;
+using System.Collections.Generic;
 
 namespace Server.Items
 {
@@ -13,7 +13,7 @@ namespace Server.Items
 
 		public static Type[] Artifacts { get { return m_Artifacts; } }
 
-		private static Type[] m_Artifacts = new Type[]
+		private static readonly Type[] m_Artifacts = new Type[]
 		{
 			typeof( CandelabraOfSouls ), typeof( GoldBricks ), typeof( PhillipsWoodenSteed ),
 			typeof( ArcticDeathDealer ), typeof( BlazeOfDeath ), typeof( BurglarsBandana ),
@@ -202,10 +202,8 @@ namespace Server.Items
 
 						if (Core.AOS)
 						{
-							int attributeCount;
-							int min, max;
 
-							GetRandomAOSStats(out attributeCount, out min, out max);
+							GetRandomAOSStats(out int attributeCount, out int min, out int max);
 
 							BaseRunicTool.ApplyAttributesTo(weapon, attributeCount, min, max);
 						}
@@ -224,10 +222,8 @@ namespace Server.Items
 
 						if (Core.AOS)
 						{
-							int attributeCount;
-							int min, max;
 
-							GetRandomAOSStats(out attributeCount, out min, out max);
+							GetRandomAOSStats(out int attributeCount, out int min, out int max);
 
 							BaseRunicTool.ApplyAttributesTo(armor, attributeCount, min, max);
 						}
@@ -245,10 +241,8 @@ namespace Server.Items
 
 						if (Core.AOS)
 						{
-							int attributeCount;
-							int min, max;
 
-							GetRandomAOSStats(out attributeCount, out min, out max);
+							GetRandomAOSStats(out int attributeCount, out int min, out int max);
 
 							BaseRunicTool.ApplyAttributesTo(hat, attributeCount, min, max);
 						}
@@ -257,10 +251,8 @@ namespace Server.Items
 					}
 					else if (item is BaseJewel)
 					{
-						int attributeCount;
-						int min, max;
 
-						GetRandomAOSStats(out attributeCount, out min, out max);
+						GetRandomAOSStats(out int attributeCount, out int min, out int max);
 
 						BaseRunicTool.ApplyAttributesTo((BaseJewel)item, attributeCount, min, max);
 
@@ -405,14 +397,14 @@ namespace Server.Items
 		{
 			base.Serialize(writer);
 
-			writer.Write((int)0); // version
+			writer.Write(0); // version
 
 			writer.Write(m_Guardians, true);
-			writer.Write((bool)m_Temporary);
+			writer.Write(m_Temporary);
 
 			writer.Write(m_Owner);
 
-			writer.Write((int)m_Level);
+			writer.Write(m_Level);
 			writer.WriteDeltaTime(m_DeleteTime);
 			writer.Write(m_Lifted, true);
 		}
@@ -489,8 +481,8 @@ namespace Server.Items
 
 		private class RemoveGump : Gump
 		{
-			private Mobile m_From;
-			private TreasureMapChest m_Chest;
+			private readonly Mobile m_From;
+			private readonly TreasureMapChest m_Chest;
 
 			public RemoveGump(Mobile from, TreasureMapChest chest) : base(15, 15)
 			{
@@ -523,8 +515,8 @@ namespace Server.Items
 
 		private class RemoveEntry : ContextMenuEntry
 		{
-			private Mobile m_From;
-			private TreasureMapChest m_Chest;
+			private readonly Mobile m_From;
+			private readonly TreasureMapChest m_Chest;
 
 			public RemoveEntry(Mobile from, TreasureMapChest chest) : base(6149, 3)
 			{
@@ -545,7 +537,7 @@ namespace Server.Items
 
 		private class DeleteTimer : Timer
 		{
-			private Item m_Item;
+			private readonly Item m_Item;
 
 			public DeleteTimer(Item item, DateTime time) : base(time - DateTime.UtcNow)
 			{

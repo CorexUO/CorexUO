@@ -1,5 +1,5 @@
-using System;
 using Server.Mobiles;
+using System;
 
 namespace Server.Engines.CannedEvil
 {
@@ -18,10 +18,10 @@ namespace Server.Engines.CannedEvil
 
 	public class ChampionSpawnInfo
 	{
-		private string m_Name;
-		private Type m_Champion;
-		private Type[][] m_SpawnTypes;
-		private string[] m_LevelNames;
+		private readonly string m_Name;
+		private readonly Type m_Champion;
+		private readonly Type[][] m_SpawnTypes;
+		private readonly string[] m_LevelNames;
 
 		public string Name { get { return m_Name; } }
 		public Type Champion { get { return m_Champion; } }

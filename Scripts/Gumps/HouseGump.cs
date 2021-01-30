@@ -1,14 +1,14 @@
-using System;
-using System.Collections;
 using Server.Multis;
 using Server.Network;
 using Server.Prompts;
+using System;
+using System.Collections;
 
 namespace Server.Gumps
 {
 	public class HouseListGump : Gump
 	{
-		private BaseHouse m_House;
+		private readonly BaseHouse m_House;
 
 		public HouseListGump(int number, ArrayList list, BaseHouse house, bool accountOf) : base(20, 30)
 		{
@@ -73,10 +73,10 @@ namespace Server.Gumps
 
 	public class HouseRemoveGump : Gump
 	{
-		private BaseHouse m_House;
-		private ArrayList m_List, m_Copy;
-		private int m_Number;
-		private bool m_AccountOf;
+		private readonly BaseHouse m_House;
+		private readonly ArrayList m_List, m_Copy;
+		private readonly int m_Number;
+		private readonly bool m_AccountOf;
 
 		public HouseRemoveGump(int number, ArrayList list, BaseHouse house, bool accountOf) : base(20, 30)
 		{
@@ -175,7 +175,7 @@ namespace Server.Gumps
 
 	public class HouseGump : Gump
 	{
-		private BaseHouse m_House;
+		private readonly BaseHouse m_House;
 
 		private ArrayList Wrap(string value)
 		{
@@ -731,7 +731,7 @@ namespace Server.Prompts
 {
 	public class RenamePrompt : Prompt
 	{
-		private BaseHouse m_House;
+		private readonly BaseHouse m_House;
 
 		public RenamePrompt(BaseHouse house)
 		{

@@ -1,17 +1,17 @@
-using System;
-using System.Collections.Generic;
-using System.Reflection;
 using Server.HuePickers;
 using Server.Items;
 using Server.Mobiles;
 using Server.Network;
+using System;
+using System.Collections.Generic;
+using System.Reflection;
 
 namespace Server.Gumps
 {
 	public class PlayerVendorBuyGump : Gump
 	{
-		private PlayerVendor m_Vendor;
-		private VendorItem m_VI;
+		private readonly PlayerVendor m_Vendor;
+		private readonly VendorItem m_VI;
 
 		public PlayerVendorBuyGump(PlayerVendor vendor, VendorItem vi) : base(100, 200)
 		{
@@ -99,7 +99,7 @@ namespace Server.Gumps
 
 	public class PlayerVendorOwnerGump : Gump
 	{
-		private PlayerVendor m_Vendor;
+		private readonly PlayerVendor m_Vendor;
 
 		public PlayerVendorOwnerGump(PlayerVendor vendor) : base(50, 200)
 		{
@@ -162,7 +162,7 @@ namespace Server.Gumps
 
 	public class NewPlayerVendorOwnerGump : Gump
 	{
-		private PlayerVendor m_Vendor;
+		private readonly PlayerVendor m_Vendor;
 
 		public NewPlayerVendorOwnerGump(PlayerVendor vendor) : base(50, 200)
 		{
@@ -207,8 +207,7 @@ namespace Server.Gumps
 
 			if (vendor is RentedVendor)
 			{
-				int days, hours;
-				((RentedVendor)vendor).ComputeRentalExpireDelay(out days, out hours);
+				((RentedVendor)vendor).ComputeRentalExpireDelay(out int days, out int hours);
 
 				AddLabel(38, 132, 0x480, String.Format("Location rental will expire in {0} day{1} and {2} hour{3}.", days, days != 1 ? "s" : "", hours, hours != 1 ? "s" : ""));
 			}
@@ -298,15 +297,15 @@ namespace Server.Gumps
 
 	public class PlayerVendorCustomizeGump : Gump
 	{
-		private Mobile m_Vendor;
+		private readonly Mobile m_Vendor;
 
 		private class CustomItem
 		{
-			private Type m_Type;
-			private int m_ItemID;
-			private int m_LocNum;
-			private int m_ArtNum;
-			private bool m_LongText;
+			private readonly Type m_Type;
+			private readonly int m_ItemID;
+			private readonly int m_LocNum;
+			private readonly int m_ArtNum;
+			private readonly bool m_LongText;
 
 			public CustomItem(int itemID, int loc) : this(null, itemID, loc, 0, false)
 			{
@@ -362,10 +361,10 @@ namespace Server.Gumps
 
 		private class CustomCategory
 		{
-			private CustomItem[] m_Entries;
-			private Layer m_Layer;
-			private bool m_CanDye;
-			private int m_LocNum;
+			private readonly CustomItem[] m_Entries;
+			private readonly Layer m_Layer;
+			private readonly bool m_CanDye;
+			private readonly int m_LocNum;
 
 			public CustomCategory(Layer layer, int loc, bool canDye, CustomItem[] items)
 			{
@@ -381,7 +380,7 @@ namespace Server.Gumps
 			public int LocNumber { get { return m_LocNum; } }
 		}
 
-		private static CustomCategory[] Categories = new CustomCategory[]{
+		private static readonly CustomCategory[] Categories = new CustomCategory[]{
 			new CustomCategory( Layer.InnerTorso, 1011357, true, new CustomItem[]{// Upper Torso
 				new CustomItem( typeof( Shirt ),        1011359, 5399 ),
 				new CustomItem( typeof( FancyShirt ),   1011360, 7933 ),
@@ -498,7 +497,7 @@ namespace Server.Gumps
 			y = 35;
 			for (int i = 0; i < Categories.Length; i++)
 			{
-				CustomCategory cat = (CustomCategory)Categories[i];
+				CustomCategory cat = Categories[i];
 				AddHtmlLocalized(5, y, 150, 25, cat.LocNumber, true, false);
 				AddButton(155, y, 4005, 4007, 0, GumpButtonType.Page, i + 1);
 				y += 25;
@@ -506,12 +505,12 @@ namespace Server.Gumps
 
 			for (int i = 0; i < Categories.Length; i++)
 			{
-				CustomCategory cat = (CustomCategory)Categories[i];
+				CustomCategory cat = Categories[i];
 				AddPage(i + 1);
 
 				for (int c = 0; c < cat.Entries.Length; c++)
 				{
-					CustomItem entry = (CustomItem)cat.Entries[c];
+					CustomItem entry = cat.Entries[c];
 					x = 198 + (c % 3) * 129;
 					y = 38 + (c / 3) * 67;
 
@@ -719,9 +718,9 @@ namespace Server.Gumps
 
 		private class PVHuePicker : HuePicker
 		{
-			private Item m_Item;
-			private Mobile m_Vendor;
-			private Mobile m_Mob;
+			private readonly Item m_Item;
+			private readonly Mobile m_Vendor;
+			private readonly Mobile m_Mob;
 
 			public PVHuePicker(Item item, Mobile v, Mobile from) : base(item.ItemID)
 			{
@@ -748,9 +747,9 @@ namespace Server.Gumps
 
 		private class PVHairHuePicker : HuePicker
 		{
-			private bool m_FacialHair;
-			private Mobile m_Vendor;
-			private Mobile m_Mob;
+			private readonly bool m_FacialHair;
+			private readonly Mobile m_Vendor;
+			private readonly Mobile m_Mob;
 
 			public PVHairHuePicker(bool facialHair, Mobile v, Mobile from) : base(0xFAB)
 			{
@@ -782,12 +781,12 @@ namespace Server.Gumps
 
 	public class NewPlayerVendorCustomizeGump : Gump
 	{
-		private PlayerVendor m_Vendor;
+		private readonly PlayerVendor m_Vendor;
 
 		private class HairOrBeard
 		{
-			private int m_ItemID;
-			private int m_Name;
+			private readonly int m_ItemID;
+			private readonly int m_Name;
 
 			public int ItemID { get { return m_ItemID; } }
 			public int Name { get { return m_Name; } }
@@ -799,7 +798,7 @@ namespace Server.Gumps
 			}
 		}
 
-		private static HairOrBeard[] m_HairStyles = new HairOrBeard[]
+		private static readonly HairOrBeard[] m_HairStyles = new HairOrBeard[]
 			{
 				new HairOrBeard( 0x203B,    1011052 ),	// Short
 				new HairOrBeard( 0x203C,    1011053 ),	// Long
@@ -812,7 +811,7 @@ namespace Server.Gumps
 				new HairOrBeard( 0x2049,    1011049 )	// 2-tails
 			};
 
-		private static HairOrBeard[] m_BeardStyles = new HairOrBeard[]
+		private static readonly HairOrBeard[] m_BeardStyles = new HairOrBeard[]
 			{
 				new HairOrBeard( 0x2041,    1011062 ),	// Mustache
 				new HairOrBeard( 0x203F,    1011060 ),	// Short beard
@@ -1022,9 +1021,9 @@ namespace Server.Gumps
 
 		private class PVHuePicker : HuePicker
 		{
-			private PlayerVendor m_Vendor;
-			private bool m_FacialHair;
-			private Mobile m_From;
+			private readonly PlayerVendor m_Vendor;
+			private readonly bool m_FacialHair;
+			private readonly Mobile m_From;
 
 			public PVHuePicker(PlayerVendor vendor, bool facialHair, Mobile from) : base(0xFAB)
 			{

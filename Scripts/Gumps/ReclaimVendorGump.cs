@@ -1,13 +1,13 @@
-using System.Collections;
 using Server.Multis;
 using Server.Network;
+using System.Collections;
 
 namespace Server.Gumps
 {
 	public class ReclaimVendorGump : Gump
 	{
-		private BaseHouse m_House;
-		private ArrayList m_Vendors;
+		private readonly BaseHouse m_House;
+		private readonly ArrayList m_Vendors;
 
 		public ReclaimVendorGump(BaseHouse house) : base(50, 50)
 		{
@@ -55,8 +55,7 @@ namespace Server.Gumps
 			}
 			else
 			{
-				bool vendor, contract;
-				BaseHouse.IsThereVendor(from.Location, from.Map, out vendor, out contract);
+				BaseHouse.IsThereVendor(from.Location, from.Map, out bool vendor, out bool contract);
 
 				if (vendor)
 				{

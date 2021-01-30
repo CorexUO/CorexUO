@@ -4,7 +4,7 @@ namespace Server.Spells.Second
 {
 	public class CureSpell : MagerySpell
 	{
-		private static SpellInfo m_Info = new SpellInfo(
+		private static readonly SpellInfo m_Info = new SpellInfo(
 				"Cure", "An Nox",
 				212,
 				9061,
@@ -87,7 +87,7 @@ namespace Server.Spells.Second
 
 		public class InternalTarget : Target
 		{
-			private CureSpell m_Owner;
+			private readonly CureSpell m_Owner;
 
 			public InternalTarget(CureSpell owner) : base(owner.SpellRange, false, TargetFlags.Beneficial)
 			{

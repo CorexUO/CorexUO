@@ -1,38 +1,38 @@
-using System;
 using Server.Mobiles;
+using System;
 
 namespace Server.Engines.Quests.Naturalist
 {
-    public class StudyOfSolenQuest : QuestSystem
-    {
-        private static Type[] m_TypeReferenceTable = new Type[]
-            {
-                typeof( StudyNestsObjective ),
-                typeof( ReturnToNaturalistObjective ),
-                typeof( DontOfferConversation ),
-                typeof( AcceptConversation ),
-                typeof( NaturalistDuringStudyConversation ),
-                typeof( EndConversation ),
-                typeof( SpecialEndConversation ),
-                typeof( FullBackpackConversation )
-            };
+	public class StudyOfSolenQuest : QuestSystem
+	{
+		private static readonly Type[] m_TypeReferenceTable = new Type[]
+			{
+				typeof( StudyNestsObjective ),
+				typeof( ReturnToNaturalistObjective ),
+				typeof( DontOfferConversation ),
+				typeof( AcceptConversation ),
+				typeof( NaturalistDuringStudyConversation ),
+				typeof( EndConversation ),
+				typeof( SpecialEndConversation ),
+				typeof( FullBackpackConversation )
+			};
 
-        public override Type[] TypeReferenceTable { get { return m_TypeReferenceTable; } }
+		public override Type[] TypeReferenceTable { get { return m_TypeReferenceTable; } }
 
-        public override object Name
-        {
-            get
-            {
-                // "Study of the Solen Hive"
-                return 1054041;
-            }
-        }
+		public override object Name
+		{
+			get
+			{
+				// "Study of the Solen Hive"
+				return 1054041;
+			}
+		}
 
-        public override object OfferMessage
-        {
-            get
-            {
-                /* <I>The Naturalist looks up from his notes, regarding you with a hopeful
+		public override object OfferMessage
+		{
+			get
+			{
+				/* <I>The Naturalist looks up from his notes, regarding you with a hopeful
 				 * look in his eyes.</I><BR><BR>
 				 * 
 				 * Um..yes..excuse me. I was wondering if you could offer me a bit of assistance.
@@ -60,51 +60,51 @@ namespace Server.Engines.Quests.Naturalist
 				 * 
 				 * Will you accept my offer?
 				 */
-                return 1054042;
-            }
-        }
+				return 1054042;
+			}
+		}
 
-        public override TimeSpan RestartDelay { get { return TimeSpan.Zero; } }
-        public override bool IsTutorial { get { return false; } }
+		public override TimeSpan RestartDelay { get { return TimeSpan.Zero; } }
+		public override bool IsTutorial { get { return false; } }
 
-        public override int Picture { get { return 0x15C7; } }
+		public override int Picture { get { return 0x15C7; } }
 
-        private Naturalist m_Naturalist;
+		private Naturalist m_Naturalist;
 
-        public Naturalist Naturalist { get { return m_Naturalist; } }
+		public Naturalist Naturalist { get { return m_Naturalist; } }
 
-        public StudyOfSolenQuest(PlayerMobile from, Naturalist naturalist) : base(from)
-        {
-            m_Naturalist = naturalist;
-        }
+		public StudyOfSolenQuest(PlayerMobile from, Naturalist naturalist) : base(from)
+		{
+			m_Naturalist = naturalist;
+		}
 
-        // Serialization
-        public StudyOfSolenQuest()
-        {
-        }
+		// Serialization
+		public StudyOfSolenQuest()
+		{
+		}
 
-        public override void ChildDeserialize(GenericReader reader)
-        {
-            int version = reader.ReadEncodedInt();
+		public override void ChildDeserialize(GenericReader reader)
+		{
+			int version = reader.ReadEncodedInt();
 
-            m_Naturalist = (Naturalist)reader.ReadMobile();
-        }
+			m_Naturalist = (Naturalist)reader.ReadMobile();
+		}
 
-        public override void ChildSerialize(GenericWriter writer)
-        {
-            writer.WriteEncodedInt((int)0); // version
+		public override void ChildSerialize(GenericWriter writer)
+		{
+			writer.WriteEncodedInt(0); // version
 
-            writer.Write((Mobile)m_Naturalist);
-        }
+			writer.Write(m_Naturalist);
+		}
 
-        public override void Accept()
-        {
-            base.Accept();
+		public override void Accept()
+		{
+			base.Accept();
 
-            if (m_Naturalist != null)
-                m_Naturalist.PlaySound(0x431);
+			if (m_Naturalist != null)
+				m_Naturalist.PlaySound(0x431);
 
-            AddConversation(new AcceptConversation());
-        }
-    }
+			AddConversation(new AcceptConversation());
+		}
+	}
 }

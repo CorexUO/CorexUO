@@ -1,9 +1,9 @@
-using System;
-using System.Collections.Generic;
 using Server.Factions.AI;
 using Server.Items;
 using Server.Mobiles;
 using Server.Network;
+using System;
+using System.Collections.Generic;
 
 namespace Server.Factions
 {
@@ -282,7 +282,7 @@ namespace Server.Factions
 			Utility.AssignRandomFacialHair(this, HairHue);
 		}
 
-		private static Type[] m_StrongPotions = new Type[]
+		private static readonly Type[] m_StrongPotions = new Type[]
 		{
 			typeof( GreaterHealPotion ), typeof( GreaterHealPotion ), typeof( GreaterHealPotion ),
 			typeof( GreaterCurePotion ), typeof( GreaterCurePotion ), typeof( GreaterCurePotion ),
@@ -292,7 +292,7 @@ namespace Server.Factions
 			typeof( GreaterExplosionPotion )
 		};
 
-		private static Type[] m_WeakPotions = new Type[]
+		private static readonly Type[] m_WeakPotions = new Type[]
 		{
 			typeof( HealPotion ), typeof( HealPotion ), typeof( HealPotion ),
 			typeof( CurePotion ), typeof( CurePotion ), typeof( CurePotion ),
@@ -422,7 +422,7 @@ namespace Server.Factions
 		{
 			base.Serialize(writer);
 
-			writer.Write((int)0); // version
+			writer.Write(0); // version
 
 			Faction.WriteReference(writer, m_Faction);
 			Town.WriteReference(writer, m_Town);
@@ -446,7 +446,7 @@ namespace Server.Factions
 
 	public class VirtualMount : IMount
 	{
-		private VirtualMountItem m_Item;
+		private readonly VirtualMountItem m_Item;
 
 		public Mobile Rider
 		{
@@ -467,7 +467,7 @@ namespace Server.Factions
 	public class VirtualMountItem : BaseItem, IMountItem
 	{
 		private Mobile m_Rider;
-		private VirtualMount m_Mount;
+		private readonly VirtualMount m_Mount;
 
 		public Mobile Rider { get { return m_Rider; } }
 
@@ -493,9 +493,9 @@ namespace Server.Factions
 		{
 			base.Serialize(writer);
 
-			writer.Write((int)0); // version
+			writer.Write(0); // version
 
-			writer.Write((Mobile)m_Rider);
+			writer.Write(m_Rider);
 		}
 
 		public override void Deserialize(GenericReader reader)

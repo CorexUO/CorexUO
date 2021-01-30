@@ -1,6 +1,6 @@
+using Server.Mobiles;
 using System;
 using System.Collections.Generic;
-using Server.Mobiles;
 
 namespace Server.Engines.ConPVP
 {
@@ -53,9 +53,9 @@ namespace Server.Engines.ConPVP
 		{
 			base.Serialize(writer);
 
-			writer.Write((int)0);
+			writer.Write(0);
 
-			writer.Write((bool)m_IsPrivate);
+			writer.Write(m_IsPrivate);
 
 			m_Arena.Serialize(writer);
 		}
@@ -88,7 +88,7 @@ namespace Server.Engines.ConPVP
 	[PropertyObject]
 	public class ArenaStartPoints
 	{
-		private Point3D[] m_Points;
+		private readonly Point3D[] m_Points;
 
 		public Point3D[] Points { get { return m_Points; } }
 
@@ -140,10 +140,10 @@ namespace Server.Engines.ConPVP
 
 		public void Serialize(GenericWriter writer)
 		{
-			writer.WriteEncodedInt((int)m_Points.Length);
+			writer.WriteEncodedInt(m_Points.Length);
 
 			for (int i = 0; i < m_Points.Length; ++i)
-				writer.Write((Point3D)m_Points[i]);
+				writer.Write(m_Points[i]);
 		}
 	}
 
@@ -157,7 +157,7 @@ namespace Server.Engines.ConPVP
 		private Point3D m_Wall;
 		private Point3D m_GateIn;
 		private Point3D m_GateOut;
-		private ArenaStartPoints m_Points;
+		private readonly ArenaStartPoints m_Points;
 		private bool m_Active;
 		private string m_Name;
 
@@ -165,7 +165,7 @@ namespace Server.Engines.ConPVP
 
 		private Item m_Teleporter;
 
-		private List<Mobile> m_Players;
+		private readonly List<Mobile> m_Players;
 
 		private TournamentController m_Tournament;
 		private Mobile m_Announcer;
@@ -366,7 +366,7 @@ namespace Server.Engines.ConPVP
 		}
 
 		#region Offsets & Rotation
-		private static Point2D[] m_EdgeOffsets = new Point2D[]
+		private static readonly Point2D[] m_EdgeOffsets = new Point2D[]
 			{
 				/*
 				 *        /\
@@ -389,7 +389,7 @@ namespace Server.Engines.ConPVP
 			};
 
 		// nw corner
-		private static Point2D[] m_CornerOffsets = new Point2D[]
+		private static readonly Point2D[] m_CornerOffsets = new Point2D[]
 			{
 				/*
 				 *         /\
@@ -410,7 +410,7 @@ namespace Server.Engines.ConPVP
 				new Point2D( 3, 0 )
 			};
 
-		private static int[][,] m_Rotate = new int[][,]
+		private static readonly int[][,] m_Rotate = new int[][,]
 			{
 				new int[,]{ { +1, 0 }, { 0, +1 } }, // west
 				new int[,]{ { -1, 0 }, { 0, -1 } }, // east
@@ -603,35 +603,35 @@ namespace Server.Engines.ConPVP
 
 		public void Serialize(GenericWriter writer)
 		{
-			writer.WriteEncodedInt((int)0);
+			writer.WriteEncodedInt(0);
 
-			writer.Write((bool)m_IsGuarded);
+			writer.Write(m_IsGuarded);
 
-			writer.Write((Item)m_Ladder);
+			writer.Write(m_Ladder);
 
-			writer.Write((Item)m_Tournament);
-			writer.Write((Mobile)m_Announcer);
+			writer.Write(m_Tournament);
+			writer.Write(m_Announcer);
 
-			writer.Write((string)m_Name);
+			writer.Write(m_Name);
 
-			writer.Write((Rectangle2D)m_Zone);
+			writer.Write(m_Zone);
 
-			writer.Write((Point3D)m_GateIn);
-			writer.Write((Point3D)m_GateOut);
-			writer.Write((Item)m_Teleporter);
+			writer.Write(m_GateIn);
+			writer.Write(m_GateOut);
+			writer.Write(m_Teleporter);
 
 			writer.Write(m_Players);
 
-			writer.Write((Map)m_Facet);
-			writer.Write((Rectangle2D)m_Bounds);
-			writer.Write((Point3D)m_Outside);
-			writer.Write((Point3D)m_Wall);
-			writer.Write((bool)m_Active);
+			writer.Write(m_Facet);
+			writer.Write(m_Bounds);
+			writer.Write(m_Outside);
+			writer.Write(m_Wall);
+			writer.Write(m_Active);
 
 			m_Points.Serialize(writer);
 		}
 
-		private static List<Arena> m_Arenas = new List<Arena>();
+		private static readonly List<Arena> m_Arenas = new List<Arena>();
 
 		public static List<Arena> Arenas { get { return m_Arenas; } }
 

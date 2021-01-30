@@ -1,11 +1,11 @@
-using System;
 using Server.Targeting;
+using System;
 
 namespace Server.Spells.First
 {
 	public class WeakenSpell : MagerySpell
 	{
-		private static SpellInfo m_Info = new SpellInfo(
+		private static readonly SpellInfo m_Info = new SpellInfo(
 				"Weaken", "Des Mani",
 				212,
 				9031,
@@ -70,7 +70,7 @@ namespace Server.Spells.First
 
 		public class InternalTarget : Target
 		{
-			private WeakenSpell m_Owner;
+			private readonly WeakenSpell m_Owner;
 
 			public InternalTarget(WeakenSpell owner) : base(owner.SpellRange, false, TargetFlags.Harmful)
 			{

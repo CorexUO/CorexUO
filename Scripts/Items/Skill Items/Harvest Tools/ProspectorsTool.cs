@@ -1,6 +1,6 @@
-using System;
 using Server.Engines.Harvest;
 using Server.Targeting;
+using System;
 
 namespace Server.Items
 {
@@ -57,11 +57,8 @@ namespace Server.Items
 
 			HarvestSystem system = Mining.System;
 
-			int tileID;
-			Map map;
-			Point3D loc;
 
-			if (!system.GetHarvestDetails(from, this, toProspect, out tileID, out map, out loc))
+			if (!system.GetHarvestDetails(from, this, toProspect, out int tileID, out Map map, out Point3D loc))
 			{
 				from.SendLocalizedMessage(1049048); // You cannot use your prospector tool on that.
 				return;
@@ -125,8 +122,8 @@ namespace Server.Items
 		{
 			base.Serialize(writer);
 
-			writer.Write((int)0); // version
-			writer.Write((int)m_UsesRemaining);
+			writer.Write(0); // version
+			writer.Write(m_UsesRemaining);
 		}
 
 		public override void Deserialize(GenericReader reader)
@@ -147,7 +144,7 @@ namespace Server.Items
 
 		private class InternalTarget : Target
 		{
-			private ProspectorsTool m_Tool;
+			private readonly ProspectorsTool m_Tool;
 
 			public InternalTarget(ProspectorsTool tool) : base(2, true, TargetFlags.None)
 			{

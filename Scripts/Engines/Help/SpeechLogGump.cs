@@ -1,9 +1,9 @@
-using System;
-using System.Collections.Generic;
-using System.Text;
 using Server.Accounting;
 using Server.Gumps;
 using Server.Network;
+using System;
+using System.Collections.Generic;
+using System.Text;
 
 namespace Server.Engines.Help
 {
@@ -11,9 +11,9 @@ namespace Server.Engines.Help
 	{
 		public const int MaxEntriesPerPage = 30;
 
-		private Mobile m_Player;
-		private List<SpeechLogEntry> m_Log;
-		private int m_Page;
+		private readonly Mobile m_Player;
+		private readonly List<SpeechLogEntry> m_Log;
+		private readonly int m_Page;
 
 		public SpeechLogGump(Mobile player, SpeechLog log)
 			: this(player, new List<SpeechLogEntry>(log))

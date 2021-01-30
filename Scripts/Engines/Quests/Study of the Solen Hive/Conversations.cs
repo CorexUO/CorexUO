@@ -1,12 +1,12 @@
 namespace Server.Engines.Quests.Naturalist
 {
-    public class DontOfferConversation : QuestConversation
-    {
-        public override object Message
-        {
-            get
-            {
-                /* <I>The Naturalist looks up from his scribbled notes.</I><BR><BR>
+	public class DontOfferConversation : QuestConversation
+	{
+		public override object Message
+		{
+			get
+			{
+				/* <I>The Naturalist looks up from his scribbled notes.</I><BR><BR>
 				 * 
 				 * Greetings!<BR><BR>
 				 * 
@@ -17,24 +17,24 @@ namespace Server.Engines.Quests.Naturalist
 				 * you should finish whatever it is that has your attention at the moment and
 				 * return to me once you're done.
 				 */
-                return 1054052;
-            }
-        }
+				return 1054052;
+			}
+		}
 
-        public override bool Logged { get { return false; } }
+		public override bool Logged { get { return false; } }
 
-        public DontOfferConversation()
-        {
-        }
-    }
+		public DontOfferConversation()
+		{
+		}
+	}
 
-    public class AcceptConversation : QuestConversation
-    {
-        public override object Message
-        {
-            get
-            {
-                /* Ah! This is splendid news! Each time an assistant travels into the
+	public class AcceptConversation : QuestConversation
+	{
+		public override object Message
+		{
+			get
+			{
+				/* Ah! This is splendid news! Each time an assistant travels into the
 				 * Solen Hive to gather information for me, I feel as if I am one step
 				 * closer to some grand discovery. Though I felt the same way when I was
 				 * certain that Terathans had the ability to change their shape to resemble
@@ -44,27 +44,27 @@ namespace Server.Engines.Quests.Naturalist
 				 * In any case, I cannot thank you enough! Please return to me when you have
 				 * studied all the Solen Egg Nests hidden within the Solen Hive.
 				 */
-                return 1054043;
-            }
-        }
+				return 1054043;
+			}
+		}
 
-        public AcceptConversation()
-        {
-        }
+		public AcceptConversation()
+		{
+		}
 
-        public override void OnRead()
-        {
-            System.AddObjective(new StudyNestsObjective());
-        }
-    }
+		public override void OnRead()
+		{
+			System.AddObjective(new StudyNestsObjective());
+		}
+	}
 
-    public class NaturalistDuringStudyConversation : QuestConversation
-    {
-        public override object Message
-        {
-            get
-            {
-                /* <I>The Naturalist looks up from his notes with a frustrated look
+	public class NaturalistDuringStudyConversation : QuestConversation
+	{
+		public override object Message
+		{
+			get
+			{
+				/* <I>The Naturalist looks up from his notes with a frustrated look
 				 * on his face.</I><BR><BR>
 				 * 
 				 * Haven't you finished the task I appointed you yet? Gah! It's so
@@ -78,24 +78,24 @@ namespace Server.Engines.Quests.Naturalist
 				 * Now go on, away with you! I have piles of notes from other more helpful
 				 * apprentices that I still need to study!
 				 */
-                return 1054049;
-            }
-        }
+				return 1054049;
+			}
+		}
 
-        public override bool Logged { get { return false; } }
+		public override bool Logged { get { return false; } }
 
-        public NaturalistDuringStudyConversation()
-        {
-        }
-    }
+		public NaturalistDuringStudyConversation()
+		{
+		}
+	}
 
-    public class EndConversation : QuestConversation
-    {
-        public override object Message
-        {
-            get
-            {
-                /* <I>The Naturalist looks up from his notes with a pleased expression
+	public class EndConversation : QuestConversation
+	{
+		public override object Message
+		{
+			get
+			{
+				/* <I>The Naturalist looks up from his notes with a pleased expression
 				 * on his face.</I><BR><BR>
 				 * 
 				 * Ah! Thank you, my goodly apprentice! These notes you have gathered will
@@ -116,27 +116,27 @@ namespace Server.Engines.Quests.Naturalist
 				 * and bid a good day to you my little apprentice! If you wish to help me out again,
 				 * just say the word.
 				 */
-                return 1054050;
-            }
-        }
+				return 1054050;
+			}
+		}
 
-        public EndConversation()
-        {
-        }
+		public EndConversation()
+		{
+		}
 
-        public override void OnRead()
-        {
-            System.Complete();
-        }
-    }
+		public override void OnRead()
+		{
+			System.Complete();
+		}
+	}
 
-    public class SpecialEndConversation : QuestConversation
-    {
-        public override object Message
-        {
-            get
-            {
-                /* <I>The Naturalist looks up from his notes with an ecstatic look upon
+	public class SpecialEndConversation : QuestConversation
+	{
+		public override object Message
+		{
+			get
+			{
+				/* <I>The Naturalist looks up from his notes with an ecstatic look upon
 				 * his face.</I><BR><BR>
 				 * 
 				 * Oh my! These notes you've brought me - they say you have information on the
@@ -162,41 +162,41 @@ namespace Server.Engines.Quests.Naturalist
 				 * Once again, my thanks to you! Now I really must get back to studying these notes!
 				 * Take care, my fine apprentice, and come back if you wish to help me further!
 				 */
-                return 1054051;
-            }
-        }
+				return 1054051;
+			}
+		}
 
-        public SpecialEndConversation()
-        {
-        }
+		public SpecialEndConversation()
+		{
+		}
 
-        public override void OnRead()
-        {
-            System.Complete();
-        }
-    }
+		public override void OnRead()
+		{
+			System.Complete();
+		}
+	}
 
-    public class FullBackpackConversation : QuestConversation
-    {
-        public override object Message
-        {
-            get
-            {
-                /* <I>The Naturalist looks at you with a friendly expression.</I><BR><BR>
+	public class FullBackpackConversation : QuestConversation
+	{
+		public override object Message
+		{
+			get
+			{
+				/* <I>The Naturalist looks at you with a friendly expression.</I><BR><BR>
 				 * 
 				 * I see you've returned with information for me. While I'd like to finish
 				 * conducting our business, it seems that you're a bit overloaded with
 				 * equipment at the moment. Perhaps you'd better free up some room before
 				 * we get to discussing your reward.
 				 */
-                return 1054053;
-            }
-        }
+				return 1054053;
+			}
+		}
 
-        public override bool Logged { get { return false; } }
+		public override bool Logged { get { return false; } }
 
-        public FullBackpackConversation()
-        {
-        }
-    }
+		public FullBackpackConversation()
+		{
+		}
+	}
 }

@@ -1,5 +1,5 @@
-using System;
 using Server.Mobiles;
+using System;
 using CalcMoves = Server.Movement.Movement;
 using MoveImpl = Server.Movement.MovementImpl;
 
@@ -20,10 +20,10 @@ namespace Server.PathAlgorithms.SlowAStar
 		private const int MaxDepth = 300;
 		private const int MaxNodes = MaxDepth * 16;
 
-		private static PathNode[] m_Closed = new PathNode[MaxNodes];
-		private static PathNode[] m_Open = new PathNode[MaxNodes];
-		private static PathNode[] m_Successors = new PathNode[8];
-		private static Direction[] m_Path = new Direction[MaxNodes];
+		private static readonly PathNode[] m_Closed = new PathNode[MaxNodes];
+		private static readonly PathNode[] m_Open = new PathNode[MaxNodes];
+		private static readonly PathNode[] m_Successors = new PathNode[8];
+		private static readonly Direction[] m_Path = new Direction[MaxNodes];
 
 		private Point3D m_Goal;
 

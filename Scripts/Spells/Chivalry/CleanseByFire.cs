@@ -1,11 +1,11 @@
-using System;
 using Server.Targeting;
+using System;
 
 namespace Server.Spells.Chivalry
 {
 	public class CleanseByFireSpell : PaladinSpell
 	{
-		private static SpellInfo m_Info = new SpellInfo(
+		private static readonly SpellInfo m_Info = new SpellInfo(
 				"Cleanse By Fire", "Expor Flamus",
 				-1,
 				9002
@@ -102,7 +102,7 @@ namespace Server.Spells.Chivalry
 
 		private class InternalTarget : Target
 		{
-			private CleanseByFireSpell m_Owner;
+			private readonly CleanseByFireSpell m_Owner;
 
 			public InternalTarget(CleanseByFireSpell owner) : base(owner.SpellRange, false, TargetFlags.Beneficial)
 			{

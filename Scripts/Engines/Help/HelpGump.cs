@@ -1,15 +1,15 @@
-using System;
 using Server.Gumps;
 using Server.Menus.Questions;
 using Server.Mobiles;
 using Server.Multis;
 using Server.Network;
+using System;
 
 namespace Server.Engines.Help
 {
 	public class ContainedMenu : QuestionMenu
 	{
-		private Mobile m_From;
+		private readonly Mobile m_From;
 
 		public ContainedMenu(Mobile from) : base("You already have an open help request. We will have someone assist you as soon as possible.  What would you like to do?", new string[] { "Leave my old help request like it is.", "Remove my help request from the queue." })
 		{

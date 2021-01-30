@@ -4,8 +4,8 @@ namespace Server.Engines.VeteranRewards
 {
 	public class RewardList
 	{
-		private TimeSpan m_Age;
-		private RewardEntry[] m_Entries;
+		private readonly TimeSpan m_Age;
+		private readonly RewardEntry[] m_Entries;
 
 		public TimeSpan Age { get { return m_Age; } }
 		public RewardEntry[] Entries { get { return m_Entries; } }

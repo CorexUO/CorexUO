@@ -6,7 +6,7 @@ namespace Server.Engines.MLQuests
 	[AttributeUsage(AttributeTargets.Class)]
 	public class QuesterNameAttribute : Attribute
 	{
-		private string m_QuesterName;
+		private readonly string m_QuesterName;
 
 		public string QuesterName { get { return m_QuesterName; } }
 
@@ -23,9 +23,8 @@ namespace Server.Engines.MLQuests
 			if (t == null)
 				return "";
 
-			string result;
 
-			if (m_Cache.TryGetValue(t, out result))
+			if (m_Cache.TryGetValue(t, out string result))
 				return result;
 
 			object[] attributes = t.GetCustomAttributes(m_Type, false);

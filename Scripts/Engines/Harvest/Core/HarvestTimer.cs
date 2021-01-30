@@ -4,12 +4,13 @@ namespace Server.Engines.Harvest
 {
 	public class HarvestTimer : Timer
 	{
-		private Mobile m_From;
-		private Item m_Tool;
-		private HarvestSystem m_System;
-		private HarvestDefinition m_Definition;
-		private object m_ToHarvest, m_Locked;
-		private int m_Index, m_Count;
+		private readonly Mobile m_From;
+		private readonly Item m_Tool;
+		private readonly HarvestSystem m_System;
+		private readonly HarvestDefinition m_Definition;
+		private readonly object m_ToHarvest, m_Locked;
+		private int m_Index;
+		private readonly int m_Count;
 
 		public HarvestTimer(Mobile from, Item tool, HarvestSystem system, HarvestDefinition def, object toHarvest, object locked) : base(TimeSpan.Zero, def.EffectDelay)
 		{

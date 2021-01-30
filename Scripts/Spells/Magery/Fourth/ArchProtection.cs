@@ -1,13 +1,13 @@
-using System;
-using System.Collections.Generic;
 using Server.Engines.PartySystem;
 using Server.Targeting;
+using System;
+using System.Collections.Generic;
 
 namespace Server.Spells.Fourth
 {
 	public class ArchProtectionSpell : MagerySpell
 	{
-		private static SpellInfo m_Info = new SpellInfo(
+		private static readonly SpellInfo m_Info = new SpellInfo(
 				"Arch Protection", "Vas Uus Sanct",
 				Core.AOS ? 239 : 215,
 				9011,
@@ -113,7 +113,7 @@ namespace Server.Spells.Fourth
 			FinishSequence();
 		}
 
-		private static Dictionary<Mobile, Int32> _Table = new Dictionary<Mobile, Int32>();
+		private static readonly Dictionary<Mobile, Int32> _Table = new Dictionary<Mobile, Int32>();
 
 		private static void AddEntry(Mobile m, Int32 v)
 		{
@@ -135,7 +135,7 @@ namespace Server.Spells.Fourth
 
 		private class InternalTimer : Timer
 		{
-			private Mobile m_Owner;
+			private readonly Mobile m_Owner;
 
 			public InternalTimer(Mobile target, Mobile caster) : base(TimeSpan.FromSeconds(0))
 			{
@@ -156,7 +156,7 @@ namespace Server.Spells.Fourth
 
 		private class InternalTarget : Target
 		{
-			private ArchProtectionSpell m_Owner;
+			private readonly ArchProtectionSpell m_Owner;
 
 			public InternalTarget(ArchProtectionSpell owner) : base(owner.SpellRange, true, TargetFlags.None)
 			{

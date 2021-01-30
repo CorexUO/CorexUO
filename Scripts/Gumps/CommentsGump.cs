@@ -1,10 +1,10 @@
-using System;
-using System.Collections.Generic;
 using Server.Accounting;
 using Server.Commands;
 using Server.Network;
 using Server.Prompts;
 using Server.Targeting;
+using System;
+using System.Collections.Generic;
 
 namespace Server.Gumps
 {
@@ -93,7 +93,7 @@ namespace Server.Gumps
 
 		public class CommentPrompt : Prompt
 		{
-			private Account m_Acct;
+			private readonly Account m_Acct;
 			public CommentPrompt(Account acct)
 			{
 				m_Acct = acct;

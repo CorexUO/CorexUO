@@ -1,7 +1,7 @@
-using System;
-using System.Collections.Generic;
 using Server.Commands;
 using Server.Mobiles;
+using System;
+using System.Collections.Generic;
 
 namespace Server.Engines.Craft
 {
@@ -63,7 +63,7 @@ namespace Server.Engines.Craft
 		}
 
 
-		private static Dictionary<int, Recipe> m_Recipes = new Dictionary<int, Recipe>();
+		private static readonly Dictionary<int, Recipe> m_Recipes = new Dictionary<int, Recipe>();
 
 		public static Dictionary<int, Recipe> Recipes { get { return m_Recipes; } }
 
@@ -86,7 +86,7 @@ namespace Server.Engines.Craft
 			set { m_CraftItem = value; }
 		}
 
-		private int m_ID;
+		private readonly int m_ID;
 
 		public int ID
 		{

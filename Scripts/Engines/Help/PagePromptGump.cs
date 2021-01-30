@@ -5,8 +5,8 @@ namespace Server.Engines.Help
 {
 	public class PagePromptGump : Gump
 	{
-		private Mobile m_From;
-		private PageType m_Type;
+		private readonly Mobile m_From;
+		private readonly PageType m_Type;
 
 		public PagePromptGump(Mobile from, PageType type) : base(0, 0)
 		{

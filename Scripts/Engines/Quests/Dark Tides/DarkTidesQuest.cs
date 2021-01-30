@@ -1,66 +1,66 @@
-using System;
 using Server.Items;
 using Server.Mobiles;
+using System;
 
 namespace Server.Engines.Quests.Necro
 {
-    public class DarkTidesQuest : QuestSystem
-    {
-        private static Type[] m_TypeReferenceTable = new Type[]
-            {
-                typeof( Necro.AcceptConversation ),
-                typeof( Necro.AnimateMaabusCorpseObjective ),
-                typeof( Necro.BankerConversation ),
-                typeof( Necro.CashBankCheckObjective ),
-                typeof( Necro.FetchAbraxusScrollObjective ),
-                typeof( Necro.FindBankObjective ),
-                typeof( Necro.FindCallingScrollObjective ),
-                typeof( Necro.FindCityOfLightObjective ),
-                typeof( Necro.FindCrystalCaveObjective ),
-                typeof( Necro.FindMaabusCorpseObjective ),
-                typeof( Necro.FindMaabusTombObjective ),
-                typeof( Necro.FindMardothAboutKronusObjective ),
-                typeof( Necro.FindMardothAboutVaultObjective ),
-                typeof( Necro.FindMardothEndObjective ),
-                typeof( Necro.FindVaultOfSecretsObjective ),
-                typeof( Necro.FindWellOfTearsObjective ),
-                typeof( Necro.HorusConversation ),
-                typeof( Necro.LostCallingScrollConversation ),
-                typeof( Necro.MaabasConversation ),
-                typeof( Necro.MardothEndConversation ),
-                typeof( Necro.MardothKronusConversation ),
-                typeof( Necro.MardothVaultConversation ),
-                typeof( Necro.RadarConversation ),
-                typeof( Necro.ReadAbraxusScrollConversation ),
-                typeof( Necro.ReadAbraxusScrollObjective ),
-                typeof( Necro.ReanimateMaabusConversation ),
-                typeof( Necro.RetrieveAbraxusScrollObjective ),
-                typeof( Necro.ReturnToCrystalCaveObjective ),
-                typeof( Necro.SecondHorusConversation ),
-                typeof( Necro.SpeakCavePasswordObjective ),
-                typeof( Necro.UseCallingScrollObjective ),
-                typeof( Necro.VaultOfSecretsConversation ),
-                typeof( Necro.FindHorusAboutRewardObjective ),
-                typeof( Necro.HealConversation ),
-                typeof( Necro.HorusRewardConversation )
-            };
+	public class DarkTidesQuest : QuestSystem
+	{
+		private static readonly Type[] m_TypeReferenceTable = new Type[]
+			{
+				typeof( Necro.AcceptConversation ),
+				typeof( Necro.AnimateMaabusCorpseObjective ),
+				typeof( Necro.BankerConversation ),
+				typeof( Necro.CashBankCheckObjective ),
+				typeof( Necro.FetchAbraxusScrollObjective ),
+				typeof( Necro.FindBankObjective ),
+				typeof( Necro.FindCallingScrollObjective ),
+				typeof( Necro.FindCityOfLightObjective ),
+				typeof( Necro.FindCrystalCaveObjective ),
+				typeof( Necro.FindMaabusCorpseObjective ),
+				typeof( Necro.FindMaabusTombObjective ),
+				typeof( Necro.FindMardothAboutKronusObjective ),
+				typeof( Necro.FindMardothAboutVaultObjective ),
+				typeof( Necro.FindMardothEndObjective ),
+				typeof( Necro.FindVaultOfSecretsObjective ),
+				typeof( Necro.FindWellOfTearsObjective ),
+				typeof( Necro.HorusConversation ),
+				typeof( Necro.LostCallingScrollConversation ),
+				typeof( Necro.MaabasConversation ),
+				typeof( Necro.MardothEndConversation ),
+				typeof( Necro.MardothKronusConversation ),
+				typeof( Necro.MardothVaultConversation ),
+				typeof( Necro.RadarConversation ),
+				typeof( Necro.ReadAbraxusScrollConversation ),
+				typeof( Necro.ReadAbraxusScrollObjective ),
+				typeof( Necro.ReanimateMaabusConversation ),
+				typeof( Necro.RetrieveAbraxusScrollObjective ),
+				typeof( Necro.ReturnToCrystalCaveObjective ),
+				typeof( Necro.SecondHorusConversation ),
+				typeof( Necro.SpeakCavePasswordObjective ),
+				typeof( Necro.UseCallingScrollObjective ),
+				typeof( Necro.VaultOfSecretsConversation ),
+				typeof( Necro.FindHorusAboutRewardObjective ),
+				typeof( Necro.HealConversation ),
+				typeof( Necro.HorusRewardConversation )
+			};
 
-        public override Type[] TypeReferenceTable { get { return m_TypeReferenceTable; } }
+		public override Type[] TypeReferenceTable { get { return m_TypeReferenceTable; } }
 
-        public override object Name
-        {
-            get
-            {
-                // Dark Tides
-                return 1060095;
-            }
-        }
+		public override object Name
+		{
+			get
+			{
+				// Dark Tides
+				return 1060095;
+			}
+		}
 
-        public override object OfferMessage
-        {
-            get
-            {
-                /* <I>An old man who looks to be 200 years old from the looks
+		public override object OfferMessage
+		{
+			get
+			{
+				/* <I>An old man who looks to be 200 years old from the looks
 				 * of his translucently pale and heavily wrinkled skin, turns
 				 * to you and gives you a half-cocked grin that makes you
 				 * feel somewhat uneasy.<BR><BR>
@@ -94,59 +94,59 @@ namespace Server.Engines.Quests.Necro
 				 * 
 				 * What do you say?  Do we have a deal?
 				 */
-                return 1060094;
-            }
-        }
+				return 1060094;
+			}
+		}
 
-        public override TimeSpan RestartDelay { get { return TimeSpan.MaxValue; } }
-        public override bool IsTutorial { get { return true; } }
+		public override TimeSpan RestartDelay { get { return TimeSpan.MaxValue; } }
+		public override bool IsTutorial { get { return true; } }
 
-        public override int Picture { get { return 0x15B5; } }
+		public override int Picture { get { return 0x15B5; } }
 
-        public DarkTidesQuest(PlayerMobile from) : base(from)
-        {
-        }
+		public DarkTidesQuest(PlayerMobile from) : base(from)
+		{
+		}
 
-        // Serialization
-        public DarkTidesQuest()
-        {
-        }
+		// Serialization
+		public DarkTidesQuest()
+		{
+		}
 
-        public override void Accept()
-        {
-            base.Accept();
+		public override void Accept()
+		{
+			base.Accept();
 
-            AddConversation(new AcceptConversation());
-        }
+			AddConversation(new AcceptConversation());
+		}
 
-        public override bool IgnoreYoungProtection(Mobile from)
-        {
-            if (from is SummonedPaladin)
-                return true;
+		public override bool IgnoreYoungProtection(Mobile from)
+		{
+			if (from is SummonedPaladin)
+				return true;
 
-            return base.IgnoreYoungProtection(from);
-        }
+			return base.IgnoreYoungProtection(from);
+		}
 
-        public static bool HasLostCallingScroll(Mobile from)
-        {
-            PlayerMobile pm = from as PlayerMobile;
+		public static bool HasLostCallingScroll(Mobile from)
+		{
+			PlayerMobile pm = from as PlayerMobile;
 
-            if (pm == null)
-                return false;
+			if (pm == null)
+				return false;
 
-            QuestSystem qs = pm.Quest;
+			QuestSystem qs = pm.Quest;
 
-            if (qs is DarkTidesQuest)
-            {
-                if (qs.IsObjectiveInProgress(typeof(FindMardothAboutKronusObjective)) || qs.IsObjectiveInProgress(typeof(FindWellOfTearsObjective)) || qs.IsObjectiveInProgress(typeof(UseCallingScrollObjective)))
-                {
-                    Container pack = from.Backpack;
+			if (qs is DarkTidesQuest)
+			{
+				if (qs.IsObjectiveInProgress(typeof(FindMardothAboutKronusObjective)) || qs.IsObjectiveInProgress(typeof(FindWellOfTearsObjective)) || qs.IsObjectiveInProgress(typeof(UseCallingScrollObjective)))
+				{
+					Container pack = from.Backpack;
 
-                    return (pack == null || pack.FindItemByType(typeof(KronusScroll)) == null);
-                }
-            }
+					return (pack == null || pack.FindItemByType(typeof(KronusScroll)) == null);
+				}
+			}
 
-            return false;
-        }
-    }
+			return false;
+		}
+	}
 }

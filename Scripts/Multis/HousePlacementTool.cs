@@ -1,10 +1,10 @@
-using System;
-using System.Collections;
 using Server.Gumps;
 using Server.Mobiles;
 using Server.Multis;
 using Server.Regions;
 using Server.Targeting;
+using System;
+using System.Collections;
 
 namespace Server.Items
 {
@@ -35,7 +35,7 @@ namespace Server.Items
 		{
 			base.Serialize(writer);
 
-			writer.Write((int)0); // version
+			writer.Write(0); // version
 		}
 
 		public override void Deserialize(GenericReader reader)
@@ -51,7 +51,7 @@ namespace Server.Items
 
 	public class HousePlacementCategoryGump : Gump
 	{
-		private Mobile m_From;
+		private readonly Mobile m_From;
 
 		private const int LabelColor = 0x7FFF;
 		private const int LabelColorDisabled = 0x4210;
@@ -113,8 +113,8 @@ namespace Server.Items
 
 	public class HousePlacementListGump : Gump
 	{
-		private Mobile m_From;
-		private HousePlacementEntry[] m_Entries;
+		private readonly Mobile m_From;
+		private readonly HousePlacementEntry[] m_Entries;
 
 		private const int LabelColor = 0x7FFF;
 		private const int LabelHue = 0x480;
@@ -216,8 +216,8 @@ namespace Server.Items
 
 	public class NewHousePlacementTarget : MultiTarget
 	{
-		private HousePlacementEntry m_Entry;
-		private HousePlacementEntry[] m_Entries;
+		private readonly HousePlacementEntry m_Entry;
+		private readonly HousePlacementEntry[] m_Entries;
 
 		private bool m_Placed;
 
@@ -270,15 +270,15 @@ namespace Server.Items
 
 	public class HousePlacementEntry
 	{
-		private Type m_Type;
-		private int m_Description;
-		private int m_Storage;
-		private int m_Lockdowns;
-		private int m_NewStorage;
-		private int m_NewLockdowns;
-		private int m_Vendors;
-		private int m_Cost;
-		private int m_MultiID;
+		private readonly Type m_Type;
+		private readonly int m_Description;
+		private readonly int m_Storage;
+		private readonly int m_Lockdowns;
+		private readonly int m_NewStorage;
+		private readonly int m_NewLockdowns;
+		private readonly int m_Vendors;
+		private readonly int m_Cost;
+		private readonly int m_MultiID;
 		private Point3D m_Offset;
 
 		public Type Type { get { return m_Type; } }
@@ -358,9 +358,8 @@ namespace Server.Items
 
 			prevHouse.Delete();
 
-			ArrayList toMove;
 			//Point3D center = new Point3D( p.X - m_Offset.X, p.Y - m_Offset.Y, p.Z - m_Offset.Z );
-			HousePlacementResult res = HousePlacement.Check(from, m_MultiID, center, out toMove);
+			HousePlacementResult res = HousePlacement.Check(from, m_MultiID, center, out ArrayList toMove);
 
 			switch (res)
 			{
@@ -450,9 +449,8 @@ namespace Server.Items
 			if (!from.CheckAlive() || from.Backpack == null || from.Backpack.FindItemByType(typeof(HousePlacementTool)) == null)
 				return false;
 
-			ArrayList toMove;
 			Point3D center = new Point3D(p.X - m_Offset.X, p.Y - m_Offset.Y, p.Z - m_Offset.Z);
-			HousePlacementResult res = HousePlacement.Check(from, m_MultiID, center, out toMove);
+			HousePlacementResult res = HousePlacement.Check(from, m_MultiID, center, out ArrayList toMove);
 
 			switch (res)
 			{
@@ -550,7 +548,7 @@ namespace Server.Items
 			return false;
 		}
 
-		private static Hashtable m_Table;
+		private static readonly Hashtable m_Table;
 
 		static HousePlacementEntry()
 		{
@@ -642,7 +640,7 @@ namespace Server.Items
 			}
 		}
 
-		private static HousePlacementEntry[] m_ClassicHouses = new HousePlacementEntry[]
+		private static readonly HousePlacementEntry[] m_ClassicHouses = new HousePlacementEntry[]
 			{
 				new HousePlacementEntry( typeof( SmallOldHouse ),       1011303,    425,    212,    489,    244,    10, 37000,      0,  4,  0,  0x0064  ),
 				new HousePlacementEntry( typeof( SmallOldHouse ),       1011304,    425,    212,    489,    244,    10, 37000,      0,  4,  0,  0x0066  ),
@@ -672,7 +670,7 @@ namespace Server.Items
 
 
 
-		private static HousePlacementEntry[] m_TwoStoryFoundations = new HousePlacementEntry[]
+		private static readonly HousePlacementEntry[] m_TwoStoryFoundations = new HousePlacementEntry[]
 			{
 				new HousePlacementEntry( typeof( HouseFoundation ),     1060241,    425,    212,    489,    244,    10, 30500,      0,  4,  0,  0x13EC  ), // 7x7 2-Story Customizable House
 				new HousePlacementEntry( typeof( HouseFoundation ),     1060242,    580,    290,    667,    333,    14, 34500,      0,  5,  0,  0x13ED  ), // 7x8 2-Story Customizable House
@@ -729,7 +727,7 @@ namespace Server.Items
 
 
 
-		private static HousePlacementEntry[] m_ThreeStoryFoundations = new HousePlacementEntry[]
+		private static readonly HousePlacementEntry[] m_ThreeStoryFoundations = new HousePlacementEntry[]
 			{
 				new HousePlacementEntry( typeof( HouseFoundation ),     1060272,    1150,   575,    1323,   661,    24, 73500,      0,  8,  0,  0x140B  ), // 9x14 3-Story Customizable House
 				new HousePlacementEntry( typeof( HouseFoundation ),     1060284,    1200,   600,    1380,   690,    26, 81000,      0,  8,  0,  0x1417  ), // 10x14 3-Story Customizable House

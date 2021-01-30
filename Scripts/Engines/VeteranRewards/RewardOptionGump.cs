@@ -1,5 +1,5 @@
-using System.Collections.Generic;
 using Server.Network;
+using System.Collections.Generic;
 
 namespace Server.Gumps
 {
@@ -11,8 +11,8 @@ namespace Server.Gumps
 
 	public class RewardOptionGump : Gump
 	{
-		private RewardOptionList m_Options = new RewardOptionList();
-		private IRewardOption m_Option;
+		private readonly RewardOptionList m_Options = new RewardOptionList();
+		private readonly IRewardOption m_Option;
 
 		public RewardOptionGump(IRewardOption option) : this(option, 0)
 		{
@@ -73,8 +73,8 @@ namespace Server.Gumps
 
 	public class RewardOption
 	{
-		private int m_ID;
-		private int m_Cliloc;
+		private readonly int m_ID;
+		private readonly int m_Cliloc;
 
 		public int ID { get { return m_ID; } }
 		public int Cliloc { get { return m_Cliloc; } }

@@ -1,7 +1,7 @@
-using System;
-using System.Collections.Generic;
 using Server.Items;
 using Server.Network;
+using System;
+using System.Collections.Generic;
 
 namespace Server.Multis
 {
@@ -194,10 +194,10 @@ namespace Server.Multis
 		{
 			base.Serialize(writer);
 
-			writer.Write((int)0);
+			writer.Write(0);
 
-			writer.Write((Item)MapItem);
-			writer.Write((int)NextNavPoint);
+			writer.Write(MapItem);
+			writer.Write(NextNavPoint);
 
 			writer.Write((int)m_Facing);
 
@@ -1593,7 +1593,7 @@ namespace Server.Multis
 			if (Hold != null)
 				Hold.Location = new Point3D(X + (xOffset * HoldDistance), Y + (yOffset * HoldDistance), Hold.Z);
 
-			int count = (int)(m_Facing - old) & 0x7;
+			int count = m_Facing - old & 0x7;
 			count /= 2;
 
 			for (int i = 0; i < toMove.Count; ++i)
@@ -1698,7 +1698,7 @@ namespace Server.Multis
 			{
 				EnsureCapacity(3 + 15 + ents.Count * 10);
 
-				m_Stream.Write((int)boat.Serial);
+				m_Stream.Write(boat.Serial);
 				m_Stream.Write((byte)speed);
 				m_Stream.Write((byte)d);
 				m_Stream.Write((byte)boat.Facing);
@@ -1714,7 +1714,7 @@ namespace Server.Multis
 					if (!beholder.CanSee(ent))
 						continue;
 
-					m_Stream.Write((int)ent.Serial);
+					m_Stream.Write(ent.Serial);
 					m_Stream.Write((short)(ent.X + xOffset));
 					m_Stream.Write((short)(ent.Y + yOffset));
 					m_Stream.Write((short)ent.Z);
@@ -1758,7 +1758,7 @@ namespace Server.Multis
 					if (ent is BaseMulti bm)
 					{
 						m_Stream.Write((byte)0x02);
-						m_Stream.Write((int)bm.Serial);
+						m_Stream.Write(bm.Serial);
 						// TODO: Mask no longer needed, merge with Item case?
 						m_Stream.Write((ushort)(bm.ItemID & 0x3FFF));
 						m_Stream.Write((byte)0);
@@ -1777,7 +1777,7 @@ namespace Server.Multis
 					else if (ent is Mobile m)
 					{
 						m_Stream.Write((byte)0x01);
-						m_Stream.Write((int)m.Serial);
+						m_Stream.Write(m.Serial);
 						m_Stream.Write((short)m.Body);
 						m_Stream.Write((byte)0);
 
@@ -1795,7 +1795,7 @@ namespace Server.Multis
 					else if (ent is Item item)
 					{
 						m_Stream.Write((byte)0x00);
-						m_Stream.Write((int)item.Serial);
+						m_Stream.Write(item.Serial);
 						m_Stream.Write((ushort)(item.ItemID & 0xFFFF));
 						m_Stream.Write((byte)0);
 

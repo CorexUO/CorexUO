@@ -9,7 +9,7 @@ namespace Server.Engines.BulkOrders
 		private readonly Mobile m_From;
 		private readonly BaseVendor m_Vendor;
 
-		public BulkOrderInfoEntry(Mobile from, BaseVendor vendor): base(6152)
+		public BulkOrderInfoEntry(Mobile from, BaseVendor vendor) : base(6152)
 		{
 			m_From = from;
 			m_Vendor = vendor;

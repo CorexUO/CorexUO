@@ -1,5 +1,3 @@
-using System;
-using System.Collections.Generic;
 using Server.Commands;
 using Server.Commands.Generic;
 using Server.Gumps;
@@ -7,6 +5,8 @@ using Server.Items;
 using Server.Mobiles;
 using Server.Network;
 using Server.Targeting;
+using System;
+using System.Collections.Generic;
 
 namespace Server.Guilds
 {
@@ -36,9 +36,8 @@ namespace Server.Guilds
 			{
 				Guild g = null;
 
-				int id;
 
-				if (int.TryParse(arg, out id))
+				if (int.TryParse(arg, out int id))
 					g = Guild.Find(id) as Guild;
 
 				if (g == null)
@@ -607,7 +606,7 @@ namespace Server.Guilds
 			if (Alliance != null)
 				Alliance.CheckLeader();
 
-			writer.Write((int)5);//version
+			writer.Write(5);//version
 
 			#region War Serialization
 			writer.Write(PendingWars.Count);
@@ -1039,9 +1038,8 @@ namespace Server.Guilds
 				if (m == null)
 					continue;
 
-				int v;
 
-				if (!votes.TryGetValue(m, out v))
+				if (!votes.TryGetValue(m, out int v))
 					votes[m] = 1;
 				else
 					votes[m] = v + 1;
@@ -1054,8 +1052,8 @@ namespace Server.Guilds
 
 			foreach (KeyValuePair<Mobile, int> kvp in votes)
 			{
-				Mobile m = (Mobile)kvp.Key;
-				int val = (int)kvp.Value;
+				Mobile m = kvp.Key;
+				int val = kvp.Value;
 
 				if (winner == null || val > highVotes)
 				{

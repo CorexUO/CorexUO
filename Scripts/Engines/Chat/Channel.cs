@@ -7,7 +7,7 @@ namespace Server.Engines.Chat
 	{
 		private string m_Name;
 		private string m_Password;
-		private List<ChatUser> m_Users, m_Banned, m_Moderators, m_Voices;
+		private readonly List<ChatUser> m_Users, m_Banned, m_Moderators, m_Voices;
 		private bool m_VoiceRestricted;
 		private bool m_AlwaysAvailable;
 
@@ -459,7 +459,7 @@ namespace Server.Engines.Chat
 			}
 		}
 
-		private static List<Channel> m_Channels = new List<Channel>();
+		private static readonly List<Channel> m_Channels = new List<Channel>();
 
 		public static List<Channel> Channels
 		{

@@ -11,13 +11,13 @@ namespace Server.Mobiles
 		private long m_NextCastTime;
 		private Spell m_CurrentSpell;
 
-		private static NeedDelegate m_Cure = new NeedDelegate(NeedCure);
-		private static NeedDelegate m_GHeal = new NeedDelegate(NeedGHeal);
-		private static NeedDelegate m_LHeal = new NeedDelegate(NeedLHeal);
-		private static NeedDelegate[] m_ACure = new NeedDelegate[] { m_Cure };
-		private static NeedDelegate[] m_AGHeal = new NeedDelegate[] { m_GHeal };
-		private static NeedDelegate[] m_ALHeal = new NeedDelegate[] { m_LHeal };
-		private static NeedDelegate[] m_All = new NeedDelegate[] { m_Cure, m_GHeal, m_LHeal };
+		private static readonly NeedDelegate m_Cure = new NeedDelegate(NeedCure);
+		private static readonly NeedDelegate m_GHeal = new NeedDelegate(NeedGHeal);
+		private static readonly NeedDelegate m_LHeal = new NeedDelegate(NeedLHeal);
+		private static readonly NeedDelegate[] m_ACure = new NeedDelegate[] { m_Cure };
+		private static readonly NeedDelegate[] m_AGHeal = new NeedDelegate[] { m_GHeal };
+		private static readonly NeedDelegate[] m_ALHeal = new NeedDelegate[] { m_LHeal };
+		private static readonly NeedDelegate[] m_All = new NeedDelegate[] { m_Cure, m_GHeal, m_LHeal };
 
 		public HealerAI(BaseCreature m) : base(m)
 		{

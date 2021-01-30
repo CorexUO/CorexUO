@@ -1,6 +1,3 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using Server.Accounting;
 using Server.Commands;
 using Server.Commands.Generic;
@@ -9,6 +6,9 @@ using Server.Items;
 using Server.Mobiles;
 using Server.Prompts;
 using Server.Targeting;
+using System;
+using System.Collections;
+using System.Collections.Generic;
 
 namespace Server.Factions
 {
@@ -127,7 +127,7 @@ namespace Server.Factions
 
 		private class BroadcastPrompt : Prompt
 		{
-			private Faction m_Faction;
+			private readonly Faction m_Faction;
 
 			public BroadcastPrompt(Faction faction)
 			{
@@ -311,7 +311,7 @@ namespace Server.Factions
 			{
 				while ((pl.RankIndex + 1) < ZeroRankOffset)
 				{
-					PlayerState pNext = Members[pl.RankIndex + 1] as PlayerState;
+					PlayerState pNext = Members[pl.RankIndex + 1];
 					Members[pl.RankIndex + 1] = pl;
 					Members[pl.RankIndex] = pNext;
 					pl.RankIndex++;
@@ -687,7 +687,7 @@ namespace Server.Factions
 
 				for (int j = 0; j < factionItemList.Count; ++j)
 				{
-					FactionItem fi = (FactionItem)factionItemList[j];
+					FactionItem fi = factionItemList[j];
 
 					if (fi.Expiration == DateTime.MinValue)
 						fi.Item.Delete();
@@ -815,7 +815,7 @@ namespace Server.Factions
 			if (obj is Mobile)
 			{
 				Mobile mob = (Mobile)obj;
-				PlayerState pl = PlayerState.Find((Mobile)mob);
+				PlayerState pl = PlayerState.Find(mob);
 
 				if (pl != null)
 				{
@@ -894,7 +894,7 @@ namespace Server.Factions
 		public const double SkillLossFactor = 1.0 / 3;
 		public static readonly TimeSpan SkillLossPeriod = TimeSpan.FromMinutes(20.0);
 
-		private static Dictionary<Mobile, SkillLossContext> m_SkillLoss = new Dictionary<Mobile, SkillLossContext>();
+		private static readonly Dictionary<Mobile, SkillLossContext> m_SkillLoss = new Dictionary<Mobile, SkillLossContext>();
 
 		private class SkillLossContext
 		{
@@ -941,9 +941,8 @@ namespace Server.Factions
 
 		public static bool ClearSkillLoss(Mobile mob)
 		{
-			SkillLossContext context;
 
-			if (!m_SkillLoss.TryGetValue(mob, out context))
+			if (!m_SkillLoss.TryGetValue(mob, out SkillLossContext context))
 				return false;
 
 			m_SkillLoss.Remove(mob);
@@ -1246,7 +1245,7 @@ namespace Server.Factions
 		{
 			int idx = Factions.IndexOf(fact);
 
-			writer.WriteEncodedInt((int)(idx + 1));
+			writer.WriteEncodedInt(idx + 1);
 		}
 
 		public static List<Faction> Factions { get { return Reflector.Factions; } }
@@ -1320,7 +1319,7 @@ namespace Server.Factions
 
 	public class FactionKickCommand : BaseCommand
 	{
-		private FactionKickType m_KickType;
+		private readonly FactionKickType m_KickType;
 
 		public FactionKickCommand(FactionKickType kickType)
 		{

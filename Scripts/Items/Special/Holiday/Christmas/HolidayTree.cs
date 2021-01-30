@@ -1,6 +1,6 @@
+using Server.Multis;
 using System;
 using System.Collections;
-using Server.Multis;
 
 namespace Server.Items
 {
@@ -39,7 +39,7 @@ namespace Server.Items
 			{
 				base.Serialize(writer);
 
-				writer.Write((int)0); // version
+				writer.Write(0); // version
 			}
 
 			public override void Deserialize(GenericReader reader)
@@ -78,7 +78,7 @@ namespace Server.Items
 			{
 				base.Serialize(writer);
 
-				writer.Write((int)0); // version
+				writer.Write(0); // version
 
 				writer.Write(m_Tree);
 			}
@@ -221,11 +221,11 @@ namespace Server.Items
 		{
 			base.Serialize(writer);
 
-			writer.Write((int)0); // version
+			writer.Write(0); // version
 
 			writer.Write(m_Placer);
 
-			writer.Write((int)m_Components.Count);
+			writer.Write(m_Components.Count);
 
 			for (int i = 0; i < m_Components.Count; ++i)
 				writer.Write((Item)m_Components[i]);

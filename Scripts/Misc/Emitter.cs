@@ -2,18 +2,16 @@ using System;
 using System.Collections.Generic;
 using System.Reflection;
 using System.Reflection.Emit;
-using System.Text;
-using Emit = System.Reflection.Emit;
 
 namespace Server
 {
 	public class AssemblyEmitter
 	{
-		private string m_AssemblyName;
+		private readonly string m_AssemblyName;
 
-		private AppDomain m_AppDomain;
-		private AssemblyBuilder m_AssemblyBuilder;
-		private ModuleBuilder m_ModuleBuilder;
+		private readonly AppDomain m_AppDomain;
+		private readonly AssemblyBuilder m_AssemblyBuilder;
+		private readonly ModuleBuilder m_ModuleBuilder;
 
 		public AssemblyEmitter(string assemblyName, bool canSave)
 		{
@@ -29,7 +27,7 @@ namespace Server
 			if (canSave)
 			{
 				m_ModuleBuilder = m_AssemblyBuilder.DefineDynamicModule(
-					String.Format( "{0}.dll", assemblyName.ToLower() )
+					String.Format("{0}.dll", assemblyName.ToLower())
 				);
 			}
 			else
@@ -48,7 +46,7 @@ namespace Server
 
 	public class MethodEmitter
 	{
-		private TypeBuilder m_TypeBuilder;
+		private readonly TypeBuilder m_TypeBuilder;
 
 		private MethodBuilder m_Builder;
 		private ILGenerator m_Generator;
@@ -82,10 +80,10 @@ namespace Server
 			}
 		}
 
-		private Stack<Type> m_Stack;
-		private Stack<CallInfo> m_Calls;
+		private readonly Stack<Type> m_Stack;
+		private readonly Stack<CallInfo> m_Calls;
 
-		private Dictionary<Type, Queue<LocalBuilder>> m_Temps;
+		private readonly Dictionary<Type, Queue<LocalBuilder>> m_Temps;
 
 		public MethodBuilder Method
 		{
@@ -117,9 +115,8 @@ namespace Server
 
 		public LocalBuilder AcquireTemp(Type localType)
 		{
-			Queue<LocalBuilder> list;
 
-			if (!m_Temps.TryGetValue(localType, out list))
+			if (!m_Temps.TryGetValue(localType, out Queue<LocalBuilder> list))
 				m_Temps[localType] = list = new Queue<LocalBuilder>();
 
 			if (list.Count > 0)
@@ -130,9 +127,8 @@ namespace Server
 
 		public void ReleaseTemp(LocalBuilder local)
 		{
-			Queue<LocalBuilder> list;
 
-			if (!m_Temps.TryGetValue(local.LocalType, out list))
+			if (!m_Temps.TryGetValue(local.LocalType, out Queue<LocalBuilder> list))
 				m_Temps[local.LocalType] = list = new Queue<LocalBuilder>();
 
 			list.Enqueue(local);

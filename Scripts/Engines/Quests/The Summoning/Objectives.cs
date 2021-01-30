@@ -1,6 +1,6 @@
-using System.Collections.Generic;
 using Server.Items;
 using Server.Mobiles;
+using System.Collections.Generic;
 
 namespace Server.Engines.Quests.Doom
 {
@@ -179,10 +179,10 @@ namespace Server.Engines.Quests.Doom
 
 		public override void ChildSerialize(GenericWriter writer)
 		{
-			writer.WriteEncodedInt((int)0); // version
+			writer.WriteEncodedInt(0); // version
 
-			writer.Write((Mobile)m_Daemon);
-			writer.Write((Item)m_CorpseWithSkull);
+			writer.Write(m_Daemon);
+			writer.Write(m_CorpseWithSkull);
 		}
 	}
 }

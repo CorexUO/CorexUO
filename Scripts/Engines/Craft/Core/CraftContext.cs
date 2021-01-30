@@ -11,7 +11,7 @@ namespace Server.Engines.Craft
 
 	public class CraftContext
 	{
-		private List<CraftItem> m_Items;
+		private readonly List<CraftItem> m_Items;
 		private int m_LastResourceIndex;
 		private int m_LastResourceIndex2;
 		private int m_LastGroupIndex;

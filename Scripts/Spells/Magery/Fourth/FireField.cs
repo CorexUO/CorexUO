@@ -1,15 +1,15 @@
-using System;
-using System.Collections;
 using Server.Items;
 using Server.Misc;
 using Server.Mobiles;
 using Server.Targeting;
+using System;
+using System.Collections;
 
 namespace Server.Spells.Fourth
 {
 	public class FireFieldSpell : MagerySpell
 	{
-		private static SpellInfo m_Info = new SpellInfo(
+		private static readonly SpellInfo m_Info = new SpellInfo(
 				"Fire Field", "In Flam Grav",
 				215,
 				9041,
@@ -150,7 +150,7 @@ namespace Server.Spells.Fourth
 			{
 				base.Serialize(writer);
 
-				writer.Write((int)0); // version
+				writer.Write(0); // version
 
 				writer.Write(m_Damage);
 				writer.Write(m_Caster);
@@ -213,10 +213,10 @@ namespace Server.Spells.Fourth
 
 			private class InternalTimer : Timer
 			{
-				private FireFieldItem m_Item;
-				private bool m_InLOS, m_CanFit;
+				private readonly FireFieldItem m_Item;
+				private readonly bool m_InLOS, m_CanFit;
 
-				private static Queue m_Queue = new Queue();
+				private static readonly Queue m_Queue = new Queue();
 
 				public InternalTimer(FireFieldItem item, TimeSpan delay, bool inLOS, bool canFit) : base(delay, TimeSpan.FromSeconds(1.0))
 				{
@@ -295,7 +295,7 @@ namespace Server.Spells.Fourth
 
 		private class InternalTarget : Target
 		{
-			private FireFieldSpell m_Owner;
+			private readonly FireFieldSpell m_Owner;
 
 			public InternalTarget(FireFieldSpell owner) : base(owner.SpellRange, true, TargetFlags.None)
 			{

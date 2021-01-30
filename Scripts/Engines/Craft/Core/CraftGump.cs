@@ -1,18 +1,18 @@
-using System;
-using System.Collections.Generic;
 using Server.Gumps;
 using Server.Items;
 using Server.Network;
+using System;
+using System.Collections.Generic;
 
 namespace Server.Engines.Craft
 {
 	public class CraftGump : Gump
 	{
-		private Mobile m_From;
-		private CraftSystem m_CraftSystem;
-		private BaseTool m_Tool;
+		private readonly Mobile m_From;
+		private readonly CraftSystem m_CraftSystem;
+		private readonly BaseTool m_Tool;
 
-		private CraftPage m_Page;
+		private readonly CraftPage m_Page;
 
 		private const int LabelHue = 0x480;
 		private const int LabelColor = 0x7FFF;

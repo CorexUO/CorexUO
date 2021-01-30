@@ -1,6 +1,6 @@
-using System;
 using Server.Factions;
 using Server.Mobiles;
+using System;
 
 namespace Server.Misc
 {
@@ -337,8 +337,8 @@ namespace Server.Misc
 			}
 		}
 
-		private static TimeSpan m_StatGainDelay = TimeSpan.FromMinutes((Core.ML) ? 0.05 : 15);
-		private static TimeSpan m_PetStatGainDelay = TimeSpan.FromMinutes(5.0);
+		private static readonly TimeSpan m_StatGainDelay = TimeSpan.FromMinutes((Core.ML) ? 0.05 : 15);
+		private static readonly TimeSpan m_PetStatGainDelay = TimeSpan.FromMinutes(5.0);
 
 		public static void GainStat(Mobile from, Stat stat)
 		{

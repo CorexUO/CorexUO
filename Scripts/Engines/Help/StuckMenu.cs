@@ -1,14 +1,14 @@
-using System;
 using Server.Gumps;
 using Server.Mobiles;
 using Server.Network;
+using System;
 
 namespace Server.Menus.Questions
 {
 	public class StuckMenuEntry
 	{
-		private int m_Name;
-		private Point3D[] m_Locations;
+		private readonly int m_Name;
+		private readonly Point3D[] m_Locations;
 
 		public int Name { get { return m_Name; } }
 		public Point3D[] Locations { get { return m_Locations; } }
@@ -22,7 +22,7 @@ namespace Server.Menus.Questions
 
 	public class StuckMenu : Gump
 	{
-		private static StuckMenuEntry[] m_Entries = new StuckMenuEntry[]
+		private static readonly StuckMenuEntry[] m_Entries = new StuckMenuEntry[]
 			{
 				// Britain
 				new StuckMenuEntry( 1011028, new Point3D[]
@@ -85,7 +85,7 @@ namespace Server.Menus.Questions
 					} )
 			};
 
-		private static StuckMenuEntry[] m_T2AEntries = new StuckMenuEntry[]
+		private static readonly StuckMenuEntry[] m_T2AEntries = new StuckMenuEntry[]
 			{
 				// Papua
 				new StuckMenuEntry( 1011057, new Point3D[]
@@ -122,8 +122,8 @@ namespace Server.Menus.Questions
 			return false;
 		}
 
-		private Mobile m_Mobile, m_Sender;
-		private bool m_MarkUse;
+		private readonly Mobile m_Mobile, m_Sender;
+		private readonly bool m_MarkUse;
 
 		private Timer m_Timer;
 
@@ -215,8 +215,8 @@ namespace Server.Menus.Questions
 
 		private class CloseTimer : Timer
 		{
-			private Mobile m_Mobile;
-			private DateTime m_End;
+			private readonly Mobile m_Mobile;
+			private readonly DateTime m_End;
 
 			public CloseTimer(Mobile m) : base(TimeSpan.Zero, TimeSpan.FromSeconds(1.0))
 			{
@@ -242,9 +242,9 @@ namespace Server.Menus.Questions
 
 		private class TeleportTimer : Timer
 		{
-			private Mobile m_Mobile;
-			private StuckMenuEntry m_Destination;
-			private DateTime m_End;
+			private readonly Mobile m_Mobile;
+			private readonly StuckMenuEntry m_Destination;
+			private readonly DateTime m_End;
 
 			public TeleportTimer(Mobile mobile, StuckMenuEntry destination, TimeSpan delay) : base(TimeSpan.Zero, TimeSpan.FromSeconds(1.0))
 			{

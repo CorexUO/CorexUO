@@ -1,5 +1,5 @@
-using System;
 using Server.Engines.VeteranRewards;
+using System;
 
 namespace Server.Items
 {
@@ -21,7 +21,7 @@ namespace Server.Items
 		{
 			base.Serialize(writer);
 
-			writer.Write((int)0); // version
+			writer.Write(0); // version
 		}
 
 		public override void Deserialize(GenericReader reader)
@@ -54,7 +54,7 @@ namespace Server.Items
 		{
 			base.Serialize(writer);
 
-			writer.Write((int)0); // version
+			writer.Write(0); // version
 		}
 
 		public override void Deserialize(GenericReader reader)
@@ -87,7 +87,7 @@ namespace Server.Items
 		{
 			base.Serialize(writer);
 
-			writer.Write((int)0); // version
+			writer.Write(0); // version
 		}
 
 		public override void Deserialize(GenericReader reader)
@@ -103,7 +103,7 @@ namespace Server.Items
 		private Timer m_DecayTimer;
 		private DateTime m_DecayTime;
 
-		private static TimeSpan m_DefaultDecayTime = TimeSpan.FromMinutes(1.0);
+		private static readonly TimeSpan m_DefaultDecayTime = TimeSpan.FromMinutes(1.0);
 
 		public override bool DisplayLootType
 		{
@@ -168,7 +168,7 @@ namespace Server.Items
 
 		private class InternalTimer : Timer
 		{
-			private DeathRobe m_Robe;
+			private readonly DeathRobe m_Robe;
 
 			public InternalTimer(DeathRobe c, TimeSpan delay) : base(delay)
 			{
@@ -193,7 +193,7 @@ namespace Server.Items
 		{
 			base.Serialize(writer);
 
-			writer.Write((int)0); // version
+			writer.Write(0); // version
 
 			writer.Write(m_DecayTimer != null);
 
@@ -323,10 +323,10 @@ namespace Server.Items
 		{
 			base.Serialize(writer);
 
-			writer.Write((int)0); // version
+			writer.Write(0); // version
 
-			writer.Write((int)m_LabelNumber);
-			writer.Write((bool)m_IsRewardItem);
+			writer.Write(m_LabelNumber);
+			writer.Write(m_IsRewardItem);
 		}
 
 		public override void Deserialize(GenericReader reader)
@@ -448,10 +448,10 @@ namespace Server.Items
 		{
 			base.Serialize(writer);
 
-			writer.Write((int)0); // version
+			writer.Write(0); // version
 
-			writer.Write((int)m_LabelNumber);
-			writer.Write((bool)m_IsRewardItem);
+			writer.Write(m_LabelNumber);
+			writer.Write(m_IsRewardItem);
 		}
 
 		public override void Deserialize(GenericReader reader)
@@ -556,13 +556,13 @@ namespace Server.Items
 		{
 			base.Serialize(writer);
 
-			writer.Write((int)0); // version
+			writer.Write(0); // version
 
 			if (IsArcane)
 			{
 				writer.Write(true);
-				writer.Write((int)m_CurArcaneCharges);
-				writer.Write((int)m_MaxArcaneCharges);
+				writer.Write(m_CurArcaneCharges);
+				writer.Write(m_MaxArcaneCharges);
 			}
 			else
 			{
@@ -622,7 +622,7 @@ namespace Server.Items
 		{
 			base.Serialize(writer);
 
-			writer.Write((int)0); // version
+			writer.Write(0); // version
 		}
 
 		public override void Deserialize(GenericReader reader)
@@ -655,7 +655,7 @@ namespace Server.Items
 		{
 			base.Serialize(writer);
 
-			writer.Write((int)0); // version
+			writer.Write(0); // version
 		}
 
 		public override void Deserialize(GenericReader reader)
@@ -691,7 +691,7 @@ namespace Server.Items
 		{
 			base.Serialize(writer);
 
-			writer.Write((int)0); // version
+			writer.Write(0); // version
 		}
 
 		public override void Deserialize(GenericReader reader)
@@ -724,7 +724,7 @@ namespace Server.Items
 		{
 			base.Serialize(writer);
 
-			writer.Write((int)0); // version
+			writer.Write(0); // version
 		}
 
 		public override void Deserialize(GenericReader reader)
@@ -759,7 +759,7 @@ namespace Server.Items
 		{
 			base.Serialize(writer);
 
-			writer.Write((int)0); // version
+			writer.Write(0); // version
 		}
 
 		public override void Deserialize(GenericReader reader)
@@ -794,7 +794,7 @@ namespace Server.Items
 		{
 			base.Serialize(writer);
 
-			writer.Write((int)0); // version
+			writer.Write(0); // version
 		}
 
 		public override void Deserialize(GenericReader reader)

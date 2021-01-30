@@ -4,7 +4,7 @@ namespace Server.Spells.Third
 {
 	public class PoisonSpell : MagerySpell
 	{
-		private static SpellInfo m_Info = new SpellInfo(
+		private static readonly SpellInfo m_Info = new SpellInfo(
 				"Poison", "In Nox",
 				203,
 				9051,
@@ -132,7 +132,7 @@ namespace Server.Spells.Third
 
 		private class InternalTarget : Target
 		{
-			private PoisonSpell m_Owner;
+			private readonly PoisonSpell m_Owner;
 
 			public InternalTarget(PoisonSpell owner) : base(owner.SpellRange, false, TargetFlags.Harmful)
 			{

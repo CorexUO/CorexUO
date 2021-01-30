@@ -1,6 +1,6 @@
+using Server.Accounting;
 using System;
 using System.Collections.Generic;
-using Server.Accounting;
 
 namespace Server.Misc
 {
@@ -12,7 +12,7 @@ namespace Server.Misc
 
 	public class GiftGiving
 	{
-		private static List<GiftGiver> m_Givers = new List<GiftGiver>();
+		private static readonly List<GiftGiver> m_Givers = new List<GiftGiver>();
 
 		public static void Register(GiftGiver giver)
 		{

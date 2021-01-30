@@ -1,6 +1,6 @@
-using System;
 using Server.Commands;
 using Server.Network;
+using System;
 
 namespace Server
 {

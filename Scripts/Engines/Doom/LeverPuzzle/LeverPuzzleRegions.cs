@@ -87,7 +87,7 @@ namespace Server.Engines.Doom
 
 	public class LeverPuzzleRegion : BaseRegion
 	{
-		private LeverPuzzleController Controller;
+		private readonly LeverPuzzleController Controller;
 		public Mobile m_Occupant;
 
 		[CommandProperty(AccessLevel.GameMaster)]

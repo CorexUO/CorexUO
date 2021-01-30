@@ -1,11 +1,11 @@
-using System;
 using Server.Targeting;
+using System;
 
 namespace Server.Spells.Second
 {
 	public class StrengthSpell : MagerySpell
 	{
-		private static SpellInfo m_Info = new SpellInfo(
+		private static readonly SpellInfo m_Info = new SpellInfo(
 				"Strength", "Uus Mani",
 				212,
 				9061,
@@ -72,7 +72,7 @@ namespace Server.Spells.Second
 
 		private class InternalTarget : Target
 		{
-			private StrengthSpell m_Owner;
+			private readonly StrengthSpell m_Owner;
 
 			public InternalTarget(StrengthSpell owner) : base(owner.SpellRange, false, TargetFlags.Beneficial)
 			{

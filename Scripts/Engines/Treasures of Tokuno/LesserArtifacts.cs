@@ -26,7 +26,7 @@ namespace Server.Items
 		{
 			base.Serialize(writer);
 
-			writer.Write((int)0);
+			writer.Write(0);
 		}
 
 		public override void Deserialize(GenericReader reader)
@@ -63,7 +63,7 @@ namespace Server.Items
 		{
 			base.Serialize(writer);
 
-			writer.Write((int)0);
+			writer.Write(0);
 		}
 
 		public override void Deserialize(GenericReader reader)
@@ -100,7 +100,7 @@ namespace Server.Items
 		{
 			base.Serialize(writer);
 
-			writer.Write((int)0);
+			writer.Write(0);
 		}
 
 		public override void Deserialize(GenericReader reader)
@@ -143,7 +143,7 @@ namespace Server.Items
 		{
 			base.Serialize(writer);
 
-			writer.Write((int)0);
+			writer.Write(0);
 		}
 
 		public override void Deserialize(GenericReader reader)
@@ -177,7 +177,7 @@ namespace Server.Items
 		{
 			base.Serialize(writer);
 
-			writer.Write((int)0);
+			writer.Write(0);
 		}
 
 		public override void Deserialize(GenericReader reader)
@@ -214,7 +214,7 @@ namespace Server.Items
 		{
 			base.Serialize(writer);
 
-			writer.Write((int)0);
+			writer.Write(0);
 		}
 
 		public override void Deserialize(GenericReader reader)
@@ -251,7 +251,7 @@ namespace Server.Items
 		{
 			base.Serialize(writer);
 
-			writer.Write((int)0);
+			writer.Write(0);
 		}
 
 		public override void Deserialize(GenericReader reader)
@@ -295,7 +295,7 @@ namespace Server.Items
 		{
 			base.Serialize(writer);
 
-			writer.Write((int)0);
+			writer.Write(0);
 		}
 
 		public override void Deserialize(GenericReader reader)
@@ -332,7 +332,7 @@ namespace Server.Items
 		{
 			base.Serialize(writer);
 
-			writer.Write((int)0);
+			writer.Write(0);
 		}
 
 		public override void Deserialize(GenericReader reader)
@@ -369,7 +369,7 @@ namespace Server.Items
 		{
 			base.Serialize(writer);
 
-			writer.Write((int)0);
+			writer.Write(0);
 		}
 
 		public override void Deserialize(GenericReader reader)
@@ -408,7 +408,7 @@ namespace Server.Items
 		{
 			base.Serialize(writer);
 
-			writer.Write((int)0);
+			writer.Write(0);
 		}
 
 		public override void Deserialize(GenericReader reader)
@@ -445,7 +445,7 @@ namespace Server.Items
 		{
 			base.Serialize(writer);
 
-			writer.Write((int)0);
+			writer.Write(0);
 		}
 
 		public override void Deserialize(GenericReader reader)
@@ -481,7 +481,7 @@ namespace Server.Items
 		{
 			base.Serialize(writer);
 
-			writer.Write((int)0);
+			writer.Write(0);
 		}
 
 		public override void Deserialize(GenericReader reader)
@@ -517,7 +517,7 @@ namespace Server.Items
 		{
 			base.Serialize(writer);
 
-			writer.Write((int)0);
+			writer.Write(0);
 		}
 
 		public override void Deserialize(GenericReader reader)
@@ -554,7 +554,7 @@ namespace Server.Items
 		{
 			base.Serialize(writer);
 
-			writer.Write((int)0);
+			writer.Write(0);
 		}
 
 		public override void Deserialize(GenericReader reader)
@@ -593,7 +593,7 @@ namespace Server.Items
 		{
 			base.Serialize(writer);
 
-			writer.Write((int)0);
+			writer.Write(0);
 		}
 
 		public override void Deserialize(GenericReader reader)
@@ -610,7 +610,7 @@ namespace Server.Items
 
 	public class AncientUrn : BaseItem
 	{
-		private static string[] m_Names = new string[]
+		private static readonly string[] m_Names = new string[]
 			{
 				"Akira",
 				"Avaniaga",
@@ -682,7 +682,7 @@ namespace Server.Items
 		{
 			base.Serialize(writer);
 
-			writer.Write((int)0);
+			writer.Write(0);
 			writer.Write(m_UrnName);
 		}
 
@@ -742,7 +742,7 @@ namespace Server.Items
 		{
 			base.Serialize(writer);
 
-			writer.Write((int)0);
+			writer.Write(0);
 			writer.Write(m_SwordsName);
 		}
 
@@ -837,7 +837,7 @@ namespace Server.Items
 		{
 			base.Serialize(writer);
 
-			writer.Write((int)0); // version
+			writer.Write(0); // version
 		}
 
 		public override void Deserialize(GenericReader reader)
@@ -871,7 +871,7 @@ namespace Server.Items
 		{
 			base.Serialize(writer);
 
-			writer.Write((int)0); // version
+			writer.Write(0); // version
 		}
 
 		public override void Deserialize(GenericReader reader)
@@ -900,7 +900,7 @@ namespace Server.Items
 	public class LesserPigmentsOfTokuno : BasePigmentsOfTokuno
 	{
 
-		private static int[][] m_Table = new int[][]
+		private static readonly int[][] m_Table = new int[][]
 		{
 			// Hue, Label
 			new int[]{ /*PigmentType.None,*/ 0, -1 },
@@ -971,7 +971,7 @@ namespace Server.Items
 		{
 			base.Serialize(writer);
 
-			writer.Write((int)0);
+			writer.Write(0);
 
 			writer.WriteEncodedInt((int)m_Type);
 		}
@@ -1019,7 +1019,7 @@ namespace Server.Items
 		{
 			base.Serialize(writer);
 
-			writer.Write((int)0);
+			writer.Write(0);
 		}
 
 		public override void Deserialize(GenericReader reader)

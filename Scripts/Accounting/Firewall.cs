@@ -15,7 +15,7 @@ namespace Server
 
 		public class IPFirewallEntry : IFirewallEntry
 		{
-			IPAddress m_Address;
+			readonly IPAddress m_Address;
 			public IPFirewallEntry(IPAddress address)
 			{
 				m_Address = address;
@@ -39,9 +39,8 @@ namespace Server
 				}
 				else if (obj is string)
 				{
-					IPAddress otherAddress;
 
-					if (IPAddress.TryParse((string)obj, out otherAddress))
+					if (IPAddress.TryParse((string)obj, out IPAddress otherAddress))
 						return otherAddress.Equals(m_Address);
 				}
 				else if (obj is IPFirewallEntry)
@@ -60,8 +59,8 @@ namespace Server
 
 		public class CIDRFirewallEntry : IFirewallEntry
 		{
-			IPAddress m_CIDRPrefix;
-			int m_CIDRLength;
+			readonly IPAddress m_CIDRPrefix;
+			readonly int m_CIDRLength;
 
 			public CIDRFirewallEntry(IPAddress cidrPrefix, int cidrLength)
 			{
@@ -90,13 +89,11 @@ namespace Server
 
 					if (str.Length == 2)
 					{
-						IPAddress cidrPrefix;
 
-						if (IPAddress.TryParse(str[0], out cidrPrefix))
+						if (IPAddress.TryParse(str[0], out IPAddress cidrPrefix))
 						{
-							int cidrLength;
 
-							if (int.TryParse(str[1], out cidrLength))
+							if (int.TryParse(str[1], out int cidrLength))
 								return m_CIDRPrefix.Equals(cidrPrefix) && m_CIDRLength.Equals(cidrLength);
 						}
 					}
@@ -119,7 +116,7 @@ namespace Server
 
 		public class WildcardIPFirewallEntry : IFirewallEntry
 		{
-			string m_Entry;
+			readonly string m_Entry;
 
 			bool m_Valid = true;
 
@@ -158,7 +155,7 @@ namespace Server
 		}
 		#endregion
 
-		private static List<IFirewallEntry> m_Blocked;
+		private static readonly List<IFirewallEntry> m_Blocked;
 
 		static Firewall()
 		{
@@ -219,9 +216,8 @@ namespace Server
 
 		public static IFirewallEntry ToFirewallEntry(string entry)
 		{
-			IPAddress addr;
 
-			if (IPAddress.TryParse(entry, out addr))
+			if (IPAddress.TryParse(entry, out IPAddress addr))
 				return new IPFirewallEntry(addr);
 
 			//Try CIDR parse
@@ -229,13 +225,11 @@ namespace Server
 
 			if (str.Length == 2)
 			{
-				IPAddress cidrPrefix;
 
-				if (IPAddress.TryParse(str[0], out cidrPrefix))
+				if (IPAddress.TryParse(str[0], out IPAddress cidrPrefix))
 				{
-					int cidrLength;
 
-					if (int.TryParse(str[1], out cidrLength))
+					if (int.TryParse(str[1], out int cidrLength))
 						return new CIDRFirewallEntry(cidrPrefix, cidrLength);
 				}
 			}

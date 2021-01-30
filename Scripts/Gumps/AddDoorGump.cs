@@ -1,13 +1,13 @@
-using System;
 using Server.Commands;
 using Server.Items;
 using Server.Network;
+using System;
 
 namespace Server.Gumps
 {
 	public class AddDoorGump : Gump
 	{
-		private int m_Type;
+		private readonly int m_Type;
 
 		public AddDoorGump() : this(-1)
 		{

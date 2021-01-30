@@ -1,8 +1,7 @@
-using System;
-using System.Collections.Generic;
 using Server.Engines.Craft;
 using Server.Factions;
 using Server.Network;
+using System;
 
 namespace Server.Items
 {
@@ -593,7 +592,7 @@ namespace Server.Items
 		{
 			base.Serialize(writer);
 
-			writer.Write((int)0); // version
+			writer.Write(0); // version
 
 			SaveFlag flags = SaveFlag.None;
 
@@ -622,16 +621,16 @@ namespace Server.Items
 				m_AosResistances.Serialize(writer);
 
 			if (flags.HasFlag(SaveFlag.MaxHitPoints))
-				writer.WriteEncodedInt((int)m_MaxHitPoints);
+				writer.WriteEncodedInt(m_MaxHitPoints);
 
 			if (flags.HasFlag(SaveFlag.HitPoints))
-				writer.WriteEncodedInt((int)m_HitPoints);
+				writer.WriteEncodedInt(m_HitPoints);
 
 			if (flags.HasFlag(SaveFlag.Crafter))
-				writer.Write((Mobile)m_Crafter);
+				writer.Write(m_Crafter);
 
 			if (flags.HasFlag(SaveFlag.StrReq))
-				writer.WriteEncodedInt((int)m_StrReq);
+				writer.WriteEncodedInt(m_StrReq);
 		}
 
 		public override void Deserialize(GenericReader reader)

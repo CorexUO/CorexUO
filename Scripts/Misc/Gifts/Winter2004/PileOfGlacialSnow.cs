@@ -1,5 +1,5 @@
-using System;
 using Server.Targeting;
+using System;
 
 namespace Server.Items
 {
@@ -23,7 +23,7 @@ namespace Server.Items
 		{
 			base.Serialize(writer);
 
-			writer.Write((int)0); // version
+			writer.Write(0); // version
 		}
 
 		public override void Deserialize(GenericReader reader)
@@ -69,7 +69,7 @@ namespace Server.Items
 
 		private class InternalTimer : Timer
 		{
-			private Mobile m_From;
+			private readonly Mobile m_From;
 
 			public InternalTimer(Mobile from) : base(TimeSpan.FromSeconds(5.0))
 			{
@@ -84,8 +84,8 @@ namespace Server.Items
 
 		private class SnowTarget : Target
 		{
-			private Mobile m_Thrower;
-			private Item m_Snow;
+			private readonly Mobile m_Thrower;
+			private readonly Item m_Snow;
 
 			public SnowTarget(Mobile thrower, Item snow) : base(10, false, TargetFlags.None)
 			{

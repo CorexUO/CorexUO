@@ -1,11 +1,11 @@
-using System;
 using Server.Mobiles;
+using System;
 
 namespace Server
 {
 	public class OppositionGroup
 	{
-		private Type[][] m_Types;
+		private readonly Type[][] m_Types;
 
 		public OppositionGroup(Type[][] types)
 		{
@@ -43,7 +43,7 @@ namespace Server
 			return -1;
 		}
 
-		private static OppositionGroup m_TerathansAndOphidians = new OppositionGroup(new Type[][]
+		private static readonly OppositionGroup m_TerathansAndOphidians = new OppositionGroup(new Type[][]
 			{
 				new Type[]
 				{
@@ -67,7 +67,7 @@ namespace Server
 			get { return m_TerathansAndOphidians; }
 		}
 
-		private static OppositionGroup m_SavagesAndOrcs = new OppositionGroup(new Type[][]
+		private static readonly OppositionGroup m_SavagesAndOrcs = new OppositionGroup(new Type[][]
 			{
 				new Type[]
 				{
@@ -93,7 +93,7 @@ namespace Server
 			get { return m_SavagesAndOrcs; }
 		}
 
-		private static OppositionGroup m_FeyAndUndead = new OppositionGroup(new Type[][]
+		private static readonly OppositionGroup m_FeyAndUndead = new OppositionGroup(new Type[][]
 			{
 				new Type[]
 				{

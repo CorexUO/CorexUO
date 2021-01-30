@@ -2,43 +2,43 @@ using System.Collections.Generic;
 
 namespace Server.Mobiles
 {
-    public class Cobbler : BaseVendor
-    {
-        private List<SBInfo> m_SBInfos = new List<SBInfo>();
-        protected override List<SBInfo> SBInfos { get { return m_SBInfos; } }
+	public class Cobbler : BaseVendor
+	{
+		private readonly List<SBInfo> m_SBInfos = new List<SBInfo>();
+		protected override List<SBInfo> SBInfos { get { return m_SBInfos; } }
 
-        [Constructable]
-        public Cobbler() : base("the cobbler")
-        {
-            SetSkill(SkillName.Tailoring, 60.0, 83.0);
-        }
+		[Constructable]
+		public Cobbler() : base("the cobbler")
+		{
+			SetSkill(SkillName.Tailoring, 60.0, 83.0);
+		}
 
-        public override void InitSBInfo()
-        {
-            m_SBInfos.Add(new SBCobbler());
-        }
+		public override void InitSBInfo()
+		{
+			m_SBInfos.Add(new SBCobbler());
+		}
 
-        public override VendorShoeType ShoeType
-        {
-            get { return Utility.RandomBool() ? VendorShoeType.Sandals : VendorShoeType.Shoes; }
-        }
+		public override VendorShoeType ShoeType
+		{
+			get { return Utility.RandomBool() ? VendorShoeType.Sandals : VendorShoeType.Shoes; }
+		}
 
-        public Cobbler(Serial serial) : base(serial)
-        {
-        }
+		public Cobbler(Serial serial) : base(serial)
+		{
+		}
 
-        public override void Serialize(GenericWriter writer)
-        {
-            base.Serialize(writer);
+		public override void Serialize(GenericWriter writer)
+		{
+			base.Serialize(writer);
 
-            writer.Write((int)0); // version
-        }
+			writer.Write(0); // version
+		}
 
-        public override void Deserialize(GenericReader reader)
-        {
-            base.Deserialize(reader);
+		public override void Deserialize(GenericReader reader)
+		{
+			base.Deserialize(reader);
 
-            int version = reader.ReadInt();
-        }
-    }
+			int version = reader.ReadInt();
+		}
+	}
 }

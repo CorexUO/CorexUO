@@ -1,9 +1,9 @@
-using System;
-using System.Collections.Generic;
 using Server.ContextMenus;
 using Server.Gumps;
 using Server.Multis;
 using Server.Network;
+using System;
+using System.Collections.Generic;
 
 namespace Server.Items
 {
@@ -55,7 +55,7 @@ namespace Server.Items
 		public override void Serialize(GenericWriter writer)
 		{
 			base.Serialize(writer);
-			writer.Write((int)0); // version
+			writer.Write(0); // version
 
 			writer.Write((int)m_Level);
 		}
@@ -143,8 +143,8 @@ namespace Server.Items
 
 		public class DefaultEntry : ContextMenuEntry
 		{
-			private Mobile m_From;
-			private BaseBoard m_Board;
+			private readonly Mobile m_From;
+			private readonly BaseBoard m_Board;
 
 			public DefaultEntry(Mobile from, BaseBoard board) : base(6162, from.AccessLevel >= AccessLevel.GameMaster ? -1 : 1)
 			{

@@ -1,8 +1,8 @@
-using System;
-using System.Collections;
 using Server.Mobiles;
 using Server.Network;
 using Server.Spells;
+using System;
+using System.Collections;
 
 namespace Server.Items
 {
@@ -251,7 +251,7 @@ namespace Server.Items
 			return CheckSkills(from) && CheckMana(from, false);
 		}
 
-		private static WeaponAbility[] m_Abilities = new WeaponAbility[31]
+		private static readonly WeaponAbility[] m_Abilities = new WeaponAbility[31]
 			{
 				null,
 				new ArmorIgnore(),
@@ -289,7 +289,7 @@ namespace Server.Items
 
 		public static WeaponAbility[] Abilities { get { return m_Abilities; } }
 
-		private static Hashtable m_Table = new Hashtable();
+		private static readonly Hashtable m_Table = new Hashtable();
 
 		public static Hashtable Table { get { return m_Table; } }
 
@@ -429,7 +429,7 @@ namespace Server.Items
 		}
 
 
-		private static Hashtable m_PlayersTable = new Hashtable();
+		private static readonly Hashtable m_PlayersTable = new Hashtable();
 
 		private static void AddContext(Mobile m, WeaponAbilityContext context)
 		{
@@ -458,7 +458,7 @@ namespace Server.Items
 
 		private class WeaponAbilityTimer : Timer
 		{
-			private Mobile m_Mobile;
+			private readonly Mobile m_Mobile;
 
 			public WeaponAbilityTimer(Mobile from) : base(TimeSpan.FromSeconds(3.0))
 			{
@@ -475,7 +475,7 @@ namespace Server.Items
 
 		private class WeaponAbilityContext
 		{
-			private Timer m_Timer;
+			private readonly Timer m_Timer;
 
 			public Timer Timer { get { return m_Timer; } }
 

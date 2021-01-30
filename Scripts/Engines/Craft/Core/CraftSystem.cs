@@ -1,7 +1,7 @@
+using Server.Items;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using Server.Items;
 
 namespace Server.Engines.Craft
 {
@@ -16,21 +16,21 @@ namespace Server.Engines.Craft
 	{
 		public static List<CraftSystem> Systems { get; set; }
 
-		private int m_MinCraftEffect;
-		private int m_MaxCraftEffect;
-		private double m_Delay;
+		private readonly int m_MinCraftEffect;
+		private readonly int m_MaxCraftEffect;
+		private readonly double m_Delay;
 		private bool m_Resmelt;
 		private bool m_Repair;
 		private bool m_MarkOption;
 		private bool m_CanEnhance;
 
-		private CraftItemCol m_CraftItems;
-		private CraftGroupCol m_CraftGroups;
-		private CraftSubResCol m_CraftSubRes;
-		private CraftSubResCol m_CraftSubRes2;
+		private readonly CraftItemCol m_CraftItems;
+		private readonly CraftGroupCol m_CraftGroups;
+		private readonly CraftSubResCol m_CraftSubRes;
+		private readonly CraftSubResCol m_CraftSubRes2;
 
-		private List<int> m_Recipes;
-		private List<int> m_RareRecipes;
+		private readonly List<int> m_Recipes;
+		private readonly List<int> m_RareRecipes;
 
 		public int MinCraftEffect { get { return m_MinCraftEffect; } }
 		public int MaxCraftEffect { get { return m_MaxCraftEffect; } }
@@ -48,7 +48,7 @@ namespace Server.Engines.Craft
 
 		public virtual CraftECA ECA { get { return CraftECA.ChanceMinusSixty; } }
 
-		private Dictionary<Mobile, CraftContext> m_ContextTable = new Dictionary<Mobile, CraftContext>();
+		private readonly Dictionary<Mobile, CraftContext> m_ContextTable = new Dictionary<Mobile, CraftContext>();
 
 		public abstract double GetChanceAtMin(CraftItem item);
 
@@ -70,7 +70,8 @@ namespace Server.Engines.Craft
 						{
 							CraftSystem craftSystem = (CraftSystem)Activator.CreateInstance(type);
 							craftSystem.AddSystem();
-						} catch { }
+						}
+						catch { }
 					}
 				}
 			}

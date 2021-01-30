@@ -1,11 +1,11 @@
-using System.Collections.Generic;
 using Server.Targeting;
+using System.Collections.Generic;
 
 namespace Server.Spells.Sixth
 {
 	public class RevealSpell : MagerySpell
 	{
-		private static SpellInfo m_Info = new SpellInfo(
+		private static readonly SpellInfo m_Info = new SpellInfo(
 				"Reveal", "Wis Quas",
 				206,
 				9002,
@@ -106,7 +106,7 @@ namespace Server.Spells.Sixth
 
 		public class InternalTarget : Target
 		{
-			private RevealSpell m_Owner;
+			private readonly RevealSpell m_Owner;
 
 			public InternalTarget(RevealSpell owner) : base(owner.SpellRange, true, TargetFlags.None)
 			{

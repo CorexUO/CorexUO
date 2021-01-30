@@ -1,13 +1,13 @@
-using System;
-using System.Collections.Generic;
 using Server.Gumps;
 using Server.Network;
+using System;
+using System.Collections.Generic;
 
 namespace Server.Engines.VeteranRewards
 {
 	public class RewardChoiceGump : Gump
 	{
-		private Mobile m_From;
+		private readonly Mobile m_From;
 
 		private void RenderBackground()
 		{
@@ -48,9 +48,8 @@ namespace Server.Engines.VeteranRewards
 									"To read more about these rewards before making a selection, feel free to visit the uo.com site at " +
 									"<A HREF=\"http://www.uo.com/rewards\">http://www.uo.com/rewards</A>.", true, true);
 
-			int cur, max;
 
-			RewardSystem.ComputeRewardInfo(m_From, out cur, out max);
+			RewardSystem.ComputeRewardInfo(m_From, out int cur, out int max);
 
 			AddHtmlLocalized(60, 105, 300, 35, 1006006, false, false); // Your current total of rewards to choose:
 			AddLabel(370, 107, 50, (max - cur).ToString());
@@ -161,9 +160,8 @@ namespace Server.Engines.VeteranRewards
 
 			if (buttonID == 0)
 			{
-				int cur, max;
 
-				RewardSystem.ComputeRewardInfo(m_From, out cur, out max);
+				RewardSystem.ComputeRewardInfo(m_From, out int cur, out int max);
 
 				if (cur < max)
 					m_From.SendGump(new RewardNoticeGump(m_From));

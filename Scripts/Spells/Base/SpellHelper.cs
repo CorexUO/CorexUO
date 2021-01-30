@@ -1,5 +1,3 @@
-using System;
-using System.Collections.Generic;
 using Server.Engines.PartySystem;
 using Server.Guilds;
 using Server.Items;
@@ -12,6 +10,8 @@ using Server.Spells.Necromancy;
 using Server.Spells.Ninjitsu;
 using Server.Spells.Seventh;
 using Server.Targeting;
+using System;
+using System.Collections.Generic;
 
 namespace Server.Spells
 {

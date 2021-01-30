@@ -1,15 +1,15 @@
-using System;
-using System.Collections;
 using Server.Items;
 using Server.Misc;
 using Server.Mobiles;
 using Server.Targeting;
+using System;
+using System.Collections;
 
 namespace Server.Spells.Fifth
 {
 	public class PoisonFieldSpell : MagerySpell
 	{
-		private static SpellInfo m_Info = new SpellInfo(
+		private static readonly SpellInfo m_Info = new SpellInfo(
 				"Poison Field", "In Nox Grav",
 				230,
 				9052,
@@ -137,7 +137,7 @@ namespace Server.Spells.Fifth
 			{
 				base.Serialize(writer);
 
-				writer.Write((int)0); // version
+				writer.Write(0); // version
 
 				writer.Write(m_Caster);
 				writer.WriteDeltaTime(m_End);
@@ -213,10 +213,10 @@ namespace Server.Spells.Fifth
 
 			private class InternalTimer : Timer
 			{
-				private InternalItem m_Item;
-				private bool m_InLOS, m_CanFit;
+				private readonly InternalItem m_Item;
+				private readonly bool m_InLOS, m_CanFit;
 
-				private static Queue m_Queue = new Queue();
+				private static readonly Queue m_Queue = new Queue();
 
 				public InternalTimer(InternalItem item, TimeSpan delay, bool inLOS, bool canFit) : base(delay, TimeSpan.FromSeconds(1.5))
 				{
@@ -285,7 +285,7 @@ namespace Server.Spells.Fifth
 
 		private class InternalTarget : Target
 		{
-			private PoisonFieldSpell m_Owner;
+			private readonly PoisonFieldSpell m_Owner;
 
 			public InternalTarget(PoisonFieldSpell owner) : base(owner.SpellRange, true, TargetFlags.None)
 			{

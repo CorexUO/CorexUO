@@ -1,94 +1,94 @@
-using System.Collections.Generic;
 using Server.ContextMenus;
 using Server.Spells;
+using System.Collections.Generic;
 
 namespace Server.Items
 {
-    public class SpellScroll : BaseItem, ICommodity
-    {
-        private int m_SpellID;
+	public class SpellScroll : BaseItem, ICommodity
+	{
+		private int m_SpellID;
 
-        public int SpellID
-        {
-            get
-            {
-                return m_SpellID;
-            }
-        }
+		public int SpellID
+		{
+			get
+			{
+				return m_SpellID;
+			}
+		}
 
-        int ICommodity.DescriptionNumber { get { return LabelNumber; } }
-        bool ICommodity.IsDeedable { get { return (Core.ML); } }
+		int ICommodity.DescriptionNumber { get { return LabelNumber; } }
+		bool ICommodity.IsDeedable { get { return (Core.ML); } }
 
-        public SpellScroll(Serial serial) : base(serial)
-        {
-        }
+		public SpellScroll(Serial serial) : base(serial)
+		{
+		}
 
-        [Constructable]
-        public SpellScroll(int spellID, int itemID) : this(spellID, itemID, 1)
-        {
-        }
+		[Constructable]
+		public SpellScroll(int spellID, int itemID) : this(spellID, itemID, 1)
+		{
+		}
 
-        [Constructable]
-        public SpellScroll(int spellID, int itemID, int amount) : base(itemID)
-        {
-            Stackable = true;
-            Weight = 1.0;
-            Amount = amount;
+		[Constructable]
+		public SpellScroll(int spellID, int itemID, int amount) : base(itemID)
+		{
+			Stackable = true;
+			Weight = 1.0;
+			Amount = amount;
 
-            m_SpellID = spellID;
-        }
+			m_SpellID = spellID;
+		}
 
-        public override void Serialize(GenericWriter writer)
-        {
-            base.Serialize(writer);
+		public override void Serialize(GenericWriter writer)
+		{
+			base.Serialize(writer);
 
-            writer.Write((int)0); // version
+			writer.Write(0); // version
 
-            writer.Write((int)m_SpellID);
-        }
+			writer.Write(m_SpellID);
+		}
 
-        public override void Deserialize(GenericReader reader)
-        {
-            base.Deserialize(reader);
+		public override void Deserialize(GenericReader reader)
+		{
+			base.Deserialize(reader);
 
-            int version = reader.ReadInt();
+			int version = reader.ReadInt();
 
-            switch (version)
-            {
-                case 0:
-                    {
-                        m_SpellID = reader.ReadInt();
+			switch (version)
+			{
+				case 0:
+					{
+						m_SpellID = reader.ReadInt();
 
-                        break;
-                    }
-            }
-        }
+						break;
+					}
+			}
+		}
 
-        public override void GetContextMenuEntries(Mobile from, List<ContextMenuEntry> list)
-        {
-            base.GetContextMenuEntries(from, list);
+		public override void GetContextMenuEntries(Mobile from, List<ContextMenuEntry> list)
+		{
+			base.GetContextMenuEntries(from, list);
 
-            if (from.Alive && this.Movable)
-                list.Add(new ContextMenus.AddToSpellbookEntry());
-        }
+			if (from.Alive && this.Movable)
+				list.Add(new ContextMenus.AddToSpellbookEntry());
+		}
 
-        public override void OnDoubleClick(Mobile from)
-        {
-            if (!Multis.DesignContext.Check(from))
-                return; // They are customizing
+		public override void OnDoubleClick(Mobile from)
+		{
+			if (!Multis.DesignContext.Check(from))
+				return; // They are customizing
 
-            if (!IsChildOf(from.Backpack))
-            {
-                from.SendLocalizedMessage(1042001); // That must be in your pack for you to use it.
-                return;
-            }
+			if (!IsChildOf(from.Backpack))
+			{
+				from.SendLocalizedMessage(1042001); // That must be in your pack for you to use it.
+				return;
+			}
 
-            Spell spell = SpellRegistry.NewSpell(m_SpellID, from, this);
+			Spell spell = SpellRegistry.NewSpell(m_SpellID, from, this);
 
-            if (spell != null)
-                spell.Cast();
-            else
-                from.SendLocalizedMessage(502345); // This spell has been temporarily disabled.
-        }
-    }
+			if (spell != null)
+				spell.Cast();
+			else
+				from.SendLocalizedMessage(502345); // This spell has been temporarily disabled.
+		}
+	}
 }

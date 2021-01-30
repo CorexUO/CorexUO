@@ -1,8 +1,8 @@
-using System;
 using Server.Engines.VeteranRewards;
 using Server.Gumps;
 using Server.Multis;
 using Server.Network;
+using System;
 
 namespace Server.Items
 {
@@ -264,14 +264,14 @@ namespace Server.Items
 
 			writer.Write((int)m_CartType);
 
-			writer.Write((bool)m_IsRewardItem);
-			writer.Write((int)m_Gems);
-			writer.Write((int)m_Ore);
+			writer.Write(m_IsRewardItem);
+			writer.Write(m_Gems);
+			writer.Write(m_Ore);
 
 			if (m_Timer != null)
-				writer.Write((DateTime)m_Timer.Next);
+				writer.Write(m_Timer.Next);
 			else
-				writer.Write((DateTime)DateTime.UtcNow + TimeSpan.FromDays(1));
+				writer.Write(DateTime.UtcNow + TimeSpan.FromDays(1));
 		}
 
 		public override void Deserialize(GenericReader reader)
@@ -385,9 +385,9 @@ namespace Server.Items
 
 			writer.WriteEncodedInt(0); // version
 
-			writer.Write((bool)m_IsRewardItem);
-			writer.Write((int)m_Gems);
-			writer.Write((int)m_Ore);
+			writer.Write(m_IsRewardItem);
+			writer.Write(m_Gems);
+			writer.Write(m_Ore);
 		}
 
 		public override void Deserialize(GenericReader reader)

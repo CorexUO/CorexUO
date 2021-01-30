@@ -1,11 +1,11 @@
-using System.Collections.Generic;
 using Server.Targeting;
+using System.Collections.Generic;
 
 namespace Server.Spells.Sixth
 {
 	public class MassCurseSpell : MagerySpell
 	{
-		private static SpellInfo m_Info = new SpellInfo(
+		private static readonly SpellInfo m_Info = new SpellInfo(
 				"Mass Curse", "Vas Des Sanct",
 				218,
 				9031,
@@ -90,7 +90,7 @@ namespace Server.Spells.Sixth
 
 		private class InternalTarget : Target
 		{
-			private MassCurseSpell m_Owner;
+			private readonly MassCurseSpell m_Owner;
 
 			public InternalTarget(MassCurseSpell owner) : base(owner.SpellRange, true, TargetFlags.None)
 			{

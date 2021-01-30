@@ -1,7 +1,3 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Text;
 using Server.Commands.Generic;
 using Server.Gumps;
 using Server.Items;
@@ -12,6 +8,10 @@ using Server.Network;
 using Server.Spells;
 using Server.Targeting;
 using Server.Targets;
+using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.Text;
 
 namespace Server.Commands
 {
@@ -272,7 +272,7 @@ namespace Server.Commands
 
 					for (int i = 0; i < pets.Count; ++i)
 					{
-						Mobile pet = (Mobile)pets[i];
+						Mobile pet = pets[i];
 
 						if (pet is IMount)
 							((IMount)pet).Rider = null; // make sure it's dismounted
@@ -352,7 +352,7 @@ namespace Server.Commands
 							Spawner spawner = (Spawner)item;
 
 							for (int i = 0; !hasBankerSpawner && i < spawner.SpawnNames.Count; ++i)
-								hasBankerSpawner = Insensitive.Equals((string)spawner.SpawnNames[i], "banker");
+								hasBankerSpawner = Insensitive.Equals(spawner.SpawnNames[i], "banker");
 
 							if (hasBankerSpawner)
 								break;
@@ -403,7 +403,7 @@ namespace Server.Commands
 
 			private class EquipMenu : ItemListMenu
 			{
-				private Mobile m_Mobile;
+				private readonly Mobile m_Mobile;
 
 				public EquipMenu(Mobile from, Mobile m, ItemListEntry[] entries) : base("Equipment", entries)
 				{
@@ -424,8 +424,8 @@ namespace Server.Commands
 
 				private class EquipDetailsMenu : QuestionMenu
 				{
-					private Mobile m_Mobile;
-					private Item m_Item;
+					private readonly Mobile m_Mobile;
+					private readonly Item m_Item;
 
 					public EquipDetailsMenu(Mobile m, Item item) : base(String.Format("{0}: {1}", item.Layer, item.GetType().Name), new string[] { "Move", "Delete", "Props" })
 					{

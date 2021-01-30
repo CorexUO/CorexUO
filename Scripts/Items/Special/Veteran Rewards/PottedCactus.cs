@@ -38,7 +38,7 @@ namespace Server.Items
 
 			writer.WriteEncodedInt(0); // version
 
-			writer.Write((bool)m_IsRewardItem);
+			writer.Write(m_IsRewardItem);
 		}
 
 		public override void Deserialize(GenericReader reader)
@@ -109,7 +109,7 @@ namespace Server.Items
 
 			writer.WriteEncodedInt(0); // version
 
-			writer.Write((bool)m_IsRewardItem);
+			writer.Write(m_IsRewardItem);
 		}
 
 		public override void Deserialize(GenericReader reader)
@@ -123,7 +123,7 @@ namespace Server.Items
 
 		private class InternalGump : Gump
 		{
-			private PottedCactusDeed m_Cactus;
+			private readonly PottedCactusDeed m_Cactus;
 
 			public InternalGump(PottedCactusDeed cactus) : base(100, 200)
 			{

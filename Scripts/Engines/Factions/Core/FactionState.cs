@@ -5,7 +5,7 @@ namespace Server.Factions
 {
 	public class FactionState
 	{
-		private Faction m_Faction;
+		private readonly Faction m_Faction;
 		private Mobile m_Commander;
 		private int m_Tithe;
 		private int m_Silver;
@@ -18,7 +18,7 @@ namespace Server.Factions
 		private const int BroadcastsPerPeriod = 2;
 		private static readonly TimeSpan BroadcastPeriod = TimeSpan.FromHours(1.0);
 
-		private DateTime[] m_LastBroadcasts = new DateTime[BroadcastsPerPeriod];
+		private readonly DateTime[] m_LastBroadcasts = new DateTime[BroadcastsPerPeriod];
 
 		public DateTime LastAtrophy { get { return m_LastAtrophy; } set { m_LastAtrophy = value; } }
 
@@ -239,42 +239,42 @@ namespace Server.Factions
 
 		public void Serialize(GenericWriter writer)
 		{
-			writer.WriteEncodedInt((int)0); // version
+			writer.WriteEncodedInt(0); // version
 
 			writer.Write(m_LastAtrophy);
 
-			writer.WriteEncodedInt((int)m_LastBroadcasts.Length);
+			writer.WriteEncodedInt(m_LastBroadcasts.Length);
 
 			for (int i = 0; i < m_LastBroadcasts.Length; ++i)
-				writer.Write((DateTime)m_LastBroadcasts[i]);
+				writer.Write(m_LastBroadcasts[i]);
 
 			m_Election.Serialize(writer);
 
 			Faction.WriteReference(writer, m_Faction);
 
-			writer.Write((Mobile)m_Commander);
+			writer.Write(m_Commander);
 
-			writer.WriteEncodedInt((int)m_Tithe);
-			writer.WriteEncodedInt((int)m_Silver);
+			writer.WriteEncodedInt(m_Tithe);
+			writer.WriteEncodedInt(m_Silver);
 
-			writer.WriteEncodedInt((int)m_Members.Count);
+			writer.WriteEncodedInt(m_Members.Count);
 
 			for (int i = 0; i < m_Members.Count; ++i)
 			{
-				PlayerState pl = (PlayerState)m_Members[i];
+				PlayerState pl = m_Members[i];
 
 				pl.Serialize(writer);
 			}
 
-			writer.WriteEncodedInt((int)m_FactionItems.Count);
+			writer.WriteEncodedInt(m_FactionItems.Count);
 
 			for (int i = 0; i < m_FactionItems.Count; ++i)
 				m_FactionItems[i].Serialize(writer);
 
-			writer.WriteEncodedInt((int)m_FactionTraps.Count);
+			writer.WriteEncodedInt(m_FactionTraps.Count);
 
 			for (int i = 0; i < m_FactionTraps.Count; ++i)
-				writer.Write((Item)m_FactionTraps[i]);
+				writer.Write(m_FactionTraps[i]);
 		}
 	}
 }

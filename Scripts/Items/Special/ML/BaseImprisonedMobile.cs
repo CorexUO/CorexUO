@@ -3,44 +3,44 @@ using Server.Mobiles;
 
 namespace Server.Items
 {
-    public abstract class BaseImprisonedMobile : BaseItem
-    {
-        public abstract BaseCreature Summon { get; }
+	public abstract class BaseImprisonedMobile : BaseItem
+	{
+		public abstract BaseCreature Summon { get; }
 
-        [Constructable]
-        public BaseImprisonedMobile(int itemID) : base(itemID)
-        {
-        }
+		[Constructable]
+		public BaseImprisonedMobile(int itemID) : base(itemID)
+		{
+		}
 
-        public BaseImprisonedMobile(Serial serial) : base(serial)
-        {
-        }
+		public BaseImprisonedMobile(Serial serial) : base(serial)
+		{
+		}
 
-        public override void OnDoubleClick(Mobile from)
-        {
-            if (IsChildOf(from.Backpack))
-                from.SendGump(new ConfirmBreakCrystalGump(this));
-            else
-                from.SendLocalizedMessage(1042001); // That must be in your pack for you to use it.
-        }
+		public override void OnDoubleClick(Mobile from)
+		{
+			if (IsChildOf(from.Backpack))
+				from.SendGump(new ConfirmBreakCrystalGump(this));
+			else
+				from.SendLocalizedMessage(1042001); // That must be in your pack for you to use it.
+		}
 
-        public override void Serialize(GenericWriter writer)
-        {
-            base.Serialize(writer);
+		public override void Serialize(GenericWriter writer)
+		{
+			base.Serialize(writer);
 
-            writer.Write((int)0); // version
-        }
+			writer.Write(0); // version
+		}
 
-        public override void Deserialize(GenericReader reader)
-        {
-            base.Deserialize(reader);
+		public override void Deserialize(GenericReader reader)
+		{
+			base.Deserialize(reader);
 
-            int version = reader.ReadInt();
-        }
+			int version = reader.ReadInt();
+		}
 
-        public virtual void Release(Mobile from, BaseCreature summon)
-        {
-        }
-    }
+		public virtual void Release(Mobile from, BaseCreature summon)
+		{
+		}
+	}
 }
 

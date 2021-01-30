@@ -1,9 +1,7 @@
-using System;
-using System.Collections.Generic;
-
 using Server.ContextMenus;
 using Server.Items;
-
+using System;
+using System.Collections.Generic;
 using BunnyHole = Server.Mobiles.VorpalBunny.BunnyHole;
 
 namespace Server.Mobiles
@@ -45,7 +43,7 @@ namespace Server.Mobiles
 
 		private class TalismanReleaseEntry : ContextMenuEntry
 		{
-			private Mobile m_Mobile;
+			private readonly Mobile m_Mobile;
 
 			public TalismanReleaseEntry(Mobile m) : base(6118, 3)
 			{

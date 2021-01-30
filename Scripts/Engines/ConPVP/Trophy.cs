@@ -49,12 +49,12 @@ namespace Server.Items
 		{
 			base.Serialize(writer);
 
-			writer.Write((int)0); // version
+			writer.Write(0); // version
 
-			writer.Write((string)m_Title);
+			writer.Write(m_Title);
 			writer.Write((int)m_Rank);
-			writer.Write((Mobile)m_Owner);
-			writer.Write((DateTime)m_Date);
+			writer.Write(m_Owner);
+			writer.Write(m_Date);
 		}
 
 		public override void Deserialize(GenericReader reader)

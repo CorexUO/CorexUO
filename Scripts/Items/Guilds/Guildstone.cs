@@ -1,9 +1,9 @@
-using System;
 using Server.Factions;
 using Server.Guilds;
 using Server.Gumps;
 using Server.Multis;
 using Server.Network;
+using System;
 
 namespace Server.Items
 {
@@ -65,7 +65,7 @@ namespace Server.Items
 				m_GuildAbbrev = m_Guild.Abbreviation;
 			}
 
-			writer.Write((int)0); // version
+			writer.Write(0); // version
 
 			writer.Write(m_BeforeChangeover);
 
@@ -322,7 +322,7 @@ namespace Server.Items
 				m_GuildAbbrev = m_Guild.Abbreviation;
 			}
 
-			writer.Write((int)0); // version
+			writer.Write(0); // version
 
 			writer.Write(m_GuildName);
 			writer.Write(m_GuildAbbrev);

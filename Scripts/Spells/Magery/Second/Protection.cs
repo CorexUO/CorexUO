@@ -7,7 +7,7 @@ namespace Server.Spells.Second
 	{
 		public static Hashtable Registry { get; } = new Hashtable();
 
-		private static SpellInfo m_Info = new SpellInfo(
+		private static readonly SpellInfo m_Info = new SpellInfo(
 				"Protection", "Uus Sanct",
 				236,
 				9011,
@@ -42,7 +42,7 @@ namespace Server.Spells.Second
 			return true;
 		}
 
-		private static Hashtable m_Table = new Hashtable();
+		private static readonly Hashtable m_Table = new Hashtable();
 
 		public static void Toggle(Mobile caster, Mobile target)
 		{
@@ -159,7 +159,7 @@ namespace Server.Spells.Second
 
 		private class InternalTimer : Timer
 		{
-			private Mobile m_Caster;
+			private readonly Mobile m_Caster;
 
 			public InternalTimer(Mobile caster) : base(TimeSpan.FromSeconds(0))
 			{

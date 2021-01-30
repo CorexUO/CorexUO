@@ -1,6 +1,6 @@
-using System;
 using Server.Items;
 using Server.Network;
+using System;
 
 namespace Server.Mobiles
 {
@@ -116,7 +116,7 @@ namespace Server.Mobiles
 		{
 			base.Serialize(writer);
 
-			writer.Write((int)0); // version
+			writer.Write(0); // version
 		}
 
 		public override void Deserialize(GenericReader reader)

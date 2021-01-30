@@ -1,13 +1,13 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.IO;
-using System.Threading;
 using Server.Gumps;
 using Server.Items;
 using Server.Mobiles;
 using Server.Network;
 using Server.Spells;
+using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.IO;
+using System.Threading;
 
 namespace Server.Multis
 {
@@ -692,16 +692,16 @@ namespace Server.Multis
 
 		public override void Serialize(GenericWriter writer)
 		{
-			writer.Write((int)0); // version
+			writer.Write(0); // version
 
 			writer.Write(m_Signpost);
-			writer.Write((int)m_SignpostGraphic);
+			writer.Write(m_SignpostGraphic);
 
 			writer.Write((int)m_Type);
 
 			writer.Write(m_SignHanger);
 
-			writer.Write((int)m_LastRevision);
+			writer.Write(m_LastRevision);
 			writer.Write(m_Fixtures, true);
 
 			CurrentState.Serialize(writer);
@@ -1102,7 +1102,7 @@ namespace Server.Multis
 		/* Stair block IDs
 		 * (sorted ascending)
 		 */
-		private static int[] m_BlockIDs = new int[]
+		private static readonly int[] m_BlockIDs = new int[]
 			{
 				0x3EE, 0x709, 0x71E, 0x721,
 				0x738, 0x750, 0x76C, 0x788,
@@ -1114,7 +1114,7 @@ namespace Server.Multis
 		 * (sorted ascending)
 		 * Use this for stairs in the proper N,W,S,E sequence
 		 */
-		private static int[] m_StairSeqs = new int[]
+		private static readonly int[] m_StairSeqs = new int[]
 			{
 				0x3EF, 0x70A, 0x722, 0x739,
 				0x751, 0x76D, 0x789, 0x7A4
@@ -1124,7 +1124,7 @@ namespace Server.Multis
 		 * Listed in order: north, west, south, east
 		 * Use this for stairs not in the proper sequence
 		 */
-		private static int[] m_StairIDs = new int[]
+		private static readonly int[] m_StairIDs = new int[]
 			{
 				0x71F, 0x736, 0x737, 0x749,
 				0x35D4, 0x35D3, 0x35D6, 0x35D5,
@@ -1649,8 +1649,8 @@ namespace Server.Multis
 
 	public class DesignState
 	{
-		private HouseFoundation m_Foundation;
-		private MultiComponentList m_Components;
+		private readonly HouseFoundation m_Foundation;
+		private readonly MultiComponentList m_Components;
 		private MultiTileEntry[] m_Fixtures;
 		private int m_Revision;
 		private Packet m_PacketCache;
@@ -1727,24 +1727,24 @@ namespace Server.Multis
 
 		public void Serialize(GenericWriter writer)
 		{
-			writer.Write((int)0); // version
+			writer.Write(0); // version
 
 			m_Components.Serialize(writer);
 
-			writer.Write((int)m_Fixtures.Length);
+			writer.Write(m_Fixtures.Length);
 
 			for (int i = 0; i < m_Fixtures.Length; ++i)
 			{
 				MultiTileEntry ent = m_Fixtures[i];
 
-				writer.Write((ushort)ent.m_ItemID);
-				writer.Write((short)ent.m_OffsetX);
-				writer.Write((short)ent.m_OffsetY);
-				writer.Write((short)ent.m_OffsetZ);
-				writer.Write((int)ent.m_Flags);
+				writer.Write(ent.m_ItemID);
+				writer.Write(ent.m_OffsetX);
+				writer.Write(ent.m_OffsetY);
+				writer.Write(ent.m_OffsetZ);
+				writer.Write(ent.m_Flags);
 			}
 
-			writer.Write((int)m_Revision);
+			writer.Write(m_Revision);
 		}
 
 		public void OnRevised()
@@ -1891,7 +1891,7 @@ namespace Server.Multis
 
 	public class ConfirmCommitGump : Gump
 	{
-		private HouseFoundation m_Foundation;
+		private readonly HouseFoundation m_Foundation;
 
 		public ConfirmCommitGump(Mobile from, HouseFoundation foundation, int bankBalance, int oldPrice, int newPrice)
 			: base(50, 50)
@@ -1948,7 +1948,7 @@ namespace Server.Multis
 
 	public class DesignContext
 	{
-		private HouseFoundation m_Foundation;
+		private readonly HouseFoundation m_Foundation;
 		private int m_Level;
 
 		public HouseFoundation Foundation { get { return m_Foundation; } }
@@ -1961,7 +1961,7 @@ namespace Server.Multis
 			m_Level = 1;
 		}
 
-		private static Dictionary<Mobile, DesignContext> m_Table = new Dictionary<Mobile, DesignContext>();
+		private static readonly Dictionary<Mobile, DesignContext> m_Table = new Dictionary<Mobile, DesignContext>();
 
 		public static Dictionary<Mobile, DesignContext> Table { get { return m_Table; } }
 
@@ -2077,7 +2077,7 @@ namespace Server.Multis
 			EnsureCapacity(17);
 
 			m_Stream.Write((short)0x20);
-			m_Stream.Write((int)house.Serial);
+			m_Stream.Write(house.Serial);
 			m_Stream.Write((byte)0x04);
 			m_Stream.Write((ushort)0x0000);
 			m_Stream.Write((ushort)0xFFFF);
@@ -2094,7 +2094,7 @@ namespace Server.Multis
 			EnsureCapacity(17);
 
 			m_Stream.Write((short)0x20);
-			m_Stream.Write((int)house.Serial);
+			m_Stream.Write(house.Serial);
 			m_Stream.Write((byte)0x05);
 			m_Stream.Write((ushort)0x0000);
 			m_Stream.Write((ushort)0xFFFF);
@@ -2111,8 +2111,8 @@ namespace Server.Multis
 			EnsureCapacity(13);
 
 			m_Stream.Write((short)0x1D);
-			m_Stream.Write((int)house.Serial);
-			m_Stream.Write((int)state.Revision);
+			m_Stream.Write(house.Serial);
+			m_Stream.Write(state.Revision);
 		}
 	}
 
@@ -2120,15 +2120,15 @@ namespace Server.Multis
 	{
 		public const int MaxItemsPerStairBuffer = 750;
 
-		private static BufferPool m_PlaneBufferPool = new BufferPool("Housing Plane Buffers", 9, 0x400);
-		private static BufferPool m_StairBufferPool = new BufferPool("Housing Stair Buffers", 6, MaxItemsPerStairBuffer * 5);
-		private static BufferPool m_DeflatedBufferPool = new BufferPool("Housing Deflated Buffers", 1, 0x2000);
+		private static readonly BufferPool m_PlaneBufferPool = new BufferPool("Housing Plane Buffers", 9, 0x400);
+		private static readonly BufferPool m_StairBufferPool = new BufferPool("Housing Stair Buffers", 6, MaxItemsPerStairBuffer * 5);
+		private static readonly BufferPool m_DeflatedBufferPool = new BufferPool("Housing Deflated Buffers", 1, 0x2000);
 
-		private byte[][] m_PlaneBuffers;
-		private byte[][] m_StairBuffers;
+		private readonly byte[][] m_PlaneBuffers;
+		private readonly byte[][] m_StairBuffers;
 
-		private bool[] m_PlaneUsed = new bool[9];
-		private byte[] m_PrimBuffer = new byte[4];
+		private readonly bool[] m_PlaneUsed = new bool[9];
+		private readonly byte[] m_PrimBuffer = new byte[4];
 
 		public void Write(int value)
 		{
@@ -2171,8 +2171,8 @@ namespace Server.Multis
 
 			Write((byte)0x03); // Compression Type
 			Write((byte)0x00); // Unknown
-			Write((int)serial);
-			Write((int)revision);
+			Write(serial);
+			Write(revision);
 			Write((short)tiles.Length);
 			Write((short)0); // Buffer length : reserved
 			Write((byte)0); // Plane count : reserved
@@ -2403,10 +2403,10 @@ namespace Server.Multis
 			}
 		}
 
-		private static Queue<SendQueueEntry> m_SendQueue;
-		private static object m_SendQueueSyncRoot;
-		private static AutoResetEvent m_Sync;
-		private static Thread m_Thread;
+		private static readonly Queue<SendQueueEntry> m_SendQueue;
+		private static readonly object m_SendQueueSyncRoot;
+		private static readonly AutoResetEvent m_Sync;
+		private static readonly Thread m_Thread;
 
 		static DesignStateDetailed()
 		{

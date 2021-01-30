@@ -1,8 +1,8 @@
+using Server.Mobiles;
+using Server.Network;
 using System;
 using System.Collections.Generic;
 using System.Reflection;
-using Server.Mobiles;
-using Server.Network;
 
 namespace Server.Commands
 {

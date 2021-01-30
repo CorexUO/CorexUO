@@ -1,6 +1,6 @@
+using Server.Network;
 using System;
 using System.Collections.Generic;
-using Server.Network;
 
 namespace Server.Items
 {
@@ -20,7 +20,7 @@ namespace Server.Items
 		{
 			base.Serialize(writer);
 
-			writer.Write((int)0); // version
+			writer.Write(0); // version
 		}
 
 		public override void Deserialize(GenericReader reader)
@@ -49,13 +49,13 @@ namespace Server.Items
 		}
 
 		// Threads will be removed six hours after the last post was made
-		private static TimeSpan ThreadDeletionTime = TimeSpan.FromHours(6.0);
+		private static readonly TimeSpan ThreadDeletionTime = TimeSpan.FromHours(6.0);
 
 		// A player may only create a thread once every two minutes
-		private static TimeSpan ThreadCreateTime = TimeSpan.FromMinutes(2.0);
+		private static readonly TimeSpan ThreadCreateTime = TimeSpan.FromMinutes(2.0);
 
 		// A player may only reply once every thirty seconds
-		private static TimeSpan ThreadReplyTime = TimeSpan.FromSeconds(30.0);
+		private static readonly TimeSpan ThreadReplyTime = TimeSpan.FromSeconds(30.0);
 
 		public static bool CheckTime(DateTime time, TimeSpan range)
 		{
@@ -193,9 +193,9 @@ namespace Server.Items
 		{
 			base.Serialize(writer);
 
-			writer.Write((int)0); // version
+			writer.Write(0); // version
 
-			writer.Write((string)m_BoardName);
+			writer.Write(m_BoardName);
 		}
 
 		public override void Deserialize(GenericReader reader)
@@ -400,30 +400,30 @@ namespace Server.Items
 		{
 			base.Serialize(writer);
 
-			writer.Write((int)0); // version
+			writer.Write(0); // version
 
-			writer.Write((Mobile)m_Poster);
-			writer.Write((string)m_Subject);
-			writer.Write((DateTime)m_Time);
-			writer.Write((DateTime)m_LastPostTime);
-			writer.Write((bool)(m_Thread != null));
-			writer.Write((Item)m_Thread);
-			writer.Write((string)m_PostedName);
-			writer.Write((int)m_PostedBody);
-			writer.Write((int)m_PostedHue);
+			writer.Write(m_Poster);
+			writer.Write(m_Subject);
+			writer.Write(m_Time);
+			writer.Write(m_LastPostTime);
+			writer.Write(m_Thread != null);
+			writer.Write(m_Thread);
+			writer.Write(m_PostedName);
+			writer.Write(m_PostedBody);
+			writer.Write(m_PostedHue);
 
-			writer.Write((int)m_PostedEquip.Length);
+			writer.Write(m_PostedEquip.Length);
 
 			for (int i = 0; i < m_PostedEquip.Length; ++i)
 			{
-				writer.Write((int)m_PostedEquip[i].itemID);
-				writer.Write((int)m_PostedEquip[i].hue);
+				writer.Write(m_PostedEquip[i].itemID);
+				writer.Write(m_PostedEquip[i].hue);
 			}
 
-			writer.Write((int)m_Lines.Length);
+			writer.Write(m_Lines.Length);
 
 			for (int i = 0; i < m_Lines.Length; ++i)
-				writer.Write((string)m_Lines[i]);
+				writer.Write(m_Lines[i]);
 		}
 
 		public override void Deserialize(GenericReader reader)
@@ -488,7 +488,7 @@ namespace Server.Items
 			byte[] buffer = Utility.UTF8.GetBytes(name);
 
 			m_Stream.Write((byte)0x00); // PacketID
-			m_Stream.Write((int)board.Serial); // Bulletin board serial
+			m_Stream.Write(board.Serial); // Bulletin board serial
 
 			// Bulletin board name
 			if (buffer.Length >= 29)
@@ -515,15 +515,15 @@ namespace Server.Items
 			EnsureCapacity(22 + poster.Length + subject.Length + time.Length);
 
 			m_Stream.Write((byte)0x01); // PacketID
-			m_Stream.Write((int)board.Serial); // Bulletin board serial
-			m_Stream.Write((int)msg.Serial); // Message serial
+			m_Stream.Write(board.Serial); // Bulletin board serial
+			m_Stream.Write(msg.Serial); // Message serial
 
 			BulletinMessage thread = msg.Thread;
 
 			if (thread == null)
-				m_Stream.Write((int)0); // Thread serial--root
+				m_Stream.Write(0); // Thread serial--root
 			else
-				m_Stream.Write((int)thread.Serial); // Thread serial--parent
+				m_Stream.Write(thread.Serial); // Thread serial--parent
 
 			WriteString(poster);
 			WriteString(subject);
@@ -563,8 +563,8 @@ namespace Server.Items
 			EnsureCapacity(22 + poster.Length + subject.Length + time.Length);
 
 			m_Stream.Write((byte)0x02); // PacketID
-			m_Stream.Write((int)board.Serial); // Bulletin board serial
-			m_Stream.Write((int)msg.Serial); // Message serial
+			m_Stream.Write(board.Serial); // Bulletin board serial
+			m_Stream.Write(msg.Serial); // Message serial
 
 			WriteString(poster);
 			WriteString(subject);

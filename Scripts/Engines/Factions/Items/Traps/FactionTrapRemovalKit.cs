@@ -49,9 +49,9 @@ namespace Server.Factions
 		{
 			base.Serialize(writer);
 
-			writer.Write((int)0); // version
+			writer.Write(0); // version
 
-			writer.WriteEncodedInt((int)m_Charges);
+			writer.WriteEncodedInt(m_Charges);
 		}
 
 		public override void Deserialize(GenericReader reader)

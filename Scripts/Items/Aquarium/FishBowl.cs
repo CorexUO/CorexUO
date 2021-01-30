@@ -1,6 +1,6 @@
-using System.Collections.Generic;
 using Server.ContextMenus;
 using Server.Network;
+using System.Collections.Generic;
 
 namespace Server.Items
 {
@@ -124,7 +124,7 @@ namespace Server.Items
 		{
 			base.Serialize(writer);
 
-			writer.Write((int)0); // version
+			writer.Write(0); // version
 		}
 
 		public override void Deserialize(GenericReader reader)
@@ -136,7 +136,7 @@ namespace Server.Items
 
 		private class RemoveCreature : ContextMenuEntry
 		{
-			private FishBowl m_Bowl;
+			private readonly FishBowl m_Bowl;
 
 			public RemoveCreature(FishBowl bowl) : base(6242, 3) // Remove creature
 			{

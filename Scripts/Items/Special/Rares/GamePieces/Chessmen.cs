@@ -1,31 +1,31 @@
 namespace Server.Items
 {
-    public class Chessmen : BaseItem
-    {
+	public class Chessmen : BaseItem
+	{
 
-        [Constructable]
-        public Chessmen() : base(0xE13)
-        {
-            Movable = true;
-            Stackable = false;
-        }
+		[Constructable]
+		public Chessmen() : base(0xE13)
+		{
+			Movable = true;
+			Stackable = false;
+		}
 
-        public Chessmen(Serial serial) : base(serial)
-        {
-        }
+		public Chessmen(Serial serial) : base(serial)
+		{
+		}
 
-        public override void Serialize(GenericWriter writer)
-        {
-            base.Serialize(writer);
+		public override void Serialize(GenericWriter writer)
+		{
+			base.Serialize(writer);
 
-            writer.Write((int)0);
-        }
+			writer.Write(0);
+		}
 
-        public override void Deserialize(GenericReader reader)
-        {
-            base.Deserialize(reader);
+		public override void Deserialize(GenericReader reader)
+		{
+			base.Deserialize(reader);
 
-            int version = reader.ReadInt();
-        }
-    }
+			int version = reader.ReadInt();
+		}
+	}
 }

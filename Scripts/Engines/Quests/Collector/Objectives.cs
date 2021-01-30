@@ -1,5 +1,5 @@
-using System;
 using Server.Mobiles;
+using System;
 
 namespace Server.Engines.Quests.Collector
 {
@@ -257,7 +257,7 @@ namespace Server.Engines.Quests.Collector
 
 		public override void ChildSerialize(GenericWriter writer)
 		{
-			writer.WriteEncodedInt((int)0); // version
+			writer.WriteEncodedInt(0); // version
 
 			writer.WriteEncodedInt((int)m_Theater);
 		}
@@ -417,7 +417,7 @@ namespace Server.Engines.Quests.Collector
 				}
 			}
 
-			image = (ImageType)0;
+			image = 0;
 			return CaptureResponse.Invalid;
 		}
 
@@ -463,14 +463,14 @@ namespace Server.Engines.Quests.Collector
 
 		public override void ChildSerialize(GenericWriter writer)
 		{
-			writer.WriteEncodedInt((int)0); // version
+			writer.WriteEncodedInt(0); // version
 
-			writer.WriteEncodedInt((int)m_Images.Length);
+			writer.WriteEncodedInt(m_Images.Length);
 
 			for (int i = 0; i < m_Images.Length; i++)
 			{
 				writer.WriteEncodedInt((int)m_Images[i]);
-				writer.Write((bool)m_Done[i]);
+				writer.Write(m_Done[i]);
 			}
 		}
 	}

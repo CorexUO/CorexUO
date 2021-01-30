@@ -1,13 +1,13 @@
-using System;
 using Server.Misc;
 using Server.Mobiles;
 using Server.Targeting;
+using System;
 
 namespace Server.Spells.Third
 {
 	public class WallOfStoneSpell : MagerySpell
 	{
-		private static SpellInfo m_Info = new SpellInfo(
+		private static readonly SpellInfo m_Info = new SpellInfo(
 				"Wall of Stone", "In Sanct Ylem",
 				227,
 				9011,
@@ -103,7 +103,7 @@ namespace Server.Spells.Third
 		{
 			private Timer m_Timer;
 			private DateTime m_End;
-			private Mobile m_Caster;
+			private readonly Mobile m_Caster;
 
 			public override bool BlocksFit { get { return true; } }
 
@@ -138,7 +138,7 @@ namespace Server.Spells.Third
 			{
 				base.Serialize(writer);
 
-				writer.Write((int)0); // version
+				writer.Write(0); // version
 
 				writer.WriteDeltaTime(m_End);
 			}
@@ -186,7 +186,7 @@ namespace Server.Spells.Third
 
 			private class InternalTimer : Timer
 			{
-				private InternalItem m_Item;
+				private readonly InternalItem m_Item;
 
 				public InternalTimer(InternalItem item, TimeSpan duration) : base(duration)
 				{
@@ -203,7 +203,7 @@ namespace Server.Spells.Third
 
 		private class InternalTarget : Target
 		{
-			private WallOfStoneSpell m_Owner;
+			private readonly WallOfStoneSpell m_Owner;
 
 			public InternalTarget(WallOfStoneSpell owner) : base(owner.SpellRange, true, TargetFlags.None)
 			{

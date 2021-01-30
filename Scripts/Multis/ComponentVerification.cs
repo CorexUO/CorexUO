@@ -5,8 +5,8 @@ namespace Server.Multis
 {
 	public class ComponentVerification
 	{
-		private int[] m_ItemTable;
-		private int[] m_MultiTable;
+		private readonly int[] m_ItemTable;
+		private readonly int[] m_MultiTable;
 
 		public bool IsItemValid(int itemID)
 		{

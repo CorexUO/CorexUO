@@ -1,7 +1,3 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.IO;
 using Server.Commands;
 using Server.Commands.Generic;
 using Server.Engines.MLQuests.Gumps;
@@ -10,6 +6,10 @@ using Server.Gumps;
 using Server.Items;
 using Server.Mobiles;
 using Server.Network;
+using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.IO;
 
 namespace Server.Engines.MLQuests
 {
@@ -23,9 +23,9 @@ namespace Server.Engines.MLQuests
 		public static readonly bool AutoGenerateNew = true;
 		public static readonly bool Debug = false;
 
-		private static Dictionary<Type, MLQuest> m_Quests;
-		private static Dictionary<Type, List<MLQuest>> m_QuestGivers;
-		private static Dictionary<PlayerMobile, MLQuestContext> m_Contexts;
+		private static readonly Dictionary<Type, MLQuest> m_Quests;
+		private static readonly Dictionary<Type, List<MLQuest>> m_QuestGivers;
+		private static readonly Dictionary<PlayerMobile, MLQuestContext> m_Contexts;
 
 		public static readonly List<MLQuest> EmptyList = new List<MLQuest>();
 
@@ -117,9 +117,8 @@ namespace Server.Engines.MLQuests
 
 		private static void RegisterQuestGiver(MLQuest quest, Type questerType)
 		{
-			List<MLQuest> questList;
 
-			if (!m_QuestGivers.TryGetValue(questerType, out questList))
+			if (!m_QuestGivers.TryGetValue(questerType, out List<MLQuest> questList))
 				m_QuestGivers[questerType] = questList = new List<MLQuest>();
 
 			questList.Add(quest);
@@ -173,9 +172,8 @@ namespace Server.Engines.MLQuests
 			}
 
 			Type index = Assembler.FindTypeByName(e.GetString(0));
-			MLQuest quest;
 
-			if (index == null || !m_Quests.TryGetValue(index, out quest))
+			if (index == null || !m_Quests.TryGetValue(index, out MLQuest quest))
 			{
 				m.SendMessage("Invalid quest type name.");
 				return;
@@ -251,9 +249,8 @@ namespace Server.Engines.MLQuests
 			}
 
 			Type index = Assembler.FindTypeByName(e.GetString(0));
-			MLQuest quest;
 
-			if (index == null || !m_Quests.TryGetValue(index, out quest))
+			if (index == null || !m_Quests.TryGetValue(index, out MLQuest quest))
 			{
 				m.SendMessage("Invalid quest type name.");
 				return;
@@ -380,10 +377,8 @@ namespace Server.Engines.MLQuests
 
 			MLQuestContext context = GetContext(pm);
 
-			MLQuest quest;
-			MLQuestInstance entry;
 
-			if (!FindQuest(quester, pm, context, out quest, out entry))
+			if (!FindQuest(quester, pm, context, out MLQuest quest, out MLQuestInstance entry))
 			{
 				Tell(quester, pm, 1080107); // I'm sorry, I have nothing for you at this time.
 				return;
@@ -587,17 +582,15 @@ namespace Server.Engines.MLQuests
 
 		public static MLQuestContext GetContext(PlayerMobile pm)
 		{
-			MLQuestContext context;
-			m_Contexts.TryGetValue(pm, out context);
+			m_Contexts.TryGetValue(pm, out MLQuestContext context);
 
 			return context;
 		}
 
 		public static MLQuestContext GetOrCreateContext(PlayerMobile pm)
 		{
-			MLQuestContext context;
 
-			if (!m_Contexts.TryGetValue(pm, out context))
+			if (!m_Contexts.TryGetValue(pm, out MLQuestContext context))
 				m_Contexts[pm] = context = new MLQuestContext(pm);
 
 			return context;
@@ -648,7 +641,7 @@ namespace Server.Engines.MLQuests
 			pm.SendGump(new QuestLogGump(pm));
 		}
 
-		private static List<MLQuest> m_EligiblePool = new List<MLQuest>();
+		private static readonly List<MLQuest> m_EligiblePool = new List<MLQuest>();
 
 		public static MLQuest RandomStarterQuest(IQuestGiver quester, PlayerMobile pm, MLQuestContext context)
 		{
@@ -760,17 +753,15 @@ namespace Server.Engines.MLQuests
 
 		public static MLQuest FindQuest(Type questType)
 		{
-			MLQuest result;
-			m_Quests.TryGetValue(questType, out result);
+			m_Quests.TryGetValue(questType, out MLQuest result);
 
 			return result;
 		}
 
 		public static List<MLQuest> FindQuestList(Type questerType)
 		{
-			List<MLQuest> result;
 
-			if (m_QuestGivers.TryGetValue(questerType, out result))
+			if (m_QuestGivers.TryGetValue(questerType, out List<MLQuest> result))
 				return result;
 
 			return EmptyList;

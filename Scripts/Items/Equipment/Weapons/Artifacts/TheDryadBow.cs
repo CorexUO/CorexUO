@@ -20,7 +20,7 @@ namespace Server.Items
 			WeaponAttributes.ResistPoisonBonus = 15;
 		}
 
-		private static SkillName[] m_PossibleBonusSkills = new SkillName[]
+		private static readonly SkillName[] m_PossibleBonusSkills = new SkillName[]
 			{
 				SkillName.Archery,
 				SkillName.Healing,
@@ -38,7 +38,7 @@ namespace Server.Items
 		{
 			base.Serialize(writer);
 
-			writer.Write((int)0);
+			writer.Write(0);
 		}
 
 		public override void Deserialize(GenericReader reader)

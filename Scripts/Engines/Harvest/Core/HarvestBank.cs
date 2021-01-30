@@ -5,11 +5,10 @@ namespace Server.Engines.Harvest
 	public class HarvestBank
 	{
 		private int m_Current;
-		private int m_Maximum;
+		private readonly int m_Maximum;
 		private DateTime m_NextRespawn;
 		private HarvestVein m_Vein, m_DefaultVein;
-
-		HarvestDefinition m_Definition;
+		readonly HarvestDefinition m_Definition;
 
 		public HarvestDefinition Definition
 		{

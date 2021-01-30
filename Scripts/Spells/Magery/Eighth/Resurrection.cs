@@ -7,7 +7,7 @@ namespace Server.Spells.Eighth
 	{
 		public override int SpellRange => 1;
 
-		private static SpellInfo m_Info = new SpellInfo(
+		private static readonly SpellInfo m_Info = new SpellInfo(
 				"Resurrection", "An Corp",
 				245,
 				9062,

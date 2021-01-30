@@ -1,38 +1,38 @@
 namespace Server.Items
 {
-    public class MandrakeRoot : BaseReagent, ICommodity
-    {
-        int ICommodity.DescriptionNumber { get { return LabelNumber; } }
-        bool ICommodity.IsDeedable { get { return true; } }
+	public class MandrakeRoot : BaseReagent, ICommodity
+	{
+		int ICommodity.DescriptionNumber { get { return LabelNumber; } }
+		bool ICommodity.IsDeedable { get { return true; } }
 
-        [Constructable]
-        public MandrakeRoot() : this(1)
-        {
-        }
+		[Constructable]
+		public MandrakeRoot() : this(1)
+		{
+		}
 
-        [Constructable]
-        public MandrakeRoot(int amount) : base(0xF86, amount)
-        {
-        }
+		[Constructable]
+		public MandrakeRoot(int amount) : base(0xF86, amount)
+		{
+		}
 
-        public MandrakeRoot(Serial serial) : base(serial)
-        {
-        }
+		public MandrakeRoot(Serial serial) : base(serial)
+		{
+		}
 
 
 
-        public override void Serialize(GenericWriter writer)
-        {
-            base.Serialize(writer);
+		public override void Serialize(GenericWriter writer)
+		{
+			base.Serialize(writer);
 
-            writer.Write((int)0); // version
-        }
+			writer.Write(0); // version
+		}
 
-        public override void Deserialize(GenericReader reader)
-        {
-            base.Deserialize(reader);
+		public override void Deserialize(GenericReader reader)
+		{
+			base.Deserialize(reader);
 
-            int version = reader.ReadInt();
-        }
-    }
+			int version = reader.ReadInt();
+		}
+	}
 }

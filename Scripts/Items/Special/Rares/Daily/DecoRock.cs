@@ -1,31 +1,31 @@
 namespace Server.Items
 {
-    public class DecoRock : BaseItem
-    {
+	public class DecoRock : BaseItem
+	{
 
-        [Constructable]
-        public DecoRock() : base(0x1778)
-        {
-            Movable = true;
-            Stackable = false;
-        }
+		[Constructable]
+		public DecoRock() : base(0x1778)
+		{
+			Movable = true;
+			Stackable = false;
+		}
 
-        public DecoRock(Serial serial) : base(serial)
-        {
-        }
+		public DecoRock(Serial serial) : base(serial)
+		{
+		}
 
-        public override void Serialize(GenericWriter writer)
-        {
-            base.Serialize(writer);
+		public override void Serialize(GenericWriter writer)
+		{
+			base.Serialize(writer);
 
-            writer.Write((int)0);
-        }
+			writer.Write(0);
+		}
 
-        public override void Deserialize(GenericReader reader)
-        {
-            base.Deserialize(reader);
+		public override void Deserialize(GenericReader reader)
+		{
+			base.Deserialize(reader);
 
-            int version = reader.ReadInt();
-        }
-    }
+			int version = reader.ReadInt();
+		}
+	}
 }

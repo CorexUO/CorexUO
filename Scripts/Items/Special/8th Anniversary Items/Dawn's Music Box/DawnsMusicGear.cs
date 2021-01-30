@@ -74,7 +74,7 @@ namespace Server.Items
 		{
 			base.Serialize(writer);
 
-			writer.WriteEncodedInt((int)0); // version
+			writer.WriteEncodedInt(0); // version
 
 			writer.Write((int)m_Music);
 		}
@@ -112,7 +112,7 @@ namespace Server.Items
 
 		public class InternalTarget : Target
 		{
-			private DawnsMusicGear m_Gear;
+			private readonly DawnsMusicGear m_Gear;
 
 			public InternalTarget(DawnsMusicGear gear) : base(2, false, TargetFlags.None)
 			{

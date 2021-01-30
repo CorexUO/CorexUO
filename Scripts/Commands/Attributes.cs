@@ -4,7 +4,7 @@ namespace Server
 {
 	public class UsageAttribute : Attribute
 	{
-		private string m_Usage;
+		private readonly string m_Usage;
 
 		public string Usage { get { return m_Usage; } }
 
@@ -16,7 +16,7 @@ namespace Server
 
 	public class DescriptionAttribute : Attribute
 	{
-		private string m_Description;
+		private readonly string m_Description;
 
 		public string Description { get { return m_Description; } }
 
@@ -28,7 +28,7 @@ namespace Server
 
 	public class AliasesAttribute : Attribute
 	{
-		private string[] m_Aliases;
+		private readonly string[] m_Aliases;
 
 		public string[] Aliases { get { return m_Aliases; } }
 

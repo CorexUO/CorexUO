@@ -1,12 +1,12 @@
+using Server.Accounting;
 using System;
 using System.Collections;
-using Server.Accounting;
 
 namespace Server.Gumps
 {
 	public class BanDurationGump : Gump
 	{
-		private ArrayList m_List;
+		private readonly ArrayList m_List;
 
 		public void AddButtonLabeled(int x, int y, int buttonID, string text)
 		{

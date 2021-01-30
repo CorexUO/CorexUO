@@ -1,17 +1,17 @@
-using System;
 using Server.Gumps;
 using Server.Items;
+using System;
 
 namespace Server.Engines.Craft
 {
 	public class QueryMakersMarkGump : Gump
 	{
-		private ItemQuality m_Quality;
-		private Mobile m_From;
-		private CraftItem m_CraftItem;
-		private CraftSystem m_CraftSystem;
-		private Type m_TypeRes;
-		private BaseTool m_Tool;
+		private readonly ItemQuality m_Quality;
+		private readonly Mobile m_From;
+		private readonly CraftItem m_CraftItem;
+		private readonly CraftSystem m_CraftSystem;
+		private readonly Type m_TypeRes;
+		private readonly BaseTool m_Tool;
 
 		public QueryMakersMarkGump(ItemQuality quality, Mobile from, CraftItem craftItem, CraftSystem craftSystem, Type typeRes, BaseTool tool) : base(100, 200)
 		{

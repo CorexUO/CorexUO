@@ -1,9 +1,9 @@
-using System;
-using System.Collections;
-using System.Reflection;
 using Server.Commands.Generic;
 using Server.Gumps;
 using Server.Network;
+using System;
+using System.Collections;
+using System.Reflection;
 
 namespace Server.Commands
 {
@@ -11,7 +11,7 @@ namespace Server.Commands
 	{
 		private BaseCommandImplementor m_Scope;
 		private string m_Condition;
-		private ArrayList m_BatchCommands;
+		private readonly ArrayList m_BatchCommands;
 
 		public BaseCommandImplementor Scope
 		{
@@ -56,10 +56,8 @@ namespace Server.Commands
 				{
 					BatchCommand bc = (BatchCommand)m_BatchCommands[i];
 
-					string commandString, argString;
-					string[] args;
 
-					bc.GetDetails(out commandString, out argString, out args);
+					bc.GetDetails(out string commandString, out string argString, out string[] args);
 
 					BaseCommand command = m_Scope.Commands[commandString];
 
@@ -238,8 +236,8 @@ namespace Server.Commands
 
 	public class BatchGump : BaseGridGump
 	{
-		private Mobile m_From;
-		private Batch m_Batch;
+		private readonly Mobile m_From;
+		private readonly Batch m_Batch;
 
 		public BatchGump(Mobile from, Batch batch) : base(30, 30)
 		{
@@ -329,9 +327,8 @@ namespace Server.Commands
 
 		public override void OnResponse(NetState sender, RelayInfo info)
 		{
-			int type, index;
 
-			if (!SplitButtonID(info.ButtonID, 1, out type, out index))
+			if (!SplitButtonID(info.ButtonID, 1, out int type, out int index))
 				return;
 
 			TextRelay entry = info.GetTextEntry(0);
@@ -390,8 +387,8 @@ namespace Server.Commands
 
 	public class BatchScopeGump : BaseGridGump
 	{
-		private Mobile m_From;
-		private Batch m_Batch;
+		private readonly Mobile m_From;
+		private readonly Batch m_Batch;
 
 		public BatchScopeGump(Mobile from, Batch batch) : base(30, 30)
 		{
@@ -429,9 +426,8 @@ namespace Server.Commands
 
 		public override void OnResponse(NetState sender, RelayInfo info)
 		{
-			int type, index;
 
-			if (SplitButtonID(info.ButtonID, 1, out type, out index))
+			if (SplitButtonID(info.ButtonID, 1, out int type, out int index))
 			{
 				switch (type)
 				{

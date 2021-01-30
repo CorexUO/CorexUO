@@ -1,18 +1,18 @@
-using System;
 using Server.Commands;
 using Server.PathAlgorithms;
 using Server.PathAlgorithms.FastAStar;
 using Server.PathAlgorithms.SlowAStar;
 using Server.Targeting;
+using System;
 
 namespace Server
 {
 	public sealed class MovementPath
 	{
-		private Map m_Map;
+		private readonly Map m_Map;
 		private Point3D m_Start;
 		private Point3D m_Goal;
-		private Direction[] m_Directions;
+		private readonly Direction[] m_Directions;
 
 		public Map Map { get { return m_Map; } }
 		public Point3D Start { get { return m_Start; } }

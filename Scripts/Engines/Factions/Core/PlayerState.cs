@@ -1,14 +1,14 @@
+using Server.Mobiles;
 using System;
 using System.Collections.Generic;
-using Server.Mobiles;
 
 namespace Server.Factions
 {
 	public class PlayerState : IComparable
 	{
-		private Mobile m_Mobile;
-		private Faction m_Faction;
-		private List<PlayerState> m_Owner;
+		private readonly Mobile m_Mobile;
+		private readonly Faction m_Faction;
+		private readonly List<PlayerState> m_Owner;
 		private int m_KillPoints;
 		private DateTime m_Leaving;
 		private MerchantTitle m_MerchantTitle;
@@ -55,7 +55,7 @@ namespace Server.Factions
 						}
 						while ((m_RankIndex - 1) >= 0)
 						{
-							PlayerState p = m_Owner[m_RankIndex - 1] as PlayerState;
+							PlayerState p = m_Owner[m_RankIndex - 1];
 							if (value > p.KillPoints)
 							{
 								m_Owner[m_RankIndex] = p;
@@ -80,7 +80,7 @@ namespace Server.Factions
 
 							while ((m_RankIndex + 1) < m_Faction.ZeroRankOffset)
 							{
-								PlayerState p = m_Owner[m_RankIndex + 1] as PlayerState;
+								PlayerState p = m_Owner[m_RankIndex + 1];
 								m_Owner[m_RankIndex + 1] = this;
 								m_Owner[m_RankIndex] = p;
 								RankIndex++;
@@ -94,7 +94,7 @@ namespace Server.Factions
 						{
 							while ((m_RankIndex + 1) < m_Faction.ZeroRankOffset)
 							{
-								PlayerState p = m_Owner[m_RankIndex + 1] as PlayerState;
+								PlayerState p = m_Owner[m_RankIndex + 1];
 								if (value < p.KillPoints)
 								{
 									m_Owner[m_RankIndex + 1] = this;
@@ -240,17 +240,17 @@ namespace Server.Factions
 
 		public void Serialize(GenericWriter writer)
 		{
-			writer.WriteEncodedInt((int)0); // version
+			writer.WriteEncodedInt(0); // version
 
 			writer.Write(m_IsActive);
 			writer.Write(m_LastHonorTime);
 
-			writer.Write((Mobile)m_Mobile);
+			writer.Write(m_Mobile);
 
-			writer.WriteEncodedInt((int)m_KillPoints);
+			writer.WriteEncodedInt(m_KillPoints);
 			writer.WriteEncodedInt((int)m_MerchantTitle);
 
-			writer.Write((DateTime)m_Leaving);
+			writer.Write(m_Leaving);
 		}
 
 		public static PlayerState Find(Mobile mob)

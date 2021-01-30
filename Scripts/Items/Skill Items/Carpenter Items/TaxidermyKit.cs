@@ -1,7 +1,7 @@
-using System;
 using Server.Mobiles;
 using Server.Multis;
 using Server.Targeting;
+using System;
 
 namespace Server.Items
 {
@@ -24,7 +24,7 @@ namespace Server.Items
 		{
 			base.Serialize(writer);
 
-			writer.Write((int)0); // version
+			writer.Write(0); // version
 		}
 
 		public override void Deserialize(GenericReader reader)
@@ -51,7 +51,7 @@ namespace Server.Items
 			}
 		}
 
-		private static TrophyInfo[] m_Table = new TrophyInfo[]
+		private static readonly TrophyInfo[] m_Table = new TrophyInfo[]
 		{
 			new TrophyInfo( typeof( BrownBear ),    0x1E60,     1041093, 1041107 ),
 			new TrophyInfo( typeof( GreatHart ),    0x1E61,     1041095, 1041109 ),
@@ -72,10 +72,10 @@ namespace Server.Items
 				m_AddonNumber = addonNum;
 			}
 
-			private Type m_CreatureType;
-			private int m_NorthID;
-			private int m_DeedNumber;
-			private int m_AddonNumber;
+			private readonly Type m_CreatureType;
+			private readonly int m_NorthID;
+			private readonly int m_DeedNumber;
+			private readonly int m_AddonNumber;
 
 			public Type CreatureType { get { return m_CreatureType; } }
 			public int NorthID { get { return m_NorthID; } }
@@ -86,7 +86,7 @@ namespace Server.Items
 
 		private class CorpseTarget : Target
 		{
-			private TaxidermyKit m_Kit;
+			private readonly TaxidermyKit m_Kit;
 
 			public CorpseTarget(TaxidermyKit kit) : base(3, false, TargetFlags.None)
 			{
@@ -255,15 +255,15 @@ namespace Server.Items
 		{
 			base.Serialize(writer);
 
-			writer.Write((int)0); // version
+			writer.Write(0); // version
 
-			writer.Write((Mobile)m_Hunter);
-			writer.Write((int)m_AnimalWeight);
+			writer.Write(m_Hunter);
+			writer.Write(m_AnimalWeight);
 
-			writer.Write((int)m_WestID);
-			writer.Write((int)m_NorthID);
-			writer.Write((int)m_DeedNumber);
-			writer.Write((int)m_AddonNumber);
+			writer.Write(m_WestID);
+			writer.Write(m_NorthID);
+			writer.Write(m_DeedNumber);
+			writer.Write(m_AddonNumber);
 		}
 
 		public override void Deserialize(GenericReader reader)
@@ -408,15 +408,15 @@ namespace Server.Items
 		{
 			base.Serialize(writer);
 
-			writer.Write((int)0); // version
+			writer.Write(0); // version
 
-			writer.Write((Mobile)m_Hunter);
-			writer.Write((int)m_AnimalWeight);
+			writer.Write(m_Hunter);
+			writer.Write(m_AnimalWeight);
 
-			writer.Write((int)m_WestID);
-			writer.Write((int)m_NorthID);
-			writer.Write((int)m_DeedNumber);
-			writer.Write((int)m_AddonNumber);
+			writer.Write(m_WestID);
+			writer.Write(m_NorthID);
+			writer.Write(m_DeedNumber);
+			writer.Write(m_AddonNumber);
 		}
 
 		public override void Deserialize(GenericReader reader)

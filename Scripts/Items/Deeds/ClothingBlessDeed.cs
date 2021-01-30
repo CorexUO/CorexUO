@@ -4,7 +4,7 @@ namespace Server.Items
 {
 	public class ClothingBlessTarget : Target // Create our targeting class (which we derive from the base target class)
 	{
-		private ClothingBlessDeed m_Deed;
+		private readonly ClothingBlessDeed m_Deed;
 
 		public ClothingBlessTarget(ClothingBlessDeed deed) : base(1, false, TargetFlags.None)
 		{
@@ -79,7 +79,7 @@ namespace Server.Items
 		{
 			base.Serialize(writer);
 
-			writer.Write((int)0); // version
+			writer.Write(0); // version
 		}
 
 		public override void Deserialize(GenericReader reader)

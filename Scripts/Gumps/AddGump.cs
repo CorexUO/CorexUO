@@ -1,17 +1,17 @@
-using System;
-using System.Collections.Generic;
-using System.Reflection;
 using Server.Commands;
 using Server.Network;
 using Server.Targeting;
+using System;
+using System.Collections.Generic;
+using System.Reflection;
 
 namespace Server.Gumps
 {
 	public class AddGump : Gump
 	{
-		private string m_SearchString;
-		private Type[] m_SearchResults;
-		private int m_Page;
+		private readonly string m_SearchString;
+		private readonly Type[] m_SearchResults;
+		private readonly int m_Page;
 
 		public static void Initialize()
 		{
@@ -103,7 +103,7 @@ namespace Server.Gumps
 			AddHtmlLocalized(244, 250, 170, 20, 1061027, ((m_Page + 1) * 10) < searchResults.Length ? 0x7FFF : 0x5EF7, false, false); // Next page
 		}
 
-		private static Type typeofItem = typeof(Item), typeofMobile = typeof(Mobile);
+		private static readonly Type typeofItem = typeof(Item), typeofMobile = typeof(Mobile);
 
 		private static void Match(string match, Type[] types, List<Type> results)
 		{
@@ -163,10 +163,10 @@ namespace Server.Gumps
 
 		public class InternalTarget : Target
 		{
-			private Type m_Type;
-			private Type[] m_SearchResults;
-			private string m_SearchString;
-			private int m_Page;
+			private readonly Type m_Type;
+			private readonly Type[] m_SearchResults;
+			private readonly string m_SearchString;
+			private readonly int m_Page;
 
 			public InternalTarget(Type type, Type[] searchResults, string searchString, int page) : base(-1, true, TargetFlags.None)
 			{

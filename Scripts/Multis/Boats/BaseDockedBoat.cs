@@ -37,7 +37,7 @@ namespace Server.Multis
 		{
 			base.Serialize(writer);
 
-			writer.Write((int)0); // version
+			writer.Write(0); // version
 
 			writer.Write(MultiID);
 			writer.Write(m_Offset);
@@ -153,7 +153,7 @@ namespace Server.Multis
 
 		private class InternalTarget : MultiTarget
 		{
-			private BaseDockedBoat m_Model;
+			private readonly BaseDockedBoat m_Model;
 
 			public InternalTarget(BaseDockedBoat model) : base(model.MultiID, model.Offset)
 			{

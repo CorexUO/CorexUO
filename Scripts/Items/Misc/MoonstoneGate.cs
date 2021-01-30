@@ -1,11 +1,11 @@
-using System;
 using Server.Engines.PartySystem;
+using System;
 
 namespace Server.Items
 {
 	public class MoonstoneGate : Moongate
 	{
-		private Mobile m_Caster;
+		private readonly Mobile m_Caster;
 
 		public MoonstoneGate(Point3D loc, Map map, Map targetMap, Mobile caster, int hue) : base(loc, targetMap)
 		{
@@ -52,7 +52,7 @@ namespace Server.Items
 		{
 			base.Serialize(writer);
 
-			writer.Write((int)0); // version
+			writer.Write(0); // version
 		}
 
 		public override void Deserialize(GenericReader reader)
@@ -66,7 +66,7 @@ namespace Server.Items
 
 		private class InternalTimer : Timer
 		{
-			private Item m_Item;
+			private readonly Item m_Item;
 
 			public InternalTimer(Item item) : base(TimeSpan.FromSeconds(30.0))
 			{

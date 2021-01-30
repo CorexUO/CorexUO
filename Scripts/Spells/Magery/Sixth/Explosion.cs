@@ -1,11 +1,11 @@
-using System;
 using Server.Targeting;
+using System;
 
 namespace Server.Spells.Sixth
 {
 	public class ExplosionSpell : MagerySpell
 	{
-		private static SpellInfo m_Info = new SpellInfo(
+		private static readonly SpellInfo m_Info = new SpellInfo(
 				"Explosion", "Vas Ort Flam",
 				230,
 				9041,
@@ -63,9 +63,9 @@ namespace Server.Spells.Sixth
 
 		private class InternalTimer : Timer
 		{
-			private MagerySpell m_Spell;
-			private Mobile m_Target;
-			private Mobile m_Attacker, m_Defender;
+			private readonly MagerySpell m_Spell;
+			private readonly Mobile m_Target;
+			private readonly Mobile m_Attacker, m_Defender;
 
 			public InternalTimer(MagerySpell spell, Mobile attacker, Mobile defender, Mobile target)
 				: base(TimeSpan.FromSeconds(Core.AOS ? 3.0 : 2.5))
@@ -118,7 +118,7 @@ namespace Server.Spells.Sixth
 
 		private class InternalTarget : Target
 		{
-			private ExplosionSpell m_Owner;
+			private readonly ExplosionSpell m_Owner;
 
 			public InternalTarget(ExplosionSpell owner) : base(owner.SpellRange, false, TargetFlags.Harmful)
 			{

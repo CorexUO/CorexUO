@@ -1,5 +1,3 @@
-using System;
-using System.Collections.Generic;
 using Server.Spells;
 using Server.Spells.Fifth;
 using Server.Spells.First;
@@ -10,6 +8,8 @@ using Server.Spells.Seventh;
 using Server.Spells.Sixth;
 using Server.Spells.Third;
 using Server.Targeting;
+using System;
+using System.Collections.Generic;
 
 namespace Server.Mobiles
 {
@@ -923,7 +923,7 @@ namespace Server.Mobiles
 			return (m is BaseCreature && ((BaseCreature)m).Summoned && m_Mobile.CanBeHarmful(m, false) && !((BaseCreature)m).IsAnimatedDead);
 		}
 
-		private static int[] m_Offsets = new int[]
+		private static readonly int[] m_Offsets = new int[]
 			{
 				-1, -1,
 				-1,  0,

@@ -1,10 +1,10 @@
-using System;
-using System.Collections.Generic;
-using System.IO;
 using Server.ContextMenus;
 using Server.Mobiles;
 using Server.Network;
 using Server.Targeting;
+using System;
+using System.Collections.Generic;
+using System.IO;
 
 namespace Server.Items
 {
@@ -38,7 +38,7 @@ namespace Server.Items
 		private static Point2D[] m_Locations;
 		private static Point2D[] m_HavenLocations;
 
-		private static Type[][] m_SpawnTypes = new Type[][]
+		private static readonly Type[][] m_SpawnTypes = new Type[][]
 		{
 			new Type[]{ typeof( HeadlessOne ), typeof( Skeleton ) },
 			new Type[]{ typeof( Mongbat ), typeof( Ratman ), typeof( HeadlessOne ), typeof( Skeleton ), typeof( Zombie ) },
@@ -295,7 +295,7 @@ namespace Server.Items
 
 		private class DigTarget : Target
 		{
-			private TreasureMap m_Map;
+			private readonly TreasureMap m_Map;
 
 			public DigTarget(TreasureMap map) : base(6, true, TargetFlags.None)
 			{
@@ -430,11 +430,11 @@ namespace Server.Items
 
 		private class DigTimer : Timer
 		{
-			private Mobile m_From;
-			private TreasureMap m_TreasureMap;
+			private readonly Mobile m_From;
+			private readonly TreasureMap m_TreasureMap;
 
 			private Point3D m_Location;
-			private Map m_Map;
+			private readonly Map m_Map;
 
 			private TreasureChestDirt m_Dirt1;
 			private TreasureChestDirt m_Dirt2;
@@ -442,10 +442,10 @@ namespace Server.Items
 
 			private int m_Count;
 
-			private long m_NextSkillTime;
-			private long m_NextSpellTime;
-			private long m_NextActionTime;
-			private long m_LastMoveTime;
+			private readonly long m_NextSkillTime;
+			private readonly long m_NextSpellTime;
+			private readonly long m_NextActionTime;
+			private readonly long m_LastMoveTime;
 
 			public DigTimer(Mobile from, TreasureMap treasureMap, Point3D location, Map map) : base(TimeSpan.Zero, TimeSpan.FromSeconds(1.0))
 			{
@@ -582,8 +582,8 @@ namespace Server.Items
 
 			private class SoundTimer : Timer
 			{
-				private Mobile m_From;
-				private int m_SoundID;
+				private readonly Mobile m_From;
+				private readonly int m_SoundID;
 
 				public SoundTimer(Mobile from, int soundID) : base(TimeSpan.FromSeconds(0.9))
 				{
@@ -737,7 +737,7 @@ namespace Server.Items
 
 		private class DecodeMapEntry : ContextMenuEntry
 		{
-			private TreasureMap m_Map;
+			private readonly TreasureMap m_Map;
 
 			public DecodeMapEntry(TreasureMap map) : base(6147, 2)
 			{
@@ -753,7 +753,7 @@ namespace Server.Items
 
 		private class OpenMapEntry : ContextMenuEntry
 		{
-			private TreasureMap m_Map;
+			private readonly TreasureMap m_Map;
 
 			public OpenMapEntry(TreasureMap map) : base(6150, 2)
 			{
@@ -769,7 +769,7 @@ namespace Server.Items
 
 		private class DigEntry : ContextMenuEntry
 		{
-			private TreasureMap m_Map;
+			private readonly TreasureMap m_Map;
 
 			public DigEntry(TreasureMap map, bool enabled) : base(6148, 2)
 			{
@@ -849,9 +849,9 @@ namespace Server.Items
 		{
 			base.Serialize(writer);
 
-			writer.Write((int)0);
+			writer.Write(0);
 
-			writer.Write((Mobile)m_CompletedBy);
+			writer.Write(m_CompletedBy);
 
 			writer.Write(m_Level);
 			writer.Write(m_Completed);
@@ -872,7 +872,7 @@ namespace Server.Items
 					{
 						m_CompletedBy = reader.ReadMobile();
 
-						m_Level = (int)reader.ReadInt();
+						m_Level = reader.ReadInt();
 						m_Completed = reader.ReadBool();
 						m_Decoder = reader.ReadMobile();
 						m_Map = reader.ReadMap();

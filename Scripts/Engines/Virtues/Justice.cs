@@ -1,13 +1,13 @@
-using System;
 using Server.Gumps;
 using Server.Mobiles;
 using Server.Targeting;
+using System;
 
 namespace Server
 {
 	public class JusticeVirtue
 	{
-		private static TimeSpan LossDelay = TimeSpan.FromDays(7.0);
+		private static readonly TimeSpan LossDelay = TimeSpan.FromDays(7.0);
 		private const int LossAmount = 950;
 
 		public static void Initialize()
@@ -187,8 +187,8 @@ namespace Server
 
 	public class AcceptProtectorGump : Gump
 	{
-		private PlayerMobile m_Protector;
-		private PlayerMobile m_Protectee;
+		private readonly PlayerMobile m_Protector;
+		private readonly PlayerMobile m_Protectee;
 
 		public AcceptProtectorGump(PlayerMobile protector, PlayerMobile protectee) : base(150, 50)
 		{

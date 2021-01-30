@@ -15,8 +15,8 @@ namespace Server.Engines.Reports
 
 		private string m_Name;
 		private string m_Width;
-		private ReportColumnCollection m_Columns;
-		private ReportItemCollection m_Items;
+		private readonly ReportColumnCollection m_Columns;
+		private readonly ReportItemCollection m_Items;
 
 		public string Name { get { return m_Name; } set { m_Name = value; } }
 		public string Width { get { return m_Width; } set { m_Width = value; } }

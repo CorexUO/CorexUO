@@ -1,31 +1,31 @@
 namespace Server.Items
 {
-    public class DecoBloodspawn : BaseItem
-    {
+	public class DecoBloodspawn : BaseItem
+	{
 
-        [Constructable]
-        public DecoBloodspawn() : base(0xF7C)
-        {
-            Movable = true;
-            Stackable = false;
-        }
+		[Constructable]
+		public DecoBloodspawn() : base(0xF7C)
+		{
+			Movable = true;
+			Stackable = false;
+		}
 
-        public DecoBloodspawn(Serial serial) : base(serial)
-        {
-        }
+		public DecoBloodspawn(Serial serial) : base(serial)
+		{
+		}
 
-        public override void Serialize(GenericWriter writer)
-        {
-            base.Serialize(writer);
+		public override void Serialize(GenericWriter writer)
+		{
+			base.Serialize(writer);
 
-            writer.Write((int)0);
-        }
+			writer.Write(0);
+		}
 
-        public override void Deserialize(GenericReader reader)
-        {
-            base.Deserialize(reader);
+		public override void Deserialize(GenericReader reader)
+		{
+			base.Deserialize(reader);
 
-            int version = reader.ReadInt();
-        }
-    }
+			int version = reader.ReadInt();
+		}
+	}
 }

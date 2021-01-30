@@ -1,8 +1,8 @@
-using System;
 using Server.Gumps;
 using Server.Multis;
 using Server.Network;
 using Server.Targeting;
+using System;
 
 namespace Server.Items
 {
@@ -26,7 +26,7 @@ namespace Server.Items
 		{
 			base.Serialize(writer);
 
-			writer.Write((int)0); // version
+			writer.Write(0); // version
 		}
 
 		public override void Deserialize(GenericReader reader)
@@ -119,8 +119,8 @@ namespace Server.Items
 
 	public class HolidayTreeChoiceGump : Gump
 	{
-		private Mobile m_From;
-		private HolidayTreeDeed m_Deed;
+		private readonly Mobile m_From;
+		private readonly HolidayTreeDeed m_Deed;
 
 		public HolidayTreeChoiceGump(Mobile from, HolidayTreeDeed deed) : base(200, 200)
 		{

@@ -1,6 +1,6 @@
-using System;
 using Server.Items;
 using Server.Targeting;
+using System;
 
 namespace Server.Engines.Craft
 {
@@ -34,8 +34,8 @@ namespace Server.Engines.Craft
 
 		private class InternalTarget : Target
 		{
-			private CraftSystem m_CraftSystem;
-			private BaseTool m_Tool;
+			private readonly CraftSystem m_CraftSystem;
+			private readonly BaseTool m_Tool;
 
 			public InternalTarget(CraftSystem craftSystem, BaseTool tool) : base(2, false, TargetFlags.None)
 			{
@@ -116,9 +116,8 @@ namespace Server.Engines.Craft
 				{
 					if (num == 1044267)
 					{
-						bool anvil, forge;
 
-						DefBlacksmithy.CheckAnvilAndForge(from, 2, out anvil, out forge);
+						DefBlacksmithy.CheckAnvilAndForge(from, 2, out bool anvil, out bool forge);
 
 						if (!anvil)
 							num = 1044266; // You must be near an anvil

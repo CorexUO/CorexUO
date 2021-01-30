@@ -6,10 +6,10 @@ namespace Server
 	public class PathFollower
 	{
 		// Should we use pathfinding? 'false' for not
-		private static bool Enabled = true;
+		private static readonly bool Enabled = true;
 
-		private Mobile m_From;
-		private IPoint3D m_Goal;
+		private readonly Mobile m_From;
+		private readonly IPoint3D m_Goal;
 		private MovementPath m_Path;
 		private int m_Index;
 		private Point3D m_Next, m_LastGoalLoc;
@@ -49,7 +49,7 @@ namespace Server
 			return new Point3D(m_Goal);
 		}
 
-		private static TimeSpan RepathDelay = TimeSpan.FromSeconds(2.0);
+		private static readonly TimeSpan RepathDelay = TimeSpan.FromSeconds(2.0);
 
 		public void Advance(ref Point3D p, int index)
 		{

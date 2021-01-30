@@ -1,14 +1,14 @@
-using System;
 using Server.Items;
 using Server.Misc;
 using Server.Mobiles;
 using Server.Targeting;
+using System;
 
 namespace Server.Spells.Sixth
 {
 	public class ParalyzeFieldSpell : MagerySpell
 	{
-		private static SpellInfo m_Info = new SpellInfo(
+		private static readonly SpellInfo m_Info = new SpellInfo(
 				"Paralyze Field", "In Ex Grav",
 				230,
 				9012,
@@ -141,7 +141,7 @@ namespace Server.Spells.Sixth
 			{
 				base.Serialize(writer);
 
-				writer.Write((int)0); // version
+				writer.Write(0); // version
 
 				writer.Write(m_Caster);
 				writer.WriteDeltaTime(m_End);
@@ -208,7 +208,7 @@ namespace Server.Spells.Sixth
 
 			private class InternalTimer : Timer
 			{
-				private Item m_Item;
+				private readonly Item m_Item;
 
 				public InternalTimer(Item item, TimeSpan duration) : base(duration)
 				{
@@ -225,7 +225,7 @@ namespace Server.Spells.Sixth
 
 		private class InternalTarget : Target
 		{
-			private ParalyzeFieldSpell m_Owner;
+			private readonly ParalyzeFieldSpell m_Owner;
 
 			public InternalTarget(ParalyzeFieldSpell owner) : base(owner.SpellRange, true, TargetFlags.None)
 			{

@@ -1,5 +1,5 @@
-using System;
 using Server.Targeting;
+using System;
 
 namespace Server.Items
 {
@@ -36,7 +36,7 @@ namespace Server.Items
 		{
 			base.Serialize(writer);
 
-			writer.Write((int)0); // version
+			writer.Write(0); // version
 		}
 
 		public override void Deserialize(GenericReader reader)
@@ -58,7 +58,7 @@ namespace Server.Items
 
 		private class InternalTarget : Target
 		{
-			private Dough m_Item;
+			private readonly Dough m_Item;
 
 			public InternalTarget(Dough item) : base(1, false, TargetFlags.None)
 			{
@@ -136,7 +136,7 @@ namespace Server.Items
 		{
 			base.Serialize(writer);
 
-			writer.Write((int)0); // version
+			writer.Write(0); // version
 		}
 
 		public override void Deserialize(GenericReader reader)
@@ -161,7 +161,7 @@ namespace Server.Items
 
 		private class InternalTarget : Target
 		{
-			private SweetDough m_Item;
+			private readonly SweetDough m_Item;
 
 			public InternalTarget(SweetDough item) : base(1, false, TargetFlags.None)
 			{
@@ -190,8 +190,8 @@ namespace Server.Items
 
 			private class InternalTimer : Timer
 			{
-				private Mobile m_From;
-				private Campfire m_Campfire;
+				private readonly Mobile m_From;
+				private readonly Campfire m_Campfire;
 
 				public InternalTimer(Mobile from, Campfire campfire) : base(TimeSpan.FromSeconds(5.0))
 				{
@@ -239,7 +239,7 @@ namespace Server.Items
 		{
 			base.Serialize(writer);
 
-			writer.Write((int)0); // version
+			writer.Write(0); // version
 		}
 
 		public override void Deserialize(GenericReader reader)
@@ -260,7 +260,7 @@ namespace Server.Items
 
 		private class InternalTarget : Target
 		{
-			private JarHoney m_Item;
+			private readonly JarHoney m_Item;
 
 			public InternalTarget(JarHoney item) : base(1, false, TargetFlags.None)
 			{
@@ -307,7 +307,7 @@ namespace Server.Items
 		{
 			base.Serialize(writer);
 
-			writer.Write((int)0); // version
+			writer.Write(0); // version
 		}
 
 		public override void Deserialize(GenericReader reader)
@@ -335,7 +335,7 @@ namespace Server.Items
 		{
 			base.Serialize(writer);
 
-			writer.Write((int)0); // version
+			writer.Write(0); // version
 		}
 
 		public override void Deserialize(GenericReader reader)
@@ -447,9 +447,9 @@ namespace Server.Items
 		{
 			base.Serialize(writer);
 
-			writer.Write((int)0); // version
+			writer.Write(0); // version
 
-			writer.Write((int)m_Quantity);
+			writer.Write(m_Quantity);
 		}
 
 		public override void Deserialize(GenericReader reader)
@@ -581,7 +581,7 @@ namespace Server.Items
 		{
 			base.Serialize(writer);
 
-			writer.Write((int)0); // version
+			writer.Write(0); // version
 		}
 
 		public override void Deserialize(GenericReader reader)
@@ -642,7 +642,7 @@ namespace Server.Items
 		{
 			base.Serialize(writer);
 
-			writer.Write((int)0); // version
+			writer.Write(0); // version
 		}
 
 		public override void Deserialize(GenericReader reader)

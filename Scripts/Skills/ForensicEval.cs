@@ -1,8 +1,8 @@
-using System;
-using System.Text;
 using Server.Items;
 using Server.Mobiles;
 using Server.Targeting;
+using System;
+using System.Text;
 
 namespace Server.SkillHandlers
 {
@@ -66,7 +66,7 @@ namespace Server.SkillHandlers
 							{
 								if (i > 0)
 									sb.Append(", ");
-								sb.Append(((Mobile)c.Looters[i]).Name);
+								sb.Append(c.Looters[i].Name);
 							}
 
 							from.SendLocalizedMessage(1042752, sb.ToString());//This body has been distrubed by ~1_PLAYER_NAMES~

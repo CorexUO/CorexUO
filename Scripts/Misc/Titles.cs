@@ -1,7 +1,7 @@
-using System;
-using System.Text;
 using Server.Engines.CannedEvil;
 using Server.Mobiles;
+using System;
+using System.Text;
 
 namespace Server.Misc
 {
@@ -196,7 +196,7 @@ namespace Server.Misc
 					if (highestValue > 800)
 						offset = 3;
 					else if (highestValue > 300)
-						offset = (int)(highestValue / 300);
+						offset = highestValue / 300;
 
 					if (offset > 0)
 					{
@@ -265,7 +265,7 @@ namespace Server.Misc
 			return highest;
 		}
 
-		private static string[,] m_Levels = new string[,]
+		private static readonly string[,] m_Levels = new string[,]
 			{
 				{ "Neophyte",       "Neophyte",     "Neophyte"      },
 				{ "Novice",         "Novice",       "Novice"        },

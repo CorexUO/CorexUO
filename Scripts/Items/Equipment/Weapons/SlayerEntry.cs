@@ -5,14 +5,14 @@ namespace Server.Items
 	public class SlayerEntry
 	{
 		private SlayerGroup m_Group;
-		private SlayerName m_Name;
-		private Type[] m_Types;
+		private readonly SlayerName m_Name;
+		private readonly Type[] m_Types;
 
 		public SlayerGroup Group { get { return m_Group; } set { m_Group = value; } }
 		public SlayerName Name { get { return m_Name; } }
 		public Type[] Types { get { return m_Types; } }
 
-		private static int[] m_AosTitles = new int[]
+		private static readonly int[] m_AosTitles = new int[]
 			{
 				1060479, // undead slayer
 				1060470, // orc slayer
@@ -43,7 +43,7 @@ namespace Server.Items
 				1070855  // fey slayer
 			};
 
-		private static int[] m_OldTitles = new int[]
+		private static readonly int[] m_OldTitles = new int[]
 			{
 				1017384, // Silver
 				1017385, // Orc Slaying

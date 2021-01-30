@@ -1,9 +1,9 @@
-using System;
-using System.Collections.Generic;
-using System.Text;
 using Server.Mobiles;
 using Server.Network;
 using Server.Spells;
+using System;
+using System.Collections.Generic;
+using System.Text;
 
 namespace Server.Items
 {
@@ -230,15 +230,15 @@ namespace Server.Items
 		{
 			base.Serialize(writer);
 
-			writer.Write((int)0); // version
+			writer.Write(0); // version
 
-			writer.Write((bool)m_CriminalCheck);
-			writer.Write((bool)m_CombatCheck);
+			writer.Write(m_CriminalCheck);
+			writer.Write(m_CombatCheck);
 
-			writer.Write((bool)m_SourceEffect);
-			writer.Write((bool)m_DestEffect);
-			writer.Write((TimeSpan)m_Delay);
-			writer.WriteEncodedInt((int)m_SoundID);
+			writer.Write(m_SourceEffect);
+			writer.Write(m_DestEffect);
+			writer.Write(m_Delay);
+			writer.WriteEncodedInt(m_SoundID);
 
 			writer.Write(m_Creatures);
 
@@ -376,12 +376,12 @@ namespace Server.Items
 		{
 			base.Serialize(writer);
 
-			writer.Write((int)0); // version
+			writer.Write(0); // version
 
 			writer.Write((int)m_Skill);
-			writer.Write((double)m_Required);
-			writer.Write((string)m_MessageString);
-			writer.Write((int)m_MessageNumber);
+			writer.Write(m_Required);
+			writer.Write(m_MessageString);
+			writer.Write(m_MessageNumber);
 		}
 
 		public override void Deserialize(GenericReader reader)
@@ -500,7 +500,7 @@ namespace Server.Items
 		{
 			base.Serialize(writer);
 
-			writer.Write((int)0); // version
+			writer.Write(0); // version
 
 			writer.Write(m_Substring);
 			writer.Write(m_Keyword);
@@ -541,9 +541,8 @@ namespace Server.Items
 		public static void EventSink_Logout(LogoutEventArgs e)
 		{
 			Mobile from = e.Mobile;
-			TeleportingInfo info;
 
-			if (from == null || !m_Table.TryGetValue(from, out info))
+			if (from == null || !m_Table.TryGetValue(from, out TeleportingInfo info))
 				return;
 
 			info.Timer.Stop();
@@ -620,9 +619,8 @@ namespace Server.Items
 
 		public override void StartTeleport(Mobile m)
 		{
-			TeleportingInfo info;
 
-			if (m_Table.TryGetValue(m, out info))
+			if (m_Table.TryGetValue(m, out TeleportingInfo info))
 			{
 				if (info.Teleporter == this)
 				{
@@ -674,7 +672,7 @@ namespace Server.Items
 		{
 			base.Serialize(writer);
 
-			writer.Write((int)0); // version
+			writer.Write(0); // version
 
 			writer.Write(m_StartNumber);
 			writer.Write(m_StartMessage);
@@ -698,8 +696,8 @@ namespace Server.Items
 
 		private class TeleportingInfo
 		{
-			private WaitTeleporter m_Teleporter;
-			private Timer m_Timer;
+			private readonly WaitTeleporter m_Teleporter;
+			private readonly Timer m_Timer;
 
 			public WaitTeleporter Teleporter { get { return m_Teleporter; } }
 			public Timer Timer { get { return m_Timer; } }
@@ -750,9 +748,8 @@ namespace Server.Items
 
 		private void StartTimer(Mobile m, TimeSpan delay)
 		{
-			Timer t;
 
-			if (m_Teleporting.TryGetValue(m, out t))
+			if (m_Teleporting.TryGetValue(m, out Timer t))
 				t.Stop();
 
 			m_Teleporting[m] = Timer.DelayCall<Mobile>(delay, StartTeleport, m);
@@ -760,9 +757,8 @@ namespace Server.Items
 
 		public void StopTimer(Mobile m)
 		{
-			Timer t;
 
-			if (m_Teleporting.TryGetValue(m, out t))
+			if (m_Teleporting.TryGetValue(m, out Timer t))
 			{
 				t.Stop();
 				m_Teleporting.Remove(m);
@@ -798,7 +794,7 @@ namespace Server.Items
 		{
 			base.Serialize(writer);
 
-			writer.Write((int)0); // version
+			writer.Write(0); // version
 
 			writer.Write(m_TimeoutDelay);
 			writer.Write(m_Teleporting.Count);
@@ -874,7 +870,7 @@ namespace Server.Items
 		{
 			base.Serialize(writer);
 
-			writer.Write((int)0); // version
+			writer.Write(0); // version
 
 			writer.WriteItem<TimeoutTeleporter>(m_Teleporter);
 		}
@@ -1106,7 +1102,7 @@ namespace Server.Items
 		{
 			base.Serialize(writer);
 
-			writer.Write((int)0); // version
+			writer.Write(0); // version
 
 			writer.Write((int)m_Flags);
 		}

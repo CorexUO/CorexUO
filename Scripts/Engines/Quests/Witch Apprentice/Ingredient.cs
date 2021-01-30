@@ -1,31 +1,31 @@
-using System;
 using Server.Mobiles;
+using System;
 
 namespace Server.Engines.Quests.Hag
 {
-    public enum Ingredient
-    {
-        SheepLiver,
-        RabbitsFoot,
-        MongbatWing,
-        ChickenGizzard,
-        RatTail,
-        FrogsLeg,
-        DeerHeart,
-        LizardTongue,
-        SlimeOoze,
-        SpiritEssence,
-        SwampWater,
-        RedMushrooms,
-        Bones,
-        StarChart,
-        Whiskey
-    }
+	public enum Ingredient
+	{
+		SheepLiver,
+		RabbitsFoot,
+		MongbatWing,
+		ChickenGizzard,
+		RatTail,
+		FrogsLeg,
+		DeerHeart,
+		LizardTongue,
+		SlimeOoze,
+		SpiritEssence,
+		SwampWater,
+		RedMushrooms,
+		Bones,
+		StarChart,
+		Whiskey
+	}
 
-    public class IngredientInfo
-    {
-        private static IngredientInfo[] m_Table = new IngredientInfo[]
-            {
+	public class IngredientInfo
+	{
+		private static readonly IngredientInfo[] m_Table = new IngredientInfo[]
+			{
 				// sheep liver
 				new IngredientInfo( 1055020, 5, typeof( Sheep ) ),
 				// rabbit's foot
@@ -56,56 +56,56 @@ namespace Server.Engines.Quests.Hag
 				new IngredientInfo( 1055033, 1 ),
 				// Captain Blackheart's Whiskey
 				new IngredientInfo( 1055034, 1 )
-            };
+			};
 
-        public static IngredientInfo Get(Ingredient ingredient)
-        {
-            int index = (int)ingredient;
+		public static IngredientInfo Get(Ingredient ingredient)
+		{
+			int index = (int)ingredient;
 
-            if (index >= 0 && index < m_Table.Length)
-                return m_Table[index];
-            else
-                return m_Table[0];
-        }
+			if (index >= 0 && index < m_Table.Length)
+				return m_Table[index];
+			else
+				return m_Table[0];
+		}
 
-        public static Ingredient RandomIngredient(Ingredient[] oldIngredients)
-        {
-            int length = m_Table.Length - oldIngredients.Length;
-            Ingredient[] ingredients = new Ingredient[length];
+		public static Ingredient RandomIngredient(Ingredient[] oldIngredients)
+		{
+			int length = m_Table.Length - oldIngredients.Length;
+			Ingredient[] ingredients = new Ingredient[length];
 
-            for (int i = 0, n = 0; i < m_Table.Length && n < ingredients.Length; i++)
-            {
-                Ingredient currIngredient = (Ingredient)i;
+			for (int i = 0, n = 0; i < m_Table.Length && n < ingredients.Length; i++)
+			{
+				Ingredient currIngredient = (Ingredient)i;
 
-                bool found = false;
-                for (int j = 0; !found && j < oldIngredients.Length; j++)
-                {
-                    if (oldIngredients[j] == currIngredient)
-                        found = true;
-                }
+				bool found = false;
+				for (int j = 0; !found && j < oldIngredients.Length; j++)
+				{
+					if (oldIngredients[j] == currIngredient)
+						found = true;
+				}
 
-                if (!found)
-                    ingredients[n++] = currIngredient;
-            }
+				if (!found)
+					ingredients[n++] = currIngredient;
+			}
 
-            int index = Utility.Random(ingredients.Length);
+			int index = Utility.Random(ingredients.Length);
 
-            return ingredients[index];
-        }
+			return ingredients[index];
+		}
 
-        private int m_Name;
-        private Type[] m_Creatures;
-        private int m_Quantity;
+		private readonly int m_Name;
+		private readonly Type[] m_Creatures;
+		private readonly int m_Quantity;
 
-        public int Name { get { return m_Name; } }
-        public Type[] Creatures { get { return m_Creatures; } }
-        public int Quantity { get { return m_Quantity; } }
+		public int Name { get { return m_Name; } }
+		public Type[] Creatures { get { return m_Creatures; } }
+		public int Quantity { get { return m_Quantity; } }
 
-        private IngredientInfo(int name, int quantity, params Type[] creatures)
-        {
-            m_Name = name;
-            m_Creatures = creatures;
-            m_Quantity = quantity;
-        }
-    }
+		private IngredientInfo(int name, int quantity, params Type[] creatures)
+		{
+			m_Name = name;
+			m_Creatures = creatures;
+			m_Quantity = quantity;
+		}
+	}
 }

@@ -1,17 +1,17 @@
-using System;
-using System.Collections;
 using Server.Gumps;
 using Server.Items;
 using Server.Mobiles;
 using Server.Prompts;
+using System;
+using System.Collections;
 
 namespace Server.Engines.BulkOrders
 {
 	public class BOBGump : Gump
 	{
-		private PlayerMobile m_From;
-		private BulkOrderBook m_Book;
-		private ArrayList m_List;
+		private readonly PlayerMobile m_From;
+		private readonly BulkOrderBook m_Book;
+		private readonly ArrayList m_List;
 
 		private int m_Page;
 
@@ -406,10 +406,10 @@ namespace Server.Engines.BulkOrders
 
 		private class SetPricePrompt : Prompt
 		{
-			private BulkOrderBook m_Book;
-			private object m_Object;
-			private int m_Page;
-			private ArrayList m_List;
+			private readonly BulkOrderBook m_Book;
+			private readonly object m_Object;
+			private readonly int m_Page;
+			private readonly ArrayList m_List;
 
 			public SetPricePrompt(BulkOrderBook book, object obj, int page, ArrayList list)
 			{

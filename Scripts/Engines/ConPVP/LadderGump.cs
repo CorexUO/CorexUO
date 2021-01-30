@@ -1,7 +1,7 @@
-using System;
-using System.Collections;
 using Server.Gumps;
 using Server.Network;
+using System;
+using System.Collections;
 
 namespace Server.Engines.ConPVP
 {
@@ -35,9 +35,9 @@ namespace Server.Engines.ConPVP
 		{
 			base.Serialize(writer);
 
-			writer.Write((int)0);
+			writer.Write(0);
 
-			writer.Write((Item)m_Ladder);
+			writer.Write(m_Ladder);
 		}
 
 		public override void Deserialize(GenericReader reader)
@@ -78,8 +78,8 @@ namespace Server.Engines.ConPVP
 
 	public class LadderGump : Gump
 	{
-		private Ladder m_Ladder;
-		private int m_Page;
+		private readonly Ladder m_Ladder;
+		private readonly int m_Page;
 
 		public LadderGump(Ladder ladder) : this(ladder, 0)
 		{
@@ -111,7 +111,7 @@ namespace Server.Engines.ConPVP
 				from.SendGump(new LadderGump(m_Ladder, m_Page + 1));
 		}
 
-		private ArrayList m_List;
+		private readonly ArrayList m_List;
 
 		public LadderGump(Ladder ladder, int page) : base(50, 50)
 		{
@@ -183,8 +183,7 @@ namespace Server.Engines.ConPVP
 				int xp = entry.Experience;
 				int level = Ladder.GetLevel(xp);
 
-				int xpBase, xpAdvance;
-				Ladder.GetLevelInfo(level, out xpBase, out xpAdvance);
+				Ladder.GetLevelInfo(level, out int xpBase, out int xpAdvance);
 
 				int width;
 

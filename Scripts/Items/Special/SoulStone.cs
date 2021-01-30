@@ -1,10 +1,10 @@
-using System;
 using Server.Accounting;
 using Server.Engines.VeteranRewards;
 using Server.Gumps;
 using Server.Mobiles;
 using Server.Multis;
 using Server.Network;
+using System;
 
 namespace Server.Items
 {
@@ -249,7 +249,7 @@ namespace Server.Items
 
 		private class SelectSkillGump : Gump
 		{
-			private SoulStone m_Stone;
+			private readonly SoulStone m_Stone;
 
 			public SelectSkillGump(SoulStone stone, Mobile from) : base(50, 50)
 			{
@@ -332,8 +332,8 @@ namespace Server.Items
 
 		private class ConfirmSkillGump : Gump
 		{
-			private SoulStone m_Stone;
-			private Skill m_Skill;
+			private readonly SoulStone m_Stone;
+			private readonly Skill m_Skill;
 
 			public ConfirmSkillGump(SoulStone stone, Skill skill) : base(50, 50)
 			{
@@ -443,7 +443,7 @@ namespace Server.Items
 
 		private class ConfirmTransferGump : Gump
 		{
-			private SoulStone m_Stone;
+			private readonly SoulStone m_Stone;
 
 			public ConfirmTransferGump(SoulStone stone, Mobile from) : base(50, 50)
 			{
@@ -653,7 +653,7 @@ namespace Server.Items
 
 		private class ConfirmRemovalGump : Gump
 		{
-			private SoulStone m_Stone;
+			private readonly SoulStone m_Stone;
 
 			public ConfirmRemovalGump(SoulStone stone) : base(50, 50)
 			{
@@ -702,7 +702,7 @@ namespace Server.Items
 
 		private class ErrorGump : Gump
 		{
-			private SoulStone m_Stone;
+			private readonly SoulStone m_Stone;
 
 			public ErrorGump(SoulStone stone, int title, int message) : base(50, 50)
 			{
@@ -754,18 +754,18 @@ namespace Server.Items
 
 			writer.WriteEncodedInt(0); // version
 
-			writer.Write((string)m_LastUserName);
+			writer.Write(m_LastUserName);
 
 			writer.Write((int)m_Level);
 
 			writer.Write(m_ActiveItemID);
 			writer.Write(m_InactiveItemID);
 
-			writer.Write((string)m_Account);
-			writer.Write((DateTime)m_NextUse); //TODO: delete it in a harmless way
+			writer.Write(m_Account);
+			writer.Write(m_NextUse); //TODO: delete it in a harmless way
 
 			writer.WriteEncodedInt((int)m_Skill);
-			writer.Write((double)m_SkillValue);
+			writer.Write(m_SkillValue);
 		}
 
 		public override void Deserialize(GenericReader reader)
@@ -920,7 +920,7 @@ namespace Server.Items
 		{
 			base.Serialize(writer);
 
-			writer.Write((int)0); // version
+			writer.Write(0); // version
 		}
 
 		public override void Deserialize(GenericReader reader)
@@ -972,9 +972,9 @@ namespace Server.Items
 		{
 			base.Serialize(writer);
 
-			writer.Write((int)0); // version
+			writer.Write(0); // version
 
-			writer.Write((bool)m_IsRewardItem);
+			writer.Write(m_IsRewardItem);
 		}
 
 		public override void Deserialize(GenericReader reader)

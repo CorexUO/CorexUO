@@ -1,7 +1,7 @@
-using System;
-using System.Collections;
 using Server.Commands;
 using Server.Network;
+using System;
+using System.Collections;
 
 namespace Server.Gumps
 {
@@ -49,11 +49,11 @@ namespace Server.Gumps
 		private static readonly int BackWidth = BorderSize + TotalWidth + BorderSize;
 		private static readonly int BackHeight = BorderSize + TotalHeight + BorderSize;
 
-		private Mobile m_From;
-		private Mobile m_Target;
-		private Skill m_Skill;
+		private readonly Mobile m_From;
+		private readonly Mobile m_Target;
+		private readonly Skill m_Skill;
 
-		private SkillsGumpGroup m_Selected;
+		private readonly SkillsGumpGroup m_Selected;
 
 		public override void OnResponse(NetState sender, RelayInfo info)
 		{
@@ -190,11 +190,11 @@ namespace Server.Gumps
 
 		private static readonly int IndentWidth = 12;
 
-		private Mobile m_From;
-		private Mobile m_Target;
+		private readonly Mobile m_From;
+		private readonly Mobile m_Target;
 
-		private SkillsGumpGroup[] m_Groups;
-		private SkillsGumpGroup m_Selected;
+		private readonly SkillsGumpGroup[] m_Groups;
+		private readonly SkillsGumpGroup m_Selected;
 
 		public override void OnResponse(NetState sender, RelayInfo info)
 		{
@@ -425,8 +425,8 @@ namespace Server.Gumps
 
 	public class SkillsGumpGroup
 	{
-		private string m_Name;
-		private SkillName[] m_Skills;
+		private readonly string m_Name;
+		private readonly SkillName[] m_Skills;
 
 		public string Name { get { return m_Name; } }
 		public SkillName[] Skills { get { return m_Skills; } }
@@ -457,7 +457,7 @@ namespace Server.Gumps
 			}
 		}
 
-		private static SkillsGumpGroup[] m_Groups = new SkillsGumpGroup[]
+		private static readonly SkillsGumpGroup[] m_Groups = new SkillsGumpGroup[]
 			{
 				new SkillsGumpGroup( "Crafting", new SkillName[]
 				{

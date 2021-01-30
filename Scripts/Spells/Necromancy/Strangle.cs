@@ -1,12 +1,12 @@
+using Server.Targeting;
 using System;
 using System.Collections;
-using Server.Targeting;
 
 namespace Server.Spells.Necromancy
 {
 	public class StrangleSpell : NecromancerSpell
 	{
-		private static SpellInfo m_Info = new SpellInfo(
+		private static readonly SpellInfo m_Info = new SpellInfo(
 				"Strangle", "In Bal Nox",
 				209,
 				9031,
@@ -108,7 +108,7 @@ namespace Server.Spells.Necromancy
 			FinishSequence();
 		}
 
-		private static Hashtable m_Table = new Hashtable();
+		private static readonly Hashtable m_Table = new Hashtable();
 
 		public static bool RemoveCurse(Mobile m)
 		{
@@ -126,13 +126,13 @@ namespace Server.Spells.Necromancy
 
 		private class InternalTimer : Timer
 		{
-			private Mobile m_Target, m_From;
-			private double m_MinBaseDamage, m_MaxBaseDamage;
+			private readonly Mobile m_Target, m_From;
+			private readonly double m_MinBaseDamage, m_MaxBaseDamage;
 
 			private DateTime m_NextHit;
 			private int m_HitDelay;
-
-			private int m_Count, m_MaxCount;
+			private int m_Count;
+			private readonly int m_MaxCount;
 
 			public InternalTimer(Mobile target, Mobile from) : base(TimeSpan.FromSeconds(0.1), TimeSpan.FromSeconds(0.1))
 			{
@@ -217,7 +217,7 @@ namespace Server.Spells.Necromancy
 
 		private class InternalTarget : Target
 		{
-			private StrangleSpell m_Owner;
+			private readonly StrangleSpell m_Owner;
 
 			public InternalTarget(StrangleSpell owner) : base(owner.SpellRange, false, TargetFlags.Harmful)
 			{

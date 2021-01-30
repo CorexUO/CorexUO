@@ -1,63 +1,63 @@
-using System.Collections.Generic;
 using Server.Items;
+using System.Collections.Generic;
 
 namespace Server.Mobiles
 {
-    public class Vagabond : BaseVendor
-    {
-        private List<SBInfo> m_SBInfos = new List<SBInfo>();
-        protected override List<SBInfo> SBInfos { get { return m_SBInfos; } }
+	public class Vagabond : BaseVendor
+	{
+		private readonly List<SBInfo> m_SBInfos = new List<SBInfo>();
+		protected override List<SBInfo> SBInfos { get { return m_SBInfos; } }
 
-        [Constructable]
-        public Vagabond() : base("the vagabond")
-        {
-            SetSkill(SkillName.ItemID, 60.0, 83.0);
-        }
+		[Constructable]
+		public Vagabond() : base("the vagabond")
+		{
+			SetSkill(SkillName.ItemID, 60.0, 83.0);
+		}
 
-        public override void InitSBInfo()
-        {
-            m_SBInfos.Add(new SBTinker());
-            m_SBInfos.Add(new SBVagabond());
-        }
+		public override void InitSBInfo()
+		{
+			m_SBInfos.Add(new SBTinker());
+			m_SBInfos.Add(new SBVagabond());
+		}
 
-        public override void InitOutfit()
-        {
-            AddItem(new FancyShirt(Utility.RandomBrightHue()));
-            AddItem(new Shoes(GetShoeHue()));
-            AddItem(new LongPants(GetRandomHue()));
+		public override void InitOutfit()
+		{
+			AddItem(new FancyShirt(Utility.RandomBrightHue()));
+			AddItem(new Shoes(GetShoeHue()));
+			AddItem(new LongPants(GetRandomHue()));
 
-            if (Utility.RandomBool())
-                AddItem(new Cloak(Utility.RandomBrightHue()));
+			if (Utility.RandomBool())
+				AddItem(new Cloak(Utility.RandomBrightHue()));
 
-            switch (Utility.Random(2))
-            {
-                case 0: AddItem(new SkullCap(Utility.RandomNeutralHue())); break;
-                case 1: AddItem(new Bandana(Utility.RandomNeutralHue())); break;
-            }
+			switch (Utility.Random(2))
+			{
+				case 0: AddItem(new SkullCap(Utility.RandomNeutralHue())); break;
+				case 1: AddItem(new Bandana(Utility.RandomNeutralHue())); break;
+			}
 
 
-            Utility.AssignRandomHair(this);
-            Utility.AssignRandomFacialHair(this, HairHue);
+			Utility.AssignRandomHair(this);
+			Utility.AssignRandomFacialHair(this, HairHue);
 
-            PackGold(100, 200);
-        }
+			PackGold(100, 200);
+		}
 
-        public Vagabond(Serial serial) : base(serial)
-        {
-        }
+		public Vagabond(Serial serial) : base(serial)
+		{
+		}
 
-        public override void Serialize(GenericWriter writer)
-        {
-            base.Serialize(writer);
+		public override void Serialize(GenericWriter writer)
+		{
+			base.Serialize(writer);
 
-            writer.Write((int)0); // version
-        }
+			writer.Write(0); // version
+		}
 
-        public override void Deserialize(GenericReader reader)
-        {
-            base.Deserialize(reader);
+		public override void Deserialize(GenericReader reader)
+		{
+			base.Deserialize(reader);
 
-            int version = reader.ReadInt();
-        }
-    }
+			int version = reader.ReadInt();
+		}
+	}
 }

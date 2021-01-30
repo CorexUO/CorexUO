@@ -50,7 +50,7 @@ namespace Server.Commands.Generic
 		private string[] m_Accessors;
 		private AccessLevel m_AccessLevel;
 		private CommandSupport m_SupportRequirement;
-		private Dictionary<string, BaseCommand> m_Commands;
+		private readonly Dictionary<string, BaseCommand> m_Commands;
 		private string m_Usage;
 		private string m_Description;
 		private bool m_SupportsConditionals;
@@ -281,8 +281,7 @@ namespace Server.Commands.Generic
 		{
 			if (e.Length >= 1)
 			{
-				BaseCommand command = null;
-				m_Commands.TryGetValue(e.GetString(0), out command);
+				m_Commands.TryGetValue(e.GetString(0), out BaseCommand command);
 
 				if (command == null)
 				{

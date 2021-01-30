@@ -1,7 +1,7 @@
-using System;
-using System.Collections.Generic;
 using Server.Engines.MLQuests.Items;
 using Server.Mobiles;
+using System;
+using System.Collections.Generic;
 
 namespace Server.Engines.MLQuests.Rewards
 {
@@ -19,8 +19,8 @@ namespace Server.Engines.MLQuests.Rewards
 		public static readonly ItemReward CarpentrySatchel = new ItemReward(1074282, typeof(CarpentrySatchel)); // Craftsman's Satchel
 		public static readonly ItemReward TinkerSatchel = new ItemReward(1074282, typeof(TinkerSatchel)); // Craftsman's Satchel
 
-		private Type m_Type;
-		private int m_Amount;
+		private readonly Type m_Type;
+		private readonly int m_Amount;
 
 		public ItemReward()
 			: this(null, null)

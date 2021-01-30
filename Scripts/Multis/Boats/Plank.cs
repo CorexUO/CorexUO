@@ -1,6 +1,6 @@
-using System;
 using Server.Factions;
 using Server.Multis;
+using System;
 
 namespace Server.Items
 {
@@ -28,7 +28,7 @@ namespace Server.Items
 		{
 			base.Serialize(writer);
 
-			writer.Write((int)0);//version
+			writer.Write(0);//version
 
 			writer.Write(Boat);
 			writer.Write((int)Side);
@@ -290,7 +290,7 @@ namespace Server.Items
 
 		private class CloseTimer : Timer
 		{
-			private Plank m_Plank;
+			private readonly Plank m_Plank;
 
 			public CloseTimer(Plank plank) : base(TimeSpan.FromSeconds(5.0), TimeSpan.FromSeconds(5.0))
 			{

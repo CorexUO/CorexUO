@@ -4,7 +4,7 @@ namespace Server.Spells.First
 {
 	public class NightSightSpell : MagerySpell
 	{
-		private static SpellInfo m_Info = new SpellInfo(
+		private static readonly SpellInfo m_Info = new SpellInfo(
 				"Night Sight", "In Lor",
 				236,
 				9031,
@@ -68,7 +68,7 @@ namespace Server.Spells.First
 
 		public class InternalTarget : Target
 		{
-			private NightSightSpell m_Owner;
+			private readonly NightSightSpell m_Owner;
 
 			public InternalTarget(NightSightSpell owner) : base(12, false, TargetFlags.Beneficial)
 			{

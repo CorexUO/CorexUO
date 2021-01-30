@@ -1,5 +1,5 @@
-using System;
 using Server.Targeting;
+using System;
 
 namespace Server.Items
 {
@@ -19,7 +19,7 @@ namespace Server.Items
 		{
 			base.Serialize(writer);
 
-			writer.Write((int)0); // version
+			writer.Write(0); // version
 		}
 
 		public override void Deserialize(GenericReader reader)
@@ -37,7 +37,7 @@ namespace Server.Items
 
 		private class InternalTarget : Target
 		{
-			private Scales m_Item;
+			private readonly Scales m_Item;
 
 			public InternalTarget(Scales item) : base(1, false, TargetFlags.None)
 			{

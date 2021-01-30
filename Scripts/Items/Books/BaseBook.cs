@@ -1,11 +1,11 @@
-using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Text;
 using Server.ContextMenus;
 using Server.Gumps;
 using Server.Multis;
 using Server.Network;
+using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Text;
 
 namespace Server.Items
 {
@@ -187,7 +187,7 @@ namespace Server.Items
 			if (content == null || !content.IsMatch(m_Pages))
 				flags |= SaveFlags.Content;
 
-			writer.Write((int)0); // version
+			writer.Write(0); // version
 
 			writer.Write((int)m_SecureLevel);
 
@@ -453,7 +453,7 @@ namespace Server.Items
 		{
 			EnsureCapacity(256);
 
-			m_Stream.Write((int)book.Serial);
+			m_Stream.Write(book.Serial);
 			m_Stream.Write((ushort)book.PagesCount);
 
 			for (int i = 0; i < book.PagesCount; ++i)
@@ -486,9 +486,9 @@ namespace Server.Items
 
 			EnsureCapacity(15 + titleBuffer.Length + authorBuffer.Length);
 
-			m_Stream.Write((int)book.Serial);
-			m_Stream.Write((bool)true);
-			m_Stream.Write((bool)book.Writable && from.InRange(book.GetWorldLocation(), 1));
+			m_Stream.Write(book.Serial);
+			m_Stream.Write(true);
+			m_Stream.Write(book.Writable && from.InRange(book.GetWorldLocation(), 1));
 			m_Stream.Write((ushort)book.PagesCount);
 
 			m_Stream.Write((ushort)(titleBuffer.Length + 1));

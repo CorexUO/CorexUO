@@ -1,211 +1,211 @@
-using System;
 using Server.Gumps;
 using Server.Mobiles;
+using System;
 
 namespace Server.Engines.MLQuests.Objectives
 {
-    public abstract class BaseObjective
-    {
-        public virtual bool IsTimed { get { return false; } }
-        public virtual TimeSpan Duration { get { return TimeSpan.Zero; } }
+	public abstract class BaseObjective
+	{
+		public virtual bool IsTimed { get { return false; } }
+		public virtual TimeSpan Duration { get { return TimeSpan.Zero; } }
 
-        public BaseObjective()
-        {
-        }
+		public BaseObjective()
+		{
+		}
 
-        public virtual bool CanOffer(IQuestGiver quester, PlayerMobile pm, bool message)
-        {
-            return true;
-        }
+		public virtual bool CanOffer(IQuestGiver quester, PlayerMobile pm, bool message)
+		{
+			return true;
+		}
 
-        public abstract void WriteToGump(Gump g, ref int y);
+		public abstract void WriteToGump(Gump g, ref int y);
 
-        public virtual BaseObjectiveInstance CreateInstance(MLQuestInstance instance)
-        {
-            return null;
-        }
-    }
+		public virtual BaseObjectiveInstance CreateInstance(MLQuestInstance instance)
+		{
+			return null;
+		}
+	}
 
-    public abstract class BaseObjectiveInstance
-    {
-        private MLQuestInstance m_Instance;
-        private DateTime m_EndTime;
-        private bool m_Expired;
+	public abstract class BaseObjectiveInstance
+	{
+		private readonly MLQuestInstance m_Instance;
+		private DateTime m_EndTime;
+		private bool m_Expired;
 
-        public MLQuestInstance Instance
-        {
-            get { return m_Instance; }
-        }
+		public MLQuestInstance Instance
+		{
+			get { return m_Instance; }
+		}
 
-        public bool IsTimed
-        {
-            get { return (m_EndTime != DateTime.MinValue); }
-        }
+		public bool IsTimed
+		{
+			get { return (m_EndTime != DateTime.MinValue); }
+		}
 
-        public DateTime EndTime
-        {
-            get { return m_EndTime; }
-            set { m_EndTime = value; }
-        }
+		public DateTime EndTime
+		{
+			get { return m_EndTime; }
+			set { m_EndTime = value; }
+		}
 
-        public bool Expired
-        {
-            get { return m_Expired; }
-            set { m_Expired = value; }
-        }
+		public bool Expired
+		{
+			get { return m_Expired; }
+			set { m_Expired = value; }
+		}
 
-        public BaseObjectiveInstance(MLQuestInstance instance, BaseObjective obj)
-        {
-            m_Instance = instance;
+		public BaseObjectiveInstance(MLQuestInstance instance, BaseObjective obj)
+		{
+			m_Instance = instance;
 
-            if (obj.IsTimed)
-                m_EndTime = DateTime.UtcNow + obj.Duration;
-        }
+			if (obj.IsTimed)
+				m_EndTime = DateTime.UtcNow + obj.Duration;
+		}
 
-        public virtual void WriteToGump(Gump g, ref int y)
-        {
-            if (IsTimed)
-                WriteTimeRemaining(g, ref y, (m_EndTime > DateTime.UtcNow) ? (m_EndTime - DateTime.UtcNow) : TimeSpan.Zero);
-        }
+		public virtual void WriteToGump(Gump g, ref int y)
+		{
+			if (IsTimed)
+				WriteTimeRemaining(g, ref y, (m_EndTime > DateTime.UtcNow) ? (m_EndTime - DateTime.UtcNow) : TimeSpan.Zero);
+		}
 
-        public static void WriteTimeRemaining(Gump g, ref int y, TimeSpan timeRemaining)
-        {
-            g.AddHtmlLocalized(103, y, 120, 16, 1062379, 0x15F90, false, false); // Est. time remaining:
-            g.AddLabel(223, y, 0x481, timeRemaining.TotalSeconds.ToString("F0"));
-            y += 16;
-        }
+		public static void WriteTimeRemaining(Gump g, ref int y, TimeSpan timeRemaining)
+		{
+			g.AddHtmlLocalized(103, y, 120, 16, 1062379, 0x15F90, false, false); // Est. time remaining:
+			g.AddLabel(223, y, 0x481, timeRemaining.TotalSeconds.ToString("F0"));
+			y += 16;
+		}
 
-        public virtual bool AllowsQuestItem(Item item, Type type)
-        {
-            return false;
-        }
+		public virtual bool AllowsQuestItem(Item item, Type type)
+		{
+			return false;
+		}
 
-        public virtual bool IsCompleted()
-        {
-            return false;
-        }
+		public virtual bool IsCompleted()
+		{
+			return false;
+		}
 
-        public virtual void CheckComplete()
-        {
-            if (IsCompleted())
-            {
-                m_Instance.Player.PlaySound(0x5B6); // public sound
-                m_Instance.CheckComplete();
-            }
-        }
+		public virtual void CheckComplete()
+		{
+			if (IsCompleted())
+			{
+				m_Instance.Player.PlaySound(0x5B6); // public sound
+				m_Instance.CheckComplete();
+			}
+		}
 
-        public virtual void OnQuestAccepted()
-        {
-        }
+		public virtual void OnQuestAccepted()
+		{
+		}
 
-        public virtual void OnQuestCancelled()
-        {
-        }
+		public virtual void OnQuestCancelled()
+		{
+		}
 
-        public virtual void OnQuestCompleted()
-        {
-        }
+		public virtual void OnQuestCompleted()
+		{
+		}
 
-        public virtual bool OnBeforeClaimReward()
-        {
-            return true;
-        }
+		public virtual bool OnBeforeClaimReward()
+		{
+			return true;
+		}
 
-        public virtual void OnClaimReward()
-        {
-        }
+		public virtual void OnClaimReward()
+		{
+		}
 
-        public virtual void OnAfterClaimReward()
-        {
-        }
+		public virtual void OnAfterClaimReward()
+		{
+		}
 
-        public virtual void OnRewardClaimed()
-        {
-        }
+		public virtual void OnRewardClaimed()
+		{
+		}
 
-        public virtual void OnQuesterDeleted()
-        {
-        }
+		public virtual void OnQuesterDeleted()
+		{
+		}
 
-        public virtual void OnPlayerDeath()
-        {
-        }
+		public virtual void OnPlayerDeath()
+		{
+		}
 
-        public virtual void OnExpire()
-        {
-        }
+		public virtual void OnExpire()
+		{
+		}
 
-        public enum DataType : byte
-        {
-            None,
-            EscortObjective,
-            KillObjective,
-            DeliverObjective
-        }
+		public enum DataType : byte
+		{
+			None,
+			EscortObjective,
+			KillObjective,
+			DeliverObjective
+		}
 
-        public virtual DataType ExtraDataType { get { return DataType.None; } }
+		public virtual DataType ExtraDataType { get { return DataType.None; } }
 
-        public virtual void Serialize(GenericWriter writer)
-        {
-            // Version info is written in MLQuestPersistence.Serialize
+		public virtual void Serialize(GenericWriter writer)
+		{
+			// Version info is written in MLQuestPersistence.Serialize
 
-            if (IsTimed)
-            {
-                writer.Write(true);
-                writer.WriteDeltaTime(m_EndTime);
-            }
-            else
-            {
-                writer.Write(false);
-            }
+			if (IsTimed)
+			{
+				writer.Write(true);
+				writer.WriteDeltaTime(m_EndTime);
+			}
+			else
+			{
+				writer.Write(false);
+			}
 
-            // For type checks on deserialization
-            // (This way quest objectives can be changed without breaking serialization)
-            writer.Write((byte)ExtraDataType);
-        }
+			// For type checks on deserialization
+			// (This way quest objectives can be changed without breaking serialization)
+			writer.Write((byte)ExtraDataType);
+		}
 
-        public static void Deserialize(GenericReader reader, int version, BaseObjectiveInstance objInstance)
-        {
-            if (reader.ReadBool())
-            {
-                DateTime endTime = reader.ReadDeltaTime();
+		public static void Deserialize(GenericReader reader, int version, BaseObjectiveInstance objInstance)
+		{
+			if (reader.ReadBool())
+			{
+				DateTime endTime = reader.ReadDeltaTime();
 
-                if (objInstance != null)
-                    objInstance.EndTime = endTime;
-            }
+				if (objInstance != null)
+					objInstance.EndTime = endTime;
+			}
 
-            DataType extraDataType = (DataType)reader.ReadByte();
+			DataType extraDataType = (DataType)reader.ReadByte();
 
-            switch (extraDataType)
-            {
-                case DataType.EscortObjective:
-                    {
-                        bool completed = reader.ReadBool();
+			switch (extraDataType)
+			{
+				case DataType.EscortObjective:
+					{
+						bool completed = reader.ReadBool();
 
-                        if (objInstance is EscortObjectiveInstance)
-                            ((EscortObjectiveInstance)objInstance).HasCompleted = completed;
+						if (objInstance is EscortObjectiveInstance)
+							((EscortObjectiveInstance)objInstance).HasCompleted = completed;
 
-                        break;
-                    }
-                case DataType.KillObjective:
-                    {
-                        int slain = reader.ReadInt();
+						break;
+					}
+				case DataType.KillObjective:
+					{
+						int slain = reader.ReadInt();
 
-                        if (objInstance is KillObjectiveInstance)
-                            ((KillObjectiveInstance)objInstance).Slain = slain;
+						if (objInstance is KillObjectiveInstance)
+							((KillObjectiveInstance)objInstance).Slain = slain;
 
-                        break;
-                    }
-                case DataType.DeliverObjective:
-                    {
-                        bool completed = reader.ReadBool();
+						break;
+					}
+				case DataType.DeliverObjective:
+					{
+						bool completed = reader.ReadBool();
 
-                        if (objInstance is DeliverObjectiveInstance)
-                            ((DeliverObjectiveInstance)objInstance).HasCompleted = completed;
+						if (objInstance is DeliverObjectiveInstance)
+							((DeliverObjectiveInstance)objInstance).HasCompleted = completed;
 
-                        break;
-                    }
-            }
-        }
-    }
+						break;
+					}
+			}
+		}
+	}
 }

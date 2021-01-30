@@ -1,5 +1,3 @@
-using System;
-using System.Collections.Generic;
 using Server.Items;
 using Server.Mobiles;
 using Server.Network;
@@ -9,6 +7,8 @@ using Server.Spells.Ninjitsu;
 using Server.Spells.Second;
 using Server.Spells.Spellweaving;
 using Server.Targeting;
+using System;
+using System.Collections.Generic;
 
 namespace Server.Spells
 {

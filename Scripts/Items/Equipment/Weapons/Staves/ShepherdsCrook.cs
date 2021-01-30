@@ -1,8 +1,8 @@
-using System;
 using Server.Engines.CannedEvil;
 using Server.Mobiles;
 using Server.Network;
 using Server.Targeting;
+using System;
 
 namespace Server.Items
 {
@@ -35,7 +35,7 @@ namespace Server.Items
 		{
 			base.Serialize(writer);
 
-			writer.Write((int)0); // version
+			writer.Write(0); // version
 		}
 
 		public override void Deserialize(GenericReader reader)
@@ -89,7 +89,7 @@ namespace Server.Items
 				}
 			}
 
-			private static Type[] m_ChampTamables = new Type[]
+			private static readonly Type[] m_ChampTamables = new Type[]
 			{
 				typeof( StrongMongbat ), typeof( Imp ), typeof( Scorpion ), typeof( GiantSpider ),
 				typeof( Snake ), typeof( LavaLizard ), typeof( Drake ), typeof( Dragon ),
@@ -129,7 +129,7 @@ namespace Server.Items
 
 			private class InternalTarget : Target
 			{
-				private BaseCreature m_Creature;
+				private readonly BaseCreature m_Creature;
 
 				public InternalTarget(BaseCreature c) : base(10, true, TargetFlags.None)
 				{

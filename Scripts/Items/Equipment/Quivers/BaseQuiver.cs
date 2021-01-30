@@ -1,5 +1,5 @@
-using System;
 using Server.Engines.Craft;
+using System;
 
 namespace Server.Items
 {
@@ -119,7 +119,7 @@ namespace Server.Items
 			return total;
 		}
 
-		private static Type[] m_Ammo = new Type[]
+		private static readonly Type[] m_Ammo = new Type[]
 		{
 			typeof( Arrow ), typeof( Bolt )
 		};
@@ -379,22 +379,22 @@ namespace Server.Items
 				m_Attributes.Serialize(writer);
 
 			if (flags.HasFlag(SaveFlag.LowerAmmoCost))
-				writer.Write((int)m_LowerAmmoCost);
+				writer.Write(m_LowerAmmoCost);
 
 			if (flags.HasFlag(SaveFlag.WeightReduction))
-				writer.Write((int)m_WeightReduction);
+				writer.Write(m_WeightReduction);
 
 			if (flags.HasFlag(SaveFlag.DamageIncrease))
-				writer.Write((int)m_DamageIncrease);
+				writer.Write(m_DamageIncrease);
 
 			if (flags.HasFlag(SaveFlag.Crafter))
-				writer.Write((Mobile)m_Crafter);
+				writer.Write(m_Crafter);
 
 			if (flags.HasFlag(SaveFlag.Quality))
 				writer.Write((int)m_Quality);
 
 			if (flags.HasFlag(SaveFlag.Capacity))
-				writer.Write((int)m_Capacity);
+				writer.Write(m_Capacity);
 		}
 
 		public override void Deserialize(GenericReader reader)

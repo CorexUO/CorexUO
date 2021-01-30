@@ -1,11 +1,11 @@
-using System;
-using System.Collections.Generic;
-using System.Text;
 using Server.Gumps;
 using Server.Items;
 using Server.Mobiles;
 using Server.Network;
 using Server.Targeting;
+using System;
+using System.Collections.Generic;
+using System.Text;
 
 namespace Server.Engines.ConPVP
 {
@@ -43,7 +43,7 @@ namespace Server.Engines.ConPVP
 		{
 			base.Serialize(writer);
 
-			writer.Write((int)0);
+			writer.Write(0);
 		}
 
 		public override void Deserialize(GenericReader reader)
@@ -86,7 +86,7 @@ namespace Server.Engines.ConPVP
 		private const int LabelColor32 = 0xFFFFFF;
 		private const int BlackColor32 = 0x000000;
 
-		private CTFGame m_Game;
+		private readonly CTFGame m_Game;
 
 		public CTFBoardGump(Mobile mob, CTFGame game)
 			: this(mob, game, null)
@@ -518,7 +518,7 @@ namespace Server.Engines.ConPVP
 		{
 			base.Serialize(writer);
 
-			writer.Write((int)0);
+			writer.Write(0);
 		}
 
 		public override void Deserialize(GenericReader reader)
@@ -539,9 +539,9 @@ namespace Server.Engines.ConPVP
 
 	public sealed class CTFPlayerInfo : IRankedCTF
 	{
-		private CTFTeamInfo m_TeamInfo;
+		private readonly CTFTeamInfo m_TeamInfo;
 
-		private Mobile m_Player;
+		private readonly Mobile m_Player;
 
 		private int m_Kills;
 		private int m_Captures;
@@ -608,7 +608,7 @@ namespace Server.Engines.ConPVP
 	public sealed class CTFTeamInfo : IRankedCTF
 	{
 		private CTFGame m_Game;
-		private int m_TeamID;
+		private readonly int m_TeamID;
 
 		private int m_Color;
 		private string m_Name;
@@ -623,7 +623,7 @@ namespace Server.Engines.ConPVP
 
 		private int m_Score;
 
-		private Dictionary<Mobile, CTFPlayerInfo> m_Players;
+		private readonly Dictionary<Mobile, CTFPlayerInfo> m_Players;
 
 		string IRankedCTF.Name
 		{
@@ -665,9 +665,8 @@ namespace Server.Engines.ConPVP
 				if (mob == null)
 					return null;
 
-				CTFPlayerInfo val;
 
-				if (!m_Players.TryGetValue(mob, out val))
+				if (!m_Players.TryGetValue(mob, out CTFPlayerInfo val))
 					m_Players[mob] = val = new CTFPlayerInfo(this, mob);
 
 				return val;
@@ -851,7 +850,7 @@ namespace Server.Engines.ConPVP
 		{
 			base.Serialize(writer);
 
-			writer.Write((int)0);
+			writer.Write(0);
 
 			writer.Write(m_Duration);
 
@@ -892,7 +891,7 @@ namespace Server.Engines.ConPVP
 				TileData.ItemTable[i].Flags |= TileFlag.NoShoot;
 		}
 
-		private CTFController m_Controller;
+		private readonly CTFController m_Controller;
 
 		public CTFController Controller { get { return m_Controller; } }
 
@@ -1065,7 +1064,7 @@ namespace Server.Engines.ConPVP
 							{
 								for (int j = 0; j < ourFlagCarrier.Aggressors.Count; ++j)
 								{
-									AggressorInfo aggr = ourFlagCarrier.Aggressors[j] as AggressorInfo;
+									AggressorInfo aggr = ourFlagCarrier.Aggressors[j];
 
 									if (aggr == null || aggr.Defender != ourFlagCarrier || aggr.Attacker != mob)
 										continue;

@@ -1,9 +1,9 @@
-using System;
 using Server.Gumps;
 using Server.Misc;
 using Server.Mobiles;
 using Server.Network;
 using Server.Regions;
+using System;
 
 namespace Server.Items
 {
@@ -155,7 +155,7 @@ namespace Server.Items
 		{
 			base.Serialize(writer);
 
-			writer.Write((int)0); // version
+			writer.Write(0); // version
 
 			writer.Write(m_Target);
 			writer.Write(m_TargetMap);
@@ -349,7 +349,7 @@ namespace Server.Items
 			if (m_GumpWidth > 0 && m_GumpHeight > 0 && m_TitleNumber > 0 && (m_MessageNumber > 0 || m_MessageString != null))
 			{
 				from.CloseGump(typeof(WarningGump));
-				from.SendGump(new WarningGump(m_TitleNumber, m_TitleColor, m_MessageString == null ? (object)m_MessageNumber : (object)m_MessageString, m_MessageColor, m_GumpWidth, m_GumpHeight, new WarningGumpCallback(Warning_Callback), from));
+				from.SendGump(new WarningGump(m_TitleNumber, m_TitleColor, m_MessageString == null ? m_MessageNumber : (object)m_MessageString, m_MessageColor, m_GumpWidth, m_GumpHeight, new WarningGumpCallback(Warning_Callback), from));
 			}
 			else
 			{
@@ -361,7 +361,7 @@ namespace Server.Items
 		{
 			base.Serialize(writer);
 
-			writer.Write((int)0); // version
+			writer.Write(0); // version
 
 			writer.WriteEncodedInt(m_GumpWidth);
 			writer.WriteEncodedInt(m_GumpHeight);

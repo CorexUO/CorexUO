@@ -1,6 +1,6 @@
-using System;
 using Server.Items;
 using Server.Network;
+using System;
 
 namespace Server.Mobiles
 {
@@ -85,7 +85,7 @@ namespace Server.Mobiles
 		{
 			base.Serialize(writer);
 
-			writer.Write((int)0);
+			writer.Write(0);
 
 			writer.WriteDeltaTime(m_NextWoolTime);
 		}

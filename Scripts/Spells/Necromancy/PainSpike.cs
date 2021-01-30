@@ -1,12 +1,12 @@
+using Server.Targeting;
 using System;
 using System.Collections;
-using Server.Targeting;
 
 namespace Server.Spells.Necromancy
 {
 	public class PainSpikeSpell : NecromancerSpell
 	{
-		private static SpellInfo m_Info = new SpellInfo(
+		private static readonly SpellInfo m_Info = new SpellInfo(
 				"Pain Spike", "In Sar",
 				203,
 				9031,
@@ -86,12 +86,12 @@ namespace Server.Spells.Necromancy
 			FinishSequence();
 		}
 
-		private static Hashtable m_Table = new Hashtable();
+		private static readonly Hashtable m_Table = new Hashtable();
 
 		private class InternalTimer : Timer
 		{
-			private Mobile m_Mobile;
-			private int m_ToRestore;
+			private readonly Mobile m_Mobile;
+			private readonly int m_ToRestore;
 
 			public InternalTimer(Mobile m, double toRestore) : base(TimeSpan.FromSeconds(10.0))
 			{
@@ -116,7 +116,7 @@ namespace Server.Spells.Necromancy
 
 		private class InternalTarget : Target
 		{
-			private PainSpikeSpell m_Owner;
+			private readonly PainSpikeSpell m_Owner;
 
 			public InternalTarget(PainSpikeSpell owner) : base(owner.SpellRange, false, TargetFlags.Harmful)
 			{

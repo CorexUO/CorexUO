@@ -1,12 +1,12 @@
 namespace Server.Engines.Quests.Zento
 {
-    public class AcceptConversation : QuestConversation
-    {
-        public override object Message
-        {
-            get
-            {
-                /* <I><U>Important Quest Information</U></I><BR><BR>
+	public class AcceptConversation : QuestConversation
+	{
+		public override object Message
+		{
+			get
+			{
+				/* <I><U>Important Quest Information</U></I><BR><BR>
 				 * 
 				 * During your quest, any important information that a
 				 * <a href = "?ForceTopic31">NPC</a> gives you, will appear in a window
@@ -28,79 +28,79 @@ namespace Server.Engines.Quests.Zento
 				 * Bringing up your avatar's context menu will give you options to cancel your quest
 				 * and review various quest information.<BR><BR>
 				 */
-                return 1049092;
-            }
-        }
+				return 1049092;
+			}
+		}
 
-        public AcceptConversation()
-        {
-        }
+		public AcceptConversation()
+		{
+		}
 
-        public override void OnRead()
-        {
-            System.AddObjective(new FirstKillObjective());
-        }
-    }
+		public override void OnRead()
+		{
+			System.AddObjective(new FirstKillObjective());
+		}
+	}
 
-    public class DirectionConversation : QuestConversation
-    {
-        public override object Message
-        {
-            get
-            {
-                // The Deathwatch Beetle Hatchlings live in The Waste - the desert close to this city.
-                return 1063323;
-            }
-        }
+	public class DirectionConversation : QuestConversation
+	{
+		public override object Message
+		{
+			get
+			{
+				// The Deathwatch Beetle Hatchlings live in The Waste - the desert close to this city.
+				return 1063323;
+			}
+		}
 
-        public override bool Logged { get { return false; } }
+		public override bool Logged { get { return false; } }
 
-        public DirectionConversation()
-        {
-        }
-    }
+		public DirectionConversation()
+		{
+		}
+	}
 
-    public class TakeCareConversation : QuestConversation
-    {
-        public override object Message
-        {
-            get
-            {
-                // I know you can take care of those nasty Deathwatch Beetle Hatchlings! No get to it!
-                return 1063324;
-            }
-        }
+	public class TakeCareConversation : QuestConversation
+	{
+		public override object Message
+		{
+			get
+			{
+				// I know you can take care of those nasty Deathwatch Beetle Hatchlings! No get to it!
+				return 1063324;
+			}
+		}
 
-        public override bool Logged { get { return false; } }
+		public override bool Logged { get { return false; } }
 
-        public TakeCareConversation()
-        {
-        }
-    }
+		public TakeCareConversation()
+		{
+		}
+	}
 
-    public class EndConversation : QuestConversation
-    {
-        public override object Message
-        {
-            get
-            {
-                /* Thank you for helping me get rid of these vile beasts!
+	public class EndConversation : QuestConversation
+	{
+		public override object Message
+		{
+			get
+			{
+				/* Thank you for helping me get rid of these vile beasts!
 				 * You have been rewarded for your good deeds. If you wish to
 				 * help me in the future, visit me again.<br><br>
 				 * 
 				 * Farewell.
 				 */
-                return 1063321;
-            }
-        }
+				return 1063321;
+			}
+		}
 
-        public EndConversation()
-        {
-        }
+		public EndConversation()
+		{
+		}
 
-        public override void OnRead()
-        {
-            System.Complete();
-        }
-    }
+		public override void OnRead()
+		{
+			System.Complete();
+		}
+	}
 }

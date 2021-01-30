@@ -1,7 +1,7 @@
-using System;
-using System.Collections.Generic;
 using Server.Items;
 using Server.Network;
+using System;
+using System.Collections.Generic;
 
 namespace Server.Multis
 {
@@ -223,7 +223,7 @@ namespace Server.Multis
 
 			writer.WriteEncodedInt(1);
 
-			writer.Write((Item)House);
+			writer.Write(House);
 		}
 
 		public override void Deserialize(GenericReader reader)

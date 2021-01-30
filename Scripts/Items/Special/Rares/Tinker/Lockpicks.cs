@@ -1,31 +1,31 @@
 namespace Server.Items
 {
-    public class Lockpicks : BaseItem
-    {
+	public class Lockpicks : BaseItem
+	{
 
-        [Constructable]
-        public Lockpicks() : base(Utility.Random(2) + 0x14FD)
-        {
-            Movable = true;
-            Stackable = false;
-        }
+		[Constructable]
+		public Lockpicks() : base(Utility.Random(2) + 0x14FD)
+		{
+			Movable = true;
+			Stackable = false;
+		}
 
-        public Lockpicks(Serial serial) : base(serial)
-        {
-        }
+		public Lockpicks(Serial serial) : base(serial)
+		{
+		}
 
-        public override void Serialize(GenericWriter writer)
-        {
-            base.Serialize(writer);
+		public override void Serialize(GenericWriter writer)
+		{
+			base.Serialize(writer);
 
-            writer.Write((int)0);
-        }
+			writer.Write(0);
+		}
 
-        public override void Deserialize(GenericReader reader)
-        {
-            base.Deserialize(reader);
+		public override void Deserialize(GenericReader reader)
+		{
+			base.Deserialize(reader);
 
-            int version = reader.ReadInt();
-        }
-    }
+			int version = reader.ReadInt();
+		}
+	}
 }

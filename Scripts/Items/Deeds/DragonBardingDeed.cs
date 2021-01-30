@@ -1,7 +1,7 @@
-using System;
 using Server.Engines.Craft;
 using Server.Mobiles;
 using Server.Targeting;
+using System;
 namespace Server.Items
 {
 	[TypeAlias("Server.Items.DragonBarding")]
@@ -87,10 +87,10 @@ namespace Server.Items
 		{
 			base.Serialize(writer);
 
-			writer.Write((int)0); // version
+			writer.Write(0); // version
 
-			writer.Write((bool)m_Exceptional);
-			writer.Write((Mobile)m_Crafter);
+			writer.Write(m_Exceptional);
+			writer.Write(m_Crafter);
 			writer.Write((int)m_Resource);
 		}
 

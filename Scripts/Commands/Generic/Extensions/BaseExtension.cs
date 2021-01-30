@@ -8,7 +8,7 @@ namespace Server.Commands.Generic
 
 	public sealed class ExtensionInfo
 	{
-		private static Dictionary<string, ExtensionInfo> m_Table = new Dictionary<string, ExtensionInfo>(StringComparer.InvariantCultureIgnoreCase);
+		private static readonly Dictionary<string, ExtensionInfo> m_Table = new Dictionary<string, ExtensionInfo>(StringComparer.InvariantCultureIgnoreCase);
 
 		public static Dictionary<string, ExtensionInfo> Table
 		{
@@ -20,12 +20,12 @@ namespace Server.Commands.Generic
 			m_Table[ext.m_Name] = ext;
 		}
 
-		private int m_Order;
+		private readonly int m_Order;
 
-		private string m_Name;
-		private int m_Size;
+		private readonly string m_Name;
+		private readonly int m_Size;
 
-		private ExtensionConstructor m_Constructor;
+		private readonly ExtensionConstructor m_Constructor;
 
 		public int Order
 		{
@@ -96,9 +96,8 @@ namespace Server.Commands.Generic
 
 			for (int i = args.Length - 1; i >= 0; --i)
 			{
-				ExtensionInfo extInfo = null;
 
-				if (!ExtensionInfo.Table.TryGetValue(args[i], out extInfo))
+				if (!ExtensionInfo.Table.TryGetValue(args[i], out ExtensionInfo extInfo))
 					continue;
 
 				if (extInfo.IsFixedSize && i != (size - extInfo.Size - 1))

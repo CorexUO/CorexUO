@@ -1,16 +1,16 @@
-using System;
 using Server.Items;
+using System;
 
 namespace Server.Engines.Craft
 {
 	public abstract class CustomCraft
 	{
-		private Mobile m_From;
-		private CraftItem m_CraftItem;
-		private CraftSystem m_CraftSystem;
-		private Type m_TypeRes;
-		private BaseTool m_Tool;
-		private ItemQuality m_Quality;
+		private readonly Mobile m_From;
+		private readonly CraftItem m_CraftItem;
+		private readonly CraftSystem m_CraftSystem;
+		private readonly Type m_TypeRes;
+		private readonly BaseTool m_Tool;
+		private readonly ItemQuality m_Quality;
 
 		public Mobile From { get { return m_From; } }
 		public CraftItem CraftItem { get { return m_CraftItem; } }

@@ -1,8 +1,8 @@
-using System;
-using System.Collections;
 using Server.Network;
 using Server.Spells;
 using Server.Targeting;
+using System;
+using System.Collections;
 
 namespace Server.Items
 {
@@ -114,10 +114,10 @@ namespace Server.Items
 		{
 			base.Serialize(writer);
 
-			writer.Write((int)0); // version
+			writer.Write(0); // version
 
 			writer.Write((int)m_WandEffect);
-			writer.Write((int)m_Charges);
+			writer.Write(m_Charges);
 		}
 
 		public override void Deserialize(GenericReader reader)
@@ -131,7 +131,7 @@ namespace Server.Items
 				case 0:
 					{
 						m_WandEffect = (WandEffect)reader.ReadInt();
-						m_Charges = (int)reader.ReadInt();
+						m_Charges = reader.ReadInt();
 
 						break;
 					}

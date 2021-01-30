@@ -78,9 +78,9 @@ namespace Server.Items
 		{
 			base.Serialize(writer);
 
-			writer.Write((int)0); // version
+			writer.Write(0); // version
 
-			writer.Write((string)m_PlayerName);
+			writer.Write(m_PlayerName);
 			writer.WriteEncodedInt((int)m_HeadType);
 		}
 

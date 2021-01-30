@@ -1,12 +1,12 @@
+using Server.Items;
 using System;
 using System.Collections.Generic;
-using Server.Items;
 
 namespace Server.Mobiles
 {
 	public class GenericSellInfo : IShopSellInfo
 	{
-		private Dictionary<Type, int> m_Table = new Dictionary<Type, int>();
+		private readonly Dictionary<Type, int> m_Table = new Dictionary<Type, int>();
 		private Type[] m_Types;
 
 		public GenericSellInfo()
@@ -21,8 +21,7 @@ namespace Server.Mobiles
 
 		public int GetSellPriceFor(Item item)
 		{
-			int price = 0;
-			m_Table.TryGetValue(item.GetType(), out price);
+			m_Table.TryGetValue(item.GetType(), out int price);
 
 			if (item is BaseArmor)
 			{

@@ -1,9 +1,9 @@
-using System;
-using System.Collections.Generic;
 using Server.Engines.MLQuests.Objectives;
 using Server.Engines.MLQuests.Rewards;
 using Server.Gumps;
 using Server.Mobiles;
+using System;
+using System.Collections.Generic;
 
 namespace Server.Engines.MLQuests.Gumps
 {
@@ -30,9 +30,9 @@ namespace Server.Engines.MLQuests.Gumps
 	{
 		private struct ButtonInfo
 		{
-			private ButtonPosition m_Position;
-			private ButtonGraphic m_Graphic;
-			private int m_ButtonID;
+			private readonly ButtonPosition m_Position;
+			private readonly ButtonGraphic m_Graphic;
+			private readonly int m_ButtonID;
 
 			public ButtonPosition Position { get { return m_Position; } }
 			public ButtonGraphic Graphic { get { return m_Graphic; } }
@@ -48,9 +48,9 @@ namespace Server.Engines.MLQuests.Gumps
 
 		private int m_Page;
 		private int m_MaxPages;
-		private int m_Label;
+		private readonly int m_Label;
 		private string m_Title;
-		private List<ButtonInfo> m_Buttons;
+		private readonly List<ButtonInfo> m_Buttons;
 
 #if false
 		// OSI clone, inefficient layout

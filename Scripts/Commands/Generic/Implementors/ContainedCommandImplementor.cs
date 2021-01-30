@@ -1,7 +1,7 @@
-using System;
-using System.Collections;
 using Server.Items;
 using Server.Targeting;
+using System;
+using System.Collections;
 
 namespace Server.Commands.Generic
 {
@@ -47,9 +47,8 @@ namespace Server.Commands.Generic
 				{
 					Extensions ext = Extensions.Parse(from, ref args);
 
-					bool items, mobiles;
 
-					if (!CheckObjectTypes(from, command, ext, out items, out mobiles))
+					if (!CheckObjectTypes(from, command, ext, out bool items, out bool mobiles))
 						return;
 
 					if (!items)

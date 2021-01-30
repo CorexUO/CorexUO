@@ -1,6 +1,3 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using Server.Commands;
 using Server.Engines.PartySystem;
 using Server.Factions;
@@ -15,6 +12,9 @@ using Server.Spells.Necromancy;
 using Server.Spells.Ninjitsu;
 using Server.Spells.Seventh;
 using Server.Spells.Spellweaving;
+using System;
+using System.Collections;
+using System.Collections.Generic;
 
 namespace Server.Engines.ConPVP
 {
@@ -22,8 +22,8 @@ namespace Server.Engines.ConPVP
 
 	public class DuelContext
 	{
-		private Mobile m_Initiator;
-		private ArrayList m_Participants;
+		private readonly Mobile m_Initiator;
+		private readonly ArrayList m_Participants;
 		private Ruleset m_Ruleset;
 		private Arena m_Arena;
 		private bool m_Registered = true;
@@ -773,7 +773,7 @@ namespace Server.Engines.ConPVP
 
 				for (int j = 0; j < p.Players.Length; ++j)
 				{
-					DuelPlayer pl = (DuelPlayer)p.Players[j];
+					DuelPlayer pl = p.Players[j];
 
 					if (pl == null)
 						continue;
@@ -1150,8 +1150,8 @@ namespace Server.Engines.ConPVP
 			}
 		}
 
-		private static TimeSpan CombatDelay = TimeSpan.FromSeconds(30.0);
-		private static TimeSpan AutoTieDelay = TimeSpan.FromMinutes(15.0);
+		private static readonly TimeSpan CombatDelay = TimeSpan.FromSeconds(30.0);
+		private static readonly TimeSpan AutoTieDelay = TimeSpan.FromMinutes(15.0);
 
 		public static bool CheckCombat(Mobile m)
 		{
@@ -1761,7 +1761,7 @@ namespace Server.Engines.ConPVP
 			{
 				base.Serialize(writer);
 
-				writer.Write((int)0);
+				writer.Write(0);
 			}
 
 			public override void Deserialize(GenericReader reader)
@@ -1774,7 +1774,7 @@ namespace Server.Engines.ConPVP
 			}
 		}
 
-		private ArrayList m_Walls = new ArrayList();
+		private readonly ArrayList m_Walls = new ArrayList();
 
 		public void DestroyWall()
 		{
@@ -2068,11 +2068,11 @@ namespace Server.Engines.ConPVP
 			}
 		}
 
-		private ArrayList m_Entered = new ArrayList();
+		private readonly ArrayList m_Entered = new ArrayList();
 
 		private class ReturnEntry
 		{
-			private Mobile m_Mobile;
+			private readonly Mobile m_Mobile;
 			private Point3D m_Location;
 			private Map m_Facet;
 			private DateTime m_Expire;
@@ -2210,17 +2210,17 @@ namespace Server.Engines.ConPVP
 			{
 				base.Serialize(writer);
 
-				writer.Write((int)0);
+				writer.Write(0);
 
-				writer.WriteEncodedInt((int)m_Entries.Count);
+				writer.WriteEncodedInt(m_Entries.Count);
 
 				for (int i = 0; i < m_Entries.Count; ++i)
 				{
 					ReturnEntry entry = (ReturnEntry)m_Entries[i];
 
-					writer.Write((Mobile)entry.Mobile);
-					writer.Write((Point3D)entry.Location);
-					writer.Write((Map)entry.Facet);
+					writer.Write(entry.Mobile);
+					writer.Write(entry.Location);
+					writer.Write(entry.Facet);
 
 					if (entry.Expired)
 						m_Entries.RemoveAt(i--);
@@ -2258,7 +2258,7 @@ namespace Server.Engines.ConPVP
 
 		private class ArenaMoongate : ConfirmationMoongate
 		{
-			private ExitTeleporter m_Teleporter;
+			private readonly ExitTeleporter m_Teleporter;
 
 			public override string DefaultName
 			{
@@ -2323,7 +2323,7 @@ namespace Server.Engines.ConPVP
 			{
 				base.Serialize(writer);
 
-				writer.Write((int)0);
+				writer.Write(0);
 			}
 
 			public override void Deserialize(GenericReader reader)
@@ -2344,7 +2344,7 @@ namespace Server.Engines.ConPVP
 
 				for (int j = 0; j < p.Players.Length; ++j)
 				{
-					DuelPlayer dp = (DuelPlayer)p.Players[j];
+					DuelPlayer dp = p.Players[j];
 
 					if (dp == null || dp.Mobile == mob)
 						continue;

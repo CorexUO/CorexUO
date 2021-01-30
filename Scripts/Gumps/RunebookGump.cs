@@ -1,17 +1,17 @@
-using System;
-using System.Collections.Generic;
 using Server.Items;
 using Server.Network;
 using Server.Prompts;
 using Server.Spells.Chivalry;
 using Server.Spells.Fourth;
 using Server.Spells.Seventh;
+using System;
+using System.Collections.Generic;
 
 namespace Server.Gumps
 {
 	public class RunebookGump : Gump
 	{
-		private Runebook m_Book;
+		private readonly Runebook m_Book;
 
 		public Runebook Book { get { return m_Book; } }
 
@@ -126,7 +126,7 @@ namespace Server.Gumps
 
 			if (index < m_Book.Entries.Count)
 			{
-				RunebookEntry e = (RunebookEntry)m_Book.Entries[index];
+				RunebookEntry e = m_Book.Entries[index];
 
 				desc = GetName(e.Description);
 				hue = GetMapHue(e.Map);
@@ -212,7 +212,7 @@ namespace Server.Gumps
 
 		private class InternalPrompt : Prompt
 		{
-			private Runebook m_Book;
+			private readonly Runebook m_Book;
 
 			public InternalPrompt(Runebook book)
 			{
@@ -288,7 +288,7 @@ namespace Server.Gumps
 
 				if (index >= 0 && index < m_Book.Entries.Count)
 				{
-					RunebookEntry e = (RunebookEntry)m_Book.Entries[index];
+					RunebookEntry e = m_Book.Entries[index];
 
 					switch (type)
 					{

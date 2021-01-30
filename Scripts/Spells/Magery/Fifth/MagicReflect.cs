@@ -5,7 +5,7 @@ namespace Server.Spells.Fifth
 {
 	public class MagicReflectSpell : MagerySpell
 	{
-		private static SpellInfo m_Info = new SpellInfo(
+		private static readonly SpellInfo m_Info = new SpellInfo(
 				"Magic Reflection", "In Jux Sanct",
 				242,
 				9012,
@@ -40,7 +40,7 @@ namespace Server.Spells.Fifth
 			return true;
 		}
 
-		private static Hashtable m_Table = new Hashtable();
+		private static readonly Hashtable m_Table = new Hashtable();
 
 		public override void OnCast()
 		{

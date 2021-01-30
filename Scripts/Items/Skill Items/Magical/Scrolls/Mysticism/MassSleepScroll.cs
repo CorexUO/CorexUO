@@ -1,37 +1,37 @@
 namespace Server.Items
 {
-    public class MassSleepScroll : SpellScroll
-    {
-        [Constructable]
-        public MassSleepScroll()
-            : this(1)
-        {
-        }
+	public class MassSleepScroll : SpellScroll
+	{
+		[Constructable]
+		public MassSleepScroll()
+			: this(1)
+		{
+		}
 
-        [Constructable]
-        public MassSleepScroll(int amount)
-            : base(686, 0x2DA7, amount)
-        {
-        }
+		[Constructable]
+		public MassSleepScroll(int amount)
+			: base(686, 0x2DA7, amount)
+		{
+		}
 
-        public MassSleepScroll(Serial serial)
-            : base(serial)
-        {
-        }
+		public MassSleepScroll(Serial serial)
+			: base(serial)
+		{
+		}
 
-        public override void Serialize(GenericWriter writer)
-        {
-            base.Serialize(writer);
+		public override void Serialize(GenericWriter writer)
+		{
+			base.Serialize(writer);
 
-            writer.Write((int)0); // version
-        }
+			writer.Write(0); // version
+		}
 
-        public override void Deserialize(GenericReader reader)
-        {
-            base.Deserialize(reader);
+		public override void Deserialize(GenericReader reader)
+		{
+			base.Deserialize(reader);
 
-            /*int version = */
-            reader.ReadInt();
-        }
-    }
+			/*int version = */
+			reader.ReadInt();
+		}
+	}
 }

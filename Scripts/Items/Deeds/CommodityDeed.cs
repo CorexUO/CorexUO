@@ -1,5 +1,5 @@
-using System;
 using Server.Targeting;
+using System;
 
 namespace Server.Items
 {
@@ -44,7 +44,7 @@ namespace Server.Items
 		{
 			base.Serialize(writer);
 
-			writer.Write((int)0); // version
+			writer.Write(0); // version
 
 			writer.Write(m_Commodity);
 		}
@@ -197,7 +197,7 @@ namespace Server.Items
 
 		private class InternalTarget : Target
 		{
-			private CommodityDeed m_Deed;
+			private readonly CommodityDeed m_Deed;
 
 			public InternalTarget(CommodityDeed deed) : base(3, false, TargetFlags.None)
 			{

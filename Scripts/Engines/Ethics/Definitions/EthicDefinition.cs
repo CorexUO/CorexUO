@@ -2,14 +2,14 @@ namespace Server.Ethics
 {
 	public class EthicDefinition
 	{
-		private int m_PrimaryHue;
+		private readonly int m_PrimaryHue;
 
-		private TextDefinition m_Title;
-		private TextDefinition m_Adjunct;
+		private readonly TextDefinition m_Title;
+		private readonly TextDefinition m_Adjunct;
 
-		private TextDefinition m_JoinPhrase;
+		private readonly TextDefinition m_JoinPhrase;
 
-		private Power[] m_Powers;
+		private readonly Power[] m_Powers;
 
 		public int PrimaryHue { get { return m_PrimaryHue; } }
 

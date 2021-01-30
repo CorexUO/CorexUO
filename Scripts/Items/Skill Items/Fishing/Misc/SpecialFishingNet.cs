@@ -1,8 +1,8 @@
-using System;
 using Server.Mobiles;
 using Server.Multis;
 using Server.Spells;
 using Server.Targeting;
+using System;
 
 namespace Server.Items
 {
@@ -30,7 +30,7 @@ namespace Server.Items
 				Hue = 0x8A0;
 		}
 
-		private static int[] m_Hues = new int[]
+		private static readonly int[] m_Hues = new int[]
 			{
 				0x09B,
 				0x0CD,
@@ -69,7 +69,7 @@ namespace Server.Items
 		{
 			base.Serialize(writer);
 
-			writer.Write((int)0); // version
+			writer.Write(0); // version
 
 			writer.Write(m_InUse);
 		}
@@ -314,7 +314,7 @@ namespace Server.Items
 			return valid;
 		}
 
-		private static int[] m_WaterTiles = new int[]
+		private static readonly int[] m_WaterTiles = new int[]
 			{
 				0x00A8, 0x00AB,
 				0x0136, 0x0137
@@ -331,7 +331,7 @@ namespace Server.Items
 			return water;
 		}
 
-		private static int[] m_UndeepWaterTiles = new int[]
+		private static readonly int[] m_UndeepWaterTiles = new int[]
 			{
 				0x1797, 0x179C
 			};
@@ -395,7 +395,7 @@ namespace Server.Items
 		{
 			base.Serialize(writer);
 
-			writer.Write((int)0); // version
+			writer.Write(0); // version
 		}
 
 		public override void Deserialize(GenericReader reader)

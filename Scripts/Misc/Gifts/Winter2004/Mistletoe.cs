@@ -1,8 +1,8 @@
-using System;
 using Server.Gumps;
 using Server.Multis;
 using Server.Network;
 using Server.Targeting;
+using System;
 
 namespace Server.Items
 {
@@ -39,7 +39,7 @@ namespace Server.Items
 		{
 			base.Serialize(writer);
 
-			writer.Write((int)0); // version
+			writer.Write(0); // version
 		}
 
 		public override void Deserialize(GenericReader reader)
@@ -125,8 +125,8 @@ namespace Server.Items
 
 		private class MistletoeAddonGump : Gump
 		{
-			private Mobile m_From;
-			private MistletoeAddon m_Addon;
+			private readonly Mobile m_From;
+			private readonly MistletoeAddon m_Addon;
 
 			public MistletoeAddonGump(Mobile from, MistletoeAddon addon) : base(150, 50)
 			{
@@ -191,7 +191,7 @@ namespace Server.Items
 		{
 			base.Serialize(writer);
 
-			writer.Write((int)0); // version
+			writer.Write(0); // version
 		}
 
 		public override void Deserialize(GenericReader reader)
@@ -300,9 +300,9 @@ namespace Server.Items
 
 		private class MistletoeDeedGump : Gump
 		{
-			private Mobile m_From;
+			private readonly Mobile m_From;
 			private Point3D m_Loc;
-			private MistletoeDeed m_Deed;
+			private readonly MistletoeDeed m_Deed;
 
 			public MistletoeDeedGump(Mobile from, Point3D loc, MistletoeDeed deed) : base(150, 50)
 			{

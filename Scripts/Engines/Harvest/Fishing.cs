@@ -1,10 +1,10 @@
-using System;
-using System.Collections.Generic;
 using Server.Engines.Quests;
 using Server.Engines.Quests.Collector;
 using Server.Items;
 using Server.Mobiles;
 using Server.Network;
+using System;
+using System.Collections.Generic;
 
 namespace Server.Engines.Harvest
 {
@@ -23,7 +23,7 @@ namespace Server.Engines.Harvest
 			}
 		}
 
-		private HarvestDefinition m_Definition;
+		private readonly HarvestDefinition m_Definition;
 
 		public HarvestDefinition Definition
 		{
@@ -126,7 +126,7 @@ namespace Server.Engines.Harvest
 			}
 		}
 
-		private static MutateEntry[] m_MutateTable = new MutateEntry[]
+		private static readonly MutateEntry[] m_MutateTable = new MutateEntry[]
 			{
 				new MutateEntry(  80.0,  80.0,  4080.0,  true, typeof( SpecialFishingNet ) ),
 				new MutateEntry(  80.0,  80.0,  4080.0,  true, typeof( BigFish ) ),
@@ -490,11 +490,8 @@ namespace Server.Engines.Harvest
 		{
 			base.OnHarvestStarted(from, tool, def, toHarvest);
 
-			int tileID;
-			Map map;
-			Point3D loc;
 
-			if (GetHarvestDetails(from, tool, toHarvest, out tileID, out map, out loc))
+			if (GetHarvestDetails(from, tool, toHarvest, out int tileID, out Map map, out Point3D loc))
 				Timer.DelayCall(TimeSpan.FromSeconds(1.5),
 					delegate
 					{
@@ -556,7 +553,7 @@ namespace Server.Engines.Harvest
 			return true;
 		}
 
-		private static int[] m_WaterTiles = new int[]
+		private static readonly int[] m_WaterTiles = new int[]
 			{
 				0x00A8, 0x00AB,
 				0x0136, 0x0137,

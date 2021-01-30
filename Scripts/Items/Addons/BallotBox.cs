@@ -1,9 +1,9 @@
-using System;
-using System.Collections.Generic;
 using Server.Gumps;
 using Server.Multis;
 using Server.Network;
 using Server.Prompts;
+using System;
+using System.Collections.Generic;
 
 namespace Server.Items
 {
@@ -106,7 +106,7 @@ namespace Server.Items
 
 		private class InternalGump : Gump
 		{
-			private BallotBox m_Box;
+			private readonly BallotBox m_Box;
 
 			public InternalGump(BallotBox box, bool isOwner) : base(110, 70)
 			{
@@ -251,7 +251,7 @@ namespace Server.Items
 
 		private class TopicPrompt : Prompt
 		{
-			private BallotBox m_Box;
+			private readonly BallotBox m_Box;
 
 			public TopicPrompt(BallotBox box)
 			{
@@ -308,7 +308,7 @@ namespace Server.Items
 			writer.WriteEncodedInt(m_Topic.Length);
 
 			for (int i = 0; i < m_Topic.Length; i++)
-				writer.Write((string)m_Topic[i]);
+				writer.Write(m_Topic[i]);
 
 			writer.Write(m_Yes, true);
 			writer.Write(m_No, true);

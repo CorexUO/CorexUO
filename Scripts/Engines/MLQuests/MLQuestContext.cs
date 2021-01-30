@@ -1,6 +1,6 @@
+using Server.Mobiles;
 using System;
 using System.Collections.Generic;
-using Server.Mobiles;
 
 namespace Server.Engines.MLQuests
 {
@@ -46,10 +46,10 @@ namespace Server.Engines.MLQuests
 			}
 		}
 
-		private PlayerMobile m_Owner;
-		private List<MLQuestInstance> m_QuestInstances;
-		private List<MLDoneQuestInfo> m_DoneQuests;
-		private List<MLQuest> m_ChainOffers;
+		private readonly PlayerMobile m_Owner;
+		private readonly List<MLQuestInstance> m_QuestInstances;
+		private readonly List<MLDoneQuestInfo> m_DoneQuests;
+		private readonly List<MLQuest> m_ChainOffers;
 		private MLQuestFlag m_Flags;
 
 		public PlayerMobile Owner

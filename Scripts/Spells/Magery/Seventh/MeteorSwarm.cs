@@ -1,11 +1,11 @@
-using System.Collections.Generic;
 using Server.Targeting;
+using System.Collections.Generic;
 
 namespace Server.Spells.Seventh
 {
 	public class MeteorSwarmSpell : MagerySpell
 	{
-		private static SpellInfo m_Info = new SpellInfo(
+		private static readonly SpellInfo m_Info = new SpellInfo(
 				"Meteor Swarm", "Flam Kal Des Ylem",
 				233,
 				9042,
@@ -122,7 +122,7 @@ namespace Server.Spells.Seventh
 
 		private class InternalTarget : Target
 		{
-			private MeteorSwarmSpell m_Owner;
+			private readonly MeteorSwarmSpell m_Owner;
 
 			public InternalTarget(MeteorSwarmSpell owner) : base(owner.SpellRange, true, TargetFlags.None)
 			{

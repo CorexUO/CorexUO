@@ -1,31 +1,31 @@
 namespace Server.Items
 {
-    public class DecoPumice : BaseItem
-    {
+	public class DecoPumice : BaseItem
+	{
 
-        [Constructable]
-        public DecoPumice() : base(0xF8B)
-        {
-            Movable = true;
-            Stackable = false;
-        }
+		[Constructable]
+		public DecoPumice() : base(0xF8B)
+		{
+			Movable = true;
+			Stackable = false;
+		}
 
-        public DecoPumice(Serial serial) : base(serial)
-        {
-        }
+		public DecoPumice(Serial serial) : base(serial)
+		{
+		}
 
-        public override void Serialize(GenericWriter writer)
-        {
-            base.Serialize(writer);
+		public override void Serialize(GenericWriter writer)
+		{
+			base.Serialize(writer);
 
-            writer.Write((int)0);
-        }
+			writer.Write(0);
+		}
 
-        public override void Deserialize(GenericReader reader)
-        {
-            base.Deserialize(reader);
+		public override void Deserialize(GenericReader reader)
+		{
+			base.Deserialize(reader);
 
-            int version = reader.ReadInt();
-        }
-    }
+			int version = reader.ReadInt();
+		}
+	}
 }

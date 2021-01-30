@@ -1,6 +1,6 @@
-using System;
 using Server.Items;
 using Server.Targeting;
+using System;
 
 namespace Server.Engines.Craft
 {
@@ -286,10 +286,10 @@ namespace Server.Engines.Craft
 
 		private class InternalTarget : Target
 		{
-			private CraftSystem m_CraftSystem;
-			private BaseTool m_Tool;
-			private Type m_ResourceType;
-			private CraftResource m_Resource;
+			private readonly CraftSystem m_CraftSystem;
+			private readonly BaseTool m_Tool;
+			private readonly Type m_ResourceType;
+			private readonly CraftResource m_Resource;
 
 			public InternalTarget(CraftSystem craftSystem, BaseTool tool, Type resourceType, CraftResource resource) : base(2, false, TargetFlags.None)
 			{

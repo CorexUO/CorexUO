@@ -1,8 +1,3 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Net;
-using System.Text;
 using Server.Accounting;
 using Server.Commands;
 using Server.Items;
@@ -10,6 +5,11 @@ using Server.Misc;
 using Server.Multis;
 using Server.Network;
 using Server.Prompts;
+using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.Net;
+using System.Text;
 
 namespace Server.Gumps
 {
@@ -43,11 +43,11 @@ namespace Server.Gumps
 
 	public class AdminGump : Gump
 	{
-		private Mobile m_From;
-		private AdminGumpPage m_PageType;
-		private ArrayList m_List;
-		private int m_ListPage;
-		private object m_State;
+		private readonly Mobile m_From;
+		private readonly AdminGumpPage m_PageType;
+		private readonly ArrayList m_List;
+		private readonly int m_ListPage;
+		private readonly object m_State;
 
 		private const int LabelColor = 0x7FFF;
 		private const int SelectedColor = 0x421F;
@@ -161,7 +161,7 @@ namespace Server.Gumps
 			}
 		}
 
-		private static string[] m_AccessLevelStrings = new string[]
+		private static readonly string[] m_AccessLevelStrings = new string[]
 			{
 				"Player",
 				"Counselor",
@@ -293,11 +293,9 @@ namespace Server.Gumps
 
 						StringBuilder sb = new StringBuilder();
 
-						int curUser, maxUser;
-						int curIOCP, maxIOCP;
 
-						System.Threading.ThreadPool.GetAvailableThreads(out curUser, out curIOCP);
-						System.Threading.ThreadPool.GetMaxThreads(out maxUser, out maxIOCP);
+						System.Threading.ThreadPool.GetAvailableThreads(out int curUser, out int curIOCP);
+						System.Threading.ThreadPool.GetMaxThreads(out int maxUser, out int maxIOCP);
 
 						sb.Append("Worker Threads:<br>Capacity: ");
 						sb.Append(maxUser);
@@ -320,14 +318,8 @@ namespace Server.Gumps
 							for (int i = 0; i < pools.Count; ++i)
 							{
 								BufferPool pool = pools[i];
-								string name;
-								int freeCount;
-								int initialCapacity;
-								int currentCapacity;
-								int bufferSize;
-								int misses;
 
-								pool.GetInfo(out name, out freeCount, out initialCapacity, out currentCapacity, out bufferSize, out misses);
+								pool.GetInfo(out string name, out int freeCount, out int initialCapacity, out int currentCapacity, out int bufferSize, out int misses);
 
 								if (sb.Length > 0)
 									sb.Append("<br><br>");
@@ -770,10 +762,8 @@ namespace Server.Gumps
 
 							int offset = 140 + (i * 20);
 
-							AccessLevel accessLevel;
-							bool online;
 
-							GetAccountInfo(a, out accessLevel, out online);
+							GetAccountInfo(a, out AccessLevel accessLevel, out bool online);
 
 							if (rads == null)
 							{
@@ -891,10 +881,8 @@ namespace Server.Gumps
 						AddLabel(20, 190, LabelHue, "Status:");
 						AddLabel(200, 190, a.Banned ? RedHue : GreenHue, a.Banned ? "Banned" : "Active");
 
-						DateTime banTime;
-						TimeSpan banDuration;
 
-						if (a.Banned && a.GetBanTags(out banTime, out banDuration))
+						if (a.Banned && a.GetBanTags(out DateTime banTime, out TimeSpan banDuration))
 						{
 							if (banDuration == TimeSpan.MaxValue)
 							{
@@ -1255,10 +1243,8 @@ namespace Server.Gumps
 
 							int offset = 200 + (i * 20);
 
-							AccessLevel accessLevel;
-							bool online;
 
-							GetAccountInfo(a, out accessLevel, out online);
+							GetAccountInfo(a, out AccessLevel accessLevel, out bool online);
 
 							AddLabelCropped(12, offset, 120, 20, LabelHue, a.Username);
 							AddLabelCropped(132, offset, 120, 20, LabelHue, FormatAccessLevel(accessLevel));
@@ -2474,7 +2460,7 @@ namespace Server.Gumps
 
 												hasHouse = true;
 											}
-												hasHouse = true;
+										hasHouse = true;
 
 										if (!hasHouse)
 											newRads.Add(acct);
@@ -2899,7 +2885,7 @@ namespace Server.Gumps
 
 		private class AddCommentPrompt : Prompt
 		{
-			private Account m_Account;
+			private readonly Account m_Account;
 
 			public AddCommentPrompt(Account acct)
 			{
@@ -2923,7 +2909,7 @@ namespace Server.Gumps
 
 		private class AddTagNamePrompt : Prompt
 		{
-			private Account m_Account;
+			private readonly Account m_Account;
 
 			public AddTagNamePrompt(Account acct)
 			{
@@ -2944,8 +2930,8 @@ namespace Server.Gumps
 
 		private class AddTagValuePrompt : Prompt
 		{
-			private Account m_Account;
-			private string m_Name;
+			private readonly Account m_Account;
+			private readonly string m_Name;
 
 			public AddTagValuePrompt(Account acct, string name)
 			{
@@ -3033,11 +3019,9 @@ namespace Server.Gumps
 				if (a == null || b == null)
 					throw new ArgumentException();
 
-				AccessLevel aLevel, bLevel;
-				bool aOnline, bOnline;
 
-				GetAccountInfo(a, out aLevel, out aOnline);
-				GetAccountInfo(b, out bLevel, out bOnline);
+				GetAccountInfo(a, out AccessLevel aLevel, out bool aOnline);
+				GetAccountInfo(b, out AccessLevel bLevel, out bool bOnline);
 
 				if (aOnline && !bOnline)
 					return -1;

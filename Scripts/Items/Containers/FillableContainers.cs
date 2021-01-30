@@ -1,7 +1,7 @@
+using Server.Mobiles;
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using Server.Mobiles;
 
 namespace Server.Items
 {
@@ -230,7 +230,7 @@ namespace Server.Items
 			if (m_RespawnTimer != null)
 			{
 				writer.Write(true);
-				writer.WriteDeltaTime((DateTime)m_NextRespawnTime);
+				writer.WriteDeltaTime(m_NextRespawnTime);
 			}
 			else
 			{
@@ -306,7 +306,7 @@ namespace Server.Items
 		{
 			base.Serialize(writer);
 
-			writer.WriteEncodedInt((int)0); // version
+			writer.WriteEncodedInt(0); // version
 		}
 
 		public override void Deserialize(GenericReader reader)
@@ -336,7 +336,7 @@ namespace Server.Items
 		{
 			base.Serialize(writer);
 
-			writer.WriteEncodedInt((int)0); // version
+			writer.WriteEncodedInt(0); // version
 		}
 
 		public override void Deserialize(GenericReader reader)
@@ -366,7 +366,7 @@ namespace Server.Items
 		{
 			base.Serialize(writer);
 
-			writer.WriteEncodedInt((int)0); // version
+			writer.WriteEncodedInt(0); // version
 		}
 
 		public override void Deserialize(GenericReader reader)
@@ -396,7 +396,7 @@ namespace Server.Items
 		{
 			base.Serialize(writer);
 
-			writer.Write((int)0); // version
+			writer.Write(0); // version
 		}
 
 		public override void Deserialize(GenericReader reader)
@@ -425,7 +425,7 @@ namespace Server.Items
 		{
 			base.Serialize(writer);
 
-			writer.WriteEncodedInt((int)0); // version
+			writer.WriteEncodedInt(0); // version
 		}
 
 		public override void Deserialize(GenericReader reader)
@@ -458,7 +458,7 @@ namespace Server.Items
 		{
 			base.Serialize(writer);
 
-			writer.WriteEncodedInt((int)0); // version
+			writer.WriteEncodedInt(0); // version
 		}
 
 		public override void Deserialize(GenericReader reader)
@@ -487,7 +487,7 @@ namespace Server.Items
 		{
 			base.Serialize(writer);
 
-			writer.Write((int)0); // version
+			writer.Write(0); // version
 		}
 
 		public override void Deserialize(GenericReader reader)
@@ -516,7 +516,7 @@ namespace Server.Items
 		{
 			base.Serialize(writer);
 
-			writer.Write((int)0); // version
+			writer.Write(0); // version
 		}
 
 		public override void Deserialize(GenericReader reader)
@@ -545,7 +545,7 @@ namespace Server.Items
 		{
 			base.Serialize(writer);
 
-			writer.Write((int)0); // version
+			writer.Write(0); // version
 		}
 
 		public override void Deserialize(GenericReader reader)
@@ -611,7 +611,7 @@ namespace Server.Items
 
 	public class FillableBvrge : FillableEntry
 	{
-		private BeverageType m_Content;
+		private readonly BeverageType m_Content;
 
 		public BeverageType Content { get { return m_Content; } }
 
@@ -676,11 +676,11 @@ namespace Server.Items
 
 	public class FillableContent
 	{
-		private int m_Level;
-		private Type[] m_Vendors;
+		private readonly int m_Level;
+		private readonly Type[] m_Vendors;
 
-		private FillableEntry[] m_Entries;
-		private int m_Weight;
+		private readonly FillableEntry[] m_Entries;
+		private readonly int m_Weight;
 
 		public int Level { get { return m_Level; } }
 		public Type[] Vendors { get { return m_Vendors; } }
@@ -1454,7 +1454,7 @@ namespace Server.Items
 
 		private static Hashtable m_AcquireTable;
 
-		private static FillableContent[] m_ContentTypes = new FillableContent[]
+		private static readonly FillableContent[] m_ContentTypes = new FillableContent[]
 			{
 				Weaponsmith,    Provisioner,    Mage,
 				Alchemist,      Armorer,        ArtisanGuild,

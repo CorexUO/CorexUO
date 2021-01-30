@@ -5,76 +5,76 @@ using Server.Network;
 
 namespace Server.Items
 {
-    public enum MonsterStatuetteType
-    {
-        Crocodile,
-        Daemon,
-        Dragon,
-        EarthElemental,
-        Ettin,
-        Gargoyle,
-        Gorilla,
-        Lich,
-        Lizardman,
-        Ogre,
-        Orc,
-        Ratman,
-        Skeleton,
-        Troll,
-        Cow,
-        Zombie,
-        Llama,
-        Ophidian,
-        Reaper,
-        Mongbat,
-        Gazer,
-        FireElemental,
-        Wolf,
-        PhillipsWoodenSteed,
-        Seahorse,
-        Harrower,
-        Efreet,
-        Slime,
-        PlagueBeast,
-        RedDeath,
-        Spider,
-        OphidianArchMage,
-        OphidianWarrior,
-        OphidianKnight,
-        OphidianMage,
-        DreadHorn,
-        Minotaur,
-        BlackCat,
-        HalloweenGhoul,
-        Santa
-    }
+	public enum MonsterStatuetteType
+	{
+		Crocodile,
+		Daemon,
+		Dragon,
+		EarthElemental,
+		Ettin,
+		Gargoyle,
+		Gorilla,
+		Lich,
+		Lizardman,
+		Ogre,
+		Orc,
+		Ratman,
+		Skeleton,
+		Troll,
+		Cow,
+		Zombie,
+		Llama,
+		Ophidian,
+		Reaper,
+		Mongbat,
+		Gazer,
+		FireElemental,
+		Wolf,
+		PhillipsWoodenSteed,
+		Seahorse,
+		Harrower,
+		Efreet,
+		Slime,
+		PlagueBeast,
+		RedDeath,
+		Spider,
+		OphidianArchMage,
+		OphidianWarrior,
+		OphidianKnight,
+		OphidianMage,
+		DreadHorn,
+		Minotaur,
+		BlackCat,
+		HalloweenGhoul,
+		Santa
+	}
 
-    public class MonsterStatuetteInfo
-    {
-        private int m_LabelNumber;
-        private int m_ItemID;
-        private int[] m_Sounds;
+	public class MonsterStatuetteInfo
+	{
+		private readonly int m_LabelNumber;
+		private readonly int m_ItemID;
+		private readonly int[] m_Sounds;
 
-        public int LabelNumber { get { return m_LabelNumber; } }
-        public int ItemID { get { return m_ItemID; } }
-        public int[] Sounds { get { return m_Sounds; } }
+		public int LabelNumber { get { return m_LabelNumber; } }
+		public int ItemID { get { return m_ItemID; } }
+		public int[] Sounds { get { return m_Sounds; } }
 
-        public MonsterStatuetteInfo(int labelNumber, int itemID, int baseSoundID)
-        {
-            m_LabelNumber = labelNumber;
-            m_ItemID = itemID;
-            m_Sounds = new int[] { baseSoundID, baseSoundID + 1, baseSoundID + 2, baseSoundID + 3, baseSoundID + 4 };
-        }
+		public MonsterStatuetteInfo(int labelNumber, int itemID, int baseSoundID)
+		{
+			m_LabelNumber = labelNumber;
+			m_ItemID = itemID;
+			m_Sounds = new int[] { baseSoundID, baseSoundID + 1, baseSoundID + 2, baseSoundID + 3, baseSoundID + 4 };
+		}
 
-        public MonsterStatuetteInfo(int labelNumber, int itemID, int[] sounds)
-        {
-            m_LabelNumber = labelNumber;
-            m_ItemID = itemID;
-            m_Sounds = sounds;
-        }
+		public MonsterStatuetteInfo(int labelNumber, int itemID, int[] sounds)
+		{
+			m_LabelNumber = labelNumber;
+			m_ItemID = itemID;
+			m_Sounds = sounds;
+		}
 
-        private static MonsterStatuetteInfo[] m_Table = new MonsterStatuetteInfo[]
-            {
+		private static readonly MonsterStatuetteInfo[] m_Table = new MonsterStatuetteInfo[]
+			{
 				/* Crocodile */			new MonsterStatuetteInfo( 1041249, 0x20DA, 660 ),
 				/* Daemon */			new MonsterStatuetteInfo( 1041250, 0x20D3, 357 ),
 				/* Dragon */			new MonsterStatuetteInfo( 1041251, 0x20D6, 362 ),
@@ -115,208 +115,208 @@ namespace Server.Items
 				/* Black Cat */			new MonsterStatuetteInfo( 1096928, 0x4688, 0x69 ),
 				/* HalloweenGhoul */	new MonsterStatuetteInfo( 1076782, 0x2109, 0x482 ),
 				/* Santa */			new MonsterStatuetteInfo( 1097968, 0x4A98, 0x669 )
-            };
+			};
 
-        public static MonsterStatuetteInfo GetInfo(MonsterStatuetteType type)
-        {
-            int v = (int)type;
+		public static MonsterStatuetteInfo GetInfo(MonsterStatuetteType type)
+		{
+			int v = (int)type;
 
-            if (v < 0 || v >= m_Table.Length)
-                v = 0;
+			if (v < 0 || v >= m_Table.Length)
+				v = 0;
 
-            return m_Table[v];
-        }
-    }
+			return m_Table[v];
+		}
+	}
 
-    public class MonsterStatuette : BaseItem, IRewardItem
-    {
-        private MonsterStatuetteType m_Type;
-        private bool m_TurnedOn;
-        private bool m_IsRewardItem;
+	public class MonsterStatuette : BaseItem, IRewardItem
+	{
+		private MonsterStatuetteType m_Type;
+		private bool m_TurnedOn;
+		private bool m_IsRewardItem;
 
-        [CommandProperty(AccessLevel.GameMaster)]
-        public bool IsRewardItem
-        {
-            get { return m_IsRewardItem; }
-            set { m_IsRewardItem = value; }
-        }
+		[CommandProperty(AccessLevel.GameMaster)]
+		public bool IsRewardItem
+		{
+			get { return m_IsRewardItem; }
+			set { m_IsRewardItem = value; }
+		}
 
-        [CommandProperty(AccessLevel.GameMaster)]
-        public bool TurnedOn
-        {
-            get { return m_TurnedOn; }
-            set { m_TurnedOn = value; InvalidateProperties(); }
-        }
+		[CommandProperty(AccessLevel.GameMaster)]
+		public bool TurnedOn
+		{
+			get { return m_TurnedOn; }
+			set { m_TurnedOn = value; InvalidateProperties(); }
+		}
 
-        [CommandProperty(AccessLevel.GameMaster)]
-        public MonsterStatuetteType Type
-        {
-            get { return m_Type; }
-            set
-            {
-                m_Type = value;
-                ItemID = MonsterStatuetteInfo.GetInfo(m_Type).ItemID;
+		[CommandProperty(AccessLevel.GameMaster)]
+		public MonsterStatuetteType Type
+		{
+			get { return m_Type; }
+			set
+			{
+				m_Type = value;
+				ItemID = MonsterStatuetteInfo.GetInfo(m_Type).ItemID;
 
-                if (m_Type == MonsterStatuetteType.Slime)
-                    Hue = Utility.RandomSlimeHue();
-                else if (m_Type == MonsterStatuetteType.RedDeath)
-                    Hue = 0x21;
-                else if (m_Type == MonsterStatuetteType.HalloweenGhoul)
-                    Hue = 0xF4;
-                else
-                    Hue = 0;
+				if (m_Type == MonsterStatuetteType.Slime)
+					Hue = Utility.RandomSlimeHue();
+				else if (m_Type == MonsterStatuetteType.RedDeath)
+					Hue = 0x21;
+				else if (m_Type == MonsterStatuetteType.HalloweenGhoul)
+					Hue = 0xF4;
+				else
+					Hue = 0;
 
-                InvalidateProperties();
-            }
-        }
+				InvalidateProperties();
+			}
+		}
 
-        public override int LabelNumber
-        {
-            get { return MonsterStatuetteInfo.GetInfo(m_Type).LabelNumber; }
-        }
+		public override int LabelNumber
+		{
+			get { return MonsterStatuetteInfo.GetInfo(m_Type).LabelNumber; }
+		}
 
-        public override double DefaultWeight
-        {
-            get { return 1.0; }
-        }
+		public override double DefaultWeight
+		{
+			get { return 1.0; }
+		}
 
-        [Constructable]
-        public MonsterStatuette() : this(MonsterStatuetteType.Crocodile)
-        {
-        }
+		[Constructable]
+		public MonsterStatuette() : this(MonsterStatuetteType.Crocodile)
+		{
+		}
 
-        [Constructable]
-        public MonsterStatuette(MonsterStatuetteType type) : base(MonsterStatuetteInfo.GetInfo(type).ItemID)
-        {
-            LootType = LootType.Blessed;
+		[Constructable]
+		public MonsterStatuette(MonsterStatuetteType type) : base(MonsterStatuetteInfo.GetInfo(type).ItemID)
+		{
+			LootType = LootType.Blessed;
 
-            m_Type = type;
+			m_Type = type;
 
-            if (m_Type == MonsterStatuetteType.Slime)
-                Hue = Utility.RandomSlimeHue();
-            else if (m_Type == MonsterStatuetteType.RedDeath)
-                Hue = 0x21;
-            else if (m_Type == MonsterStatuetteType.HalloweenGhoul)
-                Hue = 0xF4;
-        }
+			if (m_Type == MonsterStatuetteType.Slime)
+				Hue = Utility.RandomSlimeHue();
+			else if (m_Type == MonsterStatuetteType.RedDeath)
+				Hue = 0x21;
+			else if (m_Type == MonsterStatuetteType.HalloweenGhoul)
+				Hue = 0xF4;
+		}
 
-        public override bool HandlesOnMovement { get { return m_TurnedOn && IsLockedDown; } }
+		public override bool HandlesOnMovement { get { return m_TurnedOn && IsLockedDown; } }
 
-        public override void OnMovement(Mobile m, Point3D oldLocation)
-        {
-            if (m_TurnedOn && IsLockedDown && (!m.Hidden || m.AccessLevel == AccessLevel.Player) && Utility.InRange(m.Location, this.Location, 2) && !Utility.InRange(oldLocation, this.Location, 2))
-            {
-                int[] sounds = MonsterStatuetteInfo.GetInfo(m_Type).Sounds;
+		public override void OnMovement(Mobile m, Point3D oldLocation)
+		{
+			if (m_TurnedOn && IsLockedDown && (!m.Hidden || m.AccessLevel == AccessLevel.Player) && Utility.InRange(m.Location, this.Location, 2) && !Utility.InRange(oldLocation, this.Location, 2))
+			{
+				int[] sounds = MonsterStatuetteInfo.GetInfo(m_Type).Sounds;
 
-                if (sounds.Length > 0)
-                    Effects.PlaySound(this.Location, this.Map, sounds[Utility.Random(sounds.Length)]);
-            }
+				if (sounds.Length > 0)
+					Effects.PlaySound(this.Location, this.Map, sounds[Utility.Random(sounds.Length)]);
+			}
 
-            base.OnMovement(m, oldLocation);
-        }
+			base.OnMovement(m, oldLocation);
+		}
 
-        public MonsterStatuette(Serial serial) : base(serial)
-        {
-        }
+		public MonsterStatuette(Serial serial) : base(serial)
+		{
+		}
 
-        public override void GetProperties(ObjectPropertyList list)
-        {
-            base.GetProperties(list);
+		public override void GetProperties(ObjectPropertyList list)
+		{
+			base.GetProperties(list);
 
-            if (Core.ML && m_IsRewardItem)
-                list.Add(RewardSystem.GetRewardYearLabel(this, new object[] { m_Type })); // X Year Veteran Reward
+			if (Core.ML && m_IsRewardItem)
+				list.Add(RewardSystem.GetRewardYearLabel(this, new object[] { m_Type })); // X Year Veteran Reward
 
-            if (m_TurnedOn)
-                list.Add(502695); // turned on
-            else
-                list.Add(502696); // turned off
-        }
+			if (m_TurnedOn)
+				list.Add(502695); // turned on
+			else
+				list.Add(502696); // turned off
+		}
 
-        public bool IsOwner(Mobile mob)
-        {
-            BaseHouse house = BaseHouse.FindHouseAt(this);
+		public bool IsOwner(Mobile mob)
+		{
+			BaseHouse house = BaseHouse.FindHouseAt(this);
 
-            return (house != null && house.IsOwner(mob));
-        }
+			return (house != null && house.IsOwner(mob));
+		}
 
-        public override void OnDoubleClick(Mobile from)
-        {
-            if (IsOwner(from))
-            {
-                OnOffGump onOffGump = new OnOffGump(this);
-                from.SendGump(onOffGump);
-            }
-            else
-            {
-                from.SendLocalizedMessage(502691); // You must be the owner to use this.
-            }
-        }
+		public override void OnDoubleClick(Mobile from)
+		{
+			if (IsOwner(from))
+			{
+				OnOffGump onOffGump = new OnOffGump(this);
+				from.SendGump(onOffGump);
+			}
+			else
+			{
+				from.SendLocalizedMessage(502691); // You must be the owner to use this.
+			}
+		}
 
-        private class OnOffGump : Gump
-        {
-            private MonsterStatuette m_Statuette;
+		private class OnOffGump : Gump
+		{
+			private readonly MonsterStatuette m_Statuette;
 
-            public OnOffGump(MonsterStatuette statuette) : base(150, 200)
-            {
-                m_Statuette = statuette;
+			public OnOffGump(MonsterStatuette statuette) : base(150, 200)
+			{
+				m_Statuette = statuette;
 
-                AddBackground(0, 0, 300, 150, 0xA28);
+				AddBackground(0, 0, 300, 150, 0xA28);
 
-                AddHtmlLocalized(45, 20, 300, 35, statuette.TurnedOn ? 1011035 : 1011034, false, false); // [De]Activate this item
+				AddHtmlLocalized(45, 20, 300, 35, statuette.TurnedOn ? 1011035 : 1011034, false, false); // [De]Activate this item
 
-                AddButton(40, 53, 0xFA5, 0xFA7, 1, GumpButtonType.Reply, 0);
-                AddHtmlLocalized(80, 55, 65, 35, 1011036, false, false); // OKAY
+				AddButton(40, 53, 0xFA5, 0xFA7, 1, GumpButtonType.Reply, 0);
+				AddHtmlLocalized(80, 55, 65, 35, 1011036, false, false); // OKAY
 
-                AddButton(150, 53, 0xFA5, 0xFA7, 0, GumpButtonType.Reply, 0);
-                AddHtmlLocalized(190, 55, 100, 35, 1011012, false, false); // CANCEL
-            }
+				AddButton(150, 53, 0xFA5, 0xFA7, 0, GumpButtonType.Reply, 0);
+				AddHtmlLocalized(190, 55, 100, 35, 1011012, false, false); // CANCEL
+			}
 
-            public override void OnResponse(NetState sender, RelayInfo info)
-            {
-                Mobile from = sender.Mobile;
+			public override void OnResponse(NetState sender, RelayInfo info)
+			{
+				Mobile from = sender.Mobile;
 
-                if (info.ButtonID == 1)
-                {
-                    bool newValue = !m_Statuette.TurnedOn;
-                    m_Statuette.TurnedOn = newValue;
+				if (info.ButtonID == 1)
+				{
+					bool newValue = !m_Statuette.TurnedOn;
+					m_Statuette.TurnedOn = newValue;
 
-                    if (newValue && !m_Statuette.IsLockedDown)
-                        from.SendLocalizedMessage(502693); // Remember, this only works when locked down.
-                }
-                else
-                {
-                    from.SendLocalizedMessage(502694); // Cancelled action.
-                }
-            }
-        }
+					if (newValue && !m_Statuette.IsLockedDown)
+						from.SendLocalizedMessage(502693); // Remember, this only works when locked down.
+				}
+				else
+				{
+					from.SendLocalizedMessage(502694); // Cancelled action.
+				}
+			}
+		}
 
-        public override void Serialize(GenericWriter writer)
-        {
-            base.Serialize(writer);
+		public override void Serialize(GenericWriter writer)
+		{
+			base.Serialize(writer);
 
-            writer.Write((int)0); // version
+			writer.Write(0); // version
 
-            writer.WriteEncodedInt((int)m_Type);
-            writer.Write((bool)m_TurnedOn);
-            writer.Write((bool)m_IsRewardItem);
-        }
+			writer.WriteEncodedInt((int)m_Type);
+			writer.Write(m_TurnedOn);
+			writer.Write(m_IsRewardItem);
+		}
 
-        public override void Deserialize(GenericReader reader)
-        {
-            base.Deserialize(reader);
+		public override void Deserialize(GenericReader reader)
+		{
+			base.Deserialize(reader);
 
-            int version = reader.ReadInt();
+			int version = reader.ReadInt();
 
-            switch (version)
-            {
-                case 0:
-                    {
-                        m_Type = (MonsterStatuetteType)reader.ReadEncodedInt();
-                        m_TurnedOn = reader.ReadBool();
-                        m_IsRewardItem = reader.ReadBool();
-                        break;
-                    }
-            }
-        }
-    }
+			switch (version)
+			{
+				case 0:
+					{
+						m_Type = (MonsterStatuetteType)reader.ReadEncodedInt();
+						m_TurnedOn = reader.ReadBool();
+						m_IsRewardItem = reader.ReadBool();
+						break;
+					}
+			}
+		}
+	}
 }

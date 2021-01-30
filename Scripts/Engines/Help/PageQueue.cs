@@ -1,14 +1,14 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.IO;
-using System.Net.Mail;
 using Server.Accounting;
 using Server.Commands;
 using Server.Engines.Reports;
 using Server.Misc;
 using Server.Mobiles;
 using Server.Network;
+using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.IO;
+using System.Net.Mail;
 
 namespace Server.Engines.Help
 {
@@ -32,16 +32,16 @@ namespace Server.Engines.Help
 				PageType.VerbalHarassment
 			};
 
-		private Mobile m_Sender;
+		private readonly Mobile m_Sender;
 		private Mobile m_Handler;
-		private DateTime m_Sent;
-		private string m_Message;
-		private PageType m_Type;
+		private readonly DateTime m_Sent;
+		private readonly string m_Message;
+		private readonly PageType m_Type;
 		private Point3D m_PageLocation;
-		private Map m_PageMap;
-		private List<SpeechLogEntry> m_SpeechLog;
+		private readonly Map m_PageMap;
+		private readonly List<SpeechLogEntry> m_SpeechLog;
 
-		private PageInfo m_PageInfo;
+		private readonly PageInfo m_PageInfo;
 
 		public PageInfo PageInfo
 		{
@@ -167,9 +167,9 @@ namespace Server.Engines.Help
 
 		private class InternalTimer : Timer
 		{
-			private static TimeSpan StatusDelay = TimeSpan.FromMinutes(2.0);
+			private static readonly TimeSpan StatusDelay = TimeSpan.FromMinutes(2.0);
 
-			private PageEntry m_Entry;
+			private readonly PageEntry m_Entry;
 
 			public InternalTimer(PageEntry entry) : base(TimeSpan.FromSeconds(1.0), StatusDelay)
 			{
@@ -203,9 +203,9 @@ namespace Server.Engines.Help
 
 	public class PageQueue
 	{
-		private static ArrayList m_List = new ArrayList();
-		private static Hashtable m_KeyedByHandler = new Hashtable();
-		private static Hashtable m_KeyedBySender = new Hashtable();
+		private static readonly ArrayList m_List = new ArrayList();
+		private static readonly Hashtable m_KeyedByHandler = new Hashtable();
+		private static readonly Hashtable m_KeyedBySender = new Hashtable();
 
 		public static void Initialize()
 		{

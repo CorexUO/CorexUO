@@ -1,10 +1,10 @@
-using System;
-using System.Collections.Generic;
 using Server.Accounting;
 using Server.Commands;
 using Server.Items;
 using Server.Multis;
 using Server.Targeting;
+using System;
+using System.Collections.Generic;
 
 namespace Server.Gumps
 {
@@ -64,9 +64,9 @@ namespace Server.Gumps
 			return list;
 		}
 
-		private Mobile m_From;
-		private List<BaseHouse> m_List;
-		private BaseHouse m_Selection;
+		private readonly Mobile m_From;
+		private readonly List<BaseHouse> m_List;
+		private readonly BaseHouse m_Selection;
 
 		public ViewHousesGump(Mobile from, List<BaseHouse> list, BaseHouse sel) : base(50, 40)
 		{

@@ -1,8 +1,8 @@
-using System;
-using System.Collections.Generic;
 using Server.ContextMenus;
 using Server.Network;
 using Server.Targeting;
+using System;
+using System.Collections.Generic;
 
 namespace Server.Items
 {
@@ -129,7 +129,7 @@ namespace Server.Items
 
 		private class UseBagEntry : ContextMenuEntry
 		{
-			private BagOfSending m_Bag;
+			private readonly BagOfSending m_Bag;
 
 			public UseBagEntry(BagOfSending bag, bool enabled) : base(6189)
 			{
@@ -173,7 +173,7 @@ namespace Server.Items
 
 		private class SendTarget : Target
 		{
-			private BagOfSending m_Bag;
+			private readonly BagOfSending m_Bag;
 
 			public SendTarget(BagOfSending bag) : base(-1, false, TargetFlags.None)
 			{
@@ -248,11 +248,11 @@ namespace Server.Items
 		{
 			base.Serialize(writer);
 
-			writer.WriteEncodedInt((int)0); // version
+			writer.WriteEncodedInt(0); // version
 
-			writer.WriteEncodedInt((int)m_Recharges);
+			writer.WriteEncodedInt(m_Recharges);
 
-			writer.WriteEncodedInt((int)m_Charges);
+			writer.WriteEncodedInt(m_Charges);
 			writer.WriteEncodedInt((int)m_BagOfSendingHue);
 		}
 

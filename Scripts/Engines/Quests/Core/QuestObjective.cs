@@ -1,8 +1,8 @@
-using System.Collections;
 using Server.Gumps;
 using Server.Items;
 using Server.Mobiles;
 using Server.Network;
+using System.Collections;
 
 namespace Server.Engines.Quests
 {
@@ -83,18 +83,18 @@ namespace Server.Engines.Quests
 
 		public virtual void BaseSerialize(GenericWriter writer)
 		{
-			writer.WriteEncodedInt((int)0); // version
+			writer.WriteEncodedInt(0); // version
 
-			writer.Write((bool)m_HasBeenRead);
-			writer.WriteEncodedInt((int)m_CurProgress);
-			writer.Write((bool)m_HasCompleted);
+			writer.Write(m_HasBeenRead);
+			writer.WriteEncodedInt(m_CurProgress);
+			writer.Write(m_HasCompleted);
 
 			ChildSerialize(writer);
 		}
 
 		public virtual void ChildSerialize(GenericWriter writer)
 		{
-			writer.WriteEncodedInt((int)0); // version
+			writer.WriteEncodedInt(0); // version
 		}
 
 		public virtual void Complete()
@@ -155,7 +155,7 @@ namespace Server.Engines.Quests
 
 	public class QuestLogUpdatedGump : BaseQuestGump
 	{
-		private QuestSystem m_System;
+		private readonly QuestSystem m_System;
 
 		public QuestLogUpdatedGump(QuestSystem system) : base(3, 30)
 		{
@@ -182,7 +182,7 @@ namespace Server.Engines.Quests
 
 	public class QuestObjectivesGump : BaseQuestGump
 	{
-		private ArrayList m_Objectives;
+		private readonly ArrayList m_Objectives;
 
 		public QuestObjectivesGump(QuestObjective obj) : this(BuildList(obj))
 		{

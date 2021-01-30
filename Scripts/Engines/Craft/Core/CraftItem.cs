@@ -1,9 +1,9 @@
-using System;
-using System.Collections.Generic;
 using Server.Commands;
 using Server.Factions;
 using Server.Items;
 using Server.Mobiles;
+using System;
+using System.Collections.Generic;
 
 namespace Server.Engines.Craft
 {
@@ -21,15 +21,15 @@ namespace Server.Engines.Craft
 
 	public class CraftItem
 	{
-		private CraftResCol m_arCraftRes;
-		private CraftSkillCol m_arCraftSkill;
-		private Type m_Type;
+		private readonly CraftResCol m_arCraftRes;
+		private readonly CraftSkillCol m_arCraftSkill;
+		private readonly Type m_Type;
 
-		private string m_GroupNameString;
-		private int m_GroupNameNumber;
+		private readonly string m_GroupNameString;
+		private readonly int m_GroupNameNumber;
 
-		private string m_NameString;
-		private int m_NameNumber;
+		private readonly string m_NameString;
+		private readonly int m_NameNumber;
 
 		private int m_ItemHue;
 
@@ -93,7 +93,7 @@ namespace Server.Engines.Craft
 			return number;
 		}
 
-		private static Dictionary<Type, int> _itemIds = new Dictionary<Type, int>();
+		private static readonly Dictionary<Type, int> _itemIds = new Dictionary<Type, int>();
 
 		public static int ItemIDOf(Type type)
 		{
@@ -324,7 +324,7 @@ namespace Server.Engines.Craft
 		}
 
 		#region Tables
-		private static int[] m_HeatSources = new int[]
+		private static readonly int[] m_HeatSources = new int[]
 			{
 				0x461, 0x48E, // Sandstone oven/fireplace
 				0x92B, 0x96C, // Stone oven/fireplace
@@ -340,20 +340,20 @@ namespace Server.Engines.Craft
 				0x2DD8, 0x2DD8 // Elven Forge
 			};
 
-		private static int[] m_Ovens = new int[]
+		private static readonly int[] m_Ovens = new int[]
 			{
 				0x461, 0x46F, // Sandstone oven
 				0x92B, 0x93F,  // Stone oven
 				0x2DDB, 0x2DDC	//Elven stove
 			};
 
-		private static int[] m_Mills = new int[]
+		private static readonly int[] m_Mills = new int[]
 			{
 				0x1920, 0x1921, 0x1922, 0x1923, 0x1924, 0x1295, 0x1926, 0x1928,
 				0x192C, 0x192D, 0x192E, 0x129F, 0x1930, 0x1931, 0x1932, 0x1934
 			};
 
-		private static Type[][] m_TypesTable = new Type[][]
+		private static readonly Type[][] m_TypesTable = new Type[][]
 			{
 				new Type[]{ typeof( Log ), typeof( Board ) },
 				new Type[]{ typeof( HeartwoodLog ), typeof( HeartwoodBoard ) },
@@ -373,13 +373,13 @@ namespace Server.Engines.Craft
 				new Type[]{ typeof( WoodenBowlOfPeas ), typeof( PewterBowlOfPeas ) }
 			};
 
-		private static Type[] m_ColoredItemTable = new Type[]
+		private static readonly Type[] m_ColoredItemTable = new Type[]
 			{
 				typeof( BaseWeapon ), typeof( BaseArmor ), typeof( BaseClothing ),
 				typeof( BaseJewel ), typeof( DragonBardingDeed )
 			};
 
-		private static Type[] m_ColoredResourceTable = new Type[]
+		private static readonly Type[] m_ColoredResourceTable = new Type[]
 			{
 				typeof( BaseIngot ), typeof( BaseOre ),
 				typeof( BaseLeather ), typeof( BaseHides ),
@@ -387,7 +387,7 @@ namespace Server.Engines.Craft
 				typeof( BaseGranite ), typeof( BaseScales )
 			};
 
-		private static Type[] m_MarkableTable = new Type[]
+		private static readonly Type[] m_MarkableTable = new Type[]
 				{
 					typeof( BaseArmor ),
 					typeof( BaseWeapon ),
@@ -401,7 +401,7 @@ namespace Server.Engines.Craft
 					typeof( BaseQuiver )
 				};
 
-		private static Type[] m_NeverColorTable = new Type[]
+		private static readonly Type[] m_NeverColorTable = new Type[]
 				{
 					typeof( OrcHelm )
 				};
@@ -1310,13 +1310,13 @@ namespace Server.Engines.Craft
 
 		private class InternalTimer : Timer
 		{
-			private Mobile m_From;
+			private readonly Mobile m_From;
 			private int m_iCount;
-			private int m_iCountMax;
-			private CraftItem m_CraftItem;
-			private CraftSystem m_CraftSystem;
-			private Type m_TypeRes;
-			private BaseTool m_Tool;
+			private readonly int m_iCountMax;
+			private readonly CraftItem m_CraftItem;
+			private readonly CraftSystem m_CraftSystem;
+			private readonly Type m_TypeRes;
+			private readonly BaseTool m_Tool;
 
 			public InternalTimer(Mobile from, CraftSystem craftSystem, CraftItem craftItem, Type typeRes, BaseTool tool, int iCountMax) : base(TimeSpan.Zero, TimeSpan.FromSeconds(craftSystem.Delay), iCountMax)
 			{

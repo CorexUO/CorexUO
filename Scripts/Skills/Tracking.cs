@@ -1,9 +1,9 @@
-using System;
-using System.Collections.Generic;
 using Server.Gumps;
 using Server.Network;
 using Server.Spells;
 using Server.Spells.Necromancy;
+using System;
+using System.Collections.Generic;
 
 namespace Server.SkillHandlers
 {
@@ -41,7 +41,7 @@ namespace Server.SkillHandlers
 			}
 		}
 
-		private static Dictionary<Mobile, TrackingInfo> m_Table = new Dictionary<Mobile, TrackingInfo>();
+		private static readonly Dictionary<Mobile, TrackingInfo> m_Table = new Dictionary<Mobile, TrackingInfo>();
 
 		public static void AddInfo(Mobile tracker, Mobile target)
 		{

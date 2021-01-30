@@ -1,7 +1,7 @@
-using System;
-using System.Collections.Generic;
 using Server.Gumps;
 using Server.Network;
+using System;
+using System.Collections.Generic;
 
 namespace Server.Items
 {
@@ -22,7 +22,7 @@ namespace Server.Items
 	{
 		public const int Length = 5;
 
-		private PuzzleChestCylinder[] m_Cylinders = new PuzzleChestCylinder[Length];
+		private readonly PuzzleChestCylinder[] m_Cylinders = new PuzzleChestCylinder[Length];
 
 		public PuzzleChestCylinder[] Cylinders { get { return m_Cylinders; } }
 
@@ -112,9 +112,9 @@ namespace Server.Items
 
 		public virtual void Serialize(GenericWriter writer)
 		{
-			writer.WriteEncodedInt((int)0); // version
+			writer.WriteEncodedInt(0); // version
 
-			writer.WriteEncodedInt((int)m_Cylinders.Length);
+			writer.WriteEncodedInt(m_Cylinders.Length);
 			for (int i = 0; i < m_Cylinders.Length; i++)
 			{
 				writer.Write((int)m_Cylinders[i]);
@@ -149,7 +149,7 @@ namespace Server.Items
 
 	public class PuzzleChestSolutionAndTime : PuzzleChestSolution
 	{
-		private DateTime m_When;
+		private readonly DateTime m_When;
 
 		public DateTime When { get { return m_When; } }
 
@@ -162,7 +162,7 @@ namespace Server.Items
 		{
 			base.Serialize(writer);
 
-			writer.WriteEncodedInt((int)0); // version
+			writer.WriteEncodedInt(0); // version
 
 			writer.WriteDeltaTime(m_When);
 		}
@@ -182,7 +182,7 @@ namespace Server.Items
 
 		private PuzzleChestSolution m_Solution;
 		private PuzzleChestCylinder[] m_Hints = new PuzzleChestCylinder[HintsCount];
-		private Dictionary<Mobile, PuzzleChestSolutionAndTime> m_Guesses = new Dictionary<Mobile, PuzzleChestSolutionAndTime>();
+		private readonly Dictionary<Mobile, PuzzleChestSolutionAndTime> m_Guesses = new Dictionary<Mobile, PuzzleChestSolutionAndTime>();
 
 		public PuzzleChestSolution Solution
 		{
@@ -254,16 +254,14 @@ namespace Server.Items
 
 		public PuzzleChestSolutionAndTime GetLastGuess(Mobile m)
 		{
-			PuzzleChestSolutionAndTime pcst = null;
-			m_Guesses.TryGetValue(m, out pcst);
+			m_Guesses.TryGetValue(m, out PuzzleChestSolutionAndTime pcst);
 			return pcst;
 		}
 
 		public void SubmitSolution(Mobile m, PuzzleChestSolution solution)
 		{
-			int correctCylinders, correctColors;
 
-			if (solution.Matches(this.Solution, out correctCylinders, out correctColors))
+			if (solution.Matches(this.Solution, out int correctCylinders, out int correctColors))
 			{
 				LockPick(m);
 
@@ -326,9 +324,9 @@ namespace Server.Items
 
 		private class PuzzleGump : Gump
 		{
-			private Mobile m_From;
-			private PuzzleChest m_Chest;
-			private PuzzleChestSolution m_Solution;
+			private readonly Mobile m_From;
+			private readonly PuzzleChest m_Chest;
+			private readonly PuzzleChestSolution m_Solution;
 
 			public PuzzleGump(Mobile from, PuzzleChest chest, PuzzleChestSolution solution, int check) : base(50, 50)
 			{
@@ -602,10 +600,8 @@ namespace Server.Items
 
 					if (Core.AOS)
 					{
-						int attributeCount;
-						int min, max;
 
-						GetRandomAOSStats(out attributeCount, out min, out max);
+						GetRandomAOSStats(out int attributeCount, out int min, out int max);
 
 						BaseRunicTool.ApplyAttributesTo(weapon, attributeCount, min, max);
 					}
@@ -624,10 +620,8 @@ namespace Server.Items
 
 					if (Core.AOS)
 					{
-						int attributeCount;
-						int min, max;
 
-						GetRandomAOSStats(out attributeCount, out min, out max);
+						GetRandomAOSStats(out int attributeCount, out int min, out int max);
 
 						BaseRunicTool.ApplyAttributesTo(armor, attributeCount, min, max);
 					}
@@ -645,10 +639,8 @@ namespace Server.Items
 
 					if (Core.AOS)
 					{
-						int attributeCount;
-						int min, max;
 
-						GetRandomAOSStats(out attributeCount, out min, out max);
+						GetRandomAOSStats(out int attributeCount, out int min, out int max);
 
 						BaseRunicTool.ApplyAttributesTo(hat, attributeCount, min, max);
 					}
@@ -657,10 +649,8 @@ namespace Server.Items
 				}
 				else if (item is BaseJewel)
 				{
-					int attributeCount;
-					int min, max;
 
-					GetRandomAOSStats(out attributeCount, out min, out max);
+					GetRandomAOSStats(out int attributeCount, out int min, out int max);
 
 					BaseRunicTool.ApplyAttributesTo((BaseJewel)item, attributeCount, min, max);
 
@@ -695,17 +685,17 @@ namespace Server.Items
 
 			base.Serialize(writer);
 
-			writer.WriteEncodedInt((int)0); // version
+			writer.WriteEncodedInt(0); // version
 
 			m_Solution.Serialize(writer);
 
-			writer.WriteEncodedInt((int)m_Hints.Length);
+			writer.WriteEncodedInt(m_Hints.Length);
 			for (int i = 0; i < m_Hints.Length; i++)
 			{
 				writer.Write((int)m_Hints[i]);
 			}
 
-			writer.WriteEncodedInt((int)m_Guesses.Count);
+			writer.WriteEncodedInt(m_Guesses.Count);
 			foreach (KeyValuePair<Mobile, PuzzleChestSolutionAndTime> kvp in m_Guesses)
 			{
 				writer.Write(kvp.Key);
@@ -759,7 +749,7 @@ namespace Server.Items
 		{
 			base.Serialize(writer);
 
-			writer.WriteEncodedInt((int)0); // version
+			writer.WriteEncodedInt(0); // version
 		}
 
 		public override void Deserialize(GenericReader reader)
@@ -786,7 +776,7 @@ namespace Server.Items
 		{
 			base.Serialize(writer);
 
-			writer.WriteEncodedInt((int)0); // version
+			writer.WriteEncodedInt(0); // version
 		}
 
 		public override void Deserialize(GenericReader reader)

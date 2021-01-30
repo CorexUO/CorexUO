@@ -1,12 +1,12 @@
-using System;
 using Server.Misc;
 using Server.Mobiles;
+using System;
 
 namespace Server.Items
 {
 	public abstract class BasePigmentsOfTokuno : BaseItem, IUsesRemaining
 	{
-		private static Type[] m_Glasses = new Type[]
+		private static readonly Type[] m_Glasses = new Type[]
 		{
 			typeof( MaritimeGlasses ),
 			typeof( WizardsGlasses ),
@@ -22,7 +22,7 @@ namespace Server.Items
 			typeof( AnthropomorphistGlasses )
 		};
 
-		private static Type[] m_Replicas = new Type[]
+		private static readonly Type[] m_Replicas = new Type[]
 		{
 			typeof( ANecromancerShroud ),
 			typeof( BraveKnightOfTheBritannia ),
@@ -49,7 +49,7 @@ namespace Server.Items
 			typeof( Subdue )
 		};
 
-		private static Type[] m_DyableHeritageItems = new Type[]
+		private static readonly Type[] m_DyableHeritageItems = new Type[]
 		{
 			typeof( ChargerOfTheFallen ),
 			typeof( SamuraiHelm ),
@@ -197,7 +197,7 @@ namespace Server.Items
 		{
 			base.Serialize(writer);
 
-			writer.Write((int)0);
+			writer.Write(0);
 
 			writer.WriteEncodedInt(m_UsesRemaining);
 		}

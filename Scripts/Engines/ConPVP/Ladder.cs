@@ -43,11 +43,11 @@ namespace Server.Engines.ConPVP
 		{
 			base.Serialize(writer);
 
-			writer.Write((int)0);
+			writer.Write(0);
 
 			m_Ladder.Serialize(writer);
 
-			writer.Write((bool)(Ladder.Instance == m_Ladder));
+			writer.Write(Ladder.Instance == m_Ladder);
 		}
 
 		public override void Deserialize(GenericReader reader)
@@ -73,7 +73,7 @@ namespace Server.Engines.ConPVP
 
 	public class Ladder
 	{
-		private static int[] m_ShortLevels = new int[]
+		private static readonly int[] m_ShortLevels = new int[]
 			{
 				1,
 				2,
@@ -98,7 +98,7 @@ namespace Server.Engines.ConPVP
 			return m_ShortLevels[xp / 100];
 		}
 
-		private static int[] m_BaseXP = new int[]
+		private static readonly int[] m_BaseXP = new int[]
 			{
 				0, 100, 200, 400, 600, 900, 1200, 1600, 2000, 2500
 			};
@@ -117,7 +117,7 @@ namespace Server.Engines.ConPVP
 			}
 		}
 
-		private static int[] m_LossFactors = new int[]
+		private static readonly int[] m_LossFactors = new int[]
 			{
 				10,
 				11, 11,
@@ -134,7 +134,7 @@ namespace Server.Engines.ConPVP
 			return m_LossFactors[level - 1];
 		}
 
-		private static int[,] m_OffsetScalar = new int[,]
+		private static readonly int[,] m_OffsetScalar = new int[,]
 			{
 					  /* { win, los } */
 				/* -6 */ { 175,  25 },
@@ -190,8 +190,8 @@ namespace Server.Engines.ConPVP
 			return xp * (weWon ? 1 : -1);
 		}
 
-		private Hashtable m_Table;
-		private ArrayList m_Entries;
+		private readonly Hashtable m_Table;
+		private readonly ArrayList m_Entries;
 
 		public ArrayList ToArrayList()
 		{
@@ -290,9 +290,9 @@ namespace Server.Engines.ConPVP
 
 		public void Serialize(GenericWriter writer)
 		{
-			writer.WriteEncodedInt((int)0); // version;
+			writer.WriteEncodedInt(0); // version;
 
-			writer.WriteEncodedInt((int)m_Entries.Count);
+			writer.WriteEncodedInt(m_Entries.Count);
 
 			for (int i = 0; i < m_Entries.Count; ++i)
 				((LadderEntry)m_Entries[i]).Serialize(writer);
@@ -301,12 +301,12 @@ namespace Server.Engines.ConPVP
 
 	public class LadderEntry : IComparable
 	{
-		private Mobile m_Mobile;
+		private readonly Mobile m_Mobile;
 		private int m_Experience;
 		private int m_Wins;
 		private int m_Losses;
 		private int m_Index;
-		private Ladder m_Ladder;
+		private readonly Ladder m_Ladder;
 
 		public Mobile Mobile { get { return m_Mobile; } }
 
@@ -351,10 +351,10 @@ namespace Server.Engines.ConPVP
 
 		public void Serialize(GenericWriter writer)
 		{
-			writer.Write((Mobile)m_Mobile);
-			writer.WriteEncodedInt((int)m_Experience);
-			writer.WriteEncodedInt((int)m_Wins);
-			writer.WriteEncodedInt((int)m_Losses);
+			writer.Write(m_Mobile);
+			writer.WriteEncodedInt(m_Experience);
+			writer.WriteEncodedInt(m_Wins);
+			writer.WriteEncodedInt(m_Losses);
 		}
 
 		public int CompareTo(object obj)

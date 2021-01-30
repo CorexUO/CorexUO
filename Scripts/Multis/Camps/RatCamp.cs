@@ -1,6 +1,6 @@
-using System;
 using Server.Items;
 using Server.Mobiles;
+using System;
 
 namespace Server.Multis
 {
@@ -169,7 +169,7 @@ namespace Server.Multis
 		{
 			base.Serialize(writer);
 
-			writer.Write((int)0); // version
+			writer.Write(0); // version
 
 			writer.Write(m_Prisoner);
 		}

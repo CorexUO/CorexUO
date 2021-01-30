@@ -1,5 +1,5 @@
-using System.Collections;
 using Server.Items;
+using System.Collections;
 
 namespace Server.Commands
 {
@@ -35,7 +35,7 @@ namespace Server.Commands
 			{
 			}
 
-			private static Queue m_Queue = new Queue();
+			private static readonly Queue m_Queue = new Queue();
 
 			public static bool FindTeleporter(Map map, Point3D p)
 			{

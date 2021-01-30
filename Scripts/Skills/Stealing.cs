@@ -1,5 +1,3 @@
-using System;
-using System.Collections.Generic;
 using Server.Factions;
 using Server.Items;
 using Server.Mobiles;
@@ -9,6 +7,8 @@ using Server.Spells.Fifth;
 using Server.Spells.Ninjitsu;
 using Server.Spells.Seventh;
 using Server.Targeting;
+using System;
+using System.Collections.Generic;
 
 namespace Server.SkillHandlers
 {
@@ -29,12 +29,12 @@ namespace Server.SkillHandlers
 
 		public static bool IsInnocentTo(Mobile from, Mobile to)
 		{
-			return (Notoriety.Compute(from, (Mobile)to) == Notoriety.Innocent);
+			return (Notoriety.Compute(from, to) == Notoriety.Innocent);
 		}
 
 		private class StealingTarget : Target
 		{
-			private Mobile m_Thief;
+			private readonly Mobile m_Thief;
 
 			public StealingTarget(Mobile thief) : base(1, false, TargetFlags.None)
 			{
@@ -419,7 +419,7 @@ namespace Server.SkillHandlers
 			Expires = DateTime.UtcNow + StealTime;
 		}
 
-		private static Queue<StolenItem> m_Queue = new Queue<StolenItem>();
+		private static readonly Queue<StolenItem> m_Queue = new Queue<StolenItem>();
 
 		public static void Add(Item item, Mobile thief, Mobile victim)
 		{

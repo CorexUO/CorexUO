@@ -7,7 +7,7 @@ namespace Server.Items
 		private Timer m_DecayTimer;
 		private DateTime m_DecayTime;
 
-		private static TimeSpan m_DefaultDecayTime = TimeSpan.FromMinutes(7.0);
+		private static readonly TimeSpan m_DefaultDecayTime = TimeSpan.FromMinutes(7.0);
 
 		public DecayedCorpse(string name) : base(Utility.Random(0xECA, 9))
 		{
@@ -38,7 +38,7 @@ namespace Server.Items
 
 		private class InternalTimer : Timer
 		{
-			private DecayedCorpse m_Corpse;
+			private readonly DecayedCorpse m_Corpse;
 
 			public InternalTimer(DecayedCorpse c, TimeSpan delay) : base(delay)
 			{
@@ -79,7 +79,7 @@ namespace Server.Items
 		{
 			base.Serialize(writer);
 
-			writer.Write((int)0); // version
+			writer.Write(0); // version
 
 			writer.Write(m_DecayTimer != null);
 

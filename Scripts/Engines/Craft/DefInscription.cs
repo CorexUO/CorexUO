@@ -1,6 +1,6 @@
-using System;
 using Server.Items;
 using Server.Spells;
+using System;
 
 namespace Server.Engines.Craft
 {
@@ -34,7 +34,7 @@ namespace Server.Engines.Craft
 			return 0.0; // 0%
 		}
 
-		public DefInscription(): base(1, 1, 1.25) // base( 1, 1, 3.0 )
+		public DefInscription() : base(1, 1, 1.25) // base( 1, 1, 3.0 )
 		{
 			m_CraftSystem = this;
 		}

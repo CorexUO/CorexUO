@@ -1,6 +1,6 @@
+using Server.Network;
 using System;
 using System.Collections;
-using Server.Network;
 
 namespace Server.Commands.Generic
 {
@@ -22,9 +22,8 @@ namespace Server.Commands.Generic
 			{
 				Extensions ext = Extensions.Parse(from, ref args);
 
-				bool items, mobiles;
 
-				if (!CheckObjectTypes(from, command, ext, out items, out mobiles))
+				if (!CheckObjectTypes(from, command, ext, out bool items, out bool mobiles))
 					return;
 
 				if (!mobiles) // sanity check
@@ -40,7 +39,7 @@ namespace Server.Commands.Generic
 
 				for (int i = 0; i < states.Count; ++i)
 				{
-					NetState ns = (NetState)states[i];
+					NetState ns = states[i];
 					Mobile mob = ns.Mobile;
 
 					if (mob != null && !addresses.Contains(ns.Address) && ext.IsValid(mob))

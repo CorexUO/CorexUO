@@ -30,7 +30,7 @@ namespace Server.Items
 		{
 			base.Serialize(writer);
 
-			writer.Write((int)0); // version
+			writer.Write(0); // version
 
 			/* writer.Write( ( int )m_UsesRemaining );  */
 		}
@@ -58,7 +58,7 @@ namespace Server.Items
 
 			private class InternalPicker : HuePicker
 			{
-				private DyeTub m_Tub;
+				private readonly DyeTub m_Tub;
 
 				public InternalPicker(DyeTub tub) : base(tub.ItemID)
 				{

@@ -41,9 +41,9 @@ namespace Server.Items
 		{
 			base.Serialize(writer);
 
-			writer.Write((int)0); // version
+			writer.Write(0); // version
 
-			writer.Write((Mobile)m_Owner);
+			writer.Write(m_Owner);
 		}
 
 		public override void Deserialize(GenericReader reader)
@@ -84,7 +84,7 @@ namespace Server.Items
 
 		private class InternalTarget : Target
 		{
-			private NewPlayerTicket m_Ticket;
+			private readonly NewPlayerTicket m_Ticket;
 
 			public InternalTarget(NewPlayerTicket ticket) : base(2, false, TargetFlags.None)
 			{
@@ -125,8 +125,8 @@ namespace Server.Items
 
 		private class InternalGump : Gump
 		{
-			private Mobile m_From;
-			private NewPlayerTicket m_Ticket;
+			private readonly Mobile m_From;
+			private readonly NewPlayerTicket m_Ticket;
 
 			public InternalGump(Mobile from, NewPlayerTicket ticket) : base(50, 50)
 			{

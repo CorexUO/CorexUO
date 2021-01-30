@@ -1,13 +1,13 @@
-using System;
-using System.Collections.Generic;
 using Server.Gumps;
 using Server.Items;
+using System;
+using System.Collections.Generic;
 
 namespace Server.Mobiles
 {
 	public abstract class BaseHealer : BaseVendor
 	{
-		private List<SBInfo> m_SBInfos = new List<SBInfo>();
+		private readonly List<SBInfo> m_SBInfos = new List<SBInfo>();
 		protected override List<SBInfo> SBInfos { get { return m_SBInfos; } }
 
 		public override bool IsActiveVendor { get { return false; } }
@@ -81,7 +81,7 @@ namespace Server.Mobiles
 		}
 
 		private DateTime m_NextResurrect;
-		private static TimeSpan ResurrectDelay = TimeSpan.FromSeconds(2.0);
+		private static readonly TimeSpan ResurrectDelay = TimeSpan.FromSeconds(2.0);
 
 		public virtual void OfferResurrection(Mobile m)
 		{

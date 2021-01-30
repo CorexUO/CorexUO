@@ -4,7 +4,7 @@ namespace Server.Spells.Seventh
 {
 	public class ManaVampireSpell : MagerySpell
 	{
-		private static SpellInfo m_Info = new SpellInfo(
+		private static readonly SpellInfo m_Info = new SpellInfo(
 				"Mana Vampire", "Ort Sanct",
 				221,
 				9032,
@@ -106,7 +106,7 @@ namespace Server.Spells.Seventh
 
 		private class InternalTarget : Target
 		{
-			private ManaVampireSpell m_Owner;
+			private readonly ManaVampireSpell m_Owner;
 
 			public InternalTarget(ManaVampireSpell owner) : base(owner.SpellRange, false, TargetFlags.Harmful)
 			{

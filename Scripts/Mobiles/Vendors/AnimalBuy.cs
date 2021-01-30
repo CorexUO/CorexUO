@@ -4,7 +4,7 @@ namespace Server.Mobiles
 {
 	public class AnimalBuyInfo : GenericBuyInfo
 	{
-		private int m_ControlSlots;
+		private readonly int m_ControlSlots;
 
 		public AnimalBuyInfo(int controlSlots, Type type, int price, int amount, int itemID, int hue) : this(controlSlots, null, type, price, amount, itemID, hue)
 		{

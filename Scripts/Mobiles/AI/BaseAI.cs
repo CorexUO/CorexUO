@@ -1,6 +1,3 @@
-using System;
-using System.Collections.Generic;
-using System.IO;
 using Server.ContextMenus;
 using Server.Engines.Quests;
 using Server.Engines.Quests.Necro;
@@ -10,6 +7,9 @@ using Server.Regions;
 using Server.Spells;
 using Server.Spells.Spellweaving;
 using Server.Targets;
+using System;
+using System.Collections.Generic;
+using System.IO;
 using MoveImpl = Server.Movement.MovementImpl;
 
 namespace Server.Mobiles
@@ -91,10 +91,10 @@ namespace Server.Mobiles
 
 		private class InternalEntry : ContextMenuEntry
 		{
-			private Mobile m_From;
-			private BaseCreature m_Mobile;
-			private BaseAI m_AI;
-			private OrderType m_Order;
+			private readonly Mobile m_From;
+			private readonly BaseCreature m_Mobile;
+			private readonly BaseAI m_AI;
+			private readonly OrderType m_Order;
 
 			public InternalEntry(Mobile from, int number, int range, BaseCreature mobile, BaseAI ai, OrderType order)
 				: base(number, range)
@@ -300,7 +300,7 @@ namespace Server.Mobiles
 			return (from.Alive && from.InRange(m_Mobile.Location, 3) && m_Mobile.IsHumanInTown());
 		}
 
-		private static SkillName[] m_KeywordTable = new SkillName[]
+		private static readonly SkillName[] m_KeywordTable = new SkillName[]
 			{
 				SkillName.Parry,
 				SkillName.Healing,
@@ -1611,7 +1611,7 @@ namespace Server.Mobiles
 				return (creature != null && (creature.Aggressors.Count > 0 || creature.Aggressed.Count > 0));
 			}
 
-			private BaseCreature m_Creature;
+			private readonly BaseCreature m_Creature;
 
 			public TransferItem(BaseCreature creature)
 				: base(ShrinkTable.Lookup(creature))
@@ -1641,7 +1641,7 @@ namespace Server.Mobiles
 			{
 				base.Serialize(writer);
 
-				writer.Write((int)0); // version
+				writer.Write(0); // version
 			}
 
 			public override void Deserialize(GenericReader reader)
@@ -2011,7 +2011,7 @@ namespace Server.Mobiles
 			return (res == MoveResult.Success || res == MoveResult.SuccessAutoTurn || (badStateOk && res == MoveResult.BadState));
 		}
 
-		private static Queue<Item> m_Obstacles = new Queue<Item>();
+		private static readonly Queue<Item> m_Obstacles = new Queue<Item>();
 
 		public virtual MoveResult DoMoveImpl(Direction d)
 		{
@@ -2716,7 +2716,7 @@ namespace Server.Mobiles
 		 */
 		private class AITimer : Timer
 		{
-			private BaseAI m_Owner;
+			private readonly BaseAI m_Owner;
 
 			public AITimer(BaseAI owner)
 				: base(TimeSpan.FromSeconds(Utility.RandomDouble()), TimeSpan.FromSeconds(Math.Max(0.0, owner.m_Mobile.CurrentSpeed)))

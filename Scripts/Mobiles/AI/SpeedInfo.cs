@@ -1,14 +1,14 @@
-using System;
-using System.Collections.Generic;
 using Server.Factions;
 using Server.Mobiles;
+using System;
+using System.Collections.Generic;
 
 namespace Server
 {
 	public class SpeedInfo
 	{
 		// Should we use the new method of speeds?
-		private static bool Enabled = true;
+		private static readonly bool Enabled = true;
 
 		private double m_ActiveSpeed;
 		private double m_PassiveSpeed;
@@ -47,9 +47,8 @@ namespace Server
 			if (m_Table == null)
 				LoadTable();
 
-			SpeedInfo sp = null;
 
-			m_Table.TryGetValue(obj.GetType(), out sp);
+			m_Table.TryGetValue(obj.GetType(), out SpeedInfo sp);
 
 			return (sp != null);
 		}
@@ -62,9 +61,8 @@ namespace Server
 			if (m_Table == null)
 				LoadTable();
 
-			SpeedInfo sp = null;
 
-			m_Table.TryGetValue(obj.GetType(), out sp);
+			m_Table.TryGetValue(obj.GetType(), out SpeedInfo sp);
 
 			if (sp == null)
 				return false;
@@ -91,7 +89,7 @@ namespace Server
 
 		private static Dictionary<Type, SpeedInfo> m_Table;
 
-		private static SpeedInfo[] m_Speeds = new SpeedInfo[]
+		private static readonly SpeedInfo[] m_Speeds = new SpeedInfo[]
 			{
 				/* Slow */
 				new SpeedInfo( 0.3, 0.6, new Type[]

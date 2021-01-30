@@ -1,18 +1,18 @@
-using System;
-using System.Collections.Generic;
 using Server.ContextMenus;
 using Server.Gumps;
 using Server.Items;
 using Server.Multis;
 using Server.Network;
 using Server.Prompts;
+using System;
+using System.Collections.Generic;
 
 namespace Server.Mobiles
 {
 	public class ChangeRumorMessagePrompt : Prompt
 	{
-		private PlayerBarkeeper m_Barkeeper;
-		private int m_RumorIndex;
+		private readonly PlayerBarkeeper m_Barkeeper;
+		private readonly int m_RumorIndex;
 
 		public ChangeRumorMessagePrompt(PlayerBarkeeper barkeeper, int rumorIndex)
 		{
@@ -36,8 +36,8 @@ namespace Server.Mobiles
 
 	public class ChangeRumorKeywordPrompt : Prompt
 	{
-		private PlayerBarkeeper m_Barkeeper;
-		private int m_RumorIndex;
+		private readonly PlayerBarkeeper m_Barkeeper;
+		private readonly int m_RumorIndex;
 
 		public ChangeRumorKeywordPrompt(PlayerBarkeeper barkeeper, int rumorIndex)
 		{
@@ -61,7 +61,7 @@ namespace Server.Mobiles
 
 	public class ChangeTipMessagePrompt : Prompt
 	{
-		private PlayerBarkeeper m_Barkeeper;
+		private readonly PlayerBarkeeper m_Barkeeper;
 
 		public ChangeTipMessagePrompt(PlayerBarkeeper barkeeper)
 		{
@@ -121,8 +121,8 @@ namespace Server.Mobiles
 
 	public class ManageBarkeeperEntry : ContextMenuEntry
 	{
-		private Mobile m_From;
-		private PlayerBarkeeper m_Barkeeper;
+		private readonly Mobile m_From;
+		private readonly PlayerBarkeeper m_Barkeeper;
 
 		public ManageBarkeeperEntry(Mobile from, PlayerBarkeeper barkeeper) : base(6151, 12)
 		{
@@ -487,7 +487,7 @@ namespace Server.Mobiles
 			}
 		}
 
-		private List<SBInfo> m_SBInfos = new List<SBInfo>();
+		private readonly List<SBInfo> m_SBInfos = new List<SBInfo>();
 		protected override List<SBInfo> SBInfos { get { return m_SBInfos; } }
 
 		public override void InitSBInfo()
@@ -511,18 +511,18 @@ namespace Server.Mobiles
 		{
 			base.Serialize(writer);
 
-			writer.Write((int)0); // version;
+			writer.Write(0); // version;
 
-			writer.Write((Item)m_House);
+			writer.Write(m_House);
 
-			writer.Write((Mobile)m_Owner);
+			writer.Write(m_Owner);
 
-			writer.WriteEncodedInt((int)m_Rumors.Length);
+			writer.WriteEncodedInt(m_Rumors.Length);
 
 			for (int i = 0; i < m_Rumors.Length; ++i)
 				BarkeeperRumor.Serialize(writer, m_Rumors[i]);
 
-			writer.Write((string)m_TipMessage);
+			writer.Write(m_TipMessage);
 		}
 
 		public override void Deserialize(GenericReader reader)
@@ -562,8 +562,8 @@ namespace Server.Mobiles
 
 	public class BarkeeperTitleGump : Gump
 	{
-		private Mobile m_From;
-		private PlayerBarkeeper m_Barkeeper;
+		private readonly Mobile m_From;
+		private readonly PlayerBarkeeper m_Barkeeper;
 
 		private class Entry
 		{
@@ -587,7 +587,7 @@ namespace Server.Mobiles
 			}
 		}
 
-		private static Entry[] m_Entries = new Entry[]
+		private static readonly Entry[] m_Entries = new Entry[]
 			{
 				new Entry( "Alchemist" ),
 				new Entry( "Animal Tamer" ),
@@ -769,8 +769,8 @@ namespace Server.Mobiles
 
 	public class BarkeeperGump : Gump
 	{
-		private Mobile m_From;
-		private PlayerBarkeeper m_Barkeeper;
+		private readonly Mobile m_From;
+		private readonly PlayerBarkeeper m_Barkeeper;
 
 		public void RenderBackground()
 		{

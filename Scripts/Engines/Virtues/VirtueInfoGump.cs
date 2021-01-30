@@ -5,10 +5,10 @@ namespace Server
 {
 	public class VirtueInfoGump : Gump
 	{
-		private Mobile m_Beholder;
-		private int m_Desc;
-		private string m_Page;
-		private VirtueName m_Virtue;
+		private readonly Mobile m_Beholder;
+		private readonly int m_Desc;
+		private readonly string m_Page;
+		private readonly VirtueName m_Virtue;
 
 		public VirtueInfoGump(Mobile beholder, VirtueName virtue, int description) : this(beholder, virtue, description, null)
 		{

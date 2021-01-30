@@ -1,5 +1,5 @@
-using System;
 using Server.Targeting;
+using System;
 
 namespace Server.Engines.Plants
 {
@@ -132,14 +132,12 @@ namespace Server.Engines.Plants
 
 		public override void AddNameProperty(ObjectPropertyList list)
 		{
-			string args;
-			list.Add(GetLabel(out args), args);
+			list.Add(GetLabel(out string args), args);
 		}
 
 		public override void OnSingleClick(Mobile from)
 		{
-			string args;
-			LabelTo(from, GetLabel(out args), args);
+			LabelTo(from, GetLabel(out string args), args);
 		}
 
 		public override void OnDoubleClick(Mobile from)
@@ -181,7 +179,7 @@ namespace Server.Engines.Plants
 
 		private class InternalTarget : Target
 		{
-			private Seed m_Seed;
+			private readonly Seed m_Seed;
 
 			public InternalTarget(Seed seed) : base(-1, false, TargetFlags.None)
 			{
@@ -221,11 +219,11 @@ namespace Server.Engines.Plants
 		{
 			base.Serialize(writer);
 
-			writer.Write((int)0); // version
+			writer.Write(0); // version
 
 			writer.Write((int)m_PlantType);
 			writer.Write((int)m_PlantHue);
-			writer.Write((bool)m_ShowType);
+			writer.Write(m_ShowType);
 		}
 
 		public override void Deserialize(GenericReader reader)

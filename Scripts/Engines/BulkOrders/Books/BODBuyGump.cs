@@ -6,11 +6,11 @@ namespace Server.Engines.BulkOrders
 {
 	public class BODBuyGump : Gump
 	{
-		private PlayerMobile m_From;
-		private BulkOrderBook m_Book;
-		private object m_Object;
-		private int m_Price;
-		private int m_Page;
+		private readonly PlayerMobile m_From;
+		private readonly BulkOrderBook m_Book;
+		private readonly object m_Object;
+		private readonly int m_Price;
+		private readonly int m_Page;
 
 		public override void OnResponse(Server.Network.NetState sender, RelayInfo info)
 		{

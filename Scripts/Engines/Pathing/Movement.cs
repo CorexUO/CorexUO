@@ -1,7 +1,7 @@
-using System;
-using System.Collections.Generic;
 using Server.Items;
 using Server.Mobiles;
+using System;
+using System.Collections.Generic;
 
 namespace Server.Movement
 {
@@ -74,19 +74,19 @@ namespace Server.Movement
 			return true;
 		}
 
-		private List<Item>[] m_Pools = new List<Item>[4]
+		private readonly List<Item>[] m_Pools = new List<Item>[4]
 			{
 				new List<Item>(), new List<Item>(),
 				new List<Item>(), new List<Item>(),
 			};
 
-		private List<Mobile>[] m_MobPools = new List<Mobile>[3]
+		private readonly List<Mobile>[] m_MobPools = new List<Mobile>[3]
 			{
 				new List<Mobile>(), new List<Mobile>(),
 				new List<Mobile>(),
 			};
 
-		private List<Sector> m_Sectors = new List<Sector>();
+		private readonly List<Sector> m_Sectors = new List<Sector>();
 
 		private bool Check(Map map, Mobile m, List<Item> items, List<Mobile> mobiles, int x, int y, int startTop, int startZ, bool canSwim, bool cantWalk, out int newZ)
 		{

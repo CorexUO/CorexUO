@@ -6,9 +6,9 @@ namespace Server.Engines.BulkOrders
 {
 	public class SmallBulkEntry
 	{
-		private Type m_Type;
-		private int m_Number;
-		private int m_Graphic;
+		private readonly Type m_Type;
+		private readonly int m_Number;
+		private readonly int m_Graphic;
 
 		public Type Type { get { return m_Type; } }
 		public int Number { get { return m_Number; } }
@@ -48,14 +48,12 @@ namespace Server.Engines.BulkOrders
 			if (m_Cache == null)
 				m_Cache = new Dictionary<string, Dictionary<string, SmallBulkEntry[]>>();
 
-			Dictionary<string, SmallBulkEntry[]> table = null;
 
-			if (!m_Cache.TryGetValue(type, out table))
+			if (!m_Cache.TryGetValue(type, out Dictionary<string, SmallBulkEntry[]> table))
 				m_Cache[type] = table = new Dictionary<string, SmallBulkEntry[]>();
 
-			SmallBulkEntry[] entries = null;
 
-			if (!table.TryGetValue(name, out entries))
+			if (!table.TryGetValue(name, out SmallBulkEntry[] entries))
 				table[name] = entries = LoadEntries(type, name);
 
 			return entries;

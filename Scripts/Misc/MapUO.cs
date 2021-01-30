@@ -1,7 +1,7 @@
-using System;
 using Server.Engines.PartySystem;
 using Server.Guilds;
 using Server.Network;
+using System;
 
 namespace Server.Misc
 {
@@ -63,7 +63,7 @@ namespace Server.Misc
 				{
 					for (int i = 0; i < party.Members.Count; ++i)
 					{
-						PartyMemberInfo pmi = (PartyMemberInfo)party.Members[i];
+						PartyMemberInfo pmi = party.Members[i];
 
 						if (pmi == null || pmi.Mobile == from)
 							continue;
@@ -73,13 +73,13 @@ namespace Server.Misc
 						if (Utility.InUpdateRange(from, mob) && from.CanSee(mob))
 							continue;
 
-						m_Stream.Write((int)mob.Serial);
+						m_Stream.Write(mob.Serial);
 						m_Stream.Write((short)mob.X);
 						m_Stream.Write((short)mob.Y);
 						m_Stream.Write((byte)(mob.Map == null ? 0 : mob.Map.MapID));
 					}
 
-					m_Stream.Write((int)0);
+					m_Stream.Write(0);
 				}
 			}
 
@@ -88,7 +88,7 @@ namespace Server.Misc
 				public GuildTrack() : base(0x02, 5)
 				{
 					m_Stream.Write((byte)0);
-					m_Stream.Write((int)0);
+					m_Stream.Write(0);
 				}
 
 				public GuildTrack(Mobile from, Guild guild, bool locations) : base(0x02, ((guild.Members.Count - 1) * (locations ? 10 : 4)) + 5)
@@ -105,7 +105,7 @@ namespace Server.Misc
 						if (locations && Utility.InUpdateRange(from, mob) && from.CanSee(mob))
 							continue;
 
-						m_Stream.Write((int)mob.Serial);
+						m_Stream.Write(mob.Serial);
 
 						if (locations)
 						{
@@ -120,7 +120,7 @@ namespace Server.Misc
 						}
 					}
 
-					m_Stream.Write((int)0);
+					m_Stream.Write(0);
 				}
 			}
 		}

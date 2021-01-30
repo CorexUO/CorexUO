@@ -5,12 +5,12 @@ namespace Server.Engines.BulkOrders
 {
 	public class BOBFilterGump : Gump
 	{
-		private PlayerMobile m_From;
-		private BulkOrderBook m_Book;
+		private readonly PlayerMobile m_From;
+		private readonly BulkOrderBook m_Book;
 
 		private const int LabelColor = 0x7FFF;
 
-		private static int[,] m_MaterialFilters = new int[,]
+		private static readonly int[,] m_MaterialFilters = new int[,]
 			{
 				{ 1044067,  1 }, // Blacksmithy
 				{ 1062226,  3 }, // Iron
@@ -34,21 +34,21 @@ namespace Server.Engines.BulkOrders
 				{ 1062238, 16 }  // Barbed
 			};
 
-		private static int[,] m_TypeFilters = new int[,]
+		private static readonly int[,] m_TypeFilters = new int[,]
 			{
 				{ 1062229, 0 }, // All
 				{ 1062224, 1 }, // Small
 				{ 1062225, 2 }  // Large
 			};
 
-		private static int[,] m_QualityFilters = new int[,]
+		private static readonly int[,] m_QualityFilters = new int[,]
 			{
 				{ 1062229, 0 }, // All
 				{ 1011542, 1 }, // Normal
 				{ 1060636, 2 }  // Exceptional
 			};
 
-		private static int[,] m_AmountFilters = new int[,]
+		private static readonly int[,] m_AmountFilters = new int[,]
 			{
 				{ 1062229, 0 }, // All
 				{ 1049706, 1 }, // 10
@@ -56,7 +56,7 @@ namespace Server.Engines.BulkOrders
 				{ 1062239, 3 }  // 20
 			};
 
-		private static int[][,] m_Filters = new int[][,]
+		private static readonly int[][,] m_Filters = new int[][,]
 			{
 				m_TypeFilters,
 				m_QualityFilters,
@@ -64,13 +64,13 @@ namespace Server.Engines.BulkOrders
 				m_AmountFilters
 			};
 
-		private static int[] m_XOffsets_Type = new int[] { 0, 75, 170 };
-		private static int[] m_XOffsets_Quality = new int[] { 0, 75, 170 };
-		private static int[] m_XOffsets_Amount = new int[] { 0, 75, 180, 275 };
-		private static int[] m_XOffsets_Material = new int[] { 0, 105, 210, 305, 390, 485 };
+		private static readonly int[] m_XOffsets_Type = new int[] { 0, 75, 170 };
+		private static readonly int[] m_XOffsets_Quality = new int[] { 0, 75, 170 };
+		private static readonly int[] m_XOffsets_Amount = new int[] { 0, 75, 180, 275 };
+		private static readonly int[] m_XOffsets_Material = new int[] { 0, 105, 210, 305, 390, 485 };
 
-		private static int[] m_XWidths_Small = new int[] { 50, 50, 70, 50 };
-		private static int[] m_XWidths_Large = new int[] { 80, 50, 50, 50, 50, 50 };
+		private static readonly int[] m_XWidths_Small = new int[] { 50, 50, 70, 50 };
+		private static readonly int[] m_XWidths_Large = new int[] { 80, 50, 50, 50, 50, 50 };
 
 		private void AddFilterList(int x, int y, int[] xOffsets, int yOffset, int[,] filters, int[] xWidths, int filterValue, int filterIndex)
 		{

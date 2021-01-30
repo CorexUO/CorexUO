@@ -47,7 +47,7 @@ namespace Server.Items
 		{
 			base.Serialize(writer);
 
-			writer.Write((int)0); // version
+			writer.Write(0); // version
 		}
 
 		public override void Deserialize(GenericReader reader)
@@ -70,7 +70,7 @@ namespace Server.Items
 
 		private class InternalTarget : Target
 		{
-			private BaseAddonDeed m_Deed;
+			private readonly BaseAddonDeed m_Deed;
 
 			public InternalTarget(BaseAddonDeed deed) : base(-1, true, TargetFlags.None)
 			{

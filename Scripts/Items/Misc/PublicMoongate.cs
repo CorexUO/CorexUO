@@ -1,10 +1,10 @@
-using System;
-using System.Collections.Generic;
 using Server.Commands;
 using Server.Gumps;
 using Server.Mobiles;
 using Server.Network;
 using Server.Spells;
+using System;
+using System.Collections.Generic;
 
 namespace Server.Items
 {
@@ -87,7 +87,7 @@ namespace Server.Items
 		{
 			base.Serialize(writer);
 
-			writer.Write((int)0); // version
+			writer.Write(0); // version
 		}
 
 		public override void Deserialize(GenericReader reader)
@@ -155,7 +155,7 @@ namespace Server.Items
 	public class PMEntry
 	{
 		private Point3D m_Location;
-		private int m_Number;
+		private readonly int m_Number;
 
 		public Point3D Location
 		{
@@ -182,9 +182,9 @@ namespace Server.Items
 
 	public class PMList
 	{
-		private int m_Number, m_SelNumber;
-		private Map m_Map;
-		private PMEntry[] m_Entries;
+		private readonly int m_Number, m_SelNumber;
+		private readonly Map m_Map;
+		private readonly PMEntry[] m_Entries;
 
 		public int Number
 		{
@@ -299,9 +299,9 @@ namespace Server.Items
 
 	public class MoongateGump : Gump
 	{
-		private Mobile m_Mobile;
-		private Item m_Moongate;
-		private PMList[] m_Lists;
+		private readonly Mobile m_Mobile;
+		private readonly Item m_Moongate;
+		private readonly PMList[] m_Lists;
 
 		public MoongateGump(Mobile mobile, Item moongate) : base(100, 100)
 		{

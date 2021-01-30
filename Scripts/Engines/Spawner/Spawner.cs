@@ -1,11 +1,11 @@
+using Server.Commands;
+using Server.Items;
+using Server.Multis;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Reflection;
 using System.Text;
-using Server.Commands;
-using Server.Items;
-using Server.Multis;
 using CPA = Server.CommandPropertyAttribute;
 
 /*
@@ -771,7 +771,7 @@ namespace Server.Mobiles
 
 		private class InternalTimer : Timer
 		{
-			private Spawner m_Spawner;
+			private readonly Spawner m_Spawner;
 
 			public InternalTimer(Spawner spawner, TimeSpan delay) : base(delay)
 			{
@@ -893,7 +893,7 @@ namespace Server.Mobiles
 		{
 			base.Serialize(writer);
 
-			writer.Write((int)0); // version
+			writer.Write(0); // version
 
 			writer.Write(m_MobilesSeekHome);
 
@@ -1020,7 +1020,7 @@ namespace Server.Mobiles
 
 		private class WarnTimer : Timer
 		{
-			private List<WarnEntry> m_List;
+			private readonly List<WarnEntry> m_List;
 
 			private class WarnEntry
 			{

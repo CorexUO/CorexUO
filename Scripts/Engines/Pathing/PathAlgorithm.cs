@@ -5,7 +5,7 @@ namespace Server.PathAlgorithms
 		public abstract bool CheckCondition(Mobile m, Map map, Point3D start, Point3D goal);
 		public abstract Direction[] Find(Mobile m, Map map, Point3D start, Point3D goal);
 
-		private static Direction[] m_CalcDirections = new Direction[9]
+		private static readonly Direction[] m_CalcDirections = new Direction[9]
 			{
 				Direction.Up,
 				Direction.North,

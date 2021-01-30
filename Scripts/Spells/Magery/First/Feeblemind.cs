@@ -1,11 +1,11 @@
-using System;
 using Server.Targeting;
+using System;
 
 namespace Server.Spells.First
 {
 	public class FeeblemindSpell : MagerySpell
 	{
-		private static SpellInfo m_Info = new SpellInfo(
+		private static readonly SpellInfo m_Info = new SpellInfo(
 				"Feeblemind", "Rel Wis",
 				212,
 				9031,
@@ -64,13 +64,13 @@ namespace Server.Spells.First
 
 				HarmfulSpell(m);
 			}
-			
+
 			FinishSequence();
 		}
 
 		private class InternalTarget : Target
 		{
-			private FeeblemindSpell m_Owner;
+			private readonly FeeblemindSpell m_Owner;
 
 			public InternalTarget(FeeblemindSpell owner) : base(owner.SpellRange, false, TargetFlags.Harmful)
 			{

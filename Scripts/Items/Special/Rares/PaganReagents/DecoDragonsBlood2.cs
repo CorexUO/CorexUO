@@ -1,31 +1,31 @@
 namespace Server.Items
 {
-    public class DecoDragonsBlood2 : BaseItem
-    {
+	public class DecoDragonsBlood2 : BaseItem
+	{
 
-        [Constructable]
-        public DecoDragonsBlood2() : base(0xF82)
-        {
-            Movable = true;
-            Stackable = false;
-        }
+		[Constructable]
+		public DecoDragonsBlood2() : base(0xF82)
+		{
+			Movable = true;
+			Stackable = false;
+		}
 
-        public DecoDragonsBlood2(Serial serial) : base(serial)
-        {
-        }
+		public DecoDragonsBlood2(Serial serial) : base(serial)
+		{
+		}
 
-        public override void Serialize(GenericWriter writer)
-        {
-            base.Serialize(writer);
+		public override void Serialize(GenericWriter writer)
+		{
+			base.Serialize(writer);
 
-            writer.Write((int)0);
-        }
+			writer.Write(0);
+		}
 
-        public override void Deserialize(GenericReader reader)
-        {
-            base.Deserialize(reader);
+		public override void Deserialize(GenericReader reader)
+		{
+			base.Deserialize(reader);
 
-            int version = reader.ReadInt();
-        }
-    }
+			int version = reader.ReadInt();
+		}
+	}
 }

@@ -1,7 +1,7 @@
-using System;
 using Server.Network;
 using Server.Prompts;
 using Server.Targeting;
+using System;
 
 namespace Server.Items
 {
@@ -154,14 +154,14 @@ namespace Server.Items
 		{
 			base.Serialize(writer);
 
-			writer.Write((int)0); // version
+			writer.Write(0); // version
 
-			writer.Write((int)m_MaxRange);
+			writer.Write(m_MaxRange);
 
-			writer.Write((Item)m_Link);
+			writer.Write(m_Link);
 
-			writer.Write((string)m_Description);
-			writer.Write((uint)m_KeyVal);
+			writer.Write(m_Description);
+			writer.Write(m_KeyVal);
 		}
 
 		public override void Deserialize(GenericReader reader)
@@ -330,7 +330,7 @@ namespace Server.Items
 
 		private class RenamePrompt : Prompt
 		{
-			private Key m_Key;
+			private readonly Key m_Key;
 
 			public RenamePrompt(Key key)
 			{
@@ -351,7 +351,7 @@ namespace Server.Items
 
 		private class UnlockTarget : Target
 		{
-			private Key m_Key;
+			private readonly Key m_Key;
 
 			public UnlockTarget(Key key) : base(key.MaxRange, false, TargetFlags.None)
 			{
@@ -396,7 +396,7 @@ namespace Server.Items
 
 		private class CopyTarget : Target
 		{
-			private Key m_Key;
+			private readonly Key m_Key;
 
 			public CopyTarget(Key key) : base(3, false, TargetFlags.None)
 			{

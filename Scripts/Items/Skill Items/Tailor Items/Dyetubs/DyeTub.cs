@@ -1,8 +1,8 @@
-using System.Collections.Generic;
 using Server.ContextMenus;
 using Server.Gumps;
 using Server.Multis;
 using Server.Targeting;
+using System.Collections.Generic;
 
 namespace Server.Items
 {
@@ -48,11 +48,11 @@ namespace Server.Items
 		{
 			base.Serialize(writer);
 
-			writer.Write((int)0); // version
+			writer.Write(0); // version
 
 			writer.Write((int)m_SecureLevel);
-			writer.Write((bool)m_Redyable);
-			writer.Write((int)m_DyedHue);
+			writer.Write(m_Redyable);
+			writer.Write(m_DyedHue);
 		}
 
 		public override void Deserialize(GenericReader reader)
@@ -158,7 +158,7 @@ namespace Server.Items
 
 		private class InternalTarget : Target
 		{
-			private DyeTub m_Tub;
+			private readonly DyeTub m_Tub;
 
 			public InternalTarget(DyeTub tub) : base(1, false, TargetFlags.None)
 			{

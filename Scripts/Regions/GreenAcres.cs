@@ -1,8 +1,8 @@
-using System.Xml;
 using Server.Spells.Chivalry;
 using Server.Spells.Fourth;
 using Server.Spells.Seventh;
 using Server.Spells.Sixth;
+using System.Xml;
 
 namespace Server.Regions
 {

@@ -1,9 +1,9 @@
-using System;
-using System.Collections;
 using Server.Engines.Craft;
 using Server.Mobiles;
 using Server.Network;
 using Server.Targeting;
+using System;
+using System.Collections;
 
 namespace Server.Items
 {
@@ -152,7 +152,7 @@ namespace Server.Items
 			}
 		}
 
-		private static Hashtable m_Instruments = new Hashtable();
+		private static readonly Hashtable m_Instruments = new Hashtable();
 
 		public static BaseInstrument GetInstrument(Mobile from)
 		{
@@ -427,7 +427,7 @@ namespace Server.Items
 		{
 			base.Serialize(writer);
 
-			writer.Write((int)0); // version
+			writer.Write(0); // version
 
 			writer.Write(m_ReplenishesCharges);
 			if (m_ReplenishesCharges)
@@ -438,10 +438,10 @@ namespace Server.Items
 			writer.WriteEncodedInt((int)m_Slayer);
 			writer.WriteEncodedInt((int)m_Slayer2);
 
-			writer.WriteEncodedInt((int)UsesRemaining);
+			writer.WriteEncodedInt(UsesRemaining);
 
-			writer.WriteEncodedInt((int)m_WellSound);
-			writer.WriteEncodedInt((int)m_BadlySound);
+			writer.WriteEncodedInt(m_WellSound);
+			writer.WriteEncodedInt(m_BadlySound);
 		}
 
 		public override void Deserialize(GenericReader reader)
@@ -519,7 +519,7 @@ namespace Server.Items
 
 		private class InternalTimer : Timer
 		{
-			private Mobile m_From;
+			private readonly Mobile m_From;
 
 			public InternalTimer(Mobile from) : base(TimeSpan.FromSeconds(6.0))
 			{

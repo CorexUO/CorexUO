@@ -1,9 +1,9 @@
-using System;
-using System.Collections.Generic;
 using Server.Gumps;
 using Server.Items;
 using Server.Mobiles;
 using Server.Regions;
+using System;
+using System.Collections.Generic;
 
 namespace Server.Engines.CannedEvil
 {
@@ -440,7 +440,7 @@ namespace Server.Engines.CannedEvil
 			PlayerMobile pm = (PlayerMobile)killer;
 			for (int j = 0; j < pm.JusticeProtectors.Count; ++j)
 			{
-				Mobile prot = (Mobile)pm.JusticeProtectors[j];
+				Mobile prot = pm.JusticeProtectors[j];
 
 				if (prot.Map != killer.Map || prot.Murderer || prot.Criminal || !JusticeVirtue.CheckMapRegion(killer, prot))
 					continue;
@@ -549,12 +549,12 @@ namespace Server.Engines.CannedEvil
 										if (random <= 24)
 										{
 											ScrollofTranscendence SoTF = CreateRandomSoT(true);
-											GiveScrollTo(pm, (SpecialScroll)SoTF);
+											GiveScrollTo(pm, SoTF);
 										}
 										else
 										{
 											PowerScroll PS = PowerScroll.CreateRandomNoCraft(5, 5);
-											GiveScrollTo(pm, (SpecialScroll)PS);
+											GiveScrollTo(pm, PS);
 										}
 									}
 								}
@@ -1108,9 +1108,9 @@ namespace Server.Engines.CannedEvil
 		{
 			base.Serialize(writer);
 
-			writer.Write((int)0); // version
+			writer.Write(0); // version
 
-			writer.Write((int)m_SPawnSzMod);
+			writer.Write(m_SPawnSzMod);
 			writer.Write(m_DamageEntries.Count);
 			foreach (KeyValuePair<Mobile, int> kvp in m_DamageEntries)
 			{
@@ -1128,7 +1128,7 @@ namespace Server.Engines.CannedEvil
 			//			writer.Write( m_SpawnRange );
 			writer.Write(m_Kills);
 
-			writer.Write((bool)m_Active);
+			writer.Write(m_Active);
 			writer.Write((int)m_Type);
 			writer.Write(m_Creatures, true);
 			writer.Write(m_RedSkulls, true);
@@ -1219,7 +1219,7 @@ namespace Server.Engines.CannedEvil
 	{
 		public override bool YoungProtected { get { return false; } }
 
-		private ChampionSpawn m_Spawn;
+		private readonly ChampionSpawn m_Spawn;
 
 		public ChampionSpawn ChampionSpawn
 		{
@@ -1277,7 +1277,7 @@ namespace Server.Engines.CannedEvil
 		{
 			base.Serialize(writer);
 
-			writer.Write((int)0); // version
+			writer.Write(0); // version
 
 			writer.Write(m_Spawn);
 		}

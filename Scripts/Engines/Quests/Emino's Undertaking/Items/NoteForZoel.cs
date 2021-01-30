@@ -2,44 +2,44 @@ using Server.Mobiles;
 
 namespace Server.Engines.Quests.Ninja
 {
-    public class NoteForZoel : QuestItem
-    {
-        public override int LabelNumber { get { return 1063186; } } // A Note for Zoel
+	public class NoteForZoel : QuestItem
+	{
+		public override int LabelNumber { get { return 1063186; } } // A Note for Zoel
 
-        [Constructable]
-        public NoteForZoel() : base(0x14EF)
-        {
-            Weight = 1.0;
-            Hue = 0x6B9;
-        }
+		[Constructable]
+		public NoteForZoel() : base(0x14EF)
+		{
+			Weight = 1.0;
+			Hue = 0x6B9;
+		}
 
-        public NoteForZoel(Serial serial) : base(serial)
-        {
-        }
+		public NoteForZoel(Serial serial) : base(serial)
+		{
+		}
 
-        public override bool CanDrop(PlayerMobile player)
-        {
-            EminosUndertakingQuest qs = player.Quest as EminosUndertakingQuest;
+		public override bool CanDrop(PlayerMobile player)
+		{
+			EminosUndertakingQuest qs = player.Quest as EminosUndertakingQuest;
 
-            if (qs == null)
-                return true;
+			if (qs == null)
+				return true;
 
-            //return !qs.IsObjectiveInProgress( typeof( GiveZoelNoteObjective ) );
-            return false;
-        }
+			//return !qs.IsObjectiveInProgress( typeof( GiveZoelNoteObjective ) );
+			return false;
+		}
 
-        public override void Serialize(GenericWriter writer)
-        {
-            base.Serialize(writer);
+		public override void Serialize(GenericWriter writer)
+		{
+			base.Serialize(writer);
 
-            writer.Write((int)0); // version
-        }
+			writer.Write(0); // version
+		}
 
-        public override void Deserialize(GenericReader reader)
-        {
-            base.Deserialize(reader);
+		public override void Deserialize(GenericReader reader)
+		{
+			base.Deserialize(reader);
 
-            int version = reader.ReadInt();
-        }
-    }
+			int version = reader.ReadInt();
+		}
+	}
 }

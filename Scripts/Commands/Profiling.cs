@@ -1,7 +1,7 @@
+using Server.Diagnostics;
 using System;
 using System.Collections;
 using System.IO;
-using Server.Diagnostics;
 
 namespace Server.Commands
 {
@@ -137,7 +137,7 @@ namespace Server.Commands
 				{
 					Type type = item.GetType();
 
-					object o = (object)table[type];
+					object o = table[type];
 
 					if (o == null)
 						table[type] = 1;
@@ -153,7 +153,7 @@ namespace Server.Commands
 				{
 					Type type = m.GetType();
 
-					object o = (object)table[type];
+					object o = table[type];
 
 					if (o == null)
 						table[type] = 1;

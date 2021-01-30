@@ -1,41 +1,41 @@
 namespace Server.Items
 {
-    public class Bottle : BaseItem, ICommodity
-    {
-        int ICommodity.DescriptionNumber { get { return LabelNumber; } }
-        bool ICommodity.IsDeedable { get { return (Core.ML); } }
+	public class Bottle : BaseItem, ICommodity
+	{
+		int ICommodity.DescriptionNumber { get { return LabelNumber; } }
+		bool ICommodity.IsDeedable { get { return (Core.ML); } }
 
-        [Constructable]
-        public Bottle() : this(1)
-        {
-        }
+		[Constructable]
+		public Bottle() : this(1)
+		{
+		}
 
-        [Constructable]
-        public Bottle(int amount) : base(0xF0E)
-        {
-            Stackable = true;
-            Weight = 1.0;
-            Amount = amount;
-        }
+		[Constructable]
+		public Bottle(int amount) : base(0xF0E)
+		{
+			Stackable = true;
+			Weight = 1.0;
+			Amount = amount;
+		}
 
-        public Bottle(Serial serial) : base(serial)
-        {
-        }
+		public Bottle(Serial serial) : base(serial)
+		{
+		}
 
 
 
-        public override void Serialize(GenericWriter writer)
-        {
-            base.Serialize(writer);
+		public override void Serialize(GenericWriter writer)
+		{
+			base.Serialize(writer);
 
-            writer.Write((int)0); // version
-        }
+			writer.Write(0); // version
+		}
 
-        public override void Deserialize(GenericReader reader)
-        {
-            base.Deserialize(reader);
+		public override void Deserialize(GenericReader reader)
+		{
+			base.Deserialize(reader);
 
-            reader.ReadInt();
-        }
-    }
+			reader.ReadInt();
+		}
+	}
 }

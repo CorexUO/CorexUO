@@ -1,12 +1,12 @@
+using Server.Targeting;
 using System;
 using System.Collections;
-using Server.Targeting;
 
 namespace Server.Spells.Necromancy
 {
 	public class CorpseSkinSpell : NecromancerSpell
 	{
-		private static SpellInfo m_Info = new SpellInfo(
+		private static readonly SpellInfo m_Info = new SpellInfo(
 				"Corpse Skin", "In Agle Corp Ylem",
 				203,
 				9051,
@@ -89,7 +89,7 @@ namespace Server.Spells.Necromancy
 			FinishSequence();
 		}
 
-		private static Hashtable m_Table = new Hashtable();
+		private static readonly Hashtable m_Table = new Hashtable();
 
 		public static bool RemoveCurse(Mobile m)
 		{
@@ -105,8 +105,8 @@ namespace Server.Spells.Necromancy
 
 		private class ExpireTimer : Timer
 		{
-			private Mobile m_Mobile;
-			private ResistanceMod[] m_Mods;
+			private readonly Mobile m_Mobile;
+			private readonly ResistanceMod[] m_Mods;
 
 			public ExpireTimer(Mobile m, ResistanceMod[] mods, TimeSpan delay) : base(delay)
 			{
@@ -133,7 +133,7 @@ namespace Server.Spells.Necromancy
 
 		private class InternalTarget : Target
 		{
-			private CorpseSkinSpell m_Owner;
+			private readonly CorpseSkinSpell m_Owner;
 
 			public InternalTarget(CorpseSkinSpell owner) : base(owner.SpellRange, false, TargetFlags.Harmful)
 			{

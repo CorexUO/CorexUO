@@ -1,12 +1,12 @@
+using Server.Targeting;
 using System;
 using System.Collections;
-using Server.Targeting;
 
 namespace Server.Spells.Fourth
 {
 	public class CurseSpell : MagerySpell
 	{
-		private static SpellInfo m_Info = new SpellInfo(
+		private static readonly SpellInfo m_Info = new SpellInfo(
 				"Curse", "Des Sanct",
 				227,
 				9031,
@@ -37,7 +37,7 @@ namespace Server.Spells.Fourth
 			}
 		}
 
-		private static Hashtable m_UnderEffect = new Hashtable();
+		private static readonly Hashtable m_UnderEffect = new Hashtable();
 
 		public static void RemoveEffect(object state)
 		{
@@ -101,7 +101,7 @@ namespace Server.Spells.Fourth
 
 		private class InternalTarget : Target
 		{
-			private CurseSpell m_Owner;
+			private readonly CurseSpell m_Owner;
 
 			public InternalTarget(CurseSpell owner) : base(owner.SpellRange, false, TargetFlags.Harmful)
 			{

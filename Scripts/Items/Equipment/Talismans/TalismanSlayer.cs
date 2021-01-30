@@ -1,6 +1,6 @@
+using Server.Mobiles;
 using System;
 using System.Collections.Generic;
-using Server.Mobiles;
 
 namespace Server.Items
 {
@@ -20,7 +20,7 @@ namespace Server.Items
 
 	public static class TalismanSlayer
 	{
-		private static Dictionary<TalismanSlayerName, Type[]> m_Table = new Dictionary<TalismanSlayerName, Type[]>();
+		private static readonly Dictionary<TalismanSlayerName, Type[]> m_Table = new Dictionary<TalismanSlayerName, Type[]>();
 
 		public static void Initialize()
 		{

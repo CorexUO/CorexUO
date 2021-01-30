@@ -4,7 +4,7 @@ namespace Server.Spells.Fourth
 {
 	public class LightningSpell : MagerySpell
 	{
-		private static SpellInfo m_Info = new SpellInfo(
+		private static readonly SpellInfo m_Info = new SpellInfo(
 				"Lightning", "Por Ort Grav",
 				239,
 				9021,
@@ -77,7 +77,7 @@ namespace Server.Spells.Fourth
 
 		private class InternalTarget : Target
 		{
-			private LightningSpell m_Owner;
+			private readonly LightningSpell m_Owner;
 
 			public InternalTarget(LightningSpell owner) : base(owner.SpellRange, false, TargetFlags.Harmful)
 			{

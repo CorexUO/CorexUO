@@ -1,13 +1,13 @@
-using System;
-using System.Collections.Generic;
 using Server.Items;
 using Server.Targeting;
+using System;
+using System.Collections.Generic;
 
 namespace Server.Spells.Sixth
 {
 	public class InvisibilitySpell : MagerySpell
 	{
-		private static SpellInfo m_Info = new SpellInfo(
+		private static readonly SpellInfo m_Info = new SpellInfo(
 				"Invisibility", "An Lor Xen",
 				206,
 				9002,
@@ -86,7 +86,7 @@ namespace Server.Spells.Sixth
 			FinishSequence();
 		}
 
-		private static Dictionary<Mobile, Timer> m_Table = new Dictionary<Mobile, Timer>();
+		private static readonly Dictionary<Mobile, Timer> m_Table = new Dictionary<Mobile, Timer>();
 
 		public static bool HasTimer(Mobile m)
 		{
@@ -95,8 +95,7 @@ namespace Server.Spells.Sixth
 
 		public static void RemoveTimer(Mobile m)
 		{
-			Timer t = null;
-			m_Table.TryGetValue(m, out t);
+			m_Table.TryGetValue(m, out Timer t);
 
 			if (t != null)
 			{
@@ -107,7 +106,7 @@ namespace Server.Spells.Sixth
 
 		private class InternalTimer : Timer
 		{
-			private Mobile m_Mobile;
+			private readonly Mobile m_Mobile;
 
 			public InternalTimer(Mobile m, TimeSpan duration) : base(duration)
 			{
@@ -124,7 +123,7 @@ namespace Server.Spells.Sixth
 
 		public class InternalTarget : Target
 		{
-			private InvisibilitySpell m_Owner;
+			private readonly InvisibilitySpell m_Owner;
 
 			public InternalTarget(InvisibilitySpell owner) : base(owner.SpellRange, false, TargetFlags.Beneficial)
 			{

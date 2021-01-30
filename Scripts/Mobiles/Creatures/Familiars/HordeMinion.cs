@@ -1,10 +1,10 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using Server.ContextMenus;
 using Server.Gumps;
 using Server.Items;
 using Server.Network;
+using System;
+using System.Collections;
+using System.Collections.Generic;
 
 namespace Server.Mobiles
 {
@@ -86,12 +86,10 @@ namespace Server.Mobiles
 				if (!pack.CheckHold(this, item, false, true))
 					return;
 
-				bool rejected;
-				LRReason reject;
 
 				NextActionTime = Core.TickCount;
 
-				Lift(item, item.Amount, out rejected, out reject);
+				Lift(item, item.Amount, out bool rejected, out LRReason reject);
 
 				if (rejected)
 					continue;
@@ -188,7 +186,7 @@ namespace Server.Mobiles
 		{
 			base.Serialize(writer);
 
-			writer.Write((int)0);
+			writer.Write(0);
 		}
 
 		public override void Deserialize(GenericReader reader)

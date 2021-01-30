@@ -1,7 +1,3 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Text;
 using Server.ContextMenus;
 using Server.Ethics;
 using Server.Factions;
@@ -10,6 +6,10 @@ using Server.Items;
 using Server.Mobiles;
 using Server.Network;
 using Server.Targeting;
+using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.Text;
 
 namespace Server.Engines.ConPVP
 {
@@ -108,9 +108,9 @@ namespace Server.Engines.ConPVP
 		{
 			base.Serialize(writer);
 
-			writer.Write((int)0);
+			writer.Write(0);
 
-			writer.Write((Item)m_Tournament);
+			writer.Write(m_Tournament);
 		}
 
 		public override void Deserialize(GenericReader reader)
@@ -274,10 +274,10 @@ namespace Server.Engines.ConPVP
 		{
 			base.Serialize(writer);
 
-			writer.Write((int)0);
+			writer.Write(0);
 
-			writer.Write((Item)m_Tournament);
-			writer.Write((Mobile)m_Registrar);
+			writer.Write(m_Tournament);
+			writer.Write(m_Registrar);
 		}
 
 		public override void Deserialize(GenericReader reader)
@@ -300,10 +300,10 @@ namespace Server.Engines.ConPVP
 
 	public class ConfirmSignupGump : Gump
 	{
-		private Mobile m_From;
-		private Tournament m_Tournament;
-		private ArrayList m_Players;
-		private Mobile m_Registrar;
+		private readonly Mobile m_From;
+		private readonly Tournament m_Tournament;
+		private readonly ArrayList m_Players;
+		private readonly Mobile m_Registrar;
 
 		private const int BlackColor32 = 0x000008;
 		private const int LabelColor32 = 0xFFFFFF;
@@ -862,11 +862,11 @@ namespace Server.Engines.ConPVP
 	{
 		private bool m_Active;
 
-		private Mobile m_From;
-		private Mobile m_Requested;
-		private Tournament m_Tournament;
-		private Mobile m_Registrar;
-		private ArrayList m_Players;
+		private readonly Mobile m_From;
+		private readonly Mobile m_Requested;
+		private readonly Tournament m_Tournament;
+		private readonly Mobile m_Registrar;
+		private readonly ArrayList m_Players;
 
 		private const int BlackColor32 = 0x000008;
 		private const int LabelColor32 = 0xFFFFFF;
@@ -1228,7 +1228,7 @@ namespace Server.Engines.ConPVP
 		[CommandProperty(AccessLevel.GameMaster)]
 		public Tournament Tournament { get { return m_Tournament; } set { } }
 
-		private static ArrayList m_Instances = new ArrayList();
+		private static readonly ArrayList m_Instances = new ArrayList();
 
 		public static bool IsActive
 		{
@@ -1276,7 +1276,7 @@ namespace Server.Engines.ConPVP
 
 		private class EditEntry : ContextMenuEntry
 		{
-			private Tournament m_Tournament;
+			private readonly Tournament m_Tournament;
 
 			public EditEntry(Tournament tourny) : base(5101)
 			{
@@ -1291,7 +1291,7 @@ namespace Server.Engines.ConPVP
 
 		private class StartEntry : ContextMenuEntry
 		{
-			private Tournament m_Tournament;
+			private readonly Tournament m_Tournament;
 
 			public StartEntry(Tournament tourny) : base(5113)
 			{
@@ -1329,7 +1329,7 @@ namespace Server.Engines.ConPVP
 		{
 			base.Serialize(writer);
 
-			writer.Write((int)0);
+			writer.Write(0);
 
 			m_Tournament.Serialize(writer);
 		}
@@ -1551,23 +1551,23 @@ namespace Server.Engines.ConPVP
 
 		public void Serialize(GenericWriter writer)
 		{
-			writer.WriteEncodedInt((int)0); // version
+			writer.WriteEncodedInt(0); // version
 
-			writer.Write((bool)m_FactionRestricted);
+			writer.Write(m_FactionRestricted);
 
-			writer.Write((Item)m_EventController);
+			writer.Write(m_EventController);
 
-			writer.WriteEncodedInt((int)m_SuddenDeathRounds);
+			writer.WriteEncodedInt(m_SuddenDeathRounds);
 
 			writer.WriteEncodedInt((int)m_TournyType);
 
 			writer.WriteEncodedInt((int)m_GroupType);
 			writer.WriteEncodedInt((int)m_TieType);
-			writer.Write((TimeSpan)m_SuddenDeath);
+			writer.Write(m_SuddenDeath);
 
-			writer.WriteEncodedInt((int)m_ParticipantsPerMatch);
-			writer.WriteEncodedInt((int)m_PlayersPerParticipant);
-			writer.Write((TimeSpan)m_SignupPeriod);
+			writer.WriteEncodedInt(m_ParticipantsPerMatch);
+			writer.WriteEncodedInt(m_PlayersPerParticipant);
+			writer.Write(m_SignupPeriod);
 		}
 
 		public Tournament(GenericReader reader)
@@ -2759,13 +2759,13 @@ namespace Server.Engines.ConPVP
 
 	public class TournamentBracketGump : Gump
 	{
-		private Mobile m_From;
-		private Tournament m_Tournament;
-		private TournyBracketGumpType m_Type;
-		private ArrayList m_List;
-		private int m_Page;
+		private readonly Mobile m_From;
+		private readonly Tournament m_Tournament;
+		private readonly TournyBracketGumpType m_Type;
+		private readonly ArrayList m_List;
+		private readonly int m_Page;
 		private int m_PerPage;
-		private object m_Object;
+		private readonly object m_Object;
 
 		private const int BlackColor32 = 0x000008;
 		private const int LabelColor32 = 0xFFFFFF;
@@ -3071,8 +3071,7 @@ namespace Server.Engines.ConPVP
 						AddLeftArrow(25, 11, ToButtonID(0, 0));
 						AddHtml(25, 35, 250, 20, Center(String.Format("{0} Participant{1}", m_List.Count, m_List.Count == 1 ? "" : "s")), false, false);
 
-						int index, count, y;
-						StartPage(out index, out count, out y, 12);
+						StartPage(out int index, out int count, out int y, 12);
 
 						for (int i = 0; i < count; ++i, y += 18)
 						{
@@ -3186,8 +3185,7 @@ namespace Server.Engines.ConPVP
 						if (m_List == null)
 							m_List = new ArrayList(tourny.Pyramid.Levels);
 
-						int index, count, y;
-						StartPage(out index, out count, out y, 12);
+						StartPage(out int index, out int count, out int y, 12);
 
 						for (int i = 0; i < count; ++i, y += 18)
 						{
@@ -3218,8 +3216,7 @@ namespace Server.Engines.ConPVP
 
 						AddHtml(25, 73, 200, 20, String.Format("{0} Match{1}", m_List.Count, m_List.Count == 1 ? "" : "es"), false, false);
 
-						int index, count, y;
-						StartPage(out index, out count, out y, 10);
+						StartPage(out int index, out int count, out int y, 10);
 
 						for (int i = 0; i < count; ++i, y += 18)
 						{
@@ -3428,9 +3425,8 @@ namespace Server.Engines.ConPVP
 
 		public override void OnResponse(NetState sender, RelayInfo info)
 		{
-			int type, index;
 
-			if (!FromButtonID(info.ButtonID, out type, out index))
+			if (!FromButtonID(info.ButtonID, out int type, out int index))
 				return;
 
 			switch (type)
@@ -3624,9 +3620,9 @@ namespace Server.Engines.ConPVP
 		{
 			base.Serialize(writer);
 
-			writer.Write((int)0);
+			writer.Write(0);
 
-			writer.Write((Item)m_Tournament);
+			writer.Write(m_Tournament);
 		}
 
 		public override void Deserialize(GenericReader reader)

@@ -1,45 +1,45 @@
 namespace Server.Items
 {
-    public class Shaft : BaseItem, ICommodity
-    {
-        int ICommodity.DescriptionNumber { get { return LabelNumber; } }
-        bool ICommodity.IsDeedable { get { return true; } }
+	public class Shaft : BaseItem, ICommodity
+	{
+		int ICommodity.DescriptionNumber { get { return LabelNumber; } }
+		bool ICommodity.IsDeedable { get { return true; } }
 
-        public override double DefaultWeight
-        {
-            get { return 0.1; }
-        }
+		public override double DefaultWeight
+		{
+			get { return 0.1; }
+		}
 
-        [Constructable]
-        public Shaft() : this(1)
-        {
-        }
+		[Constructable]
+		public Shaft() : this(1)
+		{
+		}
 
-        [Constructable]
-        public Shaft(int amount) : base(0x1BD4)
-        {
-            Stackable = true;
-            Amount = amount;
-        }
+		[Constructable]
+		public Shaft(int amount) : base(0x1BD4)
+		{
+			Stackable = true;
+			Amount = amount;
+		}
 
-        public Shaft(Serial serial) : base(serial)
-        {
-        }
+		public Shaft(Serial serial) : base(serial)
+		{
+		}
 
 
 
-        public override void Serialize(GenericWriter writer)
-        {
-            base.Serialize(writer);
+		public override void Serialize(GenericWriter writer)
+		{
+			base.Serialize(writer);
 
-            writer.Write((int)0); // version
-        }
+			writer.Write(0); // version
+		}
 
-        public override void Deserialize(GenericReader reader)
-        {
-            base.Deserialize(reader);
+		public override void Deserialize(GenericReader reader)
+		{
+			base.Deserialize(reader);
 
-            int version = reader.ReadInt();
-        }
-    }
+			int version = reader.ReadInt();
+		}
+	}
 }

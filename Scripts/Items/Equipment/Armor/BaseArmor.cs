@@ -1,8 +1,7 @@
-using System;
-using System.Collections.Generic;
 using Server.Engines.Craft;
 using Server.Factions;
 using Server.Network;
+using System;
 using AMA = Server.Items.ArmorMeditationAllowance;
 using AMT = Server.Items.ArmorMaterialType;
 
@@ -698,7 +697,7 @@ namespace Server.Items
 		{
 			base.Serialize(writer);
 
-			writer.Write((int)0); // version
+			writer.Write(0); // version
 
 			SaveFlag flags = SaveFlag.None;
 
@@ -731,28 +730,28 @@ namespace Server.Items
 				m_AosArmorAttributes.Serialize(writer);
 
 			if (flags.HasFlag(SaveFlag.PhysicalBonus))
-				writer.WriteEncodedInt((int)m_PhysicalBonus);
+				writer.WriteEncodedInt(m_PhysicalBonus);
 
 			if (flags.HasFlag(SaveFlag.FireBonus))
-				writer.WriteEncodedInt((int)m_FireBonus);
+				writer.WriteEncodedInt(m_FireBonus);
 
 			if (flags.HasFlag(SaveFlag.ColdBonus))
-				writer.WriteEncodedInt((int)m_ColdBonus);
+				writer.WriteEncodedInt(m_ColdBonus);
 
 			if (flags.HasFlag(SaveFlag.PoisonBonus))
-				writer.WriteEncodedInt((int)m_PoisonBonus);
+				writer.WriteEncodedInt(m_PoisonBonus);
 
 			if (flags.HasFlag(SaveFlag.EnergyBonus))
-				writer.WriteEncodedInt((int)m_EnergyBonus);
+				writer.WriteEncodedInt(m_EnergyBonus);
 
 			if (flags.HasFlag(SaveFlag.MaxHitPoints))
-				writer.WriteEncodedInt((int)m_MaxHitPoints);
+				writer.WriteEncodedInt(m_MaxHitPoints);
 
 			if (flags.HasFlag(SaveFlag.HitPoints))
-				writer.WriteEncodedInt((int)m_HitPoints);
+				writer.WriteEncodedInt(m_HitPoints);
 
 			if (flags.HasFlag(SaveFlag.Crafter))
-				writer.Write((Mobile)m_Crafter);
+				writer.Write(m_Crafter);
 
 			if (flags.HasFlag(SaveFlag.Durability))
 				writer.WriteEncodedInt((int)m_Durability);
@@ -764,25 +763,25 @@ namespace Server.Items
 				writer.WriteEncodedInt((int)m_Resource);
 
 			if (flags.HasFlag(SaveFlag.BaseArmor))
-				writer.WriteEncodedInt((int)m_ArmorBase);
+				writer.WriteEncodedInt(m_ArmorBase);
 
 			if (flags.HasFlag(SaveFlag.StrBonus))
-				writer.WriteEncodedInt((int)m_StrBonus);
+				writer.WriteEncodedInt(m_StrBonus);
 
 			if (flags.HasFlag(SaveFlag.DexBonus))
-				writer.WriteEncodedInt((int)m_DexBonus);
+				writer.WriteEncodedInt(m_DexBonus);
 
 			if (flags.HasFlag(SaveFlag.IntBonus))
-				writer.WriteEncodedInt((int)m_IntBonus);
+				writer.WriteEncodedInt(m_IntBonus);
 
 			if (flags.HasFlag(SaveFlag.StrReq))
-				writer.WriteEncodedInt((int)m_StrReq);
+				writer.WriteEncodedInt(m_StrReq);
 
 			if (flags.HasFlag(SaveFlag.DexReq))
-				writer.WriteEncodedInt((int)m_DexReq);
+				writer.WriteEncodedInt(m_DexReq);
 
 			if (flags.HasFlag(SaveFlag.IntReq))
-				writer.WriteEncodedInt((int)m_IntReq);
+				writer.WriteEncodedInt(m_IntReq);
 
 			if (flags.HasFlag(SaveFlag.MedAllowance))
 				writer.WriteEncodedInt((int)m_Meditate);

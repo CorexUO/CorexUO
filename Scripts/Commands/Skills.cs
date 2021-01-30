@@ -1,5 +1,5 @@
-using System;
 using Server.Targeting;
+using System;
 
 namespace Server.Commands
 {
@@ -22,8 +22,7 @@ namespace Server.Commands
 			}
 			else
 			{
-				SkillName skill;
-				if (Enum.TryParse(arg.GetString(0), true, out skill))
+				if (Enum.TryParse(arg.GetString(0), true, out SkillName skill))
 				{
 					arg.Mobile.Target = new SkillTarget(skill, arg.GetDouble(1));
 				}
@@ -58,8 +57,7 @@ namespace Server.Commands
 			}
 			else
 			{
-				SkillName skill;
-				if (Enum.TryParse(arg.GetString(0), true, out skill))
+				if (Enum.TryParse(arg.GetString(0), true, out SkillName skill))
 				{
 					arg.Mobile.Target = new SkillTarget(skill);
 				}
@@ -72,7 +70,7 @@ namespace Server.Commands
 
 		public class AllSkillsTarget : Target
 		{
-			private double m_Value;
+			private readonly double m_Value;
 
 			public AllSkillsTarget(double value) : base(-1, false, TargetFlags.None)
 			{
@@ -100,9 +98,9 @@ namespace Server.Commands
 
 		public class SkillTarget : Target
 		{
-			private bool m_Set;
-			private SkillName m_Skill;
-			private double m_Value;
+			private readonly bool m_Set;
+			private readonly SkillName m_Skill;
+			private readonly double m_Value;
 
 			public SkillTarget(SkillName skill, double value) : base(-1, false, TargetFlags.None)
 			{

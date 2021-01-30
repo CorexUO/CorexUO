@@ -4,7 +4,7 @@ namespace Server.Spells.Sixth
 {
 	public class EnergyBoltSpell : MagerySpell
 	{
-		private static SpellInfo m_Info = new SpellInfo(
+		private static readonly SpellInfo m_Info = new SpellInfo(
 				"Energy Bolt", "Corp Por",
 				230,
 				9022,
@@ -84,7 +84,7 @@ namespace Server.Spells.Sixth
 
 		private class InternalTarget : Target
 		{
-			private EnergyBoltSpell m_Owner;
+			private readonly EnergyBoltSpell m_Owner;
 
 			public InternalTarget(EnergyBoltSpell owner) : base(owner.SpellRange, false, TargetFlags.Harmful)
 			{

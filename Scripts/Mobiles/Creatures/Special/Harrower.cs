@@ -1,8 +1,8 @@
-using System;
-using System.Collections.Generic;
 using Server.Engines.CannedEvil;
 using Server.Items;
 using Server.Misc;
+using System;
+using System.Collections.Generic;
 
 namespace Server.Mobiles
 {
@@ -48,7 +48,7 @@ namespace Server.Mobiles
 				new SpawnEntry( new Point3D( 5579, 1858, 0 ), new Point3D( 2499, 919, 0 ) )		// Covetous
 			};
 
-		private static List<Harrower> m_Instances = new List<Harrower>();
+		private static readonly List<Harrower> m_Instances = new List<Harrower>();
 
 		public static List<Harrower> Instances { get { return m_Instances; } }
 
@@ -225,7 +225,7 @@ namespace Server.Mobiles
 		{
 			base.Serialize(writer);
 
-			writer.Write((int)0); // version
+			writer.Write(0); // version
 
 			writer.Write(m_TrueForm);
 			writer.Write(m_GateItem);
@@ -304,7 +304,7 @@ namespace Server.Mobiles
 				{
 					for (int j = 0; j < pm.JusticeProtectors.Count; ++j)
 					{
-						Mobile prot = (Mobile)pm.JusticeProtectors[j];
+						Mobile prot = pm.JusticeProtectors[j];
 
 						if (prot.Map != m.Map || prot.Murderer || prot.Criminal || !JusticeVirtue.CheckMapRegion(m, prot))
 							continue;

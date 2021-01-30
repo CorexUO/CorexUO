@@ -1,11 +1,11 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using Server.ContextMenus;
 using Server.Engines.MLQuests;
 using Server.Engines.MLQuests.Definitions;
 using Server.Engines.MLQuests.Objectives;
 using Server.Items;
+using System;
+using System.Collections;
+using System.Collections.Generic;
 using EDI = Server.Mobiles.EscortDestinationInfo;
 
 namespace Server.Mobiles
@@ -114,7 +114,7 @@ namespace Server.Mobiles
 
 		// Classic list
 		// Used when: !MLQuestSystem.Enabled && !Core.ML
-		private static string[] m_TownNames = new string[]
+		private static readonly string[] m_TownNames = new string[]
 		{
 			"Cove", "Britain", "Jhelom",
 			"Minoc", "Ocllo", "Trinsic",
@@ -124,7 +124,7 @@ namespace Server.Mobiles
 
 		// ML list, pre-ML quest system
 		// Used when: !MLQuestSystem.Enabled && Core.ML
-		private static string[] m_MLTownNames = new string[]
+		private static readonly string[] m_MLTownNames = new string[]
 		{
 			"Cove", "Serpent's Hold", "Jhelom",
 			"Nujel'm"
@@ -132,7 +132,7 @@ namespace Server.Mobiles
 
 		// ML quest system general list
 		// Used when: MLQuestSystem.Enabled && !Region.IsPartOf( "Haven Island" )
-		private static Type[] m_MLQuestTypes =
+		private static readonly Type[] m_MLQuestTypes =
 		{
 			typeof( EscortToYew ),
 			typeof( EscortToVesper ),
@@ -152,7 +152,7 @@ namespace Server.Mobiles
 
 		// ML quest system New Haven list
 		// Used when: MLQuestSystem.Enabled && Region.IsPartOf( "Haven Island" )
-		private static Type[] m_MLQuestTypesNH =
+		private static readonly Type[] m_MLQuestTypesNH =
 		{
 			typeof( EscortToNHAlchemist ),
 			typeof( EscortToNHBard ),
@@ -517,7 +517,7 @@ namespace Server.Mobiles
 		{
 			base.Serialize(writer);
 
-			writer.Write((int)0); // version
+			writer.Write(0); // version
 
 			EDI dest = GetDestination();
 
@@ -629,7 +629,7 @@ namespace Server.Mobiles
 
 		private class DeleteTimer : Timer
 		{
-			private Mobile m_Mobile;
+			private readonly Mobile m_Mobile;
 
 			public DeleteTimer(Mobile m, TimeSpan delay)
 				: base(delay)
@@ -697,8 +697,8 @@ namespace Server.Mobiles
 
 	public class AskDestinationEntry : ContextMenuEntry
 	{
-		private BaseEscortable m_Mobile;
-		private Mobile m_From;
+		private readonly BaseEscortable m_Mobile;
+		private readonly Mobile m_From;
 
 		public AskDestinationEntry(BaseEscortable m, Mobile from)
 			: base(6100, 3)
@@ -715,8 +715,8 @@ namespace Server.Mobiles
 
 	public class AcceptEscortEntry : ContextMenuEntry
 	{
-		private BaseEscortable m_Mobile;
-		private Mobile m_From;
+		private readonly BaseEscortable m_Mobile;
+		private readonly Mobile m_From;
 
 		public AcceptEscortEntry(BaseEscortable m, Mobile from)
 			: base(6101, 3)
@@ -733,8 +733,8 @@ namespace Server.Mobiles
 
 	public class AbandonEscortEntry : ContextMenuEntry
 	{
-		private BaseEscortable m_Mobile;
-		private Mobile m_From;
+		private readonly BaseEscortable m_Mobile;
+		private readonly Mobile m_From;
 
 		public AbandonEscortEntry(BaseEscortable m, Mobile from)
 			: base(6102, 3)

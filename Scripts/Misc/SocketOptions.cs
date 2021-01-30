@@ -1,6 +1,6 @@
+using Server.Network;
 using System.Net;
 using System.Net.Sockets;
-using Server.Network;
 
 namespace Server
 {

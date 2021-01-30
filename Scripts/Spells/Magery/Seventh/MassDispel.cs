@@ -1,13 +1,13 @@
-using System.Collections.Generic;
 using Server.Items;
 using Server.Mobiles;
 using Server.Targeting;
+using System.Collections.Generic;
 
 namespace Server.Spells.Seventh
 {
 	public class MassDispelSpell : MagerySpell
 	{
-		private static SpellInfo m_Info = new SpellInfo(
+		private static readonly SpellInfo m_Info = new SpellInfo(
 				"Mass Dispel", "Vas An Ort",
 				263,
 				9002,
@@ -97,7 +97,7 @@ namespace Server.Spells.Seventh
 
 		private class InternalTarget : Target
 		{
-			private MassDispelSpell m_Owner;
+			private readonly MassDispelSpell m_Owner;
 
 			public InternalTarget(MassDispelSpell owner) : base(owner.SpellRange, true, TargetFlags.None)
 			{

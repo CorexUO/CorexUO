@@ -1,16 +1,16 @@
-using System;
 using Server.Accounting;
 using Server.Commands;
 using Server.Commands.Generic;
 using Server.Mobiles;
 using Server.Network;
 using Server.Targets;
+using System;
 
 namespace Server.Gumps
 {
 	public class ClientGump : Gump
 	{
-		private NetState m_State;
+		private readonly NetState m_State;
 
 		private void Resend(Mobile to, RelayInfo info)
 		{
@@ -161,7 +161,7 @@ namespace Server.Gumps
 
 						if (from.AccessLevel > focus.AccessLevel)
 						{
-							from.SendGump(new SkillsGump(from, (Mobile)focus));
+							from.SendGump(new SkillsGump(from, focus));
 							CommandLogging.WriteLine(from, "{0} {1} Opening Skills gump of {2} ", from.AccessLevel, CommandLogging.Format(from), CommandLogging.Format(focus));
 						}
 

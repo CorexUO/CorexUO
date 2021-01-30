@@ -1,42 +1,42 @@
 namespace Server.Items
 {
-    public class Citrine : BaseItem
-    {
-        public override double DefaultWeight
-        {
-            get { return 0.1; }
-        }
+	public class Citrine : BaseItem
+	{
+		public override double DefaultWeight
+		{
+			get { return 0.1; }
+		}
 
-        [Constructable]
-        public Citrine() : this(1)
-        {
-        }
+		[Constructable]
+		public Citrine() : this(1)
+		{
+		}
 
-        [Constructable]
-        public Citrine(int amount) : base(0xF15)
-        {
-            Stackable = true;
-            Amount = amount;
-        }
+		[Constructable]
+		public Citrine(int amount) : base(0xF15)
+		{
+			Stackable = true;
+			Amount = amount;
+		}
 
-        public Citrine(Serial serial) : base(serial)
-        {
-        }
+		public Citrine(Serial serial) : base(serial)
+		{
+		}
 
 
 
-        public override void Serialize(GenericWriter writer)
-        {
-            base.Serialize(writer);
+		public override void Serialize(GenericWriter writer)
+		{
+			base.Serialize(writer);
 
-            writer.Write((int)0); // version
-        }
+			writer.Write(0); // version
+		}
 
-        public override void Deserialize(GenericReader reader)
-        {
-            base.Deserialize(reader);
+		public override void Deserialize(GenericReader reader)
+		{
+			base.Deserialize(reader);
 
-            int version = reader.ReadInt();
-        }
-    }
+			int version = reader.ReadInt();
+		}
+	}
 }

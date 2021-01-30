@@ -5,8 +5,8 @@ namespace Server.Engines.VeteranRewards
 {
 	public class RewardConfirmGump : Gump
 	{
-		private Mobile m_From;
-		private RewardEntry m_Entry;
+		private readonly Mobile m_From;
+		private readonly RewardEntry m_Entry;
 
 		public RewardConfirmGump(Mobile from, RewardEntry entry) : base(0, 0)
 		{
@@ -59,9 +59,8 @@ namespace Server.Engines.VeteranRewards
 				}
 			}
 
-			int cur, max;
 
-			RewardSystem.ComputeRewardInfo(m_From, out cur, out max);
+			RewardSystem.ComputeRewardInfo(m_From, out int cur, out int max);
 
 			if (cur < max)
 				m_From.SendGump(new RewardNoticeGump(m_From));

@@ -2,11 +2,11 @@ namespace Server.Ethics
 {
 	public class PowerDefinition
 	{
-		private int m_Power;
+		private readonly int m_Power;
 
-		private TextDefinition m_Name;
-		private TextDefinition m_Phrase;
-		private TextDefinition m_Description;
+		private readonly TextDefinition m_Name;
+		private readonly TextDefinition m_Phrase;
+		private readonly TextDefinition m_Description;
 
 		public int Power { get { return m_Power; } }
 

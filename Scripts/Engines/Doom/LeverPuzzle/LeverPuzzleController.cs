@@ -1,9 +1,9 @@
-using System;
-using System.Collections.Generic;
 using Server.Commands;
 using Server.Mobiles;
 using Server.Network;
 using Server.Spells;
+using System;
+using System.Collections.Generic;
 
 /*
 this is From me to you, Under no terms, Conditions...   K?  to apply you
@@ -173,7 +173,7 @@ namespace Server.Engines.Doom
 
 		public virtual PlayerMobile GetOccupant(int index)
 		{
-			LeverPuzzleRegion region = (LeverPuzzleRegion)m_Tiles[index];
+			LeverPuzzleRegion region = m_Tiles[index];
 
 			if (region != null)
 			{
@@ -334,8 +334,8 @@ namespace Server.Engines.Doom
 		public class RockTimer : Timer
 		{
 			private int Count;
-			private Mobile m_Player;
-			private LeverPuzzleController m_Controller;
+			private readonly Mobile m_Player;
+			private readonly LeverPuzzleController m_Controller;
 
 			public RockTimer(Mobile player, LeverPuzzleController Controller)
 				: base(TimeSpan.Zero, TimeSpan.FromSeconds(.25))
@@ -420,7 +420,7 @@ namespace Server.Engines.Doom
 
 		public class LampRoomKickTimer : Timer
 		{
-			private Mobile m;
+			private readonly Mobile m;
 
 			public LampRoomKickTimer(Mobile player)
 				: base(TimeSpan.FromSeconds(.25))
@@ -686,12 +686,12 @@ namespace Server.Engines.Doom
 
 		/* SOUNDS */
 
-		private static int[] fs = { 0x144, 0x154 };
-		private static int[] ms = { 0x144, 0x14B };
-		private static int[] fs2 = { 0x13F, 0x154 };
-		private static int[] ms2 = { 0x13F, 0x14B };
-		private static int[] cs1 = { 0x244 };
-		private static int[] exp = { 0x307 };
+		private static readonly int[] fs = { 0x144, 0x154 };
+		private static readonly int[] ms = { 0x144, 0x14B };
+		private static readonly int[] fs2 = { 0x13F, 0x154 };
+		private static readonly int[] ms2 = { 0x13F, 0x14B };
+		private static readonly int[] cs1 = { 0x244 };
+		private static readonly int[] exp = { 0x307 };
 
 		public LeverPuzzleController(Serial serial) : base(serial)
 		{
@@ -700,7 +700,7 @@ namespace Server.Engines.Doom
 		public override void Serialize(GenericWriter writer)
 		{
 			base.Serialize(writer);
-			writer.Write((int)0); // version
+			writer.Write(0); // version
 			writer.WriteItemList(m_Levers, true);
 			writer.WriteItemList(m_Statues, true);
 			writer.WriteItemList(m_Teles, true);

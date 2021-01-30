@@ -2,9 +2,9 @@ namespace Server.Engines.Craft
 {
 	public class CraftSkill
 	{
-		private SkillName m_SkillToMake;
-		private double m_MinSkill;
-		private double m_MaxSkill;
+		private readonly SkillName m_SkillToMake;
+		private readonly double m_MinSkill;
+		private readonly double m_MaxSkill;
 
 		public CraftSkill(SkillName skillToMake, double minSkill, double maxSkill)
 		{

@@ -1,6 +1,6 @@
+using Server.Gumps;
 using System;
 using System.Collections;
-using Server.Gumps;
 
 namespace Server.Commands.Generic
 {
@@ -105,7 +105,7 @@ namespace Server.Commands.Generic
 			return true;
 		}
 
-		private ArrayList m_Responses, m_Failures;
+		private readonly ArrayList m_Responses, m_Failures;
 
 		private class MessageEntry
 		{

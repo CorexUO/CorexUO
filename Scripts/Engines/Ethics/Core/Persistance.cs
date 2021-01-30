@@ -33,7 +33,7 @@ namespace Server.Ethics
 		{
 			base.Serialize(writer);
 
-			writer.Write((int)0); // version
+			writer.Write(0); // version
 
 			for (int i = 0; i < Ethic.Ethics.Length; ++i)
 				Ethic.Ethics[i].Serialize(writer);

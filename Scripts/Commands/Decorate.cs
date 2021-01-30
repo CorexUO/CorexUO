@@ -1,10 +1,10 @@
+using Server.Engines.Quests.Haven;
+using Server.Engines.Quests.Necro;
+using Server.Items;
 using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
-using Server.Engines.Quests.Haven;
-using Server.Engines.Quests.Necro;
-using Server.Items;
 
 namespace Server.Commands
 {
@@ -65,18 +65,18 @@ namespace Server.Commands
 		{
 		}
 
-		private static Type typeofStatic = typeof(Static);
-		private static Type typeofLocalizedStatic = typeof(LocalizedStatic);
-		private static Type typeofBaseDoor = typeof(BaseDoor);
-		private static Type typeofAnkhWest = typeof(AnkhWest);
-		private static Type typeofAnkhNorth = typeof(AnkhNorth);
-		private static Type typeofBeverage = typeof(BaseBeverage);
-		private static Type typeofLocalizedSign = typeof(LocalizedSign);
-		private static Type typeofMarkContainer = typeof(MarkContainer);
-		private static Type typeofWarningItem = typeof(WarningItem);
-		private static Type typeofHintItem = typeof(HintItem);
-		private static Type typeofCannon = typeof(Cannon);
-		private static Type typeofSerpentPillar = typeof(SerpentPillar);
+		private static readonly Type typeofStatic = typeof(Static);
+		private static readonly Type typeofLocalizedStatic = typeof(LocalizedStatic);
+		private static readonly Type typeofBaseDoor = typeof(BaseDoor);
+		private static readonly Type typeofAnkhWest = typeof(AnkhWest);
+		private static readonly Type typeofAnkhNorth = typeof(AnkhNorth);
+		private static readonly Type typeofBeverage = typeof(BaseBeverage);
+		private static readonly Type typeofLocalizedSign = typeof(LocalizedSign);
+		private static readonly Type typeofMarkContainer = typeof(MarkContainer);
+		private static readonly Type typeofWarningItem = typeof(WarningItem);
+		private static readonly Type typeofHintItem = typeof(HintItem);
+		private static readonly Type typeofCannon = typeof(Cannon);
+		private static readonly Type typeofSerpentPillar = typeof(SerpentPillar);
 
 		public Item Construct()
 		{
@@ -410,7 +410,7 @@ namespace Server.Commands
 
 					for (int i = 0; i < comps.Count; ++i)
 					{
-						AddonComponent comp = (AddonComponent)comps[i];
+						AddonComponent comp = comps[i];
 
 						if (comp.Offset == Point3D.Zero)
 							comp.ItemID = m_ItemID;
@@ -860,7 +860,7 @@ namespace Server.Commands
 			return item;
 		}
 
-		private static Queue m_DeleteQueue = new Queue();
+		private static readonly Queue m_DeleteQueue = new Queue();
 
 		private static bool FindItem(int x, int y, int z, Map map, Item srcItem)
 		{
@@ -1043,7 +1043,7 @@ namespace Server.Commands
 			}
 		}
 
-		private static string[] m_EmptyParams = new string[0];
+		private static readonly string[] m_EmptyParams = new string[0];
 
 		public static DecorationList Read(StreamReader ip)
 		{
@@ -1113,18 +1113,17 @@ namespace Server.Commands
 	public class DecorationEntry
 	{
 		private Point3D m_Location;
-		private string m_Extra;
+		private readonly string m_Extra;
 
 		public Point3D Location { get { return m_Location; } }
 		public string Extra { get { return m_Extra; } }
 
 		public DecorationEntry(string line)
 		{
-			string x, y, z;
 
-			Pop(out x, ref line);
-			Pop(out y, ref line);
-			Pop(out z, ref line);
+			Pop(out string x, ref line);
+			Pop(out string y, ref line);
+			Pop(out string z, ref line);
 
 			m_Location = new Point3D(Utility.ToInt32(x), Utility.ToInt32(y), Utility.ToInt32(z));
 			m_Extra = line;

@@ -1,6 +1,6 @@
+using Server.Items;
 using System;
 using System.Collections.Generic;
-using Server.Items;
 
 namespace Server.Mobiles
 {
@@ -11,13 +11,13 @@ namespace Server.Mobiles
 
 		public static Type[] ArtifactRarity10 { get { return m_ArtifactRarity10; } }
 		public static Type[] ArtifactRarity11 { get { return m_ArtifactRarity11; } }
-		private static Type[] m_ArtifactRarity10 = new Type[]
+		private static readonly Type[] m_ArtifactRarity10 = new Type[]
 			{
 				typeof( LegacyOfTheDreadLord ),
 				typeof( TheTaskmaster )
 			};
 
-		private static Type[] m_ArtifactRarity11 = new Type[]
+		private static readonly Type[] m_ArtifactRarity11 = new Type[]
 			{
 				typeof( TheDragonSlayer ),
 				typeof( ArmorOfFortune ),
@@ -279,7 +279,7 @@ namespace Server.Mobiles
 		public override void Serialize(GenericWriter writer)
 		{
 			base.Serialize(writer);
-			writer.Write((int)0);
+			writer.Write(0);
 		}
 
 		public override void Deserialize(GenericReader reader)

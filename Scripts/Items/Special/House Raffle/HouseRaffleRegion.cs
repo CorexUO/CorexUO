@@ -1,13 +1,13 @@
-using System.Collections.Generic;
 using Server.Items;
 using Server.Spells.Sixth;
 using Server.Targeting;
+using System.Collections.Generic;
 
 namespace Server.Regions
 {
 	public class HouseRaffleRegion : BaseRegion
 	{
-		private HouseRaffleStone m_Stone;
+		private readonly HouseRaffleStone m_Stone;
 
 		public HouseRaffleRegion(HouseRaffleStone stone)
 			: base(null, stone.PlotFacet, Region.DefaultPriority, stone.PlotBounds)

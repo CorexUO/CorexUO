@@ -1,10 +1,10 @@
-using System;
 using Server.Engines.PartySystem;
 using Server.Gumps;
 using Server.Items;
 using Server.Misc;
 using Server.Mobiles;
 using Server.Network;
+using System;
 
 namespace Server.Engines.Quests.Doom
 {
@@ -179,7 +179,7 @@ namespace Server.Engines.Quests.Doom
 				{
 					for (int i = 0; i < p.Members.Count; ++i)
 					{
-						PartyMemberInfo pmi = (PartyMemberInfo)p.Members[i];
+						PartyMemberInfo pmi = p.Members[i];
 						Mobile member = pmi.Mobile;
 
 						if (member != from && member.Map == Map.Malas && member.Region.IsPartOf("Doom"))
@@ -217,7 +217,7 @@ namespace Server.Engines.Quests.Doom
 		{
 			base.Serialize(writer);
 
-			writer.Write((int)0); // version
+			writer.Write(0); // version
 		}
 
 		public override void Deserialize(GenericReader reader)
@@ -230,8 +230,8 @@ namespace Server.Engines.Quests.Doom
 
 	public class ChylothPartyGump : Gump
 	{
-		private Mobile m_Leader;
-		private Mobile m_Member;
+		private readonly Mobile m_Leader;
+		private readonly Mobile m_Member;
 
 		public ChylothPartyGump(Mobile leader, Mobile member) : base(150, 50)
 		{

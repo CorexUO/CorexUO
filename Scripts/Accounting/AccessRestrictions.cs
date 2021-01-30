@@ -1,7 +1,7 @@
+using Server.Misc;
 using System;
 using System.IO;
 using System.Net;
-using Server.Misc;
 
 namespace Server
 {

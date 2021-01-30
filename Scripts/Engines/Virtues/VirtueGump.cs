@@ -1,7 +1,7 @@
-using System;
-using System.Collections.Generic;
 using Server.Gumps;
 using Server.Network;
+using System;
+using System.Collections.Generic;
 
 namespace Server
 {
@@ -9,7 +9,7 @@ namespace Server
 
 	public class VirtueGump : Gump
 	{
-		private static Dictionary<int, OnVirtueUsed> m_Callbacks = new Dictionary<int, OnVirtueUsed>();
+		private static readonly Dictionary<int, OnVirtueUsed> m_Callbacks = new Dictionary<int, OnVirtueUsed>();
 
 		public static void Initialize()
 		{
@@ -36,9 +36,8 @@ namespace Server
 				return;
 			}
 
-			OnVirtueUsed callback = null;
 
-			m_Callbacks.TryGetValue(e.GumpID, out callback);
+			m_Callbacks.TryGetValue(e.GumpID, out OnVirtueUsed callback);
 
 			if (callback != null)
 				callback(e.Beholder);
@@ -80,7 +79,7 @@ namespace Server
 			}
 		}
 
-		private Mobile m_Beholder, m_Beheld;
+		private readonly Mobile m_Beholder, m_Beheld;
 
 		public VirtueGump(Mobile beholder, Mobile beheld) : base(0, 0)
 		{
@@ -111,7 +110,7 @@ namespace Server
 			}
 		}
 
-		private static int[] m_Table = new int[24]
+		private static readonly int[] m_Table = new int[24]
 			{
 				0x0481, 0x0963, 0x0965,
 				0x060A, 0x060F, 0x002A,
@@ -151,7 +150,7 @@ namespace Server
 				vl = 1;
 
 
-			return m_Table[(index * 3) + (int)vl];
+			return m_Table[(index * 3) + vl];
 		}
 
 		private class InternalEntry : GumpImage
@@ -165,7 +164,7 @@ namespace Server
 				return String.Format("{{ gumppic {0} {1} {2} hue={3} class=VirtueGumpItem }}", X, Y, GumpID, Hue);
 			}
 
-			private static byte[] m_Class = Gump.StringToBuffer(" class=VirtueGumpItem");
+			private static readonly byte[] m_Class = Gump.StringToBuffer(" class=VirtueGumpItem");
 
 			public override void AppendTo(IGumpWriter disp)
 			{

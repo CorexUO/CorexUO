@@ -3,103 +3,103 @@ using Server.Mobiles;
 
 namespace Server.Engines.Quests.Necro
 {
-    public class ScrollOfAbraxus : QuestItem
-    {
-        public override int LabelNumber { get { return 1028827; } } // Scroll of Abraxus
+	public class ScrollOfAbraxus : QuestItem
+	{
+		public override int LabelNumber { get { return 1028827; } } // Scroll of Abraxus
 
-        [Constructable]
-        public ScrollOfAbraxus() : base(0x227B)
-        {
-            Weight = 1.0;
-        }
+		[Constructable]
+		public ScrollOfAbraxus() : base(0x227B)
+		{
+			Weight = 1.0;
+		}
 
-        public override bool CanDrop(PlayerMobile player)
-        {
-            DarkTidesQuest qs = player.Quest as DarkTidesQuest;
+		public override bool CanDrop(PlayerMobile player)
+		{
+			DarkTidesQuest qs = player.Quest as DarkTidesQuest;
 
-            if (qs == null)
-                return true;
+			if (qs == null)
+				return true;
 
-            //return !( qs.IsObjectiveInProgress( typeof( RetrieveAbraxusScrollObjective ) ) || qs.IsObjectiveInProgress( typeof( ReadAbraxusScrollObjective ) ) );
-            return false;
-        }
+			//return !( qs.IsObjectiveInProgress( typeof( RetrieveAbraxusScrollObjective ) ) || qs.IsObjectiveInProgress( typeof( ReadAbraxusScrollObjective ) ) );
+			return false;
+		}
 
-        public override void OnAdded(IEntity parent)
-        {
-            base.OnAdded(parent);
+		public override void OnAdded(IEntity parent)
+		{
+			base.OnAdded(parent);
 
-            PlayerMobile pm = RootParent as PlayerMobile;
+			PlayerMobile pm = RootParent as PlayerMobile;
 
-            if (pm != null)
-            {
-                QuestSystem qs = pm.Quest;
+			if (pm != null)
+			{
+				QuestSystem qs = pm.Quest;
 
-                if (qs is DarkTidesQuest)
-                {
-                    QuestObjective obj = qs.FindObjective(typeof(RetrieveAbraxusScrollObjective));
+				if (qs is DarkTidesQuest)
+				{
+					QuestObjective obj = qs.FindObjective(typeof(RetrieveAbraxusScrollObjective));
 
-                    if (obj != null && !obj.Completed)
-                        obj.Complete();
-                }
-            }
-        }
+					if (obj != null && !obj.Completed)
+						obj.Complete();
+				}
+			}
+		}
 
-        public override void OnDoubleClick(Mobile from)
-        {
-            if (IsChildOf(from.Backpack))
-            {
-                from.SendGump(new ScrollOfAbraxusGump());
+		public override void OnDoubleClick(Mobile from)
+		{
+			if (IsChildOf(from.Backpack))
+			{
+				from.SendGump(new ScrollOfAbraxusGump());
 
-                PlayerMobile pm = from as PlayerMobile;
+				PlayerMobile pm = from as PlayerMobile;
 
-                if (pm != null)
-                {
-                    QuestSystem qs = pm.Quest;
+				if (pm != null)
+				{
+					QuestSystem qs = pm.Quest;
 
-                    if (qs is DarkTidesQuest)
-                    {
-                        QuestObjective obj = qs.FindObjective(typeof(ReadAbraxusScrollObjective));
+					if (qs is DarkTidesQuest)
+					{
+						QuestObjective obj = qs.FindObjective(typeof(ReadAbraxusScrollObjective));
 
-                        if (obj != null && !obj.Completed)
-                            obj.Complete();
-                    }
-                }
-            }
-            else
-            {
-                from.SendLocalizedMessage(1042001); // That must be in your pack for you to use it.
-            }
-        }
+						if (obj != null && !obj.Completed)
+							obj.Complete();
+					}
+				}
+			}
+			else
+			{
+				from.SendLocalizedMessage(1042001); // That must be in your pack for you to use it.
+			}
+		}
 
-        public ScrollOfAbraxus(Serial serial) : base(serial)
-        {
-        }
+		public ScrollOfAbraxus(Serial serial) : base(serial)
+		{
+		}
 
-        public override void Serialize(GenericWriter writer)
-        {
-            base.Serialize(writer);
+		public override void Serialize(GenericWriter writer)
+		{
+			base.Serialize(writer);
 
-            writer.Write((int)0); // version
-        }
+			writer.Write(0); // version
+		}
 
-        public override void Deserialize(GenericReader reader)
-        {
-            base.Deserialize(reader);
+		public override void Deserialize(GenericReader reader)
+		{
+			base.Deserialize(reader);
 
-            int version = reader.ReadInt();
-        }
-    }
+			int version = reader.ReadInt();
+		}
+	}
 
-    public class ScrollOfAbraxusGump : Gump
-    {
-        public ScrollOfAbraxusGump() : base(150, 50)
-        {
-            AddPage(0);
+	public class ScrollOfAbraxusGump : Gump
+	{
+		public ScrollOfAbraxusGump() : base(150, 50)
+		{
+			AddPage(0);
 
-            AddImage(0, 0, 1228);
-            AddImage(340, 255, 9005);
+			AddImage(0, 0, 1228);
+			AddImage(340, 255, 9005);
 
-            /* Security at the Crystal Cave<BR><BR>
+			/* Security at the Crystal Cave<BR><BR>
 			 * 
 			 * We have taken great measuresto ensure the safety of the
 			 * Scroll of Calling, which we have so valiantly taken from
@@ -135,7 +135,7 @@ namespace Server.Engines.Quests.Necro
 			 * 
 			 * <I>- Frater Melkeer</I>
 			 */
-            AddHtmlLocalized(25, 36, 350, 210, 1060116, 1, false, true);
-        }
-    }
+			AddHtmlLocalized(25, 36, 350, 210, 1060116, 1, false, true);
+		}
+	}
 }

@@ -1,10 +1,10 @@
+using Server.Items;
+using Server.Mobiles;
 using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using System.Xml;
-using Server.Items;
-using Server.Mobiles;
 
 namespace Server.Regions
 {
@@ -137,7 +137,7 @@ namespace Server.Regions
 
 	public class SpawnMobile : SpawnType
 	{
-		private static Hashtable m_Table = new Hashtable();
+		private static readonly Hashtable m_Table = new Hashtable();
 
 		public static SpawnMobile Get(Type type)
 		{
@@ -203,7 +203,7 @@ namespace Server.Regions
 
 	public class SpawnItem : SpawnType
 	{
-		private static Hashtable m_Table = new Hashtable();
+		private static readonly Hashtable m_Table = new Hashtable();
 
 		public static SpawnItem Get(Type type)
 		{
@@ -351,7 +351,7 @@ namespace Server.Regions
 			}
 		}
 
-		private int m_TotalWeight;
+		private readonly int m_TotalWeight;
 
 		public string Name { get; }
 		public SpawnGroupElement[] Elements { get; }

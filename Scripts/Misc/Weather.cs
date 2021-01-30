@@ -1,7 +1,7 @@
-using System;
-using System.Collections.Generic;
 using Server.Items;
 using Server.Network;
+using System;
+using System.Collections.Generic;
 
 namespace Server.Misc
 {
@@ -368,7 +368,7 @@ namespace Server.Misc
 		{
 			base.Serialize(writer);
 
-			writer.Write((int)0);
+			writer.Write(0);
 		}
 
 		public override void Deserialize(GenericReader reader)

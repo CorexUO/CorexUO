@@ -2,12 +2,12 @@ namespace Server.Engines.Harvest
 {
 	public class HarvestSoundTimer : Timer
 	{
-		private Mobile m_From;
-		private Item m_Tool;
-		private HarvestSystem m_System;
-		private HarvestDefinition m_Definition;
-		private object m_ToHarvest, m_Locked;
-		private bool m_Last;
+		private readonly Mobile m_From;
+		private readonly Item m_Tool;
+		private readonly HarvestSystem m_System;
+		private readonly HarvestDefinition m_Definition;
+		private readonly object m_ToHarvest, m_Locked;
+		private readonly bool m_Last;
 
 		public HarvestSoundTimer(Mobile from, Item tool, HarvestSystem system, HarvestDefinition def, object toHarvest, object locked, bool last) : base(def.EffectSoundDelay)
 		{

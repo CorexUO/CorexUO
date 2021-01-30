@@ -1,7 +1,7 @@
+using Server.Mobiles;
 using System;
 using System.Collections.Generic;
 using System.Net;
-using Server.Mobiles;
 
 namespace Server.Factions
 {
@@ -14,8 +14,8 @@ namespace Server.Factions
 		public const int MaxCandidates = 10;
 		public const int CandidateRank = 5;
 
-		private Faction m_Faction;
-		private List<Candidate> m_Candidates;
+		private readonly Faction m_Faction;
+		private readonly List<Candidate> m_Candidates;
 
 		private ElectionState m_State;
 		private DateTime m_LastStateTime;
@@ -117,11 +117,11 @@ namespace Server.Factions
 
 		public void Serialize(GenericWriter writer)
 		{
-			writer.WriteEncodedInt((int)0); // version
+			writer.WriteEncodedInt(0); // version
 
 			Faction.WriteReference(writer, m_Faction);
 
-			writer.Write((DateTime)m_LastStateTime);
+			writer.Write(m_LastStateTime);
 			writer.WriteEncodedInt((int)m_State);
 
 			writer.WriteEncodedInt(m_Candidates.Count);
@@ -377,11 +377,11 @@ namespace Server.Factions
 
 	public class Voter
 	{
-		private Mobile m_From;
-		private Mobile m_Candidate;
+		private readonly Mobile m_From;
+		private readonly Mobile m_Candidate;
 
-		private IPAddress m_Address;
-		private DateTime m_Time;
+		private readonly IPAddress m_Address;
+		private readonly DateTime m_Time;
 
 		public Mobile From
 		{
@@ -467,18 +467,18 @@ namespace Server.Factions
 
 		public void Serialize(GenericWriter writer)
 		{
-			writer.WriteEncodedInt((int)0);
+			writer.WriteEncodedInt(0);
 
-			writer.Write((Mobile)m_From);
-			writer.Write((IPAddress)m_Address);
-			writer.Write((DateTime)m_Time);
+			writer.Write(m_From);
+			writer.Write(m_Address);
+			writer.Write(m_Time);
 		}
 	}
 
 	public class Candidate
 	{
-		private Mobile m_Mobile;
-		private List<Voter> m_Voters;
+		private readonly Mobile m_Mobile;
+		private readonly List<Voter> m_Voters;
 
 		public Mobile Mobile { get { return m_Mobile; } }
 		public List<Voter> Voters { get { return m_Voters; } }
@@ -489,7 +489,7 @@ namespace Server.Factions
 		{
 			for (int i = 0; i < m_Voters.Count; ++i)
 			{
-				Voter voter = (Voter)m_Voters[i];
+				Voter voter = m_Voters[i];
 
 				if ((int)voter.AcquireFields()[3] < 90)
 					m_Voters.RemoveAt(i--);
@@ -538,14 +538,14 @@ namespace Server.Factions
 
 		public void Serialize(GenericWriter writer)
 		{
-			writer.WriteEncodedInt((int)0); // version
+			writer.WriteEncodedInt(0); // version
 
-			writer.Write((Mobile)m_Mobile);
+			writer.Write(m_Mobile);
 
-			writer.WriteEncodedInt((int)m_Voters.Count);
+			writer.WriteEncodedInt(m_Voters.Count);
 
 			for (int i = 0; i < m_Voters.Count; ++i)
-				((Voter)m_Voters[i]).Serialize(writer);
+				m_Voters[i].Serialize(writer);
 		}
 	}
 

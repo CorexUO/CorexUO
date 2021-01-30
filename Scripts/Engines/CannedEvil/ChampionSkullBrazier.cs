@@ -115,7 +115,7 @@ namespace Server.Engines.CannedEvil
 
 		private class SacrificeTarget : Target
 		{
-			private ChampionSkullBrazier m_Brazier;
+			private readonly ChampionSkullBrazier m_Brazier;
 
 			public SacrificeTarget(ChampionSkullBrazier brazier) : base(12, false, TargetFlags.None)
 			{
@@ -132,7 +132,7 @@ namespace Server.Engines.CannedEvil
 		{
 			base.Serialize(writer);
 
-			writer.Write((int)0); // version
+			writer.Write(0); // version
 
 			writer.Write((int)m_Type);
 			writer.Write(m_Platform);

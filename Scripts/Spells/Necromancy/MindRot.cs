@@ -1,12 +1,12 @@
+using Server.Targeting;
 using System;
 using System.Collections;
-using Server.Targeting;
 
 namespace Server.Spells.Necromancy
 {
 	public class MindRotSpell : NecromancerSpell
 	{
-		private static SpellInfo m_Info = new SpellInfo(
+		private static readonly SpellInfo m_Info = new SpellInfo(
 				"Mind Rot", "Wis An Ben",
 				203,
 				9031,
@@ -65,7 +65,7 @@ namespace Server.Spells.Necromancy
 			FinishSequence();
 		}
 
-		private static Hashtable m_Table = new Hashtable();
+		private static readonly Hashtable m_Table = new Hashtable();
 
 		public static void ClearMindRotScalar(Mobile m)
 		{
@@ -74,7 +74,7 @@ namespace Server.Spells.Necromancy
 
 			BuffInfo.RemoveBuff(m, BuffIcon.Mindrot);
 			MRBucket tmpB = (MRBucket)m_Table[m];
-			MRExpireTimer tmpT = (MRExpireTimer)tmpB.m_MRExpireTimer;
+			MRExpireTimer tmpT = tmpB.m_MRExpireTimer;
 			tmpT.Stop();
 			m_Table.Remove(m);
 			m.SendLocalizedMessage(1060872); // Your mind feels normal again.
@@ -102,7 +102,7 @@ namespace Server.Spells.Necromancy
 				m_Table.Add(target, new MRBucket(scalar, new MRExpireTimer(caster, target, duration)));
 				BuffInfo.AddBuff(target, new BuffInfo(BuffIcon.Mindrot, 1075665, duration, target));
 				MRBucket tmpB = (MRBucket)m_Table[target];
-				MRExpireTimer tmpT = (MRExpireTimer)tmpB.m_MRExpireTimer;
+				MRExpireTimer tmpT = tmpB.m_MRExpireTimer;
 				tmpT.Start();
 				target.SendLocalizedMessage(1074384);
 			}
@@ -110,7 +110,7 @@ namespace Server.Spells.Necromancy
 
 		private class InternalTarget : Target
 		{
-			private MindRotSpell m_Owner;
+			private readonly MindRotSpell m_Owner;
 
 			public InternalTarget(MindRotSpell owner) : base(owner.SpellRange, false, TargetFlags.Harmful)
 			{
@@ -134,8 +134,8 @@ namespace Server.Spells.Necromancy
 
 	public class MRExpireTimer : Timer
 	{
-		private Mobile m_Caster;
-		private Mobile m_Target;
+		private readonly Mobile m_Caster;
+		private readonly Mobile m_Target;
 		private DateTime m_End;
 
 		public MRExpireTimer(Mobile caster, Mobile target, TimeSpan delay) : base(TimeSpan.FromSeconds(1.0), TimeSpan.FromSeconds(1.0))

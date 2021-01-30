@@ -4,9 +4,9 @@ namespace Server.Engines.VeteranRewards
 {
 	public class RewardCategory
 	{
-		private int m_Name;
-		private string m_NameString;
-		private List<RewardEntry> m_Entries;
+		private readonly int m_Name;
+		private readonly string m_NameString;
+		private readonly List<RewardEntry> m_Entries;
 
 		public int Name { get { return m_Name; } }
 		public string NameString { get { return m_NameString; } }

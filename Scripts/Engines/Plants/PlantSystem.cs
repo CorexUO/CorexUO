@@ -1,7 +1,7 @@
+using Server.Items;
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using Server.Items;
 
 namespace Server.Engines.Plants
 {
@@ -27,7 +27,7 @@ namespace Server.Engines.Plants
 	{
 		public static readonly TimeSpan CheckDelay = TimeSpan.FromHours(23.0);
 
-		private PlantItem m_Plant;
+		private readonly PlantItem m_Plant;
 		private bool m_FertileDirt;
 
 		private DateTime m_NextGrowth;
@@ -642,33 +642,33 @@ namespace Server.Engines.Plants
 
 		public void Save(GenericWriter writer)
 		{
-			writer.Write((int)0); // version
+			writer.Write(0); // version
 
-			writer.Write((bool)m_FertileDirt);
+			writer.Write(m_FertileDirt);
 
-			writer.Write((DateTime)m_NextGrowth);
+			writer.Write(m_NextGrowth);
 			writer.Write((int)m_GrowthIndicator);
 
-			writer.Write((int)m_Water);
+			writer.Write(m_Water);
 
-			writer.Write((int)m_Hits);
-			writer.Write((int)m_Infestation);
-			writer.Write((int)m_Fungus);
-			writer.Write((int)m_Poison);
-			writer.Write((int)m_Disease);
-			writer.Write((int)m_PoisonPotion);
-			writer.Write((int)m_CurePotion);
-			writer.Write((int)m_HealPotion);
-			writer.Write((int)m_StrengthPotion);
+			writer.Write(m_Hits);
+			writer.Write(m_Infestation);
+			writer.Write(m_Fungus);
+			writer.Write(m_Poison);
+			writer.Write(m_Disease);
+			writer.Write(m_PoisonPotion);
+			writer.Write(m_CurePotion);
+			writer.Write(m_HealPotion);
+			writer.Write(m_StrengthPotion);
 
-			writer.Write((bool)m_Pollinated);
+			writer.Write(m_Pollinated);
 			writer.Write((int)m_SeedType);
 			writer.Write((int)m_SeedHue);
-			writer.Write((int)m_AvailableSeeds);
-			writer.Write((int)m_LeftSeeds);
+			writer.Write(m_AvailableSeeds);
+			writer.Write(m_LeftSeeds);
 
-			writer.Write((int)m_AvailableResources);
-			writer.Write((int)m_LeftResources);
+			writer.Write(m_AvailableResources);
+			writer.Write(m_LeftResources);
 		}
 
 		public PlantSystem(PlantItem plant, GenericReader reader)

@@ -1,5 +1,3 @@
-using System;
-using System.Collections.Generic;
 using Server.Factions.AI;
 using Server.Items;
 using Server.Mobiles;
@@ -12,6 +10,8 @@ using Server.Spells.Seventh;
 using Server.Spells.Sixth;
 using Server.Spells.Third;
 using Server.Targeting;
+using System;
+using System.Collections.Generic;
 
 namespace Server.Factions
 {
@@ -26,9 +26,9 @@ namespace Server.Factions
 
 	public class ComboEntry
 	{
-		private Type m_Spell;
-		private TimeSpan m_Hold;
-		private int m_Chance;
+		private readonly Type m_Spell;
+		private readonly TimeSpan m_Hold;
+		private readonly int m_Chance;
 
 		public Type Spell { get { return m_Spell; } }
 		public TimeSpan Hold { get { return m_Hold; } }
@@ -52,8 +52,8 @@ namespace Server.Factions
 
 	public class SpellCombo
 	{
-		private int m_Mana;
-		private ComboEntry[] m_Entries;
+		private readonly int m_Mana;
+		private readonly ComboEntry[] m_Entries;
 
 		public int Mana { get { return m_Mana; } }
 		public ComboEntry[] Entries { get { return m_Entries; } }
@@ -105,7 +105,7 @@ namespace Server.Factions
 
 	public class FactionGuardAI : BaseAI
 	{
-		private BaseFactionGuard m_Guard;
+		private readonly BaseFactionGuard m_Guard;
 
 		private BandageContext m_Bandage;
 		private DateTime m_BandageStart;

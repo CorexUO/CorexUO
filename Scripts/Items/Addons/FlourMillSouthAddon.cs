@@ -1,6 +1,6 @@
+using Server.Network;
 using System;
 using System.Collections.Generic;
-using Server.Network;
 
 namespace Server.Items
 {
@@ -80,7 +80,7 @@ namespace Server.Items
 			UpdateStage();
 		}
 
-		private static int[][] m_StageTable = new int[][]
+		private static readonly int[][] m_StageTable = new int[][]
 			{
 				new int[]{ 0x192C, 0x192D, 0x1931 },
 				new int[]{ 0x192E, 0x192F, 0x1932 },
@@ -121,7 +121,7 @@ namespace Server.Items
 
 			for (int i = 0; i < components.Count; ++i)
 			{
-				AddonComponent component = components[i] as AddonComponent;
+				AddonComponent component = components[i];
 
 				if (component == null)
 					continue;
@@ -159,9 +159,9 @@ namespace Server.Items
 		{
 			base.Serialize(writer);
 
-			writer.Write((int)0); // version
+			writer.Write(0); // version
 
-			writer.Write((int)m_Flour);
+			writer.Write(m_Flour);
 		}
 
 		public override void Deserialize(GenericReader reader)
@@ -201,7 +201,7 @@ namespace Server.Items
 		{
 			base.Serialize(writer);
 
-			writer.Write((int)0); // version
+			writer.Write(0); // version
 		}
 
 		public override void Deserialize(GenericReader reader)

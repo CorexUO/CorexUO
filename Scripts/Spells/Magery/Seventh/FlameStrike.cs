@@ -4,7 +4,7 @@ namespace Server.Spells.Seventh
 {
 	public class FlameStrikeSpell : MagerySpell
 	{
-		private static SpellInfo m_Info = new SpellInfo(
+		private static readonly SpellInfo m_Info = new SpellInfo(
 				"Flame Strike", "Kal Vas Flam",
 				245,
 				9042,
@@ -79,7 +79,7 @@ namespace Server.Spells.Seventh
 
 		private class InternalTarget : Target
 		{
-			private FlameStrikeSpell m_Owner;
+			private readonly FlameStrikeSpell m_Owner;
 
 			public InternalTarget(FlameStrikeSpell owner) : base(owner.SpellRange, false, TargetFlags.Harmful)
 			{

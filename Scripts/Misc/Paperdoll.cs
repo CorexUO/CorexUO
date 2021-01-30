@@ -1,5 +1,5 @@
-using System.Collections.Generic;
 using Server.Network;
+using System.Collections.Generic;
 
 namespace Server.Misc
 {

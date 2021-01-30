@@ -1,9 +1,9 @@
-using System;
-using System.Collections.Generic;
 using Server.Commands;
 using Server.Items;
 using Server.Mobiles;
 using Server.Regions;
+using System;
+using System.Collections.Generic;
 
 namespace Server.Engines.Doom
 {
@@ -413,7 +413,7 @@ namespace Server.Engines.Doom
 		{
 			base.Serialize(writer);
 
-			writer.Write((int)0); // version
+			writer.Write(0); // version
 
 			writer.Write(m_RegionBounds);
 

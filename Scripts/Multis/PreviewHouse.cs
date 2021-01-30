@@ -1,6 +1,6 @@
+using Server.Items;
 using System;
 using System.Collections.Generic;
-using Server.Items;
 
 namespace Server.Multis
 {
@@ -100,7 +100,7 @@ namespace Server.Multis
 		{
 			base.Serialize(writer);
 
-			writer.Write((int)0); // version
+			writer.Write(0); // version
 
 			writer.Write(m_Components);
 		}
@@ -126,7 +126,7 @@ namespace Server.Multis
 
 		private class DecayTimer : Timer
 		{
-			private Item m_Item;
+			private readonly Item m_Item;
 
 			public DecayTimer(Item item) : base(TimeSpan.FromSeconds(20.0))
 			{

@@ -1,5 +1,5 @@
-using System;
 using Server.Gumps;
+using System;
 
 namespace Server.Items
 {
@@ -100,7 +100,7 @@ namespace Server.Items
 		{
 			base.Serialize(writer);
 
-			writer.Write((int)0); // version
+			writer.Write(0); // version
 
 			writer.Write(m_Level);
 
@@ -150,15 +150,15 @@ namespace Server.Items
 			}
 		}
 
-		private static int[] m_WaterTiles = new int[]
+		private static readonly int[] m_WaterTiles = new int[]
 			{
 				0x00A8, 0x00AB,
 				0x0136, 0x0137
 			};
 
-		private static Rectangle2D[] m_BritRegions = new Rectangle2D[] { new Rectangle2D(0, 0, 5120, 4096) };
-		private static Rectangle2D[] m_IlshRegions = new Rectangle2D[] { new Rectangle2D(1472, 272, 304, 240), new Rectangle2D(1240, 1000, 312, 160) };
-		private static Rectangle2D[] m_MalasRegions = new Rectangle2D[] { new Rectangle2D(1376, 1520, 464, 280) };
+		private static readonly Rectangle2D[] m_BritRegions = new Rectangle2D[] { new Rectangle2D(0, 0, 5120, 4096) };
+		private static readonly Rectangle2D[] m_IlshRegions = new Rectangle2D[] { new Rectangle2D(1472, 272, 304, 240), new Rectangle2D(1240, 1000, 312, 160) };
+		private static readonly Rectangle2D[] m_MalasRegions = new Rectangle2D[] { new Rectangle2D(1376, 1520, 464, 280) };
 
 		public static Point3D FindLocation(Map map)
 		{
@@ -275,8 +275,8 @@ namespace Server.Items
 
 		private class MessageEntry
 		{
-			private int m_Width, m_Height;
-			private string m_Message;
+			private readonly int m_Width, m_Height;
+			private readonly string m_Message;
 
 			public int Width { get { return m_Width; } }
 			public int Height { get { return m_Height; } }
@@ -289,7 +289,7 @@ namespace Server.Items
 				m_Message = message;
 			}
 
-			private static MessageEntry[] m_Entries = new MessageEntry[]
+			private static readonly MessageEntry[] m_Entries = new MessageEntry[]
 				{
 					new MessageEntry( 280, 180, "...Ar! {0} and a fair wind! No chance... storms, though--ar! Is that a sea serp...<br><br>uh oh." ),
 					new MessageEntry( 280, 215, "...been inside this whale for three days now. I've run out of food I can pick out of his teeth. I took a sextant reading through the blowhole: {0}. I'll never see my treasure again..." ),

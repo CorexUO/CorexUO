@@ -1,5 +1,5 @@
-using System;
 using Server.Items;
+using System;
 
 namespace Server.Mobiles
 {
@@ -167,7 +167,7 @@ namespace Server.Mobiles
 		{
 			base.Serialize(writer);
 
-			writer.Write((int)0); // version
+			writer.Write(0); // version
 
 			writer.Write(m_Focus);
 		}
@@ -219,7 +219,7 @@ namespace Server.Mobiles
 
 		private class AvengeTimer : Timer
 		{
-			private Mobile m_Focus;
+			private readonly Mobile m_Focus;
 
 			public AvengeTimer(Mobile focus) : base(TimeSpan.FromSeconds(2.5), TimeSpan.FromSeconds(1.0), 3)
 			{
@@ -234,7 +234,7 @@ namespace Server.Mobiles
 
 		private class AttackTimer : Timer
 		{
-			private WarriorGuard m_Owner;
+			private readonly WarriorGuard m_Owner;
 
 			public AttackTimer(WarriorGuard owner) : base(TimeSpan.FromSeconds(0.25), TimeSpan.FromSeconds(0.1))
 			{
@@ -333,7 +333,7 @@ namespace Server.Mobiles
 
 		private class IdleTimer : Timer
 		{
-			private WarriorGuard m_Owner;
+			private readonly WarriorGuard m_Owner;
 			private int m_Stage;
 
 			public IdleTimer(WarriorGuard owner) : base(TimeSpan.FromSeconds(2.0), TimeSpan.FromSeconds(2.5))

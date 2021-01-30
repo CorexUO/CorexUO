@@ -1,20 +1,20 @@
-using System;
-using System.Collections.Generic;
-using System.Net;
-using System.Text;
 using Server.Accounting;
 using Server.ContextMenus;
 using Server.Gumps;
 using Server.Network;
 using Server.Regions;
+using System;
+using System.Collections.Generic;
+using System.Net;
+using System.Text;
 
 namespace Server.Items
 {
 	public class RaffleEntry
 	{
-		private Mobile m_From;
-		private IPAddress m_Address;
-		private DateTime m_Date;
+		private readonly Mobile m_From;
+		private readonly IPAddress m_Address;
+		private readonly DateTime m_Date;
 
 		public Mobile From
 		{
@@ -226,7 +226,7 @@ namespace Server.Items
 			get { return false; }
 		}
 
-		private static List<HouseRaffleStone> m_AllStones = new List<HouseRaffleStone>();
+		private static readonly List<HouseRaffleStone> m_AllStones = new List<HouseRaffleStone>();
 
 		public static void CheckEnd_OnTick()
 		{
@@ -564,7 +564,7 @@ namespace Server.Items
 		{
 			base.Serialize(writer);
 
-			writer.Write((int)0); // version
+			writer.Write(0); // version
 
 			writer.WriteEncodedInt((int)m_State);
 			writer.WriteEncodedInt((int)m_ExpireAction);

@@ -1,13 +1,13 @@
-using System;
-using System.Collections;
 using Server.Mobiles;
 using Server.Targeting;
+using System;
+using System.Collections;
 
 namespace Server.Spells.Necromancy
 {
 	public class BloodOathSpell : NecromancerSpell
 	{
-		private static SpellInfo m_Info = new SpellInfo(
+		private static readonly SpellInfo m_Info = new SpellInfo(
 				"Blood Oath", "In Jux Mani Xen",
 				203,
 				9031,
@@ -102,8 +102,8 @@ namespace Server.Spells.Necromancy
 			return true;
 		}
 
-		private static Hashtable m_OathTable = new Hashtable();
-		private static Hashtable m_Table = new Hashtable();
+		private static readonly Hashtable m_OathTable = new Hashtable();
+		private static readonly Hashtable m_Table = new Hashtable();
 
 		public static Mobile GetBloodOath(Mobile m)
 		{
@@ -120,9 +120,9 @@ namespace Server.Spells.Necromancy
 
 		private class ExpireTimer : Timer
 		{
-			private Mobile m_Caster;
-			private Mobile m_Target;
-			private DateTime m_End;
+			private readonly Mobile m_Caster;
+			private readonly Mobile m_Target;
+			private readonly DateTime m_End;
 
 			public ExpireTimer(Mobile caster, Mobile target, TimeSpan delay) : base(TimeSpan.FromSeconds(1.0), TimeSpan.FromSeconds(1.0))
 			{
@@ -165,7 +165,7 @@ namespace Server.Spells.Necromancy
 
 		private class InternalTarget : Target
 		{
-			private BloodOathSpell m_Owner;
+			private readonly BloodOathSpell m_Owner;
 
 			public InternalTarget(BloodOathSpell owner) : base(owner.SpellRange, false, TargetFlags.Harmful)
 			{

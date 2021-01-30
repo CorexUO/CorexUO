@@ -1,6 +1,6 @@
+using Server.Commands;
 using System;
 using System.IO;
-using Server.Commands;
 
 namespace Server.Misc
 {

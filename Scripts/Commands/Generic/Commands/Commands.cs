@@ -1,6 +1,3 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using Server.Accounting;
 using Server.Engines.Help;
 using Server.Gumps;
@@ -9,6 +6,9 @@ using Server.Mobiles;
 using Server.Multis;
 using Server.Network;
 using Server.Spells;
+using System;
+using System.Collections;
+using System.Collections.Generic;
 
 namespace Server.Commands.Generic
 {
@@ -58,7 +58,7 @@ namespace Server.Commands.Generic
 			Register(new TraceLockdownCommand());
 		}
 
-		private static List<BaseCommand> m_AllCommands = new List<BaseCommand>();
+		private static readonly List<BaseCommand> m_AllCommands = new List<BaseCommand>();
 
 		public static List<BaseCommand> AllCommands { get { return m_AllCommands; } }
 
@@ -350,7 +350,7 @@ namespace Server.Commands.Generic
 
 	public class TellCommand : BaseCommand
 	{
-		private bool m_InGump;
+		private readonly bool m_InGump;
 
 		public TellCommand(bool inGump)
 		{
@@ -684,8 +684,8 @@ namespace Server.Commands.Generic
 
 	public class AliasedSetCommand : BaseCommand
 	{
-		private string m_Name;
-		private string m_Value;
+		private readonly string m_Name;
+		private readonly string m_Value;
 
 		public AliasedSetCommand(AccessLevel level, string command, string name, string value, ObjectTypes objects)
 		{
@@ -834,7 +834,7 @@ namespace Server.Commands.Generic
 
 	public class KillCommand : BaseCommand
 	{
-		private bool m_Value;
+		private readonly bool m_Value;
 
 		public KillCommand(bool value)
 		{
@@ -919,7 +919,7 @@ namespace Server.Commands.Generic
 
 	public class HideCommand : BaseCommand
 	{
-		private bool m_Value;
+		private readonly bool m_Value;
 
 		public HideCommand(bool value)
 		{
@@ -1011,7 +1011,7 @@ namespace Server.Commands.Generic
 
 	public class KickCommand : BaseCommand
 	{
-		private bool m_Ban;
+		private readonly bool m_Ban;
 
 		public KickCommand(bool ban)
 		{

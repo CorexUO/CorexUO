@@ -1,6 +1,3 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using Server.Accounting;
 using Server.ContextMenus;
 using Server.Engines.CannedEvil;
@@ -25,6 +22,9 @@ using Server.Spells.Ninjitsu;
 using Server.Spells.Seventh;
 using Server.Spells.Spellweaving;
 using Server.Targeting;
+using System;
+using System.Collections;
+using System.Collections.Generic;
 
 namespace Server.Mobiles
 {
@@ -2276,7 +2276,7 @@ namespace Server.Mobiles
 
 		private static int CheckContentForTrade(Item item)
 		{
-			if (item is TrapableContainer  tContainer&& tContainer.TrapType != TrapType.None)
+			if (item is TrapableContainer tContainer && tContainer.TrapType != TrapType.None)
 				return 1004044; // You may not trade trapped items.
 
 			if (SkillHandlers.StolenItem.IsStolen(item))
@@ -3095,7 +3095,7 @@ namespace Server.Mobiles
 			if (target is BaseCreature bc && bc.InitialInnocent && !bc.Controlled)
 				return false;
 
-			if (Core.ML && target is BaseCreature targetBc&& targetBc.Controlled && this == targetBc.ControlMaster)
+			if (Core.ML && target is BaseCreature targetBc && targetBc.Controlled && this == targetBc.ControlMaster)
 				return false;
 
 			return base.IsHarmfulCriminal(target);
@@ -3343,7 +3343,7 @@ namespace Server.Mobiles
 
 			base.Serialize(writer);
 
-			writer.Write((int)0); // version
+			writer.Write(0); // version
 
 			if (m_StuckMenuUses != null)
 			{
@@ -3361,13 +3361,13 @@ namespace Server.Mobiles
 				writer.Write(false);
 			}
 
-			writer.Write((DateTime)PeacedUntil);
-			writer.Write((DateTime)AnkhNextUse);
+			writer.Write(PeacedUntil);
+			writer.Write(AnkhNextUse);
 			writer.Write(AutoStabled, true);
 
 			if (m_AcquiredRecipes == null)
 			{
-				writer.Write((int)0);
+				writer.Write(0);
 			}
 			else
 			{
@@ -3400,22 +3400,22 @@ namespace Server.Mobiles
 
 			if (DoneQuests == null)
 			{
-				writer.WriteEncodedInt((int)0);
+				writer.WriteEncodedInt(0);
 			}
 			else
 			{
-				writer.WriteEncodedInt((int)DoneQuests.Count);
+				writer.WriteEncodedInt(DoneQuests.Count);
 
 				for (int i = 0; i < DoneQuests.Count; ++i)
 				{
 					QuestRestartInfo restartInfo = DoneQuests[i];
 
-					QuestSerializer.Write((Type)restartInfo.QuestType, QuestSystem.QuestTypes, writer);
-					writer.Write((DateTime)restartInfo.RestartTime);
+					QuestSerializer.Write(restartInfo.QuestType, QuestSystem.QuestTypes, writer);
+					writer.Write(restartInfo.RestartTime);
 				}
 			}
 
-			writer.WriteEncodedInt((int)Profession);
+			writer.WriteEncodedInt(Profession);
 
 			writer.WriteDeltaTime(LastCompassionLoss);
 
@@ -3432,17 +3432,17 @@ namespace Server.Mobiles
 
 			if (useMods)
 			{
-				writer.Write((int)m_HairModID);
-				writer.Write((int)m_HairModHue);
-				writer.Write((int)m_BeardModID);
-				writer.Write((int)m_BeardModHue);
+				writer.Write(m_HairModID);
+				writer.Write(m_HairModHue);
+				writer.Write(m_BeardModID);
+				writer.Write(m_BeardModHue);
 			}
 
 			writer.Write(SavagePaintExpiration);
 
 			writer.Write((int)NpcGuild);
-			writer.Write((DateTime)NpcGuildJoinTime);
-			writer.Write((TimeSpan)NpcGuildGameTime);
+			writer.Write(NpcGuildJoinTime);
+			writer.Write(NpcGuildGameTime);
 
 			writer.Write(PermaFlags, true);
 

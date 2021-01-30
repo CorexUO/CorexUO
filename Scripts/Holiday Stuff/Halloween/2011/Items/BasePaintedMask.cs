@@ -23,7 +23,7 @@ namespace Server.Items.Holiday
 
 		private string m_Staffer;
 
-		private static string[] m_Staffers =
+		private static readonly string[] m_Staffers =
 		{
 				  "Ryan",
 				  "Mark",
@@ -55,8 +55,8 @@ namespace Server.Items.Holiday
 		{
 			base.Serialize(writer);
 
-			writer.Write((int)0); // version
-			writer.Write((string)m_Staffer);
+			writer.Write(0); // version
+			writer.Write(m_Staffer);
 		}
 
 		public override void Deserialize(GenericReader reader)

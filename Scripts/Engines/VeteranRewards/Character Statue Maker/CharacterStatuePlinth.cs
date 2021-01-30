@@ -1,7 +1,7 @@
-using System;
 using Server.Gumps;
 using Server.Mobiles;
 using Server.Multis;
+using System;
 
 namespace Server.Items
 {
@@ -53,9 +53,9 @@ namespace Server.Items
 		{
 			base.Serialize(writer);
 
-			writer.WriteEncodedInt((int)0); // version
+			writer.WriteEncodedInt(0); // version
 
-			writer.Write((Mobile)m_Statue);
+			writer.Write(m_Statue);
 		}
 
 		public override void Deserialize(GenericReader reader)

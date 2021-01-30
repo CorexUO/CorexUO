@@ -1,11 +1,11 @@
-using System;
 using Server.Targeting;
+using System;
 
 namespace Server.Spells.First
 {
 	public class ClumsySpell : MagerySpell
 	{
-		private static SpellInfo m_Info = new SpellInfo(
+		private static readonly SpellInfo m_Info = new SpellInfo(
 				"Clumsy", "Uus Jux",
 				212,
 				9031,
@@ -70,7 +70,7 @@ namespace Server.Spells.First
 
 		private class InternalTarget : Target
 		{
-			private ClumsySpell m_Owner;
+			private readonly ClumsySpell m_Owner;
 
 			public InternalTarget(ClumsySpell owner) : base(owner.SpellRange, false, TargetFlags.Harmful)
 			{

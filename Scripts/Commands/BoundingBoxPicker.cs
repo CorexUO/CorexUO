@@ -15,10 +15,10 @@ namespace Server
 		private class PickTarget : Target
 		{
 			private Point3D m_Store;
-			private bool m_First;
-			private Map m_Map;
-			private BoundingBoxCallback m_Callback;
-			private object m_State;
+			private readonly bool m_First;
+			private readonly Map m_Map;
+			private readonly BoundingBoxCallback m_Callback;
+			private readonly object m_State;
 
 			public PickTarget(BoundingBoxCallback callback, object state) : this(Point3D.Zero, true, null, callback, state)
 			{

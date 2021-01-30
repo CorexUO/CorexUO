@@ -5,7 +5,7 @@ namespace Server.Gumps
 {
 	public class TithingGump : Gump
 	{
-		private Mobile m_From;
+		private readonly Mobile m_From;
 		private int m_Offer;
 
 		public TithingGump(Mobile from, int offer) : base(160, 40)

@@ -1,12 +1,12 @@
-using System;
 using Server.Mobiles;
 using Server.Targeting;
+using System;
 
 namespace Server.Spells.Necromancy
 {
 	public class VengefulSpiritSpell : NecromancerSpell
 	{
-		private static SpellInfo m_Info = new SpellInfo(
+		private static readonly SpellInfo m_Info = new SpellInfo(
 				"Vengeful Spirit", "Kal Xen Bal Beh",
 				203,
 				9031,
@@ -72,7 +72,7 @@ namespace Server.Spells.Necromancy
 
 		private class InternalTarget : Target
 		{
-			private VengefulSpiritSpell m_Owner;
+			private readonly VengefulSpiritSpell m_Owner;
 
 			public InternalTarget(VengefulSpiritSpell owner) : base(owner.SpellRange, false, TargetFlags.Harmful)
 			{

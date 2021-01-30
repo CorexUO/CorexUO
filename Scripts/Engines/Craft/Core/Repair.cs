@@ -1,7 +1,7 @@
-using System;
 using Server.Items;
 using Server.Mobiles;
 using Server.Targeting;
+using System;
 
 namespace Server.Engines.Craft
 {
@@ -25,9 +25,9 @@ namespace Server.Engines.Craft
 
 		private class InternalTarget : Target
 		{
-			private CraftSystem m_CraftSystem;
-			private BaseTool m_Tool;
-			private RepairDeed m_Deed;
+			private readonly CraftSystem m_CraftSystem;
+			private readonly BaseTool m_Tool;
+			private readonly RepairDeed m_Deed;
 
 			public InternalTarget(CraftSystem craftSystem, BaseTool tool) : base(2, false, TargetFlags.None)
 			{

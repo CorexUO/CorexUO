@@ -1,10 +1,10 @@
-using System;
-using System.Collections.Generic;
 using Server.Commands;
 using Server.Engines.Craft;
 using Server.Network;
 using Server.Spells;
 using Server.Targeting;
+using System;
+using System.Collections.Generic;
 
 namespace Server.Items
 {
@@ -427,7 +427,7 @@ namespace Server.Items
 			if (newItem != null && newItem is Spellbook book)
 			{
 				book.m_AosSkillBonuses = new AosSkillBonuses(newItem, m_AosSkillBonuses);
-			}	
+			}
 		}
 
 		public override void OnAdded(IEntity parent)
@@ -704,9 +704,9 @@ namespace Server.Items
 		{
 			base.Serialize(writer);
 
-			writer.Write((int)0); // version
+			writer.Write(0); // version
 
-			writer.Write((string)m_EngravedText);
+			writer.Write(m_EngravedText);
 
 			writer.Write(m_Crafter);
 

@@ -1,5 +1,3 @@
-using System;
-using System.Collections;
 using Server.Engines.Plants;
 using Server.Engines.Quests;
 using Server.Engines.Quests.Hag;
@@ -7,6 +5,8 @@ using Server.Engines.Quests.Matriarch;
 using Server.Mobiles;
 using Server.Network;
 using Server.Targeting;
+using System;
+using System.Collections;
 
 namespace Server.Items
 {
@@ -72,7 +72,7 @@ namespace Server.Items
 		{
 			base.Serialize(writer);
 
-			writer.Write((int)0); // version
+			writer.Write(0); // version
 		}
 
 		public override void Deserialize(GenericReader reader)
@@ -113,7 +113,7 @@ namespace Server.Items
 		{
 			base.Serialize(writer);
 
-			writer.Write((int)0); // version
+			writer.Write(0); // version
 		}
 
 		public override void Deserialize(GenericReader reader)
@@ -161,7 +161,7 @@ namespace Server.Items
 		{
 			base.Serialize(writer);
 
-			writer.Write((int)0); // version
+			writer.Write(0); // version
 		}
 
 		public override void Deserialize(GenericReader reader)
@@ -207,7 +207,7 @@ namespace Server.Items
 		{
 			base.Serialize(writer);
 
-			writer.Write((int)0); // version
+			writer.Write(0); // version
 		}
 
 		public override void Deserialize(GenericReader reader)
@@ -253,7 +253,7 @@ namespace Server.Items
 		{
 			base.Serialize(writer);
 
-			writer.Write((int)0); // version
+			writer.Write(0); // version
 		}
 
 		public override void Deserialize(GenericReader reader)
@@ -312,7 +312,7 @@ namespace Server.Items
 		{
 			base.Serialize(writer);
 
-			writer.Write((int)0); // version
+			writer.Write(0); // version
 		}
 
 		public override void Deserialize(GenericReader reader)
@@ -412,7 +412,7 @@ namespace Server.Items
 		{
 			base.Serialize(writer);
 
-			writer.Write((int)0); // version
+			writer.Write(0); // version
 		}
 
 		public override void Deserialize(GenericReader reader)
@@ -717,7 +717,7 @@ namespace Server.Items
 			}
 		}
 
-		private static int[] m_SwampTiles = new int[]
+		private static readonly int[] m_SwampTiles = new int[]
 			{
 				0x9C4, 0x9EB,
 				0x3D65, 0x3D65,
@@ -729,7 +729,7 @@ namespace Server.Items
 			};
 
 		#region Effects of achohol
-		private static Hashtable m_Table = new Hashtable();
+		private static readonly Hashtable m_Table = new Hashtable();
 
 		public static void Initialize()
 		{
@@ -774,7 +774,7 @@ namespace Server.Items
 
 		private class HeaveTimer : Timer
 		{
-			private Mobile m_Drunk;
+			private readonly Mobile m_Drunk;
 
 			public HeaveTimer(Mobile drunk)
 				: base(TimeSpan.FromSeconds(5.0), TimeSpan.FromSeconds(5.0))
@@ -1066,13 +1066,13 @@ namespace Server.Items
 		{
 			base.Serialize(writer);
 
-			writer.Write((int)0); // version
+			writer.Write(0); // version
 
-			writer.Write((Mobile)m_Poisoner);
+			writer.Write(m_Poisoner);
 
 			Poison.Serialize(m_Poison, writer);
 			writer.Write((int)m_Content);
-			writer.Write((int)m_Quantity);
+			writer.Write(m_Quantity);
 		}
 
 		protected bool CheckType(string name)

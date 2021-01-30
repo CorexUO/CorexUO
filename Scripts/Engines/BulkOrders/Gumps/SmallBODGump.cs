@@ -5,8 +5,8 @@ namespace Server.Engines.BulkOrders
 {
 	public class SmallBODGump : Gump
 	{
-		private SmallBOD m_Deed;
-		private Mobile m_From;
+		private readonly SmallBOD m_Deed;
+		private readonly Mobile m_From;
 
 		public SmallBODGump(Mobile from, SmallBOD deed) : base(25, 25)
 		{
@@ -71,9 +71,9 @@ namespace Server.Engines.BulkOrders
 		public static int GetMaterialNumberFor(BulkMaterialType material)
 		{
 			if (material >= BulkMaterialType.DullCopper && material <= BulkMaterialType.Valorite)
-				return 1045142 + (int)(material - BulkMaterialType.DullCopper);
+				return 1045142 + (material - BulkMaterialType.DullCopper);
 			else if (material >= BulkMaterialType.Spined && material <= BulkMaterialType.Barbed)
-				return 1049348 + (int)(material - BulkMaterialType.Spined);
+				return 1049348 + (material - BulkMaterialType.Spined);
 
 			return 0;
 		}

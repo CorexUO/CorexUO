@@ -26,8 +26,8 @@ namespace Server.Misc
 		public class CirclePoint
 		{
 			private Point2D point;
-			private int angle;
-			private int quadrant;
+			private readonly int angle;
+			private readonly int quadrant;
 
 			public Point2D Point { get { return point; } }
 			public int Angle { get { return angle; } }

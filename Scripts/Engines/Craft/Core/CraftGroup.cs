@@ -2,10 +2,10 @@ namespace Server.Engines.Craft
 {
 	public class CraftGroup
 	{
-		private CraftItemCol m_arCraftItem;
+		private readonly CraftItemCol m_arCraftItem;
 
-		private string m_NameString;
-		private int m_NameNumber;
+		private readonly string m_NameString;
+		private readonly int m_NameNumber;
 
 		public CraftGroup(TextDefinition groupName)
 		{

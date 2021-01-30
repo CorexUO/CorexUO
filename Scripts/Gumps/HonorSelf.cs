@@ -5,7 +5,7 @@ namespace Server.Gumps
 {
 	public class HonorSelf : Gump
 	{
-		PlayerMobile m_from;
+		readonly PlayerMobile m_from;
 		public HonorSelf(PlayerMobile from) : base(150, 50)
 		{
 			m_from = from;

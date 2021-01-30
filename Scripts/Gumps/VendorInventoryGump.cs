@@ -1,15 +1,15 @@
-using System;
-using System.Collections;
 using Server.Mobiles;
 using Server.Multis;
 using Server.Network;
+using System;
+using System.Collections;
 
 namespace Server.Gumps
 {
 	public class VendorInventoryGump : Gump
 	{
-		private BaseHouse m_House;
-		private ArrayList m_Inventories;
+		private readonly BaseHouse m_House;
+		private readonly ArrayList m_Inventories;
 
 		public VendorInventoryGump(BaseHouse house, Mobile from) : base(50, 50)
 		{

@@ -1,5 +1,5 @@
-using System;
 using Server.Network;
+using System;
 
 namespace Server.Gumps
 {
@@ -20,10 +20,10 @@ namespace Server.Gumps
 
 	public class RewardGump : Gump
 	{
-		private TextDefinition m_Title;
-		private IRewardEntry[] m_Rewards;
-		private int m_Points;
-		private RewardPickedHandler m_OnPicked;
+		private readonly TextDefinition m_Title;
+		private readonly IRewardEntry[] m_Rewards;
+		private readonly int m_Points;
+		private readonly RewardPickedHandler m_OnPicked;
 
 		public TextDefinition Title { get { return m_Title; } }
 		public IRewardEntry[] Rewards { get { return m_Rewards; } }
@@ -130,8 +130,8 @@ namespace Server.Gumps
 
 	public class RewardConfirmGump : Gump
 	{
-		private RewardGump m_Parent;
-		private int m_Index;
+		private readonly RewardGump m_Parent;
+		private readonly int m_Index;
 
 		public RewardConfirmGump(RewardGump parent, int index, IRewardEntry entry)
 			: base(120, 50)

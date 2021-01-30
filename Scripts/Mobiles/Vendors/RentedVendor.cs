@@ -1,10 +1,10 @@
-using System;
-using System.Collections.Generic;
 using Server.ContextMenus;
 using Server.Gumps;
 using Server.Misc;
 using Server.Multis;
 using Server.Prompts;
+using System;
+using System.Collections.Generic;
 
 namespace Server.Mobiles
 {
@@ -18,8 +18,8 @@ namespace Server.Mobiles
 				new VendorRentalDuration( TimeSpan.FromDays( 28.0 ), 1062364 )	// 1 Month
 			};
 
-		private TimeSpan m_Duration;
-		private int m_Name;
+		private readonly TimeSpan m_Duration;
+		private readonly int m_Name;
 
 		public TimeSpan Duration { get { return m_Duration; } }
 		public int Name { get { return m_Name; } }
@@ -168,8 +168,7 @@ namespace Server.Mobiles
 
 		public void SendRentalExpireMessage(Mobile to)
 		{
-			int days, hours;
-			ComputeRentalExpireDelay(out days, out hours);
+			ComputeRentalExpireDelay(out int days, out int hours);
 
 			to.SendLocalizedMessage(1062464, days.ToString() + "\t" + hours.ToString()); // The rental contract on this vendor will expire in ~1_DAY~ day(s) and ~2_HOUR~ hour(s).
 		}
@@ -218,7 +217,7 @@ namespace Server.Mobiles
 
 		private class ContractOptionsEntry : ContextMenuEntry
 		{
-			private RentedVendor m_Vendor;
+			private readonly RentedVendor m_Vendor;
 
 			public ContractOptionsEntry(RentedVendor vendor) : base(6209)
 			{
@@ -251,7 +250,7 @@ namespace Server.Mobiles
 
 		private class CollectRentEntry : ContextMenuEntry
 		{
-			private RentedVendor m_Vendor;
+			private readonly RentedVendor m_Vendor;
 
 			public CollectRentEntry(RentedVendor vendor) : base(6212)
 			{
@@ -281,7 +280,7 @@ namespace Server.Mobiles
 
 		private class TerminateContractEntry : ContextMenuEntry
 		{
-			private RentedVendor m_Vendor;
+			private readonly RentedVendor m_Vendor;
 
 			public TerminateContractEntry(RentedVendor vendor) : base(6218)
 			{
@@ -302,7 +301,7 @@ namespace Server.Mobiles
 
 		private class RefundOfferPrompt : Prompt
 		{
-			private RentedVendor m_Vendor;
+			private readonly RentedVendor m_Vendor;
 
 			public RefundOfferPrompt(RentedVendor vendor)
 			{
@@ -316,9 +315,8 @@ namespace Server.Mobiles
 
 				text = text.Trim();
 
-				int amount;
 
-				if (!int.TryParse(text, out amount))
+				if (!int.TryParse(text, out int amount))
 					amount = -1;
 
 				Mobile owner = m_Vendor.Owner;
@@ -355,14 +353,14 @@ namespace Server.Mobiles
 
 			writer.WriteEncodedInt(m_RentalDuration.ID);
 
-			writer.Write((int)m_RentalPrice);
-			writer.Write((bool)m_LandlordRenew);
-			writer.Write((bool)m_RenterRenew);
-			writer.Write((int)m_RenewalPrice);
+			writer.Write(m_RentalPrice);
+			writer.Write(m_LandlordRenew);
+			writer.Write(m_RenterRenew);
+			writer.Write(m_RenewalPrice);
 
-			writer.Write((int)m_RentalGold);
+			writer.Write(m_RentalGold);
 
-			writer.WriteDeltaTime((DateTime)m_RentalExpireTime);
+			writer.WriteDeltaTime(m_RentalExpireTime);
 		}
 
 		public override void Deserialize(GenericReader reader)
@@ -393,7 +391,7 @@ namespace Server.Mobiles
 
 		private class RentalExpireTimer : Timer
 		{
-			private RentedVendor m_Vendor;
+			private readonly RentedVendor m_Vendor;
 
 			public RentalExpireTimer(RentedVendor vendor, TimeSpan delay) : base(delay, vendor.RentalDuration.Duration)
 			{

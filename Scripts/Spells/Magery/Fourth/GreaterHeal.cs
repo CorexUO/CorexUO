@@ -6,7 +6,7 @@ namespace Server.Spells.Fourth
 {
 	public class GreaterHealSpell : MagerySpell
 	{
-		private static SpellInfo m_Info = new SpellInfo(
+		private static readonly SpellInfo m_Info = new SpellInfo(
 				"Greater Heal", "In Vas Mani",
 				204,
 				9061,
@@ -92,7 +92,7 @@ namespace Server.Spells.Fourth
 
 		public class InternalTarget : Target
 		{
-			private GreaterHealSpell m_Owner;
+			private readonly GreaterHealSpell m_Owner;
 
 			public InternalTarget(GreaterHealSpell owner) : base(owner.SpellRange, false, TargetFlags.Beneficial)
 			{

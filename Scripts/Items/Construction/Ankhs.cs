@@ -1,7 +1,7 @@
-using System.Collections.Generic;
 using Server.ContextMenus;
 using Server.Gumps;
 using Server.Mobiles;
+using System.Collections.Generic;
 
 namespace Server.Items
 {
@@ -40,8 +40,8 @@ namespace Server.Items
 
 		private class ResurrectEntry : ContextMenuEntry
 		{
-			private Mobile m_Mobile;
-			private Item m_Item;
+			private readonly Mobile m_Mobile;
+			private readonly Item m_Item;
 
 			public ResurrectEntry(Mobile mobile, Item item) : base(6195, ResurrectRange)
 			{
@@ -59,7 +59,7 @@ namespace Server.Items
 
 		private class LockKarmaEntry : ContextMenuEntry
 		{
-			private PlayerMobile m_Mobile;
+			private readonly PlayerMobile m_Mobile;
 
 			public LockKarmaEntry(PlayerMobile mobile) : base(mobile.KarmaLocked ? 6197 : 6196, LockRange)
 			{
@@ -79,7 +79,7 @@ namespace Server.Items
 
 		private class TitheEntry : ContextMenuEntry
 		{
-			private Mobile m_Mobile;
+			private readonly Mobile m_Mobile;
 
 			public TitheEntry(Mobile mobile) : base(6198, TitheRange)
 			{
@@ -167,7 +167,7 @@ namespace Server.Items
 		{
 			base.Serialize(writer);
 
-			writer.Write((int)0); // version
+			writer.Write(0); // version
 
 			writer.Write(m_Item);
 		}
@@ -246,7 +246,7 @@ namespace Server.Items
 			{
 				base.Serialize(writer);
 
-				writer.Write((int)0); // version
+				writer.Write(0); // version
 
 				writer.Write(m_Item);
 			}
@@ -335,7 +335,7 @@ namespace Server.Items
 		{
 			base.Serialize(writer);
 
-			writer.Write((int)0); // version
+			writer.Write(0); // version
 
 			writer.Write(m_Item);
 		}
@@ -416,7 +416,7 @@ namespace Server.Items
 			{
 				base.Serialize(writer);
 
-				writer.Write((int)0); // version
+				writer.Write(0); // version
 
 				writer.Write(m_Item);
 			}

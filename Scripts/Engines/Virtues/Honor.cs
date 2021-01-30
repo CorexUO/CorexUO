@@ -1,8 +1,8 @@
-using System;
 using Server.Gumps;
 using Server.Mobiles;
 using Server.Regions;
 using Server.Targeting;
+using System;
 
 namespace Server
 {
@@ -190,8 +190,8 @@ namespace Server
 
 	public class HonorContext
 	{
-		private PlayerMobile m_Source;
-		private Mobile m_Target;
+		private readonly PlayerMobile m_Source;
+		private readonly Mobile m_Target;
 
 		private double m_HonorDamage;
 		private int m_TotalDamage;
@@ -208,9 +208,9 @@ namespace Server
 		private FirstHit m_FirstHit;
 		private bool m_Poisoned;
 		private Point3D m_InitialLocation;
-		private Map m_InitialMap;
+		private readonly Map m_InitialMap;
 
-		private InternalTimer m_Timer;
+		private readonly InternalTimer m_Timer;
 
 		public PlayerMobile Source { get { return m_Source; } }
 		public Mobile Target { get { return m_Target; } }
@@ -384,7 +384,7 @@ namespace Server
 			}
 
 			bool gainedPath = false;
-			if (VirtueHelper.Award(m_Source, VirtueName.Honor, (int)gain, ref gainedPath))
+			if (VirtueHelper.Award(m_Source, VirtueName.Honor, gain, ref gainedPath))
 			{
 				if (gainedPath)
 					m_Source.SendLocalizedMessage(1063226); // You have gained a path in Honor!
@@ -418,7 +418,7 @@ namespace Server
 
 		private class InternalTimer : Timer
 		{
-			private HonorContext m_Context;
+			private readonly HonorContext m_Context;
 
 			public InternalTimer(HonorContext context) : base(TimeSpan.FromSeconds(1.0), TimeSpan.FromSeconds(1.0))
 			{

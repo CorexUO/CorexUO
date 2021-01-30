@@ -1,17 +1,17 @@
-using System;
-using System.Collections.Generic;
 using Server.Factions;
 using Server.Mobiles;
 using Server.Network;
 using Server.Spells;
 using Server.Spells.Spellweaving;
 using Server.Targeting;
+using System;
+using System.Collections.Generic;
 
 namespace Server.SkillHandlers
 {
 	public class AnimalTaming
 	{
-		private static Dictionary<Mobile, Mobile> m_BeingTamed = new Dictionary<Mobile, Mobile>();
+		private static readonly Dictionary<Mobile, Mobile> m_BeingTamed = new Dictionary<Mobile, Mobile>();
 
 		public static void Initialize()
 		{
@@ -232,12 +232,12 @@ namespace Server.SkillHandlers
 
 			private class InternalTimer : Timer
 			{
-				private Mobile m_Tamer;
-				private BaseCreature m_Creature;
-				private int m_MaxCount;
+				private readonly Mobile m_Tamer;
+				private readonly BaseCreature m_Creature;
+				private readonly int m_MaxCount;
 				private int m_Count;
 				private bool m_Paralyzed;
-				private DateTime m_StartTime;
+				private readonly DateTime m_StartTime;
 
 				public InternalTimer(Mobile tamer, BaseCreature creature, int count) : base(TimeSpan.FromSeconds(3.0), TimeSpan.FromSeconds(3.0), count)
 				{
@@ -390,7 +390,7 @@ namespace Server.SkillHandlers
 
 				private bool CanPath()
 				{
-					IPoint3D p = m_Tamer as IPoint3D;
+					IPoint3D p = m_Tamer;
 
 					if (p == null)
 						return false;

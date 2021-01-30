@@ -1,12 +1,12 @@
-using System;
 using Server.Items;
 using Server.Mobiles;
+using System;
 
 namespace Server.Engines.Quests.Ambitious
 {
 	public class AmbitiousQueenQuest : QuestSystem
 	{
-		private static Type[] m_TypeReferenceTable = new Type[]
+		private static readonly Type[] m_TypeReferenceTable = new Type[]
 			{
 				typeof( Ambitious.DontOfferConversation ),
 				typeof( Ambitious.AcceptConversation ),
@@ -93,9 +93,9 @@ namespace Server.Engines.Quests.Ambitious
 
 		public override void ChildSerialize(GenericWriter writer)
 		{
-			writer.WriteEncodedInt((int)0); // version
+			writer.WriteEncodedInt(0); // version
 
-			writer.Write((bool)m_RedSolen);
+			writer.Write(m_RedSolen);
 		}
 
 		public override void Accept()

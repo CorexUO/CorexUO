@@ -1,15 +1,15 @@
-using System;
 using Server.Items;
 using Server.Mobiles;
 using Server.Multis;
 using Server.Network;
 using Server.Targeting;
+using System;
 
 namespace Server.Spells.Chivalry
 {
 	public class SacredJourneySpell : PaladinSpell
 	{
-		private static SpellInfo m_Info = new SpellInfo(
+		private static readonly SpellInfo m_Info = new SpellInfo(
 				"Sacred Journey", "Sanctum Viatas",
 				-1,
 				9002
@@ -23,8 +23,8 @@ namespace Server.Spells.Chivalry
 		public override int MantraNumber { get { return 1060727; } } // Sanctum Viatas
 		public override bool BlocksMovement { get { return false; } }
 
-		private RunebookEntry m_Entry;
-		private Runebook m_Book;
+		private readonly RunebookEntry m_Entry;
+		private readonly Runebook m_Book;
 
 		public SacredJourneySpell(Mobile caster, Item scroll) : this(caster, scroll, null, null)
 		{
@@ -140,7 +140,7 @@ namespace Server.Spells.Chivalry
 
 		private class InternalTarget : Target
 		{
-			private SacredJourneySpell m_Owner;
+			private readonly SacredJourneySpell m_Owner;
 
 			public InternalTarget(SacredJourneySpell owner) : base(owner.SpellRange, false, TargetFlags.None)
 			{

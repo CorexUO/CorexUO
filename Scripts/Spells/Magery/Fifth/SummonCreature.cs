@@ -1,11 +1,11 @@
-using System;
 using Server.Mobiles;
+using System;
 
 namespace Server.Spells.Fifth
 {
 	public class SummonCreatureSpell : MagerySpell
 	{
-		private static SpellInfo m_Info = new SpellInfo(
+		private static readonly SpellInfo m_Info = new SpellInfo(
 				"Summon Creature", "Kal Xen",
 				16,
 				false,
@@ -23,7 +23,7 @@ namespace Server.Spells.Fifth
 
 		// NOTE: Creature list based on 1hr of summon/release on OSI.
 
-		private static Type[] m_Types = new Type[]
+		private static readonly Type[] m_Types = new Type[]
 			{
 				typeof( PolarBear ),
 				typeof( GrizzlyBear ),

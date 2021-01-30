@@ -50,9 +50,9 @@ namespace Server.Engines.BulkOrders
 
 			writer.Write(m_ItemType?.FullName);
 
-			writer.WriteEncodedInt((int)m_AmountCur);
-			writer.WriteEncodedInt((int)m_Number);
-			writer.WriteEncodedInt((int)m_Graphic);
+			writer.WriteEncodedInt(m_AmountCur);
+			writer.WriteEncodedInt(m_Number);
+			writer.WriteEncodedInt(m_Graphic);
 		}
 	}
 }

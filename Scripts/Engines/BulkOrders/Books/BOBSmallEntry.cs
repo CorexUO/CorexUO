@@ -4,13 +4,13 @@ namespace Server.Engines.BulkOrders
 {
 	public class BOBSmallEntry
 	{
-		private Type m_ItemType;
-		private bool m_RequireExceptional;
-		private BODType m_DeedType;
-		private BulkMaterialType m_Material;
-		private int m_AmountCur, m_AmountMax;
-		private int m_Number;
-		private int m_Graphic;
+		private readonly Type m_ItemType;
+		private readonly bool m_RequireExceptional;
+		private readonly BODType m_DeedType;
+		private readonly BulkMaterialType m_Material;
+		private readonly int m_AmountCur, m_AmountMax;
+		private readonly int m_Number;
+		private readonly int m_Graphic;
 		private int m_Price;
 
 		public Type ItemType { get { return m_ItemType; } }
@@ -87,15 +87,15 @@ namespace Server.Engines.BulkOrders
 
 			writer.Write(m_ItemType == null ? null : m_ItemType.FullName);
 
-			writer.Write((bool)m_RequireExceptional);
+			writer.Write(m_RequireExceptional);
 
 			writer.WriteEncodedInt((int)m_DeedType);
 			writer.WriteEncodedInt((int)m_Material);
-			writer.WriteEncodedInt((int)m_AmountCur);
-			writer.WriteEncodedInt((int)m_AmountMax);
-			writer.WriteEncodedInt((int)m_Number);
-			writer.WriteEncodedInt((int)m_Graphic);
-			writer.WriteEncodedInt((int)m_Price);
+			writer.WriteEncodedInt(m_AmountCur);
+			writer.WriteEncodedInt(m_AmountMax);
+			writer.WriteEncodedInt(m_Number);
+			writer.WriteEncodedInt(m_Graphic);
+			writer.WriteEncodedInt(m_Price);
 		}
 	}
 }

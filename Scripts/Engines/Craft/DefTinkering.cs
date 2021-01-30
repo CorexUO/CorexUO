@@ -1,7 +1,7 @@
-using System;
 using Server.Factions;
 using Server.Items;
 using Server.Targeting;
+using System;
 
 namespace Server.Engines.Craft
 {

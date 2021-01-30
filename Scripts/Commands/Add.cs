@@ -1,9 +1,9 @@
+using Server.Items;
+using Server.Targeting;
 using System;
 using System.Collections.Generic;
 using System.Reflection;
 using System.Text;
-using Server.Items;
-using Server.Targeting;
 using CPA = Server.CommandPropertyAttribute;
 
 namespace Server.Commands
@@ -432,7 +432,7 @@ namespace Server.Commands
 
 		public class AddTarget : Target
 		{
-			private string[] m_Args;
+			private readonly string[] m_Args;
 
 			public AddTarget(string[] args) : base(-1, true, TargetFlags.None)
 			{
@@ -644,14 +644,14 @@ namespace Server.Commands
 			InternalAvg_OnCommand(e, true);
 		}
 
-		private static Type m_EntityType = typeof(IEntity);
+		private static readonly Type m_EntityType = typeof(IEntity);
 
 		public static bool IsEntity(Type t)
 		{
 			return m_EntityType.IsAssignableFrom(t);
 		}
 
-		private static Type m_ConstructableType = typeof(ConstructableAttribute);
+		private static readonly Type m_ConstructableType = typeof(ConstructableAttribute);
 
 		public static bool IsConstructable(ConstructorInfo ctor, AccessLevel accessLevel)
 		{
@@ -663,29 +663,29 @@ namespace Server.Commands
 			return accessLevel >= ((ConstructableAttribute)attrs[0]).AccessLevel;
 		}
 
-		private static Type m_EnumType = typeof(Enum);
+		private static readonly Type m_EnumType = typeof(Enum);
 
 		public static bool IsEnum(Type type)
 		{
 			return type.IsSubclassOf(m_EnumType);
 		}
 
-		private static Type m_TypeType = typeof(Type);
+		private static readonly Type m_TypeType = typeof(Type);
 
 		public static bool IsType(Type type)
 		{
 			return (type == m_TypeType || type.IsSubclassOf(m_TypeType));
 		}
 
-		private static Type m_ParsableType = typeof(ParsableAttribute);
+		private static readonly Type m_ParsableType = typeof(ParsableAttribute);
 
 		public static bool IsParsable(Type type)
 		{
 			return type.IsDefined(m_ParsableType, false);
 		}
 
-		private static Type[] m_ParseTypes = new Type[] { typeof(string) };
-		private static object[] m_ParseArgs = new object[1];
+		private static readonly Type[] m_ParseTypes = new Type[] { typeof(string) };
+		private static readonly object[] m_ParseArgs = new object[1];
 
 		public static object ParseParsable(Type type, string value)
 		{
@@ -696,7 +696,7 @@ namespace Server.Commands
 			return method.Invoke(null, m_ParseArgs);
 		}
 
-		private static Type[] m_SignedNumerics = new Type[]
+		private static readonly Type[] m_SignedNumerics = new Type[]
 			{
 				typeof( Int64 ),
 				typeof( Int32 ),
@@ -713,7 +713,7 @@ namespace Server.Commands
 			return false;
 		}
 
-		private static Type[] m_UnsignedNumerics = new Type[]
+		private static readonly Type[] m_UnsignedNumerics = new Type[]
 			{
 				typeof( UInt64 ),
 				typeof( UInt32 ),

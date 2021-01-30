@@ -1,13 +1,13 @@
-using System;
-using System.Collections.Generic;
 using Server.Items;
 using Server.Targeting;
+using System;
+using System.Collections.Generic;
 
 namespace Server.Engines.Harvest
 {
 	public abstract class HarvestSystem
 	{
-		private List<HarvestDefinition> m_Definitions;
+		private readonly List<HarvestDefinition> m_Definitions;
 
 		public List<HarvestDefinition> Definitions { get { return m_Definitions; } }
 
@@ -99,11 +99,8 @@ namespace Server.Engines.Harvest
 			if (!CheckHarvest(from, tool))
 				return;
 
-			int tileID;
-			Map map;
-			Point3D loc;
 
-			if (!GetHarvestDetails(from, tool, toHarvest, out tileID, out map, out loc))
+			if (!GetHarvestDetails(from, tool, toHarvest, out int tileID, out Map map, out Point3D loc))
 			{
 				OnBadHarvestTarget(from, tool, toHarvest);
 				return;
@@ -335,11 +332,8 @@ namespace Server.Engines.Harvest
 				return false;
 			}
 
-			int tileID;
-			Map map;
-			Point3D loc;
 
-			if (!GetHarvestDetails(from, tool, toHarvest, out tileID, out map, out loc))
+			if (!GetHarvestDetails(from, tool, toHarvest, out int tileID, out Map map, out Point3D loc))
 			{
 				from.EndAction(locked);
 				OnBadHarvestTarget(from, tool, toHarvest);
@@ -408,11 +402,8 @@ namespace Server.Engines.Harvest
 			if (!CheckHarvest(from, tool))
 				return;
 
-			int tileID;
-			Map map;
-			Point3D loc;
 
-			if (!GetHarvestDetails(from, tool, toHarvest, out tileID, out map, out loc))
+			if (!GetHarvestDetails(from, tool, toHarvest, out int tileID, out Map map, out Point3D loc))
 			{
 				OnBadHarvestTarget(from, tool, toHarvest);
 				return;

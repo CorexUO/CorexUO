@@ -1,13 +1,13 @@
-using System;
-using System.Collections.Generic;
 using Server.Mobiles;
 using Server.Targeting;
+using System;
+using System.Collections.Generic;
 
 namespace Server.Spells.Fourth
 {
 	public class ArchCureSpell : MagerySpell
 	{
-		private static SpellInfo m_Info = new SpellInfo(
+		private static readonly SpellInfo m_Info = new SpellInfo(
 				"Arch Cure", "Vas An Nox",
 				215,
 				9061,
@@ -164,17 +164,17 @@ namespace Server.Spells.Fourth
 
 		private static bool IsInnocentTo(Mobile from, Mobile to)
 		{
-			return (Notoriety.Compute(from, (Mobile)to) == Notoriety.Innocent);
+			return (Notoriety.Compute(from, to) == Notoriety.Innocent);
 		}
 
 		private static bool IsAllyTo(Mobile from, Mobile to)
 		{
-			return (Notoriety.Compute(from, (Mobile)to) == Notoriety.Ally);
+			return (Notoriety.Compute(from, to) == Notoriety.Ally);
 		}
 
 		private class InternalTarget : Target
 		{
-			private ArchCureSpell m_Owner;
+			private readonly ArchCureSpell m_Owner;
 
 			public InternalTarget(ArchCureSpell owner) : base(owner.SpellRange, true, TargetFlags.None)
 			{

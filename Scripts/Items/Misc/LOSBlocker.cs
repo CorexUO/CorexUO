@@ -41,7 +41,7 @@ namespace Server.Items
 		{
 			base.Serialize(writer);
 
-			writer.Write((int)0);
+			writer.Write(0);
 		}
 
 		public override void Deserialize(GenericReader reader)
@@ -77,7 +77,7 @@ namespace Server.Items
 				else
 					serial &= 0x7FFFFFFF;
 
-				m_Stream.Write((uint)serial);
+				m_Stream.Write(serial);
 				m_Stream.Write((short)(itemID & 0x7FFF));
 
 				if (amount != 0)

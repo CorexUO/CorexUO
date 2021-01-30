@@ -1,6 +1,6 @@
+using Server.Items;
 using System;
 using System.Collections;
-using Server.Items;
 
 namespace Server.Mobiles
 {
@@ -190,12 +190,12 @@ namespace Server.Mobiles
 			}
 		}
 
-		private static Hashtable m_Table = new Hashtable();
+		private static readonly Hashtable m_Table = new Hashtable();
 
 		private class ExpireTimer : Timer
 		{
-			private Mobile m_Mobile;
-			private ResistanceMod m_Mod;
+			private readonly Mobile m_Mobile;
+			private readonly ResistanceMod m_Mod;
 
 			public ExpireTimer(Mobile m, ResistanceMod mod, TimeSpan delay)
 				: base(delay)
@@ -227,7 +227,7 @@ namespace Server.Mobiles
 		public override void Serialize(GenericWriter writer)
 		{
 			base.Serialize(writer);
-			writer.Write((int)0);
+			writer.Write(0);
 		}
 
 		public override void Deserialize(GenericReader reader)

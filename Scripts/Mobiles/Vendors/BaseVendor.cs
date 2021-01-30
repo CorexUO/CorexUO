@@ -1,6 +1,3 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using Server.ContextMenus;
 using Server.Engines.BulkOrders;
 using Server.Factions;
@@ -9,6 +6,9 @@ using Server.Misc;
 using Server.Mobiles;
 using Server.Network;
 using Server.Regions;
+using System;
+using System.Collections;
+using System.Collections.Generic;
 
 namespace Server.Mobiles
 {
@@ -27,8 +27,8 @@ namespace Server.Mobiles
 
 		protected abstract List<SBInfo> SBInfos { get; }
 
-		private ArrayList m_ArmorBuyInfo = new ArrayList();
-		private ArrayList m_ArmorSellInfo = new ArrayList();
+		private readonly ArrayList m_ArmorBuyInfo = new ArrayList();
+		private readonly ArrayList m_ArmorSellInfo = new ArrayList();
 		private DateTime m_NextTrickOrTreat;
 
 		public override bool CanTeach { get { return true; } }
@@ -182,7 +182,7 @@ namespace Server.Mobiles
 
 			for (int i = 0; i < SBInfos.Count; i++)
 			{
-				SBInfo sbInfo = (SBInfo)SBInfos[i];
+				SBInfo sbInfo = SBInfos[i];
 				m_ArmorBuyInfo.AddRange(sbInfo.BuyInfo);
 				m_ArmorSellInfo.Add(sbInfo.SellInfo);
 			}
@@ -453,7 +453,7 @@ namespace Server.Mobiles
 				bii.OnRestock();
 		}
 
-		private static TimeSpan InventoryDecayTime = TimeSpan.FromHours(1.0);
+		private static readonly TimeSpan InventoryDecayTime = TimeSpan.FromHours(1.0);
 
 		public virtual void VendorBuy(Mobile from)
 		{
@@ -486,7 +486,7 @@ namespace Server.Mobiles
 
 			for (int idx = 0; idx < buyInfo.Length; idx++)
 			{
-				IBuyItemInfo buyItem = (IBuyItemInfo)buyInfo[idx];
+				IBuyItemInfo buyItem = buyInfo[idx];
 
 				if (buyItem.Amount <= 0 || list.Count >= 250)
 					continue;
@@ -1233,7 +1233,7 @@ namespace Server.Mobiles
 		{
 			base.Serialize(writer);
 
-			writer.Write((int)0); // version
+			writer.Write(0); // version
 
 			List<SBInfo> sbInfos = this.SBInfos;
 
@@ -1244,7 +1244,7 @@ namespace Server.Mobiles
 
 				for (int j = 0; buyInfo != null && j < buyInfo.Count; ++j)
 				{
-					GenericBuyInfo gbi = (GenericBuyInfo)buyInfo[j];
+					GenericBuyInfo gbi = buyInfo[j];
 
 					int maxAmount = gbi.MaxAmount;
 					int doubled = 0;
@@ -1303,7 +1303,7 @@ namespace Server.Mobiles
 
 									if (buyInfo != null && buyInfoIndex >= 0 && buyInfoIndex < buyInfo.Count)
 									{
-										GenericBuyInfo gbi = (GenericBuyInfo)buyInfo[buyInfoIndex];
+										GenericBuyInfo gbi = buyInfo[buyInfoIndex];
 
 										int amount = 20;
 
@@ -1366,7 +1366,7 @@ namespace Server.ContextMenus
 {
 	public class VendorBuyEntry : ContextMenuEntry
 	{
-		private BaseVendor m_Vendor;
+		private readonly BaseVendor m_Vendor;
 
 		public VendorBuyEntry(Mobile from, BaseVendor vendor)
 			: base(6103, 8)
@@ -1383,7 +1383,7 @@ namespace Server.ContextMenus
 
 	public class VendorSellEntry : ContextMenuEntry
 	{
-		private BaseVendor m_Vendor;
+		private readonly BaseVendor m_Vendor;
 
 		public VendorSellEntry(Mobile from, BaseVendor vendor)
 			: base(6104, 8)

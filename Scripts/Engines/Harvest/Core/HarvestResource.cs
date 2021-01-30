@@ -6,7 +6,7 @@ namespace Server.Engines.Harvest
 	{
 		private Type[] m_Types;
 		private double m_ReqSkill, m_MinSkill, m_MaxSkill;
-		private object m_SuccessMessage;
+		private readonly object m_SuccessMessage;
 
 		public Type[] Types { get { return m_Types; } set { m_Types = value; } }
 		public double ReqSkill { get { return m_ReqSkill; } set { m_ReqSkill = value; } }

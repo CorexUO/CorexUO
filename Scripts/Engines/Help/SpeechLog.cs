@@ -1,10 +1,10 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using Server.Commands;
 using Server.Gumps;
 using Server.Mobiles;
 using Server.Targeting;
+using System;
+using System.Collections;
+using System.Collections.Generic;
 
 namespace Server.Engines.Help
 {
@@ -66,7 +66,7 @@ namespace Server.Engines.Help
 			}
 		}
 
-		private Queue<SpeechLogEntry> m_Queue;
+		private readonly Queue<SpeechLogEntry> m_Queue;
 
 		public int Count { get { return m_Queue.Count; } }
 
@@ -94,7 +94,7 @@ namespace Server.Engines.Help
 		{
 			while (m_Queue.Count > 0)
 			{
-				SpeechLogEntry entry = (SpeechLogEntry)m_Queue.Peek();
+				SpeechLogEntry entry = m_Queue.Peek();
 
 				if (DateTime.UtcNow - entry.Created > EntryDuration)
 					m_Queue.Dequeue();
@@ -129,9 +129,9 @@ namespace Server.Engines.Help
 
 	public class SpeechLogEntry
 	{
-		private Mobile m_From;
-		private string m_Speech;
-		private DateTime m_Created;
+		private readonly Mobile m_From;
+		private readonly string m_Speech;
+		private readonly DateTime m_Created;
 
 		public Mobile From { get { return m_From; } }
 		public string Speech { get { return m_Speech; } }
