@@ -10,7 +10,7 @@
             "request": "launch",
             "program": "${workspaceFolder}/Binaries/CorexUO.dll",
             "preLaunchTask": "Build-CorexUO",
-            "console": "externalTerminal",
+            "console": "integratedTerminal",
             "justMyCode": false
         }
     ]
