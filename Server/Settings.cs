@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.IO;
 
 namespace Server
@@ -149,7 +150,7 @@ namespace Server
 			{
 				Utility.WriteConsole(ConsoleColor.Red, $"[Settings] Failed to get {key} value in {section} section");
 			}
-			return (T)Convert.ChangeType(InternalGet(section, key), typeof(T));
+			return ConvertValue<T>(InternalGet(section, key));
 		}
 
 		public static T Get<T>(string section, string key, T defaultValue)
@@ -158,7 +159,13 @@ namespace Server
 			{
 				return defaultValue;
 			}
-			return (T)Convert.ChangeType(InternalGet(section, key), typeof(T));
+			return ConvertValue<T>(InternalGet(section, key));
 		}
+
+		private static T ConvertValue<T>(string value)
+		{
+			return (T)Convert.ChangeType(value, typeof(T), CultureInfo.InvariantCulture);
+		}
+
 	}
 }
