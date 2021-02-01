@@ -39,12 +39,13 @@ namespace Server.Items
 
 	public abstract class BasePotion : BaseItem, ICraftable, ICommodity
 	{
-		public virtual bool RequireFreeHand { get { return Settings.Get<bool>("Gameplay", "PotionsRequiredFreeHands"); } }
+		private static readonly bool IsStackable = Settings.Get("Items", "StackablePotions", Core.ML);
+		public virtual bool RequireFreeHand { get { return Settings.Get<bool>("Items", "PotionsRequiredFreeHands", true); } }
 
 		public override int LabelNumber { get { return 1041314 + (int)m_PotionEffect; } }
 
 		int ICommodity.DescriptionNumber { get { return LabelNumber; } }
-		bool ICommodity.IsDeedable { get { return (Core.ML); } }
+		bool ICommodity.IsDeedable { get { return Core.ML; } }
 
 		[CommandProperty(AccessLevel.GameMaster)]
 		public Mobile Crafter { get; set; }
@@ -68,7 +69,7 @@ namespace Server.Items
 		{
 			m_PotionEffect = effect;
 
-			Stackable = Core.ML;
+			Stackable = IsStackable;
 			Weight = 1.0;
 		}
 
@@ -171,7 +172,7 @@ namespace Server.Items
 
 			#region Dueling
 			if (!Engines.ConPVP.DuelContext.IsFreeConsume(m))
-				m.AddToBackpack(new Bottle());
+				_ = m.AddToBackpack(new Bottle());
 			#endregion
 
 			if (m.Body.IsHuman && !m.Mounted)
@@ -256,14 +257,14 @@ namespace Server.Items
 						++keg.Held;
 
 						Consume();
-						from.AddToBackpack(new Bottle());
+						_ = from.AddToBackpack(new Bottle());
 
 						return ItemQuality.Low; // signal placed in keg
 					}
 				}
 			}
 
-			return ItemQuality.Normal; ;
+			return ItemQuality.Normal;
 		}
 
 		#endregion

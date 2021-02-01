@@ -305,9 +305,9 @@ namespace Server.Mobiles
 		#endregion
 
 		#region Bonding
-		private static readonly bool m_BondingEnabled = Settings.Get<bool>("Gameplay", "BondingEnabled");
-		private static readonly TimeSpan m_BondingDelay = TimeSpan.FromDays(Settings.Get<double>("Gameplay", "BondingDelay"));
-		private static readonly TimeSpan m_BondingAbandonDelay = TimeSpan.FromDays(Settings.Get<double>("Gameplay", "BondingAbandonDelay"));
+		private static readonly bool m_BondingEnabled = Settings.Get<bool>("Mobiles", "BondingEnabled", true);
+		private static readonly TimeSpan m_BondingDelay = TimeSpan.FromDays(Settings.Get<double>("Mobiles", "BondingDelay", 7.0));
+		private static readonly TimeSpan m_BondingAbandonDelay = TimeSpan.FromDays(Settings.Get<double>("Mobiles", "BondingAbandonDelay", 1.0));
 
 		public virtual bool IsBondable { get { return (m_BondingEnabled && !Summoned); } }
 		public virtual TimeSpan BondingDelay { get { return m_BondingDelay; } }

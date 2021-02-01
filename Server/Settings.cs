@@ -33,7 +33,7 @@ namespace Server
 		{
 			if (!Directory.Exists(Core.BaseDirectory))
 			{
-				Directory.CreateDirectory(Core.BaseDirectory);
+				_ = Directory.CreateDirectory(Core.BaseDirectory);
 			}
 
 			try
@@ -45,7 +45,7 @@ namespace Server
 				Utility.WriteConsole(ConsoleColor.Red, $"Failed to load settings {e.Message}");
 
 				Console.WriteLine("Press any key to exit...");
-				Console.ReadKey();
+				_ = Console.ReadKey();
 
 				Core.Kill(false);
 
@@ -81,7 +81,7 @@ namespace Server
 			{
 				var line = lines[i].Trim();
 
-				if (String.IsNullOrWhiteSpace(line) || line.StartsWith("//") || line.StartsWith("#"))
+				if (string.IsNullOrWhiteSpace(line) || line.StartsWith("//") || line.StartsWith("#"))
 				{
 					continue;
 				}
@@ -95,20 +95,20 @@ namespace Server
 				int io = line.IndexOf('=');
 				if (io < 0)
 				{
-					throw new FormatException(String.Format("Bad format at line {0}", i + 1));
+					throw new FormatException(string.Format("Bad format at line {0}", i + 1));
 				}
 
 				var key = line.Substring(0, io);
 				var val = line.Substring(io + 1);
 
-				if (String.IsNullOrWhiteSpace(key))
+				if (string.IsNullOrWhiteSpace(key))
 				{
-					throw new NullReferenceException(String.Format("Key can not be null at line {0}", i + 1));
+					throw new NullReferenceException(string.Format("Key can not be null at line {0}", i + 1));
 				}
 
 				key = key.Trim();
 
-				if (String.IsNullOrEmpty(val))
+				if (string.IsNullOrEmpty(val))
 				{
 					val = null;
 				}

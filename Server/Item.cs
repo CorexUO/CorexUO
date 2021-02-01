@@ -1529,7 +1529,7 @@ namespace Server
 			}
 		}
 
-		public static TimeSpan DefaultDecayTime { get; set; } = TimeSpan.FromHours(1.0);
+		public static TimeSpan DefaultDecayTime { get; set; } = TimeSpan.FromMinutes(Settings.Get<int>("Items", "DefaultDecayTime", 60));
 
 		[CommandProperty(AccessLevel.GameMaster)]
 		public virtual TimeSpan DecayTime
@@ -1642,7 +1642,7 @@ namespace Server
 		}
 
 		[CommandProperty(AccessLevel.GameMaster)]
-		public bool Stackable
+		public virtual bool Stackable
 		{
 			get { return GetFlag(ImplFlag.Stackable); }
 			set { SetFlag(ImplFlag.Stackable, value); }

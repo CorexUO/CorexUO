@@ -11,6 +11,10 @@ namespace Server.Misc
 		public static readonly TimeSpan AntiMacroExpire = TimeSpan.FromMinutes(Settings.Get<int>("AntiMacro", "Expire"));
 		public static readonly int Allowance = Settings.Get<int>("AntiMacro", "Allowance");
 		private static readonly int LocationSize = Settings.Get<int>("AntiMacro", "LocationSize");
+
+		private static readonly TimeSpan m_StatGainDelay = TimeSpan.FromMinutes(Settings.Get("Mobiles", "StatGainDelay", Core.ML ? 0.05 : 15));
+		private static readonly TimeSpan m_PetStatGainDelay = TimeSpan.FromMinutes(Settings.Get<int>("Mobiles", "PetStatGainDelay", 5));
+
 		private static readonly bool[] UseAntiMacro = new bool[]
 		{
 			// true if this skill uses the anti-macro code, false if it does not
@@ -336,9 +340,6 @@ namespace Server.Misc
 					}
 			}
 		}
-
-		private static readonly TimeSpan m_StatGainDelay = TimeSpan.FromMinutes((Core.ML) ? 0.05 : 15);
-		private static readonly TimeSpan m_PetStatGainDelay = TimeSpan.FromMinutes(5.0);
 
 		public static void GainStat(Mobile from, Stat stat)
 		{

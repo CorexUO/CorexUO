@@ -14,10 +14,10 @@ namespace Server.Items
 
 		public override bool RequireFreeHand { get { return false; } }
 
-		private static readonly bool LeveledExplosion = Settings.Get<bool>("Gampelay", "ExplosionPotionLeveled"); // Should explosion potions explode other nearby potions?
-		private static readonly bool InstantExplosion = Settings.Get<bool>("Gampelay", "ExplosionPotionInstantExplosion"); // Should explosion potions explode on impact?
-		private static readonly bool RelativeLocation = Settings.Get<bool>("Gampelay", "ExplosionPotionRelativeLocation"); // Is the explosion target location relative for mobiles?
-		private static readonly int ExplosionRange = Settings.Get<int>("Gampelay", "ExplosionPotionRange"); // How long is the blast radius?
+		private static readonly bool LeveledExplosion = Settings.Get<bool>("Items", "ExplosionPotionLeveled", false); // Should explosion potions explode other nearby potions?
+		private static readonly bool InstantExplosion = Settings.Get<bool>("Items", "ExplosionPotionInstantExplosion", false); // Should explosion potions explode on impact?
+		private static readonly bool RelativeLocation = Settings.Get<bool>("Items", "ExplosionPotionRelativeLocation", false); // Is the explosion target location relative for mobiles?
+		private static readonly int ExplosionRange = Settings.Get<int>("Items", "ExplosionPotionRange", 2); // How long is the blast radius?
 
 		public BaseExplosionPotion(PotionEffect effect) : base(0xF0D, effect)
 		{
@@ -38,7 +38,7 @@ namespace Server.Items
 		{
 			base.Deserialize(reader);
 
-			reader.ReadInt();
+			_ = reader.ReadInt();
 		}
 
 		public virtual object FindParent(Mobile from)
@@ -61,9 +61,7 @@ namespace Server.Items
 
 		private Timer m_Timer;
 
-		public List<Mobile> Users { get { return m_Users; } }
-
-		private List<Mobile> m_Users;
+		public List<Mobile> Users { get; private set; }
 
 		public override void Drink(Mobile from)
 		{
@@ -80,11 +78,11 @@ namespace Server.Items
 
 			from.RevealingAction();
 
-			if (m_Users == null)
-				m_Users = new List<Mobile>();
+			if (Users == null)
+				Users = new List<Mobile>();
 
-			if (!m_Users.Contains(from))
-				m_Users.Add(from);
+			if (!Users.Contains(from))
+				Users.Add(from);
 
 			from.Target = new ThrowTarget(this);
 
@@ -164,21 +162,16 @@ namespace Server.Items
 
 		private class ThrowTarget : Target
 		{
-			private readonly BaseExplosionPotion m_Potion;
-
-			public BaseExplosionPotion Potion
-			{
-				get { return m_Potion; }
-			}
+			public BaseExplosionPotion Potion { get; }
 
 			public ThrowTarget(BaseExplosionPotion potion) : base(12, true, TargetFlags.None)
 			{
-				m_Potion = potion;
+				Potion = potion;
 			}
 
 			protected override void OnTarget(Mobile from, object targeted)
 			{
-				if (m_Potion.Deleted || m_Potion.Map == Map.Internal)
+				if (Potion.Deleted || Potion.Map == Map.Internal)
 					return;
 
 
@@ -206,15 +199,15 @@ namespace Server.Items
 						to = mobile;
 				}
 
-				Effects.SendMovingEffect(from, to, m_Potion.ItemID, 7, 0, false, false, m_Potion.Hue, 0);
+				Effects.SendMovingEffect(from, to, Potion.ItemID, 7, 0, false, false, Potion.Hue, 0);
 
-				if (m_Potion.Amount > 1)
+				if (Potion.Amount > 1)
 				{
-					Mobile.LiftItemDupe(m_Potion, 1);
+					_ = Mobile.LiftItemDupe(Potion, 1);
 				}
 
-				m_Potion.Internalize();
-				Timer.DelayCall(TimeSpan.FromSeconds(1.0), new TimerStateCallback(m_Potion.Reposition_OnTick), new object[] { from, p, map });
+				Potion.Internalize();
+				_ = Timer.DelayCall(TimeSpan.FromSeconds(1.0), new TimerStateCallback(Potion.Reposition_OnTick), new object[] { from, p, map });
 			}
 		}
 
@@ -225,9 +218,9 @@ namespace Server.Items
 
 			Consume();
 
-			for (int i = 0; m_Users != null && i < m_Users.Count; ++i)
+			for (int i = 0; Users != null && i < Users.Count; ++i)
 			{
-				Mobile m = m_Users[i];
+				Mobile m = Users[i];
 
 				if (m.Target is ThrowTarget targ && targ.Potion == this)
 					Target.Cancel(m);
@@ -253,12 +246,12 @@ namespace Server.Items
 			{
 				if (o is Mobile mobile && (from == null || (SpellHelper.ValidIndirectTarget(from, mobile) && from.CanBeHarmful(mobile, false))))
 				{
-					toExplode.Add(o);
+					_ = toExplode.Add(o);
 					++toDamage;
 				}
 				else if (o is BaseExplosionPotion && o != this)
 				{
-					toExplode.Add(o);
+					_ = toExplode.Add(o);
 				}
 			}
 
@@ -285,7 +278,7 @@ namespace Server.Items
 					else if (Core.AOS && toDamage > 2)
 						damage /= toDamage - 1;
 
-					AOS.Damage(m, from, damage, 0, 100, 0, 0, 0);
+					_ = AOS.Damage(m, from, damage, 0, 100, 0, 0, 0);
 				}
 				else if (o is BaseExplosionPotion pot)
 				{
