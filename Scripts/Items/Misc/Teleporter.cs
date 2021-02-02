@@ -179,7 +179,7 @@ namespace Server.Items
 			if (m_Delay == TimeSpan.Zero)
 				DoTeleport(m);
 			else
-				Timer.DelayCall<Mobile>(m_Delay, DoTeleport, m);
+				_ = Timer.DelayCall<Mobile>(m_Delay, DoTeleport, m);
 		}
 
 		public virtual void DoTeleport(Mobile m)
@@ -329,11 +329,11 @@ namespace Server.Items
 				if (m.BeginAction(this))
 				{
 					if (m_MessageString != null)
-						m.Send(new UnicodeMessage(Serial, ItemID, MessageType.Regular, 0x3B2, 3, "ENU", null, m_MessageString));
+						_ = m.Send(new UnicodeMessage(Serial, ItemID, MessageType.Regular, 0x3B2, 3, "ENU", null, m_MessageString));
 					else if (m_MessageNumber != 0)
-						m.Send(new MessageLocalized(Serial, ItemID, MessageType.Regular, 0x3B2, 3, m_MessageNumber, null, ""));
+						_ = m.Send(new MessageLocalized(Serial, ItemID, MessageType.Regular, 0x3B2, 3, m_MessageNumber, null, ""));
 
-					Timer.DelayCall(TimeSpan.FromSeconds(5.0), new TimerStateCallback(EndMessageLock), m);
+					_ = Timer.DelayCall(TimeSpan.FromSeconds(5.0), new TimerStateCallback(EndMessageLock), m);
 				}
 
 				return false;
@@ -447,7 +447,7 @@ namespace Server.Items
 
 				if (m_Keyword >= 0 && e.HasKeyword(m_Keyword))
 					isMatch = true;
-				else if (m_Substring != null && e.Speech.ToLower().IndexOf(m_Substring.ToLower()) >= 0)
+				else if (m_Substring != null && e.Speech.ToLower().Contains(m_Substring.ToLower(), StringComparison.CurrentCulture))
 					isMatch = true;
 
 				if (!isMatch || !CanTeleport(m))
@@ -546,49 +546,23 @@ namespace Server.Items
 				return;
 
 			info.Timer.Stop();
-			m_Table.Remove(from);
-		}
-
-		private int m_StartNumber;
-		private string m_StartMessage;
-		private int m_ProgressNumber;
-		private string m_ProgressMessage;
-		private bool m_ShowTimeRemaining;
-
-		[CommandProperty(AccessLevel.GameMaster)]
-		public int StartNumber
-		{
-			get { return m_StartNumber; }
-			set { m_StartNumber = value; }
+			_ = m_Table.Remove(from);
 		}
 
 		[CommandProperty(AccessLevel.GameMaster)]
-		public string StartMessage
-		{
-			get { return m_StartMessage; }
-			set { m_StartMessage = value; }
-		}
+		public int StartNumber { get; set; }
 
 		[CommandProperty(AccessLevel.GameMaster)]
-		public int ProgressNumber
-		{
-			get { return m_ProgressNumber; }
-			set { m_ProgressNumber = value; }
-		}
+		public string StartMessage { get; set; }
 
 		[CommandProperty(AccessLevel.GameMaster)]
-		public string ProgressMessage
-		{
-			get { return m_ProgressMessage; }
-			set { m_ProgressMessage = value; }
-		}
+		public int ProgressNumber { get; set; }
 
 		[CommandProperty(AccessLevel.GameMaster)]
-		public bool ShowTimeRemaining
-		{
-			get { return m_ShowTimeRemaining; }
-			set { m_ShowTimeRemaining = value; }
-		}
+		public string ProgressMessage { get; set; }
+
+		[CommandProperty(AccessLevel.GameMaster)]
+		public bool ShowTimeRemaining { get; set; }
 
 		[Constructable]
 		public WaitTeleporter()
@@ -626,15 +600,15 @@ namespace Server.Items
 				{
 					if (m.BeginAction(this))
 					{
-						if (m_ProgressMessage != null)
-							m.SendMessage(m_ProgressMessage);
-						else if (m_ProgressNumber != 0)
-							m.SendLocalizedMessage(m_ProgressNumber);
+						if (ProgressMessage != null)
+							m.SendMessage(ProgressMessage);
+						else if (ProgressNumber != 0)
+							m.SendLocalizedMessage(ProgressNumber);
 
-						if (m_ShowTimeRemaining)
+						if (ShowTimeRemaining)
 							m.SendMessage("Time remaining: {0}", FormatTime(m_Table[m].Timer.Next - DateTime.UtcNow));
 
-						Timer.DelayCall<Mobile>(TimeSpan.FromSeconds(5), EndLock, m);
+						_ = Timer.DelayCall(TimeSpan.FromSeconds(5), EndLock, m);
 					}
 
 					return;
@@ -645,20 +619,20 @@ namespace Server.Items
 				}
 			}
 
-			if (m_StartMessage != null)
-				m.SendMessage(m_StartMessage);
-			else if (m_StartNumber != 0)
-				m.SendLocalizedMessage(m_StartNumber);
+			if (StartMessage != null)
+				m.SendMessage(StartMessage);
+			else if (StartNumber != 0)
+				m.SendLocalizedMessage(StartNumber);
 
 			if (Delay == TimeSpan.Zero)
 				DoTeleport(m);
 			else
-				m_Table[m] = new TeleportingInfo(this, Timer.DelayCall<Mobile>(Delay, DoTeleport, m));
+				m_Table[m] = new TeleportingInfo(this, Timer.DelayCall(Delay, DoTeleport, m));
 		}
 
 		public override void DoTeleport(Mobile m)
 		{
-			m_Table.Remove(m);
+			_ = m_Table.Remove(m);
 
 			base.DoTeleport(m);
 		}
@@ -674,53 +648,44 @@ namespace Server.Items
 
 			writer.Write(0); // version
 
-			writer.Write(m_StartNumber);
-			writer.Write(m_StartMessage);
-			writer.Write(m_ProgressNumber);
-			writer.Write(m_ProgressMessage);
-			writer.Write(m_ShowTimeRemaining);
+			writer.Write(StartNumber);
+			writer.Write(StartMessage);
+			writer.Write(ProgressNumber);
+			writer.Write(ProgressMessage);
+			writer.Write(ShowTimeRemaining);
 		}
 
 		public override void Deserialize(GenericReader reader)
 		{
 			base.Deserialize(reader);
+			_ = reader.ReadInt();
 
-			int version = reader.ReadInt();
-
-			m_StartNumber = reader.ReadInt();
-			m_StartMessage = reader.ReadString();
-			m_ProgressNumber = reader.ReadInt();
-			m_ProgressMessage = reader.ReadString();
-			m_ShowTimeRemaining = reader.ReadBool();
+			StartNumber = reader.ReadInt();
+			StartMessage = reader.ReadString();
+			ProgressNumber = reader.ReadInt();
+			ProgressMessage = reader.ReadString();
+			ShowTimeRemaining = reader.ReadBool();
 		}
 
 		private class TeleportingInfo
 		{
-			private readonly WaitTeleporter m_Teleporter;
-			private readonly Timer m_Timer;
-
-			public WaitTeleporter Teleporter { get { return m_Teleporter; } }
-			public Timer Timer { get { return m_Timer; } }
+			public WaitTeleporter Teleporter { get; }
+			public Timer Timer { get; }
 
 			public TeleportingInfo(WaitTeleporter tele, Timer t)
 			{
-				m_Teleporter = tele;
-				m_Timer = t;
+				Teleporter = tele;
+				Timer = t;
 			}
 		}
 	}
 
 	public class TimeoutTeleporter : Teleporter
 	{
-		private TimeSpan m_TimeoutDelay;
 		private Dictionary<Mobile, Timer> m_Teleporting;
 
 		[CommandProperty(AccessLevel.GameMaster)]
-		public TimeSpan TimeoutDelay
-		{
-			get { return m_TimeoutDelay; }
-			set { m_TimeoutDelay = value; }
-		}
+		public TimeSpan TimeoutDelay { get; set; }
 
 		[Constructable]
 		public TimeoutTeleporter()
@@ -743,7 +708,7 @@ namespace Server.Items
 
 		public void StartTimer(Mobile m)
 		{
-			StartTimer(m, m_TimeoutDelay);
+			StartTimer(m, TimeoutDelay);
 		}
 
 		private void StartTimer(Mobile m, TimeSpan delay)
@@ -752,7 +717,7 @@ namespace Server.Items
 			if (m_Teleporting.TryGetValue(m, out Timer t))
 				t.Stop();
 
-			m_Teleporting[m] = Timer.DelayCall<Mobile>(delay, StartTeleport, m);
+			m_Teleporting[m] = Timer.DelayCall(delay, StartTeleport, m);
 		}
 
 		public void StopTimer(Mobile m)
@@ -761,13 +726,13 @@ namespace Server.Items
 			if (m_Teleporting.TryGetValue(m, out Timer t))
 			{
 				t.Stop();
-				m_Teleporting.Remove(m);
+				_ = m_Teleporting.Remove(m);
 			}
 		}
 
 		public override void DoTeleport(Mobile m)
 		{
-			m_Teleporting.Remove(m);
+			_ = m_Teleporting.Remove(m);
 
 			base.DoTeleport(m);
 		}
@@ -796,7 +761,7 @@ namespace Server.Items
 
 			writer.Write(0); // version
 
-			writer.Write(m_TimeoutDelay);
+			writer.Write(TimeoutDelay);
 			writer.Write(m_Teleporting.Count);
 
 			foreach (KeyValuePair<Mobile, Timer> kvp in m_Teleporting)
@@ -809,10 +774,9 @@ namespace Server.Items
 		public override void Deserialize(GenericReader reader)
 		{
 			base.Deserialize(reader);
+			_ = reader.ReadInt();
 
-			int version = reader.ReadInt();
-
-			m_TimeoutDelay = reader.ReadTimeSpan();
+			TimeoutDelay = reader.ReadTimeSpan();
 			m_Teleporting = new Dictionary<Mobile, Timer>();
 
 			int count = reader.ReadInt();
@@ -829,14 +793,8 @@ namespace Server.Items
 
 	public class TimeoutGoal : BaseItem
 	{
-		private TimeoutTeleporter m_Teleporter;
-
 		[CommandProperty(AccessLevel.GameMaster)]
-		public TimeoutTeleporter Teleporter
-		{
-			get { return m_Teleporter; }
-			set { m_Teleporter = value; }
-		}
+		public TimeoutTeleporter Teleporter { get; set; }
 
 		[Constructable]
 		public TimeoutGoal()
@@ -850,8 +808,8 @@ namespace Server.Items
 
 		public override bool OnMoveOver(Mobile m)
 		{
-			if (m_Teleporter != null)
-				m_Teleporter.StopTimer(m);
+			if (Teleporter != null)
+				Teleporter.StopTimer(m);
 
 			return true;
 		}
@@ -872,16 +830,15 @@ namespace Server.Items
 
 			writer.Write(0); // version
 
-			writer.WriteItem<TimeoutTeleporter>(m_Teleporter);
+			writer.WriteItem<TimeoutTeleporter>(Teleporter);
 		}
 
 		public override void Deserialize(GenericReader reader)
 		{
 			base.Deserialize(reader);
+			_ = reader.ReadInt();
 
-			int version = reader.ReadInt();
-
-			m_Teleporter = reader.ReadItem<TimeoutTeleporter>();
+			Teleporter = reader.ReadItem<TimeoutTeleporter>();
 		}
 	}
 
@@ -981,7 +938,7 @@ namespace Server.Items
 				return false;
 			}
 
-			if (GetFlag(ConditionFlag.DenyFollowers) && (m.Followers != 0 || (m is PlayerMobile && ((PlayerMobile)m).AutoStabled.Count != 0)))
+			if (GetFlag(ConditionFlag.DenyFollowers) && (m.Followers != 0 || (m is PlayerMobile mobile && mobile.AutoStabled.Count != 0)))
 			{
 				m.SendLocalizedMessage(1077250); // No pets permitted beyond this point.
 				return false;
@@ -1060,35 +1017,35 @@ namespace Server.Items
 			StringBuilder props = new StringBuilder();
 
 			if (GetFlag(ConditionFlag.DenyMounted))
-				props.Append("<BR>Deny Mounted");
+				_ = props.Append("<BR>Deny Mounted");
 
 			if (GetFlag(ConditionFlag.DenyFollowers))
-				props.Append("<BR>Deny Followers");
+				_ = props.Append("<BR>Deny Followers");
 
 			if (GetFlag(ConditionFlag.DenyPackContents))
-				props.Append("<BR>Deny Pack Contents");
+				_ = props.Append("<BR>Deny Pack Contents");
 
 			if (GetFlag(ConditionFlag.DenyPackEthereals))
-				props.Append("<BR>Deny Pack Ethereals");
+				_ = props.Append("<BR>Deny Pack Ethereals");
 
 			if (GetFlag(ConditionFlag.DenyHolding))
-				props.Append("<BR>Deny Holding");
+				_ = props.Append("<BR>Deny Holding");
 
 			if (GetFlag(ConditionFlag.DenyEquipment))
-				props.Append("<BR>Deny Equipment");
+				_ = props.Append("<BR>Deny Equipment");
 
 			if (GetFlag(ConditionFlag.DenyTransformed))
-				props.Append("<BR>Deny Transformed");
+				_ = props.Append("<BR>Deny Transformed");
 
 			if (GetFlag(ConditionFlag.StaffOnly))
-				props.Append("<BR>Staff Only");
+				_ = props.Append("<BR>Staff Only");
 
 			if (GetFlag(ConditionFlag.DeadOnly))
-				props.Append("<BR>Dead Only");
+				_ = props.Append("<BR>Dead Only");
 
 			if (props.Length != 0)
 			{
-				props.Remove(0, 4);
+				_ = props.Remove(0, 4);
 				list.Add(props.ToString());
 			}
 		}
@@ -1110,8 +1067,7 @@ namespace Server.Items
 		public override void Deserialize(GenericReader reader)
 		{
 			base.Deserialize(reader);
-
-			int version = reader.ReadInt();
+			_ = reader.ReadInt();
 
 			m_Flags = (ConditionFlag)reader.ReadInt();
 		}

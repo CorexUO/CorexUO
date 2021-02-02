@@ -27,12 +27,7 @@ namespace Server.Misc
 
 		public static readonly PasswordProtection ProtectPasswords = (PasswordProtection)Settings.Get<int>("Accounts", "ProtectPasswords");
 
-		private static AccessLevel m_LockdownLevel;
-		public static AccessLevel LockdownLevel
-		{
-			get { return m_LockdownLevel; }
-			set { m_LockdownLevel = value; }
-		}
+		public static AccessLevel LockdownLevel { get; set; }
 
 		private static readonly CityInfo[] StartingCities = new CityInfo[]
 			{
@@ -329,7 +324,7 @@ namespace Server.Misc
 			else if (!acct.HasAccess(e.State))
 			{
 				Console.WriteLine("Login: {0}: Access denied for '{1}'", e.State, un);
-				e.RejectReason = (m_LockdownLevel > AccessLevel.Player ? ALRReason.BadComm : ALRReason.BadPass);
+				e.RejectReason = (LockdownLevel > AccessLevel.Player ? ALRReason.BadComm : ALRReason.BadPass);
 			}
 			else if (!acct.CheckPassword(pw))
 			{

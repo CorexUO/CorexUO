@@ -1139,7 +1139,7 @@ namespace Server
 				else if (parent is Item p)
 				{
 					IEntity root = p.RootParent;
-					if (p.IsAccessibleTo(from) && (!(root is Mobile mobile) || mobile.CheckNonlocalDrop(from, this, p)))
+					if (p.IsAccessibleTo(from) && (root is not Mobile mobile || mobile.CheckNonlocalDrop(from, this, p)))
 					{
 						Location = bounce.m_Location;
 						p.AddItem(this);
@@ -3739,7 +3739,7 @@ namespace Server
 				return false;
 			else if (!target.IsAccessibleTo(from))
 				return false;
-			else if (root is Mobile && !((Mobile)root).CheckNonlocalDrop(from, this, target))
+			else if (root is Mobile mobile && !mobile.CheckNonlocalDrop(from, this, target))
 				return false;
 			else if (!from.OnDroppedItemToItem(this, target, p))
 				return false;
@@ -4370,7 +4370,7 @@ namespace Server
 			if (ScissorCopyLootType)
 				newItem.LootType = type;
 
-			if (!(thisParent is Container container) || !container.TryDropItem(from, newItem, false))
+			if (thisParent is not Container container || !container.TryDropItem(from, newItem, false))
 				newItem.MoveToWorld(worldLoc, thisMap);
 		}
 

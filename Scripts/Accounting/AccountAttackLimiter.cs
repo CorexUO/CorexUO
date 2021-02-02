@@ -108,41 +108,23 @@ namespace Server.Accounting
 
 	public class InvalidAccountAccessLog
 	{
-		private IPAddress m_Address;
-		private DateTime m_LastAccessTime;
-		private int m_Counts;
-
-		public IPAddress Address
-		{
-			get { return m_Address; }
-			set { m_Address = value; }
-		}
-
-		public DateTime LastAccessTime
-		{
-			get { return m_LastAccessTime; }
-			set { m_LastAccessTime = value; }
-		}
+		public IPAddress Address { get; set; }
+		public DateTime LastAccessTime { get; set; }
+		public int Counts { get; set; }
 
 		public bool HasExpired
 		{
-			get { return (DateTime.UtcNow >= (m_LastAccessTime + TimeSpan.FromHours(1.0))); }
-		}
-
-		public int Counts
-		{
-			get { return m_Counts; }
-			set { m_Counts = value; }
+			get { return (DateTime.UtcNow >= (LastAccessTime + TimeSpan.FromHours(1.0))); }
 		}
 
 		public void RefreshAccessTime()
 		{
-			m_LastAccessTime = DateTime.UtcNow;
+			LastAccessTime = DateTime.UtcNow;
 		}
 
 		public InvalidAccountAccessLog(IPAddress address)
 		{
-			m_Address = address;
+			Address = address;
 			RefreshAccessTime();
 		}
 	}

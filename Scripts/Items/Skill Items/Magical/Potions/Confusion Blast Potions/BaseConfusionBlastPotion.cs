@@ -62,7 +62,7 @@ namespace Server.Items
 		{
 			base.Deserialize(reader);
 
-			_= reader.ReadInt();
+			_ = reader.ReadInt();
 		}
 
 		private readonly List<Mobile> m_Users = new List<Mobile>();

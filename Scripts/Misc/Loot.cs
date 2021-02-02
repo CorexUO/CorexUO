@@ -631,17 +631,13 @@ namespace Server
 
 		public static SpellScroll RandomScroll(int minIndex, int maxIndex, SpellbookType type)
 		{
-			Type[] types;
-
-			switch (type)
+			Type[] types = type switch
 			{
-				default:
-				case SpellbookType.Regular: types = RegularScrollTypes; break;
-				case SpellbookType.Necromancer: types = (Core.SE ? SENecromancyScrollTypes : NecromancyScrollTypes); break;
-				case SpellbookType.Paladin: types = PaladinScrollTypes; break;
-				case SpellbookType.Arcanist: types = ArcanistScrollTypes; break;
-			}
-
+				SpellbookType.Necromancer => (Core.SE ? SENecromancyScrollTypes : NecromancyScrollTypes),
+				SpellbookType.Paladin => PaladinScrollTypes,
+				SpellbookType.Arcanist => ArcanistScrollTypes,
+				_ => RegularScrollTypes,
+			};
 			return Construct(types, Utility.RandomMinMax(minIndex, maxIndex)) as SpellScroll;
 		}
 
@@ -667,9 +663,10 @@ namespace Server
 
 		public static BaseTalisman RandomTalisman()
 		{
-			BaseTalisman talisman = new BaseTalisman(BaseTalisman.GetRandomItemID());
-
-			talisman.Summoner = BaseTalisman.GetRandomSummoner();
+			BaseTalisman talisman = new BaseTalisman(BaseTalisman.GetRandomItemID())
+			{
+				Summoner = BaseTalisman.GetRandomSummoner()
+			};
 
 			if (talisman.Summoner.IsEmpty)
 			{

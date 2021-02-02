@@ -1112,11 +1112,8 @@ namespace Server.Commands
 
 	public class DecorationEntry
 	{
-		private Point3D m_Location;
-		private readonly string m_Extra;
-
-		public Point3D Location { get { return m_Location; } }
-		public string Extra { get { return m_Extra; } }
+		public Point3D Location { get; }
+		public string Extra { get; }
 
 		public DecorationEntry(string line)
 		{
@@ -1125,8 +1122,8 @@ namespace Server.Commands
 			Pop(out string y, ref line);
 			Pop(out string z, ref line);
 
-			m_Location = new Point3D(Utility.ToInt32(x), Utility.ToInt32(y), Utility.ToInt32(z));
-			m_Extra = line;
+			Location = new Point3D(Utility.ToInt32(x), Utility.ToInt32(y), Utility.ToInt32(z));
+			Extra = line;
 		}
 
 		public void Pop(out string v, ref string line)

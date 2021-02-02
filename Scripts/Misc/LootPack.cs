@@ -27,7 +27,7 @@ namespace Server
 
 		public static int GetLuckChanceForKiller(Mobile mob)
 		{
-			if (!(mob is BaseCreature dead))
+			if (mob is not BaseCreature dead)
 				return 240;
 
 			var list = dead.GetLootingRights();

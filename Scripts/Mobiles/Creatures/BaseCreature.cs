@@ -5480,7 +5480,7 @@ namespace Server.Mobiles
 							  if (c.Loyalty < (BaseCreature.MaxLoyalty / 10))
 							  {
 								  c.Say(1043270, c.Name); // * ~1_NAME~ looks around desperately *
-								c.PlaySound(c.GetIdleSound());
+								  c.PlaySound(c.GetIdleSound());
 							  }
 
 							  if (c.Loyalty <= 0)
@@ -5489,8 +5489,8 @@ namespace Server.Mobiles
 						  }
 					  }
 
-					// added lines to check if a wild creature in a house region has to be removed or not
-					if (!c.Controlled && !c.IsStabled && ((c.Region.IsPartOf(typeof(HouseRegion)) && c.CanBeDamaged()) || (c.RemoveIfUntamed && c.Spawner == null)))
+					  // added lines to check if a wild creature in a house region has to be removed or not
+					  if (!c.Controlled && !c.IsStabled && ((c.Region.IsPartOf(typeof(HouseRegion)) && c.CanBeDamaged()) || (c.RemoveIfUntamed && c.Spawner == null)))
 					  {
 						  c.RemoveStep++;
 
