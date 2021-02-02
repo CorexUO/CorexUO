@@ -322,7 +322,7 @@ namespace Server.Mobiles
 		private bool m_IsBonded;
 
 		[CommandProperty(AccessLevel.GameMaster)]
-		public Spawner MySpawner
+		public virtual Spawner MySpawner
 		{
 			get
 			{
@@ -346,7 +346,7 @@ namespace Server.Mobiles
 				if (Owners == null || Owners.Count == 0)
 					return null;
 
-				return Owners[Owners.Count - 1];
+				return Owners[^1];
 			}
 		}
 
@@ -583,7 +583,7 @@ namespace Server.Mobiles
 
 			this.Direction = this.GetDirectionTo(target);
 
-			Timer.DelayCall(TimeSpan.FromSeconds(BreathEffectDelay), new TimerStateCallback(BreathEffect_Callback), target);
+			_ = Timer.DelayCall(TimeSpan.FromSeconds(BreathEffectDelay), new TimerStateCallback(BreathEffect_Callback), target);
 		}
 
 		public virtual void BreathStallMovement()
@@ -612,7 +612,7 @@ namespace Server.Mobiles
 			BreathPlayEffectSound();
 			BreathPlayEffect(target);
 
-			Timer.DelayCall(TimeSpan.FromSeconds(BreathDamageDelay), new TimerStateCallback(BreathDamage_Callback), target);
+			_ = Timer.DelayCall(TimeSpan.FromSeconds(BreathDamageDelay), new TimerStateCallback(BreathDamage_Callback), target);
 		}
 
 		public virtual void BreathPlayEffectSound()
@@ -669,7 +669,7 @@ namespace Server.Mobiles
 				}
 				else
 				{
-					AOS.Damage(target, this, BreathComputeDamage(), physDamage, fireDamage, coldDamage, poisDamage, nrgyDamage);
+					_ = AOS.Damage(target, this, BreathComputeDamage(), physDamage, fireDamage, coldDamage, poisDamage, nrgyDamage);
 				}
 			}
 		}
@@ -809,7 +809,7 @@ namespace Server.Mobiles
 		public virtual void RemovePetFriend(Mobile m)
 		{
 			if (Friends != null)
-				Friends.Remove(m);
+				_ = Friends.Remove(m);
 		}
 
 		public virtual bool IsFriend(Mobile m)
@@ -1353,7 +1353,7 @@ namespace Server.Mobiles
 			}
 			else if (from is PlayerMobile pm)
 			{
-				Timer.DelayCall(TimeSpan.FromSeconds(10), new TimerCallback(pm.RecoverAmmo));
+				_ = Timer.DelayCall(TimeSpan.FromSeconds(10), new TimerCallback(pm.RecoverAmmo));
 			}
 
 			base.OnDamage(amount, from, willKill);
@@ -1565,7 +1565,7 @@ namespace Server.Mobiles
 
 			m_iTeam = 0;
 
-			SpeedInfo.GetSpeeds(this, ref dActiveSpeed, ref dPassiveSpeed);
+			_ = SpeedInfo.GetSpeeds(this, ref dActiveSpeed, ref dPassiveSpeed);
 
 			ActiveSpeed = dActiveSpeed;
 			PassiveSpeed = dPassiveSpeed;
@@ -1864,7 +1864,7 @@ namespace Server.Mobiles
 						double activeSpeed = ActiveSpeed;
 						double passiveSpeed = PassiveSpeed;
 
-						SpeedInfo.GetSpeeds(this, ref activeSpeed, ref passiveSpeed);
+						_ = SpeedInfo.GetSpeeds(this, ref activeSpeed, ref passiveSpeed);
 
 						bool isStandardActive = false;
 						for (int i = 0; !isStandardActive && i < m_StandardActiveSpeeds.Length; ++i)
@@ -2377,9 +2377,9 @@ namespace Server.Mobiles
 				m_ControlMaster.Followers -= ControlSlots;
 				if (m_ControlMaster is PlayerMobile pm)
 				{
-					pm.AllFollowers.Remove(this);
+					_ = pm.AllFollowers.Remove(this);
 					if (pm.AutoStabled.Contains(this))
-						pm.AutoStabled.Remove(this);
+						_ = pm.AutoStabled.Remove(this);
 				}
 			}
 			else if (m_SummonMaster != null)
@@ -2387,7 +2387,7 @@ namespace Server.Mobiles
 				m_SummonMaster.Followers -= ControlSlots;
 				if (m_SummonMaster is PlayerMobile pm)
 				{
-					pm.AllFollowers.Remove(this);
+					_ = pm.AllFollowers.Remove(this);
 				}
 			}
 
@@ -2602,10 +2602,10 @@ namespace Server.Mobiles
 
 			if (p != null && HitPoisonChance >= Utility.RandomDouble())
 			{
-				defender.ApplyPoison(this, p);
+				_ = defender.ApplyPoison(this, p);
 
 				if (Controlled)
-					CheckSkill(SkillName.Poisoning, 0, Skills[SkillName.Poisoning].Cap);
+					_ = CheckSkill(SkillName.Poisoning, 0, Skills[SkillName.Poisoning].Cap);
 			}
 
 			if (AutoDispel && defender is BaseCreature creature && creature.IsDispellable && AutoDispelChance > Utility.RandomDouble())
@@ -3274,7 +3274,7 @@ namespace Server.Mobiles
 
 						if (AIObject != null)
 						{
-							AIObject.MoveTo(m, true, 1);
+							_ = AIObject.MoveTo(m, true, 1);
 						}
 
 						DoHarmful(m);
@@ -3330,10 +3330,10 @@ namespace Server.Mobiles
 					Say(1013037 + Utility.Random(16));
 					guardedRegion.CallGuards(this.Location);
 
-					Timer.DelayCall(TimeSpan.FromSeconds(5.0), new TimerCallback(ReleaseGuardLock));
+					_ = Timer.DelayCall(TimeSpan.FromSeconds(5.0), new TimerCallback(ReleaseGuardLock));
 
 					m_NoDupeGuards = m;
-					Timer.DelayCall(TimeSpan.Zero, new TimerCallback(ReleaseGuardDupeLock));
+					_ = Timer.DelayCall(TimeSpan.Zero, new TimerCallback(ReleaseGuardDupeLock));
 				}
 			}
 		}
@@ -3662,7 +3662,7 @@ namespace Server.Mobiles
 		public void PackMagicItems(int minLevel, int maxLevel, double armorChance, double weaponChance)
 		{
 			if (!PackArmor(minLevel, maxLevel, armorChance))
-				PackWeapon(minLevel, maxLevel, weaponChance);
+				_ = PackWeapon(minLevel, maxLevel, weaponChance);
 		}
 
 		public virtual void DropBackpack()
@@ -4669,7 +4669,7 @@ namespace Server.Mobiles
 		{
 			Mobile m = m_ControlMaster;
 
-			SetControlMaster(null);
+			_ = SetControlMaster(null);
 			SummonMaster = null;
 
 			if (ReceivedHonorContext != null)
@@ -4796,7 +4796,7 @@ namespace Server.Mobiles
 			Summoning = true;
 
 			if (controlled)
-				creature.SetControlMaster(caster);
+				_ = creature.SetControlMaster(caster);
 
 			creature.RangeHome = 10;
 			creature.Summoned = true;
@@ -4919,8 +4919,8 @@ namespace Server.Mobiles
 					{
 						patient.SendLocalizedMessage(1010059); // You have been cured of all poisons.
 
-						CheckSkill(SkillName.Healing, 0.0, 60.0 + poisonLevel * 10.0); // TODO: Verify formula
-						CheckSkill(SkillName.Anatomy, 0.0, 100.0);
+						_ = CheckSkill(SkillName.Healing, 0.0, 60.0 + poisonLevel * 10.0); // TODO: Verify formula
+						_ = CheckSkill(SkillName.Anatomy, 0.0, 100.0);
 					}
 				}
 			}
@@ -4951,8 +4951,8 @@ namespace Server.Mobiles
 
 					patient.Heal((int)toHeal);
 
-					CheckSkill(SkillName.Healing, 0.0, 90.0);
-					CheckSkill(SkillName.Anatomy, 0.0, 100.0);
+					_ = CheckSkill(SkillName.Healing, 0.0, 90.0);
+					_ = CheckSkill(SkillName.Anatomy, 0.0, 100.0);
 				}
 			}
 
@@ -5018,7 +5018,7 @@ namespace Server.Mobiles
 
 			foreach (Mobile m in list)
 			{
-				AOS.Damage(m, this, AuraBaseDamage, AuraPhysicalDamage, AuraFireDamage, AuraColdDamage, AuraPoisonDamage, AuraEnergyDamage, AuraChaosDamage);
+				_ = AOS.Damage(m, this, AuraBaseDamage, AuraPhysicalDamage, AuraFireDamage, AuraColdDamage, AuraPoisonDamage, AuraEnergyDamage, AuraChaosDamage);
 				AuraEffect(m);
 			}
 		}
@@ -5361,7 +5361,7 @@ namespace Server.Mobiles
 		{
 			if (!Deleted && ReturnsToHome && IsSpawnerBound() && !this.InRange(Home, (RangeHome + 5)))
 			{
-				Timer.DelayCall(TimeSpan.FromSeconds((Utility.Random(45) + 15)), new TimerCallback(GoHome_Callback));
+				_ = Timer.DelayCall(TimeSpan.FromSeconds((Utility.Random(45) + 15)), new TimerCallback(GoHome_Callback));
 
 				m_ReturnQueued = true;
 			}
@@ -5438,72 +5438,72 @@ namespace Server.Mobiles
 			// added array for wild creatures in house regions to be removed
 			List<BaseCreature> toRemove = new List<BaseCreature>();
 
-			Parallel.ForEach(World.Mobiles.Values, m =>
-			{
-				if (m is BaseMount mount && mount.Rider != null)
-				{
-					((BaseCreature)m).OwnerAbandonTime = DateTime.MinValue;
-					return;
-				}
+			_ = Parallel.ForEach(World.Mobiles.Values, m =>
+			  {
+				  if (m is BaseMount mount && mount.Rider != null)
+				  {
+					  ((BaseCreature)m).OwnerAbandonTime = DateTime.MinValue;
+					  return;
+				  }
 
-				if (m is BaseCreature c)
-				{
-					if (c.IsDeadPet)
-					{
-						Mobile owner = c.ControlMaster;
+				  if (m is BaseCreature c)
+				  {
+					  if (c.IsDeadPet)
+					  {
+						  Mobile owner = c.ControlMaster;
 
-						if (!c.IsStabled && (owner == null || owner.Deleted || owner.Map != c.Map || !owner.InRange(c, 12) || !c.CanSee(owner) || !c.InLOS(owner)))
-						{
-							if (c.OwnerAbandonTime == DateTime.MinValue)
-							{
-								c.OwnerAbandonTime = DateTime.UtcNow;
-							}
-							else if ((c.OwnerAbandonTime + c.BondingAbandonDelay) <= DateTime.UtcNow)
-							{
-								lock (toRemove)
-									toRemove.Add(c);
-							}
-						}
-						else
-						{
-							c.OwnerAbandonTime = DateTime.MinValue;
-						}
-					}
-					else if (c.Controlled && c.Commandable)
-					{
-						c.OwnerAbandonTime = DateTime.MinValue;
+						  if (!c.IsStabled && (owner == null || owner.Deleted || owner.Map != c.Map || !owner.InRange(c, 12) || !c.CanSee(owner) || !c.InLOS(owner)))
+						  {
+							  if (c.OwnerAbandonTime == DateTime.MinValue)
+							  {
+								  c.OwnerAbandonTime = DateTime.UtcNow;
+							  }
+							  else if ((c.OwnerAbandonTime + c.BondingAbandonDelay) <= DateTime.UtcNow)
+							  {
+								  lock (toRemove)
+									  toRemove.Add(c);
+							  }
+						  }
+						  else
+						  {
+							  c.OwnerAbandonTime = DateTime.MinValue;
+						  }
+					  }
+					  else if (c.Controlled && c.Commandable)
+					  {
+						  c.OwnerAbandonTime = DateTime.MinValue;
 
-						if (c.Map != Map.Internal)
-						{
-							c.Loyalty -= (BaseCreature.MaxLoyalty / 10);
+						  if (c.Map != Map.Internal)
+						  {
+							  c.Loyalty -= (BaseCreature.MaxLoyalty / 10);
 
-							if (c.Loyalty < (BaseCreature.MaxLoyalty / 10))
-							{
-								c.Say(1043270, c.Name); // * ~1_NAME~ looks around desperately *
+							  if (c.Loyalty < (BaseCreature.MaxLoyalty / 10))
+							  {
+								  c.Say(1043270, c.Name); // * ~1_NAME~ looks around desperately *
 								c.PlaySound(c.GetIdleSound());
-							}
+							  }
 
-							if (c.Loyalty <= 0)
-								lock (toRelease)
-									toRelease.Add(c);
-						}
-					}
+							  if (c.Loyalty <= 0)
+								  lock (toRelease)
+									  toRelease.Add(c);
+						  }
+					  }
 
 					// added lines to check if a wild creature in a house region has to be removed or not
 					if (!c.Controlled && !c.IsStabled && ((c.Region.IsPartOf(typeof(HouseRegion)) && c.CanBeDamaged()) || (c.RemoveIfUntamed && c.Spawner == null)))
-					{
-						c.RemoveStep++;
+					  {
+						  c.RemoveStep++;
 
-						if (c.RemoveStep >= 20)
-							lock (toRemove)
-								toRemove.Add(c);
-					}
-					else
-					{
-						c.RemoveStep = 0;
-					}
-				}
-			});
+						  if (c.RemoveStep >= 20)
+							  lock (toRemove)
+								  toRemove.Add(c);
+					  }
+					  else
+					  {
+						  c.RemoveStep = 0;
+					  }
+				  }
+			  });
 
 			foreach (BaseCreature c in toRelease)
 			{
@@ -5514,7 +5514,7 @@ namespace Server.Mobiles
 				c.OwnerAbandonTime = DateTime.MinValue;
 				c.ControlTarget = null;
 				//c.ControlOrder = OrderType.Release;
-				c.AIObject.DoOrderRelease(); // this will prevent no release of creatures left alone with AI disabled (and consequent bug of Followers)
+				_ = c.AIObject.DoOrderRelease(); // this will prevent no release of creatures left alone with AI disabled (and consequent bug of Followers)
 				c.DropBackpack();
 			}
 

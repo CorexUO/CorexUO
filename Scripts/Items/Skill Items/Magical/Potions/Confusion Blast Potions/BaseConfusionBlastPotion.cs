@@ -62,7 +62,7 @@ namespace Server.Items
 		{
 			base.Deserialize(reader);
 
-			reader.ReadInt();
+			_= reader.ReadInt();
 		}
 
 		private readonly List<Mobile> m_Users = new List<Mobile>();
@@ -93,7 +93,7 @@ namespace Server.Items
 
 			Geometry.Circle2D(loc, map, Radius, new DoEffect_Callback(BlastEffect), 270, 90);
 
-			Timer.DelayCall(TimeSpan.FromSeconds(0.3), new TimerStateCallback(CircleEffect2), new object[] { loc, map });
+			_ = Timer.DelayCall(TimeSpan.FromSeconds(0.3), new TimerStateCallback(CircleEffect2), new object[] { loc, map });
 
 			foreach (Mobile mobile in map.GetMobilesInRange(loc, Radius))
 			{
@@ -159,21 +159,16 @@ namespace Server.Items
 
 		private class ThrowTarget : Target
 		{
-			private readonly BaseConfusionBlastPotion m_Potion;
-
-			public BaseConfusionBlastPotion Potion
-			{
-				get { return m_Potion; }
-			}
+			public BaseConfusionBlastPotion Potion { get; }
 
 			public ThrowTarget(BaseConfusionBlastPotion potion) : base(12, true, TargetFlags.None)
 			{
-				m_Potion = potion;
+				Potion = potion;
 			}
 
 			protected override void OnTarget(Mobile from, object targeted)
 			{
-				if (m_Potion.Deleted || m_Potion.Map == Map.Internal)
+				if (Potion.Deleted || Potion.Map == Map.Internal)
 					return;
 
 
@@ -194,8 +189,8 @@ namespace Server.Items
 				else
 					to = new Entity(Serial.Zero, new Point3D(p), from.Map);
 
-				Effects.SendMovingEffect(from, to, 0xF0D, 7, 0, false, false, m_Potion.Hue, 0);
-				Timer.DelayCall(TimeSpan.FromSeconds(1.0), new TimerStateCallback(m_Potion.Explode_Callback), new object[] { from, new Point3D(p), from.Map });
+				Effects.SendMovingEffect(from, to, 0xF0D, 7, 0, false, false, Potion.Hue, 0);
+				_ = Timer.DelayCall(TimeSpan.FromSeconds(1.0), new TimerStateCallback(Potion.Explode_Callback), new object[] { from, new Point3D(p), from.Map });
 			}
 		}
 	}

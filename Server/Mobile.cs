@@ -827,7 +827,7 @@ namespace Server
 		{
 			if (ResistanceMods != null)
 			{
-				ResistanceMods.Remove(toRemove);
+				_ = ResistanceMods.Remove(toRemove);
 
 				if (ResistanceMods.Count == 0)
 					ResistanceMods = null;
@@ -910,7 +910,7 @@ namespace Server
 
 		public virtual void SendPropertiesTo(Mobile from)
 		{
-			from.Send(PropertyList);
+			_ = from.Send(PropertyList);
 		}
 
 		public virtual void OnAosSingleClick(Mobile from)
@@ -928,7 +928,7 @@ namespace Server
 				else
 					hue = Notoriety.GetHue(Notoriety.Compute(from, this));
 
-				from.Send(new MessageLocalized(Serial, Body, MessageType.Label, hue, 3, opl.Header, Name, opl.HeaderArgs));
+				_ = from.Send(new MessageLocalized(Serial, Body, MessageType.Label, hue, 3, opl.Header, Name, opl.HeaderArgs));
 			}
 		}
 
@@ -1177,7 +1177,7 @@ namespace Server
 		{
 			if (SkillMods.Contains(mod))
 			{
-				SkillMods.Remove(mod);
+				_ = SkillMods.Remove(mod);
 				mod.Owner = null;
 
 				Skill sk = m_Skills[mod.Skill];
@@ -1339,7 +1339,7 @@ namespace Server
 		{
 			if (_actions != null)
 			{
-				_actions.Remove(toLock);
+				_ = _actions.Remove(toLock);
 
 				if (_actions.Count == 0)
 				{
@@ -1616,7 +1616,7 @@ namespace Server
 				Container pack = this.Backpack;
 
 				if (pack == null)
-					AddToBackpack(item);
+					_ = AddToBackpack(item);
 				else
 					pack.DropItem(item);
 			}
@@ -2423,9 +2423,9 @@ namespace Server
 				{
 					// Old packet is preferred until assistants catch up
 					if (m_NetState.NewHaven && m_ContextMenu.RequiresNewPacket)
-						Send(new DisplayContextMenu(m_ContextMenu));
+						_ = Send(new DisplayContextMenu(m_ContextMenu));
 					else
-						Send(new DisplayContextMenuOld(m_ContextMenu));
+						_ = Send(new DisplayContextMenuOld(m_ContextMenu));
 				}
 			}
 		}
@@ -2626,7 +2626,7 @@ namespace Server
 				m_Prompt = newPrompt;
 
 				if (newPrompt != null)
-					Send(new UnicodePrompt(newPrompt));
+					_ = Send(new UnicodePrompt(newPrompt));
 			}
 		}
 		#endregion
@@ -2854,7 +2854,7 @@ namespace Server
 							MovementRecord r = m_MoveRecords.Peek();
 
 							if (r.Expired())
-								m_MoveRecords.Dequeue();
+								_ = m_MoveRecords.Dequeue();
 							else
 								break;
 						}
@@ -3232,7 +3232,7 @@ namespace Server
 			if (holding != null)
 			{
 				if (!holding.Deleted && holding.HeldBy == this && holding.Map == Map.Internal)
-					AddToBackpack(holding);
+					_ = AddToBackpack(holding);
 
 				Holding = null;
 				holding.ClearBounce();
@@ -3612,7 +3612,7 @@ namespace Server
 			}
 			else
 			{
-				Send(DeathStatus.Instantiate(true));
+				_ = Send(DeathStatus.Instantiate(true));
 
 				Warmode = false;
 
@@ -3628,7 +3628,7 @@ namespace Server
 
 				AddItem(deathShroud);
 
-				Items.Remove(deathShroud);
+				_ = Items.Remove(deathShroud);
 				Items.Insert(0, deathShroud);
 
 				Poison = null;
@@ -3642,7 +3642,7 @@ namespace Server
 
 				ProcessDeltaQueue();
 
-				Send(DeathStatus.Instantiate(false));
+				_ = Send(DeathStatus.Instantiate(false));
 
 				CheckStatTimers();
 			}
@@ -3885,7 +3885,7 @@ namespace Server
 							//item.Amount = amount; //Set in LiftItemDupe
 
 							if (amount < oldAmount)
-								LiftItemDupe(item, amount);
+								_ = LiftItemDupe(item, amount);
 							//item.Dupe( oldAmount - amount );
 
 							Map map = from.Map;
@@ -3933,7 +3933,7 @@ namespace Server
 							int liftSound = item.GetLiftSound(from);
 
 							if (liftSound != -1)
-								from.Send(new PlaySound(liftSound, from));
+								_ = from.Send(new PlaySound(liftSound, from));
 
 							from.NextActionTime = Core.TickCount + ActionDelay;
 
@@ -4170,9 +4170,9 @@ namespace Server
 			for (int i = 0; i < text.Length; ++i)
 			{
 				if (text[i] != ' ')
-					sb.Append(GhostChars[Utility.Random(GhostChars.Length)]);
+					_ = sb.Append(GhostChars[Utility.Random(GhostChars.Length)]);
 				else
-					sb.Append(' ');
+					_ = sb.Append(' ');
 			}
 
 			text = sb.ToString();
@@ -4408,7 +4408,7 @@ namespace Server
 				if (MutateSpeech(hears, ref mutatedText, ref mutateContext))
 					mutatedArgs = new SpeechEventArgs(this, mutatedText, type, hue, Array.Empty<int>());
 
-				CheckSpeechManifest();
+				_ = CheckSpeechManifest();
 
 				ProcessDelta();
 
@@ -4627,7 +4627,7 @@ namespace Server
 			de.DamageGiven += amount;
 			de.LastDamage = DateTime.UtcNow;
 
-			DamageEntries.Remove(de);
+			_ = DamageEntries.Remove(de);
 			DamageEntries.Add(de);
 
 			Mobile master = from.GetDamageMaster(this);
@@ -4710,7 +4710,7 @@ namespace Server
 				//	m_Spell.Disturb( DisturbType.Hurt, false, true );
 
 				if (from != null)
-					RegisterDamage(amount, from);
+					_ = RegisterDamage(amount, from);
 
 				DisruptiveAction();
 
@@ -5540,7 +5540,7 @@ namespace Server
 
 				//int oldCount = m_Items.Count;
 
-				Items.Remove(item);
+				_ = Items.Remove(item);
 
 				if (!item.IsVirtualItem)
 				{
@@ -5655,13 +5655,13 @@ namespace Server
 		public void SendSound(int soundID)
 		{
 			if (soundID != -1 && m_NetState != null)
-				Send(new PlaySound(soundID, this));
+				_ = Send(new PlaySound(soundID, this));
 		}
 
 		public void SendSound(int soundID, IPoint3D p)
 		{
 			if (soundID != -1 && m_NetState != null)
-				Send(new PlaySound(soundID, p));
+				_ = Send(new PlaySound(soundID, p));
 		}
 
 		public void PlaySound(int soundID)
@@ -5816,12 +5816,12 @@ namespace Server
 
 		public void SayTo(Mobile to, int number)
 		{
-			to.Send(new MessageLocalized(Serial, Body, MessageType.Regular, SpeechHue, 3, number, Name, ""));
+			_ = to.Send(new MessageLocalized(Serial, Body, MessageType.Regular, SpeechHue, 3, number, Name, ""));
 		}
 
 		public void SayTo(Mobile to, int number, string args)
 		{
-			to.Send(new MessageLocalized(Serial, Body, MessageType.Regular, SpeechHue, 3, number, Name, args));
+			_ = to.Send(new MessageLocalized(Serial, Body, MessageType.Regular, SpeechHue, 3, number, Name, args));
 		}
 
 		public void Say(bool ascii, string text)
@@ -6573,7 +6573,7 @@ namespace Server
 		{
 			if (StatMods.Contains(mod))
 			{
-				StatMods.Remove(mod);
+				_ = StatMods.Remove(mod);
 				CheckStatTimers();
 				Delta(MobileDelta.Stat | GetStatDelta(mod.Type));
 				return true;
@@ -6586,7 +6586,7 @@ namespace Server
 			StatMod statsMod = StatMods.FirstOrDefault(stat => stat.Name == name);
 			if (statsMod != null)
 			{
-				RemoveStatMod(statsMod);
+				_ = RemoveStatMod(statsMod);
 			}
 
 			return statsMod != null;
@@ -6603,7 +6603,7 @@ namespace Server
 			if (statsMod != null)
 			{
 				Delta(MobileDelta.Stat | GetStatDelta(statsMod.Type));
-				StatMods.Remove(statsMod);
+				_ = StatMods.Remove(statsMod);
 			}
 
 			StatMods.Add(mod);
@@ -7340,7 +7340,7 @@ namespace Server
 					Delta(MobileDelta.Flags);
 
 					if (m_NetState != null)
-						Send(SetWarMode.Instantiate(value));
+						_ = Send(SetWarMode.Instantiate(value));
 
 					if (!m_Warmode)
 						Combatant = null;
@@ -7523,11 +7523,11 @@ namespace Server
 								if (j < item.Items.Count)
 								{
 									item.Items[j].OnSecureTrade(this, this, this, false);
-									AddToBackpack(item.Items[j]);
+									_ = AddToBackpack(item.Items[j]);
 								}
 							}
 
-							Timer.DelayCall(TimeSpan.Zero, delegate { item.Delete(); });
+							_ = Timer.DelayCall(TimeSpan.Zero, delegate { item.Delete(); });
 						}
 					}
 
@@ -7932,7 +7932,7 @@ namespace Server
 		{
 			if (poison == null)
 			{
-				CurePoison(from);
+				_ = CurePoison(from);
 				return ApplyPoisonResult.Cured;
 			}
 
@@ -8331,7 +8331,7 @@ namespace Server
 			if (ns != null)
 			{
 				if (m_Map != null)
-					Send(new ServerChange(this, m_Map));
+					_ = Send(new ServerChange(this, m_Map));
 
 				ns.Sequence = 0;
 				ClearFastwalkStack();
@@ -9167,7 +9167,7 @@ namespace Server
 		public virtual void EquipItem(Item item, int hue)
 		{
 			item.Hue = hue;
-			EquipItem(item);
+			_ = EquipItem(item);
 		}
 
 		public virtual bool EquipItem(Item item)
@@ -9229,7 +9229,7 @@ namespace Server
 				m_TypeRef = World.m_MobileTypes.Count - 1;
 			}
 
-			Timer.DelayCall(EventSink.InvokeOnMobileCreated, new OnMobileCreatedEventArgs(this));
+			_ = Timer.DelayCall(EventSink.InvokeOnMobileCreated, new OnMobileCreatedEventArgs(this));
 		}
 
 		public void DefaultMobileInit()
@@ -9735,7 +9735,7 @@ namespace Server
 
 			if (m_DeltaQueue.Count >= 512)
 			{
-				Parallel.ForEach(m_DeltaQueue, m => m.ProcessDelta());
+				_ = Parallel.ForEach(m_DeltaQueue, m => m.ProcessDelta());
 				m_DeltaQueue.Clear();
 			}
 			else
@@ -10287,10 +10287,10 @@ namespace Server
 		public virtual void OnStatsQuery(Mobile from)
 		{
 			if (from.Map == this.Map && Utility.InUpdateRange(this, from) && from.CanSee(this))
-				from.Send(new MobileStatus(from, this, m_NetState));
+				_ = from.Send(new MobileStatus(from, this, m_NetState));
 
 			if (from == this)
-				Send(new StatLockInfo(this));
+				_ = Send(new StatLockInfo(this));
 
 			if (Party is IParty ip)
 				ip.OnStatsQuery(from, this);
@@ -10302,7 +10302,7 @@ namespace Server
 		public virtual void OnSkillsQuery(Mobile from)
 		{
 			if (from == this)
-				Send(new SkillUpdate(m_Skills));
+				_ = Send(new SkillUpdate(m_Skills));
 		}
 
 		/// <summary>
@@ -10377,7 +10377,7 @@ namespace Server
 		public virtual bool CanTarget { get { return true; } }
 		public virtual bool ClickTitle { get { return true; } }
 
-		public virtual bool PropertyTitle { get { return OldPropertyTitles ? ClickTitle : true; } }
+		public virtual bool PropertyTitle { get { return !OldPropertyTitles || ClickTitle; } }
 
 		public static bool DisableHiddenSelfClick { get; set; } = true;
 		public static bool AsciiClickMessage { get; set; } = true;

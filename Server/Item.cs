@@ -916,7 +916,7 @@ namespace Server
 		/// </summary>
 		public virtual void SendPropertiesTo(Mobile from)
 		{
-			from.Send(PropertyList);
+			_ = from.Send(PropertyList);
 		}
 
 		/// <summary>
@@ -1139,7 +1139,7 @@ namespace Server
 				else if (parent is Item p)
 				{
 					IEntity root = p.RootParent;
-					if (p.IsAccessibleTo(from) && (!(root is Mobile) || ((Mobile)root).CheckNonlocalDrop(from, this, p)))
+					if (p.IsAccessibleTo(from) && (!(root is Mobile mobile) || mobile.CheckNonlocalDrop(from, this, p)))
 					{
 						Location = bounce.m_Location;
 						p.AddItem(this);
@@ -1243,18 +1243,18 @@ namespace Server
 
 		public virtual void GetChildContextMenuEntries(Mobile from, List<ContextMenuEntry> list, Item item)
 		{
-			if (m_Parent is Item)
-				((Item)m_Parent).GetChildContextMenuEntries(from, list, item);
-			else if (m_Parent is Mobile)
-				((Mobile)m_Parent).GetChildContextMenuEntries(from, list, item);
+			if (m_Parent is Item parentItem)
+				parentItem.GetChildContextMenuEntries(from, list, item);
+			else if (m_Parent is Mobile mob)
+				mob.GetChildContextMenuEntries(from, list, item);
 		}
 
 		public virtual void GetContextMenuEntries(Mobile from, List<ContextMenuEntry> list)
 		{
-			if (m_Parent is Item)
-				((Item)m_Parent).GetChildContextMenuEntries(from, list, this);
-			else if (m_Parent is Mobile)
-				((Mobile)m_Parent).GetChildContextMenuEntries(from, list, this);
+			if (m_Parent is Item parentItem)
+				parentItem.GetChildContextMenuEntries(from, list, this);
+			else if (m_Parent is Mobile mob)
+				mob.GetChildContextMenuEntries(from, list, this);
 		}
 
 		public virtual bool VerifyMove(Mobile from)
@@ -1304,27 +1304,27 @@ namespace Server
 
 		public void LabelTo(Mobile to, int number)
 		{
-			to.Send(new MessageLocalized(Serial, m_ItemID, MessageType.Label, DisplayColor, 3, number, "", ""));
+			_ = to.Send(new MessageLocalized(Serial, m_ItemID, MessageType.Label, DisplayColor, 3, number, "", ""));
 		}
 
 		public void LabelTo(Mobile to, int hue, int number)
 		{
-			to.Send(new MessageLocalized(Serial, m_ItemID, MessageType.Label, hue, 3, number, "", ""));
+			_ = to.Send(new MessageLocalized(Serial, m_ItemID, MessageType.Label, hue, 3, number, "", ""));
 		}
 
 		public void LabelTo(Mobile to, int number, string args)
 		{
-			to.Send(new MessageLocalized(Serial, m_ItemID, MessageType.Label, DisplayColor, 3, number, "", args));
+			_ = to.Send(new MessageLocalized(Serial, m_ItemID, MessageType.Label, DisplayColor, 3, number, "", args));
 		}
 
 		public void LabelTo(Mobile to, int hue, int number, string args)
 		{
-			to.Send(new MessageLocalized(Serial, m_ItemID, MessageType.Label, hue, 3, number, "", args));
+			_ = to.Send(new MessageLocalized(Serial, m_ItemID, MessageType.Label, hue, 3, number, "", args));
 		}
 
 		public void LabelTo(Mobile to, string text)
 		{
-			to.Send(new UnicodeMessage(Serial, m_ItemID, MessageType.Label, DisplayColor, 3, "ENU", "", text));
+			_ = to.Send(new UnicodeMessage(Serial, m_ItemID, MessageType.Label, DisplayColor, 3, "ENU", "", text));
 		}
 
 		public void LabelTo(Mobile to, string format, params object[] args)
@@ -1334,22 +1334,22 @@ namespace Server
 
 		public void LabelToAffix(Mobile to, int number, AffixType type, string affix)
 		{
-			to.Send(new MessageLocalizedAffix(Serial, m_ItemID, MessageType.Label, DisplayColor, 3, number, "", type, affix, ""));
+			_ = to.Send(new MessageLocalizedAffix(Serial, m_ItemID, MessageType.Label, DisplayColor, 3, number, "", type, affix, ""));
 		}
 
 		public void LabelToAffix(Mobile to, int hue, int number, AffixType type, string affix)
 		{
-			to.Send(new MessageLocalizedAffix(Serial, m_ItemID, MessageType.Label, hue, 3, number, "", type, affix, ""));
+			_ = to.Send(new MessageLocalizedAffix(Serial, m_ItemID, MessageType.Label, hue, 3, number, "", type, affix, ""));
 		}
 
 		public void LabelToAffix(Mobile to, int number, AffixType type, string affix, string args)
 		{
-			to.Send(new MessageLocalizedAffix(Serial, m_ItemID, MessageType.Label, DisplayColor, 3, number, "", type, affix, args));
+			_ = to.Send(new MessageLocalizedAffix(Serial, m_ItemID, MessageType.Label, DisplayColor, 3, number, "", type, affix, args));
 		}
 
 		public void LabelToAffix(Mobile to, int hue, int number, AffixType type, string affix, string args)
 		{
-			to.Send(new MessageLocalizedAffix(Serial, m_ItemID, MessageType.Label, hue, 3, number, "", type, affix, args));
+			_ = to.Send(new MessageLocalizedAffix(Serial, m_ItemID, MessageType.Label, hue, 3, number, "", type, affix, args));
 		}
 
 		public virtual void LabelLootTypeTo(Mobile to)
@@ -1383,10 +1383,10 @@ namespace Server
 
 			SetLastMoved();
 
-			if (Parent is Mobile)
-				((Mobile)Parent).RemoveItem(this);
-			else if (Parent is Item)
-				((Item)Parent).RemoveItem(this);
+			if (Parent is Mobile mobile)
+				mobile.RemoveItem(this);
+			else if (Parent is Item item)
+				item.RemoveItem(this);
 
 			if (m_Map != map)
 			{
@@ -2477,7 +2477,7 @@ namespace Server
 
 						if (flags.HasFlag(SaveFlag.InsuredFor))
 							/*m_InsuredFor = */
-							reader.ReadMobile();
+							_ = reader.ReadMobile();
 
 						if (flags.HasFlag(SaveFlag.BlessedFor))
 							AcquireCompactInfo().m_BlessedFor = reader.ReadMobile();
@@ -2496,7 +2496,7 @@ namespace Server
 			}
 
 			if (this.HeldBy != null)
-				Timer.DelayCall(TimeSpan.Zero, new TimerCallback(FixHolding_Sandbox));
+				_ = Timer.DelayCall(TimeSpan.Zero, new TimerCallback(FixHolding_Sandbox));
 
 			//if ( version < 9 )
 			VerifyCompactInfo();
@@ -2515,7 +2515,7 @@ namespace Server
 				else
 				{
 					heldBy.Holding = null;
-					heldBy.AddToBackpack(this);
+					_ = heldBy.AddToBackpack(this);
 					ClearBounce();
 				}
 			}
@@ -2852,12 +2852,10 @@ namespace Server
 				{
 					try
 					{
-						using (StreamWriter op = new StreamWriter("delta-recursion.log", true))
-						{
-							op.WriteLine("# {0}", DateTime.UtcNow);
-							op.WriteLine(new System.Diagnostics.StackTrace());
-							op.WriteLine();
-						}
+						using StreamWriter op = new StreamWriter("delta-recursion.log", true);
+						op.WriteLine("# {0}", DateTime.UtcNow);
+						op.WriteLine(new System.Diagnostics.StackTrace());
+						op.WriteLine();
 					}
 					catch { }
 				}
@@ -2882,18 +2880,16 @@ namespace Server
 				{
 					try
 					{
-						using (StreamWriter op = new StreamWriter("delta-recursion.log", true))
-						{
-							op.WriteLine("# {0}", DateTime.UtcNow);
-							op.WriteLine(new System.Diagnostics.StackTrace());
-							op.WriteLine();
-						}
+						using StreamWriter op = new StreamWriter("delta-recursion.log", true);
+						op.WriteLine("# {0}", DateTime.UtcNow);
+						op.WriteLine(new System.Diagnostics.StackTrace());
+						op.WriteLine();
 					}
 					catch { }
 				}
 				else
 				{
-					m_DeltaQueue.Remove(this);
+					_ = m_DeltaQueue.Remove(this);
 				}
 			}
 		}
@@ -2913,9 +2909,7 @@ namespace Server
 			{
 				bool sendOPLUpdate = ObjectPropertyList.Enabled && (flags & ItemDelta.Properties) != 0;
 
-				Container contParent = m_Parent as Container;
-
-				if (contParent != null && !contParent.IsPublicContainer)
+				if (m_Parent is Container contParent && !contParent.IsPublicContainer)
 				{
 					if ((flags & ItemDelta.Update) != 0)
 					{
@@ -3145,7 +3139,7 @@ namespace Server
 
 			if (m_DeltaQueue.Count >= 512)
 			{
-				Parallel.ForEach(m_DeltaQueue, i => i.ProcessDelta());
+				_ = Parallel.ForEach(m_DeltaQueue, i => i.ProcessDelta());
 			}
 			else
 			{
@@ -3305,7 +3299,7 @@ namespace Server
 			{
 				item.SendRemovePacket();
 
-				items.Remove(item);
+				_ = items.Remove(item);
 
 				if (!item.IsVirtualItem)
 				{
@@ -4060,7 +4054,7 @@ namespace Server
 			if (Deleted || !to.CanSee(this))
 				return;
 
-			to.Send(new MessageLocalized(Serial, ItemID, MessageType.Regular, DisplayColor, 3, number, "", ""));
+			_ = to.Send(new MessageLocalized(Serial, ItemID, MessageType.Regular, DisplayColor, 3, number, "", ""));
 		}
 
 		public void SendLocalizedMessageTo(Mobile to, int number, string args)
@@ -4068,7 +4062,7 @@ namespace Server
 			if (Deleted || !to.CanSee(this))
 				return;
 
-			to.Send(new MessageLocalized(Serial, ItemID, MessageType.Regular, DisplayColor, 3, number, "", args));
+			_ = to.Send(new MessageLocalized(Serial, ItemID, MessageType.Regular, DisplayColor, 3, number, "", args));
 		}
 
 		public void SendLocalizedMessageTo(Mobile to, int number, AffixType affixType, string affix, string args)
@@ -4076,7 +4070,7 @@ namespace Server
 			if (Deleted || !to.CanSee(this))
 				return;
 
-			to.Send(new MessageLocalizedAffix(Serial, ItemID, MessageType.Regular, DisplayColor, 3, number, "", affixType, affix, args));
+			_ = to.Send(new MessageLocalizedAffix(Serial, ItemID, MessageType.Regular, DisplayColor, 3, number, "", affixType, affix, args));
 		}
 
 		#region OnDoubleClick[...]
@@ -4314,7 +4308,7 @@ namespace Server
 			ObjectPropertyList opl = this.PropertyList;
 
 			if (opl.Header > 0)
-				from.Send(new MessageLocalized(Serial, m_ItemID, MessageType.Label, DisplayColor, 3, opl.Header, this.Name, opl.HeaderArgs));
+				_ = from.Send(new MessageLocalized(Serial, m_ItemID, MessageType.Label, DisplayColor, 3, opl.Header, this.Name, opl.HeaderArgs));
 		}
 
 		public virtual void OnSingleClick(Mobile from)
@@ -4519,7 +4513,7 @@ namespace Server
 				m_TypeRef = World.m_ItemTypes.Count - 1;
 			}
 
-			Timer.DelayCall(EventSink.InvokeOnItemCreated, new OnItemCreatedEventArgs(this));
+			_ = Timer.DelayCall(EventSink.InvokeOnItemCreated, new OnItemCreatedEventArgs(this));
 		}
 
 		[Constructable]
