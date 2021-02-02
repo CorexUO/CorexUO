@@ -111,7 +111,7 @@ namespace Server.Items
 				return;
 
 			EquipmentInfo eqInfo = new EquipmentInfo(1041000, crafter, false, attrs.ToArray());
-			from.Send(new DisplayEquipmentInfo(this, eqInfo));
+			_ = from.Send(new DisplayEquipmentInfo(this, eqInfo));
 		}
 
 		public virtual int GetLuckBonus()
@@ -164,9 +164,9 @@ namespace Server.Items
 			{
 				string modName = this.Serial.ToString();
 
-				parent.RemoveStatMod(modName + "Str");
-				parent.RemoveStatMod(modName + "Dex");
-				parent.RemoveStatMod(modName + "Int");
+				_ = parent.RemoveStatMod(modName + "Str");
+				_ = parent.RemoveStatMod(modName + "Dex");
+				_ = parent.RemoveStatMod(modName + "Int");
 			}
 		}
 

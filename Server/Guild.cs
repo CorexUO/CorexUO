@@ -108,7 +108,7 @@ namespace Server.Guilds
 
 		public override string ToString()
 		{
-			return String.Format("0x{0:X} \"{1} [{2}]\"", Id, Name, Abbreviation);
+			return string.Format("0x{0:X} \"{1} [{2}]\"", Id, Name, Abbreviation);
 		}
 	}
 }

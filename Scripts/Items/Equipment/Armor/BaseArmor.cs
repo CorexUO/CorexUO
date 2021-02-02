@@ -49,7 +49,6 @@ namespace Server.Items
 		private DurabilityLevel m_Durability;
 		private ArmorProtectionLevel m_Protection;
 		private CraftResource m_Resource;
-		private bool m_PlayerConstructed;
 		private int m_PhysicalBonus, m_FireBonus, m_ColdBonus, m_PoisonBonus, m_EnergyBonus;
 
 		private AosArmorAttributes m_AosArmorAttributes;
@@ -202,11 +201,7 @@ namespace Server.Items
 		}
 
 		[CommandProperty(AccessLevel.GameMaster)]
-		public bool PlayerConstructed
-		{
-			get { return m_PlayerConstructed; }
-			set { m_PlayerConstructed = value; }
-		}
+		public bool PlayerConstructed { get; set; }
 
 		[CommandProperty(AccessLevel.GameMaster)]
 		public CraftResource Resource
@@ -413,23 +408,16 @@ namespace Server.Items
 		{
 			get
 			{
-				switch (this.Layer)
+				return Layer switch
 				{
-					default:
-					case Layer.Neck: return ArmorBodyType.Gorget;
-					case Layer.TwoHanded: return ArmorBodyType.Shield;
-					case Layer.Gloves: return ArmorBodyType.Gloves;
-					case Layer.Helm: return ArmorBodyType.Helmet;
-					case Layer.Arms: return ArmorBodyType.Arms;
-
-					case Layer.InnerLegs:
-					case Layer.OuterLegs:
-					case Layer.Pants: return ArmorBodyType.Legs;
-
-					case Layer.InnerTorso:
-					case Layer.OuterTorso:
-					case Layer.Shirt: return ArmorBodyType.Chest;
-				}
+					Layer.TwoHanded => ArmorBodyType.Shield,
+					Layer.Gloves => ArmorBodyType.Gloves,
+					Layer.Helm => ArmorBodyType.Helmet,
+					Layer.Arms => ArmorBodyType.Arms,
+					Layer.InnerLegs or Layer.OuterLegs or Layer.Pants => ArmorBodyType.Legs,
+					Layer.InnerTorso or Layer.OuterTorso or Layer.Shirt => ArmorBodyType.Chest,
+					_ => ArmorBodyType.Gorget,
+				};
 			}
 		}
 
@@ -552,7 +540,7 @@ namespace Server.Items
 				{
 					Item res = (Item)Activator.CreateInstance(CraftResources.GetInfo(m_Resource).ResourceTypes[0]);
 
-					ScissorHelper(from, res, m_PlayerConstructed ? (item.Resources.GetAt(0).Amount / 2) : 1);
+					ScissorHelper(from, res, PlayerConstructed ? (item.Resources.GetAt(0).Amount / 2) : 1);
 					return true;
 				}
 				catch
@@ -584,7 +572,7 @@ namespace Server.Items
 						else
 							m.SendMessage("Only {0} may use this.", armor.RequiredRace.PluralName);
 
-						m.AddToBackpack(armor);
+						_= m.AddToBackpack(armor);
 					}
 					else if (!armor.AllowMaleWearer && !m.Female && m.AccessLevel < AccessLevel.GameMaster)
 					{
@@ -593,7 +581,7 @@ namespace Server.Items
 						else
 							m.SendMessage("You may not wear this.");
 
-						m.AddToBackpack(armor);
+						_ = m.AddToBackpack(armor);
 					}
 					else if (!armor.AllowFemaleWearer && m.Female && m.AccessLevel < AccessLevel.GameMaster)
 					{
@@ -602,7 +590,7 @@ namespace Server.Items
 						else
 							m.SendMessage("You may not wear this.");
 
-						m.AddToBackpack(armor);
+						_ = m.AddToBackpack(armor);
 					}
 				}
 			}
@@ -722,7 +710,7 @@ namespace Server.Items
 			Utility.SetSaveFlag(ref flags, SaveFlag.IntReq, m_IntReq != -1);
 			Utility.SetSaveFlag(ref flags, SaveFlag.MedAllowance, m_Meditate != (AMA)(-1));
 			Utility.SetSaveFlag(ref flags, SaveFlag.SkillBonuses, !m_AosSkillBonuses.IsEmpty);
-			Utility.SetSaveFlag(ref flags, SaveFlag.PlayerConstructed, m_PlayerConstructed != false);
+			Utility.SetSaveFlag(ref flags, SaveFlag.PlayerConstructed, PlayerConstructed != false);
 
 			writer.WriteEncodedInt((int)flags);
 
@@ -899,7 +887,7 @@ namespace Server.Items
 							m_AosSkillBonuses = new AosSkillBonuses(this, reader);
 
 						if (flags.HasFlag(SaveFlag.PlayerConstructed))
-							m_PlayerConstructed = true;
+							PlayerConstructed = true;
 
 						break;
 					}
@@ -1309,7 +1297,7 @@ namespace Server.Items
 						}
 					}
 
-					from.CheckSkill(SkillName.ArmsLore, 0, 100);
+					_ = from.CheckSkill(SkillName.ArmsLore, 0, 100);
 				}
 			}
 

@@ -5806,12 +5806,12 @@ namespace Server
 
 		public void SayTo(Mobile to, string format, params object[] args)
 		{
-			SayTo(to, false, String.Format(format, args));
+			SayTo(to, false, string.Format(format, args));
 		}
 
 		public void SayTo(Mobile to, bool ascii, string format, params object[] args)
 		{
-			SayTo(to, ascii, String.Format(format, args));
+			SayTo(to, ascii, string.Format(format, args));
 		}
 
 		public void SayTo(Mobile to, int number)
@@ -5836,7 +5836,7 @@ namespace Server
 
 		public void Say(string format, params object[] args)
 		{
-			Say(String.Format(format, args));
+			Say(string.Format(format, args));
 		}
 
 		public void Say(int number, AffixType type, string affix, string args)
@@ -5861,7 +5861,7 @@ namespace Server
 
 		public void Emote(string format, params object[] args)
 		{
-			Emote(String.Format(format, args));
+			Emote(string.Format(format, args));
 		}
 
 		public void Emote(int number)
@@ -5881,7 +5881,7 @@ namespace Server
 
 		public void Whisper(string format, params object[] args)
 		{
-			Whisper(String.Format(format, args));
+			Whisper(string.Format(format, args));
 		}
 
 		public void Whisper(int number)
@@ -5901,7 +5901,7 @@ namespace Server
 
 		public void Yell(string format, params object[] args)
 		{
-			Yell(String.Format(format, args));
+			Yell(string.Format(format, args));
 		}
 
 		public void Yell(int number)

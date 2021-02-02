@@ -4,13 +4,9 @@ namespace Server.Items
 {
 	public class SlayerEntry
 	{
-		private SlayerGroup m_Group;
-		private readonly SlayerName m_Name;
-		private readonly Type[] m_Types;
-
-		public SlayerGroup Group { get { return m_Group; } set { m_Group = value; } }
-		public SlayerName Name { get { return m_Name; } }
-		public Type[] Types { get { return m_Types; } }
+		public SlayerGroup Group { get; set; }
+		public SlayerName Name { get; }
+		public Type[] Types { get; }
 
 		private static readonly int[] m_AosTitles = new int[]
 			{
@@ -80,23 +76,23 @@ namespace Server.Items
 			{
 				int[] titles = (Core.AOS ? m_AosTitles : m_OldTitles);
 
-				return titles[(int)m_Name - 1];
+				return titles[(int)Name - 1];
 			}
 		}
 
 		public SlayerEntry(SlayerName name, params Type[] types)
 		{
-			m_Name = name;
-			m_Types = types;
+			Name = name;
+			Types = types;
 		}
 
 		public bool Slays(Mobile m)
 		{
 			Type t = m.GetType();
 
-			for (int i = 0; i < m_Types.Length; ++i)
+			for (int i = 0; i < Types.Length; ++i)
 			{
-				if (m_Types[i].IsAssignableFrom(t))
+				if (Types[i].IsAssignableFrom(t))
 					return true;
 			}
 

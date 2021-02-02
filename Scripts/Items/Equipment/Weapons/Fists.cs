@@ -55,7 +55,7 @@ namespace Server.Items
 				return incrValue;
 		}
 
-		private void CheckPreAOSMoves(Mobile attacker, Mobile defender)
+		private static void CheckPreAOSMoves(Mobile attacker, Mobile defender)
 		{
 			if (attacker.StunReady)
 			{
@@ -179,8 +179,7 @@ namespace Server.Items
 		public override void Deserialize(GenericReader reader)
 		{
 			base.Deserialize(reader);
-
-			int version = reader.ReadInt();
+			_ = reader.ReadInt();
 
 			Delete();
 		}
@@ -288,7 +287,7 @@ namespace Server.Items
 
 				Priority = TimerPriority.TwoFiftyMS;
 
-				m_Mobile.BeginAction(typeof(Fists));
+				_ = m_Mobile.BeginAction(typeof(Fists));
 			}
 
 			protected override void OnTick()

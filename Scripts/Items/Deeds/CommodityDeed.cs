@@ -11,25 +11,17 @@ namespace Server.Items
 
 	public class CommodityDeed : BaseItem
 	{
-		private Item m_Commodity;
-
 		[CommandProperty(AccessLevel.GameMaster)]
-		public Item Commodity
-		{
-			get
-			{
-				return m_Commodity;
-			}
-		}
+		public Item Commodity { get; private set; }
 
 		public bool SetCommodity(Item item)
 		{
 			InvalidateProperties();
 
-			if (m_Commodity == null && item is ICommodity && ((ICommodity)item).IsDeedable)
+			if (Commodity == null && item is ICommodity commodity && commodity.IsDeedable)
 			{
-				m_Commodity = item;
-				m_Commodity.Internalize();
+				Commodity = item;
+				Commodity.Internalize();
 				InvalidateProperties();
 
 				return true;
@@ -46,16 +38,15 @@ namespace Server.Items
 
 			writer.Write(0); // version
 
-			writer.Write(m_Commodity);
+			writer.Write(Commodity);
 		}
 
 		public override void Deserialize(GenericReader reader)
 		{
 			base.Deserialize(reader);
+			_ = reader.ReadInt();
 
-			int version = reader.ReadInt();
-
-			m_Commodity = reader.ReadItem();
+			Commodity = reader.ReadItem();
 		}
 
 		public CommodityDeed(Item commodity) : base(0x14F0)
@@ -63,7 +54,7 @@ namespace Server.Items
 			Weight = 1.0;
 			Hue = 0x47;
 
-			m_Commodity = commodity;
+			Commodity = commodity;
 
 			LootType = LootType.Blessed;
 		}
@@ -79,26 +70,26 @@ namespace Server.Items
 
 		public override void OnDelete()
 		{
-			if (m_Commodity != null)
-				m_Commodity.Delete();
+			if (Commodity != null)
+				Commodity.Delete();
 
 			base.OnDelete();
 		}
 
-		public override int LabelNumber { get { return m_Commodity == null ? 1047016 : 1047017; } }
+		public override int LabelNumber { get { return Commodity == null ? 1047016 : 1047017; } }
 
 		public override void GetProperties(ObjectPropertyList list)
 		{
 			base.GetProperties(list);
 
-			if (m_Commodity != null)
+			if (Commodity != null)
 			{
 				string args;
 
-				if (m_Commodity.Name == null)
-					args = String.Format("#{0}\t{1}", (m_Commodity is ICommodity) ? ((ICommodity)m_Commodity).DescriptionNumber : m_Commodity.LabelNumber, m_Commodity.Amount);
+				if (Commodity.Name == null)
+					args = string.Format("#{0}\t{1}", (Commodity is ICommodity) ? ((ICommodity)Commodity).DescriptionNumber : Commodity.LabelNumber, Commodity.Amount);
 				else
-					args = String.Format("{0}\t{1}", m_Commodity.Name, m_Commodity.Amount);
+					args = string.Format("{0}\t{1}", Commodity.Name, Commodity.Amount);
 
 				list.Add(1060658, args); // ~1_val~: ~2_val~
 			}
@@ -112,14 +103,14 @@ namespace Server.Items
 		{
 			base.OnSingleClick(from);
 
-			if (m_Commodity != null)
+			if (Commodity != null)
 			{
 				string args;
 
-				if (m_Commodity.Name == null)
-					args = String.Format("#{0}\t{1}", (m_Commodity is ICommodity) ? ((ICommodity)m_Commodity).DescriptionNumber : m_Commodity.LabelNumber, m_Commodity.Amount);
+				if (Commodity.Name == null)
+					args = string.Format("#{0}\t{1}", (Commodity is ICommodity) ? ((ICommodity)Commodity).DescriptionNumber : Commodity.LabelNumber, Commodity.Amount);
 				else
-					args = String.Format("{0}\t{1}", m_Commodity.Name, m_Commodity.Amount);
+					args = string.Format("{0}\t{1}", Commodity.Name, Commodity.Amount);
 
 				LabelTo(from, 1060658, args); // ~1_val~: ~2_val~
 			}
@@ -133,15 +124,15 @@ namespace Server.Items
 			CommodityDeedBox cox = CommodityDeedBox.Find(this);
 
 			// Veteran Rewards mods
-			if (m_Commodity != null)
+			if (Commodity != null)
 			{
 				if (box != null && IsChildOf(box))
 				{
 					number = 1047031; // The commodity has been redeemed.
 
-					box.DropItem(m_Commodity);
+					box.DropItem(Commodity);
 
-					m_Commodity = null;
+					Commodity = null;
 					Delete();
 				}
 				else if (cox != null)
@@ -150,9 +141,9 @@ namespace Server.Items
 					{
 						number = 1047031; // The commodity has been redeemed.
 
-						cox.DropItem(m_Commodity);
+						cox.DropItem(Commodity);
 
-						m_Commodity = null;
+						Commodity = null;
 						Delete();
 					}
 					else
@@ -215,16 +206,16 @@ namespace Server.Items
 				{
 					number = 1047028; // The commodity deed has already been filled.
 				}
-				else if (targeted is Item)
+				else if (targeted is Item item)
 				{
 					BankBox box = from.FindBankNoCreate();
 					CommodityDeedBox cox = CommodityDeedBox.Find(m_Deed);
 
 					// Veteran Rewards mods
-					if (box != null && m_Deed.IsChildOf(box) && ((Item)targeted).IsChildOf(box) ||
-						cox != null && cox.IsSecure && ((Item)targeted).IsChildOf(cox))
+					if (box != null && m_Deed.IsChildOf(box) && item.IsChildOf(box) ||
+						cox != null && cox.IsSecure && item.IsChildOf(cox))
 					{
-						if (m_Deed.SetCommodity((Item)targeted))
+						if (m_Deed.SetCommodity(item))
 						{
 							m_Deed.Hue = 0x592;
 							number = 1047030; // The commodity deed has been filled.

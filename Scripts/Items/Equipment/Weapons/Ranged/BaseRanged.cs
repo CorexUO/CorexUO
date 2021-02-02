@@ -48,7 +48,7 @@ namespace Server.Items
 
 		public override TimeSpan OnSwing(Mobile attacker, Mobile defender)
 		{
-			WeaponAbility a = WeaponAbility.GetCurrentAbility(attacker);
+			_ = WeaponAbility.GetCurrentAbility(attacker);
 
 			// Make sure we've been standing still for .25/.5/1 second depending on Era
 			if (Core.TickCount - attacker.LastMoveTime >= (Core.SE ? 250 : Core.AOS ? 500 : 1000) || (Core.AOS && WeaponAbility.GetCurrentAbility(attacker) is MovingShot))
@@ -61,17 +61,13 @@ namespace Server.Items
 
 					if (canSwing)
 					{
-						Spell sp = attacker.Spell as Spell;
-
-						canSwing = (sp == null || !sp.IsCasting || !sp.BlocksMovement);
+						canSwing = (attacker.Spell is not Spell sp || !sp.IsCasting || !sp.BlocksMovement);
 					}
 				}
 
 				#region Dueling
-				if (attacker is PlayerMobile)
+				if (attacker is PlayerMobile pm)
 				{
-					PlayerMobile pm = (PlayerMobile)attacker;
-
 					if (pm.DuelContext != null && !pm.DuelContext.CheckItemEquip(attacker, this))
 						canSwing = false;
 				}
@@ -80,7 +76,7 @@ namespace Server.Items
 				if (canSwing && attacker.HarmfulCheck(defender))
 				{
 					attacker.DisruptiveAction();
-					attacker.Send(new Swing(0, attacker, defender));
+					_ = attacker.Send(new Swing(0, attacker, defender));
 
 					if (OnFired(attacker, defender))
 					{
@@ -106,7 +102,7 @@ namespace Server.Items
 		public override void OnHit(Mobile attacker, Mobile defender, double damageBonus)
 		{
 			if (attacker.Player && !defender.Player && (defender.Body.IsAnimal || defender.Body.IsMonster) && 0.4 >= Utility.RandomDouble())
-				defender.AddToBackpack(Ammo);
+				_ = defender.AddToBackpack(Ammo);
 
 			if (Core.ML && m_Velocity > 0)
 			{
@@ -114,7 +110,7 @@ namespace Server.Items
 
 				if (bonus > 0 && m_Velocity > Utility.Random(100))
 				{
-					AOS.Damage(defender, attacker, bonus * 3, 100, 0, 0, 0, 0);
+					_ = AOS.Damage(defender, attacker, bonus * 3, 100, 0, 0, 0, 0);
 
 					if (attacker.Player)
 						attacker.SendLocalizedMessage(1072794); // Your arrow hits its mark with velocity!
@@ -133,9 +129,7 @@ namespace Server.Items
 			{
 				if (Core.SE)
 				{
-					PlayerMobile p = attacker as PlayerMobile;
-
-					if (p != null)
+					if (attacker is PlayerMobile p)
 					{
 						Type ammo = AmmoType;
 

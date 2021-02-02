@@ -5,34 +5,25 @@ namespace Server.Items
 {
 	public class SlayerGroup
 	{
-		private static readonly SlayerEntry[] m_TotalEntries;
-		private static readonly SlayerGroup[] m_Groups;
+		public static SlayerEntry[] TotalEntries { get; private set; }
 
-		public static SlayerEntry[] TotalEntries
-		{
-			get { return m_TotalEntries; }
-		}
-
-		public static SlayerGroup[] Groups
-		{
-			get { return m_Groups; }
-		}
+		public static SlayerGroup[] Groups { get; private set; }
 
 		public static SlayerEntry GetEntryByName(SlayerName name)
 		{
 			int v = (int)name;
 
-			if (v >= 0 && v < m_TotalEntries.Length)
-				return m_TotalEntries[v];
+			if (v >= 0 && v < TotalEntries.Length)
+				return TotalEntries[v];
 
 			return null;
 		}
 
 		public static SlayerName GetLootSlayerType(Type type)
 		{
-			for (int i = 0; i < m_Groups.Length; ++i)
+			for (int i = 0; i < Groups.Length; ++i)
 			{
-				SlayerGroup group = m_Groups[i];
+				SlayerGroup group = Groups[i];
 				Type[] foundOn = group.FoundOn;
 
 				bool inGroup = false;
@@ -45,7 +36,7 @@ namespace Server.Items
 					int index = Utility.Random(1 + group.Entries.Length);
 
 					if (index == 0)
-						return group.m_Super.Name;
+						return group.Super.Name;
 
 					return group.Entries[index - 1].Name;
 				}
@@ -76,11 +67,11 @@ namespace Server.Items
 
 			undead.Opposition = new SlayerGroup[] { humanoid };
 			undead.Super = new SlayerEntry(SlayerName.Silver, typeof(AncientLich), typeof(Bogle), typeof(BoneKnight), typeof(BoneMagi),/* typeof( DarkGuardian ), */typeof(DarknightCreeper), typeof(FleshGolem), typeof(Ghoul), typeof(GoreFiend), typeof(HellSteed), typeof(LadyOfTheSnow), typeof(Lich), typeof(LichLord), typeof(Mummy), typeof(PestilentBandage), typeof(Revenant), typeof(RevenantLion), typeof(RottingCorpse), typeof(Shade), typeof(ShadowKnight), typeof(SkeletalKnight), typeof(SkeletalMage), typeof(SkeletalMount), typeof(Skeleton), typeof(Spectre), typeof(Wraith), typeof(Zombie));
-			undead.Entries = new SlayerEntry[0];
+			undead.Entries = Array.Empty<SlayerEntry>();
 
 			fey.Opposition = new SlayerGroup[] { abyss };
 			fey.Super = new SlayerEntry(SlayerName.Fey, typeof(Centaur), typeof(CuSidhe), typeof(EtherealWarrior), typeof(Kirin), typeof(LordOaks), typeof(Pixie), typeof(Silvani), typeof(Treefellow), typeof(Unicorn), typeof(Wisp), typeof(MLDryad), typeof(Satyr));
-			fey.Entries = new SlayerEntry[0];
+			fey.Entries = Array.Empty<SlayerEntry>();
 
 			elemental.Opposition = new SlayerGroup[] { abyss };
 			elemental.FoundOn = new Type[] { typeof(Balron), typeof(Daemon) };
@@ -142,7 +133,7 @@ namespace Server.Items
 					new SlayerEntry( SlayerName.SnakesBane, typeof( DeepSeaSerpent ), typeof( GiantIceWorm ), typeof( GiantSerpent ), typeof( IceSerpent ), typeof( IceSnake ), typeof( LavaSerpent ), typeof( LavaSnake ), typeof( SeaSerpent ), typeof( Serado ), typeof( SilverSerpent ), typeof( Snake ), typeof( Yamandon ) )
 				};
 
-			m_Groups = new SlayerGroup[]
+			Groups = new SlayerGroup[]
 				{
 					humanoid,
 					undead,
@@ -153,7 +144,7 @@ namespace Server.Items
 					fey
 				};
 
-			m_TotalEntries = CompileEntries(m_Groups);
+			TotalEntries = CompileEntries(Groups);
 		}
 
 		private static SlayerEntry[] CompileEntries(SlayerGroup[] groups)
@@ -178,15 +169,10 @@ namespace Server.Items
 			return entries;
 		}
 
-		private SlayerGroup[] m_Opposition;
-		private SlayerEntry m_Super;
-		private SlayerEntry[] m_Entries;
-		private Type[] m_FoundOn;
-
-		public SlayerGroup[] Opposition { get { return m_Opposition; } set { m_Opposition = value; } }
-		public SlayerEntry Super { get { return m_Super; } set { m_Super = value; } }
-		public SlayerEntry[] Entries { get { return m_Entries; } set { m_Entries = value; } }
-		public Type[] FoundOn { get { return m_FoundOn; } set { m_FoundOn = value; } }
+		public SlayerGroup[] Opposition { get; set; }
+		public SlayerEntry Super { get; set; }
+		public SlayerEntry[] Entries { get; set; }
+		public Type[] FoundOn { get; set; }
 
 		public bool OppositionSuperSlays(Mobile m)
 		{
