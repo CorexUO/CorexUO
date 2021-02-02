@@ -92,7 +92,7 @@ namespace Server.Items
 		}
 	}
 
-	[FlipableAttribute(0x1081, 0x1082)]
+	[Flipable(0x1081, 0x1082)]
 	public class Leather : BaseLeather
 	{
 		[Constructable]
@@ -120,13 +120,11 @@ namespace Server.Items
 		{
 			base.Deserialize(reader);
 
-			int version = reader.ReadInt();
+			_ = reader.ReadInt();
 		}
-
-
 	}
 
-	[FlipableAttribute(0x1081, 0x1082)]
+	[Flipable(0x1081, 0x1082)]
 	public class SpinedLeather : BaseLeather
 	{
 		[Constructable]
@@ -154,13 +152,11 @@ namespace Server.Items
 		{
 			base.Deserialize(reader);
 
-			int version = reader.ReadInt();
+			_ = reader.ReadInt();
 		}
-
-
 	}
 
-	[FlipableAttribute(0x1081, 0x1082)]
+	[Flipable(0x1081, 0x1082)]
 	public class HornedLeather : BaseLeather
 	{
 		[Constructable]
@@ -188,13 +184,11 @@ namespace Server.Items
 		{
 			base.Deserialize(reader);
 
-			int version = reader.ReadInt();
+			_ = reader.ReadInt();
 		}
-
-
 	}
 
-	[FlipableAttribute(0x1081, 0x1082)]
+	[Flipable(0x1081, 0x1082)]
 	public class BarbedLeather : BaseLeather
 	{
 		[Constructable]
@@ -222,9 +216,7 @@ namespace Server.Items
 		{
 			base.Deserialize(reader);
 
-			int version = reader.ReadInt();
+			_ = reader.ReadInt();
 		}
-
-
 	}
 }

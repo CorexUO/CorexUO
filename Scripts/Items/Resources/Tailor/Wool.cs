@@ -32,8 +32,9 @@ namespace Server.Items
 		{
 			base.Deserialize(reader);
 
-			int version = reader.ReadInt();
+			_ = reader.ReadInt();
 		}
+
 		public bool Dye(Mobile from, DyeTub sender)
 		{
 			if (Deleted)
@@ -59,10 +60,12 @@ namespace Server.Items
 
 		public static void OnSpun(ISpinningWheel wheel, Mobile from, int hue)
 		{
-			Item item = new DarkYarn(3);
-			item.Hue = hue;
+			Item item = new DarkYarn(3)
+			{
+				Hue = hue
+			};
 
-			from.AddToBackpack(item);
+			_ = from.AddToBackpack(item);
 			from.SendLocalizedMessage(1010576); // You put the balls of yarn in your backpack.
 		}
 
@@ -82,13 +85,11 @@ namespace Server.Items
 
 				ISpinningWheel wheel = targeted as ISpinningWheel;
 
-				if (wheel == null && targeted is AddonComponent)
-					wheel = ((AddonComponent)targeted).Addon as ISpinningWheel;
+				if (wheel == null && targeted is AddonComponent component)
+					wheel = component.Addon as ISpinningWheel;
 
-				if (wheel is Item)
+				if (wheel is Item item)
 				{
-					Item item = (Item)wheel;
-
 					if (!m_Wool.IsChildOf(from.Backpack))
 					{
 						from.SendLocalizedMessage(1042001); // That must be in your pack for you to use it.
@@ -141,15 +142,17 @@ namespace Server.Items
 		{
 			base.Deserialize(reader);
 
-			int version = reader.ReadInt();
+			_ = reader.ReadInt();
 		}
 
 		new public static void OnSpun(ISpinningWheel wheel, Mobile from, int hue)
 		{
-			Item item = new DarkYarn(1);
-			item.Hue = hue;
+			Item item = new DarkYarn(1)
+			{
+				Hue = hue
+			};
 
-			from.AddToBackpack(item);
+			_ = from.AddToBackpack(item);
 			from.SendLocalizedMessage(1010574); // You put a ball of yarn in your backpack.
 		}
 	}

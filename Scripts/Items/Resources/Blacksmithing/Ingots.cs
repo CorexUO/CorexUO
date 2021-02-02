@@ -96,7 +96,7 @@ namespace Server.Items
 		}
 	}
 
-	[FlipableAttribute(0x1BF2, 0x1BEF)]
+	[Flipable(0x1BF2, 0x1BEF)]
 	public class IronIngot : BaseIngot
 	{
 		[Constructable]
@@ -124,13 +124,11 @@ namespace Server.Items
 		{
 			base.Deserialize(reader);
 
-			int version = reader.ReadInt();
+			_ = reader.ReadInt();
 		}
-
-
 	}
 
-	[FlipableAttribute(0x1BF2, 0x1BEF)]
+	[Flipable(0x1BF2, 0x1BEF)]
 	public class DullCopperIngot : BaseIngot
 	{
 		[Constructable]
@@ -158,13 +156,11 @@ namespace Server.Items
 		{
 			base.Deserialize(reader);
 
-			int version = reader.ReadInt();
+			_ = reader.ReadInt();
 		}
-
-
 	}
 
-	[FlipableAttribute(0x1BF2, 0x1BEF)]
+	[Flipable(0x1BF2, 0x1BEF)]
 	public class ShadowIronIngot : BaseIngot
 	{
 		[Constructable]
@@ -192,13 +188,13 @@ namespace Server.Items
 		{
 			base.Deserialize(reader);
 
-			int version = reader.ReadInt();
+			_ = reader.ReadInt();
 		}
 
 
 	}
 
-	[FlipableAttribute(0x1BF2, 0x1BEF)]
+	[Flipable(0x1BF2, 0x1BEF)]
 	public class CopperIngot : BaseIngot
 	{
 		[Constructable]
@@ -226,13 +222,11 @@ namespace Server.Items
 		{
 			base.Deserialize(reader);
 
-			int version = reader.ReadInt();
+			_ = reader.ReadInt();
 		}
-
-
 	}
 
-	[FlipableAttribute(0x1BF2, 0x1BEF)]
+	[Flipable(0x1BF2, 0x1BEF)]
 	public class BronzeIngot : BaseIngot
 	{
 		[Constructable]
@@ -260,13 +254,11 @@ namespace Server.Items
 		{
 			base.Deserialize(reader);
 
-			int version = reader.ReadInt();
+			_ = reader.ReadInt();
 		}
-
-
 	}
 
-	[FlipableAttribute(0x1BF2, 0x1BEF)]
+	[Flipable(0x1BF2, 0x1BEF)]
 	public class GoldIngot : BaseIngot
 	{
 		[Constructable]
@@ -294,13 +286,11 @@ namespace Server.Items
 		{
 			base.Deserialize(reader);
 
-			int version = reader.ReadInt();
+			_ = reader.ReadInt();
 		}
-
-
 	}
 
-	[FlipableAttribute(0x1BF2, 0x1BEF)]
+	[Flipable(0x1BF2, 0x1BEF)]
 	public class AgapiteIngot : BaseIngot
 	{
 		[Constructable]
@@ -328,13 +318,11 @@ namespace Server.Items
 		{
 			base.Deserialize(reader);
 
-			int version = reader.ReadInt();
+			_ = reader.ReadInt();
 		}
-
-
 	}
 
-	[FlipableAttribute(0x1BF2, 0x1BEF)]
+	[Flipable(0x1BF2, 0x1BEF)]
 	public class VeriteIngot : BaseIngot
 	{
 		[Constructable]
@@ -362,13 +350,11 @@ namespace Server.Items
 		{
 			base.Deserialize(reader);
 
-			int version = reader.ReadInt();
+			_ = reader.ReadInt();
 		}
-
-
 	}
 
-	[FlipableAttribute(0x1BF2, 0x1BEF)]
+	[Flipable(0x1BF2, 0x1BEF)]
 	public class ValoriteIngot : BaseIngot
 	{
 		[Constructable]
@@ -396,9 +382,7 @@ namespace Server.Items
 		{
 			base.Deserialize(reader);
 
-			int version = reader.ReadInt();
+			_ = reader.ReadInt();
 		}
-
-
 	}
 }

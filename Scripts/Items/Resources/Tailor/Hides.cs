@@ -92,7 +92,7 @@ namespace Server.Items
 		}
 	}
 
-	[FlipableAttribute(0x1079, 0x1078)]
+	[Flipable(0x1079, 0x1078)]
 	public class Hides : BaseHides, IScissorable
 	{
 		[Constructable]
@@ -120,7 +120,7 @@ namespace Server.Items
 		{
 			base.Deserialize(reader);
 
-			int version = reader.ReadInt();
+			_ = reader.ReadInt();
 		}
 
 		public bool Scissor(Mobile from, Scissors scissors)
@@ -138,7 +138,7 @@ namespace Server.Items
 		}
 	}
 
-	[FlipableAttribute(0x1079, 0x1078)]
+	[Flipable(0x1079, 0x1078)]
 	public class SpinedHides : BaseHides, IScissorable
 	{
 		[Constructable]
@@ -166,7 +166,7 @@ namespace Server.Items
 		{
 			base.Deserialize(reader);
 
-			int version = reader.ReadInt();
+			_ = reader.ReadInt();
 		}
 
 		public bool Scissor(Mobile from, Scissors scissors)
@@ -185,7 +185,7 @@ namespace Server.Items
 		}
 	}
 
-	[FlipableAttribute(0x1079, 0x1078)]
+	[Flipable(0x1079, 0x1078)]
 	public class HornedHides : BaseHides, IScissorable
 	{
 		[Constructable]
@@ -213,7 +213,7 @@ namespace Server.Items
 		{
 			base.Deserialize(reader);
 
-			int version = reader.ReadInt();
+			_ = reader.ReadInt();
 		}
 
 		public bool Scissor(Mobile from, Scissors scissors)
@@ -232,7 +232,7 @@ namespace Server.Items
 		}
 	}
 
-	[FlipableAttribute(0x1079, 0x1078)]
+	[Flipable(0x1079, 0x1078)]
 	public class BarbedHides : BaseHides, IScissorable
 	{
 		[Constructable]
@@ -260,7 +260,7 @@ namespace Server.Items
 		{
 			base.Deserialize(reader);
 
-			int version = reader.ReadInt();
+			_ = reader.ReadInt();
 		}
 
 		public bool Scissor(Mobile from, Scissors scissors)

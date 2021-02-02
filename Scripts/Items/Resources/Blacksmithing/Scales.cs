@@ -91,10 +91,8 @@ namespace Server.Items
 		{
 			base.Deserialize(reader);
 
-			int version = reader.ReadInt();
+			_ = reader.ReadInt();
 		}
-
-
 	}
 
 	public class YellowScales : BaseScales
@@ -124,10 +122,8 @@ namespace Server.Items
 		{
 			base.Deserialize(reader);
 
-			int version = reader.ReadInt();
+			_ = reader.ReadInt();
 		}
-
-
 	}
 
 	public class BlackScales : BaseScales
@@ -157,10 +153,8 @@ namespace Server.Items
 		{
 			base.Deserialize(reader);
 
-			int version = reader.ReadInt();
+			_ = reader.ReadInt();
 		}
-
-
 	}
 
 	public class GreenScales : BaseScales
@@ -190,10 +184,8 @@ namespace Server.Items
 		{
 			base.Deserialize(reader);
 
-			int version = reader.ReadInt();
+			_ = reader.ReadInt();
 		}
-
-
 	}
 
 	public class WhiteScales : BaseScales
@@ -223,10 +215,8 @@ namespace Server.Items
 		{
 			base.Deserialize(reader);
 
-			int version = reader.ReadInt();
+			_ = reader.ReadInt();
 		}
-
-
 	}
 
 	public class BlueScales : BaseScales
@@ -258,9 +248,7 @@ namespace Server.Items
 		{
 			base.Deserialize(reader);
 
-			int version = reader.ReadInt();
+			_ = reader.ReadInt();
 		}
-
-
 	}
 }

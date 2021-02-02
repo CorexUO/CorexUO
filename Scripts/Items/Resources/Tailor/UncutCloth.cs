@@ -2,7 +2,7 @@ using Server.Network;
 
 namespace Server.Items
 {
-	[FlipableAttribute(0x1765, 0x1767)]
+	[Flipable(0x1765, 0x1767)]
 	public class UncutCloth : BaseItem, IScissorable, IDyable, ICommodity
 	{
 		int ICommodity.DescriptionNumber { get { return LabelNumber; } }
@@ -50,15 +50,16 @@ namespace Server.Items
 		{
 			base.Deserialize(reader);
 
-			int version = reader.ReadInt();
+			_ = reader.ReadInt();
 		}
 
 		public override void OnSingleClick(Mobile from)
 		{
 			int number = (Amount == 1) ? 1049124 : 1049123;
 
-			from.Send(new MessageLocalized(Serial, ItemID, MessageType.Regular, 0x3B2, 3, number, "", Amount.ToString()));
+			_ = from.Send(new MessageLocalized(Serial, ItemID, MessageType.Regular, 0x3B2, 3, number, "", Amount.ToString()));
 		}
+
 		public bool Scissor(Mobile from, Scissors scissors)
 		{
 			if (Deleted || !from.CanSee(this)) return false;

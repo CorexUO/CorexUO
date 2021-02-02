@@ -58,7 +58,7 @@ namespace Server.Items
 		{
 			base.Deserialize(reader);
 
-			int version = reader.ReadInt();
+			_ = reader.ReadInt();
 		}
 	}
 
@@ -88,11 +88,7 @@ namespace Server.Items
 		public override void Deserialize(GenericReader reader)
 		{
 			base.Deserialize(reader);
-
-			int version = reader.ReadInt();
-
-			if (Hue == 151)
-				Hue = 51;
+			_ = reader.ReadInt();
 		}
 	}
 
@@ -122,11 +118,7 @@ namespace Server.Items
 		public override void Deserialize(GenericReader reader)
 		{
 			base.Deserialize(reader);
-
-			int version = reader.ReadInt();
-
-			if (Hue == 286)
-				Hue = 86;
+			_ = reader.ReadInt();
 		}
 	}
 
@@ -157,10 +149,7 @@ namespace Server.Items
 		{
 			base.Deserialize(reader);
 
-			int version = reader.ReadInt();
-
-			if (Hue == 376)
-				Hue = 76;
+			_ = reader.ReadInt();
 		}
 	}
 
@@ -194,10 +183,7 @@ namespace Server.Items
 		{
 			base.Deserialize(reader);
 
-			int version = reader.ReadInt();
-
-			if (Hue == 266)
-				Hue = 66;
+			_ = reader.ReadInt();
 		}
 	}
 }

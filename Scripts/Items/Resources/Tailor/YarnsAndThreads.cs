@@ -30,7 +30,7 @@ namespace Server.Items
 		{
 			base.Deserialize(reader);
 
-			int version = reader.ReadInt();
+			_ = reader.ReadInt();
 		}
 
 		public bool Dye(Mobile from, DyeTub sender)
@@ -72,8 +72,8 @@ namespace Server.Items
 
 				ILoom loom = targeted as ILoom;
 
-				if (loom == null && targeted is AddonComponent)
-					loom = ((AddonComponent)targeted).Addon as ILoom;
+				if (loom == null && targeted is AddonComponent component)
+					loom = component.Addon as ILoom;
 
 				if (loom != null)
 				{
@@ -85,18 +85,20 @@ namespace Server.Items
 					{
 						m_Material.Consume();
 
-						if (targeted is Item)
-							((Item)targeted).SendLocalizedMessageTo(from, 1010001 + loom.Phase++);
+						if (targeted is Item item)
+							item.SendLocalizedMessageTo(from, 1010001 + loom.Phase++);
 					}
 					else
 					{
-						Item create = new BoltOfCloth();
-						create.Hue = m_Material.Hue;
+						Item create = new BoltOfCloth
+						{
+							Hue = m_Material.Hue
+						};
 
 						m_Material.Consume();
 						loom.Phase = 0;
 						from.SendLocalizedMessage(500368); // You create some cloth and put it in your backpack.
-						from.AddToBackpack(create);
+						_ = from.AddToBackpack(create);
 					}
 				}
 				else
@@ -134,7 +136,7 @@ namespace Server.Items
 		{
 			base.Deserialize(reader);
 
-			int version = reader.ReadInt();
+			_ = reader.ReadInt();
 		}
 	}
 
@@ -165,7 +167,7 @@ namespace Server.Items
 		{
 			base.Deserialize(reader);
 
-			int version = reader.ReadInt();
+			_ = reader.ReadInt();
 		}
 	}
 
@@ -196,7 +198,7 @@ namespace Server.Items
 		{
 			base.Deserialize(reader);
 
-			int version = reader.ReadInt();
+			_ = reader.ReadInt();
 		}
 	}
 
@@ -227,7 +229,7 @@ namespace Server.Items
 		{
 			base.Deserialize(reader);
 
-			int version = reader.ReadInt();
+			_ = reader.ReadInt();
 		}
 	}
 }

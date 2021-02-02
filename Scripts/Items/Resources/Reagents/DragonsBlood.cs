@@ -1,4 +1,4 @@
-﻿namespace Server.Items
+namespace Server.Items
 {
 	public class DragonsBlood : BaseReagent, ICommodity
 	{
@@ -33,7 +33,7 @@
 		{
 			base.Deserialize(reader);
 
-			int version = reader.ReadInt();
+			_ = reader.ReadInt();
 		}
 	}
 }

@@ -127,6 +127,24 @@ namespace Server.Items
 			}
 		}
 
+		public static bool IsForge(object obj)
+		{
+			if (Core.ML && obj is Mobile mobile && mobile.IsDeadBondedPet)
+				return false;
+
+			if (obj.GetType().IsDefined(typeof(ForgeAttribute), false))
+				return true;
+
+			int itemID = 0;
+
+			if (obj is Item item)
+				itemID = item.ItemID;
+			else if (obj is StaticTarget staticTarget)
+				itemID = staticTarget.ItemID;
+
+			return (itemID == 4017 || (itemID >= 6522 && itemID <= 6569));
+		}
+
 		private class InternalTarget : Target
 		{
 			private readonly BaseOre m_Ore;
@@ -134,24 +152,6 @@ namespace Server.Items
 			public InternalTarget(BaseOre ore) : base(2, false, TargetFlags.None)
 			{
 				m_Ore = ore;
-			}
-
-			private bool IsForge(object obj)
-			{
-				if (Core.ML && obj is Mobile && ((Mobile)obj).IsDeadBondedPet)
-					return false;
-
-				if (obj.GetType().IsDefined(typeof(ForgeAttribute), false))
-					return true;
-
-				int itemID = 0;
-
-				if (obj is Item)
-					itemID = ((Item)obj).ItemID;
-				else if (obj is StaticTarget)
-					itemID = ((StaticTarget)obj).ItemID;
-
-				return (itemID == 4017 || (itemID >= 6522 && itemID <= 6569));
 			}
 
 			protected override void OnTarget(Mobile from, object targeted)
@@ -166,10 +166,8 @@ namespace Server.Items
 				}
 
 				#region Combine Ore
-				if (targeted is BaseOre)
+				if (targeted is BaseOre ore)
 				{
-					BaseOre ore = (BaseOre)targeted;
-
 					if (!ore.Movable)
 					{
 						return;
@@ -231,7 +229,7 @@ namespace Server.Items
 						from.SendLocalizedMessage(1062844); // There is too much ore to combine.
 						return;
 					}
-					else if (ore.RootParent is Mobile && (plusWeight + ((Mobile)ore.RootParent).Backpack.TotalWeight) > ((Mobile)ore.RootParent).Backpack.MaxWeight)
+					else if (ore.RootParent is Mobile mob && (plusWeight + mob.Backpack.TotalWeight) > mob.Backpack.MaxWeight)
 					{
 						from.SendLocalizedMessage(501978); // The weight is too great to combine in a container.
 						return;
@@ -253,21 +251,18 @@ namespace Server.Items
 
 				if (IsForge(targeted))
 				{
-					double difficulty;
-
-					switch (m_Ore.Resource)
+					var difficulty = m_Ore.Resource switch
 					{
-						default: difficulty = 50.0; break;
-						case CraftResource.DullCopper: difficulty = 65.0; break;
-						case CraftResource.ShadowIron: difficulty = 70.0; break;
-						case CraftResource.Copper: difficulty = 75.0; break;
-						case CraftResource.Bronze: difficulty = 80.0; break;
-						case CraftResource.Gold: difficulty = 85.0; break;
-						case CraftResource.Agapite: difficulty = 90.0; break;
-						case CraftResource.Verite: difficulty = 95.0; break;
-						case CraftResource.Valorite: difficulty = 99.0; break;
-					}
-
+						CraftResource.DullCopper => 65.0,
+						CraftResource.ShadowIron => 70.0,
+						CraftResource.Copper => 75.0,
+						CraftResource.Bronze => 80.0,
+						CraftResource.Gold => 85.0,
+						CraftResource.Agapite => 90.0,
+						CraftResource.Verite => 95.0,
+						CraftResource.Valorite => 99.0,
+						_ => 50.0,
+					};
 					double minSkill = difficulty - 25.0;
 					double maxSkill = difficulty + 25.0;
 
@@ -318,7 +313,7 @@ namespace Server.Items
 							ingot.Amount = ingotAmount;
 
 							m_Ore.Consume(toConsume);
-							from.AddToBackpack(ingot);
+							_ = from.AddToBackpack(ingot);
 							//from.PlaySound( 0x57 );
 
 							from.SendLocalizedMessage(501988); // You smelt the ore removing the impurities and put the metal in your backpack.
@@ -377,8 +372,7 @@ namespace Server.Items
 		public override void Deserialize(GenericReader reader)
 		{
 			base.Deserialize(reader);
-
-			int version = reader.ReadInt();
+			_ = reader.ReadInt();
 		}
 
 		public override BaseIngot GetIngot()
@@ -413,8 +407,7 @@ namespace Server.Items
 		public override void Deserialize(GenericReader reader)
 		{
 			base.Deserialize(reader);
-
-			int version = reader.ReadInt();
+			_ = reader.ReadInt();
 		}
 
 		public override BaseIngot GetIngot()
@@ -450,7 +443,7 @@ namespace Server.Items
 		{
 			base.Deserialize(reader);
 
-			int version = reader.ReadInt();
+			_ = reader.ReadInt();
 		}
 
 		public override BaseIngot GetIngot()
@@ -486,7 +479,7 @@ namespace Server.Items
 		{
 			base.Deserialize(reader);
 
-			int version = reader.ReadInt();
+			_ = reader.ReadInt();
 		}
 
 		public override BaseIngot GetIngot()
@@ -522,7 +515,7 @@ namespace Server.Items
 		{
 			base.Deserialize(reader);
 
-			int version = reader.ReadInt();
+			_ = reader.ReadInt();
 		}
 
 		public override BaseIngot GetIngot()
@@ -558,7 +551,7 @@ namespace Server.Items
 		{
 			base.Deserialize(reader);
 
-			int version = reader.ReadInt();
+			_ = reader.ReadInt();
 		}
 
 		public override BaseIngot GetIngot()
@@ -594,7 +587,7 @@ namespace Server.Items
 		{
 			base.Deserialize(reader);
 
-			int version = reader.ReadInt();
+			_ = reader.ReadInt();
 		}
 
 		public override BaseIngot GetIngot()
@@ -630,7 +623,7 @@ namespace Server.Items
 		{
 			base.Deserialize(reader);
 
-			int version = reader.ReadInt();
+			_ = reader.ReadInt();
 		}
 
 		public override BaseIngot GetIngot()
@@ -666,7 +659,7 @@ namespace Server.Items
 		{
 			base.Deserialize(reader);
 
-			int version = reader.ReadInt();
+			_ = reader.ReadInt();
 		}
 
 		public override BaseIngot GetIngot()
