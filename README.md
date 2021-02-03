@@ -6,11 +6,21 @@
 [![Github code lines](https://img.shields.io/tokei/lines/github/CorexUO/CorexUO.svg)](https://github.com/CorexUO/CorexUO/)
 [![GitHub repo size](https://img.shields.io/github/repo-size/CorexUO/CorexUO.svg)](https://github.com/CorexUO/CorexUO/)
 
-
 CorexUO is an Ultima Online server emulator based on RunUO [https://github.com/runuo/runuo]
+The main objective of CorexUO is to update the server code to new technologies, improve the performance and give support for better customization.
+
+For change Era configuration and some basic server configuration you can use the ```Binaries\settings.ini``` file
+## Era Support
+```
+- T2A: Some mechanics
+- UOR: Pub 16 acurrate
+- AOS: Mostly completed
+- ML: Few things
+- Newests Era: Without updates
+```
 
 ## .Net 5 Support
-Change the core to work with .Net Core framework.
+Change the core to work with .Net 5 framework.
 
 ## Requirements to Compile
 - [.NET 5 SDK](https://dotnet.microsoft.com/download/dotnet/5.0)
