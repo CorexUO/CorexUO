@@ -63,6 +63,15 @@ namespace Server.Mobiles
 		}
 
 		/// <summary>
+		/// Overridable. Virtual event when the Mobile is killed by
+		/// </summary>
+		/// <param name="mob"></param>
+		public virtual void OnKilledBy(Mobile mob)
+		{
+
+		}
+
+		/// <summary>
 		/// Overridable. Virtual event when the Mobile got a Melee Attack
 		/// </summary>
 		/// <param name="attacker"></param>
@@ -73,7 +82,7 @@ namespace Server.Mobiles
 		/// <summary>
 		/// Overridable. Virtual event when the Mobile gave a Melee Attack
 		/// </summary>
-		/// <param name="attacker"></param>
+		/// <param name="defender"></param>
 		public virtual void OnGaveMeleeAttack(Mobile defender)
 		{
 		}

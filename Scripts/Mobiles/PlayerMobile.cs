@@ -2724,7 +2724,9 @@ namespace Server.Mobiles
 					pm.SendLocalizedMessage(1060397, pm.m_InsuranceBonus.ToString()); // ~1_AMOUNT~ gold has been deposited into your bank box.
 			}
 
-			Mobile killer = this.FindMostRecentDamager(true);
+			Mobile killer = FindMostRecentDamager(true);
+
+			OnKilledBy(killer);
 
 			if (killer is BaseCreature bc)
 			{
@@ -2733,7 +2735,7 @@ namespace Server.Mobiles
 					killer = master;
 			}
 
-			if (this.Young && DuelContext == null)
+			if (Young && DuelContext == null)
 			{
 				if (YoungDeathTeleport())
 					Timer.DelayCall(TimeSpan.FromSeconds(2.5), new TimerCallback(SendYoungDeathNotice));

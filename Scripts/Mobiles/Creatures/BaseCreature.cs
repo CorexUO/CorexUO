@@ -4450,8 +4450,10 @@ namespace Server.Mobiles
 		public virtual bool GivesMLMinorArtifact { get { return false; } }
 		#endregion
 
-		public virtual void OnKilledBy(Mobile mob)
+		public override void OnKilledBy(Mobile mob)
 		{
+			base.OnKilledBy(mob);
+
 			#region Mondain's Legacy
 			if (GivesMLMinorArtifact)
 			{
