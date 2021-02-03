@@ -2,9 +2,7 @@ namespace Server.Misc
 {
 	public class TreasuresOfTokunoPersistance : BaseItem
 	{
-		private static TreasuresOfTokunoPersistance m_Instance;
-
-		public static TreasuresOfTokunoPersistance Instance { get { return m_Instance; } }
+		public static TreasuresOfTokunoPersistance Instance { get; private set; }
 
 		public override string DefaultName
 		{
@@ -13,23 +11,23 @@ namespace Server.Misc
 
 		public static void Initialize()
 		{
-			if (m_Instance == null)
-				new TreasuresOfTokunoPersistance();
+			if (Instance == null)
+				_ = new TreasuresOfTokunoPersistance();
 		}
 
 		public TreasuresOfTokunoPersistance() : base(1)
 		{
 			Movable = false;
 
-			if (m_Instance == null || m_Instance.Deleted)
-				m_Instance = this;
+			if (Instance == null || Instance.Deleted)
+				Instance = this;
 			else
 				base.Delete();
 		}
 
 		public TreasuresOfTokunoPersistance(Serial serial) : base(serial)
 		{
-			m_Instance = this;
+			Instance = this;
 		}
 
 		public override void Serialize(GenericWriter writer)

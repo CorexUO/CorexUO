@@ -35,7 +35,7 @@ namespace Server.Items
 
 			for (int i = 0; i < count; i++)
 			{
-				m.AddToBackpack(Loot.RandomTalisman());
+				_ = m.AddToBackpack(Loot.RandomTalisman());
 			}
 		}
 
@@ -307,13 +307,12 @@ namespace Server.Items
 						{
 							from.SendLocalizedMessage(500720); // You don't have enough room in your backpack!
 							item.Delete();
-							item = null;
 							return;
 						}
 
 						for (int i = 0; i < count; i++)
 						{
-							from.PlaceInBackpack(item);
+							_ = from.PlaceInBackpack(item);
 
 							if (i + 1 < count)
 								item = Activator.CreateInstance(type) as Item;
@@ -337,7 +336,7 @@ namespace Server.Items
 							return;
 						}
 
-						BaseCreature.Summon(mob, from, from.Location, mob.BaseSoundID, TimeSpan.FromMinutes(10));
+						_ = BaseCreature.Summon(mob, from, from.Location, mob.BaseSoundID, TimeSpan.FromMinutes(10));
 						Effects.SendLocationParticles(EffectItem.Create(mob.Location, mob.Map, EffectItem.DefaultDuration), 0x3728, 1, 10, 0x26B6);
 
 						mob.Summoned = false;
@@ -448,7 +447,7 @@ namespace Server.Items
 			if ((prop = Attributes.RegenMana) != 0)
 				list.Add(1060440, prop.ToString()); // mana regeneration ~1_val~
 
-			if ((prop = Attributes.NightSight) != 0)
+			if ((_ = Attributes.NightSight) != 0)
 				list.Add(1060441); // night sight
 
 			if ((prop = Attributes.ReflectPhysical) != 0)
@@ -460,7 +459,7 @@ namespace Server.Items
 			if ((prop = Attributes.RegenHits) != 0)
 				list.Add(1060444, prop.ToString()); // hit point regeneration ~1_val~
 
-			if ((prop = Attributes.SpellChanneling) != 0)
+			if ((_ = Attributes.SpellChanneling) != 0)
 				list.Add(1060482); // spell channeling
 
 			if ((prop = Attributes.SpellDamage) != 0)
@@ -956,11 +955,9 @@ namespace Server.Items
 				if (m_Talisman == null || m_Talisman.Deleted)
 					return;
 
-				Mobile target = o as Mobile;
-
 				if (from.Talisman != m_Talisman)
 					from.SendLocalizedMessage(502641); // You must equip this item to use it.
-				else if (target == null)
+				else if (o is not Mobile target)
 					from.SendLocalizedMessage(1046439); // That is not a valid target.
 				else if (m_Talisman.ChargeTime > 0)
 					from.SendLocalizedMessage(1074882, m_Talisman.ChargeTime.ToString()); // You must wait ~1_val~ seconds for this to recharge.
@@ -983,21 +980,21 @@ namespace Server.Items
 
 							mod = target.GetStatMod("[Magic] Str Offset");
 							if (mod != null && mod.Offset < 0)
-								target.RemoveStatMod("[Magic] Str Offset");
+								_ = target.RemoveStatMod("[Magic] Str Offset");
 
 							mod = target.GetStatMod("[Magic] Dex Offset");
 							if (mod != null && mod.Offset < 0)
-								target.RemoveStatMod("[Magic] Dex Offset");
+								_ = target.RemoveStatMod("[Magic] Dex Offset");
 
 							mod = target.GetStatMod("[Magic] Int Offset");
 							if (mod != null && mod.Offset < 0)
-								target.RemoveStatMod("[Magic] Int Offset");
+								_ = target.RemoveStatMod("[Magic] Int Offset");
 
 							target.Paralyzed = false;
 
-							EvilOmenSpell.TryEndEffect(target);
-							StrangleSpell.RemoveCurse(target);
-							CorpseSkinSpell.RemoveCurse(target);
+							_ = EvilOmenSpell.TryEndEffect(target);
+							_ = StrangleSpell.RemoveCurse(target);
+							_ = CorpseSkinSpell.RemoveCurse(target);
 							CurseSpell.RemoveEffect(target);
 
 							BuffInfo.RemoveBuff(target, BuffIcon.Clumsy);

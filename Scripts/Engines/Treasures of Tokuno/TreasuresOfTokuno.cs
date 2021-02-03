@@ -21,7 +21,7 @@ namespace Server.Misc
 	{
 		public const int ItemsPerReward = 10;
 
-		private static readonly Type[] m_LesserArtifactsTotal = new Type[]
+		public static Type[] LesserArtifactsTotal { get; } = new Type[]
 			{
 				typeof( AncientFarmersKasa ), typeof( AncientSamuraiDo ), typeof( ArmsOfTacticalExcellence ), typeof( BlackLotusHood ),
 				 typeof( DaimyosHelm ), typeof( DemonForks ), typeof( DragonNunchaku ), typeof( Exiler ), typeof( GlovesOfTheSun ),
@@ -30,22 +30,9 @@ namespace Server.Misc
 				typeof( LeurociansMempoOfFortune ), typeof( LesserPigmentsOfTokuno ), typeof( MetalPigmentsOfTokuno ), typeof( ChestOfHeirlooms )
 			 };
 
-		public static Type[] LesserArtifactsTotal { get { return m_LesserArtifactsTotal; } }
+		public static TreasuresOfTokunoEra DropEra { get; set; } = TreasuresOfTokunoEra.None;
 
-		private static TreasuresOfTokunoEra _DropEra = TreasuresOfTokunoEra.None;
-		private static TreasuresOfTokunoEra _RewardEra = TreasuresOfTokunoEra.ToTOne;
-
-		public static TreasuresOfTokunoEra DropEra
-		{
-			get { return _DropEra; }
-			set { _DropEra = value; }
-		}
-
-		public static TreasuresOfTokunoEra RewardEra
-		{
-			get { return _RewardEra; }
-			set { _RewardEra = value; }
-		}
+		public static TreasuresOfTokunoEra RewardEra { get; set; } = TreasuresOfTokunoEra.ToTOne;
 
 		private static readonly Type[][] m_LesserArtifacts = new Type[][]
 		{
@@ -123,10 +110,7 @@ namespace Server.Misc
 
 		public static void HandleKill(Mobile victim, Mobile killer)
 		{
-			PlayerMobile pm = killer as PlayerMobile;
-			BaseCreature bc = victim as BaseCreature;
-
-			if (DropEra == TreasuresOfTokunoEra.None || pm == null || bc == null || !CheckLocation(bc) || !CheckLocation(pm) || !killer.InRange(victim, 18))
+			if (DropEra == TreasuresOfTokunoEra.None || killer is not PlayerMobile pm || victim is not BaseCreature bc || !CheckLocation(bc) || !CheckLocation(pm) || !killer.InRange(victim, 18))
 				return;
 
 			if (bc.Controlled || bc.Owners.Count > 0 || bc.Fame <= 0)
@@ -205,8 +189,10 @@ namespace Server.Mobiles
 			AddItem(new Backpack());
 			AddItem(new Kamishimo(0x483));
 
-			Item item = new LightPlateJingasa();
-			item.Hue = 0x711;
+			Item item = new LightPlateJingasa
+			{
+				Hue = 0x711
+			};
 
 			AddItem(item);
 		}
@@ -236,7 +222,7 @@ namespace Server.Mobiles
 		{
 			base.Deserialize(reader);
 
-			int version = reader.ReadInt();
+			_ = reader.ReadInt();
 		}
 
 		public override bool CanBeDamaged()
@@ -246,10 +232,8 @@ namespace Server.Mobiles
 
 		public override void OnMovement(Mobile m, Point3D oldLocation)
 		{
-			if (m.Alive && m is PlayerMobile)
+			if (m.Alive && m is PlayerMobile pm)
 			{
-				PlayerMobile pm = (PlayerMobile)m;
-
 				int range = 3;
 
 				if (m.Alive && Math.Abs(Z - m.Z) < 16 && InRange(m, range) && !InRange(oldLocation, range))
@@ -258,10 +242,10 @@ namespace Server.Mobiles
 					{
 						SayTo(pm, 1070980); // Congratulations! You have turned in enough minor treasures to earn a greater reward.
 
-						pm.CloseGump(typeof(ToTTurnInGump));    //Sanity
+						_ = pm.CloseGump(typeof(ToTTurnInGump));    //Sanity
 
 						if (!pm.HasGump(typeof(ToTRedeemGump)))
-							pm.SendGump(new ToTRedeemGump(this, false));
+							_= pm.SendGump(new ToTRedeemGump(this, false));
 					}
 					else
 					{
@@ -273,7 +257,7 @@ namespace Server.Mobiles
 						ArrayList buttons = ToTTurnInGump.FindRedeemableItems(pm);
 
 						if (buttons.Count > 0 && !pm.HasGump(typeof(ToTTurnInGump)))
-							pm.SendGump(new ToTTurnInGump(this, buttons));
+							_ = pm.SendGump(new ToTTurnInGump(this, buttons));
 					}
 				}
 
@@ -281,8 +265,8 @@ namespace Server.Mobiles
 
 				if (!InRange(m, leaveRange) && InRange(oldLocation, leaveRange))
 				{
-					pm.CloseGump(typeof(ToTRedeemGump));
-					pm.CloseGump(typeof(ToTTurnInGump));
+					_ = pm.CloseGump(typeof(ToTRedeemGump));
+					_ = pm.CloseGump(typeof(ToTTurnInGump));
 				}
 			}
 		}
@@ -295,17 +279,11 @@ namespace Server.Gumps
 {
 	public class ItemTileButtonInfo : ImageTileButtonInfo
 	{
-		private Item m_Item;
-
-		public Item Item
-		{
-			get { return m_Item; }
-			set { m_Item = value; }
-		}
+		public Item Item { get; set; }
 
 		public ItemTileButtonInfo(Item i) : base(i.ItemID, i.Hue, ((i.Name == null || i.Name.Length <= 0) ? (TextDefinition)i.LabelNumber : (TextDefinition)i.Name))
 		{
-			m_Item = i;
+			Item = i;
 		}
 	}
 
@@ -323,16 +301,16 @@ namespace Server.Gumps
 			for (int i = 0; i < items.Count; i++)
 			{
 				Item item = (Item)items[i];
-				if (item is ChestOfHeirlooms && !((ChestOfHeirlooms)item).Locked)
+				if (item is ChestOfHeirlooms heirlooms && !heirlooms.Locked)
 					continue;
 
-				if (item is ChestOfHeirlooms && ((ChestOfHeirlooms)item).TrapLevel != 10)
+				if (item is ChestOfHeirlooms heirlooms1 && heirlooms1.TrapLevel != 10)
 					continue;
 
-				if (item is PigmentsOfTokuno && ((PigmentsOfTokuno)item).Type != PigmentType.None)
+				if (item is PigmentsOfTokuno tokuno && tokuno.Type != PigmentType.None)
 					continue;
 
-				buttons.Add(new ItemTileButtonInfo(item));
+				_ = buttons.Add(new ItemTileButtonInfo(item));
 			}
 
 			return buttons;
@@ -352,11 +330,9 @@ namespace Server.Gumps
 
 		public override void HandleButtonResponse(NetState sender, int adjustedButton, ImageTileButtonInfo buttonInfo)
 		{
-			PlayerMobile pm = sender.Mobile as PlayerMobile;
-
 			Item item = ((ItemTileButtonInfo)buttonInfo).Item;
 
-			if (!(pm != null && item.IsChildOf(pm.Backpack) && pm.InRange(m_Collector.Location, 7)))
+			if (!(sender.Mobile is PlayerMobile pm && item.IsChildOf(pm.Backpack) && pm.InRange(m_Collector.Location, 7)))
 				return;
 
 			item.Delete();
@@ -365,10 +341,10 @@ namespace Server.Gumps
 			{
 				m_Collector.SayTo(pm, 1070980); // Congratulations! You have turned in enough minor treasures to earn a greater reward.
 
-				pm.CloseGump(typeof(ToTTurnInGump));    //Sanity
+				_ = pm.CloseGump(typeof(ToTTurnInGump));    //Sanity
 
 				if (!pm.HasGump(typeof(ToTRedeemGump)))
-					pm.SendGump(new ToTRedeemGump(m_Collector, false));
+					_ = pm.SendGump(new ToTRedeemGump(m_Collector, false));
 			}
 			else
 			{
@@ -376,18 +352,16 @@ namespace Server.Gumps
 
 				ArrayList buttons = FindRedeemableItems(pm);
 
-				pm.CloseGump(typeof(ToTTurnInGump)); //Sanity
+				_ = pm.CloseGump(typeof(ToTTurnInGump)); //Sanity
 
 				if (buttons.Count > 0)
-					pm.SendGump(new ToTTurnInGump(m_Collector, buttons));
+					_ = pm.SendGump(new ToTTurnInGump(m_Collector, buttons));
 			}
 		}
 
 		public override void HandleCancel(NetState sender)
 		{
-			PlayerMobile pm = sender.Mobile as PlayerMobile;
-
-			if (pm == null || !pm.InRange(m_Collector.Location, 7))
+			if (sender.Mobile is not PlayerMobile pm || !pm.InRange(m_Collector.Location, 7))
 				return;
 
 			if (pm.ToTItemsTurnedIn == 0)
@@ -407,13 +381,11 @@ namespace Server.Gumps
 	{
 		public class TypeTileButtonInfo : ImageTileButtonInfo
 		{
-			private readonly Type m_Type;
-
-			public Type Type { get { return m_Type; } }
+			public Type Type { get; }
 
 			public TypeTileButtonInfo(Type type, int itemID, int hue, TextDefinition label, int localizedToolTip) : base(itemID, hue, label, localizedToolTip)
 			{
-				m_Type = type;
+				Type = type;
 			}
 
 			public TypeTileButtonInfo(Type type, int itemID, TextDefinition label) : this(type, itemID, 0, label, -1)
@@ -427,29 +399,18 @@ namespace Server.Gumps
 
 		public class PigmentsTileButtonInfo : ImageTileButtonInfo
 		{
-			private PigmentType m_Pigment;
-
-			public PigmentType Pigment
-			{
-				get
-				{
-					return m_Pigment;
-				}
-
-				set
-				{
-					m_Pigment = value;
-				}
-			}
+			public PigmentType Pigment { get; set; }
 
 			public PigmentsTileButtonInfo(PigmentType p) : base(0xEFF, PigmentsOfTokuno.GetInfo(p)[0], PigmentsOfTokuno.GetInfo(p)[1])
 			{
-				m_Pigment = p;
+				Pigment = p;
 			}
 		}
 
 		#region ToT Normal Rewards Table
-		private static readonly TypeTileButtonInfo[][] m_NormalRewards = new TypeTileButtonInfo[][]
+		#endregion
+
+		public static TypeTileButtonInfo[][] NormalRewards { get; } = new TypeTileButtonInfo[][]
 		{
 			// ToT One Rewards
 			new TypeTileButtonInfo[] {
@@ -490,15 +451,11 @@ namespace Server.Gumps
 				new TypeTileButtonInfo( typeof( TomeOfLostKnowledge ),   0x0EFA, 0x530, 1070971, 1071009 )
 			}
 		};
-		#endregion
-
-		public static TypeTileButtonInfo[][] NormalRewards
-		{
-			get { return m_NormalRewards; }
-		}
 
 		#region ToT Pigment Rewards Table
-		private static readonly PigmentsTileButtonInfo[][] m_PigmentRewards = new PigmentsTileButtonInfo[][]
+		#endregion
+
+		public static PigmentsTileButtonInfo[][] PigmentRewards { get; } = new PigmentsTileButtonInfo[][]
 		{
 			// ToT One Pigment Rewards
 			new PigmentsTileButtonInfo[] {
@@ -539,25 +496,17 @@ namespace Server.Gumps
 				new PigmentsTileButtonInfo( PigmentType.FireOrange )
 			}
 		};
-		#endregion
-
-		public static PigmentsTileButtonInfo[][] PigmentRewards
-		{
-			get { return m_PigmentRewards; }
-		}
 
 		private readonly Mobile m_Collector;
 
-		public ToTRedeemGump(Mobile collector, bool pigments) : base(pigments ? 1070986 : 1070985, pigments ? m_PigmentRewards[(int)TreasuresOfTokuno.RewardEra - 1] : (ImageTileButtonInfo[])m_NormalRewards[(int)TreasuresOfTokuno.RewardEra - 1])
+		public ToTRedeemGump(Mobile collector, bool pigments) : base(pigments ? 1070986 : 1070985, pigments ? PigmentRewards[(int)TreasuresOfTokuno.RewardEra - 1] : (ImageTileButtonInfo[])NormalRewards[(int)TreasuresOfTokuno.RewardEra - 1])
 		{
 			m_Collector = collector;
 		}
 
 		public override void HandleButtonResponse(NetState sender, int adjustedButton, ImageTileButtonInfo buttonInfo)
 		{
-			PlayerMobile pm = sender.Mobile as PlayerMobile;
-
-			if (pm == null || !pm.InRange(m_Collector.Location, 7) || !(pm.ToTItemsTurnedIn >= TreasuresOfTokuno.ItemsPerReward))
+			if (sender.Mobile is not PlayerMobile pm || !pm.InRange(m_Collector.Location, 7) || !(pm.ToTItemsTurnedIn >= TreasuresOfTokuno.ItemsPerReward))
 				return;
 
 			bool pigments = (buttonInfo is PigmentsTileButtonInfo);
@@ -576,10 +525,10 @@ namespace Server.Gumps
 
 				if (t.Type == typeof(PigmentsOfTokuno)) //Special case of course.
 				{
-					pm.CloseGump(typeof(ToTTurnInGump));    //Sanity
-					pm.CloseGump(typeof(ToTRedeemGump));
+					_ = pm.CloseGump(typeof(ToTTurnInGump));    //Sanity
+					_ = pm.CloseGump(typeof(ToTRedeemGump));
 
-					pm.SendGump(new ToTRedeemGump(m_Collector, true));
+					_= pm.SendGump(new ToTRedeemGump(m_Collector, true));
 
 					return;
 				}
@@ -610,9 +559,7 @@ namespace Server.Gumps
 
 		public override void HandleCancel(NetState sender)
 		{
-			PlayerMobile pm = sender.Mobile as PlayerMobile;
-
-			if (pm == null || !pm.InRange(m_Collector.Location, 7))
+			if (sender.Mobile is not PlayerMobile pm || !pm.InRange(m_Collector.Location, 7))
 				return;
 
 			if (pm.ToTItemsTurnedIn == 0)
