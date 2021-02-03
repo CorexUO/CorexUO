@@ -9209,6 +9209,8 @@ namespace Server
 				World.m_MobileTypes.Add(ourType);
 				m_TypeRef = World.m_MobileTypes.Count - 1;
 			}
+
+			Init();
 		}
 
 		public Mobile()
@@ -9250,6 +9252,15 @@ namespace Server
 
 			NextSkillTime = Core.TickCount;
 			CreationTime = DateTime.UtcNow;
+
+			Init();
+		}
+
+		/// <summary>
+		/// Overridable. Event invoked when the mobile is initialize
+		/// </summary>
+		public virtual void Init()
+		{
 		}
 
 		private static readonly Queue<Mobile> m_DeltaQueue = new Queue<Mobile>();
