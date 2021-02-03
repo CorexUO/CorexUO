@@ -62,6 +62,38 @@ namespace Server.Mobiles
 			return false;
 		}
 
+		/// <summary>
+		/// Overridable. Virtual event when the Mobile got a Melee Attack
+		/// </summary>
+		/// <param name="attacker"></param>
+		public virtual void OnGotMeleeAttack(Mobile attacker)
+		{
+		}
+
+		/// <summary>
+		/// Overridable. Virtual event when the Mobile gave a Melee Attack
+		/// </summary>
+		/// <param name="attacker"></param>
+		public virtual void OnGaveMeleeAttack(Mobile defender)
+		{
+		}
+
+		/// <summary>
+		/// Overridable. Virtual event when the Mobile is damaged by Spell
+		/// </summary>
+		/// <param name="from"></param>
+		public virtual void OnDamagedBySpell(Mobile from)
+		{
+		}
+
+		/// <summary>
+		/// Overridable. Virtual event when the Mobile is hit by OnHarmfulSpell
+		/// </summary>
+		/// <param name="from"></param>
+		public virtual void OnHarmfulSpell(Mobile from)
+		{
+		}
+
 		public override void Serialize(GenericWriter writer)
 		{
 			base.Serialize(writer);

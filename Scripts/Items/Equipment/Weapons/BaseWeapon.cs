@@ -1625,11 +1625,11 @@ namespace Server.Items
 					DoLowerDefense(attacker, defender);
 			}
 
-			if (attacker is BaseCreature atbc)
-				atbc.OnGaveMeleeAttack(defender);
+			if (attacker is BaseMobile abm)
+				abm.OnGaveMeleeAttack(defender);
 
-			if (defender is BaseCreature debc)
-				debc.OnGotMeleeAttack(attacker);
+			if (defender is BaseMobile dmb)
+				dmb.OnGotMeleeAttack(attacker);
 
 			if (a != null)
 				a.OnHit(attacker, defender, damage);

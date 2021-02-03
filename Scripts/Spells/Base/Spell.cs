@@ -119,8 +119,8 @@ namespace Server.Spells
 
 		public void HarmfulSpell(Mobile m)
 		{
-			if (m is BaseCreature creature)
-				creature.OnHarmfulSpell(Caster);
+			if (m is BaseMobile mobile)
+				mobile.OnHarmfulSpell(Caster);
 		}
 
 		public Spell(Mobile caster, Item scroll, SpellInfo info)

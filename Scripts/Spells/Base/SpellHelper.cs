@@ -900,10 +900,10 @@ namespace Server.Spells
 				new SpellDamageTimer(spell, target, from, iDamage, delay).Start();
 			}
 
-			if (target is BaseCreature bc && from != null && delay == TimeSpan.Zero)
+			if (target is BaseMobile mobile && from != null && delay == TimeSpan.Zero)
 			{
-				bc.OnHarmfulSpell(from);
-				bc.OnDamagedBySpell(from);
+				mobile.OnHarmfulSpell(from);
+				mobile.OnDamagedBySpell(from);
 			}
 		}
 
@@ -964,10 +964,10 @@ namespace Server.Spells
 				new SpellDamageTimerAOS(spell, target, from, iDamage, phys, fire, cold, pois, nrgy, delay, dfa).Start();
 			}
 
-			if (target is BaseCreature c && from != null && delay == TimeSpan.Zero)
+			if (target is BaseMobile mobile && from != null && delay == TimeSpan.Zero)
 			{
-				c.OnHarmfulSpell(from);
-				c.OnDamagedBySpell(from);
+				mobile.OnHarmfulSpell(from);
+				mobile.OnDamagedBySpell(from);
 			}
 		}
 
@@ -1085,15 +1085,14 @@ namespace Server.Spells
 
 				WeightOverloading.DFA = DFAlgorithm.Standard;
 
-				if (m_Target is BaseCreature c && m_From != null)
+				if (m_Target is BaseMobile bm && m_From != null)
 				{
-					c.OnHarmfulSpell(m_From);
-					c.OnDamagedBySpell(m_From);
+					bm.OnHarmfulSpell(m_From);
+					bm.OnDamagedBySpell(m_From);
 				}
 
 				if (m_Spell != null)
 					m_Spell.RemoveDelayedDamageContext(m_Target);
-
 			}
 		}
 	}

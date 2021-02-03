@@ -1359,15 +1359,17 @@ namespace Server.Mobiles
 			base.OnDamage(amount, from, willKill);
 		}
 
-		public virtual void OnDamagedBySpell(Mobile from)
+		public override void OnDamagedBySpell(Mobile from)
 		{
+			base.OnDamagedBySpell(from);
+
 			if (CanBeDistracted && ControlOrder == OrderType.Follow)
 			{
 				CheckDistracted(from);
 			}
 		}
 
-		public virtual void OnHarmfulSpell(Mobile from)
+		public override void OnHarmfulSpell(Mobile from)
 		{
 		}
 
@@ -2577,8 +2579,10 @@ namespace Server.Mobiles
 
 		public virtual bool CanRummageCorpses { get { return false; } }
 
-		public virtual void OnGotMeleeAttack(Mobile attacker)
+		public override void OnGotMeleeAttack(Mobile attacker)
 		{
+			base.OnGotMeleeAttack(attacker);
+
 			if (AutoDispel && attacker is BaseCreature creature && creature.IsDispellable && AutoDispelChance > Utility.RandomDouble())
 				Dispel(attacker);
 		}
@@ -2593,8 +2597,10 @@ namespace Server.Mobiles
 
 		public virtual bool DeleteOnRelease { get { return m_bSummoned; } }
 
-		public virtual void OnGaveMeleeAttack(Mobile defender)
+		public override void OnGaveMeleeAttack(Mobile defender)
 		{
+			base.OnGaveMeleeAttack(defender);
+
 			Poison p = HitPoison;
 
 			if (m_Paragon)

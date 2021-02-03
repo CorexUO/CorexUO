@@ -194,8 +194,8 @@ namespace Server.Spells.Fifth
 					if (SpellHelper.CanRevealCaster(m))
 						m_Caster.RevealingAction();
 
-				if (m is BaseCreature)
-					((BaseCreature)m).OnHarmfulSpell(m_Caster);
+				if (m is BaseMobile bm)
+					bm.OnHarmfulSpell(m_Caster);
 			}
 
 			public override bool OnMoveOver(Mobile m)

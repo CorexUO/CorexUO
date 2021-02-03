@@ -204,8 +204,8 @@ namespace Server.Spells.Fourth
 					AOS.Damage(m, m_Caster, damage, 0, 100, 0, 0, 0);
 					m.PlaySound(0x208);
 
-					if (m is BaseCreature)
-						((BaseCreature)m).OnHarmfulSpell(m_Caster);
+					if (m is BaseMobile bm)
+						bm.OnHarmfulSpell(m_Caster);
 				}
 
 				return true;
@@ -284,8 +284,8 @@ namespace Server.Spells.Fourth
 								AOS.Damage(m, caster, damage, 0, 100, 0, 0, 0);
 								m.PlaySound(0x208);
 
-								if (m is BaseCreature)
-									((BaseCreature)m).OnHarmfulSpell(caster);
+								if (m is BaseMobile bm)
+									bm.OnHarmfulSpell(caster);
 							}
 						}
 					}
