@@ -1,5 +1,6 @@
 using Server.Engines.CannedEvil;
 using Server.Items;
+using Server.Spells;
 using System;
 using System.Collections;
 
@@ -88,9 +89,9 @@ namespace Server.Mobiles
 
 		// TODO: Hit Lightning Area
 
-		public override void OnDamagedBySpell(Mobile attacker)
+		public override void OnDamagedBySpell(Mobile attacker, Spell spell, int damage)
 		{
-			base.OnDamagedBySpell(attacker);
+			base.OnDamagedBySpell(attacker, spell , damage);
 
 			ScaleResistances();
 			DoCounter(attacker);

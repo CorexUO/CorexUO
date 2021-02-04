@@ -1,4 +1,5 @@
 using Server.Misc;
+using Server.Spells;
 using System;
 
 namespace Server.Mobiles
@@ -98,7 +99,7 @@ namespace Server.Mobiles
 		/// Overridable. Virtual event when the Mobile is damaged by Spell
 		/// </summary>
 		/// <param name="from"></param>
-		public virtual void OnDamagedBySpell(Mobile from)
+		public virtual void OnDamagedBySpell(Mobile from, Spell spell, int damage)
 		{
 		}
 
@@ -106,7 +107,7 @@ namespace Server.Mobiles
 		/// Overridable. Virtual event when the Mobile is hit by OnHarmfulSpell
 		/// </summary>
 		/// <param name="from"></param>
-		public virtual void OnHarmfulSpell(Mobile from)
+		public virtual void OnHarmfulSpell(Mobile from, Spell spell = null)
 		{
 		}
 

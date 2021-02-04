@@ -1,5 +1,6 @@
 using Server.ContextMenus;
 using Server.Items;
+using Server.Spells;
 using System.Collections.Generic;
 
 namespace Server.Mobiles
@@ -89,8 +90,9 @@ namespace Server.Mobiles
 		{
 		}
 
-		public override void OnHarmfulSpell(Mobile from)
+		public override void OnHarmfulSpell(Mobile from, Spell spell)
 		{
+			base.OnHarmfulSpell(from, spell);
 			if (!Controlled && ControlMaster == null)
 				CurrentSpeed = BoostedSpeed;
 		}

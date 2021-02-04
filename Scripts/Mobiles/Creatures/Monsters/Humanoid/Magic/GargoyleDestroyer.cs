@@ -1,4 +1,5 @@
 using Server.Items;
+using Server.Spells;
 
 namespace Server.Mobiles
 {
@@ -58,8 +59,9 @@ namespace Server.Mobiles
 		public override int Meat { get { return 1; } }
 		public override bool CanFly { get { return true; } }
 
-		public override void OnDamagedBySpell(Mobile from)
+		public override void OnDamagedBySpell(Mobile from, Spell spell, int damage)
 		{
+			base.OnDamagedBySpell(from, spell, damage);
 			if (from != null && from.Alive && 0.4 > Utility.RandomDouble())
 			{
 				ThrowHatchet(from);

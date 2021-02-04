@@ -1359,9 +1359,9 @@ namespace Server.Mobiles
 			base.OnDamage(amount, from, willKill);
 		}
 
-		public override void OnDamagedBySpell(Mobile from)
+		public override void OnDamagedBySpell(Mobile from, Spell spell, int damage)
 		{
-			base.OnDamagedBySpell(from);
+			base.OnDamagedBySpell(from, spell, damage);
 
 			if (CanBeDistracted && ControlOrder == OrderType.Follow)
 			{
@@ -1369,8 +1369,9 @@ namespace Server.Mobiles
 			}
 		}
 
-		public override void OnHarmfulSpell(Mobile from)
+		public override void OnHarmfulSpell(Mobile from, Spell spell)
 		{
+			base.OnHarmfulSpell(from, spell);
 		}
 
 		#region Alter[...]Damage From/To

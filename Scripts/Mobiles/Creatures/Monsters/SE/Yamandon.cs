@@ -1,4 +1,5 @@
 using Server.Items;
+using Server.Spells;
 using System.Collections;
 
 namespace Server.Mobiles
@@ -64,9 +65,9 @@ namespace Server.Mobiles
 		public override int TreasureMapLevel { get { return 5; } }
 		public override int Hides { get { return 20; } }
 
-		public override void OnDamagedBySpell(Mobile attacker)
+		public override void OnDamagedBySpell(Mobile attacker, Spell spell, int damage)
 		{
-			base.OnDamagedBySpell(attacker);
+			base.OnDamagedBySpell(attacker, spell, damage);
 
 			DoCounter(attacker);
 		}

@@ -120,7 +120,7 @@ namespace Server.Spells
 		public void HarmfulSpell(Mobile m)
 		{
 			if (m is BaseMobile mobile)
-				mobile.OnHarmfulSpell(Caster);
+				mobile.OnHarmfulSpell(Caster, this);
 		}
 
 		public Spell(Mobile caster, Item scroll, SpellInfo info)

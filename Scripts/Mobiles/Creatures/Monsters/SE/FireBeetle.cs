@@ -1,4 +1,5 @@
 using Server.Items;
+using Server.Spells;
 
 namespace Server.Mobiles
 {
@@ -48,8 +49,9 @@ namespace Server.Mobiles
 			Hue = 0x489;
 		}
 
-		public override void OnHarmfulSpell(Mobile from)
+		public override void OnHarmfulSpell(Mobile from, Spell spell)
 		{
+			base.OnHarmfulSpell(from, spell);
 			if (!Controlled && ControlMaster == null)
 				CurrentSpeed = BoostedSpeed;
 		}

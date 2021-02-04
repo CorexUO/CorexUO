@@ -1,5 +1,6 @@
 using Server.Items;
 using Server.Network;
+using Server.Spells;
 using System;
 using System.Collections;
 
@@ -67,9 +68,9 @@ namespace Server.Mobiles
 		 * Effect: damage is dealt to the attacker, no damage is taken by the fan dancer
 		 */
 
-		public override void OnDamagedBySpell(Mobile attacker)
+		public override void OnDamagedBySpell(Mobile attacker, Spell spell, int damage)
 		{
-			base.OnDamagedBySpell(attacker);
+			base.OnDamagedBySpell(attacker, spell, damage);
 
 			if (0.8 > Utility.RandomDouble() && !attacker.InRange(this, 1))
 			{

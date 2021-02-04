@@ -1,5 +1,6 @@
 using Server.Items;
 using Server.Network;
+using Server.Spells;
 using System;
 
 namespace Server.Mobiles
@@ -89,7 +90,7 @@ namespace Server.Mobiles
 			defender.PlaySound(0x1CB);
 		}
 
-		public override void OnDamagedBySpell(Mobile caster)
+		public override void OnDamagedBySpell(Mobile caster, Spell spell, int damage)
 		{
 			if (this.Map != null && caster != this && 0.25 > Utility.RandomDouble())
 			{
@@ -102,7 +103,7 @@ namespace Server.Mobiles
 				Say(1053034); // * The plague beast creates another beast from its flesh! *
 			}
 
-			base.OnDamagedBySpell(caster);
+			base.OnDamagedBySpell(caster, spell, damage);
 		}
 
 		public override bool AutoDispel { get { return true; } }

@@ -1,4 +1,5 @@
 using Server.Items;
+using Server.Spells;
 
 namespace Server.Mobiles
 {
@@ -92,10 +93,12 @@ namespace Server.Mobiles
 		public override bool CanRummageCorpses { get { return true; } }
 		public override bool AutoDispel { get { return true; } }
 
-		public override void OnDamagedBySpell(Mobile caster)
+		public override void OnDamagedBySpell(Mobile caster, Spell spell, int damage)
 		{
 			if (caster == this)
 				return;
+
+			base.OnDamagedBySpell(caster, spell, damage);
 
 			SpawnOrcLord(caster);
 		}

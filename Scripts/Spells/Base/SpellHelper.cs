@@ -902,8 +902,8 @@ namespace Server.Spells
 
 			if (target is BaseMobile mobile && from != null && delay == TimeSpan.Zero)
 			{
-				mobile.OnHarmfulSpell(from);
-				mobile.OnDamagedBySpell(from);
+				mobile.OnHarmfulSpell(from, spell);
+				mobile.OnDamagedBySpell(from, spell, iDamage);
 			}
 		}
 
@@ -966,8 +966,8 @@ namespace Server.Spells
 
 			if (target is BaseMobile mobile && from != null && delay == TimeSpan.Zero)
 			{
-				mobile.OnHarmfulSpell(from);
-				mobile.OnDamagedBySpell(from);
+				mobile.OnHarmfulSpell(from, spell);
+				mobile.OnDamagedBySpell(from, spell, iDamage);
 			}
 		}
 
@@ -1087,8 +1087,8 @@ namespace Server.Spells
 
 				if (m_Target is BaseMobile bm && m_From != null)
 				{
-					bm.OnHarmfulSpell(m_From);
-					bm.OnDamagedBySpell(m_From);
+					bm.OnHarmfulSpell(m_From, m_Spell);
+					bm.OnDamagedBySpell(m_From, m_Spell, damageGiven);
 				}
 
 				if (m_Spell != null)

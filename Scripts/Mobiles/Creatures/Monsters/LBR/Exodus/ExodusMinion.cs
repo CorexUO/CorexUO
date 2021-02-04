@@ -1,4 +1,5 @@
 using Server.Items;
+using Server.Spells;
 
 namespace Server.Mobiles
 {
@@ -101,8 +102,9 @@ namespace Server.Mobiles
 				damage = 0; // no spell damage when the field is down
 		}
 
-		public override void OnDamagedBySpell(Mobile from)
+		public override void OnDamagedBySpell(Mobile from, Spell spell, int damage)
 		{
+			base.OnDamagedBySpell(from, spell, damage);
 			if (from != null && from.Alive && 0.4 > Utility.RandomDouble())
 			{
 				SendEBolt(from);
