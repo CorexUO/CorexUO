@@ -1626,7 +1626,10 @@ namespace Server.Items
 			}
 
 			if (attacker is BaseMobile abm)
+			{
 				abm.OnGaveMeleeAttack(defender);
+				abm.OnHit(defender, damage);
+			}
 
 			if (defender is BaseMobile dmb)
 				dmb.OnGotMeleeAttack(attacker);

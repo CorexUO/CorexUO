@@ -68,7 +68,14 @@ namespace Server.Mobiles
 		/// <param name="mob"></param>
 		public virtual void OnKilledBy(Mobile mob)
 		{
+		}
 
+		/// <summary>
+		/// Overridable. Virtual event when the mobile hit to defender with specify damage
+		/// </summary>
+		/// <param name="mob"></param>
+		public virtual void OnHit(Mobile defender, int damage)
+		{
 		}
 
 		/// <summary>
