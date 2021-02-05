@@ -6,6 +6,13 @@ namespace Server
 {
 	public class LootPack
 	{
+		private readonly LootPackEntry[] m_Entries;
+
+		public LootPack(LootPackEntry[] entries)
+		{
+			m_Entries = entries;
+		}
+
 		public static int GetLuckChance(Mobile killer, Mobile victim)
 		{
 			if (!Core.AOS)
@@ -53,13 +60,6 @@ namespace Server
 			return (chance > Utility.Random(10000));
 		}
 
-		private readonly LootPackEntry[] m_Entries;
-
-		public LootPack(LootPackEntry[] entries)
-		{
-			m_Entries = entries;
-		}
-
 		public void Generate(Mobile from, Container cont, bool spawning, int luckChance)
 		{
 			if (cont == null)
@@ -77,7 +77,7 @@ namespace Server
 				{
 					checkLuck = false;
 
-					if (LootPack.CheckLuck(luckChance))
+					if (CheckLuck(luckChance))
 						shouldAdd = (entry.Chance > Utility.Random(10000));
 				}
 
@@ -104,20 +104,80 @@ namespace Server
 				new LootPackItem( typeof( BaseInstrument ), 1 )
 			};
 
-
 		public static readonly LootPackItem[] LowScrollItems = new LootPackItem[]
 			{
-				new LootPackItem( typeof( ClumsyScroll ), 1 )
+				new LootPackItem(typeof(ReactiveArmorScroll), 1),
+				new LootPackItem(typeof(ClumsyScroll), 1),
+				new LootPackItem(typeof(CreateFoodScroll), 1),
+				new LootPackItem(typeof(FeeblemindScroll), 1),
+				new LootPackItem(typeof(HealScroll), 1),
+				new LootPackItem(typeof(MagicArrowScroll), 1),
+				new LootPackItem(typeof(NightSightScroll), 1),
+				new LootPackItem(typeof(WeakenScroll), 1),
+				new LootPackItem(typeof(AgilityScroll), 1),
+				new LootPackItem(typeof(CunningScroll), 1),
+				new LootPackItem(typeof(CureScroll), 1),
+				new LootPackItem(typeof(HarmScroll), 1),
+				new LootPackItem(typeof(MagicTrapScroll), 1),
+				new LootPackItem(typeof(MagicUnTrapScroll), 1),
+				new LootPackItem(typeof(ProtectionScroll), 1),
+				new LootPackItem(typeof(StrengthScroll), 1),
+				new LootPackItem(typeof(BlessScroll), 1),
+				new LootPackItem(typeof(FireballScroll), 1),
+				new LootPackItem(typeof(MagicLockScroll), 1),
+				new LootPackItem(typeof(PoisonScroll), 1),
+				new LootPackItem(typeof(TelekinisisScroll), 1),
+				new LootPackItem(typeof(TeleportScroll), 1),
+				new LootPackItem(typeof(UnlockScroll), 1),
+				new LootPackItem(typeof(WallOfStoneScroll), 1)
 			};
 
 		public static readonly LootPackItem[] MedScrollItems = new LootPackItem[]
 			{
-				new LootPackItem( typeof( ArchCureScroll ), 1 )
+				new LootPackItem(typeof(ArchCureScroll), 1),
+				new LootPackItem(typeof(ArchProtectionScroll), 1),
+				new LootPackItem(typeof(CurseScroll), 1),
+				new LootPackItem(typeof(FireFieldScroll), 1),
+				new LootPackItem(typeof(GreaterHealScroll), 1),
+				new LootPackItem(typeof(LightningScroll), 1),
+				new LootPackItem(typeof(ManaDrainScroll), 1),
+				new LootPackItem(typeof(RecallScroll), 1),
+				new LootPackItem(typeof(BladeSpiritsScroll), 1),
+				new LootPackItem(typeof(DispelFieldScroll), 1),
+				new LootPackItem(typeof(IncognitoScroll), 1),
+				new LootPackItem(typeof(MagicReflectScroll), 1),
+				new LootPackItem(typeof(MindBlastScroll), 1),
+				new LootPackItem(typeof(ParalyzeScroll), 1),
+				new LootPackItem(typeof(PoisonFieldScroll), 1),
+				new LootPackItem(typeof(SummonCreatureScroll), 1),
+				new LootPackItem(typeof(DispelScroll), 1),
+				new LootPackItem(typeof(EnergyBoltScroll), 1),
+				new LootPackItem(typeof(ExplosionScroll), 1),
+				new LootPackItem(typeof(InvisibilityScroll), 1),
+				new LootPackItem(typeof(MarkScroll), 1),
+				new LootPackItem(typeof(MassCurseScroll), 1),
+				new LootPackItem(typeof(ParalyzeFieldScroll), 1),
+				new LootPackItem(typeof(RevealScroll), 1)
 			};
 
 		public static readonly LootPackItem[] HighScrollItems = new LootPackItem[]
 			{
-				new LootPackItem( typeof( SummonAirElementalScroll ), 1 )
+				new LootPackItem(typeof(ChainLightningScroll), 1),
+				new LootPackItem(typeof(EnergyFieldScroll), 1),
+				new LootPackItem(typeof(FlamestrikeScroll), 1),
+				new LootPackItem(typeof(GateTravelScroll), 1),
+				new LootPackItem(typeof(ManaVampireScroll), 1),
+				new LootPackItem(typeof(MassDispelScroll), 1),
+				new LootPackItem(typeof(MeteorSwarmScroll), 1),
+				new LootPackItem(typeof(PolymorphScroll), 1),
+				new LootPackItem(typeof(EarthquakeScroll), 1),
+				new LootPackItem(typeof(EnergyVortexScroll), 1),
+				new LootPackItem(typeof(ResurrectionScroll), 1),
+				new LootPackItem(typeof(SummonAirElementalScroll), 1),
+				new LootPackItem(typeof(SummonDaemonScroll), 1),
+				new LootPackItem(typeof(SummonEarthElementalScroll), 1),
+				new LootPackItem(typeof(SummonFireElementalScroll), 1),
+				new LootPackItem(typeof(SummonWaterElementalScroll), 1)
 			};
 
 		public static readonly LootPackItem[] GemItems = new LootPackItem[]
@@ -660,7 +720,7 @@ namespace Server
 						}
 					}
 				}
-				else if (item is BaseInstrument)
+				else if (item is BaseInstrument instrument)
 				{
 					SlayerName slayer;
 					if (Core.AOS)
@@ -674,7 +734,7 @@ namespace Server
 						return null;
 					}
 
-					BaseInstrument instr = (BaseInstrument)item;
+					BaseInstrument instr = instrument;
 
 					instr.Quality = ItemQuality.Normal;
 					instr.Slayer = slayer;
