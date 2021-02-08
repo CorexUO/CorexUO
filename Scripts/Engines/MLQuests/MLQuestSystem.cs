@@ -156,7 +156,7 @@ namespace Server.Engines.MLQuests
 			TargetCommands.Register(new ViewQuestsCommand());
 			TargetCommands.Register(new ViewContextCommand());
 
-			EventSink.QuestGumpRequest += new QuestGumpRequestHandler(EventSink_QuestGumpRequest);
+			EventSink.OnQuestGumpRequest += new QuestGumpRequestHandler(EventSink_QuestGumpRequest);
 		}
 
 		[Usage("MLQuestsInfo")]

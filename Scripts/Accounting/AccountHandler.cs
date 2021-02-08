@@ -61,7 +61,7 @@ namespace Server.Misc
 
 		public static void Initialize()
 		{
-			EventSink.DeleteRequest += new DeleteRequestEventHandler(EventSink_DeleteRequest);
+			EventSink.OnDeleteRequest += new DeleteRequestEventHandler(EventSink_DeleteRequest);
 			EventSink.AccountLogin += new AccountLoginEventHandler(EventSink_AccountLogin);
 			EventSink.GameLogin += new GameLoginEventHandler(EventSink_GameLogin);
 

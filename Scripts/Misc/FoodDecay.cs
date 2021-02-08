@@ -23,8 +23,8 @@ namespace Server.Misc
 		{
 			if (TimerType == FoodDecayType.Individual)
 			{
-				EventSink.Login += EventSink_Login;
-				EventSink.Logout += EventSink_Logout;
+				EventSink.OnLogin += EventSink_Login;
+				EventSink.OnLogout += EventSink_Logout;
 			}
 			else
 			{

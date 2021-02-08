@@ -25,7 +25,7 @@ namespace Server.Spells.Spellweaving
 
 		public static void Initialize()
 		{
-			EventSink.PlayerDeath += new PlayerDeathEventHandler(delegate (PlayerDeathEventArgs e)
+			EventSink.OnPlayerDeath += new PlayerDeathEventHandler(delegate (PlayerDeathEventArgs e)
 		   {
 			   HandleDeath(e.Mobile);
 		   });

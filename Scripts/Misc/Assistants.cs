@@ -94,7 +94,7 @@ namespace Server.Misc
 			{
 				if (Settings.Enabled)
 				{
-					EventSink.Login += new LoginEventHandler(EventSink_Login);
+					EventSink.OnLogin += new LoginEventHandler(EventSink_Login);
 					ProtocolExtensions.Register(0xFF, true, new OnPacketReceive(OnHandshakeResponse));
 				}
 			}

@@ -87,7 +87,7 @@ namespace Server
 
 			NetState.FlushAll();
 
-			EventSink.InvokeOnWorldBroadcast(new OnWorldBroadcastEventArgs(hue, ascii, text));
+			EventSink.InvokeOnWorldBroadcast(text, hue, ascii);
 		}
 
 		public static void Broadcast(int hue, bool ascii, string format, params object[] args)
@@ -391,19 +391,17 @@ namespace Server
 					BinaryReader idxReader = new BinaryReader(idx);
 
 					int guildCount = idxReader.ReadInt32();
-					CreateGuildEventArgs createEventArgs = new CreateGuildEventArgs(-1);
 					for (int i = 0; i < guildCount; ++i)
 					{
 						idxReader.ReadInt32();//no typeid for guilds
 						int id = idxReader.ReadInt32();
 						long pos = idxReader.ReadInt64();
 						int length = idxReader.ReadInt32();
-
-						createEventArgs.Id = id;
-						EventSink.InvokeCreateGuild(createEventArgs);
-						BaseGuild guild = createEventArgs.Guild;
+						BaseGuild guild = BaseGuild.Find(id);
 						if (guild != null)
+						{
 							guilds.Add(new GuildEntry(guild, pos, length));
+						}
 					}
 
 					idxReader.Close();
@@ -768,7 +766,7 @@ namespace Server
 
 			try
 			{
-				EventSink.InvokeWorldSave(new WorldSaveEventArgs(message));
+				EventSink.InvokeWorldSave();
 			}
 			catch (Exception e)
 			{

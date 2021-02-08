@@ -4644,7 +4644,7 @@ namespace Server.Mobiles
 					}
 				}
 
-				EventSink.InvokeOnCreatureDeath(new OnCreatureDeathEventArgs(this, LastKiller, c));
+				EventSink.InvokeOnCreatureDeath(this, LastKiller, c);
 
 				base.OnDeath(c);
 

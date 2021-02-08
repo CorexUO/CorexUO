@@ -575,10 +575,10 @@ namespace Server.Mobiles
 			if (FastwalkPrevention)
 				PacketHandlers.RegisterThrottler(0x02, new ThrottlePacketCallback(MovementThrottle_Callback));
 
-			EventSink.Login += new LoginEventHandler(OnLogin);
-			EventSink.Logout += new LogoutEventHandler(OnLogout);
-			EventSink.Connected += new ConnectedEventHandler(EventSink_Connected);
-			EventSink.Disconnected += new DisconnectedEventHandler(EventSink_Disconnected);
+			EventSink.OnLogin += new LoginEventHandler(OnLogin);
+			EventSink.OnLogout += new LogoutEventHandler(OnLogout);
+			EventSink.OnConnected += new ConnectedEventHandler(EventSink_Connected);
+			EventSink.OnDisconnected += new DisconnectedEventHandler(EventSink_Disconnected);
 
 			if (Core.SE)
 			{

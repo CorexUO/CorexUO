@@ -18,9 +18,9 @@ namespace Server.Engines.PartySystem
 
 		public static void Initialize()
 		{
-			EventSink.Logout += new LogoutEventHandler(EventSink_Logout);
-			EventSink.Login += new LoginEventHandler(EventSink_Login);
-			EventSink.PlayerDeath += new PlayerDeathEventHandler(EventSink_PlayerDeath);
+			EventSink.OnLogout += new LogoutEventHandler(EventSink_Logout);
+			EventSink.OnLogin += new LoginEventHandler(EventSink_Login);
+			EventSink.OnPlayerDeath += new PlayerDeathEventHandler(EventSink_PlayerDeath);
 
 			CommandSystem.Register("ListenToParty", AccessLevel.GameMaster, new CommandEventHandler(ListenToParty_OnCommand));
 		}

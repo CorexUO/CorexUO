@@ -249,17 +249,17 @@ namespace Server.Network
 
 		public static void SetAbility(NetState state, IEntity e, EncodedReader reader)
 		{
-			EventSink.InvokeSetAbility(new SetAbilityEventArgs(state.Mobile, reader.ReadInt32()));
+			EventSink.InvokeSetAbility(state.Mobile, reader.ReadInt32());
 		}
 
 		public static void GuildGumpRequest(NetState state, IEntity e, EncodedReader reader)
 		{
-			EventSink.InvokeGuildGumpRequest(new GuildGumpRequestArgs(state.Mobile));
+			EventSink.InvokeGuildGumpRequest(state.Mobile);
 		}
 
 		public static void QuestGumpRequest(NetState state, IEntity e, EncodedReader reader)
 		{
-			EventSink.InvokeQuestGumpRequest(new QuestGumpRequestArgs(state.Mobile));
+			EventSink.InvokeQuestGumpRequest(state.Mobile);
 		}
 
 		public static void EncodedCommand(NetState state, PacketReader pvSrc)
@@ -297,7 +297,7 @@ namespace Server.Network
 			Mobile targ = World.FindMobile(pvSrc.ReadInt32());
 
 			if (targ != null)
-				EventSink.InvokeRenameRequest(new RenameRequestEventArgs(from, targ, pvSrc.ReadStringSafe()));
+				EventSink.InvokeRenameRequest(from, targ, pvSrc.ReadStringSafe());
 		}
 
 		public static void SecureTrade(NetState state, PacketReader pvSrc)
@@ -462,7 +462,7 @@ namespace Server.Network
 			pvSrc.Seek(30, SeekOrigin.Current);
 			int index = pvSrc.ReadInt32();
 
-			EventSink.InvokeDeleteRequest(new DeleteRequestEventArgs(state, index));
+			EventSink.InvokeDeleteRequest(state, index);
 		}
 
 		public static void ResourceQuery(NetState state, PacketReader pvSrc)
@@ -753,7 +753,7 @@ namespace Server.Network
 					}
 				case 0xC7: // Animate
 					{
-						EventSink.InvokeAnimateRequest(new AnimateRequestEventArgs(m, command));
+						EventSink.InvokeAnimateRequest(m, command);
 
 						break;
 					}
@@ -771,7 +771,7 @@ namespace Server.Network
 						if (!int.TryParse(command, out int booktype))
 							booktype = 1;
 
-						EventSink.InvokeOpenSpellbookRequest(new OpenSpellbookRequestEventArgs(m, booktype));
+						EventSink.InvokeOpenSpellbookRequest(m, booktype);
 
 						break;
 					}
@@ -784,14 +784,14 @@ namespace Server.Network
 							int spellID = Utility.ToInt32(split[0]) - 1;
 							int serial = split.Length > 1 ? Utility.ToInt32(split[1]) : -1;
 
-							EventSink.InvokeCastSpellRequest(new CastSpellRequestEventArgs(m, spellID, World.FindItem(serial)));
+							EventSink.InvokeCastSpellRequest(m, spellID, World.FindItem(serial));
 						}
 
 						break;
 					}
 				case 0x58: // Open door
 					{
-						EventSink.InvokeOpenDoorMacroUsed(new OpenDoorMacroEventArgs(m));
+						EventSink.InvokeOpenDoorMacroUsed(m);
 
 						break;
 					}
@@ -799,7 +799,7 @@ namespace Server.Network
 					{
 						int spellID = Utility.ToInt32(command) - 1;
 
-						EventSink.InvokeCastSpellRequest(new CastSpellRequestEventArgs(m, spellID, null));
+						EventSink.InvokeCastSpellRequest(m, spellID, null);
 
 						break;
 					}
@@ -807,7 +807,7 @@ namespace Server.Network
 					{
 						int virtueID = Utility.ToInt32(command) - 1;
 
-						EventSink.InvokeVirtueMacroRequest(new VirtueMacroRequestEventArgs(m, virtueID));
+						EventSink.InvokeVirtueMacroRequest(m, virtueID);
 
 						break;
 					}
@@ -933,7 +933,7 @@ namespace Server.Network
 			{
 				case 0x00: // display request
 					{
-						EventSink.InvokeProfileRequest(new ProfileRequestEventArgs(beholder, beheld));
+						EventSink.InvokeProfileRequest(beholder, beheld);
 
 						break;
 					}
@@ -947,7 +947,7 @@ namespace Server.Network
 
 						string text = pvSrc.ReadUnicodeString(length);
 
-						EventSink.InvokeChangeProfileRequest(new ChangeProfileRequestEventArgs(beholder, beheld, text));
+						EventSink.InvokeChangeProfileRequest(beholder, beheld, text);
 
 						break;
 					}
@@ -1088,7 +1088,7 @@ namespace Server.Network
 
 		public static void HelpRequest(NetState state, PacketReader pvSrc)
 		{
-			EventSink.InvokeHelpRequest(new HelpRequestEventArgs(state.Mobile));
+			EventSink.InvokeHelpRequest(state.Mobile);
 		}
 
 		public static void TargetResponse(NetState state, PacketReader pvSrc)
@@ -1315,7 +1315,7 @@ namespace Server.Network
 
 					if (beheld != null)
 					{
-						EventSink.InvokeVirtueGumpRequest(new VirtueGumpRequestEventArgs(state.Mobile, beheld));
+						EventSink.InvokeVirtueGumpRequest(state.Mobile, beheld);
 					}
 				}
 				else
@@ -1324,7 +1324,7 @@ namespace Server.Network
 
 					if (beheld != null)
 					{
-						EventSink.InvokeVirtueItemRequest(new VirtueItemRequestEventArgs(state.Mobile, beheld, buttonID));
+						EventSink.InvokeVirtueItemRequest(state.Mobile, beheld, buttonID);
 					}
 				}
 			}
@@ -1657,7 +1657,7 @@ namespace Server.Network
 
 			int spellID = pvSrc.ReadInt16() - 1;
 
-			EventSink.InvokeCastSpellRequest(new CastSpellRequestEventArgs(from, spellID, spellbook));
+			EventSink.InvokeCastSpellRequest(from, spellID, spellbook);
 		}
 
 		public static void BandageTarget(NetState state, PacketReader pvSrc)
@@ -1679,7 +1679,7 @@ namespace Server.Network
 				if (target == null)
 					return;
 
-				EventSink.InvokeBandageTargetRequest(new BandageTargetRequestEventArgs(from, bandage, target));
+				EventSink.InvokeBandageTargetRequest(from, bandage, target);
 
 				from.NextActionTime = Core.TickCount + Mobile.ActionDelay;
 			}
@@ -1815,12 +1815,12 @@ namespace Server.Network
 
 		public static void StunRequest(NetState state, PacketReader pvSrc)
 		{
-			EventSink.InvokeStunRequest(new StunRequestEventArgs(state.Mobile));
+			EventSink.InvokeStunRequest(state.Mobile);
 		}
 
 		public static void DisarmRequest(NetState state, PacketReader pvSrc)
 		{
-			EventSink.InvokeDisarmRequest(new DisarmRequestEventArgs(state.Mobile));
+			EventSink.InvokeDisarmRequest(state.Mobile);
 		}
 
 		public static void StatLockChange(NetState state, PacketReader pvSrc)
@@ -1954,7 +1954,7 @@ namespace Server.Network
 		{
 			CV version = state.Version = new CV(pvSrc.ReadString());
 
-			EventSink.InvokeClientVersionReceived(new ClientVersionReceivedArgs(state, version));
+			EventSink.InvokeClientVersionReceived(state, version);
 		}
 
 		public static void ClientType(NetState state, PacketReader pvSrc)
@@ -2228,7 +2228,7 @@ namespace Server.Network
 			state.Send(SeasonChange.Instantiate(m.GetSeason(), true));
 			state.Send(new MapChange(m));
 
-			EventSink.InvokeLogin(new LoginEventArgs(m));
+			EventSink.InvokeLogin(m);
 
 			m.ClearFastwalkStack();
 		}

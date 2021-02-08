@@ -336,7 +336,7 @@ namespace Server
 			World.WaitForWriteCompletion();
 
 			if (!m_Crashed)
-				EventSink.InvokeShutdown(new ShutdownEventArgs());
+				EventSink.InvokeShutdown();
 
 			Timer.TimerThread.Set();
 

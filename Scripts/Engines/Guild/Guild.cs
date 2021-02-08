@@ -14,8 +14,8 @@ namespace Server.Guilds
 	{
 		public static void Configure()
 		{
-			EventSink.CreateGuild += new CreateGuildHandler(EventSink_CreateGuild);
-			EventSink.GuildGumpRequest += new GuildGumpRequestHandler(EventSink_GuildGumpRequest);
+			EventSink.OnCreateGuildnew += CreateGuildHandler(EventSink_CreateGuild);
+			EventSink.OnGuildGumpRequest += new GuildGumpRequestHandler(EventSink_GuildGumpRequest);
 
 			CommandSystem.Register("GuildProps", AccessLevel.Counselor, new CommandEventHandler(GuildProps_OnCommand));
 		}

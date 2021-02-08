@@ -33,8 +33,8 @@ namespace Server.Items
 
 		public static void Initialize()
 		{
-			EventSink.OpenSpellbookRequest += new OpenSpellbookRequestEventHandler(EventSink_OpenSpellbookRequest);
-			EventSink.CastSpellRequest += new CastSpellRequestEventHandler(EventSink_CastSpellRequest);
+			EventSink.OnOpenSpellbookRequest += new OpenSpellbookRequestEventHandler(EventSink_OpenSpellbookRequest);
+			EventSink.OnCastSpellRequest += new CastSpellRequestEventHandler(EventSink_CastSpellRequest);
 
 			CommandSystem.Register("AllSpells", AccessLevel.GameMaster, new CommandEventHandler(AllSpells_OnCommand));
 		}

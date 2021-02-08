@@ -12,7 +12,7 @@ namespace Server.Regions
 
 		public static void Initialize()
 		{
-			EventSink.Login += new LoginEventHandler(OnLogin);
+			EventSink.OnLogin += new LoginEventHandler(OnLogin);
 		}
 
 		public static void OnLogin(LoginEventArgs e)

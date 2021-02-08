@@ -1222,14 +1222,13 @@ namespace Server
 				return true;
 			}
 
-			OnCheckEquipItemEventArgs e = new OnCheckEquipItemEventArgs(m, this);
+			EventSink.InvokeOnCheckEquipItem(m, this);
 
-			EventSink.InvokeOnCheckEquipItem(e);
-
+			/*
 			if (e.Item != this || e.Item.Deleted || e.Block)
 			{
 				return false;
-			}
+			}*/
 
 			if (m.AccessLevel < AccessLevel.GameMaster && BlessedFor != null && BlessedFor != m)
 			{
@@ -3288,7 +3287,7 @@ namespace Server
 
 		public virtual void OnAfterDelete()
 		{
-			EventSink.InvokeOnItemDeleted(new OnItemDeletedEventArgs(this));
+			EventSink.InvokeOnItemDeleted(this);
 		}
 
 		public virtual void RemoveItem(Item item)
@@ -4513,7 +4512,7 @@ namespace Server
 				m_TypeRef = World.m_ItemTypes.Count - 1;
 			}
 
-			_ = Timer.DelayCall(EventSink.InvokeOnItemCreated, new OnItemCreatedEventArgs(this));
+			_ = Timer.DelayCall(EventSink.InvokeOnItemCreated, this);
 		}
 
 		[Constructable]

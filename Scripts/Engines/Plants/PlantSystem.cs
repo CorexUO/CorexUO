@@ -377,12 +377,12 @@ namespace Server.Engines.Plants
 
 		public static void Configure()
 		{
-			EventSink.WorldLoad += new WorldLoadEventHandler(EventSink_WorldLoad);
+			EventSink.OnWorldLoad += new WorldLoadEventHandler(EventSink_WorldLoad);
 
 			if (!Misc.AutoRestart.Enabled)
-				EventSink.WorldSave += new WorldSaveEventHandler(EventSink_WorldSave);
+				EventSink.OnWorldSave += new WorldSaveEventHandler(EventSink_WorldSave);
 
-			EventSink.Login += new LoginEventHandler(EventSink_Login);
+			EventSink.OnLogin += new LoginEventHandler(EventSink_Login);
 		}
 
 		private static void EventSink_Login(LoginEventArgs args)

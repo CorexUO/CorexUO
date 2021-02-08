@@ -476,7 +476,7 @@ namespace Server.Engines.VeteranRewards
 		public static void Initialize()
 		{
 			if (Enabled)
-				EventSink.Login += new LoginEventHandler(EventSink_Login);
+				EventSink.OnLogin += new LoginEventHandler(EventSink_Login);
 		}
 
 		private static void EventSink_Login(LoginEventArgs e)

@@ -1122,7 +1122,7 @@ namespace Server.Engines.ConPVP
 		public static void Initialize()
 		{
 			EventSink.Speech += new SpeechEventHandler(EventSink_Speech);
-			EventSink.Login += new LoginEventHandler(EventSink_Login);
+			EventSink.OnLogin += new LoginEventHandler(EventSink_Login);
 
 			CommandSystem.Register("vli", AccessLevel.GameMaster, new CommandEventHandler(vli_oc));
 		}

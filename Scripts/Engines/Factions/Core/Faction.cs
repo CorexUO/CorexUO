@@ -574,8 +574,8 @@ namespace Server.Factions
 
 		public static void Initialize()
 		{
-			EventSink.Login += new LoginEventHandler(EventSink_Login);
-			EventSink.Logout += new LogoutEventHandler(EventSink_Logout);
+			EventSink.OnLogin += new LoginEventHandler(EventSink_Login);
+			EventSink.OnLogout += new LogoutEventHandler(EventSink_Logout);
 
 			Timer.DelayCall(TimeSpan.FromMinutes(1.0), TimeSpan.FromMinutes(10.0), new TimerCallback(HandleAtrophy));
 

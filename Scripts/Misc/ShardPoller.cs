@@ -138,7 +138,7 @@ namespace Server.Misc
 
 		public static void Initialize()
 		{
-			EventSink.Login += new LoginEventHandler(EventSink_Login);
+			EventSink.OnLogin += new LoginEventHandler(EventSink_Login);
 		}
 
 		private static readonly List<ShardPoller> m_ActivePollers = new List<ShardPoller>();

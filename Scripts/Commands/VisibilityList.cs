@@ -9,7 +9,7 @@ namespace Server.Commands
 	{
 		public static void Initialize()
 		{
-			EventSink.Login += new LoginEventHandler(OnLogin);
+			EventSink.OnLogin += new LoginEventHandler(OnLogin);
 
 			CommandSystem.Register("Vis", AccessLevel.Counselor, new CommandEventHandler(Vis_OnCommand));
 			CommandSystem.Register("VisList", AccessLevel.Counselor, new CommandEventHandler(VisList_OnCommand));

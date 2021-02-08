@@ -63,7 +63,7 @@ namespace Server.Engines.Events
 
 				m_ClearTimer = Timer.DelayCall(clear, clear, new TimerCallback(Clear_Callback));
 
-				EventSink.PlayerDeath += new PlayerDeathEventHandler(EventSink_PlayerDeath);
+				EventSink.OnPlayerDeath += new PlayerDeathEventHandler(EventSink_PlayerDeath);
 			}
 		}
 

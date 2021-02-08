@@ -13,9 +13,9 @@ namespace Server
 
 		public static void Initialize()
 		{
-			EventSink.VirtueGumpRequest += new VirtueGumpRequestEventHandler(EventSink_VirtueGumpRequest);
-			EventSink.VirtueItemRequest += new VirtueItemRequestEventHandler(EventSink_VirtueItemRequest);
-			EventSink.VirtueMacroRequest += new VirtueMacroRequestEventHandler(EventSink_VirtueMacroRequest);
+			EventSink.OnVirtueGumpRequest += new VirtueGumpRequestEventHandler(EventSink_VirtueGumpRequest);
+			EventSink.OnVirtueItemRequest += new VirtueItemRequestEventHandler(EventSink_VirtueItemRequest);
+			EventSink.OnVirtueMacroRequest += new VirtueMacroRequestEventHandler(EventSink_VirtueMacroRequest);
 		}
 
 		public static void Register(int gumpID, OnVirtueUsed callback)

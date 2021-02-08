@@ -8,8 +8,8 @@ namespace Server.Items
 		{
 			Mobile.DefaultWeapon = new Fists();
 
-			EventSink.DisarmRequest += new DisarmRequestEventHandler(EventSink_DisarmRequest);
-			EventSink.StunRequest += new StunRequestEventHandler(EventSink_StunRequest);
+			EventSink.OnDisarmRequest += new DisarmRequestEventHandler(EventSink_DisarmRequest);
+			EventSink.OnStunRequest += new StunRequestEventHandler(EventSink_StunRequest);
 		}
 
 		public override WeaponAbility PrimaryAbility { get { return WeaponAbility.Disarm; } }

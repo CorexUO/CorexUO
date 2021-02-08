@@ -91,7 +91,7 @@ namespace Server.Misc
 
 		public static void Initialize()
 		{
-			EventSink.ClientVersionReceived += new ClientVersionReceivedHandler(EventSink_ClientVersionReceived);
+			EventSink.OnClientVersionReceived += new ClientVersionReceivedHandler(EventSink_ClientVersionReceived);
 
 			//ClientVersion.Required = null;
 			//Required = new ClientVersion( "6.0.0.0" );

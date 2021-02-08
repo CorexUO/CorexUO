@@ -17,7 +17,7 @@ namespace Server.Items
 
 		public static void Initialize()
 		{
-			EventSink.BandageTargetRequest += new BandageTargetRequestEventHandler(EventSink_BandageTargetRequest);
+			EventSink.OnBandageTargetRequest += new BandageTargetRequestEventHandler(EventSink_BandageTargetRequest);
 		}
 
 		[Constructable]
