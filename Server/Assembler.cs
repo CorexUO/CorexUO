@@ -30,20 +30,24 @@ namespace Server
 						warningSb.AppendLine("       - No serialization constructor");
 					}
 
-					if (t.GetMethod("Serialize", BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.DeclaredOnly) == null)
+					UnserializableAttribute attributes = t.GetCustomAttribute<UnserializableAttribute>();
+					if (attributes == null)
 					{
-						if (warningSb == null)
-							warningSb = new StringBuilder();
+						if (t.GetMethod("Serialize", BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.DeclaredOnly) == null)
+						{
+							if (warningSb == null)
+								warningSb = new StringBuilder();
 
-						warningSb.AppendLine("       - No Serialize() method");
-					}
+							warningSb.AppendLine("       - No Serialize() method");
+						}
 
-					if (t.GetMethod("Deserialize", BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.DeclaredOnly) == null)
-					{
-						if (warningSb == null)
-							warningSb = new StringBuilder();
+						if (t.GetMethod("Deserialize", BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.DeclaredOnly) == null)
+						{
+							if (warningSb == null)
+								warningSb = new StringBuilder();
 
-						warningSb.AppendLine("       - No Deserialize() method");
+							warningSb.AppendLine("       - No Deserialize() method");
+						}
 					}
 
 					if (warningSb != null && warningSb.Length > 0)
