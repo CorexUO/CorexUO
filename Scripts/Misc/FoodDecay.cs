@@ -13,9 +13,9 @@ namespace Server.Misc
 
 	public class FoodDecayTimer : Timer
 	{
-		public static bool Enabled => Settings.Get<bool>("FoodDecay", "Enabled");
-		public static float DecayDelay => Settings.Get<float>("FoodDecay", "DecayDelay");
-		public static FoodDecayType TimerType => (FoodDecayType)Settings.Get<int>("FoodDecay", "DecayType");
+		public static bool Enabled => Settings.Configuration.Get<bool>("FoodDecay", "Enabled");
+		public static float DecayDelay => Settings.Configuration.Get<float>("FoodDecay", "DecayDelay");
+		public static FoodDecayType TimerType => (FoodDecayType)Settings.Configuration.Get<int>("FoodDecay", "DecayType");
 
 		public static Dictionary<Mobile, Timer> Timers { get; } = new Dictionary<Mobile, Timer>();
 

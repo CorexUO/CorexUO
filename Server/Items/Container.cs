@@ -1297,8 +1297,8 @@ namespace Server.Items
 			UpdateContainerData();
 		}
 
-		public static int GlobalMaxItems { get; set; } = Settings.Get<int>("Items", "ContainerMaxItems", 125);
-		public static int GlobalMaxWeight { get; set; } = Settings.Get<int>("Items", "ContainerMaxWeight", 400);
+		public static int GlobalMaxItems { get; set; } = Settings.Configuration.Get<int>("Items", "ContainerMaxItems", 125);
+		public static int GlobalMaxWeight { get; set; } = Settings.Configuration.Get<int>("Items", "ContainerMaxWeight", 400);
 
 		public Container(int itemID) : base(itemID)
 		{

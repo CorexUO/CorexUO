@@ -19,13 +19,13 @@ namespace Server.Misc
 
 	public class AccountHandler
 	{
-		private static readonly int MaxAccountsPerIP = Settings.Get<int>("Accounts", "AccountsPerIp");
-		private static readonly bool AutoAccountCreation = Settings.Get<bool>("Accounts", "AutoCreateAccounts");
-		private static readonly bool RestrictDeletion = Settings.Get<bool>("Accounts", "RestrictDeletion");
-		private static readonly TimeSpan DeleteDelay = TimeSpan.FromDays(Settings.Get<int>("Accounts", "DeleteDaysDelay"));
-		private static readonly bool PasswordCommandEnabled = Settings.Get<bool>("Accounts", "PasswordCommandEnabled");
+		private static readonly int MaxAccountsPerIP = Settings.Configuration.Get<int>("Accounts", "AccountsPerIp");
+		private static readonly bool AutoAccountCreation = Settings.Configuration.Get<bool>("Accounts", "AutoCreateAccounts");
+		private static readonly bool RestrictDeletion = Settings.Configuration.Get<bool>("Accounts", "RestrictDeletion");
+		private static readonly TimeSpan DeleteDelay = TimeSpan.FromDays(Settings.Configuration.Get<int>("Accounts", "DeleteDaysDelay"));
+		private static readonly bool PasswordCommandEnabled = Settings.Configuration.Get<bool>("Accounts", "PasswordCommandEnabled");
 
-		public static readonly PasswordProtection ProtectPasswords = (PasswordProtection)Settings.Get<int>("Accounts", "ProtectPasswords");
+		public static readonly PasswordProtection ProtectPasswords = (PasswordProtection)Settings.Configuration.Get<int>("Accounts", "ProtectPasswords");
 
 		public static AccessLevel LockdownLevel { get; set; }
 

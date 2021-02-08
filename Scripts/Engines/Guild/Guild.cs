@@ -125,8 +125,8 @@ namespace Server.Guilds
 		}
 		#endregion
 
-		public static bool NewGuildSystem { get; } = Settings.Get<bool>("Guild", "NewGuildSystem");
-		public static bool OrderChaos { get; } = Settings.Get<bool>("Guild", "OrderChaos");
+		public static bool NewGuildSystem { get; } = Settings.Configuration.Get<bool>("Guild", "NewGuildSystem");
+		public static bool OrderChaos { get; } = Settings.Configuration.Get<bool>("Guild", "OrderChaos");
 
 		public const int RegistrationFee = 25000;
 		public const int AbbrevLimit = 4;

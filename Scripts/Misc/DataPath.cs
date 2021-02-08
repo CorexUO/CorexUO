@@ -16,7 +16,7 @@ namespace Server.Misc
 				if (m_Path != null)
 					return m_Path;
 
-				return m_Path = Settings.Get<string>("Server", "FilePath");
+				return m_Path = Settings.Configuration.Get<string>("Server", "FilePath");
 			}
 		}
 

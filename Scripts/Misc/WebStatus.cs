@@ -12,7 +12,7 @@ namespace Server.Misc
 {
 	public class StatusPage : Timer
 	{
-		public static readonly bool Enabled = Settings.Get<bool>("WebStatus", "Enabled");
+		public static readonly bool Enabled = Settings.Configuration.Get<bool>("WebStatus", "Enabled");
 
 		private static HttpListener _Listener;
 

@@ -5,7 +5,7 @@ namespace Server.Ethics
 {
 	public abstract class Ethic
 	{
-		public static readonly bool Enabled = Settings.Get<bool>("Misc", "EthicEnabled");
+		public static readonly bool Enabled = Settings.Configuration.Get<bool>("Misc", "EthicEnabled");
 
 		public static Ethic Find(Item item)
 		{

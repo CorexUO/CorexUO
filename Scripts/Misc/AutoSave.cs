@@ -6,9 +6,9 @@ namespace Server.Misc
 {
 	public class AutoSave : Timer
 	{
-		public static bool SavesEnabled { get; set; } = Settings.Get<bool>("AutoSave", "Enabled");
-		private static readonly TimeSpan m_Delay = TimeSpan.FromMinutes(Settings.Get<int>("AutoSave", "Frequency"));
-		private static readonly TimeSpan m_Warning = TimeSpan.FromSeconds(Settings.Get<int>("AutoSave", "WarningTime"));
+		public static bool SavesEnabled { get; set; } = Settings.Configuration.Get<bool>("AutoSave", "Enabled");
+		private static readonly TimeSpan m_Delay = TimeSpan.FromMinutes(Settings.Configuration.Get<int>("AutoSave", "Frequency"));
+		private static readonly TimeSpan m_Warning = TimeSpan.FromSeconds(Settings.Configuration.Get<int>("AutoSave", "WarningTime"));
 
 		public static void Initialize()
 		{

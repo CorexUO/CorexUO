@@ -10,10 +10,10 @@ namespace Server.Misc
 {
 	public class CrashGuard
 	{
-		private static readonly bool Enabled = Settings.Get<bool>("CrashGuard", "Enabled");
-		private static readonly bool SaveBackup = Settings.Get<bool>("CrashGuard", "SaveBackup");
-		private static readonly bool RestartServer = Settings.Get<bool>("CrashGuard", "RestartServer");
-		private static readonly bool GenerateReport = Settings.Get<bool>("CrashGuard", "GenerateReport");
+		private static readonly bool Enabled = Settings.Configuration.Get<bool>("CrashGuard", "Enabled");
+		private static readonly bool SaveBackup = Settings.Configuration.Get<bool>("CrashGuard", "SaveBackup");
+		private static readonly bool RestartServer = Settings.Configuration.Get<bool>("CrashGuard", "RestartServer");
+		private static readonly bool GenerateReport = Settings.Configuration.Get<bool>("CrashGuard", "GenerateReport");
 
 		public static void Initialize()
 		{

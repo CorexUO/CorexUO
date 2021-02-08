@@ -1529,7 +1529,7 @@ namespace Server
 			}
 		}
 
-		public static TimeSpan DefaultDecayTime { get; set; } = TimeSpan.FromMinutes(Settings.Get<int>("Items", "DefaultDecayTime", 60));
+		public static TimeSpan DefaultDecayTime { get; set; } = TimeSpan.FromMinutes(Settings.Configuration.Get<int>("Items", "DefaultDecayTime", 60));
 
 		[CommandProperty(AccessLevel.GameMaster)]
 		public virtual TimeSpan DecayTime

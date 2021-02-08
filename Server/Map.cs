@@ -369,9 +369,9 @@ namespace Server
 	//[CustomEnum( new string[]{ "Felucca", "Trammel", "Ilshenar", "Malas", "Internal" } )]
 	public sealed class Map : IComparable, IComparable<Map>
 	{
-		public static int GlobalUpdateRange { get; set; } = Settings.Get<int>("Map", "UpdateRange", 18);
+		public static int GlobalUpdateRange { get; set; } = Settings.Configuration.Get<int>("Map", "UpdateRange", 18);
 
-		public static int GlobalMaxUpdateRange { get; set; } = Settings.Get<int>("Map", "MaxUpdateRange", 24);
+		public static int GlobalMaxUpdateRange { get; set; } = Settings.Configuration.Get<int>("Map", "MaxUpdateRange", 24);
 
 		#region Compile-Time -> Run-Time Support
 #if Map_NewEnumerables || Map_AllUpdates

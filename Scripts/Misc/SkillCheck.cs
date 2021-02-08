@@ -6,14 +6,14 @@ namespace Server.Misc
 {
 	public class SkillCheck
 	{
-		private static readonly bool AntiMacroCode = Settings.Get<bool>("AntiMacro", "Enabled");
+		private static readonly bool AntiMacroCode = Settings.Configuration.Get<bool>("AntiMacro", "Enabled");
 
-		public static readonly TimeSpan AntiMacroExpire = TimeSpan.FromMinutes(Settings.Get<int>("AntiMacro", "Expire"));
-		public static readonly int Allowance = Settings.Get<int>("AntiMacro", "Allowance");
-		private static readonly int LocationSize = Settings.Get<int>("AntiMacro", "LocationSize");
+		public static readonly TimeSpan AntiMacroExpire = TimeSpan.FromMinutes(Settings.Configuration.Get<int>("AntiMacro", "Expire"));
+		public static readonly int Allowance = Settings.Configuration.Get<int>("AntiMacro", "Allowance");
+		private static readonly int LocationSize = Settings.Configuration.Get<int>("AntiMacro", "LocationSize");
 
-		private static readonly TimeSpan m_StatGainDelay = TimeSpan.FromMinutes(Settings.Get("Mobiles", "StatGainDelay", Core.ML ? 0.05 : 15));
-		private static readonly TimeSpan m_PetStatGainDelay = TimeSpan.FromMinutes(Settings.Get<int>("Mobiles", "PetStatGainDelay", 5));
+		private static readonly TimeSpan m_StatGainDelay = TimeSpan.FromMinutes(Settings.Configuration.Get("Mobiles", "StatGainDelay", Core.ML ? 0.05 : 15));
+		private static readonly TimeSpan m_PetStatGainDelay = TimeSpan.FromMinutes(Settings.Configuration.Get<int>("Mobiles", "PetStatGainDelay", 5));
 
 		private static readonly bool[] UseAntiMacro = new bool[]
 		{

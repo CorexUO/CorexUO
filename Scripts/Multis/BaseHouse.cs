@@ -17,9 +17,9 @@ namespace Server.Multis
 {
 	public abstract class BaseHouse : BaseMulti
 	{
-		public static int HouseLimit { get; } = Settings.Get<int>("Houses", "HouseLimit");
-		public static bool NewVendorSystem { get { return Settings.Get<bool>("Houses", "NewVendorSystem", Core.AOS); } } // Is new player vendor system enabled?
-		public static readonly bool DecayEnabled = Settings.Get<bool>("Houses", "DecayEnabled");
+		public static int HouseLimit { get; } = Settings.Configuration.Get<int>("Houses", "HouseLimit");
+		public static bool NewVendorSystem { get { return Settings.Configuration.Get<bool>("Houses", "NewVendorSystem", Core.AOS); } } // Is new player vendor system enabled?
+		public static readonly bool DecayEnabled = Settings.Configuration.Get<bool>("Houses", "DecayEnabled");
 
 		public const int MaxCoOwners = 15;
 		public static int MaxFriends { get { return !Core.AOS ? 50 : 140; } }

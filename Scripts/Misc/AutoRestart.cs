@@ -5,11 +5,11 @@ namespace Server.Misc
 {
 	public class AutoRestart : Timer
 	{
-		public static bool Enabled = Settings.Get<bool>("AutoRestart", "Enabled");
+		public static bool Enabled = Settings.Configuration.Get<bool>("AutoRestart", "Enabled");
 
-		private static readonly TimeSpan RestartTime = TimeSpan.FromHours(Settings.Get<int>("AutoRestart", "Time")); // time of day at which to restart
-		private static readonly TimeSpan RestartDelay = TimeSpan.FromSeconds(Settings.Get<int>("AutoRestart", "Delay")); // how long the server should remain active before restart (period of 'server wars')
-		private static readonly TimeSpan WarningDelay = TimeSpan.FromMinutes(Settings.Get<int>("AutoRestart", "WarningDelay")); // at what interval should the shutdown message be displayed?
+		private static readonly TimeSpan RestartTime = TimeSpan.FromHours(Settings.Configuration.Get<int>("AutoRestart", "Time")); // time of day at which to restart
+		private static readonly TimeSpan RestartDelay = TimeSpan.FromSeconds(Settings.Configuration.Get<int>("AutoRestart", "Delay")); // how long the server should remain active before restart (period of 'server wars')
+		private static readonly TimeSpan WarningDelay = TimeSpan.FromMinutes(Settings.Configuration.Get<int>("AutoRestart", "WarningDelay")); // at what interval should the shutdown message be displayed?
 		private static DateTime m_RestartTime;
 
 		public static bool Restarting { get; private set; }

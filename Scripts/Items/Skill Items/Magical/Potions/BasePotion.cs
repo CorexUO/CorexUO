@@ -39,8 +39,8 @@ namespace Server.Items
 
 	public abstract class BasePotion : BaseItem, ICraftable, ICommodity
 	{
-		private static readonly bool IsStackable = Settings.Get("Items", "StackablePotions", Core.ML);
-		public virtual bool RequireFreeHand { get { return Settings.Get<bool>("Items", "PotionsRequiredFreeHands", true); } }
+		private static readonly bool IsStackable = Settings.Configuration.Get("Items", "StackablePotions", Core.ML);
+		public virtual bool RequireFreeHand { get { return Settings.Configuration.Get<bool>("Items", "PotionsRequiredFreeHands", true); } }
 
 		public override int LabelNumber { get { return 1041314 + (int)m_PotionEffect; } }
 

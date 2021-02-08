@@ -14,10 +14,10 @@ namespace Server.Items
 
 		public override bool RequireFreeHand { get { return false; } }
 
-		private static readonly bool LeveledExplosion = Settings.Get<bool>("Items", "ExplosionPotionLeveled", false); // Should explosion potions explode other nearby potions?
-		private static readonly bool InstantExplosion = Settings.Get<bool>("Items", "ExplosionPotionInstantExplosion", false); // Should explosion potions explode on impact?
-		private static readonly bool RelativeLocation = Settings.Get<bool>("Items", "ExplosionPotionRelativeLocation", false); // Is the explosion target location relative for mobiles?
-		private static readonly int ExplosionRange = Settings.Get<int>("Items", "ExplosionPotionRange", 2); // How long is the blast radius?
+		private static readonly bool LeveledExplosion = Settings.Configuration.Get<bool>("Items", "ExplosionPotionLeveled", false); // Should explosion potions explode other nearby potions?
+		private static readonly bool InstantExplosion = Settings.Configuration.Get<bool>("Items", "ExplosionPotionInstantExplosion", false); // Should explosion potions explode on impact?
+		private static readonly bool RelativeLocation = Settings.Configuration.Get<bool>("Items", "ExplosionPotionRelativeLocation", false); // Is the explosion target location relative for mobiles?
+		private static readonly int ExplosionRange = Settings.Configuration.Get<int>("Items", "ExplosionPotionRange", 2); // How long is the blast radius?
 
 		public BaseExplosionPotion(PotionEffect effect) : base(0xF0D, effect)
 		{

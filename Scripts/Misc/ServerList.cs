@@ -37,9 +37,9 @@ namespace Server.Misc
 		 * firewalls) or specific IP adddresses you can do so by modifying the file SocketOptions.cs found in this directory.
 		 */
 
-		public static readonly string Address = Settings.Get<string>("Server", "Address");
-		public static readonly string ServerName = Settings.Get<string>("Server", "ServerName");
-		public static readonly bool AutoDetect = Settings.Get<bool>("Server", "AutoDetect");
+		public static readonly string Address = Settings.Configuration.Get<string>("Server", "Address");
+		public static readonly string ServerName = Settings.Configuration.Get<string>("Server", "ServerName");
+		public static readonly bool AutoDetect = Settings.Configuration.Get<bool>("Server", "AutoDetect");
 
 		public static void Initialize()
 		{

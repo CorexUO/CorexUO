@@ -8,9 +8,9 @@ namespace Server.Engines.VeteranRewards
 {
 	public class RewardSystem
 	{
-		public static bool Enabled = Settings.Get<bool>("VeteranRewards", "Enabled"); // change to true to enable vet rewards
-		public static bool SkillCapRewards = Settings.Get<bool>("VeteranRewards", "SkillCapRewards"); // assuming vet rewards are enabled, should total skill cap bonuses be awarded? (720 skills total at 4th level)
-		public static TimeSpan RewardInterval = TimeSpan.FromDays(Settings.Get<double>("VeteranRewards", "RewardInterval"));
+		public static bool Enabled = Settings.Configuration.Get<bool>("VeteranRewards", "Enabled"); // change to true to enable vet rewards
+		public static bool SkillCapRewards = Settings.Configuration.Get<bool>("VeteranRewards", "SkillCapRewards"); // assuming vet rewards are enabled, should total skill cap bonuses be awarded? (720 skills total at 4th level)
+		public static TimeSpan RewardInterval = TimeSpan.FromDays(Settings.Configuration.Get<double>("VeteranRewards", "RewardInterval"));
 
 		private static RewardCategory[] m_Categories;
 		private static RewardList[] m_Lists;
