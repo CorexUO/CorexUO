@@ -16,6 +16,7 @@ namespace Server
 		public Settings(string name)
 		{
 			Filename = name;
+			Init();
 		}
 
 		public sealed class Entry
@@ -32,7 +33,7 @@ namespace Server
 			}
 		}
 
-		public void Init()
+		private void Init()
 		{
 			if (!Directory.Exists(Core.BaseDirectory))
 			{
