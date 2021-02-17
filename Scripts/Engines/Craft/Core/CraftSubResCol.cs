@@ -4,38 +4,14 @@ namespace Server.Engines.Craft
 {
 	public class CraftSubResCol : System.Collections.CollectionBase
 	{
-		private Type m_Type;
-		private string m_NameString;
-		private int m_NameNumber;
-		private bool m_Init;
-
-		public bool Init
-		{
-			get { return m_Init; }
-			set { m_Init = value; }
-		}
-
-		public Type ResType
-		{
-			get { return m_Type; }
-			set { m_Type = value; }
-		}
-
-		public string NameString
-		{
-			get { return m_NameString; }
-			set { m_NameString = value; }
-		}
-
-		public int NameNumber
-		{
-			get { return m_NameNumber; }
-			set { m_NameNumber = value; }
-		}
+		public bool Init { get; set; }
+		public Type ResType { get; set; }
+		public string NameString { get; set; }
+		public int NameNumber { get; set; }
 
 		public CraftSubResCol()
 		{
-			m_Init = false;
+			Init = false;
 		}
 
 		public void Add(CraftSubRes craftSubRes)
