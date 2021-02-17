@@ -41,7 +41,7 @@ namespace Server.Engines.Harvest
 			bool inRange = (from.Map == map && from.InRange(loc, def.MaxRange));
 
 			if (!inRange)
-				def.SendMessageTo(from, timed ? def.TimedOutOfRangeMessage : def.OutOfRangeMessage);
+				HarvestDefinition.SendMessageTo(from, timed ? def.TimedOutOfRangeMessage : def.OutOfRangeMessage);
 
 			return inRange;
 		}
@@ -52,7 +52,7 @@ namespace Server.Engines.Harvest
 			bool available = (bank != null && bank.Current >= def.ConsumedPerHarvest);
 
 			if (!available)
-				def.SendMessageTo(from, timed ? def.DoubleHarvestMessage : def.NoResourcesMessage);
+				HarvestDefinition.SendMessageTo(from, timed ? def.DoubleHarvestMessage : def.NoResourcesMessage);
 
 			return available;
 		}
@@ -223,7 +223,7 @@ namespace Server.Engines.Harvest
 							if (toolWithUses.UsesRemaining < 1)
 							{
 								tool.Delete();
-								def.SendMessageTo(from, def.ToolBrokeMessage);
+								HarvestDefinition.SendMessageTo(from, def.ToolBrokeMessage);
 							}
 						}
 					}
@@ -231,7 +231,7 @@ namespace Server.Engines.Harvest
 			}
 
 			if (type == null)
-				def.SendMessageTo(from, def.FailMessage);
+				HarvestDefinition.SendMessageTo(from, def.FailMessage);
 
 			OnHarvestFinished(from, tool, def, vein, bank, resource, toHarvest);
 		}
@@ -263,7 +263,7 @@ namespace Server.Engines.Harvest
 
 		public virtual void SendPackFullTo(Mobile from, Item item, HarvestDefinition def, HarvestResource resource)
 		{
-			def.SendMessageTo(from, def.PackFullMessage);
+			HarvestDefinition.SendMessageTo(from, def.PackFullMessage);
 		}
 
 		public virtual bool Give(Mobile m, Item item, bool placeAtFeet)

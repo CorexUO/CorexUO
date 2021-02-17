@@ -305,9 +305,9 @@ namespace Server.Mobiles
 		#endregion
 
 		#region Bonding
-		private static readonly bool m_BondingEnabled = Settings.Get<bool>("Mobiles", "BondingEnabled", true);
-		private static readonly TimeSpan m_BondingDelay = TimeSpan.FromDays(Settings.Get<double>("Mobiles", "BondingDelay", 7.0));
-		private static readonly TimeSpan m_BondingAbandonDelay = TimeSpan.FromDays(Settings.Get<double>("Mobiles", "BondingAbandonDelay", 1.0));
+		private static readonly bool m_BondingEnabled = Settings.Configuration.Get<bool>("Mobiles", "BondingEnabled", true);
+		private static readonly TimeSpan m_BondingDelay = TimeSpan.FromDays(Settings.Configuration.Get<double>("Mobiles", "BondingDelay", 7.0));
+		private static readonly TimeSpan m_BondingAbandonDelay = TimeSpan.FromDays(Settings.Configuration.Get<double>("Mobiles", "BondingAbandonDelay", 1.0));
 
 		public virtual bool IsBondable { get { return (m_BondingEnabled && !Summoned); } }
 		public virtual TimeSpan BondingDelay { get { return m_BondingDelay; } }
@@ -1277,6 +1277,13 @@ namespace Server.Mobiles
 			}
 		}
 
+		public void Pacify(Mobile master, DateTime endtime)
+		{
+			BardMaster = master;
+			BardPacified = true;
+			BardEndTime = endtime;
+		}
+
 		public void Unpacify()
 		{
 			BardEndTime = DateTime.UtcNow;
@@ -1373,34 +1380,6 @@ namespace Server.Mobiles
 		{
 			base.OnHarmfulSpell(from, spell);
 		}
-
-		#region Alter[...]Damage From/To
-
-		public virtual void AlterDamageScalarFrom(Mobile caster, ref double scalar)
-		{
-		}
-
-		public virtual void AlterDamageScalarTo(Mobile target, ref double scalar)
-		{
-		}
-
-		public virtual void AlterSpellDamageFrom(Mobile from, ref int damage)
-		{
-		}
-
-		public virtual void AlterSpellDamageTo(Mobile to, ref int damage)
-		{
-		}
-
-		public virtual void AlterMeleeDamageFrom(Mobile from, ref int damage)
-		{
-		}
-
-		public virtual void AlterMeleeDamageTo(Mobile to, ref int damage)
-		{
-		}
-
-		#endregion
 
 		public virtual void CheckReflect(Mobile caster, ref bool reflect)
 		{
@@ -5160,12 +5139,6 @@ namespace Server.Mobiles
 			}
 
 			return false;
-		}
-
-		public void Pacify(Mobile master, DateTime endtime)
-		{
-			BardPacified = true;
-			BardEndTime = endtime;
 		}
 
 		public override Mobile GetDamageMaster(Mobile damagee)

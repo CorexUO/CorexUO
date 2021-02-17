@@ -12,9 +12,9 @@ namespace Server.Misc
 		[CallPriority(10)]
 		public static void Configure()
 		{
-			Mobile.DefaultHitsRate = TimeSpan.FromSeconds(Settings.Get("Mobiles", "HitsRegenRate", 11.0));
-			Mobile.DefaultStamRate = TimeSpan.FromSeconds(Settings.Get("Mobiles", "StamRegenRate", 7.0));
-			Mobile.DefaultManaRate = TimeSpan.FromSeconds(Settings.Get("Mobiles", "ManaRegenRate", 7.0));
+			Mobile.DefaultHitsRate = TimeSpan.FromSeconds(Settings.Configuration.Get("Mobiles", "HitsRegenRate", 11.0));
+			Mobile.DefaultStamRate = TimeSpan.FromSeconds(Settings.Configuration.Get("Mobiles", "StamRegenRate", 7.0));
+			Mobile.DefaultManaRate = TimeSpan.FromSeconds(Settings.Configuration.Get("Mobiles", "ManaRegenRate", 7.0));
 
 			Mobile.ManaRegenRateHandler = new RegenRateHandler(Mobile_ManaRegenRate);
 

@@ -24,20 +24,20 @@ namespace Server.Spells
 		public Item Scroll { get; }
 		public long StartCastTime { get; private set; }
 
-		private static readonly TimeSpan NextSpellDelay = TimeSpan.FromSeconds(Settings.Get<double>("Spells", "NextSpellDelay"));
+		private static readonly TimeSpan NextSpellDelay = TimeSpan.FromSeconds(Settings.Configuration.Get<double>("Spells", "NextSpellDelay"));
 		private static readonly TimeSpan AnimateDelay = TimeSpan.FromSeconds(1.5);
 
 		public virtual SkillName CastSkill { get { return SkillName.Magery; } }
 		public virtual SkillName DamageSkill { get { return SkillName.EvalInt; } }
 
-		private static readonly bool m_RevealOnCast = Settings.Get<bool>("Spells", "RevealOnCast");
-		private static readonly bool m_ClearHandsOnCast = Settings.Get<bool>("Spells", "ClearHandsOnCast");
-		private static readonly bool m_ShowHandMovement = Settings.Get<bool>("Spells", "ShowHandMovement");
-		private static readonly bool m_BlocksMovement = Settings.Get<bool>("Spells", "BlocksMovement");
-		private static readonly bool m_ConsumeRegs = Settings.Get<bool>("Spells", "ConsumeRegs");
+		private static readonly bool m_RevealOnCast = Settings.Configuration.Get<bool>("Spells", "RevealOnCast");
+		private static readonly bool m_ClearHandsOnCast = Settings.Configuration.Get<bool>("Spells", "ClearHandsOnCast");
+		private static readonly bool m_ShowHandMovement = Settings.Configuration.Get<bool>("Spells", "ShowHandMovement");
+		private static readonly bool m_BlocksMovement = Settings.Configuration.Get<bool>("Spells", "BlocksMovement");
+		private static readonly bool m_ConsumeRegs = Settings.Configuration.Get<bool>("Spells", "ConsumeRegs");
 
-		private static readonly bool m_PreCast = Settings.Get<bool>("Spells", "Precast");
-		private static readonly int m_SpellRange = Settings.Get<int>("Spells", "SpellRange", Core.ML ? 10 : 12);
+		private static readonly bool m_PreCast = Settings.Configuration.Get<bool>("Spells", "Precast");
+		private static readonly int m_SpellRange = Settings.Configuration.Get<int>("Spells", "SpellRange", Core.ML ? 10 : 12);
 
 		public virtual bool RevealOnCast { get { return m_RevealOnCast; } }
 		public virtual bool ClearHandsOnCast { get { return m_ClearHandsOnCast; } }
@@ -325,10 +325,10 @@ namespace Server.Spells
 					scalar *= 2.0; // Double magery damage to monsters/animals if not AOS
 			}
 
-			if (target is BaseCreature creatureTarget)
+			if (target is BaseMobile creatureTarget)
 				creatureTarget.AlterDamageScalarFrom(Caster, ref scalar);
 
-			if (Caster is BaseCreature creatureCaster)
+			if (Caster is BaseMobile creatureCaster)
 				creatureCaster.AlterDamageScalarTo(target, ref scalar);
 
 			if (Core.SE)

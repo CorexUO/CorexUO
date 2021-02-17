@@ -7,7 +7,7 @@ namespace Server.Engines.Chat
 {
 	public class ChatSystem
 	{
-		private static bool m_Enabled = Settings.Get<bool>("Misc", "ChatEnabled");
+		private static bool m_Enabled = Settings.Configuration.Get<bool>("Misc", "ChatEnabled");
 
 		public static bool Enabled
 		{

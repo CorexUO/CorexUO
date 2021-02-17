@@ -503,8 +503,8 @@ namespace Server
 	[PropertyObject]
 	public class Skills : IEnumerable<Skill>
 	{
-		private static readonly int m_SkillTotalCap = Settings.Get<int>("Gameplay", "SkillTotalCap");
-		private static readonly int m_SkillCap = Settings.Get<int>("Gameplay", "SkillCap");
+		private static readonly int m_SkillTotalCap = Settings.Configuration.Get<int>("Gameplay", "SkillTotalCap");
+		private static readonly int m_SkillCap = Settings.Configuration.Get<int>("Gameplay", "SkillCap");
 		private readonly Skill[] m_Skills;
 		private Skill m_Highest;
 

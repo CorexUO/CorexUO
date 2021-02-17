@@ -14,8 +14,8 @@ namespace Server.Misc
 
 	public class ProfanityProtection
 	{
-		private static readonly bool Enabled = Settings.Get<bool>("Profanity", "Enabled");
-		private static readonly ProfanityAction Action = (ProfanityAction)Settings.Get<int>("Profanity", "Action"); // change here what to do when profanity is detected
+		private static readonly bool Enabled = Settings.Configuration.Get<bool>("Profanity", "Enabled");
+		private static readonly ProfanityAction Action = (ProfanityAction)Settings.Configuration.Get<int>("Profanity", "Action"); // change here what to do when profanity is detected
 
 		public static void Initialize()
 		{

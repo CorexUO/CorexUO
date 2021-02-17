@@ -4,68 +4,36 @@ namespace Server.Engines.Craft
 {
 	public class CraftRes
 	{
-		private readonly Type m_Type;
-		private readonly int m_Amount;
-
-		private readonly string m_MessageString;
-		private readonly int m_MessageNumber;
-
-		private readonly string m_NameString;
-		private readonly int m_NameNumber;
+		public Type ItemType { get; }
+		public string MessageString { get; }
+		public int MessageNumber { get; }
+		public string NameString { get; }
+		public int NameNumber { get; }
+		public int Amount { get; }
 
 		public CraftRes(Type type, int amount)
 		{
-			m_Type = type;
-			m_Amount = amount;
+			ItemType = type;
+			Amount = amount;
 		}
 
 		public CraftRes(Type type, TextDefinition name, int amount, TextDefinition message) : this(type, amount)
 		{
-			m_NameNumber = name;
-			m_MessageNumber = message;
+			NameNumber = name;
+			MessageNumber = message;
 
-			m_NameString = name;
-			m_MessageString = message;
+			NameString = name;
+			MessageString = message;
 		}
 
 		public void SendMessage(Mobile from)
 		{
-			if (m_MessageNumber > 0)
-				from.SendLocalizedMessage(m_MessageNumber);
-			else if (!String.IsNullOrEmpty(m_MessageString))
-				from.SendMessage(m_MessageString);
+			if (MessageNumber > 0)
+				from.SendLocalizedMessage(MessageNumber);
+			else if (!String.IsNullOrEmpty(MessageString))
+				from.SendMessage(MessageString);
 			else
 				from.SendLocalizedMessage(502925); // You don't have the resources required to make that item.
-		}
-
-		public Type ItemType
-		{
-			get { return m_Type; }
-		}
-
-		public string MessageString
-		{
-			get { return m_MessageString; }
-		}
-
-		public int MessageNumber
-		{
-			get { return m_MessageNumber; }
-		}
-
-		public string NameString
-		{
-			get { return m_NameString; }
-		}
-
-		public int NameNumber
-		{
-			get { return m_NameNumber; }
-		}
-
-		public int Amount
-		{
-			get { return m_Amount; }
 		}
 	}
 }

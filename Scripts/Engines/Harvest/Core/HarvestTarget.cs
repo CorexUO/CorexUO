@@ -21,24 +21,20 @@ namespace Server.Engines.Harvest
 
 		protected override void OnTarget(Mobile from, object targeted)
 		{
-			if (m_System is Mining && targeted is StaticTarget)
+			if (m_System is Mining && targeted is StaticTarget target)
 			{
-				int itemID = ((StaticTarget)targeted).ItemID;
+				int itemID = target.ItemID;
 
 				// grave
 				if (itemID == 0xED3 || itemID == 0xEDF || itemID == 0xEE0 || itemID == 0xEE1 || itemID == 0xEE2 || itemID == 0xEE8)
 				{
-					PlayerMobile player = from as PlayerMobile;
-
-					if (player != null)
+					if (from is PlayerMobile player)
 					{
 						QuestSystem qs = player.Quest;
 
 						if (qs is WitchApprenticeQuest)
 						{
-							FindIngredientObjective obj = qs.FindObjective(typeof(FindIngredientObjective)) as FindIngredientObjective;
-
-							if (obj != null && !obj.Completed && obj.Ingredient == Ingredient.Bones)
+							if (qs.FindObjective(typeof(FindIngredientObjective)) is FindIngredientObjective obj && !obj.Completed && obj.Ingredient == Ingredient.Bones)
 							{
 								player.SendLocalizedMessage(1055037); // You finish your grim work, finding some of the specific bones listed in the Hag's recipe.
 								obj.Complete();
@@ -72,7 +68,7 @@ namespace Server.Engines.Harvest
 				m_System.StartHarvesting(from, m_Tool, targeted);
 		}
 
-		private void DestroyFurniture(Mobile from, Item item)
+		private static void DestroyFurniture(Mobile from, Item item)
 		{
 			if (!from.InRange(item.GetWorldLocation(), 3))
 			{
@@ -88,12 +84,12 @@ namespace Server.Engines.Harvest
 			from.SendLocalizedMessage(500461); // You destroy the item.
 			Effects.PlaySound(item.GetWorldLocation(), item.Map, 0x3B3);
 
-			if (item is Container)
+			if (item is Container container)
 			{
-				if (item is TrapableContainer)
-					(item as TrapableContainer).ExecuteTrap(from);
+				if (item is TrapableContainer trapableContainer)
+					trapableContainer.ExecuteTrap(from);
 
-				((Container)item).Destroy();
+				container.Destroy();
 			}
 			else
 			{

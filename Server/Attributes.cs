@@ -171,4 +171,12 @@ namespace Server
 			WriteLevel = writeLevel;
 		}
 	}
+
+	[AttributeUsage(AttributeTargets.Class)]
+	public class UnserializableAttribute : Attribute
+	{
+		public UnserializableAttribute()
+		{
+		}
+	}
 }

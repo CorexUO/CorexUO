@@ -8,11 +8,11 @@ namespace Server.Misc
 	{
 		private static class Settings
 		{
-			public static bool Enabled { get; } = Server.Settings.Get<bool>("Assistants", "Enabled");
-			public static bool KickOnFailure { get; } = Server.Settings.Get<bool>("Assistants", "KickOnFailure");
+			public static bool Enabled { get; } = Server.Settings.Configuration.Get<bool>("Assistants", "Enabled");
+			public static bool KickOnFailure { get; } = Server.Settings.Configuration.Get<bool>("Assistants", "KickOnFailure");
 
-			public static readonly TimeSpan HandshakeTimeout = TimeSpan.FromSeconds(Server.Settings.Get<int>("Assistants", "HandshakeTimeout"));
-			public static readonly TimeSpan DisconnectDelay = TimeSpan.FromSeconds(Server.Settings.Get<int>("Assistants", "DisconnectDelay"));
+			public static readonly TimeSpan HandshakeTimeout = TimeSpan.FromSeconds(Server.Settings.Configuration.Get<int>("Assistants", "HandshakeTimeout"));
+			public static readonly TimeSpan DisconnectDelay = TimeSpan.FromSeconds(Server.Settings.Configuration.Get<int>("Assistants", "DisconnectDelay"));
 
 			public const string WarningMessage = "The server was unable to negotiate features with your assistant. "
 								+ "You must download and run an updated version of <A HREF=\"http://uosteam.com\">UOSteam</A>"

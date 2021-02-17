@@ -6,10 +6,10 @@ namespace Server.Misc
 	// As of B36 PlayerMobile implements movement packet throttling which more reliably controls movement speeds
 	public class Fastwalk
 	{
-		private static readonly int MaxSteps = Settings.Get<int>("Fastwalk", "MaxSteps");
-		private static readonly bool Enabled = Settings.Get<bool>("Fastwalk", "Enabled");
-		private static readonly bool UOTDOverride = Settings.Get<bool>("Fastwalk", "UOTDOverride");
-		private static readonly AccessLevel AccessOverride = (AccessLevel)Settings.Get<int>("Fastwalk", "AccessOverride"); // Anyone with this or higher access level is not checked for fastwalk
+		private static readonly int MaxSteps = Settings.Configuration.Get<int>("Fastwalk", "MaxSteps");
+		private static readonly bool Enabled = Settings.Configuration.Get<bool>("Fastwalk", "Enabled");
+		private static readonly bool UOTDOverride = Settings.Configuration.Get<bool>("Fastwalk", "UOTDOverride");
+		private static readonly AccessLevel AccessOverride = (AccessLevel)Settings.Configuration.Get<int>("Fastwalk", "AccessOverride"); // Anyone with this or higher access level is not checked for fastwalk
 
 		public static void Initialize()
 		{

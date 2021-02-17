@@ -98,7 +98,7 @@ namespace Server.Regions
 			return reg;
 		}
 
-		private static readonly bool m_AllowReds = Settings.Get<bool>("Gameplay", "AllowRedsInGuards");
+		private static readonly bool m_AllowReds = Settings.Configuration.Get<bool>("Gameplay", "AllowRedsInGuards");
 		public virtual bool AllowReds { get { return m_AllowReds; } }
 
 		public virtual bool CheckVendorAccess(BaseVendor vendor, Mobile from)

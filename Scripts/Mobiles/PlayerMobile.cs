@@ -86,8 +86,8 @@ namespace Server.Mobiles
 
 	public partial class PlayerMobile : BaseMobile, IHonorTarget
 	{
-		private static readonly TimeSpan m_KillShortTermDelay = TimeSpan.FromHours(Settings.Get<double>("Gameplay", "KillShortTermDelay"));
-		private static readonly TimeSpan m_KillLongTermDelay = TimeSpan.FromHours(Settings.Get<double>("Gameplay", "KillLongTermDelay"));
+		private static readonly TimeSpan m_KillShortTermDelay = TimeSpan.FromHours(Settings.Configuration.Get<double>("Gameplay", "KillShortTermDelay"));
+		private static readonly TimeSpan m_KillLongTermDelay = TimeSpan.FromHours(Settings.Configuration.Get<double>("Gameplay", "KillLongTermDelay"));
 
 		#region Stygian Abyss
 		public override void ToggleFlying()

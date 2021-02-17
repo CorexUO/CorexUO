@@ -467,9 +467,9 @@ namespace Server
 	/// </summary>
 	public class Mobile : IEntity, IHued, IComparable<Mobile>, ISerializable, ISpawnable
 	{
-		private static readonly int m_ConfigStatsCap = Settings.Get<int>("Gameplay", "StatsCap");
-		private static readonly int m_ConfigFollowersMax = Settings.Get<int>("Gameplay", "FollowersMax");
-		public static readonly int MurderKills = Settings.Get<int>("Gameplay", "MurderKills");
+		private static readonly int m_ConfigStatsCap = Settings.Configuration.Get<int>("Gameplay", "StatsCap");
+		private static readonly int m_ConfigFollowersMax = Settings.Configuration.Get<int>("Gameplay", "FollowersMax");
+		public static readonly int MurderKills = Settings.Configuration.Get<int>("Gameplay", "MurderKills");
 
 		#region CompareTo(...)
 		public int CompareTo(IEntity other)

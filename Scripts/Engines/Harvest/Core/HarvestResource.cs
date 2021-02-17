@@ -4,31 +4,27 @@ namespace Server.Engines.Harvest
 {
 	public class HarvestResource
 	{
-		private Type[] m_Types;
-		private double m_ReqSkill, m_MinSkill, m_MaxSkill;
-		private readonly object m_SuccessMessage;
-
-		public Type[] Types { get { return m_Types; } set { m_Types = value; } }
-		public double ReqSkill { get { return m_ReqSkill; } set { m_ReqSkill = value; } }
-		public double MinSkill { get { return m_MinSkill; } set { m_MinSkill = value; } }
-		public double MaxSkill { get { return m_MaxSkill; } set { m_MaxSkill = value; } }
-		public object SuccessMessage { get { return m_SuccessMessage; } }
+		public Type[] Types { get; set; }
+		public double ReqSkill { get; set; }
+		public double MinSkill { get; set; }
+		public double MaxSkill { get; set; }
+		public object SuccessMessage { get; }
 
 		public void SendSuccessTo(Mobile m)
 		{
-			if (m_SuccessMessage is int)
-				m.SendLocalizedMessage((int)m_SuccessMessage);
-			else if (m_SuccessMessage is string)
-				m.SendMessage((string)m_SuccessMessage);
+			if (SuccessMessage is int)
+				m.SendLocalizedMessage((int)SuccessMessage);
+			else if (SuccessMessage is string)
+				m.SendMessage((string)SuccessMessage);
 		}
 
 		public HarvestResource(double reqSkill, double minSkill, double maxSkill, object message, params Type[] types)
 		{
-			m_ReqSkill = reqSkill;
-			m_MinSkill = minSkill;
-			m_MaxSkill = maxSkill;
-			m_Types = types;
-			m_SuccessMessage = message;
+			ReqSkill = reqSkill;
+			MinSkill = minSkill;
+			MaxSkill = maxSkill;
+			Types = types;
+			SuccessMessage = message;
 		}
 	}
 }

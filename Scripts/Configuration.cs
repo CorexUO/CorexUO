@@ -8,7 +8,7 @@ namespace Server
 	/// </summary>
 	public class Configuration
 	{
-		private static readonly Expansion Expansion = (Expansion)Settings.Get<int>("Server", "Expansion");
+		private static readonly Expansion Expansion = (Expansion)Settings.Configuration.Get<int>("Server", "Expansion");
 
 		public static void Configure()
 		{

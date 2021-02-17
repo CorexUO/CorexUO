@@ -11,7 +11,7 @@ namespace Server.RemoteAdmin
 		const string LogSubDirectory = "RemoteAdmin";
 
 		private static StreamWriter m_Output;
-		private static bool m_Enabled = Settings.Get<bool>("Misc", "RemoteAdminEnabled");
+		private static bool m_Enabled = Settings.Configuration.Get<bool>("Misc", "RemoteAdminEnabled");
 
 		public static bool Enabled { get { return m_Enabled; } set { m_Enabled = value; } }
 

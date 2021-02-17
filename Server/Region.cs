@@ -103,8 +103,8 @@ namespace Server
 
 		public static Type DefaultRegionType { get; set; } = typeof(Region);
 
-		public static TimeSpan StaffLogoutDelay { get; set; } = TimeSpan.FromMinutes(Settings.Get<double>("Gameplay", "StaffLogoutDelay"));
-		public static TimeSpan DefaultLogoutDelay { get; set; } = TimeSpan.FromMinutes(Settings.Get<double>("Gameplay", "DefaultLogoutDelay"));
+		public static TimeSpan StaffLogoutDelay { get; set; } = TimeSpan.FromMinutes(Settings.Configuration.Get<double>("Gameplay", "StaffLogoutDelay"));
+		public static TimeSpan DefaultLogoutDelay { get; set; } = TimeSpan.FromMinutes(Settings.Configuration.Get<double>("Gameplay", "DefaultLogoutDelay"));
 
 		public const int DefaultPriority = 50;
 

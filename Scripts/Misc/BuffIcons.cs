@@ -6,7 +6,7 @@ namespace Server
 {
 	public class BuffInfo
 	{
-		public static bool Enabled { get; } = Settings.Get<bool>("Misc", "BuffsEnabled");
+		public static bool Enabled { get; } = Settings.Configuration.Get<bool>("Misc", "BuffsEnabled");
 
 		public static void Initialize()
 		{

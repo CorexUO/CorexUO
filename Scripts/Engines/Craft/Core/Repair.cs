@@ -270,7 +270,7 @@ namespace Server.Engines.Craft
 									number = 1044279; // You repair the item.
 									toDelete = true;
 
-									m_CraftSystem.OnRepair(from, m_Tool, m_Deed, null, g);
+									CraftSystem.OnRepair(from, m_Tool, m_Deed, null, g);
 
 									from.BeginAction(typeof(Golem));
 									Timer.DelayCall(TimeSpan.FromSeconds(12.0), new TimerStateCallback(EndGolemRepair), from);
@@ -343,7 +343,7 @@ namespace Server.Engines.Craft
 							m_CraftSystem.PlayCraftEffect(from);
 							weapon.HitPoints = weapon.MaxHitPoints;
 
-							m_CraftSystem.OnRepair(from, m_Tool, m_Deed, null, weapon);
+							CraftSystem.OnRepair(from, m_Tool, m_Deed, null, weapon);
 						}
 						else
 						{
@@ -406,7 +406,7 @@ namespace Server.Engines.Craft
 							m_CraftSystem.PlayCraftEffect(from);
 							armor.HitPoints = armor.MaxHitPoints;
 
-							m_CraftSystem.OnRepair(from, m_Tool, m_Deed, null, armor);
+							CraftSystem.OnRepair(from, m_Tool, m_Deed, null, armor);
 						}
 						else
 						{
@@ -469,7 +469,7 @@ namespace Server.Engines.Craft
 							m_CraftSystem.PlayCraftEffect(from);
 							clothing.HitPoints = clothing.MaxHitPoints;
 
-							m_CraftSystem.OnRepair(from, m_Tool, m_Deed, null, clothing);
+							CraftSystem.OnRepair(from, m_Tool, m_Deed, null, clothing);
 						}
 						else
 						{
