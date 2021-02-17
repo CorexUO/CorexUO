@@ -25,10 +25,7 @@ namespace Server.Spells.Spellweaving
 
 		public static void Initialize()
 		{
-			EventSink.OnPlayerDeath += new PlayerDeathEventHandler(delegate (PlayerDeathEventArgs e)
-		   {
-			   HandleDeath(e.Mobile);
-		   });
+			EventSink.OnPlayerDeath += HandleDeath;
 		}
 
 		public override void OnCast()
@@ -144,10 +141,8 @@ namespace Server.Spells.Spellweaving
 
 		public double HitsScalar { get { return ((Caster.Skills.Spellweaving.Value / 2.4) + FocusLevel) / 100; } }
 
-		public static void OnLogin(LoginEventArgs e)
+		public static void OnLogin(Mobile m)
 		{
-			Mobile m = e.Mobile;
-
 			if (m == null || m.Alive || m_Table[m] == null)
 				return;
 

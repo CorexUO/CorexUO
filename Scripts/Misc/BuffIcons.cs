@@ -12,12 +12,14 @@ namespace Server
 		{
 			if (Enabled)
 			{
-				EventSink.OnClientVersionReceived += new ClientVersionReceivedHandler(delegate (ClientVersionReceivedArgs args)
-				{
-					if (args.State.Mobile is PlayerMobile pm)
-						Timer.DelayCall(TimeSpan.Zero, pm.ResendBuffs);
-				});
+				EventSink.OnClientVersionReceived += EventSink_OnClientVersionReceived;
 			}
+		}
+
+		private static void EventSink_OnClientVersionReceived(NetState state, ClientVersion version)
+		{
+			if (state.Mobile is PlayerMobile pm)
+				Timer.DelayCall(TimeSpan.Zero, pm.ResendBuffs);
 		}
 
 		#region Properties

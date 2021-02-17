@@ -13,9 +13,9 @@ namespace Server
 
 		public static void Initialize()
 		{
-			EventSink.OnVirtueGumpRequest += new VirtueGumpRequestEventHandler(EventSink_VirtueGumpRequest);
-			EventSink.OnVirtueItemRequest += new VirtueItemRequestEventHandler(EventSink_VirtueItemRequest);
-			EventSink.OnVirtueMacroRequest += new VirtueMacroRequestEventHandler(EventSink_VirtueMacroRequest);
+			EventSink.OnVirtueGumpRequest += EventSink_VirtueGumpRequest;
+			EventSink.OnVirtueItemRequest += EventSink_VirtueItemRequest;
+			EventSink.OnVirtueMacroRequest += EventSink_VirtueMacroRequest;
 		}
 
 		public static void Register(int gumpID, OnVirtueUsed callback)
@@ -23,34 +23,34 @@ namespace Server
 			m_Callbacks[gumpID] = callback;
 		}
 
-		private static void EventSink_VirtueItemRequest(VirtueItemRequestEventArgs e)
+		private static void EventSink_VirtueItemRequest(Mobile beholder, Mobile beheld, int gumpId)
 		{
-			if (e.Beholder != e.Beheld)
+			if (beholder != beheld)
 				return;
 
-			e.Beholder.CloseGump(typeof(VirtueGump));
+			beholder.CloseGump(typeof(VirtueGump));
 
-			if (e.Beholder.Murderer)
+			if (beholder.Murderer)
 			{
-				e.Beholder.SendLocalizedMessage(1049609); // Murderers cannot invoke this virtue.
+				beholder.SendLocalizedMessage(1049609); // Murderers cannot invoke this virtue.
 				return;
 			}
 
 
-			m_Callbacks.TryGetValue(e.GumpID, out OnVirtueUsed callback);
+			m_Callbacks.TryGetValue(gumpId, out OnVirtueUsed callback);
 
 			if (callback != null)
-				callback(e.Beholder);
+				callback(beholder);
 			else
-				e.Beholder.SendLocalizedMessage(1052066); // That virtue is not active yet.
+				beholder.SendLocalizedMessage(1052066); // That virtue is not active yet.
 		}
 
 
-		private static void EventSink_VirtueMacroRequest(VirtueMacroRequestEventArgs e)
+		private static void EventSink_VirtueMacroRequest(Mobile mob, int virtueId)
 		{
 			int virtueID = 0;
 
-			switch (e.VirtueID)
+			switch (virtueId)
 			{
 				case 0: // Honor
 					virtueID = 107; break;
@@ -60,14 +60,11 @@ namespace Server
 					virtueID = 112; break;
 			}
 
-			EventSink_VirtueItemRequest(new VirtueItemRequestEventArgs(e.Mobile, e.Mobile, virtueID));
+			EventSink_VirtueItemRequest(mob, mob, virtueID);
 		}
 
-		private static void EventSink_VirtueGumpRequest(VirtueGumpRequestEventArgs e)
+		private static void EventSink_VirtueGumpRequest(Mobile beholder, Mobile beheld)
 		{
-			Mobile beholder = e.Beholder;
-			Mobile beheld = e.Beheld;
-
 			if (beholder == beheld && beholder.Murderer)
 			{
 				beholder.SendLocalizedMessage(1049609); // Murderers cannot invoke this virtue.

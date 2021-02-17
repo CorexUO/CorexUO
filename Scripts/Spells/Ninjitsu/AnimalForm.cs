@@ -13,15 +13,15 @@ namespace Server.Spells.Ninjitsu
 	{
 		public static void Initialize()
 		{
-			EventSink.OnLogin += new LoginEventHandler(OnLogin);
+			EventSink.OnLogin += OnLogin;
 		}
 
-		public static void OnLogin(LoginEventArgs e)
+		public static void OnLogin(Mobile m)
 		{
-			AnimalFormContext context = AnimalForm.GetContext(e.Mobile);
+			AnimalFormContext context = AnimalForm.GetContext(m);
 
 			if (context != null && context.SpeedBoost)
-				e.Mobile.Send(SpeedControl.MountSpeed);
+				m.Send(SpeedControl.MountSpeed);
 		}
 
 		private static readonly SpellInfo m_Info = new SpellInfo(

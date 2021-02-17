@@ -4,16 +4,14 @@ namespace Server.Misc
 	{
 		public static void Initialize()
 		{
-			EventSink.OnAnimateRequest += new AnimateRequestEventHandler(EventSink_AnimateRequest);
+			EventSink.OnAnimateRequest += EventSink_AnimateRequest;
 		}
 
-		private static void EventSink_AnimateRequest(AnimateRequestEventArgs e)
+		private static void EventSink_AnimateRequest(Mobile from, string actionString)
 		{
-			Mobile from = e.Mobile;
-
 			int action;
 
-			switch (e.Action)
+			switch (actionString)
 			{
 				case "bow": action = 32; break;
 				case "salute": action = 33; break;

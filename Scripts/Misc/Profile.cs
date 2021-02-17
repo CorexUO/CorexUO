@@ -8,25 +8,20 @@ namespace Server.Misc
 	{
 		public static void Initialize()
 		{
-			EventSink.OnProfileRequest += new ProfileRequestEventHandler(EventSink_ProfileRequest);
-			EventSink.OnChangeProfileRequest += new ChangeProfileRequestEventHandler(EventSink_ChangeProfileRequest);
+			EventSink.OnProfileRequest += EventSink_ProfileRequest;
+			EventSink.OnChangeProfileRequest += EventSink_ChangeProfileRequest;
 		}
 
-		public static void EventSink_ChangeProfileRequest(ChangeProfileRequestEventArgs e)
+		public static void EventSink_ChangeProfileRequest(Mobile beholder, Mobile beheld, string text)
 		{
-			Mobile from = e.Beholder;
-
-			if (from.ProfileLocked)
-				from.SendMessage("Your profile is locked. You may not change it.");
+			if (beholder.ProfileLocked)
+				beholder.SendMessage("Your profile is locked. You may not change it.");
 			else
-				from.Profile = e.Text;
+				beholder.Profile = text;
 		}
 
-		public static void EventSink_ProfileRequest(ProfileRequestEventArgs e)
+		public static void EventSink_ProfileRequest(Mobile beholder, Mobile beheld)
 		{
-			Mobile beholder = e.Beholder;
-			Mobile beheld = e.Beheld;
-
 			if (!beheld.Player)
 				return;
 

@@ -765,7 +765,7 @@ namespace Server.Multis
 
 			PacketHandlers.RegisterEncoded(0x1A, true, new OnEncodedPacketReceive(Designer_Revert));
 
-			EventSink.Speech += new SpeechEventHandler(EventSink_Speech);
+			EventSink.OnSpeech += EventSink_Speech;
 		}
 
 		private static void EventSink_Speech(SpeechEventArgs e)

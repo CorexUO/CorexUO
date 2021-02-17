@@ -575,14 +575,14 @@ namespace Server.Accounting
 
 		public static void Initialize()
 		{
-			EventSink.OnConnected += new ConnectedEventHandler(EventSink_Connected);
-			EventSink.OnDisconnected += new DisconnectedEventHandler(EventSink_Disconnected);
-			EventSink.OnLogin += new LoginEventHandler(EventSink_Login);
+			EventSink.OnConnected += EventSink_Connected;
+			EventSink.OnDisconnected += EventSink_Disconnected;
+			EventSink.OnLogin += EventSink_Login;
 		}
 
-		private static void EventSink_Connected(ConnectedEventArgs e)
+		private static void EventSink_Connected(Mobile mob)
 		{
-			if (e.Mobile.Account is not Account acc)
+			if (mob.Account is not Account acc)
 				return;
 
 			if (acc.Young && acc.m_YoungTimer == null)
@@ -592,9 +592,9 @@ namespace Server.Accounting
 			}
 		}
 
-		private static void EventSink_Disconnected(DisconnectedEventArgs e)
+		private static void EventSink_Disconnected(Mobile mob)
 		{
-			if (e.Mobile.Account is not Account acc)
+			if (mob.Account is not Account acc)
 				return;
 
 			if (acc.m_YoungTimer != null)
@@ -603,15 +603,15 @@ namespace Server.Accounting
 				acc.m_YoungTimer = null;
 			}
 
-			if (e.Mobile is not PlayerMobile m)
+			if (mob is not PlayerMobile m)
 				return;
 
 			acc.m_TotalGameTime += DateTime.UtcNow - m.SessionStart;
 		}
 
-		private static void EventSink_Login(LoginEventArgs e)
+		private static void EventSink_Login(Mobile mob)
 		{
-			if (e.Mobile is not PlayerMobile m)
+			if (mob is not PlayerMobile m)
 				return;
 
 			if (m.Account is not Account acc)
@@ -1336,7 +1336,7 @@ namespace Server.Accounting
 			double oldAmount = TotalCurrency;
 			TotalCurrency += amount;
 
-			EventSink.InvokeOnAccountGoldChange(new OnAccountGoldChangeEventArgs(this, oldAmount, TotalCurrency));
+			EventSink.InvokeOnAccountGoldChange(this, oldAmount, TotalCurrency);
 
 			return true;
 		}
@@ -1405,7 +1405,7 @@ namespace Server.Accounting
 			double oldAmount = TotalCurrency;
 			TotalCurrency -= amount;
 
-			EventSink.InvokeOnAccountGoldChange(new OnAccountGoldChangeEventArgs(this, oldAmount, TotalCurrency));
+			EventSink.InvokeOnAccountGoldChange(this, oldAmount, TotalCurrency);
 			return true;
 		}
 

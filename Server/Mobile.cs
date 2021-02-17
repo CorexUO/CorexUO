@@ -2857,10 +2857,10 @@ namespace Server
 
 						if (m_MoveRecords.Count >= FwdMaxSteps)
 						{
-							bool blocked = false;
-							EventSink.InvokeFastWalk(m_NetState, blocked);
+							FastWalkEventArgs fw = new FastWalkEventArgs(m_NetState);
+							EventSink.InvokeFastWalk(fw);
 
-							if (blocked)
+							if (fw.Blocked)
 								return false;
 						}
 

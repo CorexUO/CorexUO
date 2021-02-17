@@ -61,9 +61,9 @@ namespace Server.Misc
 
 		public static void Initialize()
 		{
-			EventSink.OnDeleteRequest += new DeleteRequestEventHandler(EventSink_DeleteRequest);
-			EventSink.AccountLogin += new AccountLoginEventHandler(EventSink_AccountLogin);
-			EventSink.GameLogin += new GameLoginEventHandler(EventSink_GameLogin);
+			EventSink.OnDeleteRequest += EventSink_DeleteRequest;
+			EventSink.AccountLogin += EventSink_AccountLogin;
+			EventSink.GameLogin += EventSink_GameLogin;
 
 			if (PasswordCommandEnabled)
 				CommandSystem.Register("Password", AccessLevel.Player, new CommandEventHandler(Password_OnCommand));
@@ -158,11 +158,8 @@ namespace Server.Misc
 			}
 		}
 
-		private static void EventSink_DeleteRequest(DeleteRequestEventArgs e)
+		private static void EventSink_DeleteRequest(NetState state, int index)
 		{
-			NetState state = e.State;
-			int index = e.Index;
-
 			if (state.Account is not Account acct)
 			{
 				state.Dispose();

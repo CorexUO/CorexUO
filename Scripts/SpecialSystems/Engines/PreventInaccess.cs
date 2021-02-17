@@ -34,13 +34,11 @@ namespace Server.Misc
 			m_MoveHistory = new Dictionary<Mobile, LocationInfo>();
 
 			if (Enabled)
-				EventSink.OnLogin += new LoginEventHandler(OnLogin);
+				EventSink.OnLogin += OnLogin;
 		}
 
-		public static void OnLogin(LoginEventArgs e)
+		public static void OnLogin(Mobile from)
 		{
-			Mobile from = e.Mobile;
-
 			if (from == null || from.AccessLevel < AccessLevel.Counselor)
 				return;
 

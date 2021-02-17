@@ -17,7 +17,7 @@ namespace Server.Engines.Events
 
 			if (DateTime.UtcNow >= HolidaySettings.StartHalloween && DateTime.UtcNow <= HolidaySettings.FinishHalloween)
 			{
-				EventSink.Speech += new SpeechEventHandler(EventSink_Speech);
+				EventSink.OnSpeech += EventSink_Speech;
 			}
 		}
 

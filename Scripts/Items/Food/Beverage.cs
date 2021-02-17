@@ -733,12 +733,12 @@ namespace Server.Items
 
 		public static void Initialize()
 		{
-			EventSink.OnLogin += new LoginEventHandler(EventSink_Login);
+			EventSink.OnLogin += EventSink_Login;
 		}
 
-		private static void EventSink_Login(LoginEventArgs e)
+		private static void EventSink_Login(Mobile mob)
 		{
-			CheckHeaveTimer(e.Mobile);
+			CheckHeaveTimer(mob);
 		}
 
 		public static void CheckHeaveTimer(Mobile from)

@@ -91,7 +91,7 @@ namespace Server.Misc
 
 		public static void Initialize()
 		{
-			EventSink.OnClientVersionReceived += new ClientVersionReceivedHandler(EventSink_ClientVersionReceived);
+			EventSink.OnClientVersionReceived += EventSink_ClientVersionReceived;
 
 			//ClientVersion.Required = null;
 			//Required = new ClientVersion( "6.0.0.0" );
@@ -119,11 +119,9 @@ namespace Server.Misc
 			}
 		}
 
-		private static void EventSink_ClientVersionReceived(ClientVersionReceivedArgs e)
+		private static void EventSink_ClientVersionReceived(NetState state, ClientVersion version)
 		{
 			string kickMessage = null;
-			NetState state = e.State;
-			ClientVersion version = e.Version;
 
 			if (state.Mobile == null || state.Mobile.AccessLevel > AccessLevel.Player)
 				return;

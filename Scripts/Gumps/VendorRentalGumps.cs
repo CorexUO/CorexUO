@@ -421,7 +421,7 @@ namespace Server.Gumps
 			from.SendLocalizedMessage(1062377); // You have accepted the offer and now own a vendor in this house.  Rental contract options and details may be viewed on this vendor via the 'Contract Options' context menu.
 			m_Landlord.SendLocalizedMessage(1062376, from.Name); // ~1_NAME~ has accepted your vendor rental offer.  Rental contract details and options may be viewed on this vendor via the 'Contract Options' context menu.
 
-			EventSink.InvokeOnPlacePlayerVendor(new OnPlacePlayerVendorEventArgs(from, vendor));
+			EventSink.InvokeOnPlacePlayerVendor(from, vendor);
 		}
 
 		protected override void Cancel(Mobile from)

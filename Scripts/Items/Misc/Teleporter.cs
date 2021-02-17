@@ -535,13 +535,11 @@ namespace Server.Items
 		{
 			m_Table = new Dictionary<Mobile, TeleportingInfo>();
 
-			EventSink.OnLogout += new LogoutEventHandler(EventSink_Logout);
+			EventSink.OnLogout += EventSink_Logout;
 		}
 
-		public static void EventSink_Logout(LogoutEventArgs e)
+		public static void EventSink_Logout(Mobile from)
 		{
-			Mobile from = e.Mobile;
-
 			if (from == null || !m_Table.TryGetValue(from, out TeleportingInfo info))
 				return;
 

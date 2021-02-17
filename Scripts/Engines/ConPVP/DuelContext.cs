@@ -1121,8 +1121,8 @@ namespace Server.Engines.ConPVP
 
 		public static void Initialize()
 		{
-			EventSink.Speech += new SpeechEventHandler(EventSink_Speech);
-			EventSink.OnLogin += new LoginEventHandler(EventSink_Login);
+			EventSink.OnSpeech += EventSink_Speech;
+			EventSink.OnLogin += EventSink_Login;
 
 			CommandSystem.Register("vli", AccessLevel.GameMaster, new CommandEventHandler(vli_oc));
 		}
@@ -1174,11 +1174,9 @@ namespace Server.Engines.ConPVP
 			return false;
 		}
 
-		private static void EventSink_Login(LoginEventArgs e)
+		private static void EventSink_Login(Mobile m)
 		{
-			PlayerMobile pm = e.Mobile as PlayerMobile;
-
-			if (pm == null)
+			if (m is not PlayerMobile pm)
 				return;
 
 			DuelContext dc = pm.DuelContext;

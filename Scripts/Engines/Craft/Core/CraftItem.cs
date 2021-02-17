@@ -1209,7 +1209,7 @@ namespace Server.Engines.Craft
 
 					from.AddToBackpack(item);
 
-					EventSink.InvokeOnCraftSuccess(new OnCraftSuccessEventArgs(from, item, tool is Item ? (Item)tool : null));
+					EventSink.InvokeOnCraftSuccess(from, item, tool is Item ? (Item)tool : null);
 
 					if (from.AccessLevel > AccessLevel.Player)
 						CommandLogging.WriteLine(from, "Crafting {0} with craft system {1}", CommandLogging.Format(item), craftSystem.GetType().Name);

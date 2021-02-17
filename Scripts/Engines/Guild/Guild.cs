@@ -14,8 +14,8 @@ namespace Server.Guilds
 	{
 		public static void Configure()
 		{
-			EventSink.OnCreateGuildnew += CreateGuildHandler(EventSink_CreateGuild);
-			EventSink.OnGuildGumpRequest += new GuildGumpRequestHandler(EventSink_GuildGumpRequest);
+			EventSink.OnCreateGuild += EventSink_CreateGuild;
+			EventSink.OnGuildGumpRequest += EventSink_GuildGumpRequest;
 
 			CommandSystem.Register("GuildProps", AccessLevel.Counselor, new CommandEventHandler(GuildProps_OnCommand));
 		}
@@ -107,10 +107,9 @@ namespace Server.Guilds
 		#endregion
 
 		#region EventSinks
-		public static void EventSink_GuildGumpRequest(GuildGumpRequestArgs args)
+		public static void EventSink_GuildGumpRequest(Mobile mob)
 		{
-			PlayerMobile pm = args.Mobile as PlayerMobile;
-			if (!NewGuildSystem || pm == null)
+			if (!NewGuildSystem || mob is not PlayerMobile pm)
 				return;
 
 			if (pm.Guild == null)
@@ -119,9 +118,9 @@ namespace Server.Guilds
 				pm.SendGump(new GuildInfoGump(pm, pm.Guild as Guild));
 		}
 
-		public static void EventSink_CreateGuild(CreateGuildEventArgs args)
+		public static void EventSink_CreateGuild(BaseGuild guild)
 		{
-			args.Guild = new Guild(args.Id);
+			guild = new Guild(guild.Id);
 		}
 		#endregion
 
@@ -808,7 +807,7 @@ namespace Server.Guilds
 				Members.Add(m);
 				m.Guild = this;
 
-				EventSink.InvokeOnJoinGuild(new OnJoinGuildEventArgs(m, this));
+				EventSink.InvokeOnJoinGuild(m, this);
 
 				if (!NewGuildSystem)
 					m.GuildFealty = m_Leader;
@@ -838,7 +837,7 @@ namespace Server.Guilds
 
 				Guild guild = m.Guild as Guild;
 
-				EventSink.InvokeOnLeaveGuild(new OnLeaveGuildEventArgs(m, guild));
+				EventSink.InvokeOnLeaveGuild(m, guild);
 
 				m.Guild = null;
 

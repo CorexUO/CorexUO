@@ -49,7 +49,7 @@ namespace Server.Items
 
 				v.SayTo(from, 503246); // Ah! it feels good to be working again.
 
-				EventSink.InvokeOnPlacePlayerVendor(new OnPlacePlayerVendorEventArgs(from, v));
+				EventSink.InvokeOnPlacePlayerVendor(from, v);
 
 				this.Delete();
 			}
@@ -94,7 +94,7 @@ namespace Server.Items
 
 						v.SayTo(from, 503246); // Ah! it feels good to be working again.
 
-						EventSink.InvokeOnPlacePlayerVendor(new OnPlacePlayerVendorEventArgs(from, v));
+						EventSink.InvokeOnPlacePlayerVendor(from, v);
 
 						this.Delete();
 					}

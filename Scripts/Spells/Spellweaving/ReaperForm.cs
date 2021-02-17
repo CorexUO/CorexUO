@@ -11,15 +11,15 @@ namespace Server.Spells.Spellweaving
 
 		public static void Initialize()
 		{
-			EventSink.OnLogin += new LoginEventHandler(OnLogin);
+			EventSink.OnLogin += OnLogin;
 		}
 
-		public static void OnLogin(LoginEventArgs e)
+		public static void OnLogin(Mobile m)
 		{
-			TransformContext context = TransformationSpellHelper.GetContext(e.Mobile);
+			TransformContext context = TransformationSpellHelper.GetContext(m);
 
 			if (context != null && context.Type == typeof(ReaperFormSpell))
-				e.Mobile.Send(SpeedControl.WalkSpeed);
+				m.Send(SpeedControl.WalkSpeed);
 		}
 
 		public override double RequiredSkill { get { return 24.0; } }

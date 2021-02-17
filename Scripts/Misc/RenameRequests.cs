@@ -6,15 +6,11 @@ namespace Server.Misc
 	{
 		public static void Initialize()
 		{
-			EventSink.OnRenameRequest += new RenameRequestEventHandler(EventSink_RenameRequest);
+			EventSink.OnRenameRequest += EventSink_RenameRequest;
 		}
 
-		private static void EventSink_RenameRequest(RenameRequestEventArgs e)
+		private static void EventSink_RenameRequest(Mobile from, Mobile targ, string name)
 		{
-			Mobile from = e.From;
-			Mobile targ = e.Target;
-			string name = e.Name;
-
 			if (from.CanSee(targ) && from.InRange(targ, 12) && targ.CanBeRenamedBy(from))
 			{
 				name = name.Trim();

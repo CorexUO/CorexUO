@@ -379,7 +379,7 @@ namespace Server.SkillHandlers
 							m_Creature.SetControlMaster(m_Tamer);
 							m_Creature.IsBonded = false;
 
-							EventSink.InvokeOnTameCreature(new OnTameCreatureEventArgs(m_Tamer, m_Creature));
+							EventSink.InvokeOnTameCreature(m_Tamer, m_Creature);
 						}
 						else
 						{

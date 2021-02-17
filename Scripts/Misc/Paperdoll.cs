@@ -7,14 +7,11 @@ namespace Server.Misc
 	{
 		public static void Initialize()
 		{
-			EventSink.OnPaperdollRequest += new PaperdollRequestEventHandler(EventSink_PaperdollRequest);
+			EventSink.OnPaperdollRequest += EventSink_PaperdollRequest;
 		}
 
-		public static void EventSink_PaperdollRequest(PaperdollRequestEventArgs e)
+		public static void EventSink_PaperdollRequest(Mobile beholder, Mobile beheld)
 		{
-			Mobile beholder = e.Beholder;
-			Mobile beheld = e.Beheld;
-
 			beholder.Send(new DisplayPaperdoll(beheld, Titles.ComputeTitle(beholder, beheld), beheld.AllowEquipFrom(beholder)));
 
 			if (ObjectPropertyList.Enabled)

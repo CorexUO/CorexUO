@@ -10,12 +10,11 @@ namespace Server.Mobiles
 
 		public static void Initialize()
 		{
-			EventSink.OnPlayerDeath += new PlayerDeathEventHandler(EventSink_PlayerDeath);
+			EventSink.OnPlayerDeath += EventSink_PlayerDeath;
 		}
 
-		public static void EventSink_PlayerDeath(PlayerDeathEventArgs e)
+		public static void EventSink_PlayerDeath(Mobile m)
 		{
-			Mobile m = e.Mobile;
 			Mobile lastKiller = m.LastKiller;
 
 			if (lastKiller is BaseCreature)

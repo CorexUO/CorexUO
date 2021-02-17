@@ -18,9 +18,9 @@ namespace Server.Engines.PartySystem
 
 		public static void Initialize()
 		{
-			EventSink.OnLogout += new LogoutEventHandler(EventSink_Logout);
-			EventSink.OnLogin += new LoginEventHandler(EventSink_Login);
-			EventSink.OnPlayerDeath += new PlayerDeathEventHandler(EventSink_PlayerDeath);
+			EventSink.OnLogout += EventSink_Logout;
+			EventSink.OnLogin += EventSink_Login;
+			EventSink.OnPlayerDeath += EventSink_PlayerDeath;
 
 			CommandSystem.Register("ListenToParty", AccessLevel.GameMaster, new CommandEventHandler(ListenToParty_OnCommand));
 		}
@@ -54,9 +54,8 @@ namespace Server.Engines.PartySystem
 			}
 		}
 
-		public static void EventSink_PlayerDeath(PlayerDeathEventArgs e)
+		public static void EventSink_PlayerDeath(Mobile from)
 		{
-			Mobile from = e.Mobile;
 			Party p = Party.Get(from);
 
 			if (p != null)
@@ -113,9 +112,8 @@ namespace Server.Engines.PartySystem
 			}
 		}
 
-		public static void EventSink_Login(LoginEventArgs e)
+		public static void EventSink_Login(Mobile from)
 		{
-			Mobile from = e.Mobile;
 			Party p = Party.Get(from);
 
 			if (p != null)
@@ -124,9 +122,8 @@ namespace Server.Engines.PartySystem
 				from.Party = null;
 		}
 
-		public static void EventSink_Logout(LogoutEventArgs e)
+		public static void EventSink_Logout(Mobile from)
 		{
-			Mobile from = e.Mobile;
 			Party p = Party.Get(from);
 
 			if (p != null)

@@ -305,7 +305,7 @@ namespace Server.Engines.Quests
 
 		public virtual void Complete()
 		{
-			EventSink.InvokeOnQuestComplete(new OnQuestCompleteEventArgs(From, GetType()));
+			EventSink.InvokeOnQuestComplete(From, GetType());
 
 			ClearQuest(true);
 		}

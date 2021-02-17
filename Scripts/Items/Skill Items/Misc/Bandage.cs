@@ -17,7 +17,7 @@ namespace Server.Items
 
 		public static void Initialize()
 		{
-			EventSink.OnBandageTargetRequest += new BandageTargetRequestEventHandler(EventSink_BandageTargetRequest);
+			EventSink.OnBandageTargetRequest += EventSink_BandageTargetRequest;
 		}
 
 		[Constructable]
@@ -76,12 +76,10 @@ namespace Server.Items
 			}
 		}
 
-		private static void EventSink_BandageTargetRequest(BandageTargetRequestEventArgs e)
+		private static void EventSink_BandageTargetRequest(Mobile from, Item bandage, Mobile target)
 		{
-			if (e.Bandage is not Bandage b || b.Deleted)
+			if (bandage is not Bandage b || b.Deleted)
 				return;
-
-			Mobile from = e.Mobile;
 
 			if (from.InRange(b.GetWorldLocation(), Range))
 			{
@@ -97,7 +95,7 @@ namespace Server.Items
 
 				from.SendLocalizedMessage(500948); // Who will you use the bandages on?
 
-				new InternalTarget(b).Invoke(from, e.Target);
+				new InternalTarget(b).Invoke(from, target);
 			}
 			else
 			{

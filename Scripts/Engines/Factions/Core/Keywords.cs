@@ -8,7 +8,7 @@ namespace Server.Factions
 	{
 		public static void Initialize()
 		{
-			EventSink.Speech += new SpeechEventHandler(EventSink_Speech);
+			EventSink.OnSpeech += EventSink_Speech;
 		}
 
 		private static void ShowScore_Sandbox(object state)

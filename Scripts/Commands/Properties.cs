@@ -269,7 +269,7 @@ namespace Server.Commands
 					object toSet = Convert.ChangeType(v, realProps[i].PropertyType);
 					realProps[i].SetValue(realObjs[i], toSet, null);
 
-					EventSink.InvokeOnPropertyChanged(new OnPropertyChangedEventArgs(from, realObjs[i], realProps[i], obj, toSet));
+					EventSink.InvokeOnPropertyChanged(from, realProps[i], realObjs[i], obj, toSet);
 				}
 				catch
 				{
@@ -526,7 +526,7 @@ namespace Server.Commands
 				object oldValue = prop.GetValue(obj, null);
 				prop.SetValue(obj, toSet, null);
 
-				EventSink.InvokeOnPropertyChanged(new OnPropertyChangedEventArgs(from, obj, prop, oldValue, toSet));
+				EventSink.InvokeOnPropertyChanged(from, prop, obj, oldValue, toSet);
 
 				return "Property has been set.";
 			}
@@ -548,7 +548,7 @@ namespace Server.Commands
 				object oldValue = prop.GetValue(obj, null);
 				prop.SetValue(obj, toSet, null);
 
-				EventSink.InvokeOnPropertyChanged(new OnPropertyChangedEventArgs(null, obj, prop, oldValue, toSet));
+				EventSink.InvokeOnPropertyChanged(null, prop, obj, oldValue, toSet);
 
 				return "Property has been set.";
 			}

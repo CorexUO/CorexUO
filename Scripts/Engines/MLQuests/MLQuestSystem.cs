@@ -156,7 +156,7 @@ namespace Server.Engines.MLQuests
 			TargetCommands.Register(new ViewQuestsCommand());
 			TargetCommands.Register(new ViewContextCommand());
 
-			EventSink.OnQuestGumpRequest += new QuestGumpRequestHandler(EventSink_QuestGumpRequest);
+			EventSink.OnQuestGumpRequest += EventSink_QuestGumpRequest;
 		}
 
 		[Usage("MLQuestsInfo")]
@@ -631,11 +631,9 @@ namespace Server.Engines.MLQuests
 			}
 		}
 
-		public static void EventSink_QuestGumpRequest(QuestGumpRequestArgs args)
+		public static void EventSink_QuestGumpRequest(Mobile m)
 		{
-			PlayerMobile pm = args.Mobile as PlayerMobile;
-
-			if (!Enabled || pm == null)
+			if (!Enabled || m is not PlayerMobile pm)
 				return;
 
 			pm.SendGump(new QuestLogGump(pm));

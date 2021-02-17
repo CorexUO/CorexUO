@@ -802,7 +802,7 @@ namespace Server.Items
 			if (canLoot && !m_HasLooted.Contains(item))
 			{
 				m_HasLooted.Add(item);
-				EventSink.InvokeOnCorpseLoot(new OnCorpseLootEventArgs(from, this, item));
+				EventSink.InvokeOnCorpseLoot(from, this, item);
 			}
 
 			return canLoot;

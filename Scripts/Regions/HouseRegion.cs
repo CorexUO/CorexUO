@@ -12,15 +12,15 @@ namespace Server.Regions
 
 		public static void Initialize()
 		{
-			EventSink.OnLogin += new LoginEventHandler(OnLogin);
+			EventSink.OnLogin += OnLogin;
 		}
 
-		public static void OnLogin(LoginEventArgs e)
+		public static void OnLogin(Mobile m)
 		{
-			BaseHouse house = BaseHouse.FindHouseAt(e.Mobile);
+			BaseHouse house = BaseHouse.FindHouseAt(m);
 
-			if (house != null && !house.Public && !house.IsFriend(e.Mobile))
-				e.Mobile.Location = house.BanLocation;
+			if (house != null && !house.Public && !house.IsFriend(m))
+				m.Location = house.BanLocation;
 		}
 
 		public HouseRegion(BaseHouse house) : base(null, house.Map, HousePriority, GetArea(house))

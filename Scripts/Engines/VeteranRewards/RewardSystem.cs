@@ -476,18 +476,17 @@ namespace Server.Engines.VeteranRewards
 		public static void Initialize()
 		{
 			if (Enabled)
-				EventSink.OnLogin += new LoginEventHandler(EventSink_Login);
+				EventSink.OnLogin += EventSink_Login;
 		}
 
-		private static void EventSink_Login(LoginEventArgs e)
+		private static void EventSink_Login(Mobile m)
 		{
-			if (!e.Mobile.Alive)
+			if (!m.Alive)
 				return;
 
+			ComputeRewardInfo(m, out int cur, out int max, out int level);
 
-			ComputeRewardInfo(e.Mobile, out int cur, out int max, out int level);
-
-			if (e.Mobile.SkillsCap == 7000 || e.Mobile.SkillsCap == 7050 || e.Mobile.SkillsCap == 7100 || e.Mobile.SkillsCap == 7150 || e.Mobile.SkillsCap == 7200)
+			if (m.SkillsCap == 7000 || m.SkillsCap == 7050 || m.SkillsCap == 7100 || m.SkillsCap == 7150 || m.SkillsCap == 7200)
 			{
 				if (level > 4)
 					level = 4;
@@ -495,19 +494,19 @@ namespace Server.Engines.VeteranRewards
 					level = 0;
 
 				if (SkillCapRewards)
-					e.Mobile.SkillsCap = 7000 + (level * 50);
+					m.SkillsCap = 7000 + (level * 50);
 				else
-					e.Mobile.SkillsCap = 7000;
+					m.SkillsCap = 7000;
 			}
 
-			if (Core.ML && e.Mobile is PlayerMobile && !((PlayerMobile)e.Mobile).HasStatReward && HasHalfLevel(e.Mobile))
+			if (Core.ML && m is PlayerMobile && !((PlayerMobile)m).HasStatReward && HasHalfLevel(m))
 			{
-				((PlayerMobile)e.Mobile).HasStatReward = true;
-				e.Mobile.StatCap += 5;
+				((PlayerMobile)m).HasStatReward = true;
+				m.StatCap += 5;
 			}
 
 			if (cur < max)
-				e.Mobile.SendGump(new RewardNoticeGump(e.Mobile));
+				m.SendGump(new RewardNoticeGump(m));
 		}
 	}
 

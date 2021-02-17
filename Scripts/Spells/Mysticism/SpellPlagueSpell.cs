@@ -8,7 +8,7 @@ namespace Server.Spells.Mysticism
 	{
 		public static void Initialize()
 		{
-			EventSink.OnPlayerDeath += new PlayerDeathEventHandler(OnPlayerDeath);
+			EventSink.OnPlayerDeath += OnPlayerDeath;
 		}
 
 		private static readonly SpellInfo m_Info = new SpellInfo(
@@ -109,9 +109,9 @@ namespace Server.Spells.Mysticism
 			context.OnDamage();
 		}
 
-		private static void OnPlayerDeath(PlayerDeathEventArgs e)
+		private static void OnPlayerDeath(Mobile m)
 		{
-			RemoveEffect(e.Mobile);
+			RemoveEffect(m);
 		}
 
 		private static readonly Dictionary<Mobile, SpellPlagueContext> m_Table = new Dictionary<Mobile, SpellPlagueContext>();

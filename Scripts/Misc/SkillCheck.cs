@@ -144,7 +144,7 @@ namespace Server.Misc
 			if (from.Alive && ((gc >= Utility.RandomDouble() && AllowGain(from, skill, amObj)) || skill.Base < 10.0))
 				Gain(from, skill);
 
-			EventSink.InvokeOnSkillCheck(new OnSkillCheckEventArgs(from, skill, success));
+			EventSink.InvokeOnSkillCheck(from, skill, success);
 
 			return success;
 		}
@@ -240,7 +240,7 @@ namespace Server.Misc
 				if (!from.Player || (skills.Total + toGain) <= skills.Cap)
 				{
 					skill.BaseFixedPoint += toGain;
-					EventSink.InvokeOnSkillGain(new OnSkillGainEventArgs(from, skill, toGain));
+					EventSink.InvokeOnSkillGain(from, skill, toGain);
 				}
 			}
 

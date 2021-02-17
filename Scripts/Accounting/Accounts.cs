@@ -11,8 +11,8 @@ namespace Server.Accounting
 
 		public static void Configure()
 		{
-			EventSink.OnWorldLoad += new WorldLoadEventHandler(Load);
-			EventSink.OnWorldSave += new WorldSaveEventHandler(Save);
+			EventSink.OnWorldLoad += OnWorldLoad;
+			EventSink.OnWorldSave += OnWorldSave;
 		}
 
 		static Accounts()
@@ -44,7 +44,7 @@ namespace Server.Accounting
 			m_Accounts.Remove(username);
 		}
 
-		public static void Load()
+		public static void OnWorldLoad()
 		{
 			m_Accounts = new Dictionary<string, IAccount>(32, StringComparer.OrdinalIgnoreCase);
 
@@ -71,7 +71,7 @@ namespace Server.Accounting
 			}
 		}
 
-		public static void Save(WorldSaveEventArgs e)
+		public static void OnWorldSave()
 		{
 			if (!Directory.Exists("Saves/Accounts"))
 				Directory.CreateDirectory("Saves/Accounts");

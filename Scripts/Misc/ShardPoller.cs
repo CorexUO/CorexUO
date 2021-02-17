@@ -138,17 +138,17 @@ namespace Server.Misc
 
 		public static void Initialize()
 		{
-			EventSink.OnLogin += new LoginEventHandler(EventSink_Login);
+			EventSink.OnLogin += EventSink_Login;
 		}
 
 		private static readonly List<ShardPoller> m_ActivePollers = new List<ShardPoller>();
 
-		private static void EventSink_Login(LoginEventArgs e)
+		private static void EventSink_Login(Mobile m)
 		{
 			if (m_ActivePollers.Count == 0)
 				return;
 
-			Timer.DelayCall(TimeSpan.FromSeconds(1.0), new TimerStateCallback(EventSink_Login_Callback), e.Mobile);
+			Timer.DelayCall(TimeSpan.FromSeconds(1.0), new TimerStateCallback(EventSink_Login_Callback), m);
 		}
 
 		private static void EventSink_Login_Callback(object state)

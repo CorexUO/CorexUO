@@ -264,14 +264,26 @@ namespace Server
 		}
 	}
 
+	public class FastWalkEventArgs : EventArgs
+	{
+		public NetState NetState { get; }
+		public bool Blocked { get; set; }
+
+		public FastWalkEventArgs(NetState state)
+		{
+			NetState = state;
+			Blocked = false;
+		}
+	}
+
 	public static partial class EventSink
 	{
 		
 		public static event Action<MovementEventArgs> Movement;
 		public static void InvokeMovement(MovementEventArgs e) => Movement?.Invoke(e);
 
-		public static event Action<NetState, bool> FastWalk;
-		public static void InvokeFastWalk(NetState state, bool blocked) => FastWalk?.Invoke(state, blocked);
+		public static event Action<FastWalkEventArgs> FastWalk;
+		public static void InvokeFastWalk(FastWalkEventArgs args) => FastWalk?.Invoke(args);
 
 		public static event Action<Mobile, Mobile, bool> AggressiveAction;
 		public static void InvokeAggressiveAction(Mobile aggressor, Mobile aggressed, bool criminal) => AggressiveAction?.Invoke(aggressor, aggressed, criminal);
@@ -279,8 +291,8 @@ namespace Server
 		public static event Action<SocketConnectEventArgs> SocketConnect;
 		public static void InvokeSocketConnect(SocketConnectEventArgs e) => SocketConnect?.Invoke(e);
 
-		public static event Action<CrashedEventArgs> Crashed;
-		public static void InvokeCrashed(CrashedEventArgs e) => Crashed?.Invoke(e);
+		public static event Action<CrashedEventArgs> OnCrashed;
+		public static void InvokeCrashed(CrashedEventArgs e) => OnCrashed?.Invoke(e);
 
 		public static event Action<AccountLoginEventArgs> AccountLogin;
 		public static void InvokeAccountLogin(AccountLoginEventArgs e) => AccountLogin?.Invoke(e);
@@ -387,6 +399,9 @@ namespace Server
 		public static event Action<Mobile> OnQuestGumpRequest;
 		public static void InvokeQuestGumpRequest(Mobile m) => OnQuestGumpRequest?.Invoke(m);
 
+		public static event Action<Mobile, Type> OnQuestComplete;
+		public static void InvokeOnQuestComplete(Mobile m, Type questType) => OnQuestComplete?.Invoke(m, questType);
+
 		public static event Action<NetState, ClientVersion> OnClientVersionReceived;
 		public static void InvokeClientVersionReceived(NetState state, ClientVersion cv) => OnClientVersionReceived?.Invoke(state, cv);
 
@@ -492,8 +507,8 @@ namespace Server
 		public static event Action<Mobile, Item> OnCheckEquipItem;
 		public static void InvokeOnCheckEquipItem(Mobile from, Item item) => OnCheckEquipItem?.Invoke(from, item);
 
-		public static event Action<Mobile, Item, Item> OnRepairItem;
-		public static void InvokeOnRepairItem(Mobile from, Item tool, Item repaired) => OnRepairItem?.Invoke(from, tool, repaired);
+		public static event Action<Mobile, Item, IEntity> OnRepairItem;
+		public static void InvokeOnRepairItem(Mobile from, Item tool, IEntity repaired) => OnRepairItem?.Invoke(from, tool, repaired);
 
 		public static event Action<Mobile, Mobile> OnTameCreature;
 		public static void InvokeOnTameCreature(Mobile mobile, Mobile creature) => OnTameCreature?.Invoke(mobile, creature);
@@ -504,8 +519,8 @@ namespace Server
 		public static event Action<Mobile, Item, object> OnResourceHarvestAttempt;
 		public static void InvokeOnResourceHarvestAttempt(Mobile from, Item tool, object harvestSystem) => OnResourceHarvestAttempt?.Invoke(from, tool, harvestSystem);
 
-		public static event Action<Mobile, int, int> OnAccountGoldChange;
-		public static void InvokeOnAccountGoldChange(Mobile mob, int oldValue, int newValue) => OnAccountGoldChange?.Invoke(mob, oldValue, newValue);
+		public static event Action<IAccount, double, double> OnAccountGoldChange;
+		public static void InvokeOnAccountGoldChange(IAccount acc, double oldValue, double newValue) => OnAccountGoldChange?.Invoke(acc, oldValue, newValue);
 
 		public static event Action<Mobile, Item> OnMobileItemEquip;
 		public static void InvokeOnMobileItemEquip(Mobile from, Item item) => OnMobileItemEquip?.Invoke(from, item);
