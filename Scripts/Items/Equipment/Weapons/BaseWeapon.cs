@@ -1406,10 +1406,10 @@ namespace Server.Items
 			damage = AOS.Scale(damage, 100 + percentageBonus);
 			#endregion
 
-			if (attacker is BaseCreature abc)
+			if (attacker is BaseMobile abc)
 				abc.AlterMeleeDamageTo(defender, ref damage);
 
-			if (defender is BaseCreature dbc)
+			if (defender is BaseMobile dbc)
 				dbc.AlterMeleeDamageFrom(attacker, ref damage);
 
 			damage = AbsorbDamage(attacker, defender, damage);

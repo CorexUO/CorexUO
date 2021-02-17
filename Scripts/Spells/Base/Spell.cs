@@ -325,10 +325,10 @@ namespace Server.Spells
 					scalar *= 2.0; // Double magery damage to monsters/animals if not AOS
 			}
 
-			if (target is BaseCreature creatureTarget)
+			if (target is BaseMobile creatureTarget)
 				creatureTarget.AlterDamageScalarFrom(Caster, ref scalar);
 
-			if (Caster is BaseCreature creatureCaster)
+			if (Caster is BaseMobile creatureCaster)
 				creatureCaster.AlterDamageScalarTo(target, ref scalar);
 
 			if (Core.SE)

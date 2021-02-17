@@ -63,6 +63,34 @@ namespace Server.Mobiles
 			return false;
 		}
 
+		#region Alter[...]Damage From/To
+
+		public virtual void AlterDamageScalarFrom(Mobile caster, ref double scalar)
+		{
+		}
+
+		public virtual void AlterDamageScalarTo(Mobile target, ref double scalar)
+		{
+		}
+
+		public virtual void AlterSpellDamageFrom(Mobile from, ref int damage)
+		{
+		}
+
+		public virtual void AlterSpellDamageTo(Mobile to, ref int damage)
+		{
+		}
+
+		public virtual void AlterMeleeDamageFrom(Mobile from, ref int damage)
+		{
+		}
+
+		public virtual void AlterMeleeDamageTo(Mobile to, ref int damage)
+		{
+		}
+
+		#endregion
+
 		/// <summary>
 		/// Overridable. Virtual event when the Mobile is killed by
 		/// </summary>

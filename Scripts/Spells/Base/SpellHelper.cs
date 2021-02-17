@@ -887,10 +887,10 @@ namespace Server.Spells
 
 			if (delay == TimeSpan.Zero)
 			{
-				if (from is BaseCreature creature)
+				if (from is BaseMobile creature)
 					creature.AlterSpellDamageTo(target, ref iDamage);
 
-				if (target is BaseCreature targetCreature)
+				if (target is BaseMobile targetCreature)
 					targetCreature.AlterSpellDamageFrom(from, ref iDamage);
 
 				target.Damage(iDamage, from);
@@ -942,10 +942,10 @@ namespace Server.Spells
 
 			if (delay == TimeSpan.Zero)
 			{
-				if (from is BaseCreature bc)
+				if (from is BaseMobile bc)
 					bc.AlterSpellDamageTo(target, ref iDamage);
 
-				if (target is BaseCreature tbc)
+				if (target is BaseMobile tbc)
 					tbc.AlterSpellDamageFrom(from, ref iDamage);
 
 				WeightOverloading.DFA = dfa;
@@ -1027,10 +1027,10 @@ namespace Server.Spells
 
 			protected override void OnTick()
 			{
-				if (m_From is BaseCreature bc)
+				if (m_From is BaseMobile bc)
 					bc.AlterSpellDamageTo(m_Target, ref m_Damage);
 
-				if (m_Target is BaseCreature tbc)
+				if (m_Target is BaseMobile tbc)
 					tbc.AlterSpellDamageFrom(m_From, ref m_Damage);
 
 				m_Target.Damage(m_Damage);
@@ -1068,10 +1068,10 @@ namespace Server.Spells
 
 			protected override void OnTick()
 			{
-				if (m_From is BaseCreature bc && m_Target != null)
+				if (m_From is BaseMobile bc && m_Target != null)
 					bc.AlterSpellDamageTo(m_Target, ref m_Damage);
 
-				if (m_Target is BaseCreature tbc && m_From != null)
+				if (m_Target is BaseMobile tbc && m_From != null)
 					tbc.AlterSpellDamageFrom(m_From, ref m_Damage);
 
 				WeightOverloading.DFA = m_DFA;
