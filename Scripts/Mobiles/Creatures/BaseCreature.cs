@@ -1277,6 +1277,13 @@ namespace Server.Mobiles
 			}
 		}
 
+		public void Pacify(Mobile master, DateTime endtime)
+		{
+			BardMaster = master;
+			BardPacified = true;
+			BardEndTime = endtime;
+		}
+
 		public void Unpacify()
 		{
 			BardEndTime = DateTime.UtcNow;
@@ -5132,12 +5139,6 @@ namespace Server.Mobiles
 			}
 
 			return false;
-		}
-
-		public void Pacify(Mobile master, DateTime endtime)
-		{
-			BardPacified = true;
-			BardEndTime = endtime;
 		}
 
 		public override Mobile GetDamageMaster(Mobile damagee)
