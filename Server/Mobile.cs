@@ -1366,7 +1366,7 @@ namespace Server
 				{
 					m_Hunger = value;
 
-					EventSink.InvokeHungerChanged(new HungerChangedEventArgs(this, oldValue));
+					EventSink.InvokeHungerChanged(this, oldValue);
 				}
 			}
 		}
@@ -1707,7 +1707,7 @@ namespace Server
 			{
 				if (m_Mobile.m_Map != Map.Internal)
 				{
-					EventSink.InvokeLogout(new LogoutEventArgs(m_Mobile));
+					EventSink.InvokeLogout(m_Mobile);
 
 					m_Mobile.LogoutLocation = m_Mobile.m_Location;
 					m_Mobile.LogoutMap = m_Mobile.m_Map;
@@ -1983,11 +1983,7 @@ namespace Server
 			if (aggressor == this)
 				return;
 
-			AggressiveActionEventArgs args = AggressiveActionEventArgs.Create(this, aggressor, criminal);
-
-			EventSink.InvokeAggressiveAction(args);
-
-			args.Free();
+			EventSink.InvokeAggressiveAction(this, aggressor, criminal);
 
 			if (Combatant == aggressor)
 			{
@@ -3140,7 +3136,7 @@ namespace Server
 		/// </summary>
 		public virtual void OnAfterResurrect()
 		{
-			EventSink.InvokeOnMobileResurrect(new OnMobileResurrectEventArgs(this));
+			EventSink.InvokeOnMobileResurrect(this);
 		}
 
 		public virtual void Resurrect()
@@ -3390,7 +3386,7 @@ namespace Server
 			if (m_AutoManifestTimer != null)
 				m_AutoManifestTimer.Stop();
 
-			EventSink.InvokeOnMobileDeleted(new OnMobileDeletedEventArgs(this));
+			EventSink.InvokeOnMobileDeleted(this);
 		}
 
 		public virtual bool AllowSkillUse(SkillName name)
@@ -3638,7 +3634,7 @@ namespace Server
 				Stam = 0;
 				Mana = 0;
 
-				EventSink.InvokePlayerDeath(new PlayerDeathEventArgs(this));
+				EventSink.InvokePlayerDeath(this);
 
 				ProcessDeltaQueue();
 
@@ -5436,7 +5432,7 @@ namespace Server
 		/// </summary>
 		public virtual void OnItemAdded(Item item)
 		{
-			EventSink.InvokeOnMobileItemEquip(new OnMobileItemEquipEventArgs(this, item));
+			EventSink.InvokeOnMobileItemEquip(this, item);
 		}
 
 		/// <summary>
@@ -5446,7 +5442,7 @@ namespace Server
 		/// </summary>
 		public virtual void OnItemRemoved(Item item)
 		{
-			EventSink.InvokeOnMobileItemRemoved(new OnMobileItemRemovedEventArgs(this, item));
+			EventSink.InvokeOnMobileItemRemoved(this, item);
 		}
 
 		/// <summary>
@@ -5479,7 +5475,7 @@ namespace Server
 		{
 			if (item != m_Backpack && item != m_BankBox)
 			{
-				EventSink.InvokeOnItemObtained(new OnItemObtainedEventArgs(this, item));
+				EventSink.InvokeOnItemObtained(this, item);
 			}
 		}
 
@@ -5757,7 +5753,7 @@ namespace Server
 
 		public virtual void OnFameChange(int oldValue)
 		{
-			EventSink.InvokeOnFameChange(new OnFameChangeEventArgs(this, oldValue, m_Fame));
+			EventSink.InvokeOnFameChange(this, oldValue, m_Fame);
 		}
 
 		[CommandProperty(AccessLevel.GameMaster)]
@@ -5781,7 +5777,7 @@ namespace Server
 
 		public virtual void OnKarmaChange(int oldValue)
 		{
-			EventSink.InvokeOnKarmaChange(new OnKarmaChangeEventArgs(this, oldValue, m_Karma));
+			EventSink.InvokeOnKarmaChange(this, oldValue, m_Karma);
 		}
 
 		// Mobile did something which should unhide him
@@ -6720,7 +6716,7 @@ namespace Server
 					m_Str = value;
 					Delta(MobileDelta.Stat | MobileDelta.Hits);
 
-					EventSink.InvokeOnStatGainChange(new OnStatGainEventArgs(this, StatType.Str, oldValue, m_Str));
+					EventSink.InvokeOnStatGainChange(this, StatType.Str, oldValue, m_Str);
 
 					if (Hits < HitsMax)
 					{
@@ -6794,7 +6790,7 @@ namespace Server
 					m_Dex = value;
 					Delta(MobileDelta.Stat | MobileDelta.Stam);
 
-					EventSink.InvokeOnStatGainChange(new OnStatGainEventArgs(this, StatType.Dex, oldValue, m_Dex));
+					EventSink.InvokeOnStatGainChange(this, StatType.Dex, oldValue, m_Dex);
 
 					if (Stam < StamMax)
 					{
@@ -6868,7 +6864,7 @@ namespace Server
 					m_Int = value;
 					Delta(MobileDelta.Stat | MobileDelta.Mana);
 
-					EventSink.InvokeOnStatGainChange(new OnStatGainEventArgs(this, StatType.Int, oldValue, m_Int));
+					EventSink.InvokeOnStatGainChange(this, StatType.Int, oldValue, m_Int);
 
 					if (Mana < ManaMax)
 					{
@@ -7292,7 +7288,7 @@ namespace Server
 
 		public virtual void OnGenderChanged(bool oldFemale)
 		{
-			EventSink.InvokeOnGenderChange(new OnGenderChangeEventArgs(this, oldFemale, m_Female));
+			EventSink.InvokeOnGenderChange(this, oldFemale, m_Female);
 		}
 
 		[CommandProperty(AccessLevel.GameMaster)]
@@ -7478,7 +7474,7 @@ namespace Server
 					if (m_NetState == null)
 					{
 						OnDisconnected();
-						EventSink.InvokeDisconnected(new DisconnectedEventArgs(this));
+						EventSink.InvokeDisconnected(this);
 
 						// Disconnected, start the logout timer
 
@@ -7493,7 +7489,7 @@ namespace Server
 					else
 					{
 						OnConnected();
-						EventSink.InvokeConnected(new ConnectedEventArgs(this));
+						EventSink.InvokeConnected(this);
 
 						// Connected, stop the logout timer and if needed, move to the world
 
@@ -8417,7 +8413,7 @@ namespace Server
 
 					ClearFastwalkStack();
 
-					EventSink.InvokeOnTeleportMovement(new OnTeleportMovementEventArgs(this, oldLocation, newLocation));
+					EventSink.InvokeOnTeleportMovement(this, oldLocation, newLocation);
 				}
 
 				Map map = m_Map;
@@ -9130,7 +9126,7 @@ namespace Server
 		/// </summary>
 		public virtual void OnItemUsed(Mobile from, Item item)
 		{
-			EventSink.InvokeOnItemUse(new OnItemUseEventArgs(from, item));
+			EventSink.InvokeOnItemUse(from, item);
 		}
 
 		public virtual bool CheckNonlocalDrop(Mobile from, Item item, Item target)
@@ -9231,7 +9227,7 @@ namespace Server
 				m_TypeRef = World.m_MobileTypes.Count - 1;
 			}
 
-			_ = Timer.DelayCall(EventSink.InvokeOnMobileCreated, new OnMobileCreatedEventArgs(this));
+			_ = Timer.DelayCall(EventSink.InvokeOnMobileCreated, this);
 		}
 
 		public void DefaultMobileInit()
@@ -10223,7 +10219,7 @@ namespace Server
 
 		public virtual void DisplayPaperdollTo(Mobile to)
 		{
-			EventSink.InvokePaperdollRequest(new PaperdollRequestEventArgs(to, this));
+			EventSink.InvokePaperdollRequest(to, this);
 		}
 
 		public static bool DisableDismountInWarmode { get; set; }
@@ -10606,7 +10602,7 @@ namespace Server
 
 					if (old != m_StatCap)
 					{
-						EventSink.InvokeOnStatCapChange(new OnStatCapChangeEventArgs(this, old, m_StatCap));
+						EventSink.InvokeOnStatCapChange(this, old, m_StatCap);
 					}
 
 					Delta(MobileDelta.StatCap);

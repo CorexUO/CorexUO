@@ -33,8 +33,8 @@ namespace Server.Items
 
 		public static void Initialize()
 		{
-			EventSink.OpenSpellbookRequest += new OpenSpellbookRequestEventHandler(EventSink_OpenSpellbookRequest);
-			EventSink.CastSpellRequest += new CastSpellRequestEventHandler(EventSink_CastSpellRequest);
+			EventSink.OnOpenSpellbookRequest += EventSink_OpenSpellbookRequest;
+			EventSink.OnCastSpellRequest += EventSink_CastSpellRequest;
 
 			CommandSystem.Register("AllSpells", AccessLevel.GameMaster, new CommandEventHandler(AllSpells_OnCommand));
 		}
@@ -67,14 +67,12 @@ namespace Server.Items
 			}
 		}
 
-		private static void EventSink_OpenSpellbookRequest(OpenSpellbookRequestEventArgs e)
+		private static void EventSink_OpenSpellbookRequest(Mobile from, int type)
 		{
-			Mobile from = e.Mobile;
-
 			if (!Multis.DesignContext.Check(from))
 				return; // They are customizing
 
-			var type = e.Type switch
+			var bookType = type switch
 			{
 				2 => SpellbookType.Necromancer,
 				3 => SpellbookType.Paladin,
@@ -85,22 +83,18 @@ namespace Server.Items
 				_ => SpellbookType.Regular,
 			};
 
-			Spellbook book = Find(from, -1, type);
+			Spellbook book = Find(from, -1, bookType);
 
 			if (book != null)
 				book.DisplayTo(from);
 		}
 
-		private static void EventSink_CastSpellRequest(CastSpellRequestEventArgs e)
+		private static void EventSink_CastSpellRequest(Mobile from, int spellID, Item spellbook)
 		{
-			Mobile from = e.Mobile;
-
 			if (!Multis.DesignContext.Check(from))
 				return; // They are customizing
 
-			int spellID = e.SpellID;
-
-			if (e.Spellbook is not Spellbook book || !book.HasSpell(spellID))
+			if (spellbook is not Spellbook book || !book.HasSpell(spellID))
 				book = Find(from, spellID);
 
 			if (book != null && book.HasSpell(spellID))

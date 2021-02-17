@@ -87,7 +87,7 @@ namespace Server.Engines.Harvest
 			if (!CheckHarvest(from, tool))
 				return false;
 
-			EventSink.InvokeOnResourceHarvestAttempt(new OnResourceHarvestAttemptEventArgs(from, tool, this));
+			EventSink.InvokeOnResourceHarvestAttempt(from, tool, this);
 			from.Target = new HarvestTarget(tool, this);
 			return true;
 		}
@@ -211,7 +211,7 @@ namespace Server.Engines.Harvest
 							}
 						}
 
-						EventSink.InvokeOnResourceHarvestSuccess(new OnResourceHarvestSuccessEventArgs(from, tool, item, bonusItem, this));
+						EventSink.InvokeOnResourceHarvestSuccess(from, tool, item, bonusItem, this);
 
 						if (tool is IUsesRemaining toolWithUses)
 						{

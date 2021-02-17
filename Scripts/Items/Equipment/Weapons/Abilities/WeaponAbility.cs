@@ -411,23 +411,20 @@ namespace Server.Items
 
 		public static void Initialize()
 		{
-			EventSink.SetAbility += new SetAbilityEventHandler(EventSink_SetAbility);
+			EventSink.OnSetAbility += EventSink_SetAbility;
 		}
 
 		public WeaponAbility()
 		{
 		}
 
-		private static void EventSink_SetAbility(SetAbilityEventArgs e)
+		private static void EventSink_SetAbility(Mobile m, int index)
 		{
-			int index = e.Index;
-
 			if (index == 0)
-				ClearCurrentAbility(e.Mobile);
+				ClearCurrentAbility(m);
 			else if (index >= 1 && index < m_Abilities.Length)
-				SetCurrentAbility(e.Mobile, m_Abilities[index]);
+				SetCurrentAbility(m, m_Abilities[index]);
 		}
-
 
 		private static readonly Hashtable m_PlayersTable = new Hashtable();
 

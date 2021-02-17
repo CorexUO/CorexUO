@@ -9,7 +9,7 @@ namespace Server.Misc
 		public static void Initialize()
 		{
 			// Register our speech handler
-			EventSink.Speech += new SpeechEventHandler(EventSink_Speech);
+			EventSink.OnSpeech += EventSink_Speech;
 		}
 
 		public static void EventSink_Speech(SpeechEventArgs args)

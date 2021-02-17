@@ -83,7 +83,7 @@ namespace Server.Ethics
 		public static void Initialize()
 		{
 			if (Enabled)
-				EventSink.Speech += new SpeechEventHandler(EventSink_Speech);
+				EventSink.OnSpeech += EventSink_Speech;
 		}
 
 		public static void EventSink_Speech(SpeechEventArgs e)

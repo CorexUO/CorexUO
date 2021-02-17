@@ -9,19 +9,17 @@ namespace Server.Commands
 	{
 		public static void Initialize()
 		{
-			EventSink.Login += new LoginEventHandler(OnLogin);
+			EventSink.OnLogin += OnLogin;
 
 			CommandSystem.Register("Vis", AccessLevel.Counselor, new CommandEventHandler(Vis_OnCommand));
 			CommandSystem.Register("VisList", AccessLevel.Counselor, new CommandEventHandler(VisList_OnCommand));
 			CommandSystem.Register("VisClear", AccessLevel.Counselor, new CommandEventHandler(VisClear_OnCommand));
 		}
 
-		public static void OnLogin(LoginEventArgs e)
+		public static void OnLogin(Mobile m)
 		{
-			if (e.Mobile is PlayerMobile)
+			if (m is PlayerMobile pm)
 			{
-				PlayerMobile pm = (PlayerMobile)e.Mobile;
-
 				pm.VisibilityList.Clear();
 			}
 		}

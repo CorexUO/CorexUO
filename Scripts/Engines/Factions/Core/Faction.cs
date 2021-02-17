@@ -574,8 +574,8 @@ namespace Server.Factions
 
 		public static void Initialize()
 		{
-			EventSink.Login += new LoginEventHandler(EventSink_Login);
-			EventSink.Logout += new LogoutEventHandler(EventSink_Logout);
+			EventSink.OnLogin += EventSink_Login;
+			EventSink.OnLogout += EventSink_Logout;
 
 			Timer.DelayCall(TimeSpan.FromMinutes(1.0), TimeSpan.FromMinutes(10.0), new TimerCallback(HandleAtrophy));
 
@@ -1217,10 +1217,8 @@ namespace Server.Factions
 			}
 		}
 
-		private static void EventSink_Logout(LogoutEventArgs e)
+		private static void EventSink_Logout(Mobile mob)
 		{
-			Mobile mob = e.Mobile;
-
 			Container pack = mob.Backpack;
 
 			if (pack == null)
@@ -1232,10 +1230,8 @@ namespace Server.Factions
 				((Sigil)sigils[i]).ReturnHome();
 		}
 
-		private static void EventSink_Login(LoginEventArgs e)
+		private static void EventSink_Login(Mobile mob)
 		{
-			Mobile mob = e.Mobile;
-
 			CheckLeaveTimer(mob);
 		}
 

@@ -16,12 +16,11 @@ namespace Server.Engines.Doom
 
 		public static void Initialize()
 		{
-			EventSink.Login += new LoginEventHandler(OnLogin);
+			EventSink.OnLogin += OnLogin;
 		}
 
-		public static void OnLogin(LoginEventArgs e)
+		public static void OnLogin(Mobile m)
 		{
-			Mobile m = e.Mobile;
 			Rectangle2D rect = LeverPuzzleController.lr_Rect;
 			if (m.X >= rect.X && m.X <= (rect.X + 10) && m.Y >= rect.Y && m.Y <= (rect.Y + 10) && m.Map == Map.Internal)
 			{

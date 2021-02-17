@@ -36,7 +36,7 @@ namespace Server.Items
 
 		public static void Initialize()
 		{
-			EventSink.OpenDoorMacroUsed += new OpenDoorMacroEventHandler(EventSink_OpenDoorMacroUsed);
+			EventSink.OnOpenDoorMacroUsed += EventSink_OpenDoorMacroUsed;
 
 			CommandSystem.Register("Link", AccessLevel.GameMaster, new CommandEventHandler(Link_OnCommand));
 			CommandSystem.Register("ChainLink", AccessLevel.GameMaster, new CommandEventHandler(ChainLink_OnCommand));
@@ -139,10 +139,8 @@ namespace Server.Items
 			}
 		}
 
-		private static void EventSink_OpenDoorMacroUsed(OpenDoorMacroEventArgs args)
+		private static void EventSink_OpenDoorMacroUsed(Mobile m)
 		{
-			Mobile m = args.Mobile;
-
 			if (m.Map != null)
 			{
 				int x = m.X, y = m.Y;

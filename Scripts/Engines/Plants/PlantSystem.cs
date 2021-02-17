@@ -377,18 +377,16 @@ namespace Server.Engines.Plants
 
 		public static void Configure()
 		{
-			EventSink.WorldLoad += new WorldLoadEventHandler(EventSink_WorldLoad);
+			EventSink.OnWorldLoad += EventSink_WorldLoad;
 
 			if (!Misc.AutoRestart.Enabled)
-				EventSink.WorldSave += new WorldSaveEventHandler(EventSink_WorldSave);
+				EventSink.OnWorldSave += EventSink_WorldSave;
 
-			EventSink.Login += new LoginEventHandler(EventSink_Login);
+			EventSink.OnLogin += EventSink_Login;
 		}
 
-		private static void EventSink_Login(LoginEventArgs args)
+		private static void EventSink_Login(Mobile from)
 		{
-			Mobile from = args.Mobile;
-
 			if (from.Backpack != null)
 			{
 				List<PlantItem> plants = from.Backpack.FindItemsByType<PlantItem>();
@@ -433,7 +431,7 @@ namespace Server.Engines.Plants
 			GrowAll();
 		}
 
-		private static void EventSink_WorldSave(WorldSaveEventArgs args)
+		private static void EventSink_WorldSave()
 		{
 			GrowAll();
 		}

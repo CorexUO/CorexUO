@@ -14,14 +14,11 @@ namespace Server.Misc
 
 		public static void Initialize()
 		{
-			EventSink.AggressiveAction += new AggressiveActionEventHandler(EventSink_AggressiveAction);
+			EventSink.AggressiveAction += EventSink_AggressiveAction;
 		}
 
-		public static void EventSink_AggressiveAction(AggressiveActionEventArgs e)
+		public static void EventSink_AggressiveAction(Mobile aggressor, Mobile aggressed, bool criminal)
 		{
-			Mobile aggressor = e.Aggressor;
-			Mobile aggressed = e.Aggressed;
-
 			if (!aggressor.Player || !aggressed.Player)
 				return;
 

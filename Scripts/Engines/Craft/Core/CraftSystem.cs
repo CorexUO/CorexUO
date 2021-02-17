@@ -114,7 +114,7 @@ namespace Server.Engines.Craft
 				source = deed ?? addon;
 			}
 
-			EventSink.InvokeOnRepairItem(new OnRepairItemEventArgs(m, source, e));
+			EventSink.InvokeOnRepairItem(m, source, e);
 		}
 
 		public virtual bool ConsumeOnFailure(Mobile from, Type resourceType, CraftItem craftItem)

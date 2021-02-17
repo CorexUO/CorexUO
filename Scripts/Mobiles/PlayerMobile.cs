@@ -575,10 +575,10 @@ namespace Server.Mobiles
 			if (FastwalkPrevention)
 				PacketHandlers.RegisterThrottler(0x02, new ThrottlePacketCallback(MovementThrottle_Callback));
 
-			EventSink.Login += new LoginEventHandler(OnLogin);
-			EventSink.Logout += new LogoutEventHandler(OnLogout);
-			EventSink.Connected += new ConnectedEventHandler(EventSink_Connected);
-			EventSink.Disconnected += new DisconnectedEventHandler(EventSink_Disconnected);
+			EventSink.OnLogin += OnLogin;
+			EventSink.OnLogout += OnLogout;
+			EventSink.OnConnected += EventSink_Connected;
+			EventSink.OnDisconnected += EventSink_Disconnected;
 
 			if (Core.SE)
 			{
@@ -759,10 +759,8 @@ namespace Server.Mobiles
 			}
 		}
 
-		private static void OnLogin(LoginEventArgs e)
+		private static void OnLogin(Mobile from)
 		{
-			Mobile from = e.Mobile;
-
 			CheckAtrophies(from);
 
 			if (AccountHandler.LockdownLevel > AccessLevel.Player)
@@ -1033,15 +1031,15 @@ namespace Server.Mobiles
 				ns.Dispose();
 		}
 
-		private static void OnLogout(LogoutEventArgs e)
+		private static void OnLogout(Mobile from)
 		{
-			if (e.Mobile is PlayerMobile pm)
+			if (from is PlayerMobile pm)
 				pm.AutoStablePets();
 		}
 
-		private static void EventSink_Connected(ConnectedEventArgs e)
+		private static void EventSink_Connected(Mobile from)
 		{
-			if (e.Mobile is PlayerMobile pm)
+			if (from is PlayerMobile pm)
 			{
 				pm.SessionStart = DateTime.UtcNow;
 
@@ -1052,9 +1050,9 @@ namespace Server.Mobiles
 				pm.LastOnline = DateTime.UtcNow;
 			}
 
-			DisguiseTimers.StartTimer(e.Mobile);
+			DisguiseTimers.StartTimer(from);
 
-			Timer.DelayCall(TimeSpan.Zero, new TimerStateCallback(ClearSpecialMovesCallback), e.Mobile);
+			Timer.DelayCall(TimeSpan.Zero, new TimerStateCallback(ClearSpecialMovesCallback), from);
 		}
 
 		private static void ClearSpecialMovesCallback(object state)
@@ -1064,9 +1062,8 @@ namespace Server.Mobiles
 			SpecialMove.ClearAllMoves(from);
 		}
 
-		private static void EventSink_Disconnected(DisconnectedEventArgs e)
+		private static void EventSink_Disconnected(Mobile from)
 		{
-			Mobile from = e.Mobile;
 			DesignContext context = DesignContext.Find(from);
 
 			if (context != null)
@@ -1093,7 +1090,7 @@ namespace Server.Mobiles
 				context.Foundation.RestoreRelocatedEntities();
 			}
 
-			if (e.Mobile is PlayerMobile pm)
+			if (from is PlayerMobile pm)
 			{
 				pm.m_GameTime += (DateTime.UtcNow - pm.SessionStart);
 

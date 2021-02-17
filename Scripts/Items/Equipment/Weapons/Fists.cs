@@ -8,8 +8,8 @@ namespace Server.Items
 		{
 			Mobile.DefaultWeapon = new Fists();
 
-			EventSink.DisarmRequest += new DisarmRequestEventHandler(EventSink_DisarmRequest);
-			EventSink.StunRequest += new StunRequestEventHandler(EventSink_StunRequest);
+			EventSink.OnDisarmRequest += EventSink_DisarmRequest;
+			EventSink.OnStunRequest += EventSink_StunRequest;
 		}
 
 		public override WeaponAbility PrimaryAbility { get { return WeaponAbility.Disarm; } }
@@ -211,12 +211,10 @@ namespace Server.Items
 			return m.FindItemOnLayer(Layer.TwoHanded) == null;
 		}
 
-		private static void EventSink_DisarmRequest(DisarmRequestEventArgs e)
+		private static void EventSink_DisarmRequest(Mobile m)
 		{
 			if (Core.AOS)
 				return;
-
-			Mobile m = e.Mobile;
 
 			#region Dueling
 			if (!Engines.ConPVP.DuelContext.AllowSpecialAbility(m, "Disarm", true))
@@ -244,12 +242,10 @@ namespace Server.Items
 			}
 		}
 
-		private static void EventSink_StunRequest(StunRequestEventArgs e)
+		private static void EventSink_StunRequest(Mobile m)
 		{
 			if (Core.AOS)
 				return;
-
-			Mobile m = e.Mobile;
 
 			#region Dueling
 			if (!Engines.ConPVP.DuelContext.AllowSpecialAbility(m, "Stun", true))

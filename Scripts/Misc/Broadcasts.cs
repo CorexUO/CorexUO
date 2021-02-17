@@ -4,8 +4,8 @@ namespace Server.Misc
 	{
 		public static void Initialize()
 		{
-			EventSink.Crashed += new CrashedEventHandler(EventSink_Crashed);
-			EventSink.Shutdown += new ShutdownEventHandler(EventSink_Shutdown);
+			EventSink.OnCrashed += EventSink_Crashed;
+			EventSink.OnShutdown += EventSink_Shutdown;
 		}
 
 		public static void EventSink_Crashed(CrashedEventArgs e)
@@ -19,7 +19,7 @@ namespace Server.Misc
 			}
 		}
 
-		public static void EventSink_Shutdown(ShutdownEventArgs e)
+		public static void EventSink_Shutdown()
 		{
 			try
 			{

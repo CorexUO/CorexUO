@@ -306,7 +306,7 @@ namespace Server
 
 				if (old != value && Owner.Owner != null)
 				{
-					EventSink.InvokeOnSkillCapChange(new OnSkillCapChangeEventArgs(Owner.Owner, this, old, value));
+					EventSink.InvokeOnSkillCapChange(Owner.Owner, this, old, value);
 				}
 			}
 		}

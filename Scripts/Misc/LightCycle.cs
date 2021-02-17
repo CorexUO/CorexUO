@@ -34,7 +34,7 @@ namespace Server
 		public static void Initialize()
 		{
 			new LightCycleTimer().Start();
-			EventSink.Login += new LoginEventHandler(OnLogin);
+			EventSink.OnLogin += OnLogin;
 
 			CommandSystem.Register("GlobalLight", AccessLevel.GameMaster, new CommandEventHandler(Light_OnCommand));
 		}
@@ -55,10 +55,8 @@ namespace Server
 			}
 		}
 
-		public static void OnLogin(LoginEventArgs args)
+		public static void OnLogin(Mobile m)
 		{
-			Mobile m = args.Mobile;
-
 			m.CheckLightLevels(true);
 		}
 

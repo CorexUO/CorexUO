@@ -13,7 +13,7 @@ namespace Server.Misc
 	{
 		public static void Initialize()
 		{
-			EventSink.Movement += new MovementEventHandler(EventSink_Movement);
+			EventSink.Movement += EventSink_Movement;
 		}
 
 		public static DFAlgorithm DFA { get; set; }

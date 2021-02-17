@@ -4447,7 +4447,7 @@ namespace Server.Mobiles
 					Paragon.GiveArtifactTo(mob);
 			}
 
-			EventSink.InvokeOnKilledBy(new OnKilledByEventArgs(this, mob));
+			EventSink.InvokeOnKilledBy(this, mob);
 		}
 
 		public override void OnDeath(Container c)
@@ -4623,7 +4623,7 @@ namespace Server.Mobiles
 					}
 				}
 
-				EventSink.InvokeOnCreatureDeath(new OnCreatureDeathEventArgs(this, LastKiller, c));
+				EventSink.InvokeOnCreatureDeath(this, LastKiller, c);
 
 				base.OnDeath(c);
 

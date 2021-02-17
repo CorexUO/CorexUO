@@ -62,7 +62,7 @@ namespace Server.Mobiles
 						m_toDisarm = combatant.FindItemOnLayer(Layer.TwoHanded);
 				}
 				if (!Core.AOS && !m_Mobile.DisarmReady && m_Mobile.Skills[SkillName.Wrestling].Value >= 80.0 && m_Mobile.Skills[SkillName.ArmsLore].Value >= 80.0 && m_toDisarm != null)
-					EventSink.InvokeDisarmRequest(new DisarmRequestEventArgs(m_Mobile));
+					EventSink.InvokeDisarmRequest(m_Mobile);
 
 				if (m_toDisarm != null && m_toDisarm.IsChildOf(combatant.Backpack) && Core.TickCount - m_Mobile.NextSkillTime >= 0 && (m_toDisarm.LootType != LootType.Blessed && m_toDisarm.LootType != LootType.Newbied))
 				{

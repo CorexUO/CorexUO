@@ -23,8 +23,8 @@ namespace Server.Misc
 		{
 			if (TimerType == FoodDecayType.Individual)
 			{
-				EventSink.Login += EventSink_Login;
-				EventSink.Logout += EventSink_Logout;
+				EventSink.OnLogin += EventSink_Login;
+				EventSink.OnLogout += EventSink_Logout;
 			}
 			else
 			{
@@ -32,19 +32,19 @@ namespace Server.Misc
 			}
 		}
 
-		private static void EventSink_Login(LoginEventArgs e)
+		private static void EventSink_Login(Mobile m)
 		{
-			if (e.Mobile != null && e.Mobile is PlayerMobile pm)
+			if (m != null && m is PlayerMobile pm)
 			{
 				CreateTimer(pm);
 			}
 		}
 
-		private static void EventSink_Logout(LogoutEventArgs e)
+		private static void EventSink_Logout(Mobile m)
 		{
-			if (e.Mobile != null)
+			if (m != null)
 			{
-				StopTimer(e.Mobile);
+				StopTimer(m);
 			}
 		}
 

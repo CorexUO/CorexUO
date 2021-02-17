@@ -83,7 +83,7 @@ namespace Server
 
 			if (gainedPath)
 			{
-				EventSink.InvokeOnVirtueLevelChange(new OnVirtueLevelChangeEventArgs(from, (int)oldLevel, (int)newLevel, (int)virtue));
+				EventSink.InvokeOnVirtueLevelChange(from, (int)oldLevel, (int)newLevel, (int)virtue);
 			}
 
 			return true;

@@ -21,12 +21,12 @@ namespace Server.Misc
 
 		public static void Initialize()
 		{
-			EventSink.Login += new LoginEventHandler(EventSink_Login);
+			EventSink.OnLogin += EventSink_Login;
 		}
 
-		private static void EventSink_Login(LoginEventArgs e)
+		private static void EventSink_Login(Mobile from)
 		{
-			if (!(e.Mobile.Account is Account acct))
+			if (from.Account is not Account acct)
 				return;
 
 			DateTime now = DateTime.UtcNow;
@@ -44,7 +44,7 @@ namespace Server.Misc
 				if (acct.LastLogin >= giver.Start)
 					continue; // already got one
 
-				giver.DelayGiveGift(TimeSpan.FromSeconds(5.0), e.Mobile);
+				giver.DelayGiveGift(TimeSpan.FromSeconds(5.0), from);
 			}
 
 			acct.LastLogin = now;

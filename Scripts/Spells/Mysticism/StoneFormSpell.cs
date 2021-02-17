@@ -1,4 +1,4 @@
-﻿using Server.Spells.Fifth;
+using Server.Spells.Fifth;
 using Server.Spells.Seventh;
 using System;
 using System.Collections;
@@ -10,7 +10,7 @@ namespace Server.Spells.Mysticism
 	{
 		public static void Initialize()
 		{
-			EventSink.PlayerDeath += OnPlayerDeath;
+			EventSink.OnPlayerDeath += OnPlayerDeath;
 		}
 
 		private static readonly SpellInfo m_Info = new SpellInfo(
@@ -150,10 +150,8 @@ namespace Server.Spells.Mysticism
 			BuffInfo.RemoveBuff(m, BuffIcon.StoneForm);
 		}
 
-		private static void OnPlayerDeath(PlayerDeathEventArgs e)
+		private static void OnPlayerDeath(Mobile m)
 		{
-			var m = e.Mobile;
-
 			if (UnderEffect(m))
 				RemoveEffects(m);
 		}

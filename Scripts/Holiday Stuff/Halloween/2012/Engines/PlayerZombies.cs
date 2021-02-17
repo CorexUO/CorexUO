@@ -1,4 +1,4 @@
-﻿using Server.Events.Halloween;
+using Server.Events.Halloween;
 using Server.Items;
 using Server.Mobiles;
 using System;
@@ -63,18 +63,16 @@ namespace Server.Engines.Events
 
 				m_ClearTimer = Timer.DelayCall(clear, clear, new TimerCallback(Clear_Callback));
 
-				EventSink.PlayerDeath += new PlayerDeathEventHandler(EventSink_PlayerDeath);
+				EventSink.OnPlayerDeath += EventSink_PlayerDeath;
 			}
 		}
 
-		public static void EventSink_PlayerDeath(PlayerDeathEventArgs e)
+		public static void EventSink_PlayerDeath(Mobile m)
 		{
-			if (e.Mobile != null && !e.Mobile.Deleted) /* not sure .. better safe than sorry? */
+			if (m != null && !m.Deleted) /* not sure .. better safe than sorry? */
 			{
-				if (e.Mobile is PlayerMobile)
+				if (m is PlayerMobile player)
 				{
-					PlayerMobile player = e.Mobile as PlayerMobile;
-
 					if (m_Timer.Running && !m_DeathQueue.Contains(player) && m_DeathQueue.Count < m_DeathQueueLimit)
 					{
 						m_DeathQueue.Add(player);

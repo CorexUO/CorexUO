@@ -1648,10 +1648,10 @@ namespace Server.Multis
 		public static void Initialize()
 		{
 			new UpdateAllTimer().Start();
-			EventSink.WorldSave += new WorldSaveEventHandler(EventSink_WorldSave);
+			EventSink.OnWorldSave += EventSink_WorldSave;
 		}
 
-		private static void EventSink_WorldSave(WorldSaveEventArgs e)
+		private static void EventSink_WorldSave()
 		{
 			new UpdateAllTimer().Start();
 		}

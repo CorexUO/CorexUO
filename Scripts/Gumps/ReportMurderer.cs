@@ -14,13 +14,11 @@ namespace Server.Gumps
 
 		public static void Initialize()
 		{
-			EventSink.PlayerDeath += new PlayerDeathEventHandler(EventSink_PlayerDeath);
+			EventSink.OnPlayerDeath += EventSink_PlayerDeath;
 		}
 
-		public static void EventSink_PlayerDeath(PlayerDeathEventArgs e)
+		public static void EventSink_PlayerDeath(Mobile m)
 		{
-			Mobile m = e.Mobile;
-
 			List<Mobile> killers = new List<Mobile>();
 			List<Mobile> toGive = new List<Mobile>();
 
@@ -67,7 +65,7 @@ namespace Server.Gumps
 
 				if (killers.Contains(g))
 				{
-					EventSink.InvokeOnPlayerMurdered(new OnPlayerMurderedEventArgs(g, m));
+					EventSink.InvokeOnPlayerMurdered(g, m);
 				}
 			}
 

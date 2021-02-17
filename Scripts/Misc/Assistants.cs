@@ -94,15 +94,13 @@ namespace Server.Misc
 			{
 				if (Settings.Enabled)
 				{
-					EventSink.Login += new LoginEventHandler(EventSink_Login);
+					EventSink.OnLogin += EventSink_Login;
 					ProtocolExtensions.Register(0xFF, true, new OnPacketReceive(OnHandshakeResponse));
 				}
 			}
 
-			private static void EventSink_Login(LoginEventArgs e)
+			private static void EventSink_Login(Mobile m)
 			{
-				Mobile m = e.Mobile;
-
 				if (m != null && m.NetState != null && m.NetState.Running)
 				{
 					m.Send(new BeginHandshake());
