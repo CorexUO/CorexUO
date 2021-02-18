@@ -1,4 +1,5 @@
 using Server.Gumps;
+using Server.Items;
 using Server.Mobiles;
 using Server.Targeting;
 using System;
@@ -87,10 +88,10 @@ namespace Server.Spells.Spellweaving
 
 		private static readonly Dictionary<Mobile, ExpireTimer> m_Table = new Dictionary<Mobile, ExpireTimer>();
 
-		public static void HandleDeath(Mobile m)
+		public static void HandleDeath(Mobile m, Container cont)
 		{
 			if (m_Table.ContainsKey(m))
-				Timer.DelayCall<Mobile>(TimeSpan.FromSeconds(Utility.RandomMinMax(2, 4)), new TimerStateCallback<Mobile>(HandleDeath_OnCallback), m);
+				Timer.DelayCall(TimeSpan.FromSeconds(Utility.RandomMinMax(2, 4)), new TimerStateCallback<Mobile>(HandleDeath_OnCallback), m);
 		}
 
 		private static void HandleDeath_OnCallback(Mobile m)

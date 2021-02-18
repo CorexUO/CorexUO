@@ -4510,7 +4510,7 @@ namespace Server.Mobiles
 					this.OwnerAbandonTime = DateTime.MinValue;
 				}
 
-				GiftOfLifeSpell.HandleDeath(this);
+				GiftOfLifeSpell.HandleDeath(this, c);
 
 				CheckStatTimers();
 			}

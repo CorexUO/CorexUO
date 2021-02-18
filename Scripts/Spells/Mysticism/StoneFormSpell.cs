@@ -1,3 +1,4 @@
+using Server.Items;
 using Server.Spells.Fifth;
 using Server.Spells.Seventh;
 using System;
@@ -150,7 +151,7 @@ namespace Server.Spells.Mysticism
 			BuffInfo.RemoveBuff(m, BuffIcon.StoneForm);
 		}
 
-		private static void OnPlayerDeath(Mobile m)
+		private static void OnPlayerDeath(Mobile m, Container cont)
 		{
 			if (UnderEffect(m))
 				RemoveEffects(m);

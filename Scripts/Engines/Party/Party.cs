@@ -1,5 +1,6 @@
 using Server.Commands;
 using Server.Factions;
+using Server.Items;
 using Server.Network;
 using Server.Targeting;
 using System;
@@ -51,7 +52,7 @@ namespace Server.Engines.PartySystem
 			}
 		}
 
-		public static void EventSink_PlayerDeath(Mobile from)
+		public static void EventSink_PlayerDeath(Mobile from, Container cont)
 		{
 			Party p = Party.Get(from);
 

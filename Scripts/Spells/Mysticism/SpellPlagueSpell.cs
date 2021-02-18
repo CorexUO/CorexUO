@@ -1,3 +1,4 @@
+using Server.Items;
 using Server.Targeting;
 using System;
 using System.Collections.Generic;
@@ -109,7 +110,7 @@ namespace Server.Spells.Mysticism
 			context.OnDamage();
 		}
 
-		private static void OnPlayerDeath(Mobile m)
+		private static void OnPlayerDeath(Mobile m, Container cont)
 		{
 			RemoveEffect(m);
 		}

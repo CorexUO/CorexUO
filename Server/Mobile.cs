@@ -3634,7 +3634,7 @@ namespace Server
 				Stam = 0;
 				Mana = 0;
 
-				EventSink.InvokePlayerDeath(this);
+				EventSink.InvokePlayerDeath(this, c);
 
 				ProcessDeltaQueue();
 

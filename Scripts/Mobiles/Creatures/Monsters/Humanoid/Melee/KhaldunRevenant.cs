@@ -13,7 +13,7 @@ namespace Server.Mobiles
 			EventSink.OnPlayerDeath += EventSink_PlayerDeath;
 		}
 
-		public static void EventSink_PlayerDeath(Mobile m)
+		public static void EventSink_PlayerDeath(Mobile m, Container cont)
 		{
 			Mobile lastKiller = m.LastKiller;
 

@@ -354,8 +354,8 @@ namespace Server
 		public static event Action<Mobile, Mobile, string> OnRenameRequest;
 		public static void InvokeRenameRequest(Mobile from, Mobile target, string name) => OnRenameRequest?.Invoke(from, target, name);
 
-		public static event Action<Mobile> OnPlayerDeath;
-		public static void InvokePlayerDeath(Mobile m) => OnPlayerDeath?.Invoke(m);
+		public static event Action<Mobile, Container> OnPlayerDeath;
+		public static void InvokePlayerDeath(Mobile from, Container cont) => OnPlayerDeath?.Invoke(from, cont);
 
 		public static event Action<Mobile, Mobile> OnVirtueGumpRequest;
 		public static void InvokeVirtueGumpRequest(Mobile beholder, Mobile beheld) => OnVirtueGumpRequest?.Invoke(beholder, beheld);

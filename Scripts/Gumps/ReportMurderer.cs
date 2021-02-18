@@ -1,3 +1,4 @@
+using Server.Items;
 using Server.Misc;
 using Server.Mobiles;
 using Server.Network;
@@ -17,7 +18,7 @@ namespace Server.Gumps
 			EventSink.OnPlayerDeath += EventSink_PlayerDeath;
 		}
 
-		public static void EventSink_PlayerDeath(Mobile m)
+		public static void EventSink_PlayerDeath(Mobile m, Container cont)
 		{
 			List<Mobile> killers = new List<Mobile>();
 			List<Mobile> toGive = new List<Mobile>();

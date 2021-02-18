@@ -67,7 +67,7 @@ namespace Server.Engines.Events
 			}
 		}
 
-		public static void EventSink_PlayerDeath(Mobile m)
+		public static void EventSink_PlayerDeath(Mobile m, Container cont)
 		{
 			if (m != null && !m.Deleted) /* not sure .. better safe than sorry? */
 			{

@@ -1,6 +1,7 @@
 using Server.Items;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Server.Engines.Craft
 {
@@ -39,6 +40,25 @@ namespace Server.Engines.Craft
 		public virtual string GumpTitleString { get { return ""; } }
 
 		public virtual CraftECA ECA { get { return CraftECA.ChanceMinusSixty; } }
+
+		public static void Configure()
+		{
+			List<CraftSystem> temp = new List<CraftSystem>();
+			foreach (var asm in Assembler.Assemblies)
+			{
+				foreach (Type type in asm.GetTypes().Where(t => t.IsSubclassOf(typeof(CraftSystem))))
+				{
+					if (type.GetConstructor(Type.EmptyTypes) != null && !type.IsAbstract)
+					{
+						try
+						{
+							CraftSystem craftSystem = (CraftSystem)Activator.CreateInstance(type);
+						}
+						catch { }
+					}
+				}
+			}
+		}
 
 		public CraftSystem(int minCraftEffect, int maxCraftEffect, double delay)
 		{
