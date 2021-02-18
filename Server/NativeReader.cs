@@ -35,7 +35,7 @@ namespace Server
 			internal unsafe static extern int _lread(IntPtr hFile, void* lpBuffer, int wBytes);*/
 
 			[DllImport("kernel32")]
-			internal unsafe static extern bool ReadFile(IntPtr hFile, void* lpBuffer, uint nNumberOfBytesToRead, ref uint lpNumberOfBytesRead, NativeOverlapped* lpOverlapped);
+			internal static extern unsafe bool ReadFile(IntPtr hFile, void* lpBuffer, uint nNumberOfBytesToRead, ref uint lpNumberOfBytesRead, NativeOverlapped* lpOverlapped);
 		}
 
 		public NativeReaderWin32()
@@ -55,7 +55,7 @@ namespace Server
 		internal class UnsafeNativeMethods
 		{
 			[DllImport("libc")]
-			internal unsafe static extern int read(IntPtr ptr, void* buffer, int length);
+			internal static extern unsafe int read(IntPtr ptr, void* buffer, int length);
 		}
 
 		public NativeReaderUnix()

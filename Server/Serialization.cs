@@ -456,7 +456,7 @@ namespace Server
 			m_Index += 2;
 		}
 
-		public unsafe override void Write(double value)
+		public override unsafe void Write(double value)
 		{
 			if ((m_Index + 8) > m_Buffer.Length)
 				Flush();
@@ -467,7 +467,7 @@ namespace Server
 			m_Index += 8;
 		}
 
-		public unsafe override void Write(float value)
+		public override unsafe void Write(float value)
 		{
 			if ((m_Index + 4) > m_Buffer.Length)
 				Flush();

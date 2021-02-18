@@ -64,7 +64,7 @@ namespace Server.Network
 		// If our input exceeds this length, we may potentially overflow the buffer
 		private const int PossibleOverflow = ((BufferSize * 8) - TerminalCodeLength) / MaximalCodeLength;
 
-		public unsafe static void Compress(byte[] input, int offset, int count, byte[] output, ref int length)
+		public static unsafe void Compress(byte[] input, int offset, int count, byte[] output, ref int length)
 		{
 			if (input == null)
 			{

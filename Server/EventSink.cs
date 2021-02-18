@@ -230,7 +230,7 @@ namespace Server
 		public Direction Direction { get; private set; }
 		public bool Blocked { get; set; }
 
-		private static Queue<MovementEventArgs> m_Pool = new Queue<MovementEventArgs>();
+		private static readonly Queue<MovementEventArgs> m_Pool = new Queue<MovementEventArgs>();
 
 		public static MovementEventArgs Create(Mobile mobile, Direction dir)
 		{
@@ -278,7 +278,7 @@ namespace Server
 
 	public static partial class EventSink
 	{
-		
+
 		public static event Action<MovementEventArgs> Movement;
 		public static void InvokeMovement(MovementEventArgs e) => Movement?.Invoke(e);
 

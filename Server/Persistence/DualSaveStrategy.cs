@@ -20,9 +20,10 @@ namespace Server
 			Thread saveThread = new Thread(delegate ()
 			{
 				SaveItems(metrics);
-			});
-
-			saveThread.Name = "Item Save Subset";
+			})
+			{
+				Name = "Item Save Subset"
+			};
 			saveThread.Start();
 
 			SaveMobiles(metrics);

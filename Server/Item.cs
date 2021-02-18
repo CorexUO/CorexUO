@@ -545,7 +545,7 @@ namespace Server
 		public static readonly List<Item> EmptyItems = new List<Item>();
 
 		//Default hue color for item messages
-		public readonly static int DefaultDisplayColor = 0x3B2;
+		public static readonly int DefaultDisplayColor = 0x3B2;
 
 		[CommandProperty(AccessLevel.Counselor, true)]
 		public virtual int DisplayColor { get { return DefaultDisplayColor; } }

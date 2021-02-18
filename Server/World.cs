@@ -19,16 +19,16 @@ namespace Server
 		public static bool Loaded { get; private set; }
 		public static bool Loading { get; private set; }
 
-		public readonly static string MobileIndexPath = Path.Combine("Saves/Mobiles/", "Mobiles.idx");
-		public readonly static string MobileTypesPath = Path.Combine("Saves/Mobiles/", "Mobiles.tdb");
-		public readonly static string MobileDataPath = Path.Combine("Saves/Mobiles/", "Mobiles.bin");
+		public static readonly string MobileIndexPath = Path.Combine("Saves/Mobiles/", "Mobiles.idx");
+		public static readonly string MobileTypesPath = Path.Combine("Saves/Mobiles/", "Mobiles.tdb");
+		public static readonly string MobileDataPath = Path.Combine("Saves/Mobiles/", "Mobiles.bin");
 
-		public readonly static string ItemIndexPath = Path.Combine("Saves/Items/", "Items.idx");
-		public readonly static string ItemTypesPath = Path.Combine("Saves/Items/", "Items.tdb");
-		public readonly static string ItemDataPath = Path.Combine("Saves/Items/", "Items.bin");
+		public static readonly string ItemIndexPath = Path.Combine("Saves/Items/", "Items.idx");
+		public static readonly string ItemTypesPath = Path.Combine("Saves/Items/", "Items.tdb");
+		public static readonly string ItemDataPath = Path.Combine("Saves/Items/", "Items.bin");
 
-		public readonly static string GuildIndexPath = Path.Combine("Saves/Guilds/", "Guilds.idx");
-		public readonly static string GuildDataPath = Path.Combine("Saves/Guilds/", "Guilds.bin");
+		public static readonly string GuildIndexPath = Path.Combine("Saves/Guilds/", "Guilds.idx");
+		public static readonly string GuildDataPath = Path.Combine("Saves/Guilds/", "Guilds.bin");
 
 		public static void NotifyDiskWriteComplete()
 		{
