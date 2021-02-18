@@ -6,8 +6,8 @@ namespace Server.Guilds
 {
 	public class GuildMemberInfoGump : BaseGuildGump
 	{
-		readonly PlayerMobile m_Member;
-		readonly bool m_ToLeader, m_toKick;
+		private readonly PlayerMobile m_Member;
+		private readonly bool m_ToLeader, m_toKick;
 
 		public GuildMemberInfoGump(PlayerMobile pm, Guild g, PlayerMobile member, bool toKick, bool toPromoteToLeader) : base(pm, g, 10, 40)
 		{

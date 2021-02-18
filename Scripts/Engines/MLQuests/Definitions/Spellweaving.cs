@@ -535,12 +535,16 @@ namespace Server.Engines.MLQuests.Definitions
 
 			Item item;
 
-			item = new LeafChest();
-			item.Hue = 443;
+			item = new LeafChest
+			{
+				Hue = 443
+			};
 			AddItem(item);
 
-			item = new LeafArms();
-			item.Hue = 443;
+			item = new LeafArms
+			{
+				Hue = 443
+			};
 			AddItem(item);
 
 			AddItem(new LeafTonlet());
@@ -597,8 +601,10 @@ namespace Server.Engines.MLQuests.Definitions
 			SetSkill(SkillName.Meditation, 60.0, 80.0);
 			SetSkill(SkillName.Focus, 60.0, 80.0);
 
-			Item item = new RavenHelm();
-			item.Hue = Utility.RandomGreenHue();
+			Item item = new RavenHelm
+			{
+				Hue = Utility.RandomGreenHue()
+			};
 			AddItem(item);
 
 			AddItem(new FemaleLeafChest());

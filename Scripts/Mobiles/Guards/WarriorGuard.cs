@@ -64,17 +64,19 @@ namespace Server.Mobiles
 			if (Utility.RandomBool())
 				Utility.AssignRandomFacialHair(this, HairHue);
 
-			Halberd weapon = new Halberd();
-
-			weapon.Movable = false;
-			weapon.Crafter = this;
-			weapon.Quality = ItemQuality.Exceptional;
+			Halberd weapon = new Halberd
+			{
+				Movable = false,
+				Crafter = this,
+				Quality = ItemQuality.Exceptional
+			};
 
 			AddItem(weapon);
 
-			Container pack = new Backpack();
-
-			pack.Movable = false;
+			Container pack = new Backpack
+			{
+				Movable = false
+			};
 
 			pack.DropItem(new Gold(10, 25));
 

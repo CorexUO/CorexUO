@@ -83,8 +83,10 @@ namespace Server.Commands
 			if (FindMorphItem(x, y, z, off, on))
 				return;
 
-			MorphItem item = new MorphItem(off, on, 2, 3);
-			item.Light = light;
+			MorphItem item = new MorphItem(off, on, 2, 3)
+			{
+				Light = light
+			};
 
 			item.MoveToWorld(new Point3D(x, y, z), Map.Felucca);
 			m_Count++;
@@ -95,10 +97,12 @@ namespace Server.Commands
 			if (FindEffectController(x, y, z))
 				return;
 
-			EffectController item = new EffectController();
-			item.SoundID = sound;
-			item.TriggerType = EffectTriggerType.InRange;
-			item.TriggerRange = range;
+			EffectController item = new EffectController
+			{
+				SoundID = sound,
+				TriggerType = EffectTriggerType.InRange,
+				TriggerRange = range
+			};
 
 			item.MoveToWorld(new Point3D(x, y, z), Map.Felucca);
 			m_Count++;

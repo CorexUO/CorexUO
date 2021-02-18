@@ -42,8 +42,10 @@ namespace Server.Mobiles
 			CanSwim = true;
 			CantWalk = true;
 
-			Rope rope = new Rope();
-			rope.ItemID = 0x14F8;
+			Rope rope = new Rope
+			{
+				ItemID = 0x14F8
+			};
 			PackItem(rope);
 
 			if (Utility.RandomDouble() < .05)

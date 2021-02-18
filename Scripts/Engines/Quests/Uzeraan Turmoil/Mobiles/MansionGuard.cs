@@ -31,8 +31,10 @@ namespace Server.Engines.Quests.Haven
 			Utility.AssignRandomHair(this);
 			Utility.AssignRandomFacialHair(this, HairHue);
 
-			Bardiche weapon = new Bardiche();
-			weapon.Movable = false;
+			Bardiche weapon = new Bardiche
+			{
+				Movable = false
+			};
 			AddItem(weapon);
 		}
 

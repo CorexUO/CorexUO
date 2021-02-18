@@ -5,7 +5,7 @@ using System;
 
 namespace Server.SkillHandlers
 {
-	class SpiritSpeak
+	internal class SpiritSpeak
 	{
 		public static void Initialize()
 		{

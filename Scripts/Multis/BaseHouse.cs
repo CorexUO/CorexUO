@@ -2068,10 +2068,12 @@ namespace Server.Multis
 				}
 			}
 
-			StrongBox sb = new StrongBox(from, this);
-			sb.Movable = false;
-			sb.IsLockedDown = false;
-			sb.IsSecure = true;
+			StrongBox sb = new StrongBox(from, this)
+			{
+				Movable = false,
+				IsLockedDown = false,
+				IsSecure = true
+			};
 			Secures.Add(new SecureInfo(sb, SecureLevel.CoOwners));
 			sb.MoveToWorld(from.Location, from.Map);
 		}

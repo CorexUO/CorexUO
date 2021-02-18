@@ -15,8 +15,10 @@ namespace Server.Items
 		{
 			get
 			{
-				FlamingHeadDeed deed = new FlamingHeadDeed();
-				deed.IsRewardItem = m_IsRewardItem;
+				FlamingHeadDeed deed = new FlamingHeadDeed
+				{
+					IsRewardItem = m_IsRewardItem
+				};
 
 				return deed;
 			}

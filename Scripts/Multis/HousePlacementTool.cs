@@ -606,10 +606,11 @@ namespace Server.Items
 				}
 				else if (obj is HousePlacementEntry)
 				{
-					ArrayList list = new ArrayList();
-
-					list.Add(obj);
-					list.Add(e);
+					ArrayList list = new ArrayList
+					{
+						obj,
+						e
+					};
 
 					m_Table[e.m_Type] = list;
 				}

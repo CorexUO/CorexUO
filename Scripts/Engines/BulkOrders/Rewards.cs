@@ -482,8 +482,10 @@ namespace Server.Engines.BulkOrders
 		{
 			if (type >= 0 && type < m_ClothHues.Length)
 			{
-				UncutCloth cloth = new UncutCloth(100);
-				cloth.Hue = m_ClothHues[type][Utility.Random(m_ClothHues[type].Length)];
+				UncutCloth cloth = new UncutCloth(100)
+				{
+					Hue = m_ClothHues[type][Utility.Random(m_ClothHues[type].Length)]
+				};
 				return cloth;
 			}
 

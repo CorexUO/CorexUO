@@ -50,7 +50,7 @@ namespace Server.Items
 
 	public class NameChangeDeedGump : Gump
 	{
-		readonly Item m_Sender;
+		private readonly Item m_Sender;
 
 		public void AddBlackAlpha(int x, int y, int width, int height)
 		{

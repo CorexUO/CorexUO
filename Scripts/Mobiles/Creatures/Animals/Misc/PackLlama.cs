@@ -50,8 +50,10 @@ namespace Server.Mobiles
 			if (pack != null)
 				pack.Delete();
 
-			pack = new StrongBackpack();
-			pack.Movable = false;
+			pack = new StrongBackpack
+			{
+				Movable = false
+			};
 
 			AddItem(pack);
 		}

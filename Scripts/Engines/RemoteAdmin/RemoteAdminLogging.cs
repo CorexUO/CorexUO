@@ -7,8 +7,8 @@ namespace Server.RemoteAdmin
 {
 	public class RemoteAdminLogging
 	{
-		const string LogBaseDirectory = "Logs";
-		const string LogSubDirectory = "RemoteAdmin";
+		private const string LogBaseDirectory = "Logs";
+		private const string LogSubDirectory = "RemoteAdmin";
 
 		private static StreamWriter m_Output;
 		private static bool m_Enabled = Settings.Configuration.Get<bool>("Misc", "RemoteAdminEnabled");

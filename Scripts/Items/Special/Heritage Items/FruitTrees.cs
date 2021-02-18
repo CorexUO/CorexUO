@@ -5,7 +5,7 @@ namespace Server.Items
 {
 	public abstract class BaseFruitTreeAddon : BaseAddon
 	{
-		public override abstract BaseAddonDeed Deed { get; }
+		public abstract override BaseAddonDeed Deed { get; }
 		public abstract Item Fruit { get; }
 
 		private int m_Fruits;

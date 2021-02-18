@@ -667,8 +667,8 @@ namespace Server.Misc
 
 		private class BadStartMessage : Timer
 		{
-			readonly Mobile m_Mobile;
-			readonly int m_Message;
+			private readonly Mobile m_Mobile;
+			private readonly int m_Message;
 			public BadStartMessage(Mobile m, int message) : base(TimeSpan.FromSeconds(3.5))
 			{
 				m_Mobile = m;

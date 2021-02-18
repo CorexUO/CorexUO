@@ -35,8 +35,10 @@ namespace Server.Factions
 			SetSkill(SkillName.EvalInt, 110.0, 120.0);
 			SetSkill(SkillName.Meditation, 110.0, 120.0);
 
-			Item shroud = new Item(0x204E);
-			shroud.Layer = Layer.OuterTorso;
+			Item shroud = new Item(0x204E)
+			{
+				Layer = Layer.OuterTorso
+			};
 
 			AddItem(Immovable(Rehued(shroud, 1109)));
 			AddItem(Newbied(Rehued(new GnarledStaff(), 2211)));

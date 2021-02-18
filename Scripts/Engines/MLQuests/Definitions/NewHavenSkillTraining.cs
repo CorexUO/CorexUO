@@ -867,24 +867,34 @@ namespace Server.Engines.MLQuests.Definitions
 
 			Item item;
 
-			item = new PlateLegs();
-			item.Hue = 0x966;
+			item = new PlateLegs
+			{
+				Hue = 0x966
+			};
 			AddItem(item);
 
-			item = new PlateGloves();
-			item.Hue = 0x966;
+			item = new PlateGloves
+			{
+				Hue = 0x966
+			};
 			AddItem(item);
 
-			item = new PlateGorget();
-			item.Hue = 0x966;
+			item = new PlateGorget
+			{
+				Hue = 0x966
+			};
 			AddItem(item);
 
-			item = new PlateChest();
-			item.Hue = 0x966;
+			item = new PlateChest
+			{
+				Hue = 0x966
+			};
 			AddItem(item);
 
-			item = new PlateArms();
-			item.Hue = 0x966;
+			item = new PlateArms
+			{
+				Hue = 0x966
+			};
 			AddItem(item);
 		}
 
@@ -949,24 +959,34 @@ namespace Server.Engines.MLQuests.Definitions
 
 			Item item;
 
-			item = new StuddedLegs();
-			item.Hue = 0x592;
+			item = new StuddedLegs
+			{
+				Hue = 0x592
+			};
 			AddItem(item);
 
-			item = new StuddedGloves();
-			item.Hue = 0x592;
+			item = new StuddedGloves
+			{
+				Hue = 0x592
+			};
 			AddItem(item);
 
-			item = new StuddedGorget();
-			item.Hue = 0x592;
+			item = new StuddedGorget
+			{
+				Hue = 0x592
+			};
 			AddItem(item);
 
-			item = new StuddedChest();
-			item.Hue = 0x592;
+			item = new StuddedChest
+			{
+				Hue = 0x592
+			};
 			AddItem(item);
 
-			item = new StuddedArms();
-			item.Hue = 0x592;
+			item = new StuddedArms
+			{
+				Hue = 0x592
+			};
 			AddItem(item);
 		}
 
@@ -1029,24 +1049,34 @@ namespace Server.Engines.MLQuests.Definitions
 
 			Item item;
 
-			item = new StuddedLegs();
-			item.Hue = 0x455;
+			item = new StuddedLegs
+			{
+				Hue = 0x455
+			};
 			AddItem(item);
 
-			item = new StuddedGloves();
-			item.Hue = 0x455;
+			item = new StuddedGloves
+			{
+				Hue = 0x455
+			};
 			AddItem(item);
 
-			item = new StuddedGorget();
-			item.Hue = 0x455;
+			item = new StuddedGorget
+			{
+				Hue = 0x455
+			};
 			AddItem(item);
 
-			item = new StuddedChest();
-			item.Hue = 0x455;
+			item = new StuddedChest
+			{
+				Hue = 0x455
+			};
 			AddItem(item);
 
-			item = new StuddedArms();
-			item.Hue = 0x455;
+			item = new StuddedArms
+			{
+				Hue = 0x455
+			};
 			AddItem(item);
 		}
 
@@ -1228,28 +1258,40 @@ namespace Server.Engines.MLQuests.Definitions
 
 			Item item;
 
-			item = new StuddedLegs();
-			item.Hue = 0x96D;
+			item = new StuddedLegs
+			{
+				Hue = 0x96D
+			};
 			AddItem(item);
 
-			item = new StuddedGloves();
-			item.Hue = 0x96D;
+			item = new StuddedGloves
+			{
+				Hue = 0x96D
+			};
 			AddItem(item);
 
-			item = new StuddedGorget();
-			item.Hue = 0x96D;
+			item = new StuddedGorget
+			{
+				Hue = 0x96D
+			};
 			AddItem(item);
 
-			item = new StuddedChest();
-			item.Hue = 0x96D;
+			item = new StuddedChest
+			{
+				Hue = 0x96D
+			};
 			AddItem(item);
 
-			item = new StuddedArms();
-			item.Hue = 0x96D;
+			item = new StuddedArms
+			{
+				Hue = 0x96D
+			};
 			AddItem(item);
 
-			item = new DiamondMace();
-			item.Hue = 0x96D;
+			item = new DiamondMace
+			{
+				Hue = 0x96D
+			};
 			AddItem(item);
 		}
 
@@ -1563,8 +1605,10 @@ namespace Server.Engines.MLQuests.Definitions
 
 			Item item;
 
-			item = new GustarShroud();
-			item.Hue = 0x51C;
+			item = new GustarShroud
+			{
+				Hue = 0x51C
+			};
 			AddItem(item);
 		}
 
@@ -2179,24 +2223,34 @@ namespace Server.Engines.MLQuests.Definitions
 
 			Item item;
 
-			item = new LeatherLegs();
-			item.Hue = 0x2C3;
+			item = new LeatherLegs
+			{
+				Hue = 0x2C3
+			};
 			AddItem(item);
 
-			item = new LeatherGloves();
-			item.Hue = 0x2C3;
+			item = new LeatherGloves
+			{
+				Hue = 0x2C3
+			};
 			AddItem(item);
 
-			item = new LeatherGorget();
-			item.Hue = 0x2C3;
+			item = new LeatherGorget
+			{
+				Hue = 0x2C3
+			};
 			AddItem(item);
 
-			item = new LeatherChest();
-			item.Hue = 0x2C3;
+			item = new LeatherChest
+			{
+				Hue = 0x2C3
+			};
 			AddItem(item);
 
-			item = new LeatherArms();
-			item.Hue = 0x2C3;
+			item = new LeatherArms
+			{
+				Hue = 0x2C3
+			};
 			AddItem(item);
 		}
 
@@ -2380,8 +2434,10 @@ namespace Server.Engines.MLQuests.Definitions
 
 			Item item;
 
-			item = new SmithHammer();
-			item.Hue = 0x8AB;
+			item = new SmithHammer
+			{
+				Hue = 0x8AB
+			};
 			AddItem(item);
 		}
 

@@ -46,9 +46,11 @@ namespace Server.Mobiles
 			if (pack != null)
 				pack.Delete();
 
-			pack = new Backpack();
-			pack.Movable = false;
-			pack.Weight = 13.0;
+			pack = new Backpack
+			{
+				Movable = false,
+				Weight = 13.0
+			};
 
 			AddItem(pack);
 		}

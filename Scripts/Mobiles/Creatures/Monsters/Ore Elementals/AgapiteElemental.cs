@@ -42,8 +42,10 @@ namespace Server.Mobiles
 
 			VirtualArmor = 32;
 
-			Item ore = new AgapiteOre(oreAmount);
-			ore.ItemID = 0x19B9;
+			Item ore = new AgapiteOre(oreAmount)
+			{
+				ItemID = 0x19B9
+			};
 			PackItem(ore);
 		}
 

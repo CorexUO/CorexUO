@@ -288,9 +288,10 @@ namespace Server.Items
 
 			if (itemID > 0)
 			{
-				Item addon = new MistletoeAddon(this.Hue);
-
-				addon.ItemID = itemID;
+				Item addon = new MistletoeAddon(this.Hue)
+				{
+					ItemID = itemID
+				};
 				addon.MoveToWorld(loc, from.Map);
 
 				house.Addons.Add(addon);

@@ -15,7 +15,7 @@ namespace Server
 
 		public class IPFirewallEntry : IFirewallEntry
 		{
-			readonly IPAddress m_Address;
+			private readonly IPAddress m_Address;
 			public IPFirewallEntry(IPAddress address)
 			{
 				m_Address = address;
@@ -59,8 +59,8 @@ namespace Server
 
 		public class CIDRFirewallEntry : IFirewallEntry
 		{
-			readonly IPAddress m_CIDRPrefix;
-			readonly int m_CIDRLength;
+			private readonly IPAddress m_CIDRPrefix;
+			private readonly int m_CIDRLength;
 
 			public CIDRFirewallEntry(IPAddress cidrPrefix, int cidrLength)
 			{
@@ -116,9 +116,8 @@ namespace Server
 
 		public class WildcardIPFirewallEntry : IFirewallEntry
 		{
-			readonly string m_Entry;
-
-			bool m_Valid = true;
+			private readonly string m_Entry;
+			private bool m_Valid = true;
 
 			public WildcardIPFirewallEntry(string entry)
 			{

@@ -248,8 +248,10 @@ namespace Server.Engines.ConPVP
 								}
 								else if (!tourny.HasParticipant(from))
 								{
-									ArrayList players = new ArrayList();
-									players.Add(from);
+									ArrayList players = new ArrayList
+									{
+										from
+									};
 									from.CloseGump(typeof(ConfirmSignupGump));
 									from.SendGump(new ConfirmSignupGump(from, m_Registrar, tourny, players));
 								}
@@ -2529,9 +2531,10 @@ namespace Server.Engines.ConPVP
 			for (int i = 0; i < m_Participants.Count; ++i)
 			{
 				TournyParticipant tournyPart = (TournyParticipant)m_Participants[i];
-				Participant duelPart = new Participant(dc, tournyPart.Players.Count);
-
-				duelPart.TournyPart = tournyPart;
+				Participant duelPart = new Participant(dc, tournyPart.Players.Count)
+				{
+					TournyPart = tournyPart
+				};
 
 				for (int j = 0; j < tournyPart.Players.Count; ++j)
 					duelPart.Add((Mobile)tournyPart.Players[j]);
@@ -2727,8 +2730,10 @@ namespace Server.Engines.ConPVP
 		public TournyParticipant(Mobile owner)
 		{
 			m_Log = new ArrayList();
-			m_Players = new ArrayList();
-			m_Players.Add(owner);
+			m_Players = new ArrayList
+			{
+				owner
+			};
 		}
 
 		public TournyParticipant(ArrayList players)

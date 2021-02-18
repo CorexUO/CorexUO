@@ -656,9 +656,10 @@ namespace Server.Engines.Quests
 
 		public static ArrayList BuildList(object obj)
 		{
-			ArrayList list = new ArrayList();
-
-			list.Add(obj);
+			ArrayList list = new ArrayList
+			{
+				obj
+			};
 
 			return list;
 		}

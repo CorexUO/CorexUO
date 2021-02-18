@@ -464,8 +464,10 @@ namespace Server.Mobiles
 
 		public virtual void InitOutfit()
 		{
-			Item item = new FancyShirt(Utility.RandomNeutralHue());
-			item.Layer = Layer.InnerTorso;
+			Item item = new FancyShirt(Utility.RandomNeutralHue())
+			{
+				Layer = Layer.InnerTorso
+			};
 			AddItem(item);
 			AddItem(new LongPants(Utility.RandomNeutralHue()));
 			AddItem(new BodySash(Utility.RandomNeutralHue()));
@@ -474,8 +476,10 @@ namespace Server.Mobiles
 
 			Utility.AssignRandomHair(this);
 
-			Container pack = new VendorBackpack();
-			pack.Movable = false;
+			Container pack = new VendorBackpack
+			{
+				Movable = false
+			};
 			AddItem(pack);
 		}
 
@@ -659,8 +663,10 @@ namespace Server.Mobiles
 					}
 					else // Move to vendor inventory
 					{
-						VendorInventory inventory = new VendorInventory(House, Owner, Name, ShopName);
-						inventory.Gold = HoldGold;
+						VendorInventory inventory = new VendorInventory(House, Owner, Name, ShopName)
+						{
+							Gold = HoldGold
+						};
 
 						foreach (Item item in list)
 						{

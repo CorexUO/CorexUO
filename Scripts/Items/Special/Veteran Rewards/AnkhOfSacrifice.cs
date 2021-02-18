@@ -157,8 +157,10 @@ namespace Server.Items
 		{
 			get
 			{
-				AnkhOfSacrificeDeed deed = new AnkhOfSacrificeDeed();
-				deed.IsRewardItem = m_IsRewardItem;
+				AnkhOfSacrificeDeed deed = new AnkhOfSacrificeDeed
+				{
+					IsRewardItem = m_IsRewardItem
+				};
 
 				return deed;
 			}
@@ -233,8 +235,10 @@ namespace Server.Items
 		{
 			get
 			{
-				AnkhOfSacrificeAddon addon = new AnkhOfSacrificeAddon(m_East);
-				addon.IsRewardItem = m_IsRewardItem;
+				AnkhOfSacrificeAddon addon = new AnkhOfSacrificeAddon(m_East)
+				{
+					IsRewardItem = m_IsRewardItem
+				};
 
 				return addon;
 			}

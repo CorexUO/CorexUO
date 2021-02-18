@@ -245,7 +245,7 @@ namespace Server.Mobiles
 						_ = pm.CloseGump(typeof(ToTTurnInGump));    //Sanity
 
 						if (!pm.HasGump(typeof(ToTRedeemGump)))
-							_= pm.SendGump(new ToTRedeemGump(this, false));
+							_ = pm.SendGump(new ToTRedeemGump(this, false));
 					}
 					else
 					{
@@ -316,7 +316,7 @@ namespace Server.Gumps
 			return buttons;
 		}
 
-		readonly Mobile m_Collector;
+		private readonly Mobile m_Collector;
 
 		public ToTTurnInGump(Mobile collector, ArrayList buttons) : base(1071012, buttons) // Click a minor artifact to give it to Ihara Soko.
 		{
@@ -528,7 +528,7 @@ namespace Server.Gumps
 					_ = pm.CloseGump(typeof(ToTTurnInGump));    //Sanity
 					_ = pm.CloseGump(typeof(ToTRedeemGump));
 
-					_= pm.SendGump(new ToTRedeemGump(m_Collector, true));
+					_ = pm.SendGump(new ToTRedeemGump(m_Collector, true));
 
 					return;
 				}

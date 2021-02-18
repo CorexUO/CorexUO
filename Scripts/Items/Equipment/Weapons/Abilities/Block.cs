@@ -72,8 +72,10 @@ namespace Server.Items
 		{
 			EndBlock(m);
 
-			BlockInfo info = new BlockInfo(m, bonus);
-			info.m_Timer = new InternalTimer(m);
+			BlockInfo info = new BlockInfo(m, bonus)
+			{
+				m_Timer = new InternalTimer(m)
+			};
 
 			m_Table[m] = info;
 		}

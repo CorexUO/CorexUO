@@ -1,6 +1,6 @@
 ﻿namespace Server.Items
 {
-	class WaterBarrel : BaseWaterContainer
+	internal class WaterBarrel : BaseWaterContainer
 	{
 		public override int LabelNumber { get { return 1025453; } }  /* water barrel */
 

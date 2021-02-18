@@ -71,8 +71,10 @@ namespace Server.Mobiles
 				}
 			}
 
-			List<MLQuest> result = new List<MLQuest>();
-			result.Add(m_MLQuest);
+			List<MLQuest> result = new List<MLQuest>
+			{
+				m_MLQuest
+			};
 
 			return result;
 		}

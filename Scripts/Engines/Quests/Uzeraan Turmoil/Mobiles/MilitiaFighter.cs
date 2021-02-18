@@ -45,8 +45,10 @@ namespace Server.Engines.Quests.Haven
 			weapon.Movable = false;
 			AddItem(weapon);
 
-			Item shield = new BronzeShield();
-			shield.Movable = false;
+			Item shield = new BronzeShield
+			{
+				Movable = false
+			};
 			AddItem(shield);
 
 			SetSkill(SkillName.Swords, 20.0);

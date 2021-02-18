@@ -113,9 +113,10 @@ namespace Server.Spells.Spellweaving
 
 		private List<Mobile> GetArcanists()
 		{
-			List<Mobile> weavers = new List<Mobile>();
-
-			weavers.Add(Caster);
+			List<Mobile> weavers = new List<Mobile>
+			{
+				Caster
+			};
 
 			//OSI Verified: Even enemies/combatants count
 			foreach (Mobile m in Caster.GetMobilesInRange(1))   //Range verified as 1

@@ -8,12 +8,12 @@ namespace Server.Guilds
 {
 	public abstract class BaseGuildListGump<T> : BaseGuildGump
 	{
-		List<T> m_List;
-		readonly IComparer<T> m_Comparer;
-		readonly InfoField<T>[] m_Fields;
-		bool m_Ascending;
-		readonly string m_Filter;
-		int m_StartNumber;
+		private List<T> m_List;
+		private readonly IComparer<T> m_Comparer;
+		private readonly InfoField<T>[] m_Fields;
+		private bool m_Ascending;
+		private readonly string m_Filter;
+		private int m_StartNumber;
 
 		private const int itemsPerPage = 8;
 

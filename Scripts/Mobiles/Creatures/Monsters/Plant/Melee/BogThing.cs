@@ -80,9 +80,10 @@ namespace Server.Mobiles
 			if (map == null)
 				return;
 
-			Bogling spawned = new Bogling();
-
-			spawned.Team = this.Team;
+			Bogling spawned = new Bogling
+			{
+				Team = this.Team
+			};
 
 			bool validLocation = false;
 			Point3D loc = this.Location;

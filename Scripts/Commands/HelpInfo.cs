@@ -228,8 +228,8 @@ namespace Server.Commands
 		public class CommandListGump : BaseGridGump
 		{
 			private const int EntriesPerPage = 15;
-			readonly int m_Page;
-			readonly List<CommandInfo> m_List;
+			private readonly int m_Page;
+			private readonly List<CommandInfo> m_List;
 
 			public CommandListGump(int page, Mobile from, List<CommandInfo> list)
 				: base(30, 30)

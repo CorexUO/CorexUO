@@ -78,17 +78,17 @@ namespace Server.RemoteAdmin
 			m_NewLine = true;
 		}
 
-		static void SendToAll(string outStr)
+		private static void SendToAll(string outStr)
 		{
 			SendToAll(new ConsoleData(outStr));
 		}
 
-		static void SendToAll(char ch)
+		private static void SendToAll(char ch)
 		{
 			SendToAll(new ConsoleData(ch));
 		}
 
-		static void SendToAll(ConsoleData packet)
+		private static void SendToAll(ConsoleData packet)
 		{
 			packet.Acquire();
 			for (int i = 0; i < m_Auth.Count; i++)
@@ -96,13 +96,13 @@ namespace Server.RemoteAdmin
 			packet.Release();
 		}
 
-		static void RoughTrimConsoleData()
+		private static void RoughTrimConsoleData()
 		{
 			if (m_ConsoleData.Length >= 4096)
 				m_ConsoleData.Remove(0, 2048);
 		}
 
-		static void TightTrimConsoleData()
+		private static void TightTrimConsoleData()
 		{
 			if (m_ConsoleData.Length > 1024)
 				m_ConsoleData.Remove(0, m_ConsoleData.Length - 1024);

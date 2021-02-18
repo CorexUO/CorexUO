@@ -172,8 +172,8 @@ namespace Server.Mobiles
 
 		private Point3D m_pHome;                // The home position of the creature, used by some AI
 
-		readonly List<Type> m_arSpellAttack;     // List of attack spell/power
-		readonly List<Type> m_arSpellDefense;        // List of defensive spell/power
+		private readonly List<Type> m_arSpellAttack;     // List of attack spell/power
+		private readonly List<Type> m_arSpellDefense;        // List of defensive spell/power
 
 		private bool m_bControlled;     // Is controlled
 		private Mobile m_ControlMaster; // My master

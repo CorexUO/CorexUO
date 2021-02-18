@@ -141,7 +141,7 @@ namespace Server.Engines.MLQuests.Definitions
 			Title = 1075530; // More Ore Please
 			Description = 1075529; // Have a pickaxe? My supplier is late and I need some iron ore so I can complete a bulk order for another merchant. If you can get me some soon I'll pay you double what it's worth on the market. Just find a cave or mountainside and try to use your pickaxe there, maybe you'll strike a good vein! 5 large pieces should do it.
 			RefusalMessage = 1075531; // Not feeling strong enough today? Its alright, I didn't need a bucket of rocks anyway.
-			InProgressMessage = 1075532; // Hmmm… we need some more Ore. Try finding a mountain or cave, and give it a whack.
+			InProgressMessage = 1075532; // Hmmmâ€¦ we need some more Ore. Try finding a mountain or cave, and give it a whack.
 			CompletionMessage = 1075533; // I see you found a good vien! Great!  This will help get this order out on time. Good work!
 
 			Objectives.Add(new InternalObjective());
@@ -335,7 +335,7 @@ namespace Server.Engines.MLQuests.Definitions
 		{
 			MLQuestSystem.Tell(this, pm, Utility.RandomList(
 				1074205, // Oh great adventurer, would you please assist a weak soul in need of aid?
-				1074213 // Hey buddy.  Looking for work?
+				1074213 // Hey buddy.Â  Looking for work?
 			));
 		}
 
@@ -359,20 +359,28 @@ namespace Server.Engines.MLQuests.Definitions
 
 			Item item;
 
-			item = new LeatherChest();
-			item.Hue = 0x1BB;
+			item = new LeatherChest
+			{
+				Hue = 0x1BB
+			};
 			AddItem(item);
 
-			item = new LeatherLegs();
-			item.Hue = 0x6AD;
+			item = new LeatherLegs
+			{
+				Hue = 0x6AD
+			};
 			AddItem(item);
 
-			item = new LeatherArms();
-			item.Hue = 0x6AD;
+			item = new LeatherArms
+			{
+				Hue = 0x6AD
+			};
 			AddItem(item);
 
-			item = new LeatherGloves();
-			item.Hue = 0x1BB;
+			item = new LeatherGloves
+			{
+				Hue = 0x1BB
+			};
 			AddItem(item);
 
 			AddItem(new Boots(0x1BB));
@@ -421,20 +429,28 @@ namespace Server.Engines.MLQuests.Definitions
 
 			Item item;
 
-			item = new LeatherChest();
-			item.Hue = 0x1BB;
+			item = new LeatherChest
+			{
+				Hue = 0x1BB
+			};
 			AddItem(item);
 
-			item = new LeatherLegs();
-			item.Hue = 0x901;
+			item = new LeatherLegs
+			{
+				Hue = 0x901
+			};
 			AddItem(item);
 
-			item = new LeatherArms();
-			item.Hue = 0x901;
+			item = new LeatherArms
+			{
+				Hue = 0x901
+			};
 			AddItem(item);
 
-			item = new LeatherGloves();
-			item.Hue = 0x1BB;
+			item = new LeatherGloves
+			{
+				Hue = 0x1BB
+			};
 			AddItem(item);
 
 			AddItem(new Boots(0x1BB));
@@ -470,7 +486,7 @@ namespace Server.Engines.MLQuests.Definitions
 		{
 			MLQuestSystem.Tell(this, pm, Utility.RandomList(
 				1074205, // Oh great adventurer, would you please assist a weak soul in need of aid?
-				1074213 // Hey buddy.  Looking for work?
+				1074213 // Hey buddy.Â  Looking for work?
 			));
 		}
 
@@ -526,7 +542,7 @@ namespace Server.Engines.MLQuests.Definitions
 		{
 			MLQuestSystem.Tell(this, pm, Utility.RandomList(
 				1074205, // Oh great adventurer, would you please assist a weak soul in need of aid?
-				1074213 // Hey buddy.  Looking for work?
+				1074213 // Hey buddy.Â  Looking for work?
 			));
 		}
 
@@ -579,7 +595,7 @@ namespace Server.Engines.MLQuests.Definitions
 		{
 			MLQuestSystem.Tell(this, pm, Utility.RandomList(
 				1074205, // Oh great adventurer, would you please assist a weak soul in need of aid?
-				1074213, // Hey buddy.  Looking for work?
+				1074213, // Hey buddy.Â  Looking for work?
 				1074211 // I could use some help.
 			));
 		}
@@ -608,8 +624,10 @@ namespace Server.Engines.MLQuests.Definitions
 
 			Item item;
 
-			item = new LeatherGloves();
-			item.Hue = 0x3B2;
+			item = new LeatherGloves
+			{
+				Hue = 0x3B2
+			};
 			AddItem(item);
 		}
 
@@ -695,7 +713,7 @@ namespace Server.Engines.MLQuests.Definitions
 		{
 			MLQuestSystem.Tell(this, pm, Utility.RandomList(
 				1074205, // Oh great adventurer, would you please assist a weak soul in need of aid?
-				1074213 // Hey buddy.  Looking for work?
+				1074213 // Hey buddy.Â  Looking for work?
 			));
 		}
 
@@ -749,7 +767,7 @@ namespace Server.Engines.MLQuests.Definitions
 		{
 			MLQuestSystem.Tell(this, pm, Utility.RandomList(
 				1074205, // Oh great adventurer, would you please assist a weak soul in need of aid?
-				1074213 // Hey buddy.  Looking for work?
+				1074213 // Hey buddy.Â  Looking for work?
 			));
 		}
 
@@ -846,7 +864,7 @@ namespace Server.Engines.MLQuests.Definitions
 		{
 			MLQuestSystem.Tell(this, pm, Utility.RandomList(
 				1074205, // Oh great adventurer, would you please assist a weak soul in need of aid?
-				1074213, // Hey buddy.  Looking for work?
+				1074213, // Hey buddy.Â  Looking for work?
 				1074211 // I could use some help.
 			));
 		}
@@ -900,7 +918,7 @@ namespace Server.Engines.MLQuests.Definitions
 		{
 			MLQuestSystem.Tell(this, pm, Utility.RandomList(
 				1074205, // Oh great adventurer, would you please assist a weak soul in need of aid?
-				1074213, // Hey buddy.  Looking for work?
+				1074213, // Hey buddy.Â  Looking for work?
 				1074211 // I could use some help.
 			));
 		}
@@ -955,7 +973,7 @@ namespace Server.Engines.MLQuests.Definitions
 		public override void Shout(PlayerMobile pm)
 		{
 			MLQuestSystem.Tell(this, pm, Utility.RandomList(
-				1074213, // Hey buddy.  Looking for work?
+				1074213, // Hey buddy.Â  Looking for work?
 				1074211 // I could use some help.
 			));
 		}
@@ -983,8 +1001,10 @@ namespace Server.Engines.MLQuests.Definitions
 
 			Item item;
 
-			item = new PlateGloves();
-			item.Hue = 0x21E;
+			item = new PlateGloves
+			{
+				Hue = 0x21E
+			};
 			AddItem(item);
 
 		}

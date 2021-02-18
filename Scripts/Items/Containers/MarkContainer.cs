@@ -51,10 +51,12 @@ namespace Server.Items
 			if (FindMarkContainer(location, Map.Malas))
 				return;
 
-			MarkContainer cont = new MarkContainer(bone, locked);
-			cont.TargetMap = Map.Malas;
-			cont.Target = new Point3D(xTarget, yTarget, zTarget);
-			cont.Description = "strange location";
+			MarkContainer cont = new MarkContainer(bone, locked)
+			{
+				TargetMap = Map.Malas,
+				Target = new Point3D(xTarget, yTarget, zTarget),
+				Description = "strange location"
+			};
 
 			cont.MoveToWorld(location, Map.Malas);
 		}

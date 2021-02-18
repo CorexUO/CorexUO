@@ -24,7 +24,7 @@ namespace Server.Misc
 
 	public class LanguageStatistics
 	{
-		struct InternationalCode
+		private struct InternationalCode
 		{
 			private readonly bool m_HasLocalInfo;
 

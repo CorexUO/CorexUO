@@ -61,18 +61,20 @@ namespace Server.Mobiles
 
 			VirtualArmor = 32;
 
-			Item shroud = new DeathShroud();
+			Item shroud = new DeathShroud
+			{
+				Hue = 0x455,
 
-			shroud.Hue = 0x455;
-
-			shroud.Movable = false;
+				Movable = false
+			};
 
 			AddItem(shroud);
 
-			Halberd weapon = new Halberd();
-
-			weapon.Hue = 1;
-			weapon.Movable = false;
+			Halberd weapon = new Halberd
+			{
+				Hue = 1,
+				Movable = false
+			};
 
 			AddItem(weapon);
 		}

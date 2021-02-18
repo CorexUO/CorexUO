@@ -110,9 +110,10 @@ namespace Server.Commands.Generic
 			++index;
 
 			List<ICondition[]> conditions = new List<ICondition[]>();
-			List<ICondition> current = new List<ICondition>();
-
-			current.Add(TypeCondition.Default);
+			List<ICondition> current = new List<ICondition>
+			{
+				TypeCondition.Default
+			};
 
 			while (index < size)
 			{

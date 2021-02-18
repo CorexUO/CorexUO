@@ -25,9 +25,10 @@ namespace Server.Commands.Generic
 		{
 			if (list.Count > 0)
 			{
-				List<string> columns = new List<string>();
-
-				columns.Add("Object");
+				List<string> columns = new List<string>
+				{
+					"Object"
+				};
 
 				if (e.Length > 0)
 				{

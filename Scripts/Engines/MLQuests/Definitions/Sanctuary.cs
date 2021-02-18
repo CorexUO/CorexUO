@@ -683,8 +683,10 @@ namespace Server.Engines.MLQuests.Definitions
 
 			Item item;
 
-			item = new LeafGloves();
-			item.Hue = 0x901;
+			item = new LeafGloves
+			{
+				Hue = 0x901
+			};
 			AddItem(item);
 		}
 
@@ -863,12 +865,16 @@ namespace Server.Engines.MLQuests.Definitions
 
 			Item item;
 
-			item = new WoodlandBelt();
-			item.Hue = 0x673;
+			item = new WoodlandBelt
+			{
+				Hue = 0x673
+			};
 			AddItem(item);
 
-			item = new RavenHelm();
-			item.Hue = 0x443;
+			item = new RavenHelm
+			{
+				Hue = 0x443
+			};
 			AddItem(item);
 		}
 
@@ -989,8 +995,10 @@ namespace Server.Engines.MLQuests.Definitions
 
 			Item item;
 
-			item = new LeafLegs();
-			item.Hue = 0x71A;
+			item = new LeafLegs
+			{
+				Hue = 0x71A
+			};
 			AddItem(item);
 		}
 

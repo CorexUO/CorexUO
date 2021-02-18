@@ -190,9 +190,10 @@ namespace Server.Mobiles
 					if (!ok)
 						continue;
 
-					HarrowerTentacles spawn = new HarrowerTentacles(this);
-
-					spawn.Team = this.Team;
+					HarrowerTentacles spawn = new HarrowerTentacles(this)
+					{
+						Team = this.Team
+					};
 
 					spawn.MoveToWorld(new Point3D(x, y, z), map);
 
@@ -392,7 +393,7 @@ namespace Server.Mobiles
 			}
 		}
 
-		Dictionary<Mobile, int> m_DamageEntries;
+		private Dictionary<Mobile, int> m_DamageEntries;
 
 		public virtual void RegisterDamageTo(Mobile m)
 		{

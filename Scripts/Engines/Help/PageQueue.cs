@@ -354,9 +354,10 @@ namespace Server.Engines.Help
 			Mobile sender = entry.Sender;
 			DateTime time = DateTime.UtcNow;
 
-			MailMessage mail = new MailMessage(Email.FromAddress, Email.SpeechLogPageAddresses);
-
-			mail.Subject = "CorexUO Speech Log Page Forwarding";
+			MailMessage mail = new MailMessage(Email.FromAddress, Email.SpeechLogPageAddresses)
+			{
+				Subject = "CorexUO Speech Log Page Forwarding"
+			};
 
 			using (StringWriter writer = new StringWriter())
 			{

@@ -109,16 +109,20 @@ namespace Server.Mobiles
 
 			Container pack;
 			//these packs MUST exist, or the client will crash when the packets are sent
-			pack = new Backpack();
-			pack.Layer = Layer.ShopBuy;
-			pack.Movable = false;
-			pack.Visible = false;
+			pack = new Backpack
+			{
+				Layer = Layer.ShopBuy,
+				Movable = false,
+				Visible = false
+			};
 			AddItem(pack);
 
-			pack = new Backpack();
-			pack.Layer = Layer.ShopResale;
-			pack.Movable = false;
-			pack.Visible = false;
+			pack = new Backpack
+			{
+				Layer = Layer.ShopResale,
+				Movable = false,
+				Visible = false
+			};
 			AddItem(pack);
 
 			LastRestock = DateTime.UtcNow;
@@ -147,9 +151,11 @@ namespace Server.Mobiles
 
 				if (pack == null)
 				{
-					pack = new Backpack();
-					pack.Layer = Layer.ShopBuy;
-					pack.Visible = false;
+					pack = new Backpack
+					{
+						Layer = Layer.ShopBuy,
+						Visible = false
+					};
 					AddItem(pack);
 				}
 
@@ -604,10 +610,12 @@ namespace Server.Mobiles
 
 			if (pack == null)
 			{
-				pack = new Backpack();
-				pack.Layer = Layer.ShopBuy;
-				pack.Movable = false;
-				pack.Visible = false;
+				pack = new Backpack
+				{
+					Layer = Layer.ShopBuy,
+					Movable = false,
+					Visible = false
+				};
 				AddItem(pack);
 			}
 
@@ -622,10 +630,12 @@ namespace Server.Mobiles
 
 			if (pack == null)
 			{
-				pack = new Backpack();
-				pack.Layer = Layer.ShopResale;
-				pack.Movable = false;
-				pack.Visible = false;
+				pack = new Backpack
+				{
+					Layer = Layer.ShopResale,
+					Movable = false,
+					Visible = false
+				};
 				AddItem(pack);
 			}
 

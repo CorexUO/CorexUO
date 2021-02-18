@@ -99,9 +99,11 @@ namespace Server.Mobiles
 
 			VirtualArmor = 60;
 
-			Halberd weapon = new Halberd();
-			weapon.Hue = 0x41CE;
-			weapon.Movable = false;
+			Halberd weapon = new Halberd
+			{
+				Hue = 0x41CE,
+				Movable = false
+			};
 
 			AddItem(weapon);
 		}

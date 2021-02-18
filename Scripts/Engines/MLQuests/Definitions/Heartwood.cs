@@ -2036,8 +2036,10 @@ namespace Server.Engines.MLQuests.Definitions
 			AddItem(new ShortPants(Utility.RandomYellowHue()));
 			AddItem(new Tunic(Utility.RandomYellowHue()));
 
-			Item gloves = new LeafGloves();
-			gloves.Hue = Utility.RandomYellowHue();
+			Item gloves = new LeafGloves
+			{
+				Hue = Utility.RandomYellowHue()
+			};
 			AddItem(gloves);
 		}
 
@@ -2334,20 +2336,26 @@ namespace Server.Engines.MLQuests.Definitions
 
 			Item item;
 
-			item = new ElvenBoots();
-			item.Hue = Utility.RandomYellowHue();
+			item = new ElvenBoots
+			{
+				Hue = Utility.RandomYellowHue()
+			};
 			AddItem(item);
 
 			AddItem(new ElvenPants(Utility.RandomGreenHue()));
 			AddItem(new Cloak(Utility.RandomGreenHue()));
 			AddItem(new Circlet());
 
-			item = new HideChest();
-			item.Hue = Utility.RandomYellowHue();
+			item = new HideChest
+			{
+				Hue = Utility.RandomYellowHue()
+			};
 			AddItem(item);
 
-			item = new HideGloves();
-			item.Hue = Utility.RandomYellowHue();
+			item = new HideGloves
+			{
+				Hue = Utility.RandomYellowHue()
+			};
 			AddItem(item);
 		}
 
@@ -2578,16 +2586,22 @@ namespace Server.Engines.MLQuests.Definitions
 
 			Item item;
 
-			item = new WoodlandLegs();
-			item.Hue = 0x74A;
+			item = new WoodlandLegs
+			{
+				Hue = 0x74A
+			};
 			AddItem(item);
 
-			item = new HideChest();
-			item.Hue = 0x726;
+			item = new HideChest
+			{
+				Hue = 0x726
+			};
 			AddItem(item);
 
-			item = new LeafArms();
-			item.Hue = 0x73E;
+			item = new LeafArms
+			{
+				Hue = 0x73E
+			};
 			AddItem(item);
 		}
 
@@ -2648,24 +2662,34 @@ namespace Server.Engines.MLQuests.Definitions
 
 			Item item;
 
-			item = new WoodlandBelt();
-			item.Hue = 0x597;
+			item = new WoodlandBelt
+			{
+				Hue = 0x597
+			};
 			AddItem(item);
 
-			item = new VultureHelm();
-			item.Hue = 0x1BB;
+			item = new VultureHelm
+			{
+				Hue = 0x1BB
+			};
 			AddItem(item);
 
-			item = new WoodlandLegs();
-			item.Hue = 0x1BB;
+			item = new WoodlandLegs
+			{
+				Hue = 0x1BB
+			};
 			AddItem(item);
 
-			item = new WoodlandChest();
-			item.Hue = 0x1BB;
+			item = new WoodlandChest
+			{
+				Hue = 0x1BB
+			};
 			AddItem(item);
 
-			item = new WoodlandArms();
-			item.Hue = 0x1BB;
+			item = new WoodlandArms
+			{
+				Hue = 0x1BB
+			};
 			AddItem(item);
 		}
 
@@ -2790,8 +2814,10 @@ namespace Server.Engines.MLQuests.Definitions
 
 			Item item;
 
-			item = new LeafArms();
-			item.Hue = 0x28C;
+			item = new LeafArms
+			{
+				Hue = 0x28C
+			};
 			AddItem(item);
 		}
 
@@ -2911,8 +2937,10 @@ namespace Server.Engines.MLQuests.Definitions
 
 			Item item;
 
-			item = new LeafChest();
-			item.Hue = 0x344;
+			item = new LeafChest
+			{
+				Hue = 0x344
+			};
 			AddItem(item);
 		}
 
@@ -3138,12 +3166,16 @@ namespace Server.Engines.MLQuests.Definitions
 
 			Item item;
 
-			item = new HideChest();
-			item.Hue = 0x27B;
+			item = new HideChest
+			{
+				Hue = 0x27B
+			};
 			AddItem(item);
 
-			item = new HidePauldrons();
-			item.Hue = 0x27E;
+			item = new HidePauldrons
+			{
+				Hue = 0x27E
+			};
 			AddItem(item);
 		}
 
@@ -3263,8 +3295,10 @@ namespace Server.Engines.MLQuests.Definitions
 
 			Item item;
 
-			item = new LeafChest();
-			item.Hue = 0x359;
+			item = new LeafChest
+			{
+				Hue = 0x359
+			};
 			AddItem(item);
 		}
 
@@ -3488,24 +3522,34 @@ namespace Server.Engines.MLQuests.Definitions
 
 			Item item;
 
-			item = new WoodlandLegs();
-			item.Hue = 0x236;
+			item = new WoodlandLegs
+			{
+				Hue = 0x236
+			};
 			AddItem(item);
 
-			item = new WoodlandChest();
-			item.Hue = 0x236;
+			item = new WoodlandChest
+			{
+				Hue = 0x236
+			};
 			AddItem(item);
 
-			item = new WoodlandArms();
-			item.Hue = 0x236;
+			item = new WoodlandArms
+			{
+				Hue = 0x236
+			};
 			AddItem(item);
 
-			item = new VultureHelm();
-			item.Hue = 0x236;
+			item = new VultureHelm
+			{
+				Hue = 0x236
+			};
 			AddItem(item);
 
-			item = new WoodlandBelt();
-			item.Hue = 0x236;
+			item = new WoodlandBelt
+			{
+				Hue = 0x236
+			};
 			AddItem(item);
 
 		}
@@ -3554,20 +3598,28 @@ namespace Server.Engines.MLQuests.Definitions
 
 			Item item;
 
-			item = new WoodlandLegs();
-			item.Hue = 0x3B2;
+			item = new WoodlandLegs
+			{
+				Hue = 0x3B2
+			};
 			AddItem(item);
 
-			item = new FemaleElvenPlateChest();
-			item.Hue = 0x3B2;
+			item = new FemaleElvenPlateChest
+			{
+				Hue = 0x3B2
+			};
 			AddItem(item);
 
-			item = new WoodlandArms();
-			item.Hue = 0x3B2;
+			item = new WoodlandArms
+			{
+				Hue = 0x3B2
+			};
 			AddItem(item);
 
-			item = new WingedHelm();
-			item.Hue = 0x3B2;
+			item = new WingedHelm
+			{
+				Hue = 0x3B2
+			};
 			AddItem(item);
 
 		}
@@ -3661,16 +3713,22 @@ namespace Server.Engines.MLQuests.Definitions
 
 			Item item;
 
-			item = new LeafTonlet();
-			item.Hue = 0x544;
+			item = new LeafTonlet
+			{
+				Hue = 0x544
+			};
 			AddItem(item);
 
-			item = new LeafChest();
-			item.Hue = 0x538;
+			item = new LeafChest
+			{
+				Hue = 0x538
+			};
 			AddItem(item);
 
-			item = new LeafArms();
-			item.Hue = 0x528;
+			item = new LeafArms
+			{
+				Hue = 0x528
+			};
 			AddItem(item);
 
 		}
@@ -3762,8 +3820,10 @@ namespace Server.Engines.MLQuests.Definitions
 
 			Item item;
 
-			item = new LeafLegs();
-			item.Hue = 0x3B2;
+			item = new LeafLegs
+			{
+				Hue = 0x3B2
+			};
 			AddItem(item);
 
 		}
@@ -4038,8 +4098,10 @@ namespace Server.Engines.MLQuests.Definitions
 
 			Item item;
 
-			item = new LeafLegs();
-			item.Hue = 0x1BB;
+			item = new LeafLegs
+			{
+				Hue = 0x1BB
+			};
 			AddItem(item);
 
 		}
@@ -4131,12 +4193,16 @@ namespace Server.Engines.MLQuests.Definitions
 
 			Item item;
 
-			item = new LeafChest();
-			item.Hue = 0x8B0;
+			item = new LeafChest
+			{
+				Hue = 0x8B0
+			};
 			AddItem(item);
 
-			item = new LeafGloves();
-			item.Hue = 0x1BB;
+			item = new LeafGloves
+			{
+				Hue = 0x1BB
+			};
 			AddItem(item);
 
 		}
@@ -4183,16 +4249,22 @@ namespace Server.Engines.MLQuests.Definitions
 
 			Item item;
 
-			item = new FemaleLeafChest();
-			item.Hue = 0x3A;
+			item = new FemaleLeafChest
+			{
+				Hue = 0x3A
+			};
 			AddItem(item);
 
-			item = new LeafLegs();
-			item.Hue = 0x74C;
+			item = new LeafLegs
+			{
+				Hue = 0x74C
+			};
 			AddItem(item);
 
-			item = new LeafGloves();
-			item.Hue = 0x1BB;
+			item = new LeafGloves
+			{
+				Hue = 0x1BB
+			};
 			AddItem(item);
 
 		}

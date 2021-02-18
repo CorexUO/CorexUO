@@ -125,7 +125,7 @@ namespace Server.Engines.Quests.Samurai
 			}
 		}
 
-		bool m_CursedSoul;
+		private bool m_CursedSoul;
 
 		public FirstTrialReturnObjective(bool cursedSoul)
 		{

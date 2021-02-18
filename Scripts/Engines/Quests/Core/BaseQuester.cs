@@ -103,8 +103,10 @@ namespace Server.Engines.Quests
 
 		public static Container GetNewContainer()
 		{
-			Bag bag = new Bag();
-			bag.Hue = QuestSystem.RandomBrightHue();
+			Bag bag = new Bag
+			{
+				Hue = QuestSystem.RandomBrightHue()
+			};
 			return bag;
 		}
 

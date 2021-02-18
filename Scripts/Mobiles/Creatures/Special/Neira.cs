@@ -60,17 +60,19 @@ namespace Server.Mobiles
 			VirtualArmor = 30;
 			Female = true;
 
-			Item shroud = new HoodedShroudOfShadows();
-
-			shroud.Movable = false;
+			Item shroud = new HoodedShroudOfShadows
+			{
+				Movable = false
+			};
 
 			AddItem(shroud);
 
-			Scimitar weapon = new Scimitar();
-
-			weapon.Skill = SkillName.Wrestling;
-			weapon.Hue = 38;
-			weapon.Movable = false;
+			Scimitar weapon = new Scimitar
+			{
+				Skill = SkillName.Wrestling,
+				Hue = 38,
+				Movable = false
+			};
 
 			AddItem(weapon);
 

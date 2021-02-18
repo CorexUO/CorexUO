@@ -51,8 +51,10 @@ namespace Server.Items
 		{
 			get
 			{
-				WallBannerDeed deed = new WallBannerDeed();
-				deed.IsRewardItem = m_IsRewardItem;
+				WallBannerDeed deed = new WallBannerDeed
+				{
+					IsRewardItem = m_IsRewardItem
+				};
 
 				return deed;
 			}
@@ -263,8 +265,10 @@ namespace Server.Items
 		{
 			get
 			{
-				WallBanner addon = new WallBanner(m_BannerID);
-				addon.IsRewardItem = m_IsRewardItem;
+				WallBanner addon = new WallBanner(m_BannerID)
+				{
+					IsRewardItem = m_IsRewardItem
+				};
 
 				return addon;
 			}

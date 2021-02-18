@@ -100,8 +100,8 @@ namespace Server.Guilds
 
 		#endregion
 
-		GuildDisplayType m_Display;
-		readonly TextDefinition m_LowerText;
+		private GuildDisplayType m_Display;
+		private readonly TextDefinition m_LowerText;
 
 		public GuildDiplomacyGump(PlayerMobile pm, Guild g)
 			: this(pm, g, GuildDiplomacyGump.NameComparer.Instance, true, "", 0, GuildDisplayType.All, Utility.CastConvertList<BaseGuild, Guild>(new List<BaseGuild>(Guild.List.Values)), (1063136 + (int)GuildDisplayType.All))

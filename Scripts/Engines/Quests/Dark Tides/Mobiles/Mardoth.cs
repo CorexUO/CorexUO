@@ -73,12 +73,16 @@ namespace Server.Engines.Quests.Necro
 			HairItemID = 0x203C;
 			HairHue = 0x482;
 
-			Item gloves = new BoneGloves();
-			gloves.Hue = 0x66D;
+			Item gloves = new BoneGloves
+			{
+				Hue = 0x66D
+			};
 			AddItem(gloves);
 
-			Item gorget = new PlateGorget();
-			gorget.Hue = 0x1;
+			Item gorget = new PlateGorget
+			{
+				Hue = 0x1
+			};
 			AddItem(gorget);
 		}
 
@@ -137,9 +141,10 @@ namespace Server.Engines.Quests.Necro
 								cont.DropItem(new DaemonBlood(20));
 								cont.DropItem(new GraveDust(20));
 
-								BaseWeapon weapon = new BoneHarvester();
-
-								weapon.Slayer = SlayerName.OrcSlaying;
+								BaseWeapon weapon = new BoneHarvester
+								{
+									Slayer = SlayerName.OrcSlaying
+								};
 
 								if (Core.AOS)
 								{

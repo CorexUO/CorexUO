@@ -94,9 +94,10 @@ namespace Server.Mobiles
 		{
 			if (this.Map != null && caster != this && 0.25 > Utility.RandomDouble())
 			{
-				BaseCreature spawn = new PlagueSpawn(this);
-
-				spawn.Team = this.Team;
+				BaseCreature spawn = new PlagueSpawn(this)
+				{
+					Team = this.Team
+				};
 				spawn.MoveToWorld(this.Location, this.Map);
 				spawn.Combatant = caster;
 
@@ -113,9 +114,10 @@ namespace Server.Mobiles
 		{
 			if (this.Map != null && attacker != this && 0.25 > Utility.RandomDouble())
 			{
-				BaseCreature spawn = new PlagueSpawn(this);
-
-				spawn.Team = this.Team;
+				BaseCreature spawn = new PlagueSpawn(this)
+				{
+					Team = this.Team
+				};
 				spawn.MoveToWorld(this.Location, this.Map);
 				spawn.Combatant = attacker;
 

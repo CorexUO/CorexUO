@@ -165,10 +165,11 @@ namespace Server.Commands
 						}
 					}
 
-					MarkContainer mc = new MarkContainer(bone, locked);
-
-					mc.TargetMap = map;
-					mc.Description = "strange location";
+					MarkContainer mc = new MarkContainer(bone, locked)
+					{
+						TargetMap = map,
+						Description = "strange location"
+					};
 
 					item = mc;
 				}
@@ -227,11 +228,12 @@ namespace Server.Commands
 						}
 					}
 
-					HintItem hi = new HintItem(m_ItemID, range, messageNumber, hintNumber);
-
-					hi.WarningString = messageString;
-					hi.HintString = hintString;
-					hi.ResetDelay = resetDelay;
+					HintItem hi = new HintItem(m_ItemID, range, messageNumber, hintNumber)
+					{
+						WarningString = messageString,
+						HintString = hintString,
+						ResetDelay = resetDelay
+					};
 
 					item = hi;
 				}
@@ -274,10 +276,11 @@ namespace Server.Commands
 						}
 					}
 
-					WarningItem wi = new WarningItem(m_ItemID, range, messageNumber);
-
-					wi.WarningString = messageString;
-					wi.ResetDelay = resetDelay;
+					WarningItem wi = new WarningItem(m_ItemID, range, messageNumber)
+					{
+						WarningString = messageString,
+						ResetDelay = resetDelay
+					};
 
 					item = wi;
 				}

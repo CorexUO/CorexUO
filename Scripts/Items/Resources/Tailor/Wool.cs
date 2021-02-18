@@ -145,7 +145,7 @@ namespace Server.Items
 			_ = reader.ReadInt();
 		}
 
-		new public static void OnSpun(ISpinningWheel wheel, Mobile from, int hue)
+		public static new void OnSpun(ISpinningWheel wheel, Mobile from, int hue)
 		{
 			Item item = new DarkYarn(1)
 			{

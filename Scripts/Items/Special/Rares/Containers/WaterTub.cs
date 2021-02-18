@@ -1,6 +1,6 @@
 ﻿namespace Server.Items
 {
-	class Tub : BaseWaterContainer
+	internal class Tub : BaseWaterContainer
 	{
 		public override int VoidItem_ID { get { return vItemID; } }
 		public override int FullItem_ID { get { return fItemID; } }

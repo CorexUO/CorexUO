@@ -175,11 +175,13 @@ namespace Server.Engines.Quests.Necro
 
 					Effects.PlaySound(moongate.Location, moongate.Map, 0x20E);
 
-					m_Paladin = new SummonedPaladin(m_Player);
-					m_Paladin.Frozen = true;
+					m_Paladin = new SummonedPaladin(m_Player)
+					{
+						Frozen = true,
 
-					m_Paladin.Location = moongate.Location;
-					m_Paladin.Map = moongate.Map;
+						Location = moongate.Location,
+						Map = moongate.Map
+					};
 
 					Delay = TimeSpan.FromSeconds(2.0);
 					Start();

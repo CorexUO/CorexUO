@@ -36,10 +36,11 @@ namespace Server.Engines.Quests.Necro
 			foreach (MaabusCoffinComponent c in Components)
 				c.TurnToEmpty();
 
-			m_Maabus = new Maabus();
-
-			m_Maabus.Location = m_SpawnLocation;
-			m_Maabus.Map = Map;
+			m_Maabus = new Maabus
+			{
+				Location = m_SpawnLocation,
+				Map = Map
+			};
 
 			m_Maabus.Direction = m_Maabus.GetDirectionTo(caller);
 

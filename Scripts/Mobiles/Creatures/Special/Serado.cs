@@ -91,7 +91,7 @@ namespace Server.Mobiles
 
 		public override void OnDamagedBySpell(Mobile attacker, Spell spell, int damage)
 		{
-			base.OnDamagedBySpell(attacker, spell , damage);
+			base.OnDamagedBySpell(attacker, spell, damage);
 
 			ScaleResistances();
 			DoCounter(attacker);

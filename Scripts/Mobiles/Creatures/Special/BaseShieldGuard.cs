@@ -56,8 +56,10 @@ namespace Server.Mobiles
 			if (Utility.RandomBool())
 				Utility.AssignRandomFacialHair(this, HairHue);
 
-			VikingSword weapon = new VikingSword();
-			weapon.Movable = false;
+			VikingSword weapon = new VikingSword
+			{
+				Movable = false
+			};
 			AddItem(weapon);
 
 			BaseShield shield = Shield;

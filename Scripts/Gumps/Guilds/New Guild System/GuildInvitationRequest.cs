@@ -7,7 +7,7 @@ namespace Server.Guilds
 {
 	public class GuildInvitationRequest : BaseGuildGump
 	{
-		readonly PlayerMobile m_Inviter;
+		private readonly PlayerMobile m_Inviter;
 		public GuildInvitationRequest(PlayerMobile pm, Guild g, PlayerMobile inviter) : base(pm, g)
 		{
 			m_Inviter = inviter;

@@ -3,7 +3,7 @@ using System;
 
 namespace Server.SkillHandlers
 {
-	class Meditation
+	internal class Meditation
 	{
 		public static void Initialize()
 		{

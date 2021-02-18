@@ -36,8 +36,10 @@ namespace Server.Engines.Quests.Hag
 
 			HairItemID = 0x203C;
 
-			Item staff = new GnarledStaff();
-			staff.Movable = false;
+			Item staff = new GnarledStaff
+			{
+				Movable = false
+			};
 			AddItem(staff);
 		}
 

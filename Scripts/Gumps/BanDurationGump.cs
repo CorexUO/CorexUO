@@ -22,8 +22,10 @@ namespace Server.Gumps
 
 		public static ArrayList MakeList(object obj)
 		{
-			ArrayList list = new ArrayList(1);
-			list.Add(obj);
+			ArrayList list = new ArrayList(1)
+			{
+				obj
+			};
 			return list;
 		}
 

@@ -105,7 +105,7 @@ namespace Server.RemoteAdmin
 			}
 		}
 
-		static bool CanAccessAccount(IAccount beholder, IAccount beheld)
+		private static bool CanAccessAccount(IAccount beholder, IAccount beheld)
 		{
 			return beholder.AccessLevel == AccessLevel.Owner || beheld.AccessLevel < beholder.AccessLevel;  // Cannot see accounts of equal or greater access level unless Owner
 		}

@@ -40,8 +40,10 @@ namespace Server.Mobiles
 
 			VirtualArmor = 50;
 
-			Item ore = new ShadowIronOre(25);
-			ore.ItemID = 0x19B9;
+			Item ore = new ShadowIronOre(25)
+			{
+				ItemID = 0x19B9
+			};
 			PackItem(ore);
 			PackItem(new IronIngot(10));
 
@@ -120,9 +122,10 @@ namespace Server.Mobiles
 
 			if (orcs < 10)
 			{
-				BaseCreature orc = new SpawnedOrcishLord();
-
-				orc.Team = this.Team;
+				BaseCreature orc = new SpawnedOrcishLord
+				{
+					Team = this.Team
+				};
 
 				Point3D loc = target.Location;
 				bool validLocation = false;

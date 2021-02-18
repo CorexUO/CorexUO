@@ -13,9 +13,9 @@ namespace Server.Engines.ConPVP
 			{
 				if (m_Root == null)
 				{
-					ArrayList entries = new ArrayList();
-
-					entries.Add(new RulesetLayout("Spells", new RulesetLayout[]
+					ArrayList entries = new ArrayList
+					{
+						new RulesetLayout("Spells", new RulesetLayout[]
 						{
 							new RulesetLayout( "1st Circle", "Spells", new string[]
 							{
@@ -73,7 +73,8 @@ namespace Server.Engines.ConPVP
 								"Summon Daemon", "Earth Elemental",
 								"Fire Elemental", "Water Elemental"
 							} )
-						}));
+						})
+					};
 
 					if (Core.AOS)
 					{
@@ -344,9 +345,10 @@ namespace Server.Engines.ConPVP
 					if (!Core.AOS)
 					{
 						#region Mage 5x
-						Ruleset m5x = new Ruleset(m_Root);
-
-						m5x.Title = "Mage 5x";
+						Ruleset m5x = new Ruleset(m_Root)
+						{
+							Title = "Mage 5x"
+						};
 
 						m5x.SetOptionRange("Spells", true);
 
@@ -392,9 +394,10 @@ namespace Server.Engines.ConPVP
 						#endregion
 
 						#region Mage 7x
-						Ruleset m7x = new Ruleset(m_Root);
-
-						m7x.Title = "Mage 7x";
+						Ruleset m7x = new Ruleset(m_Root)
+						{
+							Title = "Mage 7x"
+						};
 
 						m7x.SetOptionRange("Spells", true);
 
@@ -445,9 +448,10 @@ namespace Server.Engines.ConPVP
 						#endregion
 
 						#region Standard 7x
-						Ruleset s7x = new Ruleset(m_Root);
-
-						s7x.Title = "Standard 7x";
+						Ruleset s7x = new Ruleset(m_Root)
+						{
+							Title = "Standard 7x"
+						};
 
 						s7x.SetOptionRange("Spells", true);
 
@@ -503,9 +507,10 @@ namespace Server.Engines.ConPVP
 					{
 						#region Standard All Skills
 
-						Ruleset all = new Ruleset(m_Root);
-
-						all.Title = "Standard All Skills";
+						Ruleset all = new Ruleset(m_Root)
+						{
+							Title = "Standard All Skills"
+						};
 
 
 						all.SetOptionRange("Spells", true);
@@ -592,41 +597,46 @@ namespace Server.Engines.ConPVP
 
 					// Set up flavors
 
-					Ruleset pots = new Ruleset(m_Root);
-
-					pots.Title = "Potions";
+					Ruleset pots = new Ruleset(m_Root)
+					{
+						Title = "Potions"
+					};
 
 					pots.SetOptionRange("Potions", true);
 					pots.SetOption("Potions", "Explosion", false);
 
-					Ruleset para = new Ruleset(m_Root);
-
-					para.Title = "Paralyze";
+					Ruleset para = new Ruleset(m_Root)
+					{
+						Title = "Paralyze"
+					};
 					para.SetOption("Spells", "Paralyze", true);
 					para.SetOption("Spells", "Paralyze Field", true);
 					para.SetOption("Combat Abilities", "Paralyzing Blow", true);
 
-					Ruleset fields = new Ruleset(m_Root);
-
-					fields.Title = "Fields";
+					Ruleset fields = new Ruleset(m_Root)
+					{
+						Title = "Fields"
+					};
 					fields.SetOption("Spells", "Wall of Stone", true);
 					fields.SetOption("Spells", "Fire Field", true);
 					fields.SetOption("Spells", "Poison Field", true);
 					fields.SetOption("Spells", "Energy Field", true);
 					fields.SetOption("Spells", "Wildfire", true);
 
-					Ruleset area = new Ruleset(m_Root);
-
-					area.Title = "Area Effect";
+					Ruleset area = new Ruleset(m_Root)
+					{
+						Title = "Area Effect"
+					};
 					area.SetOption("Spells", "Earthquake", true);
 					area.SetOption("Spells", "Meteor Swarm", true);
 					area.SetOption("Spells", "Chain Lightning", true);
 					area.SetOption("Necromancy", "Wither", true);
 					area.SetOption("Necromancy", "Poison Strike", true);
 
-					Ruleset summons = new Ruleset(m_Root);
-
-					summons.Title = "Summons";
+					Ruleset summons = new Ruleset(m_Root)
+					{
+						Title = "Summons"
+					};
 					summons.SetOption("Spells", "Blade Spirits", true);
 					summons.SetOption("Spells", "Energy Vortex", true);
 					summons.SetOption("Spells", "Air Elemental", true);

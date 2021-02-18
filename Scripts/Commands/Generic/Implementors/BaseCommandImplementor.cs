@@ -254,8 +254,10 @@ namespace Server.Commands.Generic
 			{
 				if (command.ListOptimized)
 				{
-					ArrayList list = new ArrayList();
-					list.Add(obj);
+					ArrayList list = new ArrayList
+					{
+						obj
+					};
 					command.ExecuteList(e, list);
 				}
 				else

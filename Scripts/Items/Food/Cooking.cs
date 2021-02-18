@@ -5,7 +5,7 @@ namespace Server.Items
 {
 	public class UtilityItem
 	{
-		static public int RandomChoice(int itemID1, int itemID2)
+		public static int RandomChoice(int itemID1, int itemID2)
 		{
 			int iRet = 0;
 			switch (Utility.Random(2))

@@ -52,18 +52,24 @@ namespace Server.Engines.MLQuests.Mobiles
 
 			Item item;
 
-			item = new Cloak();
-			item.ItemID = 0x26AD;
-			item.Hue = 0x455;
+			item = new Cloak
+			{
+				ItemID = 0x26AD,
+				Hue = 0x455
+			};
 			AddItem(item);
 
-			item = new Robe();
-			item.ItemID = 0x26AE;
-			item.Hue = 0x4AB;
+			item = new Robe
+			{
+				ItemID = 0x26AE,
+				Hue = 0x4AB
+			};
 			AddItem(item);
 
-			item = new Backpack();
-			item.Movable = false;
+			item = new Backpack
+			{
+				Movable = false
+			};
 			AddItem(item);
 		}
 

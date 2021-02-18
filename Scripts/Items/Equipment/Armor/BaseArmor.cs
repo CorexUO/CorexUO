@@ -572,7 +572,7 @@ namespace Server.Items
 						else
 							m.SendMessage("Only {0} may use this.", armor.RequiredRace.PluralName);
 
-						_= m.AddToBackpack(armor);
+						_ = m.AddToBackpack(armor);
 					}
 					else if (!armor.AllowMaleWearer && !m.Female && m.AccessLevel < AccessLevel.GameMaster)
 					{

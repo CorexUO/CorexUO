@@ -247,9 +247,10 @@ namespace Server.Engines.Reports
 				}
 			}
 
-			BarGraph barGraph = new BarGraph("Average pages in queue", "graph_pagequeue_avg", 10, "Time", "Pages", BarGraphRenderMode.Lines);
-
-			barGraph.FontSize = 6;
+			BarGraph barGraph = new BarGraph("Average pages in queue", "graph_pagequeue_avg", 10, "Time", "Pages", BarGraphRenderMode.Lines)
+			{
+				FontSize = 6
+			};
 
 			for (int i = 7; i <= totals.Length + 7; ++i)
 			{
@@ -317,9 +318,10 @@ namespace Server.Engines.Reports
 				}
 			}
 
-			BarGraph barGraph = new BarGraph(title, fname, 10, "Time", "Pages", BarGraphRenderMode.Lines);
-
-			barGraph.FontSize = 6;
+			BarGraph barGraph = new BarGraph(title, fname, 10, "Time", "Pages", BarGraphRenderMode.Lines)
+			{
+				FontSize = 6
+			};
 
 			for (int i = 7; i <= totals.Length + 7; ++i)
 			{

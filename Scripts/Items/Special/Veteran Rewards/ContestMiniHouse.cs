@@ -8,8 +8,10 @@ namespace Server.Items
 		{
 			get
 			{
-				ContestMiniHouseDeed deed = new ContestMiniHouseDeed(Type);
-				deed.IsRewardItem = m_IsRewardItem;
+				ContestMiniHouseDeed deed = new ContestMiniHouseDeed(Type)
+				{
+					IsRewardItem = m_IsRewardItem
+				};
 
 				return deed;
 			}
@@ -63,8 +65,10 @@ namespace Server.Items
 		{
 			get
 			{
-				ContestMiniHouse addon = new ContestMiniHouse(Type);
-				addon.IsRewardItem = m_IsRewardItem;
+				ContestMiniHouse addon = new ContestMiniHouse(Type)
+				{
+					IsRewardItem = m_IsRewardItem
+				};
 
 				return addon;
 			}

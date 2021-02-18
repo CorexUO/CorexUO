@@ -35,8 +35,10 @@ namespace Server.Engines.Quests.Ninja
 			AddItem(new PlateDo());
 			AddItem(new PlateHiroSode());
 
-			Nunchaku nunchaku = new Nunchaku();
-			nunchaku.Movable = false;
+			Nunchaku nunchaku = new Nunchaku
+			{
+				Movable = false
+			};
 			AddItem(nunchaku);
 		}
 
