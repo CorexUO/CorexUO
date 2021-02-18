@@ -148,7 +148,7 @@ namespace Server.Misc
 																		* Please check your Journal for messages every few minutes.
 																		*/
 
-						PageQueue.Enqueue(new PageEntry(from, String.Format("[Automated: Change Password]<br>Desired password: {0}<br>Current IP address: {1}<br>Account IP address: {2}", pass, ipAddress, accessList[0]), PageType.Account));
+						PageQueue.Enqueue(new PageEntry(from, string.Format("[Automated: Change Password]<br>Desired password: {0}<br>Current IP address: {1}<br>Account IP address: {2}", pass, ipAddress, accessList[0]), PageType.Account));
 					}
 
 				}
@@ -197,7 +197,7 @@ namespace Server.Misc
 				{
 					Console.WriteLine("Client: {0}: Deleting character {1} (0x{2:X})", state, index, m.Serial.Value);
 
-					acct.Comments.Add(new AccountComment("System", String.Format("Character #{0} {1} deleted by {2}", index + 1, m, state)));
+					acct.Comments.Add(new AccountComment("System", string.Format("Character #{0} {1} deleted by {2}", index + 1, m, state)));
 
 					m.Delete();
 					state.Send(new CharacterListUpdate(acct));
@@ -213,15 +213,15 @@ namespace Server.Misc
 			return (IPTable[ip] < MaxAccountsPerIP);
 		}
 
-		private static Dictionary<IPAddress, Int32> m_IPTable;
+		private static Dictionary<IPAddress, int> m_IPTable;
 
-		public static Dictionary<IPAddress, Int32> IPTable
+		public static Dictionary<IPAddress, int> IPTable
 		{
 			get
 			{
 				if (m_IPTable == null)
 				{
-					m_IPTable = new Dictionary<IPAddress, Int32>();
+					m_IPTable = new Dictionary<IPAddress, int>();
 
 					foreach (Account a in Accounts.GetAccounts())
 						if (a.LoginIPs.Length > 0)

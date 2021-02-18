@@ -402,13 +402,13 @@ namespace Server.Mobiles
 							}
 
 							if (name != null && ammo.Amount > 1)
-								name = String.Format("{0}s", name);
+								name = string.Format("{0}s", name);
 
 							if (name == null)
-								name = String.Format("#{0}", ammo.LabelNumber);
+								name = string.Format("#{0}", ammo.LabelNumber);
 
 							PlaceInBackpack(ammo);
-							SendLocalizedMessage(1073504, String.Format("{0}\t{1}", ammo.Amount, name)); // You recover ~1_NUM~ ~2_AMMO~.
+							SendLocalizedMessage(1073504, string.Format("{0}\t{1}", ammo.Amount, name)); // You recover ~1_NUM~ ~2_AMMO~.
 						}
 					}
 				}
@@ -889,7 +889,7 @@ namespace Server.Mobiles
 							string name = weapon.Name;
 
 							if (name == null)
-								name = String.Format("#{0}", weapon.LabelNumber);
+								name = string.Format("#{0}", weapon.LabelNumber);
 
 							from.SendLocalizedMessage(1062001, name); // You can no longer wield your ~1_WEAPON~
 							from.AddToBackpack(weapon);
@@ -931,7 +931,7 @@ namespace Server.Mobiles
 							string name = armor.Name;
 
 							if (name == null)
-								name = String.Format("#{0}", armor.LabelNumber);
+								name = string.Format("#{0}", armor.LabelNumber);
 
 							if (armor is BaseShield)
 								from.SendLocalizedMessage(1062003, name); // You can no longer equip your ~1_SHIELD~
@@ -972,7 +972,7 @@ namespace Server.Mobiles
 							string name = clothing.Name;
 
 							if (name == null)
-								name = String.Format("#{0}", clothing.LabelNumber);
+								name = string.Format("#{0}", clothing.LabelNumber);
 
 							from.SendLocalizedMessage(1062002, name); // You can no longer wear your ~1_ARMOR~
 
@@ -1140,7 +1140,7 @@ namespace Server.Mobiles
 				int curWeight = Mobile.BodyWeight + this.TotalWeight;
 
 				if (curWeight > maxWeight)
-					this.SendLocalizedMessage(1019035, true, String.Format(" : {0} / {1}", curWeight, maxWeight));
+					this.SendLocalizedMessage(1019035, true, string.Format(" : {0} / {1}", curWeight, maxWeight));
 			}
 
 			base.OnSubItemAdded(item);
@@ -1576,7 +1576,7 @@ namespace Server.Mobiles
 			{
 				Mobile prot = JusticeProtectors[i];
 
-				string args = String.Format("{0}\t{1}", this.Name, prot.Name);
+				string args = string.Format("{0}\t{1}", this.Name, prot.Name);
 
 				prot.SendLocalizedMessage(1049371, args); // The protective relationship between ~1_PLAYER1~ and ~2_PLAYER2~ has been ended.
 				this.SendLocalizedMessage(1049371, args); // The protective relationship between ~1_PLAYER1~ and ~2_PLAYER2~ has been ended.
@@ -2984,7 +2984,7 @@ namespace Server.Mobiles
 
 		private static void SendToStaffMessage(Mobile from, string format, params object[] args)
 		{
-			SendToStaffMessage(from, String.Format(format, args));
+			SendToStaffMessage(from, string.Format(format, args));
 		}
 
 		public override void Damage(int amount, Mobile from)
@@ -3632,19 +3632,19 @@ namespace Server.Mobiles
 					Faction faction = pl.Faction;
 
 					if (faction.Commander == this)
-						text = String.Concat(this.Female ? "(Commanding Lady of the " : "(Commanding Lord of the ", faction.Definition.FriendlyName, ")");
+						text = string.Concat(this.Female ? "(Commanding Lady of the " : "(Commanding Lord of the ", faction.Definition.FriendlyName, ")");
 					else if (pl.Sheriff != null)
-						text = String.Concat("(The Sheriff of ", pl.Sheriff.Definition.FriendlyName, ", ", faction.Definition.FriendlyName, ")");
+						text = string.Concat("(The Sheriff of ", pl.Sheriff.Definition.FriendlyName, ", ", faction.Definition.FriendlyName, ")");
 					else if (pl.Finance != null)
-						text = String.Concat("(The Finance Minister of ", pl.Finance.Definition.FriendlyName, ", ", faction.Definition.FriendlyName, ")");
+						text = string.Concat("(The Finance Minister of ", pl.Finance.Definition.FriendlyName, ", ", faction.Definition.FriendlyName, ")");
 					else
 					{
 						ascii = true;
 
 						if (pl.MerchantTitle != MerchantTitle.None)
-							text = String.Concat("(", MerchantTitles.GetInfo(pl.MerchantTitle).Title.String, ", ", faction.Definition.FriendlyName, ")");
+							text = string.Concat("(", MerchantTitles.GetInfo(pl.MerchantTitle).Title.String, ", ", faction.Definition.FriendlyName, ")");
 						else
-							text = String.Concat("(", pl.Rank.Title.String, ", ", faction.Definition.FriendlyName, ")");
+							text = string.Concat("(", pl.Rank.Title.String, ", ", faction.Definition.FriendlyName, ")");
 					}
 
 					int hue = (Faction.Find(from) == faction ? 98 : 38);
@@ -4055,7 +4055,7 @@ namespace Server.Mobiles
 				if (suffix.Length == 0)
 					suffix = "(Young)";
 				else
-					suffix = String.Concat(suffix, " (Young)");
+					suffix = string.Concat(suffix, " (Young)");
 			}
 
 			#region Ethics
@@ -4064,7 +4064,7 @@ namespace Server.Mobiles
 				if (suffix.Length == 0)
 					suffix = EthicPlayer.Ethic.Definition.Adjunct.String;
 				else
-					suffix = String.Concat(suffix, " ", EthicPlayer.Ethic.Definition.Adjunct.String);
+					suffix = string.Concat(suffix, " ", EthicPlayer.Ethic.Definition.Adjunct.String);
 			}
 			#endregion
 
@@ -4074,11 +4074,11 @@ namespace Server.Mobiles
 
 				if (faction != null)
 				{
-					string adjunct = String.Format("[{0}]", faction.Definition.Abbreviation);
+					string adjunct = string.Format("[{0}]", faction.Definition.Abbreviation);
 					if (suffix.Length == 0)
 						suffix = adjunct;
 					else
-						suffix = String.Concat(suffix, " ", adjunct);
+						suffix = string.Concat(suffix, " ", adjunct);
 				}
 			}
 

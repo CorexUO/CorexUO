@@ -827,7 +827,7 @@ namespace Server.Items
 		{
 			if (m_Completed)
 			{
-				from.Send(new MessageLocalizedAffix(Serial, ItemID, MessageType.Label, 0x3B2, 3, 1048030, "", AffixType.Append, String.Format(" completed by {0}", m_CompletedBy == null ? "someone" : m_CompletedBy.Name), ""));
+				from.Send(new MessageLocalizedAffix(Serial, ItemID, MessageType.Label, 0x3B2, 3, 1048030, "", AffixType.Append, string.Format(" completed by {0}", m_CompletedBy == null ? "someone" : m_CompletedBy.Name), ""));
 			}
 			else if (m_Decoder != null)
 			{
@@ -839,9 +839,9 @@ namespace Server.Items
 			else
 			{
 				if (m_Level == 6)
-					LabelTo(from, 1041522, String.Format("#{0}\t \t#{1}", 1063452, m_Map == Map.Felucca ? 1041502 : 1041503));
+					LabelTo(from, 1041522, string.Format("#{0}\t \t#{1}", 1063452, m_Map == Map.Felucca ? 1041502 : 1041503));
 				else
-					LabelTo(from, 1041522, String.Format("#{0}\t \t#{1}", 1041510 + m_Level, m_Map == Map.Felucca ? 1041502 : 1041503));
+					LabelTo(from, 1041522, string.Format("#{0}\t \t#{1}", 1041510 + m_Level, m_Map == Map.Felucca ? 1041502 : 1041503));
 			}
 		}
 

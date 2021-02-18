@@ -910,7 +910,7 @@ namespace Server.Guilds
 		#region Guild[Text]Message(...)
 		public void GuildMessage(int num, bool append, string format, params object[] args)
 		{
-			GuildMessage(num, append, String.Format(format, args));
+			GuildMessage(num, append, string.Format(format, args));
 		}
 		public void GuildMessage(int number)
 		{
@@ -946,7 +946,7 @@ namespace Server.Guilds
 		}
 		public void GuildTextMessage(string format, params object[] args)
 		{
-			GuildTextMessage(0x3B2, String.Format(format, args));
+			GuildTextMessage(0x3B2, string.Format(format, args));
 		}
 		public void GuildTextMessage(int hue, string text)
 		{
@@ -955,7 +955,7 @@ namespace Server.Guilds
 		}
 		public void GuildTextMessage(int hue, string format, params object[] args)
 		{
-			GuildTextMessage(hue, String.Format(format, args));
+			GuildTextMessage(hue, string.Format(format, args));
 		}
 
 		public void GuildChat(Mobile from, int hue, string text)

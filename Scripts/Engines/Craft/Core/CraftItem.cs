@@ -588,7 +588,7 @@ namespace Server.Engines.Craft
 
 							if (res.MessageNumber > 0)
 								message = res.MessageNumber;
-							else if (!String.IsNullOrEmpty(res.MessageString))
+							else if (!string.IsNullOrEmpty(res.MessageString))
 								message = res.MessageString;
 							else
 								message = 502925; // You don't have the resources required to make that item.
@@ -716,7 +716,7 @@ namespace Server.Engines.Craft
 
 				if (res.MessageNumber > 0)
 					message = res.MessageNumber;
-				else if (res.MessageString != null && res.MessageString != String.Empty)
+				else if (res.MessageString != null && res.MessageString != string.Empty)
 					message = res.MessageString;
 				else
 					message = 502925; // You don't have the resources required to make that item.
@@ -937,7 +937,7 @@ namespace Server.Engines.Craft
 			{
 				Expansion.SE => 1063307,// The "Samurai Empire" expansion is required to attempt this item.
 				Expansion.ML => 1072650,// The "Mondain's Legacy" expansion is required to attempt this item.
-				_ => String.Format("The \"{0}\" expansion is required to attempt this item.", ExpansionInfo.GetInfo(expansion).Name),
+				_ => string.Format("The \"{0}\" expansion is required to attempt this item.", ExpansionInfo.GetInfo(expansion).Name),
 			};
 		}
 

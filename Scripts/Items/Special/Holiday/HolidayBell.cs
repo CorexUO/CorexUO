@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace Server.Items
+﻿namespace Server.Items
 {
 	public class HolidayBell : BaseItem
 	{
@@ -46,7 +44,7 @@ namespace Server.Items
 
 		public override string DefaultName
 		{
-			get { return String.Format("A Holiday Bell From {0}", Giver); }
+			get { return string.Format("A Holiday Bell From {0}", Giver); }
 		}
 
 		private string m_Maker;

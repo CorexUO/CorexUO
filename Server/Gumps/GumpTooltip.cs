@@ -1,5 +1,4 @@
 using Server.Network;
-using System;
 
 namespace Server.Gumps
 {
@@ -26,7 +25,7 @@ namespace Server.Gumps
 
 		public override string Compile()
 		{
-			return String.Format("{{ tooltip {0} }}", m_Number);
+			return string.Format("{{ tooltip {0} }}", m_Number);
 		}
 
 		private static readonly byte[] m_LayoutName = Gump.StringToBuffer("tooltip");

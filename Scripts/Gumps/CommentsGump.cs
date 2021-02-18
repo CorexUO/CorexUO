@@ -3,7 +3,6 @@ using Server.Commands;
 using Server.Network;
 using Server.Prompts;
 using Server.Targeting;
-using System;
 using System.Collections.Generic;
 
 namespace Server.Gumps
@@ -46,7 +45,7 @@ namespace Server.Gumps
 			AddImageTiled(0, 0, 410, 448, 0xA40);
 			AddAlphaRegion(1, 1, 408, 446);
 
-			string title = String.Format("Comments for '{0}'", acct.Username);
+			string title = string.Format("Comments for '{0}'", acct.Username);
 			int x = 205 - ((title.Length / 2) * 7);
 			if (x < 120)
 				x = 120;
@@ -72,7 +71,7 @@ namespace Server.Gumps
 						AddLabel(48, 12, 2100, "Prev Page");
 					}
 
-					string html = String.Format("[Added By: {0} on {1}]<br>{2}", comment.AddedBy, comment.LastModified.ToString("H:mm M/d/yy"), comment.Content);
+					string html = string.Format("[Added By: {0} on {1}]<br>{2}", comment.AddedBy, comment.LastModified.ToString("H:mm M/d/yy"), comment.Content);
 					AddHtml(12, 44 + ((i % 5) * 80), 386, 70, html, true, true);
 				}
 			}

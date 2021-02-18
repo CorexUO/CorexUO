@@ -1,7 +1,6 @@
 using Server.Accounting;
 using Server.Items;
 using Server.Network;
-using System;
 using System.Collections.Generic;
 
 namespace Server.Gumps
@@ -18,17 +17,17 @@ namespace Server.Gumps
 
 		public string Right(string text)
 		{
-			return String.Format("<DIV ALIGN=RIGHT>{0}</DIV>", text);
+			return string.Format("<DIV ALIGN=RIGHT>{0}</DIV>", text);
 		}
 
 		public string Center(string text)
 		{
-			return String.Format("<CENTER>{0}</CENTER>", text);
+			return string.Format("<CENTER>{0}</CENTER>", text);
 		}
 
 		public string Color(string text, int color)
 		{
-			return String.Format("<BASEFONT COLOR=#{0:X6}>{1}</BASEFONT>", color, text);
+			return string.Format("<BASEFONT COLOR=#{0:X6}>{1}</BASEFONT>", color, text);
 		}
 
 		public const int LabelColor = 0xFFFFFF;
@@ -205,7 +204,7 @@ namespace Server.Gumps
 					Account acc = entry.From.Account as Account;
 
 					if (acc != null)
-						name = String.Format("{0} ({1})", entry.From.Name, acc);
+						name = string.Format("{0} ({1})", entry.From.Name, acc);
 					else
 						name = entry.From.Name;
 				}

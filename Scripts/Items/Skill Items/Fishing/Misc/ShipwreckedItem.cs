@@ -1,5 +1,3 @@
-using System;
-
 namespace Server.Items
 {
 	public interface IShipwreckedItem
@@ -21,7 +19,7 @@ namespace Server.Items
 
 		public override void OnSingleClick(Mobile from)
 		{
-			this.LabelTo(from, 1050039, String.Format("#{0}\t#1041645", LabelNumber));
+			this.LabelTo(from, 1050039, string.Format("#{0}\t#1041645", LabelNumber));
 		}
 
 		public override void AddNameProperties(ObjectPropertyList list)

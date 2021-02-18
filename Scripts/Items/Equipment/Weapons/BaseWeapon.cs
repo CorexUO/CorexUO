@@ -2401,7 +2401,7 @@ namespace Server.Items
 			Utility.SetSaveFlag(ref flags, SaveFlag.SkillBonuses, !m_AosSkillBonuses.IsEmpty);
 			Utility.SetSaveFlag(ref flags, SaveFlag.Slayer2, m_Slayer2 != SlayerName.None);
 			Utility.SetSaveFlag(ref flags, SaveFlag.ElementalDamages, !m_AosElementDamages.IsEmpty);
-			Utility.SetSaveFlag(ref flags, SaveFlag.EngravedText, !String.IsNullOrEmpty(m_EngravedText));
+			Utility.SetSaveFlag(ref flags, SaveFlag.EngravedText, !string.IsNullOrEmpty(m_EngravedText));
 
 			writer.Write((int)flags);
 
@@ -2812,7 +2812,7 @@ namespace Server.Items
 			 * method and engraving tool, to make it perm cleaned up.
 			 */
 
-			if (!String.IsNullOrEmpty(m_EngravedText))
+			if (!string.IsNullOrEmpty(m_EngravedText))
 				list.Add(1062613, m_EngravedText);
 
 			/* list.Add( 1062613, Utility.FixHtml( m_EngravedText ) ); */
@@ -3051,7 +3051,7 @@ namespace Server.Items
 			list.Add(1061168, "{0}\t{1}", MinDamage.ToString(), MaxDamage.ToString()); // weapon damage ~1_val~ - ~2_val~
 
 			if (Core.ML)
-				list.Add(1061167, String.Format("{0}s", Speed)); // weapon speed ~1_val~
+				list.Add(1061167, string.Format("{0}s", Speed)); // weapon speed ~1_val~
 			else
 				list.Add(1061167, Speed.ToString());
 

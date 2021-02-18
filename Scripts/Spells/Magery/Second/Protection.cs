@@ -76,7 +76,7 @@ namespace Server.Spells.Second
 
 				int physloss = -15 + (int)(caster.Skills[SkillName.Inscribe].Value / 20);
 				int resistloss = -35 + (int)(caster.Skills[SkillName.Inscribe].Value / 20);
-				string args = String.Format("{0}\t{1}", physloss, resistloss);
+				string args = string.Format("{0}\t{1}", physloss, resistloss);
 				BuffInfo.AddBuff(target, new BuffInfo(BuffIcon.Protection, 1075814, 1075815, args.ToString()));
 			}
 			else

@@ -1,5 +1,4 @@
 using Server.Network;
-using System;
 
 namespace Server.Items
 {
@@ -37,7 +36,7 @@ namespace Server.Items
 
 			if (Sextant.Format(from.Location, from.Map, ref xLong, ref yLat, ref xMins, ref yMins, ref xEast, ref ySouth))
 			{
-				string location = String.Format("{0} {1}'{2}, {3} {4}'{5}", yLat, yMins, ySouth ? "S" : "N", xLong, xMins, xEast ? "E" : "W");
+				string location = string.Format("{0} {1}'{2}, {3} {4}'{5}", yLat, yMins, ySouth ? "S" : "N", xLong, xMins, xEast ? "E" : "W");
 				from.LocalOverheadMessage(MessageType.Regular, from.SpeechHue, false, location);
 			}
 		}

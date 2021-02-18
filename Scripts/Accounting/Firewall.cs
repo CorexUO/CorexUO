@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Net;
@@ -75,7 +74,7 @@ namespace Server
 
 			public override string ToString()
 			{
-				return String.Format("{0}/{1}", m_CIDRPrefix, m_CIDRLength);
+				return string.Format("{0}/{1}", m_CIDRPrefix, m_CIDRLength);
 			}
 
 			public override bool Equals(object obj)

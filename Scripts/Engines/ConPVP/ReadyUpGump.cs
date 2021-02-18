@@ -1,7 +1,6 @@
 using Server.Gumps;
 using Server.Mobiles;
 using Server.Network;
-using System;
 using System.Collections;
 
 namespace Server.Engines.ConPVP
@@ -13,7 +12,7 @@ namespace Server.Engines.ConPVP
 
 		public string Center(string text)
 		{
-			return String.Format("<CENTER>{0}</CENTER>", text);
+			return string.Format("<CENTER>{0}</CENTER>", text);
 		}
 
 		public void AddGoldenButton(int x, int y, int bid)
@@ -82,7 +81,7 @@ namespace Server.Engines.ConPVP
 
 					if (p.Players.Length > 1)
 					{
-						AddHtml(35, y, 176, 20, String.Format("Team #{0}", i + 1), false, false);
+						AddHtml(35, y, 176, 20, string.Format("Team #{0}", i + 1), false, false);
 						y += 22;
 						offset = 10;
 					}
@@ -152,12 +151,12 @@ namespace Server.Engines.ConPVP
 
 				AddHtml(35, 25, 190, 20, Center("Rules"), false, false);
 
-				AddHtml(35, 50, 190, 20, String.Format("Set: {0}", basedef.Title), false, false);
+				AddHtml(35, 50, 190, 20, string.Format("Set: {0}", basedef.Title), false, false);
 
 				y = 70;
 
 				for (int i = 0; i < ruleset.Flavors.Count; ++i, y += 18)
-					AddHtml(35, y, 190, 20, String.Format(" + {0}", ((Ruleset)ruleset.Flavors[i]).Title), false, false);
+					AddHtml(35, y, 190, 20, string.Format(" + {0}", ((Ruleset)ruleset.Flavors[i]).Title), false, false);
 
 				y += 4;
 

@@ -1,6 +1,5 @@
 using Server.Gumps;
 using Server.Network;
-using System;
 using System.Globalization;
 
 namespace Server
@@ -34,7 +33,7 @@ namespace Server
 		public override string ToString()
 		{
 			if (Number > 0)
-				return String.Concat("#", Number.ToString());
+				return string.Concat("#", Number.ToString());
 			else if (String != null)
 				return String;
 
@@ -44,9 +43,9 @@ namespace Server
 		public string Format(bool propsGump)
 		{
 			if (Number > 0)
-				return String.Format("{0} (0x{0:X})", Number);
+				return string.Format("{0} (0x{0:X})", Number);
 			else if (String != null)
-				return String.Format("\"{0}\"", String);
+				return string.Format("\"{0}\"", String);
 
 			return propsGump ? "-empty-" : "empty";
 		}
@@ -149,7 +148,7 @@ namespace Server
 			else if (def.String != null)
 			{
 				if (stringColor >= 0) // 8 bits per RGB component (24 bit RGB)
-					g.AddHtml(x, y, width, height, String.Format("<BASEFONT COLOR=#{0:X6}>{1}</BASEFONT>", stringColor, def.String), back, scroll);
+					g.AddHtml(x, y, width, height, string.Format("<BASEFONT COLOR=#{0:X6}>{1}</BASEFONT>", stringColor, def.String), back, scroll);
 				else
 					g.AddHtml(x, y, width, height, def.String, back, scroll);
 			}

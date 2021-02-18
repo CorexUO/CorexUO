@@ -105,7 +105,7 @@ namespace Server.Commands.Generic
 			Type objectType = Assembler.FindTypeByName(args[offset + index], true);
 
 			if (objectType == null)
-				throw new Exception(String.Format("No type with that name ({0}) was found.", args[offset + index]));
+				throw new Exception(string.Format("No type with that name ({0}) was found.", args[offset + index]));
 
 			++index;
 
@@ -243,7 +243,7 @@ namespace Server.Commands.Generic
 				}
 
 				if (condition == null)
-					throw new InvalidOperationException(String.Format("Unrecognized operator (\"{0}\").", oper));
+					throw new InvalidOperationException(string.Format("Unrecognized operator (\"{0}\").", oper));
 
 				current.Add(condition);
 			}

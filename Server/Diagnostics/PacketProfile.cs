@@ -105,7 +105,7 @@ namespace Server.Diagnostics
 		}
 
 		public PacketReceiveProfile(int packetId)
-			: base(String.Format("0x{0:X2}", packetId))
+			: base(string.Format("0x{0:X2}", packetId))
 		{
 		}
 	}

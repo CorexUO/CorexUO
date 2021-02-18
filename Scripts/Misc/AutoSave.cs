@@ -144,7 +144,7 @@ namespace Server.Misc
 
 		private static string FormatDirectory(string root, string name, string timeStamp)
 		{
-			return Path.Combine(root, String.Format("{0} ({1})", name, timeStamp));
+			return Path.Combine(root, string.Format("{0} ({1})", name, timeStamp));
 		}
 
 		private static string FindTimeStamp(string input)
@@ -166,7 +166,7 @@ namespace Server.Misc
 		{
 			DateTime now = DateTime.UtcNow;
 
-			return String.Format("{0}-{1}-{2} {3}-{4:D2}-{5:D2}",
+			return string.Format("{0}-{1}-{2} {3}-{4:D2}-{5:D2}",
 					now.Day,
 					now.Month,
 					now.Year,

@@ -1,6 +1,5 @@
 using Server.Gumps;
 using Server.Network;
-using System;
 using System.Collections.Generic;
 
 namespace Server
@@ -158,7 +157,7 @@ namespace Server
 
 			public override string Compile()
 			{
-				return String.Format("{{ gumppic {0} {1} {2} hue={3} class=VirtueGumpItem }}", X, Y, GumpID, Hue);
+				return string.Format("{{ gumppic {0} {1} {2} hue={3} class=VirtueGumpItem }}", X, Y, GumpID, Hue);
 			}
 
 			private static readonly byte[] m_Class = Gump.StringToBuffer(" class=VirtueGumpItem");

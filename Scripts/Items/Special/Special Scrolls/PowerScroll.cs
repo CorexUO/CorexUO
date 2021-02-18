@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 
 namespace Server.Items
@@ -25,7 +24,7 @@ namespace Server.Items
 			}
 		}
 
-		public override string DefaultTitle { get { return String.Format("<basefont color=#FFFFFF>Power Scroll ({0} Skill):</basefont>", Value); } }
+		public override string DefaultTitle { get { return string.Format("<basefont color=#FFFFFF>Power Scroll ({0} Skill):</basefont>", Value); } }
 
 		private static readonly SkillName[] m_Skills = new SkillName[]
 			{

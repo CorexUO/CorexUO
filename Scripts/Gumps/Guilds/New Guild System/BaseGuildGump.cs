@@ -2,7 +2,6 @@ using Server.Gumps;
 using Server.Misc;
 using Server.Mobiles;
 using Server.Network;
-using System;
 
 namespace Server.Guilds
 {
@@ -136,7 +135,7 @@ namespace Server.Guilds
 
 		public static string Color(string text, int color)
 		{
-			return String.Format("<BASEFONT COLOR=#{0:X6}>{1}</BASEFONT>", color, text);
+			return string.Format("<BASEFONT COLOR=#{0:X6}>{1}</BASEFONT>", color, text);
 		}
 	}
 }

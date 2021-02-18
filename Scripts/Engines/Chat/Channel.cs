@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 
 namespace Server.Engines.Chat
@@ -55,7 +54,7 @@ namespace Server.Engines.Chat
 				{
 					newValue = value.Trim();
 
-					if (String.IsNullOrEmpty(newValue))
+					if (string.IsNullOrEmpty(newValue))
 						newValue = null;
 				}
 

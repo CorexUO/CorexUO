@@ -103,7 +103,7 @@ namespace Server.Engines.Reports
 			ProcessStartInfo psi = new ProcessStartInfo
 			{
 				FileName = "ftp",
-				Arguments = String.Format("-i -s:\"{0}\"", filePath),
+				Arguments = string.Format("-i -s:\"{0}\"", filePath),
 
 				CreateNoWindow = true,
 				WindowStyle = ProcessWindowStyle.Hidden
@@ -308,7 +308,7 @@ namespace Server.Engines.Reports
 
 			html.WriteValue(chart.Name);
 			html.WriteAttributeString("href", "#");
-			html.WriteAttributeString("onclick", String.Format("javascript:window.open('{0}.html','ChildWindow','width={1},height={2},resizable=no,status=no,toolbar=no')", SafeFileName(FindNameFrom(chart)), bmp.Width + 30, bmp.Height + 80));
+			html.WriteAttributeString("onclick", string.Format("javascript:window.open('{0}.html','ChildWindow','width={1},height={2},resizable=no,status=no,toolbar=no')", SafeFileName(FindNameFrom(chart)), bmp.Width + 30, bmp.Height + 80));
 			html.WriteStartElement("a");
 			html.WriteEndElement();
 
@@ -404,7 +404,7 @@ namespace Server.Engines.Reports
 
 			html.WriteStartElement("a");
 			html.WriteAttributeString("href", "#");
-			html.WriteAttributeString("onclick", String.Format("javascript:window.open('{0}.html','ChildWindow','width={1},height={2},resizable=no,status=no,toolbar=no')", SafeFileName(FindNameFrom(graph)), bmp.Width + 30, bmp.Height + 80));
+			html.WriteAttributeString("onclick", string.Format("javascript:window.open('{0}.html','ChildWindow','width={1},height={2},resizable=no,status=no,toolbar=no')", SafeFileName(FindNameFrom(graph)), bmp.Width + 30, bmp.Height + 80));
 			html.WriteValue(graph.Name);
 			html.WriteEndElement();
 

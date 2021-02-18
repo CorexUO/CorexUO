@@ -1,5 +1,4 @@
 using Server.Mobiles;
-using System;
 
 namespace Server.Items
 {
@@ -40,7 +39,7 @@ namespace Server.Items
 
 		private void AssignRandomName()
 		{
-			Name = String.Format("{0}'s Jack-O-Lantern", m_Staff[Utility.Random(m_Staff.Length)]);
+			Name = string.Format("{0}'s Jack-O-Lantern", m_Staff[Utility.Random(m_Staff.Length)]);
 		}
 
 		public override bool OnDragLift(Mobile from)

@@ -110,31 +110,31 @@ namespace Server.Commands
 
 						if (attr == null)
 						{
-							failReason = String.Format("Property '{0}' not found.", propertyName);
+							failReason = string.Format("Property '{0}' not found.", propertyName);
 							return null;
 						}
 						else if ((access & PropertyAccess.Read) != 0 && from.AccessLevel < attr.ReadLevel)
 						{
-							failReason = String.Format("You must be at least {0} to get the property '{1}'.",
+							failReason = string.Format("You must be at least {0} to get the property '{1}'.",
 								Mobile.GetAccessLevelName(attr.ReadLevel), propertyName);
 
 							return null;
 						}
 						else if ((access & PropertyAccess.Write) != 0 && from.AccessLevel < attr.WriteLevel)
 						{
-							failReason = String.Format("You must be at least {0} to set the property '{1}'.",
+							failReason = string.Format("You must be at least {0} to set the property '{1}'.",
 								Mobile.GetAccessLevelName(attr.WriteLevel), propertyName);
 
 							return null;
 						}
 						else if ((access & PropertyAccess.Read) != 0 && !p.CanRead)
 						{
-							failReason = String.Format("Property '{0}' is write only.", propertyName);
+							failReason = string.Format("Property '{0}' is write only.", propertyName);
 							return null;
 						}
 						else if ((access & PropertyAccess.Write) != 0 && (!p.CanWrite || attr.ReadOnly) && isFinal)
 						{
-							failReason = String.Format("Property '{0}' is read only.", propertyName);
+							failReason = string.Format("Property '{0}' is read only.", propertyName);
 							return null;
 						}
 
@@ -146,7 +146,7 @@ namespace Server.Commands
 
 				if (info[i] == null)
 				{
-					failReason = String.Format("Property '{0}' not found.", propertyName);
+					failReason = string.Format("Property '{0}' not found.", propertyName);
 					return null;
 				}
 			}
@@ -181,7 +181,7 @@ namespace Server.Commands
 
 				if (obj == null)
 				{
-					failReason = String.Format("Property '{0}' is null.", chain[i]);
+					failReason = string.Format("Property '{0}' is null.", chain[i]);
 					return null;
 				}
 			}
@@ -309,18 +309,18 @@ namespace Server.Commands
 			if (value == null)
 				toString = "null";
 			else if (IsNumeric(type))
-				toString = String.Format("{0} (0x{0:X})", value);
+				toString = string.Format("{0} (0x{0:X})", value);
 			else if (IsChar(type))
-				toString = String.Format("'{0}' ({1} [0x{1:X}])", value, (int)value);
+				toString = string.Format("'{0}' ({1} [0x{1:X}])", value, (int)value);
 			else if (IsString(type))
-				toString = ((string)value == "null" ? @"@""null""" : String.Format("\"{0}\"", value));
+				toString = ((string)value == "null" ? @"@""null""" : string.Format("\"{0}\"", value));
 			else if (IsText(type))
 				toString = ((TextDefinition)value).Format(false);
 			else
 				toString = value.ToString();
 
 			if (chain == null)
-				return String.Format("{0} = {1}", p.Name, toString);
+				return string.Format("{0} = {1}", p.Name, toString);
 
 			string[] concat = new string[chain.Length * 2 + 1];
 
@@ -332,7 +332,7 @@ namespace Server.Commands
 
 			concat[concat.Length - 1] = toString;
 
-			return String.Concat(concat);
+			return string.Concat(concat);
 		}
 
 		public static string SetValue(Mobile from, object o, string name, string value)
@@ -362,14 +362,14 @@ namespace Server.Commands
 			return (t == typeofType);
 		}
 
-		private static readonly Type typeofChar = typeof(Char);
+		private static readonly Type typeofChar = typeof(char);
 
 		private static bool IsChar(Type t)
 		{
 			return (t == typeofChar);
 		}
 
-		private static readonly Type typeofString = typeof(String);
+		private static readonly Type typeofString = typeof(string);
 
 		private static bool IsString(Type t)
 		{
@@ -410,10 +410,10 @@ namespace Server.Commands
 
 		private static readonly Type[] m_NumericTypes = new Type[]
 			{
-				typeof( Byte ), typeof( SByte ),
-				typeof( Int16 ), typeof( UInt16 ),
-				typeof( Int32 ), typeof( UInt32 ),
-				typeof( Int64 ), typeof( UInt64 )
+				typeof( byte ), typeof( sbyte ),
+				typeof( short ), typeof( ushort ),
+				typeof( int ), typeof( uint ),
+				typeof( long ), typeof( ulong )
 			};
 
 		private static bool IsNumeric(Type t)
@@ -496,7 +496,7 @@ namespace Server.Commands
 			}
 
 			if (isSerial) // mutate back
-				toSet = (Serial)((Int32)toSet);
+				toSet = (Serial)((int)toSet);
 
 			constructed = toSet;
 			return null;
@@ -611,7 +611,7 @@ namespace Server
 	public sealed class NotYetBoundException : BindingException
 	{
 		public NotYetBoundException(Property property)
-			: base(property, String.Format("Property has not yet been bound."))
+			: base(property, string.Format("Property has not yet been bound."))
 		{
 		}
 	}
@@ -619,7 +619,7 @@ namespace Server
 	public sealed class AlreadyBoundException : BindingException
 	{
 		public AlreadyBoundException(Property property)
-			: base(property, String.Format("Property has already been bound."))
+			: base(property, string.Format("Property has already been bound."))
 		{
 		}
 	}
@@ -627,7 +627,7 @@ namespace Server
 	public sealed class UnknownPropertyException : BindingException
 	{
 		public UnknownPropertyException(Property property, string current)
-			: base(property, String.Format("Property '{0}' not found.", current))
+			: base(property, string.Format("Property '{0}' not found.", current))
 		{
 		}
 	}

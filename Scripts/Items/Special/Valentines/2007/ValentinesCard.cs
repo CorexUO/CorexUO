@@ -1,6 +1,5 @@
 ﻿using Server.Mobiles;
 using Server.Targeting;
-using System;
 
 namespace Server.Items
 {
@@ -42,14 +41,14 @@ namespace Server.Items
 
 		public override void AddNameProperty(ObjectPropertyList list)
 		{
-			list.Add(m_LabelNumber, String.Format("{0}\t{1}", (m_To != null) ? m_To : Unsigned, (m_From != null) ? m_From : Unsigned));
+			list.Add(m_LabelNumber, string.Format("{0}\t{1}", (m_To != null) ? m_To : Unsigned, (m_From != null) ? m_From : Unsigned));
 		}
 
 		public override void OnSingleClick(Mobile from)
 		{
 			base.OnSingleClick(from);
 
-			LabelTo(from, m_LabelNumber, String.Format("{0}\t{1}", (m_To != null) ? m_To : Unsigned, (m_From != null) ? m_From : Unsigned));
+			LabelTo(from, m_LabelNumber, string.Format("{0}\t{1}", (m_To != null) ? m_To : Unsigned, (m_From != null) ? m_From : Unsigned));
 		}
 
 		public override void OnDoubleClick(Mobile from)

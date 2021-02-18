@@ -92,7 +92,7 @@ namespace Server.Items
 
 		public void UpdateStyle()
 		{
-			Name = String.Format("{0} trophy", m_Rank.ToString().ToLower());
+			Name = string.Format("{0} trophy", m_Rank.ToString().ToLower());
 
 			switch (m_Rank)
 			{

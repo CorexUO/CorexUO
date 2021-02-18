@@ -1,7 +1,6 @@
 using Server.Gumps;
 using Server.Mobiles;
 using Server.Network;
-using System;
 using System.Collections.Generic;
 using System.Text;
 
@@ -251,12 +250,12 @@ namespace Server.Engines.ConPVP
 
 		public string Center(string text)
 		{
-			return String.Format("<CENTER>{0}</CENTER>", text);
+			return string.Format("<CENTER>{0}</CENTER>", text);
 		}
 
 		public string Color(string text, int color)
 		{
-			return String.Format("<BASEFONT COLOR=#{0:X6}>{1}</BASEFONT>", color, text);
+			return string.Format("<BASEFONT COLOR=#{0:X6}>{1}</BASEFONT>", color, text);
 		}
 
 		private void AddBorderedText(int x, int y, int width, string text, int color, int borderColor)

@@ -147,7 +147,7 @@ namespace Server.Spells
 		{
 			for (int i = 0; i < m_CircleNames.Length; ++i)
 			{
-				Type t = Assembler.FindTypeByFullName(String.Format("Server.Spells.{0}.{1}", m_CircleNames[i], name));
+				Type t = Assembler.FindTypeByFullName(string.Format("Server.Spells.{0}.{1}", m_CircleNames[i], name));
 
 				if (t != null && !t.IsSubclassOf(typeof(SpecialMove)))
 				{

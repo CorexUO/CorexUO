@@ -92,7 +92,7 @@ namespace Server
 
 		public static void Broadcast(int hue, bool ascii, string format, params object[] args)
 		{
-			Broadcast(hue, ascii, String.Format(format, args));
+			Broadcast(hue, ascii, string.Format(format, args));
 		}
 
 		private interface IEntityEntry
@@ -227,7 +227,7 @@ namespace Server
 						Console.WriteLine("Error: Type '{0}' was not found.", typeName);
 					}
 
-					throw new Exception(String.Format("Bad type '{0}'", typeName));
+					throw new Exception(string.Format("Bad type '{0}'", typeName));
 				}
 
 				ConstructorInfo ctor = t.GetConstructor(m_SerialTypeArray);
@@ -238,7 +238,7 @@ namespace Server
 				}
 				else
 				{
-					throw new Exception(String.Format("Type '{0}' does not have a serialization constructor", t));
+					throw new Exception(string.Format("Type '{0}' does not have a serialization constructor", t));
 				}
 			}
 
@@ -435,7 +435,7 @@ namespace Server
 								m.Deserialize(reader);
 
 								if (reader.Position != (entry.Position + entry.Length))
-									throw new Exception(String.Format("***** Bad serialize on {0} *****", m.GetType()));
+									throw new Exception(string.Format("***** Bad serialize on {0} *****", m.GetType()));
 							}
 							catch (Exception e)
 							{
@@ -477,7 +477,7 @@ namespace Server
 								item.Deserialize(reader);
 
 								if (reader.Position != (entry.Position + entry.Length))
-									throw new Exception(String.Format("***** Bad serialize on {0} *****", item.GetType()));
+									throw new Exception(string.Format("***** Bad serialize on {0} *****", item.GetType()));
 							}
 							catch (Exception e)
 							{
@@ -520,7 +520,7 @@ namespace Server
 								g.Deserialize(reader);
 
 								if (reader.Position != (entry.Position + entry.Length))
-									throw new Exception(String.Format("***** Bad serialize on Guild {0} *****", g.Id));
+									throw new Exception(string.Format("***** Bad serialize on Guild {0} *****", g.Id));
 							}
 							catch (Exception e)
 							{
@@ -596,7 +596,7 @@ namespace Server
 					Utility.WriteConsole(ConsoleColor.Red, "An exception will be thrown and the server will terminate.");
 				}
 
-				throw new Exception(String.Format("Load failed (items={0}, mobiles={1}, guilds={2}, type={3}, serial={4})", failedItems, failedMobiles, failedGuilds, failedType, failedSerial), failed);
+				throw new Exception(string.Format("Load failed (items={0}, mobiles={1}, guilds={2}, type={3}, serial={4})", failedItems, failedMobiles, failedGuilds, failedType, failedSerial), failed);
 			}
 
 			EventSink.InvokeWorldLoad();
@@ -665,7 +665,7 @@ namespace Server
 
 		private static void AppendSafetyLog(string action, IEntity entity)
 		{
-			string message = String.Format("Warning: Attempted to {1} {2} during world save." +
+			string message = string.Format("Warning: Attempted to {1} {2} during world save." +
 				"{0}This action could cause inconsistent state." +
 				"{0}It is strongly advised that the offending scripts be corrected.",
 				Environment.NewLine,

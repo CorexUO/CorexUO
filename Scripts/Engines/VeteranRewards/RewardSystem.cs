@@ -124,7 +124,7 @@ namespace Server.Engines.VeteranRewards
 		{
 			TimeSpan totalTime = (DateTime.UtcNow - acct.Created);
 
-			Double level = (totalTime.TotalDays / RewardInterval.TotalDays);
+			double level = (totalTime.TotalDays / RewardInterval.TotalDays);
 
 			return level >= 0.5;
 		}
@@ -174,7 +174,7 @@ namespace Server.Engines.VeteranRewards
 
 			string tag = acct.GetTag("numRewardsChosen");
 
-			if (String.IsNullOrEmpty(tag))
+			if (string.IsNullOrEmpty(tag))
 				cur = 0;
 			else
 				cur = Utility.ToInt32(tag);

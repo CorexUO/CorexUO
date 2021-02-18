@@ -2,7 +2,6 @@ using Server.Engines.MLQuests.Objectives;
 using Server.Engines.MLQuests.Rewards;
 using Server.Gumps;
 using Server.Mobiles;
-using System;
 using System.Collections.Generic;
 
 namespace Server.Engines.MLQuests.Gumps
@@ -164,7 +163,7 @@ namespace Server.Engines.MLQuests.Gumps
 		public void SetTitle(TextDefinition def)
 		{
 			if (def.Number > 0)
-				m_Title = String.Format("#{0}", def.Number); // OSI does "@@#{0}" instead, why? KR client related?
+				m_Title = string.Format("#{0}", def.Number); // OSI does "@@#{0}" instead, why? KR client related?
 			else
 				m_Title = def.String;
 		}

@@ -1,6 +1,5 @@
 using Server.Gumps;
 using Server.Network;
-using System;
 
 namespace Server.Items
 {
@@ -42,7 +41,7 @@ namespace Server.Items
 
 		public virtual string GetNameLocalized()
 		{
-			return String.Concat("#", AosSkillBonuses.GetLabel(m_Skill).ToString());
+			return string.Concat("#", AosSkillBonuses.GetLabel(m_Skill).ToString());
 		}
 
 		public virtual string GetName()

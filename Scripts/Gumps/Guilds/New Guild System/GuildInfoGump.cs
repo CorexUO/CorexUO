@@ -2,7 +2,6 @@ using Server.Factions;
 using Server.Gumps;
 using Server.Mobiles;
 using Server.Network;
-using System;
 
 namespace Server.Guilds
 {
@@ -60,7 +59,7 @@ namespace Server.Guilds
 
 
 			string s = guild.Charter;
-			if (String.IsNullOrEmpty(s))
+			if (string.IsNullOrEmpty(s))
 				s = "The guild leader has not yet set the guild charter.";
 
 			AddHtml(65, 216, 480, 80, s, true, true);

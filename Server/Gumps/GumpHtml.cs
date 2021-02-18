@@ -1,5 +1,4 @@
 using Server.Network;
-using System;
 
 namespace Server.Gumps
 {
@@ -107,7 +106,7 @@ namespace Server.Gumps
 
 		public override string Compile()
 		{
-			return String.Format("{{ htmlgump {0} {1} {2} {3} {4} {5} {6} }}", m_X, m_Y, m_Width, m_Height, Parent.Intern(m_Text), m_Background ? 1 : 0, m_Scrollbar ? 1 : 0);
+			return string.Format("{{ htmlgump {0} {1} {2} {3} {4} {5} {6} }}", m_X, m_Y, m_Width, m_Height, Parent.Intern(m_Text), m_Background ? 1 : 0, m_Scrollbar ? 1 : 0);
 		}
 
 		private static readonly byte[] m_LayoutName = Gump.StringToBuffer("htmlgump");

@@ -1,4 +1,3 @@
-using System;
 using System.IO;
 using System.Text;
 
@@ -199,7 +198,7 @@ namespace Server.Network
 			if (m_Index >= Size)
 			{
 				m_Index += fixedLength;
-				return String.Empty;
+				return string.Empty;
 			}
 
 			int bound = m_Index + fixedLength;
@@ -246,7 +245,7 @@ namespace Server.Network
 		public string ReadUTF8StringSafe()
 		{
 			if (m_Index >= Size)
-				return String.Empty;
+				return string.Empty;
 
 			int count = 0;
 			int index = m_Index;
@@ -285,7 +284,7 @@ namespace Server.Network
 		public string ReadUTF8String()
 		{
 			if (m_Index >= Size)
-				return String.Empty;
+				return string.Empty;
 
 			int count = 0;
 			int index = m_Index;

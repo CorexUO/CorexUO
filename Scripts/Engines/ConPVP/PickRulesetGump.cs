@@ -1,6 +1,5 @@
 using Server.Gumps;
 using Server.Network;
-using System;
 
 namespace Server.Engines.ConPVP
 {
@@ -14,7 +13,7 @@ namespace Server.Engines.ConPVP
 
 		public string Center(string text)
 		{
-			return String.Format("<CENTER>{0}</CENTER>", text);
+			return string.Format("<CENTER>{0}</CENTER>", text);
 		}
 
 		public PickRulesetGump(Mobile from, DuelContext context, Ruleset ruleset) : base(50, 50)

@@ -1328,7 +1328,7 @@ namespace Server
 
 		public void LabelTo(Mobile to, string format, params object[] args)
 		{
-			LabelTo(to, String.Format(format, args));
+			LabelTo(to, string.Format(format, args));
 		}
 
 		public void LabelToAffix(Mobile to, int number, AffixType type, string affix)
@@ -4327,7 +4327,7 @@ namespace Server
 					if (m_Amount <= 1)
 						ns.Send(new MessageLocalized(Serial, m_ItemID, MessageType.Label, DisplayColor, 3, LabelNumber, "", ""));
 					else
-						ns.Send(new MessageLocalizedAffix(Serial, m_ItemID, MessageType.Label, DisplayColor, 3, LabelNumber, "", AffixType.Append, String.Format(" : {0}", m_Amount), ""));
+						ns.Send(new MessageLocalizedAffix(Serial, m_ItemID, MessageType.Label, DisplayColor, 3, LabelNumber, "", AffixType.Append, string.Format(" : {0}", m_Amount), ""));
 				}
 				else
 				{
@@ -4484,7 +4484,7 @@ namespace Server
 
 		public override string ToString()
 		{
-			return String.Format("0x{0:X} \"{1}\"", Serial.Value, GetType().Name);
+			return string.Format("0x{0:X} \"{1}\"", Serial.Value, GetType().Name);
 		}
 
 		internal int m_TypeRef;

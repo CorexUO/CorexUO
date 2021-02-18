@@ -4,7 +4,6 @@ using Server.Items;
 using Server.Mobiles;
 using Server.Multis;
 using Server.Prompts;
-using System;
 using System.Collections;
 using System.Collections.Generic;
 
@@ -272,7 +271,7 @@ namespace Server.Engines.BulkOrders
 
 			LabelTo(from, 1062344, m_Entries.Count.ToString()); // Deeds in book: ~1_val~
 
-			if (!String.IsNullOrEmpty(m_BookName))
+			if (!string.IsNullOrEmpty(m_BookName))
 				LabelTo(from, 1062481, m_BookName);
 		}
 

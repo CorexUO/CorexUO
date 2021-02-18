@@ -72,7 +72,7 @@ namespace Server.Engines.MLQuests.Items
 			base.GetProperties(list);
 
 			if (m_QuestType != null)
-				list.Add(String.Format("Required quest: {0}", m_QuestType.Name));
+				list.Add(string.Format("Required quest: {0}", m_QuestType.Name));
 		}
 
 		public MLQuestTeleporter(Serial serial)
@@ -192,7 +192,7 @@ namespace Server.Engines.MLQuests.Items
 			base.GetProperties(list);
 
 			if (m_TicketType != null)
-				list.Add(String.Format("Required ticket: {0}", m_TicketType.Name));
+				list.Add(string.Format("Required ticket: {0}", m_TicketType.Name));
 		}
 
 		public TicketTeleporter(Serial serial)

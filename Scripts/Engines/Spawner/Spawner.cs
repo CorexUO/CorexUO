@@ -204,7 +204,7 @@ namespace Server.Mobiles
 		{
 			List<string> spawnNames = new List<string>();
 
-			if (!String.IsNullOrEmpty(spawnName))
+			if (!string.IsNullOrEmpty(spawnName))
 				spawnNames.Add(spawnName);
 
 			InitSpawner(amount, minDelay, maxDelay, team, homeRange, spawnNames);

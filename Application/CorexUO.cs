@@ -2,9 +2,9 @@ using Server;
 
 namespace CorexUO
 {
-	class CorexUO
+	internal class CorexUO
 	{
-		static void Main(string[] args)
+		private static void Main(string[] args)
 		{
 			Core.Run(args);
 		}

@@ -133,7 +133,7 @@ namespace Server
 
 		public static string FindDataFile(string format, params object[] args)
 		{
-			return FindDataFile(String.Format(format, args));
+			return FindDataFile(string.Format(format, args));
 		}
 
 		#region Expansions
@@ -764,7 +764,7 @@ namespace Server
 
 		public override void WriteLine(string line, params object[] args)
 		{
-			WriteLine(String.Format(line, args));
+			WriteLine(string.Format(line, args));
 		}
 
 		public override Encoding Encoding { get { return Encoding.Default; } }

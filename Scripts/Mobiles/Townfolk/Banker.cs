@@ -33,9 +33,9 @@ namespace Server.Mobiles
 			{
 				m.Account.GetGoldBalance(out int goldStub, out balance);
 
-				if (balance > Int32.MaxValue)
+				if (balance > int.MaxValue)
 				{
-					return Int32.MaxValue;
+					return int.MaxValue;
 				}
 			}
 
@@ -50,7 +50,7 @@ namespace Server.Mobiles
 				balance += checks.Aggregate(0.0, (c, t) => c + t.Worth);
 			}
 
-			return (int)Math.Max(0, Math.Min(Int32.MaxValue, balance));
+			return (int)Math.Max(0, Math.Min(int.MaxValue, balance));
 		}
 
 		public static int GetBalance(Mobile m, out Item[] gold, out Item[] checks)
@@ -61,10 +61,10 @@ namespace Server.Mobiles
 			{
 				m.Account.GetGoldBalance(out int goldStub, out balance);
 
-				if (balance > Int32.MaxValue)
+				if (balance > int.MaxValue)
 				{
 					gold = checks = new Item[0];
-					return Int32.MaxValue;
+					return int.MaxValue;
 				}
 			}
 
@@ -83,7 +83,7 @@ namespace Server.Mobiles
 				gold = checks = new Item[0];
 			}
 
-			return (int)Math.Max(0, Math.Min(Int32.MaxValue, balance));
+			return (int)Math.Max(0, Math.Min(int.MaxValue, balance));
 		}
 
 		public static bool Withdraw(Mobile from, int amount)
@@ -347,7 +347,7 @@ namespace Server.Mobiles
 
 								if (AccountGold.Enabled && e.Mobile.Account != null)
 								{
-									this.Say(1155855, String.Format("{0:#,0}\t{1:#,0}", e.Mobile.Account.TotalPlat, e.Mobile.Account.TotalGold)); // Thy current bank balance is ~1_AMOUNT~ platinum and ~2_AMOUNT~ gold.
+									this.Say(1155855, string.Format("{0:#,0}\t{1:#,0}", e.Mobile.Account.TotalPlat, e.Mobile.Account.TotalGold)); // Thy current bank balance is ~1_AMOUNT~ platinum and ~2_AMOUNT~ gold.
 								}
 								else
 								{

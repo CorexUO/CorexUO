@@ -27,7 +27,7 @@ namespace Server
 			if (canSave)
 			{
 				m_ModuleBuilder = m_AssemblyBuilder.DefineDynamicModule(
-					String.Format("{0}.dll", assemblyName.ToLower())
+					string.Format("{0}.dll", assemblyName.ToLower())
 				);
 			}
 			else

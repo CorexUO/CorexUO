@@ -152,7 +152,7 @@ namespace Server.Engines.ConPVP
 			else
 				AddImage(466, height - 12 - 2 - 16, 0x2622);
 
-			AddHtml(16, height - 12 - 2 - 18, 400, 20, Color(String.Format("Top {3} of {0:N0} duelists, page {1} of {2}", list.Count, page + 1, (lc + 14) / 15, lc), 0xFFC000), false, false);
+			AddHtml(16, height - 12 - 2 - 18, 400, 20, Color(string.Format("Top {3} of {0:N0} duelists, page {1} of {2}", list.Count, page + 1, (lc + 14) / 15, lc), 0xFFC000), false, false);
 
 			AddColumnHeader(75, "Rank");
 			AddColumnHeader(115, "Level");
@@ -221,12 +221,12 @@ namespace Server.Engines.ConPVP
 
 		public string Center(string text)
 		{
-			return String.Format("<CENTER>{0}</CENTER>", text);
+			return string.Format("<CENTER>{0}</CENTER>", text);
 		}
 
 		public string Color(string text, int color)
 		{
-			return String.Format("<BASEFONT COLOR=#{0:X6}>{1}</BASEFONT>", color, text);
+			return string.Format("<BASEFONT COLOR=#{0:X6}>{1}</BASEFONT>", color, text);
 		}
 
 		private void AddBorderedText(int x, int y, int width, string text, int color, int borderColor)

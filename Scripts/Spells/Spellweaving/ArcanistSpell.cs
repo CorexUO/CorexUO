@@ -1,7 +1,6 @@
 using Server.Engines.MLQuests;
 using Server.Items;
 using Server.Mobiles;
-using System;
 
 namespace Server.Spells.Spellweaving
 {
@@ -92,7 +91,7 @@ namespace Server.Spells.Spellweaving
 			}
 			else if (caster.Skills[CastSkill].Value < RequiredSkill)
 			{
-				caster.SendLocalizedMessage(1063013, String.Format("{0}\t{1}", RequiredSkill.ToString("F1"), "#1044114")); // You need at least ~1_SKILL_REQUIREMENT~ ~2_SKILL_NAME~ skill to use that ability.
+				caster.SendLocalizedMessage(1063013, string.Format("{0}\t{1}", RequiredSkill.ToString("F1"), "#1044114")); // You need at least ~1_SKILL_REQUIREMENT~ ~2_SKILL_NAME~ skill to use that ability.
 				return false;
 			}
 

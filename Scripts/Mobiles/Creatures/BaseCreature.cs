@@ -910,7 +910,7 @@ namespace Server.Mobiles
 				if (suffix.Length == 0)
 					suffix = "(Paragon)";
 				else
-					suffix = String.Concat(suffix, " (Paragon)");
+					suffix = string.Concat(suffix, " (Paragon)");
 			}
 
 			return base.ApplyNameSuffix(suffix);
@@ -2634,7 +2634,7 @@ namespace Server.Mobiles
 		public void DebugSay(string format, params object[] args)
 		{
 			if (Debug)
-				this.PublicOverheadMessage(MessageType.Regular, 41, false, String.Format(format, args));
+				this.PublicOverheadMessage(MessageType.Regular, 41, false, string.Format(format, args));
 		}
 
 		/*
@@ -2919,7 +2919,7 @@ namespace Server.Mobiles
 						else
 						{
 							// I will teach thee all I know, if paid the amount in full.  The price is:
-							Say(1019077, AffixType.Append, String.Format(" {0}", pointsToLearn), "");
+							Say(1019077, AffixType.Append, string.Format(" {0}", pointsToLearn), "");
 							Say(1043108); // For less I shall teach thee less.
 
 							m_Teaching = skill;

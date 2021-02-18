@@ -111,7 +111,7 @@ namespace Server
 		{
 			base.GetProperties(list);
 
-			list.Add(1060738, String.Format("{0:#,0} platinum, {1:#,0} gold", Plat, Gold)); // value: ~1_val~
+			list.Add(1060738, string.Format("{0:#,0} platinum, {1:#,0} gold", Plat, Gold)); // value: ~1_val~
 		}
 
 		public void UpdateTrade(Mobile user)
@@ -261,7 +261,7 @@ namespace Server
 				AddImage(10, 8, 113);
 				AddImage(360, 8, 113);
 
-				var title = String.Format(
+				var title = string.Format(
 					"<BASEFONT COLOR=#{0:X}><CENTER>BANK OF {1}</CENTER>",
 					Color.DarkSlateGray.ToArgb(),
 					User.RawName.ToUpper());
@@ -323,12 +323,12 @@ namespace Server
 							var platText = info.GetTextEntry(0).Text;
 							var goldText = info.GetTextEntry(1).Text;
 
-							if (!Int32.TryParse(platText, out _Plat))
+							if (!int.TryParse(platText, out _Plat))
 							{
 								User.SendMessage("That is not a valid amount of platinum.");
 								refresh = true;
 							}
-							else if (!Int32.TryParse(goldText, out _Gold))
+							else if (!int.TryParse(goldText, out _Gold))
 							{
 								User.SendMessage("That is not a valid amount of gold.");
 								refresh = true;

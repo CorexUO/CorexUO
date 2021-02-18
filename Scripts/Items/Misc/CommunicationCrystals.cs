@@ -369,7 +369,7 @@ namespace Server.Items
 			if (!this.Active)
 				return;
 
-			string text = String.Format("{0} says {1}", from.Name, message);
+			string text = string.Format("{0} says {1}", from.Name, message);
 
 			if (this.RootParent is Mobile)
 			{

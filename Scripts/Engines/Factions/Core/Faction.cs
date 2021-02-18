@@ -103,12 +103,12 @@ namespace Server.Factions
 
 		public void Broadcast(string format, params object[] args)
 		{
-			Broadcast(String.Format(format, args));
+			Broadcast(string.Format(format, args));
 		}
 
 		public void Broadcast(int hue, string format, params object[] args)
 		{
-			Broadcast(hue, String.Format(format, args));
+			Broadcast(hue, string.Format(format, args));
 		}
 
 		public void BeginBroadcast(Mobile from)
@@ -1173,7 +1173,7 @@ namespace Server.Factions
 							silver = killerState.Faction.AwardSilver(killer, award * 40);
 
 							if (silver > 0)
-								killer.SendLocalizedMessage(1042736, String.Format("{0:N0} silver\t{1}", silver, victim.Name)); // You have earned ~1_SILVER_AMOUNT~ pieces for vanquishing ~2_PLAYER_NAME~!
+								killer.SendLocalizedMessage(1042736, string.Format("{0:N0} silver\t{1}", silver, victim.Name)); // You have earned ~1_SILVER_AMOUNT~ pieces for vanquishing ~2_PLAYER_NAME~!
 						}
 
 						victimState.KillPoints -= award;
@@ -1181,7 +1181,7 @@ namespace Server.Factions
 
 						int offset = (award != 1 ? 0 : 2); // for pluralization
 
-						string args = String.Format("{0}\t{1}\t{2}", award, victim.Name, killer.Name);
+						string args = string.Format("{0}\t{1}\t{2}", award, victim.Name, killer.Name);
 
 						killer.SendLocalizedMessage(1042737 + offset, args); // Thou hast been honored with ~1_KILL_POINTS~ kill point(s) for vanquishing ~2_DEAD_PLAYER~!
 						victim.SendLocalizedMessage(1042738 + offset, args); // Thou has lost ~1_KILL_POINTS~ kill point(s) to ~3_ATTACKER_NAME~ for being vanquished!

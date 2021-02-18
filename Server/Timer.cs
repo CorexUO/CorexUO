@@ -683,7 +683,7 @@ namespace Server
 
 			public override string ToString()
 			{
-				return String.Format("DelayCallTimer[{0}]", FormatDelegate(Callback));
+				return string.Format("DelayCallTimer[{0}]", FormatDelegate(Callback));
 			}
 		}
 
@@ -711,7 +711,7 @@ namespace Server
 
 			public override string ToString()
 			{
-				return String.Format("DelayStateCall[{0}]", FormatDelegate(Callback));
+				return string.Format("DelayStateCall[{0}]", FormatDelegate(Callback));
 			}
 		}
 
@@ -739,7 +739,7 @@ namespace Server
 
 			public override string ToString()
 			{
-				return String.Format("DelayStateCall[{0}]", FormatDelegate(Callback));
+				return string.Format("DelayStateCall[{0}]", FormatDelegate(Callback));
 			}
 		}
 
@@ -769,7 +769,7 @@ namespace Server
 
 			public override string ToString()
 			{
-				return String.Format("DelayStateCall[{0}]", FormatDelegate(Callback));
+				return string.Format("DelayStateCall[{0}]", FormatDelegate(Callback));
 			}
 		}
 
@@ -801,7 +801,7 @@ namespace Server
 
 			public override string ToString()
 			{
-				return String.Format("DelayStateCall[{0}]", FormatDelegate(Callback));
+				return string.Format("DelayStateCall[{0}]", FormatDelegate(Callback));
 			}
 		}
 
@@ -835,7 +835,7 @@ namespace Server
 
 			public override string ToString()
 			{
-				return String.Format("DelayStateCall[{0}]", FormatDelegate(Callback));
+				return string.Format("DelayStateCall[{0}]", FormatDelegate(Callback));
 			}
 		}
 		#endregion

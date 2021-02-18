@@ -22,7 +22,7 @@ namespace Server.Gumps
 
 			AddHtmlLocalized(125, 20, 250, 24, 1019070, false, false); // You have agreed to purchase:
 
-			if (!String.IsNullOrEmpty(vi.Description))
+			if (!string.IsNullOrEmpty(vi.Description))
 				AddLabel(125, 45, 0, vi.Description);
 			else
 				AddHtmlLocalized(125, 45, 250, 24, 1019072, false, false); // an item without a description
@@ -209,7 +209,7 @@ namespace Server.Gumps
 			{
 				((RentedVendor)vendor).ComputeRentalExpireDelay(out int days, out int hours);
 
-				AddLabel(38, 132, 0x480, String.Format("Location rental will expire in {0} day{1} and {2} hour{3}.", days, days != 1 ? "s" : "", hours, hours != 1 ? "s" : ""));
+				AddLabel(38, 132, 0x480, string.Format("Location rental will expire in {0} day{1} and {2} hour{3}.", days, days != 1 ? "s" : "", hours, hours != 1 ? "s" : ""));
 			}
 
 			AddButton(390, 24, 0x15E1, 0x15E5, 1, GumpButtonType.Reply, 0);

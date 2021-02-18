@@ -8,7 +8,6 @@ using Server.Network;
 using Server.Spells;
 using Server.Targeting;
 using Server.Targets;
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Text;
@@ -239,7 +238,7 @@ namespace Server.Commands
 
 				e.Mobile.SendGump(
 					new WarningGump(1060635, 30720,
-					String.Format("You are about to delete {0} object{1} from this facet.  Do you really wish to continue?",
+					string.Format("You are about to delete {0} object{1} from this facet.  Do you really wish to continue?",
 					list.Count, list.Count == 1 ? "" : "s"),
 					0xFFC000, 360, 260, new WarningGumpCallback(DeleteList_Callback), list));
 			}
@@ -395,7 +394,7 @@ namespace Server.Commands
 				{
 					Item item = m.Items[i];
 
-					entries[i] = new ItemListEntry(String.Format("{0}: {1}", item.Layer, item.GetType().Name), item.ItemID, item.Hue);
+					entries[i] = new ItemListEntry(string.Format("{0}: {1}", item.Layer, item.GetType().Name), item.ItemID, item.Hue);
 				}
 
 				return entries;
@@ -427,7 +426,7 @@ namespace Server.Commands
 					private readonly Mobile m_Mobile;
 					private readonly Item m_Item;
 
-					public EquipDetailsMenu(Mobile m, Item item) : base(String.Format("{0}: {1}", item.Layer, item.GetType().Name), new string[] { "Move", "Delete", "Props" })
+					public EquipDetailsMenu(Mobile m, Item item) : base(string.Format("{0}: {1}", item.Layer, item.GetType().Name), new string[] { "Move", "Delete", "Props" })
 					{
 						m_Mobile = m;
 						m_Item = item;
@@ -898,7 +897,7 @@ namespace Server.Commands
 		[Description("Broadcasts a message to all online staff.")]
 		public static void StaffMessage_OnCommand(CommandEventArgs e)
 		{
-			BroadcastMessage(AccessLevel.Counselor, e.Mobile.SpeechHue, String.Format("[{0}] {1}", e.Mobile.Name, e.ArgString));
+			BroadcastMessage(AccessLevel.Counselor, e.Mobile.SpeechHue, string.Format("[{0}] {1}", e.Mobile.Name, e.ArgString));
 		}
 
 		[Usage("BCast <text>")]
@@ -906,7 +905,7 @@ namespace Server.Commands
 		[Description("Broadcasts a message to everyone online.")]
 		public static void BroadcastMessage_OnCommand(CommandEventArgs e)
 		{
-			BroadcastMessage(AccessLevel.Player, 0x482, String.Format("Staff message from {0}:", e.Mobile.Name));
+			BroadcastMessage(AccessLevel.Player, 0x482, string.Format("Staff message from {0}:", e.Mobile.Name));
 			BroadcastMessage(AccessLevel.Player, 0x482, e.ArgString);
 		}
 

@@ -24,8 +24,8 @@ namespace Server.Misc
 
 			if (!CheckAggressions(aggressor, aggressed))
 			{
-				aggressor.LocalOverheadMessage(MessageType.Regular, Hue, true, String.Format(AggressorFormat, aggressed.Name));
-				aggressed.LocalOverheadMessage(MessageType.Regular, Hue, true, String.Format(AggressedFormat, aggressor.Name));
+				aggressor.LocalOverheadMessage(MessageType.Regular, Hue, true, string.Format(AggressorFormat, aggressed.Name));
+				aggressed.LocalOverheadMessage(MessageType.Regular, Hue, true, string.Format(AggressedFormat, aggressor.Name));
 			}
 		}
 

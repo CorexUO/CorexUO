@@ -1,5 +1,3 @@
-using System;
-
 namespace Server.Items
 {
 	public class SubtextSign : Sign
@@ -31,7 +29,7 @@ namespace Server.Items
 		{
 			base.OnSingleClick(from);
 
-			if (!String.IsNullOrEmpty(m_Subtext))
+			if (!string.IsNullOrEmpty(m_Subtext))
 				LabelTo(from, m_Subtext);
 		}
 
@@ -39,7 +37,7 @@ namespace Server.Items
 		{
 			base.AddNameProperties(list);
 
-			if (!String.IsNullOrEmpty(m_Subtext))
+			if (!string.IsNullOrEmpty(m_Subtext))
 				list.Add(m_Subtext);
 		}
 

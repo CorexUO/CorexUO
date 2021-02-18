@@ -1,6 +1,5 @@
 using Server.Accounting;
 using Server.Network;
-using System;
 
 namespace Server.Items
 {
@@ -33,7 +32,7 @@ namespace Server.Items
 
 			if (Owner != null)
 			{
-				Owner.PrivateOverheadMessage(MessageType.Regular, 0x3B2, true, String.Format("Bank container has {0} items, {1} stones", TotalItems, TotalWeight), Owner.NetState);
+				Owner.PrivateOverheadMessage(MessageType.Regular, 0x3B2, true, string.Format("Bank container has {0} items, {1} stones", TotalItems, TotalWeight), Owner.NetState);
 				Owner.Send(new EquipUpdate(this));
 				DisplayTo(Owner);
 			}

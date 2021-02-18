@@ -1,7 +1,6 @@
 using Server.Gumps;
 using Server.Misc;
 using Server.Network;
-using System;
 
 namespace Server.Items
 {
@@ -66,12 +65,12 @@ namespace Server.Items
 
 		public string Center(string text)
 		{
-			return String.Format("<CENTER>{0}</CENTER>", text);
+			return string.Format("<CENTER>{0}</CENTER>", text);
 		}
 
 		public string Color(string text, int color)
 		{
-			return String.Format("<BASEFONT COLOR=#{0:X6}>{1}</BASEFONT>", color, text);
+			return string.Format("<BASEFONT COLOR=#{0:X6}>{1}</BASEFONT>", color, text);
 		}
 
 		public void AddButtonLabeled(int x, int y, int buttonID, string text)
@@ -120,7 +119,7 @@ namespace Server.Items
 			{
 				m.RawName = newName;
 				m.SendMessage("Your name has been changed!");
-				m.SendMessage(String.Format("You are now known as {0}", newName));
+				m.SendMessage(string.Format("You are now known as {0}", newName));
 				m_Sender.Delete();
 			}
 		}

@@ -3,7 +3,6 @@ using Server.Gumps;
 using Server.Items;
 using Server.Network;
 using Server.Targeting;
-using System;
 using System.Collections.Generic;
 
 namespace Server.Mobiles
@@ -89,7 +88,7 @@ namespace Server.Mobiles
 						continue;
 
 					AddButton(15, 39 + (i * 20), 10006, 10006, i + 1, GumpButtonType.Reply, 0);
-					AddHtml(32, 35 + (i * 20), 275, 18, String.Format("<BASEFONT COLOR=#C0C0EE>{0}</BASEFONT>", pet.Name), false, false);
+					AddHtml(32, 35 + (i * 20), 275, 18, string.Format("<BASEFONT COLOR=#C0C0EE>{0}</BASEFONT>", pet.Name), false, false);
 				}
 			}
 

@@ -1,5 +1,3 @@
-using System;
-
 namespace Server.Items
 {
 	[FlipableAttribute(0x236E, 0x2371)]
@@ -91,7 +89,7 @@ namespace Server.Items
 			}
 
 			if (m_Dipper != null)
-				m_Dipper = String.Intern(m_Dipper);
+				m_Dipper = string.Intern(m_Dipper);
 		}
 	}
 }

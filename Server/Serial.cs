@@ -125,7 +125,7 @@ namespace Server
 
 		public override string ToString()
 		{
-			return String.Format("0x{0:X8}", Value);
+			return string.Format("0x{0:X8}", Value);
 		}
 
 		public static implicit operator int(Serial a)

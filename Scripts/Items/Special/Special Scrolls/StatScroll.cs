@@ -1,5 +1,4 @@
 using Server.Mobiles;
-using System;
 
 namespace Server.Items
 {
@@ -26,7 +25,7 @@ namespace Server.Items
 			}
 		}
 
-		public override string DefaultTitle { get { return String.Format("<basefont color=#FFFFFF>Power Scroll ({0}{1} Maximum Stats):</basefont>", ((int)Value - 225) >= 0 ? "+" : "", (int)Value - 225); } }
+		public override string DefaultTitle { get { return string.Format("<basefont color=#FFFFFF>Power Scroll ({0}{1} Maximum Stats):</basefont>", ((int)Value - 225) >= 0 ? "+" : "", (int)Value - 225); } }
 
 		public StatCapScroll() : this(105)
 		{

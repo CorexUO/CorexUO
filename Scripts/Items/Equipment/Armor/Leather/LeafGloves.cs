@@ -1,5 +1,3 @@
-using System;
-
 namespace Server.Items
 {
 	[Flipable]
@@ -123,7 +121,7 @@ namespace Server.Items
 			base.OnSingleClick(from);
 
 			if (IsArcane)
-				LabelTo(from, 1061837, String.Format("{0}\t{1}", m_CurArcaneCharges, m_MaxArcaneCharges));
+				LabelTo(from, 1061837, string.Format("{0}\t{1}", m_CurArcaneCharges, m_MaxArcaneCharges));
 		}
 
 		public void Flip()

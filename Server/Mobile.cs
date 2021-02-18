@@ -942,7 +942,7 @@ namespace Server
 			string name = Name;
 
 			if (name == null)
-				name = String.Empty;
+				name = string.Empty;
 
 			string prefix = "";
 
@@ -959,9 +959,9 @@ namespace Server
 			if (guild != null && (m_Player || m_DisplayGuildTitle))
 			{
 				if (suffix.Length > 0)
-					suffix = String.Format("{0} [{1}]", suffix, Utility.FixHtml(guild.Abbreviation));
+					suffix = string.Format("{0} [{1}]", suffix, Utility.FixHtml(guild.Abbreviation));
 				else
-					suffix = String.Format("[{0}]", Utility.FixHtml(guild.Abbreviation));
+					suffix = string.Format("[{0}]", Utility.FixHtml(guild.Abbreviation));
 			}
 
 			suffix = ApplyNameSuffix(suffix);
@@ -1574,7 +1574,7 @@ namespace Server
 
 		public override string ToString()
 		{
-			return String.Format("0x{0:X} \"{1}\"", Serial.Value, Name);
+			return string.Format("0x{0:X} \"{1}\"", Serial.Value, Name);
 		}
 
 		public long NextActionTime { get; set; }
@@ -10137,7 +10137,7 @@ namespace Server
 
 		public void SendMessage(string format, params object[] args)
 		{
-			SendMessage(0x3B2, String.Format(format, args));
+			SendMessage(0x3B2, string.Format(format, args));
 		}
 
 		public void SendMessage(int hue, string text)
@@ -10150,7 +10150,7 @@ namespace Server
 
 		public void SendMessage(int hue, string format, params object[] args)
 		{
-			SendMessage(hue, String.Format(format, args));
+			SendMessage(hue, string.Format(format, args));
 		}
 
 		public void SendAsciiMessage(string text)
@@ -10160,7 +10160,7 @@ namespace Server
 
 		public void SendAsciiMessage(string format, params object[] args)
 		{
-			SendAsciiMessage(0x3B2, String.Format(format, args));
+			SendAsciiMessage(0x3B2, string.Format(format, args));
 		}
 
 		public void SendAsciiMessage(int hue, string text)
@@ -10173,7 +10173,7 @@ namespace Server
 
 		public void SendAsciiMessage(int hue, string format, params object[] args)
 		{
-			SendAsciiMessage(hue, String.Format(format, args));
+			SendAsciiMessage(hue, string.Format(format, args));
 		}
 
 		#endregion

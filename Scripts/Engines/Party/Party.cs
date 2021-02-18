@@ -65,7 +65,7 @@ namespace Server.Engines.PartySystem
 				else if (m == null)
 					p.SendPublicMessage(from, "I was killed !!");
 				else
-					p.SendPublicMessage(from, String.Format("I was killed by {0} !!", m.Name));
+					p.SendPublicMessage(from, string.Format("I was killed by {0} !!", m.Name));
 			}
 		}
 
@@ -374,7 +374,7 @@ namespace Server.Engines.PartySystem
 		}
 		private void SendToStaffMessage(Mobile from, string format, params object[] args)
 		{
-			SendToStaffMessage(from, String.Format(format, args));
+			SendToStaffMessage(from, string.Format(format, args));
 		}
 
 		public void SendToAll(Packet p)

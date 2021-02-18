@@ -3,7 +3,6 @@ using Server.Misc;
 using Server.Mobiles;
 using Server.Network;
 using Server.Regions;
-using System;
 
 namespace Server.SkillHandlers
 {
@@ -64,7 +63,7 @@ namespace Server.SkillHandlers
 
 					if (map != null)
 					{
-						string message = String.Format("You notice {0} attempting to peek into {1}'s belongings.", from.Name, root.Name);
+						string message = string.Format("You notice {0} attempting to peek into {1}'s belongings.", from.Name, root.Name);
 
 						IPooledEnumerable eable = map.GetClientsInRange(from.Location, 8);
 
