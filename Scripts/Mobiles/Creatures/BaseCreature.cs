@@ -4043,7 +4043,7 @@ namespace Server.Mobiles
 		{
 			item.Movable = dropChance > Utility.RandomDouble();
 
-			WearItem(item, hue);
+			base.WearItem(item, hue);
 		}
 
 		#endregion
