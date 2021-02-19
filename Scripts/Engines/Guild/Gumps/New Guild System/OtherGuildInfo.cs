@@ -27,13 +27,13 @@ namespace Server.Guilds
 
 		public override void PopulateGump()
 		{
-			Guild g = Guild.GetAllianceLeader(guild);
+			Guild g = Guild.GetAllianceLeader(Guild);
 			Guild other = Guild.GetAllianceLeader(m_Other);
 
 			WarDeclaration war = g.FindPendingWar(other);
 			WarDeclaration activeWar = g.FindActiveWar(other);
 
-			AllianceInfo alliance = guild.Alliance;
+			AllianceInfo alliance = Guild.Alliance;
 			AllianceInfo otherAlliance = m_Other.Alliance;
 			//NOTE TO SELF: Only only alliance leader can see pending guild alliance statuses
 
@@ -87,7 +87,7 @@ namespace Server.Guilds
 				//time = String.Format( "{0:D2}:{1:D2}", timeRemaining.Hours.ToString(), timeRemaining.Subtract( TimeSpan.FromHours( timeRemaining.Hours ) ).Minutes );	//Is there a formatter for htis? it's 2AM and I'm tired and can't find it
 				time = string.Format("{0:D2}:{1:mm}", timeRemaining.Hours, DateTime.MinValue + timeRemaining);
 
-				otherWar = m_Other.FindActiveWar(guild);
+				otherWar = m_Other.FindActiveWar(Guild);
 				if (otherWar != null)
 					otherKills = string.Format("{0}/{1}", otherWar.Kills, otherWar.MaxKills);
 			}
@@ -97,7 +97,7 @@ namespace Server.Guilds
 				//time = Color( String.Format( "{0}:{1}", war.WarLength.Hours, ((TimeSpan)(war.WarLength - TimeSpan.FromHours( war.WarLength.Hours ))).Minutes ), 0xFF0000 );
 				time = Color(string.Format("{0:D2}:{1:mm}", war.WarLength.Hours, DateTime.MinValue + war.WarLength), 0x990000);
 
-				otherWar = m_Other.FindPendingWar(guild);
+				otherWar = m_Other.FindPendingWar(Guild);
 				if (otherWar != null)
 					otherKills = Color(string.Format("{0}/{1}", otherWar.Kills, otherWar.MaxKills), 0x990000);
 			}
@@ -139,11 +139,11 @@ namespace Server.Guilds
 			}
 			else if (alliance != null && alliance == otherAlliance) //alliance, Same Alliance
 			{
-				if (alliance.IsMember(guild) && alliance.IsMember(m_Other)) //Both in Same alliance, full members
+				if (alliance.IsMember(Guild) && alliance.IsMember(m_Other)) //Both in Same alliance, full members
 				{
 					number = 1062970; // <div align=center>You are allied with this guild.</div>
 
-					if (alliance.Leader == guild)
+					if (alliance.Leader == Guild)
 					{
 						AddButtonAndBackground(20, 260, 12, 1062984); // Remove Guild from Alliance
 						AddButtonAndBackground(275, 260, 13, 1063433); // Promote to Alliance Leader	//Note: No 'confirmation' like the other leader guild promotion things
@@ -155,7 +155,7 @@ namespace Server.Guilds
 																   //Leave Alliance
 					AddButtonAndBackground(20, 290, 11, 1062985); // Leave Alliance
 				}
-				else if (alliance.Leader == guild && alliance.IsPendingMember(m_Other))
+				else if (alliance.Leader == Guild && alliance.IsPendingMember(m_Other))
 				{
 					number = 1062971; // <div align=center>You have requested an alliance with this guild.</div>
 
@@ -166,7 +166,7 @@ namespace Server.Guilds
 
 					AddHtml(150, 83, 360, 26, Color(alliance.Name, 0x99), false, false);
 				}
-				else if (alliance.Leader == m_Other && alliance.IsPendingMember(guild))
+				else if (alliance.Leader == m_Other && alliance.IsPendingMember(Guild))
 				{
 					number = 1062972; // <div align=center>This guild has requested an alliance.</div>
 
@@ -197,19 +197,19 @@ namespace Server.Guilds
 		{
 			PlayerMobile pm = sender.Mobile as PlayerMobile;
 
-			if (!IsMember(pm, guild))
+			if (!IsMember(pm, Guild))
 				return;
 
 			RankDefinition playerRank = pm.GuildRank;
 
-			Guild guildLeader = Guild.GetAllianceLeader(guild);
+			Guild guildLeader = Guild.GetAllianceLeader(Guild);
 			Guild otherGuild = Guild.GetAllianceLeader(m_Other);
 
 			WarDeclaration war = guildLeader.FindPendingWar(otherGuild);
 			WarDeclaration activeWar = guildLeader.FindActiveWar(otherGuild);
 			WarDeclaration otherWar = otherGuild.FindPendingWar(guildLeader);
 
-			AllianceInfo alliance = guild.Alliance;
+			AllianceInfo alliance = Guild.Alliance;
 			AllianceInfo otherAlliance = otherGuild.Alliance;
 
 			switch (info.ButtonID)
@@ -223,27 +223,27 @@ namespace Server.Guilds
 							{
 								pm.SendLocalizedMessage(1063440); // You don't have permission to negotiate wars.
 							}
-							else if (alliance != null && alliance.Leader != guild)
+							else if (alliance != null && alliance.Leader != Guild)
 							{
-								pm.SendLocalizedMessage(1063239, string.Format("{0}\t{1}", guild.Name, alliance.Name)); // ~1_val~ is not the leader of the ~2_val~ alliance.
+								pm.SendLocalizedMessage(1063239, string.Format("{0}\t{1}", Guild.Name, alliance.Name)); // ~1_val~ is not the leader of the ~2_val~ alliance.
 								pm.SendLocalizedMessage(1070707, alliance.Leader.Name); // You need to negotiate via ~1_val~ instead.
 							}
 							else
 							{
 								//Accept the war
-								guild.PendingWars.Remove(war);
+								Guild.PendingWars.Remove(war);
 								war.WarBeginning = DateTime.UtcNow;
-								guild.AcceptedWars.Add(war);
+								Guild.AcceptedWars.Add(war);
 
-								if (alliance != null && alliance.IsMember(guild))
+								if (alliance != null && alliance.IsMember(Guild))
 								{
 									alliance.AllianceMessage(1070769, ((otherAlliance != null) ? otherAlliance.Name : otherGuild.Name)); // Guild Message: Your guild is now at war with ~1_GUILDNAME~
 									alliance.InvalidateMemberProperties();
 								}
 								else
 								{
-									guild.GuildMessage(1070769, ((otherAlliance != null) ? otherAlliance.Name : otherGuild.Name)); // Guild Message: Your guild is now at war with ~1_GUILDNAME~
-									guild.InvalidateMemberProperties();
+									Guild.GuildMessage(1070769, ((otherAlliance != null) ? otherAlliance.Name : otherGuild.Name)); // Guild Message: Your guild is now at war with ~1_GUILDNAME~
+									Guild.InvalidateMemberProperties();
 								}
 								//Technically  SHOULD say Your guild is now at war w/out any info, intentional diff.
 
@@ -253,12 +253,12 @@ namespace Server.Guilds
 
 								if (otherAlliance != null && m_Other.Alliance.IsMember(m_Other))
 								{
-									otherAlliance.AllianceMessage(1070769, ((alliance != null) ? alliance.Name : guild.Name)); // Guild Message: Your guild is now at war with ~1_GUILDNAME~
+									otherAlliance.AllianceMessage(1070769, ((alliance != null) ? alliance.Name : Guild.Name)); // Guild Message: Your guild is now at war with ~1_GUILDNAME~
 									otherAlliance.InvalidateMemberProperties();
 								}
 								else
 								{
-									otherGuild.GuildMessage(1070769, ((alliance != null) ? alliance.Name : guild.Name)); // Guild Message: Your guild is now at war with ~1_GUILDNAME~
+									otherGuild.GuildMessage(1070769, ((alliance != null) ? alliance.Name : Guild.Name)); // Guild Message: Your guild is now at war with ~1_GUILDNAME~
 									otherGuild.InvalidateMemberProperties();
 								}
 							}
@@ -274,14 +274,14 @@ namespace Server.Guilds
 							{
 								pm.SendLocalizedMessage(1063440); // You don't have permission to negotiate wars.
 							}
-							else if (alliance != null && alliance.Leader != guild)
+							else if (alliance != null && alliance.Leader != Guild)
 							{
-								pm.SendLocalizedMessage(1063239, string.Format("{0}\t{1}", guild.Name, alliance.Name)); // ~1_val~ is not the leader of the ~2_val~ alliance.
+								pm.SendLocalizedMessage(1063239, string.Format("{0}\t{1}", Guild.Name, alliance.Name)); // ~1_val~ is not the leader of the ~2_val~ alliance.
 								pm.SendLocalizedMessage(1070707, alliance.Leader.Name); // You need to negotiate via ~1_val~ instead.
 							}
 							else
 							{
-								pm.SendGump(new WarDeclarationGump(pm, guild, otherGuild));
+								pm.SendGump(new WarDeclarationGump(pm, Guild, otherGuild));
 							}
 						}
 						break;
@@ -294,15 +294,15 @@ namespace Server.Guilds
 							{
 								pm.SendLocalizedMessage(1063440); // You don't have permission to negotiate wars.
 							}
-							else if (alliance != null && alliance.Leader != guild)
+							else if (alliance != null && alliance.Leader != Guild)
 							{
-								pm.SendLocalizedMessage(1063239, string.Format("{0}\t{1}", guild.Name, alliance.Name)); // ~1_val~ is not the leader of the ~2_val~ alliance.
+								pm.SendLocalizedMessage(1063239, string.Format("{0}\t{1}", Guild.Name, alliance.Name)); // ~1_val~ is not the leader of the ~2_val~ alliance.
 								pm.SendLocalizedMessage(1070707, alliance.Leader.Name); // You need to negotiate via ~1_val~ instead.
 							}
 							else
 							{
 								//Dismiss the war
-								guild.PendingWars.Remove(war);
+								Guild.PendingWars.Remove(war);
 								otherGuild.PendingWars.Remove(otherWar);
 								pm.SendLocalizedMessage(1070752); // The proposal has been updated.
 																  //Messages to opposing guild? (Testing on OSI says no)
@@ -316,40 +316,40 @@ namespace Server.Guilds
 						{
 							pm.SendLocalizedMessage(1063440); // You don't have permission to negotiate wars.
 						}
-						else if (alliance != null && alliance.Leader != guild)
+						else if (alliance != null && alliance.Leader != Guild)
 						{
-							pm.SendLocalizedMessage(1063239, string.Format("{0}\t{1}", guild.Name, alliance.Name)); // ~1_val~ is not the leader of the ~2_val~ alliance.
+							pm.SendLocalizedMessage(1063239, string.Format("{0}\t{1}", Guild.Name, alliance.Name)); // ~1_val~ is not the leader of the ~2_val~ alliance.
 							pm.SendLocalizedMessage(1070707, alliance.Leader.Name); // You need to negotiate via ~1_val~ instead.
 						}
 						else
 						{
 							if (activeWar != null)
 							{
-								if (alliance != null && alliance.IsMember(guild))
+								if (alliance != null && alliance.IsMember(Guild))
 								{
 									alliance.AllianceMessage(1070740, ((otherAlliance != null) ? otherAlliance.Name : otherGuild.Name));// You have lost the war with ~1_val~.
 									alliance.InvalidateMemberProperties();
 								}
 								else
 								{
-									guild.GuildMessage(1070740, ((otherAlliance != null) ? otherAlliance.Name : otherGuild.Name));// You have lost the war with ~1_val~.
-									guild.InvalidateMemberProperties();
+									Guild.GuildMessage(1070740, ((otherAlliance != null) ? otherAlliance.Name : otherGuild.Name));// You have lost the war with ~1_val~.
+									Guild.InvalidateMemberProperties();
 								}
 
-								guild.AcceptedWars.Remove(activeWar);
+								Guild.AcceptedWars.Remove(activeWar);
 
 								if (otherAlliance != null && otherAlliance.IsMember(otherGuild))
 								{
-									otherAlliance.AllianceMessage(1070739, ((guild.Alliance != null) ? guild.Alliance.Name : guild.Name));// You have won the war against ~1_val~!
+									otherAlliance.AllianceMessage(1070739, ((Guild.Alliance != null) ? Guild.Alliance.Name : Guild.Name));// You have won the war against ~1_val~!
 									otherAlliance.InvalidateMemberProperties();
 								}
 								else
 								{
-									otherGuild.GuildMessage(1070739, ((guild.Alliance != null) ? guild.Alliance.Name : guild.Name));// You have won the war against ~1_val~!
+									otherGuild.GuildMessage(1070739, ((Guild.Alliance != null) ? Guild.Alliance.Name : Guild.Name));// You have won the war against ~1_val~!
 									otherGuild.InvalidateMemberProperties();
 								}
 
-								otherGuild.AcceptedWars.Remove(otherGuild.FindActiveWar(guild));
+								otherGuild.AcceptedWars.Remove(otherGuild.FindActiveWar(Guild));
 							}
 						}
 						break;
@@ -362,9 +362,9 @@ namespace Server.Guilds
 							{
 								pm.SendLocalizedMessage(1063440); // You don't have permission to negotiate wars.
 							}
-							else if (alliance != null && alliance.Leader != guild)
+							else if (alliance != null && alliance.Leader != Guild)
 							{
-								pm.SendLocalizedMessage(1063239, string.Format("{0}\t{1}", guild.Name, alliance.Name)); // ~1_val~ is not the leader of the ~2_val~ alliance.
+								pm.SendLocalizedMessage(1063239, string.Format("{0}\t{1}", Guild.Name, alliance.Name)); // ~1_val~ is not the leader of the ~2_val~ alliance.
 								pm.SendLocalizedMessage(1070707, alliance.Leader.Name); // You need to negotiate via ~1_val~ instead.
 							}
 							else if (otherAlliance != null && otherAlliance.Leader != m_Other)
@@ -374,7 +374,7 @@ namespace Server.Guilds
 							}
 							else
 							{
-								pm.SendGump(new WarDeclarationGump(pm, guild, m_Other));
+								pm.SendGump(new WarDeclarationGump(pm, Guild, m_Other));
 							}
 						}
 						break;
@@ -389,7 +389,7 @@ namespace Server.Guilds
 							{
 								pm.SendLocalizedMessage(1070747); // You don't have permission to create an alliance.
 							}
-							else if (Faction.Find(guild.Leader) != Faction.Find(m_Other.Leader))
+							else if (Faction.Find(Guild.Leader) != Faction.Find(m_Other.Leader))
 							{
 								pm.SendLocalizedMessage(1070758); // You cannot propose an alliance to a guild with a different faction allegiance.
 							}
@@ -404,9 +404,9 @@ namespace Server.Guilds
 							{
 								pm.SendLocalizedMessage(1063427, m_Other.Name); // ~1_val~ is currently involved in a guild war.
 							}
-							else if (guild.AcceptedWars.Count > 0 || guild.PendingWars.Count > 0)
+							else if (Guild.AcceptedWars.Count > 0 || Guild.PendingWars.Count > 0)
 							{
-								pm.SendLocalizedMessage(1063427, guild.Name); // ~1_val~ is currently involved in a guild war.
+								pm.SendLocalizedMessage(1063427, Guild.Name); // ~1_val~ is currently involved in a guild war.
 							}
 							else
 							{
@@ -422,9 +422,9 @@ namespace Server.Guilds
 							{
 								pm.SendLocalizedMessage(1063436); // You don't have permission to negotiate an alliance.
 							}
-							else if (alliance.Leader != guild)
+							else if (alliance.Leader != Guild)
 							{
-								pm.SendLocalizedMessage(1063239, string.Format("{0}\t{1}", guild.Name, alliance.Name)); // ~1_val~ is not the leader of the ~2_val~ alliance.
+								pm.SendLocalizedMessage(1063239, string.Format("{0}\t{1}", Guild.Name, alliance.Name)); // ~1_val~ is not the leader of the ~2_val~ alliance.
 							}
 							else if (otherAlliance != null)
 							{
@@ -433,19 +433,19 @@ namespace Server.Guilds
 								else
 									pm.SendLocalizedMessage(1063426, m_Other.Name); // ~1_val~ already belongs to an alliance.
 							}
-							else if (alliance.IsPendingMember(guild))
+							else if (alliance.IsPendingMember(Guild))
 							{
-								pm.SendLocalizedMessage(1063416, guild.Name); // ~1_val~ is currently considering another alliance proposal.
+								pm.SendLocalizedMessage(1063416, Guild.Name); // ~1_val~ is currently considering another alliance proposal.
 							}
 							else if (m_Other.AcceptedWars.Count > 0 || m_Other.PendingWars.Count > 0)
 							{
 								pm.SendLocalizedMessage(1063427, m_Other.Name); // ~1_val~ is currently involved in a guild war.
 							}
-							else if (guild.AcceptedWars.Count > 0 || guild.PendingWars.Count > 0)
+							else if (Guild.AcceptedWars.Count > 0 || Guild.PendingWars.Count > 0)
 							{
-								pm.SendLocalizedMessage(1063427, guild.Name); // ~1_val~ is currently involved in a guild war.
+								pm.SendLocalizedMessage(1063427, Guild.Name); // ~1_val~ is currently involved in a guild war.
 							}
-							else if (Faction.Find(guild.Leader) != Faction.Find(m_Other.Leader))
+							else if (Faction.Find(Guild.Leader) != Faction.Find(m_Other.Leader))
 							{
 								pm.SendLocalizedMessage(1070758); // You cannot propose an alliance to a guild with a different faction allegiance.
 							}
@@ -453,7 +453,7 @@ namespace Server.Guilds
 							{
 								pm.SendLocalizedMessage(1070750, m_Other.Name); // An invitation to join your alliance has been sent to ~1_val~.
 
-								m_Other.GuildMessage(1070780, guild.Name); // ~1_val~ has proposed an alliance.
+								m_Other.GuildMessage(1070780, Guild.Name); // ~1_val~ has proposed an alliance.
 
 								m_Other.Alliance = alliance;    //Calls addPendingGuild
 																//alliance.AddPendingGuild( m_Other );
@@ -465,7 +465,7 @@ namespace Server.Guilds
 				case 10:    //Show Alliance Roster
 					{
 						if (alliance != null && alliance == otherAlliance)
-							pm.SendGump(new AllianceInfo.AllianceRosterGump(pm, guild, alliance));
+							pm.SendGump(new AllianceInfo.AllianceRosterGump(pm, Guild, alliance));
 
 						break;
 					}
@@ -475,14 +475,14 @@ namespace Server.Guilds
 						{
 							pm.SendLocalizedMessage(1063436); // You don't have permission to negotiate an alliance.
 						}
-						else if (alliance != null && alliance.IsMember(guild))
+						else if (alliance != null && alliance.IsMember(Guild))
 						{
-							guild.Alliance = null;  //Calls alliance.Removeguild
+							Guild.Alliance = null;  //Calls alliance.Removeguild
 													//						alliance.RemoveGuild( guild );
 
 							m_Other.InvalidateWarNotoriety();
 
-							guild.InvalidateMemberNotoriety();
+							Guild.InvalidateMemberNotoriety();
 						}
 						break;
 					}
@@ -492,17 +492,17 @@ namespace Server.Guilds
 						{
 							pm.SendLocalizedMessage(1063436); // You don't have permission to negotiate an alliance.
 						}
-						else if (alliance != null && alliance.Leader != guild)
+						else if (alliance != null && alliance.Leader != Guild)
 						{
-							pm.SendLocalizedMessage(1063239, string.Format("{0}\t{1}", guild.Name, alliance.Name)); // ~1_val~ is not the leader of the ~2_val~ alliance.
+							pm.SendLocalizedMessage(1063239, string.Format("{0}\t{1}", Guild.Name, alliance.Name)); // ~1_val~ is not the leader of the ~2_val~ alliance.
 						}
-						else if (alliance != null && alliance.IsMember(guild) && alliance.IsMember(m_Other))
+						else if (alliance != null && alliance.IsMember(Guild) && alliance.IsMember(m_Other))
 						{
 							m_Other.Alliance = null;
 
 							m_Other.InvalidateMemberNotoriety();
 
-							guild.InvalidateWarNotoriety();
+							Guild.InvalidateWarNotoriety();
 						}
 						break;
 					}
@@ -512,11 +512,11 @@ namespace Server.Guilds
 						{
 							pm.SendLocalizedMessage(1063436); // You don't have permission to negotiate an alliance.
 						}
-						else if (alliance != null && alliance.Leader != guild)
+						else if (alliance != null && alliance.Leader != Guild)
 						{
-							pm.SendLocalizedMessage(1063239, string.Format("{0}\t{1}", guild.Name, alliance.Name)); // ~1_val~ is not the leader of the ~2_val~ alliance.
+							pm.SendLocalizedMessage(1063239, string.Format("{0}\t{1}", Guild.Name, alliance.Name)); // ~1_val~ is not the leader of the ~2_val~ alliance.
 						}
-						else if (alliance != null && alliance.IsMember(guild) && alliance.IsMember(m_Other))
+						else if (alliance != null && alliance.IsMember(Guild) && alliance.IsMember(m_Other))
 						{
 							pm.SendLocalizedMessage(1063434, string.Format("{0}\t{1}", m_Other.Name, alliance.Name)); // ~1_val~ is now the leader of ~2_val~.
 
@@ -530,7 +530,7 @@ namespace Server.Guilds
 						{
 							pm.SendLocalizedMessage(1063436); // You don't have permission to negotiate an alliance.
 						}
-						else if (alliance != null && alliance.Leader == guild && alliance.IsPendingMember(m_Other))
+						else if (alliance != null && alliance.Leader == Guild && alliance.IsPendingMember(m_Other))
 						{
 							m_Other.Alliance = null;
 							pm.SendLocalizedMessage(1070752); // The proposal has been updated.
@@ -543,12 +543,12 @@ namespace Server.Guilds
 						{
 							pm.SendLocalizedMessage(1063436); // You don't have permission to negotiate an alliance.
 						}
-						else if (alliance != null && otherAlliance != null && alliance.Leader == m_Other && otherAlliance.IsPendingMember(guild))
+						else if (alliance != null && otherAlliance != null && alliance.Leader == m_Other && otherAlliance.IsPendingMember(Guild))
 						{
 							pm.SendLocalizedMessage(1070752); // The proposal has been updated.
 															  //m_Other.GuildMessage( 1070782 ); // ~1_val~ has responded to your proposal.	//Per OSI commented out.
 
-							guild.Alliance = null;
+							Guild.Alliance = null;
 						}
 						break;
 					}
@@ -558,13 +558,13 @@ namespace Server.Guilds
 						{
 							pm.SendLocalizedMessage(1063436); // You don't have permission to negotiate an alliance.
 						}
-						else if (otherAlliance != null && otherAlliance.Leader == m_Other && otherAlliance.IsPendingMember(guild))
+						else if (otherAlliance != null && otherAlliance.Leader == m_Other && otherAlliance.IsPendingMember(Guild))
 						{
 							pm.SendLocalizedMessage(1070752); // The proposal has been updated.
 
 							otherAlliance.TurnToMember(m_Other); //No need to verify it's in the guild or already a member, the function does this
 
-							otherAlliance.TurnToMember(guild);
+							otherAlliance.TurnToMember(Guild);
 						}
 						break;
 					}
@@ -576,10 +576,10 @@ namespace Server.Guilds
 			PlayerMobile pm = from as PlayerMobile;
 
 
-			AllianceInfo alliance = guild.Alliance;
+			AllianceInfo alliance = Guild.Alliance;
 			AllianceInfo otherAlliance = m_Other.Alliance;
 
-			if (!IsMember(from, guild) || alliance != null)
+			if (!IsMember(from, Guild) || alliance != null)
 				return;
 
 
@@ -590,7 +590,7 @@ namespace Server.Guilds
 			{
 				pm.SendLocalizedMessage(1070747); // You don't have permission to create an alliance.
 			}
-			else if (Faction.Find(guild.Leader) != Faction.Find(m_Other.Leader))
+			else if (Faction.Find(Guild.Leader) != Faction.Find(m_Other.Leader))
 			{
 				//Notes about this: OSI only cares/checks when proposing, you can change your faction all you want later.
 				pm.SendLocalizedMessage(1070758); // You cannot propose an alliance to a guild with a different faction allegiance.
@@ -606,9 +606,9 @@ namespace Server.Guilds
 			{
 				pm.SendLocalizedMessage(1063427, m_Other.Name); // ~1_val~ is currently involved in a guild war.
 			}
-			else if (guild.AcceptedWars.Count > 0 || guild.PendingWars.Count > 0)
+			else if (Guild.AcceptedWars.Count > 0 || Guild.PendingWars.Count > 0)
 			{
-				pm.SendLocalizedMessage(1063427, guild.Name); // ~1_val~ is currently involved in a guild war.
+				pm.SendLocalizedMessage(1063427, Guild.Name); // ~1_val~ is currently involved in a guild war.
 			}
 			else
 			{
@@ -624,9 +624,9 @@ namespace Server.Guilds
 				{
 					pm.SendLocalizedMessage(1070750, m_Other.Name); // An invitation to join your alliance has been sent to ~1_val~.
 
-					m_Other.GuildMessage(1070780, guild.Name); // ~1_val~ has proposed an alliance.
+					m_Other.GuildMessage(1070780, Guild.Name); // ~1_val~ has proposed an alliance.
 
-					new AllianceInfo(guild, name, m_Other);
+					_ = new AllianceInfo(Guild, name, m_Other);
 				}
 			}
 		}

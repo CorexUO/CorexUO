@@ -141,9 +141,9 @@ namespace Server.Guilds
 		{
 			TextDefinition[] defs = new TextDefinition[aryLength];
 
-			string name = string.Format("{0}{1}", pm.Name, (player.GuildFealty == pm && player.GuildFealty != guild.Leader) ? " *" : "");
+			string name = string.Format("{0}{1}", pm.Name, (Player.GuildFealty == pm && Player.GuildFealty != Guild.Leader) ? " *" : "");
 
-			if (pm == player)
+			if (pm == Player)
 				name = Color(name, 0x006600);
 			else if (pm.NetState != null)
 				name = Color(name, 0x000066);
@@ -151,7 +151,7 @@ namespace Server.Guilds
 			defs[0] = name;
 			defs[1] = pm.GuildRank.Name;
 			defs[2] = (pm.NetState != null) ? new TextDefinition(1063015) : new TextDefinition(pm.LastOnline.ToString("yyyy-MM-dd"));
-			defs[3] = (pm.GuildTitle == null) ? "" : pm.GuildTitle;
+			defs[3] = pm.GuildTitle ?? "";
 
 			return defs;
 		}
@@ -178,9 +178,7 @@ namespace Server.Guilds
 		{
 			base.OnResponse(sender, info);
 
-			PlayerMobile pm = sender.Mobile as PlayerMobile;
-
-			if (pm == null || !IsMember(pm, guild))
+			if (sender.Mobile is not PlayerMobile pm || !IsMember(pm, Guild))
 				return;
 
 			if (info.ButtonID == 8)
@@ -188,7 +186,7 @@ namespace Server.Guilds
 				if (pm.GuildRank.GetFlag(RankFlags.CanInvitePlayer))
 				{
 					pm.SendLocalizedMessage(1063048); // Whom do you wish to invite into your guild?
-					pm.BeginTarget(-1, false, Targeting.TargetFlags.None, new TargetStateCallback(InvitePlayer_Callback), guild);
+					pm.BeginTarget(-1, false, Targeting.TargetFlags.None, new TargetStateCallback(InvitePlayer_Callback), Guild);
 				}
 				else
 					pm.SendLocalizedMessage(503301); // You don't have permission to do that.
@@ -205,10 +203,10 @@ namespace Server.Guilds
 			PlayerState guildState = PlayerState.Find(g.Leader);
 			PlayerState targetState = PlayerState.Find(targ);
 
-			Faction guildFaction = (guildState == null ? null : guildState.Faction);
-			Faction targetFaction = (targetState == null ? null : targetState.Faction);
+			Faction guildFaction = guildState?.Faction;
+			Faction targetFaction = targetState?.Faction;
 
-			if (pm == null || !IsMember(pm, guild) || !pm.GuildRank.GetFlag(RankFlags.CanInvitePlayer))
+			if (pm == null || !IsMember(pm, Guild) || !pm.GuildRank.GetFlag(RankFlags.CanInvitePlayer))
 			{
 				pm.SendLocalizedMessage(503301); // You don't have permission to do that.
 			}
@@ -255,7 +253,7 @@ namespace Server.Guilds
 			else
 			{
 				pm.SendLocalizedMessage(1063053, targ.Name); // You invite ~1_val~ to join your guild.
-				targ.SendGump(new GuildInvitationRequest(targ, guild, pm));
+				targ.SendGump(new GuildInvitationRequest(targ, Guild, pm));
 			}
 		}
 	}

@@ -37,7 +37,7 @@ namespace Server.Guilds
 
 			AddBackground(20, 150, 310, 26, 0x2486);
 			AddButton(25, 155, 0x845, 0x846, 4, GumpButtonType.Reply, 0);
-			AddHtmlLocalized(50, 153, 270, 26, (m_Member == player.GuildFealty && guild.Leader != m_Member) ? 1063082 : 1062996, 0x0, false, false); // Clear/Cast Vote For This Member
+			AddHtmlLocalized(50, 153, 270, 26, (m_Member == Player.GuildFealty && Guild.Leader != m_Member) ? 1063082 : 1062996, 0x0, false, false); // Clear/Cast Vote For This Member
 
 			AddBackground(20, 180, 150, 26, 0x2486);
 			AddButton(25, 185, 0x845, 0x846, 1, GumpButtonType.Reply, 0);
@@ -58,9 +58,7 @@ namespace Server.Guilds
 
 		public override void OnResponse(NetState sender, RelayInfo info)
 		{
-			PlayerMobile pm = sender.Mobile as PlayerMobile;
-
-			if (pm == null || !IsMember(pm, guild) || !IsMember(m_Member, guild))
+			if (sender.Mobile is not PlayerMobile pm || !IsMember(pm, Guild) || !IsMember(m_Member, Guild))
 				return;
 
 			RankDefinition playerRank = pm.GuildRank;
@@ -81,12 +79,12 @@ namespace Server.Guilds
 									m_Member.GuildRank = targetRank;
 									pm.SendLocalizedMessage(1063156, m_Member.Name); // The guild information for ~1_val~ has been updated.
 									pm.SendLocalizedMessage(1063156, pm.Name); // The guild information for ~1_val~ has been updated.
-									guild.Leader = m_Member;
+									Guild.Leader = m_Member;
 								}
 								else
 								{
 									pm.SendLocalizedMessage(1063144); // Are you sure you wish to make this member the new guild leader?
-									pm.SendGump(new GuildMemberInfoGump(player, guild, m_Member, false, true));
+									pm.SendGump(new GuildMemberInfoGump(Player, Guild, m_Member, false, true));
 								}
 							}
 							else
@@ -125,7 +123,7 @@ namespace Server.Guilds
 					}
 				case 3: //Set Guild title
 					{
-						if (playerRank.GetFlag(RankFlags.CanSetGuildTitle) && (playerRank.Rank > targetRank.Rank || m_Member == player))
+						if (playerRank.GetFlag(RankFlags.CanSetGuildTitle) && (playerRank.Rank > targetRank.Rank || m_Member == Player))
 						{
 							pm.SendLocalizedMessage(1011128); // Enter the new title for this guild member or 'none' to remove a title:
 
@@ -144,13 +142,13 @@ namespace Server.Guilds
 					}
 				case 4: //Vote
 					{
-						if (m_Member == pm.GuildFealty && guild.Leader != m_Member)
+						if (m_Member == pm.GuildFealty && Guild.Leader != m_Member)
 							pm.SendLocalizedMessage(1063158); // You have cleared your vote for guild leader.
-						else if (guild.CanVote(m_Member))//( playerRank.GetFlag( RankFlags.CanVote ) )
+						else if (Guild.CanVote(m_Member))//( playerRank.GetFlag( RankFlags.CanVote ) )
 						{
-							if (m_Member == guild.Leader)
+							if (m_Member == Guild.Leader)
 								pm.SendLocalizedMessage(1063424); // You can't vote for the current guild leader.
-							else if (!guild.CanBeVotedFor(m_Member))
+							else if (!Guild.CanBeVotedFor(m_Member))
 								pm.SendLocalizedMessage(1063425); // You can't vote for an inactive guild member.
 							else
 							{
@@ -169,13 +167,13 @@ namespace Server.Guilds
 						{
 							if (m_toKick)
 							{
-								guild.RemoveMember(m_Member);
+								Guild.RemoveMember(m_Member);
 								pm.SendLocalizedMessage(1063157); // The member has been removed from your guild.
 							}
 							else
 							{
 								pm.SendLocalizedMessage(1063152); // Are you sure you wish to kick this member from the guild?
-								pm.SendGump(new GuildMemberInfoGump(player, guild, m_Member, true, false));
+								pm.SendGump(new GuildMemberInfoGump(Player, Guild, m_Member, true, false));
 							}
 						}
 						else
@@ -188,15 +186,12 @@ namespace Server.Guilds
 
 		public void SetTitle_Callback(Mobile from, string text)
 		{
-			PlayerMobile pm = from as PlayerMobile;
 			PlayerMobile targ = m_Member;
 
-			if (pm == null || targ == null)
+			if (from is not PlayerMobile pm || targ == null)
 				return;
 
-			Guild g = targ.Guild as Guild;
-
-			if (g == null || !IsMember(pm, g) || !(pm.GuildRank.GetFlag(RankFlags.CanSetGuildTitle) && (pm.GuildRank.Rank > targ.GuildRank.Rank || pm == targ)))
+			if (targ.Guild is not Guild g || !IsMember(pm, g) || !(pm.GuildRank.GetFlag(RankFlags.CanSetGuildTitle) && (pm.GuildRank.Rank > targ.GuildRank.Rank || pm == targ)))
 			{
 				if (m_Member.GuildTitle == null || m_Member.GuildTitle.Length <= 0)
 					pm.SendLocalizedMessage(1070746); // You don't have the permission to set that member's guild title.

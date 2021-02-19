@@ -20,7 +20,7 @@ namespace Server.Guilds
 
 		public override void PopulateGump()
 		{
-			bool isLeader = IsLeader(player, guild);
+			bool isLeader = IsLeader(Player, Guild);
 			base.PopulateGump();
 
 			AddHtmlLocalized(96, 43, 110, 26, 1063014, 0xF, false, false); // My Guild
@@ -28,15 +28,15 @@ namespace Server.Guilds
 			AddImageTiled(65, 80, 160, 26, 0xA40);
 			AddImageTiled(67, 82, 156, 22, 0xBBC);
 			AddHtmlLocalized(70, 83, 150, 20, 1062954, 0x0, false, false); // <i>Guild Name</i>
-			AddHtml(233, 84, 320, 26, guild.Name, false, false);
+			AddHtml(233, 84, 320, 26, Guild.Name, false, false);
 
 			AddImageTiled(65, 114, 160, 26, 0xA40);
 			AddImageTiled(67, 116, 156, 22, 0xBBC);
 			AddHtmlLocalized(70, 117, 150, 20, 1063025, 0x0, false, false); // <i>Alliance</i>
 
-			if (guild.Alliance != null && guild.Alliance.IsMember(guild))
+			if (Guild.Alliance != null && Guild.Alliance.IsMember(Guild))
 			{
-				AddHtml(233, 118, 320, 26, guild.Alliance.Name, false, false);
+				AddHtml(233, 118, 320, 26, Guild.Alliance.Name, false, false);
 				AddButton(40, 120, 0x4B9, 0x4BA, 6, GumpButtonType.Reply, 0);   //Alliance Roster
 			}
 
@@ -50,15 +50,15 @@ namespace Server.Guilds
 			GuildType gt;
 			Faction f;
 
-			if ((gt = guild.Type) != GuildType.Regular)
+			if ((gt = Guild.Type) != GuildType.Regular)
 				AddHtml(233, 152, 320, 26, gt.ToString(), false, false);
-			else if ((f = Faction.Find(guild.Leader)) != null)
+			else if ((f = Faction.Find(Guild.Leader)) != null)
 				AddHtml(233, 152, 320, 26, f.ToString(), false, false);
 
 			AddImageTiled(65, 196, 480, 4, 0x238D);
 
 
-			string s = guild.Charter;
+			string s = Guild.Charter;
 			if (string.IsNullOrEmpty(s))
 				s = "The guild leader has not yet set the guild charter.";
 
@@ -66,14 +66,14 @@ namespace Server.Guilds
 			if (isLeader)
 				AddButton(40, 251, 0x4B9, 0x4BA, 4, GumpButtonType.Reply, 0);   //Charter Edit button
 
-			s = guild.Website;
+			s = Guild.Website;
 			if (string.IsNullOrEmpty(s))
 				s = "Guild website not yet set.";
 			AddHtml(65, 306, 480, 30, s, true, false);
 			if (isLeader)
 				AddButton(40, 313, 0x4B9, 0x4BA, 5, GumpButtonType.Reply, 0);   //Website Edit button
 
-			AddCheck(65, 370, 0xD2, 0xD3, player.DisplayGuildTitle, 0);
+			AddCheck(65, 370, 0xD2, 0xD3, Player.DisplayGuildTitle, 0);
 			AddHtmlLocalized(95, 370, 150, 26, 1063085, 0x0, false, false); // Show Guild Title
 			AddBackground(450, 370, 100, 26, 0x2486);
 
@@ -87,7 +87,7 @@ namespace Server.Guilds
 
 			PlayerMobile pm = sender.Mobile as PlayerMobile;
 
-			if (!IsMember(pm, guild))
+			if (!IsMember(pm, Guild))
 				return;
 
 
@@ -98,7 +98,7 @@ namespace Server.Guilds
 				//1-3 handled by base.OnResponse
 				case 4:
 					{
-						if (IsLeader(pm, guild))
+						if (IsLeader(pm, Guild))
 						{
 							pm.SendLocalizedMessage(1013071); // Enter the new guild charter (50 characters max):
 
@@ -108,7 +108,7 @@ namespace Server.Guilds
 					}
 				case 5:
 					{
-						if (IsLeader(pm, guild))
+						if (IsLeader(pm, Guild))
 						{
 							pm.SendLocalizedMessage(1013072); // Enter the new website for the guild (50 characters max):
 							pm.BeginPrompt(new PromptCallback(SetWebsite_Callback), true);  //Have the same callback handle both canceling and deletion cause the 2nd callback would just get a text of ""
@@ -118,8 +118,8 @@ namespace Server.Guilds
 				case 6:
 					{
 						//Alliance Roster
-						if (guild.Alliance != null && guild.Alliance.IsMember(guild))
-							pm.SendGump(new AllianceInfo.AllianceRosterGump(pm, guild, guild.Alliance));
+						if (Guild.Alliance != null && Guild.Alliance.IsMember(Guild))
+							pm.SendGump(new AllianceInfo.AllianceRosterGump(pm, Guild, Guild.Alliance));
 
 						break;
 					}
@@ -129,21 +129,21 @@ namespace Server.Guilds
 						if (!m_IsResigning)
 						{
 							pm.SendLocalizedMessage(1063332); // Are you sure you wish to resign from your guild?
-							pm.SendGump(new GuildInfoGump(pm, guild, true));
+							pm.SendGump(new GuildInfoGump(pm, Guild, true));
 						}
 						else
 						{
-							guild.RemoveMember(pm, 1063411); // You resign from your guild.
+							Guild.RemoveMember(pm, 1063411); // You resign from your guild.
 						}
 						break;
 					}
 				case 100: // Custom code to support Order/Chaos in the new guild system
 					{
 						// Guild Faction
-						if (Guild.OrderChaos && IsLeader(pm, guild))
+						if (Guild.OrderChaos && IsLeader(pm, Guild))
 						{
 							pm.CloseGump(typeof(GuildChangeTypeGump));
-							pm.SendGump(new GuildChangeTypeGump(pm, guild));
+							pm.SendGump(new GuildChangeTypeGump(pm, Guild));
 						}
 						break;
 					}
@@ -152,7 +152,7 @@ namespace Server.Guilds
 
 		public void SetCharter_Callback(Mobile from, string text)
 		{
-			if (!IsLeader(from, guild))
+			if (!IsLeader(from, Guild))
 				return;
 
 			string charter = Utility.FixHtml(text.Trim());
@@ -163,7 +163,7 @@ namespace Server.Guilds
 			}
 			else
 			{
-				guild.Charter = charter;
+				Guild.Charter = charter;
 				from.SendLocalizedMessage(1070775); // You submit a new guild charter.
 				return;
 			}
@@ -171,7 +171,7 @@ namespace Server.Guilds
 
 		public void SetWebsite_Callback(Mobile from, string text)
 		{
-			if (!IsLeader(from, guild))
+			if (!IsLeader(from, Guild))
 				return;
 
 			string site = Utility.FixHtml(text.Trim());
@@ -180,7 +180,7 @@ namespace Server.Guilds
 				from.SendLocalizedMessage(1070777, "50"); // Your guild website cannot exceed ~1_val~ characters.
 			else
 			{
-				guild.Website = site;
+				Guild.Website = site;
 				from.SendLocalizedMessage(1070778); // You submit a new guild website.
 				return;
 			}

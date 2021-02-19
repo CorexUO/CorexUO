@@ -41,7 +41,7 @@ namespace Server.Guilds
 
 			PlayerMobile pm = sender.Mobile as PlayerMobile;
 
-			if (!IsMember(pm, guild))
+			if (!IsMember(pm, Guild))
 				return;
 
 			RankDefinition playerRank = pm.GuildRank;
@@ -50,16 +50,16 @@ namespace Server.Guilds
 			{
 				case 1:
 					{
-						AllianceInfo alliance = guild.Alliance;
+						AllianceInfo alliance = Guild.Alliance;
 						AllianceInfo otherAlliance = m_Other.Alliance;
 
 						if (!playerRank.GetFlag(RankFlags.ControlWarStatus))
 						{
 							pm.SendLocalizedMessage(1063440); // You don't have permission to negotiate wars.
 						}
-						else if (alliance != null && alliance.Leader != guild)
+						else if (alliance != null && alliance.Leader != Guild)
 						{
-							pm.SendLocalizedMessage(1063239, string.Format("{0}\t{1}", guild.Name, alliance.Name)); // ~1_val~ is not the leader of the ~2_val~ alliance.
+							pm.SendLocalizedMessage(1063239, string.Format("{0}\t{1}", Guild.Name, alliance.Name)); // ~1_val~ is not the leader of the ~2_val~ alliance.
 							pm.SendLocalizedMessage(1070707, alliance.Leader.Name); // You need to negotiate via ~1_val~ instead.
 						}
 						else if (otherAlliance != null && otherAlliance.Leader != m_Other)
@@ -69,12 +69,12 @@ namespace Server.Guilds
 						}
 						else
 						{
-							WarDeclaration activeWar = guild.FindActiveWar(m_Other);
+							WarDeclaration activeWar = Guild.FindActiveWar(m_Other);
 
 							if (activeWar == null)
 							{
-								WarDeclaration war = guild.FindPendingWar(m_Other);
-								WarDeclaration otherWar = m_Other.FindPendingWar(guild);
+								WarDeclaration war = Guild.FindPendingWar(m_Other);
+								WarDeclaration otherWar = m_Other.FindPendingWar(Guild);
 
 								//Note: OSI differs from what it says on website.  unlimited war = 0 kills/ 0 hrs.  Not > 999.  (sidenote: they both cap at 65535, 7.5 years, but, still.)
 								TextRelay tKills = info.GetTextEntry(11);
@@ -91,7 +91,7 @@ namespace Server.Guilds
 								}
 								else
 								{
-									guild.PendingWars.Add(new WarDeclaration(guild, m_Other, maxKills, warLength, true));
+									Guild.PendingWars.Add(new WarDeclaration(Guild, m_Other, maxKills, warLength, true));
 								}
 
 								if (otherWar != null)
@@ -102,7 +102,7 @@ namespace Server.Guilds
 								}
 								else
 								{
-									m_Other.PendingWars.Add(new WarDeclaration(m_Other, guild, maxKills, warLength, false));
+									m_Other.PendingWars.Add(new WarDeclaration(m_Other, Guild, maxKills, warLength, false));
 								}
 
 								if (war != null)
@@ -111,7 +111,7 @@ namespace Server.Guilds
 																	  //m_Other.GuildMessage( 1070782 ); // ~1_val~ has responded to your proposal.
 								}
 								else
-									m_Other.GuildMessage(1070781, ((guild.Alliance != null) ? guild.Alliance.Name : guild.Name)); // ~1_val~ has proposed a war.
+									m_Other.GuildMessage(1070781, ((Guild.Alliance != null) ? Guild.Alliance.Name : Guild.Name)); // ~1_val~ has proposed a war.
 
 								pm.SendLocalizedMessage(1070751, ((m_Other.Alliance != null) ? m_Other.Alliance.Name : m_Other.Name)); // War proposal has been sent to ~1_val~.
 							}
@@ -120,7 +120,7 @@ namespace Server.Guilds
 					}
 				default:
 					{
-						pm.SendGump(new OtherGuildInfo(pm, guild, m_Other));
+						pm.SendGump(new OtherGuildInfo(pm, Guild, m_Other));
 						break;
 					}
 			}

@@ -149,20 +149,20 @@ namespace Server.Guilds
 		{
 			TextDefinition[] defs = new TextDefinition[aryLength];
 
-			defs[0] = (g == guild) ? Color(g.Name, 0x006600) : g.Name;
+			defs[0] = (g == Guild) ? Color(g.Name, 0x006600) : g.Name;
 			defs[1] = g.Abbreviation;
 
 			defs[2] = 3000085; //Peace
 
 
-			if (guild.IsAlly(g))
+			if (Guild.IsAlly(g))
 			{
-				if (guild.Alliance.Leader == g)
+				if (Guild.Alliance.Leader == g)
 					defs[2] = 1063237; // Alliance Leader
 				else
 					defs[2] = 1062964; // Ally
 			}
-			else if (guild.IsWar(g))
+			else if (Guild.IsWar(g))
 			{
 				defs[2] = 3000086; // War
 			}
@@ -172,13 +172,13 @@ namespace Server.Guilds
 
 		public override bool HasRelationship(Guild g)
 		{
-			if (g == guild)
+			if (g == Guild)
 				return false;
 
-			if (guild.FindPendingWar(g) != null)
+			if (Guild.FindPendingWar(g) != null)
 				return true;
 
-			AllianceInfo alliance = guild.Alliance;
+			AllianceInfo alliance = Guild.Alliance;
 
 			if (alliance != null)
 			{
@@ -186,7 +186,7 @@ namespace Server.Guilds
 
 				if (leader != null)
 				{
-					if (guild == leader && alliance.IsPendingMember(g) || g == leader && alliance.IsPendingMember(guild))
+					if (Guild == leader && alliance.IsPendingMember(g) || g == leader && alliance.IsPendingMember(Guild))
 						return true;
 				}
 				else if (alliance.IsPendingMember(g))
@@ -226,7 +226,7 @@ namespace Server.Guilds
 					{
 						//if( !( guild.IsWar( g ) || guild.IsAlly( g ) ) )
 
-						if (!(guild.FindActiveWar(g) != null || guild.IsAlly(g)))   //As per OSI, only the guild leader wars show up under the sorting by relation
+						if (!(Guild.FindActiveWar(g) != null || Guild.IsAlly(g)))   //As per OSI, only the guild leader wars show up under the sorting by relation
 							return true;
 
 						return false;
@@ -259,7 +259,7 @@ namespace Server.Guilds
 
 		public override Gump GetObjectInfoGump(PlayerMobile pm, Guild g, Guild o)
 		{
-			if (guild == o)
+			if (Guild == o)
 				return new GuildInfoGump(pm, g);
 
 			return new OtherGuildInfo(pm, g, o);
@@ -269,13 +269,11 @@ namespace Server.Guilds
 		{
 			base.OnResponse(sender, info);
 
-			PlayerMobile pm = sender.Mobile as PlayerMobile;
-
-			if (pm == null || !IsMember(pm, guild))
+			if (sender.Mobile is not PlayerMobile pm || !IsMember(pm, Guild))
 				return;
 
 			if (AllowAdvancedSearch && info.ButtonID == 8)
-				pm.SendGump(new GuildAdvancedSearchGump(pm, guild, m_Display, new SearchSelectionCallback(AdvancedSearch_Callback)));
+				pm.SendGump(new GuildAdvancedSearchGump(pm, Guild, m_Display, new SearchSelectionCallback(AdvancedSearch_Callback)));
 
 		}
 

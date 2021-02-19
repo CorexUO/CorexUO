@@ -137,9 +137,7 @@ namespace Server.Guilds
 		{
 			base.OnResponse(sender, info);
 
-			PlayerMobile pm = sender.Mobile as PlayerMobile;
-
-			if (pm == null || !IsMember(pm, guild))
+			if (sender.Mobile is not PlayerMobile pm || !IsMember(pm, Guild))
 				return;
 
 			int id = info.ButtonID;
@@ -149,17 +147,17 @@ namespace Server.Guilds
 				case 5: //Filter
 					{
 						TextRelay t = info.GetTextEntry(1);
-						pm.SendGump(GetResentGump(player, guild, m_Comparer, m_Ascending, (t == null) ? "" : t.Text, 0));
+						pm.SendGump(GetResentGump(Player, Guild, m_Comparer, m_Ascending, (t == null) ? "" : t.Text, 0));
 						break;
 					}
 				case 6: //Back
 					{
-						pm.SendGump(GetResentGump(player, guild, m_Comparer, m_Ascending, m_Filter, m_StartNumber - itemsPerPage));
+						pm.SendGump(GetResentGump(Player, Guild, m_Comparer, m_Ascending, m_Filter, m_StartNumber - itemsPerPage));
 						break;
 					}
 				case 7: //Forward
 					{
-						pm.SendGump(GetResentGump(player, guild, m_Comparer, m_Ascending, m_Filter, m_StartNumber + itemsPerPage));
+						pm.SendGump(GetResentGump(Player, Guild, m_Comparer, m_Ascending, m_Filter, m_StartNumber + itemsPerPage));
 						break;
 					}
 			}
@@ -171,11 +169,11 @@ namespace Server.Guilds
 				if (m_Comparer.GetType() == comparer.GetType())
 					m_Ascending = !m_Ascending;
 
-				pm.SendGump(GetResentGump(player, guild, comparer, m_Ascending, m_Filter, 0));
+				pm.SendGump(GetResentGump(Player, Guild, comparer, m_Ascending, m_Filter, 0));
 			}
 			else if (id >= 200 && id < (200 + m_List.Count))
 			{
-				pm.SendGump(GetObjectInfoGump(player, guild, m_List[id - 200]));
+				pm.SendGump(GetObjectInfoGump(Player, Guild, m_List[id - 200]));
 			}
 		}
 
@@ -185,23 +183,20 @@ namespace Server.Guilds
 
 		public void ResendGump()
 		{
-			player.SendGump(GetResentGump(player, guild, m_Comparer, m_Ascending, m_Filter, m_StartNumber));
+			Player.SendGump(GetResentGump(Player, Guild, m_Comparer, m_Ascending, m_Filter, m_StartNumber));
 		}
 	}
 	public struct InfoField<T>
 	{
-		private readonly TextDefinition m_Name;
-		private readonly int m_Width;
-		private readonly IComparer<T> m_Comparer;
+		public TextDefinition Name { get; }
+		public int Width { get; }
+		public IComparer<T> Comparer { get; }
 
-		public TextDefinition Name { get { return m_Name; } }
-		public int Width { get { return m_Width; } }
-		public IComparer<T> Comparer { get { return m_Comparer; } }
 		public InfoField(TextDefinition name, int width, IComparer<T> comparer)
 		{
-			m_Name = name;
-			m_Width = width;
-			m_Comparer = comparer;
+			Name = name;
+			Width = width;
+			Comparer = comparer;
 		}
 	}
 }

@@ -7,11 +7,8 @@ namespace Server.Guilds
 {
 	public abstract class BaseGuildGump : Gump
 	{
-		private readonly Guild m_Guild;
-		private readonly PlayerMobile m_Player;
-
-		protected Guild guild { get { return m_Guild; } }
-		protected PlayerMobile player { get { return m_Player; } }
+		protected Guild Guild { get; }
+		protected PlayerMobile Player { get; }
 
 		public BaseGuildGump(PlayerMobile pm, Guild g) : this(pm, g, 10, 10)
 		{
@@ -19,8 +16,8 @@ namespace Server.Guilds
 
 		public BaseGuildGump(PlayerMobile pm, Guild g, int x, int y) : base(x, y)
 		{
-			m_Guild = g;
-			m_Player = pm;
+			Guild = g;
+			Player = pm;
 
 			pm.CloseGump(typeof(BaseGuildGump));
 		}
@@ -48,24 +45,24 @@ namespace Server.Guilds
 		{
 			PlayerMobile pm = sender.Mobile as PlayerMobile;
 
-			if (!IsMember(pm, guild))
+			if (!IsMember(pm, Guild))
 				return;
 
 			switch (info.ButtonID)
 			{
 				case 1:
 					{
-						pm.SendGump(new GuildInfoGump(pm, guild));
+						pm.SendGump(new GuildInfoGump(pm, Guild));
 						break;
 					}
 				case 2:
 					{
-						pm.SendGump(new GuildRosterGump(pm, guild));
+						pm.SendGump(new GuildRosterGump(pm, Guild));
 						break;
 					}
 				case 3:
 					{
-						pm.SendGump(new GuildDiplomacyGump(pm, guild));
+						pm.SendGump(new GuildDiplomacyGump(pm, Guild));
 						break;
 					}
 			}
