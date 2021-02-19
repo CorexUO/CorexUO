@@ -4039,7 +4039,12 @@ namespace Server.Mobiles
 			base.PackItem(item);
 		}
 
-		public void WearItem(Item item, int hue = -1, double dropChance = 0.0)
+		public override void WearItem(Item item, int hue = -1)
+		{
+			WearItem(item, 0.0, hue);
+		}
+
+		public void WearItem(Item item, double dropChance, int hue = -1)
 		{
 			item.Movable = dropChance > Utility.RandomDouble();
 
