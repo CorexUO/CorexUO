@@ -758,6 +758,13 @@ namespace Server
 				return DefaultLogoutDelay;
 		}
 
+		public virtual int GetMobileNotoriety(Mobile from, Mobile target)
+		{
+			if (Parent != null)
+				return Parent.GetMobileNotoriety(from, target);
+
+			return 0;
+		}
 
 		internal static bool CanMove(Mobile m, Direction d, Point3D newLocation, Point3D oldLocation, Map map)
 		{

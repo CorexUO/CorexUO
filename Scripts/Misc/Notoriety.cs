@@ -65,18 +65,14 @@ namespace Server.Misc
 			PlayerMobile pmFrom = from as PlayerMobile;
 			PlayerMobile pmTarg = target as PlayerMobile;
 
-			if (pmFrom == null && from is BaseCreature)
+			if (pmFrom == null && from is BaseCreature bcFrom)
 			{
-				BaseCreature bcFrom = (BaseCreature)from;
-
 				if (bcFrom.Summoned)
 					pmFrom = bcFrom.SummonMaster as PlayerMobile;
 			}
 
-			if (pmTarg == null && target is BaseCreature)
+			if (pmTarg == null && target is BaseCreature bcTarg)
 			{
-				BaseCreature bcTarg = (BaseCreature)target;
-
 				if (bcTarg.Summoned)
 					pmTarg = bcTarg.SummonMaster as PlayerMobile;
 			}
@@ -102,14 +98,10 @@ namespace Server.Misc
 			if ((pmFrom != null && pmFrom.DuelContext != null && pmFrom.DuelContext.Started) || (pmTarg != null && pmTarg.DuelContext != null && pmTarg.DuelContext.Started))
 				return false;
 
-			Engines.ConPVP.SafeZone sz = from.Region.GetRegion(typeof(Engines.ConPVP.SafeZone)) as Engines.ConPVP.SafeZone;
-
-			if (sz != null /*&& sz.IsDisabled()*/ )
+			if (from.Region.GetRegion(typeof(Engines.ConPVP.SafeZone)) is Engines.ConPVP.SafeZone /*sz && sz.IsDisabled()*/ )
 				return false;
 
-			sz = target.Region.GetRegion(typeof(Engines.ConPVP.SafeZone)) as Engines.ConPVP.SafeZone;
-
-			if (sz != null /*&& sz.IsDisabled()*/ )
+			if (target.Region.GetRegion(typeof(Engines.ConPVP.SafeZone)) is Engines.ConPVP.SafeZone /*sz && sz.IsDisabled()*/ )
 				return false;
 			#endregion
 
@@ -132,16 +124,13 @@ namespace Server.Misc
 			if (!from.Player)
 				return true; // NPCs have no restrictions
 
-			if (target is BaseCreature && !((BaseCreature)target).Controlled)
+			if (target is BaseCreature creature && !creature.Controlled)
 				return false; // Players cannot heal uncontrolled mobiles
 
-			if (from is PlayerMobile && ((PlayerMobile)from).Young && (!(target is PlayerMobile) || !((PlayerMobile)target).Young))
+			if (from is PlayerMobile mobile && mobile.Young && (target is not PlayerMobile pmTarget || !pmTarget.Young))
 				return false; // Young players cannot perform beneficial actions towards older players
 
-			Guild fromGuild = from.Guild as Guild;
-			Guild targetGuild = target.Guild as Guild;
-
-			if (fromGuild != null && targetGuild != null && (targetGuild == fromGuild || fromGuild.IsAlly(targetGuild)))
+			if (from.Guild is Guild fromGuild && target.Guild is Guild targetGuild && (targetGuild == fromGuild || fromGuild.IsAlly(targetGuild)))
 				return true; // Guild members can be beneficial
 
 			return CheckBeneficialStatus(GetGuildStatus(from), GetGuildStatus(target));
@@ -156,18 +145,14 @@ namespace Server.Misc
 			PlayerMobile pmFrom = from as PlayerMobile;
 			PlayerMobile pmTarg = target as PlayerMobile;
 
-			if (pmFrom == null && from is BaseCreature)
+			if (pmFrom == null && from is BaseCreature bcFrom)
 			{
-				BaseCreature bcFrom = (BaseCreature)from;
-
 				if (bcFrom.Summoned)
 					pmFrom = bcFrom.SummonMaster as PlayerMobile;
 			}
 
-			if (pmTarg == null && target is BaseCreature)
+			if (pmTarg == null && target is BaseCreature bcTarg)
 			{
-				BaseCreature bcTarg = (BaseCreature)target;
-
 				if (bcTarg.Summoned)
 					pmTarg = bcTarg.SummonMaster as PlayerMobile;
 			}
@@ -190,14 +175,10 @@ namespace Server.Misc
 			if ((pmFrom != null && pmFrom.DuelContext != null && pmFrom.DuelContext.Started) || (pmTarg != null && pmTarg.DuelContext != null && pmTarg.DuelContext.Started))
 				return false;
 
-			Engines.ConPVP.SafeZone sz = from.Region.GetRegion(typeof(Engines.ConPVP.SafeZone)) as Engines.ConPVP.SafeZone;
-
-			if (sz != null /*&& sz.IsDisabled()*/ )
+			if (from.Region.GetRegion(typeof(Engines.ConPVP.SafeZone)) is Engines.ConPVP.SafeZone /* sz && sz.IsDisabled()*/ )
 				return false;
 
-			sz = target.Region.GetRegion(typeof(Engines.ConPVP.SafeZone)) as Engines.ConPVP.SafeZone;
-
-			if (sz != null /*&& sz.IsDisabled()*/ )
+			if (target.Region.GetRegion(typeof(Engines.ConPVP.SafeZone)) is Engines.ConPVP.SafeZone /* sz && sz.IsDisabled()*/ )
 				return false;
 			#endregion
 
@@ -210,7 +191,7 @@ namespace Server.Misc
 
 			if (!from.Player && !(bc != null && bc.GetMaster() != null && bc.GetMaster().AccessLevel == AccessLevel.Player))
 			{
-				if (!CheckAggressor(from.Aggressors, target) && !CheckAggressed(from.Aggressed, target) && target is PlayerMobile && ((PlayerMobile)target).CheckYoungProtection(from))
+				if (!CheckAggressor(from.Aggressors, target) && !CheckAggressed(from.Aggressed, target) && target is PlayerMobile playerMobile && playerMobile.CheckYoungProtection(from))
 					return false;
 
 				return true; // Uncontrolled NPCs are only restricted by the young system
@@ -222,13 +203,13 @@ namespace Server.Misc
 			if (fromGuild != null && targetGuild != null && (fromGuild == targetGuild || fromGuild.IsAlly(targetGuild) || fromGuild.IsEnemy(targetGuild)))
 				return true; // Guild allies or enemies can be harmful
 
-			if (target is BaseCreature && (((BaseCreature)target).Controlled || (((BaseCreature)target).Summoned && from != ((BaseCreature)target).SummonMaster)))
+			if (target is BaseCreature creature && (creature.Controlled || (creature.Summoned && from != creature.SummonMaster)))
 				return false; // Cannot harm other controlled mobiles
 
 			if (target.Player)
 				return false; // Cannot harm other players
 
-			if (!(target is BaseCreature && ((BaseCreature)target).InitialInnocent))
+			if (!(target is BaseCreature targetCreature && targetCreature.InitialInnocent))
 			{
 				if (Notoriety.Compute(from, target) == Notoriety.Innocent)
 					return false; // Cannot harm innocent mobiles
@@ -241,9 +222,7 @@ namespace Server.Misc
 		{
 			Guild g = def;
 
-			BaseCreature c = m as BaseCreature;
-
-			if (c != null && c.Controlled && c.ControlMaster != null)
+			if (m is BaseCreature c && c.Controlled && c.ControlMaster != null)
 			{
 				c.DisplayGuildTitle = false;
 
@@ -265,9 +244,7 @@ namespace Server.Misc
 
 				Body body = target.Amount;
 
-				BaseCreature cretOwner = target.Owner as BaseCreature;
-
-				if (cretOwner != null)
+				if (target.Owner is BaseCreature creature)
 				{
 					Guild sourceGuild = GetGuildFor(source.Guild as Guild, source);
 					Guild targetGuild = GetGuildFor(target.Guild, target.Owner);
@@ -291,7 +268,7 @@ namespace Server.Misc
 
 					int actual = Notoriety.CanBeAttacked;
 
-					if (target.Kills >= Mobile.MurderKills || (body.IsMonster && IsSummoned(target.Owner as BaseCreature)) || (target.Owner is BaseCreature && (((BaseCreature)target.Owner).AlwaysMurderer || ((BaseCreature)target.Owner).IsAnimatedDead)))
+					if (target.Kills >= Mobile.MurderKills || (body.IsMonster && IsSummoned(target.Owner as BaseCreature)) || (target.Owner is BaseCreature && (creature.AlwaysMurderer || creature.IsAnimatedDead)))
 						actual = Notoriety.Murderer;
 
 					if (DateTime.UtcNow >= (target.TimeOfDeath + Corpse.MonsterLootRightSacrifice))
@@ -311,7 +288,7 @@ namespace Server.Misc
 				}
 				else
 				{
-					if (target.Kills >= Mobile.MurderKills || (body.IsMonster && IsSummoned(target.Owner as BaseCreature)) || (target.Owner is BaseCreature && (((BaseCreature)target.Owner).AlwaysMurderer || ((BaseCreature)target.Owner).IsAnimatedDead)))
+					if (target.Kills >= Mobile.MurderKills || (body.IsMonster && IsSummoned(target.Owner as BaseCreature)) || (target.Owner is BaseCreature baseCreature && (baseCreature.AlwaysMurderer || baseCreature.IsAnimatedDead)))
 						return Notoriety.Murderer;
 
 					if (target.Criminal && target.Map != null && ((target.Map.Rules & MapRules.HarmfulRestrictions) == 0))
@@ -342,7 +319,7 @@ namespace Server.Misc
 						}
 					}
 
-					if (target.Owner != null && target.Owner is BaseCreature && ((BaseCreature)target.Owner).AlwaysAttackable)
+					if (target.Owner != null && target.Owner is BaseCreature ownerCreature && ownerCreature.AlwaysAttackable)
 						return Notoriety.CanBeAttacked;
 
 					if (CheckHouseFlag(source, target.Owner, target.Location, target.Map))
@@ -372,15 +349,12 @@ namespace Server.Misc
 
 		public static int MobileNotoriety(Mobile source, Mobile target)
 		{
-			if (Core.AOS && (target.Blessed || (target is BaseCreature && ((BaseCreature)target).IsInvulnerable) || target is PlayerVendor || target is TownCrier))
+			if (Core.AOS && (target.Blessed || (target is BaseCreature tbaseCreature && tbaseCreature.IsInvulnerable) || target is PlayerVendor || target is TownCrier))
 				return Notoriety.Invulnerable;
 
 			#region Dueling
-			if (source is PlayerMobile && target is PlayerMobile)
+			if (source is PlayerMobile pmFrom && target is PlayerMobile pmTarg)
 			{
-				PlayerMobile pmFrom = (PlayerMobile)source;
-				PlayerMobile pmTarg = (PlayerMobile)target;
-
 				if (pmFrom.DuelContext != null && pmFrom.DuelContext.StartedBeginCountdown && !pmFrom.DuelContext.Finished && pmFrom.DuelContext == pmTarg.DuelContext)
 					return pmFrom.DuelContext.IsAlly(pmFrom, pmTarg) ? Notoriety.Ally : Notoriety.Enemy;
 			}
@@ -389,10 +363,16 @@ namespace Server.Misc
 			if (target.AccessLevel > AccessLevel.Player)
 				return Notoriety.CanBeAttacked;
 
-			if (source.Player && !target.Player && source is PlayerMobile && target is BaseCreature)
+			Region region = source.Region;
+			if (region != null)
 			{
-				BaseCreature bc = (BaseCreature)target;
+				int noto = region.GetMobileNotoriety(source, target);
+				if (noto > 0)
+					return noto;
+			}
 
+			if (source.Player && !target.Player && source is PlayerMobile mobile && target is BaseCreature bc)
+			{
 				Mobile master = bc.GetMaster();
 
 				if (master != null && master.AccessLevel > AccessLevel.Player)
@@ -408,11 +388,11 @@ namespace Server.Misc
 						return MobileNotoriety(source, master);
 				}
 
-				if (!bc.Summoned && !bc.Controlled && ((PlayerMobile)source).EnemyOfOneType == target.GetType())
+				if (!bc.Summoned && !bc.Controlled && mobile.EnemyOfOneType == target.GetType())
 					return Notoriety.Enemy;
 			}
 
-			if (target.Murderer || (target.Body.IsMonster && IsSummoned(target as BaseCreature) && !(target is BaseFamiliar) && !(target is ArcaneFey) && !(target is Golem)) || (target is BaseCreature && (((BaseCreature)target).AlwaysMurderer || ((BaseCreature)target).IsAnimatedDead)))
+			if (target.Murderer || (target.Body.IsMonster && IsSummoned(target as BaseCreature) && !(target is BaseFamiliar) && !(target is ArcaneFey) && !(target is Golem)) || (target is BaseCreature summonCreature && (summonCreature.AlwaysMurderer || summonCreature.IsAnimatedDead)))
 				return Notoriety.Murderer;
 
 			if (target.Criminal)
@@ -435,16 +415,16 @@ namespace Server.Misc
 			if (srcFaction != null && trgFaction != null && srcFaction != trgFaction && source.Map == Faction.Facet)
 				return Notoriety.Enemy;
 
-			if (SkillHandlers.Stealing.ClassicMode && target is PlayerMobile && ((PlayerMobile)target).PermaFlags.Contains(source))
+			if (SkillHandlers.Stealing.ClassicMode && target is PlayerMobile pmTarget && pmTarget.PermaFlags.Contains(source))
 				return Notoriety.CanBeAttacked;
 
-			if (target is BaseCreature && ((BaseCreature)target).AlwaysAttackable)
+			if (target is BaseCreature targetCreature && targetCreature.AlwaysAttackable)
 				return Notoriety.CanBeAttacked;
 
 			if (CheckHouseFlag(source, target, target.Location, target.Map))
 				return Notoriety.CanBeAttacked;
 
-			if (!(target is BaseCreature && ((BaseCreature)target).InitialInnocent))   //If Target is NOT A baseCreature, OR it's a BC and the BC is initial innocent...
+			if (!(target is BaseCreature creature && creature.InitialInnocent))   //If Target is NOT A baseCreature, OR it's a BC and the BC is initial innocent...
 			{
 				if (!target.Body.IsHuman && !target.Body.IsGhost && !IsPet(target as BaseCreature) && !(target is PlayerMobile) || !Core.ML && !target.CanBeginAction(typeof(Server.Spells.Seventh.PolymorphSpell)))
 					return Notoriety.CanBeAttacked;
@@ -456,18 +436,15 @@ namespace Server.Misc
 			if (CheckAggressed(source.Aggressed, target))
 				return Notoriety.CanBeAttacked;
 
-			if (target is BaseCreature)
+			if (target is BaseCreature tbc)
 			{
-				BaseCreature bc = (BaseCreature)target;
-
-				if (bc.Controlled && bc.ControlOrder == OrderType.Guard && bc.ControlTarget == source)
+				if (tbc.Controlled && tbc.ControlOrder == OrderType.Guard && tbc.ControlTarget == source)
 					return Notoriety.CanBeAttacked;
 			}
 
-			if (source is BaseCreature)
+			if (source is BaseCreature sbc)
 			{
-				BaseCreature bc = (BaseCreature)source;
-				Mobile master = bc.GetMaster();
+				Mobile master = sbc.GetMaster();
 
 				if (master != null)
 					if (CheckAggressor(master.Aggressors, target) || MobileNotoriety(master, target) == Notoriety.CanBeAttacked || target is BaseCreature)
@@ -487,9 +464,8 @@ namespace Server.Misc
 			if (m != null && house.IsFriend(m))
 				return false;
 
-			BaseCreature c = m as BaseCreature;
 
-			if (c != null && !c.Deleted && c.Controlled && c.ControlMaster != null)
+			if (m is BaseCreature c && !c.Deleted && c.Controlled && c.ControlMaster != null)
 				return !house.IsFriend(c.ControlMaster);
 
 			return true;
