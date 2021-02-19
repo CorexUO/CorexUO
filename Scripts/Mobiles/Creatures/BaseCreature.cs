@@ -4026,7 +4026,7 @@ namespace Server.Mobiles
 			PackItem(reg);
 		}
 
-		public void PackItem(Item item)
+		public override void PackItem(Item item)
 		{
 			if (Summoned || item == null)
 			{
@@ -4036,20 +4036,14 @@ namespace Server.Mobiles
 				return;
 			}
 
-			Container pack = Backpack;
+			base.PackItem(item);
+		}
 
-			if (pack == null)
-			{
-				pack = new Backpack
-				{
-					Movable = false
-				};
+		public void WearItem(Item item, int hue = -1, double dropChance = 0.0)
+		{
+			item.Movable = dropChance > Utility.RandomDouble();
 
-				AddItem(pack);
-			}
-
-			if (!item.Stackable || !pack.TryDropItem(this, item, false)) // try stack
-				pack.DropItem(item); // failed, drop it anyway
+			WearItem(item, hue);
 		}
 
 		#endregion

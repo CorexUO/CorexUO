@@ -1,3 +1,4 @@
+using Server.Items;
 using Server.Misc;
 using Server.Spells;
 using System;
@@ -61,6 +62,38 @@ namespace Server.Mobiles
 			}
 
 			return false;
+		}
+
+		public virtual void PackItem(Item item)
+		{
+			Container pack = Backpack;
+			if (pack == null)
+			{
+				pack = new Backpack
+				{
+					Movable = false
+				};
+
+				AddItem(pack);
+			}
+
+			if (!item.Stackable || !pack.TryDropItem(this, item, false)) // try stack
+				pack.DropItem(item); // failed, drop it anyway
+		}
+
+		public virtual void WearItem(Item item, int hue = -1)
+		{
+			if (hue > -1)
+				item.Hue = hue;
+
+			if (!CheckEquip(item) || !OnEquip(item) || !item.OnEquip(this))
+			{
+				PackItem(item);
+			}
+			else
+			{
+				AddItem(item);
+			}
 		}
 
 		#region Alter[...]Damage From/To
