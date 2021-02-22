@@ -278,7 +278,6 @@ namespace Server
 
 	public static partial class EventSink
 	{
-
 		public static event Action<MovementEventArgs> Movement;
 		public static void InvokeMovement(MovementEventArgs e) => Movement?.Invoke(e);
 
@@ -353,9 +352,6 @@ namespace Server
 
 		public static event Action<Mobile, Mobile, string> OnRenameRequest;
 		public static void InvokeRenameRequest(Mobile from, Mobile target, string name) => OnRenameRequest?.Invoke(from, target, name);
-
-		public static event Action<Mobile, Container> OnPlayerDeath;
-		public static void InvokePlayerDeath(Mobile from, Container cont) => OnPlayerDeath?.Invoke(from, cont);
 
 		public static event Action<Mobile, Mobile> OnVirtueGumpRequest;
 		public static void InvokeVirtueGumpRequest(Mobile beholder, Mobile beheld) => OnVirtueGumpRequest?.Invoke(beholder, beheld);
@@ -434,9 +430,6 @@ namespace Server
 
 		public static event CommandEventHandler OnCommand;
 		public static void InvokeCommand(CommandEventArgs e) => OnCommand?.Invoke(e);
-
-		public static event Action<Mobile, Mobile, Container> OnCreatureDeath;
-		public static void InvokeOnCreatureDeath(Mobile creature, Mobile killer, Container corpse) => OnCreatureDeath?.Invoke(creature, killer, corpse);
 
 		public static event Action<Mobile, Mobile> OnKilledBy;
 		public static void InvokeOnKilledBy(Mobile killed, Mobile killedBy) => OnKilledBy?.Invoke(killed, killedBy);
@@ -542,5 +535,11 @@ namespace Server
 
 		public static event Action<Mobile, Mobile> OnPlacePlayerVendor;
 		public static void InvokeOnPlacePlayerVendor(Mobile mob, Mobile vendor) => OnPlacePlayerVendor?.Invoke(mob, vendor);
+
+		public static event Action<Mobile, int, Mobile> OnMobileDamage;
+		public static void InvokeOnMobileDamage(Mobile mob, int damage, Mobile from) => OnMobileDamage?.Invoke(mob, damage, from);
+
+		public static event Action<Mobile, Mobile, Container> OnMobileDeath;
+		public static void InvokeOnMobileDeath(Mobile creature, Mobile killer, Container corpse) => OnMobileDeath?.Invoke(creature, killer, corpse);
 	}
 }

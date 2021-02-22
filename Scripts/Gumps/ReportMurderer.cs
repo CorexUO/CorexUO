@@ -15,10 +15,10 @@ namespace Server.Gumps
 
 		public static void Initialize()
 		{
-			EventSink.OnPlayerDeath += EventSink_PlayerDeath;
+			EventSink.OnMobileDeath += EventSink_PlayerDeath;
 		}
 
-		public static void EventSink_PlayerDeath(Mobile m, Container cont)
+		public static void EventSink_PlayerDeath(Mobile m, Mobile killer, Container cont)
 		{
 			List<Mobile> killers = new List<Mobile>();
 			List<Mobile> toGive = new List<Mobile>();

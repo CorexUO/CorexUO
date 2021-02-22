@@ -26,7 +26,7 @@ namespace Server.Spells.Spellweaving
 
 		public static void Initialize()
 		{
-			EventSink.OnPlayerDeath += HandleDeath;
+			EventSink.OnMobileDeath += HandleDeath;
 		}
 
 		public override void OnCast()
@@ -88,7 +88,7 @@ namespace Server.Spells.Spellweaving
 
 		private static readonly Dictionary<Mobile, ExpireTimer> m_Table = new Dictionary<Mobile, ExpireTimer>();
 
-		public static void HandleDeath(Mobile m, Container cont)
+		public static void HandleDeath(Mobile m, Mobile killer, Container cont)
 		{
 			if (m_Table.ContainsKey(m))
 				Timer.DelayCall(TimeSpan.FromSeconds(Utility.RandomMinMax(2, 4)), new TimerStateCallback<Mobile>(HandleDeath_OnCallback), m);

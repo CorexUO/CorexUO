@@ -3597,6 +3597,8 @@ namespace Server
 		/// </summary>
 		public virtual void OnDeath(Container c)
 		{
+			EventSink.InvokeOnMobileDeath(this, LastKiller, c);
+
 			int sound = GetDeathSound();
 
 			if (sound >= 0)
@@ -3633,8 +3635,6 @@ namespace Server
 				Hits = 0;
 				Stam = 0;
 				Mana = 0;
-
-				EventSink.InvokePlayerDeath(this, c);
 
 				ProcessDeltaQueue();
 
@@ -4669,6 +4669,7 @@ namespace Server
 		/// </summary>
 		public virtual void OnDamage(int amount, Mobile from, bool willKill)
 		{
+			EventSink.InvokeOnMobileDamage(this, amount, from);
 		}
 
 		public virtual void Damage(int amount)

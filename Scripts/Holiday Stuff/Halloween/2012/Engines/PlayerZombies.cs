@@ -63,11 +63,11 @@ namespace Server.Engines.Events
 
 				m_ClearTimer = Timer.DelayCall(clear, clear, new TimerCallback(Clear_Callback));
 
-				EventSink.OnPlayerDeath += EventSink_PlayerDeath;
+				EventSink.OnMobileDeath += EventSink_PlayerDeath;
 			}
 		}
 
-		public static void EventSink_PlayerDeath(Mobile m, Container cont)
+		public static void EventSink_PlayerDeath(Mobile m, Mobile killer, Container cont)
 		{
 			if (m != null && !m.Deleted) /* not sure .. better safe than sorry? */
 			{

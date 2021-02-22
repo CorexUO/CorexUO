@@ -11,7 +11,7 @@ namespace Server.Spells.Mysticism
 	{
 		public static void Initialize()
 		{
-			EventSink.OnPlayerDeath += OnPlayerDeath;
+			EventSink.OnMobileDeath += OnPlayerDeath;
 		}
 
 		private static readonly SpellInfo m_Info = new SpellInfo(
@@ -151,7 +151,7 @@ namespace Server.Spells.Mysticism
 			BuffInfo.RemoveBuff(m, BuffIcon.StoneForm);
 		}
 
-		private static void OnPlayerDeath(Mobile m, Container cont)
+		private static void OnPlayerDeath(Mobile m, Mobile killer, Container cont)
 		{
 			if (UnderEffect(m))
 				RemoveEffects(m);

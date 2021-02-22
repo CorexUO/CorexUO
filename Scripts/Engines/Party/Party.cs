@@ -18,7 +18,7 @@ namespace Server.Engines.PartySystem
 		{
 			EventSink.OnLogout += EventSink_Logout;
 			EventSink.OnLogin += EventSink_Login;
-			EventSink.OnPlayerDeath += EventSink_PlayerDeath;
+			EventSink.OnMobileDeath += EventSink_PlayerDeath;
 
 			CommandSystem.Register("ListenToParty", AccessLevel.GameMaster, new CommandEventHandler(ListenToParty_OnCommand));
 		}
@@ -52,13 +52,13 @@ namespace Server.Engines.PartySystem
 			}
 		}
 
-		public static void EventSink_PlayerDeath(Mobile from, Container cont)
+		public static void EventSink_PlayerDeath(Mobile from, Mobile killer, Container cont)
 		{
 			Party p = Party.Get(from);
 
 			if (p != null)
 			{
-				Mobile m = from.LastKiller;
+				Mobile m = killer;
 
 				if (m == from)
 					p.SendPublicMessage(from, "I killed myself !!");

@@ -4509,7 +4509,7 @@ namespace Server.Mobiles
 					this.OwnerAbandonTime = DateTime.MinValue;
 				}
 
-				GiftOfLifeSpell.HandleDeath(this, c);
+				GiftOfLifeSpell.HandleDeath(this, LastKiller, c);
 
 				CheckStatTimers();
 			}
@@ -4621,8 +4621,6 @@ namespace Server.Mobiles
 						Titles.AwardKarma(titles[i], karma[i], true);
 					}
 				}
-
-				EventSink.InvokeOnCreatureDeath(this, LastKiller, c);
 
 				base.OnDeath(c);
 
