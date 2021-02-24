@@ -4935,6 +4935,8 @@ namespace Server
 				amount = HitsMax - Hits;
 			}
 
+			EventSink.InvokeOnMobileHeal(this, from, amount);
+
 			Hits += amount;
 
 			if (message && amount > 0 && m_NetState != null)

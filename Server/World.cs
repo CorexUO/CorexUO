@@ -387,7 +387,7 @@ namespace Server
 
 						Type t = Assembler.FindTypeByFullName(typeName);
 
-						if (t!= null)
+						if (t != null)
 						{
 							ConstructorInfo objs = t.GetConstructor(m_SerialTypeArray);
 
@@ -427,7 +427,7 @@ namespace Server
 				Guilds = new Dictionary<Serial, BaseGuild>();
 			}
 
-	bool failedMobiles = false, failedItems = false, failedGuilds = false;
+			bool failedMobiles = false, failedItems = false, failedGuilds = false;
 			Type failedType = null;
 			Serial failedSerial = Serial.Zero;
 			Exception failed = null;
