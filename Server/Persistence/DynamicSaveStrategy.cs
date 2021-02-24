@@ -172,7 +172,7 @@ namespace Server
 			//Start the blocking consumer; this runs in background.
 			Task commitTask = StartCommitTask(_guildThreadWriters, _guildData, _guildIndex);
 
-			IEnumerable<BaseGuild> guilds = BaseGuild.List.Values;
+			IEnumerable<BaseGuild> guilds = World.Guilds.Values;
 
 			//Start the producer.
 			Parallel.ForEach(guilds, () => new QueuedMemoryWriter(),
@@ -229,7 +229,7 @@ namespace Server
 
 			WriteCount(_itemIndex, World.Items.Count);
 			WriteCount(_mobileIndex, World.Mobiles.Count);
-			WriteCount(_guildIndex, BaseGuild.List.Count);
+			WriteCount(_guildIndex, World.Guilds.Count);
 		}
 
 		private void CloseFiles()

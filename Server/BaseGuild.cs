@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Server.Guilds
 {
@@ -12,22 +13,20 @@ namespace Server.Guilds
 	public abstract class BaseGuild : ISerializable
 	{
 		[CommandProperty(AccessLevel.Counselor)]
-		public int Id { get; }
-
-		public static Dictionary<int, BaseGuild> List { get; } = new Dictionary<int, BaseGuild>();
-
-		protected BaseGuild(int Id)//serialization ctor
-		{
-			this.Id = Id;
-			List.Add(this.Id, this);
-			if (this.Id + 1 > m_NextID)
-				m_NextID = this.Id + 1;
-		}
+		public Serial Serial { get; }
 
 		protected BaseGuild()
 		{
-			Id = m_NextID++;
-			List.Add(Id, this);
+			Serial = Serial.NewGuild;
+
+			World.AddGuild(this);
+
+			_ = Timer.DelayCall(EventSink.InvokeOnCreateGuild, this);
+		}
+
+		protected BaseGuild(Serial serial)
+		{
+			Serial = serial;
 		}
 
 		int ISerializable.TypeReference
@@ -37,7 +36,7 @@ namespace Server.Guilds
 
 		int ISerializable.SerialIdentity
 		{
-			get { return Id; }
+			get { return Serial; }
 		}
 
 		public abstract void Deserialize(GenericReader reader);
@@ -49,35 +48,21 @@ namespace Server.Guilds
 		public abstract bool Disbanded { get; }
 		public abstract void OnDelete(Mobile mob);
 
-		private static int m_NextID = 1;
-
-		public static BaseGuild Find(int id)
+		public static BaseGuild Find(Serial serial)
 		{
-			List.TryGetValue(id, out BaseGuild g);
+			World.Guilds.TryGetValue(serial, out BaseGuild g);
 
 			return g;
 		}
 
 		public static BaseGuild FindByName(string name)
 		{
-			foreach (BaseGuild g in List.Values)
-			{
-				if (g.Name == name)
-					return g;
-			}
-
-			return null;
+			return World.Guilds.Values.FirstOrDefault(guild => guild.Name == name);
 		}
 
 		public static BaseGuild FindByAbbrev(string abbr)
 		{
-			foreach (BaseGuild g in List.Values)
-			{
-				if (g.Abbreviation == abbr)
-					return g;
-			}
-
-			return null;
+			return World.Guilds.Values.FirstOrDefault(guild => guild.Abbreviation == abbr);
 		}
 
 		public static List<BaseGuild> Search(string find)
@@ -85,7 +70,7 @@ namespace Server.Guilds
 			string[] words = find.ToLower().Split(' ');
 			List<BaseGuild> results = new List<BaseGuild>();
 
-			foreach (BaseGuild g in List.Values)
+			foreach (BaseGuild g in World.Guilds.Values)
 			{
 				bool match = true;
 				string name = g.Name.ToLower();
@@ -107,7 +92,7 @@ namespace Server.Guilds
 
 		public override string ToString()
 		{
-			return string.Format("0x{0:X} \"{1} [{2}]\"", Id, Name, Abbreviation);
+			return string.Format("0x{0:X} \"{1} [{2}]\"", Serial, Name, Abbreviation);
 		}
 	}
 }

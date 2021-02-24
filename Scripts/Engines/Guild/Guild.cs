@@ -120,7 +120,7 @@ namespace Server.Guilds
 
 		public static void EventSink_CreateGuild(BaseGuild guild)
 		{
-			guild = new Guild(guild.Id);
+			new Guild(guild.Serial);
 		}
 		#endregion
 
@@ -419,7 +419,7 @@ namespace Server.Guilds
 			#endregion
 		}
 
-		public Guild(int id) : base(id)//serialization ctor
+		public Guild(Serial serial) : base(serial)
 		{
 		}
 
@@ -518,7 +518,7 @@ namespace Server.Guilds
 		{
 			m_Leader = null;
 
-			List.Remove(Id);
+			World.RemoveGuild(this);
 
 			foreach (Mobile m in Members)
 			{

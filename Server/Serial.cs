@@ -1,3 +1,4 @@
+using Server.Guilds;
 using System;
 
 namespace Server
@@ -26,9 +27,17 @@ namespace Server
 		{
 			get
 			{
-				while (World.FindItem(Serial.LastItem += 1) != null) ;
+				while (World.FindItem(Serial.LastItem += 1) != null);
 
 				return LastItem;
+			}
+		}
+
+		public static Serial NewGuild
+		{
+			get
+			{
+				return World.Guilds.Count;
 			}
 		}
 

@@ -44,8 +44,8 @@ namespace Server
 		}
 
 		public static Dictionary<Serial, Mobile> Mobiles { get; private set; }
-
 		public static Dictionary<Serial, Item> Items { get; private set; }
+		public static Dictionary<Serial, BaseGuild> Guilds { get; private set; }
 
 		public static bool OnDelete(IEntity entity)
 		{
@@ -107,29 +107,15 @@ namespace Server
 		{
 			public BaseGuild Guild { get; }
 
-			public Serial Serial
-			{
-				get
-				{
-					return Guild == null ? 0 : Guild.Id;
-				}
-			}
-
-			public int TypeID
-			{
-				get
-				{
-					return 0;
-				}
-			}
-
+			public Serial Serial => Guild == null ? 0 : Guild.Serial;
+			public int TypeID => 0;
+			public string TypeName { get; }
 			public long Position { get; }
-
 			public int Length { get; }
-
-			public GuildEntry(BaseGuild g, long pos, int length)
+			public GuildEntry(BaseGuild g, string typeName, long pos, int length)
 			{
 				Guild = g;
+				TypeName = typeName;
 				Position = pos;
 				Length = length;
 			}
@@ -391,24 +377,57 @@ namespace Server
 					BinaryReader idxReader = new BinaryReader(idx);
 
 					int guildCount = idxReader.ReadInt32();
+					Guilds = new Dictionary<Serial, BaseGuild>(guildCount);
 					for (int i = 0; i < guildCount; ++i)
 					{
-						idxReader.ReadInt32();//no typeid for guilds
-						int id = idxReader.ReadInt32();
+						string typeName = idxReader.ReadString();//guild read the typename
+						int serial = idxReader.ReadInt32();
 						long pos = idxReader.ReadInt64();
 						int length = idxReader.ReadInt32();
-						BaseGuild guild = BaseGuild.Find(id);
-						if (guild != null)
+
+						Type t = Assembler.FindTypeByFullName(typeName);
+
+						if (t!= null)
 						{
-							guilds.Add(new GuildEntry(guild, pos, length));
+							ConstructorInfo objs = t.GetConstructor(m_SerialTypeArray);
+
+							if (objs == null)
+								continue;
+
+							BaseGuild guild = null;
+							try
+							{
+								ctorArgs[0] = (Serial)serial;
+								guild = (BaseGuild)objs.Invoke(ctorArgs);
+							}
+							catch
+							{
+							}
+
+							if (guild != null)
+							{
+								if (guild != null)
+								{
+									guilds.Add(new GuildEntry(guild, typeName, pos, length));
+									AddGuild(guild);
+								}
+							}
+						}
+						else
+						{
+							throw new Exception(string.Format("Bad type '{0}'", typeName));
 						}
 					}
 
 					idxReader.Close();
 				}
 			}
+			else
+			{
+				Guilds = new Dictionary<Serial, BaseGuild>();
+			}
 
-			bool failedMobiles = false, failedItems = false, failedGuilds = false;
+	bool failedMobiles = false, failedItems = false, failedGuilds = false;
 			Type failedType = null;
 			Serial failedSerial = Serial.Zero;
 			Exception failed = null;
@@ -520,7 +539,7 @@ namespace Server
 								g.Deserialize(reader);
 
 								if (reader.Position != (entry.Position + entry.Length))
-									throw new Exception(string.Format("***** Bad serialize on Guild {0} *****", g.Id));
+									throw new Exception(string.Format("***** Bad serialize on Guild {0} *****", g.Serial));
 							}
 							catch (Exception e)
 							{
@@ -529,8 +548,8 @@ namespace Server
 								failed = e;
 								failedGuilds = true;
 								failedType = typeof(BaseGuild);
-								failedTypeID = g.Id;
-								failedSerial = g.Id;
+								failedTypeID = g.Serial;
+								failedSerial = g.Serial;
 
 								break;
 							}
@@ -853,6 +872,16 @@ namespace Server
 		public static void RemoveItem(Item item)
 		{
 			Items.Remove(item.Serial);
+		}
+
+		public static void AddGuild(BaseGuild guild)
+		{
+			Guilds[guild.Serial] = guild;
+		}
+
+		public static void RemoveGuild(BaseGuild guild)
+		{
+			Guilds.Remove(guild.Serial);
 		}
 	}
 }

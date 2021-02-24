@@ -169,13 +169,13 @@ namespace Server
 				bin = new AsyncWriter(World.GuildDataPath, true);
 			}
 
-			idx.Write(BaseGuild.List.Count);
-			foreach (BaseGuild guild in BaseGuild.List.Values)
+			idx.Write(World.Guilds.Count);
+			foreach (BaseGuild guild in World.Guilds.Values)
 			{
 				long start = bin.Position;
 
-				idx.Write(0);//guilds have no typeid
-				idx.Write(guild.Id);
+				idx.Write(guild.GetType().FullName);
+				idx.Write(guild.Serial);
 				idx.Write(start);
 
 				guild.Serialize(bin);

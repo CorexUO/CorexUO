@@ -577,7 +577,7 @@ namespace Server
 			if (value == null)
 				Write(0);
 			else
-				Write(value.Id);
+				Write(value.Serial);
 		}
 
 		public override void WriteItem<T>(T value)
@@ -1732,7 +1732,7 @@ namespace Server
 			if (value == null)
 				Write(0);
 			else
-				Write(value.Id);
+				Write(value.Serial);
 		}
 
 		public override void WriteItem<T>(T value)
