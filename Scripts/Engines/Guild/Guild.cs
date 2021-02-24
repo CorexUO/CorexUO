@@ -14,7 +14,6 @@ namespace Server.Guilds
 	{
 		public static void Configure()
 		{
-			EventSink.OnCreateGuild += EventSink_CreateGuild;
 			EventSink.OnGuildGumpRequest += EventSink_GuildGumpRequest;
 
 			CommandSystem.Register("GuildProps", AccessLevel.Counselor, new CommandEventHandler(GuildProps_OnCommand));
@@ -116,11 +115,6 @@ namespace Server.Guilds
 				pm.SendGump(new CreateGuildGump(pm));
 			else
 				pm.SendGump(new GuildInfoGump(pm, pm.Guild as Guild));
-		}
-
-		public static void EventSink_CreateGuild(BaseGuild guild)
-		{
-			new Guild(guild.Serial);
 		}
 		#endregion
 
