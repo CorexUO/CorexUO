@@ -575,7 +575,7 @@ namespace Server
 		public override void Write(BaseGuild value)
 		{
 			if (value == null)
-				Write(0);
+				Write(Serial.MinusOne);
 			else
 				Write(value.Serial);
 		}
