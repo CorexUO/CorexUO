@@ -58,6 +58,8 @@ namespace Server
 		private static readonly int m_ConfigFollowersMax = Settings.Configuration.Get<int>("Gameplay", "FollowersMax");
 		public static readonly int MurderKills = Settings.Configuration.Get<int>("Gameplay", "MurderKills");
 
+		public static readonly int MaxStatValue = Settings.Configuration.Get<int>("Mobiles", "MaxStatValue");
+
 		#region CompareTo(...)
 		public int CompareTo(IEntity other)
 		{
@@ -6299,8 +6301,8 @@ namespace Server
 			{
 				if (value < 1)
 					value = 1;
-				else if (value > 65000)
-					value = 65000;
+				else if (value > MaxStatValue)
+					value = MaxStatValue;
 
 				if (m_Str != value)
 				{
@@ -6343,8 +6345,8 @@ namespace Server
 
 				if (value < 1)
 					value = 1;
-				else if (value > 65000)
-					value = 65000;
+				else if (value > MaxStatValue)
+					value = MaxStatValue;
 
 				return value;
 			}
@@ -6373,8 +6375,8 @@ namespace Server
 			{
 				if (value < 1)
 					value = 1;
-				else if (value > 65000)
-					value = 65000;
+				else if (value > MaxStatValue)
+					value = MaxStatValue;
 
 				if (m_Dex != value)
 				{
@@ -6417,8 +6419,8 @@ namespace Server
 
 				if (value < 1)
 					value = 1;
-				else if (value > 65000)
-					value = 65000;
+				else if (value > MaxStatValue)
+					value = MaxStatValue;
 
 				return value;
 			}
@@ -6447,8 +6449,8 @@ namespace Server
 			{
 				if (value < 1)
 					value = 1;
-				else if (value > 65000)
-					value = 65000;
+				else if (value > MaxStatValue)
+					value = MaxStatValue;
 
 				if (m_Int != value)
 				{
@@ -6491,8 +6493,8 @@ namespace Server
 
 				if (value < 1)
 					value = 1;
-				else if (value > 65000)
-					value = 65000;
+				else if (value > MaxStatValue)
+					value = MaxStatValue;
 
 				return value;
 			}
