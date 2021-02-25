@@ -196,12 +196,13 @@ namespace Server.Mobiles
 		private int m_EnergyResistance;
 
 		private bool m_IsStabled;
-		private bool m_HasGeneratedLoot; // have we generated our loot yet?
 
 		private bool m_Paragon;
 		private int m_FailedReturnHome; /* return to home failure counter */
 
 		#endregion
+		[CommandProperty(AccessLevel.GameMaster)]
+		public bool HasGeneratedLoot { get; set; } // have we generated our loot yet?
 
 		public virtual InhumanSpeech SpeechType { get { return null; } }
 
@@ -1691,7 +1692,7 @@ namespace Server.Mobiles
 			writer.Write(OwnerAbandonTime);
 
 			// Version 11
-			writer.Write(m_HasGeneratedLoot);
+			writer.Write(HasGeneratedLoot);
 
 			// Version 12
 			writer.Write(m_Paragon);
@@ -1838,7 +1839,7 @@ namespace Server.Mobiles
 						BondingBegin = reader.ReadDateTime();
 						OwnerAbandonTime = reader.ReadDateTime();
 
-						m_HasGeneratedLoot = reader.ReadBool();
+						HasGeneratedLoot = reader.ReadBool();
 
 						m_Paragon = reader.ReadBool();
 
@@ -4198,9 +4199,9 @@ namespace Server.Mobiles
 				}
 			}
 
-			if (!Summoned && !NoKillAwards && !m_HasGeneratedLoot)
+			if (!Summoned && !NoKillAwards && !HasGeneratedLoot)
 			{
-				m_HasGeneratedLoot = true;
+				HasGeneratedLoot = true;
 				GenerateLoot(false);
 			}
 
