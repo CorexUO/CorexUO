@@ -14,30 +14,6 @@ using MoveImpl = Server.Movement.MovementImpl;
 
 namespace Server.Mobiles
 {
-	public enum AIType
-	{
-		AI_Use_Default,
-		AI_Melee,
-		AI_Animal,
-		AI_Archer,
-		AI_Healer,
-		AI_Vendor,
-		AI_Mage,
-		AI_Berserk,
-		AI_Predator,
-		AI_Thief
-	}
-
-	public enum ActionType
-	{
-		Wander,
-		Combat,
-		Guard,
-		Flee,
-		Backoff,
-		Interact
-	}
-
 	public abstract class BaseAI
 	{
 		public Timer m_Timer;
@@ -220,10 +196,8 @@ namespace Server.Mobiles
 
 				from.Target = new AIControlMobileTarget(this, order);
 			}
-			else if (from.Target is AIControlMobileTarget)
+			else if (from.Target is AIControlMobileTarget t)
 			{
-				AIControlMobileTarget t = (AIControlMobileTarget)from.Target;
-
 				if (t.Order == order)
 					t.AddAI(this);
 			}
@@ -252,7 +226,7 @@ namespace Server.Mobiles
 
 			if (order == OrderType.Attack)
 			{
-				if (target is BaseCreature && ((BaseCreature)target).IsScaryToPets && m_Mobile.IsScaredOfScaryThings)
+				if (target is BaseCreature bc && bc.IsScaryToPets && m_Mobile.IsScaredOfScaryThings)
 				{
 					m_Mobile.SayTo(from, "Your pet refuses to attack this creature!");
 					return;
@@ -976,50 +950,23 @@ namespace Server.Mobiles
 			if (m_Mobile.Deleted)
 				return false;
 
-			switch (m_Mobile.ControlOrder)
+			return m_Mobile.ControlOrder switch
 			{
-				case OrderType.None:
-					return DoOrderNone();
-
-				case OrderType.Come:
-					return DoOrderCome();
-
-				case OrderType.Drop:
-					return DoOrderDrop();
-
-				case OrderType.Friend:
-					return DoOrderFriend();
-
-				case OrderType.Unfriend:
-					return DoOrderUnfriend();
-
-				case OrderType.Guard:
-					return DoOrderGuard();
-
-				case OrderType.Attack:
-					return DoOrderAttack();
-
-				case OrderType.Patrol:
-					return DoOrderPatrol();
-
-				case OrderType.Release:
-					return DoOrderRelease();
-
-				case OrderType.Stay:
-					return DoOrderStay();
-
-				case OrderType.Stop:
-					return DoOrderStop();
-
-				case OrderType.Follow:
-					return DoOrderFollow();
-
-				case OrderType.Transfer:
-					return DoOrderTransfer();
-
-				default:
-					return false;
-			}
+				OrderType.None => DoOrderNone(),
+				OrderType.Come => DoOrderCome(),
+				OrderType.Drop => DoOrderDrop(),
+				OrderType.Friend => DoOrderFriend(),
+				OrderType.Unfriend => DoOrderUnfriend(),
+				OrderType.Guard => DoOrderGuard(),
+				OrderType.Attack => DoOrderAttack(),
+				OrderType.Patrol => DoOrderPatrol(),
+				OrderType.Release => DoOrderRelease(),
+				OrderType.Stay => DoOrderStay(),
+				OrderType.Stop => DoOrderStop(),
+				OrderType.Follow => DoOrderFollow(),
+				OrderType.Transfer => DoOrderTransfer(),
+				_ => false,
+			};
 		}
 
 		public virtual void OnCurrentOrderChanged()
@@ -1224,9 +1171,7 @@ namespace Server.Mobiles
 			{
 				if (distance < 1 && target.X == 1076 && target.Y == 450 && (m_Mobile is HordeMinionFamiliar))
 				{
-					PlayerMobile pm = m_Mobile.ControlMaster as PlayerMobile;
-
-					if (pm != null)
+					if (m_Mobile.ControlMaster is PlayerMobile pm)
 					{
 						QuestSystem qs = pm.Quest;
 
@@ -1320,8 +1265,8 @@ namespace Server.Mobiles
 			}
 			else
 			{
-				bool youngFrom = from is PlayerMobile ? ((PlayerMobile)from).Young : false;
-				bool youngTo = to is PlayerMobile ? ((PlayerMobile)to).Young : false;
+				bool youngFrom = from is PlayerMobile mobile && mobile.Young;
+				bool youngTo = to is PlayerMobile toMobile && toMobile.Young;
 
 				if (youngFrom && !youngTo)
 				{
@@ -1552,8 +1497,7 @@ namespace Server.Mobiles
 			m_Mobile.OwnerAbandonTime = DateTime.MinValue;
 			m_Mobile.IsBonded = false;
 
-			SpawnEntry se = m_Mobile.Spawner as SpawnEntry;
-			if (se != null && se.HomeLocation != Point3D.Zero)
+			if (m_Mobile.Spawner is SpawnEntry se && se.HomeLocation != Point3D.Zero)
 			{
 				m_Mobile.Home = se.HomeLocation;
 				m_Mobile.RangeHome = se.HomeRange;
@@ -1674,8 +1618,8 @@ namespace Server.Mobiles
 				if (from.Map != m_Creature.Map || !from.InRange(m_Creature, 14))
 					return false;
 
-				bool youngFrom = from is PlayerMobile ? ((PlayerMobile)from).Young : false;
-				bool youngTo = to is PlayerMobile ? ((PlayerMobile)to).Young : false;
+				bool youngFrom = from is PlayerMobile fromMobile && fromMobile.Young;
+				bool youngTo = to is PlayerMobile toMobile && toMobile.Young;
 
 				if (accepted && youngFrom && !youngTo)
 				{
@@ -1768,8 +1712,8 @@ namespace Server.Mobiles
 			{
 				m_Mobile.DebugSay("Begin transfer with {0}", to.Name);
 
-				bool youngFrom = from is PlayerMobile ? ((PlayerMobile)from).Young : false;
-				bool youngTo = to is PlayerMobile ? ((PlayerMobile)to).Young : false;
+				bool youngFrom = from is PlayerMobile fromMobile && fromMobile.Young;
+				bool youngTo = to is PlayerMobile toMobile && toMobile.Young;
 
 				if (youngFrom && !youngTo)
 				{
@@ -2067,12 +2011,10 @@ namespace Server.Mobiles
 
 						foreach (Item item in eable)
 						{
-							if (canOpenDoors && item is BaseDoor && (item.Z + item.ItemData.Height) > m_Mobile.Z && (m_Mobile.Z + 16) > item.Z)
+							if (canOpenDoors && item is BaseDoor door && (item.Z + item.ItemData.Height) > m_Mobile.Z && (m_Mobile.Z + 16) > item.Z)
 							{
 								if (item.X != x || item.Y != y)
 									continue;
-
-								BaseDoor door = (BaseDoor)item;
 
 								if (!door.Locked || !door.UseLocks())
 									m_Obstacles.Enqueue(door);
@@ -2102,21 +2044,19 @@ namespace Server.Mobiles
 						{
 							Item item = m_Obstacles.Dequeue();
 
-							if (item is BaseDoor)
+							if (item is BaseDoor door)
 							{
 								m_Mobile.DebugSay("Little do they expect, I've learned how to open doors. Didn't they read the script??");
 								m_Mobile.DebugSay("*twist*");
 
-								((BaseDoor)item).Use(m_Mobile);
+								door.Use(m_Mobile);
 							}
 							else
 							{
 								m_Mobile.DebugSay("Ugabooga. I'm so big and tough I can destroy it: {0}", item.GetType().Name);
 
-								if (item is Container)
+								if (item is Container cont)
 								{
-									Container cont = (Container)item;
-
 									for (int i = 0; i < cont.Items.Count; ++i)
 									{
 										Item check = cont.Items[i];
@@ -2175,9 +2115,9 @@ namespace Server.Mobiles
 
 			if (m_Mobile.Home == Point3D.Zero)
 			{
-				if (m_Mobile.Spawner is SpawnEntry)
+				if (m_Mobile.Spawner is SpawnEntry entry)
 				{
-					Region region = ((SpawnEntry)m_Mobile.Spawner).Region;
+					Region region = entry.Region;
 
 					if (m_Mobile.Region.AcceptsSpawnsFrom(region))
 					{
@@ -2361,7 +2301,7 @@ namespace Server.Mobiles
 
 							// Add the run flag
 							if (bRun)
-								dirTo = dirTo | Direction.Running;
+								dirTo |= Direction.Running;
 
 							if (!DoMove(dirTo, true) && needCloser)
 							{
@@ -2533,7 +2473,7 @@ namespace Server.Mobiles
 						continue;
 
 					// Ignore players with activated honor
-					if (m is PlayerMobile && ((PlayerMobile)m).HonorActive && !(m_Mobile.Combatant == m))
+					if (m is PlayerMobile mobile && mobile.HonorActive && !(m_Mobile.Combatant == m))
 						continue;
 
 					if (acqType == FightMode.Aggressor || acqType == FightMode.Evil)
@@ -2545,8 +2485,8 @@ namespace Server.Mobiles
 
 						if (acqType == FightMode.Evil && !bValid)
 						{
-							if (m is BaseCreature && ((BaseCreature)m).Controlled && ((BaseCreature)m).ControlMaster != null)
-								bValid = (((BaseCreature)m).ControlMaster.Karma < 0);
+							if (m is BaseCreature creature && creature.Controlled && creature.ControlMaster != null)
+								bValid = (creature.ControlMaster.Karma < 0);
 							else
 								bValid = (m.Karma < 0);
 						}
@@ -2656,9 +2596,7 @@ namespace Server.Mobiles
 			{
 				m_Timer.Stop();
 
-				SpawnEntry se = m_Mobile.Spawner as SpawnEntry;
-
-				if (se != null && SpawnEntry.ReturnOnDeactivate && !m_Mobile.Controlled)
+				if (m_Mobile.Spawner is SpawnEntry se && SpawnEntry.ReturnOnDeactivate && !m_Mobile.Controlled)
 				{
 					if (se.HomeLocation == Point3D.Zero)
 					{
@@ -2677,9 +2615,7 @@ namespace Server.Mobiles
 
 		private void ReturnToHome()
 		{
-			SpawnEntry se = m_Mobile.Spawner as SpawnEntry;
-
-			if (se != null)
+			if (m_Mobile.Spawner is SpawnEntry se)
 			{
 				Point3D loc = se.RandomSpawnLocation(16, !m_Mobile.CantWalk, m_Mobile.CanSwim);
 

@@ -205,6 +205,8 @@ namespace Server.Mobiles
 
 		public virtual InhumanSpeech SpeechType { get { return null; } }
 
+		public virtual bool ArcherRequireArrows { get { return true; } }
+
 		[CommandProperty(AccessLevel.GameMaster)]
 		public bool SeeksHome { get; set; }
 
@@ -1191,8 +1193,8 @@ namespace Server.Mobiles
 
 					if (value < 1)
 						value = 1;
-					else if (value > 65000)
-						value = 65000;
+					else if (value > MaxStatValue)
+						value = MaxStatValue;
 
 					return value;
 				}
@@ -1215,8 +1217,8 @@ namespace Server.Mobiles
 
 					if (value < 1)
 						value = 1;
-					else if (value > 65000)
-						value = 65000;
+					else if (value > MaxStatValue)
+						value = MaxStatValue;
 
 					return value;
 				}
@@ -1239,8 +1241,8 @@ namespace Server.Mobiles
 
 					if (value < 1)
 						value = 1;
-					else if (value > 65000)
-						value = 65000;
+					else if (value > MaxStatValue)
+						value = MaxStatValue;
 
 					return value;
 				}

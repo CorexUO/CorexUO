@@ -43,7 +43,7 @@ namespace Server
 			return -1;
 		}
 
-		private static readonly OppositionGroup m_TerathansAndOphidians = new OppositionGroup(new Type[][]
+		public static OppositionGroup TerathansAndOphidians { get; } = new OppositionGroup(new Type[][]
 			{
 				new Type[]
 				{
@@ -62,12 +62,7 @@ namespace Server
 				}
 			});
 
-		public static OppositionGroup TerathansAndOphidians
-		{
-			get { return m_TerathansAndOphidians; }
-		}
-
-		private static readonly OppositionGroup m_SavagesAndOrcs = new OppositionGroup(new Type[][]
+		public static OppositionGroup SavagesAndOrcs { get; } = new OppositionGroup(new Type[][]
 			{
 				new Type[]
 				{
@@ -88,12 +83,7 @@ namespace Server
 				}
 			});
 
-		public static OppositionGroup SavagesAndOrcs
-		{
-			get { return m_SavagesAndOrcs; }
-		}
-
-		private static readonly OppositionGroup m_FeyAndUndead = new OppositionGroup(new Type[][]
+		public static OppositionGroup FeyAndUndead { get; } = new OppositionGroup(new Type[][]
 			{
 				new Type[]
 				{
@@ -132,10 +122,5 @@ namespace Server
 					typeof( Lich )
 				}
 			});
-
-		public static OppositionGroup FeyAndUndead
-		{
-			get { return m_FeyAndUndead; }
-		}
 	}
 }
