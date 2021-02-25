@@ -58,7 +58,7 @@ namespace Server
 		private static readonly int m_ConfigFollowersMax = Settings.Configuration.Get<int>("Gameplay", "FollowersMax");
 		public static readonly int MurderKills = Settings.Configuration.Get<int>("Gameplay", "MurderKills");
 
-		public static readonly int MaxStatValue = Settings.Configuration.Get<int>("Mobiles", "MaxStatValue");
+		public static readonly int MaxStatValue = Math.Min(Settings.Configuration.Get<int>("Mobiles", "MaxStatValue"), int.MaxValue);
 
 		#region CompareTo(...)
 		public int CompareTo(IEntity other)
