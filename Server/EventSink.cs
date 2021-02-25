@@ -362,6 +362,9 @@ namespace Server
 		public static event Action<Mobile, Mobile> OnTameCreature;
 		public static void InvokeOnTameCreature(Mobile mobile, Mobile creature) => OnTameCreature?.Invoke(mobile, creature);
 
+		public static event Action<Mobile, Mobile> OnMobileAttackRequest;
+		public static void InvokeOnMobileAttackRequest(Mobile from, Mobile to) => OnMobileAttackRequest?.Invoke(from, to);
+
 		//Item
 		public static event Action<Mobile, Item> OnItemObtained;
 		public static void InvokeOnItemObtained(Mobile m, Item item) => OnItemObtained?.Invoke(m, item);
