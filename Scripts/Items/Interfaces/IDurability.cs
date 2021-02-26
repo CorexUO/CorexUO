@@ -1,6 +1,6 @@
 namespace Server.Items
 {
-	internal interface IDurability
+	public interface IDurability
 	{
 		bool CanFortify { get; }
 
@@ -12,10 +12,5 @@ namespace Server.Items
 
 		void ScaleDurability();
 		void UnscaleDurability();
-	}
-
-	internal interface IWearableDurability : IDurability
-	{
-		int OnHit(BaseWeapon weapon, int damageTaken);
 	}
 }
