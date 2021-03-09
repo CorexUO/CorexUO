@@ -15,8 +15,12 @@
     <RootNamespace>Server</RootNamespace>
   </PropertyGroup>
 
+  <PropertyGroup>
+    <DefineConstants>CorexUO</DefineConstants>
+  </PropertyGroup>
+  
   <ItemGroup>
     <PackageReference Include="System.Diagnostics.PerformanceCounter" Version="4.7.0" />
   </ItemGroup>
-
+  
 </Project>

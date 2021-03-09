@@ -15,6 +15,10 @@
     <RootNamespace>Server</RootNamespace>
   </PropertyGroup>
 
+  <PropertyGroup>
+    <DefineConstants>CorexUO</DefineConstants>
+  </PropertyGroup>
+  
   <ItemGroup>
     <PackageReference Include="System.Drawing.Common" Version="4.7.0" />
   </ItemGroup>

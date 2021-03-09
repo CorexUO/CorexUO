@@ -1,4 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <OutputType>Exe</OutputType>
@@ -18,6 +18,10 @@
     <Authors>Corex UO</Authors>
   </PropertyGroup>
 
+  <PropertyGroup>
+    <DefineConstants>CorexUO</DefineConstants>
+  </PropertyGroup>
+  
   <ItemGroup>
     <ProjectReference Include="..\Scripts\Scripts.csproj" />
     <ProjectReference Include="..\Server\Server.csproj" />
