@@ -811,45 +811,10 @@ namespace Server.Items
 
 			double delayInSeconds;
 
+			//Get the attack speed bonus from the mobile
+			int bonus = m.GetAttackSpeedBonus();
 			if (Core.SE)
 			{
-				/*
-				 * This is likely true for Core.AOS as well... both guides report the same
-				 * formula, and both are wrong.
-				 * The old formula left in for AOS for legacy & because we aren't quite 100%
-				 * Sure that AOS has THIS formula
-				 */
-				int bonus = AosAttributes.GetValue(m, AosAttribute.WeaponSpeed);
-
-				if (Spells.Chivalry.DivineFurySpell.UnderEffect(m))
-					bonus += 10;
-
-				// Bonus granted by successful use of Honorable Execution.
-				bonus += HonorableExecution.GetSwingBonus(m);
-
-				if (DualWield.Registry.Contains(m))
-					bonus += ((DualWield.DualWieldTimer)DualWield.Registry[m]).BonusSwingSpeed;
-
-				if (Feint.Registry.Contains(m))
-					bonus -= ((Feint.FeintTimer)Feint.Registry[m]).SwingSpeedReduction;
-
-				TransformContext context = TransformationSpellHelper.GetContext(m);
-
-				if (context != null && context.Spell is ReaperFormSpell reaperSpell)
-					bonus += reaperSpell.SwingSpeedBonus;
-
-				int discordanceEffect = 0;
-
-				// Discordance gives a malus of -0/-28% to swing speed.
-				if (SkillHandlers.Discordance.GetEffect(m, ref discordanceEffect))
-					bonus -= discordanceEffect;
-
-				if (EssenceOfWindSpell.IsDebuffed(m))
-					bonus -= EssenceOfWindSpell.GetSSIMalus(m);
-
-				if (bonus > 60)
-					bonus = 60;
-
 				double ticks;
 
 				if (Core.ML)
@@ -878,17 +843,6 @@ namespace Server.Items
 			else if (Core.AOS)
 			{
 				int v = (m.Stam + 100) * (int)speed;
-
-				int bonus = AosAttributes.GetValue(m, AosAttribute.WeaponSpeed);
-
-				if (Spells.Chivalry.DivineFurySpell.UnderEffect(m))
-					bonus += 10;
-
-				int discordanceEffect = 0;
-
-				// Discordance gives a malus of -0/-28% to swing speed.
-				if (SkillHandlers.Discordance.GetEffect(m, ref discordanceEffect))
-					bonus -= discordanceEffect;
 
 				v += AOS.Scale(v, bonus);
 
@@ -2124,31 +2078,8 @@ namespace Server.Items
 			#endregion
 
 			#region Modifiers
-			/*
-			 * The following are damage modifiers whose effect shows on the status bar.
-			 * Capped at 100% total.
-			 */
-			int damageBonus = AosAttributes.GetValue(attacker, AosAttribute.WeaponDamage);
-
-			// Horrific Beast transformation gives a +25% bonus to damage.
-			if (TransformationSpellHelper.UnderTransformation(attacker, typeof(HorrificBeastSpell)))
-				damageBonus += 25;
-
-			// Divine Fury gives a +10% bonus to damage.
-			if (Spells.Chivalry.DivineFurySpell.UnderEffect(attacker))
-				damageBonus += 10;
-
-			int defenseMasteryMalus = 0;
-
-			// Defense Mastery gives a -50%/-80% malus to damage.
-			if (Server.Items.DefenseMastery.GetMalus(attacker, ref defenseMasteryMalus))
-				damageBonus -= defenseMasteryMalus;
-
-			int discordanceEffect = 0;
-
-			// Discordance gives a -2%/-48% malus to damage.
-			if (SkillHandlers.Discordance.GetEffect(attacker, ref discordanceEffect))
-				damageBonus -= discordanceEffect * 2;
+			//Get the damage bonus from the attacker
+			int damageBonus = attacker.GetDamageBonus();
 
 			if (damageBonus > 100)
 				damageBonus = 100;

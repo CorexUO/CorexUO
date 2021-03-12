@@ -4254,6 +4254,24 @@ namespace Server
 		public Mobile LastKiller { get; set; }
 
 		/// <summary>
+		/// Overridable. Get damage bonus of the mobile
+		/// </summary>
+		/// <returns></returns>
+		public virtual int GetDamageBonus()
+		{
+			return 0;
+		}
+
+		/// <summary>
+		/// Overridable. Get damage bonus of attack speed
+		/// </summary>
+		/// <returns></returns>
+		public virtual int GetAttackSpeedBonus()
+		{
+			return 0;
+		}
+
+		/// <summary>
 		/// Overridable. Virtual event invoked when the Mobile is <see cref="Damage">damaged</see>. It is called before <see cref="Hits">hit points</see> are lowered or the Mobile is <see cref="Kill">killed</see>.
 		/// <seealso cref="Damage" />
 		/// <seealso cref="Hits" />

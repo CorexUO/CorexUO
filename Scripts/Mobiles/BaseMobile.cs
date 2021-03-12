@@ -1,6 +1,9 @@
 using Server.Items;
 using Server.Misc;
 using Server.Spells;
+using Server.Spells.Bushido;
+using Server.Spells.Necromancy;
+using Server.Spells.Spellweaving;
 using System;
 
 namespace Server.Mobiles
@@ -124,6 +127,97 @@ namespace Server.Mobiles
 
 		#endregion
 
+		public override int GetDamageBonus()
+		{
+			int damageBonus = base.GetDamageBonus();
+
+			damageBonus += AosAttributes.GetValue(this, AosAttribute.WeaponDamage);
+
+			// Horrific Beast transformation gives a +25% bonus to damage.
+			if (TransformationSpellHelper.UnderTransformation(this, typeof(HorrificBeastSpell)))
+				damageBonus += 25;
+
+			// Divine Fury gives a +10% bonus to damage.
+			if (Spells.Chivalry.DivineFurySpell.UnderEffect(this))
+				damageBonus += 10;
+
+			int defenseMasteryMalus = 0;
+
+			// Defense Mastery gives a -50%/-80% malus to damage.
+			if (DefenseMastery.GetMalus(this, ref defenseMasteryMalus))
+				damageBonus -= defenseMasteryMalus;
+
+			int discordanceEffect = 0;
+
+			// Discordance gives a -2%/-48% malus to damage.
+			if (SkillHandlers.Discordance.GetEffect(this, ref discordanceEffect))
+				damageBonus -= discordanceEffect * 2;
+
+			return damageBonus;
+		}
+
+
+		public override int GetAttackSpeedBonus()
+		{
+			int bonus = base.GetAttackSpeedBonus();
+
+			if (Core.SE)
+			{
+				/*
+				 * This is likely true for Core.AOS as well... both guides report the same
+				 * formula, and both are wrong.
+				 * The old formula left in for AOS for legacy & because we aren't quite 100%
+				 * Sure that AOS has THIS formula
+				 */
+				bonus += AosAttributes.GetValue(this, AosAttribute.WeaponSpeed);
+
+				if (Spells.Chivalry.DivineFurySpell.UnderEffect(this))
+					bonus += 10;
+
+				// Bonus granted by successful use of Honorable Execution.
+				bonus += HonorableExecution.GetSwingBonus(this);
+
+				if (DualWield.Registry.Contains(this))
+					bonus += ((DualWield.DualWieldTimer)DualWield.Registry[this]).BonusSwingSpeed;
+
+				if (Feint.Registry.Contains(this))
+					bonus -= ((Feint.FeintTimer)Feint.Registry[this]).SwingSpeedReduction;
+
+				TransformContext context = TransformationSpellHelper.GetContext(this);
+
+				if (context != null && context.Spell is ReaperFormSpell reaperSpell)
+					bonus += reaperSpell.SwingSpeedBonus;
+
+				int discordanceEffect = 0;
+
+				// Discordance gives a malus of -0/-28% to swing speed.
+				if (SkillHandlers.Discordance.GetEffect(this, ref discordanceEffect))
+					bonus -= discordanceEffect;
+
+				if (EssenceOfWindSpell.IsDebuffed(this))
+					bonus -= EssenceOfWindSpell.GetSSIMalus(this);
+
+				if (bonus > 60)
+					bonus = 60;
+			}
+			else if (Core.AOS)
+			{
+
+				bonus += AosAttributes.GetValue(this, AosAttribute.WeaponSpeed);
+
+				if (Spells.Chivalry.DivineFurySpell.UnderEffect(this))
+					bonus += 10;
+
+				int discordanceEffect = 0;
+
+				// Discordance gives a malus of -0/-28% to swing speed.
+				if (SkillHandlers.Discordance.GetEffect(this, ref discordanceEffect))
+					bonus -= discordanceEffect;
+			}
+
+			return bonus;
+		}
+
 		/// <summary>
 		/// Overridable. Virtual event when the Mobile is killed by
 		/// </summary>
@@ -183,7 +277,7 @@ namespace Server.Mobiles
 		{
 			base.Deserialize(reader);
 
-			int version = reader.ReadInt();
+			_ = reader.ReadInt();
 		}
 	}
 }
