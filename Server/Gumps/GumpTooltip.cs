@@ -42,6 +42,9 @@ namespace Server.Gumps
 		{
 			disp.AppendLayout(m_LayoutName);
 			disp.AppendLayout(m_Number);
+
+			if (!string.IsNullOrEmpty(m_Args))
+				disp.AppendLayout(m_Args);
 		}
 	}
 }
