@@ -107,8 +107,7 @@ namespace Server.Items
 			Mobile m = sender.Mobile;
 			TextRelay nameEntry = info.GetTextEntry(0);
 
-			string newName = (nameEntry == null ? null : nameEntry.Text.Trim());
-
+			string newName = nameEntry?.Text.Trim();
 
 			if (!NameVerification.Validate(newName, 2, 16, true, false, true, 1, NameVerification.SpaceDashPeriodQuote))
 			{

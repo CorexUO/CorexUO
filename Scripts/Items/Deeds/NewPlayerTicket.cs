@@ -6,14 +6,8 @@ namespace Server.Items
 {
 	public class NewPlayerTicket : BaseItem
 	{
-		private Mobile m_Owner;
-
 		[CommandProperty(AccessLevel.GameMaster)]
-		public Mobile Owner
-		{
-			get { return m_Owner; }
-			set { m_Owner = value; }
-		}
+		public Mobile Owner { get; set; }
 
 		public override int LabelNumber { get { return 1062094; } } // a young player ticket
 
@@ -43,7 +37,7 @@ namespace Server.Items
 
 			writer.Write(0); // version
 
-			writer.Write(m_Owner);
+			writer.Write(Owner);
 		}
 
 		public override void Deserialize(GenericReader reader)
@@ -56,7 +50,7 @@ namespace Server.Items
 			{
 				case 0:
 					{
-						m_Owner = reader.ReadMobile();
+						Owner = reader.ReadMobile();
 						break;
 					}
 			}
@@ -67,7 +61,7 @@ namespace Server.Items
 
 		public override void OnDoubleClick(Mobile from)
 		{
-			if (from != m_Owner)
+			if (from != Owner)
 			{
 				from.SendLocalizedMessage(501926); // This isn't your ticket! Shame on you! You have to use YOUR ticket.
 			}
@@ -100,7 +94,7 @@ namespace Server.Items
 				else if (targeted is NewPlayerTicket)
 				{
 					NewPlayerTicket theirTicket = targeted as NewPlayerTicket;
-					Mobile them = theirTicket.m_Owner;
+					Mobile them = theirTicket.Owner;
 
 					if (them == null || them.Deleted)
 					{
