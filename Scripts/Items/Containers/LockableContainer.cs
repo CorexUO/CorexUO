@@ -7,65 +7,21 @@ namespace Server.Items
 	public abstract class LockableContainer : TrapableContainer, ILockable, ILockpickable, ICraftable, IShipwreckedItem
 	{
 		private bool m_Locked;
-		private int m_LockLevel, m_MaxLockLevel, m_RequiredSkill;
-		private uint m_KeyValue;
-		private Mobile m_Picker;
-		private bool m_TrapOnLockpick;
 
 		[CommandProperty(AccessLevel.GameMaster)]
 		public Mobile Crafter { get; set; }
 
 		[CommandProperty(AccessLevel.GameMaster)]
-		public Mobile Picker
-		{
-			get
-			{
-				return m_Picker;
-			}
-			set
-			{
-				m_Picker = value;
-			}
-		}
+		public Mobile Picker { get; set; }
 
 		[CommandProperty(AccessLevel.GameMaster)]
-		public int MaxLockLevel
-		{
-			get
-			{
-				return m_MaxLockLevel;
-			}
-			set
-			{
-				m_MaxLockLevel = value;
-			}
-		}
+		public int MaxLockLevel { get; set; }
 
 		[CommandProperty(AccessLevel.GameMaster)]
-		public int LockLevel
-		{
-			get
-			{
-				return m_LockLevel;
-			}
-			set
-			{
-				m_LockLevel = value;
-			}
-		}
+		public int LockLevel { get; set; }
 
 		[CommandProperty(AccessLevel.GameMaster)]
-		public int RequiredSkill
-		{
-			get
-			{
-				return m_RequiredSkill;
-			}
-			set
-			{
-				m_RequiredSkill = value;
-			}
-		}
+		public int RequiredSkill { get; set; }
 
 		[CommandProperty(AccessLevel.GameMaster)]
 		public virtual bool Locked
@@ -79,45 +35,25 @@ namespace Server.Items
 				m_Locked = value;
 
 				if (m_Locked)
-					m_Picker = null;
+					Picker = null;
 
 				InvalidateProperties();
 			}
 		}
 
 		[CommandProperty(AccessLevel.GameMaster)]
-		public uint KeyValue
-		{
-			get
-			{
-				return m_KeyValue;
-			}
-			set
-			{
-				m_KeyValue = value;
-			}
-		}
+		public uint KeyValue { get; set; }
 
 		public override bool TrapOnOpen
 		{
 			get
 			{
-				return !m_TrapOnLockpick;
+				return !TrapOnLockpick;
 			}
 		}
 
 		[CommandProperty(AccessLevel.GameMaster)]
-		public bool TrapOnLockpick
-		{
-			get
-			{
-				return m_TrapOnLockpick;
-			}
-			set
-			{
-				m_TrapOnLockpick = value;
-			}
-		}
+		public bool TrapOnLockpick { get; set; }
 
 		public override void Serialize(GenericWriter writer)
 		{
@@ -125,16 +61,16 @@ namespace Server.Items
 
 			writer.Write(0); // version
 
-			writer.Write(m_IsShipwreckedItem);
+			writer.Write(IsShipwreckedItem);
 
-			writer.Write(m_TrapOnLockpick);
+			writer.Write(TrapOnLockpick);
 
-			writer.Write(m_RequiredSkill);
+			writer.Write(RequiredSkill);
 
-			writer.Write(m_MaxLockLevel);
+			writer.Write(MaxLockLevel);
 
-			writer.Write(m_KeyValue);
-			writer.Write(m_LockLevel);
+			writer.Write(KeyValue);
+			writer.Write(LockLevel);
 			writer.Write(m_Locked);
 		}
 
@@ -148,16 +84,16 @@ namespace Server.Items
 			{
 				case 0:
 					{
-						m_IsShipwreckedItem = reader.ReadBool();
+						IsShipwreckedItem = reader.ReadBool();
 
-						m_TrapOnLockpick = reader.ReadBool();
+						TrapOnLockpick = reader.ReadBool();
 
-						m_RequiredSkill = reader.ReadInt();
+						RequiredSkill = reader.ReadInt();
 
-						m_MaxLockLevel = reader.ReadInt();
+						MaxLockLevel = reader.ReadInt();
 
-						m_KeyValue = reader.ReadUInt();
-						m_LockLevel = reader.ReadInt();
+						KeyValue = reader.ReadUInt();
+						LockLevel = reader.ReadInt();
 						m_Locked = reader.ReadBool();
 
 						break;
@@ -167,7 +103,7 @@ namespace Server.Items
 
 		public LockableContainer(int itemID) : base(itemID)
 		{
-			m_MaxLockLevel = 100;
+			MaxLockLevel = 100;
 		}
 
 		public LockableContainer(Serial serial) : base(serial)
@@ -303,7 +239,7 @@ namespace Server.Items
 		{
 			base.AddNameProperties(list);
 
-			if (m_IsShipwreckedItem)
+			if (IsShipwreckedItem)
 				list.Add(1041645); // recovered from a shipwreck
 		}
 
@@ -311,7 +247,7 @@ namespace Server.Items
 		{
 			base.OnSingleClick(from);
 
-			if (m_IsShipwreckedItem)
+			if (IsShipwreckedItem)
 				LabelTo(from, 1041645); //recovered from a shipwreck
 		}
 
@@ -323,7 +259,7 @@ namespace Server.Items
 			{
 				from.SendLocalizedMessage(500636); // Your tinker skill was sufficient to make the item lockable.
 
-				Key key = new Key(KeyType.Copper, Key.RandomValue());
+				Key key = new(KeyType.Copper, Key.RandomValue());
 
 				KeyValue = key.KeyValue;
 				DropItem(key);
@@ -358,14 +294,8 @@ namespace Server.Items
 
 		#region IShipwreckedItem Members
 
-		private bool m_IsShipwreckedItem;
-
 		[CommandProperty(AccessLevel.GameMaster)]
-		public bool IsShipwreckedItem
-		{
-			get { return m_IsShipwreckedItem; }
-			set { m_IsShipwreckedItem = value; }
-		}
+		public bool IsShipwreckedItem { get; set; }
 		#endregion
 
 	}

@@ -153,7 +153,7 @@ namespace Server.Items
 		public Container ConvertToStandardContainer()
 		{
 			Container metalBox = new MetalBox();
-			List<Item> subItems = new List<Item>(Items);
+			List<Item> subItems = new(Items);
 
 			foreach (Item subItem in subItems)
 			{

@@ -86,7 +86,7 @@ namespace Server.Items
 				string args;
 
 				if (Commodity.Name == null)
-					args = string.Format("#{0}\t{1}", (Commodity is ICommodity) ? ((ICommodity)Commodity).DescriptionNumber : Commodity.LabelNumber, Commodity.Amount);
+					args = string.Format("#{0}\t{1}", (Commodity is ICommodity commodity) ? commodity.DescriptionNumber : Commodity.LabelNumber, Commodity.Amount);
 				else
 					args = string.Format("{0}\t{1}", Commodity.Name, Commodity.Amount);
 
@@ -107,7 +107,7 @@ namespace Server.Items
 				string args;
 
 				if (Commodity.Name == null)
-					args = string.Format("#{0}\t{1}", (Commodity is ICommodity) ? ((ICommodity)Commodity).DescriptionNumber : Commodity.LabelNumber, Commodity.Amount);
+					args = string.Format("#{0}\t{1}", (Commodity is ICommodity commodity) ? commodity.DescriptionNumber : Commodity.LabelNumber, Commodity.Amount);
 				else
 					args = string.Format("{0}\t{1}", Commodity.Name, Commodity.Amount);
 

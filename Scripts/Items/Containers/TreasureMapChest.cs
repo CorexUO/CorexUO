@@ -11,9 +11,7 @@ namespace Server.Items
 	{
 		public override int LabelNumber { get { return 3000541; } }
 
-		public static Type[] Artifacts { get { return m_Artifacts; } }
-
-		private static readonly Type[] m_Artifacts = new Type[]
+		public static Type[] Artifacts { get; } = new Type[]
 		{
 			typeof( CandelabraOfSouls ), typeof( GoldBricks ), typeof( PhillipsWoodenSteed ),
 			typeof( ArcticDeathDealer ), typeof( BlazeOfDeath ), typeof( BurglarsBandana ),
@@ -24,27 +22,21 @@ namespace Server.Items
 			typeof( ColdBlood ), typeof( AlchemistsBauble )
 		};
 
-		private int m_Level;
-		private DateTime m_DeleteTime;
 		private Timer m_Timer;
-		private Mobile m_Owner;
-		private bool m_Temporary;
-
-		private List<Mobile> m_Guardians;
 
 		[CommandProperty(AccessLevel.GameMaster)]
-		public int Level { get { return m_Level; } set { m_Level = value; } }
+		public int Level { get; set; }
 
 		[CommandProperty(AccessLevel.GameMaster)]
-		public Mobile Owner { get { return m_Owner; } set { m_Owner = value; } }
+		public Mobile Owner { get; set; }
 
 		[CommandProperty(AccessLevel.GameMaster)]
-		public DateTime DeleteTime { get { return m_DeleteTime; } }
+		public DateTime DeleteTime { get; private set; }
 
 		[CommandProperty(AccessLevel.GameMaster)]
-		public bool Temporary { get { return m_Temporary; } set { m_Temporary = value; } }
+		public bool Temporary { get; set; }
 
-		public List<Mobile> Guardians { get { return m_Guardians; } }
+		public List<Mobile> Guardians { get; private set; }
 
 		[Constructable]
 		public TreasureMapChest(int level) : this(null, level, false)
@@ -53,14 +45,14 @@ namespace Server.Items
 
 		public TreasureMapChest(Mobile owner, int level, bool temporary) : base(0xE40)
 		{
-			m_Owner = owner;
-			m_Level = level;
-			m_DeleteTime = DateTime.UtcNow + TimeSpan.FromHours(3.0);
+			Owner = owner;
+			Level = level;
+			DeleteTime = DateTime.UtcNow + TimeSpan.FromHours(3.0);
 
-			m_Temporary = temporary;
-			m_Guardians = new List<Mobile>();
+			Temporary = temporary;
+			Guardians = new List<Mobile>();
 
-			m_Timer = new DeleteTimer(this, m_DeleteTime);
+			m_Timer = new DeleteTimer(this, DeleteTime);
 			m_Timer.Start();
 
 			Fill(this, level);
@@ -173,16 +165,17 @@ namespace Server.Items
 
 				if (Core.SE)
 				{
-					switch (level)
+					numberItems = level switch
 					{
-						case 1: numberItems = 5; break;
-						case 2: numberItems = 10; break;
-						case 3: numberItems = 15; break;
-						case 4: numberItems = 38; break;
-						case 5: numberItems = 50; break;
-						case 6: numberItems = 60; break;
-						default: numberItems = 0; break;
+						1 => 5,
+						2 => 10,
+						3 => 15,
+						4 => 38,
+						5 => 50,
+						6 => 60,
+						_ => 0,
 					};
+					;
 				}
 				else
 					numberItems = level * 6;
@@ -196,15 +189,11 @@ namespace Server.Items
 					else
 						item = Loot.RandomArmorOrShieldOrWeapon();
 
-					if (item is BaseWeapon)
+					if (item is BaseWeapon weapon)
 					{
-						BaseWeapon weapon = (BaseWeapon)item;
-
 						if (Core.AOS)
 						{
-
 							GetRandomAOSStats(out int attributeCount, out int min, out int max);
-
 							BaseRunicTool.ApplyAttributesTo(weapon, attributeCount, min, max);
 						}
 						else
@@ -216,15 +205,11 @@ namespace Server.Items
 
 						cont.DropItem(item);
 					}
-					else if (item is BaseArmor)
+					else if (item is BaseArmor armor)
 					{
-						BaseArmor armor = (BaseArmor)item;
-
 						if (Core.AOS)
 						{
-
 							GetRandomAOSStats(out int attributeCount, out int min, out int max);
-
 							BaseRunicTool.ApplyAttributesTo(armor, attributeCount, min, max);
 						}
 						else
@@ -235,26 +220,21 @@ namespace Server.Items
 
 						cont.DropItem(item);
 					}
-					else if (item is BaseHat)
+					else if (item is BaseHat hat)
 					{
-						BaseHat hat = (BaseHat)item;
-
 						if (Core.AOS)
 						{
-
 							GetRandomAOSStats(out int attributeCount, out int min, out int max);
-
 							BaseRunicTool.ApplyAttributesTo(hat, attributeCount, min, max);
 						}
 
 						cont.DropItem(item);
 					}
-					else if (item is BaseJewel)
+					else if (item is BaseJewel jewel)
 					{
-
 						GetRandomAOSStats(out int attributeCount, out int min, out int max);
 
-						BaseRunicTool.ApplyAttributesTo((BaseJewel)item, attributeCount, min, max);
+						BaseRunicTool.ApplyAttributesTo(jewel, attributeCount, min, max);
 
 						cont.DropItem(item);
 					}
@@ -287,7 +267,7 @@ namespace Server.Items
 			}
 
 			if (level == 6 && Core.AOS)
-				cont.DropItem((Item)Activator.CreateInstance(m_Artifacts[Utility.Random(m_Artifacts.Length)]));
+				cont.DropItem((Item)Activator.CreateInstance(Artifacts[Utility.Random(Artifacts.Length)]));
 		}
 
 		public override bool CheckLocked(Mobile from)
@@ -315,17 +295,17 @@ namespace Server.Items
 			}
 		}
 
-		private List<Item> m_Lifted = new List<Item>();
+		private List<Item> m_Lifted = new();
 
 		private bool CheckLoot(Mobile m, bool criminalAction)
 		{
-			if (m_Temporary)
+			if (Temporary)
 				return false;
 
-			if (m.AccessLevel >= AccessLevel.GameMaster || m_Owner == null || m == m_Owner)
+			if (m.AccessLevel >= AccessLevel.GameMaster || Owner == null || m == Owner)
 				return true;
 
-			Party p = Party.Get(m_Owner);
+			Party p = Party.Get(Owner);
 
 			if (p != null && p.Contains(m))
 				return true;
@@ -372,7 +352,7 @@ namespace Server.Items
 				m_Lifted.Add(item);
 
 				if (0.1 >= Utility.RandomDouble()) // 10% chance to spawn a new monster
-					TreasureMap.Spawn(m_Level, GetWorldLocation(), Map, from, false);
+					TreasureMap.Spawn(Level, GetWorldLocation(), Map, from, false);
 			}
 
 			base.OnItemLifted(from, item);
@@ -399,13 +379,13 @@ namespace Server.Items
 
 			writer.Write(0); // version
 
-			writer.Write(m_Guardians, true);
-			writer.Write(m_Temporary);
+			writer.Write(Guardians, true);
+			writer.Write(Temporary);
 
-			writer.Write(m_Owner);
+			writer.Write(Owner);
 
-			writer.Write(m_Level);
-			writer.WriteDeltaTime(m_DeleteTime);
+			writer.Write(Level);
+			writer.WriteDeltaTime(DeleteTime);
 			writer.Write(m_Lifted, true);
 		}
 
@@ -419,22 +399,22 @@ namespace Server.Items
 			{
 				case 0:
 					{
-						m_Guardians = reader.ReadStrongMobileList();
-						m_Temporary = reader.ReadBool();
+						Guardians = reader.ReadStrongMobileList();
+						Temporary = reader.ReadBool();
 
-						m_Owner = reader.ReadMobile();
+						Owner = reader.ReadMobile();
 
-						m_Level = reader.ReadInt();
-						m_DeleteTime = reader.ReadDeltaTime();
+						Level = reader.ReadInt();
+						DeleteTime = reader.ReadDeltaTime();
 						m_Lifted = reader.ReadStrongItemList();
 
 						break;
 					}
 			}
 
-			if (!m_Temporary)
+			if (!Temporary)
 			{
-				m_Timer = new DeleteTimer(this, m_DeleteTime);
+				m_Timer = new DeleteTimer(this, DeleteTime);
 				m_Timer.Start();
 			}
 			else
@@ -472,7 +452,7 @@ namespace Server.Items
 
 		public void EndRemove(Mobile from)
 		{
-			if (Deleted || from != m_Owner || !from.InRange(GetWorldLocation(), 3))
+			if (Deleted || from != Owner || !from.InRange(GetWorldLocation(), 3))
 				return;
 
 			from.SendLocalizedMessage(1048124, 0x8A5); // The old, rusted chest crumbles when you hit it.

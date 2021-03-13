@@ -89,7 +89,7 @@ namespace Server.Items
 			if (p == null)
 				return;
 
-			Point3D loc = new Point3D(p);
+			Point3D loc = new(p);
 
 			if (p is StaticTarget)
 				loc.Z -= TileData.ItemTable[((StaticTarget)p).ItemID].CalcHeight;   /* NOTE: OSI does not properly normalize Z positioning here.
@@ -104,7 +104,7 @@ namespace Server.Items
 		public void EndPlace(Mobile from, HolidayTreeType type, Point3D loc)
 		{
 			this.Delete();
-			HolidayTree tree = new HolidayTree(from, type, loc);
+			HolidayTree tree = new(from, type, loc);
 			BaseHouse house = BaseHouse.FindHouseAt(tree);
 			if (house != null)
 				house.Addons.Add(tree);

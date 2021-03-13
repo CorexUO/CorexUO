@@ -63,7 +63,7 @@ namespace Server.Items
 			AddTextEntry(x + 2, y + 2, width - 4, height - 4, 0, index, "");
 		}
 
-		public string Center(string text)
+		public static string Center(string text)
 		{
 			return string.Format("<CENTER>{0}</CENTER>", text);
 		}
