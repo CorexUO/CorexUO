@@ -4254,6 +4254,24 @@ namespace Server
 		public Mobile LastKiller { get; set; }
 
 		/// <summary>
+		/// Overridable. Get spell damage bonus of the mobile
+		/// </summary>
+		/// <returns></returns>
+		public virtual int GetSpellDamageBonus(bool inPvP)
+		{
+			return 0;
+		}
+
+		/// <summary>
+		/// Overridable. Get spell cast speed bonus
+		/// </summary>
+		/// <returns></returns>
+		public virtual int GetSpellCastSpeedBonus(SkillName castSkill)
+		{
+			return 0;
+		}
+
+		/// <summary>
 		/// Overridable. Get damage bonus of the mobile
 		/// </summary>
 		/// <returns></returns>

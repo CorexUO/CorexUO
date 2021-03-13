@@ -3,6 +3,7 @@ using Server.Misc;
 using Server.Spells;
 using Server.Spells.Bushido;
 using Server.Spells.Necromancy;
+using Server.Spells.Second;
 using Server.Spells.Spellweaving;
 using System;
 
@@ -126,6 +127,58 @@ namespace Server.Mobiles
 		}
 
 		#endregion
+		public override int GetSpellDamageBonus(bool inPvP)
+		{
+			int damageBonus = base.GetSpellDamageBonus(inPvP);
+
+			int inscribeSkill = Skills[SkillName.Inscribe].Fixed;
+			int inscribeBonus = (inscribeSkill + (1000 * (inscribeSkill / 1000))) / 200;
+			damageBonus += inscribeBonus;
+
+			int intBonus = Int / 10;
+			damageBonus += intBonus;
+
+			int sdiBonus = AosAttributes.GetValue(this, AosAttribute.SpellDamage);
+			// PvP spell damage increase cap of 15% from an items magic property
+			if (inPvP && sdiBonus > 15)
+				sdiBonus = 15;
+
+			damageBonus += sdiBonus;
+
+			TransformContext context = TransformationSpellHelper.GetContext(this);
+
+			if (context != null && context.Spell is ReaperFormSpell spell)
+				damageBonus += spell.SpellDamageBonus;
+
+			return damageBonus;
+		}
+
+		public override int GetSpellCastSpeedBonus(SkillName castSkill)
+		{
+			int castSpeed = base.GetSpellCastSpeedBonus(castSkill);
+
+			castSpeed += AosAttributes.GetValue(this, AosAttribute.CastSpeed);
+
+			// Faster casting cap of 2 (if not using the protection spell)
+			// Faster casting cap of 0 (if using the protection spell)
+			// Paladin spells are subject to a faster casting cap of 4
+			// Paladins with magery of 70.0 or above are subject to a faster casting cap of 2
+			int fcMax = 4;
+
+			if (castSkill == SkillName.Magery || castSkill == SkillName.Necromancy || (castSkill == SkillName.Chivalry && Skills[SkillName.Magery].Value >= 70.0))
+				fcMax = 2;
+
+			if (castSpeed > fcMax)
+				castSpeed = fcMax;
+
+			if (ProtectionSpell.Registry.Contains(this))
+				castSpeed -= 2;
+
+			if (EssenceOfWindSpell.IsDebuffed(this))
+				castSpeed -= EssenceOfWindSpell.GetFCMalus(this);
+
+			return castSpeed;
+		}
 
 		public override int GetDamageBonus()
 		{
@@ -155,7 +208,6 @@ namespace Server.Mobiles
 
 			return damageBonus;
 		}
-
 
 		public override int GetAttackSpeedBonus()
 		{

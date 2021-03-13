@@ -150,26 +150,8 @@ namespace Server.Spells
 		public virtual int GetNewAosDamage(int bonus, int dice, int sides, bool playerVsPlayer, double scalar)
 		{
 			int damage = Utility.Dice(dice, sides, bonus) * 100;
-			int damageBonus = 0;
 
-			int inscribeSkill = GetInscribeFixed(Caster);
-			int inscribeBonus = (inscribeSkill + (1000 * (inscribeSkill / 1000))) / 200;
-			damageBonus += inscribeBonus;
-
-			int intBonus = Caster.Int / 10;
-			damageBonus += intBonus;
-
-			int sdiBonus = AosAttributes.GetValue(Caster, AosAttribute.SpellDamage);
-			// PvP spell damage increase cap of 15% from an items magic property
-			if (playerVsPlayer && sdiBonus > 15)
-				sdiBonus = 15;
-
-			damageBonus += sdiBonus;
-
-			TransformContext context = TransformationSpellHelper.GetContext(Caster);
-
-			if (context != null && context.Spell is ReaperFormSpell spell)
-				damageBonus += spell.SpellDamageBonus;
+			int damageBonus = Caster.GetSpellDamageBonus(playerVsPlayer);
 
 			damage = AOS.Scale(damage, 100 + damageBonus);
 
@@ -275,11 +257,6 @@ namespace Server.Spells
 		public virtual double GetInscribeSkill(Mobile m)
 		{
 			return m.Skills[SkillName.Inscribe].Value;
-		}
-
-		public virtual int GetInscribeFixed(Mobile m)
-		{
-			return m.Skills[SkillName.Inscribe].Fixed;
 		}
 
 		public virtual int GetDamageFixed(Mobile m)
@@ -726,25 +703,7 @@ namespace Server.Spells
 			if (Scroll is BaseWand)
 				return Core.ML ? CastDelayBase : TimeSpan.Zero; // TODO: Should FC apply to wands?
 
-			// Faster casting cap of 2 (if not using the protection spell)
-			// Faster casting cap of 0 (if using the protection spell)
-			// Paladin spells are subject to a faster casting cap of 4
-			// Paladins with magery of 70.0 or above are subject to a faster casting cap of 2
-			int fcMax = 4;
-
-			if (CastSkill == SkillName.Magery || CastSkill == SkillName.Necromancy || (CastSkill == SkillName.Chivalry && Caster.Skills[SkillName.Magery].Value >= 70.0))
-				fcMax = 2;
-
-			int fc = AosAttributes.GetValue(Caster, AosAttribute.CastSpeed);
-
-			if (fc > fcMax)
-				fc = fcMax;
-
-			if (ProtectionSpell.Registry.Contains(Caster))
-				fc -= 2;
-
-			if (EssenceOfWindSpell.IsDebuffed(Caster))
-				fc -= EssenceOfWindSpell.GetFCMalus(Caster);
+			int fc = Caster.GetSpellCastSpeedBonus(CastSkill);
 
 			TimeSpan baseDelay = CastDelayBase;
 
