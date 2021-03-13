@@ -501,7 +501,7 @@ namespace Server.Mobiles
 				GenericBuyInfo gbi = (GenericBuyInfo)buyItem;
 				IEntity disp = gbi.GetDisplayEntity();
 
-				list.Add(new BuyItemState(buyItem.Name, cont.Serial, disp == null ? (Serial)0x7FC0FFEE : disp.Serial, buyItem.Price, buyItem.Amount, buyItem.ItemID, buyItem.Hue));
+				list.Add(new BuyItemState(buyItem.Name, cont.Serial, disp == null ? 0x7FC0FFEE : disp.Serial, buyItem.Price, buyItem.Amount, buyItem.ItemID, buyItem.Hue));
 				count++;
 
 				if (opls == null)

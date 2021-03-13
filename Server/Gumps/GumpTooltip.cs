@@ -8,7 +8,7 @@ namespace Server.Gumps
 		private int m_Number;
 		private string m_Args;
 
-		public GumpTooltip(int number): this(number, null)
+		public GumpTooltip(int number) : this(number, null)
 		{
 		}
 

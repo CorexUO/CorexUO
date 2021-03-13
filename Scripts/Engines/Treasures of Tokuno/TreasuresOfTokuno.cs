@@ -499,7 +499,7 @@ namespace Server.Gumps
 
 		private readonly Mobile m_Collector;
 
-		public ToTRedeemGump(Mobile collector, bool pigments) : base(pigments ? 1070986 : 1070985, pigments ? PigmentRewards[(int)TreasuresOfTokuno.RewardEra - 1] : (ImageTileButtonInfo[])NormalRewards[(int)TreasuresOfTokuno.RewardEra - 1])
+		public ToTRedeemGump(Mobile collector, bool pigments) : base(pigments ? 1070986 : 1070985, pigments ? PigmentRewards[(int)TreasuresOfTokuno.RewardEra - 1] : NormalRewards[(int)TreasuresOfTokuno.RewardEra - 1])
 		{
 			m_Collector = collector;
 		}

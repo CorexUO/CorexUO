@@ -349,7 +349,7 @@ namespace Server.Items
 			if (m_GumpWidth > 0 && m_GumpHeight > 0 && m_TitleNumber > 0 && (m_MessageNumber > 0 || m_MessageString != null))
 			{
 				from.CloseGump(typeof(WarningGump));
-				from.SendGump(new WarningGump(m_TitleNumber, m_TitleColor, m_MessageString == null ? m_MessageNumber : (object)m_MessageString, m_MessageColor, m_GumpWidth, m_GumpHeight, new WarningGumpCallback(Warning_Callback), from));
+				from.SendGump(new WarningGump(m_TitleNumber, m_TitleColor, m_MessageString == null ? m_MessageNumber : m_MessageString, m_MessageColor, m_GumpWidth, m_GumpHeight, new WarningGumpCallback(Warning_Callback), from));
 			}
 			else
 			{

@@ -32,7 +32,7 @@ namespace Server.Factions
 		{
 			base.InitOutfit();
 
-			AddItem(Utility.RandomBool() ? new QuarterStaff() : (Item)new ShepherdsCrook());
+			AddItem(Utility.RandomBool() ? new QuarterStaff() : new ShepherdsCrook());
 		}
 
 		public FactionHorseVendor(Serial serial) : base(serial)
