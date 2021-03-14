@@ -3050,7 +3050,7 @@ namespace Server.Multis
 			{
 				if (m_Table.TryGetValue(m, out List<BaseHouse> houseList))
 				{
-					foreach (var house in houseList)
+					foreach (BaseHouse house in houseList)
 					{
 						if (!house.Deleted)
 						{

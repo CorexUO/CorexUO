@@ -44,7 +44,7 @@ namespace Server
 			if (m == null)
 				return 0;
 
-			var a = m.GetCustomAttribute<CallPriorityAttribute>(false);
+			CallPriorityAttribute a = m.GetCustomAttribute<CallPriorityAttribute>(false);
 
 			if (a != null)
 				return a.Priority;
@@ -73,8 +73,8 @@ namespace Server
 			if (y == null)
 				return -1;
 
-			var xPriority = GetPriority(x);
-			var yPriority = GetPriority(y);
+			int xPriority = GetPriority(x);
+			int yPriority = GetPriority(y);
 
 			if (xPriority > yPriority)
 				return 1;

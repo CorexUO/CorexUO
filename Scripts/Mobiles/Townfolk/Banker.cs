@@ -43,8 +43,8 @@ namespace Server.Mobiles
 
 			if (bank != null)
 			{
-				var gold = bank.FindItemsByType<Gold>();
-				var checks = bank.FindItemsByType<BankCheck>();
+				List<Gold> gold = bank.FindItemsByType<Gold>();
+				List<BankCheck> checks = bank.FindItemsByType<BankCheck>();
 
 				balance += gold.Aggregate(0.0, (c, t) => c + t.Amount);
 				balance += checks.Aggregate(0.0, (c, t) => c + t.Worth);
@@ -94,14 +94,14 @@ namespace Server.Mobiles
 				return true;
 			}
 
-			var balance = GetBalance(from, out Item[] gold, out Item[] checks);
+			int balance = GetBalance(from, out Item[] gold, out Item[] checks);
 
 			if (balance < amount)
 			{
 				return false;
 			}
 
-			for (var i = 0; amount > 0 && i < gold.Length; ++i)
+			for (int i = 0; amount > 0 && i < gold.Length; ++i)
 			{
 				if (gold[i].Amount <= amount)
 				{
@@ -115,9 +115,9 @@ namespace Server.Mobiles
 				}
 			}
 
-			for (var i = 0; amount > 0 && i < checks.Length; ++i)
+			for (int i = 0; amount > 0 && i < checks.Length; ++i)
 			{
-				var check = (BankCheck)checks[i];
+				BankCheck check = (BankCheck)checks[i];
 
 				if (check.Worth <= amount)
 				{
@@ -142,14 +142,14 @@ namespace Server.Mobiles
 				return true;
 			}
 
-			var box = from.FindBankNoCreate();
+			BankBox box = from.FindBankNoCreate();
 
 			if (box == null)
 			{
 				return false;
 			}
 
-			var items = new List<Item>();
+			List<Item> items = new List<Item>();
 
 			while (amount > 0)
 			{
@@ -177,7 +177,7 @@ namespace Server.Mobiles
 				else
 				{
 					item.Delete();
-					foreach (var curItem in items)
+					foreach (Item curItem in items)
 					{
 						curItem.Delete();
 					}
@@ -197,14 +197,14 @@ namespace Server.Mobiles
 				return amount;
 			}
 
-			var box = from.FindBankNoCreate();
+			BankBox box = from.FindBankNoCreate();
 
 			if (box == null)
 			{
 				return 0;
 			}
 
-			var amountLeft = amount;
+			int amountLeft = amount;
 			while (amountLeft > 0)
 			{
 				Item item;

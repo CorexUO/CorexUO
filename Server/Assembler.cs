@@ -75,8 +75,8 @@ namespace Server
 			//Load modules
 			if (Directory.Exists("Modules"))
 			{
-				var scripts = Directory.EnumerateFiles($"{Directory.GetCurrentDirectory()}/Modules").Where(file => file.Contains(".dll")).ToArray();
-				foreach (var script in scripts)
+				string[] scripts = Directory.EnumerateFiles($"{Directory.GetCurrentDirectory()}/Modules").Where(file => file.Contains(".dll")).ToArray();
+				foreach (string script in scripts)
 				{
 					Console.Write($"Loading module: {Path.GetFileName(script)} ");
 
@@ -94,9 +94,9 @@ namespace Server
 
 			Stopwatch watch = Stopwatch.StartNew();
 
-			foreach (var assembly in assemblies)
+			foreach (Assembly assembly in assemblies)
 			{
-				foreach (var t in assembly.GetTypes())
+				foreach (Type t in assembly.GetTypes())
 				{
 					VerifyType(t);
 				}
@@ -111,11 +111,11 @@ namespace Server
 
 		public static void Invoke(string method)
 		{
-			var types = Assemblies.SelectMany(a => a.GetTypes());
+			IEnumerable<Type> types = Assemblies.SelectMany(a => a.GetTypes());
 
-			var methods = types.Select(t => t.GetMethod(method, BindingFlags.Static | BindingFlags.Public));
+			IEnumerable<MethodInfo> methods = types.Select(t => t.GetMethod(method, BindingFlags.Static | BindingFlags.Public));
 
-			foreach (var m in methods.Where(m => m != null).AsParallel().OrderBy(CallPriorityAttribute.GetValue))
+			foreach (MethodInfo m in methods.Where(m => m != null).AsParallel().OrderBy(CallPriorityAttribute.GetValue))
 			{
 				m.Invoke(null, null);
 			}

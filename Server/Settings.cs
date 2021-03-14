@@ -59,9 +59,9 @@ namespace Server
 			if (Core.Debug)
 			{
 				Utility.WriteConsole(ConsoleColor.Cyan, "\n[Server Settings]");
-				foreach (var setting in Values)
+				foreach (KeyValuePair<string, Dictionary<string, Entry>> setting in Values)
 				{
-					foreach (var entrie in setting.Value)
+					foreach (KeyValuePair<string, Entry> entrie in setting.Value)
 					{
 						Utility.WriteConsole(ConsoleColor.Cyan, $"[{setting.Key}] {entrie.Value.Key}={entrie.Value.Value}");
 					}
@@ -72,18 +72,18 @@ namespace Server
 
 		private void LoadFile(string path)
 		{
-			var info = new FileInfo(path);
+			FileInfo info = new FileInfo(path);
 
 			if (!info.Exists)
 			{
 				throw new FileNotFoundException();
 			}
 
-			var lines = File.ReadAllLines(info.FullName);
+			string[] lines = File.ReadAllLines(info.FullName);
 			string section = "";
 			for (int i = 0; i < lines.Length; i++)
 			{
-				var line = lines[i].Trim();
+				string line = lines[i].Trim();
 
 				if (string.IsNullOrWhiteSpace(line) || line.StartsWith("//") || line.StartsWith("#"))
 				{
@@ -102,8 +102,8 @@ namespace Server
 					throw new FormatException(string.Format("Bad format at line {0}", i + 1));
 				}
 
-				var key = line.Substring(0, io);
-				var val = line.Substring(io + 1);
+				string key = line.Substring(0, io);
+				string val = line.Substring(io + 1);
 
 				if (string.IsNullOrWhiteSpace(key))
 				{
@@ -123,7 +123,7 @@ namespace Server
 				}
 				else
 				{
-					var newEntries = new Dictionary<string, Entry>
+					Dictionary<string, Entry> newEntries = new Dictionary<string, Entry>
 					{
 						{ key, new Entry(section, key, val) }
 					};

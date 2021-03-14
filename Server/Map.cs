@@ -192,9 +192,9 @@ namespace Server
 
 		public static IEnumerable<StaticTile[]> SelectMultiTiles(Sector s, Rectangle2D bounds)
 		{
-			foreach (var o in s.Multis.Where(o => o != null && !o.Deleted))
+			foreach (BaseMulti o in s.Multis.Where(o => o != null && !o.Deleted))
 			{
-				var c = o.Components;
+				MultiComponentList c = o.Components;
 
 				int x, y, xo, yo;
 				StaticTile[] t, r;
@@ -226,7 +226,7 @@ namespace Server
 
 						r = new StaticTile[t.Length];
 
-						for (var i = 0; i < t.Length; i++)
+						for (int i = 0; i < t.Length; i++)
 						{
 							r[i] = t[i];
 							r[i].Z += o.Z;
@@ -1630,7 +1630,7 @@ namespace Server
 					}
 				}
 
-				var pool = PooledEnumeration.EnumerateSectors(map, bounds).SelectMany(s => selector(s, bounds));
+				IEnumerable<T> pool = PooledEnumeration.EnumerateSectors(map, bounds).SelectMany(s => selector(s, bounds));
 
 				if (e != null)
 				{

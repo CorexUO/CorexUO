@@ -78,7 +78,7 @@ namespace Server
 
 			from.Virtues.SetValue((int)virtue, current + amount);
 
-			var newLevel = GetLevel(from, virtue);
+			VirtueLevel newLevel = GetLevel(from, virtue);
 			gainedPath = (newLevel != oldLevel);
 
 			if (gainedPath)

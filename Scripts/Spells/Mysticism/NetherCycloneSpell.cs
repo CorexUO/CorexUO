@@ -49,17 +49,17 @@ namespace Server.Spells.Mysticism
 				if (p is Item)
 					p = ((Item)p).GetWorldLocation();
 
-				var targets = new List<Mobile>();
+				List<Mobile> targets = new List<Mobile>();
 
-				var map = Caster.Map;
+				Map map = Caster.Map;
 
-				var pvp = false;
+				bool pvp = false;
 
 				if (map != null)
 				{
 					PlayEffect(p, Caster.Map);
 
-					foreach (var m in map.GetMobilesInRange(new Point3D(p), 2))
+					foreach (Mobile m in map.GetMobilesInRange(new Point3D(p), 2))
 					{
 						if (m == Caster)
 							continue;
@@ -77,19 +77,19 @@ namespace Server.Spells.Mysticism
 					}
 				}
 
-				var damage = GetNewAosDamage(51, 1, 5, pvp);
-				var reduction = (GetBaseSkill(Caster) + GetBoostSkill(Caster)) / 1200.0;
+				int damage = GetNewAosDamage(51, 1, 5, pvp);
+				double reduction = (GetBaseSkill(Caster) + GetBoostSkill(Caster)) / 1200.0;
 
-				foreach (var m in targets)
+				foreach (Mobile m in targets)
 				{
 					Caster.DoHarmful(m);
 
-					var types = new int[4];
+					int[] types = new int[4];
 					types[Utility.Random(types.Length)] = 100;
 
 					SpellHelper.Damage(this, m, damage, 0, types[0], types[1], types[2], types[3]);
 
-					var resistedReduction = reduction - (m.Skills[SkillName.MagicResist].Value / 800.0);
+					double resistedReduction = reduction - (m.Skills[SkillName.MagicResist].Value / 800.0);
 
 					m.Stam -= (int)(m.StamMax * resistedReduction);
 					m.Mana -= (int)(m.ManaMax * resistedReduction);
@@ -142,7 +142,7 @@ namespace Server.Spells.Mysticism
 
 			protected override void OnTarget(Mobile from, object o)
 			{
-				var p = o as IPoint3D;
+				IPoint3D p = o as IPoint3D;
 
 				if (p != null)
 					m_Owner.Target(p);

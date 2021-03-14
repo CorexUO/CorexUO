@@ -72,7 +72,7 @@ namespace Server.Items
 			if (!Multis.DesignContext.Check(from))
 				return; // They are customizing
 
-			var bookType = type switch
+			SpellbookType bookType = type switch
 			{
 				2 => SpellbookType.Necromancer,
 				3 => SpellbookType.Paladin,

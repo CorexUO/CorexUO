@@ -113,7 +113,7 @@ namespace Server.Gumps
 
 						if (AccountGold.Enabled && toGive is BankCheck)
 						{
-							var worth = ((BankCheck)toGive).Worth;
+							int worth = ((BankCheck)toGive).Worth;
 
 							if (m_Mobile.Account != null && m_Mobile.Account.DepositGold(worth))
 							{

@@ -61,18 +61,18 @@ namespace Server.Spells.Mysticism
 
 				VisualEffect(targeted);
 
-				var damage = GetNewAosDamage(33, 1, 5, targeted);
+				int damage = GetNewAosDamage(33, 1, 5, targeted);
 
-				var types = new int[4];
+				int[] types = new int[4];
 				types[Utility.Random(types.Length)] = 100;
 
 				SpellHelper.Damage(this, targeted, damage, 0, types[0], types[1], types[2], types[3]);
 
-				var context = new SpellPlagueContext(this, targeted);
+				SpellPlagueContext context = new SpellPlagueContext(this, targeted);
 
 				if (m_Table.ContainsKey(targeted))
 				{
-					var oldContext = m_Table[targeted];
+					SpellPlagueContext oldContext = m_Table[targeted];
 					oldContext.SetNext(context);
 				}
 				else
@@ -95,7 +95,7 @@ namespace Server.Spells.Mysticism
 			if (!m_Table.ContainsKey(m))
 				return;
 
-			var context = m_Table[m];
+			SpellPlagueContext context = m_Table[m];
 
 			context.EndPlague(false);
 		}
@@ -105,7 +105,7 @@ namespace Server.Spells.Mysticism
 			if (!m_Table.ContainsKey(m))
 				return;
 
-			var context = m_Table[m];
+			SpellPlagueContext context = m_Table[m];
 
 			context.OnDamage();
 		}
@@ -160,9 +160,9 @@ namespace Server.Spells.Mysticism
 			{
 				if (DateTime.Now > (m_LastExploded + TimeSpan.FromSeconds(2.0)))
 				{
-					var exploChance = 90 - (m_Explosions * 30);
+					int exploChance = 90 - (m_Explosions * 30);
 
-					var resist = m_Target.Skills[SkillName.MagicResist].Value;
+					double resist = m_Target.Skills[SkillName.MagicResist].Value;
 
 					if (resist >= 70)
 						exploChance -= (int)((resist - 70.0) * 3.0 / 10.0);
@@ -171,12 +171,12 @@ namespace Server.Spells.Mysticism
 					{
 						m_Owner.VisualEffect(m_Target);
 
-						var damage = m_Owner.GetNewAosDamage(15 + (m_Explosions * 3), 1, 5, m_Target);
+						int damage = m_Owner.GetNewAosDamage(15 + (m_Explosions * 3), 1, 5, m_Target);
 
 						m_Explosions++;
 						m_LastExploded = DateTime.Now;
 
-						var types = new int[4];
+						int[] types = new int[4];
 						types[Utility.Random(types.Length)] = 100;
 
 						SpellHelper.Damage(m_Owner, m_Target, damage, 0, types[0], types[1], types[2], types[3]);

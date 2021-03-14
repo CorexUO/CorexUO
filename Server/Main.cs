@@ -556,11 +556,11 @@ namespace Server
 			m_ItemCount = 0;
 			m_MobileCount = 0;
 
-			var ca = Assembly.GetCallingAssembly();
+			Assembly ca = Assembly.GetCallingAssembly();
 
 			VerifySerialization(ca);
 
-			foreach (var a in Assembler.Assemblies.Where(a => a != ca))
+			foreach (Assembly a in Assembler.Assemblies.Where(a => a != ca))
 			{
 				VerifySerialization(a);
 			}
@@ -570,7 +570,7 @@ namespace Server
 
 		private static void VerifyType(Type t)
 		{
-			var isItem = t.IsSubclassOf(typeof(Item));
+			bool isItem = t.IsSubclassOf(typeof(Item));
 
 			if (!isItem && !t.IsSubclassOf(typeof(Mobile)))
 			{
@@ -666,7 +666,7 @@ namespace Server
 			FileName = file;
 
 			using (
-				var writer =
+				StreamWriter writer =
 					new StreamWriter(
 						new FileStream(FileName, append ? FileMode.Append : FileMode.Create, FileAccess.Write, FileShare.Read)))
 			{
@@ -679,7 +679,7 @@ namespace Server
 
 		public override void Write(char ch)
 		{
-			using (var writer = new StreamWriter(new FileStream(FileName, FileMode.Append, FileAccess.Write, FileShare.Read)))
+			using (StreamWriter writer = new StreamWriter(new FileStream(FileName, FileMode.Append, FileAccess.Write, FileShare.Read)))
 			{
 				if (_NewLine)
 				{
@@ -693,7 +693,7 @@ namespace Server
 
 		public override void Write(string str)
 		{
-			using (var writer = new StreamWriter(new FileStream(FileName, FileMode.Append, FileAccess.Write, FileShare.Read)))
+			using (StreamWriter writer = new StreamWriter(new FileStream(FileName, FileMode.Append, FileAccess.Write, FileShare.Read)))
 			{
 				if (_NewLine)
 				{
@@ -707,7 +707,7 @@ namespace Server
 
 		public override void WriteLine(string line)
 		{
-			using (var writer = new StreamWriter(new FileStream(FileName, FileMode.Append, FileAccess.Write, FileShare.Read)))
+			using (StreamWriter writer = new StreamWriter(new FileStream(FileName, FileMode.Append, FileAccess.Write, FileShare.Read)))
 			{
 				if (_NewLine)
 				{
@@ -748,7 +748,7 @@ namespace Server
 
 		public override void Write(char ch)
 		{
-			foreach (var t in _Streams)
+			foreach (TextWriter t in _Streams)
 			{
 				t.Write(ch);
 			}
@@ -756,7 +756,7 @@ namespace Server
 
 		public override void WriteLine(string line)
 		{
-			foreach (var t in _Streams)
+			foreach (TextWriter t in _Streams)
 			{
 				t.WriteLine(line);
 			}

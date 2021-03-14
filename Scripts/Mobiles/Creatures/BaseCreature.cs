@@ -4267,7 +4267,7 @@ namespace Server.Mobiles
 				if (!Controlled)
 					return true;
 
-				var master = GetMaster();
+				Mobile master = GetMaster();
 
 				return master == null || (master is BaseCreature creature && !creature.Controlled);
 			}
@@ -4552,7 +4552,7 @@ namespace Server.Mobiles
 							int divedFame = totalFame / party.Members.Count;
 							int divedKarma = totalKarma / party.Members.Count;
 
-							foreach (var info in party.Members)
+							foreach (PartyMemberInfo info in party.Members)
 							{
 								if (info != null && info.Mobile != null)
 								{

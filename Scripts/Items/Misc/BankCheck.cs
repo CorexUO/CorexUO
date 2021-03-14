@@ -100,7 +100,7 @@ namespace Server.Items
 
 			if (parent is SecureTradeContainer && AccountGold.ConvertOnTrade)
 			{
-				var trade = (SecureTradeContainer)parent;
+				SecureTradeContainer trade = (SecureTradeContainer)parent;
 
 				if (trade.Trade.From.Container == trade)
 				{
@@ -127,9 +127,9 @@ namespace Server.Items
 			{
 				if (owner.NetState != null && !owner.NetState.NewSecureTrading)
 				{
-					var total = Worth / Math.Max(1.0, Account.CurrencyThreshold);
-					var plat = (int)Math.Truncate(total);
-					var gold = (int)((total - plat) * Account.CurrencyThreshold);
+					double total = Worth / Math.Max(1.0, Account.CurrencyThreshold);
+					int plat = (int)Math.Truncate(total);
+					int gold = (int)((total - plat) * Account.CurrencyThreshold);
 
 					tradeInfo.Plat += plat;
 					tradeInfo.Gold += gold;
@@ -169,7 +169,7 @@ namespace Server.Items
 			// This probably isn't OSI accurate, but we can't just make the quests redundant.
 			// Double-clicking the BankCheck in your pack will now credit your account.
 
-			var box = AccountGold.Enabled ? from.Backpack : from.FindBankNoCreate();
+			Container box = AccountGold.Enabled ? from.Backpack : from.FindBankNoCreate();
 
 			if (box == null || !IsChildOf(box))
 			{
@@ -180,8 +180,8 @@ namespace Server.Items
 
 			Delete();
 
-			var deposited = 0;
-			var toAdd = m_Worth;
+			int deposited = 0;
+			int toAdd = m_Worth;
 
 			if (AccountGold.Enabled && from.Account != null && from.Account.DepositGold(toAdd))
 			{
@@ -233,15 +233,15 @@ namespace Server.Items
 			// Gold was deposited in your account:
 			from.SendLocalizedMessage(1042672, true, deposited.ToString("#,0"));
 
-			var pm = from as PlayerMobile;
+			PlayerMobile pm = from as PlayerMobile;
 
 			if (pm != null)
 			{
-				var qs = pm.Quest;
+				Engines.Quests.QuestSystem qs = pm.Quest;
 
 				if (qs is Necro.DarkTidesQuest)
 				{
-					var obj = qs.FindObjective(typeof(Necro.CashBankCheckObjective));
+					Engines.Quests.QuestObjective obj = qs.FindObjective(typeof(Necro.CashBankCheckObjective));
 
 					if (obj != null && !obj.Completed)
 					{
@@ -251,7 +251,7 @@ namespace Server.Items
 
 				if (qs is Haven.UzeraanTurmoilQuest)
 				{
-					var obj = qs.FindObjective(typeof(Engines.Quests.Haven.CashBankCheckObjective));
+					Engines.Quests.QuestObjective obj = qs.FindObjective(typeof(Engines.Quests.Haven.CashBankCheckObjective));
 
 					if (obj != null && !obj.Completed)
 					{

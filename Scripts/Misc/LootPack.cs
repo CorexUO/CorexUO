@@ -37,7 +37,7 @@ namespace Server
 			if (mob is not BaseCreature dead)
 				return 240;
 
-			var list = dead.GetLootingRights();
+			System.Collections.Generic.List<DamageStore> list = dead.GetLootingRights();
 
 			DamageStore highest = null;
 

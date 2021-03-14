@@ -1217,11 +1217,11 @@ namespace Server.Network
 			{
 				if (gump.Serial == serial && gump.TypeID == typeID)
 				{
-					var buttonExists = buttonID == 0; // 0 is always 'close'
+					bool buttonExists = buttonID == 0; // 0 is always 'close'
 
 					if (!buttonExists)
 					{
-						foreach (var e in gump.Entries)
+						foreach (GumpEntry e in gump.Entries)
 						{
 							if (e is GumpButton && ((GumpButton)e).ButtonID == buttonID)
 							{

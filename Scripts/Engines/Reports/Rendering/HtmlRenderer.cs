@@ -132,11 +132,11 @@ namespace Server.Engines.Reports
 
 			using (StreamWriter op = new StreamWriter(filePath))
 			{
-				var settings = new XmlWriterSettings
+				XmlWriterSettings settings = new XmlWriterSettings
 				{
 					Indent = true
 				};
-				using (var html = XmlWriter.Create(op, settings))
+				using (XmlWriter html = XmlWriter.Create(op, settings))
 					RenderFull(html);
 			}
 
@@ -212,11 +212,11 @@ namespace Server.Engines.Reports
 
 			using (StreamWriter op = new StreamWriter(filePath))
 			{
-				var settings = new XmlWriterSettings
+				XmlWriterSettings settings = new XmlWriterSettings
 				{
 					Indent = true
 				};
-				using (var html = XmlWriter.Create(op, settings))
+				using (XmlWriter html = XmlWriter.Create(op, settings))
 					RenderSingle(obj, html);
 			}
 		}

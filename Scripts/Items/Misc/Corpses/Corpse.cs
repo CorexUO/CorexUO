@@ -794,7 +794,7 @@ namespace Server.Items
 			if (!base.CheckLift(from, item, ref reject))
 				return false;
 
-			var canLoot = CanLoot(from, item);
+			bool canLoot = CanLoot(from, item);
 
 			if (m_HasLooted == null)
 				m_HasLooted = new List<Item>();

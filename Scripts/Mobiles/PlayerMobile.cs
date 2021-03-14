@@ -3305,7 +3305,7 @@ namespace Server.Mobiles
 			if (AccessLevel > AccessLevel.Player)
 				m_IgnoreMobiles = true;
 
-			foreach (var pet in Stabled)
+			foreach (Mobile pet in Stabled)
 			{
 				if (pet is BaseCreature bc)
 				{

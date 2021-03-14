@@ -91,7 +91,7 @@ namespace Server.Spells.Mysticism
 				}
 				else
 				{
-					var mount = Caster.Mount;
+					Mobiles.IMount mount = Caster.Mount;
 
 					if (mount != null)
 						mount.Rider = null;
@@ -99,9 +99,9 @@ namespace Server.Spells.Mysticism
 					Caster.BodyMod = 0x2C1;
 					Caster.HueMod = 0;
 
-					var offset = (int)((GetBaseSkill(Caster) + GetBoostSkill(Caster)) / 24.0);
+					int offset = (int)((GetBaseSkill(Caster) + GetBoostSkill(Caster)) / 24.0);
 
-					var mods = new List<ResistanceMod>
+					List<ResistanceMod> mods = new List<ResistanceMod>
 					{
 						new ResistanceMod( ResistanceType.Physical, offset ),
 						new ResistanceMod( ResistanceType.Fire, offset ),
@@ -110,7 +110,7 @@ namespace Server.Spells.Mysticism
 						new ResistanceMod( ResistanceType.Energy, offset )
 					};
 
-					foreach (var mod in mods)
+					foreach (ResistanceMod mod in mods)
 						Caster.AddResistanceMod(mod);
 
 					m_Table[Caster] = mods;
@@ -138,9 +138,9 @@ namespace Server.Spells.Mysticism
 
 		public static void RemoveEffects(Mobile m)
 		{
-			var mods = (List<ResistanceMod>)m_Table[m];
+			List<ResistanceMod> mods = (List<ResistanceMod>)m_Table[m];
 
-			foreach (var mod in mods)
+			foreach (ResistanceMod mod in mods)
 				m.RemoveResistanceMod(mod);
 
 			m.BodyMod = 0;

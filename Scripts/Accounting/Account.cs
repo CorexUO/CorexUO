@@ -44,7 +44,7 @@ namespace Server.Accounting
 				long share = 0, shared;
 				int diff;
 
-				foreach (var a in Accounts.GetAccounts().OfType<Account>().Where(a => a.Count > 0))
+				foreach (Account a in Accounts.GetAccounts().OfType<Account>().Where(a => a.Count > 0))
 				{
 					try
 					{
@@ -54,7 +54,7 @@ namespace Server.Accounting
 							found += a.TotalCurrency * CurrencyThreshold;
 						}
 
-						foreach (var m in a.m_Mobiles.Where(m => m != null))
+						foreach (Mobile m in a.m_Mobiles.Where(m => m != null))
 						{
 							box = m.FindBankNoCreate();
 
@@ -65,7 +65,7 @@ namespace Server.Accounting
 
 							if (AccountGold.Enabled)
 							{
-								foreach (var o in checks = box.FindItemsByType<BankCheck>())
+								foreach (BankCheck o in checks = box.FindItemsByType<BankCheck>())
 								{
 									found += o.Worth;
 
@@ -81,7 +81,7 @@ namespace Server.Accounting
 								checks.Clear();
 								checks.TrimExcess();
 
-								foreach (var o in gold = box.FindItemsByType<Gold>())
+								foreach (Gold o in gold = box.FindItemsByType<Gold>())
 								{
 									found += o.Amount;
 

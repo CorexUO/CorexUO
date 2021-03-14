@@ -585,7 +585,7 @@ namespace Server.Items
 		/// <returns></returns>
 		public static int GetResourceLabel(CraftResource resource)
 		{
-			var labelNumber = resource switch
+			int labelNumber = resource switch
 			{
 				CraftResource.DullCopper => 1053108,
 				CraftResource.ShadowIron => 1053107,

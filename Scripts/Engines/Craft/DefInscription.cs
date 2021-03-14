@@ -48,13 +48,13 @@ namespace Server.Engines.Craft
 
 			if (typeItem != null)
 			{
-				var o = Activator.CreateInstance(typeItem);
+				object o = Activator.CreateInstance(typeItem);
 
 				if (o is SpellScroll scroll)
 				{
-					var book = Spellbook.Find(from, scroll.SpellID);
+					Spellbook book = Spellbook.Find(from, scroll.SpellID);
 
-					var hasSpell = (book != null && book.HasSpell(scroll.SpellID));
+					bool hasSpell = (book != null && book.HasSpell(scroll.SpellID));
 
 					scroll.Delete();
 
