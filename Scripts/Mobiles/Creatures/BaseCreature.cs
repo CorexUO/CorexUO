@@ -4047,7 +4047,7 @@ namespace Server.Mobiles
 			WearItem(item, 0.0, hue);
 		}
 
-		public void WearItem(Item item, double dropChance, int hue = -1)
+		public void WearItem(Item item, double dropChance, int hue)
 		{
 			item.Movable = dropChance > Utility.RandomDouble();
 
