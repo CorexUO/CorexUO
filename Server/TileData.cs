@@ -7,25 +7,40 @@ namespace Server
 	public struct LandData
 	{
 		public string Name { get; set; }
+		public int Header { get; set; }
 		public TileFlag Flags { get; set; }
+		public int TextureID { get; set; }
 
-		public LandData(string name, TileFlag flags)
+		public LandData(string name, int header, TileFlag flags, int textureId)
 		{
 			Name = name;
+			Header = header;
 			Flags = flags;
+			TextureID = textureId;
 		}
 	}
 
 	public struct ItemData
 	{
+		public int ItemID { get; set; }
+		public int Header { get; set; }
+		public int MiscData { get; set; }
+		public int Unk2 { get; set; }
+		public int Unk3 { get; set; }
+		public int Hue { get; set; }
+		public int Animation { get; set; }
+		public int StackingOffset { get; set; }
+
 		private byte m_Weight;
 		private byte m_Quality;
 		private byte m_Quantity;
 		private byte m_Value;
 		private byte m_Height;
 
-		public ItemData(string name, TileFlag flags, int weight, int quality, int quantity, int value, int height)
+		public ItemData(int id, int header, string name, TileFlag flags, int weight, int quality, int quantity, int value, int height, int miscData, int unk2, int unk3, int hue, int anim, int offset)
 		{
+			ItemID = id;
+			Header = header;
 			Name = name;
 			Flags = flags;
 			m_Weight = (byte)weight;
@@ -33,6 +48,13 @@ namespace Server
 			m_Quantity = (byte)quantity;
 			m_Value = (byte)value;
 			m_Height = (byte)height;
+
+			MiscData = (short)miscData;
+			Unk2 = (byte)unk2;
+			Unk3 = (byte)unk3;
+			Hue = (byte)hue;
+			Animation = (short)anim;
+			StackingOffset = (byte)offset;
 		}
 
 		public string Name { get; set; }
@@ -157,6 +179,9 @@ namespace Server
 
 	public static class TileData
 	{
+		public static string FilePath { get; set; }
+		public static bool IsUOHS { get; set; } = false;
+
 		public static LandData[] LandTable { get; private set; }
 		public static ItemData[] ItemTable { get; private set; }
 
@@ -165,134 +190,76 @@ namespace Server
 
 		private static readonly byte[] m_StringBuffer = new byte[20];
 
-		private static string ReadNameString(BinaryReader bin)
-		{
-			bin.Read(m_StringBuffer, 0, 20);
-
-			int count;
-
-			for (count = 0; count < 20 && m_StringBuffer[count] != 0; ++count) ;
-
-			return Encoding.ASCII.GetString(m_StringBuffer, 0, count);
-		}
-
 		static TileData()
 		{
-			string filePath = Core.FindDataFile("tiledata.mul");
+			FilePath = Core.FindDataFile("tiledata.mul");
 
-			if (File.Exists(filePath))
+			Load();
+		}
+
+		private static void Load()
+		{
+			if (File.Exists(FilePath))
 			{
-				using (FileStream fs = new FileStream(filePath, FileMode.Open, FileAccess.Read, FileShare.Read))
+				using (FileStream fs = new(FilePath, FileMode.Open, FileAccess.Read, FileShare.Read))
 				{
-					BinaryReader bin = new BinaryReader(fs);
+					BinaryReader bin = new(fs);
 
-					if (fs.Length == 3188736)
-					{ // 7.0.9.0
-						LandTable = new LandData[0x4000];
-
-						for (int i = 0; i < 0x4000; ++i)
-						{
-							if (i == 1 || (i > 0 && (i & 0x1F) == 0))
-							{
-								bin.ReadInt32(); // header
-							}
-
-							TileFlag flags = (TileFlag)bin.ReadInt64();
-							bin.ReadInt16(); // skip 2 bytes -- textureID
-
-							LandTable[i] = new LandData(ReadNameString(bin), flags);
-						}
-
-						ItemTable = new ItemData[0x10000];
-
-						for (int i = 0; i < 0x10000; ++i)
-						{
-							if ((i & 0x1F) == 0)
-							{
-								bin.ReadInt32(); // header
-							}
-
-							TileFlag flags = (TileFlag)bin.ReadInt64();
-							int weight = bin.ReadByte();
-							int quality = bin.ReadByte();
-							bin.ReadInt16();
-							bin.ReadByte();
-							int quantity = bin.ReadByte();
-							bin.ReadInt32();
-							bin.ReadByte();
-							int value = bin.ReadByte();
-							int height = bin.ReadByte();
-
-							ItemTable[i] = new ItemData(ReadNameString(bin), flags, weight, quality, quantity, value, height);
-						}
+					int itemLength;
+					if (fs.Length >= 3188736) // 7.0.9.0
+					{
+						itemLength = 0x10000;
+						IsUOHS = true;
+					}
+					else if (fs.Length >= 1644544) // 7.0.0.0
+					{
+						itemLength = 0x8000;
 					}
 					else
 					{
-						LandTable = new LandData[0x4000];
+						itemLength = 0x4000;
+					}
 
-						for (int i = 0; i < 0x4000; ++i)
+					//First its the Land Table
+					LandTable = new LandData[0x4000];
+					for (int i = 0; i < 0x4000; ++i)
+					{
+						int header = 0;
+						if (i == 1 || (i > 0 && (i & 0x1F) == 0))
 						{
-							if ((i & 0x1F) == 0)
-							{
-								bin.ReadInt32(); // header
-							}
-
-							TileFlag flags = (TileFlag)bin.ReadInt32();
-							bin.ReadInt16(); // skip 2 bytes -- textureID
-
-							LandTable[i] = new LandData(ReadNameString(bin), flags);
+							header = bin.ReadInt32(); // header
 						}
 
-						if (fs.Length == 1644544)
-						{ // 7.0.0.0
-							ItemTable = new ItemData[0x8000];
+						TileFlag flags = (TileFlag)bin.ReadInt64();
+						int textureId = bin.ReadInt16();
 
-							for (int i = 0; i < 0x8000; ++i)
-							{
-								if ((i & 0x1F) == 0)
-								{
-									bin.ReadInt32(); // header
-								}
+						LandTable[i] = new LandData(ReadNameString(bin), header, flags, textureId);
+					}
 
-								TileFlag flags = (TileFlag)bin.ReadInt32();
-								int weight = bin.ReadByte();
-								int quality = bin.ReadByte();
-								bin.ReadInt16();
-								bin.ReadByte();
-								int quantity = bin.ReadByte();
-								bin.ReadInt32();
-								bin.ReadByte();
-								int value = bin.ReadByte();
-								int height = bin.ReadByte();
-
-								ItemTable[i] = new ItemData(ReadNameString(bin), flags, weight, quality, quantity, value, height);
-							}
-						}
-						else
+					//Load the Item Table
+					ItemTable = new ItemData[itemLength];
+					for (int i = 0; i < itemLength; ++i)
+					{
+						int header = 0;
+						if ((i & 0x1F) == 0)
 						{
-							ItemTable = new ItemData[0x4000];
-
-							for (int i = 0; i < 0x4000; ++i)
-							{
-								if ((i & 0x1F) == 0)
-								{
-									bin.ReadInt32(); // header
-								}
-
-								TileFlag flags = (TileFlag)bin.ReadInt32();
-								int weight = bin.ReadByte();
-								int quality = bin.ReadByte();
-								bin.ReadInt16();
-								bin.ReadByte();
-								int quantity = bin.ReadByte();
-								bin.ReadInt32();
-								bin.ReadByte();
-								int value = bin.ReadByte();
-								int height = bin.ReadByte();
-
-								ItemTable[i] = new ItemData(ReadNameString(bin), flags, weight, quality, quantity, value, height);
-							}
+							header = bin.ReadInt32(); // header
 						}
+
+						TileFlag flags = IsUOHS ? (TileFlag)bin.ReadInt64() : (TileFlag)bin.ReadInt32();
+						int weight = bin.ReadByte();
+						int quality = bin.ReadByte();
+						int miscData = bin.ReadInt16();
+						int unk2 = bin.ReadByte();
+						int quantity = bin.ReadByte();
+						int animation = bin.ReadInt16();
+						int unk3 = bin.ReadByte();
+						int hue = bin.ReadByte();
+						int stackingOffset = bin.ReadByte();
+						int value = bin.ReadByte();
+						int height = bin.ReadByte();
+
+						ItemTable[i] = new ItemData(i, header, ReadNameString(bin), flags, weight, quality, quantity, value, height, miscData, unk2, unk3, hue, animation, stackingOffset);
 					}
 				}
 
@@ -301,12 +268,19 @@ namespace Server
 			}
 			else
 			{
-				Console.WriteLine("tiledata.mul was not found");
-				Console.WriteLine("Make sure your Scripts/Misc/DataPath.cs is properly configured");
-				Console.WriteLine("After pressing return an exception will be thrown and the server will terminate");
-
-				throw new Exception(string.Format("TileData: {0} not found", filePath));
+				throw new Exception(string.Format("TileData: {0} not found", FilePath));
 			}
+		}
+
+		private static string ReadNameString(BinaryReader bin)
+		{
+			bin.Read(m_StringBuffer, 0, 20);
+
+			int count = 0;
+			while (count < m_StringBuffer.Length && m_StringBuffer[count] != 0)
+				++count;
+
+			return Encoding.ASCII.GetString(m_StringBuffer, 0, count);
 		}
 	}
 }
