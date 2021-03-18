@@ -972,8 +972,6 @@ namespace Server
 		[CommandProperty(AccessLevel.GameMaster)]
 		public int AllowedStealthSteps { get; set; }
 
-
-
 		public virtual TimeSpan GetLogoutDelay()
 		{
 			return Region.GetLogoutDelay(this);
@@ -982,7 +980,6 @@ namespace Server
 		private StatLockType m_StrLock, m_DexLock, m_IntLock;
 
 		private Item m_Holding;
-
 		public Item Holding
 		{
 			get
@@ -2627,7 +2624,7 @@ namespace Server
 
 		public virtual bool CheckShove(Mobile shoved)
 		{
-			if ((m_Map.Rules & MapRules.FreeMovement) == 0)
+			if ((m_Map.Rules & ZoneRules.FreeMovement) == 0)
 			{
 				if (!shoved.Alive || !Alive || shoved.IsDeadBondedPet || IsDeadBondedPet)
 					return true;
@@ -6006,6 +6003,17 @@ namespace Server
 
 		#region Beneficial Checks/Actions
 
+		public virtual bool IsInBeneficialZone()
+		{
+			if (Region != null && !Region.Rules.HasFlag(ZoneRules.BeneficialRestrictions))
+				return true;
+
+			if (Map != null && !Map.Rules.HasFlag(ZoneRules.BeneficialRestrictions))
+				return true;
+
+			return false;
+		}
+
 		public virtual bool CanBeBeneficial(Mobile target)
 		{
 			return CanBeBeneficial(target, true, false);
@@ -6091,6 +6099,16 @@ namespace Server
 		#endregion
 
 		#region Harmful Checks/Actions
+		public virtual bool IsInHarmfulZone()
+		{
+			if (Region != null && !Region.Rules.HasFlag(ZoneRules.HarmfulRestrictions))
+				return true;
+
+			if (Map != null && !Map.Rules.HasFlag(ZoneRules.HarmfulRestrictions))
+				return true;
+
+			return false;
+		}
 
 		public virtual bool CanBeHarmful(Mobile target)
 		{

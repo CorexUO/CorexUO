@@ -134,6 +134,7 @@ namespace Server
 
 		public string Name { get { return m_Name; } }
 		public Map Map { get; }
+		public ZoneRules Rules { get; set; }
 		public Region Parent { get; }
 		public List<Region> Children { get; } = new List<Region>();
 		public Rectangle3D[] Area { get; }
@@ -166,6 +167,7 @@ namespace Server
 		{
 			m_Name = name;
 			Map = map;
+			Rules = map.Rules;
 			Parent = parent;
 			Area = area;
 			Dynamic = true;
@@ -892,6 +894,7 @@ namespace Server
 		public Region(XmlElement xml, Map map, Region parent)
 		{
 			Map = map;
+			Rules = map.Rules;
 			Parent = parent;
 			Dynamic = false;
 

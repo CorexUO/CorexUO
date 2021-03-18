@@ -114,7 +114,7 @@ using System.Linq;
 namespace Server
 {
 	[Flags]
-	public enum MapRules
+	public enum ZoneRules
 	{
 		None = 0x0000,
 		Internal = 0x0001, // Internal map (used for dragging, commodity deeds, etc)
@@ -1284,7 +1284,7 @@ namespace Server
 			return new Point2D(x, y);
 		}
 
-		public Map(int mapID, int mapIndex, int fileIndex, int width, int height, int season, string name, MapRules rules)
+		public Map(int mapID, int mapIndex, int fileIndex, int width, int height, int season, string name, ZoneRules rules)
 		{
 			MapID = mapID;
 			MapIndex = mapIndex;
@@ -1582,7 +1582,7 @@ namespace Server
 			}
 		}
 
-		public MapRules Rules { get; set; }
+		public ZoneRules Rules { get; set; }
 
 		public Sector InvalidSector { get; }
 

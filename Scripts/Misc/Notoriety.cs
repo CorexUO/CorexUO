@@ -117,8 +117,11 @@ namespace Server.Misc
 			}
 			#endregion
 
+			Region region = from.Region;
+			if (region != null && !region.Rules.HasFlag(ZoneRules.BeneficialRestrictions))
+				return true; // in region with BeneficialRestrictions, true
 
-			if (map != null && (map.Rules & MapRules.BeneficialRestrictions) == 0)
+			if (map != null && !map.Rules.HasFlag(ZoneRules.BeneficialRestrictions))
 				return true; // In felucca, anything goes
 
 			if (!from.Player)
@@ -182,9 +185,12 @@ namespace Server.Misc
 				return false;
 			#endregion
 
-			Map map = from.Map;
+			Region region = from.Region;
+			if (region != null && region.Rules.HasFlag(ZoneRules.HarmfulRestrictions))
+				return true; // in region with HarmfulRestrictions, true
 
-			if (map != null && (map.Rules & MapRules.HarmfulRestrictions) == 0)
+			Map map = from.Map;
+			if (map != null && map.Rules.HasFlag(ZoneRules.HarmfulRestrictions))
 				return true; // In felucca, anything goes
 
 			BaseCreature bc = from as BaseCreature;
@@ -291,7 +297,7 @@ namespace Server.Misc
 					if (target.Kills >= Mobile.MurderKills || (body.IsMonster && IsSummoned(target.Owner as BaseCreature)) || (target.Owner is BaseCreature baseCreature && (baseCreature.AlwaysMurderer || baseCreature.IsAnimatedDead)))
 						return Notoriety.Murderer;
 
-					if (target.Criminal && target.Map != null && ((target.Map.Rules & MapRules.HarmfulRestrictions) == 0))
+					if (target.Criminal && source.IsInHarmfulZone() && target.Map != null && ((target.Map.Rules & ZoneRules.HarmfulRestrictions) == 0))
 						return Notoriety.Criminal;
 
 					Guild sourceGuild = GetGuildFor(source.Guild as Guild, source);

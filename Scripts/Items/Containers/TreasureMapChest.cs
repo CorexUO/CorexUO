@@ -310,9 +310,12 @@ namespace Server.Items
 			if (p != null && p.Contains(m))
 				return true;
 
-			Map map = this.Map;
+			Region region = Region.Find(Location, Map);
+			if (region != null && region.Rules.HasFlag(ZoneRules.HarmfulRestrictions))
+				return false;
 
-			if (map != null && (map.Rules & MapRules.HarmfulRestrictions) == 0)
+			Map map = Map;
+			if (map != null && (map.Rules & ZoneRules.HarmfulRestrictions) == 0)
 			{
 				if (criminalAction)
 					m.CriminalAction(true);

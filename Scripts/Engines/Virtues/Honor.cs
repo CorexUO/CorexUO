@@ -153,7 +153,7 @@ namespace Server
 				{
 					//Allow honor on blue if Out of guardzone
 				}
-				else if (map != null && (map.Rules & MapRules.HarmfulRestrictions) == 0)
+				else if (map != null && (map.Rules & ZoneRules.HarmfulRestrictions) == 0)
 				{
 					//Allow honor on blue if in Fel
 				}

@@ -59,7 +59,7 @@ namespace Server.Spells.Fourth
 
 				if (map != null)
 				{
-					bool feluccaRules = (map.Rules == MapRules.FeluccaRules);
+					bool feluccaRules = Caster.IsInHarmfulZone();
 
 					// You can target any living mobile directly, beneficial checks apply
 					if (directTarget != null && Caster.CanBeBeneficial(directTarget, false))

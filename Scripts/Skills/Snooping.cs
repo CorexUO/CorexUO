@@ -20,7 +20,11 @@ namespace Server.SkillHandlers
 			if (to.Player)
 				return from.CanBeHarmful(to, false, true); // normal restrictions
 
-			if (map != null && (map.Rules & MapRules.HarmfulRestrictions) == 0)
+			Region region = from.Region;
+			if (region != null && !region.Rules.HasFlag(ZoneRules.HarmfulRestrictions))
+				return true;
+
+			if (map != null && (map.Rules & ZoneRules.HarmfulRestrictions) == 0)
 				return true; // felucca you can snoop anybody
 
 			GuardedRegion reg = (GuardedRegion)to.Region.GetRegion(typeof(GuardedRegion));
