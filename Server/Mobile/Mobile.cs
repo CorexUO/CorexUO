@@ -4297,7 +4297,7 @@ namespace Server
 		/// </summary>
 		public virtual void OnDamage(int amount, Mobile from, bool willKill)
 		{
-			EventSink.InvokeOnMobileDamage(this, amount, from);
+			EventSink.InvokeOnMobileDamage(this, amount, from, willKill);
 		}
 
 		public virtual void Damage(int amount)

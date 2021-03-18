@@ -332,8 +332,8 @@ namespace Server
 		public static event Action<Mobile> OnMobileDeleted;
 		public static void InvokeOnMobileDeleted(Mobile mob) => OnMobileDeleted?.Invoke(mob);
 
-		public static event Action<Mobile, int, Mobile> OnMobileDamage;
-		public static void InvokeOnMobileDamage(Mobile mob, int damage, Mobile from) => OnMobileDamage?.Invoke(mob, damage, from);
+		public static event Action<Mobile, int, Mobile, bool> OnMobileDamage;
+		public static void InvokeOnMobileDamage(Mobile mob, int damage, Mobile from, bool willKill) => OnMobileDamage?.Invoke(mob, damage, from, willKill);
 
 		public static event Action<Mobile, Mobile, Container> OnMobileDeath;
 		public static void InvokeOnMobileDeath(Mobile creature, Mobile killer, Container corpse) => OnMobileDeath?.Invoke(creature, killer, corpse);
