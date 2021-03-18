@@ -617,6 +617,7 @@ namespace Server.Spells
 
 		public virtual void OnBeginCast()
 		{
+			EventSink.InvokeOnMobileCastSpell(Caster, Caster.Spell, SpellTarget);
 		}
 
 		public virtual void GetCastSkills(out double min, out double max)

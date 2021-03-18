@@ -799,7 +799,11 @@ namespace Server.Items
 			if (Core.AOS && chance < 0.02)
 				chance = 0.02;
 
-			return attacker.CheckSkill(atkSkill.SkillName, chance);
+			bool success = attacker.CheckSkill(atkSkill.SkillName, chance);
+
+			EventSink.InvokeOnMobileCheckHit(attacker, defender, success);
+
+			return success;
 		}
 
 		public virtual TimeSpan GetDelay(Mobile m)

@@ -365,6 +365,9 @@ namespace Server
 		public static event Action<Mobile, Mobile> OnMobileAttackRequest;
 		public static void InvokeOnMobileAttackRequest(Mobile from, Mobile to) => OnMobileAttackRequest?.Invoke(from, to);
 
+		public static event Action<Mobile, Mobile, bool> OnMobileCheckHit;
+		public static void InvokeOnMobileCheckHit(Mobile from, Mobile to, bool success) => OnMobileCheckHit?.Invoke(from, to, success);
+
 		//Item
 		public static event Action<Mobile, Item> OnItemObtained;
 		public static void InvokeOnItemObtained(Mobile m, Item item) => OnItemObtained?.Invoke(m, item);
@@ -395,8 +398,8 @@ namespace Server
 		public static void InvokeOnSkillCheck(Mobile from, Skill skill, bool success) => OnSkillCheck?.Invoke(from, skill, success);
 
 		//Spell
-		public static event Action<Mobile, IEntity, int> OnTargetedSpell;
-		public static void InvokeTargetedSpell(Mobile m, IEntity target, int spellId) => OnTargetedSpell?.Invoke(m, target, spellId);
+		public static event Action<Mobile, ISpell, object> OnMobileCastSpell;
+		public static void InvokeOnMobileCastSpell(Mobile m, ISpell spell, object target) => OnMobileCastSpell?.Invoke(m, spell, target);
 
 		public static event Action<Mobile, int> OnOpenSpellbookRequest;
 		public static void InvokeOpenSpellbookRequest(Mobile m, int type) => OnOpenSpellbookRequest?.Invoke(m, type);
