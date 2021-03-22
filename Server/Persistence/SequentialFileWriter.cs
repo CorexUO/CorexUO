@@ -10,16 +10,12 @@ namespace Server
 
 		private AsyncCallback writeCallback;
 
-		private readonly SaveMetrics metrics;
-
-		public SequentialFileWriter(string path, SaveMetrics metrics)
+		public SequentialFileWriter(string path)
 		{
 			if (path == null)
 			{
 				throw new ArgumentNullException("path");
 			}
-
-			this.metrics = metrics;
 
 			this.fileStream = FileOperations.OpenSequentialStream(path, FileMode.Create, FileAccess.Write, FileShare.None);
 
@@ -47,11 +43,6 @@ namespace Server
 			{
 				fileStream.Write(chunk.Buffer, FileQueue.Chunk.Offset, chunk.Size);
 
-				if (metrics != null)
-				{
-					metrics.OnFileWritten(chunk.Size);
-				}
-
 				chunk.Commit();
 			}
 			else
@@ -70,11 +61,6 @@ namespace Server
 			FileQueue.Chunk chunk = asyncResult.AsyncState as FileQueue.Chunk;
 
 			fileStream.EndWrite(asyncResult);
-
-			if (metrics != null)
-			{
-				metrics.OnFileWritten(chunk.Size);
-			}
 
 			chunk.Commit();
 		}

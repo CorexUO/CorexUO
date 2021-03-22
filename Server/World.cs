@@ -780,7 +780,7 @@ namespace Server
 
 
 			/*using ( SaveMetrics metrics = new SaveMetrics() ) {*/
-			strategy.Save(null, permitBackgroundWrite);
+			strategy.Save(permitBackgroundWrite);
 			/*}*/
 
 			try

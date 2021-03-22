@@ -30,19 +30,19 @@ namespace Server
 
 		protected bool UseSequentialWriters { get { return (StandardSaveStrategy.SaveType == SaveOption.Normal || !PermitBackgroundWrite); } }
 
-		public override void Save(SaveMetrics metrics, bool permitBackgroundWrite)
+		public override void Save(bool permitBackgroundWrite)
 		{
 			PermitBackgroundWrite = permitBackgroundWrite;
 
-			SaveMobiles(metrics);
-			SaveItems(metrics);
-			SaveGuilds(metrics);
+			SaveMobiles();
+			SaveItems();
+			SaveGuilds();
 
 			if (permitBackgroundWrite && UseSequentialWriters)  //If we're permitted to write in the background, but we don't anyways, then notify.
 				World.NotifyDiskWriteComplete();
 		}
 
-		protected void SaveMobiles(SaveMetrics metrics)
+		protected void SaveMobiles()
 		{
 			Dictionary<Serial, Mobile> mobiles = World.Mobiles;
 
@@ -74,11 +74,6 @@ namespace Server
 
 				m.Serialize(bin);
 
-				if (metrics != null)
-				{
-					metrics.OnMobileSaved((int)(bin.Position - start));
-				}
-
 				idx.Write((int)(bin.Position - start));
 
 				m.FreeCache();
@@ -94,7 +89,7 @@ namespace Server
 			bin.Close();
 		}
 
-		protected void SaveItems(SaveMetrics metrics)
+		protected void SaveItems()
 		{
 			Dictionary<Serial, Item> items = World.Items;
 
@@ -134,11 +129,6 @@ namespace Server
 
 				item.Serialize(bin);
 
-				if (metrics != null)
-				{
-					metrics.OnItemSaved((int)(bin.Position - start));
-				}
-
 				idx.Write((int)(bin.Position - start));
 
 				item.FreeCache();
@@ -153,7 +143,7 @@ namespace Server
 			bin.Close();
 		}
 
-		protected void SaveGuilds(SaveMetrics metrics)
+		protected void SaveGuilds()
 		{
 			GenericWriter idx;
 			GenericWriter bin;
@@ -179,11 +169,6 @@ namespace Server
 				idx.Write(start);
 
 				guild.Serialize(bin);
-
-				if (metrics != null)
-				{
-					metrics.OnGuildSaved((int)(bin.Position - start));
-				}
 
 				idx.Write((int)(bin.Position - start));
 			}

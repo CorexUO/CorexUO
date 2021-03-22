@@ -13,21 +13,21 @@ namespace Server
 		{
 		}
 
-		public override void Save(SaveMetrics metrics, bool permitBackgroundWrite)
+		public override void Save(bool permitBackgroundWrite)
 		{
 			this.PermitBackgroundWrite = permitBackgroundWrite;
 
 			Thread saveThread = new Thread(delegate ()
 			{
-				SaveItems(metrics);
+				SaveItems();
 			})
 			{
 				Name = "Item Save Subset"
 			};
 			saveThread.Start();
 
-			SaveMobiles(metrics);
-			SaveGuilds(metrics);
+			SaveMobiles();
+			SaveGuilds();
 
 			saveThread.Join();
 
