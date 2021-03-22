@@ -2522,12 +2522,12 @@ namespace Server
 
 		public virtual int GetMaxUpdateRange()
 		{
-			return 18;
+			return Map.GlobalUpdateRange;
 		}
 
 		public virtual int GetUpdateRange(Mobile m)
 		{
-			return 18;
+			return Map.GlobalUpdateRange;
 		}
 
 		public void SendInfoTo(NetState state)
