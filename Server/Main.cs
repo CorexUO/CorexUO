@@ -32,7 +32,7 @@ namespace Server
 
 		public static bool Profiling
 		{
-			get { return m_Profiling; }
+			get => m_Profiling;
 			set
 			{
 				if (m_Profiling == value)
@@ -64,7 +64,7 @@ namespace Server
 		internal static bool VBdotNet { get; private set; }
 		public static List<string> DataDirectories { get; } = new List<string>();
 		public static Assembly Assembly { get; set; }
-		public static Version Version { get { return Assembly.GetName().Version; } }
+		public static Version Version => Assembly.GetName().Version;
 		public static Process Process { get; private set; }
 		public static Thread Thread { get; private set; }
 		public static MultiTextWriter MultiConsoleOut { get; private set; }
@@ -87,9 +87,9 @@ namespace Server
 
 		private static bool _UseHRT;
 
-		public static bool UsingHighResolutionTiming { get { return _UseHRT && _HighRes && !Unix; } }
+		public static bool UsingHighResolutionTiming => _UseHRT && _HighRes && !Unix;
 
-		public static long TickCount { get { return (long)Ticks; } }
+		public static long TickCount => (long)Ticks;
 
 		public static double Ticks
 		{
@@ -140,62 +140,29 @@ namespace Server
 
 		public static Expansion Expansion { get; set; }
 
-		public static bool T2A
-		{
-			get { return Expansion >= Expansion.T2A; }
-		}
+		public static bool T2A => Expansion >= Expansion.T2A;
 
-		public static bool UOR
-		{
-			get { return Expansion >= Expansion.UOR; }
-		}
+		public static bool UOR => Expansion >= Expansion.UOR;
 
-		public static bool UOTD
-		{
-			get { return Expansion >= Expansion.UOTD; }
-		}
+		public static bool UOTD => Expansion >= Expansion.UOTD;
 
-		public static bool LBR
-		{
-			get { return Expansion >= Expansion.LBR; }
-		}
+		public static bool LBR => Expansion >= Expansion.LBR;
 
-		public static bool AOS
-		{
-			get { return Expansion >= Expansion.AOS; }
-		}
+		public static bool AOS => Expansion >= Expansion.AOS;
 
-		public static bool SE
-		{
-			get { return Expansion >= Expansion.SE; }
-		}
+		public static bool SE => Expansion >= Expansion.SE;
 
-		public static bool ML
-		{
-			get { return Expansion >= Expansion.ML; }
-		}
+		public static bool ML => Expansion >= Expansion.ML;
 
-		public static bool SA
-		{
-			get { return Expansion >= Expansion.SA; }
-		}
+		public static bool SA => Expansion >= Expansion.SA;
 
-		public static bool HS
-		{
-			get { return Expansion >= Expansion.HS; }
-		}
+		public static bool HS => Expansion >= Expansion.HS;
 
-		public static bool TOL
-		{
-			get { return Expansion >= Expansion.TOL; }
-		}
+		public static bool TOL => Expansion >= Expansion.TOL;
 
 		#endregion
 
-		public static string ExePath
-		{
-			get { return m_ExePath ?? (m_ExePath = Assembly.Location); }
-		}
+		public static string ExePath => m_ExePath ?? (m_ExePath = Assembly.Location);
 
 		public static string BaseDirectory
 		{
@@ -305,9 +272,9 @@ namespace Server
 		private static int m_CycleIndex = 1;
 		private static readonly float[] m_CyclesPerSecond = new float[100];
 
-		public static float CyclesPerSecond { get { return m_CyclesPerSecond[(m_CycleIndex - 1) % m_CyclesPerSecond.Length]; } }
+		public static float CyclesPerSecond => m_CyclesPerSecond[(m_CycleIndex - 1) % m_CyclesPerSecond.Length];
 
-		public static float AverageCPS { get { return m_CyclesPerSecond.Take(m_CycleIndex).Average(); } }
+		public static float AverageCPS => m_CyclesPerSecond.Take(m_CycleIndex).Average();
 
 		public static void Kill()
 		{
@@ -548,8 +515,8 @@ namespace Server
 
 		private static int m_ItemCount, m_MobileCount;
 
-		public static int ScriptItems { get { return m_ItemCount; } }
-		public static int ScriptMobiles { get { return m_MobileCount; } }
+		public static int ScriptItems => m_ItemCount;
+		public static int ScriptMobiles => m_MobileCount;
 
 		public static void VerifySerialization()
 		{
@@ -719,7 +686,7 @@ namespace Server
 			}
 		}
 
-		public override Encoding Encoding { get { return Encoding.Default; } }
+		public override Encoding Encoding => Encoding.Default;
 	}
 
 	public class MultiTextWriter : TextWriter
@@ -767,6 +734,6 @@ namespace Server
 			WriteLine(string.Format(line, args));
 		}
 
-		public override Encoding Encoding { get { return Encoding.Default; } }
+		public override Encoding Encoding => Encoding.Default;
 	}
 }

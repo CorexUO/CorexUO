@@ -5,18 +5,9 @@ namespace Server.Items
 {
 	public class BankBox : Container
 	{
-		public override int DefaultMaxWeight
-		{
-			get
-			{
-				return 0;
-			}
-		}
+		public override int DefaultMaxWeight => 0;
 
-		public override bool IsVirtualItem
-		{
-			get { return true; }
-		}
+		public override bool IsVirtualItem => true;
 
 		public BankBox(Serial serial) : base(serial)
 		{

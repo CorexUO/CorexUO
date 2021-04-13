@@ -6,13 +6,13 @@ namespace Server
 	[Parsable]
 	public abstract class Race
 	{
-		public static Race DefaultRace { get { return Races[0]; } }
+		public static Race DefaultRace => Races[0];
 
 		public static Race[] Races { get; } = new Race[0x100];
 
-		public static Race Human { get { return Races[0]; } }
-		public static Race Elf { get { return Races[1]; } }
-		public static Race Gargoyle { get { return Races[2]; } }
+		public static Race Human => Races[0];
+		public static Race Elf => Races[1];
+		public static Race Gargoyle => Races[2];
 
 		public static List<Race> AllRaces { get; } = new List<Race>();
 

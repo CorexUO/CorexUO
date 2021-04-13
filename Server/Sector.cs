@@ -327,13 +327,7 @@ namespace Server
 			}
 		}
 
-		public bool Active
-		{
-			get
-			{
-				return (m_Active && Owner != Map.Internal);
-			}
-		}
+		public bool Active => (m_Active && Owner != Map.Internal);
 
 		public Map Owner { get; }
 

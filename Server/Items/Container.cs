@@ -35,13 +35,13 @@ namespace Server.Items
 
 				return m_ContainerData;
 			}
-			set { m_ContainerData = value; }
+			set => m_ContainerData = value;
 		}
 
 		[CommandProperty(AccessLevel.GameMaster)]
 		public override int ItemID
 		{
-			get { return base.ItemID; }
+			get => base.ItemID;
 			set
 			{
 				int oldID = this.ItemID;
@@ -56,21 +56,21 @@ namespace Server.Items
 		[CommandProperty(AccessLevel.GameMaster)]
 		public int GumpID
 		{
-			get { return (m_GumpID == -1 ? DefaultGumpID : m_GumpID); }
-			set { m_GumpID = value; }
+			get => (m_GumpID == -1 ? DefaultGumpID : m_GumpID);
+			set => m_GumpID = value;
 		}
 
 		[CommandProperty(AccessLevel.GameMaster)]
 		public int DropSound
 		{
-			get { return (m_DropSound == -1 ? DefaultDropSound : m_DropSound); }
-			set { m_DropSound = value; }
+			get => (m_DropSound == -1 ? DefaultDropSound : m_DropSound);
+			set => m_DropSound = value;
 		}
 
 		[CommandProperty(AccessLevel.GameMaster)]
 		public int MaxItems
 		{
-			get { return (m_MaxItems == -1 ? DefaultMaxItems : m_MaxItems); }
+			get => (m_MaxItems == -1 ? DefaultMaxItems : m_MaxItems);
 			set { m_MaxItems = value; InvalidateProperties(); }
 		}
 
@@ -98,17 +98,14 @@ namespace Server.Items
 			this.ContainerData = ContainerData.GetData(this.ItemID);
 		}
 
-		public virtual Rectangle2D Bounds { get { return ContainerData.Bounds; } }
-		public virtual int DefaultGumpID { get { return ContainerData.GumpID; } }
-		public virtual int DefaultDropSound { get { return ContainerData.DropSound; } }
+		public virtual Rectangle2D Bounds => ContainerData.Bounds;
+		public virtual int DefaultGumpID => ContainerData.GumpID;
+		public virtual int DefaultDropSound => ContainerData.DropSound;
 
-		public virtual int DefaultMaxItems { get { return GlobalMaxItems; } }
-		public virtual int DefaultMaxWeight { get { return GlobalMaxWeight; } }
+		public virtual int DefaultMaxItems => GlobalMaxItems;
+		public virtual int DefaultMaxWeight => GlobalMaxWeight;
 
-		public virtual bool IsDecoContainer
-		{
-			get { return !Movable && !IsLockedDown && !IsSecure && Parent == null && !LiftOverride; }
-		}
+		public virtual bool IsDecoContainer => !Movable && !IsLockedDown && !IsSecure && Parent == null && !LiftOverride;
 
 		public virtual int GetDroppedSound(Item item)
 		{
@@ -1497,7 +1494,7 @@ namespace Server.Items
 			}
 		}
 
-		public virtual bool DisplaysContent { get { return true; } }
+		public virtual bool DisplaysContent => true;
 
 		public virtual bool CheckContentDisplay(Mobile from)
 		{
@@ -1523,7 +1520,7 @@ namespace Server.Items
 
 		public List<Mobile> Openers { get; set; }
 
-		public virtual bool IsPublicContainer { get { return false; } }
+		public virtual bool IsPublicContainer => false;
 
 		public override void OnDelete()
 		{
@@ -1734,7 +1731,7 @@ namespace Server.Items
 		private Rectangle2D m_Bounds;
 
 		public int GumpID { get; }
-		public Rectangle2D Bounds { get { return m_Bounds; } }
+		public Rectangle2D Bounds => m_Bounds;
 		public int DropSound { get; }
 
 		public ContainerData(int gumpID, Rectangle2D bounds, int dropSound)

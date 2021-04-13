@@ -29,13 +29,7 @@ namespace Server.Diagnostics
 		public TimeSpan TotalTime { get; private set; }
 		public Stopwatch Stopwatch { get; set; }
 
-		public TimeSpan AverageTime
-		{
-			get
-			{
-				return TimeSpan.FromTicks(TotalTime.Ticks / Math.Max(1, Count));
-			}
-		}
+		public TimeSpan AverageTime => TimeSpan.FromTicks(TotalTime.Ticks / Math.Max(1, Count));
 
 		protected BaseProfile(string name)
 		{

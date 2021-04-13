@@ -15,10 +15,7 @@ namespace Server
 		private readonly MemoryStream _memStream;
 		private readonly List<IndexInfo> _orderedIndexInfo = new List<IndexInfo>();
 
-		protected override int BufferSize
-		{
-			get { return 512; }
-		}
+		protected override int BufferSize => 512;
 
 		public QueuedMemoryWriter()
 			: base(new MemoryStream(1024 * 1024), true)

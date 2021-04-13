@@ -125,13 +125,7 @@ namespace Server
 		{
 			public Item Item { get; }
 
-			public Serial Serial
-			{
-				get
-				{
-					return Item == null ? Serial.MinusOne : Item.Serial;
-				}
-			}
+			public Serial Serial => Item == null ? Serial.MinusOne : Item.Serial;
 
 			public int TypeID { get; }
 			public string TypeName { get; }
@@ -152,13 +146,7 @@ namespace Server
 		{
 			public Mobile Mobile { get; }
 
-			public Serial Serial
-			{
-				get
-				{
-					return Mobile == null ? Serial.MinusOne : Mobile.Serial;
-				}
-			}
+			public Serial Serial => Mobile == null ? Serial.MinusOne : Mobile.Serial;
 
 			public int TypeID { get; }
 			public string TypeName { get; }

@@ -32,42 +32,18 @@ namespace Server
 			}
 		}
 
-		public static Serial NewGuild
-		{
-			get
-			{
-				return World.Guilds.Count;
-			}
-		}
+		public static Serial NewGuild => World.Guilds.Count;
 
 		private Serial(int serial)
 		{
 			Value = serial;
 		}
 
-		public bool IsMobile
-		{
-			get
-			{
-				return (Value > 0 && Value < 0x40000000);
-			}
-		}
+		public bool IsMobile => (Value > 0 && Value < 0x40000000);
 
-		public bool IsItem
-		{
-			get
-			{
-				return (Value >= 0x40000000 && Value <= 0x7FFFFFFF);
-			}
-		}
+		public bool IsItem => (Value >= 0x40000000 && Value <= 0x7FFFFFFF);
 
-		public bool IsValid
-		{
-			get
-			{
-				return (Value > 0);
-			}
-		}
+		public bool IsValid => (Value > 0);
 
 		public override int GetHashCode()
 		{

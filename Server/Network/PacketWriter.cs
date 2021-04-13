@@ -391,27 +391,15 @@ namespace Server.Network
 		/// <summary>
 		/// Gets the total stream length.
 		/// </summary>
-		public long Length
-		{
-			get
-			{
-				return UnderlyingStream.Length;
-			}
-		}
+		public long Length => UnderlyingStream.Length;
 
 		/// <summary>
 		/// Gets or sets the current stream position.
 		/// </summary>
 		public long Position
 		{
-			get
-			{
-				return UnderlyingStream.Position;
-			}
-			set
-			{
-				UnderlyingStream.Position = value;
-			}
+			get => UnderlyingStream.Position;
+			set => UnderlyingStream.Position = value;
 		}
 
 		/// <summary>

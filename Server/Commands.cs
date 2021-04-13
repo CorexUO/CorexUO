@@ -13,13 +13,7 @@ namespace Server.Commands
 		public string ArgString { get; }
 		public string[] Arguments { get; }
 
-		public int Length
-		{
-			get
-			{
-				return Arguments.Length;
-			}
-		}
+		public int Length => Arguments.Length;
 
 		public string GetString(int index)
 		{

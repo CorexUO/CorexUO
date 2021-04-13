@@ -444,8 +444,8 @@ namespace Server
 		public SecureTradeContainer Container { get; private set; }
 		public VirtualCheck VirtualCheck { get; private set; }
 
-		public int Gold { get { return VirtualCheck.Gold; } set { VirtualCheck.Gold = value; } }
-		public int Plat { get { return VirtualCheck.Plat; } set { VirtualCheck.Plat = value; } }
+		public int Gold { get => VirtualCheck.Gold; set => VirtualCheck.Gold = value; }
+		public int Plat { get => VirtualCheck.Plat; set => VirtualCheck.Plat = value; }
 
 		public bool Accepted { get; set; }
 

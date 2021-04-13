@@ -141,9 +141,9 @@ namespace Server
 		public virtual int ManaRegenBonus { get; set; }
 		public virtual int StamRegenBonus { get; set; }
 
-		public virtual int HitsRegenBaseValue { get { return 1; } }
-		public virtual int ManaRegenBaseValue { get { return 1; } }
-		public virtual int StamRegenBaseValue { get { return 1; } }
+		public virtual int HitsRegenBaseValue => 1;
+		public virtual int ManaRegenBaseValue => 1;
+		public virtual int StamRegenBaseValue => 1;
 
 		public virtual int GetHitsRegenValue()
 		{
@@ -300,15 +300,15 @@ namespace Server
 		{
 		}
 
-		public virtual double RacialSkillBonus { get { return 0; } }
+		public virtual double RacialSkillBonus => 0;
 
 		public int[] Resistances { get; private set; }
 
-		public virtual int BasePhysicalResistance { get { return 0; } }
-		public virtual int BaseFireResistance { get { return 0; } }
-		public virtual int BaseColdResistance { get { return 0; } }
-		public virtual int BasePoisonResistance { get { return 0; } }
-		public virtual int BaseEnergyResistance { get { return 0; } }
+		public virtual int BasePhysicalResistance => 0;
+		public virtual int BaseFireResistance => 0;
+		public virtual int BaseColdResistance => 0;
+		public virtual int BasePoisonResistance => 0;
+		public virtual int BaseEnergyResistance => 0;
 
 		public virtual void ComputeLightLevels(out int global, out int personal)
 		{
@@ -329,34 +329,19 @@ namespace Server
 		}
 
 		[CommandProperty(AccessLevel.Counselor)]
-		public virtual int PhysicalResistance
-		{
-			get { return GetResistance(ResistanceType.Physical); }
-		}
+		public virtual int PhysicalResistance => GetResistance(ResistanceType.Physical);
 
 		[CommandProperty(AccessLevel.Counselor)]
-		public virtual int FireResistance
-		{
-			get { return GetResistance(ResistanceType.Fire); }
-		}
+		public virtual int FireResistance => GetResistance(ResistanceType.Fire);
 
 		[CommandProperty(AccessLevel.Counselor)]
-		public virtual int ColdResistance
-		{
-			get { return GetResistance(ResistanceType.Cold); }
-		}
+		public virtual int ColdResistance => GetResistance(ResistanceType.Cold);
 
 		[CommandProperty(AccessLevel.Counselor)]
-		public virtual int PoisonResistance
-		{
-			get { return GetResistance(ResistanceType.Poison); }
-		}
+		public virtual int PoisonResistance => GetResistance(ResistanceType.Poison);
 
 		[CommandProperty(AccessLevel.Counselor)]
-		public virtual int EnergyResistance
-		{
-			get { return GetResistance(ResistanceType.Energy); }
-		}
+		public virtual int EnergyResistance => GetResistance(ResistanceType.Energy);
 
 		public virtual void UpdateResistances()
 		{
@@ -587,7 +572,7 @@ namespace Server
 			}
 		}
 
-		public virtual bool NewGuildDisplay { get { return false; } }
+		public virtual bool NewGuildDisplay => false;
 
 		public virtual void GetProperties(ObjectPropertyList list)
 		{
@@ -675,7 +660,7 @@ namespace Server
 		public List<Mobile> Stabled { get; private set; }
 
 		[CommandProperty(AccessLevel.Counselor, AccessLevel.GameMaster)]
-		public VirtueInfo Virtues { get { return m_Virtues; } set { } }
+		public VirtueInfo Virtues { get => m_Virtues; set { } }
 
 		public object Party { get; set; }
 		public List<SkillMod> SkillMods { get; private set; }
@@ -683,10 +668,7 @@ namespace Server
 		[CommandProperty(AccessLevel.GameMaster)]
 		public int VirtualArmorMod
 		{
-			get
-			{
-				return m_VirtualArmorMod;
-			}
+			get => m_VirtualArmorMod;
 			set
 			{
 				if (m_VirtualArmorMod != value)
@@ -850,10 +832,7 @@ namespace Server
 		[CommandProperty(AccessLevel.GameMaster)]
 		public int SkillsCap
 		{
-			get
-			{
-				return m_Skills == null ? 0 : m_Skills.Cap;
-			}
+			get => m_Skills == null ? 0 : m_Skills.Cap;
 			set
 			{
 				if (m_Skills != null)
@@ -943,10 +922,7 @@ namespace Server
 		[CommandProperty(AccessLevel.GameMaster)]
 		public int Hunger
 		{
-			get
-			{
-				return m_Hunger;
-			}
+			get => m_Hunger;
 			set
 			{
 				int oldValue = m_Hunger;
@@ -982,10 +958,7 @@ namespace Server
 		private Item m_Holding;
 		public Item Holding
 		{
-			get
-			{
-				return m_Holding;
-			}
+			get => m_Holding;
 			set
 			{
 				if (m_Holding != value)
@@ -1019,10 +992,7 @@ namespace Server
 		[CommandProperty(AccessLevel.GameMaster)]
 		public virtual bool Paralyzed
 		{
-			get
-			{
-				return m_Paralyzed;
-			}
+			get => m_Paralyzed;
 			set
 			{
 				if (m_Paralyzed != value)
@@ -1050,10 +1020,7 @@ namespace Server
 		[CommandProperty(AccessLevel.GameMaster)]
 		public virtual bool Frozen
 		{
-			get
-			{
-				return m_Frozen;
-			}
+			get => m_Frozen;
 			set
 			{
 				if (m_Frozen != value)
@@ -1098,10 +1065,7 @@ namespace Server
 		[CommandProperty(AccessLevel.Counselor, AccessLevel.GameMaster)]
 		public StatLockType StrLock
 		{
-			get
-			{
-				return m_StrLock;
-			}
+			get => m_StrLock;
 			set
 			{
 				if (m_StrLock != value)
@@ -1120,10 +1084,7 @@ namespace Server
 		[CommandProperty(AccessLevel.Counselor, AccessLevel.GameMaster)]
 		public StatLockType DexLock
 		{
-			get
-			{
-				return m_DexLock;
-			}
+			get => m_DexLock;
 			set
 			{
 				if (m_DexLock != value)
@@ -1142,10 +1103,7 @@ namespace Server
 		[CommandProperty(AccessLevel.Counselor, AccessLevel.GameMaster)]
 		public StatLockType IntLock
 		{
-			get
-			{
-				return m_IntLock;
-			}
+			get => m_IntLock;
 			set
 			{
 				if (m_IntLock != value)
@@ -1210,11 +1168,11 @@ namespace Server
 
 		public static bool GlobalRegenThroughPoison { get; set; } = true;
 
-		public virtual bool RegenThroughPoison { get { return GlobalRegenThroughPoison; } }
+		public virtual bool RegenThroughPoison => GlobalRegenThroughPoison;
 
-		public virtual bool CanRegenHits { get { return Alive && (RegenThroughPoison || !this.Poisoned); } }
-		public virtual bool CanRegenStam { get { return Alive; } }
-		public virtual bool CanRegenMana { get { return Alive; } }
+		public virtual bool CanRegenHits => Alive && (RegenThroughPoison || !this.Poisoned);
+		public virtual bool CanRegenStam => Alive;
+		public virtual bool CanRegenMana => Alive;
 
 		#region Timers
 
@@ -1466,10 +1424,7 @@ namespace Server
 		[CommandProperty(AccessLevel.GameMaster)]
 		public virtual Mobile Combatant
 		{
-			get
-			{
-				return m_Combatant;
-			}
+			get => m_Combatant;
 			set
 			{
 				if (Deleted)
@@ -1769,10 +1724,7 @@ namespace Server
 		[CommandProperty(AccessLevel.GameMaster)]
 		public int Followers
 		{
-			get
-			{
-				return m_Followers;
-			}
+			get => m_Followers;
 			set
 			{
 				if (m_Followers != value)
@@ -1787,10 +1739,7 @@ namespace Server
 		[CommandProperty(AccessLevel.GameMaster)]
 		public int FollowersMax
 		{
-			get
-			{
-				return m_FollowersMax;
-			}
+			get => m_FollowersMax;
 			set
 			{
 				if (m_FollowersMax != value)
@@ -1961,10 +1910,7 @@ namespace Server
 
 		public Target Target
 		{
-			get
-			{
-				return m_Target;
-			}
+			get => m_Target;
 			set
 			{
 				Target oldTarget = m_Target;
@@ -1996,10 +1942,7 @@ namespace Server
 
 		public ContextMenu ContextMenu
 		{
-			get
-			{
-				return m_ContextMenu;
-			}
+			get => m_ContextMenu;
 			set
 			{
 				m_ContextMenu = value;
@@ -2191,10 +2134,7 @@ namespace Server
 
 		public Prompt Prompt
 		{
-			get
-			{
-				return m_Prompt;
-			}
+			get => m_Prompt;
 			set
 			{
 				Prompt oldPrompt = m_Prompt;
@@ -2608,7 +2548,7 @@ namespace Server
 			return true;
 		}
 
-		public virtual bool IsDeadBondedPet { get { return false; } }
+		public virtual bool IsDeadBondedPet => false;
 
 		/// <summary>
 		/// Overridable. Event invoked when a Mobile <paramref name="m" /> moves over this Mobile.
@@ -2671,10 +2611,7 @@ namespace Server
 
 		public ISpell Spell
 		{
-			get
-			{
-				return m_Spell;
-			}
+			get => m_Spell;
 			set
 			{
 				if (m_Spell != null && value != null)
@@ -2786,10 +2723,7 @@ namespace Server
 		[CommandProperty(AccessLevel.GameMaster)]
 		public int VirtualArmor
 		{
-			get
-			{
-				return m_VirtualArmor;
-			}
+			get => m_VirtualArmor;
 			set
 			{
 				if (m_VirtualArmor != value)
@@ -2802,13 +2736,7 @@ namespace Server
 		}
 
 		[CommandProperty(AccessLevel.GameMaster)]
-		public virtual double ArmorRating
-		{
-			get
-			{
-				return 0.0;
-			}
-		}
+		public virtual double ArmorRating => 0.0;
 
 		public void DropHolding()
 		{
@@ -2895,13 +2823,7 @@ namespace Server
 		/// Overridable. Returns true if the player is alive, false if otherwise. By default, this is computed by: <c>!Deleted &amp;&amp; (!Player || !Body.IsGhost)</c>
 		/// </summary>
 		[CommandProperty(AccessLevel.Counselor)]
-		public virtual bool Alive
-		{
-			get
-			{
-				return !Deleted && (!m_Player || !m_Body.IsGhost);
-			}
-		}
+		public virtual bool Alive => !Deleted && (!m_Player || !m_Body.IsGhost);
 
 		public virtual bool CheckSpellCast(ISpell spell)
 		{
@@ -3005,7 +2927,7 @@ namespace Server
 			return item.OnInventoryDeath(this);
 		}
 
-		public virtual bool RetainPackLocsOnDeath { get { return Core.AOS; } }
+		public virtual bool RetainPackLocsOnDeath => Core.AOS;
 
 		public virtual void Kill()
 		{
@@ -4761,7 +4683,7 @@ namespace Server
 			}
 		}
 
-		public virtual bool ShouldCheckStatTimers { get { return true; } }
+		public virtual bool ShouldCheckStatTimers => true;
 
 		public virtual void CheckStatTimers()
 		{
@@ -4829,15 +4751,9 @@ namespace Server
 		[CommandProperty(AccessLevel.GameMaster)]
 		public DateTime CreationTime { get; private set; }
 
-		int ISerializable.TypeReference
-		{
-			get { return m_TypeRef; }
-		}
+		int ISerializable.TypeReference => m_TypeRef;
 
-		int ISerializable.SerialIdentity
-		{
-			get { return Serial; }
-		}
+		int ISerializable.SerialIdentity => Serial;
 
 		public virtual void Serialize(GenericWriter writer)
 		{
@@ -4959,10 +4875,7 @@ namespace Server
 		[CommandProperty(AccessLevel.GameMaster)]
 		public int LightLevel
 		{
-			get
-			{
-				return m_LightLevel;
-			}
+			get => m_LightLevel;
 			set
 			{
 				if (m_LightLevel != value)
@@ -4986,10 +4899,7 @@ namespace Server
 		[CommandProperty(AccessLevel.GameMaster, AccessLevel.Administrator)]
 		public bool Player
 		{
-			get
-			{
-				return m_Player;
-			}
+			get => m_Player;
 			set
 			{
 				m_Player = value;
@@ -5007,10 +4917,7 @@ namespace Server
 		[CommandProperty(AccessLevel.GameMaster)]
 		public string Title
 		{
-			get
-			{
-				return m_Title;
-			}
+			get => m_Title;
 			set
 			{
 				m_Title = value;
@@ -5116,7 +5023,7 @@ namespace Server
 			}
 		}
 
-		public virtual int MaxWeight { get { return int.MaxValue; } }
+		public virtual int MaxWeight => int.MaxValue;
 
 		public void AddItem(Item item, int hue)
 		{
@@ -5325,10 +5232,7 @@ namespace Server
 		[CommandProperty(AccessLevel.Counselor)]
 		public Skills Skills
 		{
-			get
-			{
-				return m_Skills;
-			}
+			get => m_Skills;
 			set
 			{
 			}
@@ -5337,10 +5241,7 @@ namespace Server
 		[CommandProperty(AccessLevel.Counselor, AccessLevel.Administrator)]
 		public AccessLevel AccessLevel
 		{
-			get
-			{
-				return m_AccessLevel;
-			}
+			get => m_AccessLevel;
 			set
 			{
 				AccessLevel oldValue = m_AccessLevel;
@@ -5368,10 +5269,7 @@ namespace Server
 		[CommandProperty(AccessLevel.GameMaster)]
 		public int Fame
 		{
-			get
-			{
-				return m_Fame;
-			}
+			get => m_Fame;
 			set
 			{
 				int oldValue = m_Fame;
@@ -5396,10 +5294,7 @@ namespace Server
 		[CommandProperty(AccessLevel.GameMaster)]
 		public int Karma
 		{
-			get
-			{
-				return m_Karma;
-			}
+			get => m_Karma;
 			set
 			{
 				int old = m_Karma;
@@ -5551,10 +5446,7 @@ namespace Server
 		[CommandProperty(AccessLevel.GameMaster)]
 		public bool Blessed
 		{
-			get
-			{
-				return m_Blessed;
-			}
+			get => m_Blessed;
 			set
 			{
 				if (m_Blessed != value)
@@ -5883,10 +5775,7 @@ namespace Server
 		[CommandProperty(AccessLevel.Counselor, AccessLevel.GameMaster)]
 		public Map Map
 		{
-			get
-			{
-				return m_Map;
-			}
+			get => m_Map;
 			set
 			{
 				if (Deleted)
@@ -6356,10 +6245,7 @@ namespace Server
 		[CommandProperty(AccessLevel.GameMaster)]
 		public int RawStr
 		{
-			get
-			{
-				return m_Str;
-			}
+			get => m_Str;
 			set
 			{
 				if (value < 1)
@@ -6430,10 +6316,7 @@ namespace Server
 		[CommandProperty(AccessLevel.GameMaster)]
 		public int RawDex
 		{
-			get
-			{
-				return m_Dex;
-			}
+			get => m_Dex;
 			set
 			{
 				if (value < 1)
@@ -6504,10 +6387,7 @@ namespace Server
 		[CommandProperty(AccessLevel.GameMaster)]
 		public int RawInt
 		{
-			get
-			{
-				return m_Int;
-			}
+			get => m_Int;
 			set
 			{
 				if (value < 1)
@@ -6586,10 +6466,7 @@ namespace Server
 		[CommandProperty(AccessLevel.GameMaster)]
 		public int Hits
 		{
-			get
-			{
-				return m_Hits;
-			}
+			get => m_Hits;
 			set
 			{
 				if (Deleted)
@@ -6642,13 +6519,7 @@ namespace Server
 		/// Overridable. Gets the maximum hit point of the Mobile. By default, this returns: <c>50 + (<see cref="Str" /> / 2)</c>
 		/// </summary>
 		[CommandProperty(AccessLevel.GameMaster)]
-		public virtual int HitsMax
-		{
-			get
-			{
-				return 50 + (Str / 2);
-			}
-		}
+		public virtual int HitsMax => 50 + (Str / 2);
 
 		/// <summary>
 		/// Gets or sets the current stamina of the Mobile. This value ranges from 0 to <see cref="StamMax" />, inclusive.
@@ -6656,10 +6527,7 @@ namespace Server
 		[CommandProperty(AccessLevel.GameMaster)]
 		public int Stam
 		{
-			get
-			{
-				return m_Stam;
-			}
+			get => m_Stam;
 			set
 			{
 				if (Deleted)
@@ -6706,13 +6574,7 @@ namespace Server
 		/// Overridable. Gets the maximum stamina of the Mobile. By default, this returns: <c><see cref="Dex" /></c>
 		/// </summary>
 		[CommandProperty(AccessLevel.GameMaster)]
-		public virtual int StamMax
-		{
-			get
-			{
-				return Dex;
-			}
-		}
+		public virtual int StamMax => Dex;
 
 		/// <summary>
 		/// Gets or sets the current stamina of the Mobile. This value ranges from 0 to <see cref="ManaMax" />, inclusive.
@@ -6720,10 +6582,7 @@ namespace Server
 		[CommandProperty(AccessLevel.GameMaster)]
 		public int Mana
 		{
-			get
-			{
-				return m_Mana;
-			}
+			get => m_Mana;
 			set
 			{
 				if (Deleted)
@@ -6776,38 +6635,20 @@ namespace Server
 		/// Overridable. Gets the maximum mana of the Mobile. By default, this returns: <c><see cref="Int" /></c>
 		/// </summary>
 		[CommandProperty(AccessLevel.GameMaster)]
-		public virtual int ManaMax
-		{
-			get
-			{
-				return Int;
-			}
-		}
+		public virtual int ManaMax => Int;
 
 		#endregion
 
-		public virtual int Luck
-		{
-			get { return 0; }
-		}
+		public virtual int Luck => 0;
 
-		public virtual int HuedItemID
-		{
-			get
-			{
-				return (m_Female ? 0x2107 : 0x2106);
-			}
-		}
+		public virtual int HuedItemID => (m_Female ? 0x2107 : 0x2106);
 
 		private int m_HueMod = -1;
 
 		[Hue, CommandProperty(AccessLevel.GameMaster)]
 		public int HueMod
 		{
-			get
-			{
-				return m_HueMod;
-			}
+			get => m_HueMod;
 			set
 			{
 				if (m_HueMod != value)
@@ -6851,10 +6692,7 @@ namespace Server
 		[CommandProperty(AccessLevel.GameMaster)]
 		public Direction Direction
 		{
-			get
-			{
-				return m_Direction;
-			}
+			get => m_Direction;
 			set
 			{
 				if (m_Direction != value)
@@ -6929,10 +6767,7 @@ namespace Server
 		[CommandProperty(AccessLevel.GameMaster)]
 		public bool Female
 		{
-			get
-			{
-				return m_Female;
-			}
+			get => m_Female;
 			set
 			{
 				if (m_Female != value)
@@ -6952,10 +6787,7 @@ namespace Server
 		[CommandProperty(AccessLevel.GameMaster)]
 		public bool Flying
 		{
-			get
-			{
-				return m_Flying;
-			}
+			get => m_Flying;
 			set
 			{
 				if (m_Flying != value)
@@ -6973,10 +6805,7 @@ namespace Server
 		[CommandProperty(AccessLevel.GameMaster)]
 		public virtual bool Warmode
 		{
-			get
-			{
-				return m_Warmode;
-			}
+			get => m_Warmode;
 			set
 			{
 				if (Deleted)
@@ -7022,10 +6851,7 @@ namespace Server
 		[CommandProperty(AccessLevel.GameMaster)]
 		public virtual bool Hidden
 		{
-			get
-			{
-				return m_Hidden;
-			}
+			get => m_Hidden;
 			set
 			{
 				if (m_Hidden != value)
@@ -7264,10 +7090,7 @@ namespace Server
 		[CommandProperty(AccessLevel.GameMaster)]
 		public string Language
 		{
-			get
-			{
-				return m_Language;
-			}
+			get => m_Language;
 			set
 			{
 				if (m_Language != value)
@@ -7290,10 +7113,7 @@ namespace Server
 		[CommandProperty(AccessLevel.GameMaster)]
 		public string GuildTitle
 		{
-			get
-			{
-				return m_GuildTitle;
-			}
+			get => m_GuildTitle;
 			set
 			{
 				string old = m_GuildTitle;
@@ -7319,10 +7139,7 @@ namespace Server
 		[CommandProperty(AccessLevel.GameMaster)]
 		public bool DisplayGuildTitle
 		{
-			get
-			{
-				return m_DisplayGuildTitle;
-			}
+			get => m_DisplayGuildTitle;
 			set
 			{
 				m_DisplayGuildTitle = value;
@@ -7338,10 +7155,7 @@ namespace Server
 		[CommandProperty(AccessLevel.GameMaster)]
 		public string NameMod
 		{
-			get
-			{
-				return m_NameMod;
-			}
+			get => m_NameMod;
 			set
 			{
 				if (m_NameMod != value)
@@ -7358,10 +7172,7 @@ namespace Server
 		[CommandProperty(AccessLevel.GameMaster)]
 		public bool YellowHealthbar
 		{
-			get
-			{
-				return m_YellowHealthbar;
-			}
+			get => m_YellowHealthbar;
 			set
 			{
 				m_YellowHealthbar = value;
@@ -7372,8 +7183,8 @@ namespace Server
 		[CommandProperty(AccessLevel.GameMaster)]
 		public string RawName
 		{
-			get { return m_Name; }
-			set { Name = value; }
+			get => m_Name;
+			set => Name = value;
 		}
 
 		[CommandProperty(AccessLevel.GameMaster)]
@@ -7436,10 +7247,7 @@ namespace Server
 
 		public BaseGuild Guild
 		{
-			get
-			{
-				return m_Guild;
-			}
+			get => m_Guild;
 			set
 			{
 				BaseGuild old = m_Guild;
@@ -7470,10 +7278,7 @@ namespace Server
 		[CommandProperty(AccessLevel.GameMaster)]
 		public Poison Poison
 		{
-			get
-			{
-				return m_Poison;
-			}
+			get => m_Poison;
 			set
 			{
 				/*if ( m_Poison != value && (m_Poison == null || value == null || m_Poison.Level < value.Level) )
@@ -7683,10 +7488,7 @@ namespace Server
 		[CommandProperty(AccessLevel.GameMaster)]
 		public Body BodyMod
 		{
-			get
-			{
-				return m_BodyMod;
-			}
+			get => m_BodyMod;
 			set
 			{
 				if (m_BodyMod != value)
@@ -7750,14 +7552,8 @@ namespace Server
 		[Body, CommandProperty(AccessLevel.GameMaster)]
 		public int BodyValue
 		{
-			get
-			{
-				return Body.BodyID;
-			}
-			set
-			{
-				Body = value;
-			}
+			get => Body.BodyID;
+			set => Body = value;
 		}
 
 		[CommandProperty(AccessLevel.Counselor)]
@@ -7766,14 +7562,8 @@ namespace Server
 		[CommandProperty(AccessLevel.Counselor, AccessLevel.GameMaster)]
 		public Point3D Location
 		{
-			get
-			{
-				return m_Location;
-			}
-			set
-			{
-				SetLocation(value, true);
-			}
+			get => m_Location;
+			set => SetLocation(value, true);
 		}
 
 		/* Logout:
@@ -7917,7 +7707,7 @@ namespace Server
 		[CommandProperty(AccessLevel.GameMaster)]
 		public int SolidHueOverride
 		{
-			get { return m_SolidHueOverride; }
+			get => m_SolidHueOverride;
 			set { if (m_SolidHueOverride == value) return; m_SolidHueOverride = value; Delta(MobileDelta.Hue | MobileDelta.Body); }
 		}
 
@@ -8397,7 +8187,7 @@ namespace Server
 			}
 		}
 
-		public virtual bool KeepsItemsOnDeath { get { return m_AccessLevel > AccessLevel.Player; } }
+		public virtual bool KeepsItemsOnDeath => m_AccessLevel > AccessLevel.Player;
 
 		public Item FindItemOnLayer(Layer layer)
 		{
@@ -8420,22 +8210,22 @@ namespace Server
 		[CommandProperty(AccessLevel.Counselor, AccessLevel.GameMaster)]
 		public int X
 		{
-			get { return m_Location.m_X; }
-			set { Location = new Point3D(value, m_Location.m_Y, m_Location.m_Z); }
+			get => m_Location.m_X;
+			set => Location = new Point3D(value, m_Location.m_Y, m_Location.m_Z);
 		}
 
 		[CommandProperty(AccessLevel.Counselor, AccessLevel.GameMaster)]
 		public int Y
 		{
-			get { return m_Location.m_Y; }
-			set { Location = new Point3D(m_Location.m_X, value, m_Location.m_Z); }
+			get => m_Location.m_Y;
+			set => Location = new Point3D(m_Location.m_X, value, m_Location.m_Z);
 		}
 
 		[CommandProperty(AccessLevel.Counselor, AccessLevel.GameMaster)]
 		public int Z
 		{
-			get { return m_Location.m_Z; }
-			set { Location = new Point3D(m_Location.m_X, m_Location.m_Y, value); }
+			get => m_Location.m_Z;
+			set => Location = new Point3D(m_Location.m_X, m_Location.m_Y, value);
 		}
 
 		#region Effects & Particles
@@ -9416,10 +9206,7 @@ namespace Server
 		[CommandProperty(AccessLevel.Counselor, AccessLevel.GameMaster)]
 		public int Kills
 		{
-			get
-			{
-				return m_Kills;
-			}
+			get => m_Kills;
 			set
 			{
 				int oldValue = m_Kills;
@@ -9449,10 +9236,7 @@ namespace Server
 		[CommandProperty(AccessLevel.GameMaster)]
 		public int ShortTermMurders
 		{
-			get
-			{
-				return m_ShortTermMurders;
-			}
+			get => m_ShortTermMurders;
 			set
 			{
 				if (m_ShortTermMurders != value)
@@ -9468,10 +9252,7 @@ namespace Server
 		[CommandProperty(AccessLevel.Counselor, AccessLevel.GameMaster)]
 		public bool Criminal
 		{
-			get
-			{
-				return m_Criminal;
-			}
+			get => m_Criminal;
 			set
 			{
 				if (m_Criminal != value)
@@ -9499,7 +9280,7 @@ namespace Server
 		}
 
 		[CommandProperty(AccessLevel.Counselor, true)]
-		public virtual bool Murderer { get { return m_Kills >= MurderKills; } }
+		public virtual bool Murderer => m_Kills >= MurderKills;
 
 		public bool CheckAlive()
 		{
@@ -10016,10 +9797,7 @@ namespace Server
 
 		public QuestArrow QuestArrow
 		{
-			get
-			{
-				return m_QuestArrow;
-			}
+			get => m_QuestArrow;
 			set
 			{
 				if (m_QuestArrow != value)
@@ -10039,17 +9817,17 @@ namespace Server
 				" (Order)"
 			};
 
-		public virtual bool CanTarget { get { return true; } }
-		public virtual bool ClickTitle { get { return true; } }
+		public virtual bool CanTarget => true;
+		public virtual bool ClickTitle => true;
 
-		public virtual bool PropertyTitle { get { return !OldPropertyTitles || ClickTitle; } }
+		public virtual bool PropertyTitle => !OldPropertyTitles || ClickTitle;
 
 		public static bool DisableHiddenSelfClick { get; set; } = true;
 		public static bool AsciiClickMessage { get; set; } = true;
 		public static bool GuildClickMessage { get; set; } = true;
 		public static bool OldPropertyTitles { get; set; }
 
-		public virtual bool ShowFameTitle { get { return true; } }//(m_Player || m_Body.IsHuman) && m_Fame >= 10000; }
+		public virtual bool ShowFameTitle => true; //(m_Player || m_Body.IsHuman) && m_Fame >= 10000; }
 
 		/// <summary>
 		/// Overridable. Event invoked when the Mobile is single clicked.
@@ -10168,45 +9946,15 @@ namespace Server
 		}
 
 		#region Armor
-		public Item ShieldArmor
-		{
-			get
-			{
-				return FindItemOnLayer(Layer.TwoHanded);
-			}
-		}
+		public Item ShieldArmor => FindItemOnLayer(Layer.TwoHanded);
 
-		public Item NeckArmor
-		{
-			get
-			{
-				return FindItemOnLayer(Layer.Neck);
-			}
-		}
+		public Item NeckArmor => FindItemOnLayer(Layer.Neck);
 
-		public Item HandArmor
-		{
-			get
-			{
-				return FindItemOnLayer(Layer.Gloves);
-			}
-		}
+		public Item HandArmor => FindItemOnLayer(Layer.Gloves);
 
-		public Item HeadArmor
-		{
-			get
-			{
-				return FindItemOnLayer(Layer.Helm);
-			}
-		}
+		public Item HeadArmor => FindItemOnLayer(Layer.Helm);
 
-		public Item ArmsArmor
-		{
-			get
-			{
-				return FindItemOnLayer(Layer.Arms);
-			}
-		}
+		public Item ArmsArmor => FindItemOnLayer(Layer.Arms);
 
 		public Item LegsArmor
 		{
@@ -10234,13 +9982,7 @@ namespace Server
 			}
 		}
 
-		public Item Talisman
-		{
-			get
-			{
-				return FindItemOnLayer(Layer.Talisman);
-			}
-		}
+		public Item Talisman => FindItemOnLayer(Layer.Talisman);
 		#endregion
 
 		/// <summary>
@@ -10280,14 +10022,8 @@ namespace Server
 		[CommandProperty(AccessLevel.GameMaster)]
 		public bool CanHearGhosts
 		{
-			get
-			{
-				return m_CanHearGhosts || AccessLevel >= AccessLevel.Counselor;
-			}
-			set
-			{
-				m_CanHearGhosts = value;
-			}
+			get => m_CanHearGhosts || AccessLevel >= AccessLevel.Counselor;
+			set => m_CanHearGhosts = value;
 		}
 
 		[CommandProperty(AccessLevel.GameMaster)]

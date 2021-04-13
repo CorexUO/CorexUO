@@ -548,7 +548,7 @@ namespace Server
 		public static readonly int DefaultDisplayColor = 0x3B2;
 
 		[CommandProperty(AccessLevel.Counselor, true)]
-		public virtual int DisplayColor { get { return DefaultDisplayColor; } }
+		public virtual int DisplayColor => DefaultDisplayColor;
 
 		public int CompareTo(IEntity other)
 		{
@@ -1507,15 +1507,12 @@ namespace Server
 		/// <summary>
 		/// Has the item been deleted?
 		/// </summary>
-		public bool Deleted { get { return GetFlag(ImplFlag.Deleted); } }
+		public bool Deleted => GetFlag(ImplFlag.Deleted);
 
 		[CommandProperty(AccessLevel.GameMaster)]
 		public LootType LootType
 		{
-			get
-			{
-				return m_LootType;
-			}
+			get => m_LootType;
 			set
 			{
 				if (m_LootType != value)
@@ -1531,23 +1528,12 @@ namespace Server
 		public static TimeSpan DefaultDecayTime { get; set; } = TimeSpan.FromMinutes(Settings.Configuration.Get<int>("Items", "DefaultDecayTime", 60));
 
 		[CommandProperty(AccessLevel.GameMaster)]
-		public virtual TimeSpan DecayTime
-		{
-			get
-			{
-				return DefaultDecayTime;
-			}
-		}
+		public virtual TimeSpan DecayTime => DefaultDecayTime;
 
 		[CommandProperty(AccessLevel.GameMaster)]
-		public virtual bool Decays
-		{
-			get
-			{
+		public virtual bool Decays =>
 				// TODO: Make item decay an option on the spawner
-				return (Movable && Visible/* && Spawner == null*/);
-			}
-		}
+				(Movable && Visible/* && Spawner == null*/);
 
 		public virtual bool OnDecay()
 		{
@@ -1643,8 +1629,8 @@ namespace Server
 		[CommandProperty(AccessLevel.GameMaster)]
 		public virtual bool Stackable
 		{
-			get { return GetFlag(ImplFlag.Stackable); }
-			set { SetFlag(ImplFlag.Stackable, value); }
+			get => GetFlag(ImplFlag.Stackable);
+			set => SetFlag(ImplFlag.Stackable, value);
 		}
 
 		private readonly object _rpl = new object();
@@ -1852,7 +1838,7 @@ namespace Server
 		[CommandProperty(AccessLevel.GameMaster)]
 		public bool Visible
 		{
-			get { return GetFlag(ImplFlag.Visible); }
+			get => GetFlag(ImplFlag.Visible);
 			set
 			{
 				if (GetFlag(ImplFlag.Visible) != value)
@@ -1887,7 +1873,7 @@ namespace Server
 		[CommandProperty(AccessLevel.GameMaster)]
 		public bool Movable
 		{
-			get { return GetFlag(ImplFlag.Movable); }
+			get => GetFlag(ImplFlag.Movable);
 			set
 			{
 				if (GetFlag(ImplFlag.Movable) != value)
@@ -1899,7 +1885,7 @@ namespace Server
 			}
 		}
 
-		public virtual bool ForceShowProperties { get { return false; } }
+		public virtual bool ForceShowProperties => false;
 
 		public virtual int GetPacketFlags()
 		{
@@ -1924,7 +1910,7 @@ namespace Server
 			return true;
 		}
 
-		public virtual bool HandlesOnMovement { get { return false; } }
+		public virtual bool HandlesOnMovement => false;
 
 		public virtual void OnMovement(Mobile m, Point3D oldLocation)
 		{
@@ -1950,10 +1936,7 @@ namespace Server
 		[CommandProperty(AccessLevel.Counselor, AccessLevel.GameMaster)]
 		public Map Map
 		{
-			get
-			{
-				return m_Map;
-			}
+			get => m_Map;
 			set
 			{
 				if (m_Map != value)
@@ -2022,15 +2005,9 @@ namespace Server
 			NullWeight = 0x04000000
 		}
 
-		int ISerializable.TypeReference
-		{
-			get { return m_TypeRef; }
-		}
+		int ISerializable.TypeReference => m_TypeRef;
 
-		int ISerializable.SerialIdentity
-		{
-			get { return Serial; }
-		}
+		int ISerializable.SerialIdentity => Serial;
 
 		public virtual void Serialize(GenericWriter writer)
 		{
@@ -2280,13 +2257,13 @@ namespace Server
 
 		public bool IsLockedDown
 		{
-			get { return GetTempFlag(LockedDownFlag); }
+			get => GetTempFlag(LockedDownFlag);
 			set { SetTempFlag(LockedDownFlag, value); InvalidateProperties(); }
 		}
 
 		public bool IsSecure
 		{
-			get { return GetTempFlag(SecureFlag); }
+			get => GetTempFlag(SecureFlag);
 			set { SetTempFlag(SecureFlag, value); InvalidateProperties(); }
 		}
 
@@ -2555,7 +2532,7 @@ namespace Server
 				return this.WorldPacket;
 		}
 
-		public virtual bool IsVirtualItem { get { return false; } }
+		public virtual bool IsVirtualItem => false;
 
 		public virtual int GetTotal(TotalType type)
 		{
@@ -2591,22 +2568,13 @@ namespace Server
 		}
 
 		[CommandProperty(AccessLevel.GameMaster)]
-		public int TotalGold
-		{
-			get { return GetTotal(TotalType.Gold); }
-		}
+		public int TotalGold => GetTotal(TotalType.Gold);
 
 		[CommandProperty(AccessLevel.GameMaster)]
-		public int TotalItems
-		{
-			get { return GetTotal(TotalType.Items); }
-		}
+		public int TotalItems => GetTotal(TotalType.Items);
 
 		[CommandProperty(AccessLevel.GameMaster)]
-		public int TotalWeight
-		{
-			get { return GetTotal(TotalType.Weight); }
-		}
+		public int TotalWeight => GetTotal(TotalType.Weight);
 
 		public virtual double DefaultWeight
 		{
@@ -2659,29 +2627,14 @@ namespace Server
 		}
 
 		[CommandProperty(AccessLevel.Counselor, AccessLevel.GameMaster)]
-		public int PileWeight
-		{
-			get
-			{
-				return (int)Math.Ceiling(this.Weight * this.Amount);
-			}
-		}
+		public int PileWeight => (int)Math.Ceiling(this.Weight * this.Amount);
 
-		public virtual int HuedItemID
-		{
-			get
-			{
-				return m_ItemID;
-			}
-		}
+		public virtual int HuedItemID => m_ItemID;
 
 		[Hue, CommandProperty(AccessLevel.GameMaster)]
 		public virtual int Hue
 		{
-			get
-			{
-				return m_Hue;
-			}
+			get => m_Hue;
 			set
 			{
 				if (m_Hue != value)
@@ -2696,10 +2649,7 @@ namespace Server
 
 		public const int QuestItemHue = 0x4EA; // Hmmmm... "for EA"?
 
-		public virtual bool Nontransferable
-		{
-			get { return QuestItem; }
-		}
+		public virtual bool Nontransferable => QuestItem;
 
 		public virtual void HandleInvalidTransfer(Mobile from)
 		{
@@ -2711,10 +2661,7 @@ namespace Server
 		[CommandProperty(AccessLevel.GameMaster)]
 		public virtual Layer Layer
 		{
-			get
-			{
-				return m_Layer;
-			}
+			get => m_Layer;
 			set
 			{
 				if (m_Layer != value)
@@ -3359,11 +3306,11 @@ namespace Server
 		{
 		}
 
-		public virtual int PhysicalResistance { get { return 0; } }
-		public virtual int FireResistance { get { return 0; } }
-		public virtual int ColdResistance { get { return 0; } }
-		public virtual int PoisonResistance { get { return 0; } }
-		public virtual int EnergyResistance { get { return 0; } }
+		public virtual int PhysicalResistance => 0;
+		public virtual int FireResistance => 0;
+		public virtual int ColdResistance => 0;
+		public virtual int PoisonResistance => 0;
+		public virtual int EnergyResistance => 0;
 
 		[CommandProperty(AccessLevel.Counselor)]
 		public Serial Serial { get; }
@@ -3377,10 +3324,7 @@ namespace Server
 		[CommandProperty(AccessLevel.Counselor, AccessLevel.GameMaster)]
 		public virtual Point3D Location
 		{
-			get
-			{
-				return m_Location;
-			}
+			get => m_Location;
 			set
 			{
 				Point3D oldLocation = m_Location;
@@ -3460,32 +3404,29 @@ namespace Server
 		[CommandProperty(AccessLevel.Counselor, AccessLevel.GameMaster)]
 		public int X
 		{
-			get { return m_Location.m_X; }
-			set { Location = new Point3D(value, m_Location.m_Y, m_Location.m_Z); }
+			get => m_Location.m_X;
+			set => Location = new Point3D(value, m_Location.m_Y, m_Location.m_Z);
 		}
 
 		[CommandProperty(AccessLevel.Counselor, AccessLevel.GameMaster)]
 		public int Y
 		{
-			get { return m_Location.m_Y; }
-			set { Location = new Point3D(m_Location.m_X, value, m_Location.m_Z); }
+			get => m_Location.m_Y;
+			set => Location = new Point3D(m_Location.m_X, value, m_Location.m_Z);
 		}
 
 		[CommandProperty(AccessLevel.Counselor, AccessLevel.GameMaster)]
 		public int Z
 		{
-			get { return m_Location.m_Z; }
-			set { Location = new Point3D(m_Location.m_X, m_Location.m_Y, value); }
+			get => m_Location.m_Z;
+			set => Location = new Point3D(m_Location.m_X, m_Location.m_Y, value);
 		}
 		#endregion
 
 		[CommandProperty(AccessLevel.GameMaster)]
 		public virtual int ItemID
 		{
-			get
-			{
-				return m_ItemID;
-			}
+			get => m_ItemID;
 			set
 			{
 				if (m_ItemID != value)
@@ -3505,10 +3446,7 @@ namespace Server
 			}
 		}
 
-		public virtual string DefaultName
-		{
-			get { return null; }
-		}
+		public virtual string DefaultName => null;
 
 		[CommandProperty(AccessLevel.GameMaster)]
 		public string Name
@@ -3541,10 +3479,7 @@ namespace Server
 		[CommandProperty(AccessLevel.GameMaster, AccessLevel.Developer)]
 		public IEntity Parent
 		{
-			get
-			{
-				return m_Parent;
-			}
+			get => m_Parent;
 			set
 			{
 				if (m_Parent == value)
@@ -3580,10 +3515,7 @@ namespace Server
 		[CommandProperty(AccessLevel.GameMaster)]
 		public LightType Light
 		{
-			get
-			{
-				return (LightType)m_Direction;
-			}
+			get => (LightType)m_Direction;
 			set
 			{
 				if ((LightType)m_Direction != value)
@@ -3599,10 +3531,7 @@ namespace Server
 		[CommandProperty(AccessLevel.GameMaster)]
 		public Direction Direction
 		{
-			get
-			{
-				return m_Direction;
-			}
+			get => m_Direction;
 			set
 			{
 				if (m_Direction != value)
@@ -3618,10 +3547,7 @@ namespace Server
 		[CommandProperty(AccessLevel.GameMaster)]
 		public int Amount
 		{
-			get
-			{
-				return m_Amount;
-			}
+			get => m_Amount;
 			set
 			{
 				int oldValue = m_Amount;
@@ -3654,7 +3580,7 @@ namespace Server
 		{
 		}
 
-		public virtual bool HandlesOnSpeech { get { return false; } }
+		public virtual bool HandlesOnSpeech => false;
 
 		public virtual void OnSpeech(SpeechEventArgs e)
 		{
@@ -4026,7 +3952,7 @@ namespace Server
 			//return root == null ? m_Location : new Point3D( (IPoint3D) root );
 		}
 
-		public virtual bool BlocksFit { get { return false; } }
+		public virtual bool BlocksFit => false;
 
 		public Point3D GetSurfaceTop()
 		{
@@ -4106,13 +4032,7 @@ namespace Server
 		{
 		}
 
-		public bool InSecureTrade
-		{
-			get
-			{
-				return (GetSecureTradeCont() != null);
-			}
-		}
+		public bool InSecureTrade => (GetSecureTradeCont() != null);
 
 		public SecureTradeContainer GetSecureTradeCont()
 		{
@@ -4237,13 +4157,7 @@ namespace Server
 			return false;
 		}
 
-		public ItemData ItemData
-		{
-			get
-			{
-				return TileData.ItemTable[m_ItemID & TileData.MaxItemValue];
-			}
-		}
+		public ItemData ItemData => TileData.ItemTable[m_ItemID & TileData.MaxItemValue];
 
 		public virtual void OnItemUsed(Mobile from, Item item)
 		{
@@ -4293,8 +4207,8 @@ namespace Server
 				return true;
 		}
 
-		public virtual bool CanTarget { get { return true; } }
-		public virtual bool DisplayLootType { get { return true; } }
+		public virtual bool CanTarget => true;
+		public virtual bool DisplayLootType => true;
 
 		public virtual void OnSingleClickContained(Mobile from, Item item)
 		{
@@ -4404,7 +4318,7 @@ namespace Server
 		[CommandProperty(AccessLevel.GameMaster)]
 		public bool QuestItem
 		{
-			get { return GetFlag(ImplFlag.QuestItem); }
+			get => GetFlag(ImplFlag.QuestItem);
 			set
 			{
 				SetFlag(ImplFlag.QuestItem, value);
@@ -4419,14 +4333,14 @@ namespace Server
 
 		public bool Insured
 		{
-			get { return GetFlag(ImplFlag.Insured); }
+			get => GetFlag(ImplFlag.Insured);
 			set { SetFlag(ImplFlag.Insured, value); InvalidateProperties(); }
 		}
 
 		public bool PayedInsurance
 		{
-			get { return GetFlag(ImplFlag.PayedInsurance); }
-			set { SetFlag(ImplFlag.PayedInsurance, value); }
+			get => GetFlag(ImplFlag.PayedInsurance);
+			set => SetFlag(ImplFlag.PayedInsurance, value);
 		}
 
 		public Mobile BlessedFor

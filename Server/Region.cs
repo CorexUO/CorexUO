@@ -132,7 +132,7 @@ namespace Server
 		private readonly int m_Priority;
 		private Point3D m_GoLocation;
 
-		public string Name { get { return m_Name; } }
+		public string Name => m_Name;
 		public Map Map { get; }
 		public ZoneRules Rules { get; set; }
 		public Region Parent { get; }
@@ -140,15 +140,15 @@ namespace Server
 		public Rectangle3D[] Area { get; }
 		public Sector[] Sectors { get; private set; }
 		public bool Dynamic { get; }
-		public int Priority { get { return m_Priority; } }
+		public int Priority => m_Priority;
 		public int ChildLevel { get; }
 		public bool Registered { get; private set; }
 
-		public Point3D GoLocation { get { return m_GoLocation; } set { m_GoLocation = value; } }
+		public Point3D GoLocation { get => m_GoLocation; set => m_GoLocation = value; }
 		public MusicName Music { get; set; }
 
-		public bool IsDefault { get { return Map.DefaultRegion == this; } }
-		public virtual MusicName DefaultMusic { get { return Parent != null ? Parent.Music : MusicName.Invalid; } }
+		public bool IsDefault => Map.DefaultRegion == this;
+		public virtual MusicName DefaultMusic => Parent != null ? Parent.Music : MusicName.Invalid;
 
 		public Region(string name, Map map, int priority, params Rectangle2D[] area) : this(name, map, priority, ConvertTo3D(area))
 		{

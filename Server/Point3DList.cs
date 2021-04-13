@@ -17,18 +17,9 @@ namespace Server
 			Count = 0;
 		}
 
-		public Point3D Last
-		{
-			get { return m_List[Count - 1]; }
-		}
+		public Point3D Last => m_List[Count - 1];
 
-		public Point3D this[int index]
-		{
-			get
-			{
-				return m_List[index];
-			}
-		}
+		public Point3D this[int index] => m_List[index];
 
 		public void Add(int x, int y, int z)
 		{

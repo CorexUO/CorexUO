@@ -1576,10 +1576,7 @@ namespace Server
 
 				return DefaultRegion1;
 			}
-			set
-			{
-				DefaultRegion1 = value;
-			}
+			set => DefaultRegion1 = value;
 		}
 
 		public ZoneRules Rules { get; set; }

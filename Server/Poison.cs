@@ -12,11 +12,11 @@ namespace Server
 
 		public static List<Poison> Poisons { get; } = new List<Poison>();
 
-		public static Poison Lesser { get { return GetPoison("Lesser"); } }
-		public static Poison Regular { get { return GetPoison("Regular"); } }
-		public static Poison Greater { get { return GetPoison("Greater"); } }
-		public static Poison Deadly { get { return GetPoison("Deadly"); } }
-		public static Poison Lethal { get { return GetPoison("Lethal"); } }
+		public static Poison Lesser => GetPoison("Lesser");
+		public static Poison Regular => GetPoison("Regular");
+		public static Poison Greater => GetPoison("Greater");
+		public static Poison Deadly => GetPoison("Deadly");
+		public static Poison Lethal => GetPoison("Lethal");
 
 		public override string ToString()
 		{

@@ -132,10 +132,10 @@ namespace Server
 		private Point2D m_Min, m_Max, m_Center;
 		public static readonly MultiComponentList Empty = new MultiComponentList();
 
-		public Point2D Min { get { return m_Min; } }
-		public Point2D Max { get { return m_Max; } }
+		public Point2D Min => m_Min;
+		public Point2D Max => m_Max;
 
-		public Point2D Center { get { return m_Center; } }
+		public Point2D Center => m_Center;
 
 		public int Width { get; private set; }
 		public int Height { get; private set; }

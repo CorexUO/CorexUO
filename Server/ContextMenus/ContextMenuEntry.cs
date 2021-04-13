@@ -41,10 +41,7 @@ namespace Server.ContextMenus
 		/// <summary>
 		/// Gets a value indicating if non local use of this entry is permitted.
 		/// </summary>
-		public virtual bool NonLocalUse
-		{
-			get { return false; }
-		}
+		public virtual bool NonLocalUse => false;
 
 		/// <summary>
 		/// Instantiates a new ContextMenuEntry with a given <see cref="Number">localization number</see> (<paramref name="number" />). No <see cref="Range">maximum range</see> is used.

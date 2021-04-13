@@ -7,21 +7,9 @@ namespace Server.Menus.Questions
 		private readonly int m_Serial;
 		private static int m_NextSerial;
 
-		int IMenu.Serial
-		{
-			get
-			{
-				return m_Serial;
-			}
-		}
+		int IMenu.Serial => m_Serial;
 
-		int IMenu.EntryLength
-		{
-			get
-			{
-				return Answers.Length;
-			}
-		}
+		int IMenu.EntryLength => Answers.Length;
 
 		public string Question { get; set; }
 

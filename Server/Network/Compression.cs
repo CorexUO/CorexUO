@@ -242,13 +242,7 @@ namespace Server.Network
 		{
 		}
 
-		public string Version
-		{
-			get
-			{
-				return SafeNativeMethods.zlibVersion();
-			}
-		}
+		public string Version => SafeNativeMethods.zlibVersion();
 
 		public ZLibError Compress(byte[] dest, ref int destLength, byte[] source, int sourceLength)
 		{
@@ -287,13 +281,7 @@ namespace Server.Network
 		{
 		}
 
-		public string Version
-		{
-			get
-			{
-				return SafeNativeMethods.zlibVersion();
-			}
-		}
+		public string Version => SafeNativeMethods.zlibVersion();
 
 		public ZLibError Compress(byte[] dest, ref int destLength, byte[] source, int sourceLength)
 		{
@@ -332,13 +320,7 @@ namespace Server.Network
 		{
 		}
 
-		public string Version
-		{
-			get
-			{
-				return SafeNativeMethods.zlibVersion();
-			}
-		}
+		public string Version => SafeNativeMethods.zlibVersion();
 
 		public ZLibError Compress(byte[] dest, ref int destLength, byte[] source, int sourceLength)
 		{
@@ -377,13 +359,7 @@ namespace Server.Network
 		{
 		}
 
-		public string Version
-		{
-			get
-			{
-				return SafeNativeMethods.zlibVersion();
-			}
-		}
+		public string Version => SafeNativeMethods.zlibVersion();
 
 		public ZLibError Compress(byte[] dest, ref int destLength, byte[] source, int sourceLength)
 		{

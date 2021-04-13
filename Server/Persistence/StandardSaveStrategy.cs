@@ -14,10 +14,7 @@ namespace Server
 
 		public static SaveOption SaveType = SaveOption.Normal;
 
-		public override string Name
-		{
-			get { return "Standard"; }
-		}
+		public override string Name => "Standard";
 
 		private readonly Queue<Item> _decayQueue;
 
@@ -28,7 +25,7 @@ namespace Server
 
 		protected bool PermitBackgroundWrite { get; set; }
 
-		protected bool UseSequentialWriters { get { return (StandardSaveStrategy.SaveType == SaveOption.Normal || !PermitBackgroundWrite); } }
+		protected bool UseSequentialWriters => (StandardSaveStrategy.SaveType == SaveOption.Normal || !PermitBackgroundWrite);
 
 		public override void Save(bool permitBackgroundWrite)
 		{

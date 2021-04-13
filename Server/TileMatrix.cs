@@ -64,10 +64,7 @@ namespace Server
 
 		public BinaryReader IndexReader { get; set; }
 
-		public bool Exists
-		{
-			get { return (MapStream != null && IndexStream != null && DataStream != null); }
-		}
+		public bool Exists => (MapStream != null && IndexStream != null && DataStream != null);
 
 		private static readonly List<TileMatrix> m_Instances = new List<TileMatrix>();
 		private readonly List<TileMatrix> m_FileShare = new List<TileMatrix>();
@@ -488,27 +485,17 @@ namespace Server
 		internal short m_ID;
 		internal sbyte m_Z;
 
-		public int ID
-		{
-			get { return m_ID; }
-		}
+		public int ID => m_ID;
 
 		public int Z
 		{
-			get { return m_Z; }
-			set { m_Z = (sbyte)value; }
+			get => m_Z;
+			set => m_Z = (sbyte)value;
 		}
 
-		public int Height
-		{
-			get { return 0; }
+		public int Height => 0;
 
-		}
-
-		public bool Ignored
-		{
-			get { return (m_ID == 2 || m_ID == 0x1DB || (m_ID >= 0x1AE && m_ID <= 0x1B5)); }
-		}
+		public bool Ignored => (m_ID == 2 || m_ID == 0x1DB || (m_ID >= 0x1AE && m_ID <= 0x1B5));
 
 		public LandTile(short id, sbyte z)
 		{
@@ -532,39 +519,33 @@ namespace Server
 		internal sbyte m_Z;
 		internal short m_Hue;
 
-		public int ID
-		{
-			get { return m_ID; }
-		}
+		public int ID => m_ID;
 
 		public int X
 		{
-			get { return m_X; }
-			set { m_X = (byte)value; }
+			get => m_X;
+			set => m_X = (byte)value;
 		}
 
 		public int Y
 		{
-			get { return m_Y; }
-			set { m_Y = (byte)value; }
+			get => m_Y;
+			set => m_Y = (byte)value;
 		}
 
 		public int Z
 		{
-			get { return m_Z; }
-			set { m_Z = (sbyte)value; }
+			get => m_Z;
+			set => m_Z = (sbyte)value;
 		}
 
 		public int Hue
 		{
-			get { return m_Hue; }
-			set { m_Hue = (short)value; }
+			get => m_Hue;
+			set => m_Hue = (short)value;
 		}
 
-		public int Height
-		{
-			get { return TileData.ItemTable[m_ID & TileData.MaxItemValue].Height; }
-		}
+		public int Height => TileData.ItemTable[m_ID & TileData.MaxItemValue].Height;
 
 		public StaticTile(ushort id, sbyte z)
 		{

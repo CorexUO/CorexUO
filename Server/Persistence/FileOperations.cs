@@ -24,21 +24,9 @@ namespace Server
 
 		public static bool Unbuffered { get; set; } = true;
 
-		public static bool AreSynchronous
-		{
-			get
-			{
-				return (Concurrency < 1);
-			}
-		}
+		public static bool AreSynchronous => (Concurrency < 1);
 
-		public static bool AreAsynchronous
-		{
-			get
-			{
-				return (Concurrency > 0);
-			}
-		}
+		public static bool AreAsynchronous => (Concurrency > 0);
 
 		public static FileStream OpenSequentialStream(string path, FileMode mode, FileAccess access, FileShare share)
 		{

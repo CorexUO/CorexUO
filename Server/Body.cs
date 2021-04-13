@@ -71,11 +71,7 @@ namespace Server
 			}
 		}
 
-		public bool IsHuman
-		{
-			get
-			{
-				return BodyID >= 0
+		public bool IsHuman => BodyID >= 0
 					&& BodyID < m_Types.Length
 					&& m_Types[BodyID] == BodyType.Human
 					&& BodyID != 402
@@ -85,25 +81,13 @@ namespace Server
 					&& BodyID != 694
 					&& BodyID != 695
 					&& BodyID != 970;
-			}
-		}
 
-		public bool IsGargoyle
-		{
-			get
-			{
-				return BodyID == 666
+		public bool IsGargoyle => BodyID == 666
 					|| BodyID == 667
 					|| BodyID == 694
 					|| BodyID == 695;
-			}
-		}
 
-		public bool IsMale
-		{
-			get
-			{
-				return BodyID == 183
+		public bool IsMale => BodyID == 183
 					|| BodyID == 185
 					|| BodyID == 400
 					|| BodyID == 402
@@ -112,14 +96,8 @@ namespace Server
 					|| BodyID == 666
 					|| BodyID == 694
 					|| BodyID == 750;
-			}
-		}
 
-		public bool IsFemale
-		{
-			get
-			{
-				return BodyID == 184
+		public bool IsFemale => BodyID == 184
 					|| BodyID == 186
 					|| BodyID == 401
 					|| BodyID == 403
@@ -128,72 +106,34 @@ namespace Server
 					|| BodyID == 667
 					|| BodyID == 695
 					|| BodyID == 751;
-			}
-		}
 
-		public bool IsGhost
-		{
-			get
-			{
-				return BodyID == 402
+		public bool IsGhost => BodyID == 402
 					|| BodyID == 403
 					|| BodyID == 607
 					|| BodyID == 608
 					|| BodyID == 694
 					|| BodyID == 695
 					|| BodyID == 970;
-			}
-		}
 
-		public bool IsMonster
-		{
-			get
-			{
-				return BodyID >= 0
+		public bool IsMonster => BodyID >= 0
 					&& BodyID < m_Types.Length
 					&& m_Types[BodyID] == BodyType.Monster;
-			}
-		}
 
-		public bool IsAnimal
-		{
-			get
-			{
-				return BodyID >= 0
+		public bool IsAnimal => BodyID >= 0
 					&& BodyID < m_Types.Length
 					&& m_Types[BodyID] == BodyType.Animal;
-			}
-		}
 
-		public bool IsEmpty
-		{
-			get
-			{
-				return BodyID >= 0
+		public bool IsEmpty => BodyID >= 0
 					&& BodyID < m_Types.Length
 					&& m_Types[BodyID] == BodyType.Empty;
-			}
-		}
 
-		public bool IsSea
-		{
-			get
-			{
-				return BodyID >= 0
+		public bool IsSea => BodyID >= 0
 					&& BodyID < m_Types.Length
 					&& m_Types[BodyID] == BodyType.Sea;
-			}
-		}
 
-		public bool IsEquipment
-		{
-			get
-			{
-				return BodyID >= 0
+		public bool IsEquipment => BodyID >= 0
 					&& BodyID < m_Types.Length
 					&& m_Types[BodyID] == BodyType.Equipment;
-			}
-		}
 
 		public int BodyID { get; }
 

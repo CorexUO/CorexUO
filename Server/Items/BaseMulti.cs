@@ -17,10 +17,7 @@ namespace Server.Items
 		[CommandProperty(AccessLevel.GameMaster)]
 		public override int ItemID
 		{
-			get
-			{
-				return base.ItemID;
-			}
+			get => base.ItemID;
 			set
 			{
 				if (base.ItemID != value)
@@ -77,10 +74,7 @@ namespace Server.Items
 			}
 		}
 
-		public virtual bool AllowsRelativeDrop
-		{
-			get { return false; }
-		}
+		public virtual bool AllowsRelativeDrop => false;
 
 		public override int GetMaxUpdateRange()
 		{
@@ -92,13 +86,7 @@ namespace Server.Items
 			return 22;
 		}
 
-		public virtual MultiComponentList Components
-		{
-			get
-			{
-				return MultiData.GetComponents(ItemID);
-			}
-		}
+		public virtual MultiComponentList Components => MultiData.GetComponents(ItemID);
 
 		public virtual bool Contains(Point2D p)
 		{

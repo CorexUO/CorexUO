@@ -4,10 +4,7 @@ namespace Server
 {
 	public sealed class DualSaveStrategy : StandardSaveStrategy
 	{
-		public override string Name
-		{
-			get { return "Dual"; }
-		}
+		public override string Name => "Dual";
 
 		public DualSaveStrategy()
 		{

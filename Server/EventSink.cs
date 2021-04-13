@@ -280,215 +280,419 @@ namespace Server
 	{
 		//Server
 		public static event Action OnServerStarted;
-		public static void InvokeServerStarted() => OnServerStarted?.Invoke();
+		public static void InvokeServerStarted()
+		{
+			OnServerStarted?.Invoke();
+		}
 
 		public static event Action OnWorldLoad;
-		public static void InvokeWorldLoad() => OnWorldLoad?.Invoke();
+		public static void InvokeWorldLoad()
+		{
+			OnWorldLoad?.Invoke();
+		}
 
 		public static event Action OnWorldSave;
-		public static void InvokeWorldSave() => OnWorldSave?.Invoke();
+		public static void InvokeWorldSave()
+		{
+			OnWorldSave?.Invoke();
+		}
 
 		public static event Action<string, int, bool> OnWorldBroadcast;
-		public static void InvokeOnWorldBroadcast(string message, int hue, bool ascii) => OnWorldBroadcast?.Invoke(message, hue, ascii);
+		public static void InvokeOnWorldBroadcast(string message, int hue, bool ascii)
+		{
+			OnWorldBroadcast?.Invoke(message, hue, ascii);
+		}
 
 		public static event Action OnShutdown;
-		public static void InvokeShutdown() => OnShutdown?.Invoke();
+		public static void InvokeShutdown()
+		{
+			OnShutdown?.Invoke();
+		}
 
 		public static event Action<CrashedEventArgs> OnCrashed;
-		public static void InvokeCrashed(CrashedEventArgs e) => OnCrashed?.Invoke(e);
+		public static void InvokeCrashed(CrashedEventArgs e)
+		{
+			OnCrashed?.Invoke(e);
+		}
 
 		public static event Action<SocketConnectEventArgs> SocketConnect;
-		public static void InvokeSocketConnect(SocketConnectEventArgs e) => SocketConnect?.Invoke(e);
+		public static void InvokeSocketConnect(SocketConnectEventArgs e)
+		{
+			SocketConnect?.Invoke(e);
+		}
 
 		//Player
 		public static event Action<Mobile> OnLogin;
-		public static void InvokeLogin(Mobile m) => OnLogin?.Invoke(m);
+		public static void InvokeLogin(Mobile m)
+		{
+			OnLogin?.Invoke(m);
+		}
 
 		public static event Action<Mobile> OnLogout;
-		public static void InvokeLogout(Mobile m) => OnLogout?.Invoke(m);
+		public static void InvokeLogout(Mobile m)
+		{
+			OnLogout?.Invoke(m);
+		}
 
 		public static event Action<Mobile> OnConnected;
-		public static void InvokeConnected(Mobile m) => OnConnected?.Invoke(m);
+		public static void InvokeConnected(Mobile m)
+		{
+			OnConnected?.Invoke(m);
+		}
 
 		public static event Action<Mobile> OnDisconnected;
-		public static void InvokeDisconnected(Mobile m) => OnDisconnected?.Invoke(m);
+		public static void InvokeDisconnected(Mobile m)
+		{
+			OnDisconnected?.Invoke(m);
+		}
 
 		public static event Action<GameLoginEventArgs> GameLogin;
-		public static void InvokeGameLogin(GameLoginEventArgs e) => GameLogin?.Invoke(e);
+		public static void InvokeGameLogin(GameLoginEventArgs e)
+		{
+			GameLogin?.Invoke(e);
+		}
 
 		public static event Action<AccountLoginEventArgs> AccountLogin;
-		public static void InvokeAccountLogin(AccountLoginEventArgs e) => AccountLogin?.Invoke(e);
+		public static void InvokeAccountLogin(AccountLoginEventArgs e)
+		{
+			AccountLogin?.Invoke(e);
+		}
 
 		public static event Action<ServerListEventArgs> ServerList;
-		public static void InvokeServerList(ServerListEventArgs e) => ServerList?.Invoke(e);
+		public static void InvokeServerList(ServerListEventArgs e)
+		{
+			ServerList?.Invoke(e);
+		}
 
 		public static event Action<Mobile, Mobile> OnPlacePlayerVendor;
-		public static void InvokeOnPlacePlayerVendor(Mobile mob, Mobile vendor) => OnPlacePlayerVendor?.Invoke(mob, vendor);
+		public static void InvokeOnPlacePlayerVendor(Mobile mob, Mobile vendor)
+		{
+			OnPlacePlayerVendor?.Invoke(mob, vendor);
+		}
 
 		//Mobile
 		public static event Action<Mobile> OnMobileCreated;
-		public static void InvokeOnMobileCreated(Mobile mob) => OnMobileCreated?.Invoke(mob);
+		public static void InvokeOnMobileCreated(Mobile mob)
+		{
+			OnMobileCreated?.Invoke(mob);
+		}
 
 		public static event Action<Mobile> OnMobileDeleted;
-		public static void InvokeOnMobileDeleted(Mobile mob) => OnMobileDeleted?.Invoke(mob);
+		public static void InvokeOnMobileDeleted(Mobile mob)
+		{
+			OnMobileDeleted?.Invoke(mob);
+		}
 
 		public static event Action<Mobile, int, Mobile, bool> OnMobileDamage;
-		public static void InvokeOnMobileDamage(Mobile mob, int damage, Mobile from, bool willKill) => OnMobileDamage?.Invoke(mob, damage, from, willKill);
+		public static void InvokeOnMobileDamage(Mobile mob, int damage, Mobile from, bool willKill)
+		{
+			OnMobileDamage?.Invoke(mob, damage, from, willKill);
+		}
 
 		public static event Action<Mobile, Mobile, Container> OnMobileDeath;
-		public static void InvokeOnMobileDeath(Mobile creature, Mobile killer, Container corpse) => OnMobileDeath?.Invoke(creature, killer, corpse);
+		public static void InvokeOnMobileDeath(Mobile creature, Mobile killer, Container corpse)
+		{
+			OnMobileDeath?.Invoke(creature, killer, corpse);
+		}
 
 		public static event Action<Mobile, Mobile, int> OnMobileHeal;
-		public static void InvokeOnMobileHeal(Mobile mob, Mobile from, int heal) => OnMobileHeal?.Invoke(mob, from, heal);
+		public static void InvokeOnMobileHeal(Mobile mob, Mobile from, int heal)
+		{
+			OnMobileHeal?.Invoke(mob, from, heal);
+		}
 
 		public static event Action<Mobile, Item> OnMobileItemEquip;
-		public static void InvokeOnMobileItemEquip(Mobile from, Item item) => OnMobileItemEquip?.Invoke(from, item);
+		public static void InvokeOnMobileItemEquip(Mobile from, Item item)
+		{
+			OnMobileItemEquip?.Invoke(from, item);
+		}
 
 		public static event Action<Mobile, Item> OnMobileItemRemoved;
-		public static void InvokeOnMobileItemRemoved(Mobile from, Item item) => OnMobileItemRemoved?.Invoke(from, item);
+		public static void InvokeOnMobileItemRemoved(Mobile from, Item item)
+		{
+			OnMobileItemRemoved?.Invoke(from, item);
+		}
 
 		public static event Action<Mobile> OnMobileResurrect;
-		public static void InvokeOnMobileResurrect(Mobile mob) => OnMobileResurrect?.Invoke(mob);
+		public static void InvokeOnMobileResurrect(Mobile mob)
+		{
+			OnMobileResurrect?.Invoke(mob);
+		}
 
 		public static event Action<Mobile, Mobile> OnKilledBy;
-		public static void InvokeOnKilledBy(Mobile killed, Mobile killedBy) => OnKilledBy?.Invoke(killed, killedBy);
+		public static void InvokeOnKilledBy(Mobile killed, Mobile killedBy)
+		{
+			OnKilledBy?.Invoke(killed, killedBy);
+		}
 
 		public static event Action<CharacterCreatedEventArgs> CharacterCreated;
-		public static void InvokeCharacterCreated(CharacterCreatedEventArgs e) => CharacterCreated?.Invoke(e);
+		public static void InvokeCharacterCreated(CharacterCreatedEventArgs e)
+		{
+			CharacterCreated?.Invoke(e);
+		}
 
 		public static event Action<Mobile, Item> OnCheckEquipItem;
-		public static void InvokeOnCheckEquipItem(Mobile from, Item item) => OnCheckEquipItem?.Invoke(from, item);
+		public static void InvokeOnCheckEquipItem(Mobile from, Item item)
+		{
+			OnCheckEquipItem?.Invoke(from, item);
+		}
 
 		public static event Action<Mobile, Mobile> OnTameCreature;
-		public static void InvokeOnTameCreature(Mobile mobile, Mobile creature) => OnTameCreature?.Invoke(mobile, creature);
+		public static void InvokeOnTameCreature(Mobile mobile, Mobile creature)
+		{
+			OnTameCreature?.Invoke(mobile, creature);
+		}
 
 		public static event Action<Mobile, Mobile> OnMobileAttackRequest;
-		public static void InvokeOnMobileAttackRequest(Mobile from, Mobile to) => OnMobileAttackRequest?.Invoke(from, to);
+		public static void InvokeOnMobileAttackRequest(Mobile from, Mobile to)
+		{
+			OnMobileAttackRequest?.Invoke(from, to);
+		}
 
 		public static event Action<Mobile, Mobile, bool> OnMobileCheckHit;
-		public static void InvokeOnMobileCheckHit(Mobile from, Mobile to, bool success) => OnMobileCheckHit?.Invoke(from, to, success);
+		public static void InvokeOnMobileCheckHit(Mobile from, Mobile to, bool success)
+		{
+			OnMobileCheckHit?.Invoke(from, to, success);
+		}
 
 		//Item
 		public static event Action<Mobile, Item> OnItemObtained;
-		public static void InvokeOnItemObtained(Mobile m, Item item) => OnItemObtained?.Invoke(m, item);
+		public static void InvokeOnItemObtained(Mobile m, Item item)
+		{
+			OnItemObtained?.Invoke(m, item);
+		}
 
 		public static event Action<Item> OnItemCreated;
-		public static void InvokeOnItemCreated(Item item) => OnItemCreated?.Invoke(item);
+		public static void InvokeOnItemCreated(Item item)
+		{
+			OnItemCreated?.Invoke(item);
+		}
 
 		public static event Action<Item> OnItemDeleted;
-		public static void InvokeOnItemDeleted(Item item) => OnItemDeleted?.Invoke(item);
+		public static void InvokeOnItemDeleted(Item item)
+		{
+			OnItemDeleted?.Invoke(item);
+		}
 
 		public static event Action<Mobile, Item> OnItemUse;
-		public static void InvokeOnItemUse(Mobile from, Item item) => OnItemUse?.Invoke(from, item);
+		public static void InvokeOnItemUse(Mobile from, Item item)
+		{
+			OnItemUse?.Invoke(from, item);
+		}
 
 		public static event Action<Mobile, Item, IEntity> OnRepairItem;
-		public static void InvokeOnRepairItem(Mobile from, Item tool, IEntity repaired) => OnRepairItem?.Invoke(from, tool, repaired);
+		public static void InvokeOnRepairItem(Mobile from, Item tool, IEntity repaired)
+		{
+			OnRepairItem?.Invoke(from, tool, repaired);
+		}
 
 		//Skill
 		public static event Action<Mobile, IEntity, int> OnTargetedSkillUse;
-		public static void InvokeTargetedSkillUse(Mobile m, IEntity target, int skillId) => OnTargetedSkillUse?.Invoke(m, target, skillId);
+		public static void InvokeTargetedSkillUse(Mobile m, IEntity target, int skillId)
+		{
+			OnTargetedSkillUse?.Invoke(m, target, skillId);
+		}
 
 		public static event Action<Mobile, Skill, int> OnSkillGain;
-		public static void InvokeOnSkillGain(Mobile mob, Skill skill, int gained) => OnSkillGain?.Invoke(mob, skill, gained);
+		public static void InvokeOnSkillGain(Mobile mob, Skill skill, int gained)
+		{
+			OnSkillGain?.Invoke(mob, skill, gained);
+		}
 
 		public static event Action<Mobile, Skill, double, double> OnSkillCapChange;
-		public static void InvokeOnSkillCapChange(Mobile mob, Skill skill, double oldCap, double newCap) => OnSkillCapChange?.Invoke(mob, skill, oldCap, newCap);
+		public static void InvokeOnSkillCapChange(Mobile mob, Skill skill, double oldCap, double newCap)
+		{
+			OnSkillCapChange?.Invoke(mob, skill, oldCap, newCap);
+		}
 
 		public static event Action<Mobile, Skill, bool> OnSkillCheck;
-		public static void InvokeOnSkillCheck(Mobile from, Skill skill, bool success) => OnSkillCheck?.Invoke(from, skill, success);
+		public static void InvokeOnSkillCheck(Mobile from, Skill skill, bool success)
+		{
+			OnSkillCheck?.Invoke(from, skill, success);
+		}
 
 		//Spell
 		public static event Action<Mobile, ISpell, object> OnMobileCastSpell;
-		public static void InvokeOnMobileCastSpell(Mobile m, ISpell spell, object target) => OnMobileCastSpell?.Invoke(m, spell, target);
+		public static void InvokeOnMobileCastSpell(Mobile m, ISpell spell, object target)
+		{
+			OnMobileCastSpell?.Invoke(m, spell, target);
+		}
 
 		public static event Action<Mobile, int> OnOpenSpellbookRequest;
-		public static void InvokeOpenSpellbookRequest(Mobile m, int type) => OnOpenSpellbookRequest?.Invoke(m, type);
+		public static void InvokeOpenSpellbookRequest(Mobile m, int type)
+		{
+			OnOpenSpellbookRequest?.Invoke(m, type);
+		}
 
 		public static event Action<Mobile, int, Item> OnCastSpellRequest;
-		public static void InvokeCastSpellRequest(Mobile m, int spellID, Item book) => OnCastSpellRequest?.Invoke(m, spellID, book);
+		public static void InvokeCastSpellRequest(Mobile m, int spellID, Item book)
+		{
+			OnCastSpellRequest?.Invoke(m, spellID, book);
+		}
 
 		//Guild
 		public static event Action<BaseGuild> OnCreateGuild;
-		public static void InvokeOnCreateGuild(BaseGuild guild) => OnCreateGuild?.Invoke(guild);
+		public static void InvokeOnCreateGuild(BaseGuild guild)
+		{
+			OnCreateGuild?.Invoke(guild);
+		}
 
 		public static event Action<Mobile, BaseGuild> OnJoinGuild;
-		public static void InvokeOnJoinGuild(Mobile m, BaseGuild guild) => OnJoinGuild?.Invoke(m, guild);
+		public static void InvokeOnJoinGuild(Mobile m, BaseGuild guild)
+		{
+			OnJoinGuild?.Invoke(m, guild);
+		}
 
 		public static event Action<Mobile, BaseGuild> OnLeaveGuild;
-		public static void InvokeOnLeaveGuild(Mobile m, BaseGuild guild) => OnLeaveGuild?.Invoke(m, guild);
+		public static void InvokeOnLeaveGuild(Mobile m, BaseGuild guild)
+		{
+			OnLeaveGuild?.Invoke(m, guild);
+		}
 
 		public static event Action<Mobile> OnGuildGumpRequest;
-		public static void InvokeGuildGumpRequest(Mobile m) => OnGuildGumpRequest?.Invoke(m);
+		public static void InvokeGuildGumpRequest(Mobile m)
+		{
+			OnGuildGumpRequest?.Invoke(m);
+		}
 
 		//Misc
 		public static event Action<MovementEventArgs> Movement;
-		public static void InvokeMovement(MovementEventArgs e) => Movement?.Invoke(e);
+		public static void InvokeMovement(MovementEventArgs e)
+		{
+			Movement?.Invoke(e);
+		}
 
 		public static event Action<FastWalkEventArgs> FastWalk;
-		public static void InvokeFastWalk(FastWalkEventArgs args) => FastWalk?.Invoke(args);
+		public static void InvokeFastWalk(FastWalkEventArgs args)
+		{
+			FastWalk?.Invoke(args);
+		}
 
 		public static event Action<Mobile, Mobile, bool> AggressiveAction;
-		public static void InvokeAggressiveAction(Mobile aggressor, Mobile aggressed, bool criminal) => AggressiveAction?.Invoke(aggressor, aggressed, criminal);
+		public static void InvokeAggressiveAction(Mobile aggressor, Mobile aggressed, bool criminal)
+		{
+			AggressiveAction?.Invoke(aggressor, aggressed, criminal);
+		}
 
 		public static event Action<SpeechEventArgs> OnSpeech;
-		public static void InvokeSpeech(SpeechEventArgs e) => OnSpeech?.Invoke(e);
+		public static void InvokeSpeech(SpeechEventArgs e)
+		{
+			OnSpeech?.Invoke(e);
+		}
 
 		public static event Action<Mobile> OnOpenDoorMacroUsed;
-		public static void InvokeOpenDoorMacroUsed(Mobile m) => OnOpenDoorMacroUsed?.Invoke(m);
+		public static void InvokeOpenDoorMacroUsed(Mobile m)
+		{
+			OnOpenDoorMacroUsed?.Invoke(m);
+		}
 
 		public static event Action<Mobile, int> OnHungerChanged;
-		public static void InvokeHungerChanged(Mobile mobile, int oldValue) => OnHungerChanged?.Invoke(mobile, oldValue);
+		public static void InvokeHungerChanged(Mobile mobile, int oldValue)
+		{
+			OnHungerChanged?.Invoke(mobile, oldValue);
+		}
 
 		public static event Action<Mobile> OnHelpRequest;
-		public static void InvokeHelpRequest(Mobile m) => OnHelpRequest?.Invoke(m);
+		public static void InvokeHelpRequest(Mobile m)
+		{
+			OnHelpRequest?.Invoke(m);
+		}
 
 		public static event Action<Mobile> OnDisarmRequest;
-		public static void InvokeDisarmRequest(Mobile m) => OnDisarmRequest?.Invoke(m);
+		public static void InvokeDisarmRequest(Mobile m)
+		{
+			OnDisarmRequest?.Invoke(m);
+		}
 
 		public static event Action<Mobile> OnStunRequest;
-		public static void InvokeStunRequest(Mobile m) => OnStunRequest?.Invoke(m);
+		public static void InvokeStunRequest(Mobile m)
+		{
+			OnStunRequest?.Invoke(m);
+		}
 
 		public static event Action<Mobile, Item, Mobile> OnBandageTargetRequest;
-		public static void InvokeBandageTargetRequest(Mobile m, Item bandage, Mobile target) => OnBandageTargetRequest?.Invoke(m, bandage, target);
+		public static void InvokeBandageTargetRequest(Mobile m, Item bandage, Mobile target)
+		{
+			OnBandageTargetRequest?.Invoke(m, bandage, target);
+		}
 
 		public static event Action<Mobile, string> OnAnimateRequest;
-		public static void InvokeAnimateRequest(Mobile m, string action) => OnAnimateRequest?.Invoke(m, action);
+		public static void InvokeAnimateRequest(Mobile m, string action)
+		{
+			OnAnimateRequest?.Invoke(m, action);
+		}
 
 		public static event Action<Mobile, Mobile, string> OnRenameRequest;
-		public static void InvokeRenameRequest(Mobile from, Mobile target, string name) => OnRenameRequest?.Invoke(from, target, name);
+		public static void InvokeRenameRequest(Mobile from, Mobile target, string name)
+		{
+			OnRenameRequest?.Invoke(from, target, name);
+		}
 
 		public static event Action<Mobile, Mobile> OnVirtueGumpRequest;
-		public static void InvokeVirtueGumpRequest(Mobile beholder, Mobile beheld) => OnVirtueGumpRequest?.Invoke(beholder, beheld);
+		public static void InvokeVirtueGumpRequest(Mobile beholder, Mobile beheld)
+		{
+			OnVirtueGumpRequest?.Invoke(beholder, beheld);
+		}
 
 		public static event Action<Mobile, Mobile, int> OnVirtueItemRequest;
-		public static void InvokeVirtueItemRequest(Mobile beholder, Mobile beheld, int gumpID) => OnVirtueItemRequest?.Invoke(beholder, beheld, gumpID);
+		public static void InvokeVirtueItemRequest(Mobile beholder, Mobile beheld, int gumpID)
+		{
+			OnVirtueItemRequest?.Invoke(beholder, beheld, gumpID);
+		}
 
 		public static event Action<Mobile, int> OnVirtueMacroRequest;
-		public static void InvokeVirtueMacroRequest(Mobile mobile, int virtueID) => OnVirtueMacroRequest?.Invoke(mobile, virtueID);
+		public static void InvokeVirtueMacroRequest(Mobile mobile, int virtueID)
+		{
+			OnVirtueMacroRequest?.Invoke(mobile, virtueID);
+		}
 
 		public static event Action<Mobile, Mobile> OnPaperdollRequest;
-		public static void InvokePaperdollRequest(Mobile beholder, Mobile beheld) => OnPaperdollRequest?.Invoke(beholder, beheld);
+		public static void InvokePaperdollRequest(Mobile beholder, Mobile beheld)
+		{
+			OnPaperdollRequest?.Invoke(beholder, beheld);
+		}
 
 		public static event Action<Mobile, Mobile> OnProfileRequest;
-		public static void InvokeProfileRequest(Mobile beholder, Mobile beheld) => OnProfileRequest?.Invoke(beholder, beheld);
+		public static void InvokeProfileRequest(Mobile beholder, Mobile beheld)
+		{
+			OnProfileRequest?.Invoke(beholder, beheld);
+		}
 
 		public static event Action<Mobile, Mobile, string> OnChangeProfileRequest;
-		public static void InvokeChangeProfileRequest(Mobile beholder, Mobile beheld, string text) => OnChangeProfileRequest?.Invoke(beholder, beheld, text);
+		public static void InvokeChangeProfileRequest(Mobile beholder, Mobile beheld, string text)
+		{
+			OnChangeProfileRequest?.Invoke(beholder, beheld, text);
+		}
 
 		public static event Action<NetState, int> OnDeleteRequest;
-		public static void InvokeDeleteRequest(NetState state, int index) => OnDeleteRequest?.Invoke(state, index);
+		public static void InvokeDeleteRequest(NetState state, int index)
+		{
+			OnDeleteRequest?.Invoke(state, index);
+		}
 
 		public static event Action<Mobile, int> OnSetAbility;
-		public static void InvokeSetAbility(Mobile mobile, int index) => OnSetAbility?.Invoke(mobile, index);
+		public static void InvokeSetAbility(Mobile mobile, int index)
+		{
+			OnSetAbility?.Invoke(mobile, index);
+		}
 
 		public static event Action<Mobile> OnQuestGumpRequest;
-		public static void InvokeQuestGumpRequest(Mobile m) => OnQuestGumpRequest?.Invoke(m);
+		public static void InvokeQuestGumpRequest(Mobile m)
+		{
+			OnQuestGumpRequest?.Invoke(m);
+		}
 
 		public static event Action<Mobile, Type> OnQuestComplete;
-		public static void InvokeOnQuestComplete(Mobile m, Type questType) => OnQuestComplete?.Invoke(m, questType);
+		public static void InvokeOnQuestComplete(Mobile m, Type questType)
+		{
+			OnQuestComplete?.Invoke(m, questType);
+		}
 
 		public static event Action<NetState, ClientVersion> OnClientVersionReceived;
-		public static void InvokeClientVersionReceived(NetState state, ClientVersion cv) => OnClientVersionReceived?.Invoke(state, cv);
+		public static void InvokeClientVersionReceived(NetState state, ClientVersion cv)
+		{
+			OnClientVersionReceived?.Invoke(state, cv);
+		}
 
 		public static event Action<Mobile, List<Serial>> OnEquipMacro;
 		public static void InvokeEquipMacro(Mobile m, List<Serial> list)
@@ -509,54 +713,105 @@ namespace Server
 		}
 
 		public static event Action<Mobile, Item, short> OnTargetByResourceMacro;
-		public static void InvokeTargetByResourceMacro(Mobile m, Item item, short resourceType) => OnTargetByResourceMacro?.Invoke(m, item, resourceType);
+		public static void InvokeTargetByResourceMacro(Mobile m, Item item, short resourceType)
+		{
+			OnTargetByResourceMacro?.Invoke(m, item, resourceType);
+		}
 
 		public static event CommandEventHandler OnCommand;
-		public static void InvokeCommand(CommandEventArgs e) => OnCommand?.Invoke(e);
+		public static void InvokeCommand(CommandEventArgs e)
+		{
+			OnCommand?.Invoke(e);
+		}
 
 		public static event Action<Mobile, Region, Region> OnChangeRegion;
-		public static void InvokeOnChangeRegion(Mobile m, Region oldRegion, Region newRegion) => OnChangeRegion?.Invoke(m, oldRegion, newRegion);
+		public static void InvokeOnChangeRegion(Mobile m, Region oldRegion, Region newRegion)
+		{
+			OnChangeRegion?.Invoke(m, oldRegion, newRegion);
+		}
 
 		public static event Action<Mobile, StatType, int, int> OnStatGain;
-		public static void InvokeOnStatGainChange(Mobile from, StatType stat, int oldValue, int newValue) => OnStatGain?.Invoke(from, stat, oldValue, newValue);
+		public static void InvokeOnStatGainChange(Mobile from, StatType stat, int oldValue, int newValue)
+		{
+			OnStatGain?.Invoke(from, stat, oldValue, newValue);
+		}
 
 		public static event Action<Mobile, int, int> OnStatCapChange;
-		public static void InvokeOnStatCapChange(Mobile mob, int oldCap, int newCap) => OnStatCapChange?.Invoke(mob, oldCap, newCap);
+		public static void InvokeOnStatCapChange(Mobile mob, int oldCap, int newCap)
+		{
+			OnStatCapChange?.Invoke(mob, oldCap, newCap);
+		}
 
 		public static event Action<Mobile, Item, Item> OnCraftSuccess;
-		public static void InvokeOnCraftSuccess(Mobile crafter, Item item, Item tool) => OnCraftSuccess?.Invoke(crafter, item, tool);
+		public static void InvokeOnCraftSuccess(Mobile crafter, Item item, Item tool)
+		{
+			OnCraftSuccess?.Invoke(crafter, item, tool);
+		}
 
 		public static event Action<Mobile, Container, Item> OnCorpseLoot;
-		public static void InvokeOnCorpseLoot(Mobile mob, Container corpse, Item looted) => OnCorpseLoot?.Invoke(mob, corpse, looted);
+		public static void InvokeOnCorpseLoot(Mobile mob, Container corpse, Item looted)
+		{
+			OnCorpseLoot?.Invoke(mob, corpse, looted);
+		}
 
 		public static event Action<Mobile, int, int> OnFameChange;
-		public static void InvokeOnFameChange(Mobile mob, int oldValue, int newValue) => OnFameChange?.Invoke(mob, oldValue, newValue);
+		public static void InvokeOnFameChange(Mobile mob, int oldValue, int newValue)
+		{
+			OnFameChange?.Invoke(mob, oldValue, newValue);
+		}
 
 		public static event Action<Mobile, int, int> OnKarmaChange;
-		public static void InvokeOnKarmaChange(Mobile mob, int oldValue, int newValue) => OnKarmaChange?.Invoke(mob, oldValue, newValue);
+		public static void InvokeOnKarmaChange(Mobile mob, int oldValue, int newValue)
+		{
+			OnKarmaChange?.Invoke(mob, oldValue, newValue);
+		}
 
 		public static event Action<Mobile, bool, bool> OnGenderChange;
-		public static void InvokeOnGenderChange(Mobile mob, bool oldValue, bool newValue) => OnGenderChange?.Invoke(mob, oldValue, newValue);
+		public static void InvokeOnGenderChange(Mobile mob, bool oldValue, bool newValue)
+		{
+			OnGenderChange?.Invoke(mob, oldValue, newValue);
+		}
 
 		public static event Action<Mobile, Mobile> OnPlayerMurdered;
-		public static void InvokeOnPlayerMurdered(Mobile murderer, Mobile victim) => OnPlayerMurdered?.Invoke(murderer, victim);
+		public static void InvokeOnPlayerMurdered(Mobile murderer, Mobile victim)
+		{
+			OnPlayerMurdered?.Invoke(murderer, victim);
+		}
 
 		public static event Action<Mobile, Item, Item, Item, object> OnResourceHarvestSuccess;
-		public static void InvokeOnResourceHarvestSuccess(Mobile from, Item tool, Item resource, Item bonusResource, object harvestSystem) => OnResourceHarvestSuccess?.Invoke(from, tool, resource, bonusResource, harvestSystem);
+		public static void InvokeOnResourceHarvestSuccess(Mobile from, Item tool, Item resource, Item bonusResource, object harvestSystem)
+		{
+			OnResourceHarvestSuccess?.Invoke(from, tool, resource, bonusResource, harvestSystem);
+		}
 
 		public static event Action<Mobile, Item, object> OnResourceHarvestAttempt;
-		public static void InvokeOnResourceHarvestAttempt(Mobile from, Item tool, object harvestSystem) => OnResourceHarvestAttempt?.Invoke(from, tool, harvestSystem);
+		public static void InvokeOnResourceHarvestAttempt(Mobile from, Item tool, object harvestSystem)
+		{
+			OnResourceHarvestAttempt?.Invoke(from, tool, harvestSystem);
+		}
 
 		public static event Action<IAccount, double, double> OnAccountGoldChange;
-		public static void InvokeOnAccountGoldChange(IAccount acc, double oldValue, double newValue) => OnAccountGoldChange?.Invoke(acc, oldValue, newValue);
+		public static void InvokeOnAccountGoldChange(IAccount acc, double oldValue, double newValue)
+		{
+			OnAccountGoldChange?.Invoke(acc, oldValue, newValue);
+		}
 
 		public static event Action<Mobile, int, int, int> OnVirtueLevelChange;
-		public static void InvokeOnVirtueLevelChange(Mobile from, int oldLevel, int newLevel, int virtue) => OnVirtueLevelChange?.Invoke(from, oldLevel, newLevel, virtue);
+		public static void InvokeOnVirtueLevelChange(Mobile from, int oldLevel, int newLevel, int virtue)
+		{
+			OnVirtueLevelChange?.Invoke(from, oldLevel, newLevel, virtue);
+		}
 
 		public static event Action<Mobile, Point3D, Point3D> OnTeleportMovement;
-		public static void InvokeOnTeleportMovement(Mobile from, Point3D oldPosition, Point3D newPosition) => OnTeleportMovement?.Invoke(from, oldPosition, newPosition);
+		public static void InvokeOnTeleportMovement(Mobile from, Point3D oldPosition, Point3D newPosition)
+		{
+			OnTeleportMovement?.Invoke(from, oldPosition, newPosition);
+		}
 
 		public static event Action<Mobile, PropertyInfo, object, object, object> OnPropertyChanged;
-		public static void InvokeOnPropertyChanged(Mobile mob, PropertyInfo property, object instance, object oldValue, object newValue) => OnPropertyChanged?.Invoke(mob, property, instance, oldValue, newValue);
+		public static void InvokeOnPropertyChanged(Mobile mob, PropertyInfo property, object instance, object oldValue, object newValue)
+		{
+			OnPropertyChanged?.Invoke(mob, property, instance, oldValue, newValue);
+		}
 	}
 }

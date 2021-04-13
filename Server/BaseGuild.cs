@@ -29,15 +29,9 @@ namespace Server.Guilds
 			Serial = serial;
 		}
 
-		int ISerializable.TypeReference
-		{
-			get { return 0; }
-		}
+		int ISerializable.TypeReference => 0;
 
-		int ISerializable.SerialIdentity
-		{
-			get { return Serial; }
-		}
+		int ISerializable.SerialIdentity => Serial;
 
 		public abstract void Deserialize(GenericReader reader);
 		public abstract void Serialize(GenericWriter writer);

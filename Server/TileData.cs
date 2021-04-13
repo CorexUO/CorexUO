@@ -63,7 +63,7 @@ namespace Server
 
 		public bool Bridge
 		{
-			get { return (Flags & TileFlag.Bridge) != 0; }
+			get => (Flags & TileFlag.Bridge) != 0;
 			set
 			{
 				if (value)
@@ -75,7 +75,7 @@ namespace Server
 
 		public bool Impassable
 		{
-			get { return (Flags & TileFlag.Impassable) != 0; }
+			get => (Flags & TileFlag.Impassable) != 0;
 			set
 			{
 				if (value)
@@ -87,7 +87,7 @@ namespace Server
 
 		public bool Surface
 		{
-			get { return (Flags & TileFlag.Surface) != 0; }
+			get => (Flags & TileFlag.Surface) != 0;
 			set
 			{
 				if (value)
@@ -99,32 +99,32 @@ namespace Server
 
 		public int Weight
 		{
-			get { return m_Weight; }
-			set { m_Weight = (byte)value; }
+			get => m_Weight;
+			set => m_Weight = (byte)value;
 		}
 
 		public int Quality
 		{
-			get { return m_Quality; }
-			set { m_Quality = (byte)value; }
+			get => m_Quality;
+			set => m_Quality = (byte)value;
 		}
 
 		public int Quantity
 		{
-			get { return m_Quantity; }
-			set { m_Quantity = (byte)value; }
+			get => m_Quantity;
+			set => m_Quantity = (byte)value;
 		}
 
 		public int Value
 		{
-			get { return m_Value; }
-			set { m_Value = (byte)value; }
+			get => m_Value;
+			set => m_Value = (byte)value;
 		}
 
 		public int Height
 		{
-			get { return m_Height; }
-			set { m_Height = (byte)value; }
+			get => m_Height;
+			set => m_Height = (byte)value;
 		}
 
 		public int CalcHeight

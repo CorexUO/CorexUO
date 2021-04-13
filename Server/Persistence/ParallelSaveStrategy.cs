@@ -8,10 +8,7 @@ namespace Server
 {
 	public sealed class ParallelSaveStrategy : SaveStrategy
 	{
-		public override string Name
-		{
-			get { return "Parallel"; }
-		}
+		public override string Name => "Parallel";
 
 		private readonly int processorCount;
 

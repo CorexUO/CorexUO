@@ -174,13 +174,7 @@ namespace Server
 		private readonly bool PrefixStrings;
 		private readonly Stream m_File;
 
-		protected virtual int BufferSize
-		{
-			get
-			{
-				return 64 * 1024;
-			}
-		}
+		protected virtual int BufferSize => 64 * 1024;
 
 		private readonly byte[] m_Buffer;
 
@@ -217,13 +211,7 @@ namespace Server
 
 		private long m_Position;
 
-		public override long Position
-		{
-			get
-			{
-				return m_Position + m_Index;
-			}
-		}
+		public override long Position => m_Position + m_Index;
 
 		public Stream UnderlyingStream
 		{
@@ -928,13 +916,7 @@ namespace Server
 			m_File.Close();
 		}
 
-		public long Position
-		{
-			get
-			{
-				return m_File.BaseStream.Position;
-			}
-		}
+		public long Position => m_File.BaseStream.Position;
 
 		public long Seek(long offset, SeekOrigin origin)
 		{
@@ -1488,10 +1470,7 @@ namespace Server
 
 		public MemoryStream MemStream
 		{
-			get
-			{
-				return m_Mem;
-			}
+			get => m_Mem;
 			set
 			{
 				if (m_Mem.Length > 0)
@@ -1511,13 +1490,7 @@ namespace Server
 			m_Closed = true;
 		}
 
-		public override long Position
-		{
-			get
-			{
-				return m_CurPos;
-			}
-		}
+		public override long Position => m_CurPos;
 
 		public override void Write(IPAddress value)
 		{

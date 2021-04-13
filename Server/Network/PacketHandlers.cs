@@ -1590,7 +1590,7 @@ namespace Server.Network
 				128
 			};
 
-		public static int[] ValidAnimations { get { return m_ValidAnimations; } set { m_ValidAnimations = value; } }
+		public static int[] ValidAnimations { get => m_ValidAnimations; set => m_ValidAnimations = value; }
 
 		public static void Animate(NetState state, PacketReader pvSrc)
 		{

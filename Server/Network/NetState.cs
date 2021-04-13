@@ -39,13 +39,7 @@ namespace Server.Network
 
 		public DateTime ConnectedOn { get; }
 
-		public TimeSpan ConnectedFor
-		{
-			get
-			{
-				return (DateTime.UtcNow - ConnectedOn);
-			}
-		}
+		public TimeSpan ConnectedFor => (DateTime.UtcNow - ConnectedOn);
 
 		internal int m_Seed;
 		internal int m_AuthID;
@@ -72,10 +66,7 @@ namespace Server.Network
 
 		public ClientVersion Version
 		{
-			get
-			{
-				return m_Version;
-			}
+			get => m_Version;
 			set
 			{
 				m_Version = value;
@@ -189,29 +180,29 @@ namespace Server.Network
 			Version704565 = Version70331 | NewSecureTrading
 		}
 
-		public bool NewSpellbook { get { return ((_ProtocolChanges & ProtocolChanges.NewSpellbook) != 0); } }
-		public bool DamagePacket { get { return ((_ProtocolChanges & ProtocolChanges.DamagePacket) != 0); } }
-		public bool Unpack { get { return ((_ProtocolChanges & ProtocolChanges.Unpack) != 0); } }
-		public bool BuffIcon { get { return ((_ProtocolChanges & ProtocolChanges.BuffIcon) != 0); } }
-		public bool NewHaven { get { return ((_ProtocolChanges & ProtocolChanges.NewHaven) != 0); } }
-		public bool ContainerGridLines { get { return ((_ProtocolChanges & ProtocolChanges.ContainerGridLines) != 0); } }
-		public bool ExtendedSupportedFeatures { get { return ((_ProtocolChanges & ProtocolChanges.ExtendedSupportedFeatures) != 0); } }
-		public bool StygianAbyss { get { return ((_ProtocolChanges & ProtocolChanges.StygianAbyss) != 0); } }
-		public bool HighSeas { get { return ((_ProtocolChanges & ProtocolChanges.HighSeas) != 0); } }
-		public bool NewCharacterList { get { return ((_ProtocolChanges & ProtocolChanges.NewCharacterList) != 0); } }
-		public bool NewCharacterCreation { get { return ((_ProtocolChanges & ProtocolChanges.NewCharacterCreation) != 0); } }
-		public bool ExtendedStatus { get { return ((_ProtocolChanges & ProtocolChanges.ExtendedStatus) != 0); } }
-		public bool NewMobileIncoming { get { return ((_ProtocolChanges & ProtocolChanges.NewMobileIncoming) != 0); } }
-		public bool NewSecureTrading { get { return ((_ProtocolChanges & ProtocolChanges.NewSecureTrading) != 0); } }
+		public bool NewSpellbook => ((_ProtocolChanges & ProtocolChanges.NewSpellbook) != 0);
+		public bool DamagePacket => ((_ProtocolChanges & ProtocolChanges.DamagePacket) != 0);
+		public bool Unpack => ((_ProtocolChanges & ProtocolChanges.Unpack) != 0);
+		public bool BuffIcon => ((_ProtocolChanges & ProtocolChanges.BuffIcon) != 0);
+		public bool NewHaven => ((_ProtocolChanges & ProtocolChanges.NewHaven) != 0);
+		public bool ContainerGridLines => ((_ProtocolChanges & ProtocolChanges.ContainerGridLines) != 0);
+		public bool ExtendedSupportedFeatures => ((_ProtocolChanges & ProtocolChanges.ExtendedSupportedFeatures) != 0);
+		public bool StygianAbyss => ((_ProtocolChanges & ProtocolChanges.StygianAbyss) != 0);
+		public bool HighSeas => ((_ProtocolChanges & ProtocolChanges.HighSeas) != 0);
+		public bool NewCharacterList => ((_ProtocolChanges & ProtocolChanges.NewCharacterList) != 0);
+		public bool NewCharacterCreation => ((_ProtocolChanges & ProtocolChanges.NewCharacterCreation) != 0);
+		public bool ExtendedStatus => ((_ProtocolChanges & ProtocolChanges.ExtendedStatus) != 0);
+		public bool NewMobileIncoming => ((_ProtocolChanges & ProtocolChanges.NewMobileIncoming) != 0);
+		public bool NewSecureTrading => ((_ProtocolChanges & ProtocolChanges.NewSecureTrading) != 0);
 
 		[CommandProperty(AccessLevel.Administrator, true)]
-		public bool IsUOTDClient { get { return ((Flags & ClientFlags.UOTD) != 0 || (m_Version != null && m_Version.Type == ClientType.UOTD)); } }
+		public bool IsUOTDClient => ((Flags & ClientFlags.UOTD) != 0 || (m_Version != null && m_Version.Type == ClientType.UOTD));
 
 		[CommandProperty(AccessLevel.Administrator, true)]
-		public bool IsSAClient { get { return (m_Version != null && m_Version.Type == ClientType.SA); } }
+		public bool IsSAClient => (m_Version != null && m_Version.Type == ClientType.SA);
 
 		[CommandProperty(AccessLevel.Administrator, true)]
-		public bool IsEnhancedClient { get { return IsUOTDClient || (m_Version != null && m_Version.Major >= 67); } }
+		public bool IsEnhancedClient => IsUOTDClient || (m_Version != null && m_Version.Major >= 67);
 
 		public List<SecureTrade> Trades { get; }
 
@@ -1247,13 +1238,7 @@ namespace Server.Network
 			}
 		}
 
-		public Expansion Expansion
-		{
-			get
-			{
-				return (Expansion)this.ExpansionInfo.ID;
-			}
-		}
+		public Expansion Expansion => (Expansion)this.ExpansionInfo.ID;
 
 		public bool SupportsExpansion(ExpansionInfo info, bool checkCoreExpansion)
 		{

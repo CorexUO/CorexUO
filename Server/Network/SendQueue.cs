@@ -35,21 +35,9 @@ namespace Server.Network
 
 			public int Length { get; private set; }
 
-			public int Available
-			{
-				get
-				{
-					return (Buffer.Length - Length);
-				}
-			}
+			public int Available => (Buffer.Length - Length);
 
-			public bool IsFull
-			{
-				get
-				{
-					return (Length == Buffer.Length);
-				}
-			}
+			public bool IsFull => (Length == Buffer.Length);
 
 			private Gram()
 			{
@@ -81,10 +69,7 @@ namespace Server.Network
 
 		public static int CoalesceBufferSize
 		{
-			get
-			{
-				return m_CoalesceBufferSize;
-			}
+			get => m_CoalesceBufferSize;
 			set
 			{
 				if (m_CoalesceBufferSize == value)
@@ -120,21 +105,9 @@ namespace Server.Network
 
 		private Gram _buffered;
 
-		public bool IsFlushReady
-		{
-			get
-			{
-				return (_pending.Count == 0 && _buffered != null);
-			}
-		}
+		public bool IsFlushReady => (_pending.Count == 0 && _buffered != null);
 
-		public bool IsEmpty
-		{
-			get
-			{
-				return (_pending.Count == 0 && _buffered == null);
-			}
-		}
+		public bool IsEmpty => (_pending.Count == 0 && _buffered == null);
 
 		public SendQueue()
 		{

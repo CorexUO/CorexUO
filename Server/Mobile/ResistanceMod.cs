@@ -9,7 +9,7 @@
 
 		public ResistanceType Type
 		{
-			get { return m_Type; }
+			get => m_Type;
 			set
 			{
 				if (m_Type != value)
@@ -24,7 +24,7 @@
 
 		public int Offset
 		{
-			get { return m_Offset; }
+			get => m_Offset;
 			set
 			{
 				if (m_Offset != value)

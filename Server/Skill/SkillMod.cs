@@ -17,7 +17,7 @@
 
 		public bool ObeyCap
 		{
-			get { return m_ObeyCap; }
+			get => m_ObeyCap;
 			set
 			{
 				m_ObeyCap = value;
@@ -34,10 +34,7 @@
 
 		public Mobile Owner
 		{
-			get
-			{
-				return m_Owner;
-			}
+			get => m_Owner;
 			set
 			{
 				if (m_Owner != value)
@@ -60,10 +57,7 @@
 
 		public SkillName Skill
 		{
-			get
-			{
-				return m_Skill;
-			}
+			get => m_Skill;
 			set
 			{
 				if (m_Skill != value)
@@ -88,10 +82,7 @@
 
 		public bool Relative
 		{
-			get
-			{
-				return m_Relative;
-			}
+			get => m_Relative;
 			set
 			{
 				if (m_Relative != value)
@@ -111,10 +102,7 @@
 
 		public bool Absolute
 		{
-			get
-			{
-				return !m_Relative;
-			}
+			get => !m_Relative;
 			set
 			{
 				if (m_Relative == value)
@@ -134,10 +122,7 @@
 
 		public double Value
 		{
-			get
-			{
-				return m_Value;
-			}
+			get => m_Value;
 			set
 			{
 				if (m_Value != value)

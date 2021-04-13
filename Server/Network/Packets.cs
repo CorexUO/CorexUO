@@ -3851,50 +3851,26 @@ namespace Server.Network
 
 		public int X
 		{
-			get
-			{
-				return m_Location.X;
-			}
-			set
-			{
-				m_Location.X = value;
-			}
+			get => m_Location.X;
+			set => m_Location.X = value;
 		}
 
 		public int Y
 		{
-			get
-			{
-				return m_Location.Y;
-			}
-			set
-			{
-				m_Location.Y = value;
-			}
+			get => m_Location.Y;
+			set => m_Location.Y = value;
 		}
 
 		public int Z
 		{
-			get
-			{
-				return m_Location.Z;
-			}
-			set
-			{
-				m_Location.Z = value;
-			}
+			get => m_Location.Z;
+			set => m_Location.Z = value;
 		}
 
 		public Point3D Location
 		{
-			get
-			{
-				return m_Location;
-			}
-			set
-			{
-				m_Location = value;
-			}
+			get => m_Location;
+			set => m_Location = value;
 		}
 
 		public Map Map { get; set; }
@@ -4386,13 +4362,7 @@ namespace Server.Network
 			}
 		}
 
-		public PacketWriter UnderlyingStream
-		{
-			get
-			{
-				return m_Stream;
-			}
-		}
+		public PacketWriter UnderlyingStream => m_Stream;
 
 		private const int CompressorBufferSize = 0x10000;
 		private static readonly BufferPool m_CompressorBuffers = new BufferPool("Compressor", 4, CompressorBufferSize);

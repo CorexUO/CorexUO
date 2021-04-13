@@ -25,21 +25,9 @@ namespace Server.Menus.ItemLists
 		private readonly int m_Serial;
 		private static int m_NextSerial;
 
-		int IMenu.Serial
-		{
-			get
-			{
-				return m_Serial;
-			}
-		}
+		int IMenu.Serial => m_Serial;
 
-		int IMenu.EntryLength
-		{
-			get
-			{
-				return Entries.Length;
-			}
-		}
+		int IMenu.EntryLength => Entries.Length;
 
 		public string Question { get; }
 

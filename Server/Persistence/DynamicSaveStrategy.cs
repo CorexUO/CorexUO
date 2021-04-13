@@ -8,7 +8,7 @@ namespace Server
 {
 	public sealed class DynamicSaveStrategy : SaveStrategy
 	{
-		public override string Name { get { return "Dynamic"; } }
+		public override string Name => "Dynamic";
 
 		private SequentialFileWriter _itemData, _itemIndex;
 		private SequentialFileWriter _mobileData, _mobileIndex;
