@@ -1191,7 +1191,7 @@ namespace Server.Mobiles
 				Mana = Mana;
 			}
 
-			if (this.NetState != null)
+			if (NetState != null)
 				CheckLightLevels(false);
 		}
 
@@ -1206,7 +1206,7 @@ namespace Server.Mobiles
 				Mana = Mana;
 			}
 
-			if (this.NetState != null)
+			if (NetState != null)
 				CheckLightLevels(false);
 		}
 
@@ -1768,7 +1768,7 @@ namespace Server.Mobiles
 			if (!CheckAlive())
 				return;
 
-			List<Item> items = new List<Item>();
+			List<Item> items = new();
 
 			foreach (Item item in Items)
 			{
@@ -2752,7 +2752,7 @@ namespace Server.Mobiles
 
 			if (m_BuffTable != null)
 			{
-				List<BuffInfo> list = new List<BuffInfo>();
+				List<BuffInfo> list = new();
 
 				foreach (BuffInfo buff in m_BuffTable.Values)
 				{
@@ -3325,7 +3325,7 @@ namespace Server.Mobiles
 			//cleanup our anti-macro table
 			foreach (Hashtable t in m_AntiMacroTable.Values)
 			{
-				ArrayList remove = new ArrayList();
+				List<CountAndTimeStamp> remove = new();
 				foreach (CountAndTimeStamp time in t.Values)
 				{
 					if (time.TimeStamp + SkillCheck.AntiMacroExpire <= DateTime.UtcNow)

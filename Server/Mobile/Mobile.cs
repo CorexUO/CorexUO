@@ -4251,6 +4251,15 @@ namespace Server
 		public Mobile LastKiller { get; set; }
 
 		/// <summary>
+		/// Overridable. Get hit block chance
+		/// </summary>
+		/// <returns></returns>
+		public virtual double GetHitBlockChance()
+		{
+			return 0;
+		}
+
+		/// <summary>
 		/// Overridable. Get spell damage bonus of the mobile
 		/// </summary>
 		/// <returns></returns>

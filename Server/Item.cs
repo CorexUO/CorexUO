@@ -4493,7 +4493,6 @@ namespace Server
 		{
 			Serial = Serial.NewItem;
 
-			//m_Items = new ArrayList( 1 );
 			Visible = true;
 			Movable = true;
 			Amount = 1;

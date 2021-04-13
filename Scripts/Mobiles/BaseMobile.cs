@@ -127,6 +127,19 @@ namespace Server.Mobiles
 		}
 
 		#endregion
+
+		public override double GetHitBlockChance()
+		{
+			double chance = base.GetHitBlockChance();
+
+			if (FindItemOnLayer(Layer.TwoHanded) is BaseShield shield)
+			{
+				chance += (Skills[SkillName.Parry].Value - (shield.ArmorRating * 2.0)) / 100.0;
+			}
+
+			return chance;
+		}
+
 		public override int GetSpellDamageBonus(bool inPvP)
 		{
 			int damageBonus = base.GetSpellDamageBonus(inPvP);

@@ -103,8 +103,7 @@ namespace Server.Items
 				if (owner == null)
 					return damage;
 
-				double ar = this.ArmorRating;
-				double chance = (owner.Skills[SkillName.Parry].Value - (ar * 2.0)) / 100.0;
+				double chance = owner.GetHitBlockChance();
 
 				if (chance < 0.01)
 					chance = 0.01;
@@ -118,9 +117,9 @@ namespace Server.Items
 				if (owner.CheckSkill(SkillName.Parry, chance))
 				{
 					if (weapon.Skill == SkillName.Archery)
-						damage -= (int)ar;
+						damage -= (int)ArmorRating;
 					else
-						damage -= (int)(ar / 2.0);
+						damage -= (int)(ArmorRating / 2.0);
 
 					if (damage < 0)
 						damage = 0;

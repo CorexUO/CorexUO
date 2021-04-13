@@ -3662,7 +3662,7 @@ namespace Server.Mobiles
 				{
 					Backpack b = new CreatureBackpack(Name);
 
-					List<Item> list = new List<Item>(Backpack.Items);
+					List<Item> list = new(Backpack.Items);
 					foreach (Item item in list)
 					{
 						b.DropItem(item);
@@ -4323,7 +4323,7 @@ namespace Server.Mobiles
 			List<DamageEntry> damageEntries = DamageEntries;
 			int hitsMax = HitsMax;
 
-			List<DamageStore> rights = new List<DamageStore>();
+			List<DamageStore> rights = new();
 
 			for (int i = damageEntries.Count - 1; i >= 0; --i)
 			{
@@ -4530,9 +4530,9 @@ namespace Server.Mobiles
 					}
 
 					List<DamageStore> list = GetLootingRights();
-					List<Mobile> titles = new List<Mobile>();
-					List<int> fame = new List<int>();
-					List<int> karma = new List<int>();
+					List<Mobile> titles = new();
+					List<int> fame = new();
+					List<int> karma = new();
 
 					bool givenQuestKill = false;
 					bool givenFactionKill = false;
@@ -4986,7 +4986,7 @@ namespace Server.Mobiles
 			if (!Alive || IsDeadBondedPet)
 				return;
 
-			List<Mobile> list = new List<Mobile>();
+			List<Mobile> list = new();
 
 			foreach (Mobile m in GetMobilesInRange(AuraRange))
 			{
@@ -5235,7 +5235,7 @@ namespace Server.Mobiles
 
 		public static void TeleportPets(Mobile master, Point3D loc, Map map, bool onlyBonded)
 		{
-			List<Mobile> move = new List<Mobile>();
+			List<Mobile> move = new();
 
 			foreach (Mobile m in master.GetMobilesInRange(3))
 			{
@@ -5415,10 +5415,10 @@ namespace Server.Mobiles
 			else
 				return;
 
-			List<BaseCreature> toRelease = new List<BaseCreature>();
+			List<BaseCreature> toRelease = new();
 
 			// added array for wild creatures in house regions to be removed
-			List<BaseCreature> toRemove = new List<BaseCreature>();
+			List<BaseCreature> toRemove = new();
 
 			_ = Parallel.ForEach(World.Mobiles.Values, m =>
 			  {

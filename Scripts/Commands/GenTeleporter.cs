@@ -35,7 +35,7 @@ namespace Server.Commands
 			{
 			}
 
-			private static readonly Queue m_Queue = new Queue();
+			private static readonly Queue m_Queue = new();
 
 			public static bool FindTeleporter(Map map, Point3D p)
 			{
@@ -66,7 +66,7 @@ namespace Server.Commands
 				{
 					m_Count++;
 
-					Teleporter tel = new Teleporter(pointDestination, mapDestination);
+					Teleporter tel = new(pointDestination, mapDestination);
 
 					tel.MoveToWorld(pointLocation, mapLocation);
 				}
@@ -75,7 +75,7 @@ namespace Server.Commands
 				{
 					m_Count++;
 
-					Teleporter telBack = new Teleporter(pointLocation, mapLocation);
+					Teleporter telBack = new(pointLocation, mapLocation);
 
 					telBack.MoveToWorld(pointDestination, mapDestination);
 				}
@@ -91,9 +91,9 @@ namespace Server.Commands
 				CreateTeleporter(new Point3D(xLoc, yLoc, zLoc), new Point3D(xDest, yDest, zDest), mapLocation, mapDestination, back);
 			}
 
-			public void DestroyTeleporter(int x, int y, int z, Map map)
+			public static void DestroyTeleporter(int x, int y, int z, Map map)
 			{
-				Point3D p = new Point3D(x, y, z);
+				Point3D p = new(x, y, z);
 				IPooledEnumerable eable = map.GetItemsInRange(p, 0);
 
 				foreach (Item item in eable)
