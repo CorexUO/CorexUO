@@ -406,9 +406,7 @@ namespace Server.Network
 
 				if (buyList.Count > 0)
 				{
-					IVendor v = vendor as IVendor;
-
-					if (v != null && v.OnBuyItems(state.Mobile, buyList))
+					if (vendor is IVendor v && v.OnBuyItems(state.Mobile, buyList))
 						state.Send(new EndVendorBuy(vendor));
 				}
 			}
@@ -449,9 +447,7 @@ namespace Server.Network
 
 				if (sellList.Count > 0)
 				{
-					IVendor v = vendor as IVendor;
-
-					if (v != null && v.OnSellItems(state.Mobile, sellList))
+					if (vendor is IVendor v && v.OnSellItems(state.Mobile, sellList))
 						state.Send(new EndVendorSell(vendor));
 				}
 			}
@@ -1527,8 +1523,8 @@ namespace Server.Network
 					}
 					else if (from.Region.OnSingleClick(from, item))
 					{
-						if (item.Parent is Item)
-							((Item)item.Parent).OnSingleClickContained(from, item);
+						if (item.Parent is Item parentItem)
+							parentItem.OnSingleClickContained(from, item);
 
 						item.OnSingleClick(from);
 					}

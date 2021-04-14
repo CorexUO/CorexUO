@@ -72,32 +72,30 @@ namespace Server
 
 				if (File.Exists(vdPath))
 				{
-					using (FileStream fs = new FileStream(vdPath, FileMode.Open, FileAccess.Read, FileShare.Read))
+					using FileStream fs = new(vdPath, FileMode.Open, FileAccess.Read, FileShare.Read);
+					BinaryReader bin = new BinaryReader(fs);
+
+					int count = bin.ReadInt32();
+
+					for (int i = 0; i < count; ++i)
 					{
-						BinaryReader bin = new BinaryReader(fs);
+						int file = bin.ReadInt32();
+						int index = bin.ReadInt32();
+						int lookup = bin.ReadInt32();
+						int length = bin.ReadInt32();
+						_ = bin.ReadInt32();
 
-						int count = bin.ReadInt32();
-
-						for (int i = 0; i < count; ++i)
+						if (file == 14 && index >= 0 && index < Components.Length && lookup >= 0 && length > 0)
 						{
-							int file = bin.ReadInt32();
-							int index = bin.ReadInt32();
-							int lookup = bin.ReadInt32();
-							int length = bin.ReadInt32();
-							_ = bin.ReadInt32();
+							bin.BaseStream.Seek(lookup, SeekOrigin.Begin);
 
-							if (file == 14 && index >= 0 && index < Components.Length && lookup >= 0 && length > 0)
-							{
-								bin.BaseStream.Seek(lookup, SeekOrigin.Begin);
+							Components[index] = new MultiComponentList(bin, length / 12);
 
-								Components[index] = new MultiComponentList(bin, length / 12);
-
-								bin.BaseStream.Seek(24 + (i * 20), SeekOrigin.Begin);
-							}
+							bin.BaseStream.Seek(24 + (i * 20), SeekOrigin.Begin);
 						}
-
-						bin.Close();
 					}
+
+					bin.Close();
 				}
 			}
 			else

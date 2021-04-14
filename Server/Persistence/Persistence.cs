@@ -26,19 +26,17 @@ namespace Server
 
 			file.Refresh();
 
-			using (FileStream fs = file.OpenWrite())
-			{
-				BinaryFileWriter writer = new BinaryFileWriter(fs, true);
+			using FileStream fs = file.OpenWrite();
+			BinaryFileWriter writer = new BinaryFileWriter(fs, true);
 
-				try
-				{
-					serializer(writer);
-				}
-				finally
-				{
-					writer.Flush();
-					writer.Close();
-				}
+			try
+			{
+				serializer(writer);
+			}
+			finally
+			{
+				writer.Flush();
+				writer.Close();
 			}
 		}
 
@@ -86,29 +84,27 @@ namespace Server
 
 			file.Refresh();
 
-			using (FileStream fs = file.OpenRead())
-			{
-				BinaryFileReader reader = new BinaryFileReader(new BinaryReader(fs));
+			using FileStream fs = file.OpenRead();
+			BinaryFileReader reader = new BinaryFileReader(new BinaryReader(fs));
 
-				try
+			try
+			{
+				deserializer(reader);
+			}
+			catch (EndOfStreamException eos)
+			{
+				if (file.Length > 0)
 				{
-					deserializer(reader);
+					Console.WriteLine("[Persistence]: {0}", eos);
 				}
-				catch (EndOfStreamException eos)
-				{
-					if (file.Length > 0)
-					{
-						Console.WriteLine("[Persistence]: {0}", eos);
-					}
-				}
-				catch (Exception e)
-				{
-					Console.WriteLine("[Persistence]: {0}", e);
-				}
-				finally
-				{
-					reader.Close();
-				}
+			}
+			catch (Exception e)
+			{
+				Console.WriteLine("[Persistence]: {0}", e);
+			}
+			finally
+			{
+				reader.Close();
 			}
 		}
 	}

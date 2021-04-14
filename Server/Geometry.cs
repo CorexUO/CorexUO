@@ -100,7 +100,7 @@ namespace Server
 
 		public static bool operator ==(Point2D l, IPoint2D r)
 		{
-			if (Object.ReferenceEquals(r, null))
+			if (r is null)
 				return false;
 
 			return l.m_X == r.X && l.m_Y == r.Y;
@@ -108,7 +108,7 @@ namespace Server
 
 		public static bool operator !=(Point2D l, IPoint2D r)
 		{
-			if (Object.ReferenceEquals(r, null))
+			if (r is null)
 				return false;
 
 			return l.m_X != r.X || l.m_Y != r.Y;
@@ -126,7 +126,7 @@ namespace Server
 
 		public static bool operator >(Point2D l, IPoint2D r)
 		{
-			if (Object.ReferenceEquals(r, null))
+			if (r is null)
 				return false;
 
 			return l.m_X > r.X && l.m_Y > r.Y;
@@ -144,7 +144,7 @@ namespace Server
 
 		public static bool operator <(Point2D l, IPoint2D r)
 		{
-			if (Object.ReferenceEquals(r, null))
+			if (r is null)
 				return false;
 
 			return l.m_X < r.X && l.m_Y < r.Y;
@@ -162,7 +162,7 @@ namespace Server
 
 		public static bool operator >=(Point2D l, IPoint2D r)
 		{
-			if (Object.ReferenceEquals(r, null))
+			if (r is null)
 				return false;
 
 			return l.m_X >= r.X && l.m_Y >= r.Y;
@@ -180,7 +180,7 @@ namespace Server
 
 		public static bool operator <=(Point2D l, IPoint2D r)
 		{
-			if (Object.ReferenceEquals(r, null))
+			if (r is null)
 				return false;
 
 			return l.m_X <= r.X && l.m_Y <= r.Y;
@@ -286,7 +286,7 @@ namespace Server
 
 		public static bool operator ==(Point3D l, IPoint3D r)
 		{
-			if (Object.ReferenceEquals(r, null))
+			if (r is null)
 				return false;
 
 			return l.m_X == r.X && l.m_Y == r.Y && l.m_Z == r.Z;
@@ -294,7 +294,7 @@ namespace Server
 
 		public static bool operator !=(Point3D l, IPoint3D r)
 		{
-			if (Object.ReferenceEquals(r, null))
+			if (r is null)
 				return false;
 
 			return l.m_X != r.X || l.m_Y != r.Y || l.m_Z != r.Z;

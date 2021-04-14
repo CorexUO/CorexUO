@@ -1828,9 +1828,9 @@ namespace Server.Network
 		{
 			Serial parentSerial;
 
-			if (item.Parent is Item)
+			if (item.Parent is Item parentItem)
 			{
-				parentSerial = ((Item)item.Parent).Serial;
+				parentSerial = parentItem.Serial;
 			}
 			else
 			{
@@ -1855,9 +1855,9 @@ namespace Server.Network
 		{
 			Serial parentSerial;
 
-			if (item.Parent is Item)
+			if (item.Parent is Item parentItem)
 			{
-				parentSerial = ((Item)item.Parent).Serial;
+				parentSerial = parentItem.Serial;
 			}
 			else
 			{
@@ -2433,7 +2433,7 @@ namespace Server.Network
 		}
 
 		private const int GumpBufferSize = 0x5000;
-		private static readonly BufferPool m_PackBuffers = new BufferPool("Gump", 4, GumpBufferSize);
+		private static readonly BufferPool m_PackBuffers = new("Gump", 4, GumpBufferSize);
 
 		private void WritePacked(PacketWriter src)
 		{
@@ -4489,18 +4489,16 @@ namespace Server.Network
 
 							try
 							{
-								using (StreamWriter op = new StreamWriter("net_opt.log", true))
-								{
-									op.WriteLine("Redundant compile for packet {0}, use Acquire() and Release()", GetType());
-									op.WriteLine(new System.Diagnostics.StackTrace());
-								}
+								using StreamWriter op = new StreamWriter("net_opt.log", true);
+								op.WriteLine("Redundant compile for packet {0}, use Acquire() and Release()", GetType());
+								op.WriteLine(new System.Diagnostics.StackTrace());
 							}
 							catch
 							{
 							}
 						}
 
-						m_CompiledBuffer = new byte[0];
+						m_CompiledBuffer = Array.Empty<byte>();
 						m_CompiledLength = 0;
 
 						length = m_CompiledLength;
@@ -4547,11 +4545,9 @@ namespace Server.Network
 				if (length <= 0)
 				{
 					Console.WriteLine("Warning: Compression buffer overflowed on packet 0x{0:X2} ('{1}') (length={2})", PacketID, GetType().Name, length);
-					using (StreamWriter op = new StreamWriter("compression_overflow.log", true))
-					{
-						op.WriteLine("{0} Warning: Compression buffer overflowed on packet 0x{1:X2} ('{2}') (length={3})", DateTime.UtcNow, PacketID, GetType().Name, length);
-						op.WriteLine(new System.Diagnostics.StackTrace());
-					}
+					using StreamWriter op = new StreamWriter("compression_overflow.log", true);
+					op.WriteLine("{0} Warning: Compression buffer overflowed on packet 0x{1:X2} ('{2}') (length={3})", DateTime.UtcNow, PacketID, GetType().Name, length);
+					op.WriteLine(new System.Diagnostics.StackTrace());
 				}
 				else
 				{

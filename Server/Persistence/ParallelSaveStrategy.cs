@@ -91,7 +91,7 @@ namespace Server
 			}
 		}
 
-		private void SaveTypeDatabases()
+		private static void SaveTypeDatabases()
 		{
 			SaveTypeDatabase(World.ItemTypesPath, World.m_ItemTypes);
 			SaveTypeDatabase(World.MobileTypesPath, World.m_MobileTypes);

@@ -490,10 +490,7 @@ namespace Server.Network
 
 			ConnectedOn = DateTime.UtcNow;
 
-			if (CreatedCallback != null)
-			{
-				CreatedCallback(this);
-			}
+			CreatedCallback?.Invoke(this);
 		}
 
 		private bool _sending;
@@ -1053,15 +1050,13 @@ namespace Server.Network
 
 			try
 			{
-				using (StreamWriter op = new StreamWriter("network-errors.log", true))
-				{
-					op.WriteLine("# {0}", DateTime.UtcNow);
+				using StreamWriter op = new StreamWriter("network-errors.log", true);
+				op.WriteLine("# {0}", DateTime.UtcNow);
 
-					op.WriteLine(ex);
+				op.WriteLine(ex);
 
-					op.WriteLine();
-					op.WriteLine();
-				}
+				op.WriteLine();
+				op.WriteLine();
 			}
 			catch
 			{

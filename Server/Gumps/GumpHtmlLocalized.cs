@@ -135,17 +135,13 @@ namespace Server.Gumps
 
 		public override string Compile()
 		{
-			switch (m_Type)
+			return m_Type switch
 			{
-				case GumpHtmlLocalizedType.Plain:
-					return string.Format("{{ xmfhtmlgump {0} {1} {2} {3} {4} {5} {6} }}", m_X, m_Y, m_Width, m_Height, m_Number, m_Background ? 1 : 0, m_Scrollbar ? 1 : 0);
-
-				case GumpHtmlLocalizedType.Color:
-					return string.Format("{{ xmfhtmlgumpcolor {0} {1} {2} {3} {4} {5} {6} {7} }}", m_X, m_Y, m_Width, m_Height, m_Number, m_Background ? 1 : 0, m_Scrollbar ? 1 : 0, m_Color);
-
-				default: // GumpHtmlLocalizedType.Args
-					return string.Format("{{ xmfhtmltok {0} {1} {2} {3} {4} {5} {6} {7} @{8}@ }}", m_X, m_Y, m_Width, m_Height, m_Background ? 1 : 0, m_Scrollbar ? 1 : 0, m_Color, m_Number, m_Args);
-			}
+				GumpHtmlLocalizedType.Plain => string.Format("{{ xmfhtmlgump {0} {1} {2} {3} {4} {5} {6} }}", m_X, m_Y, m_Width, m_Height, m_Number, m_Background ? 1 : 0, m_Scrollbar ? 1 : 0),
+				GumpHtmlLocalizedType.Color => string.Format("{{ xmfhtmlgumpcolor {0} {1} {2} {3} {4} {5} {6} {7} }}", m_X, m_Y, m_Width, m_Height, m_Number, m_Background ? 1 : 0, m_Scrollbar ? 1 : 0, m_Color),
+				// GumpHtmlLocalizedType.Args
+				_ => string.Format("{{ xmfhtmltok {0} {1} {2} {3} {4} {5} {6} {7} @{8}@ }}", m_X, m_Y, m_Width, m_Height, m_Background ? 1 : 0, m_Scrollbar ? 1 : 0, m_Color, m_Number, m_Args),
+			};
 		}
 
 		private static readonly byte[] m_LayoutNamePlain = Gump.StringToBuffer("xmfhtmlgump");

@@ -14,7 +14,7 @@ namespace Server
 
 		private bool m_Queued;
 
-		private static readonly Queue<AggressorInfo> m_Pool = new Queue<AggressorInfo>();
+		private static readonly Queue<AggressorInfo> m_Pool = new();
 
 		public static TimeSpan ExpireDelay { get; set; } = TimeSpan.FromMinutes(2.0);
 
@@ -66,13 +66,11 @@ namespace Server
 
 		public static void DumpAccess()
 		{
-			using (StreamWriter op = new StreamWriter("warnings.log", true))
-			{
-				op.WriteLine("Warning: Access to queued AggressorInfo:");
-				op.WriteLine(new System.Diagnostics.StackTrace());
-				op.WriteLine();
-				op.WriteLine();
-			}
+			using StreamWriter op = new StreamWriter("warnings.log", true);
+			op.WriteLine("Warning: Access to queued AggressorInfo:");
+			op.WriteLine(new System.Diagnostics.StackTrace());
+			op.WriteLine();
+			op.WriteLine();
 		}
 
 		public bool Expired

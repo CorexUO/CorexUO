@@ -53,10 +53,8 @@ namespace Server.Network
 				{
 					try
 					{
-						using (StreamWriter op = new StreamWriter("neterr.log"))
-						{
-							op.WriteLine("{0}\tInstance pool contains writer", DateTime.UtcNow);
-						}
+						using StreamWriter op = new StreamWriter("neterr.log");
+						op.WriteLine("{0}\tInstance pool contains writer", DateTime.UtcNow);
 					}
 					catch
 					{

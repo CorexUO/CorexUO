@@ -162,7 +162,7 @@ namespace Server
 
 		#endregion
 
-		public static string ExePath => m_ExePath ?? (m_ExePath = Assembly.Location);
+		public static string ExePath => m_ExePath ??= Assembly.Location;
 
 		public static string BaseDirectory
 		{
@@ -463,8 +463,7 @@ namespace Server
 					NetState.FlushAll();
 					NetState.ProcessDisposedQueue();
 
-					if (Slice != null)
-						Slice();
+					Slice?.Invoke();
 
 					if (sample++ % sampleInterval != 0)
 					{
@@ -646,44 +645,38 @@ namespace Server
 
 		public override void Write(char ch)
 		{
-			using (StreamWriter writer = new StreamWriter(new FileStream(FileName, FileMode.Append, FileAccess.Write, FileShare.Read)))
+			using StreamWriter writer = new StreamWriter(new FileStream(FileName, FileMode.Append, FileAccess.Write, FileShare.Read));
+			if (_NewLine)
 			{
-				if (_NewLine)
-				{
-					writer.Write(DateTime.UtcNow.ToString(DateFormat));
-					_NewLine = false;
-				}
-
-				writer.Write(ch);
+				writer.Write(DateTime.UtcNow.ToString(DateFormat));
+				_NewLine = false;
 			}
+
+			writer.Write(ch);
 		}
 
 		public override void Write(string str)
 		{
-			using (StreamWriter writer = new StreamWriter(new FileStream(FileName, FileMode.Append, FileAccess.Write, FileShare.Read)))
+			using StreamWriter writer = new StreamWriter(new FileStream(FileName, FileMode.Append, FileAccess.Write, FileShare.Read));
+			if (_NewLine)
 			{
-				if (_NewLine)
-				{
-					writer.Write(DateTime.UtcNow.ToString(DateFormat));
-					_NewLine = false;
-				}
-
-				writer.Write(str);
+				writer.Write(DateTime.UtcNow.ToString(DateFormat));
+				_NewLine = false;
 			}
+
+			writer.Write(str);
 		}
 
 		public override void WriteLine(string line)
 		{
-			using (StreamWriter writer = new StreamWriter(new FileStream(FileName, FileMode.Append, FileAccess.Write, FileShare.Read)))
+			using StreamWriter writer = new(new FileStream(FileName, FileMode.Append, FileAccess.Write, FileShare.Read));
+			if (_NewLine)
 			{
-				if (_NewLine)
-				{
-					writer.Write(DateTime.UtcNow.ToString(DateFormat));
-				}
-
-				writer.WriteLine(line);
-				_NewLine = true;
+				writer.Write(DateTime.UtcNow.ToString(DateFormat));
 			}
+
+			writer.WriteLine(line);
+			_NewLine = true;
 		}
 
 		public override Encoding Encoding => Encoding.Default;

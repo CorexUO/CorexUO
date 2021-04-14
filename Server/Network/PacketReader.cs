@@ -21,19 +21,17 @@ namespace Server.Network
 		{
 			try
 			{
-				using (StreamWriter sw = new StreamWriter("Packets.log", true))
-				{
-					byte[] buffer = Buffer;
+				using StreamWriter sw = new StreamWriter("Packets.log", true);
+				byte[] buffer = Buffer;
 
-					if (buffer.Length > 0)
-						sw.WriteLine("Client: {0}: Unhandled packet 0x{1:X2}", state, buffer[0]);
+				if (buffer.Length > 0)
+					sw.WriteLine("Client: {0}: Unhandled packet 0x{1:X2}", state, buffer[0]);
 
-					using (MemoryStream ms = new MemoryStream(buffer))
-						Utility.FormatBuffer(sw, ms, buffer.Length);
+				using (MemoryStream ms = new MemoryStream(buffer))
+					Utility.FormatBuffer(sw, ms, buffer.Length);
 
-					sw.WriteLine();
-					sw.WriteLine();
-				}
+				sw.WriteLine();
+				sw.WriteLine();
 			}
 			catch
 			{
