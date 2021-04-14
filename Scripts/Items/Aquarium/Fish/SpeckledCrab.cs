@@ -2,7 +2,7 @@ namespace Server.Items
 {
 	public class SpeckledCrab : BaseFish
 	{
-		public override int LabelNumber { get { return 1073826; } } // A Speckled Crab
+		public override int LabelNumber => 1073826;  // A Speckled Crab
 
 		[Constructable]
 		public SpeckledCrab() : base(0x3AFC)

@@ -33,9 +33,9 @@ namespace Server.Engines.MLQuests.Gumps
 			private readonly ButtonGraphic m_Graphic;
 			private readonly int m_ButtonID;
 
-			public ButtonPosition Position { get { return m_Position; } }
-			public ButtonGraphic Graphic { get { return m_Graphic; } }
-			public int ButtonID { get { return m_ButtonID; } }
+			public ButtonPosition Position => m_Position;
+			public ButtonGraphic Graphic => m_Graphic;
+			public int ButtonID => m_ButtonID;
 
 			public ButtonInfo(ButtonPosition position, ButtonGraphic graphic, int buttonID)
 			{

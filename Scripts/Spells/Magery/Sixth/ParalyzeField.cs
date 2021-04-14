@@ -18,8 +18,8 @@ namespace Server.Spells.Sixth
 				Reagent.SpidersSilk
 			);
 
-		public override SpellCircle Circle { get { return SpellCircle.Sixth; } }
-		public override bool CanTargetGround { get { return true; } }
+		public override SpellCircle Circle => SpellCircle.Sixth;
+		public override bool CanTargetGround => true;
 
 		public ParalyzeFieldSpell(Mobile caster, Item scroll) : base(caster, scroll, m_Info)
 		{
@@ -99,7 +99,7 @@ namespace Server.Spells.Sixth
 			private Mobile m_Caster;
 			private DateTime m_End;
 
-			public override bool BlocksFit { get { return true; } }
+			public override bool BlocksFit => true;
 
 			public InternalItem(Mobile caster, int itemID, Point3D loc, Map map, TimeSpan duration) : base(itemID)
 			{

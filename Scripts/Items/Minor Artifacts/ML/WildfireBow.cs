@@ -2,10 +2,10 @@ namespace Server.Items
 {
 	public class WildfireBow : ElvenCompositeLongbow
 	{
-		public override int LabelNumber { get { return 1075044; } } // Wildfire Bow
+		public override int LabelNumber => 1075044;  // Wildfire Bow
 
-		public override int InitMinHits { get { return 255; } }
-		public override int InitMaxHits { get { return 255; } }
+		public override int InitMinHits => 255;
+		public override int InitMaxHits => 255;
 
 		[Constructable]
 		public WildfireBow() : base()

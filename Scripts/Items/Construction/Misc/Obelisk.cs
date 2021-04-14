@@ -2,7 +2,7 @@ namespace Server.Items
 {
 	public class Obelisk : BaseItem
 	{
-		public override int LabelNumber { get { return 1016474; } } // an obelisk
+		public override int LabelNumber => 1016474;  // an obelisk
 
 		[Constructable]
 		public Obelisk() : base(0x1184)

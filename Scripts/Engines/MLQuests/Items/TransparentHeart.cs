@@ -2,7 +2,7 @@ namespace Server.Items
 {
 	public class TransparentHeart : GoldEarrings
 	{
-		public override int LabelNumber { get { return 1075400; } } // Transparent Heart
+		public override int LabelNumber => 1075400;  // Transparent Heart
 
 		[Constructable]
 		public TransparentHeart() : base()

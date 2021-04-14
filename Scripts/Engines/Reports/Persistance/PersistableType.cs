@@ -46,8 +46,8 @@ namespace Server.Engines.Reports
 		private readonly string m_Name;
 		private readonly ConstructCallback m_Constructor;
 
-		public string Name { get { return m_Name; } }
-		public ConstructCallback Constructor { get { return m_Constructor; } }
+		public string Name => m_Name;
+		public ConstructCallback Constructor => m_Constructor;
 
 		public PersistableType(string name, ConstructCallback constructor)
 		{

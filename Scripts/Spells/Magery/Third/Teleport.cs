@@ -14,8 +14,8 @@ namespace Server.Spells.Third
 				Reagent.MandrakeRoot
 			);
 
-		public override SpellCircle Circle { get { return SpellCircle.Third; } }
-		public override bool CanTargetGround { get { return true; } }
+		public override SpellCircle Circle => SpellCircle.Third;
+		public override bool CanTargetGround => true;
 
 		public TeleportSpell(Mobile caster, Item scroll) : base(caster, scroll, m_Info)
 		{

@@ -2,8 +2,8 @@ namespace Server.Items
 {
 	public class IslandStatue : BaseItem
 	{
-		public override int LabelNumber { get { return 1074600; } } // An island statue
-		public override double DefaultWeight { get { return 1.0; } }
+		public override int LabelNumber => 1074600;  // An island statue
+		public override double DefaultWeight => 1.0;
 
 		[Constructable]
 		public IslandStatue() : base(0x3B0F)

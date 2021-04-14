@@ -22,7 +22,7 @@ namespace Server.Items
 		[CommandProperty(AccessLevel.GameMaster)]
 		public Mobile Crafter
 		{
-			get { return m_Crafter; }
+			get => m_Crafter;
 			set { m_Crafter = value; InvalidateProperties(); }
 		}
 
@@ -32,10 +32,7 @@ namespace Server.Items
 		[CommandProperty(AccessLevel.GameMaster)]
 		public string Description
 		{
-			get
-			{
-				return m_Description;
-			}
+			get => m_Description;
 			set
 			{
 				m_Description = value;
@@ -51,7 +48,7 @@ namespace Server.Items
 
 		public List<Mobile> Openers { get; set; } = new List<Mobile>();
 
-		public override int LabelNumber { get { return 1041267; } } // runebook
+		public override int LabelNumber => 1041267;  // runebook
 
 		[Constructable]
 		public Runebook(int maxCharges) : base(Core.AOS ? 0x22C5 : 0xEFA)
@@ -209,7 +206,7 @@ namespace Server.Items
 			return false;
 		}
 
-		public override bool DisplayLootType { get { return Core.AOS; } }
+		public override bool DisplayLootType => Core.AOS;
 
 		public override void GetProperties(ObjectPropertyList list)
 		{
@@ -411,25 +408,13 @@ namespace Server.Items
 		private readonly string m_Description;
 		private readonly BaseHouse m_House;
 
-		public Point3D Location
-		{
-			get { return m_Location; }
-		}
+		public Point3D Location => m_Location;
 
-		public Map Map
-		{
-			get { return m_Map; }
-		}
+		public Map Map => m_Map;
 
-		public string Description
-		{
-			get { return m_Description; }
-		}
+		public string Description => m_Description;
 
-		public BaseHouse House
-		{
-			get { return m_House; }
-		}
+		public BaseHouse House => m_House;
 
 		public RunebookEntry(Point3D loc, Map map, string desc, BaseHouse house)
 		{

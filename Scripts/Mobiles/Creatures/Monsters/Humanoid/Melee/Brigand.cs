@@ -4,7 +4,7 @@ namespace Server.Mobiles
 {
 	public class Brigand : BaseCreature
 	{
-		public override bool ClickTitle { get { return false; } }
+		public override bool ClickTitle => false;
 
 		[Constructable]
 		public Brigand() : base(AIType.AI_Melee, FightMode.Closest, 10, 1, 0.2, 0.4)
@@ -13,7 +13,7 @@ namespace Server.Mobiles
 			Title = "the brigand";
 			Hue = Utility.RandomSkinHue();
 
-			if (this.Female = Utility.RandomBool())
+			if (Female = Utility.RandomBool())
 			{
 				Body = 0x191;
 				Name = NameList.RandomName("female");
@@ -73,7 +73,7 @@ namespace Server.Mobiles
 			AddLoot(LootPack.Average);
 		}
 
-		public override bool AlwaysMurderer { get { return true; } }
+		public override bool AlwaysMurderer => true;
 
 		public Brigand(Serial serial) : base(serial)
 		{

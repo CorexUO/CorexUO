@@ -18,7 +18,7 @@ namespace Server.Items
 		{
 		}
 
-		public override string DefaultName { get { return "a pool of acid"; } }
+		public override string DefaultName => "a pool of acid";
 
 		[Constructable]
 		public PoolOfAcid(TimeSpan duration, int minDamage, int maxDamage)

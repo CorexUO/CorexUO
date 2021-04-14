@@ -2,7 +2,7 @@ namespace Server.Items
 {
 	public class OrdersFromMinax : BaseItem
 	{
-		public override int LabelNumber { get { return 1074639; } } // Orders from Minax
+		public override int LabelNumber => 1074639;  // Orders from Minax
 
 		[Constructable]
 		public OrdersFromMinax() : base(0x2279)

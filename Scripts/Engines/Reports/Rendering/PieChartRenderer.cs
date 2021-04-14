@@ -30,7 +30,7 @@ namespace Server.Engines.Reports
 		private readonly float _legendFontSize;
 		private bool _showPercents;
 
-		public bool ShowPercents { get { return _showPercents; } set { _showPercents = value; } }
+		public bool ShowPercents { get => _showPercents; set => _showPercents = value; }
 
 		public PieChartRenderer()
 		{

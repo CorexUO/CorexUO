@@ -6,11 +6,11 @@ namespace Server.Items
 
 		public BaseBoard Board
 		{
-			get { return m_Board; }
-			set { m_Board = value; }
+			get => m_Board;
+			set => m_Board = value;
 		}
 
-		public override bool IsVirtualItem { get { return true; } }
+		public override bool IsVirtualItem => true;
 
 		public BasePiece(int itemID, BaseBoard board) : base(itemID)
 		{
@@ -77,7 +77,7 @@ namespace Server.Items
 			}
 		}
 
-		public override bool CanTarget { get { return false; } }
+		public override bool CanTarget => false;
 
 		public override bool DropToMobile(Mobile from, Mobile target, Point3D p)
 		{

@@ -45,14 +45,11 @@ namespace Server.Mobiles
 			AddLoot(LootPack.Meager);
 		}
 
-		public override bool BleedImmune { get { return true; } }
+		public override bool BleedImmune => true;
 
-		public override OppositionGroup OppositionGroup
-		{
-			get { return OppositionGroup.FeyAndUndead; }
-		}
+		public override OppositionGroup OppositionGroup => OppositionGroup.FeyAndUndead;
 
-		public override Poison PoisonImmune { get { return Poison.Lethal; } }
+		public override Poison PoisonImmune => Poison.Lethal;
 
 		public Spectre(Serial serial) : base(serial)
 		{

@@ -7,7 +7,7 @@ namespace Server.Mobiles
 	[CorpseName("an orcish corpse")]
 	public class OrcBomber : BaseCreature
 	{
-		public override InhumanSpeech SpeechType { get { return InhumanSpeech.Orc; } }
+		public override InhumanSpeech SpeechType => InhumanSpeech.Orc;
 
 		[Constructable]
 		public OrcBomber() : base(AIType.AI_Melee, FightMode.Closest, 10, 1, 0.2, 0.4)
@@ -60,12 +60,9 @@ namespace Server.Mobiles
 			AddLoot(LootPack.Meager);
 		}
 
-		public override bool CanRummageCorpses { get { return true; } }
+		public override bool CanRummageCorpses => true;
 
-		public override OppositionGroup OppositionGroup
-		{
-			get { return OppositionGroup.SavagesAndOrcs; }
-		}
+		public override OppositionGroup OppositionGroup => OppositionGroup.SavagesAndOrcs;
 
 		public override bool IsEnemy(Mobile m)
 		{
@@ -117,7 +114,7 @@ namespace Server.Mobiles
 		{
 			DoHarmful(m);
 
-			this.MovingParticles(m, 0x1C19, 1, 0, false, true, 0, 0, 9502, 6014, 0x11D, EffectLayer.Waist, 0);
+			MovingParticles(m, 0x1C19, 1, 0, false, true, 0, 0, 9502, 6014, 0x11D, EffectLayer.Waist, 0);
 
 			new InternalTimer(m, this).Start();
 		}

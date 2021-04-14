@@ -2,7 +2,7 @@ namespace Server.Items
 {
 	public class WindSpirit : BaseItem
 	{
-		public override int LabelNumber { get { return 1094925; } } // Wind Spirit [Replica]
+		public override int LabelNumber => 1094925;  // Wind Spirit [Replica]
 
 		[Constructable]
 		public WindSpirit() : base(0x1F1F)

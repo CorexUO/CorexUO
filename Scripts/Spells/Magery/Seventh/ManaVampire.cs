@@ -14,8 +14,8 @@ namespace Server.Spells.Seventh
 				Reagent.SpidersSilk
 			);
 
-		public override SpellCircle Circle { get { return SpellCircle.Seventh; } }
-		public override TargetFlags SpellTargetFlags { get { return TargetFlags.Harmful; } }
+		public override SpellCircle Circle => SpellCircle.Seventh;
+		public override TargetFlags SpellTargetFlags => TargetFlags.Harmful;
 
 		public ManaVampireSpell(Mobile caster, Item scroll) : base(caster, scroll, m_Info)
 		{
@@ -46,7 +46,7 @@ namespace Server.Spells.Seventh
 			{
 				SpellHelper.Turn(Caster, m);
 
-				SpellHelper.CheckReflect((int)this.Circle, Caster, ref m);
+				SpellHelper.CheckReflect((int)Circle, Caster, ref m);
 
 				if (m.Spell != null)
 					m.Spell.OnCasterHurt();

@@ -54,20 +54,20 @@ namespace Server.Ethics
 
 		private DateTime m_Shield;
 
-		public Ethic Ethic { get { return m_Ethic; } }
-		public Mobile Mobile { get { return m_Mobile; } }
+		public Ethic Ethic => m_Ethic;
+		public Mobile Mobile => m_Mobile;
 
 		[CommandProperty(AccessLevel.GameMaster, AccessLevel.Administrator)]
-		public int Power { get { return m_Power; } set { m_Power = value; } }
+		public int Power { get => m_Power; set => m_Power = value; }
 
 		[CommandProperty(AccessLevel.GameMaster, AccessLevel.Administrator)]
-		public int History { get { return m_History; } set { m_History = value; } }
+		public int History { get => m_History; set => m_History = value; }
 
 		[CommandProperty(AccessLevel.GameMaster, AccessLevel.Administrator)]
-		public Mobile Steed { get { return m_Steed; } set { m_Steed = value; } }
+		public Mobile Steed { get => m_Steed; set => m_Steed = value; }
 
 		[CommandProperty(AccessLevel.GameMaster, AccessLevel.Administrator)]
-		public Mobile Familiar { get { return m_Familiar; } set { m_Familiar = value; } }
+		public Mobile Familiar { get => m_Familiar; set => m_Familiar = value; }
 
 		[CommandProperty(AccessLevel.GameMaster)]
 		public bool IsShielded

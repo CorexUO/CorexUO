@@ -2,7 +2,7 @@ namespace Server.Items
 {
 	public class Luckblade : Leafblade
 	{
-		public override int LabelNumber { get { return 1073522; } } // luckblade
+		public override int LabelNumber => 1073522;  // luckblade
 
 		[Constructable]
 		public Luckblade()

@@ -11,7 +11,7 @@ namespace Server.Items
 {
 	public class PlayerBBSouth : BasePlayerBB
 	{
-		public override int LabelNumber { get { return 1062421; } } // bulletin board (south)
+		public override int LabelNumber => 1062421;  // bulletin board (south)
 
 		[Constructable]
 		public PlayerBBSouth() : base(0x2311)
@@ -40,7 +40,7 @@ namespace Server.Items
 
 	public class PlayerBBEast : BasePlayerBB
 	{
-		public override int LabelNumber { get { return 1062420; } } // bulletin board (east)
+		public override int LabelNumber => 1062420;  // bulletin board (east)
 
 		[Constructable]
 		public PlayerBBEast() : base(0x2312)
@@ -74,29 +74,26 @@ namespace Server.Items
 		private string m_Title;
 		private SecureLevel m_Level;
 
-		public List<PlayerBBMessage> Messages
-		{
-			get { return m_Messages; }
-		}
+		public List<PlayerBBMessage> Messages => m_Messages;
 
 		public PlayerBBMessage Greeting
 		{
-			get { return m_Greeting; }
-			set { m_Greeting = value; }
+			get => m_Greeting;
+			set => m_Greeting = value;
 		}
 
 		[CommandProperty(AccessLevel.GameMaster)]
 		public string Title
 		{
-			get { return m_Title; }
-			set { m_Title = value; }
+			get => m_Title;
+			set => m_Title = value;
 		}
 
 		[CommandProperty(AccessLevel.GameMaster)]
 		public SecureLevel Level
 		{
-			get { return m_Level; }
-			set { m_Level = value; }
+			get => m_Level;
+			set => m_Level = value;
 		}
 
 		public BasePlayerBB(int itemID) : base(itemID)
@@ -184,7 +181,7 @@ namespace Server.Items
 
 			if (house == null || !house.IsLockedDown(this))
 				from.SendLocalizedMessage(1062396); // This bulletin board must be locked down in a house to be usable.
-			else if (!from.InRange(this.GetWorldLocation(), 2) || !from.InLOS(this))
+			else if (!from.InRange(GetWorldLocation(), 2) || !from.InLOS(this))
 				from.LocalOverheadMessage(MessageType.Regular, 0x3B2, 1019045); // I can't reach that.
 			else if (CheckAccess(house, from))
 				from.SendGump(new PlayerBBGump(from, house, this, 0));
@@ -329,22 +326,22 @@ namespace Server.Items
 		[CommandProperty(AccessLevel.GameMaster)]
 		public DateTime Time
 		{
-			get { return m_Time; }
-			set { m_Time = value; }
+			get => m_Time;
+			set => m_Time = value;
 		}
 
 		[CommandProperty(AccessLevel.GameMaster)]
 		public Mobile Poster
 		{
-			get { return m_Poster; }
-			set { m_Poster = value; }
+			get => m_Poster;
+			set => m_Poster = value;
 		}
 
 		[CommandProperty(AccessLevel.GameMaster)]
 		public string Message
 		{
-			get { return m_Message; }
-			set { m_Message = value; }
+			get => m_Message;
+			set => m_Message = value;
 		}
 
 		public PlayerBBMessage(DateTime time, Mobile poster, string message)

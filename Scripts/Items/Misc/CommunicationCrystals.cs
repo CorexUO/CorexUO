@@ -33,8 +33,8 @@ namespace Server.Items
 		private readonly Type m_Type;
 		private readonly int m_Amount;
 
-		public Type Type { get { return m_Type; } }
-		public int Amount { get { return m_Amount; } }
+		public Type Type => m_Type;
+		public int Amount => m_Amount;
 
 		private CrystalRechargeInfo(Type type, int amount)
 		{
@@ -47,7 +47,7 @@ namespace Server.Items
 	{
 		public const int MaxCharges = 2000;
 
-		public override int LabelNumber { get { return 1060740; } } // communication crystal
+		public override int LabelNumber => 1060740;  // communication crystal
 
 		private int m_Charges;
 		private List<ReceiverCrystal> m_Receivers;
@@ -55,10 +55,10 @@ namespace Server.Items
 		[CommandProperty(AccessLevel.GameMaster)]
 		public bool Active
 		{
-			get { return this.ItemID == 0x1ECD; }
+			get => ItemID == 0x1ECD;
 			set
 			{
-				this.ItemID = value ? 0x1ECD : 0x1ED0;
+				ItemID = value ? 0x1ECD : 0x1ED0;
 				InvalidateProperties();
 			}
 		}
@@ -66,7 +66,7 @@ namespace Server.Items
 		[CommandProperty(AccessLevel.GameMaster)]
 		public int Charges
 		{
-			get { return m_Charges; }
+			get => m_Charges;
 			set
 			{
 				m_Charges = value;
@@ -74,10 +74,7 @@ namespace Server.Items
 			}
 		}
 
-		public List<ReceiverCrystal> Receivers
-		{
-			get { return m_Receivers; }
-		}
+		public List<ReceiverCrystal> Receivers => m_Receivers;
 
 		[Constructable]
 		public BroadcastCrystal() : this(2000)
@@ -102,9 +99,9 @@ namespace Server.Items
 		{
 			base.GetProperties(list);
 
-			list.Add(this.Active ? 1060742 : 1060743); // active / inactive
+			list.Add(Active ? 1060742 : 1060743); // active / inactive
 			list.Add(1060745); // broadcast
-			list.Add(1060741, this.Charges.ToString()); // charges: ~1_val~
+			list.Add(1060741, Charges.ToString()); // charges: ~1_val~
 
 			if (Receivers.Count > 0)
 				list.Add(1060746, Receivers.Count.ToString()); // links: ~1_val~
@@ -114,18 +111,15 @@ namespace Server.Items
 		{
 			base.OnSingleClick(from);
 
-			LabelTo(from, this.Active ? 1060742 : 1060743); // active / inactive
+			LabelTo(from, Active ? 1060742 : 1060743); // active / inactive
 			LabelTo(from, 1060745); // broadcast
-			LabelTo(from, 1060741, this.Charges.ToString()); // charges: ~1_val~
+			LabelTo(from, 1060741, Charges.ToString()); // charges: ~1_val~
 
 			if (Receivers.Count > 0)
 				LabelTo(from, 1060746, Receivers.Count.ToString()); // links: ~1_val~
 		}
 
-		public override bool HandlesOnSpeech
-		{
-			get { return true; }
-		}
+		public override bool HandlesOnSpeech => true;
 
 		public override void OnSpeech(SpeechEventArgs e)
 		{
@@ -151,7 +145,7 @@ namespace Server.Items
 				}
 				else
 				{
-					this.Active = false;
+					Active = false;
 					break;
 				}
 			}
@@ -301,17 +295,17 @@ namespace Server.Items
 
 	public class ReceiverCrystal : BaseItem
 	{
-		public override int LabelNumber { get { return 1060740; } } // communication crystal
+		public override int LabelNumber => 1060740;  // communication crystal
 
 		private BroadcastCrystal m_Sender;
 
 		[CommandProperty(AccessLevel.GameMaster)]
 		public bool Active
 		{
-			get { return this.ItemID == 0x1ED1; }
+			get => ItemID == 0x1ED1;
 			set
 			{
-				this.ItemID = value ? 0x1ED1 : 0x1ED0;
+				ItemID = value ? 0x1ED1 : 0x1ED0;
 				InvalidateProperties();
 			}
 		}
@@ -319,7 +313,7 @@ namespace Server.Items
 		[CommandProperty(AccessLevel.GameMaster)]
 		public BroadcastCrystal Sender
 		{
-			get { return m_Sender; }
+			get => m_Sender;
 			set
 			{
 				if (m_Sender != null)
@@ -352,7 +346,7 @@ namespace Server.Items
 		{
 			base.GetProperties(list);
 
-			list.Add(this.Active ? 1060742 : 1060743); // active / inactive
+			list.Add(Active ? 1060742 : 1060743); // active / inactive
 			list.Add(1060744); // receiver
 		}
 
@@ -360,24 +354,24 @@ namespace Server.Items
 		{
 			base.OnSingleClick(from);
 
-			LabelTo(from, this.Active ? 1060742 : 1060743); // active / inactive
+			LabelTo(from, Active ? 1060742 : 1060743); // active / inactive
 			LabelTo(from, 1060744); // receiver
 		}
 
 		public void TransmitMessage(Mobile from, string message)
 		{
-			if (!this.Active)
+			if (!Active)
 				return;
 
 			string text = string.Format("{0} says {1}", from.Name, message);
 
-			if (this.RootParent is Mobile)
+			if (RootParent is Mobile)
 			{
-				((Mobile)this.RootParent).SendMessage(0x2B2, "Crystal: " + text);
+				((Mobile)RootParent).SendMessage(0x2B2, "Crystal: " + text);
 			}
-			else if (this.RootParent is Item)
+			else if (RootParent is Item)
 			{
-				((Item)this.RootParent).PublicOverheadMessage(MessageType.Regular, 0x2B2, false, "Crystal: " + text);
+				((Item)RootParent).PublicOverheadMessage(MessageType.Regular, 0x2B2, false, "Crystal: " + text);
 			}
 			else
 			{

@@ -14,8 +14,8 @@ namespace Server.Engines.CannedEvil
 			private int m_Value;
 			private DateTime m_LastDecay;
 
-			public int Value { get { return m_Value; } set { m_Value = value; } }
-			public DateTime LastDecay { get { return m_LastDecay; } set { m_LastDecay = value; } }
+			public int Value { get => m_Value; set => m_Value = value; }
+			public DateTime LastDecay { get => m_LastDecay; set => m_LastDecay = value; }
 
 			public TitleInfo()
 			{
@@ -145,31 +145,31 @@ namespace Server.Engines.CannedEvil
 		}
 
 		[CommandProperty(AccessLevel.GameMaster)]
-		public int Pestilence { get { return GetValue(ChampionSpawnType.Pestilence); } set { SetValue(ChampionSpawnType.Pestilence, value); } }
+		public int Pestilence { get => GetValue(ChampionSpawnType.Pestilence); set => SetValue(ChampionSpawnType.Pestilence, value); }
 
 		[CommandProperty(AccessLevel.GameMaster)]
-		public int Abyss { get { return GetValue(ChampionSpawnType.Abyss); } set { SetValue(ChampionSpawnType.Abyss, value); } }
+		public int Abyss { get => GetValue(ChampionSpawnType.Abyss); set => SetValue(ChampionSpawnType.Abyss, value); }
 
 		[CommandProperty(AccessLevel.GameMaster)]
-		public int Arachnid { get { return GetValue(ChampionSpawnType.Arachnid); } set { SetValue(ChampionSpawnType.Arachnid, value); } }
+		public int Arachnid { get => GetValue(ChampionSpawnType.Arachnid); set => SetValue(ChampionSpawnType.Arachnid, value); }
 
 		[CommandProperty(AccessLevel.GameMaster)]
-		public int ColdBlood { get { return GetValue(ChampionSpawnType.ColdBlood); } set { SetValue(ChampionSpawnType.ColdBlood, value); } }
+		public int ColdBlood { get => GetValue(ChampionSpawnType.ColdBlood); set => SetValue(ChampionSpawnType.ColdBlood, value); }
 
 		[CommandProperty(AccessLevel.GameMaster)]
-		public int ForestLord { get { return GetValue(ChampionSpawnType.ForestLord); } set { SetValue(ChampionSpawnType.ForestLord, value); } }
+		public int ForestLord { get => GetValue(ChampionSpawnType.ForestLord); set => SetValue(ChampionSpawnType.ForestLord, value); }
 
 		[CommandProperty(AccessLevel.GameMaster)]
-		public int SleepingDragon { get { return GetValue(ChampionSpawnType.SleepingDragon); } set { SetValue(ChampionSpawnType.SleepingDragon, value); } }
+		public int SleepingDragon { get => GetValue(ChampionSpawnType.SleepingDragon); set => SetValue(ChampionSpawnType.SleepingDragon, value); }
 
 		[CommandProperty(AccessLevel.GameMaster)]
-		public int UnholyTerror { get { return GetValue(ChampionSpawnType.UnholyTerror); } set { SetValue(ChampionSpawnType.UnholyTerror, value); } }
+		public int UnholyTerror { get => GetValue(ChampionSpawnType.UnholyTerror); set => SetValue(ChampionSpawnType.UnholyTerror, value); }
 
 		[CommandProperty(AccessLevel.GameMaster)]
-		public int VerminHorde { get { return GetValue(ChampionSpawnType.VerminHorde); } set { SetValue(ChampionSpawnType.VerminHorde, value); } }
+		public int VerminHorde { get => GetValue(ChampionSpawnType.VerminHorde); set => SetValue(ChampionSpawnType.VerminHorde, value); }
 
 		[CommandProperty(AccessLevel.GameMaster)]
-		public int Harrower { get { return m_Harrower; } set { m_Harrower = value; } }
+		public int Harrower { get => m_Harrower; set => m_Harrower = value; }
 
 		public ChampionTitleInfo()
 		{

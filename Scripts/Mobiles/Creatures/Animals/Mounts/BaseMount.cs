@@ -10,19 +10,19 @@ namespace Server.Mobiles
 		private Item m_InternalItem;
 		private DateTime m_NextMountAbility;
 
-		public virtual TimeSpan MountAbilityDelay { get { return TimeSpan.Zero; } }
+		public virtual TimeSpan MountAbilityDelay => TimeSpan.Zero;
 
 		[CommandProperty(AccessLevel.GameMaster)]
 		public DateTime NextMountAbility
 		{
-			get { return m_NextMountAbility; }
-			set { m_NextMountAbility = value; }
+			get => m_NextMountAbility;
+			set => m_NextMountAbility = value;
 		}
 
-		protected Item InternalItem { get { return m_InternalItem; } }
+		protected Item InternalItem => m_InternalItem;
 
-		public virtual bool AllowMaleRider { get { return true; } }
-		public virtual bool AllowFemaleRider { get { return true; } }
+		public virtual bool AllowMaleRider => true;
+		public virtual bool AllowFemaleRider => true;
 
 		public BaseMount(string name, int bodyID, int itemID, AIType aiType, FightMode fightMode, int rangePerception, int rangeFight, double activeSpeed, double passiveSpeed) : base(aiType, fightMode, rangePerception, rangeFight, activeSpeed, passiveSpeed)
 		{
@@ -35,10 +35,7 @@ namespace Server.Mobiles
 		[Hue, CommandProperty(AccessLevel.GameMaster)]
 		public override int Hue
 		{
-			get
-			{
-				return base.Hue;
-			}
+			get => base.Hue;
 			set
 			{
 				base.Hue = value;
@@ -164,7 +161,7 @@ namespace Server.Mobiles
 
 				if (canAccess)
 				{
-					if (this.Poisoned)
+					if (Poisoned)
 						PrivateOverheadMessage(Network.MessageType.Regular, 0x3B2, 1049692, from.NetState); // This mount is too ill to ride.
 					else
 						Rider = from;
@@ -214,10 +211,7 @@ namespace Server.Mobiles
 		[CommandProperty(AccessLevel.GameMaster)]
 		public Mobile Rider
 		{
-			get
-			{
-				return m_Rider;
-			}
+			get => m_Rider;
 			set
 			{
 				if (m_Rider != value)
@@ -252,7 +246,7 @@ namespace Server.Mobiles
 						if (m_InternalItem != null)
 							value.AddItem(m_InternalItem);
 
-						value.Direction = this.Direction;
+						value.Direction = Direction;
 
 						Internalize();
 
@@ -312,7 +306,7 @@ namespace Server.Mobiles
 	{
 		private BaseMount m_Mount;
 
-		public override double DefaultWeight { get { return 0; } }
+		public override double DefaultWeight => 0;
 
 		public MountItem(BaseMount mount, int itemID) : base(itemID)
 		{
@@ -373,13 +367,7 @@ namespace Server.Mobiles
 			}
 		}
 
-		public IMount Mount
-		{
-			get
-			{
-				return m_Mount;
-			}
-		}
+		public IMount Mount => m_Mount;
 	}
 }
 

@@ -5,8 +5,8 @@ namespace Server.Items
 {
 	public class AddonContainerComponent : BaseItem, IChopable
 	{
-		public virtual bool NeedsWall { get { return false; } }
-		public virtual Point3D WallPosition { get { return Point3D.Zero; } }
+		public virtual bool NeedsWall => false;
+		public virtual Point3D WallPosition => Point3D.Zero;
 
 		private Point3D m_Offset;
 		private BaseAddonContainer m_Addon;
@@ -14,21 +14,21 @@ namespace Server.Items
 		[CommandProperty(AccessLevel.GameMaster)]
 		public BaseAddonContainer Addon
 		{
-			get { return m_Addon; }
-			set { m_Addon = value; }
+			get => m_Addon;
+			set => m_Addon = value;
 		}
 
 		[CommandProperty(AccessLevel.GameMaster)]
 		public Point3D Offset
 		{
-			get { return m_Offset; }
-			set { m_Offset = value; }
+			get => m_Offset;
+			set => m_Offset = value;
 		}
 
 		[Hue, CommandProperty(AccessLevel.GameMaster)]
 		public override int Hue
 		{
-			get { return base.Hue; }
+			get => base.Hue;
 			set
 			{
 				base.Hue = value;

@@ -12,14 +12,14 @@ namespace Server.Engines.Reports
 			return new QueueStatus();
 		}
 
-		public override PersistableType TypeID { get { return ThisTypeID; } }
+		public override PersistableType TypeID => ThisTypeID;
 		#endregion
 
 		private DateTime m_TimeStamp;
 		private int m_Count;
 
-		public DateTime TimeStamp { get { return m_TimeStamp; } set { m_TimeStamp = value; } }
-		public int Count { get { return m_Count; } set { m_Count = value; } }
+		public DateTime TimeStamp { get => m_TimeStamp; set => m_TimeStamp = value; }
+		public int Count { get => m_Count; set => m_Count = value; }
 
 		public QueueStatus()
 		{

@@ -2,7 +2,7 @@ namespace Server.Items
 {
 	public class PeppercornFishsteak : FishSteak
 	{
-		public override int LabelNumber { get { return 1075557; } } // peppercorn fishsteak
+		public override int LabelNumber => 1075557;  // peppercorn fishsteak
 
 		[Constructable]
 		public PeppercornFishsteak() : base()

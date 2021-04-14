@@ -59,7 +59,7 @@ namespace Server.Items
 		}
 
 		// Do not display (x items, y stones)
-		public override bool DisplaysContent { get { return false; } }
+		public override bool DisplaysContent => false;
 
 		public override void AddNameProperty(ObjectPropertyList list)
 		{
@@ -68,7 +68,7 @@ namespace Server.Items
 
 		public override void OnSingleClick(Mobile from)
 		{
-			this.LabelTo(from, 1046414, Name); // the remains of ~1_NAME~
+			LabelTo(from, 1046414, Name); // the remains of ~1_NAME~
 		}
 
 		public DecayedCorpse(Serial serial) : base(serial)

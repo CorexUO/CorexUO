@@ -5,7 +5,7 @@ namespace Server.Items
 	[Flipable(0x1028, 0x1029)]
 	public class DovetailSaw : BaseTool
 	{
-		public override CraftSystem CraftSystem { get { return DefCarpentry.CraftSystem; } }
+		public override CraftSystem CraftSystem => DefCarpentry.CraftSystem;
 
 		[Constructable]
 		public DovetailSaw() : base(0x1028)

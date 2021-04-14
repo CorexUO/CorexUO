@@ -5,9 +5,9 @@ namespace Server.Items
 	[FlipableAttribute(0xE8A, 0xE89)]
 	public class Blowpipe : BaseTool
 	{
-		public override CraftSystem CraftSystem { get { return DefGlassblowing.CraftSystem; } }
+		public override CraftSystem CraftSystem => DefGlassblowing.CraftSystem;
 
-		public override int LabelNumber { get { return 1044608; } } // blow pipe
+		public override int LabelNumber => 1044608;  // blow pipe
 
 		[Constructable]
 		public Blowpipe() : base(0xE8A)

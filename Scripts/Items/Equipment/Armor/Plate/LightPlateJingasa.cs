@@ -2,20 +2,20 @@ namespace Server.Items
 {
 	public class LightPlateJingasa : BaseArmor
 	{
-		public override int BasePhysicalResistance { get { return 7; } }
-		public override int BaseFireResistance { get { return 2; } }
-		public override int BaseColdResistance { get { return 2; } }
-		public override int BasePoisonResistance { get { return 2; } }
-		public override int BaseEnergyResistance { get { return 2; } }
+		public override int BasePhysicalResistance => 7;
+		public override int BaseFireResistance => 2;
+		public override int BaseColdResistance => 2;
+		public override int BasePoisonResistance => 2;
+		public override int BaseEnergyResistance => 2;
 
-		public override int InitMinHits { get { return 55; } }
-		public override int InitMaxHits { get { return 60; } }
+		public override int InitMinHits => 55;
+		public override int InitMaxHits => 60;
 
-		public override int StrReq { get { return Core.AOS ? 55 : 55; } }
+		public override int StrReq => Core.AOS ? 55 : 55;
 
-		public override int ArmorBase { get { return 4; } }
+		public override int ArmorBase => 4;
 
-		public override ArmorMaterialType MaterialType { get { return ArmorMaterialType.Plate; } }
+		public override ArmorMaterialType MaterialType => ArmorMaterialType.Plate;
 
 		[Constructable]
 		public LightPlateJingasa() : base(0x2781)

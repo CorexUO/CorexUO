@@ -72,9 +72,9 @@ namespace Server.Mobiles
 			return 0x28D;
 		}
 
-		public override bool AlwaysMurderer { get { return true; } }
-		public override bool CanRummageCorpses { get { return true; } }
-		public override int Meat { get { return 1; } }
+		public override bool AlwaysMurderer => true;
+		public override bool CanRummageCorpses => true;
+		public override int Meat => 1;
 
 		public override void OnGaveMeleeAttack(Mobile defender)
 		{

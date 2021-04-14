@@ -52,8 +52,8 @@ namespace Server.Mobiles
 
 		}
 
-		public override Poison HitPoison { get { return Poison.Lethal; } }
-		public override bool CanHeal { get { return true; } }
+		public override Poison HitPoison => Poison.Lethal;
+		public override bool CanHeal => true;
 		public override void GenerateLoot()
 		{
 			AddLoot(LootPack.Rich);  // Need to verify

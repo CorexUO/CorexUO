@@ -56,18 +56,18 @@ namespace Server.Mobiles
 			return 0x2D1;
 		}
 
-		public override bool ReacquireOnMovement { get { return true; } }
-		public override bool HasBreath { get { return true; } } // fire breath enabled
-		public override bool AutoDispel { get { return true; } }
-		public override HideType HideType { get { return HideType.Barbed; } }
-		public override int Hides { get { return 40; } }
-		public override int Meat { get { return 19; } }
-		public override int Scales { get { return 12; } }
-		public override ScaleType ScaleType { get { return (ScaleType)Utility.Random(4); } }
-		public override Poison PoisonImmune { get { return Poison.Regular; } }
-		public override Poison HitPoison { get { return Utility.RandomBool() ? Poison.Lesser : Poison.Regular; } }
-		public override int TreasureMapLevel { get { return 5; } }
-		public override bool CanFly { get { return true; } }
+		public override bool ReacquireOnMovement => true;
+		public override bool HasBreath => true;  // fire breath enabled
+		public override bool AutoDispel => true;
+		public override HideType HideType => HideType.Barbed;
+		public override int Hides => 40;
+		public override int Meat => 19;
+		public override int Scales => 12;
+		public override ScaleType ScaleType => (ScaleType)Utility.Random(4);
+		public override Poison PoisonImmune => Poison.Regular;
+		public override Poison HitPoison => Utility.RandomBool() ? Poison.Lesser : Poison.Regular;
+		public override int TreasureMapLevel => 5;
+		public override bool CanFly => true;
 
 		public AncientWyrm(Serial serial) : base(serial)
 		{

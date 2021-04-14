@@ -15,14 +15,8 @@ namespace Server.Items
 
 		public string[] Lines
 		{
-			get
-			{
-				return m_Lines;
-			}
-			set
-			{
-				m_Lines = value;
-			}
+			get => m_Lines;
+			set => m_Lines = value;
 		}
 
 		public BookPageInfo()
@@ -65,34 +59,28 @@ namespace Server.Items
 		[CommandProperty(AccessLevel.GameMaster)]
 		public string Title
 		{
-			get { return m_Title; }
+			get => m_Title;
 			set { m_Title = value; InvalidateProperties(); }
 		}
 
 		[CommandProperty(AccessLevel.GameMaster)]
 		public string Author
 		{
-			get { return m_Author; }
+			get => m_Author;
 			set { m_Author = value; InvalidateProperties(); }
 		}
 
 		[CommandProperty(AccessLevel.GameMaster)]
 		public bool Writable
 		{
-			get { return m_Writable; }
-			set { m_Writable = value; }
+			get => m_Writable;
+			set => m_Writable = value;
 		}
 
 		[CommandProperty(AccessLevel.GameMaster)]
-		public int PagesCount
-		{
-			get { return m_Pages.Length; }
-		}
+		public int PagesCount => m_Pages.Length;
 
-		public BookPageInfo[] Pages
-		{
-			get { return m_Pages; }
-		}
+		public BookPageInfo[] Pages => m_Pages;
 
 		[Constructable]
 		public BaseBook(int itemID) : this(itemID, 20, true)
@@ -111,7 +99,7 @@ namespace Server.Items
 			m_Author = author;
 			m_Writable = writable;
 
-			BookContent content = this.DefaultContent;
+			BookContent content = DefaultContent;
 
 			if (content == null)
 			{
@@ -131,7 +119,7 @@ namespace Server.Items
 		{
 			m_Writable = writable;
 
-			BookContent content = this.DefaultContent;
+			BookContent content = DefaultContent;
 
 			if (content == null)
 			{
@@ -145,7 +133,7 @@ namespace Server.Items
 			}
 		}
 
-		public virtual BookContent DefaultContent { get { return null; } }
+		public virtual BookContent DefaultContent => null;
 
 		public BaseBook(Serial serial) : base(serial)
 		{
@@ -171,7 +159,7 @@ namespace Server.Items
 		{
 			base.Serialize(writer);
 
-			BookContent content = this.DefaultContent;
+			BookContent content = DefaultContent;
 
 			SaveFlags flags = SaveFlags.None;
 
@@ -220,7 +208,7 @@ namespace Server.Items
 					{
 						m_SecureLevel = (SecureLevel)reader.ReadInt();
 
-						BookContent content = this.DefaultContent;
+						BookContent content = DefaultContent;
 
 						SaveFlags flags = (SaveFlags)reader.ReadByte();
 
@@ -305,7 +293,7 @@ namespace Server.Items
 			{
 				StringBuilder sb = new StringBuilder();
 
-				foreach (BookPageInfo bpi in this.m_Pages)
+				foreach (BookPageInfo bpi in m_Pages)
 				{
 					foreach (string line in bpi.Lines)
 					{
@@ -323,7 +311,7 @@ namespace Server.Items
 			{
 				List<string> lines = new List<string>();
 
-				foreach (BookPageInfo bpi in this.m_Pages)
+				foreach (BookPageInfo bpi in m_Pages)
 				{
 					lines.AddRange(bpi.Lines);
 				}
@@ -434,14 +422,8 @@ namespace Server.Items
 		[CommandProperty(AccessLevel.GameMaster)]
 		public SecureLevel Level
 		{
-			get
-			{
-				return m_SecureLevel;
-			}
-			set
-			{
-				m_SecureLevel = value;
-			}
+			get => m_SecureLevel;
+			set => m_SecureLevel = value;
 		}
 
 		#endregion

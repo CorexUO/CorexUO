@@ -5,7 +5,7 @@ namespace Server.Items
 {
 	public class HangingSwordsAddon : BaseAddon
 	{
-		public override BaseAddonDeed Deed { get { return new HangingSwordsDeed(); } }
+		public override BaseAddonDeed Deed => new HangingSwordsDeed();
 
 		[Constructable]
 		public HangingSwordsAddon(bool east) : base()
@@ -43,8 +43,8 @@ namespace Server.Items
 
 	public class HangingSwordsDeed : BaseAddonDeed
 	{
-		public override BaseAddon Addon { get { return new HangingSwordsAddon(m_East); } }
-		public override int LabelNumber { get { return 1076272; } } // Hanging Swords
+		public override BaseAddon Addon => new HangingSwordsAddon(m_East);
+		public override int LabelNumber => 1076272;  // Hanging Swords
 
 		private bool m_East;
 

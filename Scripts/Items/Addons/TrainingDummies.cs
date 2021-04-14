@@ -13,22 +13,19 @@ namespace Server.Items
 		[CommandProperty(AccessLevel.GameMaster)]
 		public double MinSkill
 		{
-			get { return m_MinSkill; }
-			set { m_MinSkill = value; }
+			get => m_MinSkill;
+			set => m_MinSkill = value;
 		}
 
 		[CommandProperty(AccessLevel.GameMaster)]
 		public double MaxSkill
 		{
-			get { return m_MaxSkill; }
-			set { m_MaxSkill = value; }
+			get => m_MaxSkill;
+			set => m_MaxSkill = value;
 		}
 
 		[CommandProperty(AccessLevel.GameMaster)]
-		public bool Swinging
-		{
-			get { return (m_Timer != null); }
-		}
+		public bool Swinging => (m_Timer != null);
 
 		[Constructable]
 		public TrainingDummy() : this(0x1074)
@@ -167,7 +164,7 @@ namespace Server.Items
 
 	public class TrainingDummyEastAddon : BaseAddon
 	{
-		public override BaseAddonDeed Deed { get { return new TrainingDummyEastDeed(); } }
+		public override BaseAddonDeed Deed => new TrainingDummyEastDeed();
 
 		[Constructable]
 		public TrainingDummyEastAddon()
@@ -196,8 +193,8 @@ namespace Server.Items
 
 	public class TrainingDummyEastDeed : BaseAddonDeed
 	{
-		public override BaseAddon Addon { get { return new TrainingDummyEastAddon(); } }
-		public override int LabelNumber { get { return 1044335; } } // training dummy (east)
+		public override BaseAddon Addon => new TrainingDummyEastAddon();
+		public override int LabelNumber => 1044335;  // training dummy (east)
 
 		[Constructable]
 		public TrainingDummyEastDeed()
@@ -225,7 +222,7 @@ namespace Server.Items
 
 	public class TrainingDummySouthAddon : BaseAddon
 	{
-		public override BaseAddonDeed Deed { get { return new TrainingDummySouthDeed(); } }
+		public override BaseAddonDeed Deed => new TrainingDummySouthDeed();
 
 		[Constructable]
 		public TrainingDummySouthAddon()
@@ -254,8 +251,8 @@ namespace Server.Items
 
 	public class TrainingDummySouthDeed : BaseAddonDeed
 	{
-		public override BaseAddon Addon { get { return new TrainingDummySouthAddon(); } }
-		public override int LabelNumber { get { return 1044336; } } // training dummy (south)
+		public override BaseAddon Addon => new TrainingDummySouthAddon();
+		public override int LabelNumber => 1044336;  // training dummy (south)
 
 		[Constructable]
 		public TrainingDummySouthDeed()

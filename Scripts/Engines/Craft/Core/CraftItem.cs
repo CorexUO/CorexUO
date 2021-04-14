@@ -61,7 +61,7 @@ namespace Server.Engines.Craft
 		{
 			if (Recipe != null)
 			{
-				Console.WriteLine("Warning: Attempted add of recipe #{0} to the crafting of {1} in CraftSystem {2}.", id, this.ItemType.Name, system);
+				Console.WriteLine("Warning: Attempted add of recipe #{0} to the crafting of {1} in CraftSystem {2}.", id, ItemType.Name, system);
 				return;
 			}
 
@@ -862,7 +862,7 @@ namespace Server.Engines.Craft
 
 					if (allRequiredSkills && chance >= 0.0)
 					{
-						if (Recipe == null || !(from is PlayerMobile mobile) || mobile.HasRecipe(this.Recipe))
+						if (Recipe == null || !(from is PlayerMobile mobile) || mobile.HasRecipe(Recipe))
 						{
 							int badCraft = craftSystem.CanCraft(from, tool, ItemType);
 

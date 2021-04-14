@@ -7,8 +7,8 @@
 
 	public class HarvestWine : BeverageBottle
 	{
-		public override string DefaultName { get { return "Harvest Wine"; } }
-		public override double DefaultWeight { get { return 1; } }
+		public override string DefaultName => "Harvest Wine";
+		public override double DefaultWeight => 1;
 
 		[Constructable]
 		public HarvestWine()

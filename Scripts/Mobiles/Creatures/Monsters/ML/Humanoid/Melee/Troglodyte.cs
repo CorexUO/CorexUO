@@ -43,7 +43,7 @@ namespace Server.Mobiles
 			PackItem(new Ribs());
 		}
 
-		public override bool CanHeal { get { return true; } }
+		public override bool CanHeal => true;
 
 		public override void GenerateLoot()
 		{

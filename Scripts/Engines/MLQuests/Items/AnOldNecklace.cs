@@ -2,7 +2,7 @@ namespace Server.Items
 {
 	public class AnOldNecklace : Necklace
 	{
-		public override int LabelNumber { get { return 1075525; } } // an old necklace
+		public override int LabelNumber => 1075525;  // an old necklace
 
 		[Constructable]
 		public AnOldNecklace() : base()

@@ -31,7 +31,7 @@ namespace Server.Mobiles
 			Title = "the seeker of adventure";
 		}
 
-		public override bool ClickTitle { get { return false; } } // Do not display 'the seeker of adventure' when single-clicking
+		public override bool ClickTitle => false;  // Do not display 'the seeker of adventure' when single-clicking
 
 		private static int GetRandomHue()
 		{

@@ -6,40 +6,28 @@ namespace Server.Items
 {
 	public class FlourMillSouthAddon : BaseAddon, IFlourMill
 	{
-		public override BaseAddonDeed Deed { get { return new FlourMillSouthDeed(); } }
+		public override BaseAddonDeed Deed => new FlourMillSouthDeed();
 		private int m_Flour;
 		private Timer m_Timer;
 
 		[CommandProperty(AccessLevel.GameMaster)]
-		public int MaxFlour
-		{
-			get { return 2; }
-		}
+		public int MaxFlour => 2;
 
 		[CommandProperty(AccessLevel.GameMaster)]
 		public int CurFlour
 		{
-			get { return m_Flour; }
+			get => m_Flour;
 			set { m_Flour = Math.Max(0, Math.Min(value, MaxFlour)); UpdateStage(); }
 		}
 
 		[CommandProperty(AccessLevel.GameMaster)]
-		public bool HasFlour
-		{
-			get { return (m_Flour > 0); }
-		}
+		public bool HasFlour => (m_Flour > 0);
 
 		[CommandProperty(AccessLevel.GameMaster)]
-		public bool IsFull
-		{
-			get { return (m_Flour >= MaxFlour); }
-		}
+		public bool IsFull => (m_Flour >= MaxFlour);
 
 		[CommandProperty(AccessLevel.GameMaster)]
-		public bool IsWorking
-		{
-			get { return (m_Timer != null); }
-		}
+		public bool IsWorking => (m_Timer != null);
 
 		public void StartWorking(Mobile from)
 		{
@@ -60,7 +48,7 @@ namespace Server.Items
 
 			Mobile from = state as Mobile;
 
-			if (from != null && !from.Deleted && !this.Deleted && IsFull)
+			if (from != null && !from.Deleted && !Deleted && IsFull)
 			{
 				SackFlour flour = new SackFlour
 				{
@@ -116,7 +104,7 @@ namespace Server.Items
 
 		public void UpdateStage(FlourMillStage stage)
 		{
-			List<AddonComponent> components = this.Components;
+			List<AddonComponent> components = Components;
 
 			int[][] stageTable = m_StageTable;
 
@@ -186,8 +174,8 @@ namespace Server.Items
 
 	public class FlourMillSouthDeed : BaseAddonDeed
 	{
-		public override BaseAddon Addon { get { return new FlourMillSouthAddon(); } }
-		public override int LabelNumber { get { return 1044348; } } // flour mill (south)
+		public override BaseAddon Addon => new FlourMillSouthAddon();
+		public override int LabelNumber => 1044348;  // flour mill (south)
 
 		[Constructable]
 		public FlourMillSouthDeed()

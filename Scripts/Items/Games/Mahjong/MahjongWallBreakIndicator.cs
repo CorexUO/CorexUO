@@ -10,8 +10,8 @@ namespace Server.Engines.Mahjong
 		private readonly MahjongGame m_Game;
 		private Point2D m_Position;
 
-		public MahjongGame Game { get { return m_Game; } }
-		public Point2D Position { get { return m_Position; } }
+		public MahjongGame Game => m_Game;
+		public Point2D Position => m_Position;
 
 		public MahjongWallBreakIndicator(MahjongGame game, Point2D position)
 		{
@@ -19,10 +19,7 @@ namespace Server.Engines.Mahjong
 			m_Position = position;
 		}
 
-		public MahjongPieceDim Dimensions
-		{
-			get { return GetDimensions(m_Position); }
-		}
+		public MahjongPieceDim Dimensions => GetDimensions(m_Position);
 
 		public void Move(Point2D position)
 		{

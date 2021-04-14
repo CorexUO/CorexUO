@@ -2,7 +2,7 @@ namespace Server.Items
 {
 	public class BluePlainRugAddon : BaseAddon
 	{
-		public override BaseAddonDeed Deed { get { return new BluePlainRugDeed(); } }
+		public override BaseAddonDeed Deed => new BluePlainRugDeed();
 
 		[Constructable]
 		public BluePlainRugAddon() : base()
@@ -39,8 +39,8 @@ namespace Server.Items
 
 	public class BluePlainRugDeed : BaseAddonDeed
 	{
-		public override BaseAddon Addon { get { return new BluePlainRugAddon(); } }
-		public override int LabelNumber { get { return 1076585; } } // Blue plain rug
+		public override BaseAddon Addon => new BluePlainRugAddon();
+		public override int LabelNumber => 1076585;  // Blue plain rug
 
 		[Constructable]
 		public BluePlainRugDeed() : base()

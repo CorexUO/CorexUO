@@ -5,23 +5,23 @@ namespace Server.Items
 	[FlipableAttribute(0x13FD, 0x13FC)]
 	public class HeavyCrossbow : BaseRanged
 	{
-		public override int EffectID { get { return 0x1BFE; } }
-		public override Type AmmoType { get { return typeof(Bolt); } }
-		public override Item Ammo { get { return new Bolt(); } }
+		public override int EffectID => 0x1BFE;
+		public override Type AmmoType => typeof(Bolt);
+		public override Item Ammo => new Bolt();
 
-		public override WeaponAbility PrimaryAbility { get { return WeaponAbility.MovingShot; } }
-		public override WeaponAbility SecondaryAbility { get { return WeaponAbility.Dismount; } }
+		public override WeaponAbility PrimaryAbility => WeaponAbility.MovingShot;
+		public override WeaponAbility SecondaryAbility => WeaponAbility.Dismount;
 
-		public override int DefMaxRange { get { return 8; } }
+		public override int DefMaxRange => 8;
 
-		public override int StrReq { get { return Core.AOS ? 80 : 40; } }
+		public override int StrReq => Core.AOS ? 80 : 40;
 
-		public override int MinDamageBase { get { return Core.ML ? 20 : Core.AOS ? 19 : 11; } }
-		public override int MaxDamageBase { get { return Core.ML ? 24 : Core.AOS ? 20 : 56; } }
-		public override float SpeedBase { get { return Core.ML ? 5.00f : Core.AOS ? 22 : 10; } }
+		public override int MinDamageBase => Core.ML ? 20 : Core.AOS ? 19 : 11;
+		public override int MaxDamageBase => Core.ML ? 24 : Core.AOS ? 20 : 56;
+		public override float SpeedBase => Core.ML ? 5.00f : Core.AOS ? 22 : 10;
 
-		public override int InitMinHits { get { return 31; } }
-		public override int InitMaxHits { get { return 100; } }
+		public override int InitMinHits => 31;
+		public override int InitMaxHits => 100;
 
 		[Constructable]
 		public HeavyCrossbow() : base(0x13FD)

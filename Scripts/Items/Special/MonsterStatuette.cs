@@ -55,9 +55,9 @@ namespace Server.Items
 		private readonly int m_ItemID;
 		private readonly int[] m_Sounds;
 
-		public int LabelNumber { get { return m_LabelNumber; } }
-		public int ItemID { get { return m_ItemID; } }
-		public int[] Sounds { get { return m_Sounds; } }
+		public int LabelNumber => m_LabelNumber;
+		public int ItemID => m_ItemID;
+		public int[] Sounds => m_Sounds;
 
 		public MonsterStatuetteInfo(int labelNumber, int itemID, int baseSoundID)
 		{
@@ -137,21 +137,21 @@ namespace Server.Items
 		[CommandProperty(AccessLevel.GameMaster)]
 		public bool IsRewardItem
 		{
-			get { return m_IsRewardItem; }
-			set { m_IsRewardItem = value; }
+			get => m_IsRewardItem;
+			set => m_IsRewardItem = value;
 		}
 
 		[CommandProperty(AccessLevel.GameMaster)]
 		public bool TurnedOn
 		{
-			get { return m_TurnedOn; }
+			get => m_TurnedOn;
 			set { m_TurnedOn = value; InvalidateProperties(); }
 		}
 
 		[CommandProperty(AccessLevel.GameMaster)]
 		public MonsterStatuetteType Type
 		{
-			get { return m_Type; }
+			get => m_Type;
 			set
 			{
 				m_Type = value;
@@ -170,15 +170,9 @@ namespace Server.Items
 			}
 		}
 
-		public override int LabelNumber
-		{
-			get { return MonsterStatuetteInfo.GetInfo(m_Type).LabelNumber; }
-		}
+		public override int LabelNumber => MonsterStatuetteInfo.GetInfo(m_Type).LabelNumber;
 
-		public override double DefaultWeight
-		{
-			get { return 1.0; }
-		}
+		public override double DefaultWeight => 1.0;
 
 		[Constructable]
 		public MonsterStatuette() : this(MonsterStatuetteType.Crocodile)
@@ -200,16 +194,16 @@ namespace Server.Items
 				Hue = 0xF4;
 		}
 
-		public override bool HandlesOnMovement { get { return m_TurnedOn && IsLockedDown; } }
+		public override bool HandlesOnMovement => m_TurnedOn && IsLockedDown;
 
 		public override void OnMovement(Mobile m, Point3D oldLocation)
 		{
-			if (m_TurnedOn && IsLockedDown && (!m.Hidden || m.AccessLevel == AccessLevel.Player) && Utility.InRange(m.Location, this.Location, 2) && !Utility.InRange(oldLocation, this.Location, 2))
+			if (m_TurnedOn && IsLockedDown && (!m.Hidden || m.AccessLevel == AccessLevel.Player) && Utility.InRange(m.Location, Location, 2) && !Utility.InRange(oldLocation, Location, 2))
 			{
 				int[] sounds = MonsterStatuetteInfo.GetInfo(m_Type).Sounds;
 
 				if (sounds.Length > 0)
-					Effects.PlaySound(this.Location, this.Map, sounds[Utility.Random(sounds.Length)]);
+					Effects.PlaySound(Location, Map, sounds[Utility.Random(sounds.Length)]);
 			}
 
 			base.OnMovement(m, oldLocation);

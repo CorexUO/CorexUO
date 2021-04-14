@@ -1820,10 +1820,10 @@ namespace Server.Engines.MLQuests.Definitions
 	[QuesterName("Saril (The Heartwood)")]
 	public class Saril : BaseCreature
 	{
-		public override bool IsInvulnerable { get { return true; } }
-		public override bool CanTeach { get { return true; } }
+		public override bool IsInvulnerable => true;
+		public override bool CanTeach => true;
 
-		public override bool CanShout { get { return true; } }
+		public override bool CanShout => true;
 		public override void Shout(PlayerMobile pm)
 		{
 			MLQuestSystem.Tell(this, pm, Utility.RandomList(
@@ -1881,10 +1881,10 @@ namespace Server.Engines.MLQuests.Definitions
 	[QuesterName("Cailla (The Heartwood)")]
 	public class Cailla : BaseCreature
 	{
-		public override bool IsInvulnerable { get { return true; } }
-		public override bool CanTeach { get { return true; } }
+		public override bool IsInvulnerable => true;
+		public override bool CanTeach => true;
 
-		public override bool CanShout { get { return true; } }
+		public override bool CanShout => true;
 		public override void Shout(PlayerMobile pm)
 		{
 			MLQuestSystem.Tell(this, pm, Utility.RandomList(
@@ -1943,10 +1943,10 @@ namespace Server.Engines.MLQuests.Definitions
 	[QuesterName("Tamm (The Heartwood)")]
 	public class Tamm : BaseCreature
 	{
-		public override bool IsInvulnerable { get { return true; } }
-		public override bool CanTeach { get { return true; } }
+		public override bool IsInvulnerable => true;
+		public override bool CanTeach => true;
 
-		public override bool CanShout { get { return true; } }
+		public override bool CanShout => true;
 		public override void Shout(PlayerMobile pm)
 		{
 			MLQuestSystem.Tell(this, pm, Utility.RandomList(
@@ -2003,10 +2003,10 @@ namespace Server.Engines.MLQuests.Definitions
 	[QuesterName("Landy (The Heartwood)")]
 	public class Landy : BaseCreature
 	{
-		public override bool IsInvulnerable { get { return true; } }
-		public override bool CanTeach { get { return true; } }
+		public override bool IsInvulnerable => true;
+		public override bool CanTeach => true;
 
-		public override bool CanShout { get { return true; } }
+		public override bool CanShout => true;
 		public override void Shout(PlayerMobile pm)
 		{
 			MLQuestSystem.Tell(this, pm, Utility.RandomList(
@@ -2066,10 +2066,10 @@ namespace Server.Engines.MLQuests.Definitions
 	[QuesterName("Elder Alejaha (The Heartwood)")]
 	public class Alejaha : BaseCreature
 	{
-		public override bool IsInvulnerable { get { return true; } }
-		public override bool CanTeach { get { return true; } }
+		public override bool IsInvulnerable => true;
+		public override bool CanTeach => true;
 
-		public override bool CanShout { get { return true; } }
+		public override bool CanShout => true;
 		public override void Shout(PlayerMobile pm)
 		{
 			MLQuestSystem.Tell(this, pm, 1074223); // Have you done it yet?  Oh, I haven’t told you, have I?
@@ -2126,10 +2126,10 @@ namespace Server.Engines.MLQuests.Definitions
 	[QuesterName("Mielan (The Heartwood)")]
 	public class Mielan : BaseCreature
 	{
-		public override bool IsInvulnerable { get { return true; } }
-		public override bool CanTeach { get { return true; } }
+		public override bool IsInvulnerable => true;
+		public override bool CanTeach => true;
 
-		public override bool CanShout { get { return true; } }
+		public override bool CanShout => true;
 		public override void Shout(PlayerMobile pm)
 		{
 			MLQuestSystem.Tell(this, pm, Utility.RandomList(
@@ -2184,10 +2184,10 @@ namespace Server.Engines.MLQuests.Definitions
 	[QuesterName("Ciala (The Heartwood)")]
 	public class Ciala : BaseCreature
 	{
-		public override bool IsInvulnerable { get { return true; } }
-		public override bool CanTeach { get { return true; } }
+		public override bool IsInvulnerable => true;
+		public override bool CanTeach => true;
 
-		public override bool CanShout { get { return true; } }
+		public override bool CanShout => true;
 		public override void Shout(PlayerMobile pm)
 		{
 			MLQuestSystem.Tell(this, pm, Utility.RandomList(
@@ -2246,10 +2246,10 @@ namespace Server.Engines.MLQuests.Definitions
 	[QuesterName("Aniel (The Heartwood)")]
 	public class Aniel : BaseCreature
 	{
-		public override bool IsInvulnerable { get { return true; } }
-		public override bool CanTeach { get { return true; } }
+		public override bool IsInvulnerable => true;
+		public override bool CanTeach => true;
 
-		public override bool CanShout { get { return true; } }
+		public override bool CanShout => true;
 		public override void Shout(PlayerMobile pm)
 		{
 			MLQuestSystem.Tell(this, pm, Utility.RandomList(
@@ -2304,10 +2304,10 @@ namespace Server.Engines.MLQuests.Definitions
 	[QuesterName("Aulan (The Heartwood)")]
 	public class Aulan : BaseCreature
 	{
-		public override bool IsInvulnerable { get { return true; } }
-		public override bool CanTeach { get { return true; } }
+		public override bool IsInvulnerable => true;
+		public override bool CanTeach => true;
 
-		public override bool CanShout { get { return true; } }
+		public override bool CanShout => true;
 		public override void Shout(PlayerMobile pm)
 		{
 			MLQuestSystem.Tell(this, pm, Utility.RandomList(
@@ -2382,9 +2382,9 @@ namespace Server.Engines.MLQuests.Definitions
 	[QuesterName("Brinnae (The Heartwood)")]
 	public class Brinnae : BaseCreature
 	{
-		public override bool IsInvulnerable { get { return true; } }
+		public override bool IsInvulnerable => true;
 
-		public override bool CanShout { get { return true; } }
+		public override bool CanShout => true;
 		public override void Shout(PlayerMobile pm)
 		{
 			MLQuestSystem.Tell(this, pm, Utility.RandomList(
@@ -2437,10 +2437,10 @@ namespace Server.Engines.MLQuests.Definitions
 	[QuesterName("Elder Caelas (The Heartwood)")]
 	public class Caelas : BaseCreature
 	{
-		public override bool IsInvulnerable { get { return true; } }
-		public override bool CanTeach { get { return true; } }
+		public override bool IsInvulnerable => true;
+		public override bool CanTeach => true;
 
-		public override bool CanShout { get { return true; } }
+		public override bool CanShout => true;
 		public override void Shout(PlayerMobile pm)
 		{
 			MLQuestSystem.Tell(this, pm, Utility.RandomList(
@@ -2495,10 +2495,10 @@ namespace Server.Engines.MLQuests.Definitions
 	[QuesterName("Clehin (The Heartwood)")]
 	public class Clehin : BaseCreature
 	{
-		public override bool IsInvulnerable { get { return true; } }
-		public override bool CanTeach { get { return true; } }
+		public override bool IsInvulnerable => true;
+		public override bool CanTeach => true;
 
-		public override bool CanShout { get { return true; } }
+		public override bool CanShout => true;
 		public override void Shout(PlayerMobile pm)
 		{
 			MLQuestSystem.Tell(this, pm, Utility.RandomList(
@@ -2551,10 +2551,10 @@ namespace Server.Engines.MLQuests.Definitions
 
 	public class Cloorne : BaseCreature
 	{
-		public override bool IsInvulnerable { get { return true; } }
-		public override bool CanTeach { get { return true; } }
+		public override bool IsInvulnerable => true;
+		public override bool CanTeach => true;
 
-		public override bool CanShout { get { return true; } }
+		public override bool CanShout => true;
 		public override void Shout(PlayerMobile pm)
 		{
 			MLQuestSystem.Tell(this, pm, Utility.RandomList(
@@ -2628,10 +2628,10 @@ namespace Server.Engines.MLQuests.Definitions
 	[QuesterName("Salaenih (The Heartwood)")]
 	public class Salaenih : BaseCreature
 	{
-		public override bool IsInvulnerable { get { return true; } }
-		public override bool CanTeach { get { return true; } }
+		public override bool IsInvulnerable => true;
+		public override bool CanTeach => true;
 
-		public override bool CanShout { get { return true; } }
+		public override bool CanShout => true;
 		public override void Shout(PlayerMobile pm)
 		{
 			MLQuestSystem.Tell(this, pm, Utility.RandomList(
@@ -2716,10 +2716,10 @@ namespace Server.Engines.MLQuests.Definitions
 	[QuesterName("Vilo (The Heartwood)")]
 	public class Vilo : BaseCreature
 	{
-		public override bool IsInvulnerable { get { return true; } }
-		public override bool CanTeach { get { return true; } }
+		public override bool IsInvulnerable => true;
+		public override bool CanTeach => true;
 
-		public override bool CanShout { get { return true; } }
+		public override bool CanShout => true;
 		public override void Shout(PlayerMobile pm)
 		{
 			MLQuestSystem.Tell(this, pm, Utility.RandomList(
@@ -2778,10 +2778,10 @@ namespace Server.Engines.MLQuests.Definitions
 	[QuesterName("Tholef (The Heartwood)")]
 	public class Tholef : BaseCreature
 	{
-		public override bool IsInvulnerable { get { return true; } }
-		public override bool CanTeach { get { return true; } }
+		public override bool IsInvulnerable => true;
+		public override bool CanTeach => true;
 
-		public override bool CanShout { get { return true; } }
+		public override bool CanShout => true;
 		public override void Shout(PlayerMobile pm)
 		{
 			MLQuestSystem.Tell(this, pm, Utility.RandomList(
@@ -2844,10 +2844,10 @@ namespace Server.Engines.MLQuests.Definitions
 	[QuesterName("Tillanil (The Heartwood)")]
 	public class Tillanil : BaseCreature
 	{
-		public override bool IsInvulnerable { get { return true; } }
-		public override bool CanTeach { get { return true; } }
+		public override bool IsInvulnerable => true;
+		public override bool CanTeach => true;
 
-		public override bool CanShout { get { return true; } }
+		public override bool CanShout => true;
 		public override void Shout(PlayerMobile pm)
 		{
 			MLQuestSystem.Tell(this, pm, Utility.RandomList(
@@ -2901,10 +2901,10 @@ namespace Server.Engines.MLQuests.Definitions
 	[QuesterName("Waelian (The Heartwood)")]
 	public class Waelian : BaseCreature
 	{
-		public override bool IsInvulnerable { get { return true; } }
-		public override bool CanTeach { get { return true; } }
+		public override bool IsInvulnerable => true;
+		public override bool CanTeach => true;
 
-		public override bool CanShout { get { return true; } }
+		public override bool CanShout => true;
 		public override void Shout(PlayerMobile pm)
 		{
 			MLQuestSystem.Tell(this, pm, Utility.RandomList(
@@ -2967,10 +2967,10 @@ namespace Server.Engines.MLQuests.Definitions
 	[QuesterName("Sleen (The Heartwood)")]
 	public class Sleen : BaseCreature
 	{
-		public override bool IsInvulnerable { get { return true; } }
-		public override bool CanTeach { get { return true; } }
+		public override bool IsInvulnerable => true;
+		public override bool CanTeach => true;
 
-		public override bool CanShout { get { return true; } }
+		public override bool CanShout => true;
 		public override void Shout(PlayerMobile pm)
 		{
 			MLQuestSystem.Tell(this, pm, Utility.RandomList(
@@ -3025,10 +3025,10 @@ namespace Server.Engines.MLQuests.Definitions
 	[QuesterName("Unoelil (The Heartwood)")]
 	public class Unoelil : BaseCreature
 	{
-		public override bool IsInvulnerable { get { return true; } }
-		public override bool CanTeach { get { return true; } }
+		public override bool IsInvulnerable => true;
+		public override bool CanTeach => true;
 
-		public override bool CanShout { get { return true; } }
+		public override bool CanShout => true;
 		public override void Shout(PlayerMobile pm)
 		{
 			MLQuestSystem.Tell(this, pm, Utility.RandomList(
@@ -3082,8 +3082,8 @@ namespace Server.Engines.MLQuests.Definitions
 	[QuesterName("Anolly (The Heartwood)")]
 	public class Anolly : BaseCreature
 	{
-		public override bool IsInvulnerable { get { return true; } }
-		public override bool CanTeach { get { return true; } }
+		public override bool IsInvulnerable => true;
+		public override bool CanTeach => true;
 
 		[Constructable]
 		public Anolly()
@@ -3131,10 +3131,10 @@ namespace Server.Engines.MLQuests.Definitions
 	[QuesterName("Jusae (The Heartwood)")]
 	public class Jusae : BaseCreature
 	{
-		public override bool IsInvulnerable { get { return true; } }
-		public override bool CanTeach { get { return true; } }
+		public override bool IsInvulnerable => true;
+		public override bool CanTeach => true;
 
-		public override bool CanShout { get { return true; } }
+		public override bool CanShout => true;
 		public override void Shout(PlayerMobile pm)
 		{
 			MLQuestSystem.Tell(this, pm, Utility.RandomList(
@@ -3202,10 +3202,10 @@ namespace Server.Engines.MLQuests.Definitions
 	[QuesterName("Cillitha (The Heartwood)")]
 	public class Cillitha : BaseCreature
 	{
-		public override bool IsInvulnerable { get { return true; } }
-		public override bool CanTeach { get { return true; } }
+		public override bool IsInvulnerable => true;
+		public override bool CanTeach => true;
 
-		public override bool CanShout { get { return true; } }
+		public override bool CanShout => true;
 		public override void Shout(PlayerMobile pm)
 		{
 			MLQuestSystem.Tell(this, pm, Utility.RandomList(
@@ -3259,10 +3259,10 @@ namespace Server.Engines.MLQuests.Definitions
 	[QuesterName("Lohn (The Heartwood)")]
 	public class Lohn : BaseCreature
 	{
-		public override bool IsInvulnerable { get { return true; } }
-		public override bool CanTeach { get { return true; } }
+		public override bool IsInvulnerable => true;
+		public override bool CanTeach => true;
 
-		public override bool CanShout { get { return true; } }
+		public override bool CanShout => true;
 		public override void Shout(PlayerMobile pm)
 		{
 			MLQuestSystem.Tell(this, pm, Utility.RandomList(
@@ -3325,10 +3325,10 @@ namespace Server.Engines.MLQuests.Definitions
 	[QuesterName("Olla (The Heartwood)")]
 	public class Olla : BaseCreature
 	{
-		public override bool IsInvulnerable { get { return true; } }
-		public override bool CanTeach { get { return true; } }
+		public override bool IsInvulnerable => true;
+		public override bool CanTeach => true;
 
-		public override bool CanShout { get { return true; } }
+		public override bool CanShout => true;
 		public override void Shout(PlayerMobile pm)
 		{
 			MLQuestSystem.Tell(this, pm, Utility.RandomList(
@@ -3385,10 +3385,10 @@ namespace Server.Engines.MLQuests.Definitions
 	[QuesterName("Thallary (The Heartwood)")]
 	public class Thallary : BaseCreature
 	{
-		public override bool IsInvulnerable { get { return true; } }
-		public override bool CanTeach { get { return true; } }
+		public override bool IsInvulnerable => true;
+		public override bool CanTeach => true;
 
-		public override bool CanShout { get { return true; } }
+		public override bool CanShout => true;
 		public override void Shout(PlayerMobile pm)
 		{
 			MLQuestSystem.Tell(this, pm, Utility.RandomList(
@@ -3444,10 +3444,10 @@ namespace Server.Engines.MLQuests.Definitions
 	[QuesterName("Ahie (The Heartwood)")]
 	public class Ahie : BaseCreature
 	{
-		public override bool IsInvulnerable { get { return true; } }
-		public override bool CanTeach { get { return true; } }
+		public override bool IsInvulnerable => true;
+		public override bool CanTeach => true;
 
-		public override bool CanShout { get { return true; } }
+		public override bool CanShout => true;
 		public override void Shout(PlayerMobile pm)
 		{
 			MLQuestSystem.Tell(this, pm, Utility.RandomList(
@@ -3502,7 +3502,7 @@ namespace Server.Engines.MLQuests.Definitions
 
 	public class Tyeelor : BaseCreature
 	{
-		public override bool IsInvulnerable { get { return true; } }
+		public override bool IsInvulnerable => true;
 
 		[Constructable]
 		public Tyeelor()
@@ -3576,7 +3576,7 @@ namespace Server.Engines.MLQuests.Definitions
 
 	public class Athailon : BaseCreature
 	{
-		public override bool IsInvulnerable { get { return true; } }
+		public override bool IsInvulnerable => true;
 
 		[Constructable]
 		public Athailon()
@@ -3646,7 +3646,7 @@ namespace Server.Engines.MLQuests.Definitions
 
 	public class ElderTaellia : BaseCreature
 	{
-		public override bool IsInvulnerable { get { return true; } }
+		public override bool IsInvulnerable => true;
 
 		[Constructable]
 		public ElderTaellia()
@@ -3691,7 +3691,7 @@ namespace Server.Engines.MLQuests.Definitions
 
 	public class ElderMallew : BaseCreature
 	{
-		public override bool IsInvulnerable { get { return true; } }
+		public override bool IsInvulnerable => true;
 
 		[Constructable]
 		public ElderMallew()
@@ -3755,7 +3755,7 @@ namespace Server.Engines.MLQuests.Definitions
 
 	public class ElderAbbein : BaseCreature
 	{
-		public override bool IsInvulnerable { get { return true; } }
+		public override bool IsInvulnerable => true;
 
 		[Constructable]
 		public ElderAbbein()
@@ -3799,7 +3799,7 @@ namespace Server.Engines.MLQuests.Definitions
 
 	public class ElderVicaie : BaseCreature
 	{
-		public override bool IsInvulnerable { get { return true; } }
+		public override bool IsInvulnerable => true;
 
 		[Constructable]
 		public ElderVicaie()
@@ -3850,7 +3850,7 @@ namespace Server.Engines.MLQuests.Definitions
 
 	public class ElderJothan : BaseCreature
 	{
-		public override bool IsInvulnerable { get { return true; } }
+		public override bool IsInvulnerable => true;
 
 		[Constructable]
 		public ElderJothan()
@@ -3896,7 +3896,7 @@ namespace Server.Engines.MLQuests.Definitions
 
 	public class ElderAlethanian : BaseCreature
 	{
-		public override bool IsInvulnerable { get { return true; } }
+		public override bool IsInvulnerable => true;
 
 		[Constructable]
 		public ElderAlethanian()
@@ -3942,7 +3942,7 @@ namespace Server.Engines.MLQuests.Definitions
 
 	public class Rebinil : BaseCreature
 	{
-		public override bool IsInvulnerable { get { return true; } }
+		public override bool IsInvulnerable => true;
 
 		[Constructable]
 		public Rebinil()
@@ -3986,7 +3986,7 @@ namespace Server.Engines.MLQuests.Definitions
 
 	public class Aluniol : BaseCreature
 	{
-		public override bool IsInvulnerable { get { return true; } }
+		public override bool IsInvulnerable => true;
 
 		[Constructable]
 		public Aluniol()
@@ -4030,7 +4030,7 @@ namespace Server.Engines.MLQuests.Definitions
 
 	public class Olaeni : BaseCreature
 	{
-		public override bool IsInvulnerable { get { return true; } }
+		public override bool IsInvulnerable => true;
 
 		[Constructable]
 		public Olaeni()
@@ -4075,7 +4075,7 @@ namespace Server.Engines.MLQuests.Definitions
 
 	public class Bolaevin : BaseCreature
 	{
-		public override bool IsInvulnerable { get { return true; } }
+		public override bool IsInvulnerable => true;
 
 		[Constructable]
 		public Bolaevin()
@@ -4128,7 +4128,7 @@ namespace Server.Engines.MLQuests.Definitions
 
 	public class LorekeeperAneen : BaseCreature
 	{
-		public override bool IsInvulnerable { get { return true; } }
+		public override bool IsInvulnerable => true;
 
 		[Constructable]
 		public LorekeeperAneen()
@@ -4172,7 +4172,7 @@ namespace Server.Engines.MLQuests.Definitions
 
 	public class Daelas : BaseCreature
 	{
-		public override bool IsInvulnerable { get { return true; } }
+		public override bool IsInvulnerable => true;
 
 		[Constructable]
 		public Daelas()
@@ -4229,7 +4229,7 @@ namespace Server.Engines.MLQuests.Definitions
 
 	public class Alelle : BaseCreature
 	{
-		public override bool IsInvulnerable { get { return true; } }
+		public override bool IsInvulnerable => true;
 
 		[Constructable]
 		public Alelle()
@@ -4292,8 +4292,8 @@ namespace Server.Engines.MLQuests.Definitions
 	[QuesterName("Nillaen (The Heartwood)")]
 	public class LorekeeperNillaen : BaseCreature
 	{
-		public override bool IsInvulnerable { get { return true; } }
-		public override bool CanTeach { get { return true; } }
+		public override bool IsInvulnerable => true;
+		public override bool CanTeach => true;
 
 		[Constructable]
 		public LorekeeperNillaen()
@@ -4343,10 +4343,10 @@ namespace Server.Engines.MLQuests.Definitions
 	[QuesterName("Ryal (The Heartwood)")]
 	public class LorekeeperRyal : BaseCreature
 	{
-		public override bool IsInvulnerable { get { return true; } }
-		public override bool CanTeach { get { return true; } }
+		public override bool IsInvulnerable => true;
+		public override bool CanTeach => true;
 
-		public override bool CanShout { get { return true; } }
+		public override bool CanShout => true;
 		public override void Shout(PlayerMobile pm)
 		{
 			MLQuestSystem.Tell(this, pm, Utility.RandomList(
@@ -4402,10 +4402,10 @@ namespace Server.Engines.MLQuests.Definitions
 	[QuesterName("Braen (The Heartwood)")]
 	public class Braen : BaseCreature
 	{
-		public override bool IsInvulnerable { get { return true; } }
-		public override bool CanTeach { get { return true; } }
+		public override bool IsInvulnerable => true;
+		public override bool CanTeach => true;
 
-		public override bool CanShout { get { return true; } }
+		public override bool CanShout => true;
 		public override void Shout(PlayerMobile pm)
 		{
 			MLQuestSystem.Tell(this, pm, 1074187); // Want a job?
@@ -4456,10 +4456,10 @@ namespace Server.Engines.MLQuests.Definitions
 	[QuesterName("Elder Acob (The Heartwood)")]
 	public class ElderAcob : BaseCreature
 	{
-		public override bool IsInvulnerable { get { return true; } }
-		public override bool CanTeach { get { return true; } }
+		public override bool IsInvulnerable => true;
+		public override bool CanTeach => true;
 
-		public override bool CanShout { get { return true; } }
+		public override bool CanShout => true;
 		public override void Shout(PlayerMobile pm)
 		{
 			MLQuestSystem.Tell(this, pm, 1074197); // Pardon me, but if you could spare some time I’d greatly appreciate it.
@@ -4509,10 +4509,10 @@ namespace Server.Engines.MLQuests.Definitions
 
 	public class LorekeeperCalendor : BaseCreature
 	{
-		public override bool IsInvulnerable { get { return true; } }
-		public override bool CanTeach { get { return true; } }
+		public override bool IsInvulnerable => true;
+		public override bool CanTeach => true;
 
-		public override bool CanShout { get { return true; } }
+		public override bool CanShout => true;
 		public override void Shout(PlayerMobile pm)
 		{
 			MLQuestSystem.Tell(this, pm, 1074204); // Greetings seeker.  I have an urgent matter for you, if you are willing.
@@ -4563,10 +4563,10 @@ namespace Server.Engines.MLQuests.Definitions
 
 	public class LorekeeperSiarra : BaseCreature
 	{
-		public override bool IsInvulnerable { get { return true; } }
-		public override bool CanTeach { get { return true; } }
+		public override bool IsInvulnerable => true;
+		public override bool CanTeach => true;
 
-		public override bool CanShout { get { return true; } }
+		public override bool CanShout => true;
 		public override void Shout(PlayerMobile pm)
 		{
 			MLQuestSystem.Tell(this, pm, 1074206); // Excuse me please traveler, might I have a little of your time?

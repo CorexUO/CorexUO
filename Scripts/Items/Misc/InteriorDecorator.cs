@@ -18,7 +18,7 @@ namespace Server.Items
 		private DecorateCommand m_Command;
 
 		[CommandProperty(AccessLevel.GameMaster)]
-		public DecorateCommand Command { get { return m_Command; } set { m_Command = value; InvalidateProperties(); } }
+		public DecorateCommand Command { get => m_Command; set { m_Command = value; InvalidateProperties(); } }
 
 		[Constructable]
 		public InteriorDecorator() : base(0xFC1)
@@ -27,7 +27,7 @@ namespace Server.Items
 			LootType = LootType.Blessed;
 		}
 
-		public override int LabelNumber { get { return 1041280; } } // an interior decorator
+		public override int LabelNumber => 1041280;  // an interior decorator
 
 		public InteriorDecorator(Serial serial) : base(serial)
 		{

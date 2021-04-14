@@ -48,9 +48,9 @@ namespace Server.Mobiles
 			AddLoot(LootPack.FilthyRich, 2);
 		}
 
-		public override Poison PoisonImmune { get { return Poison.Lethal; } }
+		public override Poison PoisonImmune => Poison.Lethal;
 
-		public override int Meat { get { return 3; } }
+		public override int Meat => 3;
 
 		public Devourer(Serial serial) : base(serial)
 		{

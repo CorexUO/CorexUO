@@ -2,7 +2,7 @@ namespace Server.Items
 {
 	public class StrippedSosarianSwill : BaseFish
 	{
-		public override int LabelNumber { get { return 1074594; } } // Stripped Sosarian Swill
+		public override int LabelNumber => 1074594;  // Stripped Sosarian Swill
 
 		[Constructable]
 		public StrippedSosarianSwill() : base(0x3B0A)

@@ -2,7 +2,7 @@ namespace Server.Items
 {
 	public class ElvenStoveEastAddon : BaseAddon
 	{
-		public override BaseAddonDeed Deed { get { return new ElvenStoveEastDeed(); } }
+		public override BaseAddonDeed Deed => new ElvenStoveEastDeed();
 
 		[Constructable]
 		public ElvenStoveEastAddon()
@@ -31,8 +31,8 @@ namespace Server.Items
 
 	public class ElvenStoveEastDeed : BaseAddonDeed
 	{
-		public override BaseAddon Addon { get { return new ElvenStoveEastAddon(); } }
-		public override int LabelNumber { get { return 1073395; } } // elven oven (east)
+		public override BaseAddon Addon => new ElvenStoveEastAddon();
+		public override int LabelNumber => 1073395;  // elven oven (east)
 
 		[Constructable]
 		public ElvenStoveEastDeed()

@@ -9,17 +9,17 @@ namespace Server.Items
 	{
 		public ShipwreckedItem(int itemID) : base(itemID)
 		{
-			int weight = this.ItemData.Weight;
+			int weight = ItemData.Weight;
 
 			if (weight >= 255)
 				weight = 1;
 
-			this.Weight = weight;
+			Weight = weight;
 		}
 
 		public override void OnSingleClick(Mobile from)
 		{
-			this.LabelTo(from, 1050039, string.Format("#{0}\t#1041645", LabelNumber));
+			LabelTo(from, 1050039, string.Format("#{0}\t#1041645", LabelNumber));
 		}
 
 		public override void AddNameProperties(ObjectPropertyList list)
@@ -65,10 +65,7 @@ namespace Server.Items
 
 		public bool IsShipwreckedItem
 		{
-			get
-			{
-				return true;    //It's a ShipwreckedItem item.  'Course it's gonna be a Shipwreckeditem
-			}
+			get => true;    //It's a ShipwreckedItem item.  'Course it's gonna be a Shipwreckeditem
 			set
 			{
 			}

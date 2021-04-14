@@ -6,7 +6,7 @@ namespace Server.Mobiles
 	[CorpseName("an ethereal warrior corpse")]
 	public class EtherealWarrior : BaseCreature
 	{
-		public override bool InitialInnocent { get { return true; } }
+		public override bool InitialInnocent => true;
 
 		[Constructable]
 		public EtherealWarrior() : base(AIType.AI_Mage, FightMode.Evil, 10, 1, 0.2, 0.4)
@@ -44,7 +44,7 @@ namespace Server.Mobiles
 			VirtualArmor = 120;
 		}
 
-		public override int TreasureMapLevel { get { return Core.AOS ? 5 : 0; } }
+		public override int TreasureMapLevel => Core.AOS ? 5 : 0;
 
 		public override void GenerateLoot()
 		{
@@ -77,12 +77,9 @@ namespace Server.Mobiles
 			}
 		}
 
-		public override OppositionGroup OppositionGroup
-		{
-			get { return OppositionGroup.FeyAndUndead; }
-		}
+		public override OppositionGroup OppositionGroup => OppositionGroup.FeyAndUndead;
 
-		public override int Feathers { get { return 100; } }
+		public override int Feathers => 100;
 
 		public override int GetAngerSound()
 		{

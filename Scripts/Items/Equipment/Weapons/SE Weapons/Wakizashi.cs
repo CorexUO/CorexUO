@@ -3,20 +3,20 @@ namespace Server.Items
 	[FlipableAttribute(0x27A4, 0x27EF)]
 	public class Wakizashi : BaseSword
 	{
-		public override WeaponAbility PrimaryAbility { get { return WeaponAbility.FrenziedWhirlwind; } }
-		public override WeaponAbility SecondaryAbility { get { return WeaponAbility.DoubleStrike; } }
+		public override WeaponAbility PrimaryAbility => WeaponAbility.FrenziedWhirlwind;
+		public override WeaponAbility SecondaryAbility => WeaponAbility.DoubleStrike;
 
-		public override int DefHitSound { get { return 0x23B; } }
-		public override int DefMissSound { get { return 0x23A; } }
+		public override int DefHitSound => 0x23B;
+		public override int DefMissSound => 0x23A;
 
-		public override int StrReq { get { return Core.AOS ? 20 : 20; } }
+		public override int StrReq => Core.AOS ? 20 : 20;
 
-		public override int MinDamageBase { get { return Core.AOS ? 11 : 13; } }
-		public override int MaxDamageBase { get { return Core.AOS ? 11 : 13; } }
-		public override float SpeedBase { get { return Core.ML ? 2.50f : Core.AOS ? 44 : 44; } }
+		public override int MinDamageBase => Core.AOS ? 11 : 13;
+		public override int MaxDamageBase => Core.AOS ? 11 : 13;
+		public override float SpeedBase => Core.ML ? 2.50f : Core.AOS ? 44 : 44;
 
-		public override int InitMinHits { get { return 45; } }
-		public override int InitMaxHits { get { return 50; } }
+		public override int InitMinHits => 45;
+		public override int InitMaxHits => 50;
 
 		[Constructable]
 		public Wakizashi() : base(0x27A4)

@@ -2,7 +2,7 @@ namespace Server.Items
 {
 	public class HoveringWisp : BaseItem
 	{
-		public override int LabelNumber { get { return 1072881; } } // hovering wisp
+		public override int LabelNumber => 1072881;  // hovering wisp
 
 		[Constructable]
 		public HoveringWisp() : base(0x2100)

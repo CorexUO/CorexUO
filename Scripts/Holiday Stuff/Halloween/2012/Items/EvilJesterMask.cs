@@ -2,7 +2,7 @@
 {
 	public class PaintedEvilJesterMask : BasePaintedMask
 	{
-		public override string MaskName { get { return "Evil Jester Mask"; } }
+		public override string MaskName => "Evil Jester Mask";
 
 		[Constructable]
 		public PaintedEvilJesterMask()

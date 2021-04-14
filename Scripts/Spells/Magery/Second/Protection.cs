@@ -16,8 +16,8 @@ namespace Server.Spells.Second
 				Reagent.SulfurousAsh
 			);
 
-		public override SpellCircle Circle { get { return SpellCircle.Second; } }
-		public override bool RequireTarget { get { return false; } }
+		public override SpellCircle Circle => SpellCircle.Second;
+		public override bool RequireTarget => false;
 
 		public ProtectionSpell(Mobile caster, Item scroll) : base(caster, scroll, m_Info)
 		{

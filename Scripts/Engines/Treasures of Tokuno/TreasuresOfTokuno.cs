@@ -64,10 +64,7 @@ namespace Server.Misc
 			}
 		};
 
-		public static Type[] LesserArtifacts
-		{
-			get { return m_LesserArtifacts[(int)RewardEra - 1]; }
-		}
+		public static Type[] LesserArtifacts => m_LesserArtifacts[(int)RewardEra - 1];
 
 		private static Type[][] m_GreaterArtifacts = null;
 
@@ -170,14 +167,14 @@ namespace Server.Mobiles
 {
 	public class IharaSoko : BaseVendor
 	{
-		public override bool IsActiveVendor { get { return false; } }
-		public override bool IsInvulnerable { get { return true; } }
-		public override bool DisallowAllMoves { get { return true; } }
-		public override bool ClickTitle { get { return true; } }
-		public override bool CanTeach { get { return false; } }
+		public override bool IsActiveVendor => false;
+		public override bool IsInvulnerable => true;
+		public override bool DisallowAllMoves => true;
+		public override bool ClickTitle => true;
+		public override bool CanTeach => false;
 
 		protected List<SBInfo> m_SBInfos = new List<SBInfo>();
-		protected override List<SBInfo> SBInfos { get { return m_SBInfos; } }
+		protected override List<SBInfo> SBInfos => m_SBInfos;
 
 		public override void InitSBInfo()
 		{

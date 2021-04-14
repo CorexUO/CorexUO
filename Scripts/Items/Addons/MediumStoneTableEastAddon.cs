@@ -2,9 +2,9 @@ namespace Server.Items
 {
 	public class MediumStoneTableEastAddon : BaseAddon
 	{
-		public override BaseAddonDeed Deed { get { return new MediumStoneTableEastDeed(); } }
+		public override BaseAddonDeed Deed => new MediumStoneTableEastDeed();
 
-		public override bool RetainDeedHue { get { return true; } }
+		public override bool RetainDeedHue => true;
 
 		[Constructable]
 		public MediumStoneTableEastAddon() : this(0)
@@ -40,8 +40,8 @@ namespace Server.Items
 
 	public class MediumStoneTableEastDeed : BaseAddonDeed
 	{
-		public override BaseAddon Addon { get { return new MediumStoneTableEastAddon(this.Hue); } }
-		public override int LabelNumber { get { return 1044508; } } // stone table (east)
+		public override BaseAddon Addon => new MediumStoneTableEastAddon(Hue);
+		public override int LabelNumber => 1044508;  // stone table (east)
 
 		[Constructable]
 		public MediumStoneTableEastDeed()

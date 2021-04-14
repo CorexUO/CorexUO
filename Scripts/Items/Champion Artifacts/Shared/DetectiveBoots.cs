@@ -4,19 +4,19 @@ namespace Server.Items
 {
 	public class DetectiveBoots : Boots
 	{
-		public override int LabelNumber { get { return 1094894 + m_Level; } } // [Quality] Detective of the Royal Guard [Replica]
+		public override int LabelNumber => 1094894 + m_Level;  // [Quality] Detective of the Royal Guard [Replica]
 
-		public override int InitMinHits { get { return 150; } }
-		public override int InitMaxHits { get { return 150; } }
+		public override int InitMinHits => 150;
+		public override int InitMaxHits => 150;
 
-		public override bool CanFortify { get { return false; } }
+		public override bool CanFortify => false;
 
 		private int m_Level;
 
 		[CommandProperty(AccessLevel.GameMaster)]
 		public int Level
 		{
-			get { return m_Level; }
+			get => m_Level;
 			set { m_Level = Math.Max(Math.Min(2, value), 0); Attributes.BonusInt = 2 + m_Level; InvalidateProperties(); }
 		}
 

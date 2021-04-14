@@ -2,7 +2,7 @@ namespace Server.Items
 {
 	public class KillerFrog : BaseFish
 	{
-		public override int LabelNumber { get { return 1073825; } } // A Killer Frog
+		public override int LabelNumber => 1073825;  // A Killer Frog
 
 		[Constructable]
 		public KillerFrog() : base(0x3B0D)

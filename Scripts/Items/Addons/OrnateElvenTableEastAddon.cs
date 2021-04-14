@@ -2,7 +2,7 @@ namespace Server.Items
 {
 	public class OrnateElvenTableEastAddon : BaseAddon
 	{
-		public override BaseAddonDeed Deed { get { return new OrnateElvenTableEastDeed(); } }
+		public override BaseAddonDeed Deed => new OrnateElvenTableEastDeed();
 
 		[Constructable]
 		public OrnateElvenTableEastAddon()
@@ -33,8 +33,8 @@ namespace Server.Items
 
 	public class OrnateElvenTableEastDeed : BaseAddonDeed
 	{
-		public override BaseAddon Addon { get { return new OrnateElvenTableEastAddon(); } }
-		public override int LabelNumber { get { return 1073384; } } // ornate table (east)
+		public override BaseAddon Addon => new OrnateElvenTableEastAddon();
+		public override int LabelNumber => 1073384;  // ornate table (east)
 
 		[Constructable]
 		public OrnateElvenTableEastDeed()

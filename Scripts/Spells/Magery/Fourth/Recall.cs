@@ -18,7 +18,7 @@ namespace Server.Spells.Fourth
 				Reagent.MandrakeRoot
 			);
 
-		public override SpellCircle Circle { get { return SpellCircle.Fourth; } }
+		public override SpellCircle Circle => SpellCircle.Fourth;
 
 		private readonly RunebookEntry m_Entry;
 		private readonly Runebook m_Book;

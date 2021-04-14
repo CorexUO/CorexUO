@@ -47,7 +47,7 @@ namespace Server.Mobiles
 			AddLoot(LootPack.Rich);
 		}
 
-		public override int TreasureMapLevel { get { return 5; } }
+		public override int TreasureMapLevel => 5;
 
 		public BloodElemental(Serial serial) : base(serial)
 		{

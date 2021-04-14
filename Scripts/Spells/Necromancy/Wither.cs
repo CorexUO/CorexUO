@@ -16,18 +16,18 @@ namespace Server.Spells.Necromancy
 				Reagent.PigIron
 			);
 
-		public override TimeSpan CastDelayBase { get { return TimeSpan.FromSeconds(1.5); } }
+		public override TimeSpan CastDelayBase => TimeSpan.FromSeconds(1.5);
 
-		public override double RequiredSkill { get { return 60.0; } }
+		public override double RequiredSkill => 60.0;
 
-		public override int RequiredMana { get { return 23; } }
+		public override int RequiredMana => 23;
 
 		public WitherSpell(Mobile caster, Item scroll)
 			: base(caster, scroll, m_Info)
 		{
 		}
 
-		public override bool DelayedDamage { get { return false; } }
+		public override bool DelayedDamage => false;
 
 		public override void OnCast()
 		{

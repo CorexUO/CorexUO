@@ -11,17 +11,11 @@
 	{
 		private readonly int m_Name;
 
-		public int Name
-		{
-			get { return m_Name; }
-		}
+		public int Name => m_Name;
 
 		private readonly DawnsMusicRarity m_Rarity;
 
-		public DawnsMusicRarity Rarity
-		{
-			get { return m_Rarity; }
-		}
+		public DawnsMusicRarity Rarity => m_Rarity;
 
 		public DawnsMusicInfo(int name, DawnsMusicRarity rarity)
 		{

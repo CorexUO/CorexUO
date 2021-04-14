@@ -5,16 +5,11 @@ namespace Server.Engines.Quests.Matriarch
 {
 	public class KillInfiltratorsObjective : QuestObjective
 	{
-		public override object Message
-		{
-			get
-			{
+		public override object Message =>
 				// Kill 7 black/red solen infiltrators.
-				return ((SolenMatriarchQuest)System).RedSolen ? 1054086 : 1054085;
-			}
-		}
+				((SolenMatriarchQuest)System).RedSolen ? 1054086 : 1054085;
 
-		public override int MaxProgress { get { return 7; } }
+		public override int MaxProgress => 7;
 
 		public KillInfiltratorsObjective()
 		{
@@ -73,16 +68,11 @@ namespace Server.Engines.Quests.Matriarch
 
 	public class ReturnAfterKillsObjective : QuestObjective
 	{
-		public override object Message
-		{
-			get
-			{
+		public override object Message =>
 				/* You've completed your task of slaying solen infiltrators. Return to the
-				 * Matriarch who gave you this task.
-				 */
-				return 1054090;
-			}
-		}
+* Matriarch who gave you this task.
+*/
+				1054090;
 
 		public ReturnAfterKillsObjective()
 		{
@@ -96,16 +86,11 @@ namespace Server.Engines.Quests.Matriarch
 
 	public class GatherWaterObjective : QuestObjective
 	{
-		public override object Message
-		{
-			get
-			{
+		public override object Message =>
 				// Gather 8 gallons of water for the water vats of the solen ant lair.
-				return 1054092;
-			}
-		}
+				1054092;
 
-		public override int MaxProgress { get { return 40; } }
+		public override int MaxProgress => 40;
 
 		public GatherWaterObjective()
 		{
@@ -134,14 +119,9 @@ namespace Server.Engines.Quests.Matriarch
 
 	public class ReturnAfterWaterObjective : QuestObjective
 	{
-		public override object Message
-		{
-			get
-			{
+		public override object Message =>
 				// You've completed your task of gathering water. Return to the Matriarch who gave you this task.
-				return 1054095;
-			}
-		}
+				1054095;
 
 		public ReturnAfterWaterObjective()
 		{
@@ -165,14 +145,9 @@ namespace Server.Engines.Quests.Matriarch
 
 	public class ProcessFungiObjective : QuestObjective
 	{
-		public override object Message
-		{
-			get
-			{
+		public override object Message =>
 				// Give the Solen Matriarch a stack of zoogi fungus to process into powder of translocation.
-				return 1054098;
-			}
-		}
+				1054098;
 
 		public ProcessFungiObjective()
 		{
@@ -193,14 +168,9 @@ namespace Server.Engines.Quests.Matriarch
 
 	public class GetRewardObjective : QuestObjective
 	{
-		public override object Message
-		{
-			get
-			{
+		public override object Message =>
 				// Return to the solen matriarch for your reward.
-				return 1054149;
-			}
-		}
+				1054149;
 
 		public GetRewardObjective()
 		{

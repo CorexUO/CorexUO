@@ -7,8 +7,8 @@ namespace Server.Mobiles
 {
 	public abstract class BaseChampion : BaseCreature
 	{
-		public override bool CanMoveOverObstacles { get { return true; } }
-		public override bool CanDestroyObstacles { get { return true; } }
+		public override bool CanMoveOverObstacles => true;
+		public override bool CanDestroyObstacles => true;
 
 		public BaseChampion(AIType aiType) : this(aiType, FightMode.Closest)
 		{
@@ -29,7 +29,7 @@ namespace Server.Mobiles
 		public abstract Type[] DecorativeList { get; }
 		public abstract MonsterStatuetteType[] StatueTypes { get; }
 
-		public virtual bool NoGoodies { get { return false; } }
+		public virtual bool NoGoodies => false;
 
 		public override void Serialize(GenericWriter writer)
 		{
@@ -218,7 +218,7 @@ namespace Server.Mobiles
 				if (NoGoodies)
 					return base.OnBeforeDeath();
 
-				Map map = this.Map;
+				Map map = Map;
 
 				if (map != null)
 				{

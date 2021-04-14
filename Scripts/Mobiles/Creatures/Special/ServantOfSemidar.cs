@@ -9,9 +9,9 @@ namespace Server.Mobiles
 			Body = 0x26;
 		}
 
-		public override bool DisallowAllMoves { get { return true; } }
+		public override bool DisallowAllMoves => true;
 
-		public override bool InitialInnocent { get { return true; } }
+		public override bool InitialInnocent => true;
 
 		public override bool CanBeDamaged()
 		{

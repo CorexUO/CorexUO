@@ -7,10 +7,10 @@ namespace Server.Spells.Spellweaving
 	{
 		private static readonly SpellInfo m_Info = new SpellInfo("Essence of Wind", "Anathrae", -1);
 
-		public override TimeSpan CastDelayBase { get { return TimeSpan.FromSeconds(3.0); } }
+		public override TimeSpan CastDelayBase => TimeSpan.FromSeconds(3.0);
 
-		public override double RequiredSkill { get { return 52.0; } }
-		public override int RequiredMana { get { return 40; } }
+		public override double RequiredSkill => 52.0;
+		public override int RequiredMana => 40;
 
 		public EssenceOfWindSpell(Mobile caster, Item scroll) : base(caster, scroll, m_Info)
 		{

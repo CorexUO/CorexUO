@@ -5,13 +5,13 @@ namespace Server.Items
 {
 	public class ValentinesCard : BaseItem
 	{
-		public override string DefaultName { get { return "a Valentine's card"; } }
+		public override string DefaultName => "a Valentine's card";
 
 		[CommandProperty(AccessLevel.GameMaster)]
-		public virtual string From { get { return m_From; } set { m_From = value; } }
+		public virtual string From { get => m_From; set => m_From = value; }
 
 		[CommandProperty(AccessLevel.GameMaster)]
-		public virtual string To { get { return m_To; } set { m_To = value; } }
+		public virtual string To { get => m_To; set => m_To = value; }
 
 		private static readonly string Unsigned = "___";
 
@@ -55,7 +55,7 @@ namespace Server.Items
 		{
 			if (m_To == null)
 			{
-				if (this.IsChildOf(from))
+				if (IsChildOf(from))
 				{
 					from.BeginTarget(10, false, TargetFlags.None, new TargetCallback(OnTarget));
 

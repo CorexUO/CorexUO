@@ -12,7 +12,7 @@ namespace Server.Gumps
 	{
 		private readonly Runebook m_Book;
 
-		public Runebook Book { get { return m_Book; } }
+		public Runebook Book => m_Book;
 
 		public int GetMapHue(Map map)
 		{

@@ -7,7 +7,7 @@ namespace Server.Items
 		[CommandProperty(AccessLevel.GameMaster)]
 		public CraftResource Resource
 		{
-			get { return m_Resource; }
+			get => m_Resource;
 			set { m_Resource = value; InvalidateProperties(); }
 		}
 
@@ -36,10 +36,7 @@ namespace Server.Items
 			}
 		}
 
-		public override double DefaultWeight
-		{
-			get { return Core.ML ? 1.0 : 10.0; } // Pub 57
-		}
+		public override double DefaultWeight => Core.ML ? 1.0 : 10.0;
 
 		public BaseGranite(CraftResource resource) : base(0x1779)
 		{
@@ -53,7 +50,7 @@ namespace Server.Items
 		{
 		}
 
-		public override int LabelNumber { get { return 1044607; } } // high quality granite
+		public override int LabelNumber => 1044607;  // high quality granite
 
 		public override void GetProperties(ObjectPropertyList list)
 		{

@@ -105,7 +105,7 @@ namespace Server.Engines.Quests.Haven
 			if (ItemID == 0x2006) // Corpse form
 			{
 				list.Add("a human corpse");
-				list.Add(1049144, this.Name); // the remains of ~1_NAME~ the apprentice
+				list.Add(1049144, Name); // the remains of ~1_NAME~ the apprentice
 			}
 			else
 			{
@@ -125,7 +125,7 @@ namespace Server.Engines.Quests.Haven
 
 		public override void Open(Mobile from, bool checkSelfLoot)
 		{
-			if (!from.InRange(this.GetWorldLocation(), 2))
+			if (!from.InRange(GetWorldLocation(), 2))
 				return;
 
 			PlayerMobile player = from as PlayerMobile;
@@ -164,13 +164,13 @@ namespace Server.Engines.Quests.Haven
 		public override void OnLocationChange(Point3D oldLoc)
 		{
 			if (m_Lantern != null && !m_Lantern.Deleted)
-				m_Lantern.Location = new Point3D(this.X, this.Y + 1, this.Z);
+				m_Lantern.Location = new Point3D(X, Y + 1, Z);
 		}
 
 		public override void OnMapChange()
 		{
 			if (m_Lantern != null && !m_Lantern.Deleted)
-				m_Lantern.Map = this.Map;
+				m_Lantern.Map = Map;
 		}
 
 		public override void OnAfterDelete()

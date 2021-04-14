@@ -3,8 +3,8 @@ namespace Server.Mobiles
 	[CorpseName("an air elemental corpse")]
 	public class SummonedAirElemental : BaseCreature
 	{
-		public override double DispelDifficulty { get { return 117.5; } }
-		public override double DispelFocus { get { return 45.0; } }
+		public override double DispelDifficulty => 117.5;
+		public override double DispelFocus => 45.0;
 
 		[Constructable]
 		public SummonedAirElemental() : base(AIType.AI_Mage, FightMode.Closest, 10, 1, 0.2, 0.4)

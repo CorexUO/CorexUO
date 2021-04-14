@@ -11,9 +11,9 @@ namespace Server.Engines.ConPVP
 		private readonly DuelContext m_Context;
 		private readonly Participant m_Participant;
 
-		public Mobile From { get { return m_From; } }
-		public DuelContext Context { get { return m_Context; } }
-		public Participant Participant { get { return m_Participant; } }
+		public Mobile From => m_From;
+		public DuelContext Context => m_Context;
+		public Participant Participant => m_Participant;
 
 		public string Center(string text)
 		{

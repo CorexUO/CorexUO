@@ -296,14 +296,14 @@ namespace Server
 			{
 				this.owner = owner;
 
-				this.buffer = new ConsumableEntry[bufferSize];
+				buffer = new ConsumableEntry[bufferSize];
 
-				for (int i = 0; i < this.buffer.Length; ++i)
+				for (int i = 0; i < buffer.Length; ++i)
 				{
-					this.buffer[i].writer = new BinaryMemoryWriter();
+					buffer[i].writer = new BinaryMemoryWriter();
 				}
 
-				this.completionEvent = new ManualResetEvent(false);
+				completionEvent = new ManualResetEvent(false);
 
 				thread = new Thread(Processor)
 				{

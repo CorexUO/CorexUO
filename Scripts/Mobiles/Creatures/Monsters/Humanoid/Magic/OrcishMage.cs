@@ -6,7 +6,7 @@ namespace Server.Mobiles
 	[CorpseName("a glowing orc corpse")]
 	public class OrcishMage : BaseCreature
 	{
-		public override InhumanSpeech SpeechType { get { return InhumanSpeech.Orc; } }
+		public override InhumanSpeech SpeechType => InhumanSpeech.Orc;
 
 		[Constructable]
 		public OrcishMage() : base(AIType.AI_Mage, FightMode.Closest, 10, 1, 0.2, 0.4)
@@ -55,14 +55,11 @@ namespace Server.Mobiles
 			AddLoot(LootPack.LowScrolls);
 		}
 
-		public override bool CanRummageCorpses { get { return true; } }
-		public override int TreasureMapLevel { get { return 1; } }
-		public override int Meat { get { return 1; } }
+		public override bool CanRummageCorpses => true;
+		public override int TreasureMapLevel => 1;
+		public override int Meat => 1;
 
-		public override OppositionGroup OppositionGroup
-		{
-			get { return OppositionGroup.SavagesAndOrcs; }
-		}
+		public override OppositionGroup OppositionGroup => OppositionGroup.SavagesAndOrcs;
 
 		public override bool IsEnemy(Mobile m)
 		{

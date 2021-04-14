@@ -495,13 +495,7 @@ namespace Server.Guilds
 		}
 
 
-		public override bool Disbanded
-		{
-			get
-			{
-				return (m_Leader == null || m_Leader.Deleted);
-			}
-		}
+		public override bool Disbanded => (m_Leader == null || m_Leader.Deleted);
 
 		public override void OnDelete(Mobile mob)
 		{
@@ -1077,10 +1071,7 @@ namespace Server.Guilds
 		[CommandProperty(AccessLevel.GameMaster)]
 		public override string Name
 		{
-			get
-			{
-				return m_Name;
-			}
+			get => m_Name;
 			set
 			{
 				m_Name = value;
@@ -1098,10 +1089,7 @@ namespace Server.Guilds
 		[CommandProperty(AccessLevel.GameMaster)]
 		public override string Abbreviation
 		{
-			get
-			{
-				return m_Abbreviation;
-			}
+			get => m_Abbreviation;
 			set
 			{
 				m_Abbreviation = value;
@@ -1119,10 +1107,7 @@ namespace Server.Guilds
 		[CommandProperty(AccessLevel.GameMaster)]
 		public override GuildType Type
 		{
-			get
-			{
-				return OrderChaos ? m_Type : GuildType.Regular;
-			}
+			get => OrderChaos ? m_Type : GuildType.Regular;
 			set
 			{
 				if (m_Type != value)

@@ -3,20 +3,20 @@ namespace Server.Items
 	[FlipableAttribute(0x13BB, 0x13C0)]
 	public class ChainCoif : BaseArmor
 	{
-		public override int BasePhysicalResistance { get { return 4; } }
-		public override int BaseFireResistance { get { return 4; } }
-		public override int BaseColdResistance { get { return 4; } }
-		public override int BasePoisonResistance { get { return 1; } }
-		public override int BaseEnergyResistance { get { return 2; } }
+		public override int BasePhysicalResistance => 4;
+		public override int BaseFireResistance => 4;
+		public override int BaseColdResistance => 4;
+		public override int BasePoisonResistance => 1;
+		public override int BaseEnergyResistance => 2;
 
-		public override int InitMinHits { get { return 35; } }
-		public override int InitMaxHits { get { return 60; } }
+		public override int InitMinHits => 35;
+		public override int InitMaxHits => 60;
 
-		public override int StrReq { get { return Core.AOS ? 60 : 20; } }
+		public override int StrReq => Core.AOS ? 60 : 20;
 
-		public override int ArmorBase { get { return 28; } }
+		public override int ArmorBase => 28;
 
-		public override ArmorMaterialType MaterialType { get { return ArmorMaterialType.Chainmail; } }
+		public override ArmorMaterialType MaterialType => ArmorMaterialType.Chainmail;
 
 		[Constructable]
 		public ChainCoif() : base(0x13BB)

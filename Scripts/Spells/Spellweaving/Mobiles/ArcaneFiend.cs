@@ -3,11 +3,11 @@ namespace Server.Mobiles
 	[CorpseName("an imp corpse")]
 	public class ArcaneFiend : BaseCreature
 	{
-		public override double DispelDifficulty { get { return 70.0; } }
-		public override double DispelFocus { get { return 20.0; } }
+		public override double DispelDifficulty => 70.0;
+		public override double DispelFocus => 20.0;
 
-		public override PackInstinct PackInstinct { get { return PackInstinct.Daemon; } }
-		public override bool BleedImmune { get { return true; } }   //TODO: Verify on OSI.  Guide says this.
+		public override PackInstinct PackInstinct => PackInstinct.Daemon;
+		public override bool BleedImmune => true;    //TODO: Verify on OSI.  Guide says this.
 
 		[Constructable]
 		public ArcaneFiend() : base(AIType.AI_Mage, FightMode.Closest, 10, 1, 0.2, 0.4)

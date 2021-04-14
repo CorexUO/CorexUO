@@ -13,19 +13,19 @@ namespace Server.Items
 
 		public abstract int LitItemID { get; }
 
-		public virtual int UnlitItemID { get { return 0; } }
-		public virtual int BurntOutItemID { get { return 0; } }
+		public virtual int UnlitItemID => 0;
+		public virtual int BurntOutItemID => 0;
 
-		public virtual int LitSound { get { return 0x47; } }
-		public virtual int UnlitSound { get { return 0x3be; } }
-		public virtual int BurntOutSound { get { return 0x4b8; } }
+		public virtual int LitSound => 0x47;
+		public virtual int UnlitSound => 0x3be;
+		public virtual int BurntOutSound => 0x4b8;
 
 		public static readonly bool Burnout = false;
 
 		[CommandProperty(AccessLevel.GameMaster)]
 		public bool Burning
 		{
-			get { return m_Burning; }
+			get => m_Burning;
 			set
 			{
 				if (m_Burning != value)
@@ -39,15 +39,15 @@ namespace Server.Items
 		[CommandProperty(AccessLevel.GameMaster)]
 		public bool BurntOut
 		{
-			get { return m_BurntOut; }
-			set { m_BurntOut = value; }
+			get => m_BurntOut;
+			set => m_BurntOut = value;
 		}
 
 		[CommandProperty(AccessLevel.GameMaster)]
 		public bool Protected
 		{
-			get { return m_Protected; }
-			set { m_Protected = value; }
+			get => m_Protected;
+			set => m_Protected = value;
 		}
 
 		[CommandProperty(AccessLevel.GameMaster)]
@@ -63,7 +63,7 @@ namespace Server.Items
 					return m_Duration;
 			}
 
-			set { m_Duration = value; }
+			set => m_Duration = value;
 		}
 
 		[Constructable]
@@ -161,7 +161,7 @@ namespace Server.Items
 			if (m_Protected && from.AccessLevel == AccessLevel.Player)
 				return;
 
-			if (!from.InRange(this.GetWorldLocation(), 2))
+			if (!from.InRange(GetWorldLocation(), 2))
 				return;
 
 			if (m_Burning)

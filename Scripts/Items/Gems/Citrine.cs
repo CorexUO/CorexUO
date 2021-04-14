@@ -2,10 +2,7 @@ namespace Server.Items
 {
 	public class Citrine : BaseItem
 	{
-		public override double DefaultWeight
-		{
-			get { return 0.1; }
-		}
+		public override double DefaultWeight => 0.1;
 
 		[Constructable]
 		public Citrine() : this(1)

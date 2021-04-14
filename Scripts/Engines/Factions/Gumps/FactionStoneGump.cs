@@ -10,7 +10,7 @@ namespace Server.Factions
 		private readonly PlayerMobile m_From;
 		private readonly Faction m_Faction;
 
-		public override int ButtonTypes { get { return 4; } }
+		public override int ButtonTypes => 4;
 
 		public FactionStoneGump(PlayerMobile from, Faction faction) : base(20, 30)
 		{

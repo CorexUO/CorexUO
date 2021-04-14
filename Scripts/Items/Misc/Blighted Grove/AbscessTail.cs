@@ -2,7 +2,7 @@ namespace Server.Items
 {
 	public class AbscessTail : BaseItem
 	{
-		public override int LabelNumber { get { return 1074231; } } // Abscess' Tail
+		public override int LabelNumber => 1074231;  // Abscess' Tail
 
 		[Constructable]
 		public AbscessTail() : base(0x1A9D)

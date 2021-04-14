@@ -10,14 +10,14 @@ namespace Server.Engines.Reports
 			return new ItemValue();
 		}
 
-		public override PersistableType TypeID { get { return ThisTypeID; } }
+		public override PersistableType TypeID => ThisTypeID;
 		#endregion
 
 		private string m_Value;
 		private string m_Format;
 
-		public string Value { get { return m_Value; } set { m_Value = value; } }
-		public string Format { get { return m_Format; } set { m_Format = value; } }
+		public string Value { get => m_Value; set => m_Value = value; }
+		public string Format { get => m_Format; set => m_Format = value; }
 
 		private ItemValue()
 		{

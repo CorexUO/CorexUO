@@ -17,8 +17,8 @@ namespace Server.Spells.Seventh
 				Reagent.MandrakeRoot
 			);
 
-		public override SpellCircle Circle { get { return SpellCircle.Seventh; } }
-		public override bool RequireTarget { get { return false; } }
+		public override SpellCircle Circle => SpellCircle.Seventh;
+		public override bool RequireTarget => false;
 
 		private readonly int m_NewBody;
 

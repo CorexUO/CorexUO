@@ -4,7 +4,7 @@ namespace Server.Items
 {
 	public class RunicFletcherTool : BaseRunicTool
 	{
-		public override CraftSystem CraftSystem { get { return DefBowFletching.CraftSystem; } }
+		public override CraftSystem CraftSystem => DefBowFletching.CraftSystem;
 
 		public override int LabelNumber
 		{

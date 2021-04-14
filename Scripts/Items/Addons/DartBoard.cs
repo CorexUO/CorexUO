@@ -4,10 +4,10 @@ namespace Server.Items
 {
 	public class DartBoard : AddonComponent
 	{
-		public override bool NeedsWall { get { return true; } }
-		public override Point3D WallPosition { get { return this.East ? new Point3D(-1, 0, 0) : new Point3D(0, -1, 0); } }
+		public override bool NeedsWall => true;
+		public override Point3D WallPosition => East ? new Point3D(-1, 0, 0) : new Point3D(0, -1, 0);
 
-		public bool East { get { return this.ItemID == 0x1E2F; } }
+		public bool East => ItemID == 0x1E2F;
 
 		[Constructable]
 		public DartBoard() : this(true)
@@ -26,9 +26,9 @@ namespace Server.Items
 		public override void OnDoubleClick(Mobile from)
 		{
 			Direction dir;
-			if (from.Location != this.Location)
+			if (from.Location != Location)
 				dir = from.GetDirectionTo(this);
-			else if (this.East)
+			else if (East)
 				dir = Direction.West;
 			else
 				dir = Direction.North;
@@ -39,7 +39,7 @@ namespace Server.Items
 
 			if (!from.InRange(this, 4) || !from.InLOS(this))
 				canThrow = false;
-			else if (this.East)
+			else if (East)
 				canThrow = (dir == Direction.Left || dir == Direction.West || dir == Direction.Up);
 			else
 				canThrow = (dir == Direction.Up || dir == Direction.North || dir == Direction.Right);
@@ -100,7 +100,7 @@ namespace Server.Items
 
 	public class DartBoardEastAddon : BaseAddon
 	{
-		public override BaseAddonDeed Deed { get { return new DartBoardEastDeed(); } }
+		public override BaseAddonDeed Deed => new DartBoardEastDeed();
 
 		public DartBoardEastAddon()
 		{
@@ -128,9 +128,9 @@ namespace Server.Items
 
 	public class DartBoardEastDeed : BaseAddonDeed
 	{
-		public override BaseAddon Addon { get { return new DartBoardEastAddon(); } }
+		public override BaseAddon Addon => new DartBoardEastAddon();
 
-		public override int LabelNumber { get { return 1044326; } } // dartboard (east)
+		public override int LabelNumber => 1044326;  // dartboard (east)
 
 		[Constructable]
 		public DartBoardEastDeed()
@@ -158,7 +158,7 @@ namespace Server.Items
 
 	public class DartBoardSouthAddon : BaseAddon
 	{
-		public override BaseAddonDeed Deed { get { return new DartBoardSouthDeed(); } }
+		public override BaseAddonDeed Deed => new DartBoardSouthDeed();
 
 		public DartBoardSouthAddon()
 		{
@@ -186,9 +186,9 @@ namespace Server.Items
 
 	public class DartBoardSouthDeed : BaseAddonDeed
 	{
-		public override BaseAddon Addon { get { return new DartBoardSouthAddon(); } }
+		public override BaseAddon Addon => new DartBoardSouthAddon();
 
-		public override int LabelNumber { get { return 1044325; } } // dartboard (south)
+		public override int LabelNumber => 1044325;  // dartboard (south)
 
 		[Constructable]
 		public DartBoardSouthDeed()

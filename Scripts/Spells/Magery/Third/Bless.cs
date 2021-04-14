@@ -13,8 +13,8 @@ namespace Server.Spells.Third
 				Reagent.MandrakeRoot
 			);
 
-		public override SpellCircle Circle { get { return SpellCircle.Third; } }
-		public override TargetFlags SpellTargetFlags { get { return TargetFlags.Beneficial; } }
+		public override SpellCircle Circle => SpellCircle.Third;
+		public override TargetFlags SpellTargetFlags => TargetFlags.Beneficial;
 
 		public BlessSpell(Mobile caster, Item scroll) : base(caster, scroll, m_Info)
 		{

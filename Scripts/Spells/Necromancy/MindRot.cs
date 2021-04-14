@@ -15,10 +15,10 @@ namespace Server.Spells.Necromancy
 				Reagent.DaemonBlood
 			);
 
-		public override TimeSpan CastDelayBase { get { return TimeSpan.FromSeconds(1.5); } }
+		public override TimeSpan CastDelayBase => TimeSpan.FromSeconds(1.5);
 
-		public override double RequiredSkill { get { return 30.0; } }
-		public override int RequiredMana { get { return 17; } }
+		public override double RequiredSkill => 30.0;
+		public override int RequiredMana => 17;
 
 		public MindRotSpell(Mobile caster, Item scroll) : base(caster, scroll, m_Info)
 		{

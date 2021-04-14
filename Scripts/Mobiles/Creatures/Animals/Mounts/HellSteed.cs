@@ -3,9 +3,9 @@ namespace Server.Mobiles
 	[CorpseName("a hellsteed corpse")]
 	public class HellSteed : BaseMount
 	{
-		public override bool HasBreath { get { return true; } }
-		public override int BreathChaosDamage { get { return 100; } }
-		public override Poison PoisonImmune { get { return Poison.Lethal; } }
+		public override bool HasBreath => true;
+		public override int BreathChaosDamage => 100;
+		public override Poison PoisonImmune => Poison.Lethal;
 
 		[Constructable]
 		public HellSteed() : this("a hellsteed")

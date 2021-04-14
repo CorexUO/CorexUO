@@ -2,16 +2,16 @@ namespace Server.Items
 {
 	public class MaceShieldGlasses : ElvenGlasses
 	{
-		public override int LabelNumber { get { return 1073381; } } //Mace And Shield Reading Glasses
+		public override int LabelNumber => 1073381;  //Mace And Shield Reading Glasses
 
-		public override int BasePhysicalResistance { get { return 25; } }
-		public override int BaseFireResistance { get { return 10; } }
-		public override int BaseColdResistance { get { return 10; } }
-		public override int BasePoisonResistance { get { return 10; } }
-		public override int BaseEnergyResistance { get { return 10; } }
+		public override int BasePhysicalResistance => 25;
+		public override int BaseFireResistance => 10;
+		public override int BaseColdResistance => 10;
+		public override int BasePoisonResistance => 10;
+		public override int BaseEnergyResistance => 10;
 
-		public override int InitMinHits { get { return 255; } }
-		public override int InitMaxHits { get { return 255; } }
+		public override int InitMinHits => 255;
+		public override int InitMaxHits => 255;
 
 		[Constructable]
 		public MaceShieldGlasses()

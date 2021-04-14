@@ -3,20 +3,20 @@ namespace Server.Items
 	[FlipableAttribute(0x2D32, 0x2D26)]
 	public class RuneBlade : BaseSword
 	{
-		public override WeaponAbility PrimaryAbility { get { return WeaponAbility.Disarm; } }
-		public override WeaponAbility SecondaryAbility { get { return WeaponAbility.Bladeweave; } }
+		public override WeaponAbility PrimaryAbility => WeaponAbility.Disarm;
+		public override WeaponAbility SecondaryAbility => WeaponAbility.Bladeweave;
 
-		public override int DefHitSound { get { return 0x23B; } }
-		public override int DefMissSound { get { return 0x239; } }
+		public override int DefHitSound => 0x23B;
+		public override int DefMissSound => 0x239;
 
-		public override int StrReq { get { return Core.AOS ? 30 : 30; } }
+		public override int StrReq => Core.AOS ? 30 : 30;
 
-		public override int MinDamageBase { get { return Core.AOS ? 15 : 15; } }
-		public override int MaxDamageBase { get { return Core.AOS ? 17 : 17; } }
-		public override float SpeedBase { get { return Core.ML ? 3.00f : Core.AOS ? 35 : 35; } }
+		public override int MinDamageBase => Core.AOS ? 15 : 15;
+		public override int MaxDamageBase => Core.AOS ? 17 : 17;
+		public override float SpeedBase => Core.ML ? 3.00f : Core.AOS ? 35 : 35;
 
-		public override int InitMinHits { get { return 30; } }
-		public override int InitMaxHits { get { return 60; } }
+		public override int InitMinHits => 30;
+		public override int InitMaxHits => 60;
 
 		[Constructable]
 		public RuneBlade() : base(0x2D32)

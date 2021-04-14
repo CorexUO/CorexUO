@@ -6,10 +6,10 @@ namespace Server.Items
 {
 	public class WallBannerComponent : AddonComponent, IDyable
 	{
-		public override bool NeedsWall { get { return true; } }
-		public override Point3D WallPosition { get { return this.East ? new Point3D(-1, 0, 0) : new Point3D(0, -1, 0); } }
+		public override bool NeedsWall => true;
+		public override Point3D WallPosition => East ? new Point3D(-1, 0, 0) : new Point3D(0, -1, 0);
 
-		public bool East { get { return ((WallBanner)Addon).East; } }
+		public bool East => ((WallBanner)Addon).East;
 
 		public WallBannerComponent(int itemID) : base(itemID)
 		{
@@ -65,7 +65,7 @@ namespace Server.Items
 		[CommandProperty(AccessLevel.GameMaster)]
 		public bool IsRewardItem
 		{
-			get { return m_IsRewardItem; }
+			get => m_IsRewardItem;
 			set { m_IsRewardItem = value; InvalidateProperties(); }
 		}
 
@@ -74,7 +74,7 @@ namespace Server.Items
 		[CommandProperty(AccessLevel.GameMaster)]
 		public bool East
 		{
-			get { return m_East; }
+			get => m_East;
 			set { m_IsRewardItem = value; InvalidateProperties(); }
 		}
 
@@ -259,7 +259,7 @@ namespace Server.Items
 
 	public class WallBannerDeed : BaseAddonDeed, IRewardItem
 	{
-		public override int LabelNumber { get { return 1080549; } } // Wall Banner Deed
+		public override int LabelNumber => 1080549;  // Wall Banner Deed
 
 		public override BaseAddon Addon
 		{
@@ -280,7 +280,7 @@ namespace Server.Items
 		[CommandProperty(AccessLevel.GameMaster)]
 		public bool IsRewardItem
 		{
-			get { return m_IsRewardItem; }
+			get => m_IsRewardItem;
 			set { m_IsRewardItem = value; InvalidateProperties(); }
 		}
 

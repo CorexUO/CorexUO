@@ -67,7 +67,7 @@ namespace Server.Items
 				)
 			);
 
-		public override BookContent DefaultContent { get { return Content; } }
+		public override BookContent DefaultContent => Content;
 
 		[Constructable]
 		public TavarasJournal1() : base(Utility.Random(0xFF1, 2), false)
@@ -196,7 +196,7 @@ namespace Server.Items
 				)
 			);
 
-		public override BookContent DefaultContent { get { return Content; } }
+		public override BookContent DefaultContent => Content;
 
 		[Constructable]
 		public TavarasJournal2() : base(Utility.Random(0xFF1, 2), false)
@@ -293,7 +293,7 @@ namespace Server.Items
 				)
 			);
 
-		public override BookContent DefaultContent { get { return Content; } }
+		public override BookContent DefaultContent => Content;
 
 		[Constructable]
 		public TavarasJournal3() : base(Utility.Random(0xFF1, 2), false)
@@ -403,7 +403,7 @@ namespace Server.Items
 				)
 			);
 
-		public override BookContent DefaultContent { get { return Content; } }
+		public override BookContent DefaultContent => Content;
 
 		[Constructable]
 		public TavarasJournal6() : base(Utility.Random(0xFF1, 2), false)
@@ -501,7 +501,7 @@ namespace Server.Items
 				)
 			);
 
-		public override BookContent DefaultContent { get { return Content; } }
+		public override BookContent DefaultContent => Content;
 
 		[Constructable]
 		public TavarasJournal7() : base(Utility.Random(0xFF1, 2), false)
@@ -619,7 +619,7 @@ namespace Server.Items
 				)
 			);
 
-		public override BookContent DefaultContent { get { return Content; } }
+		public override BookContent DefaultContent => Content;
 
 		[Constructable]
 		public TavarasJournal8() : base(Utility.Random(0xFF1, 2), false)
@@ -713,7 +713,7 @@ namespace Server.Items
 				)
 			);
 
-		public override BookContent DefaultContent { get { return Content; } }
+		public override BookContent DefaultContent => Content;
 
 		[Constructable]
 		public TavarasJournal9() : base(Utility.Random(0xFF1, 2), false)
@@ -831,7 +831,7 @@ namespace Server.Items
 				)
 			);
 
-		public override BookContent DefaultContent { get { return Content; } }
+		public override BookContent DefaultContent => Content;
 
 		[Constructable]
 		public TavarasJournal11() : base(Utility.Random(0xFF1, 2), false)
@@ -940,7 +940,7 @@ namespace Server.Items
 				)
 			);
 
-		public override BookContent DefaultContent { get { return Content; } }
+		public override BookContent DefaultContent => Content;
 
 		[Constructable]
 		public TavarasJournal14() : base(Utility.Random(0xFF1, 2), false)
@@ -1061,7 +1061,7 @@ namespace Server.Items
 				)
 			);
 
-		public override BookContent DefaultContent { get { return Content; } }
+		public override BookContent DefaultContent => Content;
 
 		[Constructable]
 		public TavarasJournal16() : base(Utility.Random(0xFF1, 2), false)
@@ -1171,7 +1171,7 @@ namespace Server.Items
 				)
 			);
 
-		public override BookContent DefaultContent { get { return Content; } }
+		public override BookContent DefaultContent => Content;
 
 		[Constructable]
 		public TavarasJournal16b() : base(Utility.Random(0xFF1, 2), false)
@@ -1242,7 +1242,7 @@ namespace Server.Items
 				)
 			);
 
-		public override BookContent DefaultContent { get { return Content; } }
+		public override BookContent DefaultContent => Content;
 
 		[Constructable]
 		public TavarasJournal17() : base(Utility.Random(0xFF1, 2), false)
@@ -1302,7 +1302,7 @@ namespace Server.Items
 				)
 			);
 
-		public override BookContent DefaultContent { get { return Content; } }
+		public override BookContent DefaultContent => Content;
 
 		[Constructable]
 		public TavarasJournal19() : base(Utility.Random(0xFF1, 2), false)

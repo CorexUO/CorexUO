@@ -6,12 +6,9 @@ namespace Server.Items
 {
 	public class OrangePetals : BaseItem
 	{
-		public override int LabelNumber { get { return 1053122; } } // orange petals
+		public override int LabelNumber => 1053122;  // orange petals
 
-		public override double DefaultWeight
-		{
-			get { return 0.1; }
-		}
+		public override double DefaultWeight => 0.1;
 
 		[Constructable]
 		public OrangePetals() : this(1)
@@ -35,7 +32,7 @@ namespace Server.Items
 			if (item != this)
 				return base.CheckItemUse(from, item);
 
-			if (from != this.RootParent)
+			if (from != RootParent)
 			{
 				from.SendLocalizedMessage(1042038); // You must have the object in your backpack to use it.
 				return false;
@@ -62,7 +59,7 @@ namespace Server.Items
 
 			AddContext(from, new OrangePetalsContext(timer));
 
-			this.Consume();
+			Consume();
 		}
 
 		private static readonly Hashtable m_Table = new Hashtable();
@@ -122,7 +119,7 @@ namespace Server.Items
 		{
 			private readonly Timer m_Timer;
 
-			public Timer Timer { get { return m_Timer; } }
+			public Timer Timer => m_Timer;
 
 			public OrangePetalsContext(Timer timer)
 			{

@@ -5,7 +5,7 @@ namespace Server.Items
 {
 	public class HairDye : BaseItem
 	{
-		public override int LabelNumber { get { return 1041060; } } // Hair Dye
+		public override int LabelNumber => 1041060;  // Hair Dye
 
 		[Constructable]
 		public HairDye() : base(0xEFF)
@@ -33,7 +33,7 @@ namespace Server.Items
 
 		public override void OnDoubleClick(Mobile from)
 		{
-			if (from.InRange(this.GetWorldLocation(), 1))
+			if (from.InRange(GetWorldLocation(), 1))
 			{
 				from.CloseGump(typeof(HairDyeGump));
 				from.SendGump(new HairDyeGump(this));
@@ -55,29 +55,11 @@ namespace Server.Items
 			private readonly int m_HueStart;
 			private readonly int m_HueCount;
 
-			public string Name
-			{
-				get
-				{
-					return m_Name;
-				}
-			}
+			public string Name => m_Name;
 
-			public int HueStart
-			{
-				get
-				{
-					return m_HueStart;
-				}
-			}
+			public int HueStart => m_HueStart;
 
-			public int HueCount
-			{
-				get
-				{
-					return m_HueCount;
-				}
-			}
+			public int HueCount => m_HueCount;
 
 			public HairDyeEntry(string name, int hueStart, int hueCount)
 			{

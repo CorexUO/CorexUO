@@ -12,10 +12,10 @@ namespace Server.Spells.Spellweaving
 				-1
 			);
 
-		public override TimeSpan CastDelayBase { get { return TimeSpan.FromSeconds(0.5); } }
+		public override TimeSpan CastDelayBase => TimeSpan.FromSeconds(0.5);
 
-		public override double RequiredSkill { get { return 0.0; } }
-		public override int RequiredMana { get { return 24; } }
+		public override double RequiredSkill => 0.0;
+		public override int RequiredMana => 24;
 
 		public ArcaneCircleSpell(Mobile caster, Item scroll)
 			: base(caster, scroll, m_Info)

@@ -7,14 +7,14 @@ namespace Server.Items
 {
 	public class RewardBrazier : BaseItem, IRewardItem
 	{
-		public override bool ForceShowProperties { get { return ObjectPropertyList.Enabled; } }
+		public override bool ForceShowProperties => ObjectPropertyList.Enabled;
 
 		private bool m_IsRewardItem;
 
 		[CommandProperty(AccessLevel.GameMaster)]
 		public bool IsRewardItem
 		{
-			get { return m_IsRewardItem; }
+			get => m_IsRewardItem;
 			set { m_IsRewardItem = value; InvalidateProperties(); }
 		}
 
@@ -69,7 +69,7 @@ namespace Server.Items
 
 		public override void OnDoubleClick(Mobile from)
 		{
-			if (!from.InRange(this.GetWorldLocation(), 2))
+			if (!from.InRange(GetWorldLocation(), 2))
 			{
 				from.LocalOverheadMessage(MessageType.Regular, 0x3B2, 1019045); // I can't reach that.
 			}
@@ -128,14 +128,14 @@ namespace Server.Items
 
 	public class RewardBrazierDeed : BaseItem, IRewardItem
 	{
-		public override int LabelNumber { get { return 1080527; } } // Brazier Deed
+		public override int LabelNumber => 1080527;  // Brazier Deed
 
 		private bool m_IsRewardItem;
 
 		[CommandProperty(AccessLevel.GameMaster)]
 		public bool IsRewardItem
 		{
-			get { return m_IsRewardItem; }
+			get => m_IsRewardItem;
 			set { m_IsRewardItem = value; InvalidateProperties(); }
 		}
 

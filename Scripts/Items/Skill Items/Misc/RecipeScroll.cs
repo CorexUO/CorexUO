@@ -6,14 +6,14 @@ namespace Server.Items
 {
 	public class RecipeScroll : BaseItem
 	{
-		public override int LabelNumber { get { return 1074560; } } // recipe scroll
+		public override int LabelNumber => 1074560;  // recipe scroll
 
 		private int m_RecipeID;
 
 		[CommandProperty(AccessLevel.GameMaster)]
 		public int RecipeID
 		{
-			get { return m_RecipeID; }
+			get => m_RecipeID;
 			set { m_RecipeID = value; InvalidateProperties(); }
 		}
 

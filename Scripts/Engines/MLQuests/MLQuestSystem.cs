@@ -15,7 +15,7 @@ namespace Server.Engines.MLQuests
 {
 	public static class MLQuestSystem
 	{
-		public static bool Enabled { get { return Core.ML; } }
+		public static bool Enabled => Core.ML;
 
 		public const int MaxConcurrentQuests = 10;
 		public const int SpeechColor = 0x3B2;
@@ -29,20 +29,11 @@ namespace Server.Engines.MLQuests
 
 		public static readonly List<MLQuest> EmptyList = new List<MLQuest>();
 
-		public static Dictionary<Type, MLQuest> Quests
-		{
-			get { return m_Quests; }
-		}
+		public static Dictionary<Type, MLQuest> Quests => m_Quests;
 
-		public static Dictionary<Type, List<MLQuest>> QuestGivers
-		{
-			get { return m_QuestGivers; }
-		}
+		public static Dictionary<Type, List<MLQuest>> QuestGivers => m_QuestGivers;
 
-		public static Dictionary<PlayerMobile, MLQuestContext> Contexts
-		{
-			get { return m_Contexts; }
-		}
+		public static Dictionary<PlayerMobile, MLQuestContext> Contexts => m_Contexts;
 
 		static MLQuestSystem()
 		{

@@ -7,8 +7,8 @@ namespace Server.Mobiles
 	[CorpseName("a changeling corpse")]
 	public class Changeling : BaseCreature
 	{
-		public virtual string DefaultName { get { return "a changeling"; } }
-		public virtual int DefaultHue { get { return 0; } }
+		public virtual string DefaultName => "a changeling";
+		public virtual int DefaultHue => 0;
 
 		[Constructable]
 		public Changeling()
@@ -54,8 +54,8 @@ namespace Server.Mobiles
 			PackArcaneScroll(0, 1);
 		}
 
-		public override bool ShowFameTitle { get { return false; } }
-		public override bool InitialInnocent { get { return (m_MorphedInto != null); } }
+		public override bool ShowFameTitle => false;
+		public override bool InitialInnocent => (m_MorphedInto != null);
 
 		public override void GenerateLoot()
 		{
@@ -75,7 +75,7 @@ namespace Server.Mobiles
 		[CommandProperty(AccessLevel.GameMaster)]
 		public Mobile MorphedInto
 		{
-			get { return m_MorphedInto; }
+			get => m_MorphedInto;
 			set
 			{
 				if (value == this)

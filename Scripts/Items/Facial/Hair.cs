@@ -80,7 +80,7 @@ namespace Server.Items
 		{
 		}
 
-		public override bool DisplayLootType { get { return false; } }
+		public override bool DisplayLootType => false;
 
 		public override bool VerifyMove(Mobile from)
 		{
@@ -91,8 +91,8 @@ namespace Server.Items
 		{
 			//			Dupe( Amount );
 
-			parent.HairItemID = this.ItemID;
-			parent.HairHue = this.Hue;
+			parent.HairItemID = ItemID;
+			parent.HairHue = Hue;
 
 			return DeathMoveResult.MoveToCorpse;
 		}

@@ -2,7 +2,7 @@ namespace Server.Items
 {
 	public class TombstoneOfTheDamned : BaseItem
 	{
-		public override int LabelNumber { get { return 1072123; } } // Tombstone of the Damned
+		public override int LabelNumber => 1072123;  // Tombstone of the Damned
 
 		[Constructable]
 		public TombstoneOfTheDamned() : base(Utility.RandomMinMax(0xED7, 0xEDE))

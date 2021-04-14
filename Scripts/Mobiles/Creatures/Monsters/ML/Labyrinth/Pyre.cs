@@ -56,9 +56,9 @@ namespace Server.Mobiles
 				return WeaponAbility.BleedAttack;
 		}
 
-		public override bool GivesMLMinorArtifact { get { return true; } }
-		public override int TreasureMapLevel { get { return 5; } }
-		public override bool HasAura { get { return true; } }
+		public override bool GivesMLMinorArtifact => true;
+		public override int TreasureMapLevel => 5;
+		public override bool HasAura => true;
 
 		public Pyre(Serial serial)
 			: base(serial)

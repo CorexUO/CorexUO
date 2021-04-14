@@ -8,7 +8,7 @@ namespace Server.Items
 {
 	public class Banner : BaseItem, IAddon, IDyable, IRewardItem
 	{
-		public override bool ForceShowProperties { get { return ObjectPropertyList.Enabled; } }
+		public override bool ForceShowProperties => ObjectPropertyList.Enabled;
 
 		public Item Deed
 		{
@@ -28,14 +28,11 @@ namespace Server.Items
 		[CommandProperty(AccessLevel.GameMaster)]
 		public bool IsRewardItem
 		{
-			get { return m_IsRewardItem; }
+			get => m_IsRewardItem;
 			set { m_IsRewardItem = value; InvalidateProperties(); }
 		}
 
-		public bool FacingSouth
-		{
-			get { return (ItemID & 0x1) == 0; }
-		}
+		public bool FacingSouth => (ItemID & 0x1) == 0;
 
 		[Constructable]
 		public Banner(int itemID) : base(itemID)
@@ -116,14 +113,14 @@ namespace Server.Items
 
 	public class BannerDeed : BaseItem, IRewardItem
 	{
-		public override int LabelNumber { get { return 1041007; } } // a banner deed
+		public override int LabelNumber => 1041007;  // a banner deed
 
 		private bool m_IsRewardItem;
 
 		[CommandProperty(AccessLevel.GameMaster)]
 		public bool IsRewardItem
 		{
-			get { return m_IsRewardItem; }
+			get => m_IsRewardItem;
 			set { m_IsRewardItem = value; InvalidateProperties(); }
 		}
 		[Constructable]

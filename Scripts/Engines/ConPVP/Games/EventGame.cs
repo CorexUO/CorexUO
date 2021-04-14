@@ -47,9 +47,9 @@ namespace Server.Engines.ConPVP
 	{
 		protected DuelContext m_Context;
 
-		public DuelContext Context { get { return m_Context; } }
+		public DuelContext Context => m_Context;
 
-		public virtual bool FreeConsume { get { return true; } }
+		public virtual bool FreeConsume => true;
 
 		public EventGame(DuelContext context)
 		{

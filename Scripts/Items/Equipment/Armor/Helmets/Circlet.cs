@@ -3,24 +3,24 @@ namespace Server.Items
 	[FlipableAttribute(0x2B6E, 0x3165)]
 	public class Circlet : BaseArmor
 	{
-		public override int BasePhysicalResistance { get { return 1; } }
-		public override int BaseFireResistance { get { return 5; } }
-		public override int BaseColdResistance { get { return 2; } }
-		public override int BasePoisonResistance { get { return 2; } }
-		public override int BaseEnergyResistance { get { return 5; } }
+		public override int BasePhysicalResistance => 1;
+		public override int BaseFireResistance => 5;
+		public override int BaseColdResistance => 2;
+		public override int BasePoisonResistance => 2;
+		public override int BaseEnergyResistance => 5;
 
-		public override int InitMinHits { get { return 50; } }
-		public override int InitMaxHits { get { return 65; } }
+		public override int InitMinHits => 50;
+		public override int InitMaxHits => 65;
 
-		public override int StrReq { get { return Core.AOS ? 10 : 10; } }
+		public override int StrReq => Core.AOS ? 10 : 10;
 
-		public override int ArmorBase { get { return 30; } }
+		public override int ArmorBase => 30;
 
-		public override ArmorMaterialType MaterialType { get { return ArmorMaterialType.Plate; } }
+		public override ArmorMaterialType MaterialType => ArmorMaterialType.Plate;
 
-		public override ArmorMeditationAllowance DefMedAllowance { get { return ArmorMeditationAllowance.All; } }
+		public override ArmorMeditationAllowance DefMedAllowance => ArmorMeditationAllowance.All;
 
-		public override Race RequiredRace { get { return Race.Elf; } }
+		public override Race RequiredRace => Race.Elf;
 
 		[Constructable]
 		public Circlet() : base(0x2B6E)

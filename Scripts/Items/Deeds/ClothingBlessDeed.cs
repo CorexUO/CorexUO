@@ -56,10 +56,7 @@ namespace Server.Items
 
 	public class ClothingBlessDeed : BaseItem // Create the item class which is derived from the base item class
 	{
-		public override string DefaultName
-		{
-			get { return "a clothing bless deed"; }
-		}
+		public override string DefaultName => "a clothing bless deed";
 
 		[Constructable]
 		public ClothingBlessDeed() : base(0x14F0)
@@ -86,7 +83,7 @@ namespace Server.Items
 			_ = reader.ReadInt();
 		}
 
-		public override bool DisplayLootType { get { return false; } }
+		public override bool DisplayLootType => false;
 
 		public override void OnDoubleClick(Mobile from) // Override double click of the deed to call our target
 		{

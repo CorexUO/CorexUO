@@ -3,17 +3,17 @@ namespace Server.Items
 	[FlipableAttribute(0x26BE, 0x26C8)]
 	public class Pike : BaseSpear
 	{
-		public override WeaponAbility PrimaryAbility { get { return WeaponAbility.ParalyzingBlow; } }
-		public override WeaponAbility SecondaryAbility { get { return WeaponAbility.InfectiousStrike; } }
+		public override WeaponAbility PrimaryAbility => WeaponAbility.ParalyzingBlow;
+		public override WeaponAbility SecondaryAbility => WeaponAbility.InfectiousStrike;
 
-		public override int StrReq { get { return Core.AOS ? 50 : 50; } }
+		public override int StrReq => Core.AOS ? 50 : 50;
 
-		public override int MinDamageBase { get { return Core.AOS ? 14 : 14; } }
-		public override int MaxDamageBase { get { return Core.AOS ? 16 : 16; } }
-		public override float SpeedBase { get { return Core.ML ? 3.00f : Core.AOS ? 37 : 37; } }
+		public override int MinDamageBase => Core.AOS ? 14 : 14;
+		public override int MaxDamageBase => Core.AOS ? 16 : 16;
+		public override float SpeedBase => Core.ML ? 3.00f : Core.AOS ? 37 : 37;
 
-		public override int InitMinHits { get { return 31; } }
-		public override int InitMaxHits { get { return 110; } }
+		public override int InitMinHits => 31;
+		public override int InitMaxHits => 110;
 
 		[Constructable]
 		public Pike() : base(0x26BE)

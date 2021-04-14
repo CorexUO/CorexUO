@@ -4,9 +4,9 @@ namespace Server.Mobiles
 {
 	public class GrimmochDrummel : BaseCreature
 	{
-		public override bool ClickTitle { get { return false; } }
-		public override bool ShowFameTitle { get { return false; } }
-		public override bool DeleteCorpseOnDeath { get { return true; } }
+		public override bool ClickTitle => false;
+		public override bool ShowFameTitle => false;
+		public override bool DeleteCorpseOnDeath => true;
 
 		[Constructable]
 		public GrimmochDrummel() : base(AIType.AI_Archer, FightMode.Closest, 10, 1, 0.2, 0.4)
@@ -100,7 +100,7 @@ namespace Server.Mobiles
 			Gold gold = new Gold(Utility.RandomMinMax(190, 230));
 			gold.MoveToWorld(Location, Map);
 
-			Container pack = this.Backpack;
+			Container pack = Backpack;
 			if (pack != null)
 			{
 				pack.Movable = true;
@@ -111,7 +111,7 @@ namespace Server.Mobiles
 			return true;
 		}
 
-		public override bool AlwaysMurderer { get { return true; } }
+		public override bool AlwaysMurderer => true;
 
 		public GrimmochDrummel(Serial serial) : base(serial)
 		{

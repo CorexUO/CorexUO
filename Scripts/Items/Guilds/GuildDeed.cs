@@ -6,7 +6,7 @@ namespace Server.Items
 {
 	public class GuildDeed : BaseItem
 	{
-		public override int LabelNumber { get { return 1041055; } } // a guild deed
+		public override int LabelNumber => 1041055;  // a guild deed
 
 		[Constructable]
 		public GuildDeed() : base(0x14F0)

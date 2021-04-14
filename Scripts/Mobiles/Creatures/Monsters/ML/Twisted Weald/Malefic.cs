@@ -59,7 +59,7 @@ namespace Server.Mobiles
 			return WeaponAbility.Dismount;
 		}
 
-		public override bool GivesMLMinorArtifact { get { return true; } }
+		public override bool GivesMLMinorArtifact => true;
 
 		public Malefic(Serial serial)
 			: base(serial)

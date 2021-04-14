@@ -12,22 +12,22 @@ namespace Server.Mobiles
 		[CommandProperty(AccessLevel.GameMaster)]
 		public int TriggerRange
 		{
-			get { return m_TriggerRange; }
-			set { m_TriggerRange = value; }
+			get => m_TriggerRange;
+			set => m_TriggerRange = value;
 		}
 
 		[CommandProperty(AccessLevel.GameMaster)]
 		public TextDefinition SpawnMessage
 		{
-			get { return m_SpawnMessage; }
-			set { m_SpawnMessage = value; }
+			get => m_SpawnMessage;
+			set => m_SpawnMessage = value;
 		}
 
 		[CommandProperty(AccessLevel.GameMaster)]
 		public bool InstantFlag
 		{
-			get { return m_InstantFlag; }
-			set { m_InstantFlag = value; }
+			get => m_InstantFlag;
+			set => m_InstantFlag = value;
 		}
 
 		[Constructable]
@@ -69,10 +69,7 @@ namespace Server.Mobiles
 			m_InstantFlag = instantFlag;
 		}
 
-		public override string DefaultName
-		{
-			get { return "Proximity Spawner"; }
-		}
+		public override string DefaultName => "Proximity Spawner";
 
 		public override void DoTimer(TimeSpan delay)
 		{
@@ -103,7 +100,7 @@ namespace Server.Mobiles
 			return false;
 		}
 
-		public override bool HandlesOnMovement { get { return true; } }
+		public override bool HandlesOnMovement => true;
 
 		public virtual bool ValidTrigger(Mobile m)
 		{

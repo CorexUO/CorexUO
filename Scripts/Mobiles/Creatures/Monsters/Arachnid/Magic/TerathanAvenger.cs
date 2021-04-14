@@ -46,15 +46,12 @@ namespace Server.Mobiles
 			AddLoot(LootPack.Rich, 2);
 		}
 
-		public override Poison PoisonImmune { get { return Poison.Deadly; } }
-		public override Poison HitPoison { get { return Poison.Deadly; } }
-		public override int TreasureMapLevel { get { return 3; } }
-		public override int Meat { get { return 2; } }
+		public override Poison PoisonImmune => Poison.Deadly;
+		public override Poison HitPoison => Poison.Deadly;
+		public override int TreasureMapLevel => 3;
+		public override int Meat => 2;
 
-		public override OppositionGroup OppositionGroup
-		{
-			get { return OppositionGroup.TerathansAndOphidians; }
-		}
+		public override OppositionGroup OppositionGroup => OppositionGroup.TerathansAndOphidians;
 
 		public TerathanAvenger(Serial serial) : base(serial)
 		{

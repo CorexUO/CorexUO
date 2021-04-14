@@ -2,7 +2,7 @@ namespace Server.Items
 {
 	public class MeltedWax : BaseItem
 	{
-		public override int LabelNumber { get { return 1016492; } } // melted wax
+		public override int LabelNumber => 1016492;  // melted wax
 
 		[Constructable]
 		public MeltedWax() : base(0x122A)

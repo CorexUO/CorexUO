@@ -2,7 +2,7 @@
 {
 	public class PaintedPlagueMask : BasePaintedMask
 	{
-		public override string MaskName { get { return "Plague Mask"; } }
+		public override string MaskName => "Plague Mask";
 
 		[Constructable]
 		public PaintedPlagueMask()

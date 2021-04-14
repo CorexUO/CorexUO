@@ -2,7 +2,7 @@ namespace Server.Items
 {
 	public class PeachTrunkAddon : BaseAddon
 	{
-		public override BaseAddonDeed Deed { get { return new PeachTrunkDeed(); } }
+		public override BaseAddonDeed Deed => new PeachTrunkDeed();
 
 		[Constructable]
 		public PeachTrunkAddon() : base()
@@ -31,8 +31,8 @@ namespace Server.Items
 
 	public class PeachTrunkDeed : BaseAddonDeed
 	{
-		public override BaseAddon Addon { get { return new PeachTrunkAddon(); } }
-		public override int LabelNumber { get { return 1076786; } } // Peach Trunk
+		public override BaseAddon Addon => new PeachTrunkAddon();
+		public override int LabelNumber => 1076786;  // Peach Trunk
 
 		[Constructable]
 		public PeachTrunkDeed() : base()

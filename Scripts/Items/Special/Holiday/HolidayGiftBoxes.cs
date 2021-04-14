@@ -2,8 +2,8 @@
 {
 	public class GiftBoxHues
 	{
-		public static int RandomGiftBoxHue { get { return m_NormalHues[Utility.Random(m_NormalHues.Length)]; } }
-		public static int RandomNeonBoxHue { get { return m_NeonHues[Utility.Random(m_NeonHues.Length)]; } }
+		public static int RandomGiftBoxHue => m_NormalHues[Utility.Random(m_NormalHues.Length)];
+		public static int RandomNeonBoxHue => m_NeonHues[Utility.Random(m_NeonHues.Length)];
 
 		/* there's possibly a couple more, but this is what we could verify on OSI */
 
@@ -44,7 +44,7 @@
 	[FlipableAttribute(0x46A5, 0x46A6)]
 	public class GiftBoxRectangle : BaseContainer
 	{
-		public override int DefaultGumpID { get { return 0x11E; } }
+		public override int DefaultGumpID => 0x11E;
 
 		[Constructable]
 		public GiftBoxRectangle()
@@ -73,7 +73,7 @@
 
 	public class GiftBoxCube : BaseContainer
 	{
-		public override int DefaultGumpID { get { return 0x11B; } }
+		public override int DefaultGumpID => 0x11B;
 
 		[Constructable]
 		public GiftBoxCube()
@@ -102,7 +102,7 @@
 
 	public class GiftBoxCylinder : BaseContainer
 	{
-		public override int DefaultGumpID { get { return 0x11C; } }
+		public override int DefaultGumpID => 0x11C;
 
 		[Constructable]
 		public GiftBoxCylinder()
@@ -131,7 +131,7 @@
 
 	public class GiftBoxOctogon : BaseContainer
 	{
-		public override int DefaultGumpID { get { return 0x11D; } }
+		public override int DefaultGumpID => 0x11D;
 
 		[Constructable]
 		public GiftBoxOctogon()
@@ -160,7 +160,7 @@
 
 	public class GiftBoxAngel : BaseContainer
 	{
-		public override int DefaultGumpID { get { return 0x11F; } }
+		public override int DefaultGumpID => 0x11F;
 
 		[Constructable]
 		public GiftBoxAngel()

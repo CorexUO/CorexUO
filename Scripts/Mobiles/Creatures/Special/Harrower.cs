@@ -8,9 +8,9 @@ namespace Server.Mobiles
 {
 	public class Harrower : BaseCreature
 	{
-		public Type[] UniqueList { get { return new Type[] { typeof(AcidProofRobe) }; } }
-		public Type[] SharedList { get { return new Type[] { typeof(TheRobeOfBritanniaAri) }; } }
-		public Type[] DecorativeList { get { return new Type[] { typeof(EvilIdolSkull), typeof(SkullPole) }; } }
+		public Type[] UniqueList => new Type[] { typeof(AcidProofRobe) };
+		public Type[] SharedList => new Type[] { typeof(TheRobeOfBritanniaAri) };
+		public Type[] DecorativeList => new Type[] { typeof(EvilIdolSkull), typeof(SkullPole) };
 
 		private bool m_TrueForm;
 		private Item m_GateItem;
@@ -50,7 +50,7 @@ namespace Server.Mobiles
 
 		private static readonly List<Harrower> m_Instances = new List<Harrower>();
 
-		public static List<Harrower> Instances { get { return m_Instances; } }
+		public static List<Harrower> Instances => m_Instances;
 
 		public static Harrower Spawn(Point3D platLoc, Map platMap)
 		{
@@ -68,13 +68,7 @@ namespace Server.Mobiles
 			return harrower;
 		}
 
-		public static bool CanSpawn
-		{
-			get
-			{
-				return (m_Instances.Count == 0);
-			}
-		}
+		public static bool CanSpawn => (m_Instances.Count == 0);
 
 		[Constructable]
 		public Harrower() : base(AIType.AI_Mage, FightMode.Closest, 18, 1, 0.2, 0.4)
@@ -121,9 +115,9 @@ namespace Server.Mobiles
 			AddLoot(LootPack.Meager);
 		}
 
-		public override bool AutoDispel { get { return true; } }
-		public override bool Unprovokable { get { return true; } }
-		public override Poison PoisonImmune { get { return Poison.Lethal; } }
+		public override bool AutoDispel => true;
+		public override bool Unprovokable => true;
+		public override Poison PoisonImmune => Poison.Lethal;
 
 		private static readonly double[] m_Offsets = new double[]
 			{
@@ -157,7 +151,7 @@ namespace Server.Mobiles
 
 			Say(1049499); // Behold my true form!
 
-			Map map = this.Map;
+			Map map = Map;
 
 			if (map != null)
 			{
@@ -174,11 +168,11 @@ namespace Server.Mobiles
 					{
 						int rdist = 10 + dist;
 
-						x = this.X + (int)(rx * rdist);
-						y = this.Y + (int)(ry * rdist);
+						x = X + (int)(rx * rdist);
+						y = Y + (int)(ry * rdist);
 						z = map.GetAverageZ(x, y);
 
-						if (!(ok = map.CanFit(x, y, this.Z, 16, false, false)))
+						if (!(ok = map.CanFit(x, y, Z, 16, false, false)))
 							ok = map.CanFit(x, y, z, 16, false, false);
 
 						if (dist >= 0)
@@ -192,7 +186,7 @@ namespace Server.Mobiles
 
 					HarrowerTentacles spawn = new HarrowerTentacles(this)
 					{
-						Team = this.Team
+						Team = Team
 					};
 
 					spawn.MoveToWorld(new Point3D(x, y, z), map);
@@ -203,10 +197,10 @@ namespace Server.Mobiles
 		}
 
 		[CommandProperty(AccessLevel.GameMaster)]
-		public override int HitsMax { get { return m_TrueForm ? 65000 : 30000; } }
+		public override int HitsMax => m_TrueForm ? 65000 : 30000;
 
 		[CommandProperty(AccessLevel.GameMaster)]
-		public override int ManaMax { get { return 5000; } }
+		public override int ManaMax => 5000;
 
 		public Harrower(Serial serial) : base(serial)
 		{
@@ -220,7 +214,7 @@ namespace Server.Mobiles
 			base.OnAfterDelete();
 		}
 
-		public override bool DisallowAllMoves { get { return m_TrueForm; } }
+		public override bool DisallowAllMoves => m_TrueForm;
 
 		public override void Serialize(GenericWriter writer)
 		{
@@ -347,7 +341,7 @@ namespace Server.Mobiles
 				{
 					GivePowerScrolls();
 
-					Map map = this.Map;
+					Map map = Map;
 
 					if (map != null)
 					{

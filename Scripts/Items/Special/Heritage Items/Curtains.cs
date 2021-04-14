@@ -5,16 +5,16 @@ namespace Server.Items
 {
 	public class CurtainsComponent : AddonComponent, IDyable
 	{
-		public override int LabelNumber { get { return 1076280; } } // Curtains
-		public override bool DisplayWeight { get { return false; } }
+		public override int LabelNumber => 1076280;  // Curtains
+		public override bool DisplayWeight => false;
 
 		private int m_ClosedID;
 
 		[CommandProperty(AccessLevel.GameMaster)]
 		public int ClosedID
 		{
-			get { return m_ClosedID; }
-			set { m_ClosedID = value; }
+			get => m_ClosedID;
+			set => m_ClosedID = value;
 		}
 
 		public CurtainsComponent(int itemID, int closedID) : base(itemID)
@@ -83,8 +83,8 @@ namespace Server.Items
 
 	public class CurtainsAddon : BaseAddon
 	{
-		public override BaseAddonDeed Deed { get { return new CurtainsDeed(); } }
-		public override bool RetainDeedHue { get { return true; } }
+		public override BaseAddonDeed Deed => new CurtainsDeed();
+		public override bool RetainDeedHue => true;
 
 		[Constructable]
 		public CurtainsAddon(bool east) : base()
@@ -126,8 +126,8 @@ namespace Server.Items
 
 	public class CurtainsDeed : BaseAddonDeed
 	{
-		public override BaseAddon Addon { get { return new CurtainsAddon(m_East); } }
-		public override int LabelNumber { get { return 1076280; } } // Curtains
+		public override BaseAddon Addon => new CurtainsAddon(m_East);
+		public override int LabelNumber => 1076280;  // Curtains
 
 		private bool m_East;
 

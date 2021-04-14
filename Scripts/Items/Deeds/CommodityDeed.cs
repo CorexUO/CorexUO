@@ -75,7 +75,7 @@ namespace Server.Items
 			base.OnDelete();
 		}
 
-		public override int LabelNumber { get { return Commodity == null ? 1047016 : 1047017; } }
+		public override int LabelNumber => Commodity == null ? 1047016 : 1047017;
 
 		public override void GetProperties(ObjectPropertyList list)
 		{

@@ -4,16 +4,16 @@ namespace Server.Items
 {
 	public class SpecialDyeTub : DyeTub, IRewardItem
 	{
-		public override CustomHuePicker CustomHuePicker { get { return CustomHuePicker.SpecialDyeTub; } }
-		public override int LabelNumber { get { return 1041285; } } // Special Dye Tub
+		public override CustomHuePicker CustomHuePicker => CustomHuePicker.SpecialDyeTub;
+		public override int LabelNumber => 1041285;  // Special Dye Tub
 
 		private bool m_IsRewardItem;
 
 		[CommandProperty(AccessLevel.GameMaster)]
 		public bool IsRewardItem
 		{
-			get { return m_IsRewardItem; }
-			set { m_IsRewardItem = value; }
+			get => m_IsRewardItem;
+			set => m_IsRewardItem = value;
 		}
 
 		[Constructable]

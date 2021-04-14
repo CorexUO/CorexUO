@@ -3,17 +3,17 @@ namespace Server.Items
 	[FlipableAttribute(0xE89, 0xE8a)]
 	public class QuarterStaff : BaseStaff
 	{
-		public override WeaponAbility PrimaryAbility { get { return WeaponAbility.DoubleStrike; } }
-		public override WeaponAbility SecondaryAbility { get { return WeaponAbility.ConcussionBlow; } }
+		public override WeaponAbility PrimaryAbility => WeaponAbility.DoubleStrike;
+		public override WeaponAbility SecondaryAbility => WeaponAbility.ConcussionBlow;
 
-		public override int StrReq { get { return Core.AOS ? 30 : 30; } }
+		public override int StrReq => Core.AOS ? 30 : 30;
 
-		public override int MinDamageBase { get { return Core.AOS ? 11 : 8; } }
-		public override int MaxDamageBase { get { return Core.AOS ? 14 : 28; } }
-		public override float SpeedBase { get { return Core.ML ? 2.25f : Core.AOS ? 48 : 48; } }
+		public override int MinDamageBase => Core.AOS ? 11 : 8;
+		public override int MaxDamageBase => Core.AOS ? 14 : 28;
+		public override float SpeedBase => Core.ML ? 2.25f : Core.AOS ? 48 : 48;
 
-		public override int InitMinHits { get { return 31; } }
-		public override int InitMaxHits { get { return 60; } }
+		public override int InitMinHits => 31;
+		public override int InitMaxHits => 60;
 
 		[Constructable]
 		public QuarterStaff() : base(0xE89)

@@ -7,15 +7,15 @@ namespace Server.Mobiles
 	[CorpseName("a plague beast lord corpse")]
 	public class PlagueBeastLord : BaseCreature, ICarvable, IScissorable
 	{
-		public override Poison PoisonImmune { get { return Poison.Lethal; } }
+		public override Poison PoisonImmune => Poison.Lethal;
 
 		private Mobile m_OpenedBy;
 
 		[CommandProperty(AccessLevel.GameMaster)]
 		public Mobile OpenedBy
 		{
-			get { return m_OpenedBy; }
-			set { m_OpenedBy = value; }
+			get => m_OpenedBy;
+			set => m_OpenedBy = value;
 		}
 
 		[CommandProperty(AccessLevel.GameMaster)]
@@ -297,15 +297,9 @@ namespace Server.Mobiles
 			private int m_Count;
 			private int m_Deadline;
 
-			public int Count
-			{
-				get { return m_Count; }
-			}
+			public int Count => m_Count;
 
-			public int Deadline
-			{
-				get { return m_Deadline; }
-			}
+			public int Deadline => m_Deadline;
 
 			public DecayTimer(PlagueBeastLord lord) : this(lord, 0, 120)
 			{

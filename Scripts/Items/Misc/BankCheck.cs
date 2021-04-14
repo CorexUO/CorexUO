@@ -15,7 +15,7 @@ namespace Server.Items
 		[CommandProperty(AccessLevel.GameMaster)]
 		public int Worth
 		{
-			get { return m_Worth; }
+			get => m_Worth;
 			set { m_Worth = value; InvalidateProperties(); }
 		}
 
@@ -59,9 +59,9 @@ namespace Server.Items
 			m_Worth = worth;
 		}
 
-		public override bool DisplayLootType { get { return Core.AOS; } }
+		public override bool DisplayLootType => Core.AOS;
 
-		public override int LabelNumber { get { return 1041361; } } // A bank check
+		public override int LabelNumber => 1041361;  // A bank check
 
 		public override void GetProperties(ObjectPropertyList list)
 		{

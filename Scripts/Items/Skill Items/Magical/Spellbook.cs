@@ -27,7 +27,7 @@ namespace Server.Items
 		[CommandProperty(AccessLevel.GameMaster)]
 		public string EngravedText
 		{
-			get { return m_EngravedText; }
+			get => m_EngravedText;
 			set { m_EngravedText = value; InvalidateProperties(); }
 		}
 
@@ -270,20 +270,20 @@ namespace Server.Items
 			return (book.SpellbookType == type && (spellID == -1 || book.HasSpell(spellID)));
 		}
 
-		public override bool DisplayWeight { get { return false; } }
+		public override bool DisplayWeight => false;
 
 		private AosSkillBonuses m_AosSkillBonuses;
 
 		[CommandProperty(AccessLevel.GameMaster)]
 		public AosSkillBonuses SkillBonuses
 		{
-			get { return m_AosSkillBonuses; }
+			get => m_AosSkillBonuses;
 			set { }
 		}
 
-		public virtual SpellbookType SpellbookType { get { return SpellbookType.Regular; } }
-		public virtual int BookOffset { get { return 0; } }
-		public virtual int BookCount { get { return 64; } }
+		public virtual SpellbookType SpellbookType => SpellbookType.Regular;
+		public virtual int BookOffset => 0;
+		public virtual int BookCount => 64;
 
 		private ulong m_Content;
 		private int m_Count;
@@ -323,7 +323,7 @@ namespace Server.Items
 
 				SpellbookType type = GetTypeForSpell(scroll.SpellID);
 
-				if (type != this.SpellbookType)
+				if (type != SpellbookType)
 				{
 					return false;
 				}
@@ -361,10 +361,7 @@ namespace Server.Items
 		[CommandProperty(AccessLevel.GameMaster)]
 		public ulong Content
 		{
-			get
-			{
-				return m_Content;
-			}
+			get => m_Content;
 			set
 			{
 				if (m_Content != value)
@@ -385,13 +382,7 @@ namespace Server.Items
 		}
 
 		[CommandProperty(AccessLevel.GameMaster)]
-		public int SpellCount
-		{
-			get
-			{
-				return m_Count;
-			}
-		}
+		public int SpellCount => m_Count;
 
 		[Constructable]
 		public Spellbook() : this((ulong)0)
@@ -436,7 +427,7 @@ namespace Server.Items
 
 				if (strBonus != 0 || dexBonus != 0 || intBonus != 0)
 				{
-					string modName = this.Serial.ToString();
+					string modName = Serial.ToString();
 
 					if (strBonus != 0)
 						from.AddStatMod(new StatMod(StatType.Str, modName + "Str", strBonus, TimeSpan.Zero));
@@ -486,7 +477,7 @@ namespace Server.Items
 
 			if (Parent == null)
 			{
-				to.Send(this.WorldPacket);
+				to.Send(WorldPacket);
 			}
 			else if (Parent is Item)
 			{
@@ -543,11 +534,11 @@ namespace Server.Items
 		[CommandProperty(AccessLevel.GameMaster)]
 		public Mobile Crafter
 		{
-			get { return m_Crafter; }
+			get => m_Crafter;
 			set { m_Crafter = value; InvalidateProperties(); }
 		}
 
-		public override bool DisplayLootType { get { return Core.AOS; } }
+		public override bool DisplayLootType => Core.AOS;
 
 		public override void GetProperties(ObjectPropertyList list)
 		{
@@ -660,9 +651,9 @@ namespace Server.Items
 			base.OnSingleClick(from);
 
 			if (m_Crafter != null)
-				this.LabelTo(from, 1050043, m_Crafter.Name); // crafted by ~1_NAME~
+				LabelTo(from, 1050043, m_Crafter.Name); // crafted by ~1_NAME~
 
-			this.LabelTo(from, 1042886, m_Count.ToString());
+			LabelTo(from, 1042886, m_Count.ToString());
 		}
 
 		public override void OnDoubleClick(Mobile from)
@@ -683,14 +674,14 @@ namespace Server.Items
 		[CommandProperty(AccessLevel.GameMaster)]
 		public SlayerName Slayer
 		{
-			get { return m_Slayer; }
+			get => m_Slayer;
 			set { m_Slayer = value; InvalidateProperties(); }
 		}
 
 		[CommandProperty(AccessLevel.GameMaster)]
 		public SlayerName Slayer2
 		{
-			get { return m_Slayer2; }
+			get => m_Slayer2;
 			set { m_Slayer2 = value; InvalidateProperties(); }
 		}
 

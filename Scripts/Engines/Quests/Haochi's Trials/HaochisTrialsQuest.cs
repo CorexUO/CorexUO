@@ -46,41 +46,31 @@ namespace Server.Engines.Quests.Samurai
 				typeof( Samurai.SeventhTrialReturnObjective )
 			};
 
-		public override Type[] TypeReferenceTable { get { return m_TypeReferenceTable; } }
+		public override Type[] TypeReferenceTable => m_TypeReferenceTable;
 
-		public override object Name
-		{
-			get
-			{
+		public override object Name =>
 				// Haochi's Trials
-				return 1063022;
-			}
-		}
+				1063022;
 
-		public override object OfferMessage
-		{
-			get
-			{
+		public override object OfferMessage =>
 				/* <i>As you enter the courtyard you notice a faded sign.
-				 * It reads: </i><br><br>
-				 * 
-				 * Welcome to your new home, Samurai.<br><br>
-				 * 
-				 * Though your skills are only a shadow of what they can be some day,
-				 * you must prove your adherence to the code of the Bushido.<br><br>
-				 * 
-				 * Seek Daimyo Haochi for guidance.<br><br>
-				 * 
-				 * <i>Will you accept the challenge?</i>
-				 */
-				return 1063023;
-			}
-		}
+* It reads: </i><br><br>
+* 
+* Welcome to your new home, Samurai.<br><br>
+* 
+* Though your skills are only a shadow of what they can be some day,
+* you must prove your adherence to the code of the Bushido.<br><br>
+* 
+* Seek Daimyo Haochi for guidance.<br><br>
+* 
+* <i>Will you accept the challenge?</i>
+*/
+				1063023;
 
-		public override TimeSpan RestartDelay { get { return TimeSpan.MaxValue; } }
-		public override bool IsTutorial { get { return true; } }
+		public override TimeSpan RestartDelay => TimeSpan.MaxValue;
+		public override bool IsTutorial => true;
 
-		public override int Picture { get { return 0x15D7; } }
+		public override int Picture => 0x15D7;
 
 		public HaochisTrialsQuest(PlayerMobile from) : base(from)
 		{

@@ -5,7 +5,7 @@ namespace Server.Items
 	[FlipableAttribute(0x13E3, 0x13E4)]
 	public class HammerOfHephaestus : SmithHammer
 	{
-		public override int LabelNumber { get { return 1077740; } } // Hammer of Hephaestus
+		public override int LabelNumber => 1077740;  // Hammer of Hephaestus
 
 		public static readonly TimeSpan RechargeDelay = TimeSpan.FromMinutes(5);
 
@@ -20,7 +20,7 @@ namespace Server.Items
 			StartRechargeTimer();
 		}
 
-		public override bool BreakOnDepletion { get { return false; } }
+		public override bool BreakOnDepletion => false;
 		/* Note:
 		 * On EA, it also leaves the crafting gump open when it reaches 0 charges.
 		 * When crafting again, only then the crafting gump closes with the 1072306 system message.

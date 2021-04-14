@@ -10,29 +10,17 @@ namespace Server.Mobiles
 	[CorpseName("a corpse of Ilhenir")]
 	public class Ilhenir : BaseChampion
 	{
-		public override ChampionSkullType SkullType { get { return ChampionSkullType.Pain; } }
+		public override ChampionSkullType SkullType => ChampionSkullType.Pain;
 
-		public override Type[] UniqueList { get { return new Type[] { }; } }
-		public override Type[] SharedList
-		{
-			get
-			{
-				return new Type[] {     typeof( ANecromancerShroud ),
+		public override Type[] UniqueList => new Type[] { };
+		public override Type[] SharedList => new Type[] {     typeof( ANecromancerShroud ),
 										typeof( LieutenantOfTheBritannianRoyalGuard ),
 										typeof( OblivionsNeedle ),
 										typeof( TheRobeOfBritanniaAri ) };
-			}
-		}
-		public override Type[] DecorativeList { get { return new Type[] { typeof(MonsterStatuette) }; } }
+		public override Type[] DecorativeList => new Type[] { typeof(MonsterStatuette) };
 
-		public override MonsterStatuetteType[] StatueTypes
-		{
-			get
-			{
-				return new MonsterStatuetteType[] {     MonsterStatuetteType.PlagueBeast,
+		public override MonsterStatuetteType[] StatueTypes => new MonsterStatuetteType[] {     MonsterStatuetteType.PlagueBeast,
 														MonsterStatuetteType.RedDeath };
-			}
-		}
 
 		[Constructable]
 		public Ilhenir()
@@ -149,11 +137,11 @@ namespace Server.Mobiles
 			}
 		}
 
-		public override bool Unprovokable { get { return true; } }
-		public override bool Uncalmable { get { return true; } }
-		public override Poison PoisonImmune { get { return Poison.Lethal; } }
+		public override bool Unprovokable => true;
+		public override bool Uncalmable => true;
+		public override Poison PoisonImmune => Poison.Lethal;
 		//public override bool GivesMLMinorArtifact { get { return true; } } // TODO: Needs verification
-		public override int TreasureMapLevel { get { return 5; } }
+		public override int TreasureMapLevel => 5;
 
 		public override void OnGaveMeleeAttack(Mobile defender)
 		{
@@ -328,8 +316,8 @@ namespace Server.Mobiles
 		[CommandProperty(AccessLevel.GameMaster)]
 		public bool Corrosive
 		{
-			get { return m_Corrosive; }
-			set { m_Corrosive = value; }
+			get => m_Corrosive;
+			set => m_Corrosive = value;
 		}
 
 		[Constructable]

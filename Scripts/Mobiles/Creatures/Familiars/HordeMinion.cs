@@ -11,7 +11,7 @@ namespace Server.Mobiles
 	[CorpseName("a horde minion corpse")]
 	public class HordeMinionFamiliar : BaseFamiliar
 	{
-		public override bool DisplayWeight { get { return true; } }
+		public override bool DisplayWeight => true;
 
 		public HordeMinionFamiliar()
 		{
@@ -66,14 +66,14 @@ namespace Server.Mobiles
 
 			m_NextPickup = DateTime.UtcNow + TimeSpan.FromSeconds(Utility.RandomMinMax(5, 10));
 
-			Container pack = this.Backpack;
+			Container pack = Backpack;
 
 			if (pack == null)
 				return;
 
 			ArrayList list = new ArrayList();
 
-			foreach (Item item in this.GetItemsInRange(2))
+			foreach (Item item in GetItemsInRange(2))
 			{
 				if (item.Movable && item.Stackable)
 					list.Add(item);
@@ -111,7 +111,7 @@ namespace Server.Mobiles
 
 		public override void BeginRelease(Mobile from)
 		{
-			Container pack = this.Backpack;
+			Container pack = Backpack;
 
 			if (pack != null && pack.Items.Count > 0)
 				from.SendGump(new WarningGump(1060635, 30720, 1061672, 32512, 420, 280, new WarningGumpCallback(ConfirmRelease_Callback), null));

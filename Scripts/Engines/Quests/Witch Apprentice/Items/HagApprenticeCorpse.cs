@@ -55,7 +55,7 @@ namespace Server.Engines.Quests.Hag
 
 		public override void Open(Mobile from, bool checkSelfLoot)
 		{
-			if (!from.InRange(this.GetWorldLocation(), 2))
+			if (!from.InRange(GetWorldLocation(), 2))
 				return;
 
 			PlayerMobile player = from as PlayerMobile;

@@ -22,7 +22,7 @@ namespace Server.Items
 			{
 				if (base.ItemID != value)
 				{
-					Map facet = (this.Parent == null ? this.Map : null);
+					Map facet = (Parent == null ? Map : null);
 
 					if (facet != null)
 					{
@@ -42,9 +42,9 @@ namespace Server.Items
 		[Obsolete("Replace with calls to OnLeave and OnEnter surrounding component invalidation.", true)]
 		public virtual void RefreshComponents()
 		{
-			if (this.Parent == null)
+			if (Parent == null)
 			{
-				Map facet = this.Map;
+				Map facet = Map;
 
 				if (facet != null)
 				{
@@ -58,7 +58,7 @@ namespace Server.Items
 		{
 			get
 			{
-				MultiComponentList mcl = this.Components;
+				MultiComponentList mcl = Components;
 
 				if (mcl.List.Length > 0)
 				{
@@ -105,10 +105,10 @@ namespace Server.Items
 
 		public virtual bool Contains(int x, int y)
 		{
-			MultiComponentList mcl = this.Components;
+			MultiComponentList mcl = Components;
 
-			x -= this.X + mcl.Min.m_X;
-			y -= this.Y + mcl.Min.m_Y;
+			x -= X + mcl.Min.m_X;
+			y -= Y + mcl.Min.m_Y;
 
 			return x >= 0
 				&& x < mcl.Width
@@ -119,7 +119,7 @@ namespace Server.Items
 
 		public bool Contains(Mobile m)
 		{
-			if (m.Map == this.Map)
+			if (m.Map == Map)
 				return Contains(m.X, m.Y);
 			else
 				return false;
@@ -127,7 +127,7 @@ namespace Server.Items
 
 		public bool Contains(Item item)
 		{
-			if (item.Map == this.Map)
+			if (item.Map == Map)
 				return Contains(item.X, item.Y);
 			else
 				return false;

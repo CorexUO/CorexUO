@@ -3,17 +3,17 @@ namespace Server.Items
 	[FlipableAttribute(0x2D25, 0x2D31)]
 	public class WildStaff : BaseStaff
 	{
-		public override WeaponAbility PrimaryAbility { get { return WeaponAbility.Block; } }
-		public override WeaponAbility SecondaryAbility { get { return WeaponAbility.ForceOfNature; } }
+		public override WeaponAbility PrimaryAbility => WeaponAbility.Block;
+		public override WeaponAbility SecondaryAbility => WeaponAbility.ForceOfNature;
 
-		public override int StrReq { get { return Core.AOS ? 15 : 15; } }
+		public override int StrReq => Core.AOS ? 15 : 15;
 
-		public override int MinDamageBase { get { return Core.AOS ? 10 : 10; } }
-		public override int MaxDamageBase { get { return Core.AOS ? 12 : 12; } }
-		public override float SpeedBase { get { return Core.ML ? 2.25f : Core.AOS ? 48 : 48; } }
+		public override int MinDamageBase => Core.AOS ? 10 : 10;
+		public override int MaxDamageBase => Core.AOS ? 12 : 12;
+		public override float SpeedBase => Core.ML ? 2.25f : Core.AOS ? 48 : 48;
 
-		public override int InitMinHits { get { return 30; } }
-		public override int InitMaxHits { get { return 60; } }
+		public override int InitMinHits => 30;
+		public override int InitMaxHits => 60;
 
 		[Constructable]
 		public WildStaff() : base(0x2D25)

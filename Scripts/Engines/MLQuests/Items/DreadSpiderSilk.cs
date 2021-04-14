@@ -2,9 +2,9 @@ namespace Server.Items
 {
 	public class DreadSpiderSilk : BaseItem
 	{
-		public override int LabelNumber { get { return 1075319; } } // Dread Spider Silk
+		public override int LabelNumber => 1075319;  // Dread Spider Silk
 
-		public override bool Nontransferable { get { return true; } }
+		public override bool Nontransferable => true;
 
 		public override void AddNameProperties(ObjectPropertyList list)
 		{

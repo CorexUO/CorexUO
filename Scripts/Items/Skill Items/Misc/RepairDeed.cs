@@ -57,7 +57,7 @@ namespace Server.Items
 			Fletching
 		}
 
-		public override bool DisplayLootType { get { return false; } }
+		public override bool DisplayLootType => false;
 
 		private RepairSkillType m_Skill;
 		private double m_SkillLevel;
@@ -67,21 +67,21 @@ namespace Server.Items
 		[CommandProperty(AccessLevel.GameMaster)]
 		public RepairSkillType RepairSkill
 		{
-			get { return m_Skill; }
+			get => m_Skill;
 			set { m_Skill = value; InvalidateProperties(); }
 		}
 
 		[CommandProperty(AccessLevel.GameMaster)]
 		public double SkillLevel
 		{
-			get { return m_SkillLevel; }
+			get => m_SkillLevel;
 			set { m_SkillLevel = Math.Max(Math.Min(value, 120.0), 0); InvalidateProperties(); }
 		}
 
 		[CommandProperty(AccessLevel.GameMaster)]
 		public Mobile Crafter
 		{
-			get { return m_Crafter; }
+			get => m_Crafter;
 			set { m_Crafter = value; InvalidateProperties(); }
 		}
 
@@ -105,10 +105,10 @@ namespace Server.Items
 			if (Deleted || !from.CanSee(this))
 				return;
 
-			this.LabelTo(from, 1061133, string.Format("{0}\t{1}", GetSkillTitle(m_SkillLevel).ToString(), RepairSkillInfo.GetInfo(m_Skill).Name)); // A repair service contract from ~1_SKILL_TITLE~ ~2_SKILL_NAME~.
+			LabelTo(from, 1061133, string.Format("{0}\t{1}", GetSkillTitle(m_SkillLevel).ToString(), RepairSkillInfo.GetInfo(m_Skill).Name)); // A repair service contract from ~1_SKILL_TITLE~ ~2_SKILL_NAME~.
 
 			if (m_Crafter != null)
-				this.LabelTo(from, 1050043, m_Crafter.Name); // crafted by ~1_NAME~
+				LabelTo(from, 1050043, m_Crafter.Name); // crafted by ~1_NAME~
 		}
 
 		[Constructable]

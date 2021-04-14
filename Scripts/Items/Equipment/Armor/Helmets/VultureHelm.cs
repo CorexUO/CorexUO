@@ -3,22 +3,22 @@ namespace Server.Items
 	[FlipableAttribute(0x2B72, 0x3169)]
 	public class VultureHelm : BaseArmor
 	{
-		public override Race RequiredRace { get { return Race.Elf; } }
+		public override Race RequiredRace => Race.Elf;
 
-		public override int BasePhysicalResistance { get { return 5; } }
-		public override int BaseFireResistance { get { return 1; } }
-		public override int BaseColdResistance { get { return 2; } }
-		public override int BasePoisonResistance { get { return 2; } }
-		public override int BaseEnergyResistance { get { return 5; } }
+		public override int BasePhysicalResistance => 5;
+		public override int BaseFireResistance => 1;
+		public override int BaseColdResistance => 2;
+		public override int BasePoisonResistance => 2;
+		public override int BaseEnergyResistance => 5;
 
-		public override int InitMinHits { get { return 50; } }
-		public override int InitMaxHits { get { return 65; } }
+		public override int InitMinHits => 50;
+		public override int InitMaxHits => 65;
 
-		public override int StrReq { get { return Core.AOS ? 25 : 25; } }
+		public override int StrReq => Core.AOS ? 25 : 25;
 
-		public override int ArmorBase { get { return 40; } }
+		public override int ArmorBase => 40;
 
-		public override ArmorMaterialType MaterialType { get { return ArmorMaterialType.Plate; } }
+		public override ArmorMaterialType MaterialType => ArmorMaterialType.Plate;
 
 		[Constructable]
 		public VultureHelm() : base(0x2B72)

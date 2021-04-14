@@ -21,25 +21,25 @@ namespace Server.Items
 		[CommandProperty(AccessLevel.GameMaster)]
 		public Mobile Crafter
 		{
-			get { return m_Crafter; }
+			get => m_Crafter;
 			set { m_Crafter = value; InvalidateProperties(); }
 		}
 
 		[CommandProperty(AccessLevel.GameMaster)]
 		public override ItemQuality Quality
 		{
-			get { return base.Quality; }
+			get => base.Quality;
 			set { UnscaleUses(); base.Quality = value; InvalidateProperties(); ScaleUses(); }
 		}
 
 		[CommandProperty(AccessLevel.GameMaster)]
 		public int UsesRemaining
 		{
-			get { return m_UsesRemaining; }
+			get => m_UsesRemaining;
 			set { m_UsesRemaining = value; InvalidateProperties(); }
 		}
 
-		public virtual bool BreakOnDepletion { get { return true; } }
+		public virtual bool BreakOnDepletion => true;
 
 		public void ScaleUses()
 		{
@@ -60,7 +60,7 @@ namespace Server.Items
 			return 100;
 		}
 
-		public bool ShowUsesRemaining { get { return true; } set { } }
+		public bool ShowUsesRemaining { get => true; set { } }
 
 		public abstract CraftSystem CraftSystem { get; }
 
@@ -138,7 +138,7 @@ namespace Server.Items
 		{
 			if (IsChildOf(from.Backpack) || Parent == from)
 			{
-				CraftSystem system = this.CraftSystem;
+				CraftSystem system = CraftSystem;
 
 				int num = system.CanCraft(from, this, null);
 

@@ -2,10 +2,7 @@ namespace Server.Items
 {
 	public class TailorStone : BaseItem
 	{
-		public override string DefaultName
-		{
-			get { return "a Tailor Supply Stone"; }
-		}
+		public override string DefaultName => "a Tailor Supply Stone";
 
 		[Constructable]
 		public TailorStone() : base(0xED4)

@@ -2,7 +2,7 @@
 {
 	public class JellyBeans : CandyCane
 	{
-		public override int LabelNumber { get { return 1096932; } } /* jellybeans */
+		public override int LabelNumber => 1096932;  /* jellybeans */
 
 		[Constructable]
 		public JellyBeans()

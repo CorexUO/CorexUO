@@ -2,7 +2,7 @@ namespace Server.Items
 {
 	public class ThunderingAxe : OrnateAxe
 	{
-		public override int LabelNumber { get { return 1073547; } } // thundering axe
+		public override int LabelNumber => 1073547;  // thundering axe
 
 		[Constructable]
 		public ThunderingAxe()

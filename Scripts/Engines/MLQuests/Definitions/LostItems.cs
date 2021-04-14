@@ -35,7 +35,7 @@ namespace Server.Engines.MLQuests.Definitions
 		// Original label, doesn't fit the expiration message well
 		//public override int LabelNumber { get { return 1073129; } } // A battered bucket.
 
-		public override string DefaultName { get { return "battered bucket"; } }
+		public override string DefaultName => "battered bucket";
 
 		[Constructable]
 		public BatteredBucket()

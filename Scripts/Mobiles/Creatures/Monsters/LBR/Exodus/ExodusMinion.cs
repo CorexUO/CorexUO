@@ -7,11 +7,11 @@ namespace Server.Mobiles
 	public class ExodusMinion : BaseCreature
 	{
 		private bool m_FieldActive;
-		public bool FieldActive { get { return m_FieldActive; } }
-		public bool CanUseField { get { return Hits >= HitsMax * 9 / 10; } } // TODO: an OSI bug prevents to verify this
+		public bool FieldActive => m_FieldActive;
+		public bool CanUseField => Hits >= HitsMax * 9 / 10;  // TODO: an OSI bug prevents to verify this
 
-		public override bool IsScaredOfScaryThings { get { return false; } }
-		public override bool IsScaryToPets { get { return true; } }
+		public override bool IsScaredOfScaryThings => false;
+		public override bool IsScaryToPets => true;
 
 		[Constructable]
 		public ExodusMinion() : base(AIType.AI_Melee, FightMode.Closest, 10, 1, 0.2, 0.4)
@@ -61,9 +61,9 @@ namespace Server.Mobiles
 			AddLoot(LootPack.Rich);
 		}
 
-		public override bool AutoDispel { get { return true; } }
-		public override bool BardImmune { get { return !Core.AOS; } }
-		public override Poison PoisonImmune { get { return Poison.Lethal; } }
+		public override bool AutoDispel => true;
+		public override bool BardImmune => !Core.AOS;
+		public override Poison PoisonImmune => Poison.Lethal;
 
 		public override int GetIdleSound()
 		{
@@ -113,14 +113,14 @@ namespace Server.Mobiles
 			if (!m_FieldActive)
 			{
 				// should there be an effect when spells nullifying is on?
-				this.FixedParticles(0, 10, 0, 0x2522, EffectLayer.Waist);
+				FixedParticles(0, 10, 0, 0x2522, EffectLayer.Waist);
 			}
 			else if (m_FieldActive && !CanUseField)
 			{
 				m_FieldActive = false;
 
 				// TODO: message and effect when field turns down; cannot be verified on OSI due to a bug
-				this.FixedParticles(0x3735, 1, 30, 0x251F, EffectLayer.Waist);
+				FixedParticles(0x3735, 1, 30, 0x251F, EffectLayer.Waist);
 			}
 		}
 
@@ -130,7 +130,7 @@ namespace Server.Mobiles
 
 			if (m_FieldActive)
 			{
-				this.FixedParticles(0x376A, 20, 10, 0x2530, EffectLayer.Waist);
+				FixedParticles(0x376A, 20, 10, 0x2530, EffectLayer.Waist);
 
 				PlaySound(0x2F4);
 
@@ -156,17 +156,17 @@ namespace Server.Mobiles
 		{
 			bool move = base.Move(d);
 
-			if (move && m_FieldActive && this.Combatant != null)
-				this.FixedParticles(0, 10, 0, 0x2530, EffectLayer.Waist);
+			if (move && m_FieldActive && Combatant != null)
+				FixedParticles(0, 10, 0, 0x2530, EffectLayer.Waist);
 
 			return move;
 		}
 
 		public void SendEBolt(Mobile to)
 		{
-			this.MovingParticles(to, 0x379F, 7, 0, false, true, 0xBE3, 0xFCB, 0x211);
+			MovingParticles(to, 0x379F, 7, 0, false, true, 0xBE3, 0xFCB, 0x211);
 			to.PlaySound(0x229);
-			this.DoHarmful(to);
+			DoHarmful(to);
 			AOS.Damage(to, this, 50, 0, 0, 0, 0, 100);
 		}
 
@@ -187,8 +187,8 @@ namespace Server.Mobiles
 
 			m_FieldActive = CanUseField;
 
-			if (this.Name == "Exodus Minion")
-				this.Name = "exodus minion";
+			if (Name == "Exodus Minion")
+				Name = "exodus minion";
 		}
 	}
 }

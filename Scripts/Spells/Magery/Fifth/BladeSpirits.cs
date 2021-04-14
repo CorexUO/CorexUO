@@ -16,8 +16,8 @@ namespace Server.Spells.Fifth
 				Reagent.Nightshade
 			);
 
-		public override SpellCircle Circle { get { return SpellCircle.Fifth; } }
-		public override bool CanTargetGround { get { return true; } }
+		public override SpellCircle Circle => SpellCircle.Fifth;
+		public override bool CanTargetGround => true;
 
 		public BladeSpiritsSpell(Mobile caster, Item scroll) : base(caster, scroll, m_Info)
 		{

@@ -204,9 +204,9 @@ namespace Server.Mobiles
 		[CommandProperty(AccessLevel.GameMaster)]
 		public bool HasGeneratedLoot { get; set; } // have we generated our loot yet?
 
-		public virtual InhumanSpeech SpeechType { get { return null; } }
+		public virtual InhumanSpeech SpeechType => null;
 
-		public virtual bool ArcherRequireArrows { get { return true; } }
+		public virtual bool ArcherRequireArrows => true;
 
 		[CommandProperty(AccessLevel.GameMaster)]
 		public bool SeeksHome { get; set; }
@@ -217,7 +217,7 @@ namespace Server.Mobiles
 		[CommandProperty(AccessLevel.GameMaster, AccessLevel.Administrator)]
 		public bool IsStabled
 		{
-			get { return m_IsStabled; }
+			get => m_IsStabled;
 			set
 			{
 				m_IsStabled = value;
@@ -236,8 +236,8 @@ namespace Server.Mobiles
 
 		public UnsummonTimer UnsummonTimer { get; set; }
 
-		public virtual Faction FactionAllegiance { get { return null; } }
-		public virtual int FactionSilverWorth { get { return 30; } }
+		public virtual Faction FactionAllegiance => null;
+		public virtual int FactionSilverWorth => 30;
 
 		#region ML Quest System
 
@@ -262,15 +262,15 @@ namespace Server.Mobiles
 			}
 		}
 
-		public virtual bool CanGiveMLQuest { get { return (MLQuests.Count != 0); } }
-		public virtual bool StaticMLQuester { get { return true; } }
+		public virtual bool CanGiveMLQuest => (MLQuests.Count != 0);
+		public virtual bool StaticMLQuester => true;
 
 		protected virtual List<MLQuest> ConstructQuestList()
 		{
 			return null;
 		}
 
-		public virtual bool CanShout { get { return false; } }
+		public virtual bool CanShout => false;
 
 		public const int ShoutRange = 8;
 		public static readonly TimeSpan ShoutDelay = TimeSpan.FromMinutes(1);
@@ -312,15 +312,15 @@ namespace Server.Mobiles
 		private static readonly TimeSpan m_BondingDelay = TimeSpan.FromDays(Settings.Configuration.Get<double>("Mobiles", "BondingDelay", 7.0));
 		private static readonly TimeSpan m_BondingAbandonDelay = TimeSpan.FromDays(Settings.Configuration.Get<double>("Mobiles", "BondingAbandonDelay", 1.0));
 
-		public virtual bool IsBondable { get { return (m_BondingEnabled && !Summoned); } }
-		public virtual TimeSpan BondingDelay { get { return m_BondingDelay; } }
-		public virtual TimeSpan BondingAbandonDelay { get { return m_BondingAbandonDelay; } }
+		public virtual bool IsBondable => (m_BondingEnabled && !Summoned);
+		public virtual TimeSpan BondingDelay => m_BondingDelay;
+		public virtual TimeSpan BondingAbandonDelay => m_BondingAbandonDelay;
 
-		public override bool CanRegenHits { get { return !IsDeadPet && base.CanRegenHits; } }
-		public override bool CanRegenStam { get { return !IsParagon && !IsDeadPet && base.CanRegenStam; } }
-		public override bool CanRegenMana { get { return !IsDeadPet && base.CanRegenMana; } }
+		public override bool CanRegenHits => !IsDeadPet && base.CanRegenHits;
+		public override bool CanRegenStam => !IsParagon && !IsDeadPet && base.CanRegenStam;
+		public override bool CanRegenMana => !IsDeadPet && base.CanRegenMana;
 
-		public override bool IsDeadBondedPet { get { return IsDeadPet; } }
+		public override bool IsDeadBondedPet => IsDeadPet;
 
 		private bool m_IsBonded;
 
@@ -356,7 +356,7 @@ namespace Server.Mobiles
 		[CommandProperty(AccessLevel.GameMaster)]
 		public bool IsBonded
 		{
-			get { return m_IsBonded; }
+			get => m_IsBonded;
 			set { m_IsBonded = value; InvalidateProperties(); }
 		}
 
@@ -421,7 +421,7 @@ namespace Server.Mobiles
 
 		#endregion
 
-		public virtual double WeaponAbilityChance { get { return 0.4; } }
+		public virtual double WeaponAbilityChance => 0.4;
 
 		public virtual WeaponAbility GetWeaponAbility()
 		{
@@ -430,26 +430,26 @@ namespace Server.Mobiles
 
 		#region Elemental Resistance/Damage
 
-		public override int BasePhysicalResistance { get { return m_PhysicalResistance; } }
-		public override int BaseFireResistance { get { return m_FireResistance; } }
-		public override int BaseColdResistance { get { return m_ColdResistance; } }
-		public override int BasePoisonResistance { get { return m_PoisonResistance; } }
-		public override int BaseEnergyResistance { get { return m_EnergyResistance; } }
+		public override int BasePhysicalResistance => m_PhysicalResistance;
+		public override int BaseFireResistance => m_FireResistance;
+		public override int BaseColdResistance => m_ColdResistance;
+		public override int BasePoisonResistance => m_PoisonResistance;
+		public override int BaseEnergyResistance => m_EnergyResistance;
 
 		[CommandProperty(AccessLevel.GameMaster)]
-		public int PhysicalResistanceSeed { get { return m_PhysicalResistance; } set { m_PhysicalResistance = value; UpdateResistances(); } }
+		public int PhysicalResistanceSeed { get => m_PhysicalResistance; set { m_PhysicalResistance = value; UpdateResistances(); } }
 
 		[CommandProperty(AccessLevel.GameMaster)]
-		public int FireResistSeed { get { return m_FireResistance; } set { m_FireResistance = value; UpdateResistances(); } }
+		public int FireResistSeed { get => m_FireResistance; set { m_FireResistance = value; UpdateResistances(); } }
 
 		[CommandProperty(AccessLevel.GameMaster)]
-		public int ColdResistSeed { get { return m_ColdResistance; } set { m_ColdResistance = value; UpdateResistances(); } }
+		public int ColdResistSeed { get => m_ColdResistance; set { m_ColdResistance = value; UpdateResistances(); } }
 
 		[CommandProperty(AccessLevel.GameMaster)]
-		public int PoisonResistSeed { get { return m_PoisonResistance; } set { m_PoisonResistance = value; UpdateResistances(); } }
+		public int PoisonResistSeed { get => m_PoisonResistance; set { m_PoisonResistance = value; UpdateResistances(); } }
 
 		[CommandProperty(AccessLevel.GameMaster)]
-		public int EnergyResistSeed { get { return m_EnergyResistance; } set { m_EnergyResistance = value; UpdateResistances(); } }
+		public int EnergyResistSeed { get => m_EnergyResistance; set { m_EnergyResistance = value; UpdateResistances(); } }
 
 		[CommandProperty(AccessLevel.GameMaster)]
 		public int PhysicalDamage { get; set; } = 100;
@@ -477,7 +477,7 @@ namespace Server.Mobiles
 		[CommandProperty(AccessLevel.GameMaster)]
 		public bool IsParagon
 		{
-			get { return m_Paragon; }
+			get => m_Paragon;
 			set
 			{
 				if (m_Paragon == value)
@@ -493,90 +493,90 @@ namespace Server.Mobiles
 			}
 		}
 
-		public virtual bool HasManaOveride { get { return false; } }
+		public virtual bool HasManaOveride => false;
 
-		public virtual FoodType FavoriteFood { get { return FoodType.Meat; } }
-		public virtual PackInstinct PackInstinct { get { return PackInstinct.None; } }
+		public virtual FoodType FavoriteFood => FoodType.Meat;
+		public virtual PackInstinct PackInstinct => PackInstinct.None;
 
 		public List<Mobile> Owners { get; private set; }
 
-		public virtual bool AllowMaleTamer { get { return true; } }
-		public virtual bool AllowFemaleTamer { get { return true; } }
-		public virtual bool SubdueBeforeTame { get { return false; } }
-		public virtual bool StatLossAfterTame { get { return SubdueBeforeTame; } }
-		public virtual bool ReduceSpeedWithDamage { get { return true; } }
-		public virtual bool IsSubdued { get { return SubdueBeforeTame && (Hits < (HitsMax / 10)); } }
+		public virtual bool AllowMaleTamer => true;
+		public virtual bool AllowFemaleTamer => true;
+		public virtual bool SubdueBeforeTame => false;
+		public virtual bool StatLossAfterTame => SubdueBeforeTame;
+		public virtual bool ReduceSpeedWithDamage => true;
+		public virtual bool IsSubdued => SubdueBeforeTame && (Hits < (HitsMax / 10));
 
-		public virtual bool Commandable { get { return true; } }
+		public virtual bool Commandable => true;
 
-		public virtual Poison HitPoison { get { return null; } }
-		public virtual double HitPoisonChance { get { return 0.5; } }
-		public virtual Poison PoisonImmune { get { return null; } }
+		public virtual Poison HitPoison => null;
+		public virtual double HitPoisonChance => 0.5;
+		public virtual Poison PoisonImmune => null;
 
-		public virtual bool BardImmune { get { return false; } }
-		public virtual bool Unprovokable { get { return BardImmune || IsDeadPet; } }
-		public virtual bool Uncalmable { get { return BardImmune || IsDeadPet; } }
-		public virtual bool AreaPeaceImmune { get { return BardImmune || IsDeadPet; } }
+		public virtual bool BardImmune => false;
+		public virtual bool Unprovokable => BardImmune || IsDeadPet;
+		public virtual bool Uncalmable => BardImmune || IsDeadPet;
+		public virtual bool AreaPeaceImmune => BardImmune || IsDeadPet;
 
-		public virtual bool BleedImmune { get { return false; } }
-		public virtual double BonusPetDamageScalar { get { return 1.0; } }
+		public virtual bool BleedImmune => false;
+		public virtual double BonusPetDamageScalar => 1.0;
 
-		public virtual bool DeathAdderCharmable { get { return false; } }
+		public virtual bool DeathAdderCharmable => false;
 
 		//TODO: Find the pub 31 tweaks to the DispelDifficulty and apply them of course.
-		public virtual double DispelDifficulty { get { return 0.0; } } // at this skill level we dispel 50% chance
-		public virtual double DispelFocus { get { return 20.0; } } // at difficulty - focus we have 0%, at difficulty + focus we have 100%
-		public virtual bool DisplayWeight { get { return Backpack is StrongBackpack; } }
+		public virtual double DispelDifficulty => 0.0;  // at this skill level we dispel 50% chance
+		public virtual double DispelFocus => 20.0;  // at difficulty - focus we have 0%, at difficulty + focus we have 100%
+		public virtual bool DisplayWeight => Backpack is StrongBackpack;
 
 		#region Breath ability, like dragon fire breath
 		private long m_NextBreathTime;
 
 		// Must be overriden in subclass to enable
-		public virtual bool HasBreath { get { return false; } }
+		public virtual bool HasBreath => false;
 
 		// Base damage given is: CurrentHitPoints * BreathDamageScalar
-		public virtual double BreathDamageScalar { get { return (Core.AOS ? 0.16 : 0.05); } }
+		public virtual double BreathDamageScalar => (Core.AOS ? 0.16 : 0.05);
 
 		// Min/max seconds until next breath
-		public virtual double BreathMinDelay { get { return 30.0; } }
-		public virtual double BreathMaxDelay { get { return 45.0; } }
+		public virtual double BreathMinDelay => 30.0;
+		public virtual double BreathMaxDelay => 45.0;
 
 		// Creature stops moving for 1.0 seconds while breathing
-		public virtual double BreathStallTime { get { return 1.0; } }
+		public virtual double BreathStallTime => 1.0;
 
 		// Effect is sent 1.3 seconds after BreathAngerSound and BreathAngerAnimation is played
-		public virtual double BreathEffectDelay { get { return 1.3; } }
+		public virtual double BreathEffectDelay => 1.3;
 
 		// Damage is given 1.0 seconds after effect is sent
-		public virtual double BreathDamageDelay { get { return 1.0; } }
+		public virtual double BreathDamageDelay => 1.0;
 
-		public virtual int BreathRange { get { return RangePerception; } }
+		public virtual int BreathRange => RangePerception;
 
 		// Damage types
-		public virtual int BreathChaosDamage { get { return 0; } }
-		public virtual int BreathPhysicalDamage { get { return 0; } }
-		public virtual int BreathFireDamage { get { return 100; } }
-		public virtual int BreathColdDamage { get { return 0; } }
-		public virtual int BreathPoisonDamage { get { return 0; } }
-		public virtual int BreathEnergyDamage { get { return 0; } }
+		public virtual int BreathChaosDamage => 0;
+		public virtual int BreathPhysicalDamage => 0;
+		public virtual int BreathFireDamage => 100;
+		public virtual int BreathColdDamage => 0;
+		public virtual int BreathPoisonDamage => 0;
+		public virtual int BreathEnergyDamage => 0;
 
 		// Is immune to breath damages
-		public virtual bool BreathImmune { get { return false; } }
+		public virtual bool BreathImmune => false;
 
 		// Effect details and sound
-		public virtual int BreathEffectItemID { get { return 0x36D4; } }
-		public virtual int BreathEffectSpeed { get { return 5; } }
-		public virtual int BreathEffectDuration { get { return 0; } }
-		public virtual bool BreathEffectExplodes { get { return false; } }
-		public virtual bool BreathEffectFixedDir { get { return false; } }
-		public virtual int BreathEffectHue { get { return 0; } }
-		public virtual int BreathEffectRenderMode { get { return 0; } }
+		public virtual int BreathEffectItemID => 0x36D4;
+		public virtual int BreathEffectSpeed => 5;
+		public virtual int BreathEffectDuration => 0;
+		public virtual bool BreathEffectExplodes => false;
+		public virtual bool BreathEffectFixedDir => false;
+		public virtual int BreathEffectHue => 0;
+		public virtual int BreathEffectRenderMode => 0;
 
-		public virtual int BreathEffectSound { get { return 0x227; } }
+		public virtual int BreathEffectSound => 0x227;
 
 		// Anger sound/animations
-		public virtual int BreathAngerSound { get { return GetAngerSound(); } }
-		public virtual int BreathAngerAnimation { get { return 12; } }
+		public virtual int BreathAngerSound => GetAngerSound();
+		public virtual int BreathAngerAnimation => 12;
 
 		public virtual void BreathStart(Mobile target)
 		{
@@ -584,7 +584,7 @@ namespace Server.Mobiles
 			BreathPlayAngerSound();
 			BreathPlayAngerAnimation();
 
-			this.Direction = this.GetDirectionTo(target);
+			Direction = GetDirectionTo(target);
 
 			_ = Timer.DelayCall(TimeSpan.FromSeconds(BreathEffectDelay), new TimerStateCallback(BreathEffect_Callback), target);
 		}
@@ -692,7 +692,7 @@ namespace Server.Mobiles
 
 		#endregion
 
-		public virtual bool CanFly { get { return false; } }
+		public virtual bool CanFly => false;
 
 		#region Spill Acid
 
@@ -703,13 +703,13 @@ namespace Server.Mobiles
 
 		public void SpillAcid(Mobile target, int Amount)
 		{
-			if ((target != null && target.Map == null) || this.Map == null)
+			if ((target != null && target.Map == null) || Map == null)
 				return;
 
 			for (int i = 0; i < Amount; ++i)
 			{
-				Point3D loc = this.Location;
-				Map map = this.Map;
+				Point3D loc = Location;
+				Map map = Map;
 				Item acid = NewHarmfulItem();
 
 				if (target != null && target.Map != null && Amount == 1)
@@ -747,7 +747,7 @@ namespace Server.Mobiles
 		#endregion
 
 		#region Flee!!!
-		public virtual bool CanFlee { get { return !m_Paragon; } }
+		public virtual bool CanFlee => !m_Paragon;
 
 		public DateTime EndFleeTime { get; set; }
 
@@ -777,24 +777,18 @@ namespace Server.Mobiles
 
 		#endregion
 
-		public virtual bool IsInvulnerable { get { return false; } }
+		public virtual bool IsInvulnerable => false;
 
 		public BaseAI AIObject { get; private set; }
 
 		public const int MaxOwners = 5;
 
-		public virtual OppositionGroup OppositionGroup
-		{
-			get { return null; }
-		}
+		public virtual OppositionGroup OppositionGroup => null;
 
 		#region Friends
 		public List<Mobile> Friends { get; private set; }
 
-		public virtual bool AllowNewPetFriend
-		{
-			get { return (Friends == null || Friends.Count < 5); }
-		}
+		public virtual bool AllowNewPetFriend => (Friends == null || Friends.Count < 5);
 
 		public virtual bool IsPetFriend(Mobile m)
 		{
@@ -817,7 +811,7 @@ namespace Server.Mobiles
 
 		public virtual bool IsFriend(Mobile m)
 		{
-			OppositionGroup g = this.OppositionGroup;
+			OppositionGroup g = OppositionGroup;
 
 			if (g != null && g.IsEnemy(this, m))
 				return false;
@@ -833,7 +827,7 @@ namespace Server.Mobiles
 		#endregion
 
 		#region Allegiance
-		public virtual Ethics.Ethic EthicAllegiance { get { return null; } }
+		public virtual Ethics.Ethic EthicAllegiance => null;
 
 		public enum Allegiance
 		{
@@ -872,7 +866,7 @@ namespace Server.Mobiles
 
 		public virtual bool IsEnemy(Mobile m)
 		{
-			OppositionGroup g = this.OppositionGroup;
+			OppositionGroup g = OppositionGroup;
 
 			if (g != null && g.IsEnemy(this, m))
 				return true;
@@ -1019,7 +1013,7 @@ namespace Server.Mobiles
 				if (!Summoned)
 					return false;
 
-				Type type = this.GetType();
+				Type type = GetType();
 
 				bool contains = false;
 
@@ -1046,9 +1040,9 @@ namespace Server.Mobiles
 
 		public override void Damage(int amount, Mobile from)
 		{
-			int oldHits = this.Hits;
+			int oldHits = Hits;
 
-			if (Core.AOS && !this.Summoned && this.Controlled && 0.2 > Utility.RandomDouble())
+			if (Core.AOS && !Summoned && Controlled && 0.2 > Utility.RandomDouble())
 				amount = (int)(amount * BonusPetDamageScalar);
 
 			if (EvilOmenSpell.TryEndEffect(this))
@@ -1066,18 +1060,12 @@ namespace Server.Mobiles
 
 			if (SubdueBeforeTame && !Controlled)
 			{
-				if ((oldHits > (this.HitsMax / 10)) && (this.Hits <= (this.HitsMax / 10)))
+				if ((oldHits > (HitsMax / 10)) && (Hits <= (HitsMax / 10)))
 					PublicOverheadMessage(MessageType.Regular, 0x3B2, false, "* The creature has been beaten into subjugation! *");
 			}
 		}
 
-		public virtual bool DeleteCorpseOnDeath
-		{
-			get
-			{
-				return !Core.AOS && m_bSummoned;
-			}
-		}
+		public virtual bool DeleteCorpseOnDeath => !Core.AOS && m_bSummoned;
 
 		public override void SetLocation(Point3D newLocation, bool isTeleport)
 		{
@@ -1127,14 +1115,8 @@ namespace Server.Mobiles
 		[CommandProperty(AccessLevel.GameMaster)]
 		public int Loyalty
 		{
-			get
-			{
-				return m_Loyalty;
-			}
-			set
-			{
-				m_Loyalty = Math.Min(Math.Max(value, 0), MaxLoyalty);
-			}
+			get => m_Loyalty;
+			set => m_Loyalty = Math.Min(Math.Max(value, 0), MaxLoyalty);
 		}
 
 		[CommandProperty(AccessLevel.GameMaster)]
@@ -1143,45 +1125,21 @@ namespace Server.Mobiles
 		[CommandProperty(AccessLevel.GameMaster)]
 		public IPoint2D TargetLocation { get; set; } = null;
 
-		public virtual Mobile ConstantFocus { get { return null; } }
+		public virtual Mobile ConstantFocus => null;
 
-		public virtual bool DisallowAllMoves
-		{
-			get
-			{
-				return false;
-			}
-		}
+		public virtual bool DisallowAllMoves => false;
 
-		public virtual bool InitialInnocent
-		{
-			get
-			{
-				return false;
-			}
-		}
+		public virtual bool InitialInnocent => false;
 
-		public virtual bool AlwaysMurderer
-		{
-			get
-			{
-				return false;
-			}
-		}
+		public virtual bool AlwaysMurderer => false;
 
-		public virtual bool AlwaysAttackable
-		{
-			get
-			{
-				return false;
-			}
-		}
+		public virtual bool AlwaysAttackable => false;
 
 		[CommandProperty(AccessLevel.GameMaster)]
-		public virtual int DamageMin { get { return m_DamageMin; } set { m_DamageMin = value; } }
+		public virtual int DamageMin { get => m_DamageMin; set => m_DamageMin = value; }
 
 		[CommandProperty(AccessLevel.GameMaster)]
-		public virtual int DamageMax { get { return m_DamageMax; } set { m_DamageMax = value; } }
+		public virtual int DamageMax { get => m_DamageMax; set => m_DamageMax = value; }
 
 		[CommandProperty(AccessLevel.GameMaster)]
 		public override int HitsMax
@@ -1255,30 +1213,13 @@ namespace Server.Mobiles
 		[CommandProperty(AccessLevel.GameMaster)]
 		public int ManaMaxSeed { get; set; } = -1;
 
-		public virtual bool CanOpenDoors
-		{
-			get
-			{
-				return !this.Body.IsAnimal && !this.Body.IsSea;
-			}
-		}
+		public virtual bool CanOpenDoors => !Body.IsAnimal && !Body.IsSea;
 
-		public virtual bool CanMoveOverObstacles
-		{
-			get
-			{
-				return Core.AOS || this.Body.IsMonster;
-			}
-		}
+		public virtual bool CanMoveOverObstacles => Core.AOS || Body.IsMonster;
 
-		public virtual bool CanDestroyObstacles
-		{
-			get
-			{
+		public virtual bool CanDestroyObstacles =>
 				// to enable breaking of furniture, 'return CanMoveOverObstacles;'
-				return false;
-			}
-		}
+				false;
 
 		public void Pacify(Mobile master, DateTime endtime)
 		{
@@ -1306,7 +1247,7 @@ namespace Server.Mobiles
 
 		*/
 
-		public virtual bool CanBeDistracted { get { return !Core.ML; } }
+		public virtual bool CanBeDistracted => !Core.ML;
 
 		public virtual void CheckDistracted(Mobile from)
 		{
@@ -1346,7 +1287,7 @@ namespace Server.Mobiles
 
 			WeightOverloading.FatigueOnDamage(this, amount);
 
-			InhumanSpeech speechType = this.SpeechType;
+			InhumanSpeech speechType = SpeechType;
 
 			if (speechType != null && !willKill)
 				speechType.OnDamage(this, amount);
@@ -1493,7 +1434,7 @@ namespace Server.Mobiles
 
 				if (scales != 0)
 				{
-					ScaleType sc = this.ScaleType;
+					ScaleType sc = ScaleType;
 
 					switch (sc)
 					{
@@ -1574,7 +1515,7 @@ namespace Server.Mobiles
 
 			ChangeAIType(AI);
 
-			InhumanSpeech speechType = this.SpeechType;
+			InhumanSpeech speechType = SpeechType;
 
 			if (speechType != null)
 				speechType.OnConstruct(this);
@@ -1931,9 +1872,9 @@ namespace Server.Mobiles
 			{
 				Direction = GetDirectionTo(from);
 
-				int oldSpeechHue = this.SpeechHue;
+				int oldSpeechHue = SpeechHue;
 
-				this.SpeechHue = 0x23F;
+				SpeechHue = 0x23F;
 				SayTo(from, "Thou art giving me gold?");
 
 				if (dropped.Amount >= 400)
@@ -1941,10 +1882,10 @@ namespace Server.Mobiles
 				else
 					SayTo(from, "Money is always welcome.");
 
-				this.SpeechHue = 0x3B2;
+				SpeechHue = 0x3B2;
 				SayTo(from, 501548); // I thank thee.
 
-				this.SpeechHue = oldSpeechHue;
+				SpeechHue = oldSpeechHue;
 
 				dropped.Delete();
 				return true;
@@ -1953,7 +1894,7 @@ namespace Server.Mobiles
 			return false;
 		}
 
-		public override bool ShouldCheckStatTimers { get { return false; } }
+		public override bool ShouldCheckStatTimers => false;
 
 		#region Food
 		private static readonly Type[] m_Eggs = new Type[]
@@ -2130,7 +2071,7 @@ namespace Server.Mobiles
 			return false;
 		}
 
-		public virtual bool CanAngerOnTame { get { return false; } }
+		public virtual bool CanAngerOnTame => false;
 
 		#region OnAction[...]
 
@@ -2178,7 +2119,7 @@ namespace Server.Mobiles
 			return base.OnDragDrop(from, dropped);
 		}
 
-		protected virtual BaseAI ForcedAI { get { return null; } }
+		protected virtual BaseAI ForcedAI => null;
 
 		public void ChangeAIType(AIType NewAI)
 		{
@@ -2234,10 +2175,7 @@ namespace Server.Mobiles
 		[CommandProperty(AccessLevel.GameMaster)]
 		public AIType AI
 		{
-			get
-			{
-				return m_CurrentAI;
-			}
+			get => m_CurrentAI;
 			set
 			{
 				m_CurrentAI = value;
@@ -2257,10 +2195,7 @@ namespace Server.Mobiles
 		[CommandProperty(AccessLevel.GameMaster)]
 		public int Team
 		{
-			get
-			{
-				return m_iTeam;
-			}
+			get => m_iTeam;
 			set
 			{
 				m_iTeam = value;
@@ -2319,23 +2254,14 @@ namespace Server.Mobiles
 		[CommandProperty(AccessLevel.GameMaster)]
 		public Point3D Home
 		{
-			get
-			{
-				return m_pHome;
-			}
-			set
-			{
-				m_pHome = value;
-			}
+			get => m_pHome;
+			set => m_pHome = value;
 		}
 
 		[CommandProperty(AccessLevel.GameMaster)]
 		public bool Controlled
 		{
-			get
-			{
-				return m_bControlled;
-			}
+			get => m_bControlled;
 			set
 			{
 				if (m_bControlled == value)
@@ -2406,10 +2332,7 @@ namespace Server.Mobiles
 		[CommandProperty(AccessLevel.GameMaster)]
 		public Mobile ControlMaster
 		{
-			get
-			{
-				return m_ControlMaster;
-			}
+			get => m_ControlMaster;
 			set
 			{
 				if (m_ControlMaster == value || this == value)
@@ -2428,10 +2351,7 @@ namespace Server.Mobiles
 		[CommandProperty(AccessLevel.GameMaster)]
 		public Mobile SummonMaster
 		{
-			get
-			{
-				return m_SummonMaster;
-			}
+			get => m_SummonMaster;
 			set
 			{
 				if (m_SummonMaster == value || this == value)
@@ -2451,23 +2371,14 @@ namespace Server.Mobiles
 		[CommandProperty(AccessLevel.GameMaster)]
 		public Point3D ControlDest
 		{
-			get
-			{
-				return m_ControlDest;
-			}
-			set
-			{
-				m_ControlDest = value;
-			}
+			get => m_ControlDest;
+			set => m_ControlDest = value;
 		}
 
 		[CommandProperty(AccessLevel.GameMaster)]
 		public OrderType ControlOrder
 		{
-			get
-			{
-				return m_ControlOrder;
-			}
+			get => m_ControlOrder;
 			set
 			{
 				m_ControlOrder = value;
@@ -2503,23 +2414,14 @@ namespace Server.Mobiles
 		[CommandProperty(AccessLevel.GameMaster)]
 		public bool Tamable
 		{
-			get
-			{
-				return m_bTamable && !m_Paragon;
-			}
-			set
-			{
-				m_bTamable = value;
-			}
+			get => m_bTamable && !m_Paragon;
+			set => m_bTamable = value;
 		}
 
 		[CommandProperty(AccessLevel.Administrator)]
 		public bool Summoned
 		{
-			get
-			{
-				return m_bSummoned;
-			}
+			get => m_bSummoned;
 			set
 			{
 				if (m_bSummoned == value)
@@ -2537,30 +2439,30 @@ namespace Server.Mobiles
 		[CommandProperty(AccessLevel.Administrator)]
 		public int ControlSlots { get; set; } = 1;
 
-		public virtual bool NoHouseRestrictions { get { return false; } }
-		public virtual bool IsHouseSummonable { get { return false; } }
+		public virtual bool NoHouseRestrictions => false;
+		public virtual bool IsHouseSummonable => false;
 
 		#region Corpse Resources
-		public virtual int Feathers { get { return 0; } }
-		public virtual int Wool { get { return 0; } }
+		public virtual int Feathers => 0;
+		public virtual int Wool => 0;
 
-		public virtual MeatType MeatType { get { return MeatType.Ribs; } }
-		public virtual int Meat { get { return 0; } }
+		public virtual MeatType MeatType => MeatType.Ribs;
+		public virtual int Meat => 0;
 
-		public virtual int Hides { get { return 0; } }
-		public virtual HideType HideType { get { return HideType.Regular; } }
+		public virtual int Hides => 0;
+		public virtual HideType HideType => HideType.Regular;
 
-		public virtual int Scales { get { return 0; } }
-		public virtual ScaleType ScaleType { get { return ScaleType.Red; } }
+		public virtual int Scales => 0;
+		public virtual ScaleType ScaleType => ScaleType.Red;
 		#endregion
 
-		public virtual bool AutoDispel { get { return false; } }
-		public virtual double AutoDispelChance { get { return ((Core.SE) ? .10 : 1.0); } }
+		public virtual bool AutoDispel => false;
+		public virtual double AutoDispelChance => ((Core.SE) ? .10 : 1.0);
 
-		public virtual bool IsScaryToPets { get { return false; } }
-		public virtual bool IsScaredOfScaryThings { get { return true; } }
+		public virtual bool IsScaryToPets => false;
+		public virtual bool IsScaredOfScaryThings => true;
 
-		public virtual bool CanRummageCorpses { get { return false; } }
+		public virtual bool CanRummageCorpses => false;
 
 		public override void OnGotMeleeAttack(Mobile attacker)
 		{
@@ -2578,7 +2480,7 @@ namespace Server.Mobiles
 			m.Delete();
 		}
 
-		public virtual bool DeleteOnRelease { get { return m_bSummoned; } }
+		public virtual bool DeleteOnRelease => m_bSummoned;
 
 		public override void OnGaveMeleeAttack(Mobile defender)
 		{
@@ -2631,13 +2533,13 @@ namespace Server.Mobiles
 		public void DebugSay(string text)
 		{
 			if (Debug)
-				this.PublicOverheadMessage(MessageType.Regular, 41, false, text);
+				PublicOverheadMessage(MessageType.Regular, 41, false, text);
 		}
 
 		public void DebugSay(string format, params object[] args)
 		{
 			if (Debug)
-				this.PublicOverheadMessage(MessageType.Regular, 41, false, string.Format(format, args));
+				PublicOverheadMessage(MessageType.Regular, 41, false, string.Format(format, args));
 		}
 
 		/*
@@ -2694,7 +2596,7 @@ namespace Server.Mobiles
 		{
 			int iCount = 0;
 
-			foreach (Mobile m in this.GetMobilesInRange(iRange))
+			foreach (Mobile m in GetMobilesInRange(iRange))
 			{
 				if (m is BaseCreature creature)
 				{
@@ -2745,7 +2647,7 @@ namespace Server.Mobiles
 		}
 
 		#region Teaching
-		public virtual bool CanTeach { get { return false; } }
+		public virtual bool CanTeach => false;
 
 		public virtual bool CheckTeach(SkillName skill, Mobile from)
 		{
@@ -2944,8 +2846,8 @@ namespace Server.Mobiles
 		{
 			base.AggressiveAction(aggressor, criminal);
 
-			if (this.ControlMaster != null)
-				if (NotorietyHandlers.CheckAggressor(this.ControlMaster.Aggressors, aggressor))
+			if (ControlMaster != null)
+				if (NotorietyHandlers.CheckAggressor(ControlMaster.Aggressors, aggressor))
 					aggressor.Aggressors.Add(AggressorInfo.Create(this, aggressor, true));
 
 			OrderType ct = m_ControlOrder;
@@ -3007,7 +2909,7 @@ namespace Server.Mobiles
 		{
 		}
 
-		public virtual bool CanDrop { get { return IsBonded; } }
+		public virtual bool CanDrop => IsBonded;
 
 		public override void GetContextMenuEntries(Mobile from, List<ContextMenuEntry> list)
 		{
@@ -3023,7 +2925,7 @@ namespace Server.Mobiles
 
 			if (CanTeach && from.Alive)
 			{
-				Skills ourSkills = this.Skills;
+				Skills ourSkills = Skills;
 				Skills theirSkills = from.Skills;
 
 				for (int i = 0; i < ourSkills.Length && i < theirSkills.Length; ++i)
@@ -3046,7 +2948,7 @@ namespace Server.Mobiles
 
 		public override bool HandlesOnSpeech(Mobile from)
 		{
-			InhumanSpeech speechType = this.SpeechType;
+			InhumanSpeech speechType = SpeechType;
 
 			if (speechType != null && (speechType.Flags & IHSFlags.OnSpeech) != 0 && from.InRange(this, 3))
 				return true;
@@ -3056,7 +2958,7 @@ namespace Server.Mobiles
 
 		public override void OnSpeech(SpeechEventArgs e)
 		{
-			InhumanSpeech speechType = this.SpeechType;
+			InhumanSpeech speechType = SpeechType;
 
 			if (speechType != null && speechType.OnSpeech(this, e.Mobile, e.Speech))
 				e.Handled = true;
@@ -3098,7 +3000,7 @@ namespace Server.Mobiles
 			if (target == this || target == m_ControlMaster || target == m_SummonMaster || (!Controlled && !Summoned))
 				return;
 
-			List<AggressorInfo> list = this.Aggressors;
+			List<AggressorInfo> list = Aggressors;
 
 			for (int i = 0; i < list.Count; ++i)
 			{
@@ -3108,7 +3010,7 @@ namespace Server.Mobiles
 					return;
 			}
 
-			list = this.Aggressed;
+			list = Aggressed;
 
 			for (int i = 0; i < list.Count; ++i)
 			{
@@ -3275,7 +3177,7 @@ namespace Server.Mobiles
 				ForceReacquire();
 			}
 
-			InhumanSpeech speechType = this.SpeechType;
+			InhumanSpeech speechType = SpeechType;
 
 			if (speechType != null)
 				speechType.OnMovement(this, m, oldLocation);
@@ -3310,14 +3212,14 @@ namespace Server.Mobiles
 			if (!Body.IsHuman || Murderer || AlwaysMurderer || AlwaysAttackable || !m.Murderer || !m.InRange(Location, 12) || !m.Alive)
 				return;
 
-			GuardedRegion guardedRegion = (GuardedRegion)this.Region.GetRegion(typeof(GuardedRegion));
+			GuardedRegion guardedRegion = (GuardedRegion)Region.GetRegion(typeof(GuardedRegion));
 
 			if (guardedRegion != null)
 			{
 				if (!guardedRegion.IsDisabled() && guardedRegion.IsGuardCandidate(m) && BeginAction(typeof(GuardedRegion)))
 				{
 					Say(1013037 + Utility.Random(16));
-					guardedRegion.CallGuards(this.Location);
+					guardedRegion.CallGuards(Location);
 
 					_ = Timer.DelayCall(TimeSpan.FromSeconds(5.0), new TimerCallback(ReleaseGuardLock));
 
@@ -3530,7 +3432,7 @@ namespace Server.Mobiles
 			if (Skills[name].Base > Skills[name].Cap)
 			{
 				if (Core.SE)
-					this.SkillsCap += (Skills[name].BaseFixedPoint - Skills[name].CapFixedPoint);
+					SkillsCap += (Skills[name].BaseFixedPoint - Skills[name].CapFixedPoint);
 
 				Skills[name].Cap = Skills[name].Base;
 			}
@@ -3546,7 +3448,7 @@ namespace Server.Mobiles
 			if (Skills[name].Base > Skills[name].Cap)
 			{
 				if (Core.SE)
-					this.SkillsCap += (Skills[name].BaseFixedPoint - Skills[name].CapFixedPoint);
+					SkillsCap += (Skills[name].BaseFixedPoint - Skills[name].CapFixedPoint);
 
 				Skills[name].Cap = Skills[name].Base;
 			}
@@ -4060,13 +3962,13 @@ namespace Server.Mobiles
 		{
 			if (from.AccessLevel >= AccessLevel.GameMaster && !Body.IsHuman)
 			{
-				Container pack = this.Backpack;
+				Container pack = Backpack;
 
 				if (pack != null)
 					pack.DisplayTo(from);
 			}
 
-			if (this.DeathAdderCharmable && from.CanBeHarmful(this, false))
+			if (DeathAdderCharmable && from.CanBeHarmful(this, false))
 			{
 				if (SummonFamiliarSpell.Table[from] is DeathAdder da && !da.Deleted)
 				{
@@ -4157,18 +4059,18 @@ namespace Server.Mobiles
 			base.OnSingleClick(from);
 		}
 
-		public virtual double TreasureMapChance { get { return TreasureMap.LootChance; } }
-		public virtual int TreasureMapLevel { get { return -1; } }
+		public virtual double TreasureMapChance => TreasureMap.LootChance;
+		public virtual int TreasureMapLevel => -1;
 
-		public virtual bool IgnoreYoungProtection { get { return false; } }
+		public virtual bool IgnoreYoungProtection => false;
 
 		public override bool OnBeforeDeath()
 		{
 			int treasureLevel = TreasureMapLevel;
 
-			if (treasureLevel == 1 && this.Map == Map.Trammel && TreasureMap.IsInHavenIsland(this))
+			if (treasureLevel == 1 && Map == Map.Trammel && TreasureMap.IsInHavenIsland(this))
 			{
-				Mobile killer = this.LastKiller;
+				Mobile killer = LastKiller;
 
 				if (killer is BaseCreature creature)
 					killer = creature.GetMaster();
@@ -4182,7 +4084,7 @@ namespace Server.Mobiles
 				if (treasureLevel >= 0)
 				{
 					if (m_Paragon && Paragon.ChestChance > Utility.RandomDouble())
-						PackItem(new ParagonChest(this.Name, treasureLevel));
+						PackItem(new ParagonChest(Name, treasureLevel));
 					else if ((Map == Map.Felucca || Map == Map.Trammel) && TreasureMap.LootChance >= Utility.RandomDouble())
 						PackItem(new TreasureMap(treasureLevel, Map));
 				}
@@ -4216,7 +4118,7 @@ namespace Server.Mobiles
 			if (IsAnimatedDead)
 				Effects.SendLocationEffect(Location, Map, 0x3728, 13, 1, 0x461, 4);
 
-			InhumanSpeech speechType = this.SpeechType;
+			InhumanSpeech speechType = SpeechType;
 
 			if (speechType != null)
 				speechType.OnDeath(this);
@@ -4273,15 +4175,9 @@ namespace Server.Mobiles
 			}
 		}
 
-		public virtual bool IsAggressiveMonster
-		{
-			get
-			{
-				return IsMonster && (FightMode == FightMode.Closest ||
+		public virtual bool IsAggressiveMonster => IsMonster && (FightMode == FightMode.Closest ||
 									 FightMode == FightMode.Strongest ||
 									 FightMode == FightMode.Weakest);
-			}
-		}
 
 		private class FKEntry
 		{
@@ -4429,7 +4325,7 @@ namespace Server.Mobiles
 		}
 
 		#region Mondain's Legacy
-		public virtual bool GivesMLMinorArtifact { get { return false; } }
+		public virtual bool GivesMLMinorArtifact => false;
 		#endregion
 
 		public override void OnKilledBy(Mobile mob)
@@ -4458,10 +4354,10 @@ namespace Server.Mobiles
 
 			if (IsBonded)
 			{
-				int sound = this.GetDeathSound();
+				int sound = GetDeathSound();
 
 				if (sound >= 0)
-					Effects.PlaySound(this, this.Map, sound);
+					Effects.PlaySound(this, Map, sound);
 
 				Warmode = false;
 
@@ -4480,7 +4376,7 @@ namespace Server.Mobiles
 				SendIncomingPacket();
 				SendIncomingPacket();
 
-				List<AggressorInfo> aggressors = this.Aggressors;
+				List<AggressorInfo> aggressors = Aggressors;
 
 				for (int i = 0; i < aggressors.Count; ++i)
 				{
@@ -4490,7 +4386,7 @@ namespace Server.Mobiles
 						info.Attacker.Combatant = null;
 				}
 
-				List<AggressorInfo> aggressed = this.Aggressed;
+				List<AggressorInfo> aggressed = Aggressed;
 
 				for (int i = 0; i < aggressed.Count; ++i)
 				{
@@ -4500,16 +4396,16 @@ namespace Server.Mobiles
 						info.Defender.Combatant = null;
 				}
 
-				Mobile owner = this.ControlMaster;
+				Mobile owner = ControlMaster;
 
-				if (owner == null || owner.Deleted || owner.Map != this.Map || !owner.InRange(this, 12) || !this.CanSee(owner) || !this.InLOS(owner))
+				if (owner == null || owner.Deleted || owner.Map != Map || !owner.InRange(this, 12) || !CanSee(owner) || !InLOS(owner))
 				{
-					if (this.OwnerAbandonTime == DateTime.MinValue)
-						this.OwnerAbandonTime = DateTime.UtcNow;
+					if (OwnerAbandonTime == DateTime.MinValue)
+						OwnerAbandonTime = DateTime.UtcNow;
 				}
 				else
 				{
-					this.OwnerAbandonTime = DateTime.MinValue;
+					OwnerAbandonTime = DateTime.MinValue;
 				}
 
 				GiftOfLifeSpell.HandleDeath(this, LastKiller, c);
@@ -4648,10 +4544,10 @@ namespace Server.Mobiles
 		 */
 		public long NextReacquireTime { get; set; }
 
-		public virtual TimeSpan ReacquireDelay { get { return TimeSpan.FromSeconds(10.0); } }
-		public virtual bool ReacquireOnMovement { get { return false; } }
-		public virtual bool AcquireOnApproach { get { return m_Paragon; } }
-		public virtual int AcquireOnApproachRange { get { return 10; } }
+		public virtual TimeSpan ReacquireDelay => TimeSpan.FromSeconds(10.0);
+		public virtual bool ReacquireOnMovement => false;
+		public virtual bool AcquireOnApproach => m_Paragon;
+		public virtual int AcquireOnApproachRange => 10;
 
 		public override void OnDelete()
 		{
@@ -4714,11 +4610,11 @@ namespace Server.Mobiles
 			}
 			else
 			{
-				ISpawner se = this.Spawner;
+				ISpawner se = Spawner;
 				if (se != null && se.UnlinkOnTaming)
 				{
-					this.Spawner.Remove(this);
-					this.Spawner = null;
+					Spawner.Remove(this);
+					Spawner = null;
 				}
 
 				if (m.Followers + ControlSlots > m.FollowersMax)
@@ -4755,12 +4651,12 @@ namespace Server.Mobiles
 		{
 			base.OnRegionChange(Old, New);
 
-			if (this.Controlled)
+			if (Controlled)
 			{
 				if (Spawner is SpawnEntry se && !se.UnlinkOnTaming && (New == null || !New.AcceptsSpawnsFrom(se.Region)))
 				{
-					this.Spawner.Remove(this);
-					this.Spawner = null;
+					Spawner.Remove(this);
+					Spawner = null;
 				}
 			}
 		}
@@ -4829,31 +4725,31 @@ namespace Server.Mobiles
 
 		private long m_NextRummageTime;
 
-		public virtual bool CanBreath { get { return HasBreath && !Summoned; } }
-		public virtual bool IsDispellable { get { return Summoned && !IsAnimatedDead; } }
+		public virtual bool CanBreath => HasBreath && !Summoned;
+		public virtual bool IsDispellable => Summoned && !IsAnimatedDead;
 
 		#region Healing
-		public virtual bool CanHeal { get { return false; } }
-		public virtual bool CanHealOwner { get { return false; } }
-		public virtual double HealScalar { get { return 1.0; } }
+		public virtual bool CanHeal => false;
+		public virtual bool CanHealOwner => false;
+		public virtual double HealScalar => 1.0;
 
-		public virtual int HealSound { get { return 0x57; } }
-		public virtual int HealStartRange { get { return 2; } }
-		public virtual int HealEndRange { get { return RangePerception; } }
-		public virtual double HealTrigger { get { return 0.78; } }
-		public virtual double HealDelay { get { return 6.5; } }
-		public virtual double HealInterval { get { return 0.0; } }
-		public virtual bool HealFully { get { return true; } }
-		public virtual double HealOwnerTrigger { get { return 0.78; } }
-		public virtual double HealOwnerDelay { get { return 6.5; } }
-		public virtual double HealOwnerInterval { get { return 30.0; } }
-		public virtual bool HealOwnerFully { get { return false; } }
+		public virtual int HealSound => 0x57;
+		public virtual int HealStartRange => 2;
+		public virtual int HealEndRange => RangePerception;
+		public virtual double HealTrigger => 0.78;
+		public virtual double HealDelay => 6.5;
+		public virtual double HealInterval => 0.0;
+		public virtual bool HealFully => true;
+		public virtual double HealOwnerTrigger => 0.78;
+		public virtual double HealOwnerDelay => 6.5;
+		public virtual double HealOwnerInterval => 30.0;
+		public virtual bool HealOwnerFully => false;
 
 		private long m_NextHealTime = Core.TickCount;
 		private long m_NextHealOwnerTime = Core.TickCount;
 		private Timer m_HealTimer = null;
 
-		public bool IsHealing { get { return (m_HealTimer != null); } }
+		public bool IsHealing => (m_HealTimer != null);
 
 		public virtual void HealStart(Mobile patient)
 		{
@@ -4882,7 +4778,7 @@ namespace Server.Mobiles
 
 		public virtual void Heal(Mobile patient)
 		{
-			if (!Alive || this.Map == Map.Internal || !CanBeBeneficial(patient, true, true) || patient.Map != this.Map || !InRange(patient, HealEndRange))
+			if (!Alive || Map == Map.Internal || !CanBeBeneficial(patient, true, true) || patient.Map != Map || !InRange(patient, HealEndRange))
 			{
 				StopHeal();
 				return;
@@ -4969,17 +4865,17 @@ namespace Server.Mobiles
 		#region Damaging Aura
 		private long m_NextAura;
 
-		public virtual bool HasAura { get { return false; } }
-		public virtual TimeSpan AuraInterval { get { return TimeSpan.FromSeconds(5); } }
-		public virtual int AuraRange { get { return 4; } }
+		public virtual bool HasAura => false;
+		public virtual TimeSpan AuraInterval => TimeSpan.FromSeconds(5);
+		public virtual int AuraRange => 4;
 
-		public virtual int AuraBaseDamage { get { return 5; } }
-		public virtual int AuraPhysicalDamage { get { return 0; } }
-		public virtual int AuraFireDamage { get { return 100; } }
-		public virtual int AuraColdDamage { get { return 0; } }
-		public virtual int AuraPoisonDamage { get { return 0; } }
-		public virtual int AuraEnergyDamage { get { return 0; } }
-		public virtual int AuraChaosDamage { get { return 0; } }
+		public virtual int AuraBaseDamage => 5;
+		public virtual int AuraPhysicalDamage => 0;
+		public virtual int AuraFireDamage => 100;
+		public virtual int AuraColdDamage => 0;
+		public virtual int AuraPoisonDamage => 0;
+		public virtual int AuraEnergyDamage => 0;
+		public virtual int AuraChaosDamage => 0;
 
 		public virtual void AuraDamage()
 		{
@@ -5041,9 +4937,9 @@ namespace Server.Mobiles
 
 			if (CanBreath && tc - m_NextBreathTime >= 0) // tested: controlled dragons do breath fire, what about summoned skeletal dragons?
 			{
-				Mobile target = this.Combatant;
+				Mobile target = Combatant;
 
-				if (target != null && target.Alive && !target.IsDeadBondedPet && CanBeHarmful(target) && target.Map == this.Map && !IsDeadBondedPet && target.InRange(this, BreathRange) && InLOS(target) && !BardPacified)
+				if (target != null && target.Alive && !target.IsDeadBondedPet && CanBeHarmful(target) && target.Map == Map && !IsDeadBondedPet && target.InRange(this, BreathRange) && InLOS(target) && !BardPacified)
 				{
 					if ((Core.TickCount - m_NextBreathTime) < 30000 && Utility.RandomBool())
 					{
@@ -5056,9 +4952,9 @@ namespace Server.Mobiles
 
 			if ((CanHeal || CanHealOwner) && Alive && !IsHealing && !BardPacified)
 			{
-				Mobile owner = this.ControlMaster;
+				Mobile owner = ControlMaster;
 
-				if (owner != null && CanHealOwner && tc - m_NextHealOwnerTime >= 0 && CanBeBeneficial(owner, true, true) && owner.Map == this.Map && InRange(owner, HealStartRange) && InLOS(owner) && owner.Hits < HealOwnerTrigger * owner.HitsMax)
+				if (owner != null && CanHealOwner && tc - m_NextHealOwnerTime >= 0 && CanBeBeneficial(owner, true, true) && owner.Map == Map && InRange(owner, HealStartRange) && InLOS(owner) && owner.Hits < HealOwnerTrigger * owner.HitsMax)
 				{
 					HealStart(owner);
 
@@ -5072,15 +4968,15 @@ namespace Server.Mobiles
 				}
 			}
 
-			if (ReturnsToHome && this.IsSpawnerBound() && !this.InRange(Home, RangeHome))
+			if (ReturnsToHome && IsSpawnerBound() && !InRange(Home, RangeHome))
 			{
 				if ((Combatant == null) && (Warmode == false) && Utility.RandomDouble() < .10)  /* some throttling */
 				{
-					m_FailedReturnHome = !this.Move(GetDirectionTo(Home.X, Home.Y)) ? m_FailedReturnHome + 1 : 0;
+					m_FailedReturnHome = !Move(GetDirectionTo(Home.X, Home.Y)) ? m_FailedReturnHome + 1 : 0;
 
 					if (m_FailedReturnHome > 5)
 					{
-						this.SetLocation(this.Home, true);
+						SetLocation(Home, true);
 
 						m_FailedReturnHome = 0;
 					}
@@ -5102,7 +4998,7 @@ namespace Server.Mobiles
 		{
 			Corpse toRummage = null;
 
-			IPooledEnumerable eable = this.GetItemsInRange(2);
+			IPooledEnumerable eable = GetItemsInRange(2);
 			foreach (Item item in eable)
 			{
 				if (item is Corpse corpse && item.Items.Count > 0)
@@ -5116,7 +5012,7 @@ namespace Server.Mobiles
 			if (toRummage == null)
 				return false;
 
-			Container pack = this.Backpack;
+			Container pack = Backpack;
 
 			if (pack == null)
 				return false;
@@ -5159,7 +5055,7 @@ namespace Server.Mobiles
 
 			if (!Core.ML)
 			{
-				this.PublicOverheadMessage(MessageType.Emote, EmoteHue, false, "*looks furious*");
+				PublicOverheadMessage(MessageType.Emote, EmoteHue, false, "*looks furious*");
 			}
 
 			if (bSuccess)
@@ -5197,7 +5093,7 @@ namespace Server.Mobiles
 		{
 			int i, j;
 
-			string name = this.Name;
+			string name = Name;
 
 			if (name == null || str.Length < name.Length)
 				return false;
@@ -5275,23 +5171,23 @@ namespace Server.Mobiles
 
 			IsDeadPet = false;
 
-			Effects.SendPacket(Location, Map, new BondedStatus(0, this.Serial, 0));
+			Effects.SendPacket(Location, Map, new BondedStatus(0, Serial, 0));
 
-			this.SendIncomingPacket();
-			this.SendIncomingPacket();
+			SendIncomingPacket();
+			SendIncomingPacket();
 
 			OnAfterResurrect();
 
-			Mobile owner = this.ControlMaster;
+			Mobile owner = ControlMaster;
 
-			if (owner == null || owner.Deleted || owner.Map != this.Map || !owner.InRange(this, 12) || !this.CanSee(owner) || !this.InLOS(owner))
+			if (owner == null || owner.Deleted || owner.Map != Map || !owner.InRange(this, 12) || !CanSee(owner) || !InLOS(owner))
 			{
-				if (this.OwnerAbandonTime == DateTime.MinValue)
-					this.OwnerAbandonTime = DateTime.UtcNow;
+				if (OwnerAbandonTime == DateTime.MinValue)
+					OwnerAbandonTime = DateTime.UtcNow;
 			}
 			else
 			{
-				this.OwnerAbandonTime = DateTime.MinValue;
+				OwnerAbandonTime = DateTime.MinValue;
 			}
 
 			CheckStatTimers();
@@ -5305,7 +5201,7 @@ namespace Server.Mobiles
 			return base.CanBeDamaged();
 		}
 
-		public virtual bool PlayerRangeSensitive { get { return (this.CurrentWayPoint == null); } } //If they are following a waypoint, they'll continue to follow it even if players aren't around
+		public virtual bool PlayerRangeSensitive => (CurrentWayPoint == null);  //If they are following a waypoint, they'll continue to follow it even if players aren't around
 
 		/* until we are sure about who should be getting deleted, move them instead */
 		/* On OSI, they despawn */
@@ -5331,17 +5227,11 @@ namespace Server.Mobiles
 			return false;
 		}
 
-		public virtual bool ReturnsToHome
-		{
-			get
-			{
-				return (SeeksHome && (Home != Point3D.Zero) && !m_ReturnQueued && !Controlled && !Summoned);
-			}
-		}
+		public virtual bool ReturnsToHome => (SeeksHome && (Home != Point3D.Zero) && !m_ReturnQueued && !Controlled && !Summoned);
 
 		public override void OnSectorDeactivate()
 		{
-			if (!Deleted && ReturnsToHome && IsSpawnerBound() && !this.InRange(Home, (RangeHome + 5)))
+			if (!Deleted && ReturnsToHome && IsSpawnerBound() && !InRange(Home, (RangeHome + 5)))
 			{
 				_ = Timer.DelayCall(TimeSpan.FromSeconds((Utility.Random(45) + 15)), new TimerCallback(GoHome_Callback));
 
@@ -5361,7 +5251,7 @@ namespace Server.Mobiles
 			{
 				if (!((Map.GetSector(X, Y)).Active))
 				{
-					this.SetLocation(Home, true);
+					SetLocation(Home, true);
 
 					if (!((Map.GetSector(X, Y)).Active) && AIObject != null)
 					{

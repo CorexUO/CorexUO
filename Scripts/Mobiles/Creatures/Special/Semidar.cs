@@ -7,13 +7,13 @@ namespace Server.Mobiles
 {
 	public class Semidar : BaseChampion
 	{
-		public override ChampionSkullType SkullType { get { return ChampionSkullType.Pain; } }
+		public override ChampionSkullType SkullType => ChampionSkullType.Pain;
 
-		public override Type[] UniqueList { get { return new Type[] { typeof(GladiatorsCollar) }; } }
-		public override Type[] SharedList { get { return new Type[] { typeof(RoyalGuardSurvivalKnife), typeof(ANecromancerShroud), typeof(LieutenantOfTheBritannianRoyalGuard) }; } }
-		public override Type[] DecorativeList { get { return new Type[] { typeof(LavaTile), typeof(DemonSkull) }; } }
+		public override Type[] UniqueList => new Type[] { typeof(GladiatorsCollar) };
+		public override Type[] SharedList => new Type[] { typeof(RoyalGuardSurvivalKnife), typeof(ANecromancerShroud), typeof(LieutenantOfTheBritannianRoyalGuard) };
+		public override Type[] DecorativeList => new Type[] { typeof(LavaTile), typeof(DemonSkull) };
 
-		public override MonsterStatuetteType[] StatueTypes { get { return new MonsterStatuetteType[] { }; } }
+		public override MonsterStatuetteType[] StatueTypes => new MonsterStatuetteType[] { };
 
 		[Constructable]
 		public Semidar() : base(AIType.AI_Mage)
@@ -59,8 +59,8 @@ namespace Server.Mobiles
 			AddLoot(LootPack.FilthyRich);
 		}
 
-		public override bool Unprovokable { get { return true; } }
-		public override Poison PoisonImmune { get { return Poison.Lethal; } }
+		public override bool Unprovokable => true;
+		public override Poison PoisonImmune => Poison.Lethal;
 
 		public override void CheckReflect(Mobile caster, ref bool reflect)
 		{
@@ -76,17 +76,17 @@ namespace Server.Mobiles
 
 		public void DrainLife()
 		{
-			if (this.Map == null)
+			if (Map == null)
 				return;
 
 			ArrayList list = new ArrayList();
 
-			foreach (Mobile m in this.GetMobilesInRange(2))
+			foreach (Mobile m in GetMobilesInRange(2))
 			{
 				if (m == this || !CanBeHarmful(m))
 					continue;
 
-				if (m is BaseCreature && (((BaseCreature)m).Controlled || ((BaseCreature)m).Summoned || ((BaseCreature)m).Team != this.Team))
+				if (m is BaseCreature && (((BaseCreature)m).Controlled || ((BaseCreature)m).Summoned || ((BaseCreature)m).Team != Team))
 					list.Add(m);
 				else if (m.Player)
 					list.Add(m);

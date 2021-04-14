@@ -7,7 +7,7 @@ namespace Server.Items
 {
 	public class Fireflies : BaseItem, IAddon
 	{
-		public override int LabelNumber { get { return 1150061; } }
+		public override int LabelNumber => 1150061;
 
 		public Item Deed
 		{
@@ -95,7 +95,7 @@ namespace Server.Items
 
 	public class FirefliesDeed : BaseItem
 	{
-		public override int LabelNumber { get { return 1150061; } }
+		public override int LabelNumber => 1150061;
 
 		[Constructable]
 		public FirefliesDeed()

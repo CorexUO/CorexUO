@@ -17,43 +17,25 @@ namespace Server.Items
 		[CommandProperty(AccessLevel.GameMaster)]
 		public Point3D Target
 		{
-			get
-			{
-				return m_Target;
-			}
-			set
-			{
-				m_Target = value;
-			}
+			get => m_Target;
+			set => m_Target = value;
 		}
 
 		[CommandProperty(AccessLevel.GameMaster)]
 		public Map TargetMap
 		{
-			get
-			{
-				return m_TargetMap;
-			}
-			set
-			{
-				m_TargetMap = value;
-			}
+			get => m_TargetMap;
+			set => m_TargetMap = value;
 		}
 
 		[CommandProperty(AccessLevel.GameMaster)]
 		public bool Dispellable
 		{
-			get
-			{
-				return m_bDispellable;
-			}
-			set
-			{
-				m_bDispellable = value;
-			}
+			get => m_bDispellable;
+			set => m_bDispellable = value;
 		}
 
-		public virtual bool ShowFeluccaWarning { get { return false; } }
+		public virtual bool ShowFeluccaWarning => false;
 
 		[Constructable]
 		public Moongate() : this(Point3D.Zero, null)
@@ -184,10 +166,10 @@ namespace Server.Items
 
 		public virtual bool ValidateUse(Mobile from, bool message)
 		{
-			if (from.Deleted || this.Deleted)
+			if (from.Deleted || Deleted)
 				return false;
 
-			if (from.Map != this.Map || !from.InRange(this, 1))
+			if (from.Map != Map || !from.InRange(this, 1))
 			{
 				if (message)
 					from.SendLocalizedMessage(500446); // That is too far away.
@@ -278,50 +260,50 @@ namespace Server.Items
 		[CommandProperty(AccessLevel.GameMaster)]
 		public int GumpWidth
 		{
-			get { return m_GumpWidth; }
-			set { m_GumpWidth = value; }
+			get => m_GumpWidth;
+			set => m_GumpWidth = value;
 		}
 
 		[CommandProperty(AccessLevel.GameMaster)]
 		public int GumpHeight
 		{
-			get { return m_GumpHeight; }
-			set { m_GumpHeight = value; }
+			get => m_GumpHeight;
+			set => m_GumpHeight = value;
 		}
 
 		[CommandProperty(AccessLevel.GameMaster)]
 		public int TitleColor
 		{
-			get { return m_TitleColor; }
-			set { m_TitleColor = value; }
+			get => m_TitleColor;
+			set => m_TitleColor = value;
 		}
 
 		[CommandProperty(AccessLevel.GameMaster)]
 		public int MessageColor
 		{
-			get { return m_MessageColor; }
-			set { m_MessageColor = value; }
+			get => m_MessageColor;
+			set => m_MessageColor = value;
 		}
 
 		[CommandProperty(AccessLevel.GameMaster)]
 		public int TitleNumber
 		{
-			get { return m_TitleNumber; }
-			set { m_TitleNumber = value; }
+			get => m_TitleNumber;
+			set => m_TitleNumber = value;
 		}
 
 		[CommandProperty(AccessLevel.GameMaster)]
 		public int MessageNumber
 		{
-			get { return m_MessageNumber; }
-			set { m_MessageNumber = value; }
+			get => m_MessageNumber;
+			set => m_MessageNumber = value;
 		}
 
 		[CommandProperty(AccessLevel.GameMaster)]
 		public string MessageString
 		{
-			get { return m_MessageString; }
-			set { m_MessageString = value; }
+			get => m_MessageString;
+			set => m_MessageString = value;
 		}
 
 		[Constructable]

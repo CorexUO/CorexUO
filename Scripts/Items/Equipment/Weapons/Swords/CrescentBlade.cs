@@ -3,20 +3,20 @@ namespace Server.Items
 	[FlipableAttribute(0x26C1, 0x26CB)]
 	public class CrescentBlade : BaseSword
 	{
-		public override WeaponAbility PrimaryAbility { get { return WeaponAbility.DoubleStrike; } }
-		public override WeaponAbility SecondaryAbility { get { return WeaponAbility.MortalStrike; } }
+		public override WeaponAbility PrimaryAbility => WeaponAbility.DoubleStrike;
+		public override WeaponAbility SecondaryAbility => WeaponAbility.MortalStrike;
 
-		public override int DefHitSound { get { return 0x23B; } }
-		public override int DefMissSound { get { return 0x23A; } }
+		public override int DefHitSound => 0x23B;
+		public override int DefMissSound => 0x23A;
 
-		public override int StrReq { get { return Core.AOS ? 55 : 55; } }
+		public override int StrReq => Core.AOS ? 55 : 55;
 
-		public override int MinDamageBase { get { return Core.AOS ? 11 : 11; } }
-		public override int MaxDamageBase { get { return Core.AOS ? 14 : 14; } }
-		public override float SpeedBase { get { return Core.ML ? 2.50f : Core.AOS ? 47 : 47; } }
+		public override int MinDamageBase => Core.AOS ? 11 : 11;
+		public override int MaxDamageBase => Core.AOS ? 14 : 14;
+		public override float SpeedBase => Core.ML ? 2.50f : Core.AOS ? 47 : 47;
 
-		public override int InitMinHits { get { return 51; } }
-		public override int InitMaxHits { get { return 80; } }
+		public override int InitMinHits => 51;
+		public override int InitMaxHits => 80;
 
 		[Constructable]
 		public CrescentBlade() : base(0x26C1)

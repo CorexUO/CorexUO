@@ -710,7 +710,7 @@ namespace Server.Engines.MLQuests.Definitions
 
 	public class Aelorn : KeeperOfChivalry
 	{
-		public override bool CanShout { get { return true; } }
+		public override bool CanShout => true;
 		public override void Shout(PlayerMobile pm)
 		{
 			MLQuestSystem.Tell(this, pm, 1078133); // Hail, friend. Want to live the life of a paladin?
@@ -773,10 +773,10 @@ namespace Server.Engines.MLQuests.Definitions
 
 	public class Dimethro : BaseCreature
 	{
-		public override bool IsInvulnerable { get { return true; } }
-		public override bool CanTeach { get { return true; } }
+		public override bool IsInvulnerable => true;
+		public override bool CanTeach => true;
 
-		public override bool CanShout { get { return true; } }
+		public override bool CanShout => true;
 		public override void Shout(PlayerMobile pm)
 		{
 			MLQuestSystem.Tell(this, pm, 1078128); // You there! Wanna master hand to hand defense? Of course you do!
@@ -832,10 +832,10 @@ namespace Server.Engines.MLQuests.Definitions
 
 	public class Churchill : BaseCreature
 	{
-		public override bool IsInvulnerable { get { return true; } }
-		public override bool CanTeach { get { return true; } }
+		public override bool IsInvulnerable => true;
+		public override bool CanTeach => true;
 
-		public override bool CanShout { get { return true; } }
+		public override bool CanShout => true;
 		public override void Shout(PlayerMobile pm)
 		{
 			MLQuestSystem.Tell(this, pm, 1078141); // Don't listen to Jockles. Real warriors wield mace weapons!
@@ -920,7 +920,7 @@ namespace Server.Engines.MLQuests.Definitions
 
 	public class Robyn : Bowyer
 	{
-		public override bool CanShout { get { return true; } }
+		public override bool CanShout => true;
 		public override void Shout(PlayerMobile pm)
 		{
 			MLQuestSystem.Tell(this, pm, 1078202); // Archery requires a steady aim and dexterous fingers.
@@ -1012,10 +1012,10 @@ namespace Server.Engines.MLQuests.Definitions
 
 	public class Recaro : BaseCreature
 	{
-		public override bool IsInvulnerable { get { return true; } }
-		public override bool CanTeach { get { return true; } }
+		public override bool IsInvulnerable => true;
+		public override bool CanTeach => true;
 
-		public override bool CanShout { get { return true; } }
+		public override bool CanShout => true;
 		public override void Shout(PlayerMobile pm)
 		{
 			MLQuestSystem.Tell(this, pm, 1078187); // The art of fencing requires a dexterous hand, a quick wit and fleet feet.
@@ -1102,10 +1102,10 @@ namespace Server.Engines.MLQuests.Definitions
 
 	public class AldenArmstrong : BaseCreature
 	{
-		public override bool IsInvulnerable { get { return true; } }
-		public override bool CanTeach { get { return true; } }
+		public override bool IsInvulnerable => true;
+		public override bool CanTeach => true;
 
-		public override bool CanShout { get { return true; } }
+		public override bool CanShout => true;
 		public override void Shout(PlayerMobile pm)
 		{
 			MLQuestSystem.Tell(this, pm, 1078136); // There is an art to slaying your enemies swiftly. It's called tactics, and I can teach it to you.
@@ -1163,10 +1163,10 @@ namespace Server.Engines.MLQuests.Definitions
 
 	public class Jockles : BaseCreature
 	{
-		public override bool IsInvulnerable { get { return true; } }
-		public override bool CanTeach { get { return true; } }
+		public override bool IsInvulnerable => true;
+		public override bool CanTeach => true;
 
-		public override bool CanShout { get { return true; } }
+		public override bool CanShout => true;
 		public override void Shout(PlayerMobile pm)
 		{
 			MLQuestSystem.Tell(this, pm, 1078135); // Talk to me to learn the way of the blade.
@@ -1224,10 +1224,10 @@ namespace Server.Engines.MLQuests.Definitions
 
 	public class TylAriadne : BaseCreature
 	{
-		public override bool IsInvulnerable { get { return true; } }
-		public override bool CanTeach { get { return true; } }
+		public override bool IsInvulnerable => true;
+		public override bool CanTeach => true;
 
-		public override bool CanShout { get { return true; } }
+		public override bool CanShout => true;
 		public override void Shout(PlayerMobile pm)
 		{
 			MLQuestSystem.Tell(this, pm, 1078140); // Want to learn how to parry blows?
@@ -1317,10 +1317,10 @@ namespace Server.Engines.MLQuests.Definitions
 
 	public class Alefian : BaseCreature
 	{
-		public override bool IsInvulnerable { get { return true; } }
-		public override bool CanTeach { get { return true; } }
+		public override bool IsInvulnerable => true;
+		public override bool CanTeach => true;
 
-		public override bool CanShout { get { return true; } }
+		public override bool CanShout => true;
 		public override void Shout(PlayerMobile pm)
 		{
 			MLQuestSystem.Tell(this, pm, 1078130); // A mage should learn how to resist spells.
@@ -1373,10 +1373,10 @@ namespace Server.Engines.MLQuests.Definitions
 
 	public class Gustar : BaseCreature
 	{
-		public override bool IsInvulnerable { get { return true; } }
-		public override bool CanTeach { get { return true; } }
+		public override bool IsInvulnerable => true;
+		public override bool CanTeach => true;
 
-		public override bool CanShout { get { return true; } }
+		public override bool CanShout => true;
 		public override void Shout(PlayerMobile pm)
 		{
 			MLQuestSystem.Tell(this, pm, 1078126); // Meditation allows a mage to replenish mana quickly. I can teach you.
@@ -1429,7 +1429,7 @@ namespace Server.Engines.MLQuests.Definitions
 
 	public class GustarShroud : BaseOuterTorso
 	{
-		public override string DefaultName { get { return " "; } }
+		public override string DefaultName => " ";
 		[Constructable]
 		public GustarShroud() : base(0x2684)
 		{
@@ -1457,10 +1457,10 @@ namespace Server.Engines.MLQuests.Definitions
 
 	public class Jillian : BaseCreature
 	{
-		public override bool IsInvulnerable { get { return true; } }
-		public override bool CanTeach { get { return true; } }
+		public override bool IsInvulnerable => true;
+		public override bool CanTeach => true;
 
-		public override bool CanShout { get { return true; } }
+		public override bool CanShout => true;
 		public override void Shout(PlayerMobile pm)
 		{
 			MLQuestSystem.Tell(this, pm, 1078129); // I can teach you how to scribe magic scrolls.
@@ -1514,10 +1514,10 @@ namespace Server.Engines.MLQuests.Definitions
 
 	public class Kaelynna : BaseCreature
 	{
-		public override bool IsInvulnerable { get { return true; } }
-		public override bool CanTeach { get { return true; } }
+		public override bool IsInvulnerable => true;
+		public override bool CanTeach => true;
 
-		public override bool CanShout { get { return true; } }
+		public override bool CanShout => true;
 		public override void Shout(PlayerMobile pm)
 		{
 			MLQuestSystem.Tell(this, pm, 1078125); // Want to unlock the secrets of magery?
@@ -1571,10 +1571,10 @@ namespace Server.Engines.MLQuests.Definitions
 
 	public class Mithneral : BaseCreature
 	{
-		public override bool IsInvulnerable { get { return true; } }
-		public override bool CanTeach { get { return true; } }
+		public override bool IsInvulnerable => true;
+		public override bool CanTeach => true;
 
-		public override bool CanShout { get { return true; } }
+		public override bool CanShout => true;
 		public override void Shout(PlayerMobile pm)
 		{
 			MLQuestSystem.Tell(this, pm, 1078127); // Want to maximize your spell damage? I have a scholarly task for you!
@@ -1634,7 +1634,7 @@ namespace Server.Engines.MLQuests.Definitions
 
 	public class AmeliaYoungstone : Tinker
 	{
-		public override bool CanShout { get { return true; } }
+		public override bool CanShout => true;
 		public override void Shout(PlayerMobile pm)
 		{
 			MLQuestSystem.Tell(this, pm, 1078123); // Tinkering is very useful for a blacksmith. You can make your own tools.
@@ -1693,10 +1693,10 @@ namespace Server.Engines.MLQuests.Definitions
 
 	public class AndreasVesalius : BaseCreature
 	{
-		public override bool IsInvulnerable { get { return true; } }
-		public override bool CanTeach { get { return true; } }
+		public override bool IsInvulnerable => true;
+		public override bool CanTeach => true;
 
-		public override bool CanShout { get { return true; } }
+		public override bool CanShout => true;
 		public override void Shout(PlayerMobile pm)
 		{
 			MLQuestSystem.Tell(this, pm, 1078138); // Learning of the body will allow you to excel in combat.
@@ -1753,10 +1753,10 @@ namespace Server.Engines.MLQuests.Definitions
 
 	public class Avicenna : BaseCreature
 	{
-		public override bool IsInvulnerable { get { return true; } }
-		public override bool CanTeach { get { return true; } }
+		public override bool IsInvulnerable => true;
+		public override bool CanTeach => true;
 
-		public override bool CanShout { get { return true; } }
+		public override bool CanShout => true;
 		public override void Shout(PlayerMobile pm)
 		{
 			MLQuestSystem.Tell(this, pm, 1078137); // A warrior needs to learn how to apply bandages to wounds.
@@ -1810,10 +1810,10 @@ namespace Server.Engines.MLQuests.Definitions
 
 	public class SarsmeaSmythe : BaseCreature
 	{
-		public override bool IsInvulnerable { get { return true; } }
-		public override bool CanTeach { get { return true; } }
+		public override bool IsInvulnerable => true;
+		public override bool CanTeach => true;
 
-		public override bool CanShout { get { return true; } }
+		public override bool CanShout => true;
 		public override void Shout(PlayerMobile pm)
 		{
 			MLQuestSystem.Tell(this, pm, 1078139); // Know yourself, and you will become a true warrior.
@@ -1873,9 +1873,9 @@ namespace Server.Engines.MLQuests.Definitions
 	public class Ryuichi : BaseVendor
 	{
 		private readonly List<SBInfo> m_SBInfos = new List<SBInfo>();
-		protected override List<SBInfo> SBInfos { get { return m_SBInfos; } }
+		protected override List<SBInfo> SBInfos => m_SBInfos;
 
-		public override bool CanShout { get { return true; } }
+		public override bool CanShout => true;
 		public override void Shout(PlayerMobile pm)
 		{
 			MLQuestSystem.Tell(this, pm, 1078155); // I can teach you Ninjitsu. The Art of Stealth.
@@ -1943,10 +1943,10 @@ namespace Server.Engines.MLQuests.Definitions
 
 	public class Chiyo : BaseCreature
 	{
-		public override bool IsInvulnerable { get { return true; } }
-		public override bool CanTeach { get { return true; } }
+		public override bool IsInvulnerable => true;
+		public override bool CanTeach => true;
 
-		public override bool CanShout { get { return true; } }
+		public override bool CanShout => true;
 		public override void Shout(PlayerMobile pm)
 		{
 			MLQuestSystem.Tell(this, pm, 1078165); // To be undetected means you cannot be harmed.
@@ -1992,10 +1992,10 @@ namespace Server.Engines.MLQuests.Definitions
 
 	public class Jun : BaseCreature
 	{
-		public override bool IsInvulnerable { get { return true; } }
-		public override bool CanTeach { get { return true; } }
+		public override bool IsInvulnerable => true;
+		public override bool CanTeach => true;
 
-		public override bool CanShout { get { return true; } }
+		public override bool CanShout => true;
 		public override void Shout(PlayerMobile pm)
 		{
 			MLQuestSystem.Tell(this, pm, 1078175); // Walk Silently. Remain unseen. I can teach you.
@@ -2052,10 +2052,10 @@ namespace Server.Engines.MLQuests.Definitions
 
 	public class Walker : BaseCreature
 	{
-		public override bool IsInvulnerable { get { return true; } }
-		public override bool CanTeach { get { return true; } }
+		public override bool IsInvulnerable => true;
+		public override bool CanTeach => true;
 
-		public override bool CanShout { get { return true; } }
+		public override bool CanShout => true;
 		public override void Shout(PlayerMobile pm)
 		{
 			MLQuestSystem.Tell(this, pm, Utility.RandomList(
@@ -2118,9 +2118,9 @@ namespace Server.Engines.MLQuests.Definitions
 	public class Hamato : BaseVendor
 	{
 		private readonly List<SBInfo> m_SBInfos = new List<SBInfo>();
-		protected override List<SBInfo> SBInfos { get { return m_SBInfos; } }
+		protected override List<SBInfo> SBInfos => m_SBInfos;
 
-		public override bool CanShout { get { return true; } }
+		public override bool CanShout => true;
 		public override void Shout(PlayerMobile pm)
 		{
 			MLQuestSystem.Tell(this, pm, 1078134); // Seek me to learn the way of the samurai.
@@ -2189,7 +2189,7 @@ namespace Server.Engines.MLQuests.Definitions
 
 	public class Mulcivikh : Mage
 	{
-		public override bool CanShout { get { return true; } }
+		public override bool CanShout => true;
 		public override void Shout(PlayerMobile pm)
 		{
 			MLQuestSystem.Tell(this, pm, 1078131); // Allured by dark magic, aren't you?
@@ -2276,7 +2276,7 @@ namespace Server.Engines.MLQuests.Definitions
 
 	public class Morganna : Mage
 	{
-		public override bool CanShout { get { return true; } }
+		public override bool CanShout => true;
 		public override void Shout(PlayerMobile pm)
 		{
 			MLQuestSystem.Tell(this, pm, 1078132); // Want to learn how to channel the supernatural?
@@ -2333,10 +2333,10 @@ namespace Server.Engines.MLQuests.Definitions
 
 	public class JacobWaltz : BaseCreature
 	{
-		public override bool IsInvulnerable { get { return true; } }
-		public override bool CanTeach { get { return true; } }
+		public override bool IsInvulnerable => true;
+		public override bool CanTeach => true;
 
-		public override bool CanShout { get { return true; } }
+		public override bool CanShout => true;
 		public override void Shout(PlayerMobile pm)
 		{
 			MLQuestSystem.Tell(this, pm, 1078124); // You there! I can use some help mining these rocks!
@@ -2396,7 +2396,7 @@ namespace Server.Engines.MLQuests.Definitions
 
 	public class GeorgeHephaestus : Blacksmith
 	{
-		public override bool CanShout { get { return true; } }
+		public override bool CanShout => true;
 		public override void Shout(PlayerMobile pm)
 		{
 			MLQuestSystem.Tell(this, pm, 1078122); // Wanna learn how to make powerful weapons and armor? Talk to me.

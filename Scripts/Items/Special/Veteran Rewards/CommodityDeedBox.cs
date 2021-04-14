@@ -5,15 +5,15 @@ namespace Server.Items
 	[Furniture]
 	public class CommodityDeedBox : BaseContainer, IRewardItem
 	{
-		public override int LabelNumber { get { return 1080523; } } // Commodity Deed Box
-		public override int DefaultGumpID { get { return 0x43; } }
+		public override int LabelNumber => 1080523;  // Commodity Deed Box
+		public override int DefaultGumpID => 0x43;
 
 		private bool m_IsRewardItem;
 
 		[CommandProperty(AccessLevel.GameMaster)]
 		public bool IsRewardItem
 		{
-			get { return m_IsRewardItem; }
+			get => m_IsRewardItem;
 			set { m_IsRewardItem = value; InvalidateProperties(); }
 		}
 

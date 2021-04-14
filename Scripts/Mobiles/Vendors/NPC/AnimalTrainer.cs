@@ -10,7 +10,7 @@ namespace Server.Mobiles
 	public class AnimalTrainer : BaseVendor
 	{
 		private readonly List<SBInfo> m_SBInfos = new List<SBInfo>();
-		protected override List<SBInfo> SBInfos { get { return m_SBInfos; } }
+		protected override List<SBInfo> SBInfos => m_SBInfos;
 
 		[Constructable]
 		public AnimalTrainer() : base("the animal trainer")
@@ -25,10 +25,7 @@ namespace Server.Mobiles
 			m_SBInfos.Add(new SBAnimalTrainer());
 		}
 
-		public override VendorShoeType ShoeType
-		{
-			get { return Female ? VendorShoeType.ThighBoots : VendorShoeType.Boots; }
-		}
+		public override VendorShoeType ShoeType => Female ? VendorShoeType.ThighBoots : VendorShoeType.Boots;
 
 		public override int GetShoeHue()
 		{
@@ -217,7 +214,7 @@ namespace Server.Mobiles
 
 		public void EndClaimList(Mobile from, BaseCreature pet)
 		{
-			if (pet == null || pet.Deleted || from.Map != this.Map || !from.Stabled.Contains(pet) || !from.CheckAlive())
+			if (pet == null || pet.Deleted || from.Map != Map || !from.Stabled.Contains(pet) || !from.CheckAlive())
 				return;
 
 			if (!from.InRange(this, 14))

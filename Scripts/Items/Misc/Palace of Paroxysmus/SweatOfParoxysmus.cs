@@ -2,7 +2,7 @@ namespace Server.Items
 {
 	public class SweatOfParoxysmus : BaseItem
 	{
-		public override int LabelNumber { get { return 1072081; } } // Sweat of Paroxysmus
+		public override int LabelNumber => 1072081;  // Sweat of Paroxysmus
 
 		[Constructable]
 		public SweatOfParoxysmus() : base(0xF01)

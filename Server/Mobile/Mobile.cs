@@ -71,13 +71,13 @@ namespace Server
 
 		public int CompareTo(Mobile other)
 		{
-			return this.CompareTo((IEntity)other);
+			return CompareTo((IEntity)other);
 		}
 
 		public int CompareTo(object other)
 		{
 			if (other == null || other is IEntity)
-				return this.CompareTo((IEntity)other);
+				return CompareTo((IEntity)other);
 
 			throw new ArgumentException();
 		}
@@ -280,15 +280,15 @@ namespace Server
 			}
 			set
 			{
-				Race oldRace = this.Race;
+				Race oldRace = Race;
 
 				m_Race = value;
 
 				if (m_Race == null)
 					m_Race = Race.DefaultRace;
 
-				this.Body = m_Race.Body(this);
-				this.UpdateResistances();
+				Body = m_Race.Body(this);
+				UpdateResistances();
 
 				Delta(MobileDelta.Race);
 
@@ -420,11 +420,11 @@ namespace Server
 			for (int i = 0; i < Resistances.Length; ++i)
 				Resistances[i] = 0;
 
-			Resistances[0] += this.BasePhysicalResistance;
-			Resistances[1] += this.BaseFireResistance;
-			Resistances[2] += this.BaseColdResistance;
-			Resistances[3] += this.BasePoisonResistance;
-			Resistances[4] += this.BaseEnergyResistance;
+			Resistances[0] += BasePhysicalResistance;
+			Resistances[1] += BaseFireResistance;
+			Resistances[2] += BaseColdResistance;
+			Resistances[3] += BasePoisonResistance;
+			Resistances[4] += BaseEnergyResistance;
 
 			for (int i = 0; ResistanceMods != null && i < ResistanceMods.Count; ++i)
 			{
@@ -489,7 +489,7 @@ namespace Server
 
 		public virtual void OnAosSingleClick(Mobile from)
 		{
-			ObjectPropertyList opl = this.PropertyList;
+			ObjectPropertyList opl = PropertyList;
 
 			if (opl.Header > 0)
 			{
@@ -625,7 +625,7 @@ namespace Server
 					Aggressors.RemoveAt(i);
 					info.Free();
 
-					if (m_NetState != null && this.CanSee(attacker) && Utility.InUpdateRange(m_Location, attacker.m_Location))
+					if (m_NetState != null && CanSee(attacker) && Utility.InUpdateRange(m_Location, attacker.m_Location))
 					{
 						m_NetState.Send(MobileIncoming.Create(m_NetState, this, attacker));
 					}
@@ -647,7 +647,7 @@ namespace Server
 					Aggressed.RemoveAt(i);
 					info.Free();
 
-					if (m_NetState != null && this.CanSee(defender) && Utility.InUpdateRange(m_Location, defender.m_Location))
+					if (m_NetState != null && CanSee(defender) && Utility.InUpdateRange(m_Location, defender.m_Location))
 					{
 						m_NetState.Send(MobileIncoming.Create(m_NetState, this, defender));
 					}
@@ -1000,7 +1000,7 @@ namespace Server
 					m_Paralyzed = value;
 					Delta(MobileDelta.Flags);
 
-					this.SendLocalizedMessage(m_Paralyzed ? 502381 : 502382);
+					SendLocalizedMessage(m_Paralyzed ? 502381 : 502382);
 
 					if (m_ParaTimer != null)
 					{
@@ -1157,7 +1157,7 @@ namespace Server
 		{
 			if (item != null && item.Movable && !item.AllowEquipedCast(this))
 			{
-				Container pack = this.Backpack;
+				Container pack = Backpack;
 
 				if (pack == null)
 					_ = AddToBackpack(item);
@@ -1170,7 +1170,7 @@ namespace Server
 
 		public virtual bool RegenThroughPoison => GlobalRegenThroughPoison;
 
-		public virtual bool CanRegenHits => Alive && (RegenThroughPoison || !this.Poisoned);
+		public virtual bool CanRegenHits => Alive && (RegenThroughPoison || !Poisoned);
 		public virtual bool CanRegenStam => Alive;
 		public virtual bool CanRegenMana => Alive;
 
@@ -1609,7 +1609,7 @@ namespace Server
 			{
 				Aggressors.Add(AggressorInfo.Create(aggressor, this, criminal)); // new AggressorInfo( aggressor, this, criminal, true ) );
 
-				if (this.CanSee(aggressor) && m_NetState != null)
+				if (CanSee(aggressor) && m_NetState != null)
 				{
 					m_NetState.Send(MobileIncoming.Create(m_NetState, this, aggressor));
 				}
@@ -1624,7 +1624,7 @@ namespace Server
 			{
 				aggressor.Aggressed.Add(AggressorInfo.Create(aggressor, this, criminal)); // new AggressorInfo( aggressor, this, criminal, false ) );
 
-				if (this.CanSee(aggressor) && m_NetState != null)
+				if (CanSee(aggressor) && m_NetState != null)
 				{
 					m_NetState.Send(MobileIncoming.Create(m_NetState, this, aggressor));
 				}
@@ -1657,7 +1657,7 @@ namespace Server
 					Aggressed.RemoveAt(i);
 					info.Free();
 
-					if (m_NetState != null && this.CanSee(aggressed))
+					if (m_NetState != null && CanSee(aggressed))
 					{
 						m_NetState.Send(MobileIncoming.Create(m_NetState, this, aggressed));
 					}
@@ -1685,7 +1685,7 @@ namespace Server
 					Aggressors.RemoveAt(i);
 					info.Free();
 
-					if (m_NetState != null && this.CanSee(aggressor))
+					if (m_NetState != null && CanSee(aggressor))
 					{
 						m_NetState.Send(MobileIncoming.Create(m_NetState, this, aggressor));
 					}
@@ -2180,7 +2180,7 @@ namespace Server
 		{
 			if (m_Hidden && m_AccessLevel == AccessLevel.Player)
 			{
-				if (AllowedStealthSteps-- <= 0 || (d & Direction.Running) != 0 || this.Mounted)
+				if (AllowedStealthSteps-- <= 0 || (d & Direction.Running) != 0 || Mounted)
 					RevealingAction();
 			}
 
@@ -2519,7 +2519,7 @@ namespace Server
 
 		public int ComputeMovementSpeed()
 		{
-			return ComputeMovementSpeed(this.Direction, false);
+			return ComputeMovementSpeed(Direction, false);
 		}
 
 		public int ComputeMovementSpeed(Direction dir)
@@ -2577,7 +2577,7 @@ namespace Server
 
 					int number;
 
-					if (this.AccessLevel > AccessLevel.Player)
+					if (AccessLevel > AccessLevel.Player)
 					{
 						number = shoved.m_Hidden ? 1019041 : 1019040;
 					}
@@ -2631,7 +2631,7 @@ namespace Server
 
 			Criminal = true;
 
-			this.Region.OnCriminalAction(this, message);
+			Region.OnCriminalAction(this, message);
 		}
 
 		public virtual bool IsSnoop(Mobile from)
@@ -2691,7 +2691,7 @@ namespace Server
 				Mana = 0;
 
 				BodyMod = 0;
-				Body = this.Race.AliveBody(this);
+				Body = Race.AliveBody(this);
 
 				ProcessDeltaQueue();
 
@@ -2706,8 +2706,8 @@ namespace Server
 						item.Delete();
 				}
 
-				this.SendIncomingPacket();
-				this.SendIncomingPacket();
+				SendIncomingPacket();
+				SendIncomingPacket();
 
 				OnAfterResurrect();
 
@@ -2992,7 +2992,7 @@ namespace Server
 
 			List<Item> itemsCopy = new List<Item>(Items);
 
-			Container pack = this.Backpack;
+			Container pack = Backpack;
 
 			for (int i = 0; i < itemsCopy.Count; ++i)
 			{
@@ -4248,7 +4248,7 @@ namespace Server
 			if (!CanBeDamaged() || Deleted)
 				return;
 
-			if (!this.Region.OnDamage(this, ref amount))
+			if (!Region.OnDamage(this, ref amount))
 				return;
 
 			if (amount > 0)
@@ -4290,7 +4290,7 @@ namespace Server
 
 				OnDamage(amount, from, newHits < 0);
 
-				IMount m = this.Mount;
+				IMount m = Mount;
 				if (m != null && informMount)
 					m.OnRiderDamaged(amount, from, newHits < 0);
 
@@ -4777,7 +4777,7 @@ namespace Server
 			if ((hairflag & 0x02) != 0)
 				m_FacialHair.Serialize(writer);
 
-			writer.Write(this.Race);
+			writer.Write(Race);
 
 			writer.Write(m_TithingPoints);
 
@@ -5471,7 +5471,7 @@ namespace Server
 				foreach (NetState state in eable)
 				{
 					if (state != m_NetState && (everyone || !state.Mobile.CanSee(this)))
-						state.Send(this.RemovePacket);
+						state.Send(RemovePacket);
 				}
 
 				eable.Free();
@@ -6078,7 +6078,7 @@ namespace Server
 			OnHarmfulAction(target, isCriminal);
 			target.AggressiveAction(this, isCriminal);
 
-			this.Region.OnDidHarmful(this, target);
+			Region.OnDidHarmful(this, target);
 			target.Region.OnGotHarmful(this, target);
 
 			if (!indirect)
@@ -6876,7 +6876,7 @@ namespace Server
 				{
 					if (!state.Mobile.CanSee(this))
 					{
-						state.Send(this.RemovePacket);
+						state.Send(RemovePacket);
 					}
 					else
 					{
@@ -7123,7 +7123,7 @@ namespace Server
 					m_GuildTitle = value;
 
 					if (m_Guild != null && !m_Guild.Disbanded && m_GuildTitle != null)
-						this.SendLocalizedMessage(1018026, true, m_GuildTitle); // Your guild title has changed :
+						SendLocalizedMessage(1018026, true, m_GuildTitle); // Your guild title has changed :
 
 					InvalidateProperties();
 
@@ -7454,7 +7454,7 @@ namespace Server
 			if (CheckCure(from))
 			{
 				Poison oldPoison = m_Poison;
-				this.Poison = null;
+				Poison = null;
 
 				OnCured(from, oldPoison);
 
@@ -7591,10 +7591,10 @@ namespace Server
 			get
 			{
 				if (m_Region == null)
-					if (this.Map == null)
+					if (Map == null)
 						return Map.Internal.DefaultRegion;
 					else
-						return this.Map.DefaultRegion;
+						return Map.DefaultRegion;
 				else
 					return m_Region;
 			}
@@ -7876,7 +7876,7 @@ namespace Server
 					{
 						if (ns != m_NetState && !Utility.InUpdateRange(newLocation, ns.Mobile.Location))
 						{
-							ns.Send(this.RemovePacket);
+							ns.Send(RemovePacket);
 						}
 					}
 
@@ -8001,7 +8001,7 @@ namespace Server
 
 				OnLocationChange(oldLocation);
 
-				this.Region.OnLocationChanged(this, oldLocation);
+				Region.OnLocationChanged(this, oldLocation);
 			}
 		}
 
@@ -8355,7 +8355,7 @@ namespace Server
 			if (item.Deleted)
 				return false;
 
-			Container pack = this.Backpack;
+			Container pack = Backpack;
 
 			return pack != null && pack.TryDropItem(this, item, false);
 		}
@@ -8390,7 +8390,7 @@ namespace Server
 
 		public virtual bool CheckNonlocalLift(Mobile from, Item item)
 		{
-			if (from == this || (from.AccessLevel > this.AccessLevel && from.AccessLevel >= AccessLevel.GameMaster))
+			if (from == this || (from.AccessLevel > AccessLevel && from.AccessLevel >= AccessLevel.GameMaster))
 				return true;
 
 			return false;
@@ -8458,7 +8458,7 @@ namespace Server
 		{
 			if (from == this)
 			{
-				Container pack = this.Backpack;
+				Container pack = Backpack;
 
 				if (pack != null)
 					return dropped.DropToItem(from, pack, new Point3D(-1, -1, 0));
@@ -8579,7 +8579,7 @@ namespace Server
 
 		public virtual bool CheckNonlocalDrop(Mobile from, Item item, Item target)
 		{
-			if (from == this || (from.AccessLevel > this.AccessLevel && from.AccessLevel >= AccessLevel.GameMaster))
+			if (from == this || (from.AccessLevel > AccessLevel && from.AccessLevel >= AccessLevel.GameMaster))
 				return true;
 
 			return false;
@@ -8605,7 +8605,7 @@ namespace Server
 
 		public virtual bool AllowEquipFrom(Mobile mob)
 		{
-			return (mob == this || (mob.AccessLevel >= AccessLevel.GameMaster && mob.AccessLevel > this.AccessLevel));
+			return (mob == this || (mob.AccessLevel >= AccessLevel.GameMaster && mob.AccessLevel > AccessLevel));
 		}
 
 		public virtual void EquipItem(Item item, int hue)
@@ -8645,7 +8645,7 @@ namespace Server
 			NextSkillTime = Core.TickCount;
 			DamageEntries = new List<DamageEntry>();
 
-			Type ourType = this.GetType();
+			Type ourType = GetType();
 			m_TypeRef = World.m_MobileTypes.IndexOf(ourType);
 
 			if (m_TypeRef == -1)
@@ -9046,7 +9046,7 @@ namespace Server
 					if (beholder != m && beholder.CanSee(m))
 					{
 						if (sendRemove)
-							state.Send(this.RemovePacket);
+							state.Send(RemovePacket);
 
 						if (sendIncoming)
 						{
@@ -9158,7 +9158,7 @@ namespace Server
 						}
 
 						if (sendOPLUpdate)
-							state.Send(this.OPLPacket);
+							state.Send(OPLPacket);
 					}
 				}
 
@@ -9292,7 +9292,7 @@ namespace Server
 			if (!Alive)
 			{
 				if (message)
-					this.LocalOverheadMessage(MessageType.Regular, 0x3B2, 1019048); // I am dead and cannot do that.
+					LocalOverheadMessage(MessageType.Regular, 0x3B2, 1019048); // I am dead and cannot do that.
 
 				return false;
 			}
@@ -9732,7 +9732,7 @@ namespace Server
 		/// <param name="from"></param>
 		public virtual void OnStatsQuery(Mobile from)
 		{
-			if (from.Map == this.Map && Utility.InUpdateRange(this, from) && from.CanSee(this))
+			if (from.Map == Map && Utility.InUpdateRange(this, from) && from.CanSee(this))
 				_ = from.Send(new MobileStatus(from, this, m_NetState));
 
 			if (from == this)

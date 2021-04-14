@@ -10,7 +10,7 @@ namespace Server.Items
 {
 	public class PublicMoongate : BaseItem
 	{
-		public override bool ForceShowProperties { get { return ObjectPropertyList.Enabled; } }
+		public override bool ForceShowProperties => ObjectPropertyList.Enabled;
 
 		[Constructable]
 		public PublicMoongate() : base(0xF6C)
@@ -43,13 +43,13 @@ namespace Server.Items
 			return true;
 		}
 
-		public override bool HandlesOnMovement { get { return true; } }
+		public override bool HandlesOnMovement => true;
 
 		public override void OnMovement(Mobile m, Point3D oldLocation)
 		{
 			if (m is PlayerMobile)
 			{
-				if (!Utility.InRange(m.Location, this.Location, 1) && Utility.InRange(oldLocation, this.Location, 1))
+				if (!Utility.InRange(m.Location, Location, 1) && Utility.InRange(oldLocation, Location, 1))
 					m.CloseGump(typeof(MoongateGump));
 			}
 		}
@@ -157,21 +157,9 @@ namespace Server.Items
 		private Point3D m_Location;
 		private readonly int m_Number;
 
-		public Point3D Location
-		{
-			get
-			{
-				return m_Location;
-			}
-		}
+		public Point3D Location => m_Location;
 
-		public int Number
-		{
-			get
-			{
-				return m_Number;
-			}
-		}
+		public int Number => m_Number;
 
 		public PMEntry(Point3D loc, int number)
 		{
@@ -186,37 +174,13 @@ namespace Server.Items
 		private readonly Map m_Map;
 		private readonly PMEntry[] m_Entries;
 
-		public int Number
-		{
-			get
-			{
-				return m_Number;
-			}
-		}
+		public int Number => m_Number;
 
-		public int SelNumber
-		{
-			get
-			{
-				return m_SelNumber;
-			}
-		}
+		public int SelNumber => m_SelNumber;
 
-		public Map Map
-		{
-			get
-			{
-				return m_Map;
-			}
-		}
+		public Map Map => m_Map;
 
-		public PMEntry[] Entries
-		{
-			get
-			{
-				return m_Entries;
-			}
-		}
+		public PMEntry[] Entries => m_Entries;
 
 		public PMList(int number, int selNumber, Map map, PMEntry[] entries)
 		{

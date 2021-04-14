@@ -35,7 +35,7 @@ namespace Server.Engines.MLQuests.Definitions
 
 	public class Patience : MLQuest
 	{
-		public override Type NextQuest { get { return typeof(NeedsOfTheManyHeartwood1); } }
+		public override Type NextQuest => typeof(NeedsOfTheManyHeartwood1);
 
 		public Patience()
 		{
@@ -72,8 +72,8 @@ namespace Server.Engines.MLQuests.Definitions
 
 	public class NeedsOfTheManyHeartwood1 : MLQuest
 	{
-		public override Type NextQuest { get { return typeof(NeedsOfTheManyHeartwood2); } }
-		public override bool IsChainTriggered { get { return true; } }
+		public override Type NextQuest => typeof(NeedsOfTheManyHeartwood2);
+		public override bool IsChainTriggered => true;
 
 		public NeedsOfTheManyHeartwood1()
 		{
@@ -92,8 +92,8 @@ namespace Server.Engines.MLQuests.Definitions
 
 	public class NeedsOfTheManyHeartwood2 : MLQuest
 	{
-		public override Type NextQuest { get { return typeof(MakingAContributionHeartwood); } }
-		public override bool IsChainTriggered { get { return true; } }
+		public override Type NextQuest => typeof(MakingAContributionHeartwood);
+		public override bool IsChainTriggered => true;
 
 		public NeedsOfTheManyHeartwood2()
 		{
@@ -112,8 +112,8 @@ namespace Server.Engines.MLQuests.Definitions
 
 	public class MakingAContributionHeartwood : MLQuest
 	{
-		public override Type NextQuest { get { return typeof(UnnaturalCreations); } }
-		public override bool IsChainTriggered { get { return true; } }
+		public override Type NextQuest => typeof(UnnaturalCreations);
+		public override bool IsChainTriggered => true;
 
 		public MakingAContributionHeartwood()
 		{
@@ -134,7 +134,7 @@ namespace Server.Engines.MLQuests.Definitions
 
 	public class UnnaturalCreations : MLQuest
 	{
-		public override bool IsChainTriggered { get { return true; } }
+		public override bool IsChainTriggered => true;
 
 		public UnnaturalCreations()
 		{
@@ -166,7 +166,7 @@ namespace Server.Engines.MLQuests.Definitions
 
 	public class Discipline : MLQuest
 	{
-		public override Type NextQuest { get { return typeof(NeedsOfTheManySanctuary); } }
+		public override Type NextQuest => typeof(NeedsOfTheManySanctuary);
 
 		public Discipline()
 		{
@@ -193,8 +193,8 @@ namespace Server.Engines.MLQuests.Definitions
 
 	public class NeedsOfTheManySanctuary : MLQuest
 	{
-		public override Type NextQuest { get { return typeof(MakingAContributionSanctuary); } }
-		public override bool IsChainTriggered { get { return true; } }
+		public override Type NextQuest => typeof(MakingAContributionSanctuary);
+		public override bool IsChainTriggered => true;
 
 		public NeedsOfTheManySanctuary()
 		{
@@ -213,8 +213,8 @@ namespace Server.Engines.MLQuests.Definitions
 
 	public class MakingAContributionSanctuary : MLQuest
 	{
-		public override Type NextQuest { get { return typeof(SuppliesForSanctuary); } }
-		public override bool IsChainTriggered { get { return true; } }
+		public override Type NextQuest => typeof(SuppliesForSanctuary);
+		public override bool IsChainTriggered => true;
 
 		public MakingAContributionSanctuary()
 		{
@@ -233,8 +233,8 @@ namespace Server.Engines.MLQuests.Definitions
 
 	public class SuppliesForSanctuary : MLQuest
 	{
-		public override Type NextQuest { get { return typeof(TheHumanBlight); } }
-		public override bool IsChainTriggered { get { return true; } }
+		public override Type NextQuest => typeof(TheHumanBlight);
+		public override bool IsChainTriggered => true;
 
 		public SuppliesForSanctuary()
 		{
@@ -255,7 +255,7 @@ namespace Server.Engines.MLQuests.Definitions
 
 	public class TheHumanBlight : MLQuest
 	{
-		public override bool IsChainTriggered { get { return true; } }
+		public override bool IsChainTriggered => true;
 
 		public TheHumanBlight()
 		{
@@ -286,7 +286,7 @@ namespace Server.Engines.MLQuests.Definitions
 
 	public class FriendOfTheFey : MLQuest
 	{
-		public override Type NextQuest { get { return typeof(TokenOfFriendship); } }
+		public override Type NextQuest => typeof(TokenOfFriendship);
 
 		public FriendOfTheFey()
 		{
@@ -314,8 +314,8 @@ namespace Server.Engines.MLQuests.Definitions
 
 	public class TokenOfFriendship : MLQuest
 	{
-		public override Type NextQuest { get { return typeof(Alliance); } }
-		public override bool IsChainTriggered { get { return true; } }
+		public override Type NextQuest => typeof(Alliance);
+		public override bool IsChainTriggered => true;
 
 		public TokenOfFriendship()
 		{
@@ -334,7 +334,7 @@ namespace Server.Engines.MLQuests.Definitions
 
 	public class Alliance : MLQuest
 	{
-		public override bool IsChainTriggered { get { return true; } }
+		public override bool IsChainTriggered => true;
 
 		public Alliance()
 		{
@@ -365,7 +365,7 @@ namespace Server.Engines.MLQuests.Definitions
 
 	public class FiendishFriends : MLQuest
 	{
-		public override Type NextQuest { get { return typeof(CrackingTheWhipI); } }
+		public override Type NextQuest => typeof(CrackingTheWhipI);
 
 		public FiendishFriends()
 		{
@@ -394,8 +394,8 @@ namespace Server.Engines.MLQuests.Definitions
 	// TODO: Verify
 	public class CrackingTheWhipI : MLQuest
 	{
-		public override Type NextQuest { get { return typeof(CrackingTheWhipII); } }
-		public override bool IsChainTriggered { get { return true; } }
+		public override Type NextQuest => typeof(CrackingTheWhipII);
+		public override bool IsChainTriggered => true;
 
 		public CrackingTheWhipI()
 		{
@@ -415,7 +415,7 @@ namespace Server.Engines.MLQuests.Definitions
 	// TODO: Verify
 	public class CrackingTheWhipII : MLQuest
 	{
-		public override bool IsChainTriggered { get { return true; } }
+		public override bool IsChainTriggered => true;
 
 		public CrackingTheWhipII()
 		{
@@ -446,10 +446,10 @@ namespace Server.Engines.MLQuests.Definitions
 	[QuesterName("Aeluva (The Heartwood)")]
 	public class Aeluva : BaseCreature
 	{
-		public override bool IsInvulnerable { get { return true; } }
-		public override bool CanTeach { get { return true; } }
+		public override bool IsInvulnerable => true;
+		public override bool CanTeach => true;
 
-		public override bool CanShout { get { return true; } }
+		public override bool CanShout => true;
 		public override void Shout(PlayerMobile pm)
 		{
 			/*
@@ -505,10 +505,10 @@ namespace Server.Engines.MLQuests.Definitions
 	[QuesterName("Koole (Sanctuary)")]
 	public class Koole : BaseCreature
 	{
-		public override bool IsInvulnerable { get { return true; } }
-		public override bool CanTeach { get { return true; } }
+		public override bool IsInvulnerable => true;
+		public override bool CanTeach => true;
 
-		public override bool CanShout { get { return true; } }
+		public override bool CanShout => true;
 		public override void Shout(PlayerMobile pm)
 		{
 			MLQuestSystem.Tell(this, pm, Utility.RandomList(
@@ -575,10 +575,10 @@ namespace Server.Engines.MLQuests.Definitions
 	[QuesterName("Synaeva (The Heartwood)")]
 	public class Synaeva : BaseCreature
 	{
-		public override bool IsInvulnerable { get { return true; } }
-		public override bool CanTeach { get { return true; } }
+		public override bool IsInvulnerable => true;
+		public override bool CanTeach => true;
 
-		public override bool CanShout { get { return true; } }
+		public override bool CanShout => true;
 		public override void Shout(PlayerMobile pm)
 		{
 			MLQuestSystem.Tell(this, pm, 1074223); // Have you done it yet?  Oh, I haven’t told you, have I?
@@ -637,10 +637,10 @@ namespace Server.Engines.MLQuests.Definitions
 	[QuesterName("Elder Brae (Sanctuary)")]
 	public class ElderBrae : BaseCreature
 	{
-		public override bool IsInvulnerable { get { return true; } }
-		public override bool CanTeach { get { return true; } }
+		public override bool IsInvulnerable => true;
+		public override bool CanTeach => true;
 
-		public override bool CanShout { get { return true; } }
+		public override bool CanShout => true;
 		public override void Shout(PlayerMobile pm)
 		{
 			MLQuestSystem.Tell(this, pm, Utility.RandomList(

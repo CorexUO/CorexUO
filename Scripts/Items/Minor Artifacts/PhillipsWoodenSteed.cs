@@ -8,7 +8,7 @@ namespace Server.Items
 			LootType = LootType.Regular;
 		}
 
-		public override bool ForceShowProperties { get { return ObjectPropertyList.Enabled; } }
+		public override bool ForceShowProperties => ObjectPropertyList.Enabled;
 
 		public PhillipsWoodenSteed(Serial serial) : base(serial)
 		{

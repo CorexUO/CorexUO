@@ -90,12 +90,12 @@ namespace Server.Mobiles
 			return 0x140;
 		}
 
-		public override bool AlwaysMurderer { get { return true; } }
-		public override bool BardImmune { get { return !Core.AOS; } }
-		public override bool BleedImmune { get { return true; } }
-		public override Poison PoisonImmune { get { return Poison.Lethal; } }
-		public override int Meat { get { return 1; } }
-		public override int TreasureMapLevel { get { return 5; } }
+		public override bool AlwaysMurderer => true;
+		public override bool BardImmune => !Core.AOS;
+		public override bool BleedImmune => true;
+		public override Poison PoisonImmune => Poison.Lethal;
+		public override int Meat => 1;
+		public override int TreasureMapLevel => 5;
 
 		public override void OnGaveMeleeAttack(Mobile defender)
 		{
@@ -106,10 +106,10 @@ namespace Server.Mobiles
 				m_Stunning = true;
 
 				defender.Animate(21, 6, 1, true, false, 0);
-				this.PlaySound(0xEE);
+				PlaySound(0xEE);
 				defender.LocalOverheadMessage(MessageType.Regular, 0x3B2, false, "You have been stunned by a colossal blow!");
 
-				BaseWeapon weapon = this.Weapon as BaseWeapon;
+				BaseWeapon weapon = Weapon as BaseWeapon;
 				if (weapon != null)
 					weapon.OnHit(this, defender);
 

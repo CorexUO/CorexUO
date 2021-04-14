@@ -2,7 +2,7 @@ namespace Server.Mobiles
 {
 	public class WarriorGuildmaster : BaseGuildmaster
 	{
-		public override NpcGuild NpcGuild { get { return NpcGuild.WarriorsGuild; } }
+		public override NpcGuild NpcGuild => NpcGuild.WarriorsGuild;
 
 		[Constructable]
 		public WarriorGuildmaster() : base("warrior")

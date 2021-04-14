@@ -7,10 +7,10 @@ namespace Server.Mobiles
 	[CorpseName("a killer pumpkin corpse")]
 	public class PumpkinHead : BaseCreature
 	{
-		public override bool AutoDispel { get { return true; } }
-		public override bool BardImmune { get { return true; } }
-		public override bool Unprovokable { get { return true; } }
-		public override bool AreaPeaceImmune { get { return true; } }
+		public override bool AutoDispel => true;
+		public override bool BardImmune => true;
+		public override bool Unprovokable => true;
+		public override bool AreaPeaceImmune => true;
 
 		[Constructable]
 		public PumpkinHead()

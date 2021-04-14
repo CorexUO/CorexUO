@@ -2,7 +2,7 @@ namespace Server.Items
 {
 	public class BritainCrownFish : BaseFish
 	{
-		public override int LabelNumber { get { return 1074589; } } // Britain Crown Fish
+		public override int LabelNumber => 1074589;  // Britain Crown Fish
 
 		[Constructable]
 		public BritainCrownFish() : base(0x3AFF)

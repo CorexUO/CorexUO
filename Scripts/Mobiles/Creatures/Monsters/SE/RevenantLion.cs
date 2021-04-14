@@ -94,9 +94,9 @@ namespace Server.Mobiles
 			// TODO: Bone Pile
 		}
 
-		public override bool BleedImmune { get { return true; } }
-		public override Poison PoisonImmune { get { return Poison.Greater; } }
-		public override Poison HitPoison { get { return Poison.Greater; } }
+		public override bool BleedImmune => true;
+		public override Poison PoisonImmune => Poison.Greater;
+		public override Poison HitPoison => Poison.Greater;
 
 		public RevenantLion(Serial serial) : base(serial)
 		{

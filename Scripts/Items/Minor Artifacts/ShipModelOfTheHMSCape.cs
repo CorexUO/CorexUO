@@ -2,7 +2,7 @@ namespace Server.Items
 {
 	public class ShipModelOfTheHMSCape : BaseItem
 	{
-		public override int LabelNumber { get { return 1063476; } }
+		public override int LabelNumber => 1063476;
 
 		[Constructable]
 		public ShipModelOfTheHMSCape() : base(0x14F3)

@@ -2,7 +2,7 @@ namespace Server.Items
 {
 	public class AndrosGratitude : SmithHammer
 	{
-		public override int LabelNumber { get { return 1075345; } } // Andros Gratitude
+		public override int LabelNumber => 1075345;  // Andros Gratitude
 
 		[Constructable]
 		public AndrosGratitude() : base(10)

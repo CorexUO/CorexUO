@@ -38,29 +38,29 @@ namespace Server.Engines.Doom
 		[CommandProperty(AccessLevel.GameMaster)]
 		public string TypeName
 		{
-			get { return m_TypeName; }
-			set { m_TypeName = value; }
+			get => m_TypeName;
+			set => m_TypeName = value;
 		}
 
 		[CommandProperty(AccessLevel.GameMaster)]
 		public BaseDoor Door
 		{
-			get { return m_Door; }
-			set { m_Door = value; }
+			get => m_Door;
+			set => m_Door = value;
 		}
 
 		[CommandProperty(AccessLevel.GameMaster)]
 		public BaseAddon Addon
 		{
-			get { return m_Addon; }
-			set { m_Addon = value; }
+			get => m_Addon;
+			set => m_Addon = value;
 		}
 
 		[CommandProperty(AccessLevel.GameMaster)]
 		public GauntletSpawner Sequence
 		{
-			get { return m_Sequence; }
-			set { m_Sequence = value; }
+			get => m_Sequence;
+			set => m_Sequence = value;
 		}
 
 		[CommandProperty(AccessLevel.GameMaster)]
@@ -86,14 +86,14 @@ namespace Server.Engines.Doom
 		[CommandProperty(AccessLevel.GameMaster)]
 		public Rectangle2D RegionBounds
 		{
-			get { return m_RegionBounds; }
-			set { m_RegionBounds = value; }
+			get => m_RegionBounds;
+			set => m_RegionBounds = value;
 		}
 
 		[CommandProperty(AccessLevel.GameMaster)]
 		public GauntletSpawnerState State
 		{
-			get { return m_State; }
+			get => m_State;
 			set
 			{
 				if (m_State == value)
@@ -163,20 +163,20 @@ namespace Server.Engines.Doom
 
 		public List<Mobile> Creatures
 		{
-			get { return m_Creatures; }
-			set { m_Creatures = value; }
+			get => m_Creatures;
+			set => m_Creatures = value;
 		}
 
 		public List<BaseTrap> Traps
 		{
-			get { return m_Traps; }
-			set { m_Traps = value; }
+			get => m_Traps;
+			set => m_Traps = value;
 		}
 
 		public Region Region
 		{
-			get { return m_Region; }
-			set { m_Region = value; }
+			get => m_Region;
+			set => m_Region = value;
 		}
 
 		public virtual void CreateRegion()
@@ -184,7 +184,7 @@ namespace Server.Engines.Doom
 			if (m_Region != null)
 				return;
 
-			Map map = this.Map;
+			Map map = Map;
 
 			if (map == null || map == Map.Internal)
 				return;
@@ -217,7 +217,7 @@ namespace Server.Engines.Doom
 
 		public virtual void SpawnTrap()
 		{
-			Map map = this.Map;
+			Map map = Map;
 
 			if (map == null)
 				return;
@@ -247,7 +247,7 @@ namespace Server.Engines.Doom
 			{
 				int x = Utility.Random(m_RegionBounds.X, m_RegionBounds.Width);
 				int y = Utility.Random(m_RegionBounds.Y, m_RegionBounds.Height);
-				int z = this.Z;
+				int z = Z;
 
 				if (!map.CanFit(x, y, z, 16, false, false))
 					z = map.GetAverageZ(x, y);
@@ -268,7 +268,7 @@ namespace Server.Engines.Doom
 		{
 			int playerCount = 0;
 
-			Map map = this.Map;
+			Map map = Map;
 
 			if (map != null)
 			{
@@ -339,7 +339,7 @@ namespace Server.Engines.Doom
 				}
 				else if (obj is Mobile mob)
 				{
-					mob.MoveToWorld(GetWorldLocation(), this.Map);
+					mob.MoveToWorld(GetWorldLocation(), Map);
 
 					m_Creatures.Add(mob);
 				}
@@ -384,10 +384,7 @@ namespace Server.Engines.Doom
 			}
 		}
 
-		public override string DefaultName
-		{
-			get { return "doom spawner"; }
-		}
+		public override string DefaultName => "doom spawner";
 
 		[Constructable]
 		public GauntletSpawner() : this(null)

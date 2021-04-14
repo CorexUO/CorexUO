@@ -8,18 +8,18 @@ namespace Server.Items
 	[FlipableAttribute(0x27AA, 0x27F5)]
 	public class Fukiya : BaseItem, INinjaWeapon
 	{
-		public virtual int WrongAmmoMessage { get { return 1063329; } } //You can only load fukiya darts
-		public virtual int NoFreeHandMessage { get { return 1063327; } } //You must have a free hand to use a fukiya.
-		public virtual int EmptyWeaponMessage { get { return 1063325; } } //You have no fukiya darts!
-		public virtual int RecentlyUsedMessage { get { return 1063326; } } //You are already using that fukiya.
-		public virtual int FullWeaponMessage { get { return 1063330; } } //You can only load fukiya darts
+		public virtual int WrongAmmoMessage => 1063329;  //You can only load fukiya darts
+		public virtual int NoFreeHandMessage => 1063327;  //You must have a free hand to use a fukiya.
+		public virtual int EmptyWeaponMessage => 1063325;  //You have no fukiya darts!
+		public virtual int RecentlyUsedMessage => 1063326;  //You are already using that fukiya.
+		public virtual int FullWeaponMessage => 1063330;  //You can only load fukiya darts
 
-		public virtual int WeaponMinRange { get { return 0; } }
-		public virtual int WeaponMaxRange { get { return 6; } }
+		public virtual int WeaponMinRange => 0;
+		public virtual int WeaponMaxRange => 6;
 
-		public virtual int WeaponDamage { get { return Utility.RandomMinMax(4, 6); } }
+		public virtual int WeaponDamage => Utility.RandomMinMax(4, 6);
 
-		public Type AmmoType { get { return typeof(FukiyaDarts); } }
+		public Type AmmoType => typeof(FukiyaDarts);
 
 		private int m_UsesRemaining;
 		private Poison m_Poison;
@@ -28,25 +28,25 @@ namespace Server.Items
 		[CommandProperty(AccessLevel.GameMaster)]
 		public int UsesRemaining
 		{
-			get { return m_UsesRemaining; }
+			get => m_UsesRemaining;
 			set { m_UsesRemaining = value; InvalidateProperties(); }
 		}
 
 		[CommandProperty(AccessLevel.GameMaster)]
 		public Poison Poison
 		{
-			get { return m_Poison; }
+			get => m_Poison;
 			set { m_Poison = value; InvalidateProperties(); }
 		}
 
 		[CommandProperty(AccessLevel.GameMaster)]
 		public int PoisonCharges
 		{
-			get { return m_PoisonCharges; }
+			get => m_PoisonCharges;
 			set { m_PoisonCharges = value; InvalidateProperties(); }
 		}
 
-		public bool ShowUsesRemaining { get { return true; } set { } }
+		public bool ShowUsesRemaining { get => true; set { } }
 
 		[Constructable]
 		public Fukiya() : base(0x27AA)

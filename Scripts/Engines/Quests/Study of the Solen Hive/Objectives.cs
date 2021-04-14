@@ -6,22 +6,17 @@ namespace Server.Engines.Quests.Naturalist
 {
 	public class StudyNestsObjective : QuestObjective
 	{
-		public override object Message
-		{
-			get
-			{
+		public override object Message =>
 				/* Find an entrance to the Solen Hive, and search within for the Solen
-				 * Egg Nests. Each Nest must be studied for some time without a break in
-				 * concentration in order to gather useful information.<BR><BR>
-				 * 
-				 * Once you have completed your study of the Nests, return to the Naturalist
-				 * who gave you this task.
-				 */
-				return 1054044;
-			}
-		}
+* Egg Nests. Each Nest must be studied for some time without a break in
+* concentration in order to gather useful information.<BR><BR>
+* 
+* Once you have completed your study of the Nests, return to the Naturalist
+* who gave you this task.
+*/
+				1054044;
 
-		public override int MaxProgress { get { return NestArea.NonSpecialCount; } }
+		public override int MaxProgress => NestArea.NonSpecialCount;
 
 		private NestArea m_CurrentNest;
 		private DateTime m_StudyBegin;
@@ -32,7 +27,7 @@ namespace Server.Engines.Quests.Naturalist
 		private readonly ArrayList m_StudiedNests;
 		private bool m_StudiedSpecialNest;
 
-		public bool StudiedSpecialNest { get { return m_StudiedSpecialNest; } }
+		public bool StudiedSpecialNest => m_StudiedSpecialNest;
 
 		public StudyNestsObjective()
 		{
@@ -174,16 +169,11 @@ namespace Server.Engines.Quests.Naturalist
 
 	public class ReturnToNaturalistObjective : QuestObjective
 	{
-		public override object Message
-		{
-			get
-			{
+		public override object Message =>
 				/* You have studied enough Solen Egg Nests to gather a fair amount of
-				 * useful information. Return to the Naturalist who gave you this task.
-				 */
-				return 1054048;
-			}
-		}
+* useful information. Return to the Naturalist who gave you this task.
+*/
+				1054048;
 
 		public ReturnToNaturalistObjective()
 		{

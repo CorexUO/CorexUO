@@ -15,12 +15,12 @@ namespace Server.Items
 			private readonly Type m_Type;
 			private readonly int m_Hue;
 
-			public Map Map { get { return m_Map; } }
-			public Point3D Location { get { return m_Location; } }
-			public int MinDelay { get { return m_MinDelay; } }
-			public int MaxDelay { get { return m_MaxDelay; } }
-			public Type Type { get { return m_Type; } }
-			public int Hue { get { return m_Hue; } }
+			public Map Map => m_Map;
+			public Point3D Location => m_Location;
+			public int MinDelay => m_MinDelay;
+			public int MaxDelay => m_MaxDelay;
+			public Type Type => m_Type;
+			public int Hue => m_Hue;
 
 			public StealableEntry(Map map, Point3D location, int minDelay, int maxDelay, Type type) : this(map, location, minDelay, maxDelay, type, 0)
 			{
@@ -44,7 +44,7 @@ namespace Server.Items
 					item.Hue = m_Hue;
 
 				item.Movable = false;
-				item.MoveToWorld(this.Location, this.Map);
+				item.MoveToWorld(Location, Map);
 
 				return item;
 			}
@@ -158,7 +158,7 @@ namespace Server.Items
 				new StealableEntry( Map.Malas, new Point3D( 178, 629, -1 ), 18432, 27648, typeof( ManStatuetteEastArtifact ) )
 			};
 
-		public static StealableEntry[] Entries { get { return m_Entries; } }
+		public static StealableEntry[] Entries => m_Entries;
 
 		private static Type[] m_TypesOfEntries = null;
 		public static Type[] TypesOfEntires
@@ -179,7 +179,7 @@ namespace Server.Items
 
 		private static StealableArtifactsSpawner m_Instance;
 
-		public static StealableArtifactsSpawner Instance { get { return m_Instance; } }
+		public static StealableArtifactsSpawner Instance => m_Instance;
 
 		private static int GetLampPostHue()
 		{
@@ -254,17 +254,17 @@ namespace Server.Items
 			private Item m_Item;
 			private DateTime m_NextRespawn;
 
-			public StealableEntry Entry { get { return m_Entry; } }
+			public StealableEntry Entry => m_Entry;
 
 			public Item Item
 			{
-				get { return m_Item; }
+				get => m_Item;
 				set
 				{
 					if (m_Item != null && value == null)
 					{
-						int delay = Utility.RandomMinMax(this.Entry.MinDelay, this.Entry.MaxDelay);
-						this.NextRespawn = DateTime.UtcNow + TimeSpan.FromMinutes(delay);
+						int delay = Utility.RandomMinMax(Entry.MinDelay, Entry.MaxDelay);
+						NextRespawn = DateTime.UtcNow + TimeSpan.FromMinutes(delay);
 					}
 
 					if (Instance != null)
@@ -282,8 +282,8 @@ namespace Server.Items
 
 			public DateTime NextRespawn
 			{
-				get { return m_NextRespawn; }
-				set { m_NextRespawn = value; }
+				get => m_NextRespawn;
+				set => m_NextRespawn = value;
 			}
 
 			public StealableInstance(StealableEntry entry) : this(entry, null, DateTime.UtcNow)
@@ -299,12 +299,12 @@ namespace Server.Items
 
 			public void CheckRespawn()
 			{
-				if (this.Item != null && (this.Item.Deleted || this.Item.Movable || this.Item.Parent != null))
-					this.Item = null;
+				if (Item != null && (Item.Deleted || Item.Movable || Item.Parent != null))
+					Item = null;
 
-				if (this.Item == null && DateTime.UtcNow >= this.NextRespawn)
+				if (Item == null && DateTime.UtcNow >= NextRespawn)
 				{
-					this.Item = this.Entry.CreateInstance();
+					Item = Entry.CreateInstance();
 				}
 			}
 		}
@@ -313,10 +313,7 @@ namespace Server.Items
 		private StealableInstance[] m_Artifacts;
 		private Hashtable m_Table;
 
-		public override string DefaultName
-		{
-			get { return "Stealable Artifacts Spawner - Internal"; }
-		}
+		public override string DefaultName => "Stealable Artifacts Spawner - Internal";
 
 		private StealableArtifactsSpawner() : base(1)
 		{

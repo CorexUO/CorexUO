@@ -5,7 +5,7 @@ namespace Server.Items
 {
 	public class InvisibilityPotion : BasePotion
 	{
-		public override int LabelNumber { get { return 1072941; } } // Potion of Invisibility
+		public override int LabelNumber => 1072941;  // Potion of Invisibility
 
 		[Constructable]
 		public InvisibilityPotion() : base(0xF0A, PotionEffect.Invisibility)

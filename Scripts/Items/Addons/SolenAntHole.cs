@@ -49,8 +49,8 @@ namespace Server.Items
 
 	public class SolenAntHole : BaseAddon
 	{
-		public override bool ShareHue { get { return false; } }
-		public override bool HandlesOnMovement { get { return true; } }
+		public override bool ShareHue => false;
+		public override bool HandlesOnMovement => true;
 
 		private List<Mobile> m_Spawned;
 

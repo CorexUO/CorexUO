@@ -261,7 +261,7 @@ namespace Server.Items
 				)
 			);
 
-		public override BookContent DefaultContent { get { return Content; } }
+		public override BookContent DefaultContent => Content;
 
 		[Constructable]
 		public GrammarOfOrcish() : base(Utility.Random(0xFEF, 2), false)
@@ -456,7 +456,7 @@ namespace Server.Items
 				)
 			);
 
-		public override BookContent DefaultContent { get { return Content; } }
+		public override BookContent DefaultContent => Content;
 
 		[Constructable]
 		public CallToAnarchy() : base(Utility.Random(0xFEF, 2), false)
@@ -662,7 +662,7 @@ namespace Server.Items
 				)
 			);
 
-		public override BookContent DefaultContent { get { return Content; } }
+		public override BookContent DefaultContent => Content;
 
 		[Constructable]
 		public ArmsAndWeaponsPrimer() : base(Utility.Random(0xFEF, 2), false)
@@ -756,7 +756,7 @@ namespace Server.Items
 				)
 			);
 
-		public override BookContent DefaultContent { get { return Content; } }
+		public override BookContent DefaultContent => Content;
 
 		[Constructable]
 		public SongOfSamlethe() : base(Utility.Random(0xFEF, 2), false)
@@ -897,7 +897,7 @@ namespace Server.Items
 				)
 			);
 
-		public override BookContent DefaultContent { get { return Content; } }
+		public override BookContent DefaultContent => Content;
 
 		[Constructable]
 		public TaleOfThreeTribes() : base(Utility.Random(0xFEF, 2), false)
@@ -1122,7 +1122,7 @@ namespace Server.Items
 				)
 			);
 
-		public override BookContent DefaultContent { get { return Content; } }
+		public override BookContent DefaultContent => Content;
 
 		[Constructable]
 		public GuideToGuilds() : base(Utility.Random(0xFEF, 2), false)
@@ -1459,7 +1459,7 @@ namespace Server.Items
 				)
 			);
 
-		public override BookContent DefaultContent { get { return Content; } }
+		public override BookContent DefaultContent => Content;
 
 		[Constructable]
 		public BirdsOfBritannia() : base(Utility.Random(0xFEF, 2), false)
@@ -1691,7 +1691,7 @@ namespace Server.Items
 				)
 			);
 
-		public override BookContent DefaultContent { get { return Content; } }
+		public override BookContent DefaultContent => Content;
 
 		[Constructable]
 		public BritannianFlora() : base(Utility.Random(0xFEF, 2), false)
@@ -1828,7 +1828,7 @@ namespace Server.Items
 				)
 			);
 
-		public override BookContent DefaultContent { get { return Content; } }
+		public override BookContent DefaultContent => Content;
 
 		[Constructable]
 		public ChildrenTalesVol2() : base(Utility.Random(0xFEF, 2), false)
@@ -2089,7 +2089,7 @@ namespace Server.Items
 				)
 			);
 
-		public override BookContent DefaultContent { get { return Content; } }
+		public override BookContent DefaultContent => Content;
 
 		[Constructable]
 		public TalesOfVesperVol1() : base(Utility.Random(0xFEF, 2), false)
@@ -2252,7 +2252,7 @@ namespace Server.Items
 				)
 			);
 
-		public override BookContent DefaultContent { get { return Content; } }
+		public override BookContent DefaultContent => Content;
 
 		[Constructable]
 		public DeceitDungeonOfHorror() : base(Utility.Random(0xFEF, 2), false)
@@ -2485,7 +2485,7 @@ namespace Server.Items
 				)
 			);
 
-		public override BookContent DefaultContent { get { return Content; } }
+		public override BookContent DefaultContent => Content;
 
 		[Constructable]
 		public DimensionalTravel() : base(Utility.Random(0xFEF, 2), false)
@@ -2790,7 +2790,7 @@ namespace Server.Items
 				)
 			);
 
-		public override BookContent DefaultContent { get { return Content; } }
+		public override BookContent DefaultContent => Content;
 
 		[Constructable]
 		public EthicalHedonism() : base(Utility.Random(0xFEF, 2), false)
@@ -3360,7 +3360,7 @@ namespace Server.Items
 				)
 			);
 
-		public override BookContent DefaultContent { get { return Content; } }
+		public override BookContent DefaultContent => Content;
 
 		[Constructable]
 		public MyStory() : base(Utility.Random(0xFEF, 2), false)
@@ -3557,7 +3557,7 @@ namespace Server.Items
 				)
 			);
 
-		public override BookContent DefaultContent { get { return Content; } }
+		public override BookContent DefaultContent => Content;
 
 		[Constructable]
 		public DiversityOfOurLand() : base(Utility.Random(0xFEF, 2), false)
@@ -4007,7 +4007,7 @@ namespace Server.Items
 				)
 			);
 
-		public override BookContent DefaultContent { get { return Content; } }
+		public override BookContent DefaultContent => Content;
 
 		[Constructable]
 		public QuestOfVirtues() : base(Utility.Random(0xFEF, 2), false)
@@ -4084,7 +4084,7 @@ namespace Server.Items
 				)
 			);
 
-		public override BookContent DefaultContent { get { return Content; } }
+		public override BookContent DefaultContent => Content;
 
 		[Constructable]
 		public RegardingLlamas() : base(Utility.Random(0xFEF, 2), false)
@@ -4212,7 +4212,7 @@ namespace Server.Items
 				)
 			);
 
-		public override BookContent DefaultContent { get { return Content; } }
+		public override BookContent DefaultContent => Content;
 
 		[Constructable]
 		public TalkingToWisps() : base(Utility.Random(0xFEF, 2), false)
@@ -4329,7 +4329,7 @@ namespace Server.Items
 				)
 			);
 
-		public override BookContent DefaultContent { get { return Content; } }
+		public override BookContent DefaultContent => Content;
 
 		[Constructable]
 		public TamingDragons() : base(Utility.Random(0xFEF, 2), false)
@@ -4515,7 +4515,7 @@ namespace Server.Items
 				)
 			);
 
-		public override BookContent DefaultContent { get { return Content; } }
+		public override BookContent DefaultContent => Content;
 
 		[Constructable]
 		public BoldStranger() : base(Utility.Random(0xFEF, 2), false)
@@ -4801,7 +4801,7 @@ namespace Server.Items
 				)
 			);
 
-		public override BookContent DefaultContent { get { return Content; } }
+		public override BookContent DefaultContent => Content;
 
 		[Constructable]
 		public BurningOfTrinsic() : base(Utility.Random(0xFEF, 2), false)
@@ -4975,7 +4975,7 @@ namespace Server.Items
 				)
 			);
 
-		public override BookContent DefaultContent { get { return Content; } }
+		public override BookContent DefaultContent => Content;
 
 		[Constructable]
 		public TheFight() : base(Utility.Random(0xFEF, 2), false)
@@ -5201,7 +5201,7 @@ namespace Server.Items
 				)
 			);
 
-		public override BookContent DefaultContent { get { return Content; } }
+		public override BookContent DefaultContent => Content;
 
 		[Constructable]
 		public LifeOfATravellingMinstrel() : base(Utility.Random(0xFEF, 2), false)
@@ -5428,7 +5428,7 @@ namespace Server.Items
 				)
 			);
 
-		public override BookContent DefaultContent { get { return Content; } }
+		public override BookContent DefaultContent => Content;
 
 		[Constructable]
 		public MajorTradeAssociation() : base(Utility.Random(0xFEF, 2), false)
@@ -5557,7 +5557,7 @@ namespace Server.Items
 				)
 			);
 
-		public override BookContent DefaultContent { get { return Content; } }
+		public override BookContent DefaultContent => Content;
 
 		[Constructable]
 		public RankingsOfTrades() : base(Utility.Random(0xFEF, 2), false)
@@ -5766,7 +5766,7 @@ namespace Server.Items
 				)
 			);
 
-		public override BookContent DefaultContent { get { return Content; } }
+		public override BookContent DefaultContent => Content;
 
 		[Constructable]
 		public WildGirlOfTheForest() : base(Utility.Random(0xFEF, 2), false)
@@ -5926,7 +5926,7 @@ namespace Server.Items
 				)
 			);
 
-		public override BookContent DefaultContent { get { return Content; } }
+		public override BookContent DefaultContent => Content;
 
 		[Constructable]
 		public TreatiseOnAlchemy() : base(Utility.Random(0xFEF, 2), false)
@@ -6179,7 +6179,7 @@ namespace Server.Items
 				)
 			);
 
-		public override BookContent DefaultContent { get { return Content; } }
+		public override BookContent DefaultContent => Content;
 
 		[Constructable]
 		public VirtueBook() : base(Utility.Random(0xFEF, 2), false)

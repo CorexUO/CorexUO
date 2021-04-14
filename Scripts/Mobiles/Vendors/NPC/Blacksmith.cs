@@ -7,9 +7,9 @@ namespace Server.Mobiles
 	public class Blacksmith : BaseVendor
 	{
 		private readonly List<SBInfo> m_SBInfos = new List<SBInfo>();
-		protected override List<SBInfo> SBInfos { get { return m_SBInfos; } }
+		protected override List<SBInfo> SBInfos => m_SBInfos;
 
-		public override NpcGuild NpcGuild { get { return NpcGuild.BlacksmithsGuild; } }
+		public override NpcGuild NpcGuild => NpcGuild.BlacksmithsGuild;
 
 		[Constructable]
 		public Blacksmith() : base("the blacksmith")
@@ -52,10 +52,7 @@ namespace Server.Mobiles
 			}
 		}
 
-		public override VendorShoeType ShoeType
-		{
-			get { return VendorShoeType.None; }
-		}
+		public override VendorShoeType ShoeType => VendorShoeType.None;
 
 		public override void InitOutfit()
 		{

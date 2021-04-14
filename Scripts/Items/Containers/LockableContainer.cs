@@ -26,10 +26,7 @@ namespace Server.Items
 		[CommandProperty(AccessLevel.GameMaster)]
 		public virtual bool Locked
 		{
-			get
-			{
-				return m_Locked;
-			}
+			get => m_Locked;
 			set
 			{
 				m_Locked = value;
@@ -44,13 +41,7 @@ namespace Server.Items
 		[CommandProperty(AccessLevel.GameMaster)]
 		public uint KeyValue { get; set; }
 
-		public override bool TrapOnOpen
-		{
-			get
-			{
-				return !TrapOnLockpick;
-			}
-		}
+		public override bool TrapOnOpen => !TrapOnLockpick;
 
 		[CommandProperty(AccessLevel.GameMaster)]
 		public bool TrapOnLockpick { get; set; }
@@ -162,7 +153,7 @@ namespace Server.Items
 			return true;
 		}
 
-		public override bool DisplaysContent { get { return !m_Locked; } }
+		public override bool DisplaysContent => !m_Locked;
 
 		public virtual bool CheckLocked(Mobile from)
 		{
@@ -229,9 +220,9 @@ namespace Server.Items
 			Locked = false;
 			Picker = from;
 
-			if (this.TrapOnLockpick && ExecuteTrap(from))
+			if (TrapOnLockpick && ExecuteTrap(from))
 			{
-				this.TrapOnLockpick = false;
+				TrapOnLockpick = false;
 			}
 		}
 

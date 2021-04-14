@@ -4,22 +4,22 @@ namespace Server.Items
 {
 	public class GargoylesPickaxe : BaseAxe, IUsesRemaining
 	{
-		public override int LabelNumber { get { return 1041281; } } // a gargoyle's pickaxe
-		public override HarvestSystem HarvestSystem { get { return Mining.System; } }
+		public override int LabelNumber => 1041281;  // a gargoyle's pickaxe
+		public override HarvestSystem HarvestSystem => Mining.System;
 
-		public override WeaponAbility PrimaryAbility { get { return WeaponAbility.DoubleStrike; } }
-		public override WeaponAbility SecondaryAbility { get { return WeaponAbility.Disarm; } }
+		public override WeaponAbility PrimaryAbility => WeaponAbility.DoubleStrike;
+		public override WeaponAbility SecondaryAbility => WeaponAbility.Disarm;
 
-		public override int StrReq { get { return Core.AOS ? 50 : 25; } }
+		public override int StrReq => Core.AOS ? 50 : 25;
 
-		public override int MinDamageBase { get { return Core.AOS ? 13 : 1; } }
-		public override int MaxDamageBase { get { return Core.AOS ? 15 : 15; } }
-		public override float SpeedBase { get { return Core.ML ? 3.00f : Core.AOS ? 35 : 35; } }
+		public override int MinDamageBase => Core.AOS ? 13 : 1;
+		public override int MaxDamageBase => Core.AOS ? 15 : 15;
+		public override float SpeedBase => Core.ML ? 3.00f : Core.AOS ? 35 : 35;
 
-		public override int InitMinHits { get { return 31; } }
-		public override int InitMaxHits { get { return 60; } }
+		public override int InitMinHits => 31;
+		public override int InitMaxHits => 60;
 
-		public override WeaponAnimation DefAnimation { get { return WeaponAnimation.Slash1H; } }
+		public override WeaponAnimation DefAnimation => WeaponAnimation.Slash1H;
 
 		[Constructable]
 		public GargoylesPickaxe() : this(Utility.RandomMinMax(101, 125))

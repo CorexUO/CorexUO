@@ -4,7 +4,7 @@ namespace Server.Mobiles
 {
 	public class Artist : BaseCreature
 	{
-		public override bool CanTeach { get { return true; } }
+		public override bool CanTeach => true;
 
 		[Constructable]
 		public Artist()
@@ -20,15 +20,15 @@ namespace Server.Mobiles
 			Hue = Utility.RandomSkinHue();
 
 
-			if (this.Female = Utility.RandomBool())
+			if (Female = Utility.RandomBool())
 			{
-				this.Body = 0x191;
-				this.Name = NameList.RandomName("female");
+				Body = 0x191;
+				Name = NameList.RandomName("female");
 			}
 			else
 			{
-				this.Body = 0x190;
-				this.Name = NameList.RandomName("male");
+				Body = 0x190;
+				Name = NameList.RandomName("male");
 			}
 			AddItem(new Doublet(Utility.RandomDyedHue()));
 			AddItem(new Sandals(Utility.RandomNeutralHue()));
@@ -46,7 +46,7 @@ namespace Server.Mobiles
 			AddItem(pack);
 		}
 
-		public override bool ClickTitle { get { return false; } }
+		public override bool ClickTitle => false;
 
 
 		public Artist(Serial serial)

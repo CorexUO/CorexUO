@@ -10,8 +10,8 @@ namespace Server.Items
 		[CommandProperty(AccessLevel.GameMaster)]
 		public bool IsShipwreckedItem
 		{
-			get { return m_IsShipwreckedItem; }
-			set { m_IsShipwreckedItem = value; }
+			get => m_IsShipwreckedItem;
+			set => m_IsShipwreckedItem = value;
 		}
 
 		public BaseHat(int itemID) : this(itemID, 0)
@@ -73,14 +73,14 @@ namespace Server.Items
 	[Flipable(0x2798, 0x27E3)]
 	public class Kasa : BaseHat
 	{
-		public override int BasePhysicalResistance { get { return 0; } }
-		public override int BaseFireResistance { get { return 5; } }
-		public override int BaseColdResistance { get { return 9; } }
-		public override int BasePoisonResistance { get { return 5; } }
-		public override int BaseEnergyResistance { get { return 5; } }
+		public override int BasePhysicalResistance => 0;
+		public override int BaseFireResistance => 5;
+		public override int BaseColdResistance => 9;
+		public override int BasePoisonResistance => 5;
+		public override int BaseEnergyResistance => 5;
 
-		public override int InitMinHits { get { return 20; } }
-		public override int InitMaxHits { get { return 30; } }
+		public override int InitMinHits => 20;
+		public override int InitMaxHits => 30;
 
 		[Constructable]
 		public Kasa() : this(0)
@@ -115,14 +115,14 @@ namespace Server.Items
 	[Flipable(0x278F, 0x27DA)]
 	public class ClothNinjaHood : BaseHat
 	{
-		public override int BasePhysicalResistance { get { return 3; } }
-		public override int BaseFireResistance { get { return 3; } }
-		public override int BaseColdResistance { get { return 6; } }
-		public override int BasePoisonResistance { get { return 9; } }
-		public override int BaseEnergyResistance { get { return 9; } }
+		public override int BasePhysicalResistance => 3;
+		public override int BaseFireResistance => 3;
+		public override int BaseColdResistance => 6;
+		public override int BasePoisonResistance => 9;
+		public override int BaseEnergyResistance => 9;
 
-		public override int InitMinHits { get { return 20; } }
-		public override int InitMaxHits { get { return 30; } }
+		public override int InitMinHits => 20;
+		public override int InitMaxHits => 30;
 
 		[Constructable]
 		public ClothNinjaHood() : this(0)
@@ -157,14 +157,14 @@ namespace Server.Items
 	[Flipable(0x2306, 0x2305)]
 	public class FlowerGarland : BaseHat
 	{
-		public override int BasePhysicalResistance { get { return 3; } }
-		public override int BaseFireResistance { get { return 3; } }
-		public override int BaseColdResistance { get { return 6; } }
-		public override int BasePoisonResistance { get { return 9; } }
-		public override int BaseEnergyResistance { get { return 9; } }
+		public override int BasePhysicalResistance => 3;
+		public override int BaseFireResistance => 3;
+		public override int BaseColdResistance => 6;
+		public override int BasePoisonResistance => 9;
+		public override int BaseEnergyResistance => 9;
 
-		public override int InitMinHits { get { return 20; } }
-		public override int InitMaxHits { get { return 30; } }
+		public override int InitMinHits => 20;
+		public override int InitMaxHits => 30;
 
 		[Constructable]
 		public FlowerGarland() : this(0)
@@ -198,14 +198,14 @@ namespace Server.Items
 
 	public class FloppyHat : BaseHat
 	{
-		public override int BasePhysicalResistance { get { return 0; } }
-		public override int BaseFireResistance { get { return 5; } }
-		public override int BaseColdResistance { get { return 9; } }
-		public override int BasePoisonResistance { get { return 5; } }
-		public override int BaseEnergyResistance { get { return 5; } }
+		public override int BasePhysicalResistance => 0;
+		public override int BaseFireResistance => 5;
+		public override int BaseColdResistance => 9;
+		public override int BasePoisonResistance => 5;
+		public override int BaseEnergyResistance => 5;
 
-		public override int InitMinHits { get { return 20; } }
-		public override int InitMaxHits { get { return 30; } }
+		public override int InitMinHits => 20;
+		public override int InitMaxHits => 30;
 
 		[Constructable]
 		public FloppyHat() : this(0)
@@ -239,14 +239,14 @@ namespace Server.Items
 
 	public class WideBrimHat : BaseHat
 	{
-		public override int BasePhysicalResistance { get { return 0; } }
-		public override int BaseFireResistance { get { return 5; } }
-		public override int BaseColdResistance { get { return 9; } }
-		public override int BasePoisonResistance { get { return 5; } }
-		public override int BaseEnergyResistance { get { return 5; } }
+		public override int BasePhysicalResistance => 0;
+		public override int BaseFireResistance => 5;
+		public override int BaseColdResistance => 9;
+		public override int BasePoisonResistance => 5;
+		public override int BaseEnergyResistance => 5;
 
-		public override int InitMinHits { get { return 20; } }
-		public override int InitMaxHits { get { return 30; } }
+		public override int InitMinHits => 20;
+		public override int InitMaxHits => 30;
 
 		[Constructable]
 		public WideBrimHat() : this(0)
@@ -280,14 +280,14 @@ namespace Server.Items
 
 	public class Cap : BaseHat
 	{
-		public override int BasePhysicalResistance { get { return 0; } }
-		public override int BaseFireResistance { get { return 5; } }
-		public override int BaseColdResistance { get { return 9; } }
-		public override int BasePoisonResistance { get { return 5; } }
-		public override int BaseEnergyResistance { get { return 5; } }
+		public override int BasePhysicalResistance => 0;
+		public override int BaseFireResistance => 5;
+		public override int BaseColdResistance => 9;
+		public override int BasePoisonResistance => 5;
+		public override int BaseEnergyResistance => 5;
 
-		public override int InitMinHits { get { return 20; } }
-		public override int InitMaxHits { get { return 30; } }
+		public override int InitMinHits => 20;
+		public override int InitMaxHits => 30;
 
 		[Constructable]
 		public Cap() : this(0)
@@ -321,14 +321,14 @@ namespace Server.Items
 
 	public class SkullCap : BaseHat
 	{
-		public override int BasePhysicalResistance { get { return 0; } }
-		public override int BaseFireResistance { get { return 3; } }
-		public override int BaseColdResistance { get { return 5; } }
-		public override int BasePoisonResistance { get { return 8; } }
-		public override int BaseEnergyResistance { get { return 8; } }
+		public override int BasePhysicalResistance => 0;
+		public override int BaseFireResistance => 3;
+		public override int BaseColdResistance => 5;
+		public override int BasePoisonResistance => 8;
+		public override int BaseEnergyResistance => 8;
 
-		public override int InitMinHits { get { return (Core.ML ? 14 : 7); } }
-		public override int InitMaxHits { get { return (Core.ML ? 28 : 12); } }
+		public override int InitMinHits => (Core.ML ? 14 : 7);
+		public override int InitMaxHits => (Core.ML ? 28 : 12);
 
 		[Constructable]
 		public SkullCap() : this(0)
@@ -362,14 +362,14 @@ namespace Server.Items
 
 	public class Bandana : BaseHat
 	{
-		public override int BasePhysicalResistance { get { return 0; } }
-		public override int BaseFireResistance { get { return 3; } }
-		public override int BaseColdResistance { get { return 5; } }
-		public override int BasePoisonResistance { get { return 8; } }
-		public override int BaseEnergyResistance { get { return 8; } }
+		public override int BasePhysicalResistance => 0;
+		public override int BaseFireResistance => 3;
+		public override int BaseColdResistance => 5;
+		public override int BasePoisonResistance => 8;
+		public override int BaseEnergyResistance => 8;
 
-		public override int InitMinHits { get { return 20; } }
-		public override int InitMaxHits { get { return 30; } }
+		public override int InitMinHits => 20;
+		public override int InitMaxHits => 30;
 
 		[Constructable]
 		public Bandana() : this(0)
@@ -403,14 +403,14 @@ namespace Server.Items
 
 	public class BearMask : BaseHat
 	{
-		public override int BasePhysicalResistance { get { return 5; } }
-		public override int BaseFireResistance { get { return 3; } }
-		public override int BaseColdResistance { get { return 8; } }
-		public override int BasePoisonResistance { get { return 4; } }
-		public override int BaseEnergyResistance { get { return 4; } }
+		public override int BasePhysicalResistance => 5;
+		public override int BaseFireResistance => 3;
+		public override int BaseColdResistance => 8;
+		public override int BasePoisonResistance => 4;
+		public override int BaseEnergyResistance => 4;
 
-		public override int InitMinHits { get { return 20; } }
-		public override int InitMaxHits { get { return 30; } }
+		public override int InitMinHits => 20;
+		public override int InitMaxHits => 30;
 
 		[Constructable]
 		public BearMask() : this(0)
@@ -450,14 +450,14 @@ namespace Server.Items
 
 	public class DeerMask : BaseHat
 	{
-		public override int BasePhysicalResistance { get { return 2; } }
-		public override int BaseFireResistance { get { return 6; } }
-		public override int BaseColdResistance { get { return 8; } }
-		public override int BasePoisonResistance { get { return 1; } }
-		public override int BaseEnergyResistance { get { return 7; } }
+		public override int BasePhysicalResistance => 2;
+		public override int BaseFireResistance => 6;
+		public override int BaseColdResistance => 8;
+		public override int BasePoisonResistance => 1;
+		public override int BaseEnergyResistance => 7;
 
-		public override int InitMinHits { get { return 20; } }
-		public override int InitMaxHits { get { return 30; } }
+		public override int InitMinHits => 20;
+		public override int InitMaxHits => 30;
 
 		[Constructable]
 		public DeerMask() : this(0)
@@ -497,14 +497,14 @@ namespace Server.Items
 
 	public class HornedTribalMask : BaseHat
 	{
-		public override int BasePhysicalResistance { get { return 6; } }
-		public override int BaseFireResistance { get { return 9; } }
-		public override int BaseColdResistance { get { return 0; } }
-		public override int BasePoisonResistance { get { return 4; } }
-		public override int BaseEnergyResistance { get { return 5; } }
+		public override int BasePhysicalResistance => 6;
+		public override int BaseFireResistance => 9;
+		public override int BaseColdResistance => 0;
+		public override int BasePoisonResistance => 4;
+		public override int BaseEnergyResistance => 5;
 
-		public override int InitMinHits { get { return 20; } }
-		public override int InitMaxHits { get { return 30; } }
+		public override int InitMinHits => 20;
+		public override int InitMaxHits => 30;
 
 		[Constructable]
 		public HornedTribalMask() : this(0)
@@ -544,14 +544,14 @@ namespace Server.Items
 
 	public class TribalMask : BaseHat
 	{
-		public override int BasePhysicalResistance { get { return 3; } }
-		public override int BaseFireResistance { get { return 0; } }
-		public override int BaseColdResistance { get { return 6; } }
-		public override int BasePoisonResistance { get { return 10; } }
-		public override int BaseEnergyResistance { get { return 5; } }
+		public override int BasePhysicalResistance => 3;
+		public override int BaseFireResistance => 0;
+		public override int BaseColdResistance => 6;
+		public override int BasePoisonResistance => 10;
+		public override int BaseEnergyResistance => 5;
 
-		public override int InitMinHits { get { return 20; } }
-		public override int InitMaxHits { get { return 30; } }
+		public override int InitMinHits => 20;
+		public override int InitMaxHits => 30;
 
 		[Constructable]
 		public TribalMask() : this(0)
@@ -591,14 +591,14 @@ namespace Server.Items
 
 	public class TallStrawHat : BaseHat
 	{
-		public override int BasePhysicalResistance { get { return 0; } }
-		public override int BaseFireResistance { get { return 5; } }
-		public override int BaseColdResistance { get { return 9; } }
-		public override int BasePoisonResistance { get { return 5; } }
-		public override int BaseEnergyResistance { get { return 5; } }
+		public override int BasePhysicalResistance => 0;
+		public override int BaseFireResistance => 5;
+		public override int BaseColdResistance => 9;
+		public override int BasePoisonResistance => 5;
+		public override int BaseEnergyResistance => 5;
 
-		public override int InitMinHits { get { return 20; } }
-		public override int InitMaxHits { get { return 30; } }
+		public override int InitMinHits => 20;
+		public override int InitMaxHits => 30;
 
 		[Constructable]
 		public TallStrawHat() : this(0)
@@ -632,14 +632,14 @@ namespace Server.Items
 
 	public class StrawHat : BaseHat
 	{
-		public override int BasePhysicalResistance { get { return 0; } }
-		public override int BaseFireResistance { get { return 5; } }
-		public override int BaseColdResistance { get { return 9; } }
-		public override int BasePoisonResistance { get { return 5; } }
-		public override int BaseEnergyResistance { get { return 5; } }
+		public override int BasePhysicalResistance => 0;
+		public override int BaseFireResistance => 5;
+		public override int BaseColdResistance => 9;
+		public override int BasePoisonResistance => 5;
+		public override int BaseEnergyResistance => 5;
 
-		public override int InitMinHits { get { return 20; } }
-		public override int InitMaxHits { get { return 30; } }
+		public override int InitMinHits => 20;
+		public override int InitMaxHits => 30;
 
 		[Constructable]
 		public StrawHat() : this(0)
@@ -673,14 +673,14 @@ namespace Server.Items
 
 	public class OrcishKinMask : BaseHat
 	{
-		public override int BasePhysicalResistance { get { return 1; } }
-		public override int BaseFireResistance { get { return 1; } }
-		public override int BaseColdResistance { get { return 7; } }
-		public override int BasePoisonResistance { get { return 7; } }
-		public override int BaseEnergyResistance { get { return 8; } }
+		public override int BasePhysicalResistance => 1;
+		public override int BaseFireResistance => 1;
+		public override int BaseColdResistance => 7;
+		public override int BasePoisonResistance => 7;
+		public override int BaseEnergyResistance => 8;
 
-		public override int InitMinHits { get { return 20; } }
-		public override int InitMaxHits { get { return 30; } }
+		public override int InitMinHits => 20;
+		public override int InitMaxHits => 30;
 
 		public override bool Dye(Mobile from, DyeTub sender)
 		{
@@ -688,10 +688,7 @@ namespace Server.Items
 			return false;
 		}
 
-		public override string DefaultName
-		{
-			get { return "a mask of orcish kin"; }
-		}
+		public override string DefaultName => "a mask of orcish kin";
 
 		[Constructable]
 		public OrcishKinMask() : this(0x8A4)
@@ -750,14 +747,14 @@ namespace Server.Items
 
 	public class SavageMask : BaseHat
 	{
-		public override int BasePhysicalResistance { get { return 3; } }
-		public override int BaseFireResistance { get { return 0; } }
-		public override int BaseColdResistance { get { return 6; } }
-		public override int BasePoisonResistance { get { return 10; } }
-		public override int BaseEnergyResistance { get { return 5; } }
+		public override int BasePhysicalResistance => 3;
+		public override int BaseFireResistance => 0;
+		public override int BaseColdResistance => 6;
+		public override int BasePoisonResistance => 10;
+		public override int BaseEnergyResistance => 5;
 
-		public override int InitMinHits { get { return 20; } }
-		public override int InitMaxHits { get { return 30; } }
+		public override int InitMinHits => 20;
+		public override int InitMaxHits => 30;
 
 		public static int GetRandomHue()
 		{
@@ -810,14 +807,14 @@ namespace Server.Items
 
 	public class WizardsHat : BaseHat
 	{
-		public override int BasePhysicalResistance { get { return 0; } }
-		public override int BaseFireResistance { get { return 5; } }
-		public override int BaseColdResistance { get { return 9; } }
-		public override int BasePoisonResistance { get { return 5; } }
-		public override int BaseEnergyResistance { get { return 5; } }
+		public override int BasePhysicalResistance => 0;
+		public override int BaseFireResistance => 5;
+		public override int BaseColdResistance => 9;
+		public override int BasePoisonResistance => 5;
+		public override int BaseEnergyResistance => 5;
 
-		public override int InitMinHits { get { return 20; } }
-		public override int InitMaxHits { get { return 30; } }
+		public override int InitMinHits => 20;
+		public override int InitMaxHits => 30;
 
 		[Constructable]
 		public WizardsHat() : this(0)
@@ -851,20 +848,20 @@ namespace Server.Items
 
 	public class MagicWizardsHat : BaseHat
 	{
-		public override int BasePhysicalResistance { get { return 0; } }
-		public override int BaseFireResistance { get { return 5; } }
-		public override int BaseColdResistance { get { return 9; } }
-		public override int BasePoisonResistance { get { return 5; } }
-		public override int BaseEnergyResistance { get { return 5; } }
+		public override int BasePhysicalResistance => 0;
+		public override int BaseFireResistance => 5;
+		public override int BaseColdResistance => 9;
+		public override int BasePoisonResistance => 5;
+		public override int BaseEnergyResistance => 5;
 
-		public override int InitMinHits { get { return 20; } }
-		public override int InitMaxHits { get { return 30; } }
+		public override int InitMinHits => 20;
+		public override int InitMaxHits => 30;
 
-		public override int LabelNumber { get { return 1041072; } } // a magical wizard's hat
+		public override int LabelNumber => 1041072;  // a magical wizard's hat
 
-		public override int BaseStrBonus { get { return -5; } }
-		public override int BaseDexBonus { get { return -5; } }
-		public override int BaseIntBonus { get { return +5; } }
+		public override int BaseStrBonus => -5;
+		public override int BaseDexBonus => -5;
+		public override int BaseIntBonus => +5;
 
 		[Constructable]
 		public MagicWizardsHat() : this(0)
@@ -898,14 +895,14 @@ namespace Server.Items
 
 	public class Bonnet : BaseHat
 	{
-		public override int BasePhysicalResistance { get { return 0; } }
-		public override int BaseFireResistance { get { return 5; } }
-		public override int BaseColdResistance { get { return 9; } }
-		public override int BasePoisonResistance { get { return 5; } }
-		public override int BaseEnergyResistance { get { return 5; } }
+		public override int BasePhysicalResistance => 0;
+		public override int BaseFireResistance => 5;
+		public override int BaseColdResistance => 9;
+		public override int BasePoisonResistance => 5;
+		public override int BaseEnergyResistance => 5;
 
-		public override int InitMinHits { get { return 20; } }
-		public override int InitMaxHits { get { return 30; } }
+		public override int InitMinHits => 20;
+		public override int InitMaxHits => 30;
 
 		[Constructable]
 		public Bonnet() : this(0)
@@ -939,14 +936,14 @@ namespace Server.Items
 
 	public class FeatheredHat : BaseHat
 	{
-		public override int BasePhysicalResistance { get { return 0; } }
-		public override int BaseFireResistance { get { return 5; } }
-		public override int BaseColdResistance { get { return 9; } }
-		public override int BasePoisonResistance { get { return 5; } }
-		public override int BaseEnergyResistance { get { return 5; } }
+		public override int BasePhysicalResistance => 0;
+		public override int BaseFireResistance => 5;
+		public override int BaseColdResistance => 9;
+		public override int BasePoisonResistance => 5;
+		public override int BaseEnergyResistance => 5;
 
-		public override int InitMinHits { get { return 20; } }
-		public override int InitMaxHits { get { return 30; } }
+		public override int InitMinHits => 20;
+		public override int InitMaxHits => 30;
 
 		[Constructable]
 		public FeatheredHat() : this(0)
@@ -980,14 +977,14 @@ namespace Server.Items
 
 	public class TricorneHat : BaseHat
 	{
-		public override int BasePhysicalResistance { get { return 0; } }
-		public override int BaseFireResistance { get { return 5; } }
-		public override int BaseColdResistance { get { return 9; } }
-		public override int BasePoisonResistance { get { return 5; } }
-		public override int BaseEnergyResistance { get { return 5; } }
+		public override int BasePhysicalResistance => 0;
+		public override int BaseFireResistance => 5;
+		public override int BaseColdResistance => 9;
+		public override int BasePoisonResistance => 5;
+		public override int BaseEnergyResistance => 5;
 
-		public override int InitMinHits { get { return 20; } }
-		public override int InitMaxHits { get { return 30; } }
+		public override int InitMinHits => 20;
+		public override int InitMaxHits => 30;
 
 		[Constructable]
 		public TricorneHat() : this(0)
@@ -1021,14 +1018,14 @@ namespace Server.Items
 
 	public class JesterHat : BaseHat
 	{
-		public override int BasePhysicalResistance { get { return 0; } }
-		public override int BaseFireResistance { get { return 5; } }
-		public override int BaseColdResistance { get { return 9; } }
-		public override int BasePoisonResistance { get { return 5; } }
-		public override int BaseEnergyResistance { get { return 5; } }
+		public override int BasePhysicalResistance => 0;
+		public override int BaseFireResistance => 5;
+		public override int BaseColdResistance => 9;
+		public override int BasePoisonResistance => 5;
+		public override int BaseEnergyResistance => 5;
 
-		public override int InitMinHits { get { return 20; } }
-		public override int InitMaxHits { get { return 30; } }
+		public override int InitMinHits => 20;
+		public override int InitMaxHits => 30;
 
 		[Constructable]
 		public JesterHat() : this(0)

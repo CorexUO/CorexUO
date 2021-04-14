@@ -7,7 +7,7 @@
 
 	public class SkullsOnPike : BaseItem
 	{
-		public override double DefaultWeight { get { return 1; } }
+		public override double DefaultWeight => 1;
 
 		[Constructable]
 		public SkullsOnPike()

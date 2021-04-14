@@ -327,10 +327,7 @@ namespace Server.Misc
 
 	public class WeatherMap : MapItem
 	{
-		public override string DefaultName
-		{
-			get { return "weather map"; }
-		}
+		public override string DefaultName => "weather map";
 
 		[Constructable]
 		public WeatherMap()

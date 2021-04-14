@@ -8,7 +8,7 @@ namespace Server.Engines.Events
 {
 	public class HalloweenHauntings
 	{
-		public static Dictionary<PlayerMobile, ZombieSkeleton> ReAnimated { get { return m_ReAnimated; } set { m_ReAnimated = value; } }
+		public static Dictionary<PlayerMobile, ZombieSkeleton> ReAnimated { get => m_ReAnimated; set => m_ReAnimated = value; }
 
 		private static Timer m_Timer;
 		private static Timer m_ClearTimer;
@@ -246,9 +246,9 @@ namespace Server.Engines.Events
 			AddLoot(LootPack.Meager);
 		}
 
-		public override bool BleedImmune { get { return true; } }
+		public override bool BleedImmune => true;
 
-		public override Poison PoisonImmune { get { return Poison.Regular; } }
+		public override Poison PoisonImmune => Poison.Regular;
 
 		public ZombieSkeleton(Serial serial)
 			: base(serial)

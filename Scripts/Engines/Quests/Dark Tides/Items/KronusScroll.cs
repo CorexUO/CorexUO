@@ -7,7 +7,7 @@ namespace Server.Engines.Quests.Necro
 {
 	public class KronusScroll : QuestItem
 	{
-		public override int LabelNumber { get { return 1060149; } } // Calling of Kronus
+		public override int LabelNumber => 1060149;  // Calling of Kronus
 
 		[Constructable]
 		public KronusScroll() : base(0x227A)

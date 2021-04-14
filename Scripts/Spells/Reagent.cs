@@ -48,104 +48,104 @@ namespace Server.Spells
 
 		public static Type BlackPearl
 		{
-			get { return Types[0]; }
-			set { Types[0] = value; }
+			get => Types[0];
+			set => Types[0] = value;
 		}
 
 		public static Type Bloodmoss
 		{
-			get { return Types[1]; }
-			set { Types[1] = value; }
+			get => Types[1];
+			set => Types[1] = value;
 		}
 
 		public static Type Garlic
 		{
-			get { return Types[2]; }
-			set { Types[2] = value; }
+			get => Types[2];
+			set => Types[2] = value;
 		}
 
 		public static Type Ginseng
 		{
-			get { return Types[3]; }
-			set { Types[3] = value; }
+			get => Types[3];
+			set => Types[3] = value;
 		}
 
 		public static Type MandrakeRoot
 		{
-			get { return Types[4]; }
-			set { Types[4] = value; }
+			get => Types[4];
+			set => Types[4] = value;
 		}
 
 		public static Type Nightshade
 		{
-			get { return Types[5]; }
-			set { Types[5] = value; }
+			get => Types[5];
+			set => Types[5] = value;
 		}
 
 		public static Type SulfurousAsh
 		{
-			get { return Types[6]; }
-			set { Types[6] = value; }
+			get => Types[6];
+			set => Types[6] = value;
 		}
 
 		public static Type SpidersSilk
 		{
-			get { return Types[7]; }
-			set { Types[7] = value; }
+			get => Types[7];
+			set => Types[7] = value;
 		}
 
 		public static Type BatWing
 		{
-			get { return Types[8]; }
-			set { Types[8] = value; }
+			get => Types[8];
+			set => Types[8] = value;
 		}
 
 		public static Type GraveDust
 		{
-			get { return Types[9]; }
-			set { Types[9] = value; }
+			get => Types[9];
+			set => Types[9] = value;
 		}
 
 		public static Type DaemonBlood
 		{
-			get { return Types[10]; }
-			set { Types[10] = value; }
+			get => Types[10];
+			set => Types[10] = value;
 		}
 
 		public static Type NoxCrystal
 		{
-			get { return Types[11]; }
-			set { Types[11] = value; }
+			get => Types[11];
+			set => Types[11] = value;
 		}
 
 		public static Type PigIron
 		{
-			get { return Types[12]; }
-			set { Types[12] = value; }
+			get => Types[12];
+			set => Types[12] = value;
 		}
 
 		public static Type Bone
 		{
-			get { return Types[13]; }
-			set { Types[13] = value; }
+			get => Types[13];
+			set => Types[13] = value;
 		}
 
 		public static Type FertileDirt
 		{
-			get { return Types[14]; }
-			set { Types[14] = value; }
+			get => Types[14];
+			set => Types[14] = value;
 		}
 
 		public static Type DragonsBlood
 		{
-			get { return Types[15]; }
-			set { Types[15] = value; }
+			get => Types[15];
+			set => Types[15] = value;
 		}
 
 		public static Type DaemonBone
 		{
-			get { return Types[16]; }
-			set { Types[16] = value; }
+			get => Types[16];
+			set => Types[16] = value;
 		}
 
 		public static int GetRegLocalization(Reg reg)

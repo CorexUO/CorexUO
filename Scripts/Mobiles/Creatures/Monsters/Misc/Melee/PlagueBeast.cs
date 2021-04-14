@@ -15,22 +15,19 @@ namespace Server.Mobiles
 		[CommandProperty(AccessLevel.GameMaster)]
 		public int TotalDevoured
 		{
-			get { return m_DevourTotal; }
-			set { m_DevourTotal = value; }
+			get => m_DevourTotal;
+			set => m_DevourTotal = value;
 		}
 
 		[CommandProperty(AccessLevel.GameMaster)]
 		public int DevourGoal
 		{
-			get { return (IsParagon ? m_DevourGoal + 25 : m_DevourGoal); }
-			set { m_DevourGoal = value; }
+			get => (IsParagon ? m_DevourGoal + 25 : m_DevourGoal);
+			set => m_DevourGoal = value;
 		}
 
 		[CommandProperty(AccessLevel.GameMaster)]
-		public bool HasMetalChest
-		{
-			get { return m_HasMetalChest; }
-		}
+		public bool HasMetalChest => m_HasMetalChest;
 
 		[Constructable]
 		public PlagueBeast() : base(AIType.AI_Melee, FightMode.Closest, 10, 1, 0.2, 0.4)
@@ -92,13 +89,13 @@ namespace Server.Mobiles
 
 		public override void OnDamagedBySpell(Mobile caster, Spell spell, int damage)
 		{
-			if (this.Map != null && caster != this && 0.25 > Utility.RandomDouble())
+			if (Map != null && caster != this && 0.25 > Utility.RandomDouble())
 			{
 				BaseCreature spawn = new PlagueSpawn(this)
 				{
-					Team = this.Team
+					Team = Team
 				};
-				spawn.MoveToWorld(this.Location, this.Map);
+				spawn.MoveToWorld(Location, Map);
 				spawn.Combatant = caster;
 
 				Say(1053034); // * The plague beast creates another beast from its flesh! *
@@ -107,18 +104,18 @@ namespace Server.Mobiles
 			base.OnDamagedBySpell(caster, spell, damage);
 		}
 
-		public override bool AutoDispel { get { return true; } }
-		public override Poison PoisonImmune { get { return Poison.Lethal; } }
+		public override bool AutoDispel => true;
+		public override Poison PoisonImmune => Poison.Lethal;
 
 		public override void OnGotMeleeAttack(Mobile attacker)
 		{
-			if (this.Map != null && attacker != this && 0.25 > Utility.RandomDouble())
+			if (Map != null && attacker != this && 0.25 > Utility.RandomDouble())
 			{
 				BaseCreature spawn = new PlagueSpawn(this)
 				{
-					Team = this.Team
+					Team = Team
 				};
-				spawn.MoveToWorld(this.Location, this.Map);
+				spawn.MoveToWorld(Location, Map);
 				spawn.Combatant = attacker;
 
 				Say(1053034); // * The plague beast creates another beast from its flesh! *
@@ -232,7 +229,7 @@ namespace Server.Mobiles
 		{
 			int maxhits = 2000;
 
-			if (this.IsParagon)
+			if (IsParagon)
 				maxhits = (int)(maxhits * Paragon.HitsBuff);
 
 			if (hp < 1000 && !Core.AOS)
@@ -242,9 +239,9 @@ namespace Server.Mobiles
 			{
 				HitsMaxSeed = maxhits;
 
-				int newHits = this.Hits + hp + Utility.RandomMinMax(10, 20); // increase the hp until it hits if it goes over it'll max at 2000
+				int newHits = Hits + hp + Utility.RandomMinMax(10, 20); // increase the hp until it hits if it goes over it'll max at 2000
 
-				this.Hits = Math.Min(maxhits, newHits);
+				Hits = Math.Min(maxhits, newHits);
 				// Also provide heal for each devour on top of the hp increase
 			}
 			else

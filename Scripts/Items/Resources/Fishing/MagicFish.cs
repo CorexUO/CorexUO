@@ -5,13 +5,10 @@ namespace Server.Items
 {
 	public abstract class BaseMagicFish : BaseItem
 	{
-		public virtual int Bonus { get { return 0; } }
-		public virtual StatType Type { get { return StatType.Str; } }
+		public virtual int Bonus => 0;
+		public virtual StatType Type => StatType.Str;
 
-		public override double DefaultWeight
-		{
-			get { return 1.0; }
-		}
+		public override double DefaultWeight => 1.0;
 
 		public BaseMagicFish(int hue) : base(0xDD6)
 		{
@@ -64,10 +61,10 @@ namespace Server.Items
 
 	public class PrizedFish : BaseMagicFish
 	{
-		public override int Bonus { get { return 5; } }
-		public override StatType Type { get { return StatType.Int; } }
+		public override int Bonus => 5;
+		public override StatType Type => StatType.Int;
 
-		public override int LabelNumber { get { return 1041073; } } // prized fish
+		public override int LabelNumber => 1041073;  // prized fish
 
 		[Constructable]
 		public PrizedFish() : base(51)
@@ -94,10 +91,10 @@ namespace Server.Items
 
 	public class WondrousFish : BaseMagicFish
 	{
-		public override int Bonus { get { return 5; } }
-		public override StatType Type { get { return StatType.Dex; } }
+		public override int Bonus => 5;
+		public override StatType Type => StatType.Dex;
 
-		public override int LabelNumber { get { return 1041074; } } // wondrous fish
+		public override int LabelNumber => 1041074;  // wondrous fish
 
 		[Constructable]
 		public WondrousFish() : base(86)
@@ -124,10 +121,10 @@ namespace Server.Items
 
 	public class TrulyRareFish : BaseMagicFish
 	{
-		public override int Bonus { get { return 5; } }
-		public override StatType Type { get { return StatType.Str; } }
+		public override int Bonus => 5;
+		public override StatType Type => StatType.Str;
 
-		public override int LabelNumber { get { return 1041075; } } // truly rare fish
+		public override int LabelNumber => 1041075;  // truly rare fish
 
 		[Constructable]
 		public TrulyRareFish() : base(76)
@@ -155,7 +152,7 @@ namespace Server.Items
 
 	public class PeculiarFish : BaseMagicFish
 	{
-		public override int LabelNumber { get { return 1041076; } } // highly peculiar fish
+		public override int LabelNumber => 1041076;  // highly peculiar fish
 
 		[Constructable]
 		public PeculiarFish() : base(66)

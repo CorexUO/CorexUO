@@ -2,7 +2,7 @@ namespace Server.Items
 {
 	public class CinnamonFancyRugAddon : BaseAddon
 	{
-		public override BaseAddonDeed Deed { get { return new CinnamonFancyRugDeed(); } }
+		public override BaseAddonDeed Deed => new CinnamonFancyRugDeed();
 
 		[Constructable]
 		public CinnamonFancyRugAddon() : base()
@@ -39,8 +39,8 @@ namespace Server.Items
 
 	public class CinnamonFancyRugDeed : BaseAddonDeed
 	{
-		public override BaseAddon Addon { get { return new CinnamonFancyRugAddon(); } }
-		public override int LabelNumber { get { return 1076587; } } // Cinnamon fancy rug
+		public override BaseAddon Addon => new CinnamonFancyRugAddon();
+		public override int LabelNumber => 1076587;  // Cinnamon fancy rug
 
 		[Constructable]
 		public CinnamonFancyRugDeed() : base()

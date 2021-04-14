@@ -6,8 +6,8 @@ namespace Server.Items
 	[Flipable(0x2A69, 0x2A6D)]
 	public class CreepyPortraitComponent : AddonComponent
 	{
-		public override int LabelNumber { get { return 1074481; } } // Creepy portrait
-		public override bool HandlesOnMovement { get { return true; } }
+		public override int LabelNumber => 1074481;  // Creepy portrait
+		public override bool HandlesOnMovement => true;
 
 		public CreepyPortraitComponent() : base(0x2A69)
 		{
@@ -75,7 +75,7 @@ namespace Server.Items
 
 	public class CreepyPortraitAddon : BaseAddon
 	{
-		public override BaseAddonDeed Deed { get { return new CreepyPortraitDeed(); } }
+		public override BaseAddonDeed Deed => new CreepyPortraitDeed();
 
 		[Constructable]
 		public CreepyPortraitAddon() : base()
@@ -104,8 +104,8 @@ namespace Server.Items
 
 	public class CreepyPortraitDeed : BaseAddonDeed
 	{
-		public override BaseAddon Addon { get { return new CreepyPortraitAddon(); } }
-		public override int LabelNumber { get { return 1074481; } } // Creepy portrait
+		public override BaseAddon Addon => new CreepyPortraitAddon();
+		public override int LabelNumber => 1074481;  // Creepy portrait
 
 		[Constructable]
 		public CreepyPortraitDeed() : base()

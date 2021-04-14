@@ -10,8 +10,8 @@ namespace Server.Items
 {
 	public class AnkhOfSacrificeComponent : AddonComponent
 	{
-		public override bool ForceShowProperties { get { return ObjectPropertyList.Enabled; } }
-		public override int LabelNumber { get { return 1027772; } } // Ankh of Sacrifice
+		public override bool ForceShowProperties => ObjectPropertyList.Enabled;
+		public override int LabelNumber => 1027772;  // Ankh of Sacrifice
 
 		public AnkhOfSacrificeComponent(int itemID) : base(itemID)
 		{
@@ -151,7 +151,7 @@ namespace Server.Items
 	}
 	public class AnkhOfSacrificeAddon : BaseAddon, IRewardItem
 	{
-		public override bool HandlesOnMovement { get { return true; } }
+		public override bool HandlesOnMovement => true;
 
 		public override BaseAddonDeed Deed
 		{
@@ -171,7 +171,7 @@ namespace Server.Items
 		[CommandProperty(AccessLevel.GameMaster)]
 		public bool IsRewardItem
 		{
-			get { return m_IsRewardItem; }
+			get => m_IsRewardItem;
 			set { m_IsRewardItem = value; InvalidateProperties(); }
 		}
 
@@ -229,7 +229,7 @@ namespace Server.Items
 
 	public class AnkhOfSacrificeDeed : BaseAddonDeed, IRewardItem, IRewardOption
 	{
-		public override int LabelNumber { get { return 1080397; } } // Deed For An Ankh Of Sacrifice
+		public override int LabelNumber => 1080397;  // Deed For An Ankh Of Sacrifice
 
 		public override BaseAddon Addon
 		{
@@ -250,7 +250,7 @@ namespace Server.Items
 		[CommandProperty(AccessLevel.GameMaster)]
 		public bool IsRewardItem
 		{
-			get { return m_IsRewardItem; }
+			get => m_IsRewardItem;
 			set { m_IsRewardItem = value; InvalidateProperties(); }
 		}
 

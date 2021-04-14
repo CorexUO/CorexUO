@@ -2,20 +2,20 @@ namespace Server.Items
 {
 	public class Bascinet : BaseArmor
 	{
-		public override int BasePhysicalResistance { get { return 7; } }
-		public override int BaseFireResistance { get { return 2; } }
-		public override int BaseColdResistance { get { return 2; } }
-		public override int BasePoisonResistance { get { return 2; } }
-		public override int BaseEnergyResistance { get { return 2; } }
+		public override int BasePhysicalResistance => 7;
+		public override int BaseFireResistance => 2;
+		public override int BaseColdResistance => 2;
+		public override int BasePoisonResistance => 2;
+		public override int BaseEnergyResistance => 2;
 
-		public override int InitMinHits { get { return 40; } }
-		public override int InitMaxHits { get { return 50; } }
+		public override int InitMinHits => 40;
+		public override int InitMaxHits => 50;
 
-		public override int StrReq { get { return Core.AOS ? 40 : 10; } }
+		public override int StrReq => Core.AOS ? 40 : 10;
 
-		public override int ArmorBase { get { return 18; } }
+		public override int ArmorBase => 18;
 
-		public override ArmorMaterialType MaterialType { get { return ArmorMaterialType.Plate; } }
+		public override ArmorMaterialType MaterialType => ArmorMaterialType.Plate;
 
 		[Constructable]
 		public Bascinet() : base(0x140C)

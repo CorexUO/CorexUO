@@ -10,8 +10,8 @@ namespace Server.Items
 		{
 		}
 
-		public override int BaseMana { get { return 15; } }
-		public override int AccuracyBonus { get { return -25; } }
+		public override int BaseMana => 15;
+		public override int AccuracyBonus => -25;
 
 		public override bool OnBeforeSwing(Mobile attacker, Mobile defender)
 		{
@@ -27,7 +27,7 @@ namespace Server.Items
 			attacker.SendLocalizedMessage(1060089); // You fail to execute your special move
 		}
 
-		public override bool ValidatesDuringHit { get { return false; } }
+		public override bool ValidatesDuringHit => false;
 
 		public override void OnHit(Mobile attacker, Mobile defender, int damage)
 		{

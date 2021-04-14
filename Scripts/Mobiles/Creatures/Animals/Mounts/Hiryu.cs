@@ -7,14 +7,14 @@ namespace Server.Mobiles
 	[CorpseName("a hiryu corpse")]
 	public class Hiryu : BaseMount
 	{
-		public override double WeaponAbilityChance { get { return 0.07; } } /* 1 in 15 chance of using per landed hit */
+		public override double WeaponAbilityChance => 0.07;  /* 1 in 15 chance of using per landed hit */
 
 		public override WeaponAbility GetWeaponAbility()
 		{
 			return WeaponAbility.Dismount;
 		}
 
-		public override bool StatLossAfterTame { get { return true; } }
+		public override bool StatLossAfterTame => true;
 
 		private static int GetHue()
 		{
@@ -148,11 +148,11 @@ namespace Server.Mobiles
 			AddLoot(LootPack.Gems, 4);
 		}
 
-		public override int TreasureMapLevel { get { return 5; } }
-		public override int Meat { get { return 16; } }
-		public override int Hides { get { return 60; } }
-		public override FoodType FavoriteFood { get { return FoodType.Meat; } }
-		public override bool CanAngerOnTame { get { return true; } }
+		public override int TreasureMapLevel => 5;
+		public override int Meat => 16;
+		public override int Hides => 60;
+		public override FoodType FavoriteFood => FoodType.Meat;
+		public override bool CanAngerOnTame => true;
 
 		public override void OnGaveMeleeAttack(Mobile defender)
 		{

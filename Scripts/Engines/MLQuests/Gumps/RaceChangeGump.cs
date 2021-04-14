@@ -285,7 +285,7 @@ namespace Server.Engines.MLQuests.Gumps
 
 	public class RaceChangeDeed : BaseItem, IRaceChanger
 	{
-		public override string DefaultName { get { return "a race change deed"; } }
+		public override string DefaultName => "a race change deed";
 
 		[Constructable]
 		public RaceChangeDeed()

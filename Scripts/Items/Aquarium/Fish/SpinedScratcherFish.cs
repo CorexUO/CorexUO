@@ -2,7 +2,7 @@ namespace Server.Items
 {
 	public class SpinedScratcherFish : BaseFish
 	{
-		public override int LabelNumber { get { return 1073832; } } // A Spined Scratcher Fish
+		public override int LabelNumber => 1073832;  // A Spined Scratcher Fish
 
 		[Constructable]
 		public SpinedScratcherFish() : base(0x3B05)

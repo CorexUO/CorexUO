@@ -12,7 +12,7 @@ namespace Server.Items
 {
 	public class DisguiseKit : BaseItem
 	{
-		public override int LabelNumber { get { return 1041078; } } // a disguise kit
+		public override int LabelNumber => 1041078;  // a disguise kit
 
 		[Constructable]
 		public DisguiseKit() : base(0xE05)
@@ -366,9 +366,6 @@ namespace Server.Items
 
 		private static readonly Dictionary<Mobile, Timer> m_Timers = new Dictionary<Mobile, Timer>();
 
-		public static Dictionary<Mobile, Timer> Timers
-		{
-			get { return m_Timers; }
-		}
+		public static Dictionary<Mobile, Timer> Timers => m_Timers;
 	}
 }

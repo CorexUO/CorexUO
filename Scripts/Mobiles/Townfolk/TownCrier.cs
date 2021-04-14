@@ -44,7 +44,7 @@ namespace Server.Mobiles
 			}
 		}
 
-		public bool IsEmpty { get { return (m_Entries == null || m_Entries.Count == 0); } }
+		public bool IsEmpty => (m_Entries == null || m_Entries.Count == 0);
 
 		public GlobalTownCrierEntryList()
 		{
@@ -52,10 +52,7 @@ namespace Server.Mobiles
 
 		private List<TownCrierEntry> m_Entries;
 
-		public List<TownCrierEntry> Entries
-		{
-			get { return m_Entries; }
-		}
+		public List<TownCrierEntry> Entries => m_Entries;
 
 		public TownCrierEntry GetRandomEntry()
 		{
@@ -113,9 +110,9 @@ namespace Server.Mobiles
 		private readonly string[] m_Lines;
 		private readonly DateTime m_ExpireTime;
 
-		public string[] Lines { get { return m_Lines; } }
-		public DateTime ExpireTime { get { return m_ExpireTime; } }
-		public bool Expired { get { return (DateTime.UtcNow >= m_ExpireTime); } }
+		public string[] Lines => m_Lines;
+		public DateTime ExpireTime => m_ExpireTime;
+		public bool Expired => (DateTime.UtcNow >= m_ExpireTime);
 
 		public TownCrierEntry(string[] lines, TimeSpan duration)
 		{
@@ -324,10 +321,7 @@ namespace Server.Mobiles
 		private Timer m_NewsTimer;
 		private Timer m_AutoShoutTimer;
 
-		public List<TownCrierEntry> Entries
-		{
-			get { return m_Entries; }
-		}
+		public List<TownCrierEntry> Entries => m_Entries;
 
 		public TownCrierEntry GetRandomEntry()
 		{
@@ -471,10 +465,7 @@ namespace Server.Mobiles
 
 		private static readonly List<TownCrier> m_Instances = new List<TownCrier>();
 
-		public static List<TownCrier> Instances
-		{
-			get { return m_Instances; }
-		}
+		public static List<TownCrier> Instances => m_Instances;
 
 		[Constructable]
 		public TownCrier()
@@ -489,15 +480,15 @@ namespace Server.Mobiles
 			if (!Core.AOS)
 				NameHue = 0x35;
 
-			if (this.Female = Utility.RandomBool())
+			if (Female = Utility.RandomBool())
 			{
-				this.Body = 0x191;
-				this.Name = NameList.RandomName("female");
+				Body = 0x191;
+				Name = NameList.RandomName("female");
 			}
 			else
 			{
-				this.Body = 0x190;
-				this.Name = NameList.RandomName("male");
+				Body = 0x190;
+				Name = NameList.RandomName("male");
 			}
 
 			AddItem(new FancyShirt(Utility.RandomBlueHue()));

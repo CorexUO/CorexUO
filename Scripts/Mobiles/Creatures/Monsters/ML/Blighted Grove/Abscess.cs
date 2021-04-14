@@ -53,7 +53,7 @@ namespace Server.Mobiles
 			c.DropItem(new AbscessTail());
 		}
 
-		public override bool GivesMLMinorArtifact { get { return true; } }
+		public override bool GivesMLMinorArtifact => true;
 
 		public Abscess(Serial serial)
 			: base(serial)

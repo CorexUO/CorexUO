@@ -2,7 +2,7 @@ namespace Server.Items
 {
 	public class CrystallineFragments : BaseItem
 	{
-		public override int LabelNumber { get { return 1073160; } } // Crystalline Fragments
+		public override int LabelNumber => 1073160;  // Crystalline Fragments
 
 		[Constructable]
 		public CrystallineFragments() : base(0x223B)

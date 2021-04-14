@@ -9,7 +9,7 @@ namespace Server.Items
 
 		private List<Key> m_Keys;
 
-		public List<Key> Keys { get { return m_Keys; } }
+		public List<Key> Keys => m_Keys;
 
 		[Constructable]
 		public KeyRing() : base(0x1011)
@@ -21,7 +21,7 @@ namespace Server.Items
 
 		public override bool OnDragDrop(Mobile from, Item dropped)
 		{
-			if (!this.IsChildOf(from.Backpack))
+			if (!IsChildOf(from.Backpack))
 			{
 				from.SendLocalizedMessage(1060640); // The item must be in your backpack to use it.
 				return false;
@@ -34,7 +34,7 @@ namespace Server.Items
 				from.SendLocalizedMessage(501689); // Only non-blank keys can be put on a keyring.
 				return false;
 			}
-			else if (this.Keys.Count >= MaxKeys)
+			else if (Keys.Count >= MaxKeys)
 			{
 				from.SendLocalizedMessage(1008138); // This keyring is full.
 				return false;
@@ -49,7 +49,7 @@ namespace Server.Items
 
 		public override void OnDoubleClick(Mobile from)
 		{
-			if (!this.IsChildOf(from.Backpack))
+			if (!IsChildOf(from.Backpack))
 			{
 				from.SendLocalizedMessage(1060640); // The item must be in your backpack to use it.
 				return;
@@ -122,7 +122,7 @@ namespace Server.Items
 
 		public void Open(Mobile from)
 		{
-			Container cont = this.Parent as Container;
+			Container cont = Parent as Container;
 
 			if (cont == null)
 				return;
@@ -169,14 +169,14 @@ namespace Server.Items
 
 		private void UpdateItemID()
 		{
-			if (this.Keys.Count < 1)
-				this.ItemID = 0x1011;
-			else if (this.Keys.Count < 3)
-				this.ItemID = 0x1769;
-			else if (this.Keys.Count < 5)
-				this.ItemID = 0x176A;
+			if (Keys.Count < 1)
+				ItemID = 0x1011;
+			else if (Keys.Count < 3)
+				ItemID = 0x1769;
+			else if (Keys.Count < 5)
+				ItemID = 0x176A;
 			else
-				this.ItemID = 0x176B;
+				ItemID = 0x176B;
 		}
 
 		public KeyRing(Serial serial) : base(serial)

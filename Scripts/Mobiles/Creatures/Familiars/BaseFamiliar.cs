@@ -11,11 +11,11 @@ namespace Server.Mobiles
 		{
 		}
 
-		public override bool BardImmune { get { return true; } }
-		public override Poison PoisonImmune { get { return Poison.Lethal; } }
-		public override bool Commandable { get { return false; } }
+		public override bool BardImmune => true;
+		public override Poison PoisonImmune => Poison.Lethal;
+		public override bool Commandable => false;
 
-		public override bool PlayerRangeSensitive { get { return false; } }
+		public override bool PlayerRangeSensitive => false;
 
 		private bool m_LastHidden;
 
@@ -122,8 +122,8 @@ namespace Server.Mobiles
 
 		public virtual void DropPackContents()
 		{
-			Map map = this.Map;
-			Container pack = this.Backpack;
+			Map map = Map;
+			Container pack = Backpack;
 
 			if (map != null && map != Map.Internal && pack != null)
 			{

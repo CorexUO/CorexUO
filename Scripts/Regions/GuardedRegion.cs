@@ -99,7 +99,7 @@ namespace Server.Regions
 		}
 
 		private static readonly bool m_AllowReds = Settings.Configuration.Get<bool>("Gameplay", "AllowRedsInGuards");
-		public virtual bool AllowReds { get { return m_AllowReds; } }
+		public virtual bool AllowReds => m_AllowReds;
 
 		public virtual bool CheckVendorAccess(BaseVendor vendor, Mobile from)
 		{
@@ -113,7 +113,7 @@ namespace Server.Regions
 		{
 			get
 			{
-				if (this.Map == Map.Ilshenar || this.Map == Map.Malas)
+				if (Map == Map.Ilshenar || Map == Map.Malas)
 					return typeof(ArcherGuard);
 				else
 					return typeof(WarriorGuard);
@@ -150,7 +150,7 @@ namespace Server.Regions
 
 			bool disabled = false;
 			if (ReadBoolean(el, "disabled", ref disabled, false))
-				this.Disabled = disabled;
+				Disabled = disabled;
 		}
 
 		public override bool OnBeginSpellCast(Mobile m, ISpell s)

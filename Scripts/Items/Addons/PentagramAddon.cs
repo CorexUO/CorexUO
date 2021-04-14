@@ -2,7 +2,7 @@ namespace Server.Items
 {
 	public class PentagramAddon : BaseAddon
 	{
-		public override BaseAddonDeed Deed { get { return new PentagramDeed(); } }
+		public override BaseAddonDeed Deed => new PentagramDeed();
 
 		[Constructable]
 		public PentagramAddon()
@@ -39,8 +39,8 @@ namespace Server.Items
 
 	public class PentagramDeed : BaseAddonDeed
 	{
-		public override BaseAddon Addon { get { return new PentagramAddon(); } }
-		public override int LabelNumber { get { return 1044328; } } // pentagram
+		public override BaseAddon Addon => new PentagramAddon();
+		public override int LabelNumber => 1044328;  // pentagram
 
 		[Constructable]
 		public PentagramDeed()

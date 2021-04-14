@@ -16,12 +16,12 @@ namespace Server.Regions
 
 	public class BaseRegion : Region
 	{
-		public virtual bool YoungProtected { get { return true; } }
-		public virtual bool YoungMayEnter { get { return true; } }
-		public virtual bool MountsAllowed { get { return true; } }
-		public virtual bool DeadMayEnter { get { return true; } }
-		public virtual bool ResurrectionAllowed { get { return true; } }
-		public virtual bool LogoutAllowed { get { return true; } }
+		public virtual bool YoungProtected => true;
+		public virtual bool YoungMayEnter => true;
+		public virtual bool MountsAllowed => true;
+		public virtual bool DeadMayEnter => true;
+		public virtual bool ResurrectionAllowed => true;
+		public virtual bool LogoutAllowed => true;
 
 		public static void Configure()
 		{
@@ -32,13 +32,13 @@ namespace Server.Regions
 		private SpawnEntry[] m_Spawns;
 		private bool m_ExcludeFromParentSpawns;
 
-		public string RuneName { get { return m_RuneName; } set { m_RuneName = value; } }
+		public string RuneName { get => m_RuneName; set => m_RuneName = value; }
 
 		public bool NoLogoutDelay { get; set; }
 
 		public SpawnEntry[] Spawns
 		{
-			get { return m_Spawns; }
+			get => m_Spawns;
 			set
 			{
 				if (m_Spawns != null)
@@ -53,13 +53,13 @@ namespace Server.Regions
 
 		public SpawnZLevel SpawnZLevel { get; set; }
 
-		public bool ExcludeFromParentSpawns { get { return m_ExcludeFromParentSpawns; } set { m_ExcludeFromParentSpawns = value; } }
+		public bool ExcludeFromParentSpawns { get => m_ExcludeFromParentSpawns; set => m_ExcludeFromParentSpawns = value; }
 
 		public override void OnUnregister()
 		{
 			base.OnUnregister();
 
-			this.Spawns = null;
+			Spawns = null;
 		}
 
 		public static string GetRuneNameFor(Region region)
@@ -120,7 +120,7 @@ namespace Server.Regions
 		{
 			if (m is PlayerMobile mobile && mobile.Young)
 			{
-				if (!this.YoungProtected)
+				if (!YoungProtected)
 				{
 					m.SendGump(new YoungDungeonWarning());
 				}
@@ -148,9 +148,9 @@ namespace Server.Regions
 				return;
 
 			// Test if area rectangles are overlapping, and in that case break them into smaller non overlapping rectangles
-			for (int i = 0; i < this.Area.Length; i++)
+			for (int i = 0; i < Area.Length; i++)
 			{
-				m_RectBuffer2.Add(this.Area[i]);
+				m_RectBuffer2.Add(Area[i]);
 
 				for (int j = 0; j < m_RectBuffer1.Count && m_RectBuffer2.Count > 0; j++)
 				{
@@ -216,7 +216,7 @@ namespace Server.Regions
 
 		public Point3D RandomSpawnLocation(int spawnHeight, bool land, bool water, Point3D home, int range)
 		{
-			Map map = this.Map;
+			Map map = Map;
 
 			if (map == Map.Internal)
 				return Point3D.Zero;
@@ -262,9 +262,9 @@ namespace Server.Regions
 					y = Utility.RandomMinMax(home.Y - range, home.Y + range);
 
 					minZ = int.MaxValue; maxZ = int.MinValue;
-					for (int j = 0; j < this.Area.Length; j++)
+					for (int j = 0; j < Area.Length; j++)
 					{
-						Rectangle3D rect = this.Area[j];
+						Rectangle3D rect = Area[j];
 
 						if (x >= rect.Start.X && x < rect.End.X && y >= rect.Start.Y && y < rect.End.Y)
 						{
@@ -460,12 +460,12 @@ namespace Server.Regions
 
 		public override string ToString()
 		{
-			if (this.Name != null)
-				return this.Name;
-			else if (this.RuneName != null)
-				return this.RuneName;
+			if (Name != null)
+				return Name;
+			else if (RuneName != null)
+				return RuneName;
 			else
-				return this.GetType().Name;
+				return GetType().Name;
 		}
 
 		public BaseRegion(string name, Map map, int priority, params Rectangle2D[] area) : base(name, map, priority, area)

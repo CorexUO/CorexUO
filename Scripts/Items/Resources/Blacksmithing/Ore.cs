@@ -11,7 +11,7 @@ namespace Server.Items
 		[CommandProperty(AccessLevel.GameMaster)]
 		public CraftResource Resource
 		{
-			get { return m_Resource; }
+			get => m_Resource;
 			set { m_Resource = value; InvalidateProperties(); }
 		}
 
@@ -116,7 +116,7 @@ namespace Server.Items
 			{
 				from.SendLocalizedMessage(500447); // That is not accessible
 			}
-			else if (from.InRange(this.GetWorldLocation(), 2))
+			else if (from.InRange(GetWorldLocation(), 2))
 			{
 				from.SendLocalizedMessage(501971); // Select the forge on which to smelt the ore, or another pile of ore with which to combine it.
 				from.Target = new InternalTarget(this);

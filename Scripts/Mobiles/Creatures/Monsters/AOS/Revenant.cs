@@ -14,11 +14,11 @@ namespace Server.Mobiles
 			// Do nothing
 		}
 
-		public override Mobile ConstantFocus { get { return m_Target; } }
-		public override bool NoHouseRestrictions { get { return true; } }
+		public override Mobile ConstantFocus => m_Target;
+		public override bool NoHouseRestrictions => true;
 
-		public override double DispelDifficulty { get { return 80.0; } }
-		public override double DispelFocus { get { return 20.0; } }
+		public override double DispelDifficulty => 80.0;
+		public override double DispelFocus => 20.0;
 
 		public Revenant(Mobile caster, Mobile target, TimeSpan duration) : base(AIType.AI_Melee, FightMode.Closest, 10, 1, 0.18, 0.36)
 		{
@@ -79,11 +79,11 @@ namespace Server.Mobiles
 			AddItem(weapon);
 		}
 
-		public override bool AlwaysMurderer { get { return true; } }
+		public override bool AlwaysMurderer => true;
 
-		public override bool BleedImmune { get { return true; } }
-		public override bool BardImmune { get { return true; } }
-		public override Poison PoisonImmune { get { return Poison.Lethal; } }
+		public override bool BleedImmune => true;
+		public override bool BardImmune => true;
+		public override Poison PoisonImmune => Poison.Lethal;
 
 		public override void OnThink()
 		{
@@ -135,9 +135,9 @@ namespace Server.Mobiles
 				PlaySound(0x37D);
 			}
 
-			if (m_Target.Hidden && InRange(m_Target, 3) && Core.TickCount - this.NextSkillTime >= 0 && UseSkill(SkillName.DetectHidden))
+			if (m_Target.Hidden && InRange(m_Target, 3) && Core.TickCount - NextSkillTime >= 0 && UseSkill(SkillName.DetectHidden))
 			{
-				Target targ = this.Target;
+				Target targ = Target;
 
 				if (targ != null)
 					targ.Invoke(this, this);

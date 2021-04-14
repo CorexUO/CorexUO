@@ -6,11 +6,11 @@ namespace Server.Items
 	{
 		private const int m_Level = 2;
 
-		public override bool Decays { get { return true; } }
+		public override bool Decays => true;
 
-		public override bool IsDecoContainer { get { return false; } }
+		public override bool IsDecoContainer => false;
 
-		public override TimeSpan DecayTime { get { return TimeSpan.FromMinutes(Utility.Random(15, 60)); } }
+		public override TimeSpan DecayTime => TimeSpan.FromMinutes(Utility.Random(15, 60));
 
 		private void SetChestAppearance()
 		{
@@ -19,61 +19,58 @@ namespace Server.Items
 			switch (Utility.RandomList(0, 1, 2, 3, 4, 5, 6, 7))
 			{
 				case 0:// Large Crate
-					this.ItemID = (UseFirstItemId ? 0xe3c : 0xe3d);
-					this.GumpID = 0x44;
+					ItemID = (UseFirstItemId ? 0xe3c : 0xe3d);
+					GumpID = 0x44;
 					break;
 
 				case 1:// Medium Crate
-					this.ItemID = (UseFirstItemId ? 0xe3e : 0xe3f);
-					this.GumpID = 0x44;
+					ItemID = (UseFirstItemId ? 0xe3e : 0xe3f);
+					GumpID = 0x44;
 					break;
 
 				case 2:// Small Crate
-					this.ItemID = (UseFirstItemId ? 0x9a9 : 0xe7e);
-					this.GumpID = 0x44;
+					ItemID = (UseFirstItemId ? 0x9a9 : 0xe7e);
+					GumpID = 0x44;
 					break;
 
 				case 3:// Wooden Chest
-					this.ItemID = (UseFirstItemId ? 0xe42 : 0xe43);
-					this.GumpID = 0x49;
+					ItemID = (UseFirstItemId ? 0xe42 : 0xe43);
+					GumpID = 0x49;
 					break;
 
 				case 4:// Metal Chest
-					this.ItemID = (UseFirstItemId ? 0x9ab : 0xe7c);
-					this.GumpID = 0x4A;
+					ItemID = (UseFirstItemId ? 0x9ab : 0xe7c);
+					GumpID = 0x4A;
 					break;
 
 				case 5:// Metal Golden Chest
-					this.ItemID = (UseFirstItemId ? 0xe40 : 0xe41);
-					this.GumpID = 0x42;
+					ItemID = (UseFirstItemId ? 0xe40 : 0xe41);
+					GumpID = 0x42;
 					break;
 
 				case 6:// Keg
-					this.ItemID = (UseFirstItemId ? 0xe7f : 0xe7f);
-					this.GumpID = 0x3e;
+					ItemID = (UseFirstItemId ? 0xe7f : 0xe7f);
+					GumpID = 0x3e;
 					break;
 
 				case 7:// Barrel
-					this.ItemID = (UseFirstItemId ? 0xe77 : 0xe77);
-					this.GumpID = 0x3e;
+					ItemID = (UseFirstItemId ? 0xe77 : 0xe77);
+					GumpID = 0x3e;
 					break;
 			}
 		}
 
-		public override int DefaultGumpID { get { return 0x42; } }
+		public override int DefaultGumpID => 0x42;
 
-		public override int DefaultDropSound { get { return 0x42; } }
+		public override int DefaultDropSound => 0x42;
 
-		public override Rectangle2D Bounds
-		{
-			get { return new Rectangle2D(18, 105, 144, 73); }
-		}
+		public override Rectangle2D Bounds => new Rectangle2D(18, 105, 144, 73);
 
 		[Constructable]
 		public TreasureChestLevel2()
 			: base(0xE41)
 		{
-			this.SetChestAppearance();
+			SetChestAppearance();
 			Movable = false;
 
 			TrapType = TrapType.ExplosionTrap;
@@ -81,8 +78,8 @@ namespace Server.Items
 			Locked = true;
 
 			RequiredSkill = 72;
-			LockLevel = this.RequiredSkill - Utility.Random(1, 10);
-			MaxLockLevel = this.RequiredSkill + Utility.Random(1, 10); ;
+			LockLevel = RequiredSkill - Utility.Random(1, 10);
+			MaxLockLevel = RequiredSkill + Utility.Random(1, 10); ;
 
 			// According to OSI, loot in level 2 chest is:
 			//  Gold 80 - 150

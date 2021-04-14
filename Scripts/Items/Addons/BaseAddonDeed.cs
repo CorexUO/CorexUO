@@ -17,7 +17,7 @@ namespace Server.Items
 		[CommandProperty(AccessLevel.GameMaster)]
 		public CraftResource Resource
 		{
-			get { return m_Resource; }
+			get => m_Resource;
 			set
 			{
 				if (m_Resource != value)

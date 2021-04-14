@@ -6,10 +6,7 @@ namespace Server.Items
 {
 	public class NameChangeDeed : BaseItem
 	{
-		public override string DefaultName
-		{
-			get { return "a name change deed"; }
-		}
+		public override string DefaultName => "a name change deed";
 
 		[Constructable]
 		public NameChangeDeed() : base(0x14F0)
@@ -37,7 +34,7 @@ namespace Server.Items
 
 		public override void OnDoubleClick(Mobile from)
 		{
-			if (this.RootParent == from)
+			if (RootParent == from)
 			{
 				from.CloseGump(typeof(NameChangeDeedGump));
 				from.SendGump(new NameChangeDeedGump(this));

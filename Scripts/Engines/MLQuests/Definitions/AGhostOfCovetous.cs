@@ -10,7 +10,7 @@ namespace Server.Engines.MLQuests.Definitions
 
 	public class AGhostOfCovetous : MLQuest
 	{
-		public override Type NextQuest { get { return typeof(SaveHisDad); } }
+		public override Type NextQuest => typeof(SaveHisDad);
 
 		public AGhostOfCovetous()
 		{
@@ -38,8 +38,8 @@ namespace Server.Engines.MLQuests.Definitions
 
 	public class SaveHisDad : MLQuest
 	{
-		public override Type NextQuest { get { return typeof(AFathersGratitude); } }
-		public override bool IsChainTriggered { get { return true; } }
+		public override Type NextQuest => typeof(AFathersGratitude);
+		public override bool IsChainTriggered => true;
 
 		public SaveHisDad()
 		{
@@ -67,7 +67,7 @@ namespace Server.Engines.MLQuests.Definitions
 
 	public class AFathersGratitude : MLQuest
 	{
-		public override bool IsChainTriggered { get { return true; } }
+		public override bool IsChainTriggered => true;
 
 		public AFathersGratitude()
 		{
@@ -102,7 +102,7 @@ namespace Server.Engines.MLQuests.Definitions
 
 	public class Ben : BaseCreature
 	{
-		public override bool IsInvulnerable { get { return true; } }
+		public override bool IsInvulnerable => true;
 
 		[Constructable]
 		public Ben()
@@ -149,7 +149,7 @@ namespace Server.Engines.MLQuests.Definitions
 	[QuesterName("The Ghost of Frederic Smithson")]
 	public class Frederic : BaseCreature
 	{
-		public override bool IsInvulnerable { get { return true; } }
+		public override bool IsInvulnerable => true;
 
 		[Constructable]
 		public Frederic()
@@ -186,7 +186,7 @@ namespace Server.Engines.MLQuests.Definitions
 
 	public class Leon : BaseCreature
 	{
-		public override bool IsInvulnerable { get { return true; } }
+		public override bool IsInvulnerable => true;
 
 		[Constructable]
 		public Leon()
@@ -230,7 +230,7 @@ namespace Server.Engines.MLQuests.Definitions
 
 	public class Andros : BaseCreature
 	{
-		public override bool IsInvulnerable { get { return true; } }
+		public override bool IsInvulnerable => true;
 
 		[Constructable]
 		public Andros()

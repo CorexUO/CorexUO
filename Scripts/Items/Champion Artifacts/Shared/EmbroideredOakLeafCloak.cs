@@ -2,12 +2,12 @@ namespace Server.Items
 {
 	public class EmbroideredOakLeafCloak : BaseOuterTorso
 	{
-		public override int LabelNumber { get { return 1094901; } } // Embroidered Oak Leaf Cloak [Replica]
+		public override int LabelNumber => 1094901;  // Embroidered Oak Leaf Cloak [Replica]
 
-		public override int InitMinHits { get { return 150; } }
-		public override int InitMaxHits { get { return 150; } }
+		public override int InitMinHits => 150;
+		public override int InitMaxHits => 150;
 
-		public override bool CanFortify { get { return false; } }
+		public override bool CanFortify => false;
 
 		[Constructable]
 		public EmbroideredOakLeafCloak() : base(0x2684)

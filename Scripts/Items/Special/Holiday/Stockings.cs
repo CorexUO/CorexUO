@@ -3,8 +3,8 @@ namespace Server.Items
 	[FlipableAttribute(0x2bd9, 0x2bda)]
 	public class GreenStocking : BaseContainer
 	{
-		public override int DefaultGumpID { get { return 0x103; } }
-		public override int DefaultDropSound { get { return 0x42; } }
+		public override int DefaultGumpID => 0x103;
+		public override int DefaultDropSound => 0x42;
 
 		[Constructable]
 		public GreenStocking() : base(Utility.Random(0x2BD9, 2))
@@ -32,8 +32,8 @@ namespace Server.Items
 	[FlipableAttribute(0x2bdb, 0x2bdc)]
 	public class RedStocking : BaseContainer
 	{
-		public override int DefaultGumpID { get { return 0x103; } }
-		public override int DefaultDropSound { get { return 0x42; } }
+		public override int DefaultGumpID => 0x103;
+		public override int DefaultDropSound => 0x42;
 
 		[Constructable]
 		public RedStocking() : base(Utility.Random(0x2BDB, 2))

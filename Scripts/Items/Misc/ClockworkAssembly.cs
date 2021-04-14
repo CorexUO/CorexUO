@@ -5,10 +5,7 @@ namespace Server.Items
 {
 	public class ClockworkAssembly : BaseItem
 	{
-		public override string DefaultName
-		{
-			get { return "clockwork assembly"; }
-		}
+		public override string DefaultName => "clockwork assembly";
 
 		[Constructable]
 		public ClockworkAssembly() : base(0x1EA8)

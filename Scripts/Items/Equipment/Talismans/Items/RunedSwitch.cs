@@ -4,7 +4,7 @@ namespace Server.Items
 {
 	public class RunedSwitch : BaseItem
 	{
-		public override int LabelNumber { get { return 1072896; } } // runed switch
+		public override int LabelNumber => 1072896;  // runed switch
 
 		[Constructable]
 		public RunedSwitch() : base(0x2F61)

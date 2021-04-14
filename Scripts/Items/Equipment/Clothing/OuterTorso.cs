@@ -105,10 +105,7 @@ namespace Server.Items
 
 		private static readonly TimeSpan m_DefaultDecayTime = TimeSpan.FromMinutes(1.0);
 
-		public override bool DisplayLootType
-		{
-			get { return false; }
-		}
+		public override bool DisplayLootType => false;
 
 		[Constructable]
 		public DeathRobe()
@@ -234,14 +231,14 @@ namespace Server.Items
 		[CommandProperty(AccessLevel.GameMaster)]
 		public bool IsRewardItem
 		{
-			get { return m_IsRewardItem; }
-			set { m_IsRewardItem = value; }
+			get => m_IsRewardItem;
+			set => m_IsRewardItem = value;
 		}
 
 		[CommandProperty(AccessLevel.GameMaster)]
 		public int Number
 		{
-			get { return m_LabelNumber; }
+			get => m_LabelNumber;
 			set { m_LabelNumber = value; InvalidateProperties(); }
 		}
 
@@ -256,7 +253,7 @@ namespace Server.Items
 			}
 		}
 
-		public override int BasePhysicalResistance { get { return 3; } }
+		public override int BasePhysicalResistance => 3;
 
 		public override void OnAdded(IEntity parent)
 		{
@@ -359,14 +356,14 @@ namespace Server.Items
 		[CommandProperty(AccessLevel.GameMaster)]
 		public bool IsRewardItem
 		{
-			get { return m_IsRewardItem; }
-			set { m_IsRewardItem = value; }
+			get => m_IsRewardItem;
+			set => m_IsRewardItem = value;
 		}
 
 		[CommandProperty(AccessLevel.GameMaster)]
 		public int Number
 		{
-			get { return m_LabelNumber; }
+			get => m_LabelNumber;
 			set { m_LabelNumber = value; InvalidateProperties(); }
 		}
 
@@ -381,7 +378,7 @@ namespace Server.Items
 			}
 		}
 
-		public override int BasePhysicalResistance { get { return 3; } }
+		public override int BasePhysicalResistance => 3;
 
 		public override void OnAdded(IEntity parent)
 		{
@@ -484,22 +481,19 @@ namespace Server.Items
 		[CommandProperty(AccessLevel.GameMaster)]
 		public int MaxArcaneCharges
 		{
-			get { return m_MaxArcaneCharges; }
+			get => m_MaxArcaneCharges;
 			set { m_MaxArcaneCharges = value; InvalidateProperties(); Update(); }
 		}
 
 		[CommandProperty(AccessLevel.GameMaster)]
 		public int CurArcaneCharges
 		{
-			get { return m_CurArcaneCharges; }
+			get => m_CurArcaneCharges;
 			set { m_CurArcaneCharges = value; InvalidateProperties(); Update(); }
 		}
 
 		[CommandProperty(AccessLevel.GameMaster)]
-		public bool IsArcane
-		{
-			get { return (m_MaxArcaneCharges > 0 && m_CurArcaneCharges >= 0); }
-		}
+		public bool IsArcane => (m_MaxArcaneCharges > 0 && m_CurArcaneCharges >= 0);
 
 		public void Update()
 		{
@@ -608,8 +602,8 @@ namespace Server.Items
 			Weight = 1.0;
 			StrRequirement = 0;
 		}
-		public override int LabelNumber { get { return 1076584; } } // A monk's robe
-		public override bool CanBeBlessed { get { return false; } }
+		public override int LabelNumber => 1076584;  // A monk's robe
+		public override bool CanBeBlessed => false;
 		public override bool Dye(Mobile from, DyeTub sender)
 		{
 			from.SendLocalizedMessage(sender.FailMessage);
@@ -749,7 +743,7 @@ namespace Server.Items
 			Weight = 3.0;
 		}
 
-		public override bool AllowFemaleWearer { get { return false; } }
+		public override bool AllowFemaleWearer => false;
 
 		public MaleKimono(Serial serial) : base(serial)
 		{
@@ -784,7 +778,7 @@ namespace Server.Items
 			Weight = 3.0;
 		}
 
-		public override bool AllowMaleWearer { get { return false; } }
+		public override bool AllowMaleWearer => false;
 
 		public FemaleKimono(Serial serial) : base(serial)
 		{
@@ -808,7 +802,7 @@ namespace Server.Items
 	[Flipable(0x2FB9, 0x3173)]
 	public class MaleElvenRobe : BaseOuterTorso
 	{
-		public override Race RequiredRace { get { return Race.Elf; } }
+		public override Race RequiredRace => Race.Elf;
 
 		[Constructable]
 		public MaleElvenRobe() : this(0)
@@ -843,7 +837,7 @@ namespace Server.Items
 	[Flipable(0x2FBA, 0x3174)]
 	public class FemaleElvenRobe : BaseOuterTorso
 	{
-		public override Race RequiredRace { get { return Race.Elf; } }
+		public override Race RequiredRace => Race.Elf;
 		[Constructable]
 		public FemaleElvenRobe() : this(0)
 		{
@@ -855,7 +849,7 @@ namespace Server.Items
 			Weight = 2.0;
 		}
 
-		public override bool AllowMaleWearer { get { return false; } }
+		public override bool AllowMaleWearer => false;
 
 		public FemaleElvenRobe(Serial serial) : base(serial)
 		{

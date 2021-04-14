@@ -120,10 +120,10 @@ namespace Server.Engines.MLQuests.Definitions
 
 	public class Lissbet : BaseEscortable
 	{
-		public override bool StaticMLQuester { get { return true; } }
-		public override bool InitialInnocent { get { return true; } }
+		public override bool StaticMLQuester => true;
+		public override bool InitialInnocent => true;
 
-		public override bool CanShout { get { return true; } }
+		public override bool CanShout => true;
 		public override void Shout(PlayerMobile pm)
 		{
 			MLQuestSystem.Tell(this, pm, Utility.RandomList(
@@ -182,8 +182,8 @@ namespace Server.Engines.MLQuests.Definitions
 
 	public class GrandpaCharley : BaseCreature
 	{
-		public override bool IsInvulnerable { get { return true; } }
-		public override bool CanTeach { get { return true; } }
+		public override bool IsInvulnerable => true;
+		public override bool CanTeach => true;
 
 		[Constructable]
 		public GrandpaCharley()
@@ -234,9 +234,9 @@ namespace Server.Engines.MLQuests.Definitions
 	[QuesterName("Jelrice (Ilshenar)")]
 	public class Jelrice : BaseCreature
 	{
-		public override bool IsInvulnerable { get { return true; } }
+		public override bool IsInvulnerable => true;
 
-		public override bool CanShout { get { return true; } }
+		public override bool CanShout => true;
 		public override void Shout(PlayerMobile pm)
 		{
 			MLQuestSystem.Tell(this, pm, 1074221); // Greetings!  I have a small task for you good traveler.
@@ -284,9 +284,9 @@ namespace Server.Engines.MLQuests.Definitions
 	[QuesterName("Yorus (Ilshenar)")]
 	public class Yorus : BaseCreature
 	{
-		public override bool IsInvulnerable { get { return true; } }
+		public override bool IsInvulnerable => true;
 
-		public override bool CanShout { get { return true; } }
+		public override bool CanShout => true;
 		public override void Shout(PlayerMobile pm)
 		{
 			MLQuestSystem.Tell(this, pm, 1074218); // Hey!  I want to talk to you, now.

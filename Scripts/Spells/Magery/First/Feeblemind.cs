@@ -13,8 +13,8 @@ namespace Server.Spells.First
 				Reagent.Nightshade
 			);
 
-		public override SpellCircle Circle { get { return SpellCircle.First; } }
-		public override TargetFlags SpellTargetFlags { get { return TargetFlags.Harmful; } }
+		public override SpellCircle Circle => SpellCircle.First;
+		public override TargetFlags SpellTargetFlags => TargetFlags.Harmful;
 
 		public FeeblemindSpell(Mobile caster, Item scroll) : base(caster, scroll, m_Info)
 		{
@@ -45,7 +45,7 @@ namespace Server.Spells.First
 			{
 				SpellHelper.Turn(Caster, m);
 
-				SpellHelper.CheckReflect((int)this.Circle, Caster, ref m);
+				SpellHelper.CheckReflect((int)Circle, Caster, ref m);
 
 				SpellHelper.AddStatCurse(Caster, m, StatType.Int);
 

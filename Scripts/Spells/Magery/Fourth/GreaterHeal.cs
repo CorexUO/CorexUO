@@ -16,8 +16,8 @@ namespace Server.Spells.Fourth
 				Reagent.SpidersSilk
 			);
 
-		public override SpellCircle Circle { get { return SpellCircle.Fourth; } }
-		public override TargetFlags SpellTargetFlags { get { return TargetFlags.Beneficial; } }
+		public override SpellCircle Circle => SpellCircle.Fourth;
+		public override TargetFlags SpellTargetFlags => TargetFlags.Beneficial;
 
 		public GreaterHealSpell(Mobile caster, Item scroll) : base(caster, scroll, m_Info)
 		{

@@ -32,7 +32,7 @@ namespace Server.Items
 		{
 		}
 
-		public override bool DisplayLootType { get { return false; } }
+		public override bool DisplayLootType => false;
 
 		public override bool VerifyMove(Mobile from)
 		{
@@ -43,8 +43,8 @@ namespace Server.Items
 		{
 			//Dupe( Amount );
 
-			parent.FacialHairItemID = this.ItemID;
-			parent.FacialHairHue = this.Hue;
+			parent.FacialHairItemID = ItemID;
+			parent.FacialHairHue = Hue;
 
 			return DeathMoveResult.MoveToCorpse;
 		}

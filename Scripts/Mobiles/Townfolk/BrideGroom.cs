@@ -13,8 +13,8 @@ namespace Server.Mobiles
 				Title = "the groom";
 		}
 
-		public override bool CanTeach { get { return true; } }
-		public override bool ClickTitle { get { return false; } } // Do not display 'the groom' when single-clicking
+		public override bool CanTeach => true;
+		public override bool ClickTitle => false;  // Do not display 'the groom' when single-clicking
 
 		private static int GetRandomHue()
 		{
@@ -51,7 +51,7 @@ namespace Server.Mobiles
 			else
 				HairItemID = 0x203C;
 
-			HairHue = this.Race.RandomHairHue();
+			HairHue = Race.RandomHairHue();
 
 			PackGold(200, 250);
 		}

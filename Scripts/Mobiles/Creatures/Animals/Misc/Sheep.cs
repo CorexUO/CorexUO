@@ -12,7 +12,7 @@ namespace Server.Mobiles
 		[CommandProperty(AccessLevel.GameMaster)]
 		public DateTime NextWoolTime
 		{
-			get { return m_NextWoolTime; }
+			get => m_NextWoolTime;
 			set { m_NextWoolTime = value; Body = (DateTime.UtcNow >= m_NextWoolTime) ? 0xCF : 0xDF; }
 		}
 
@@ -71,11 +71,11 @@ namespace Server.Mobiles
 			MinTameSkill = 11.1;
 		}
 
-		public override int Meat { get { return 3; } }
-		public override MeatType MeatType { get { return MeatType.LambLeg; } }
-		public override FoodType FavoriteFood { get { return FoodType.FruitsAndVegies | FoodType.GrainsAndHay; } }
+		public override int Meat => 3;
+		public override MeatType MeatType => MeatType.LambLeg;
+		public override FoodType FavoriteFood => FoodType.FruitsAndVegies | FoodType.GrainsAndHay;
 
-		public override int Wool { get { return (Body == 0xCF ? 3 : 0); } }
+		public override int Wool => (Body == 0xCF ? 3 : 0);
 
 		public Sheep(Serial serial) : base(serial)
 		{

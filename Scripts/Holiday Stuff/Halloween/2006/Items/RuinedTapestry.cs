@@ -2,7 +2,7 @@
 {
 	public class RuinedTapestry : BaseItem
 	{
-		public override string DefaultName { get { return "Ruined Tapestry "; } }
+		public override string DefaultName => "Ruined Tapestry ";
 
 		[Constructable]
 		public RuinedTapestry()

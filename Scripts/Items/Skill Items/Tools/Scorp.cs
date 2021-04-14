@@ -4,7 +4,7 @@ namespace Server.Items
 {
 	public class Scorp : BaseTool
 	{
-		public override CraftSystem CraftSystem { get { return DefCarpentry.CraftSystem; } }
+		public override CraftSystem CraftSystem => DefCarpentry.CraftSystem;
 
 		[Constructable]
 		public Scorp() : base(0x10E7)

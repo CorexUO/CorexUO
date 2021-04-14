@@ -58,7 +58,7 @@ namespace Server
 		public int CompareTo(object other)
 		{
 			if (other is Serial serial)
-				return this.CompareTo(serial);
+				return CompareTo(serial);
 			else if (other == null)
 				return -1;
 

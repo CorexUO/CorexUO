@@ -15,7 +15,7 @@ namespace Server.Engines.MLQuests.Mobiles
 
 		private DateTime m_NextShout;
 
-		public override bool IsActiveVendor { get { return false; } }
+		public override bool IsActiveVendor => false;
 
 		[Constructable]
 		public SirHelper()

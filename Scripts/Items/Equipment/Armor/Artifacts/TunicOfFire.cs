@@ -2,14 +2,14 @@ namespace Server.Items
 {
 	public class TunicOfFire : ChainChest
 	{
-		public override int LabelNumber { get { return 1061099; } } // Tunic of Fire
-		public override int ArtifactRarity { get { return 11; } }
+		public override int LabelNumber => 1061099;  // Tunic of Fire
+		public override int ArtifactRarity => 11;
 
-		public override int BasePhysicalResistance { get { return 24; } }
-		public override int BaseFireResistance { get { return 34; } }
+		public override int BasePhysicalResistance => 24;
+		public override int BaseFireResistance => 34;
 
-		public override int InitMinHits { get { return 255; } }
-		public override int InitMaxHits { get { return 255; } }
+		public override int InitMinHits => 255;
+		public override int InitMaxHits => 255;
 
 		[Constructable]
 		public TunicOfFire()

@@ -107,9 +107,9 @@ namespace Server.Mobiles
 			}
 		}
 
-		public override bool CanFly { get { return true; } }
-		public override bool GivesMLMinorArtifact { get { return true; } }
-		public override int Feathers { get { return 72; } }
+		public override bool CanFly => true;
+		public override bool GivesMLMinorArtifact => true;
+		public override int Feathers => 72;
 
 		/*
 		// TODO: uncomment once added

@@ -12,21 +12,21 @@ namespace Server.Items
 			EventSink.OnStunRequest += EventSink_StunRequest;
 		}
 
-		public override WeaponAbility PrimaryAbility { get { return WeaponAbility.Disarm; } }
-		public override WeaponAbility SecondaryAbility { get { return WeaponAbility.ParalyzingBlow; } }
+		public override WeaponAbility PrimaryAbility => WeaponAbility.Disarm;
+		public override WeaponAbility SecondaryAbility => WeaponAbility.ParalyzingBlow;
 
-		public override int DefHitSound { get { return -1; } }
-		public override int DefMissSound { get { return -1; } }
+		public override int DefHitSound => -1;
+		public override int DefMissSound => -1;
 
-		public override SkillName DefSkill { get { return SkillName.Wrestling; } }
-		public override WeaponType DefType { get { return WeaponType.Fists; } }
-		public override WeaponAnimation DefAnimation { get { return WeaponAnimation.Wrestle; } }
+		public override SkillName DefSkill => SkillName.Wrestling;
+		public override WeaponType DefType => WeaponType.Fists;
+		public override WeaponAnimation DefAnimation => WeaponAnimation.Wrestle;
 
-		public override int StrReq { get { return Core.AOS ? 0 : 0; } }
+		public override int StrReq => Core.AOS ? 0 : 0;
 
-		public override int MinDamageBase { get { return Core.AOS ? 1 : 1; } }
-		public override int MaxDamageBase { get { return Core.AOS ? 4 : 8; } }
-		public override float SpeedBase { get { return Core.ML ? 2.50f : Core.AOS ? 50 : 30; } }
+		public override int MinDamageBase => Core.AOS ? 1 : 1;
+		public override int MaxDamageBase => Core.AOS ? 4 : 8;
+		public override float SpeedBase => Core.ML ? 2.50f : Core.AOS ? 50 : 30;
 
 		public Fists() : base(0)
 		{

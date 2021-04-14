@@ -5,9 +5,9 @@ namespace Server.Items
 	[FlipableAttribute(0x0FBF, 0x0FC0)]
 	public class ScribesPen : BaseTool
 	{
-		public override CraftSystem CraftSystem { get { return DefInscription.CraftSystem; } }
+		public override CraftSystem CraftSystem => DefInscription.CraftSystem;
 
-		public override int LabelNumber { get { return 1044168; } } // scribe's pen
+		public override int LabelNumber => 1044168;  // scribe's pen
 
 		[Constructable]
 		public ScribesPen() : base(0x0FBF)

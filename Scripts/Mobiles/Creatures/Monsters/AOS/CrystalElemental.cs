@@ -53,9 +53,9 @@ namespace Server.Mobiles
 			AddLoot(LootPack.Average);
 		}
 
-		public override bool BleedImmune { get { return true; } }
-		public override Poison PoisonImmune { get { return Poison.Lethal; } }
-		public override int TreasureMapLevel { get { return 1; } }
+		public override bool BleedImmune => true;
+		public override Poison PoisonImmune => Poison.Lethal;
+		public override int TreasureMapLevel => 1;
 
 		public CrystalElemental(Serial serial) : base(serial)
 		{

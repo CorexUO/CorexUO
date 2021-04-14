@@ -32,11 +32,11 @@ namespace Server.Items
 		[CommandProperty(AccessLevel.GameMaster)]
 		public int Charges
 		{
-			get { return m_Charges; }
+			get => m_Charges;
 			set
 			{
-				if (value > this.MaxCharges)
-					m_Charges = this.MaxCharges;
+				if (value > MaxCharges)
+					m_Charges = MaxCharges;
 				else if (value < 0)
 					m_Charges = 0;
 				else
@@ -49,11 +49,11 @@ namespace Server.Items
 		[CommandProperty(AccessLevel.GameMaster)]
 		public int Recharges
 		{
-			get { return m_Recharges; }
+			get => m_Recharges;
 			set
 			{
-				if (value > this.MaxRecharges)
-					m_Recharges = this.MaxRecharges;
+				if (value > MaxRecharges)
+					m_Recharges = MaxRecharges;
 				else if (value < 0)
 					m_Recharges = 0;
 				else
@@ -64,28 +64,28 @@ namespace Server.Items
 		}
 
 		[CommandProperty(AccessLevel.GameMaster)]
-		public int MaxCharges { get { return 30; } }
+		public int MaxCharges => 30;
 
 		[CommandProperty(AccessLevel.GameMaster)]
-		public int MaxRecharges { get { return 255; } }
+		public int MaxRecharges => 255;
 
-		public string TranslocationItemName { get { return "bag of sending"; } }
+		public string TranslocationItemName => "bag of sending";
 
-		public override int LabelNumber { get { return 1054104; } } // a bag of sending
+		public override int LabelNumber => 1054104;  // a bag of sending
 
 		[CommandProperty(AccessLevel.GameMaster)]
 		public BagOfSendingHue BagOfSendingHue
 		{
-			get { return m_BagOfSendingHue; }
+			get => m_BagOfSendingHue;
 			set
 			{
 				m_BagOfSendingHue = value;
 
 				switch (value)
 				{
-					case BagOfSendingHue.Yellow: this.Hue = 0x8A5; break;
-					case BagOfSendingHue.Blue: this.Hue = 0x8AD; break;
-					case BagOfSendingHue.Red: this.Hue = 0x89B; break;
+					case BagOfSendingHue.Yellow: Hue = 0x8A5; break;
+					case BagOfSendingHue.Blue: Hue = 0x8AD; break;
+					case BagOfSendingHue.Red: Hue = 0x89B; break;
 				}
 			}
 		}
@@ -100,7 +100,7 @@ namespace Server.Items
 		{
 			Weight = 2.0;
 
-			this.BagOfSendingHue = hue;
+			BagOfSendingHue = hue;
 
 			m_Charges = Utility.RandomMinMax(3, 9);
 		}
@@ -157,11 +157,11 @@ namespace Server.Items
 			{
 				from.SendMessage("You may not do that in jail.");
 			}
-			else if (!this.IsChildOf(from.Backpack))
+			else if (!IsChildOf(from.Backpack))
 			{
 				MessageHelper.SendLocalizedMessageTo(this, from, 1062334, 0x59); // The bag of sending must be in your backpack.
 			}
-			else if (this.Charges == 0)
+			else if (Charges == 0)
 			{
 				MessageHelper.SendLocalizedMessageTo(this, from, 1042544, 0x59); // This item is out of charges.
 			}

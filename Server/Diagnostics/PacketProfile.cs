@@ -10,7 +10,7 @@ namespace Server.Diagnostics
 	{
 		public long TotalLength { get; private set; }
 
-		public double AverageLength => (double)TotalLength / Math.Max(1, this.Count);
+		public double AverageLength => (double)TotalLength / Math.Max(1, Count);
 
 		protected BasePacketProfile(string name)
 			: base(name)

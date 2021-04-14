@@ -5,7 +5,7 @@ namespace Server.Items
 {
 	public class CharacterStatueMaker : BaseItem, IRewardItem
 	{
-		public override int LabelNumber { get { return 1076173; } } // Character Statue Maker
+		public override int LabelNumber => 1076173;  // Character Statue Maker
 
 		private bool m_IsRewardItem;
 		private StatueType m_Type;
@@ -13,14 +13,14 @@ namespace Server.Items
 		[CommandProperty(AccessLevel.GameMaster)]
 		public bool IsRewardItem
 		{
-			get { return m_IsRewardItem; }
+			get => m_IsRewardItem;
 			set { m_IsRewardItem = value; InvalidateProperties(); }
 		}
 
 		[CommandProperty(AccessLevel.GameMaster)]
 		public StatueType StatueType
 		{
-			get { return m_Type; }
+			get => m_Type;
 			set { m_Type = value; InvalidateHue(); }
 		}
 

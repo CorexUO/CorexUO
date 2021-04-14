@@ -57,13 +57,13 @@ namespace Server.Multis
 		public Mobile Owner { get; set; }
 
 		[CommandProperty(AccessLevel.GameMaster)]
-		public Direction Facing { get { return m_Facing; } set { SetFacing(value); } }
+		public Direction Facing { get => m_Facing; set => SetFacing(value); }
 
 		[CommandProperty(AccessLevel.GameMaster)]
 		public Direction Moving { get; set; }
 
 		[CommandProperty(AccessLevel.GameMaster)]
-		public bool IsMoving { get { return (m_MoveTimer != null); } }
+		public bool IsMoving => (m_MoveTimer != null);
 
 		[CommandProperty(AccessLevel.GameMaster)]
 		public int Speed { get; set; }
@@ -72,7 +72,7 @@ namespace Server.Multis
 		public bool Anchored { get; set; }
 
 		[CommandProperty(AccessLevel.GameMaster)]
-		public string ShipName { get { return m_ShipName; } set { m_ShipName = value; if (TillerMan != null) TillerMan.InvalidateProperties(); } }
+		public string ShipName { get => m_ShipName; set { m_ShipName = value; if (TillerMan != null) TillerMan.InvalidateProperties(); } }
 
 		[CommandProperty(AccessLevel.GameMaster)]
 		public BoatOrder Order { get; set; }
@@ -84,7 +84,7 @@ namespace Server.Multis
 		public int NextNavPoint { get; set; }
 
 		[CommandProperty(AccessLevel.GameMaster)]
-		public DateTime TimeOfDecay { get { return m_DecayTime; } set { m_DecayTime = value; if (TillerMan != null) TillerMan.InvalidateProperties(); } }
+		public DateTime TimeOfDecay { get => m_DecayTime; set { m_DecayTime = value; if (TillerMan != null) TillerMan.InvalidateProperties(); } }
 
 		public int Status
 		{
@@ -111,18 +111,18 @@ namespace Server.Multis
 			}
 		}
 
-		public virtual int NorthID { get { return 0; } }
-		public virtual int EastID { get { return 0; } }
-		public virtual int SouthID { get { return 0; } }
-		public virtual int WestID { get { return 0; } }
+		public virtual int NorthID => 0;
+		public virtual int EastID => 0;
+		public virtual int SouthID => 0;
+		public virtual int WestID => 0;
 
-		public virtual int HoldDistance { get { return 0; } }
-		public virtual int TillerManDistance { get { return 0; } }
-		public virtual Point2D StarboardOffset { get { return Point2D.Zero; } }
-		public virtual Point2D PortOffset { get { return Point2D.Zero; } }
-		public virtual Point3D MarkOffset { get { return Point3D.Zero; } }
+		public virtual int HoldDistance => 0;
+		public virtual int TillerManDistance => 0;
+		public virtual Point2D StarboardOffset => Point2D.Zero;
+		public virtual Point2D PortOffset => Point2D.Zero;
+		public virtual Point3D MarkOffset => Point3D.Zero;
 
-		public virtual BaseDockedBoat DockedBoat { get { return null; } }
+		public virtual BaseDockedBoat DockedBoat => null;
 
 		public static List<BaseBoat> Boats { get; } = new List<BaseBoat>();
 
@@ -382,7 +382,7 @@ namespace Server.Multis
 		 * 'walking' in piloting mode has a 1s interval, speed 0x2
 		 */
 
-		private static bool NewBoatMovement { get { return Core.HS; } }
+		private static bool NewBoatMovement => Core.HS;
 
 		private static readonly TimeSpan SlowInterval = TimeSpan.FromSeconds(NewBoatMovement ? 0.50 : 0.75);
 		private static readonly TimeSpan FastInterval = TimeSpan.FromSeconds(NewBoatMovement ? 0.25 : 0.75);
@@ -888,14 +888,14 @@ namespace Server.Multis
 
 				return false;
 			}
-			else if (this.Map != MapItem.Map || !this.Contains(MapItem.GetWorldLocation()))
+			else if (Map != MapItem.Map || !Contains(MapItem.GetWorldLocation()))
 			{
 				if (message && TillerMan != null)
 					TillerMan.Say(502514); // The map is too far away from me, sir.
 
 				return false;
 			}
-			else if ((this.Map != Map.Trammel && this.Map != Map.Felucca) || NextNavPoint < 0 || NextNavPoint >= MapItem.Pins.Count)
+			else if ((Map != Map.Trammel && Map != Map.Felucca) || NextNavPoint < 0 || NextNavPoint >= MapItem.Pins.Count)
 			{
 				if (message && TillerMan != null)
 					TillerMan.Say(1042551); // I don't see that navpoint, sir.
@@ -918,7 +918,7 @@ namespace Server.Multis
 			return true;
 		}
 
-		public override bool HandlesOnSpeech { get { return true; } }
+		public override bool HandlesOnSpeech => true;
 
 		public override void OnSpeech(SpeechEventArgs e)
 		{
@@ -999,7 +999,7 @@ namespace Server.Multis
 			}
 			else
 			{
-				if (m_MoveTimer != null && this.Order != BoatOrder.Move)
+				if (m_MoveTimer != null && Order != BoatOrder.Move)
 				{
 					m_MoveTimer.Stop();
 					m_MoveTimer = null;
@@ -1255,8 +1255,8 @@ namespace Server.Multis
 
 		public Direction GetMovementFor(int x, int y, out int maxSpeed)
 		{
-			int dx = x - this.X;
-			int dy = y - this.Y;
+			int dx = x - X;
+			int dy = y - Y;
 
 			int adx = Math.Abs(dx);
 			int ady = Math.Abs(dy);
@@ -1278,7 +1278,7 @@ namespace Server.Multis
 			Direction dir;
 			int speed, clientSpeed;
 
-			if (this.Order == BoatOrder.Move)
+			if (Order == BoatOrder.Move)
 			{
 				dir = Moving;
 				speed = Speed;
@@ -1291,14 +1291,14 @@ namespace Server.Multis
 
 				return false;
 			}
-			else if (this.Map != MapItem.Map || !this.Contains(MapItem.GetWorldLocation()))
+			else if (Map != MapItem.Map || !Contains(MapItem.GetWorldLocation()))
 			{
 				if (message && TillerMan != null)
 					TillerMan.Say(502514); // The map is too far away from me, sir.
 
 				return false;
 			}
-			else if ((this.Map != Map.Trammel && this.Map != Map.Felucca) || NextNavPoint < 0 || NextNavPoint >= MapItem.Pins.Count)
+			else if ((Map != Map.Trammel && Map != Map.Felucca) || NextNavPoint < 0 || NextNavPoint >= MapItem.Pins.Count)
 			{
 				if (message && TillerMan != null)
 					TillerMan.Say(1042551); // I don't see that navpoint, sir.
@@ -1315,14 +1315,14 @@ namespace Server.Multis
 
 				if (maxSpeed == 0)
 				{
-					if (message && this.Order == BoatOrder.Single && TillerMan != null)
+					if (message && Order == BoatOrder.Single && TillerMan != null)
 						TillerMan.Say(1042874, (NextNavPoint + 1).ToString()); // We have arrived at nav point ~1_POINT_NUM~ , sir.
 
 					if (NextNavPoint + 1 < MapItem.Pins.Count)
 					{
 						NextNavPoint++;
 
-						if (this.Order == BoatOrder.Course)
+						if (Order == BoatOrder.Course)
 						{
 							if (message && TillerMan != null)
 								TillerMan.Say(1042875, (NextNavPoint + 1).ToString()); // Heading to nav point ~1_POINT_NUM~, sir.
@@ -1336,7 +1336,7 @@ namespace Server.Multis
 					{
 						NextNavPoint = -1;
 
-						if (message && this.Order == BoatOrder.Course && TillerMan != null)
+						if (message && Order == BoatOrder.Course && TillerMan != null)
 							TillerMan.Say(502515); // The course is completed, sir.
 
 						return false;
@@ -1348,7 +1348,7 @@ namespace Server.Multis
 				else if (dir == Right || dir == BackwardRight)
 					return Turn(2, true);
 
-				speed = Math.Min(this.Speed, maxSpeed);
+				speed = Math.Min(Speed, maxSpeed);
 				clientSpeed = 0x4;
 			}
 
@@ -1546,7 +1546,7 @@ namespace Server.Multis
 
 		public bool SetFacing(Direction facing)
 		{
-			if (Parent != null || this.Map == null)
+			if (Parent != null || Map == null)
 				return false;
 
 			if (CheckDecay())
@@ -1670,10 +1670,7 @@ namespace Server.Multis
 
 		#region High Seas
 
-		public override bool AllowsRelativeDrop
-		{
-			get { return true; }
-		}
+		public override bool AllowsRelativeDrop => true;
 
 		/*
 		 * OSI sends the 0xF7 packet instead, holding 0xF3 packets

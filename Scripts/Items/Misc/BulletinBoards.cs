@@ -38,8 +38,8 @@ namespace Server.Items
 		[CommandProperty(AccessLevel.GameMaster)]
 		public string BoardName
 		{
-			get { return m_BoardName; }
-			set { m_BoardName = value; }
+			get => m_BoardName;
+			set => m_BoardName = value;
 		}
 
 		public BaseBulletinBoard(int itemID) : base(itemID)
@@ -78,7 +78,7 @@ namespace Server.Items
 
 		public virtual void Cleanup()
 		{
-			List<Item> items = this.Items;
+			List<Item> items = Items;
 
 			for (int i = items.Count - 1; i >= 0; --i)
 			{
@@ -101,7 +101,7 @@ namespace Server.Items
 		private void RecurseDelete(BulletinMessage msg)
 		{
 			List<Item> found = new List<Item>();
-			List<Item> items = this.Items;
+			List<Item> items = Items;
 
 			for (int i = items.Count - 1; i >= 0; --i)
 			{
@@ -126,7 +126,7 @@ namespace Server.Items
 
 		public virtual bool GetLastPostTime(Mobile poster, bool onlyCheckRoot, ref DateTime lastPostTime)
 		{
-			List<Item> items = this.Items;
+			List<Item> items = Items;
 			bool wasSet = false;
 
 			for (int i = 0; i < items.Count; ++i)
@@ -174,7 +174,7 @@ namespace Server.Items
 			if (from.AccessLevel >= AccessLevel.GameMaster)
 				return true;
 
-			return (from.Map == this.Map && from.InRange(GetWorldLocation(), 2));
+			return (from.Map == Map && from.InRange(GetWorldLocation(), 2));
 		}
 
 		public void PostMessage(Mobile from, BulletinMessage thread, string subject, string[] lines)
@@ -381,16 +381,16 @@ namespace Server.Items
 			m_PostedEquip = list.ToArray();
 		}
 
-		public Mobile Poster { get { return m_Poster; } }
-		public BulletinMessage Thread { get { return m_Thread; } }
-		public string Subject { get { return m_Subject; } }
-		public DateTime Time { get { return m_Time; } }
-		public DateTime LastPostTime { get { return m_LastPostTime; } set { m_LastPostTime = value; } }
-		public string PostedName { get { return m_PostedName; } }
-		public int PostedBody { get { return m_PostedBody; } }
-		public int PostedHue { get { return m_PostedHue; } }
-		public BulletinEquip[] PostedEquip { get { return m_PostedEquip; } }
-		public string[] Lines { get { return m_Lines; } }
+		public Mobile Poster => m_Poster;
+		public BulletinMessage Thread => m_Thread;
+		public string Subject => m_Subject;
+		public DateTime Time => m_Time;
+		public DateTime LastPostTime { get => m_LastPostTime; set => m_LastPostTime = value; }
+		public string PostedName => m_PostedName;
+		public int PostedBody => m_PostedBody;
+		public int PostedHue => m_PostedHue;
+		public BulletinEquip[] PostedEquip => m_PostedEquip;
+		public string[] Lines => m_Lines;
 
 		public BulletinMessage(Serial serial) : base(serial)
 		{

@@ -32,7 +32,7 @@ namespace Server.Engines.Quests.Samurai
 			VirtualArmor = 8;
 		}
 
-		public override bool AlwaysMurderer { get { return true; } }
+		public override bool AlwaysMurderer => true;
 
 		public DiseasedCat(Serial serial) : base(serial)
 		{

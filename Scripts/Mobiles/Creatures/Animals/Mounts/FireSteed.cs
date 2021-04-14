@@ -50,9 +50,9 @@ namespace Server.Mobiles
 			PackItem(new Ruby(Utility.RandomMinMax(16, 30)));
 		}
 
-		public override bool HasBreath { get { return true; } } // fire breath enabled
-		public override FoodType FavoriteFood { get { return FoodType.Meat; } }
-		public override PackInstinct PackInstinct { get { return PackInstinct.Daemon | PackInstinct.Equine; } }
+		public override bool HasBreath => true;  // fire breath enabled
+		public override FoodType FavoriteFood => FoodType.Meat;
+		public override PackInstinct PackInstinct => PackInstinct.Daemon | PackInstinct.Equine;
 
 		public FireSteed(Serial serial) : base(serial)
 		{

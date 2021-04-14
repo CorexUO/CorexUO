@@ -2,15 +2,15 @@ namespace Server.Items
 {
 	public class RewardBlackDyeTub : DyeTub, Engines.VeteranRewards.IRewardItem
 	{
-		public override int LabelNumber { get { return 1006008; } } // Black Dye Tub
+		public override int LabelNumber => 1006008;  // Black Dye Tub
 
 		private bool m_IsRewardItem;
 
 		[CommandProperty(AccessLevel.GameMaster)]
 		public bool IsRewardItem
 		{
-			get { return m_IsRewardItem; }
-			set { m_IsRewardItem = value; }
+			get => m_IsRewardItem;
+			set => m_IsRewardItem = value;
 		}
 
 		[Constructable]

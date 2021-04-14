@@ -2,7 +2,7 @@ namespace Server.Items
 {
 	public class SandstoneFireplaceEastAddon : BaseAddon
 	{
-		public override BaseAddonDeed Deed { get { return new SandstoneFireplaceEastDeed(); } }
+		public override BaseAddonDeed Deed => new SandstoneFireplaceEastDeed();
 
 		[Constructable]
 		public SandstoneFireplaceEastAddon()
@@ -32,8 +32,8 @@ namespace Server.Items
 
 	public class SandstoneFireplaceEastDeed : BaseAddonDeed
 	{
-		public override BaseAddon Addon { get { return new SandstoneFireplaceEastAddon(); } }
-		public override int LabelNumber { get { return 1061844; } } // sandstone fireplace (east)
+		public override BaseAddon Addon => new SandstoneFireplaceEastAddon();
+		public override int LabelNumber => 1061844;  // sandstone fireplace (east)
 
 		[Constructable]
 		public SandstoneFireplaceEastDeed()

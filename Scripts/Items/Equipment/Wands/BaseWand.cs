@@ -23,34 +23,34 @@ namespace Server.Items
 
 	public abstract class BaseWand : BaseBashing, ITokunoDyable
 	{
-		public override WeaponAbility PrimaryAbility { get { return WeaponAbility.Dismount; } }
-		public override WeaponAbility SecondaryAbility { get { return WeaponAbility.Disarm; } }
+		public override WeaponAbility PrimaryAbility => WeaponAbility.Dismount;
+		public override WeaponAbility SecondaryAbility => WeaponAbility.Disarm;
 
-		public override int StrReq { get { return Core.AOS ? 5 : 0; } }
+		public override int StrReq => Core.AOS ? 5 : 0;
 
-		public override int MinDamageBase { get { return Core.AOS ? 9 : 2; } }
-		public override int MaxDamageBase { get { return Core.AOS ? 11 : 6; } }
-		public override float SpeedBase { get { return Core.ML ? 2.75f : Core.AOS ? 40 : 35; } }
+		public override int MinDamageBase => Core.AOS ? 9 : 2;
+		public override int MaxDamageBase => Core.AOS ? 11 : 6;
+		public override float SpeedBase => Core.ML ? 2.75f : Core.AOS ? 40 : 35;
 
-		public override int InitMinHits { get { return 31; } }
-		public override int InitMaxHits { get { return 110; } }
+		public override int InitMinHits => 31;
+		public override int InitMaxHits => 110;
 
 		private WandEffect m_WandEffect;
 		private int m_Charges;
 
-		public virtual TimeSpan GetUseDelay { get { return TimeSpan.FromSeconds(4.0); } }
+		public virtual TimeSpan GetUseDelay => TimeSpan.FromSeconds(4.0);
 
 		[CommandProperty(AccessLevel.GameMaster)]
 		public WandEffect Effect
 		{
-			get { return m_WandEffect; }
+			get => m_WandEffect;
 			set { m_WandEffect = value; InvalidateProperties(); }
 		}
 
 		[CommandProperty(AccessLevel.GameMaster)]
 		public int Charges
 		{
-			get { return m_Charges; }
+			get => m_Charges;
 			set { m_Charges = value; InvalidateProperties(); }
 		}
 
@@ -205,7 +205,7 @@ namespace Server.Items
 			}
 			else
 			{
-				this.LabelTo(from, Name);
+				LabelTo(from, Name);
 				number = 1041000;
 			}
 

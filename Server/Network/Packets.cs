@@ -260,7 +260,7 @@ namespace Server.Network
 	{
 		public ObjectHelpResponse(IEntity e, string text) : base(0xB7)
 		{
-			this.EnsureCapacity(9 + (text.Length * 2));
+			EnsureCapacity(9 + (text.Length * 2));
 
 			m_Stream.Write(e.Serial);
 			m_Stream.WriteBigUniNull(text);
@@ -272,7 +272,7 @@ namespace Server.Network
 		public VendorBuyContent(List<BuyItemState> list)
 			: base(0x3c)
 		{
-			this.EnsureCapacity(list.Count * 19 + 5);
+			EnsureCapacity(list.Count * 19 + 5);
 
 			m_Stream.Write((short)list.Count);
 
@@ -300,7 +300,7 @@ namespace Server.Network
 	{
 		public VendorBuyContent6017(List<BuyItemState> list) : base(0x3c)
 		{
-			this.EnsureCapacity(list.Count * 20 + 5);
+			EnsureCapacity(list.Count * 20 + 5);
 
 			m_Stream.Write((short)list.Count);
 
@@ -349,7 +349,7 @@ namespace Server.Network
 		public VendorBuyList(Mobile vendor, List<BuyItemState> list)
 			: base(0x74)
 		{
-			this.EnsureCapacity(256);
+			EnsureCapacity(256);
 
 			Container BuyPack = vendor.FindItemOnLayer(Layer.ShopBuy) as Container;
 			m_Stream.Write(BuyPack == null ? Serial.MinusOne : BuyPack.Serial);
@@ -377,7 +377,7 @@ namespace Server.Network
 	{
 		public VendorSellList(Mobile shopkeeper, ICollection<SellItemState> sis) : base(0x9E)
 		{
-			this.EnsureCapacity(256);
+			EnsureCapacity(256);
 
 			m_Stream.Write(shopkeeper.Serial);
 
@@ -439,7 +439,7 @@ namespace Server.Network
 	{
 		public StatLockInfo(Mobile m) : base(0xBF)
 		{
-			this.EnsureCapacity(12);
+			EnsureCapacity(12);
 
 			m_Stream.Write((short)0x19);
 			m_Stream.Write((byte)2);
@@ -495,7 +495,7 @@ namespace Server.Network
 		{
 			EquipInfoAttribute[] attrs = info.Attributes;
 
-			this.EnsureCapacity(17 + (info.Crafter == null ? 0 : 6 + info.Crafter.Name == null ? 0 : info.Crafter.Name.Length) + (info.Unidentified ? 4 : 0) + (attrs.Length * 6));
+			EnsureCapacity(17 + (info.Crafter == null ? 0 : 6 + info.Crafter.Name == null ? 0 : info.Crafter.Name.Length) + (info.Unidentified ? 4 : 0) + (attrs.Length * 6));
 
 			m_Stream.Write((short)0x10);
 			m_Stream.Write(item.Serial);
@@ -597,7 +597,7 @@ namespace Server.Network
 	{
 		public UnicodePrompt(Prompt prompt) : base(0xC2)
 		{
-			this.EnsureCapacity(21);
+			EnsureCapacity(21);
 
 			m_Stream.Write(prompt.Serial);
 			m_Stream.Write(prompt.Serial);
@@ -611,7 +611,7 @@ namespace Server.Network
 	{
 		public ChangeCharacter(IAccount a) : base(0x81)
 		{
-			this.EnsureCapacity(305);
+			EnsureCapacity(305);
 
 			int count = 0;
 
@@ -689,7 +689,7 @@ namespace Server.Network
 	{
 		public BondedStatus(int val1, Serial serial, int val2) : base(0xBF)
 		{
-			this.EnsureCapacity(11);
+			EnsureCapacity(11);
 
 			m_Stream.Write((short)0x19);
 			m_Stream.Write((byte)val1);
@@ -716,7 +716,7 @@ namespace Server.Network
 	{
 		public DisplayItemListMenu(ItemListMenu menu) : base(0x7C)
 		{
-			this.EnsureCapacity(256);
+			EnsureCapacity(256);
 
 			m_Stream.Write(((IMenu)menu).Serial);
 			m_Stream.Write((short)0);
@@ -763,7 +763,7 @@ namespace Server.Network
 	{
 		public DisplayQuestionMenu(QuestionMenu menu) : base(0x7C)
 		{
-			this.EnsureCapacity(256);
+			EnsureCapacity(256);
 
 			m_Stream.Write(((IMenu)menu).Serial);
 			m_Stream.Write((short)0);
@@ -866,7 +866,7 @@ namespace Server.Network
 
 			int length = (byte)entries.Length;
 
-			this.EnsureCapacity(12 + (length * 8));
+			EnsureCapacity(12 + (length * 8));
 
 			m_Stream.Write((short)0x14);
 			m_Stream.Write((short)0x02);
@@ -915,7 +915,7 @@ namespace Server.Network
 
 			int length = (byte)entries.Length;
 
-			this.EnsureCapacity(12 + (length * 8));
+			EnsureCapacity(12 + (length * 8));
 
 			m_Stream.Write((short)0x14);
 			m_Stream.Write((short)0x01);
@@ -990,7 +990,7 @@ namespace Server.Network
 	{
 		public CloseGump(int typeID, int buttonID) : base(0xBF)
 		{
-			this.EnsureCapacity(13);
+			EnsureCapacity(13);
 
 			m_Stream.Write((short)0x04);
 			m_Stream.Write(typeID);
@@ -1037,7 +1037,7 @@ namespace Server.Network
 	{
 		public WorldItem(Item item) : base(0x1A)
 		{
-			this.EnsureCapacity(20);
+			EnsureCapacity(20);
 
 			// 14 base length
 			// +2 - Amount
@@ -1259,7 +1259,7 @@ namespace Server.Network
 	{
 		public UnkD3(Mobile beholder, Mobile beheld) : base(0xD3)
 		{
-			this.EnsureCapacity(256);
+			EnsureCapacity(256);
 
 			//int
 			//short
@@ -1302,7 +1302,7 @@ namespace Server.Network
 	{
 		public GQRequest() : base(0xC3)
 		{
-			this.EnsureCapacity(256);
+			EnsureCapacity(256);
 
 			m_Stream.Write(1);
 			m_Stream.Write(2); // ID
@@ -1361,7 +1361,7 @@ namespace Server.Network
 	{
 		public ClientVersionReq() : base(0xBD)
 		{
-			this.EnsureCapacity(3);
+			EnsureCapacity(3);
 		}
 	}
 
@@ -1372,7 +1372,7 @@ namespace Server.Network
 	{
 		public AssistVersionReq(int unk) : base(0xBE)
 		{
-			this.EnsureCapacity(7);
+			EnsureCapacity(7);
 
 			m_Stream.Write(unk);
 		}
@@ -1738,7 +1738,7 @@ namespace Server.Network
 	{
 		public SpellbookContent(int count, int offset, ulong content, Item item) : base(0x3C)
 		{
-			this.EnsureCapacity(5 + (count * 19));
+			EnsureCapacity(5 + (count * 19));
 
 			int written = 0;
 
@@ -1772,7 +1772,7 @@ namespace Server.Network
 	{
 		public SpellbookContent6017(int count, int offset, ulong content, Item item) : base(0x3C)
 		{
-			this.EnsureCapacity(5 + (count * 20));
+			EnsureCapacity(5 + (count * 20));
 
 			int written = 0;
 
@@ -1884,7 +1884,7 @@ namespace Server.Network
 			List<Item> items = beheld.Items;
 			int count = items.Count;
 
-			this.EnsureCapacity(5 + (count * 19));
+			EnsureCapacity(5 + (count * 19));
 
 			long pos = m_Stream.Position;
 
@@ -1925,7 +1925,7 @@ namespace Server.Network
 			List<Item> items = beheld.Items;
 			int count = items.Count;
 
-			this.EnsureCapacity(5 + (count * 20));
+			EnsureCapacity(5 + (count * 20));
 
 			long pos = m_Stream.Position;
 
@@ -2040,7 +2040,7 @@ namespace Server.Network
 	{
 		public SkillUpdate(Skills skills) : base(0x3A)
 		{
-			this.EnsureCapacity(6 + (skills.Length * 9));
+			EnsureCapacity(6 + (skills.Length * 9));
 
 			m_Stream.Write((byte)0x02); // type: absolute, capped
 
@@ -2079,7 +2079,7 @@ namespace Server.Network
 	{
 		public SkillChange(Skill skill) : base(0x3A)
 		{
-			this.EnsureCapacity(13);
+			EnsureCapacity(13);
 
 			double v = skill.NonRacialValue;
 			int uv = (int)(v * 10);
@@ -2110,7 +2110,7 @@ namespace Server.Network
 		{
 			if (url == null) url = "";
 
-			this.EnsureCapacity(4 + url.Length);
+			EnsureCapacity(4 + url.Length);
 
 			m_Stream.WriteAsciiNull(url);
 		}
@@ -2171,7 +2171,7 @@ namespace Server.Network
 			if (hue == 0)
 				hue = 0x3B2;
 
-			this.EnsureCapacity(50 + (args.Length * 2));
+			EnsureCapacity(50 + (args.Length * 2));
 
 			m_Stream.Write(serial);
 			m_Stream.Write((short)graphic);
@@ -2576,7 +2576,7 @@ namespace Server.Network
 		{
 			if (layout == null) layout = "";
 
-			this.EnsureCapacity(256);
+			EnsureCapacity(256);
 
 			m_Stream.Write(g.Serial);
 			m_Stream.Write(g.TypeID);
@@ -2681,7 +2681,7 @@ namespace Server.Network
 		{
 			if (text == null) text = "";
 
-			this.EnsureCapacity(10 + text.Length);
+			EnsureCapacity(10 + text.Length);
 
 			m_Stream.Write((byte)type);
 			m_Stream.Write(tip);
@@ -2706,7 +2706,7 @@ namespace Server.Network
 	{
 		public MapChange(Mobile m) : base(0xBF)
 		{
-			this.EnsureCapacity(6);
+			EnsureCapacity(6);
 
 			m_Stream.Write((short)0x08);
 			m_Stream.Write((byte)(m.Map == null ? 0 : m.Map.MapID));
@@ -2940,7 +2940,7 @@ namespace Server.Network
 
 			if (name == null) name = "";
 
-			this.EnsureCapacity(37);
+			EnsureCapacity(37);
 
 			m_Stream.Write(m.Serial);
 			m_Stream.WriteAsciiFixed(name, 30);
@@ -2979,7 +2979,7 @@ namespace Server.Network
 			string name = m.Name;
 			if (name == null) name = "";
 
-			this.EnsureCapacity(43);
+			EnsureCapacity(43);
 
 			m_Stream.Write(m.Serial);
 			m_Stream.WriteAsciiFixed(name, 30);
@@ -3324,7 +3324,7 @@ namespace Server.Network
 			if (beheld.FacialHairItemID > 0)
 				count++;
 
-			this.EnsureCapacity(23 + (count * 9));
+			EnsureCapacity(23 + (count * 9));
 
 			int hue = beheld.Hue;
 
@@ -3432,7 +3432,7 @@ namespace Server.Network
 			if (beheld.FacialHairItemID > 0)
 				count++;
 
-			this.EnsureCapacity(23 + (count * 9));
+			EnsureCapacity(23 + (count * 9));
 
 			int hue = beheld.Hue;
 
@@ -3558,7 +3558,7 @@ namespace Server.Network
 			if (beheld.FacialHairItemID > 0)
 				count++;
 
-			this.EnsureCapacity(23 + (count * 9));
+			EnsureCapacity(23 + (count * 9));
 
 			int hue = beheld.Hue;
 
@@ -3674,7 +3674,7 @@ namespace Server.Network
 			if (hue == 0)
 				hue = 0x3B2;
 
-			this.EnsureCapacity(45 + text.Length);
+			EnsureCapacity(45 + text.Length);
 
 			m_Stream.Write(serial);
 			m_Stream.Write((short)graphic);
@@ -3697,7 +3697,7 @@ namespace Server.Network
 			if (hue == 0)
 				hue = 0x3B2;
 
-			this.EnsureCapacity(50 + (text.Length * 2));
+			EnsureCapacity(50 + (text.Length * 2));
 
 			m_Stream.Write(serial);
 			m_Stream.Write((short)graphic);
@@ -3880,7 +3880,7 @@ namespace Server.Network
 	{
 		public CharacterListUpdate(IAccount a) : base(0x86)
 		{
-			this.EnsureCapacity(4 + (a.Length * 60));
+			EnsureCapacity(4 + (a.Length * 60));
 
 			int highSlot = -1;
 
@@ -3979,7 +3979,7 @@ namespace Server.Network
 	{
 		public CharacterList(IAccount a, CityInfo[] info) : base(0xA9)
 		{
-			this.EnsureCapacity(11 + (a.Length * 60) + (info.Length * 89));
+			EnsureCapacity(11 + (a.Length * 60) + (info.Length * 89));
 
 			int highSlot = -1;
 
@@ -4074,7 +4074,7 @@ namespace Server.Network
 	{
 		public CharacterListOld(IAccount a, CityInfo[] info) : base(0xA9)
 		{
-			this.EnsureCapacity(9 + (a.Length * 60) + (info.Length * 63));
+			EnsureCapacity(9 + (a.Length * 60) + (info.Length * 63));
 
 			int highSlot = -1;
 
@@ -4203,7 +4203,7 @@ namespace Server.Network
 			if (hue == 0)
 				hue = 0x3B2;
 
-			this.EnsureCapacity(52 + affix.Length + (args.Length * 2));
+			EnsureCapacity(52 + affix.Length + (args.Length * 2));
 
 			m_Stream.Write(serial);
 			m_Stream.Write((short)graphic);
@@ -4247,7 +4247,7 @@ namespace Server.Network
 	{
 		public AccountLoginAck(ServerInfo[] info) : base(0xA8)
 		{
-			this.EnsureCapacity(6 + (info.Length * 40));
+			EnsureCapacity(6 + (info.Length * 40));
 
 			m_Stream.Write((byte)0x5D); // Unknown
 
@@ -4273,7 +4273,7 @@ namespace Server.Network
 			if (unknown == null) unknown = "";
 			if (caption == null) caption = "";
 
-			this.EnsureCapacity(16 + unknown.Length + caption.Length);
+			EnsureCapacity(16 + unknown.Length + caption.Length);
 
 			m_Stream.Write(serial);
 			m_Stream.Write((short)gumpID);
@@ -4491,7 +4491,7 @@ namespace Server.Network
 							{
 								using (StreamWriter op = new StreamWriter("net_opt.log", true))
 								{
-									op.WriteLine("Redundant compile for packet {0}, use Acquire() and Release()", this.GetType());
+									op.WriteLine("Redundant compile for packet {0}, use Acquire() and Release()", GetType());
 									op.WriteLine(new System.Diagnostics.StackTrace());
 								}
 							}

@@ -59,9 +59,9 @@ namespace Server.Mobiles
 			AddItem(shroud);
 		}
 
-		public override bool AlwaysMurderer { get { return true; } }
-		public override bool PropertyTitle { get { return false; } }
-		public override bool ShowFameTitle { get { return false; } }
+		public override bool AlwaysMurderer => true;
+		public override bool PropertyTitle => false;
+		public override bool ShowFameTitle => false;
 
 		public Protector(Serial serial)
 			: base(serial)

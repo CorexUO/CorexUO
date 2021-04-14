@@ -12,22 +12,22 @@ namespace Server.Items
 		[CommandProperty(AccessLevel.GameMaster)]
 		public Mobile Poisoner
 		{
-			get { return m_Poisoner; }
-			set { m_Poisoner = value; }
+			get => m_Poisoner;
+			set => m_Poisoner = value;
 		}
 
 		[CommandProperty(AccessLevel.GameMaster)]
 		public Poison Poison
 		{
-			get { return m_Poison; }
-			set { m_Poison = value; }
+			get => m_Poison;
+			set => m_Poison = value;
 		}
 
 		[CommandProperty(AccessLevel.GameMaster)]
 		public int FillFactor
 		{
-			get { return m_FillFactor; }
-			set { m_FillFactor = value; }
+			get => m_FillFactor;
+			set => m_FillFactor = value;
 		}
 
 		public Food(int itemID) : this(1, itemID)
@@ -58,7 +58,7 @@ namespace Server.Items
 			if (!Movable)
 				return;
 
-			if (from.InRange(this.GetWorldLocation(), 1))
+			if (from.InRange(GetWorldLocation(), 1))
 			{
 				Eat(from);
 			}
@@ -168,8 +168,8 @@ namespace Server.Items
 		[Constructable]
 		public BreadLoaf(int amount) : base(amount, 0x103B)
 		{
-			this.Weight = 1.0;
-			this.FillFactor = 3;
+			Weight = 1.0;
+			FillFactor = 3;
 		}
 
 		public BreadLoaf(Serial serial) : base(serial)
@@ -201,8 +201,8 @@ namespace Server.Items
 		[Constructable]
 		public Bacon(int amount) : base(amount, 0x979)
 		{
-			this.Weight = 1.0;
-			this.FillFactor = 1;
+			Weight = 1.0;
+			FillFactor = 1;
 		}
 
 		public Bacon(Serial serial) : base(serial)
@@ -234,8 +234,8 @@ namespace Server.Items
 		[Constructable]
 		public SlabOfBacon(int amount) : base(amount, 0x976)
 		{
-			this.Weight = 1.0;
-			this.FillFactor = 3;
+			Weight = 1.0;
+			FillFactor = 3;
 		}
 
 		public SlabOfBacon(Serial serial) : base(serial)
@@ -259,10 +259,7 @@ namespace Server.Items
 
 	public class FishSteak : Food
 	{
-		public override double DefaultWeight
-		{
-			get { return 0.1; }
-		}
+		public override double DefaultWeight => 0.1;
 
 		[Constructable]
 		public FishSteak() : this(1)
@@ -272,7 +269,7 @@ namespace Server.Items
 		[Constructable]
 		public FishSteak(int amount) : base(amount, 0x97B)
 		{
-			this.FillFactor = 3;
+			FillFactor = 3;
 		}
 
 		public FishSteak(Serial serial) : base(serial)
@@ -296,10 +293,7 @@ namespace Server.Items
 
 	public class CheeseWheel : Food
 	{
-		public override double DefaultWeight
-		{
-			get { return 0.1; }
-		}
+		public override double DefaultWeight => 0.1;
 
 		[Constructable]
 		public CheeseWheel() : this(1)
@@ -309,7 +303,7 @@ namespace Server.Items
 		[Constructable]
 		public CheeseWheel(int amount) : base(amount, 0x97E)
 		{
-			this.FillFactor = 3;
+			FillFactor = 3;
 		}
 
 		public CheeseWheel(Serial serial) : base(serial)
@@ -333,10 +327,7 @@ namespace Server.Items
 
 	public class CheeseWedge : Food
 	{
-		public override double DefaultWeight
-		{
-			get { return 0.1; }
-		}
+		public override double DefaultWeight => 0.1;
 
 		[Constructable]
 		public CheeseWedge() : this(1)
@@ -346,7 +337,7 @@ namespace Server.Items
 		[Constructable]
 		public CheeseWedge(int amount) : base(amount, 0x97D)
 		{
-			this.FillFactor = 3;
+			FillFactor = 3;
 		}
 
 		public CheeseWedge(Serial serial) : base(serial)
@@ -370,10 +361,7 @@ namespace Server.Items
 
 	public class CheeseSlice : Food
 	{
-		public override double DefaultWeight
-		{
-			get { return 0.1; }
-		}
+		public override double DefaultWeight => 0.1;
 
 		[Constructable]
 		public CheeseSlice() : this(1)
@@ -383,7 +371,7 @@ namespace Server.Items
 		[Constructable]
 		public CheeseSlice(int amount) : base(amount, 0x97C)
 		{
-			this.FillFactor = 1;
+			FillFactor = 1;
 		}
 
 		public CheeseSlice(Serial serial) : base(serial)
@@ -415,8 +403,8 @@ namespace Server.Items
 		[Constructable]
 		public FrenchBread(int amount) : base(amount, 0x98C)
 		{
-			this.Weight = 2.0;
-			this.FillFactor = 3;
+			Weight = 2.0;
+			FillFactor = 3;
 		}
 
 		public FrenchBread(Serial serial) : base(serial)
@@ -449,8 +437,8 @@ namespace Server.Items
 		[Constructable]
 		public FriedEggs(int amount) : base(amount, 0x9B6)
 		{
-			this.Weight = 1.0;
-			this.FillFactor = 4;
+			Weight = 1.0;
+			FillFactor = 4;
 		}
 
 		public FriedEggs(Serial serial) : base(serial)
@@ -482,8 +470,8 @@ namespace Server.Items
 		[Constructable]
 		public CookedBird(int amount) : base(amount, 0x9B7)
 		{
-			this.Weight = 1.0;
-			this.FillFactor = 5;
+			Weight = 1.0;
+			FillFactor = 5;
 		}
 
 		public CookedBird(Serial serial) : base(serial)
@@ -515,8 +503,8 @@ namespace Server.Items
 		[Constructable]
 		public RoastPig(int amount) : base(amount, 0x9BB)
 		{
-			this.Weight = 45.0;
-			this.FillFactor = 20;
+			Weight = 45.0;
+			FillFactor = 20;
 		}
 
 		public RoastPig(Serial serial) : base(serial)
@@ -548,8 +536,8 @@ namespace Server.Items
 		[Constructable]
 		public Sausage(int amount) : base(amount, 0x9C0)
 		{
-			this.Weight = 1.0;
-			this.FillFactor = 4;
+			Weight = 1.0;
+			FillFactor = 4;
 		}
 
 		public Sausage(Serial serial) : base(serial)
@@ -581,8 +569,8 @@ namespace Server.Items
 		[Constructable]
 		public Ham(int amount) : base(amount, 0x9C9)
 		{
-			this.Weight = 1.0;
-			this.FillFactor = 5;
+			Weight = 1.0;
+			FillFactor = 5;
 		}
 
 		public Ham(Serial serial) : base(serial)
@@ -610,8 +598,8 @@ namespace Server.Items
 		public Cake() : base(0x9E9)
 		{
 			Stackable = false;
-			this.Weight = 1.0;
-			this.FillFactor = 10;
+			Weight = 1.0;
+			FillFactor = 10;
 		}
 
 		public Cake(Serial serial) : base(serial)
@@ -643,8 +631,8 @@ namespace Server.Items
 		[Constructable]
 		public Ribs(int amount) : base(amount, 0x9F2)
 		{
-			this.Weight = 1.0;
-			this.FillFactor = 5;
+			Weight = 1.0;
+			FillFactor = 5;
 		}
 
 		public Ribs(Serial serial) : base(serial)
@@ -672,8 +660,8 @@ namespace Server.Items
 		public Cookies() : base(0x160b)
 		{
 			Stackable = Core.ML;
-			this.Weight = 1.0;
-			this.FillFactor = 4;
+			Weight = 1.0;
+			FillFactor = 4;
 		}
 
 		public Cookies(Serial serial) : base(serial)
@@ -701,8 +689,8 @@ namespace Server.Items
 		public Muffins() : base(0x9eb)
 		{
 			Stackable = false;
-			this.Weight = 1.0;
-			this.FillFactor = 4;
+			Weight = 1.0;
+			FillFactor = 4;
 		}
 
 		public Muffins(Serial serial) : base(serial)
@@ -727,14 +715,14 @@ namespace Server.Items
 	[TypeAlias("Server.Items.Pizza")]
 	public class CheesePizza : Food
 	{
-		public override int LabelNumber { get { return 1044516; } } // cheese pizza
+		public override int LabelNumber => 1044516;  // cheese pizza
 
 		[Constructable]
 		public CheesePizza() : base(0x1040)
 		{
 			Stackable = false;
-			this.Weight = 1.0;
-			this.FillFactor = 6;
+			Weight = 1.0;
+			FillFactor = 6;
 		}
 
 		public CheesePizza(Serial serial) : base(serial)
@@ -758,14 +746,14 @@ namespace Server.Items
 
 	public class SausagePizza : Food
 	{
-		public override int LabelNumber { get { return 1044517; } } // sausage pizza
+		public override int LabelNumber => 1044517;  // sausage pizza
 
 		[Constructable]
 		public SausagePizza() : base(0x1040)
 		{
 			Stackable = false;
-			this.Weight = 1.0;
-			this.FillFactor = 6;
+			Weight = 1.0;
+			FillFactor = 6;
 		}
 
 		public SausagePizza(Serial serial) : base(serial)
@@ -820,14 +808,14 @@ namespace Server.Items
 
 	public class FruitPie : Food
 	{
-		public override int LabelNumber { get { return 1041346; } } // baked fruit pie
+		public override int LabelNumber => 1041346;  // baked fruit pie
 
 		[Constructable]
 		public FruitPie() : base(0x1041)
 		{
 			Stackable = false;
-			this.Weight = 1.0;
-			this.FillFactor = 5;
+			Weight = 1.0;
+			FillFactor = 5;
 		}
 
 		public FruitPie(Serial serial) : base(serial)
@@ -851,14 +839,14 @@ namespace Server.Items
 
 	public class MeatPie : Food
 	{
-		public override int LabelNumber { get { return 1041347; } } // baked meat pie
+		public override int LabelNumber => 1041347;  // baked meat pie
 
 		[Constructable]
 		public MeatPie() : base(0x1041)
 		{
 			Stackable = false;
-			this.Weight = 1.0;
-			this.FillFactor = 5;
+			Weight = 1.0;
+			FillFactor = 5;
 		}
 
 		public MeatPie(Serial serial) : base(serial)
@@ -882,14 +870,14 @@ namespace Server.Items
 
 	public class PumpkinPie : Food
 	{
-		public override int LabelNumber { get { return 1041348; } } // baked pumpkin pie
+		public override int LabelNumber => 1041348;  // baked pumpkin pie
 
 		[Constructable]
 		public PumpkinPie() : base(0x1041)
 		{
 			Stackable = false;
-			this.Weight = 1.0;
-			this.FillFactor = 5;
+			Weight = 1.0;
+			FillFactor = 5;
 		}
 
 		public PumpkinPie(Serial serial) : base(serial)
@@ -913,14 +901,14 @@ namespace Server.Items
 
 	public class ApplePie : Food
 	{
-		public override int LabelNumber { get { return 1041343; } } // baked apple pie
+		public override int LabelNumber => 1041343;  // baked apple pie
 
 		[Constructable]
 		public ApplePie() : base(0x1041)
 		{
 			Stackable = false;
-			this.Weight = 1.0;
-			this.FillFactor = 5;
+			Weight = 1.0;
+			FillFactor = 5;
 		}
 
 		public ApplePie(Serial serial) : base(serial)
@@ -944,14 +932,14 @@ namespace Server.Items
 
 	public class PeachCobbler : Food
 	{
-		public override int LabelNumber { get { return 1041344; } } // baked peach cobbler
+		public override int LabelNumber => 1041344;  // baked peach cobbler
 
 		[Constructable]
 		public PeachCobbler() : base(0x1041)
 		{
 			Stackable = false;
-			this.Weight = 1.0;
-			this.FillFactor = 5;
+			Weight = 1.0;
+			FillFactor = 5;
 		}
 
 		public PeachCobbler(Serial serial) : base(serial)
@@ -975,14 +963,14 @@ namespace Server.Items
 
 	public class Quiche : Food
 	{
-		public override int LabelNumber { get { return 1041345; } } // baked quiche
+		public override int LabelNumber => 1041345;  // baked quiche
 
 		[Constructable]
 		public Quiche() : base(0x1041)
 		{
 			Stackable = Core.ML;
-			this.Weight = 1.0;
-			this.FillFactor = 5;
+			Weight = 1.0;
+			FillFactor = 5;
 		}
 
 		public Quiche(Serial serial) : base(serial)
@@ -1014,8 +1002,8 @@ namespace Server.Items
 		[Constructable]
 		public LambLeg(int amount) : base(amount, 0x160a)
 		{
-			this.Weight = 2.0;
-			this.FillFactor = 5;
+			Weight = 2.0;
+			FillFactor = 5;
 		}
 
 		public LambLeg(Serial serial) : base(serial)
@@ -1047,8 +1035,8 @@ namespace Server.Items
 		[Constructable]
 		public ChickenLeg(int amount) : base(amount, 0x1608)
 		{
-			this.Weight = 1.0;
-			this.FillFactor = 4;
+			Weight = 1.0;
+			FillFactor = 4;
 		}
 
 		public ChickenLeg(Serial serial) : base(serial)
@@ -1081,8 +1069,8 @@ namespace Server.Items
 		[Constructable]
 		public HoneydewMelon(int amount) : base(amount, 0xC74)
 		{
-			this.Weight = 1.0;
-			this.FillFactor = 1;
+			Weight = 1.0;
+			FillFactor = 1;
 		}
 
 		public HoneydewMelon(Serial serial) : base(serial)
@@ -1115,8 +1103,8 @@ namespace Server.Items
 		[Constructable]
 		public YellowGourd(int amount) : base(amount, 0xC64)
 		{
-			this.Weight = 1.0;
-			this.FillFactor = 1;
+			Weight = 1.0;
+			FillFactor = 1;
 		}
 
 		public YellowGourd(Serial serial) : base(serial)
@@ -1149,8 +1137,8 @@ namespace Server.Items
 		[Constructable]
 		public GreenGourd(int amount) : base(amount, 0xC66)
 		{
-			this.Weight = 1.0;
-			this.FillFactor = 1;
+			Weight = 1.0;
+			FillFactor = 1;
 		}
 
 		public GreenGourd(Serial serial) : base(serial)
@@ -1183,8 +1171,8 @@ namespace Server.Items
 		[Constructable]
 		public EarOfCorn(int amount) : base(amount, 0xC81)
 		{
-			this.Weight = 1.0;
-			this.FillFactor = 1;
+			Weight = 1.0;
+			FillFactor = 1;
 		}
 
 		public EarOfCorn(Serial serial) : base(serial)
@@ -1216,8 +1204,8 @@ namespace Server.Items
 		[Constructable]
 		public Turnip(int amount) : base(amount, 0xD3A)
 		{
-			this.Weight = 1.0;
-			this.FillFactor = 1;
+			Weight = 1.0;
+			FillFactor = 1;
 		}
 
 		public Turnip(Serial serial) : base(serial)
@@ -1244,7 +1232,7 @@ namespace Server.Items
 		[Constructable]
 		public SheafOfHay() : base(0xF36)
 		{
-			this.Weight = 10.0;
+			Weight = 10.0;
 		}
 
 		public SheafOfHay(Serial serial) : base(serial)

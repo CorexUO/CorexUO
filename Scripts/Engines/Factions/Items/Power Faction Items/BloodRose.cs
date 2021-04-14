@@ -4,13 +4,7 @@ namespace Server
 {
 	public sealed class BloodRose : PowerFactionItem
 	{
-		public override string DefaultName
-		{
-			get
-			{
-				return "blood rose";
-			}
-		}
+		public override string DefaultName => "blood rose";
 
 		public BloodRose()
 			: base(Utility.RandomList(6378, 9035))

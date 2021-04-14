@@ -5,7 +5,7 @@ namespace Server.Engines.Quests.Necro
 {
 	public class ScrollOfAbraxus : QuestItem
 	{
-		public override int LabelNumber { get { return 1028827; } } // Scroll of Abraxus
+		public override int LabelNumber => 1028827;  // Scroll of Abraxus
 
 		[Constructable]
 		public ScrollOfAbraxus() : base(0x227B)

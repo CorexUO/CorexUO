@@ -7,10 +7,10 @@ namespace Server.Mobiles
 	[CorpseName("a demon knight corpse")]
 	public class DemonKnight : BaseCreature
 	{
-		public override bool IgnoreYoungProtection { get { return Core.ML; } }
+		public override bool IgnoreYoungProtection => Core.ML;
 
-		public static Type[] ArtifactRarity10 { get { return m_ArtifactRarity10; } }
-		public static Type[] ArtifactRarity11 { get { return m_ArtifactRarity11; } }
+		public static Type[] ArtifactRarity10 => m_ArtifactRarity10;
+		public static Type[] ArtifactRarity11 => m_ArtifactRarity11;
 		private static readonly Type[] m_ArtifactRarity10 = new Type[]
 			{
 				typeof( LegacyOfTheDreadLord ),
@@ -212,12 +212,12 @@ namespace Server.Mobiles
 			AddLoot(LootPack.HighScrolls, Utility.RandomMinMax(6, 60));
 		}
 
-		public override bool BardImmune { get { return !Core.SE; } }
-		public override bool Unprovokable { get { return Core.SE; } }
-		public override bool AreaPeaceImmune { get { return Core.SE; } }
-		public override Poison PoisonImmune { get { return Poison.Lethal; } }
+		public override bool BardImmune => !Core.SE;
+		public override bool Unprovokable => Core.SE;
+		public override bool AreaPeaceImmune => Core.SE;
+		public override Poison PoisonImmune => Poison.Lethal;
 
-		public override int TreasureMapLevel { get { return 1; } }
+		public override int TreasureMapLevel => 1;
 
 		private static bool m_InHere;
 

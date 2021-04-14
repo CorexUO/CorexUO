@@ -7,13 +7,13 @@ namespace Server.Items
 {
 	public abstract class FillableContainer : LockableContainer
 	{
-		public virtual int MinRespawnMinutes { get { return 60; } }
-		public virtual int MaxRespawnMinutes { get { return 90; } }
+		public virtual int MinRespawnMinutes => 60;
+		public virtual int MaxRespawnMinutes => 90;
 
-		public virtual bool IsLockable { get { return true; } }
-		public virtual bool IsTrapable { get { return IsLockable; } }
+		public virtual bool IsLockable => true;
+		public virtual bool IsTrapable => IsLockable;
 
-		public virtual int SpawnThreshold { get { return 2; } }
+		public virtual int SpawnThreshold => 2;
 
 		protected FillableContent m_Content;
 
@@ -21,18 +21,18 @@ namespace Server.Items
 		protected Timer m_RespawnTimer;
 
 		[CommandProperty(AccessLevel.GameMaster)]
-		public DateTime NextRespawnTime { get { return m_NextRespawnTime; } }
+		public DateTime NextRespawnTime => m_NextRespawnTime;
 
 		[CommandProperty(AccessLevel.GameMaster)]
 		public FillableContentType ContentType
 		{
-			get { return FillableContent.Lookup(m_Content); }
-			set { Content = FillableContent.Lookup(value); }
+			get => FillableContent.Lookup(m_Content);
+			set => Content = FillableContent.Lookup(value);
 		}
 
 		public FillableContent Content
 		{
-			get { return m_Content; }
+			get => m_Content;
 			set
 			{
 				if (m_Content == value)
@@ -73,7 +73,7 @@ namespace Server.Items
 			if (m_Content != null)
 				return;
 
-			m_Content = FillableContent.Acquire(this.GetWorldLocation(), this.Map);
+			m_Content = FillableContent.Acquire(GetWorldLocation(), Map);
 
 			if (m_Content != null)
 				Respawn();
@@ -99,7 +99,7 @@ namespace Server.Items
 		{
 			int count = 0;
 
-			foreach (Item item in this.Items)
+			foreach (Item item in Items)
 			{
 				count += item.Amount;
 			}
@@ -115,7 +115,7 @@ namespace Server.Items
 			{
 				if (m_RespawnTimer == null)
 				{
-					int mins = Utility.RandomMinMax(this.MinRespawnMinutes, this.MaxRespawnMinutes);
+					int mins = Utility.RandomMinMax(MinRespawnMinutes, MaxRespawnMinutes);
 					TimeSpan delay = TimeSpan.FromMinutes(mins);
 
 					m_NextRespawnTime = DateTime.UtcNow + delay;
@@ -198,7 +198,7 @@ namespace Server.Items
 
 				if (item != null)
 				{
-					List<Item> list = this.Items;
+					List<Item> list = Items;
 
 					for (int j = 0; j < list.Count; ++j)
 					{
@@ -271,8 +271,8 @@ namespace Server.Items
 	[Flipable(0xA97, 0xA99, 0xA98, 0xA9A, 0xA9B, 0xA9C)]
 	public class LibraryBookcase : FillableContainer
 	{
-		public override bool IsLockable { get { return false; } }
-		public override int SpawnThreshold { get { return 5; } }
+		public override bool IsLockable => false;
+		public override int SpawnThreshold => 5;
 
 		protected override int GetSpawnCount()
 		{
@@ -441,7 +441,7 @@ namespace Server.Items
 
 	public class FillableBarrel : FillableContainer
 	{
-		public override bool IsLockable { get { return false; } }
+		public override bool IsLockable => false;
 
 		[Constructable]
 		public FillableBarrel()
@@ -561,8 +561,8 @@ namespace Server.Items
 		protected Type[] m_Types;
 		protected int m_Weight;
 
-		public Type[] Types { get { return m_Types; } }
-		public int Weight { get { return m_Weight; } }
+		public Type[] Types => m_Types;
+		public int Weight => m_Weight;
 
 		public FillableEntry(Type type)
 			: this(1, new Type[] { type })
@@ -613,7 +613,7 @@ namespace Server.Items
 	{
 		private readonly BeverageType m_Content;
 
-		public BeverageType Content { get { return m_Content; } }
+		public BeverageType Content => m_Content;
 
 		public FillableBvrge(Type type, BeverageType content)
 			: this(1, type, content)
@@ -682,10 +682,10 @@ namespace Server.Items
 		private readonly FillableEntry[] m_Entries;
 		private readonly int m_Weight;
 
-		public int Level { get { return m_Level; } }
-		public Type[] Vendors { get { return m_Vendors; } }
+		public int Level => m_Level;
+		public Type[] Vendors => m_Vendors;
 
-		public FillableContentType TypeID { get { return Lookup(this); } }
+		public FillableContentType TypeID => Lookup(this);
 
 		public FillableContent(int level, Type[] vendors, FillableEntry[] entries)
 		{

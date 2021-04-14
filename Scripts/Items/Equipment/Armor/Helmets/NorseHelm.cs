@@ -2,20 +2,20 @@ namespace Server.Items
 {
 	public class NorseHelm : BaseArmor
 	{
-		public override int BasePhysicalResistance { get { return 4; } }
-		public override int BaseFireResistance { get { return 1; } }
-		public override int BaseColdResistance { get { return 4; } }
-		public override int BasePoisonResistance { get { return 4; } }
-		public override int BaseEnergyResistance { get { return 2; } }
+		public override int BasePhysicalResistance => 4;
+		public override int BaseFireResistance => 1;
+		public override int BaseColdResistance => 4;
+		public override int BasePoisonResistance => 4;
+		public override int BaseEnergyResistance => 2;
 
-		public override int InitMinHits { get { return 45; } }
-		public override int InitMaxHits { get { return 60; } }
+		public override int InitMinHits => 45;
+		public override int InitMaxHits => 60;
 
-		public override int StrReq { get { return Core.AOS ? 55 : 40; } }
+		public override int StrReq => Core.AOS ? 55 : 40;
 
-		public override int ArmorBase { get { return 30; } }
+		public override int ArmorBase => 30;
 
-		public override ArmorMaterialType MaterialType { get { return ArmorMaterialType.Plate; } }
+		public override ArmorMaterialType MaterialType => ArmorMaterialType.Plate;
 
 		[Constructable]
 		public NorseHelm() : base(0x140E)

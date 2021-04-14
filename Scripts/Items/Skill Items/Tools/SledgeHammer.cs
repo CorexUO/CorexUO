@@ -5,7 +5,7 @@ namespace Server.Items
 	[FlipableAttribute(0xFB5, 0xFB4)]
 	public class SledgeHammer : BaseTool
 	{
-		public override CraftSystem CraftSystem { get { return DefBlacksmithy.CraftSystem; } }
+		public override CraftSystem CraftSystem => DefBlacksmithy.CraftSystem;
 
 		[Constructable]
 		public SledgeHammer() : base(0xFB5)

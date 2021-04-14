@@ -2,7 +2,7 @@ namespace Server.Items
 {
 	public class ParoxysmusDinner : BaseItem
 	{
-		public override int LabelNumber { get { return 1072086; } } // Paroxysmus' Dinner
+		public override int LabelNumber => 1072086;  // Paroxysmus' Dinner
 
 		[Constructable]
 		public ParoxysmusDinner() : base(0x1E95)

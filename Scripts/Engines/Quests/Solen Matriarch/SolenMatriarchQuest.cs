@@ -25,16 +25,11 @@ namespace Server.Engines.Quests.Matriarch
 				typeof( Matriarch.GetRewardObjective )
 			};
 
-		public override Type[] TypeReferenceTable { get { return m_TypeReferenceTable; } }
+		public override Type[] TypeReferenceTable => m_TypeReferenceTable;
 
-		public override object Name
-		{
-			get
-			{
+		public override object Name =>
 				// Solen Matriarch Quest
-				return 1054147;
-			}
-		}
+				1054147;
 
 		public override object OfferMessage
 		{
@@ -92,14 +87,14 @@ namespace Server.Engines.Quests.Matriarch
 			}
 		}
 
-		public override TimeSpan RestartDelay { get { return TimeSpan.Zero; } }
-		public override bool IsTutorial { get { return false; } }
+		public override TimeSpan RestartDelay => TimeSpan.Zero;
+		public override bool IsTutorial => false;
 
-		public override int Picture { get { return 0x15C9; } }
+		public override int Picture => 0x15C9;
 
 		private bool m_RedSolen;
 
-		public bool RedSolen { get { return m_RedSolen; } }
+		public bool RedSolen => m_RedSolen;
 
 		public SolenMatriarchQuest(PlayerMobile from, bool redSolen) : base(from)
 		{

@@ -9,7 +9,7 @@ namespace Server.Items
 		[CommandProperty(AccessLevel.GameMaster)]
 		public Mobile Fisher
 		{
-			get { return m_Fisher; }
+			get => m_Fisher;
 			set { m_Fisher = value; InvalidateProperties(); }
 		}
 
@@ -18,7 +18,7 @@ namespace Server.Items
 			base.ScissorHelper(from, new RawFishSteak(), Math.Max(16, (int)Weight) / 4, false);
 		}
 
-		public override int LabelNumber { get { return 1041112; } } // a big fish
+		public override int LabelNumber => 1041112;  // a big fish
 
 		[Constructable]
 		public BigFish() : base(0x09CC)

@@ -8,14 +8,14 @@ namespace Server.Items
 {
 	public abstract class WeaponAbility
 	{
-		public virtual int BaseMana { get { return 0; } }
+		public virtual int BaseMana => 0;
 
-		public virtual int AccuracyBonus { get { return 0; } }
-		public virtual double DamageScalar { get { return 1.0; } }
+		public virtual int AccuracyBonus => 0;
+		public virtual double DamageScalar => 1.0;
 
-		public virtual bool RequiresSE { get { return false; } }
+		public virtual bool RequiresSE => false;
 
-		public virtual bool ValidatesDuringHit { get { return true; } }
+		public virtual bool ValidatesDuringHit => true;
 
 		public WeaponAbility()
 		{

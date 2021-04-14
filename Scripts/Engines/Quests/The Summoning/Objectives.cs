@@ -6,18 +6,13 @@ namespace Server.Engines.Quests.Doom
 {
 	public class CollectBonesObjective : QuestObjective
 	{
-		public override object Message
-		{
-			get
-			{
+		public override object Message =>
 				/* Find 1000 Daemon bones and hand them
-				 * to Victoria as you find them.
-				 */
-				return 1050026;
-			}
-		}
+* to Victoria as you find them.
+*/
+				1050026;
 
-		public override int MaxProgress { get { return 1000; } }
+		public override int MaxProgress => 1000;
 
 		public CollectBonesObjective()
 		{
@@ -85,19 +80,14 @@ namespace Server.Engines.Quests.Doom
 
 		public Corpse CorpseWithSkull
 		{
-			get { return m_CorpseWithSkull; }
-			set { m_CorpseWithSkull = value; }
+			get => m_CorpseWithSkull;
+			set => m_CorpseWithSkull = value;
 		}
 
-		public override object Message
-		{
-			get
-			{
+		public override object Message =>
 				/* Go forth and vanquish the devourer that has been summoned!
-				 */
-				return 1050037;
-			}
-		}
+*/
+				1050037;
 
 		public VanquishDaemonObjective(BoneDemon daemon)
 		{

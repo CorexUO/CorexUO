@@ -44,19 +44,16 @@ namespace Server.Mobiles
 			AddLoot(LootPack.UltraRich, 2);
 		}
 
-		public override OppositionGroup OppositionGroup
-		{
-			get { return OppositionGroup.FeyAndUndead; }
-		}
+		public override OppositionGroup OppositionGroup => OppositionGroup.FeyAndUndead;
 
-		public override bool CanFly { get { return true; } }
-		public override bool Unprovokable { get { return true; } }
-		public override Poison PoisonImmune { get { return Poison.Regular; } }
-		public override int TreasureMapLevel { get { return 5; } }
+		public override bool CanFly => true;
+		public override bool Unprovokable => true;
+		public override Poison PoisonImmune => Poison.Regular;
+		public override int TreasureMapLevel => 5;
 
 		public void SpawnPixies(Mobile target)
 		{
-			Map map = this.Map;
+			Map map = Map;
 
 			if (map == null)
 				return;
@@ -67,12 +64,12 @@ namespace Server.Mobiles
 			{
 				Pixie pixie = new Pixie
 				{
-					Team = this.Team,
+					Team = Team,
 					FightMode = FightMode.Closest
 				};
 
 				bool validLocation = false;
-				Point3D loc = this.Location;
+				Point3D loc = Location;
 
 				for (int j = 0; !validLocation && j < 10; ++j)
 				{
@@ -80,7 +77,7 @@ namespace Server.Mobiles
 					int y = Y + Utility.Random(3) - 1;
 					int z = map.GetAverageZ(x, y);
 
-					if (validLocation = map.CanFit(x, y, this.Z, 16, false, false))
+					if (validLocation = map.CanFit(x, y, Z, 16, false, false))
 						loc = new Point3D(x, y, Z);
 					else if (validLocation = map.CanFit(x, y, z, 16, false, false))
 						loc = new Point3D(x, y, z);

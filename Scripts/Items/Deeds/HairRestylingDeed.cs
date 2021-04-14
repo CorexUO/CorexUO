@@ -6,7 +6,7 @@ namespace Server.Items
 {
 	public class HairRestylingDeed : BaseItem
 	{
-		public override int LabelNumber { get { return 1041061; } } // a coupon for a free hair restyling
+		public override int LabelNumber => 1041061;  // a coupon for a free hair restyling
 
 		[Constructable]
 		public HairRestylingDeed() : base(0x14F0)

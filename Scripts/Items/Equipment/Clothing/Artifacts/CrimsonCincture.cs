@@ -2,7 +2,7 @@ namespace Server.Items
 {
 	public class CrimsonCincture : HalfApron, ITokunoDyable
 	{
-		public override int LabelNumber { get { return 1075043; } } // Crimson Cincture
+		public override int LabelNumber => 1075043;  // Crimson Cincture
 
 		[Constructable]
 		public CrimsonCincture() : base()

@@ -6,29 +6,26 @@ namespace Server.Items
 {
 	public class PlagueBeastOrgan : PlagueBeastInnard
 	{
-		public virtual bool IsCuttable { get { return false; } }
+		public virtual bool IsCuttable => false;
 
 		private List<PlagueBeastComponent> m_Components;
 
-		public List<PlagueBeastComponent> Components
-		{
-			get { return m_Components; }
-		}
+		public List<PlagueBeastComponent> Components => m_Components;
 
 		private int m_BrainHue;
 
 		public int BrainHue
 		{
-			get { return m_BrainHue; }
-			set { m_BrainHue = value; }
+			get => m_BrainHue;
+			set => m_BrainHue = value;
 		}
 
 		private bool m_Opened;
 
 		public bool Opened
 		{
-			get { return m_Opened; }
-			set { m_Opened = value; }
+			get => m_Opened;
+			set => m_Opened = value;
 		}
 
 		private Timer m_Timer;
@@ -184,7 +181,7 @@ namespace Server.Items
 
 	public class PlagueBeastRockOrgan : PlagueBeastOrgan
 	{
-		public override bool IsCuttable { get { return true; } }
+		public override bool IsCuttable => true;
 
 		public PlagueBeastRockOrgan() : base(0x177A, 0x60)
 		{
@@ -353,7 +350,7 @@ namespace Server.Items
 
 	public class PlagueBeastBackupOrgan : PlagueBeastOrgan
 	{
-		public override bool IsCuttable { get { return true; } }
+		public override bool IsCuttable => true;
 
 		private Timer m_Timer;
 		private Item m_Gland;
@@ -468,10 +465,7 @@ namespace Server.Items
 	{
 		private int m_Brains;
 
-		public bool Complete
-		{
-			get { return m_Brains >= 4; }
-		}
+		public bool Complete => m_Brains >= 4;
 
 		public PlagueBeastMainOrgan() : base()
 		{

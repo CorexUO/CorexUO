@@ -3,14 +3,11 @@ namespace Server.Items
 	[FlipableAttribute(0x13B2, 0x13B1)]
 	public class JukaBow : Bow
 	{
-		public override int StrReq { get { return Core.AOS ? 80 : 80; } }
-		public override int DexReq { get { return Core.AOS ? 80 : 80; } }
+		public override int StrReq => Core.AOS ? 80 : 80;
+		public override int DexReq => Core.AOS ? 80 : 80;
 
 		[CommandProperty(AccessLevel.GameMaster)]
-		public bool IsModified
-		{
-			get { return (Hue == 0x453); }
-		}
+		public bool IsModified => (Hue == 0x453);
 
 		[Constructable]
 		public JukaBow()

@@ -9,14 +9,14 @@ namespace Server.Mobiles
 	{
 		private bool m_Stunning;
 
-		public override bool IsScaredOfScaryThings { get { return false; } }
-		public override bool IsScaryToPets { get { return true; } }
+		public override bool IsScaredOfScaryThings => false;
+		public override bool IsScaryToPets => true;
 
-		public override bool IsBondable { get { return false; } }
+		public override bool IsBondable => false;
 
-		public override FoodType FavoriteFood { get { return FoodType.None; } }
+		public override FoodType FavoriteFood => FoodType.None;
 
-		public override bool CanBeDistracted { get { return false; } }
+		public override bool CanBeDistracted => false;
 
 		[Constructable]
 		public Golem() : this(false, 1.0)
@@ -106,7 +106,7 @@ namespace Server.Mobiles
 			}
 		}
 
-		public override bool DeleteOnRelease { get { return true; } }
+		public override bool DeleteOnRelease => true;
 
 		public override int GetAngerSound()
 		{
@@ -142,8 +142,8 @@ namespace Server.Mobiles
 			return base.GetHurtSound();
 		}
 
-		public override bool AutoDispel { get { return !Controlled; } }
-		public override bool BleedImmune { get { return true; } }
+		public override bool AutoDispel => !Controlled;
+		public override bool BleedImmune => true;
 
 		public override void OnGaveMeleeAttack(Mobile defender)
 		{
@@ -154,10 +154,10 @@ namespace Server.Mobiles
 				m_Stunning = true;
 
 				defender.Animate(21, 6, 1, true, false, 0);
-				this.PlaySound(0xEE);
+				PlaySound(0xEE);
 				defender.LocalOverheadMessage(MessageType.Regular, 0x3B2, false, "You have been stunned by a colossal blow!");
 
-				BaseWeapon weapon = this.Weapon as BaseWeapon;
+				BaseWeapon weapon = Weapon as BaseWeapon;
 				if (weapon != null)
 					weapon.OnHit(this, defender);
 
@@ -187,12 +187,12 @@ namespace Server.Mobiles
 		{
 			if (Controlled || Summoned)
 			{
-				Mobile master = (this.ControlMaster);
+				Mobile master = (ControlMaster);
 
 				if (master == null)
-					master = this.SummonMaster;
+					master = SummonMaster;
 
-				if (master != null && master.Player && master.Map == this.Map && master.InRange(Location, 20))
+				if (master != null && master.Player && master.Map == Map && master.InRange(Location, 20))
 				{
 					if (master.Mana >= amount)
 					{
@@ -210,8 +210,8 @@ namespace Server.Mobiles
 			base.OnDamage(amount, from, willKill);
 		}
 
-		public override bool BardImmune { get { return !Core.AOS || Controlled; } }
-		public override Poison PoisonImmune { get { return Poison.Lethal; } }
+		public override bool BardImmune => !Core.AOS || Controlled;
+		public override Poison PoisonImmune => Poison.Lethal;
 
 		public Golem(Serial serial) : base(serial)
 		{

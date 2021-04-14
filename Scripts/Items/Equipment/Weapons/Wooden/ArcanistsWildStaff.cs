@@ -2,7 +2,7 @@ namespace Server.Items
 {
 	public class ArcanistsWildStaff : WildStaff
 	{
-		public override int LabelNumber { get { return 1073549; } } // arcanist's wild staff
+		public override int LabelNumber => 1073549;  // arcanist's wild staff
 
 		[Constructable]
 		public ArcanistsWildStaff()

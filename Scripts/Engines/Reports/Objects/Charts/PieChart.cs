@@ -10,12 +10,12 @@ namespace Server.Engines.Reports
 			return new PieChart();
 		}
 
-		public override PersistableType TypeID { get { return ThisTypeID; } }
+		public override PersistableType TypeID => ThisTypeID;
 		#endregion
 
 		private bool m_ShowPercents;
 
-		public bool ShowPercents { get { return m_ShowPercents; } set { m_ShowPercents = value; } }
+		public bool ShowPercents { get => m_ShowPercents; set => m_ShowPercents = value; }
 
 		public PieChart(string name, string fileName, bool showPercents)
 		{

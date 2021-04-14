@@ -4,7 +4,7 @@ namespace Server.Items
 {
 	public class RewardCake : BaseItem
 	{
-		public override int LabelNumber { get { return 1049786; } } // Happy Birthday!  ...
+		public override int LabelNumber => 1049786;  // Happy Birthday!  ...
 
 		[Constructable]
 		public RewardCake() : base(0x9e9)
@@ -19,11 +19,11 @@ namespace Server.Items
 		{
 		}
 
-		public override bool DisplayLootType { get { return false; } }
+		public override bool DisplayLootType => false;
 
 		public override void OnDoubleClick(Mobile from)
 		{
-			if (!from.InRange(this.GetWorldLocation(), 1))
+			if (!from.InRange(GetWorldLocation(), 1))
 			{
 				from.LocalOverheadMessage(MessageType.Regular, 906, 1019045); // I can't reach that.
 			}

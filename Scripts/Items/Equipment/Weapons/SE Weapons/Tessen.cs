@@ -3,22 +3,22 @@ namespace Server.Items
 	[FlipableAttribute(0x27A3, 0x27EE)]
 	public class Tessen : BaseBashing
 	{
-		public override WeaponAbility PrimaryAbility { get { return WeaponAbility.Feint; } }
-		public override WeaponAbility SecondaryAbility { get { return WeaponAbility.Block; } }
+		public override WeaponAbility PrimaryAbility => WeaponAbility.Feint;
+		public override WeaponAbility SecondaryAbility => WeaponAbility.Block;
 
-		public override int DefHitSound { get { return 0x232; } }
-		public override int DefMissSound { get { return 0x238; } }
+		public override int DefHitSound => 0x232;
+		public override int DefMissSound => 0x238;
 
-		public override int StrReq { get { return Core.AOS ? 10 : 10; } }
+		public override int StrReq => Core.AOS ? 10 : 10;
 
-		public override int MinDamageBase { get { return Core.AOS ? 10 : 10; } }
-		public override int MaxDamageBase { get { return Core.AOS ? 12 : 12; } }
-		public override float SpeedBase { get { return Core.ML ? 2.00f : Core.AOS ? 50 : 50; } }
+		public override int MinDamageBase => Core.AOS ? 10 : 10;
+		public override int MaxDamageBase => Core.AOS ? 12 : 12;
+		public override float SpeedBase => Core.ML ? 2.00f : Core.AOS ? 50 : 50;
 
-		public override int InitMinHits { get { return 55; } }
-		public override int InitMaxHits { get { return 60; } }
+		public override int InitMinHits => 55;
+		public override int InitMaxHits => 60;
 
-		public override WeaponAnimation DefAnimation { get { return WeaponAnimation.Bash2H; } }
+		public override WeaponAnimation DefAnimation => WeaponAnimation.Bash2H;
 
 		[Constructable]
 		public Tessen() : base(0x27A3)

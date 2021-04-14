@@ -9,11 +9,11 @@ namespace Server.Items
 		[CommandProperty(AccessLevel.GameMaster)]
 		public MiniHouseType Type
 		{
-			get { return m_Type; }
+			get => m_Type;
 			set { m_Type = value; Construct(); }
 		}
 
-		public override BaseAddonDeed Deed { get { return new MiniHouseDeed(m_Type); } }
+		public override BaseAddonDeed Deed => new MiniHouseDeed(m_Type);
 
 		[Constructable]
 		public MiniHouseAddon() : this(MiniHouseType.StoneAndPlaster)
@@ -86,12 +86,12 @@ namespace Server.Items
 		[CommandProperty(AccessLevel.GameMaster)]
 		public MiniHouseType Type
 		{
-			get { return m_Type; }
+			get => m_Type;
 			set { m_Type = value; InvalidateProperties(); }
 		}
 
-		public override BaseAddon Addon { get { return new MiniHouseAddon(m_Type); } }
-		public override int LabelNumber { get { return 1062096; } } // a mini house deed
+		public override BaseAddon Addon => new MiniHouseAddon(m_Type);
+		public override int LabelNumber => 1062096;  // a mini house deed
 
 		public override void GetProperties(ObjectPropertyList list)
 		{
@@ -178,8 +178,8 @@ namespace Server.Items
 		private readonly int[] m_Graphics;
 		private readonly int m_LabelNumber;
 
-		public int[] Graphics { get { return m_Graphics; } }
-		public int LabelNumber { get { return m_LabelNumber; } }
+		public int[] Graphics => m_Graphics;
+		public int LabelNumber => m_LabelNumber;
 
 		public MiniHouseInfo(int start, int count, int labelNumber)
 		{

@@ -20,7 +20,7 @@ namespace Server.Gumps
 		public int Hue { get; }
 		public CAGCategory Parent { get; }
 
-		public override string Caption { get { return (Type == null ? "bad type" : Type.Name); } }
+		public override string Caption => (Type == null ? "bad type" : Type.Name);
 
 		public override void OnClick(Mobile from, int page)
 		{
@@ -57,7 +57,7 @@ namespace Server.Gumps
 		public CAGNode[] Nodes { get; }
 		public CAGCategory Parent { get; }
 
-		public override string Caption { get { return Title; } }
+		public override string Caption => Title;
 
 		public override void OnClick(Mobile from, int page)
 		{

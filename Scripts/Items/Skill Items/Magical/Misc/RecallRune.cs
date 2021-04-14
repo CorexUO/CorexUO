@@ -75,10 +75,7 @@ namespace Server.Items
 		[CommandProperty(AccessLevel.Counselor, AccessLevel.GameMaster)]
 		public string Description
 		{
-			get
-			{
-				return m_Description;
-			}
+			get => m_Description;
 			set
 			{
 				m_Description = value;
@@ -89,10 +86,7 @@ namespace Server.Items
 		[CommandProperty(AccessLevel.Counselor, AccessLevel.GameMaster)]
 		public bool Marked
 		{
-			get
-			{
-				return m_Marked;
-			}
+			get => m_Marked;
 			set
 			{
 				if (m_Marked != value)
@@ -107,23 +101,14 @@ namespace Server.Items
 		[CommandProperty(AccessLevel.Counselor, AccessLevel.GameMaster)]
 		public Point3D Target
 		{
-			get
-			{
-				return m_Target;
-			}
-			set
-			{
-				m_Target = value;
-			}
+			get => m_Target;
+			set => m_Target = value;
 		}
 
 		[CommandProperty(AccessLevel.Counselor, AccessLevel.GameMaster)]
 		public Map TargetMap
 		{
-			get
-			{
-				return m_TargetMap;
-			}
+			get => m_TargetMap;
 			set
 			{
 				if (m_TargetMap != value)

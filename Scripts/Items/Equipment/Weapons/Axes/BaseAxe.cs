@@ -13,14 +13,14 @@ namespace Server.Items
 
 	public abstract class BaseAxe : BaseMeleeWeapon
 	{
-		public override int DefHitSound { get { return 0x232; } }
-		public override int DefMissSound { get { return 0x23A; } }
+		public override int DefHitSound => 0x232;
+		public override int DefMissSound => 0x23A;
 
-		public override SkillName DefSkill { get { return SkillName.Swords; } }
-		public override WeaponType DefType { get { return WeaponType.Axe; } }
-		public override WeaponAnimation DefAnimation { get { return WeaponAnimation.Slash2H; } }
+		public override SkillName DefSkill => SkillName.Swords;
+		public override WeaponType DefType => WeaponType.Axe;
+		public override WeaponAnimation DefAnimation => WeaponAnimation.Slash2H;
 
-		public virtual HarvestSystem HarvestSystem { get { return Lumberjacking.System; } }
+		public virtual HarvestSystem HarvestSystem => Lumberjacking.System;
 
 		private int m_UsesRemaining;
 		private bool m_ShowUsesRemaining;
@@ -28,14 +28,14 @@ namespace Server.Items
 		[CommandProperty(AccessLevel.GameMaster)]
 		public int UsesRemaining
 		{
-			get { return m_UsesRemaining; }
+			get => m_UsesRemaining;
 			set { m_UsesRemaining = value; InvalidateProperties(); }
 		}
 
 		[CommandProperty(AccessLevel.GameMaster)]
 		public bool ShowUsesRemaining
 		{
-			get { return m_ShowUsesRemaining; }
+			get => m_ShowUsesRemaining;
 			set { m_ShowUsesRemaining = value; InvalidateProperties(); }
 		}
 
@@ -88,13 +88,13 @@ namespace Server.Items
 				from.LocalOverheadMessage(Server.Network.MessageType.Regular, 0x3E9, 1019045); // I can't reach that
 				return;
 			}
-			else if (!this.IsAccessibleTo(from))
+			else if (!IsAccessibleTo(from))
 			{
-				this.PublicOverheadMessage(MessageType.Regular, 0x3E9, 1061637); // You are not allowed to access this.
+				PublicOverheadMessage(MessageType.Regular, 0x3E9, 1061637); // You are not allowed to access this.
 				return;
 			}
 
-			if (!(this.HarvestSystem is Mining))
+			if (!(HarvestSystem is Mining))
 				from.SendLocalizedMessage(1010018); // What do you want to use this item on?
 
 			HarvestSystem.BeginHarvesting(from, this);

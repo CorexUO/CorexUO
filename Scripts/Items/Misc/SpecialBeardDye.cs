@@ -5,7 +5,7 @@ namespace Server.Items
 {
 	public class SpecialBeardDye : BaseItem
 	{
-		public override int LabelNumber { get { return 1041087; } } // Special Beard Dye
+		public override int LabelNumber => 1041087;  // Special Beard Dye
 
 		[Constructable]
 		public SpecialBeardDye() : base(0xE26)
@@ -34,7 +34,7 @@ namespace Server.Items
 
 		public override void OnDoubleClick(Mobile from)
 		{
-			if (from.InRange(this.GetWorldLocation(), 1))
+			if (from.InRange(GetWorldLocation(), 1))
 			{
 				from.CloseGump(typeof(SpecialBeardDyeGump));
 				from.SendGump(new SpecialBeardDyeGump(this));
@@ -56,29 +56,11 @@ namespace Server.Items
 			private readonly int m_HueStart;
 			private readonly int m_HueCount;
 
-			public string Name
-			{
-				get
-				{
-					return m_Name;
-				}
-			}
+			public string Name => m_Name;
 
-			public int HueStart
-			{
-				get
-				{
-					return m_HueStart;
-				}
-			}
+			public int HueStart => m_HueStart;
 
-			public int HueCount
-			{
-				get
-				{
-					return m_HueCount;
-				}
-			}
+			public int HueCount => m_HueCount;
 
 			public SpecialBeardDyeEntry(string name, int hueStart, int hueCount)
 			{

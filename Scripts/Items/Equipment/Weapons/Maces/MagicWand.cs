@@ -2,17 +2,17 @@ namespace Server.Items
 {
 	public class MagicWand : BaseBashing
 	{
-		public override WeaponAbility PrimaryAbility { get { return WeaponAbility.Dismount; } }
-		public override WeaponAbility SecondaryAbility { get { return WeaponAbility.Disarm; } }
+		public override WeaponAbility PrimaryAbility => WeaponAbility.Dismount;
+		public override WeaponAbility SecondaryAbility => WeaponAbility.Disarm;
 
-		public override int StrReq { get { return Core.AOS ? 5 : 0; } }
+		public override int StrReq => Core.AOS ? 5 : 0;
 
-		public override int MinDamageBase { get { return Core.AOS ? 9 : 2; } }
-		public override int MaxDamageBase { get { return Core.AOS ? 11 : 6; } }
-		public override float SpeedBase { get { return Core.ML ? 2.75f : Core.AOS ? 40 : 35; } }
+		public override int MinDamageBase => Core.AOS ? 9 : 2;
+		public override int MaxDamageBase => Core.AOS ? 11 : 6;
+		public override float SpeedBase => Core.ML ? 2.75f : Core.AOS ? 40 : 35;
 
-		public override int InitMinHits { get { return 31; } }
-		public override int InitMaxHits { get { return 110; } }
+		public override int InitMinHits => 31;
+		public override int InitMaxHits => 110;
 
 		[Constructable]
 		public MagicWand() : base(0xDF2)

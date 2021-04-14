@@ -2,7 +2,7 @@ namespace Server.Mobiles
 {
 	public class MageGuildmaster : BaseGuildmaster
 	{
-		public override NpcGuild NpcGuild { get { return NpcGuild.MagesGuild; } }
+		public override NpcGuild NpcGuild => NpcGuild.MagesGuild;
 
 		[Constructable]
 		public MageGuildmaster() : base("mage")
@@ -16,10 +16,7 @@ namespace Server.Mobiles
 			SetSkill(SkillName.Macing, 36.0, 68.0);
 		}
 
-		public override VendorShoeType ShoeType
-		{
-			get { return Utility.RandomBool() ? VendorShoeType.Shoes : VendorShoeType.Sandals; }
-		}
+		public override VendorShoeType ShoeType => Utility.RandomBool() ? VendorShoeType.Shoes : VendorShoeType.Sandals;
 
 		public override void InitOutfit()
 		{

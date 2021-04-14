@@ -10,7 +10,7 @@ namespace Server.Engines.MLQuests.Definitions
 
 	public class UnfadingMemoriesPartOne : MLQuest
 	{
-		public override Type NextQuest { get { return typeof(UnfadingMemoriesPartTwo); } }
+		public override Type NextQuest => typeof(UnfadingMemoriesPartTwo);
 
 		public UnfadingMemoriesPartOne()
 		{
@@ -38,8 +38,8 @@ namespace Server.Engines.MLQuests.Definitions
 
 	public class UnfadingMemoriesPartTwo : MLQuest
 	{
-		public override Type NextQuest { get { return typeof(UnfadingMemoriesPartThree); } }
-		public override bool IsChainTriggered { get { return true; } }
+		public override Type NextQuest => typeof(UnfadingMemoriesPartThree);
+		public override bool IsChainTriggered => true;
 
 		public UnfadingMemoriesPartTwo()
 		{
@@ -59,7 +59,7 @@ namespace Server.Engines.MLQuests.Definitions
 
 	public class UnfadingMemoriesPartThree : MLQuest
 	{
-		public override bool IsChainTriggered { get { return true; } }
+		public override bool IsChainTriggered => true;
 
 		public UnfadingMemoriesPartThree()
 		{
@@ -93,7 +93,7 @@ namespace Server.Engines.MLQuests.Definitions
 	[QuesterName("Emilio (Britain)")] // OSI's description is "Artist", not very helpful
 	public class Emilio : BaseCreature
 	{
-		public override bool IsInvulnerable { get { return true; } }
+		public override bool IsInvulnerable => true;
 
 		[Constructable]
 		public Emilio()
@@ -141,7 +141,7 @@ namespace Server.Engines.MLQuests.Definitions
 	[QuesterName("Thalia (Nujel'm)")] // OSI's description is "Bride", not very helpful
 	public class Thalia : BaseCreature
 	{
-		public override bool IsInvulnerable { get { return true; } }
+		public override bool IsInvulnerable => true;
 
 		[Constructable]
 		public Thalia()

@@ -3,25 +3,25 @@ namespace Server.Items
 	[FlipableAttribute(0x144e, 0x1453)]
 	public class DaemonArms : BaseArmor
 	{
-		public override int BasePhysicalResistance { get { return 6; } }
-		public override int BaseFireResistance { get { return 6; } }
-		public override int BaseColdResistance { get { return 7; } }
-		public override int BasePoisonResistance { get { return 5; } }
-		public override int BaseEnergyResistance { get { return 7; } }
+		public override int BasePhysicalResistance => 6;
+		public override int BaseFireResistance => 6;
+		public override int BaseColdResistance => 7;
+		public override int BasePoisonResistance => 5;
+		public override int BaseEnergyResistance => 7;
 
-		public override int InitMinHits { get { return 255; } }
-		public override int InitMaxHits { get { return 255; } }
+		public override int InitMinHits => 255;
+		public override int InitMaxHits => 255;
 
-		public override int StrReq { get { return Core.AOS ? 55 : 40; } }
+		public override int StrReq => Core.AOS ? 55 : 40;
 
-		public override int DexBonusValue { get { return Core.AOS ? 0 : -2; } }
+		public override int DexBonusValue => Core.AOS ? 0 : -2;
 
-		public override int ArmorBase { get { return 46; } }
+		public override int ArmorBase => 46;
 
-		public override ArmorMaterialType MaterialType { get { return ArmorMaterialType.Bone; } }
-		public override CraftResource DefaultResource { get { return CraftResource.RegularLeather; } }
+		public override ArmorMaterialType MaterialType => ArmorMaterialType.Bone;
+		public override CraftResource DefaultResource => CraftResource.RegularLeather;
 
-		public override int LabelNumber { get { return 1041371; } } // daemon bone arms
+		public override int LabelNumber => 1041371;  // daemon bone arms
 
 		[Constructable]
 		public DaemonArms() : base(0x144E)

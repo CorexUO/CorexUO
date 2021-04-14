@@ -44,11 +44,11 @@ namespace Server.Items
 			get => base.ItemID;
 			set
 			{
-				int oldID = this.ItemID;
+				int oldID = ItemID;
 
 				base.ItemID = value;
 
-				if (this.ItemID != oldID)
+				if (ItemID != oldID)
 					UpdateContainerData();
 			}
 		}
@@ -95,7 +95,7 @@ namespace Server.Items
 
 		public virtual void UpdateContainerData()
 		{
-			this.ContainerData = ContainerData.GetData(this.ItemID);
+			ContainerData = ContainerData.GetData(ItemID);
 		}
 
 		public virtual Rectangle2D Bounds => ContainerData.Bounds;
@@ -163,9 +163,9 @@ namespace Server.Items
 					return false;
 				}
 
-				int maxItems = this.MaxItems;
+				int maxItems = MaxItems;
 
-				if (checkItems && maxItems != 0 && (this.TotalItems + plusItems + item.TotalItems + (item.IsVirtualItem ? 0 : 1)) > maxItems)
+				if (checkItems && maxItems != 0 && (TotalItems + plusItems + item.TotalItems + (item.IsVirtualItem ? 0 : 1)) > maxItems)
 				{
 					if (message)
 						SendFullItemsMessage(m, item);
@@ -174,9 +174,9 @@ namespace Server.Items
 				}
 				else
 				{
-					int maxWeight = this.MaxWeight;
+					int maxWeight = MaxWeight;
 
-					if (maxWeight != 0 && (this.TotalWeight + plusWeight + item.TotalWeight + item.PileWeight) > maxWeight)
+					if (maxWeight != 0 && (TotalWeight + plusWeight + item.TotalWeight + item.PileWeight) > maxWeight)
 					{
 						if (message)
 							SendFullWeightMessage(m, item);
@@ -186,7 +186,7 @@ namespace Server.Items
 				}
 			}
 
-			object parent = this.Parent;
+			object parent = Parent;
 
 			while (parent != null)
 			{
@@ -1407,7 +1407,7 @@ namespace Server.Items
 			if (!CheckHold(from, dropped, sendFullMessage, true))
 				return false;
 
-			List<Item> list = this.Items;
+			List<Item> list = Items;
 
 			for (int i = 0; i < list.Count; ++i)
 			{
@@ -1447,7 +1447,7 @@ namespace Server.Items
 			AddItem(dropped);
 
 			Rectangle2D bounds = dropped.GetGraphicBounds();
-			Rectangle2D ourBounds = this.Bounds;
+			Rectangle2D ourBounds = Bounds;
 
 			int x, y;
 
@@ -1501,7 +1501,7 @@ namespace Server.Items
 			if (!DisplaysContent)
 				return false;
 
-			object root = this.RootParent;
+			object root = RootParent;
 
 			if (root == null || root is Item || root == from || from.AccessLevel > AccessLevel.Player)
 				return true;
@@ -1550,7 +1550,7 @@ namespace Server.Items
 
 			if (ObjectPropertyList.Enabled)
 			{
-				List<Item> items = this.Items;
+				List<Item> items = Items;
 
 				for (int i = 0; i < items.Count; ++i)
 					to.Send(items[i].OPLPacket);
@@ -1566,7 +1566,7 @@ namespace Server.Items
 				if (Openers != null)
 				{
 					Point3D worldLoc = GetWorldLocation();
-					Map map = this.Map;
+					Map map = Map;
 
 					for (int i = 0; i < Openers.Count; ++i)
 					{
@@ -1626,7 +1626,7 @@ namespace Server.Items
 
 		public override void OnDoubleClick(Mobile from)
 		{
-			if (from.AccessLevel > AccessLevel.Player || from.InRange(this.GetWorldLocation(), 2))
+			if (from.AccessLevel > AccessLevel.Player || from.InRange(GetWorldLocation(), 2))
 				DisplayTo(from);
 			else
 				from.SendLocalizedMessage(500446); // That is too far away.

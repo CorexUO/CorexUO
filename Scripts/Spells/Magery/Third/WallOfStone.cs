@@ -16,9 +16,9 @@ namespace Server.Spells.Third
 				Reagent.Garlic
 			);
 
-		public override SpellCircle Circle { get { return SpellCircle.Third; } }
+		public override SpellCircle Circle => SpellCircle.Third;
 
-		public override bool CanTargetGround { get { return true; } }
+		public override bool CanTargetGround => true;
 
 		public WallOfStoneSpell(Mobile caster, Item scroll) : base(caster, scroll, m_Info)
 		{
@@ -105,7 +105,7 @@ namespace Server.Spells.Third
 			private DateTime m_End;
 			private readonly Mobile m_Caster;
 
-			public override bool BlocksFit { get { return true; } }
+			public override bool BlocksFit => true;
 
 			public InternalItem(Point3D loc, Map map, Mobile caster) : base(0x82)
 			{

@@ -56,14 +56,11 @@ namespace Server.Mobiles
 			AddLoot(LootPack.Meager);
 		}
 
-		public override int Meat { get { return 1; } }
-		public override bool AlwaysMurderer { get { return true; } }
-		public override bool ShowFameTitle { get { return false; } }
+		public override int Meat => 1;
+		public override bool AlwaysMurderer => true;
+		public override bool ShowFameTitle => false;
 
-		public override OppositionGroup OppositionGroup
-		{
-			get { return OppositionGroup.SavagesAndOrcs; }
-		}
+		public override OppositionGroup OppositionGroup => OppositionGroup.SavagesAndOrcs;
 
 		public override bool IsEnemy(Mobile m)
 		{

@@ -2,7 +2,7 @@ namespace Server.Items
 {
 	public class YellowFinBluebelly : BaseFish
 	{
-		public override int LabelNumber { get { return 1073831; } } // A Yellow Fin Bluebelly
+		public override int LabelNumber => 1073831;  // A Yellow Fin Bluebelly
 
 		[Constructable]
 		public YellowFinBluebelly() : base(0x3B07)

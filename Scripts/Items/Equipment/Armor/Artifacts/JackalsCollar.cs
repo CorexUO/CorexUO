@@ -2,14 +2,14 @@ namespace Server.Items
 {
 	public class JackalsCollar : PlateGorget
 	{
-		public override int LabelNumber { get { return 1061594; } } // Jackal's Collar
-		public override int ArtifactRarity { get { return 11; } }
+		public override int LabelNumber => 1061594;  // Jackal's Collar
+		public override int ArtifactRarity => 11;
 
-		public override int BaseFireResistance { get { return 23; } }
-		public override int BaseColdResistance { get { return 17; } }
+		public override int BaseFireResistance => 23;
+		public override int BaseColdResistance => 17;
 
-		public override int InitMinHits { get { return 255; } }
-		public override int InitMaxHits { get { return 255; } }
+		public override int InitMinHits => 255;
+		public override int InitMaxHits => 255;
 
 		[Constructable]
 		public JackalsCollar()

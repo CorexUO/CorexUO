@@ -4,9 +4,9 @@ namespace Server.Mobiles
 {
 	public class GypsyBanker : Banker
 	{
-		public override bool IsActiveVendor { get { return false; } }
-		public override NpcGuild NpcGuild { get { return NpcGuild.None; } }
-		public override bool ClickTitle { get { return false; } }
+		public override bool IsActiveVendor => false;
+		public override NpcGuild NpcGuild => NpcGuild.None;
+		public override bool ClickTitle => false;
 
 		[Constructable]
 		public GypsyBanker()

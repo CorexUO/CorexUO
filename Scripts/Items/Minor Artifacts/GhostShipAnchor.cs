@@ -2,7 +2,7 @@ namespace Server.Items
 {
 	public class GhostShipAnchor : BaseItem
 	{
-		public override int LabelNumber { get { return 1070816; } } // Ghost Ship Anchor
+		public override int LabelNumber => 1070816;  // Ghost Ship Anchor
 
 		[Constructable]
 		public GhostShipAnchor() : base(0x14F7)

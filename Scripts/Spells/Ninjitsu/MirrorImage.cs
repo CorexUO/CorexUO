@@ -48,12 +48,12 @@ namespace Server.Spells.Ninjitsu
 			9002
 			);
 
-		public override TimeSpan CastDelayBase { get { return TimeSpan.FromSeconds(1.5); } }
+		public override TimeSpan CastDelayBase => TimeSpan.FromSeconds(1.5);
 
-		public override double RequiredSkill { get { return Core.ML ? 20.0 : 40.0; } }
-		public override int RequiredMana { get { return 10; } }
+		public override double RequiredSkill => Core.ML ? 20.0 : 40.0;
+		public override int RequiredMana => 10;
 
-		public override bool BlockedByAnimalForm { get { return false; } }
+		public override bool BlockedByAnimalForm => false;
 
 		public MirrorImage(Mobile caster, Item scroll) : base(caster, scroll, m_Info)
 		{
@@ -174,7 +174,7 @@ namespace Server.Mobiles
 			MirrorImage.AddClone(m_Caster);
 		}
 
-		protected override BaseAI ForcedAI { get { return new CloneAI(this); } }
+		protected override BaseAI ForcedAI => new CloneAI(this);
 
 		public override bool IsHumanInTown() { return false; }
 
@@ -194,7 +194,7 @@ namespace Server.Mobiles
 			Delete();
 		}
 
-		public override bool DeleteCorpseOnDeath { get { return true; } }
+		public override bool DeleteCorpseOnDeath => true;
 
 		public override void OnDelete()
 		{
@@ -209,8 +209,8 @@ namespace Server.Mobiles
 			base.OnAfterDelete();
 		}
 
-		public override bool IsDispellable { get { return false; } }
-		public override bool Commandable { get { return false; } }
+		public override bool IsDispellable => false;
+		public override bool Commandable => false;
 
 		public Clone(Serial serial) : base(serial)
 		{
@@ -266,6 +266,6 @@ namespace Server.Mobiles
 			return true;
 		}
 
-		public override bool CanDetectHidden { get { return false; } }
+		public override bool CanDetectHidden => false;
 	}
 }

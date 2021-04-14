@@ -24,39 +24,36 @@ namespace Server.Factions
 		[CommandProperty(AccessLevel.GameMaster)]
 		public Faction Faction
 		{
-			get { return m_Faction; }
-			set { m_Faction = value; }
+			get => m_Faction;
+			set => m_Faction = value;
 		}
 
 		[CommandProperty(AccessLevel.GameMaster)]
 		public Mobile Placer
 		{
-			get { return m_Placer; }
-			set { m_Placer = value; }
+			get => m_Placer;
+			set => m_Placer = value;
 		}
 
 		[CommandProperty(AccessLevel.GameMaster)]
 		public DateTime TimeOfPlacement
 		{
-			get { return m_TimeOfPlacement; }
-			set { m_TimeOfPlacement = value; }
+			get => m_TimeOfPlacement;
+			set => m_TimeOfPlacement = value;
 		}
 
-		public virtual int EffectSound { get { return 0; } }
+		public virtual int EffectSound => 0;
 
-		public virtual int SilverFromDisarm { get { return 100; } }
+		public virtual int SilverFromDisarm => 100;
 
-		public virtual int MessageHue { get { return 0; } }
+		public virtual int MessageHue => 0;
 
-		public virtual int AttackMessage { get { return 0; } }
-		public virtual int DisarmMessage { get { return 0; } }
+		public virtual int AttackMessage => 0;
+		public virtual int DisarmMessage => 0;
 
-		public virtual AllowedPlacing AllowedPlacing { get { return AllowedPlacing.Everywhere; } }
+		public virtual AllowedPlacing AllowedPlacing => AllowedPlacing.Everywhere;
 
-		public virtual TimeSpan ConcealPeriod
-		{
-			get { return TimeSpan.FromMinutes(1.0); }
-		}
+		public virtual TimeSpan ConcealPeriod => TimeSpan.FromMinutes(1.0);
 
 		public virtual TimeSpan DecayPeriod
 		{
@@ -77,7 +74,7 @@ namespace Server.Factions
 			Conceal();
 
 			DoVisibleEffect();
-			Effects.PlaySound(this.Location, this.Map, this.EffectSound);
+			Effects.PlaySound(Location, Map, EffectSound);
 			DoAttackEffect(from);
 
 			int silverToAward = (from.Alive ? 20 : 40);
@@ -123,7 +120,7 @@ namespace Server.Factions
 			{
 				foreach (Item item in m.GetItemsInRange(p, 0))
 				{
-					if (item is BaseFactionTrap && ((BaseFactionTrap)item).Faction == this.Faction)
+					if (item is BaseFactionTrap && ((BaseFactionTrap)item).Faction == Faction)
 						return 1075263; // There is already a trap belonging to your faction at this location.;
 				}
 			}

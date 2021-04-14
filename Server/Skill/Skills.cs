@@ -288,7 +288,7 @@ namespace Server
 			get
 			{
 				//There has to be this distinction between the racial values and not to account for gaining skills and these skills aren't displayed nor Totaled up.
-				double value = this.NonRacialValue;
+				double value = NonRacialValue;
 
 				double raceBonus = Owner.Owner.RacialSkillBonus;
 

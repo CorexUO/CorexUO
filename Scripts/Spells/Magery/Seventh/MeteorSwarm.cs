@@ -16,7 +16,7 @@ namespace Server.Spells.Seventh
 				Reagent.SpidersSilk
 			);
 
-		public override SpellCircle Circle { get { return SpellCircle.Seventh; } }
+		public override SpellCircle Circle => SpellCircle.Seventh;
 
 		public MeteorSwarmSpell(Mobile caster, Item scroll) : base(caster, scroll, m_Info)
 		{
@@ -37,7 +37,7 @@ namespace Server.Spells.Seventh
 			}
 		}
 
-		public override bool DelayedDamage { get { return true; } }
+		public override bool DelayedDamage => true;
 
 		public void Target(IPoint3D p)
 		{

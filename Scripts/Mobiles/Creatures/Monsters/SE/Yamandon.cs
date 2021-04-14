@@ -59,11 +59,11 @@ namespace Server.Mobiles
 			AddLoot(LootPack.Gems, 6);
 		}
 
-		public override bool ReacquireOnMovement { get { return true; } }
-		public override Poison PoisonImmune { get { return Poison.Lethal; } }
-		public override Poison HitPoison { get { return Utility.RandomBool() ? Poison.Deadly : Poison.Lethal; } }
-		public override int TreasureMapLevel { get { return 5; } }
-		public override int Hides { get { return 20; } }
+		public override bool ReacquireOnMovement => true;
+		public override Poison PoisonImmune => Poison.Lethal;
+		public override Poison HitPoison => Utility.RandomBool() ? Poison.Deadly : Poison.Lethal;
+		public override int TreasureMapLevel => 5;
+		public override int Hides => 20;
 
 		public override void OnDamagedBySpell(Mobile attacker, Spell spell, int damage)
 		{
@@ -81,7 +81,7 @@ namespace Server.Mobiles
 
 		private void DoCounter(Mobile attacker)
 		{
-			if (this.Map == null)
+			if (Map == null)
 				return;
 
 			if (attacker is BaseCreature && ((BaseCreature)attacker).BardProvoked)
@@ -109,7 +109,7 @@ namespace Server.Mobiles
 				if (target == null || !target.InRange(this, 18))
 					target = attacker;
 
-				this.Animate(10, 4, 1, true, false, 0);
+				Animate(10, 4, 1, true, false, 0);
 
 				ArrayList targets = new ArrayList();
 
@@ -118,7 +118,7 @@ namespace Server.Mobiles
 					if (m == this || !CanBeHarmful(m))
 						continue;
 
-					if (m is BaseCreature && (((BaseCreature)m).Controlled || ((BaseCreature)m).Summoned || ((BaseCreature)m).Team != this.Team))
+					if (m is BaseCreature && (((BaseCreature)m).Controlled || ((BaseCreature)m).Summoned || ((BaseCreature)m).Team != Team))
 						targets.Add(m);
 					else if (m.Player && m.Alive)
 						targets.Add(m);

@@ -3,7 +3,7 @@
 
 	public class TwilightLantern : Lantern
 	{
-		public override string DefaultName { get { return "Twilight Lantern"; } }
+		public override string DefaultName => "Twilight Lantern";
 
 		[Constructable]
 		public TwilightLantern()

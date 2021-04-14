@@ -7,7 +7,7 @@ namespace Server.Engines.Quests.Ambitious
 	{
 		public abstract bool RedSolen { get; }
 
-		public override bool DisallowAllMoves { get { return false; } }
+		public override bool DisallowAllMoves => false;
 
 		public BaseAmbitiousSolenQueen()
 		{
@@ -32,11 +32,11 @@ namespace Server.Engines.Quests.Ambitious
 
 		public override void OnTalk(PlayerMobile player, bool contextMenu)
 		{
-			this.Direction = GetDirectionTo(player);
+			Direction = GetDirectionTo(player);
 
 			AmbitiousQueenQuest qs = player.Quest as AmbitiousQueenQuest;
 
-			if (qs != null && qs.RedSolen == this.RedSolen)
+			if (qs != null && qs.RedSolen == RedSolen)
 			{
 				if (qs.IsObjectiveInProgress(typeof(KillQueensObjective)))
 				{
@@ -84,7 +84,7 @@ namespace Server.Engines.Quests.Ambitious
 			}
 			else
 			{
-				QuestSystem newQuest = new AmbitiousQueenQuest(player, this.RedSolen);
+				QuestSystem newQuest = new AmbitiousQueenQuest(player, RedSolen);
 
 				if (player.Quest == null && QuestSystem.CanOfferQuest(player, typeof(AmbitiousQueenQuest)))
 				{
@@ -99,7 +99,7 @@ namespace Server.Engines.Quests.Ambitious
 
 		public override bool OnDragDrop(Mobile from, Item dropped)
 		{
-			this.Direction = GetDirectionTo(from);
+			Direction = GetDirectionTo(from);
 
 			PlayerMobile player = from as PlayerMobile;
 
@@ -107,7 +107,7 @@ namespace Server.Engines.Quests.Ambitious
 			{
 				AmbitiousQueenQuest qs = player.Quest as AmbitiousQueenQuest;
 
-				if (qs != null && qs.RedSolen == this.RedSolen)
+				if (qs != null && qs.RedSolen == RedSolen)
 				{
 					QuestObjective obj = qs.FindObjective(typeof(GatherFungiObjective));
 
@@ -167,7 +167,7 @@ namespace Server.Engines.Quests.Ambitious
 
 	public class RedAmbitiousSolenQueen : BaseAmbitiousSolenQueen
 	{
-		public override bool RedSolen { get { return true; } }
+		public override bool RedSolen => true;
 
 		[Constructable]
 		public RedAmbitiousSolenQueen()
@@ -195,7 +195,7 @@ namespace Server.Engines.Quests.Ambitious
 
 	public class BlackAmbitiousSolenQueen : BaseAmbitiousSolenQueen
 	{
-		public override bool RedSolen { get { return false; } }
+		public override bool RedSolen => false;
 
 		[Constructable]
 		public BlackAmbitiousSolenQueen()

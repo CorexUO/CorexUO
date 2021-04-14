@@ -44,9 +44,9 @@ namespace Server.Mobiles
 			AddLoot(LootPack.Meager);
 		}
 
-		public override bool DeathAdderCharmable { get { return true; } }
+		public override bool DeathAdderCharmable => true;
 
-		public override int Meat { get { return 1; } }
+		public override int Meat => 1;
 
 		public IceSnake(Serial serial) : base(serial)
 		{

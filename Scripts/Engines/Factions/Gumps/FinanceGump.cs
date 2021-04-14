@@ -19,7 +19,7 @@ namespace Server.Factions
 				+50, +100, +150, +200, +250, +300
 			};
 
-		public override int ButtonTypes { get { return 2; } }
+		public override int ButtonTypes => 2;
 
 		public FinanceGump(PlayerMobile from, Faction faction, Town town) : base(50, 50)
 		{

@@ -6,11 +6,11 @@ namespace Server.Items
 	{
 		private const int m_Level = 1;
 
-		public override bool Decays { get { return true; } }
+		public override bool Decays => true;
 
-		public override bool IsDecoContainer { get { return false; } }
+		public override bool IsDecoContainer => false;
 
-		public override TimeSpan DecayTime { get { return TimeSpan.FromMinutes(Utility.Random(15, 60)); } }
+		public override TimeSpan DecayTime => TimeSpan.FromMinutes(Utility.Random(15, 60));
 
 		private void SetChestAppearance()
 		{
@@ -19,36 +19,33 @@ namespace Server.Items
 			switch (Utility.RandomList(0, 1, 2))
 			{
 				case 0:// Large Crate
-					this.ItemID = (UseFirstItemId ? 0xe3c : 0xe3d);
-					this.GumpID = 0x44;
+					ItemID = (UseFirstItemId ? 0xe3c : 0xe3d);
+					GumpID = 0x44;
 					break;
 
 				case 1:// Medium Crate
-					this.ItemID = (UseFirstItemId ? 0xe3e : 0xe3f);
-					this.GumpID = 0x44;
+					ItemID = (UseFirstItemId ? 0xe3e : 0xe3f);
+					GumpID = 0x44;
 					break;
 
 				case 2:// Small Crate
-					this.ItemID = (UseFirstItemId ? 0x9a9 : 0xe7e);
-					this.GumpID = 0x44;
+					ItemID = (UseFirstItemId ? 0x9a9 : 0xe7e);
+					GumpID = 0x44;
 					break;
 			}
 		}
 
-		public override int DefaultGumpID { get { return 0x42; } }
+		public override int DefaultGumpID => 0x42;
 
-		public override int DefaultDropSound { get { return 0x42; } }
+		public override int DefaultDropSound => 0x42;
 
-		public override Rectangle2D Bounds
-		{
-			get { return new Rectangle2D(18, 105, 144, 73); }
-		}
+		public override Rectangle2D Bounds => new Rectangle2D(18, 105, 144, 73);
 
 		[Constructable]
 		public TreasureChestLevel1()
 			: base(0xE41)
 		{
-			this.SetChestAppearance();
+			SetChestAppearance();
 			Movable = false;
 
 			TrapType = TrapType.DartTrap;
@@ -56,8 +53,8 @@ namespace Server.Items
 			Locked = true;
 
 			RequiredSkill = 57;
-			LockLevel = this.RequiredSkill - Utility.Random(1, 10);
-			MaxLockLevel = this.RequiredSkill + Utility.Random(1, 10);
+			LockLevel = RequiredSkill - Utility.Random(1, 10);
+			MaxLockLevel = RequiredSkill + Utility.Random(1, 10);
 
 			// According to OSI, loot in level 1 chest is:
 			//  Gold 25 - 50

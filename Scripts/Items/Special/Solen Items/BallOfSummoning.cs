@@ -20,11 +20,11 @@ namespace Server.Items
 		[CommandProperty(AccessLevel.GameMaster)]
 		public int Charges
 		{
-			get { return m_Charges; }
+			get => m_Charges;
 			set
 			{
-				if (value > this.MaxCharges)
-					m_Charges = this.MaxCharges;
+				if (value > MaxCharges)
+					m_Charges = MaxCharges;
 				else if (value < 0)
 					m_Charges = 0;
 				else
@@ -37,11 +37,11 @@ namespace Server.Items
 		[CommandProperty(AccessLevel.GameMaster)]
 		public int Recharges
 		{
-			get { return m_Recharges; }
+			get => m_Recharges;
 			set
 			{
-				if (value > this.MaxRecharges)
-					m_Recharges = this.MaxRecharges;
+				if (value > MaxRecharges)
+					m_Recharges = MaxRecharges;
 				else if (value < 0)
 					m_Recharges = 0;
 				else
@@ -52,12 +52,12 @@ namespace Server.Items
 		}
 
 		[CommandProperty(AccessLevel.GameMaster)]
-		public int MaxCharges { get { return 20; } }
+		public int MaxCharges => 20;
 
 		[CommandProperty(AccessLevel.GameMaster)]
-		public int MaxRecharges { get { return 255; } }
+		public int MaxRecharges => 255;
 
-		public string TranslocationItemName { get { return "crystal ball of pet summoning"; } }
+		public string TranslocationItemName => "crystal ball of pet summoning";
 
 		[CommandProperty(AccessLevel.GameMaster)]
 		public BaseCreature Pet
@@ -80,7 +80,7 @@ namespace Server.Items
 		}
 
 		[CommandProperty(AccessLevel.GameMaster)]
-		public string PetName { get { return m_PetName; } }
+		public string PetName => m_PetName;
 
 		[Constructable]
 		public BallOfSummoning() : base(0xE2E)
@@ -109,7 +109,7 @@ namespace Server.Items
 		{
 			base.GetContextMenuEntries(from, list);
 
-			if (from.Alive && this.RootParent == from)
+			if (from.Alive && RootParent == from)
 			{
 				if (Pet == null)
 				{
@@ -144,7 +144,7 @@ namespace Server.Items
 
 		public override void OnDoubleClick(Mobile from)
 		{
-			if (this.RootParent != from) // TODO: Previous implementation allowed use on ground, without house protection checks. What is the correct behavior?
+			if (RootParent != from) // TODO: Previous implementation allowed use on ground, without house protection checks. What is the correct behavior?
 			{
 				from.LocalOverheadMessage(MessageType.Regular, 0x3B2, 1042001); // That must be in your pack for you to use it.
 				return;
@@ -170,9 +170,9 @@ namespace Server.Items
 
 		public void LinkPet(Mobile from)
 		{
-			BaseCreature pet = this.Pet;
+			BaseCreature pet = Pet;
 
-			if (Deleted || pet != null || this.RootParent != from)
+			if (Deleted || pet != null || RootParent != from)
 				return;
 
 			from.SendLocalizedMessage(1054114); // Target your pet that you wish to link to this Crystal Ball of Pet Summoning.
@@ -229,9 +229,9 @@ namespace Server.Items
 
 		public void CastSummonPet(Mobile from)
 		{
-			BaseCreature pet = this.Pet;
+			BaseCreature pet = Pet;
 
-			if (Deleted || pet == null || this.RootParent != from)
+			if (Deleted || pet == null || RootParent != from)
 				return;
 
 			if (Charges == 0)
@@ -256,7 +256,7 @@ namespace Server.Items
 			}
 			else if (from.Map == Map.Ilshenar || from.Region.IsPartOf(typeof(DungeonRegion)) || from.Region.IsPartOf(typeof(Jail)) || from.Region.IsPartOf(typeof(Server.Engines.ConPVP.SafeZone)))
 			{
-				from.Send(new AsciiMessage(this.Serial, this.ItemID, MessageType.Regular, 0x22, 3, "", "You cannot summon your pet to this location."));
+				from.Send(new AsciiMessage(Serial, ItemID, MessageType.Regular, 0x22, 3, "", "You cannot summon your pet to this location."));
 			}
 			else if (Core.ML && from is PlayerMobile && DateTime.UtcNow < ((PlayerMobile)from).LastPetBallTime.AddSeconds(15.0))
 			{
@@ -275,7 +275,7 @@ namespace Server.Items
 
 		public void SummonPet(Mobile from)
 		{
-			BaseCreature pet = this.Pet;
+			BaseCreature pet = Pet;
 
 			if (pet == null)
 				return;
@@ -312,7 +312,7 @@ namespace Server.Items
 
 		public void UnlinkPet(Mobile from)
 		{
-			if (!Deleted && Pet != null && this.RootParent == from)
+			if (!Deleted && Pet != null && RootParent == from)
 			{
 				Pet = null;
 
@@ -327,7 +327,7 @@ namespace Server.Items
 
 		private void InternalUpdatePetName()
 		{
-			BaseCreature pet = this.Pet;
+			BaseCreature pet = Pet;
 
 			if (pet == null)
 				m_PetName = "";
@@ -366,7 +366,7 @@ namespace Server.Items
 					{
 						m_Recharges = reader.ReadEncodedInt();
 						m_Charges = Math.Min(reader.ReadEncodedInt(), MaxCharges);
-						this.Pet = (BaseCreature)reader.ReadMobile();
+						Pet = (BaseCreature)reader.ReadMobile();
 						m_PetName = reader.ReadString();
 						break;
 					}
@@ -387,23 +387,17 @@ namespace Server.Items
 				m_Ball = ball;
 			}
 
-			public override bool ClearHandsOnCast { get { return false; } }
-			public override bool RevealOnCast { get { return true; } }
+			public override bool ClearHandsOnCast => false;
+			public override bool RevealOnCast => true;
 
 			public override TimeSpan GetCastRecovery()
 			{
 				return TimeSpan.Zero;
 			}
 
-			public override double CastDelayFastScalar { get { return 0; } }
+			public override double CastDelayFastScalar => 0;
 
-			public override TimeSpan CastDelayBase
-			{
-				get
-				{
-					return TimeSpan.FromSeconds(2.0);
-				}
-			}
+			public override TimeSpan CastDelayBase => TimeSpan.FromSeconds(2.0);
 
 			public override int GetMana()
 			{

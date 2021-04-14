@@ -10,10 +10,7 @@ namespace Server.Commands.Generic
 	{
 		private static readonly Dictionary<string, ExtensionInfo> m_Table = new Dictionary<string, ExtensionInfo>(StringComparer.InvariantCultureIgnoreCase);
 
-		public static Dictionary<string, ExtensionInfo> Table
-		{
-			get { return m_Table; }
-		}
+		public static Dictionary<string, ExtensionInfo> Table => m_Table;
 
 		public static void Register(ExtensionInfo ext)
 		{
@@ -27,30 +24,15 @@ namespace Server.Commands.Generic
 
 		private readonly ExtensionConstructor m_Constructor;
 
-		public int Order
-		{
-			get { return m_Order; }
-		}
+		public int Order => m_Order;
 
-		public string Name
-		{
-			get { return m_Name; }
-		}
+		public string Name => m_Name;
 
-		public int Size
-		{
-			get { return m_Size; }
-		}
+		public int Size => m_Size;
 
-		public bool IsFixedSize
-		{
-			get { return (m_Size >= 0); }
-		}
+		public bool IsFixedSize => (m_Size >= 0);
 
-		public ExtensionConstructor Constructor
-		{
-			get { return m_Constructor; }
-		}
+		public ExtensionConstructor Constructor => m_Constructor;
 
 		public ExtensionInfo(int order, string name, int size, ExtensionConstructor constructor)
 		{
@@ -71,7 +53,7 @@ namespace Server.Commands.Generic
 
 		public bool IsValid(object obj)
 		{
-			for (int i = 0; i < this.Count; ++i)
+			for (int i = 0; i < Count; ++i)
 			{
 				if (!this[i].IsValid(obj))
 					return false;
@@ -82,7 +64,7 @@ namespace Server.Commands.Generic
 
 		public void Filter(ArrayList list)
 		{
-			for (int i = 0; i < this.Count; ++i)
+			for (int i = 0; i < Count; ++i)
 				this[i].Filter(list);
 		}
 
@@ -142,25 +124,13 @@ namespace Server.Commands.Generic
 	{
 		public abstract ExtensionInfo Info { get; }
 
-		public string Name
-		{
-			get { return Info.Name; }
-		}
+		public string Name => Info.Name;
 
-		public int Size
-		{
-			get { return Info.Size; }
-		}
+		public int Size => Info.Size;
 
-		public bool IsFixedSize
-		{
-			get { return Info.IsFixedSize; }
-		}
+		public bool IsFixedSize => Info.IsFixedSize;
 
-		public int Order
-		{
-			get { return Info.Order; }
-		}
+		public int Order => Info.Order;
 
 		public virtual void Optimize(Mobile from, Type baseType, ref AssemblyEmitter assembly)
 		{

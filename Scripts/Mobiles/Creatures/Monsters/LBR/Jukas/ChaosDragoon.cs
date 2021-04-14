@@ -151,16 +151,16 @@ namespace Server.Mobiles
 			//AddLoot( LootPack.Gems );
 		}
 
-		public override bool HasBreath { get { return true; } }
-		public override bool AutoDispel { get { return true; } }
-		public override bool BardImmune { get { return !Core.AOS; } }
-		public override bool CanRummageCorpses { get { return true; } }
-		public override bool AlwaysMurderer { get { return true; } }
-		public override bool ShowFameTitle { get { return false; } }
+		public override bool HasBreath => true;
+		public override bool AutoDispel => true;
+		public override bool BardImmune => !Core.AOS;
+		public override bool CanRummageCorpses => true;
+		public override bool AlwaysMurderer => true;
+		public override bool ShowFameTitle => false;
 
 		public override bool OnBeforeDeath()
 		{
-			IMount mount = this.Mount;
+			IMount mount = Mount;
 
 			if (mount != null)
 				mount.Rider = null;

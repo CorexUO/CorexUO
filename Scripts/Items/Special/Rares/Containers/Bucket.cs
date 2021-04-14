@@ -2,9 +2,9 @@
 {
 	internal class Bucket : BaseWaterContainer
 	{
-		public override int VoidItem_ID { get { return vItemID; } }
-		public override int FullItem_ID { get { return fItemID; } }
-		public override int MaxQuantity { get { return 25; } }
+		public override int VoidItem_ID => vItemID;
+		public override int FullItem_ID => fItemID;
+		public override int MaxQuantity => 25;
 
 		private static readonly int vItemID = 0x14e0;
 		private static readonly int fItemID = 0x2004;

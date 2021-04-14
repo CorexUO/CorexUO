@@ -2,7 +2,7 @@
 {
 	public class PaintedDaemonMask : BasePaintedMask
 	{
-		public override string MaskName { get { return "Daemon Mask"; } }
+		public override string MaskName => "Daemon Mask";
 
 		[Constructable]
 		public PaintedDaemonMask()

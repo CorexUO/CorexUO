@@ -2,7 +2,7 @@ namespace Server.Items
 {
 	public class SeaHorseFish : BaseFish
 	{
-		public override int LabelNumber { get { return 1074414; } } // A sea horse
+		public override int LabelNumber => 1074414;  // A sea horse
 
 		[Constructable]
 		public SeaHorseFish() : base(0x3B10)

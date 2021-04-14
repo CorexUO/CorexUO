@@ -39,8 +39,8 @@ namespace Server.Mobiles
 			// TODO: body parts
 		}
 
-		public override bool CanRummageCorpses { get { return true; } }
-		public override int Meat { get { return 1; } }
+		public override bool CanRummageCorpses => true;
+		public override int Meat => 1;
 
 		public HeadlessOne(Serial serial) : base(serial)
 		{

@@ -52,7 +52,7 @@ namespace Server.Mobiles
 			AddLoot(LootPack.Average, 2);
 		}
 
-		public override Poison PoisonImmune { get { return Poison.Deadly; } }
+		public override Poison PoisonImmune => Poison.Deadly;
 
 		public ArcaneDaemon(Serial serial) : base(serial)
 		{

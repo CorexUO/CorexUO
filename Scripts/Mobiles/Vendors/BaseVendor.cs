@@ -31,23 +31,23 @@ namespace Server.Mobiles
 		private readonly ArrayList m_ArmorSellInfo = new ArrayList();
 		private DateTime m_NextTrickOrTreat;
 
-		public override bool CanTeach { get { return true; } }
+		public override bool CanTeach => true;
 
-		public override bool BardImmune { get { return true; } }
+		public override bool BardImmune => true;
 
-		public override bool PlayerRangeSensitive { get { return true; } }
+		public override bool PlayerRangeSensitive => true;
 
-		public virtual bool IsActiveVendor { get { return true; } }
-		public virtual bool IsActiveBuyer { get { return IsActiveVendor; } } // response to vendor SELL
-		public virtual bool IsActiveSeller { get { return IsActiveVendor; } } // repsonse to vendor BUY
+		public virtual bool IsActiveVendor => true;
+		public virtual bool IsActiveBuyer => IsActiveVendor;  // response to vendor SELL
+		public virtual bool IsActiveSeller => IsActiveVendor;  // repsonse to vendor BUY
 
-		public virtual NpcGuild NpcGuild { get { return NpcGuild.None; } }
+		public virtual NpcGuild NpcGuild => NpcGuild.None;
 
-		public override bool IsInvulnerable { get { return true; } }
+		public override bool IsInvulnerable => true;
 
-		public virtual DateTime NextTrickOrTreat { get { return m_NextTrickOrTreat; } set { m_NextTrickOrTreat = value; } }
+		public virtual DateTime NextTrickOrTreat { get => m_NextTrickOrTreat; set => m_NextTrickOrTreat = value; }
 
-		public override bool ShowFameTitle { get { return false; } }
+		public override bool ShowFameTitle => false;
 
 		public virtual bool IsValidBulkOrder(Item item)
 		{
@@ -76,7 +76,7 @@ namespace Server.Mobiles
 		#region Faction
 		public virtual int GetPriceScalar()
 		{
-			Town town = Town.FromRegion(this.Region);
+			Town town = Town.FromRegion(Region);
 
 			if (town != null)
 				return (100 + town.Tax);
@@ -103,7 +103,7 @@ namespace Server.Mobiles
 		{
 			LoadSBInfo();
 
-			this.Title = title;
+			Title = title;
 			InitBody();
 			InitOutfit();
 
@@ -135,13 +135,7 @@ namespace Server.Mobiles
 
 		public DateTime LastRestock { get; set; }
 
-		public virtual TimeSpan RestockDelay
-		{
-			get
-			{
-				return TimeSpan.FromHours(1);
-			}
-		}
+		public virtual TimeSpan RestockDelay => TimeSpan.FromHours(1);
 
 		public Container BuyPack
 		{
@@ -165,7 +159,7 @@ namespace Server.Mobiles
 
 		public abstract void InitSBInfo();
 
-		public virtual bool IsTokunoVendor { get { return (Map == Map.Tokuno); } }
+		public virtual bool IsTokunoVendor => (Map == Map.Tokuno);
 
 		protected void LoadSBInfo()
 		{
@@ -239,10 +233,7 @@ namespace Server.Mobiles
 			return Utility.RandomNeutralHue();
 		}
 
-		public virtual VendorShoeType ShoeType
-		{
-			get { return VendorShoeType.Shoes; }
-		}
+		public virtual VendorShoeType ShoeType => VendorShoeType.Shoes;
 
 		public virtual void CheckMorph()
 		{
@@ -257,7 +248,7 @@ namespace Server.Mobiles
 
 		public virtual bool CheckTokuno()
 		{
-			if (this.Map != Map.Tokuno)
+			if (Map != Map.Tokuno)
 				return false;
 
 			NameList n;
@@ -267,7 +258,7 @@ namespace Server.Mobiles
 			else
 				n = NameList.GetNameList("tokuno male");
 
-			if (!n.ContainsName(this.Name))
+			if (!n.ContainsName(Name))
 				TurnToTokuno();
 
 			return true;
@@ -276,14 +267,14 @@ namespace Server.Mobiles
 		public virtual void TurnToTokuno()
 		{
 			if (Female)
-				this.Name = NameList.RandomName("tokuno female");
+				Name = NameList.RandomName("tokuno female");
 			else
-				this.Name = NameList.RandomName("tokuno male");
+				Name = NameList.RandomName("tokuno male");
 		}
 
 		public virtual bool CheckGargoyle()
 		{
-			Map map = this.Map;
+			Map map = Map;
 
 			if (map != Map.Ilshenar)
 				return false;
@@ -299,7 +290,7 @@ namespace Server.Mobiles
 
 		public virtual bool CheckNecromancer()
 		{
-			Map map = this.Map;
+			Map map = Map;
 
 			if (map != Map.Malas)
 				return false;
@@ -339,9 +330,9 @@ namespace Server.Mobiles
 
 		public virtual void TurnToNecromancer()
 		{
-			for (int i = 0; i < this.Items.Count; ++i)
+			for (int i = 0; i < Items.Count; ++i)
 			{
-				Item item = this.Items[i];
+				Item item = Items[i];
 
 				if (item is Hair || item is Beard)
 					item.Hue = 0;
@@ -357,9 +348,9 @@ namespace Server.Mobiles
 
 		public virtual void TurnToGargoyle()
 		{
-			for (int i = 0; i < this.Items.Count; ++i)
+			for (int i = 0; i < Items.Count; ++i)
 			{
-				Item item = this.Items[i];
+				Item item = Items[i];
 
 				if (item is BaseClothing || item is Hair || item is Beard)
 					item.Delete();
@@ -377,7 +368,7 @@ namespace Server.Mobiles
 
 		public virtual void CapitalizeTitle()
 		{
-			string title = this.Title;
+			string title = Title;
 
 			if (title == null)
 				return;
@@ -395,7 +386,7 @@ namespace Server.Mobiles
 					split[i] = char.ToUpper(split[i][0]).ToString();
 			}
 
-			this.Title = string.Join(" ", split);
+			Title = string.Join(" ", split);
 		}
 
 		public virtual int GetHairHue()
@@ -453,7 +444,7 @@ namespace Server.Mobiles
 		{
 			LastRestock = DateTime.UtcNow;
 
-			IBuyItemInfo[] buyInfo = this.GetBuyInfo();
+			IBuyItemInfo[] buyInfo = GetBuyInfo();
 
 			foreach (IBuyItemInfo bii in buyInfo)
 				bii.OnRestock();
@@ -482,11 +473,11 @@ namespace Server.Mobiles
 
 			int count = 0;
 			List<BuyItemState> list;
-			IBuyItemInfo[] buyInfo = this.GetBuyInfo();
-			IShopSellInfo[] sellInfo = this.GetSellInfo();
+			IBuyItemInfo[] buyInfo = GetBuyInfo();
+			IShopSellInfo[] sellInfo = GetSellInfo();
 
 			list = new List<BuyItemState>(buyInfo.Length);
-			Container cont = this.BuyPack;
+			Container cont = BuyPack;
 
 			List<ObjectPropertyList> opls = null;
 
@@ -751,7 +742,7 @@ namespace Server.Mobiles
 
 		private GenericBuyInfo LookupDisplayObject(object obj)
 		{
-			IBuyItemInfo[] buyInfo = this.GetBuyInfo();
+			IBuyItemInfo[] buyInfo = GetBuyInfo();
 
 			for (int i = 0; i < buyInfo.Length; ++i)
 			{
@@ -909,7 +900,7 @@ namespace Server.Mobiles
 					{
 						ProcessSinglePurchase(buy, gbi, validBuy, ref controlSlots, ref fullPurchase, ref totalCost);
 					}
-					else if (item != this.BuyPack && item.IsChildOf(this.BuyPack))
+					else if (item != BuyPack && item.IsChildOf(BuyPack))
 					{
 						if (amount > item.Amount)
 							amount = item.Amount;
@@ -1079,12 +1070,12 @@ namespace Server.Mobiles
 
 		public virtual bool CheckVendorAccess(Mobile from)
 		{
-			GuardedRegion reg = (GuardedRegion)this.Region.GetRegion(typeof(GuardedRegion));
+			GuardedRegion reg = (GuardedRegion)Region.GetRegion(typeof(GuardedRegion));
 
 			if (reg != null && !reg.CheckVendorAccess(this, from))
 				return false;
 
-			if (this.Region != from.Region)
+			if (Region != from.Region)
 			{
 				reg = (GuardedRegion)from.Region.GetRegion(typeof(GuardedRegion));
 
@@ -1112,7 +1103,7 @@ namespace Server.Mobiles
 			seller.PlaySound(0x32);
 
 			IShopSellInfo[] info = GetSellInfo();
-			IBuyItemInfo[] buyInfo = this.GetBuyInfo();
+			IBuyItemInfo[] buyInfo = GetBuyInfo();
 			int GiveGold = 0;
 			int Sold = 0;
 			Container cont;
@@ -1173,7 +1164,7 @@ namespace Server.Mobiles
 
 							if (!found)
 							{
-								cont = this.BuyPack;
+								cont = BuyPack;
 
 								if (amount < resp.Item.Amount)
 								{
@@ -1245,7 +1236,7 @@ namespace Server.Mobiles
 
 			writer.Write(0); // version
 
-			List<SBInfo> sbInfos = this.SBInfos;
+			List<SBInfo> sbInfos = SBInfos;
 
 			for (int i = 0; sbInfos != null && i < sbInfos.Count; ++i)
 			{
@@ -1288,7 +1279,7 @@ namespace Server.Mobiles
 
 			LoadSBInfo();
 
-			List<SBInfo> sbInfos = this.SBInfos;
+			List<SBInfo> sbInfos = SBInfos;
 
 			switch (version)
 			{
@@ -1387,7 +1378,7 @@ namespace Server.ContextMenus
 
 		public override void OnClick()
 		{
-			m_Vendor.VendorBuy(this.Owner.From);
+			m_Vendor.VendorBuy(Owner.From);
 		}
 	}
 
@@ -1404,7 +1395,7 @@ namespace Server.ContextMenus
 
 		public override void OnClick()
 		{
-			m_Vendor.VendorSell(this.Owner.From);
+			m_Vendor.VendorSell(Owner.From);
 		}
 	}
 }

@@ -4,7 +4,7 @@ namespace Server.Items
 {
 	public class BrazierTall : BaseLight
 	{
-		public override int LitItemID { get { return 0x19AA; } }
+		public override int LitItemID => 0x19AA;
 
 		[Constructable]
 		public BrazierTall() : base(0x19AA)

@@ -2,10 +2,7 @@ namespace Server.Items
 {
 	public class Amber : BaseItem
 	{
-		public override double DefaultWeight
-		{
-			get { return 0.1; }
-		}
+		public override double DefaultWeight => 0.1;
 
 		[Constructable]
 		public Amber() : this(1)

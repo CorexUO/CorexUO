@@ -15,8 +15,8 @@ namespace Server.Spells.Fifth
 				Reagent.SulfurousAsh
 			);
 
-		public override SpellCircle Circle { get { return SpellCircle.Fifth; } }
-		public override TargetFlags SpellTargetFlags { get { return TargetFlags.Harmful; } }
+		public override SpellCircle Circle => SpellCircle.Fifth;
+		public override TargetFlags SpellTargetFlags => TargetFlags.Harmful;
 
 		public MindBlastSpell(Mobile caster, Item scroll) : base(caster, scroll, m_Info)
 		{
@@ -56,7 +56,7 @@ namespace Server.Spells.Fifth
 			}
 		}
 
-		public override bool DelayedDamage { get { return !Core.AOS; } }
+		public override bool DelayedDamage => !Core.AOS;
 
 		public void Target(Mobile m)
 		{
@@ -72,7 +72,7 @@ namespace Server.Spells.Fifth
 
 					SpellHelper.Turn(from, target);
 
-					SpellHelper.CheckReflect((int)this.Circle, ref from, ref target);
+					SpellHelper.CheckReflect((int)Circle, ref from, ref target);
 
 					int damage = (int)((Caster.Skills[SkillName.Magery].Value + Caster.Int) / 5);
 
@@ -90,7 +90,7 @@ namespace Server.Spells.Fifth
 
 				SpellHelper.Turn(from, target);
 
-				SpellHelper.CheckReflect((int)this.Circle, ref from, ref target);
+				SpellHelper.CheckReflect((int)Circle, ref from, ref target);
 
 				// Algorithm: (highestStat - lowestStat) / 2 [- 50% if resisted]
 

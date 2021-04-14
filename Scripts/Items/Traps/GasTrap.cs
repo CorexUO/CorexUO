@@ -17,8 +17,8 @@ namespace Server.Items
 		[CommandProperty(AccessLevel.GameMaster)]
 		public Poison Poison
 		{
-			get { return m_Poison; }
-			set { m_Poison = value; }
+			get => m_Poison;
+			set => m_Poison = value;
 		}
 
 		[CommandProperty(AccessLevel.GameMaster)]
@@ -35,10 +35,7 @@ namespace Server.Items
 
 				return GasTrapType.WestWall;
 			}
-			set
-			{
-				ItemID = GetBaseID(value);
-			}
+			set => ItemID = GetBaseID(value);
 		}
 
 		public static int GetBaseID(GasTrapType type)
@@ -74,17 +71,17 @@ namespace Server.Items
 			m_Poison = poison;
 		}
 
-		public override bool PassivelyTriggered { get { return false; } }
-		public override TimeSpan PassiveTriggerDelay { get { return TimeSpan.Zero; } }
-		public override int PassiveTriggerRange { get { return 0; } }
-		public override TimeSpan ResetDelay { get { return TimeSpan.FromSeconds(0.0); } }
+		public override bool PassivelyTriggered => false;
+		public override TimeSpan PassiveTriggerDelay => TimeSpan.Zero;
+		public override int PassiveTriggerRange => 0;
+		public override TimeSpan ResetDelay => TimeSpan.FromSeconds(0.0);
 
 		public override void OnTrigger(Mobile from)
 		{
 			if (m_Poison == null || !from.Player || !from.Alive || from.AccessLevel > AccessLevel.Player)
 				return;
 
-			Effects.SendLocationEffect(Location, Map, GetBaseID(this.Type) - 2, 16, 3, GetEffectHue(), 0);
+			Effects.SendLocationEffect(Location, Map, GetBaseID(Type) - 2, 16, 3, GetEffectHue(), 0);
 			Effects.PlaySound(Location, Map, 0x231);
 
 			from.ApplyPoison(from, m_Poison);

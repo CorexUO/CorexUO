@@ -2,19 +2,19 @@ namespace Server.Items
 {
 	public class FurnitureDyeTub : DyeTub, Engines.VeteranRewards.IRewardItem
 	{
-		public override bool AllowDyables { get { return false; } }
-		public override bool AllowFurniture { get { return true; } }
-		public override int TargetMessage { get { return 501019; } } // Select the furniture to dye.
-		public override int FailMessage { get { return 501021; } } // That is not a piece of furniture.
-		public override int LabelNumber { get { return 1041246; } } // Furniture Dye Tub
+		public override bool AllowDyables => false;
+		public override bool AllowFurniture => true;
+		public override int TargetMessage => 501019;  // Select the furniture to dye.
+		public override int FailMessage => 501021;  // That is not a piece of furniture.
+		public override int LabelNumber => 1041246;  // Furniture Dye Tub
 
 		private bool m_IsRewardItem;
 
 		[CommandProperty(AccessLevel.GameMaster)]
 		public bool IsRewardItem
 		{
-			get { return m_IsRewardItem; }
-			set { m_IsRewardItem = value; }
+			get => m_IsRewardItem;
+			set => m_IsRewardItem = value;
 		}
 
 		[Constructable]

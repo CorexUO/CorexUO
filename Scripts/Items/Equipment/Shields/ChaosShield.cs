@@ -4,18 +4,18 @@ namespace Server.Items
 {
 	public class ChaosShield : BaseShield
 	{
-		public override int BasePhysicalResistance { get { return 1; } }
-		public override int BaseFireResistance { get { return 0; } }
-		public override int BaseColdResistance { get { return 0; } }
-		public override int BasePoisonResistance { get { return 0; } }
-		public override int BaseEnergyResistance { get { return 0; } }
+		public override int BasePhysicalResistance => 1;
+		public override int BaseFireResistance => 0;
+		public override int BaseColdResistance => 0;
+		public override int BasePoisonResistance => 0;
+		public override int BaseEnergyResistance => 0;
 
-		public override int InitMinHits { get { return 100; } }
-		public override int InitMaxHits { get { return 125; } }
+		public override int InitMinHits => 100;
+		public override int InitMaxHits => 125;
 
-		public override int StrReq { get { return Core.AOS ? 95 : 0; } }
+		public override int StrReq => Core.AOS ? 95 : 0;
 
-		public override int ArmorBase { get { return 32; } }
+		public override int ArmorBase => 32;
 
 		[Constructable]
 		public ChaosShield() : base(0x1BC3)

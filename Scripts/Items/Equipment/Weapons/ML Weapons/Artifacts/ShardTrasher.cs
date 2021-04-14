@@ -2,7 +2,7 @@ namespace Server.Items
 {
 	public class ShardThrasher : DiamondMace
 	{
-		public override int LabelNumber { get { return 1072918; } } // Shard Thrasher
+		public override int LabelNumber => 1072918;  // Shard Thrasher
 
 		[Constructable]
 		public ShardThrasher()

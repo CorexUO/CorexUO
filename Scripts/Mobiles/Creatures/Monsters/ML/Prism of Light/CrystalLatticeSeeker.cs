@@ -118,8 +118,8 @@ namespace Server.Mobiles
 		}
 		*/
 
-		public override int Feathers { get { return 100; } }
-		public override int TreasureMapLevel { get { return 5; } }
+		public override int Feathers => 100;
+		public override int TreasureMapLevel => 5;
 
 		public override int GetAttackSound() { return 0x2F6; }
 		public override int GetDeathSound() { return 0x2F7; }

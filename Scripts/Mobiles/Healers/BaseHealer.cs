@@ -8,10 +8,10 @@ namespace Server.Mobiles
 	public abstract class BaseHealer : BaseVendor
 	{
 		private readonly List<SBInfo> m_SBInfos = new List<SBInfo>();
-		protected override List<SBInfo> SBInfos { get { return m_SBInfos; } }
+		protected override List<SBInfo> SBInfos => m_SBInfos;
 
-		public override bool IsActiveVendor { get { return false; } }
-		public override bool IsInvulnerable { get { return false; } }
+		public override bool IsActiveVendor => false;
+		public override bool IsInvulnerable => false;
 
 		public override void InitSBInfo()
 		{
@@ -59,7 +59,7 @@ namespace Server.Mobiles
 			PackItem(new CurePotion());
 		}
 
-		public override VendorShoeType ShoeType { get { return VendorShoeType.Sandals; } }
+		public override VendorShoeType ShoeType => VendorShoeType.Sandals;
 
 		public virtual int GetRobeColor()
 		{
@@ -73,7 +73,7 @@ namespace Server.Mobiles
 			AddItem(new Robe(GetRobeColor()));
 		}
 
-		public virtual bool HealsYoungPlayers { get { return true; } }
+		public virtual bool HealsYoungPlayers => true;
 
 		public virtual bool CheckResurrect(Mobile m)
 		{
@@ -130,7 +130,7 @@ namespace Server.Mobiles
 						OfferResurrection(m);
 					}
 				}
-				else if (this.HealsYoungPlayers && m.Hits < m.HitsMax && m is PlayerMobile && ((PlayerMobile)m).Young)
+				else if (HealsYoungPlayers && m.Hits < m.HitsMax && m is PlayerMobile && ((PlayerMobile)m).Young)
 				{
 					OfferHeal((PlayerMobile)m);
 				}

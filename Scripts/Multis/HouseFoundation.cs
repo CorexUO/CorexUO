@@ -37,19 +37,19 @@ namespace Server.Multis
 		private FoundationType m_Type; // Graphic type of this foundation.
 		private Mobile m_Customizer;   // Who is currently customizing this -or- null if not customizing.
 
-		public FoundationType Type { get { return m_Type; } set { m_Type = value; } }
-		public int LastRevision { get { return m_LastRevision; } set { m_LastRevision = value; } }
-		public List<Item> Fixtures { get { return m_Fixtures; } }
-		public Item SignHanger { get { return m_SignHanger; } }
-		public Item Signpost { get { return m_Signpost; } }
-		public int SignpostGraphic { get { return m_SignpostGraphic; } set { m_SignpostGraphic = value; } }
-		public Mobile Customizer { get { return m_Customizer; } set { m_Customizer = value; } }
+		public FoundationType Type { get => m_Type; set => m_Type = value; }
+		public int LastRevision { get => m_LastRevision; set => m_LastRevision = value; }
+		public List<Item> Fixtures => m_Fixtures;
+		public Item SignHanger => m_SignHanger;
+		public Item Signpost => m_Signpost;
+		public int SignpostGraphic { get => m_SignpostGraphic; set => m_SignpostGraphic = value; }
+		public Mobile Customizer { get => m_Customizer; set => m_Customizer = value; }
 
-		public override bool IsAosRules { get { return true; } }
+		public override bool IsAosRules => true;
 
-		public override bool IsActive { get { return Customizer == null; } }
+		public override bool IsActive => Customizer == null;
 
-		public virtual int CustomizationCost { get { return (Core.AOS ? 0 : 10000); } }
+		public virtual int CustomizationCost => (Core.AOS ? 0 : 10000);
 
 		public bool IsFixture(Item item)
 		{
@@ -89,19 +89,19 @@ namespace Server.Multis
 		public DesignState CurrentState
 		{
 			get { if (m_Current == null) SetInitialState(); return m_Current; }
-			set { m_Current = value; }
+			set => m_Current = value;
 		}
 
 		public DesignState DesignState
 		{
 			get { if (m_Design == null) SetInitialState(); return m_Design; }
-			set { m_Design = value; }
+			set => m_Design = value;
 		}
 
 		public DesignState BackupState
 		{
 			get { if (m_Backup == null) SetInitialState(); return m_Backup; }
-			set { m_Backup = value; }
+			set => m_Backup = value;
 		}
 
 		public void SetInitialState()
@@ -169,16 +169,16 @@ namespace Server.Multis
 			base.OnMapChange();
 
 			if (m_SignHanger != null)
-				m_SignHanger.Map = this.Map;
+				m_SignHanger.Map = Map;
 
 			if (m_Signpost != null)
-				m_Signpost.Map = this.Map;
+				m_Signpost.Map = Map;
 
 			if (m_Fixtures == null)
 				return;
 
 			for (int i = 0; i < m_Fixtures.Count; ++i)
-				m_Fixtures[i].Map = this.Map;
+				m_Fixtures[i].Map = Map;
 		}
 
 		public void ClearFixtures(Mobile from)
@@ -568,11 +568,11 @@ namespace Server.Multis
 			}
 		}
 
-		public override Point3D BaseBanLocation { get { return new Point3D(Components.Min.X, Components.Height - 1 - Components.Center.Y, 0); } }
+		public override Point3D BaseBanLocation => new Point3D(Components.Min.X, Components.Height - 1 - Components.Center.Y, 0);
 
 		public void CheckSignpost()
 		{
-			MultiComponentList mcl = this.Components;
+			MultiComponentList mcl = Components;
 
 			int x = mcl.Min.X;
 			int y = mcl.Height - 2 - mcl.Center.Y;
@@ -919,7 +919,7 @@ namespace Server.Multis
 			int newPrice = oldPrice + CustomizationCost + ((DesignState.Components.List.Length - (CurrentState.Components.List.Length + CurrentState.Fixtures.Length)) * 500);
 			int cost = newPrice - oldPrice;
 
-			if (!this.Deleted)
+			if (!Deleted)
 			{ // Temporary Fix. We should be booting a client out of customization mode in the delete handler.
 				if (from.AccessLevel >= AccessLevel.GameMaster && cost != 0)
 				{
@@ -1029,7 +1029,7 @@ namespace Server.Multis
 		{
 			get
 			{
-				MultiComponentList mcl = this.Components;
+				MultiComponentList mcl = Components;
 
 				if (mcl.Width >= 14 || mcl.Height >= 14)
 					return 4;
@@ -1657,7 +1657,7 @@ namespace Server.Multis
 
 		public Packet PacketCache
 		{
-			get { return m_PacketCache; }
+			get => m_PacketCache;
 			set
 			{
 				if (m_PacketCache == value)
@@ -1670,10 +1670,10 @@ namespace Server.Multis
 			}
 		}
 
-		public HouseFoundation Foundation { get { return m_Foundation; } }
-		public MultiComponentList Components { get { return m_Components; } }
-		public MultiTileEntry[] Fixtures { get { return m_Fixtures; } }
-		public int Revision { get { return m_Revision; } set { m_Revision = value; } }
+		public HouseFoundation Foundation => m_Foundation;
+		public MultiComponentList Components => m_Components;
+		public MultiTileEntry[] Fixtures => m_Fixtures;
+		public int Revision { get => m_Revision; set => m_Revision = value; }
 
 		public DesignState(HouseFoundation foundation, MultiComponentList components)
 		{
@@ -1951,9 +1951,9 @@ namespace Server.Multis
 		private readonly HouseFoundation m_Foundation;
 		private int m_Level;
 
-		public HouseFoundation Foundation { get { return m_Foundation; } }
-		public int Level { get { return m_Level; } set { m_Level = value; } }
-		public int MaxLevels { get { return m_Foundation.MaxLevels; } }
+		public HouseFoundation Foundation => m_Foundation;
+		public int Level { get => m_Level; set => m_Level = value; }
+		public int MaxLevels => m_Foundation.MaxLevels;
 
 		public DesignContext(HouseFoundation foundation)
 		{
@@ -1963,7 +1963,7 @@ namespace Server.Multis
 
 		private static readonly Dictionary<Mobile, DesignContext> m_Table = new Dictionary<Mobile, DesignContext>();
 
-		public static Dictionary<Mobile, DesignContext> Table { get { return m_Table; } }
+		public static Dictionary<Mobile, DesignContext> Table => m_Table;
 
 		public static DesignContext Find(Mobile from)
 		{

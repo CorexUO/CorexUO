@@ -12,7 +12,7 @@ namespace Server.Items
 			return Utility.RandomMinMax(1, 3);
 		}
 
-		public override int LabelNumber { get { return 1041080; } } // a message in a bottle
+		public override int LabelNumber => 1041080;  // a message in a bottle
 
 		private Map m_TargetMap;
 		private int m_Level;
@@ -20,15 +20,15 @@ namespace Server.Items
 		[CommandProperty(AccessLevel.GameMaster)]
 		public Map TargetMap
 		{
-			get { return m_TargetMap; }
-			set { m_TargetMap = value; }
+			get => m_TargetMap;
+			set => m_TargetMap = value;
 		}
 
 		[CommandProperty(AccessLevel.GameMaster)]
 		public int Level
 		{
-			get { return m_Level; }
-			set { m_Level = Math.Max(1, Math.Min(value, 4)); }
+			get => m_Level;
+			set => m_Level = Math.Max(1, Math.Min(value, 4));
 		}
 
 		[Constructable]

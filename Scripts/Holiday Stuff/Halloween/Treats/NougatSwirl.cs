@@ -2,7 +2,7 @@
 {
 	public class NougatSwirl : CandyCane
 	{
-		public override int LabelNumber { get { return 1096936; } } /* nougat swirl */
+		public override int LabelNumber => 1096936;  /* nougat swirl */
 
 		[Constructable]
 		public NougatSwirl() : this(1)

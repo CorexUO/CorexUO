@@ -6,8 +6,8 @@ namespace Server.Mobiles
 	[TypeAlias("Server.Mobiles.Silverserpant")]
 	public class SilverSerpent : BaseCreature
 	{
-		public override Faction FactionAllegiance { get { return TrueBritannians.Instance; } }
-		public override Ethics.Ethic EthicAllegiance { get { return Ethics.Ethic.Hero; } }
+		public override Faction FactionAllegiance => TrueBritannians.Instance;
+		public override Ethics.Ethic EthicAllegiance => Ethics.Ethic.Hero;
 
 		[Constructable]
 		public SilverSerpent() : base(AIType.AI_Melee, FightMode.Closest, 10, 1, 0.2, 0.4)
@@ -50,11 +50,11 @@ namespace Server.Mobiles
 			AddLoot(LootPack.Gems, 2);
 		}
 
-		public override bool DeathAdderCharmable { get { return true; } }
+		public override bool DeathAdderCharmable => true;
 
-		public override int Meat { get { return 1; } }
-		public override Poison PoisonImmune { get { return Poison.Lethal; } }
-		public override Poison HitPoison { get { return Poison.Lethal; } }
+		public override int Meat => 1;
+		public override Poison PoisonImmune => Poison.Lethal;
+		public override Poison HitPoison => Poison.Lethal;
 
 		public SilverSerpent(Serial serial) : base(serial)
 		{

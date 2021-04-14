@@ -4,12 +4,9 @@ namespace Server.Items
 {
 	public class RedLeaves : BaseItem
 	{
-		public override int LabelNumber { get { return 1053123; } } // red leaves
+		public override int LabelNumber => 1053123;  // red leaves
 
-		public override double DefaultWeight
-		{
-			get { return 0.1; }
-		}
+		public override double DefaultWeight => 0.1;
 
 		[Constructable]
 		public RedLeaves() : this(1)

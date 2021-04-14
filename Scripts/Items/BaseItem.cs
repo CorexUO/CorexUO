@@ -16,7 +16,7 @@ namespace Server
 		[CommandProperty(AccessLevel.GameMaster)]
 		public virtual bool Identified
 		{
-			get { return m_Identified; }
+			get => m_Identified;
 			set { m_Identified = value; InvalidateProperties(); }
 		}
 
@@ -24,7 +24,7 @@ namespace Server
 		[CommandProperty(AccessLevel.GameMaster)]
 		public virtual ItemQuality Quality
 		{
-			get { return m_Quality; }
+			get => m_Quality;
 			set { m_Quality = value; InvalidateProperties(); }
 		}
 
@@ -43,7 +43,7 @@ namespace Server
 
 		public virtual string GetNameString()
 		{
-			string name = this.Name;
+			string name = Name;
 
 			if (name == null)
 				name = string.Format("#{0}", LabelNumber);

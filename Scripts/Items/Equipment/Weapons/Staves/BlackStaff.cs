@@ -3,17 +3,17 @@ namespace Server.Items
 	[FlipableAttribute(0xDF1, 0xDF0)]
 	public class BlackStaff : BaseStaff
 	{
-		public override WeaponAbility PrimaryAbility { get { return WeaponAbility.WhirlwindAttack; } }
-		public override WeaponAbility SecondaryAbility { get { return WeaponAbility.ParalyzingBlow; } }
+		public override WeaponAbility PrimaryAbility => WeaponAbility.WhirlwindAttack;
+		public override WeaponAbility SecondaryAbility => WeaponAbility.ParalyzingBlow;
 
-		public override int StrReq { get { return Core.AOS ? 35 : 35; } }
+		public override int StrReq => Core.AOS ? 35 : 35;
 
-		public override int MinDamageBase { get { return Core.AOS ? 13 : 8; } }
-		public override int MaxDamageBase { get { return Core.AOS ? 16 : 33; } }
-		public override float SpeedBase { get { return Core.ML ? 2.75f : Core.AOS ? 39 : 35; } }
+		public override int MinDamageBase => Core.AOS ? 13 : 8;
+		public override int MaxDamageBase => Core.AOS ? 16 : 33;
+		public override float SpeedBase => Core.ML ? 2.75f : Core.AOS ? 39 : 35;
 
-		public override int InitMinHits { get { return 31; } }
-		public override int InitMaxHits { get { return 70; } }
+		public override int InitMinHits => 31;
+		public override int InitMaxHits => 70;
 
 		[Constructable]
 		public BlackStaff() : base(0xDF0)

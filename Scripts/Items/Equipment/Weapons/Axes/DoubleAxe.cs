@@ -3,17 +3,17 @@ namespace Server.Items
 	[FlipableAttribute(0xf4b, 0xf4c)]
 	public class DoubleAxe : BaseAxe
 	{
-		public override WeaponAbility PrimaryAbility { get { return WeaponAbility.DoubleStrike; } }
-		public override WeaponAbility SecondaryAbility { get { return WeaponAbility.WhirlwindAttack; } }
+		public override WeaponAbility PrimaryAbility => WeaponAbility.DoubleStrike;
+		public override WeaponAbility SecondaryAbility => WeaponAbility.WhirlwindAttack;
 
-		public override int StrReq { get { return Core.AOS ? 45 : 45; } }
+		public override int StrReq => Core.AOS ? 45 : 45;
 
-		public override int MinDamageBase { get { return Core.AOS ? 15 : 5; } }
-		public override int MaxDamageBase { get { return Core.AOS ? 17 : 35; } }
-		public override float SpeedBase { get { return Core.ML ? 3.25f : Core.AOS ? 33 : 37; } }
+		public override int MinDamageBase => Core.AOS ? 15 : 5;
+		public override int MaxDamageBase => Core.AOS ? 17 : 35;
+		public override float SpeedBase => Core.ML ? 3.25f : Core.AOS ? 33 : 37;
 
-		public override int InitMinHits { get { return 31; } }
-		public override int InitMaxHits { get { return 110; } }
+		public override int InitMinHits => 31;
+		public override int InitMaxHits => 110;
 
 		[Constructable]
 		public DoubleAxe() : base(0xF4B)

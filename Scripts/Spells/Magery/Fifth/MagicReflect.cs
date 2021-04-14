@@ -13,8 +13,8 @@ namespace Server.Spells.Fifth
 				Reagent.SpidersSilk
 			);
 
-		public override SpellCircle Circle { get { return SpellCircle.Fifth; } }
-		public override bool RequireTarget { get { return false; } }
+		public override SpellCircle Circle => SpellCircle.Fifth;
+		public override bool RequireTarget => false;
 
 		public MagicReflectSpell(Mobile caster, Item scroll) : base(caster, scroll, m_Info)
 		{

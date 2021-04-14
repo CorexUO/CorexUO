@@ -55,9 +55,9 @@ namespace Server.Mobiles
 			AddLoot(LootPack.Gems, 2);
 		}
 
-		public override bool BardImmune { get { return !Core.AOS; } }
-		public override int Meat { get { return 1; } }
-		public override bool CanFly { get { return true; } }
+		public override bool BardImmune => !Core.AOS;
+		public override int Meat => 1;
+		public override bool CanFly => true;
 
 		public override void OnDamagedBySpell(Mobile from, Spell spell, int damage)
 		{
@@ -81,8 +81,8 @@ namespace Server.Mobiles
 		public void ThrowHatchet(Mobile to)
 		{
 			int damage = 50;
-			this.MovingEffect(to, 0xF43, 10, 0, false, false);
-			this.DoHarmful(to);
+			MovingEffect(to, 0xF43, 10, 0, false, false);
+			DoHarmful(to);
 			AOS.Damage(to, this, damage, 100, 0, 0, 0, 0);
 		}
 

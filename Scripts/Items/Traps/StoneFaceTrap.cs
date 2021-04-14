@@ -27,7 +27,7 @@ namespace Server.Items
 			}
 			set
 			{
-				bool breathing = this.Breathing;
+				bool breathing = Breathing;
 
 				ItemID = (breathing ? GetFireID(value) : GetBaseID(value));
 			}
@@ -35,13 +35,13 @@ namespace Server.Items
 
 		public bool Breathing
 		{
-			get { return (ItemID == GetFireID(this.Type)); }
+			get => (ItemID == GetFireID(Type));
 			set
 			{
 				if (value)
-					ItemID = GetFireID(this.Type);
+					ItemID = GetFireID(Type);
 				else
-					ItemID = GetBaseID(this.Type);
+					ItemID = GetBaseID(Type);
 			}
 		}
 
@@ -75,10 +75,10 @@ namespace Server.Items
 			Light = LightType.Circle225;
 		}
 
-		public override bool PassivelyTriggered { get { return true; } }
-		public override TimeSpan PassiveTriggerDelay { get { return TimeSpan.Zero; } }
-		public override int PassiveTriggerRange { get { return 2; } }
-		public override TimeSpan ResetDelay { get { return TimeSpan.Zero; } }
+		public override bool PassivelyTriggered => true;
+		public override TimeSpan PassiveTriggerDelay => TimeSpan.Zero;
+		public override int PassiveTriggerRange => 2;
+		public override TimeSpan ResetDelay => TimeSpan.Zero;
 
 		public override void OnTrigger(Mobile from)
 		{

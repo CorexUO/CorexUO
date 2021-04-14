@@ -15,8 +15,8 @@ namespace Server.Spells.Fourth
 				Reagent.SpidersSilk
 			);
 
-		public override SpellCircle Circle { get { return SpellCircle.Fourth; } }
-		public override TargetFlags SpellTargetFlags { get { return TargetFlags.Harmful; } }
+		public override SpellCircle Circle => SpellCircle.Fourth;
+		public override TargetFlags SpellTargetFlags => TargetFlags.Harmful;
 
 		public ManaDrainSpell(Mobile caster, Item scroll) : base(caster, scroll, m_Info)
 		{
@@ -67,7 +67,7 @@ namespace Server.Spells.Fourth
 			{
 				SpellHelper.Turn(Caster, m);
 
-				SpellHelper.CheckReflect((int)this.Circle, Caster, ref m);
+				SpellHelper.CheckReflect((int)Circle, Caster, ref m);
 
 				if (m.Spell != null)
 					m.Spell.OnCasterHurt();

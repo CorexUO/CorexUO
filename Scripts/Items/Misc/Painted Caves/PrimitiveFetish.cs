@@ -2,7 +2,7 @@ namespace Server.Items
 {
 	public class PrimitiveFetish : BaseItem
 	{
-		public override int LabelNumber { get { return 1074675; } } // Primitive Fetish
+		public override int LabelNumber => 1074675;  // Primitive Fetish
 
 		[Constructable]
 		public PrimitiveFetish() : base(0x23F)

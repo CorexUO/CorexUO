@@ -4,7 +4,7 @@ namespace Server.Items
 {
 	public class Blocker : BaseItem
 	{
-		public override int LabelNumber { get { return 503057; } } // Impassable!
+		public override int LabelNumber => 503057;  // Impassable!
 
 		[Constructable]
 		public Blocker() : base(0x21A4)
@@ -44,7 +44,7 @@ namespace Server.Items
 		{
 			public GMItemPacket(Item item) : base(0x1A)
 			{
-				this.EnsureCapacity(20);
+				EnsureCapacity(20);
 
 				// 14 base length
 				// +2 - Amount

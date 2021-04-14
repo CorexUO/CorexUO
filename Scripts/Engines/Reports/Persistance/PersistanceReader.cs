@@ -67,13 +67,7 @@ namespace Server.Engines.Reports
 
 		private bool m_HasChild;
 
-		public override bool HasChild
-		{
-			get
-			{
-				return m_HasChild;
-			}
-		}
+		public override bool HasChild => m_HasChild;
 
 		private bool m_WasEmptyElement;
 

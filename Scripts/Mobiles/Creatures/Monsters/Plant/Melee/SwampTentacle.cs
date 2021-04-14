@@ -45,7 +45,7 @@ namespace Server.Mobiles
 			AddLoot(LootPack.Average);
 		}
 
-		public override Poison PoisonImmune { get { return Poison.Greater; } }
+		public override Poison PoisonImmune => Poison.Greater;
 
 		public SwampTentacle(Serial serial) : base(serial)
 		{

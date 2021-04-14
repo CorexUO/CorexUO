@@ -40,12 +40,12 @@ namespace Server.Items
 	public abstract class BasePotion : BaseItem, ICraftable, ICommodity
 	{
 		private static readonly bool IsStackable = Settings.Configuration.Get("Items", "StackablePotions", Core.ML);
-		public virtual bool RequireFreeHand { get { return Settings.Configuration.Get<bool>("Items", "PotionsRequiredFreeHands", true); } }
+		public virtual bool RequireFreeHand => Settings.Configuration.Get<bool>("Items", "PotionsRequiredFreeHands", true);
 
-		public override int LabelNumber { get { return 1041314 + (int)m_PotionEffect; } }
+		public override int LabelNumber => 1041314 + (int)m_PotionEffect;
 
-		int ICommodity.DescriptionNumber { get { return LabelNumber; } }
-		bool ICommodity.IsDeedable { get { return Core.ML; } }
+		int ICommodity.DescriptionNumber => LabelNumber;
+		bool ICommodity.IsDeedable => Core.ML;
 
 		[CommandProperty(AccessLevel.GameMaster)]
 		public Mobile Crafter { get; set; }
@@ -54,10 +54,7 @@ namespace Server.Items
 
 		public PotionEffect PotionEffect
 		{
-			get
-			{
-				return m_PotionEffect;
-			}
+			get => m_PotionEffect;
 			set
 			{
 				m_PotionEffect = value;
@@ -98,13 +95,13 @@ namespace Server.Items
 			if (!Movable)
 				return;
 
-			if (from.InRange(this.GetWorldLocation(), 1))
+			if (from.InRange(GetWorldLocation(), 1))
 			{
 				if (!RequireFreeHand || HasFreeHand(from))
 				{
 					if (this is BaseExplosionPotion && Amount > 1)
 					{
-						BasePotion pot = (BasePotion)Activator.CreateInstance(this.GetType());
+						BasePotion pot = (BasePotion)Activator.CreateInstance(GetType());
 
 						if (pot != null)
 						{
@@ -123,7 +120,7 @@ namespace Server.Items
 					}
 					else
 					{
-						this.Drink(from);
+						Drink(from);
 					}
 				}
 				else

@@ -233,10 +233,10 @@ namespace Server.Gumps
 			private readonly string m_Name;
 			private readonly string m_DisplayName;
 
-			public int Body { get { return m_Body; } }
-			public int ItemID { get { return m_ItemID; } }
-			public string Name { get { return m_Name; } }
-			public string DisplayName { get { return m_DisplayName; } }
+			public int Body => m_Body;
+			public int ItemID => m_ItemID;
+			public string Name => m_Name;
+			public string DisplayName => m_DisplayName;
 
 			private static readonly string[] m_GroupNames = new string[]
 				{

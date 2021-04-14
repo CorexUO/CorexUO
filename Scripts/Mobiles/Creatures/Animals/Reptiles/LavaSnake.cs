@@ -47,10 +47,10 @@ namespace Server.Mobiles
 			AddLoot(LootPack.Poor);
 		}
 
-		public override bool DeathAdderCharmable { get { return true; } }
+		public override bool DeathAdderCharmable => true;
 
-		public override bool HasBreath { get { return true; } } // fire breath enabled
-		public override int Meat { get { return 1; } }
+		public override bool HasBreath => true;  // fire breath enabled
+		public override int Meat => 1;
 
 		public LavaSnake(Serial serial) : base(serial)
 		{

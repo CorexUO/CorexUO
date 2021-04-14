@@ -3,20 +3,20 @@ namespace Server.Items
 	[FlipableAttribute(0x2D21, 0x2D2D)]
 	public class AssassinSpike : BaseKnife
 	{
-		public override WeaponAbility PrimaryAbility { get { return WeaponAbility.InfectiousStrike; } }
-		public override WeaponAbility SecondaryAbility { get { return WeaponAbility.ShadowStrike; } }
+		public override WeaponAbility PrimaryAbility => WeaponAbility.InfectiousStrike;
+		public override WeaponAbility SecondaryAbility => WeaponAbility.ShadowStrike;
 
-		public override int DefMissSound { get { return 0x239; } }
-		public override SkillName DefSkill { get { return SkillName.Fencing; } }
+		public override int DefMissSound => 0x239;
+		public override SkillName DefSkill => SkillName.Fencing;
 
-		public override int StrReq { get { return Core.AOS ? 15 : 15; } }
+		public override int StrReq => Core.AOS ? 15 : 15;
 
-		public override int MinDamageBase { get { return Core.AOS ? 10 : 10; } }
-		public override int MaxDamageBase { get { return Core.AOS ? 12 : 12; } }
-		public override float SpeedBase { get { return Core.ML ? 2.00f : Core.AOS ? 50 : 50; } }
+		public override int MinDamageBase => Core.AOS ? 10 : 10;
+		public override int MaxDamageBase => Core.AOS ? 12 : 12;
+		public override float SpeedBase => Core.ML ? 2.00f : Core.AOS ? 50 : 50;
 
-		public override int InitMinHits { get { return 30; } } // TODO
-		public override int InitMaxHits { get { return 60; } } // TODO
+		public override int InitMinHits => 30;  // TODO
+		public override int InitMaxHits => 60;  // TODO
 
 		[Constructable]
 		public AssassinSpike() : base(0x2D21)

@@ -11,7 +11,7 @@ namespace Server.Engines.Plants
 		[CommandProperty(AccessLevel.GameMaster)]
 		public PlantType PlantType
 		{
-			get { return m_PlantType; }
+			get => m_PlantType;
 			set
 			{
 				m_PlantType = value;
@@ -22,7 +22,7 @@ namespace Server.Engines.Plants
 		[CommandProperty(AccessLevel.GameMaster)]
 		public PlantHue PlantHue
 		{
-			get { return m_PlantHue; }
+			get => m_PlantHue;
 			set
 			{
 				m_PlantHue = value;
@@ -34,7 +34,7 @@ namespace Server.Engines.Plants
 		[CommandProperty(AccessLevel.GameMaster)]
 		public bool ShowType
 		{
-			get { return m_ShowType; }
+			get => m_ShowType;
 			set
 			{
 				m_ShowType = value;
@@ -42,7 +42,7 @@ namespace Server.Engines.Plants
 			}
 		}
 
-		public override int LabelNumber { get { return 1060810; } } // seed
+		public override int LabelNumber => 1060810;  // seed
 
 		public static Seed RandomBonsaiSeed()
 		{
@@ -87,7 +87,7 @@ namespace Server.Engines.Plants
 		{
 		}
 
-		public override bool ForceShowProperties { get { return ObjectPropertyList.Enabled; } }
+		public override bool ForceShowProperties => ObjectPropertyList.Enabled;
 
 		private int GetLabel(out string args)
 		{

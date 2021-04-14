@@ -2,7 +2,7 @@ namespace Server.Items
 {
 	public class FandancerFish : BaseFish
 	{
-		public override int LabelNumber { get { return 1074591; } } // Fandancer Fish
+		public override int LabelNumber => 1074591;  // Fandancer Fish
 
 		[Constructable]
 		public FandancerFish() : base(0x3B02)

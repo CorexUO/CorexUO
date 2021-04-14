@@ -449,13 +449,13 @@ namespace Server.Engines.PartySystem
 			}
 		}
 
-		public int Count { get { return Members.Count; } }
-		public bool Active { get { return Members.Count > 1; } }
+		public int Count => Members.Count;
+		public bool Active => Members.Count > 1;
 		public Mobile Leader { get; }
 		public List<PartyMemberInfo> Members { get; }
 		public List<Mobile> Candidates { get; }
 
-		public PartyMemberInfo this[int index] { get { return Members[index]; } }
+		public PartyMemberInfo this[int index] => Members[index];
 		public PartyMemberInfo this[Mobile m]
 		{
 			get

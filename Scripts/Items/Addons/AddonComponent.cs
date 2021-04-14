@@ -61,11 +61,11 @@ namespace Server.Items
 		[CommandProperty(AccessLevel.GameMaster)]
 		public int Number
 		{
-			get { return m_LabelNumber; }
+			get => m_LabelNumber;
 			set { m_LabelNumber = value; InvalidateProperties(); }
 		}
 
-		public override int LabelNumber { get { return m_LabelNumber; } }
+		public override int LabelNumber => m_LabelNumber;
 
 		[Constructable]
 		public LocalizedAddonComponent(int itemID, int labelNumber) : base(itemID)
@@ -111,36 +111,21 @@ namespace Server.Items
 		[CommandProperty(AccessLevel.GameMaster)]
 		public BaseAddon Addon
 		{
-			get
-			{
-				return m_Addon;
-			}
-			set
-			{
-				m_Addon = value;
-			}
+			get => m_Addon;
+			set => m_Addon = value;
 		}
 
 		[CommandProperty(AccessLevel.GameMaster)]
 		public Point3D Offset
 		{
-			get
-			{
-				return m_Offset;
-			}
-			set
-			{
-				m_Offset = value;
-			}
+			get => m_Offset;
+			set => m_Offset = value;
 		}
 
 		[Hue, CommandProperty(AccessLevel.GameMaster)]
 		public override int Hue
 		{
-			get
-			{
-				return base.Hue;
-			}
+			get => base.Hue;
 			set
 			{
 				base.Hue = value;
@@ -150,8 +135,8 @@ namespace Server.Items
 			}
 		}
 
-		public virtual bool NeedsWall { get { return false; } }
-		public virtual Point3D WallPosition { get { return Point3D.Zero; } }
+		public virtual bool NeedsWall => false;
+		public virtual Point3D WallPosition => Point3D.Zero;
 
 		[Constructable]
 		public AddonComponent(int itemID) : base(itemID)

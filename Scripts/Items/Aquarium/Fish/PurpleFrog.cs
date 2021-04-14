@@ -2,7 +2,7 @@ namespace Server.Items
 {
 	public class PurpleFrog : BaseFish
 	{
-		public override int LabelNumber { get { return 1073823; } } // A Purple Frog
+		public override int LabelNumber => 1073823;  // A Purple Frog
 
 		[Constructable]
 		public PurpleFrog() : base(0x3B0D)

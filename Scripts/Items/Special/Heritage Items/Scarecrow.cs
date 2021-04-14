@@ -3,7 +3,7 @@ namespace Server.Items
 	[Flipable(0x1E34, 0x1E35)]
 	public class ScarecrowComponent : AddonComponent
 	{
-		public override int LabelNumber { get { return 1076608; } } // Scarecrow
+		public override int LabelNumber => 1076608;  // Scarecrow
 
 		public ScarecrowComponent() : base(0x1E34)
 		{
@@ -30,7 +30,7 @@ namespace Server.Items
 
 	public class ScarecrowAddon : BaseAddon
 	{
-		public override BaseAddonDeed Deed { get { return new ScarecrowDeed(); } }
+		public override BaseAddonDeed Deed => new ScarecrowDeed();
 
 		[Constructable]
 		public ScarecrowAddon() : base()
@@ -59,8 +59,8 @@ namespace Server.Items
 
 	public class ScarecrowDeed : BaseAddonDeed
 	{
-		public override BaseAddon Addon { get { return new ScarecrowAddon(); } }
-		public override int LabelNumber { get { return 1076608; } } // Scarecrow
+		public override BaseAddon Addon => new ScarecrowAddon();
+		public override int LabelNumber => 1076608;  // Scarecrow
 
 		[Constructable]
 		public ScarecrowDeed() : base()

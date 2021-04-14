@@ -10,16 +10,16 @@ namespace Server.Engines.Reports
 			return new ReportColumn();
 		}
 
-		public override PersistableType TypeID { get { return ThisTypeID; } }
+		public override PersistableType TypeID => ThisTypeID;
 		#endregion
 
 		private string m_Width;
 		private string m_Align;
 		private string m_Name;
 
-		public string Width { get { return m_Width; } set { m_Width = value; } }
-		public string Align { get { return m_Align; } set { m_Align = value; } }
-		public string Name { get { return m_Name; } set { m_Name = value; } }
+		public string Width { get => m_Width; set => m_Width = value; }
+		public string Align { get => m_Align; set => m_Align = value; }
+		public string Name { get => m_Name; set => m_Name = value; }
 
 		private ReportColumn()
 		{

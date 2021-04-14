@@ -48,11 +48,11 @@ namespace Server.Mobiles
 			AddLoot(LootPack.Average);
 		}
 
-		public override bool BleedImmune { get { return true; } }
-		public override Poison HitPoison { get { return Poison.Lethal; } }
-		public override double HitPoisonChance { get { return 0.6; } }
+		public override bool BleedImmune => true;
+		public override Poison HitPoison => Poison.Lethal;
+		public override double HitPoisonChance => 0.6;
 
-		public override int TreasureMapLevel { get { return Core.AOS ? 2 : 3; } }
+		public override int TreasureMapLevel => Core.AOS ? 2 : 3;
 
 		public AcidElemental(Serial serial)
 			: base(serial)

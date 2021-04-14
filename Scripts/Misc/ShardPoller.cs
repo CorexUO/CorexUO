@@ -20,8 +20,8 @@ namespace Server.Misc
 		[CommandProperty(AccessLevel.GameMaster, AccessLevel.Administrator)]
 		public string Title
 		{
-			get { return m_Title; }
-			set { m_Title = ShardPollPrompt.UrlToHref(value); }
+			get => m_Title;
+			set => m_Title = ShardPollPrompt.UrlToHref(value);
 		}
 
 		[CommandProperty(AccessLevel.GameMaster, AccessLevel.Administrator)]
@@ -57,7 +57,7 @@ namespace Server.Misc
 		[CommandProperty(AccessLevel.GameMaster, AccessLevel.Administrator)]
 		public bool Active
 		{
-			get { return m_Active; }
+			get => m_Active;
 			set
 			{
 				if (m_Active == value)
@@ -121,10 +121,7 @@ namespace Server.Misc
 			Options[old.Length] = option;
 		}
 
-		public override string DefaultName
-		{
-			get { return "shard poller"; }
-		}
+		public override string DefaultName => "shard poller";
 
 		[Constructable(AccessLevel.Administrator)]
 		public ShardPoller() : base(0x1047)
@@ -266,10 +263,10 @@ namespace Server.Misc
 	{
 		private string m_Title;
 
-		public string Title { get { return m_Title; } set { m_Title = value; LineBreaks = GetBreaks(m_Title); } }
+		public string Title { get => m_Title; set { m_Title = value; LineBreaks = GetBreaks(m_Title); } }
 		public int LineBreaks { get; private set; }
 
-		public int Votes { get { return Voters.Length; } }
+		public int Votes => Voters.Length;
 		public IPAddress[] Voters { get; set; }
 
 		public ShardPollOption(string title)

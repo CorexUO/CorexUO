@@ -2,7 +2,7 @@ namespace Server.Items
 {
 	public class TigerClawSectBadge : BaseItem
 	{
-		public override int LabelNumber { get { return 1073140; } } // A Tiger Claw Sect Badge
+		public override int LabelNumber => 1073140;  // A Tiger Claw Sect Badge
 
 		[Constructable]
 		public TigerClawSectBadge() : base(0x23D)

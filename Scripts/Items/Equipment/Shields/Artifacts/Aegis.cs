@@ -2,13 +2,13 @@ namespace Server.Items
 {
 	public class Aegis : HeaterShield
 	{
-		public override int LabelNumber { get { return 1061602; } } // <C6>gis
-		public override int ArtifactRarity { get { return 11; } }
+		public override int LabelNumber => 1061602;  // <C6>gis
+		public override int ArtifactRarity => 11;
 
-		public override int BasePhysicalResistance { get { return 15; } }
+		public override int BasePhysicalResistance => 15;
 
-		public override int InitMinHits { get { return 255; } }
-		public override int InitMaxHits { get { return 255; } }
+		public override int InitMinHits => 255;
+		public override int InitMaxHits => 255;
 
 		[Constructable]
 		public Aegis()

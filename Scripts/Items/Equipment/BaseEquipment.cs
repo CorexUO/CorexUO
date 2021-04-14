@@ -19,7 +19,7 @@ namespace Server.Items
 		[CommandProperty(AccessLevel.GameMaster)]
 		public AosAttributes Attributes
 		{
-			get { return m_AosAttributes; }
+			get => m_AosAttributes;
 			set { }
 		}
 
@@ -145,7 +145,7 @@ namespace Server.Items
 				if (strBonus == 0 && dexBonus == 0 && intBonus == 0)
 					return;
 
-				string modName = this.Serial.ToString();
+				string modName = Serial.ToString();
 
 				if (strBonus != 0)
 					parent.AddStatMod(new StatMod(StatType.Str, modName + "Str", strBonus, TimeSpan.Zero));
@@ -162,7 +162,7 @@ namespace Server.Items
 		{
 			if (parent != null)
 			{
-				string modName = this.Serial.ToString();
+				string modName = Serial.ToString();
 
 				_ = parent.RemoveStatMod(modName + "Str");
 				_ = parent.RemoveStatMod(modName + "Dex");

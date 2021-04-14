@@ -62,14 +62,11 @@ namespace Server.Mobiles
 
 		}
 
-		public override int Meat { get { return 1; } }
-		public override bool AlwaysMurderer { get { return true; } }
-		public override bool ShowFameTitle { get { return false; } }
+		public override int Meat => 1;
+		public override bool AlwaysMurderer => true;
+		public override bool ShowFameTitle => false;
 
-		public override OppositionGroup OppositionGroup
-		{
-			get { return OppositionGroup.SavagesAndOrcs; }
-		}
+		public override OppositionGroup OppositionGroup => OppositionGroup.SavagesAndOrcs;
 
 		public override bool IsEnemy(Mobile m)
 		{
@@ -113,12 +110,12 @@ namespace Server.Mobiles
 
 		public void BeginSavageDance()
 		{
-			if (this.Map == null)
+			if (Map == null)
 				return;
 
 			ArrayList list = new ArrayList();
 
-			foreach (Mobile m in this.GetMobilesInRange(8))
+			foreach (Mobile m in GetMobilesInRange(8))
 			{
 				if (m != this && m is SavageShaman)
 					list.Add(m);
@@ -152,7 +149,7 @@ namespace Server.Mobiles
 
 			ArrayList list = new ArrayList();
 
-			foreach (Mobile m in this.GetMobilesInRange(8))
+			foreach (Mobile m in GetMobilesInRange(8))
 				list.Add(m);
 
 			if (list.Count > 0)

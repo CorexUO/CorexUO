@@ -2,7 +2,7 @@ namespace Server.Items
 {
 	public class EvilIdolSkull : BaseItem
 	{
-		public override int LabelNumber { get { return 1095237; } } // Evil Idol
+		public override int LabelNumber => 1095237;  // Evil Idol
 
 		[Constructable]
 		public EvilIdolSkull() : base(0x1F18)

@@ -9,33 +9,21 @@ namespace Server.Mobiles
 		private Mobile m_Queen;
 		private bool m_SpawnedQueen;
 
-		public override ChampionSkullType SkullType { get { return ChampionSkullType.Enlightenment; } }
+		public override ChampionSkullType SkullType => ChampionSkullType.Enlightenment;
 
-		public override Type[] UniqueList { get { return new Type[] { typeof(OrcChieftainHelm) }; } }
-		public override Type[] SharedList
-		{
-			get
-			{
-				return new Type[] {     typeof( RoyalGuardSurvivalKnife ),
+		public override Type[] UniqueList => new Type[] { typeof(OrcChieftainHelm) };
+		public override Type[] SharedList => new Type[] {     typeof( RoyalGuardSurvivalKnife ),
 										typeof( DjinnisRing ),
 										typeof( LieutenantOfTheBritannianRoyalGuard ),
 										typeof( SamaritanRobe ),
 										typeof( DetectiveBoots ),
 										typeof( TheMostKnowledgePerson ) };
-			}
-		}
-		public override Type[] DecorativeList
-		{
-			get
-			{
-				return new Type[] { typeof( WaterTile ),
+		public override Type[] DecorativeList => new Type[] { typeof( WaterTile ),
 										typeof( WindSpirit ),
 										typeof( Pier ),
 										typeof( DirtPatch )};
-			}
-		}
 
-		public override MonsterStatuetteType[] StatueTypes { get { return new MonsterStatuetteType[] { }; } }
+		public override MonsterStatuetteType[] StatueTypes => new MonsterStatuetteType[] { };
 
 		[Constructable]
 		public LordOaks() : base(AIType.AI_Mage, FightMode.Evil)
@@ -80,26 +68,23 @@ namespace Server.Mobiles
 			AddLoot(LootPack.UltraRich, 5);
 		}
 
-		public override bool AutoDispel { get { return true; } }
-		public override bool CanFly { get { return true; } }
-		public override bool BardImmune { get { return !Core.SE; } }
-		public override bool Unprovokable { get { return Core.SE; } }
-		public override bool Uncalmable { get { return Core.SE; } }
-		public override OppositionGroup OppositionGroup
-		{
-			get { return OppositionGroup.FeyAndUndead; }
-		}
+		public override bool AutoDispel => true;
+		public override bool CanFly => true;
+		public override bool BardImmune => !Core.SE;
+		public override bool Unprovokable => Core.SE;
+		public override bool Uncalmable => Core.SE;
+		public override OppositionGroup OppositionGroup => OppositionGroup.FeyAndUndead;
 
-		public override Poison PoisonImmune { get { return Poison.Deadly; } }
+		public override Poison PoisonImmune => Poison.Deadly;
 
 		public void SpawnPixies(Mobile target)
 		{
-			Map map = this.Map;
+			Map map = Map;
 
 			if (map == null)
 				return;
 
-			this.Say(1042154); // You shall never defeat me as long as I have my queen!
+			Say(1042154); // You shall never defeat me as long as I have my queen!
 
 			int newPixies = Utility.RandomMinMax(3, 6);
 
@@ -107,12 +92,12 @@ namespace Server.Mobiles
 			{
 				Pixie pixie = new Pixie
 				{
-					Team = this.Team,
+					Team = Team,
 					FightMode = FightMode.Closest
 				};
 
 				bool validLocation = false;
-				Point3D loc = this.Location;
+				Point3D loc = Location;
 
 				for (int j = 0; !validLocation && j < 10; ++j)
 				{
@@ -120,7 +105,7 @@ namespace Server.Mobiles
 					int y = Y + Utility.Random(3) - 1;
 					int z = map.GetAverageZ(x, y);
 
-					if (validLocation = map.CanFit(x, y, this.Z, 16, false, false))
+					if (validLocation = map.CanFit(x, y, Z, 16, false, false))
 						loc = new Point3D(x, y, Z);
 					else if (validLocation = map.CanFit(x, y, z, 16, false, false))
 						loc = new Point3D(x, y, z);
@@ -158,18 +143,18 @@ namespace Server.Mobiles
 
 		public void CheckQueen()
 		{
-			if (this.Map == null)
+			if (Map == null)
 				return;
 
 			if (!m_SpawnedQueen)
 			{
-				this.Say(1042153); // Come forth my queen!
+				Say(1042153); // Come forth my queen!
 
 				m_Queen = new Silvani();
 
-				((BaseCreature)m_Queen).Team = this.Team;
+				((BaseCreature)m_Queen).Team = Team;
 
-				m_Queen.MoveToWorld(this.Location, this.Map);
+				m_Queen.MoveToWorld(Location, Map);
 
 				m_SpawnedQueen = true;
 			}

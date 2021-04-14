@@ -14,10 +14,10 @@ namespace Server.Spells.Necromancy
 				Reagent.NoxCrystal
 			);
 
-		public override TimeSpan CastDelayBase { get { return TimeSpan.FromSeconds(2.0); } }
+		public override TimeSpan CastDelayBase => TimeSpan.FromSeconds(2.0);
 
-		public override double RequiredSkill { get { return 65.0; } }
-		public override int RequiredMana { get { return 29; } }
+		public override double RequiredSkill => 65.0;
+		public override int RequiredMana => 29;
 
 		public StrangleSpell(Mobile caster, Item scroll) : base(caster, scroll, m_Info)
 		{

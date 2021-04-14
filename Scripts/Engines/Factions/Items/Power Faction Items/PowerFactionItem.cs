@@ -43,21 +43,9 @@ namespace Server
 			private readonly int _weight;
 			private readonly Type _type;
 
-			public int Weight
-			{
-				get
-				{
-					return _weight;
-				}
-			}
+			public int Weight => _weight;
 
-			public Type Type
-			{
-				get
-				{
-					return _type;
-				}
-			}
+			public Type Type => _type;
 
 			public WeightedItem(int weight, Type type)
 			{

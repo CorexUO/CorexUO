@@ -16,14 +16,14 @@ namespace Server.Spells.Eighth
 				Reagent.SulfurousAsh
 			);
 
-		public override SpellCircle Circle { get { return SpellCircle.Eighth; } }
-		public override bool RequireTarget { get { return false; } }
+		public override SpellCircle Circle => SpellCircle.Eighth;
+		public override bool RequireTarget => false;
 
 		public EarthquakeSpell(Mobile caster, Item scroll) : base(caster, scroll, m_Info)
 		{
 		}
 
-		public override bool DelayedDamage { get { return !Core.AOS; } }
+		public override bool DelayedDamage => !Core.AOS;
 
 		public override void OnCast()
 		{

@@ -10,7 +10,7 @@ namespace Server.Engines.MLQuests.Definitions
 
 	public class Aemaeth1 : MLQuest
 	{
-		public override Type NextQuest { get { return typeof(Aemaeth2); } }
+		public override Type NextQuest => typeof(Aemaeth2);
 
 		public Aemaeth1()
 		{
@@ -38,7 +38,7 @@ namespace Server.Engines.MLQuests.Definitions
 
 	public class Aemaeth2 : MLQuest
 	{
-		public override bool IsChainTriggered { get { return true; } }
+		public override bool IsChainTriggered => true;
 
 		public Aemaeth2()
 		{
@@ -106,7 +106,7 @@ namespace Server.Engines.MLQuests.Definitions
 
 	public class Aurelia : BaseCreature
 	{
-		public override bool IsInvulnerable { get { return true; } }
+		public override bool IsInvulnerable => true;
 
 		[Constructable]
 		public Aurelia()
@@ -156,7 +156,7 @@ namespace Server.Engines.MLQuests.Definitions
 	[QuesterName("Szandor")]
 	public class SkeletonOfSzandor : BaseCreature
 	{
-		public override bool IsInvulnerable { get { return true; } }
+		public override bool IsInvulnerable => true;
 
 		[Constructable]
 		public SkeletonOfSzandor()

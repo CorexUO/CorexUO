@@ -10,10 +10,7 @@ namespace Server.Items
 	{
 		public static int Range = Core.AOS ? 2 : 1;
 
-		public override double DefaultWeight
-		{
-			get { return 0.1; }
-		}
+		public override double DefaultWeight => 0.1;
 
 		public static void Initialize()
 		{

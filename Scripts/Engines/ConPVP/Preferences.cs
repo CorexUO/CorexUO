@@ -10,12 +10,9 @@ namespace Server.Engines.ConPVP
 		private Preferences m_Preferences;
 
 		//[CommandProperty( AccessLevel.GameMaster )]
-		public Preferences Preferences { get { return m_Preferences; } set { } }
+		public Preferences Preferences { get => m_Preferences; set { } }
 
-		public override string DefaultName
-		{
-			get { return "preferences controller"; }
-		}
+		public override string DefaultName => "preferences controller";
 
 		[Constructable]
 		public PreferencesController() : base(0x1B7A)
@@ -73,7 +70,7 @@ namespace Server.Engines.ConPVP
 		private readonly ArrayList m_Entries;
 		private readonly Hashtable m_Table;
 
-		public ArrayList Entries { get { return m_Entries; } }
+		public ArrayList Entries => m_Entries;
 
 		public PreferencesEntry Find(Mobile mob)
 		{
@@ -90,7 +87,7 @@ namespace Server.Engines.ConPVP
 
 		private static Preferences m_Instance;
 
-		public static Preferences Instance { get { return m_Instance; } set { m_Instance = value; } }
+		public static Preferences Instance { get => m_Instance; set => m_Instance = value; }
 
 		public Preferences()
 		{
@@ -144,8 +141,8 @@ namespace Server.Engines.ConPVP
 		private readonly ArrayList m_Disliked;
 		private readonly Preferences m_Preferences;
 
-		public Mobile Mobile { get { return m_Mobile; } }
-		public ArrayList Disliked { get { return m_Disliked; } }
+		public Mobile Mobile => m_Mobile;
+		public ArrayList Disliked => m_Disliked;
 
 		public PreferencesEntry(Mobile mob, Preferences prefs)
 		{

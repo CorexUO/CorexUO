@@ -59,8 +59,8 @@ namespace Server.Items
 					}
 			}
 
-			if (this.ItemID == 0xE41)
-				this.ItemID = 0xE7C;
+			if (ItemID == 0xE41)
+				ItemID = 0xE7C;
 		}
 
 		public static bool SendDeleteOnClose { get; set; }
@@ -70,7 +70,7 @@ namespace Server.Items
 			Opened = false;
 
 			if (Owner != null && SendDeleteOnClose)
-				Owner.Send(this.RemovePacket);
+				Owner.Send(RemovePacket);
 		}
 
 		public override void OnSingleClick(Mobile from)

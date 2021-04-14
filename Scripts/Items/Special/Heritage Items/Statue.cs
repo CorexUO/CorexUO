@@ -5,7 +5,7 @@ namespace Server.Items
 {
 	public class StoneStatueAddon : BaseAddon
 	{
-		public override BaseAddonDeed Deed { get { return new StoneStatueDeed(); } }
+		public override BaseAddonDeed Deed => new StoneStatueDeed();
 
 		[Constructable]
 		public StoneStatueAddon(bool east) : base()
@@ -45,8 +45,8 @@ namespace Server.Items
 
 	public class StoneStatueDeed : BaseAddonDeed
 	{
-		public override BaseAddon Addon { get { return new StoneStatueAddon(m_East); } }
-		public override int LabelNumber { get { return 1076284; } } // Statue
+		public override BaseAddon Addon => new StoneStatueAddon(m_East);
+		public override int LabelNumber => 1076284;  // Statue
 
 		private bool m_East;
 

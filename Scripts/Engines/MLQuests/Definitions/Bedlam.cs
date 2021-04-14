@@ -82,7 +82,7 @@ namespace Server.Engines.MLQuests.Definitions
 	[QuesterName("Kia (Bedlam)")]
 	public class Kia : BaseCreature
 	{
-		public override bool IsInvulnerable { get { return true; } }
+		public override bool IsInvulnerable => true;
 
 		[Constructable]
 		public Kia()
@@ -126,9 +126,9 @@ namespace Server.Engines.MLQuests.Definitions
 	[QuesterName("Emerillo (Bedlam)")]
 	public class Emerillo : BaseCreature
 	{
-		public override bool IsInvulnerable { get { return true; } }
+		public override bool IsInvulnerable => true;
 
-		public override bool CanShout { get { return true; } }
+		public override bool CanShout => true;
 		public override void Shout(PlayerMobile pm)
 		{
 			MLQuestSystem.Tell(this, pm, 1074222); // Could I trouble you for some assistance?
@@ -177,7 +177,7 @@ namespace Server.Engines.MLQuests.Definitions
 
 	public class Nythalia : BaseCreature
 	{
-		public override bool IsInvulnerable { get { return true; } }
+		public override bool IsInvulnerable => true;
 
 		[Constructable]
 		public Nythalia()

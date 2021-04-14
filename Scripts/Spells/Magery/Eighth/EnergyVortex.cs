@@ -17,8 +17,8 @@ namespace Server.Spells.Eighth
 				Reagent.Nightshade
 			);
 
-		public override SpellCircle Circle { get { return SpellCircle.Eighth; } }
-		public override bool CanTargetGround { get { return true; } }
+		public override SpellCircle Circle => SpellCircle.Eighth;
+		public override bool CanTargetGround => true;
 
 		public EnergyVortexSpell(Mobile caster, Item scroll) : base(caster, scroll, m_Info)
 		{

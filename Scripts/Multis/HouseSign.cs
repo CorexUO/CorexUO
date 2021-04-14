@@ -31,7 +31,7 @@ namespace Server.Multis
 		[CommandProperty(AccessLevel.GameMaster)]
 		public bool RestrictDecay
 		{
-			get { return (Owner != null && Owner.RestrictDecay); }
+			get => (Owner != null && Owner.RestrictDecay);
 			set { if (Owner != null) Owner.RestrictDecay = value; }
 		}
 
@@ -51,7 +51,7 @@ namespace Server.Multis
 			list.Add(1061638); // A House Sign
 		}
 
-		public override bool ForceShowProperties { get { return ObjectPropertyList.Enabled; } }
+		public override bool ForceShowProperties => ObjectPropertyList.Enabled;
 
 		public bool GettingProperties { get; private set; }
 
@@ -204,7 +204,7 @@ namespace Server.Multis
 
 			public override void OnClick()
 			{
-				Mobile from = this.Owner.From;
+				Mobile from = Owner.From;
 
 				if (!from.CheckAlive() || m_Sign.Deleted || m_Sign.Owner == null || !m_Sign.Owner.AreThereAvailableVendorsFor(from))
 					return;
@@ -231,7 +231,7 @@ namespace Server.Multis
 
 			public override void OnClick()
 			{
-				Mobile from = this.Owner.From;
+				Mobile from = Owner.From;
 
 				if (m_Sign.Deleted || m_Sign.Owner == null || m_Sign.Owner.VendorInventories.Count == 0 || !from.CheckAlive())
 					return;
@@ -275,8 +275,8 @@ namespace Server.Multis
 					}
 			}
 
-			if (this.Name == "a house sign")
-				this.Name = null;
+			if (Name == "a house sign")
+				Name = null;
 		}
 	}
 }

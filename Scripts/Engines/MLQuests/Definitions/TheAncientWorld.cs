@@ -10,7 +10,7 @@ namespace Server.Engines.MLQuests.Definitions
 
 	public class TheAncientWorld : MLQuest
 	{
-		public override Type NextQuest { get { return typeof(TheGoldenHorn); } }
+		public override Type NextQuest => typeof(TheGoldenHorn);
 
 		public TheAncientWorld()
 		{
@@ -37,8 +37,8 @@ namespace Server.Engines.MLQuests.Definitions
 
 	public class TheGoldenHorn : MLQuest
 	{
-		public override Type NextQuest { get { return typeof(Bullish); } }
-		public override bool IsChainTriggered { get { return true; } }
+		public override Type NextQuest => typeof(Bullish);
+		public override bool IsChainTriggered => true;
 
 		public TheGoldenHorn()
 		{
@@ -57,8 +57,8 @@ namespace Server.Engines.MLQuests.Definitions
 
 	public class Bullish : MLQuest
 	{
-		public override Type NextQuest { get { return typeof(LostCivilization); } }
-		public override bool IsChainTriggered { get { return true; } }
+		public override Type NextQuest => typeof(LostCivilization);
+		public override bool IsChainTriggered => true;
 
 		public Bullish()
 		{
@@ -77,7 +77,7 @@ namespace Server.Engines.MLQuests.Definitions
 
 	public class LostCivilization : MLQuest
 	{
-		public override bool IsChainTriggered { get { return true; } }
+		public override bool IsChainTriggered => true;
 
 		public LostCivilization()
 		{
@@ -101,10 +101,10 @@ namespace Server.Engines.MLQuests.Definitions
 	[QuesterName("Broolol (The Heartwood)")]
 	public class LorekeeperBroolol : BaseCreature
 	{
-		public override bool IsInvulnerable { get { return true; } }
-		public override bool CanTeach { get { return true; } }
+		public override bool IsInvulnerable => true;
+		public override bool CanTeach => true;
 
-		public override bool CanShout { get { return true; } }
+		public override bool CanShout => true;
 		public override void Shout(PlayerMobile pm)
 		{
 			MLQuestSystem.Tell(this, pm, 1074200); // Thank goodness you are here, there’s no time to lose.

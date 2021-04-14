@@ -37,15 +37,15 @@ namespace Server.Mobiles
 			MinTameSkill = -18.9;
 		}
 
-		public override bool CanFly { get { return true; } }
+		public override bool CanFly => true;
 
 		public override void GenerateLoot()
 		{
 			AddLoot(LootPack.Poor);
 		}
 
-		public override int Meat { get { return 1; } }
-		public override FoodType FavoriteFood { get { return FoodType.Meat; } }
+		public override int Meat => 1;
+		public override FoodType FavoriteFood => FoodType.Meat;
 
 		public Mongbat(Serial serial) : base(serial)
 		{

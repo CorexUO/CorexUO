@@ -2,7 +2,7 @@ namespace Server.Items
 {
 	public class GuardianAxe : OrnateAxe
 	{
-		public override int LabelNumber { get { return 1073545; } } // guardian axe
+		public override int LabelNumber => 1073545;  // guardian axe
 
 		[Constructable]
 		public GuardianAxe()

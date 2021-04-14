@@ -5,7 +5,7 @@ namespace Server.Mobiles
 
 	public class SpectralArmour : BaseCreature
 	{
-		public override bool DeleteCorpseOnDeath { get { return true; } }
+		public override bool DeleteCorpseOnDeath => true;
 
 		[Constructable]
 		public SpectralArmour() : base(AIType.AI_Melee, FightMode.Closest, 10, 1, 0.2, 0.4)
@@ -75,7 +75,7 @@ namespace Server.Mobiles
 			return true;
 		}
 
-		public override Poison PoisonImmune { get { return Poison.Regular; } }
+		public override Poison PoisonImmune => Poison.Regular;
 
 		public SpectralArmour(Serial serial) : base(serial)
 		{

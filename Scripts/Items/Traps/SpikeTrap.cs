@@ -30,7 +30,7 @@ namespace Server.Items
 			}
 			set
 			{
-				bool extended = this.Extended;
+				bool extended = Extended;
 
 				ItemID = (extended ? GetExtendedID(value) : GetBaseID(value));
 			}
@@ -38,13 +38,13 @@ namespace Server.Items
 
 		public bool Extended
 		{
-			get { return (ItemID == GetExtendedID(this.Type)); }
+			get => (ItemID == GetExtendedID(Type));
 			set
 			{
 				if (value)
-					ItemID = GetExtendedID(this.Type);
+					ItemID = GetExtendedID(Type);
 				else
-					ItemID = GetBaseID(this.Type);
+					ItemID = GetBaseID(Type);
 			}
 		}
 
@@ -90,17 +90,17 @@ namespace Server.Items
 		{
 		}
 
-		public override bool PassivelyTriggered { get { return false; } }
-		public override TimeSpan PassiveTriggerDelay { get { return TimeSpan.Zero; } }
-		public override int PassiveTriggerRange { get { return 0; } }
-		public override TimeSpan ResetDelay { get { return TimeSpan.FromSeconds(6.0); } }
+		public override bool PassivelyTriggered => false;
+		public override TimeSpan PassiveTriggerDelay => TimeSpan.Zero;
+		public override int PassiveTriggerRange => 0;
+		public override TimeSpan ResetDelay => TimeSpan.FromSeconds(6.0);
 
 		public override void OnTrigger(Mobile from)
 		{
 			if (!from.Alive || from.AccessLevel > AccessLevel.Player)
 				return;
 
-			Effects.SendLocationEffect(Location, Map, GetBaseID(this.Type) + 1, 18, 3, GetEffectHue(), 0);
+			Effects.SendLocationEffect(Location, Map, GetBaseID(Type) + 1, 18, 3, GetEffectHue(), 0);
 			Effects.PlaySound(Location, Map, 0x22C);
 
 			foreach (Mobile mob in GetMobilesInRange(0))
@@ -123,7 +123,7 @@ namespace Server.Items
 		public virtual void OnSpikeRetracted()
 		{
 			Extended = false;
-			Effects.SendLocationEffect(Location, Map, GetExtendedID(this.Type) - 1, 6, 3, GetEffectHue(), 0);
+			Effects.SendLocationEffect(Location, Map, GetExtendedID(Type) - 1, 6, 3, GetEffectHue(), 0);
 		}
 
 		public SpikeTrap(Serial serial) : base(serial)

@@ -8,12 +8,12 @@ namespace Server.Mobiles
 	[CorpseName("a wisp corpse")]
 	public class Wisp : BaseCreature
 	{
-		public override InhumanSpeech SpeechType { get { return InhumanSpeech.Wisp; } }
+		public override InhumanSpeech SpeechType => InhumanSpeech.Wisp;
 
-		public override Faction FactionAllegiance { get { return CouncilOfMages.Instance; } }
-		public override Ethics.Ethic EthicAllegiance { get { return Ethics.Ethic.Hero; } }
+		public override Faction FactionAllegiance => CouncilOfMages.Instance;
+		public override Ethics.Ethic EthicAllegiance => Ethics.Ethic.Hero;
 
-		public override TimeSpan ReacquireDelay { get { return TimeSpan.FromSeconds(1.0); } }
+		public override TimeSpan ReacquireDelay => TimeSpan.FromSeconds(1.0);
 
 		[Constructable]
 		public Wisp() : base(AIType.AI_Mage, FightMode.Aggressor, 10, 1, 0.2, 0.4)
@@ -62,10 +62,7 @@ namespace Server.Mobiles
 			AddLoot(LootPack.Average);
 		}
 
-		public override OppositionGroup OppositionGroup
-		{
-			get { return OppositionGroup.FeyAndUndead; }
-		}
+		public override OppositionGroup OppositionGroup => OppositionGroup.FeyAndUndead;
 
 		public Wisp(Serial serial) : base(serial)
 		{

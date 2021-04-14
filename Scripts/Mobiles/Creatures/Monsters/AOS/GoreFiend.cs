@@ -47,7 +47,7 @@ namespace Server.Mobiles
 			return 1218;
 		}
 
-		public override bool BleedImmune { get { return true; } }
+		public override bool BleedImmune => true;
 
 		public GoreFiend(Serial serial) : base(serial)
 		{

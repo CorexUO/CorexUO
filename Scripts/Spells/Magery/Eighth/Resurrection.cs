@@ -16,8 +16,8 @@ namespace Server.Spells.Eighth
 				Reagent.Ginseng
 			);
 
-		public override SpellCircle Circle { get { return SpellCircle.Eighth; } }
-		public override TargetFlags SpellTargetFlags { get { return TargetFlags.Beneficial; } }
+		public override SpellCircle Circle => SpellCircle.Eighth;
+		public override TargetFlags SpellTargetFlags => TargetFlags.Beneficial;
 
 		public ResurrectionSpell(Mobile caster, Item scroll) : base(caster, scroll, m_Info)
 		{

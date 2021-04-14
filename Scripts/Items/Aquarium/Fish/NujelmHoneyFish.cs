@@ -2,7 +2,7 @@ namespace Server.Items
 {
 	public class NujelmHoneyFish : BaseFish
 	{
-		public override int LabelNumber { get { return 1073830; } } // A Nujel'm Honey Fish
+		public override int LabelNumber => 1073830;  // A Nujel'm Honey Fish
 
 		[Constructable]
 		public NujelmHoneyFish() : base(0x3B06)

@@ -6,8 +6,8 @@ namespace Server.Mobiles
 	[CorpseName("an ogre lords corpse")]
 	public class OgreLord : BaseCreature
 	{
-		public override Faction FactionAllegiance { get { return Minax.Instance; } }
-		public override Ethics.Ethic EthicAllegiance { get { return Ethics.Ethic.Evil; } }
+		public override Faction FactionAllegiance => Minax.Instance;
+		public override Ethics.Ethic EthicAllegiance => Ethics.Ethic.Evil;
 
 		[Constructable]
 		public OgreLord() : base(AIType.AI_Melee, FightMode.Closest, 10, 1, 0.2, 0.4)
@@ -49,10 +49,10 @@ namespace Server.Mobiles
 			AddLoot(LootPack.Rich, 2);
 		}
 
-		public override bool CanRummageCorpses { get { return true; } }
-		public override Poison PoisonImmune { get { return Poison.Regular; } }
-		public override int TreasureMapLevel { get { return 3; } }
-		public override int Meat { get { return 2; } }
+		public override bool CanRummageCorpses => true;
+		public override Poison PoisonImmune => Poison.Regular;
+		public override int TreasureMapLevel => 3;
+		public override int Meat => 2;
 
 		public OgreLord(Serial serial) : base(serial)
 		{

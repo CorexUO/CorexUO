@@ -2,10 +2,7 @@ namespace Server.Items
 {
 	public class AlchemyStone : BaseItem
 	{
-		public override string DefaultName
-		{
-			get { return "an Alchemist Supply Stone"; }
-		}
+		public override string DefaultName => "an Alchemist Supply Stone";
 
 		[Constructable]
 		public AlchemyStone() : base(0xED4)

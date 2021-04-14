@@ -20,11 +20,11 @@ namespace Server.Items
 		[CommandProperty(AccessLevel.GameMaster)]
 		public int Charges
 		{
-			get { return m_Charges; }
+			get => m_Charges;
 			set
 			{
-				if (value > this.MaxCharges)
-					m_Charges = this.MaxCharges;
+				if (value > MaxCharges)
+					m_Charges = MaxCharges;
 				else if (value < 0)
 					m_Charges = 0;
 				else
@@ -37,11 +37,11 @@ namespace Server.Items
 		[CommandProperty(AccessLevel.GameMaster)]
 		public int Recharges
 		{
-			get { return m_Recharges; }
+			get => m_Recharges;
 			set
 			{
-				if (value > this.MaxRecharges)
-					m_Recharges = this.MaxRecharges;
+				if (value > MaxRecharges)
+					m_Recharges = MaxRecharges;
 				else if (value < 0)
 					m_Recharges = 0;
 				else
@@ -52,17 +52,17 @@ namespace Server.Items
 		}
 
 		[CommandProperty(AccessLevel.GameMaster)]
-		public int MaxCharges { get { return 20; } }
+		public int MaxCharges => 20;
 
 		[CommandProperty(AccessLevel.GameMaster)]
-		public int MaxRecharges { get { return 255; } }
+		public int MaxRecharges => 255;
 
-		public string TranslocationItemName { get { return "bracelet of binding"; } }
+		public string TranslocationItemName => "bracelet of binding";
 
 		[CommandProperty(AccessLevel.GameMaster)]
 		public string Inscription
 		{
-			get { return m_Inscription; }
+			get => m_Inscription;
 			set
 			{
 				m_Inscription = value;
@@ -80,7 +80,7 @@ namespace Server.Items
 
 				return m_Bound;
 			}
-			set { m_Bound = value; }
+			set => m_Bound = value;
 		}
 
 		[Constructable]
@@ -106,9 +106,9 @@ namespace Server.Items
 		{
 			base.GetContextMenuEntries(from, list);
 
-			if (from.Alive && this.IsChildOf(from))
+			if (from.Alive && IsChildOf(from))
 			{
-				BraceletOfBinding bound = this.Bound;
+				BraceletOfBinding bound = Bound;
 
 				list.Add(new BraceletEntry(new BraceletCallback(Activate), 6170, bound != null));
 				list.Add(new BraceletEntry(new BraceletCallback(Search), 6171, bound != null));
@@ -142,7 +142,7 @@ namespace Server.Items
 
 		public override void OnDoubleClick(Mobile from)
 		{
-			BraceletOfBinding bound = this.Bound;
+			BraceletOfBinding bound = Bound;
 
 			if (Bound == null)
 			{
@@ -156,12 +156,12 @@ namespace Server.Items
 
 		public void Activate(Mobile from)
 		{
-			BraceletOfBinding bound = this.Bound;
+			BraceletOfBinding bound = Bound;
 
 			if (Deleted || bound == null)
 				return;
 
-			if (!this.IsChildOf(from))
+			if (!IsChildOf(from))
 			{
 				from.SendLocalizedMessage(1042664); // You must have the object in your backpack to use it.
 			}
@@ -220,12 +220,12 @@ namespace Server.Items
 
 		public void Search(Mobile from)
 		{
-			BraceletOfBinding bound = this.Bound;
+			BraceletOfBinding bound = Bound;
 
 			if (Deleted || bound == null)
 				return;
 
-			if (!this.IsChildOf(from))
+			if (!IsChildOf(from))
 			{
 				from.SendLocalizedMessage(1042664); // You must have the object in your backpack to use it.
 			}
@@ -237,7 +237,7 @@ namespace Server.Items
 
 		private bool CheckUse(Mobile from, bool successMessage)
 		{
-			BraceletOfBinding bound = this.Bound;
+			BraceletOfBinding bound = Bound;
 
 			if (bound == null)
 				return false;
@@ -326,7 +326,7 @@ namespace Server.Items
 			if (Deleted)
 				return;
 
-			if (!this.IsChildOf(from))
+			if (!IsChildOf(from))
 			{
 				from.SendLocalizedMessage(1042664); // You must have the object in your backpack to use it.
 			}
@@ -387,7 +387,7 @@ namespace Server.Items
 			if (Deleted)
 				return;
 
-			if (!this.IsChildOf(from))
+			if (!IsChildOf(from))
 			{
 				from.SendLocalizedMessage(1042664); // You must have the object in your backpack to use it.
 			}
@@ -460,7 +460,7 @@ namespace Server.Items
 
 						m_Charges = Math.Min(reader.ReadEncodedInt(), MaxCharges);
 						m_Inscription = reader.ReadString();
-						this.Bound = (BraceletOfBinding)reader.ReadItem();
+						Bound = (BraceletOfBinding)reader.ReadItem();
 						break;
 					}
 			}

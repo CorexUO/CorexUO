@@ -12,7 +12,7 @@ namespace Server.Items
 		public abstract int MinDamage { get; }
 		public abstract int MaxDamage { get; }
 
-		public override bool RequireFreeHand { get { return false; } }
+		public override bool RequireFreeHand => false;
 
 		private static readonly bool LeveledExplosion = Settings.Configuration.Get<bool>("Items", "ExplosionPotionLeveled", false); // Should explosion potions explode other nearby potions?
 		private static readonly bool InstantExplosion = Settings.Configuration.Get<bool>("Items", "ExplosionPotionInstantExplosion", false); // Should explosion potions explode on impact?
@@ -43,12 +43,12 @@ namespace Server.Items
 
 		public virtual object FindParent(Mobile from)
 		{
-			Mobile m = this.HeldBy;
+			Mobile m = HeldBy;
 
 			if (m != null && m.Holding == this)
 				return m;
 
-			object obj = this.RootParent;
+			object obj = RootParent;
 
 			if (obj != null)
 				return obj;
@@ -71,7 +71,7 @@ namespace Server.Items
 				return;
 			}
 
-			this.Stackable = false; // Scavenged explosion potions won't stack with those ones in backpack, and still will explode.
+			Stackable = false; // Scavenged explosion potions won't stack with those ones in backpack, and still will explode.
 
 			if (from.Target is ThrowTarget targ && targ.Potion == this)
 				return;

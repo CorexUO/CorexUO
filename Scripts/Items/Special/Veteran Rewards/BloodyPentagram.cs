@@ -4,8 +4,8 @@ namespace Server.Items
 {
 	public class BloodyPentagramComponent : AddonComponent
 	{
-		public override bool DisplayWeight { get { return false; } }
-		public override int LabelNumber { get { return 1080279; } } // Bloody Pentagram
+		public override bool DisplayWeight => false;
+		public override int LabelNumber => 1080279;  // Bloody Pentagram
 
 		public BloodyPentagramComponent(int itemID) : base(itemID)
 		{
@@ -50,7 +50,7 @@ namespace Server.Items
 		[CommandProperty(AccessLevel.GameMaster)]
 		public bool IsRewardItem
 		{
-			get { return m_IsRewardItem; }
+			get => m_IsRewardItem;
 			set { m_IsRewardItem = value; InvalidateProperties(); }
 		}
 
@@ -123,7 +123,7 @@ namespace Server.Items
 
 	public class BloodyPentagramDeed : BaseAddonDeed, IRewardItem
 	{
-		public override int LabelNumber { get { return 1080384; } } // Bloody Pentagram
+		public override int LabelNumber => 1080384;  // Bloody Pentagram
 
 		public override BaseAddon Addon
 		{
@@ -143,7 +143,7 @@ namespace Server.Items
 		[CommandProperty(AccessLevel.GameMaster)]
 		public bool IsRewardItem
 		{
-			get { return m_IsRewardItem; }
+			get => m_IsRewardItem;
 			set { m_IsRewardItem = value; InvalidateProperties(); }
 		}
 

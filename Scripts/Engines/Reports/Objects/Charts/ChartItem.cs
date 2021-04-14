@@ -10,14 +10,14 @@ namespace Server.Engines.Reports
 			return new ChartItem();
 		}
 
-		public override PersistableType TypeID { get { return ThisTypeID; } }
+		public override PersistableType TypeID => ThisTypeID;
 		#endregion
 
 		private string m_Name;
 		private int m_Value;
 
-		public string Name { get { return m_Name; } set { m_Name = value; } }
-		public int Value { get { return m_Value; } set { m_Value = value; } }
+		public string Name { get => m_Name; set => m_Name = value; }
+		public int Value { get => m_Value; set => m_Value = value; }
 
 		private ChartItem()
 		{

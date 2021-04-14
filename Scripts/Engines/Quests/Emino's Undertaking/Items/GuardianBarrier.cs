@@ -17,7 +17,7 @@ namespace Server.Engines.Quests.Ninja
 				return true;
 
 			// If the mobile is to the north of the barrier, allow him to pass
-			if (this.Y >= m.Y)
+			if (Y >= m.Y)
 				return true;
 
 			if (m is BaseCreature)
@@ -25,7 +25,7 @@ namespace Server.Engines.Quests.Ninja
 				Mobile master = ((BaseCreature)m).GetMaster();
 
 				// Allow creatures to cross from the south to the north only if their master is near to the north
-				if (master != null && this.Y >= master.Y && master.InRange(this, 4))
+				if (master != null && Y >= master.Y && master.InRange(this, 4))
 					return true;
 				else
 					return false;

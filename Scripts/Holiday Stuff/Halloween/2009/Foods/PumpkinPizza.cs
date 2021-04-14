@@ -7,7 +7,7 @@
 
 	public class PumpkinPizza : CheesePizza
 	{
-		public override string DefaultName { get { return "Pumpkin Pizza"; } }
+		public override string DefaultName => "Pumpkin Pizza";
 
 		[Constructable]
 		public PumpkinPizza()

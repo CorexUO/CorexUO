@@ -34,9 +34,9 @@ namespace Server.Items
 	[TypeAlias("Server.Items.BottleAle", "Server.Items.BottleLiquor", "Server.Items.BottleWine")]
 	public class BeverageBottle : BaseBeverage
 	{
-		public override int BaseLabelNumber { get { return 1042959; } } // a bottle of Ale
-		public override int MaxQuantity { get { return 5; } }
-		public override bool Fillable { get { return false; } }
+		public override int BaseLabelNumber => 1042959;  // a bottle of Ale
+		public override int MaxQuantity => 5;
+		public override bool Fillable => false;
 
 		public override int ComputeItemID()
 		{
@@ -85,9 +85,9 @@ namespace Server.Items
 
 	public class Jug : BaseBeverage
 	{
-		public override int BaseLabelNumber { get { return 1042965; } } // a jug of Ale
-		public override int MaxQuantity { get { return 10; } }
-		public override bool Fillable { get { return false; } }
+		public override int BaseLabelNumber => 1042965;  // a jug of Ale
+		public override int MaxQuantity => 10;
+		public override bool Fillable => false;
 
 		public override int ComputeItemID()
 		{
@@ -126,8 +126,8 @@ namespace Server.Items
 
 	public class CeramicMug : BaseBeverage
 	{
-		public override int BaseLabelNumber { get { return 1042982; } } // a ceramic mug of Ale
-		public override int MaxQuantity { get { return 1; } }
+		public override int BaseLabelNumber => 1042982;  // a ceramic mug of Ale
+		public override int MaxQuantity => 1;
 
 		public override int ComputeItemID()
 		{
@@ -174,8 +174,8 @@ namespace Server.Items
 
 	public class PewterMug : BaseBeverage
 	{
-		public override int BaseLabelNumber { get { return 1042994; } } // a pewter mug with Ale
-		public override int MaxQuantity { get { return 1; } }
+		public override int BaseLabelNumber => 1042994;  // a pewter mug with Ale
+		public override int MaxQuantity => 1;
 
 		public override int ComputeItemID()
 		{
@@ -220,8 +220,8 @@ namespace Server.Items
 
 	public class Goblet : BaseBeverage
 	{
-		public override int BaseLabelNumber { get { return 1043000; } } // a goblet of Ale
-		public override int MaxQuantity { get { return 1; } }
+		public override int BaseLabelNumber => 1043000;  // a goblet of Ale
+		public override int MaxQuantity => 1;
 
 		public override int ComputeItemID()
 		{
@@ -268,9 +268,9 @@ namespace Server.Items
 		 "Server.Items.GlassMilk", "Server.Items.GlassWine", "Server.Items.GlassWater")]
 	public class GlassMug : BaseBeverage
 	{
-		public override int EmptyLabelNumber { get { return 1022456; } } // mug
-		public override int BaseLabelNumber { get { return 1042976; } } // a mug of Ale
-		public override int MaxQuantity { get { return 5; } }
+		public override int EmptyLabelNumber => 1022456;  // mug
+		public override int BaseLabelNumber => 1042976;  // a mug of Ale
+		public override int MaxQuantity => 5;
 
 		public override int ComputeItemID()
 		{
@@ -328,8 +328,8 @@ namespace Server.Items
 		"Server.Items.GlassPitcher")]
 	public class Pitcher : BaseBeverage
 	{
-		public override int BaseLabelNumber { get { return 1048128; } } // a Pitcher of Ale
-		public override int MaxQuantity { get { return 5; } }
+		public override int BaseLabelNumber => 1048128;  // a Pitcher of Ale
+		public override int MaxQuantity => 5;
 
 		public override int ComputeItemID()
 		{
@@ -446,53 +446,44 @@ namespace Server.Items
 			}
 		}
 
-		public virtual bool ShowQuantity { get { return (MaxQuantity > 1); } }
-		public virtual bool Fillable { get { return true; } }
-		public virtual bool Pourable { get { return true; } }
+		public virtual bool ShowQuantity => (MaxQuantity > 1);
+		public virtual bool Fillable => true;
+		public virtual bool Pourable => true;
 
-		public virtual int EmptyLabelNumber { get { return base.LabelNumber; } }
-		public virtual int BaseLabelNumber { get { return 0; } }
+		public virtual int EmptyLabelNumber => base.LabelNumber;
+		public virtual int BaseLabelNumber => 0;
 
 		public abstract int MaxQuantity { get; }
 
 		public abstract int ComputeItemID();
 
 		[CommandProperty(AccessLevel.GameMaster)]
-		public bool IsEmpty
-		{
-			get { return (m_Quantity <= 0); }
-		}
+		public bool IsEmpty => (m_Quantity <= 0);
 
 		[CommandProperty(AccessLevel.GameMaster)]
-		public bool ContainsAlchohol
-		{
-			get { return (!IsEmpty && m_Content != BeverageType.Milk && m_Content != BeverageType.Water); }
-		}
+		public bool ContainsAlchohol => (!IsEmpty && m_Content != BeverageType.Milk && m_Content != BeverageType.Water);
 
 		[CommandProperty(AccessLevel.GameMaster)]
-		public bool IsFull
-		{
-			get { return (m_Quantity >= MaxQuantity); }
-		}
+		public bool IsFull => (m_Quantity >= MaxQuantity);
 
 		[CommandProperty(AccessLevel.GameMaster)]
 		public Poison Poison
 		{
-			get { return m_Poison; }
-			set { m_Poison = value; }
+			get => m_Poison;
+			set => m_Poison = value;
 		}
 
 		[CommandProperty(AccessLevel.GameMaster)]
 		public Mobile Poisoner
 		{
-			get { return m_Poisoner; }
-			set { m_Poisoner = value; }
+			get => m_Poisoner;
+			set => m_Poisoner = value;
 		}
 
 		[CommandProperty(AccessLevel.GameMaster)]
 		public BeverageType Content
 		{
-			get { return m_Content; }
+			get => m_Content;
 			set
 			{
 				m_Content = value;
@@ -511,7 +502,7 @@ namespace Server.Items
 		[CommandProperty(AccessLevel.GameMaster)]
 		public int Quantity
 		{
-			get { return m_Quantity; }
+			get => m_Quantity;
 			set
 			{
 				if (value < 0)
@@ -603,18 +594,18 @@ namespace Server.Items
 				if (bev.IsEmpty || !bev.ValidateUse(from, true))
 					return;
 
-				this.Content = bev.Content;
-				this.Poison = bev.Poison;
-				this.Poisoner = bev.Poisoner;
+				Content = bev.Content;
+				Poison = bev.Poison;
+				Poisoner = bev.Poisoner;
 
-				if (bev.Quantity > this.MaxQuantity)
+				if (bev.Quantity > MaxQuantity)
 				{
-					this.Quantity = this.MaxQuantity;
-					bev.Quantity -= this.MaxQuantity;
+					Quantity = MaxQuantity;
+					bev.Quantity -= MaxQuantity;
 				}
 				else
 				{
-					this.Quantity += bev.Quantity;
+					Quantity += bev.Quantity;
 					bev.Quantity = 0;
 				}
 			}
@@ -655,18 +646,18 @@ namespace Server.Items
 					return;
 				}
 
-				this.Content = BeverageType.Water;
-				this.Poison = null;
-				this.Poisoner = null;
+				Content = BeverageType.Water;
+				Poison = null;
+				Poisoner = null;
 
-				if (src.Quantity > this.MaxQuantity)
+				if (src.Quantity > MaxQuantity)
 				{
-					this.Quantity = this.MaxQuantity;
-					src.Quantity -= this.MaxQuantity;
+					Quantity = MaxQuantity;
+					src.Quantity -= MaxQuantity;
 				}
 				else
 				{
-					this.Quantity += src.Quantity;
+					Quantity += src.Quantity;
 					src.Quantity = 0;
 				}
 
@@ -844,7 +835,7 @@ namespace Server.Items
 				if (!bev.ValidateUse(from, true))
 					return;
 
-				if (bev.IsFull && bev.Content == this.Content)
+				if (bev.IsFull && bev.Content == Content)
 				{
 					from.SendLocalizedMessage(500848); // Couldn't pour it there.  It was already full.
 				}
@@ -854,19 +845,19 @@ namespace Server.Items
 				}
 				else
 				{
-					bev.Content = this.Content;
-					bev.Poison = this.Poison;
-					bev.Poisoner = this.Poisoner;
+					bev.Content = Content;
+					bev.Poison = Poison;
+					bev.Poisoner = Poisoner;
 
-					if (this.Quantity > bev.MaxQuantity)
+					if (Quantity > bev.MaxQuantity)
 					{
 						bev.Quantity = bev.MaxQuantity;
-						this.Quantity -= bev.MaxQuantity;
+						Quantity -= bev.MaxQuantity;
 					}
 					else
 					{
-						bev.Quantity += this.Quantity;
-						this.Quantity = 0;
+						bev.Quantity += Quantity;
+						Quantity = 0;
 					}
 
 					from.PlaySound(0x4E);
@@ -881,7 +872,7 @@ namespace Server.Items
 				{
 					int bac = 0;
 
-					switch (this.Content)
+					switch (Content)
 					{
 						case BeverageType.Ale: bac = 1; break;
 						case BeverageType.Wine: bac = 2; break;
@@ -935,7 +926,7 @@ namespace Server.Items
 			}
 			else if (targ is AddonComponent &&
 				(((AddonComponent)targ).Addon is WaterVatEast || ((AddonComponent)targ).Addon is WaterVatSouth) &&
-				this.Content == BeverageType.Water)
+				Content == BeverageType.Water)
 			{
 				PlayerMobile player = from as PlayerMobile;
 

@@ -7,14 +7,14 @@ namespace Server.Engines.Reports
 	{
 		private static TimeSpan m_SortRange;
 
-		public static TimeSpan SortRange { get { return m_SortRange; } set { m_SortRange = value; } }
+		public static TimeSpan SortRange { get => m_SortRange; set => m_SortRange = value; }
 
 		private string m_Account;
 		private string m_Display;
 		private PageInfoCollection m_Pages;
 
-		public string Account { get { return m_Account; } set { m_Account = value; } }
-		public PageInfoCollection Pages { get { return m_Pages; } set { m_Pages = value; } }
+		public string Account { get => m_Account; set => m_Account = value; }
+		public PageInfoCollection Pages { get => m_Pages; set => m_Pages = value; }
 
 		public string Display
 		{
@@ -74,10 +74,10 @@ namespace Server.Engines.Reports
 			BaseInfo cmp = obj as BaseInfo;
 
 			int v = cmp.GetPageCount(cmp is StaffInfo ? PageResolution.Handled : PageResolution.None, DateTime.UtcNow - m_SortRange, DateTime.UtcNow)
-				- this.GetPageCount(this is StaffInfo ? PageResolution.Handled : PageResolution.None, DateTime.UtcNow - m_SortRange, DateTime.UtcNow);
+				- GetPageCount(this is StaffInfo ? PageResolution.Handled : PageResolution.None, DateTime.UtcNow - m_SortRange, DateTime.UtcNow);
 
 			if (v == 0)
-				v = string.Compare(this.Display, cmp.Display);
+				v = string.Compare(Display, cmp.Display);
 
 			return v;
 		}

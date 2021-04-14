@@ -49,10 +49,10 @@ namespace Server.Mobiles
 			AddLoot(LootPack.Meager);
 		}
 
-		public override bool BleedImmune { get { return true; } }
-		public override Poison PoisonImmune { get { return Poison.Lethal; } }
+		public override bool BleedImmune => true;
+		public override Poison PoisonImmune => Poison.Lethal;
 
-		public override int TreasureMapLevel { get { return 1; } }
+		public override int TreasureMapLevel => 1;
 
 		public PatchworkSkeleton(Serial serial) : base(serial)
 		{

@@ -37,7 +37,7 @@ namespace Server.Engines.Quests.Samurai
 			SetSkill(SkillName.Tactics, 50.0);
 		}
 
-		public override bool AlwaysMurderer { get { return true; } }
+		public override bool AlwaysMurderer => true;
 
 		public YoungNinja(Serial serial) : base(serial)
 		{

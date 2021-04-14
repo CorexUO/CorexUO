@@ -73,8 +73,8 @@ namespace Server.Mobiles
 			AddLoot(LootPack.FilthyRich, 3);
 		}
 
-		public override bool CanRummageCorpses { get { return true; } }
-		public override int TreasureMapLevel { get { return 4; } }
+		public override bool CanRummageCorpses => true;
+		public override int TreasureMapLevel => 4;
 
 		/* TODO: Angry Fire
 		 * cliloc 1070823

@@ -24,13 +24,13 @@ namespace Server.Items
 
 		private readonly PuzzleChestCylinder[] m_Cylinders = new PuzzleChestCylinder[Length];
 
-		public PuzzleChestCylinder[] Cylinders { get { return m_Cylinders; } }
+		public PuzzleChestCylinder[] Cylinders => m_Cylinders;
 
-		public PuzzleChestCylinder First { get { return m_Cylinders[0]; } set { m_Cylinders[0] = value; } }
-		public PuzzleChestCylinder Second { get { return m_Cylinders[1]; } set { m_Cylinders[1] = value; } }
-		public PuzzleChestCylinder Third { get { return m_Cylinders[2]; } set { m_Cylinders[2] = value; } }
-		public PuzzleChestCylinder Fourth { get { return m_Cylinders[3]; } set { m_Cylinders[3] = value; } }
-		public PuzzleChestCylinder Fifth { get { return m_Cylinders[4]; } set { m_Cylinders[4] = value; } }
+		public PuzzleChestCylinder First { get => m_Cylinders[0]; set => m_Cylinders[0] = value; }
+		public PuzzleChestCylinder Second { get => m_Cylinders[1]; set => m_Cylinders[1] = value; }
+		public PuzzleChestCylinder Third { get => m_Cylinders[2]; set => m_Cylinders[2] = value; }
+		public PuzzleChestCylinder Fourth { get => m_Cylinders[3]; set => m_Cylinders[3] = value; }
+		public PuzzleChestCylinder Fifth { get => m_Cylinders[4]; set => m_Cylinders[4] = value; }
 
 		public static PuzzleChestCylinder RandomCylinder()
 		{
@@ -151,7 +151,7 @@ namespace Server.Items
 	{
 		private readonly DateTime m_When;
 
-		public DateTime When { get { return m_When; } }
+		public DateTime When => m_When;
 
 		public PuzzleChestSolutionAndTime(DateTime when, PuzzleChestSolution solution) : base(solution)
 		{
@@ -186,7 +186,7 @@ namespace Server.Items
 
 		public PuzzleChestSolution Solution
 		{
-			get { return m_Solution; }
+			get => m_Solution;
 			set
 			{
 				m_Solution = value;
@@ -194,16 +194,13 @@ namespace Server.Items
 			}
 		}
 
-		public PuzzleChestCylinder[] Hints { get { return m_Hints; } }
+		public PuzzleChestCylinder[] Hints => m_Hints;
 
-		public PuzzleChestCylinder FirstHint { get { return m_Hints[0]; } set { m_Hints[0] = value; } }
-		public PuzzleChestCylinder SecondHint { get { return m_Hints[1]; } set { m_Hints[1] = value; } }
-		public PuzzleChestCylinder ThirdHint { get { return m_Hints[2]; } set { m_Hints[2] = value; } }
+		public PuzzleChestCylinder FirstHint { get => m_Hints[0]; set => m_Hints[0] = value; }
+		public PuzzleChestCylinder SecondHint { get => m_Hints[1]; set => m_Hints[1] = value; }
+		public PuzzleChestCylinder ThirdHint { get => m_Hints[2]; set => m_Hints[2] = value; }
 
-		public override string DefaultName
-		{
-			get { return null; }
-		}
+		public override string DefaultName => null;
 
 		public PuzzleChest(int itemID) : base(itemID)
 		{
@@ -261,7 +258,7 @@ namespace Server.Items
 		public void SubmitSolution(Mobile m, PuzzleChestSolution solution)
 		{
 
-			if (solution.Matches(this.Solution, out int correctCylinders, out int correctColors))
+			if (solution.Matches(Solution, out int correctCylinders, out int correctColors))
 			{
 				LockPick(m);
 

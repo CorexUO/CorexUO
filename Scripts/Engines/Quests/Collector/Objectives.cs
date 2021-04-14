@@ -5,16 +5,11 @@ namespace Server.Engines.Quests.Collector
 {
 	public class FishPearlsObjective : QuestObjective
 	{
-		public override object Message
-		{
-			get
-			{
+		public override object Message =>
 				// Fish up shellfish from Lake Haven and collect rainbow pearls.
-				return 1055084;
-			}
-		}
+				1055084;
 
-		public override int MaxProgress { get { return 6; } }
+		public override int MaxProgress => 6;
 
 		public FishPearlsObjective()
 		{
@@ -45,16 +40,11 @@ namespace Server.Engines.Quests.Collector
 
 	public class ReturnPearlsObjective : QuestObjective
 	{
-		public override object Message
-		{
-			get
-			{
+		public override object Message =>
 				/* You've collected enough rainbow pearls. Speak to
-				 * Elwood to give them to him and get your next task.
-				 */
-				return 1055088;
-			}
-		}
+* Elwood to give them to him and get your next task.
+*/
+				1055088;
 
 		public ReturnPearlsObjective()
 		{
@@ -68,14 +58,9 @@ namespace Server.Engines.Quests.Collector
 
 	public class FindAlbertaObjective : QuestObjective
 	{
-		public override object Message
-		{
-			get
-			{
+		public override object Message =>
 				// Go to Vesper and speak to Alberta Giacco at the Colored Canvas.
-				return 1055091;
-			}
-		}
+				1055091;
 
 		public FindAlbertaObjective()
 		{
@@ -94,16 +79,11 @@ namespace Server.Engines.Quests.Collector
 
 		private DateTime m_Begin;
 
-		public override object Message
-		{
-			get
-			{
+		public override object Message =>
 				/* Sit on the stool in front of Alberta's easel so that she can
-				 * paint your portrait. You'll need to sit there for about 30 seconds.
-				 */
-				return 1055093;
-			}
-		}
+* paint your portrait. You'll need to sit there for about 30 seconds.
+*/
+				1055093;
 
 		public SitOnTheStoolObjective()
 		{
@@ -140,14 +120,9 @@ namespace Server.Engines.Quests.Collector
 
 	public class ReturnPaintingObjective : QuestObjective
 	{
-		public override object Message
-		{
-			get
-			{
+		public override object Message =>
 				// Return to Elwood and let him know that the painting is complete.
-				return 1055099;
-			}
-		}
+				1055099;
 
 		public ReturnPaintingObjective()
 		{
@@ -161,16 +136,11 @@ namespace Server.Engines.Quests.Collector
 
 	public class FindGabrielObjective : QuestObjective
 	{
-		public override object Message
-		{
-			get
-			{
+		public override object Message =>
 				/* Go to Britain and obtain the autograph of renowned
-				 * minstrel, Gabriel Piete. He is often found at the Conservatory of Music.
-				 */
-				return 1055101;
-			}
-		}
+* minstrel, Gabriel Piete. He is often found at the Conservatory of Music.
+*/
+				1055101;
 
 		public FindGabrielObjective()
 		{
@@ -193,16 +163,11 @@ namespace Server.Engines.Quests.Collector
 	{
 		private Theater m_Theater;
 
-		public override object Message
-		{
-			get
-			{
+		public override object Message =>
 				/* Find some sheet music for one of Gabriel's songs.
-				 * Try speaking to an impresario from one of the theaters in the land.
-				 */
-				return 1055104;
-			}
-		}
+* Try speaking to an impresario from one of the theaters in the land.
+*/
+				1055104;
 
 		public FindSheetMusicObjective(bool init)
 		{
@@ -265,14 +230,9 @@ namespace Server.Engines.Quests.Collector
 
 	public class ReturnSheetMusicObjective : QuestObjective
 	{
-		public override object Message
-		{
-			get
-			{
+		public override object Message =>
 				// Speak to Gabriel to have him autograph the sheet music.
-				return 1055110;
-			}
-		}
+				1055110;
 
 		public ReturnSheetMusicObjective()
 		{
@@ -286,14 +246,9 @@ namespace Server.Engines.Quests.Collector
 
 	public class ReturnAutographObjective : QuestObjective
 	{
-		public override object Message
-		{
-			get
-			{
+		public override object Message =>
 				// Speak to Elwood to give him the autographed sheet music.
-				return 1055114;
-			}
-		}
+				1055114;
 
 		public ReturnAutographObjective()
 		{
@@ -307,14 +262,9 @@ namespace Server.Engines.Quests.Collector
 
 	public class FindTomasObjective : QuestObjective
 	{
-		public override object Message
-		{
-			get
-			{
+		public override object Message =>
 				// Go to Trinsic and speak to Tomas O'Neerlan, the famous toymaker.
-				return 1055117;
-			}
-		}
+				1055117;
 
 		public FindTomasObjective()
 		{
@@ -338,14 +288,9 @@ namespace Server.Engines.Quests.Collector
 		private ImageType[] m_Images;
 		private bool[] m_Done;
 
-		public override object Message
-		{
-			get
-			{
+		public override object Message =>
 				// Use the enchanted paints to capture the image of all of the creatures listed below.
-				return 1055120;
-			}
-		}
+				1055120;
 
 		public override bool Completed
 		{
@@ -477,16 +422,11 @@ namespace Server.Engines.Quests.Collector
 
 	public class ReturnImagesObjective : QuestObjective
 	{
-		public override object Message
-		{
-			get
-			{
+		public override object Message =>
 				/* You now have all of the creature images you need.
-				 * Return to Tomas O'Neerlan so that he can make the toy figurines.
-				 */
-				return 1055128;
-			}
-		}
+* Return to Tomas O'Neerlan so that he can make the toy figurines.
+*/
+				1055128;
 
 		public ReturnImagesObjective()
 		{
@@ -500,14 +440,9 @@ namespace Server.Engines.Quests.Collector
 
 	public class ReturnToysObjective : QuestObjective
 	{
-		public override object Message
-		{
-			get
-			{
+		public override object Message =>
 				// Return to Elwood with news that the toy figurines will be delivered when ready.
-				return 1055132;
-			}
-		}
+				1055132;
 
 		public ReturnToysObjective()
 		{
@@ -516,14 +451,9 @@ namespace Server.Engines.Quests.Collector
 
 	public class MakeRoomObjective : QuestObjective
 	{
-		public override object Message
-		{
-			get
-			{
+		public override object Message =>
 				// Return to Elwood for your reward when you have some room in your backpack.
-				return 1055136;
-			}
-		}
+				1055136;
 
 		public MakeRoomObjective()
 		{

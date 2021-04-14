@@ -11,7 +11,7 @@ namespace Server.Engines.MLQuests.Definitions
 
 	public class MistakenIdentity : MLQuest
 	{
-		public override Type NextQuest { get { return typeof(YouScratchMyBack); } }
+		public override Type NextQuest => typeof(YouScratchMyBack);
 
 		public MistakenIdentity()
 		{
@@ -38,8 +38,8 @@ namespace Server.Engines.MLQuests.Definitions
 
 	public class YouScratchMyBack : MLQuest
 	{
-		public override Type NextQuest { get { return typeof(FoolingAernya); } }
-		public override bool IsChainTriggered { get { return true; } }
+		public override Type NextQuest => typeof(FoolingAernya);
+		public override bool IsChainTriggered => true;
 
 		public YouScratchMyBack()
 		{
@@ -68,8 +68,8 @@ namespace Server.Engines.MLQuests.Definitions
 
 	public class FoolingAernya : MLQuest
 	{
-		public override Type NextQuest { get { return typeof(NotQuiteThatEasy); } }
-		public override bool IsChainTriggered { get { return true; } }
+		public override Type NextQuest => typeof(NotQuiteThatEasy);
+		public override bool IsChainTriggered => true;
 
 		public FoolingAernya()
 		{
@@ -89,8 +89,8 @@ namespace Server.Engines.MLQuests.Definitions
 
 	public class NotQuiteThatEasy : MLQuest
 	{
-		public override Type NextQuest { get { return typeof(ConvinceMe); } }
-		public override bool IsChainTriggered { get { return true; } }
+		public override Type NextQuest => typeof(ConvinceMe);
+		public override bool IsChainTriggered => true;
 
 		public NotQuiteThatEasy()
 		{
@@ -122,8 +122,8 @@ namespace Server.Engines.MLQuests.Definitions
 
 	public class ConvinceMe : MLQuest
 	{
-		public override Type NextQuest { get { return typeof(TuitionReimbursement); } }
-		public override bool IsChainTriggered { get { return true; } }
+		public override Type NextQuest => typeof(TuitionReimbursement);
+		public override bool IsChainTriggered => true;
 
 		public ConvinceMe()
 		{
@@ -154,7 +154,7 @@ namespace Server.Engines.MLQuests.Definitions
 
 	public class TuitionReimbursement : MLQuest
 	{
-		public override bool IsChainTriggered { get { return true; } }
+		public override bool IsChainTriggered => true;
 
 		public TuitionReimbursement()
 		{
@@ -179,7 +179,7 @@ namespace Server.Engines.MLQuests.Definitions
 	[QuesterName("Aernya (Umbra)")]
 	public class Aernya : BaseCreature
 	{
-		public override bool IsInvulnerable { get { return true; } }
+		public override bool IsInvulnerable => true;
 
 		[Constructable]
 		public Aernya()
@@ -225,9 +225,9 @@ namespace Server.Engines.MLQuests.Definitions
 	[QuesterName("Gorrow (Luna)")]
 	public class Gorrow : BaseCreature
 	{
-		public override bool IsInvulnerable { get { return true; } }
+		public override bool IsInvulnerable => true;
 
-		public override bool CanShout { get { return true; } }
+		public override bool CanShout => true;
 		public override void Shout(PlayerMobile pm)
 		{
 			MLQuestSystem.Tell(this, pm, Utility.RandomList(
@@ -278,10 +278,10 @@ namespace Server.Engines.MLQuests.Definitions
 	[QuesterName("Master Gnosos (Bedlam)")]
 	public class MasterGnosos : BaseCreature
 	{
-		public override bool IsInvulnerable { get { return true; } }
-		public override bool CanTeach { get { return true; } }
+		public override bool IsInvulnerable => true;
+		public override bool CanTeach => true;
 
-		public override bool CanShout { get { return true; } }
+		public override bool CanShout => true;
 		public override void Shout(PlayerMobile pm)
 		{
 			MLQuestSystem.Tell(this, pm, 1074186); // Come here, I have a task.

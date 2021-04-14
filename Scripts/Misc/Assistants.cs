@@ -80,7 +80,7 @@ namespace Server.Misc
 					m_DisallowedFeatures &= ~feature;
 			}
 
-			public static Features DisallowedFeatures { get { return m_DisallowedFeatures; } }
+			public static Features DisallowedFeatures => m_DisallowedFeatures;
 		}
 
 		private static class Negotiator

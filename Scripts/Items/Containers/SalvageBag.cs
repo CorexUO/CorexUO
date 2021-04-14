@@ -10,7 +10,7 @@ namespace Server.Items
 	{
 		private bool m_Failure;
 
-		public override int LabelNumber { get { return 1079931; } } // Salvage Bag
+		public override int LabelNumber => 1079931;  // Salvage Bag
 
 		[Constructable]
 		public SalvageBag()
@@ -270,7 +270,7 @@ namespace Server.Items
 
 			Container pack = from.Backpack;
 
-			foreach (Item i in this.FindItemsByType(typeof(Item), true))
+			foreach (Item i in FindItemsByType(typeof(Item), true))
 			{
 				if ((i is Leather) || (i is Cloth) || (i is SpinedLeather) || (i is HornedLeather) || (i is BarbedLeather) || (i is Bandage) || (i is Bone))
 				{

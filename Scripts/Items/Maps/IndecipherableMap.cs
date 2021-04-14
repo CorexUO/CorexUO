@@ -2,7 +2,7 @@ namespace Server.Items
 {
 	public class IndecipherableMap : MapItem
 	{
-		public override int LabelNumber { get { return 1070799; } } // indecipherable map
+		public override int LabelNumber => 1070799;  // indecipherable map
 
 		[Constructable]
 		public IndecipherableMap()

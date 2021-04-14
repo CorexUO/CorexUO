@@ -2,7 +2,7 @@ namespace Server.Items
 {
 	public class AquariumFishNet : SpecialFishingNet
 	{
-		public override int LabelNumber { get { return 1074463; } } // An aquarium fishing net
+		public override int LabelNumber => 1074463;  // An aquarium fishing net
 
 		[Constructable]
 		public AquariumFishNet()
@@ -17,7 +17,7 @@ namespace Server.Items
 		{
 		}
 
-		public override bool RequireDeepWater { get { return false; } }
+		public override bool RequireDeepWater => false;
 
 		protected override void FinishEffect(Point3D p, Map map, Mobile from)
 		{
@@ -131,7 +131,7 @@ namespace Server.Items
 	// Legacy code
 	public class AquariumFishingNet : BaseItem
 	{
-		public override int LabelNumber { get { return 1074463; } } // An aquarium fishing net
+		public override int LabelNumber => 1074463;  // An aquarium fishing net
 
 		public AquariumFishingNet()
 		{

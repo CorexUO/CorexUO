@@ -5,11 +5,11 @@ namespace Server.Mobiles
 	[CorpseName("a holy corpse")]
 	public class HolySteed : BaseMount
 	{
-		public override bool IsDispellable { get { return false; } }
-		public override bool IsBondable { get { return false; } }
+		public override bool IsDispellable => false;
+		public override bool IsBondable => false;
 
-		public override bool HasBreath { get { return true; } }
-		public override bool CanBreath { get { return true; } }
+		public override bool HasBreath => true;
+		public override bool CanBreath => true;
 
 		[Constructable]
 		public HolySteed()
@@ -46,7 +46,7 @@ namespace Server.Mobiles
 			ControlSlots = 1;
 		}
 
-		public override FoodType FavoriteFood { get { return FoodType.FruitsAndVegies | FoodType.GrainsAndHay; } }
+		public override FoodType FavoriteFood => FoodType.FruitsAndVegies | FoodType.GrainsAndHay;
 
 		public HolySteed(Serial serial)
 			: base(serial)

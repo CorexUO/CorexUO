@@ -2,7 +2,7 @@ namespace Server.Items
 {
 	public class TribalBerry : BaseItem
 	{
-		public override int LabelNumber { get { return 1040001; } } // tribal berry
+		public override int LabelNumber => 1040001;  // tribal berry
 
 		[Constructable]
 		public TribalBerry() : this(1)

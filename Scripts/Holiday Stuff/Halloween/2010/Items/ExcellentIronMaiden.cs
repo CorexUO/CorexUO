@@ -2,7 +2,7 @@ namespace Server.Items
 {
 	public class ExcellentIronMaiden : BaseItem
 	{
-		public override double DefaultWeight { get { return 5; } }
+		public override double DefaultWeight => 5;
 
 		[Constructable]
 		public ExcellentIronMaiden()

@@ -2,7 +2,7 @@ namespace Server.Items
 {
 	public class ParrotPerchAddon : BaseAddon
 	{
-		public override BaseAddonDeed Deed { get { return new ParrotPerchDeed(); } }
+		public override BaseAddonDeed Deed => new ParrotPerchDeed();
 
 		[Constructable]
 		public ParrotPerchAddon()
@@ -31,8 +31,8 @@ namespace Server.Items
 
 	public class ParrotPerchDeed : BaseAddonDeed
 	{
-		public override BaseAddon Addon { get { return new ParrotPerchAddon(); } }
-		public override int LabelNumber { get { return 1072617; } } // parrot perch
+		public override BaseAddon Addon => new ParrotPerchAddon();
+		public override int LabelNumber => 1072617;  // parrot perch
 
 		[Constructable]
 		public ParrotPerchDeed()

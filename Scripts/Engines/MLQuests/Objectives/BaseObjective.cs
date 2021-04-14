@@ -6,8 +6,8 @@ namespace Server.Engines.MLQuests.Objectives
 {
 	public abstract class BaseObjective
 	{
-		public virtual bool IsTimed { get { return false; } }
-		public virtual TimeSpan Duration { get { return TimeSpan.Zero; } }
+		public virtual bool IsTimed => false;
+		public virtual TimeSpan Duration => TimeSpan.Zero;
 
 		public BaseObjective()
 		{
@@ -32,26 +32,20 @@ namespace Server.Engines.MLQuests.Objectives
 		private DateTime m_EndTime;
 		private bool m_Expired;
 
-		public MLQuestInstance Instance
-		{
-			get { return m_Instance; }
-		}
+		public MLQuestInstance Instance => m_Instance;
 
-		public bool IsTimed
-		{
-			get { return (m_EndTime != DateTime.MinValue); }
-		}
+		public bool IsTimed => (m_EndTime != DateTime.MinValue);
 
 		public DateTime EndTime
 		{
-			get { return m_EndTime; }
-			set { m_EndTime = value; }
+			get => m_EndTime;
+			set => m_EndTime = value;
 		}
 
 		public bool Expired
 		{
-			get { return m_Expired; }
-			set { m_Expired = value; }
+			get => m_Expired;
+			set => m_Expired = value;
 		}
 
 		public BaseObjectiveInstance(MLQuestInstance instance, BaseObjective obj)
@@ -143,7 +137,7 @@ namespace Server.Engines.MLQuests.Objectives
 			DeliverObjective
 		}
 
-		public virtual DataType ExtraDataType { get { return DataType.None; } }
+		public virtual DataType ExtraDataType => DataType.None;
 
 		public virtual void Serialize(GenericWriter writer)
 		{

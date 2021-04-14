@@ -74,7 +74,7 @@ namespace Server.Items
 	[FlipableAttribute(0x170b, 0x170c)]
 	public class Boots : BaseShoes
 	{
-		public override CraftResource DefaultResource { get { return CraftResource.RegularLeather; } }
+		public override CraftResource DefaultResource => CraftResource.RegularLeather;
 
 		[Constructable]
 		public Boots() : this(0)
@@ -115,22 +115,19 @@ namespace Server.Items
 		[CommandProperty(AccessLevel.GameMaster)]
 		public int MaxArcaneCharges
 		{
-			get { return m_MaxArcaneCharges; }
+			get => m_MaxArcaneCharges;
 			set { m_MaxArcaneCharges = value; InvalidateProperties(); Update(); }
 		}
 
 		[CommandProperty(AccessLevel.GameMaster)]
 		public int CurArcaneCharges
 		{
-			get { return m_CurArcaneCharges; }
+			get => m_CurArcaneCharges;
 			set { m_CurArcaneCharges = value; InvalidateProperties(); Update(); }
 		}
 
 		[CommandProperty(AccessLevel.GameMaster)]
-		public bool IsArcane
-		{
-			get { return (m_MaxArcaneCharges > 0 && m_CurArcaneCharges >= 0); }
-		}
+		public bool IsArcane => (m_MaxArcaneCharges > 0 && m_CurArcaneCharges >= 0);
 
 		public override void OnSingleClick(Mobile from)
 		{
@@ -168,7 +165,7 @@ namespace Server.Items
 		}
 		#endregion
 
-		public override CraftResource DefaultResource { get { return CraftResource.RegularLeather; } }
+		public override CraftResource DefaultResource => CraftResource.RegularLeather;
 
 		[Constructable]
 		public ThighBoots() : this(0)
@@ -231,7 +228,7 @@ namespace Server.Items
 	[FlipableAttribute(0x170f, 0x1710)]
 	public class Shoes : BaseShoes
 	{
-		public override CraftResource DefaultResource { get { return CraftResource.RegularLeather; } }
+		public override CraftResource DefaultResource => CraftResource.RegularLeather;
 
 		[Constructable]
 		public Shoes() : this(0)
@@ -266,7 +263,7 @@ namespace Server.Items
 	[FlipableAttribute(0x170d, 0x170e)]
 	public class Sandals : BaseShoes
 	{
-		public override CraftResource DefaultResource { get { return CraftResource.RegularLeather; } }
+		public override CraftResource DefaultResource => CraftResource.RegularLeather;
 
 		[Constructable]
 		public Sandals() : this(0)
@@ -405,9 +402,9 @@ namespace Server.Items
 	[FlipableAttribute(0x2FC4, 0x317A)]
 	public class ElvenBoots : BaseShoes
 	{
-		public override CraftResource DefaultResource { get { return CraftResource.RegularLeather; } }
+		public override CraftResource DefaultResource => CraftResource.RegularLeather;
 
-		public override Race RequiredRace { get { return Race.Elf; } }
+		public override Race RequiredRace => Race.Elf;
 
 		[Constructable]
 		public ElvenBoots() : this(0)

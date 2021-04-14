@@ -2,7 +2,7 @@ namespace Server.Items
 {
 	public class AquariumFood : BaseItem
 	{
-		public override int LabelNumber { get { return 1074819; } } // Aquarium food
+		public override int LabelNumber => 1074819;  // Aquarium food
 
 		[Constructable]
 		public AquariumFood() : base(0xEFC)

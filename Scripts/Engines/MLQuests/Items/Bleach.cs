@@ -2,7 +2,7 @@ namespace Server.Items
 {
 	public class Bleach : PigmentsOfTokuno
 	{
-		public override int LabelNumber { get { return 1075375; } } // Bleach
+		public override int LabelNumber => 1075375;  // Bleach
 
 		[Constructable]
 		public Bleach() : base(PigmentType.None)

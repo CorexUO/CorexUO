@@ -12,31 +12,31 @@ namespace Server.Items
 
 		private Timer m_Timer;
 
-		public override bool Nontransferable { get { return true; } }
+		public override bool Nontransferable => true;
 		public override void HandleInvalidTransfer(Mobile from)
 		{
 			if (InvalidTransferMessage != null)
 				TextDefinition.SendMessageTo(from, InvalidTransferMessage);
 
-			this.Delete();
+			Delete();
 		}
 
-		public virtual TextDefinition InvalidTransferMessage { get { return null; } }
+		public virtual TextDefinition InvalidTransferMessage => null;
 
 
 		public virtual void Expire(Mobile parent)
 		{
 			if (parent != null)
-				parent.SendLocalizedMessage(1072515, (this.Name == null ? string.Format("#{0}", LabelNumber) : this.Name)); // The ~1_name~ expired...
+				parent.SendLocalizedMessage(1072515, (Name == null ? string.Format("#{0}", LabelNumber) : Name)); // The ~1_name~ expired...
 
 			Effects.PlaySound(GetWorldLocation(), Map, 0x201);
 
-			this.Delete();
+			Delete();
 		}
 
 		public virtual void SendTimeRemainingMessage(Mobile to)
 		{
-			to.SendLocalizedMessage(1072516, string.Format("{0}\t{1}", (this.Name == null ? string.Format("#{0}", LabelNumber) : this.Name), (int)LifeSpan.TotalSeconds)); // ~1_name~ will expire in ~2_val~ seconds!
+			to.SendLocalizedMessage(1072516, string.Format("{0}\t{1}", (Name == null ? string.Format("#{0}", LabelNumber) : Name), (int)LifeSpan.TotalSeconds)); // ~1_name~ will expire in ~2_val~ seconds!
 		}
 
 		public override void OnDelete()

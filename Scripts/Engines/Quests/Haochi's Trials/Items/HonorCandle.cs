@@ -8,8 +8,8 @@ namespace Server.Engines.Quests.Samurai
 	{
 		private static readonly TimeSpan LitDuration = TimeSpan.FromSeconds(20.0);
 
-		public override int LitSound { get { return 0; } }
-		public override int UnlitSound { get { return 0; } }
+		public override int LitSound => 0;
+		public override int UnlitSound => 0;
 
 		[Constructable]
 		public HonorCandle()
@@ -44,7 +44,7 @@ namespace Server.Engines.Quests.Samurai
 					if (obj != null && !obj.Completed)
 						obj.Complete();
 
-					this.SendLocalizedMessageTo(from, 1063251); // You light a candle in honor.
+					SendLocalizedMessageTo(from, 1063251); // You light a candle in honor.
 				}
 			}
 		}

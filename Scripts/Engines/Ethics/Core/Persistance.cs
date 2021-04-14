@@ -4,12 +4,9 @@ namespace Server.Ethics
 	{
 		private static EthicsPersistance m_Instance;
 
-		public static EthicsPersistance Instance { get { return m_Instance; } }
+		public static EthicsPersistance Instance => m_Instance;
 
-		public override string DefaultName
-		{
-			get { return "Ethics Persistance - Internal"; }
-		}
+		public override string DefaultName => "Ethics Persistance - Internal";
 
 		[Constructable]
 		public EthicsPersistance()

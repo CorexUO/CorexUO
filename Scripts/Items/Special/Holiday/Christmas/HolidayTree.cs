@@ -18,13 +18,13 @@ namespace Server.Items
 		[CommandProperty(AccessLevel.GameMaster)]
 		public Mobile Placer
 		{
-			get { return m_Placer; }
-			set { m_Placer = value; }
+			get => m_Placer;
+			set => m_Placer = value;
 		}
 
 		private class Ornament : BaseItem
 		{
-			public override int LabelNumber { get { return 1041118; } } // a tree ornament
+			public override int LabelNumber => 1041118;  // a tree ornament
 
 			public Ornament(int itemID) : base(itemID)
 			{
@@ -54,7 +54,7 @@ namespace Server.Items
 		{
 			private HolidayTree m_Tree;
 
-			public override int LabelNumber { get { return 1041117; } } // a tree for the holidays
+			public override int LabelNumber => 1041117;  // a tree for the holidays
 
 			public TreeTrunk(HolidayTree tree, int itemID) : base(itemID)
 			{
@@ -104,7 +104,7 @@ namespace Server.Items
 			}
 		}
 
-		public override int LabelNumber { get { return 1041117; } } // a tree for the holidays
+		public override int LabelNumber => 1041117;  // a tree for the holidays
 
 		public HolidayTree(Mobile from, HolidayTreeType type, Point3D loc) : base(1)
 		{
@@ -198,7 +198,7 @@ namespace Server.Items
 
 		private void AddItem(int x, int y, int z, Item item)
 		{
-			item.MoveToWorld(new Point3D(this.Location.X + x, this.Location.Y + y, this.Location.Z + z), this.Map);
+			item.MoveToWorld(new Point3D(Location.X + x, Location.Y + y, Location.Z + z), Map);
 
 			m_Components.Add(item);
 		}
@@ -212,10 +212,7 @@ namespace Server.Items
 			return map.CanFit((Point3D)p, 20);
 		}
 
-		Item IAddon.Deed
-		{
-			get { return new HolidayTreeDeed(); }
-		}
+		Item IAddon.Deed => new HolidayTreeDeed();
 
 		public override void Serialize(GenericWriter writer)
 		{
@@ -277,13 +274,13 @@ namespace Server.Items
 
 		public override void OnDoubleClick(Mobile from)
 		{
-			if (from.InRange(this.GetWorldLocation(), 1))
+			if (from.InRange(GetWorldLocation(), 1))
 			{
 				if (m_Placer == null || from == m_Placer || from.AccessLevel >= AccessLevel.GameMaster)
 				{
 					from.AddToBackpack(new HolidayTreeDeed());
 
-					this.Delete();
+					Delete();
 
 					BaseHouse house = BaseHouse.FindHouseAt(this);
 

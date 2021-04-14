@@ -15,7 +15,7 @@ namespace Server.Engines.Quests.Ninja
 		private int m_Message;
 
 		[CommandProperty(AccessLevel.GameMaster)]
-		public int Message { get { return m_Message; } set { m_Message = value; } }
+		public int Message { get => m_Message; set => m_Message = value; }
 
 		[Constructable]
 		public HiddenFigure()
@@ -62,7 +62,7 @@ namespace Server.Engines.Quests.Ninja
 			return 3;
 		}
 
-		public override int TalkNumber { get { return -1; } }
+		public override int TalkNumber => -1;
 
 		public override void OnTalk(PlayerMobile player, bool contextMenu)
 		{

@@ -5,7 +5,7 @@ namespace Server.Multis
 {
 	public class DynamicDecay
 	{
-		public static bool Enabled { get { return Core.ML; } }
+		public static bool Enabled => Core.ML;
 
 		private static readonly Dictionary<DecayLevel, DecayStageInfo> m_Stages;
 

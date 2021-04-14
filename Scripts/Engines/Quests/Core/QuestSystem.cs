@@ -44,20 +44,20 @@ namespace Server.Engines.Quests
 
 		public PlayerMobile From
 		{
-			get { return m_From; }
-			set { m_From = value; }
+			get => m_From;
+			set => m_From = value;
 		}
 
 		public ArrayList Objectives
 		{
-			get { return m_Objectives; }
-			set { m_Objectives = value; }
+			get => m_Objectives;
+			set => m_Objectives = value;
 		}
 
 		public ArrayList Conversations
 		{
-			get { return m_Conversations; }
-			set { m_Conversations = value; }
+			get => m_Conversations;
+			set => m_Conversations = value;
 		}
 
 		private Timer m_Timer;
@@ -126,7 +126,7 @@ namespace Server.Engines.Quests
 
 		public virtual void BaseDeserialize(GenericReader reader)
 		{
-			Type[] referenceTable = this.TypeReferenceTable;
+			Type[] referenceTable = TypeReferenceTable;
 
 			int version = reader.ReadEncodedInt();
 
@@ -178,7 +178,7 @@ namespace Server.Engines.Quests
 
 		public virtual void BaseSerialize(GenericWriter writer)
 		{
-			Type[] referenceTable = this.TypeReferenceTable;
+			Type[] referenceTable = TypeReferenceTable;
 
 			writer.WriteEncodedInt(0); // version
 
@@ -318,7 +318,7 @@ namespace Server.Engines.Quests
 			{
 				m_From.Quest = null;
 
-				TimeSpan restartDelay = this.RestartDelay;
+				TimeSpan restartDelay = RestartDelay;
 
 				if ((completed && restartDelay > TimeSpan.Zero) || (!completed && restartDelay == TimeSpan.MaxValue))
 				{
@@ -329,7 +329,7 @@ namespace Server.Engines.Quests
 
 					bool found = false;
 
-					Type ourQuestType = this.GetType();
+					Type ourQuestType = GetType();
 
 					for (int i = 0; i < doneQuests.Count; ++i)
 					{

@@ -57,7 +57,7 @@ namespace Server.Items
 
 	public class BarrelHoops : BaseItem
 	{
-		public override int LabelNumber { get { return 1011228; } } // Barrel hoops
+		public override int LabelNumber => 1011228;  // Barrel hoops
 
 		[Constructable]
 		public BarrelHoops() : base(0x1DB7)

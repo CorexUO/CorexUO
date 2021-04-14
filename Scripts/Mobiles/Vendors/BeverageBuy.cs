@@ -7,7 +7,7 @@ namespace Server.Mobiles
 	{
 		private readonly BeverageType m_Content;
 
-		public override bool CanCacheDisplay { get { return false; } }
+		public override bool CanCacheDisplay => false;
 
 		public BeverageBuyInfo(Type type, BeverageType content, int price, int amount, int itemID, int hue) : this(null, type, content, price, amount, itemID, hue)
 		{

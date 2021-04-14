@@ -2,7 +2,7 @@ namespace Server.Items
 {
 	public class SapOfSosaria : BaseItem
 	{
-		public override int LabelNumber { get { return 1074178; } } // Sap of Sosaria
+		public override int LabelNumber => 1074178;  // Sap of Sosaria
 
 		[Constructable]
 		public SapOfSosaria() : this(1)

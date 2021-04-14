@@ -8,8 +8,8 @@ namespace Server.Items
 {
 	public class FlamingHead : StoneFaceTrapNoDamage, IAddon, IRewardItem
 	{
-		public override int LabelNumber { get { return 1041266; } } // Flaming Head
-		public override bool ForceShowProperties { get { return ObjectPropertyList.Enabled; } }
+		public override int LabelNumber => 1041266;  // Flaming Head
+		public override bool ForceShowProperties => ObjectPropertyList.Enabled;
 
 		public Item Deed
 		{
@@ -29,7 +29,7 @@ namespace Server.Items
 		[CommandProperty(AccessLevel.GameMaster)]
 		public bool IsRewardItem
 		{
-			get { return m_IsRewardItem; }
+			get => m_IsRewardItem;
 			set { m_IsRewardItem = value; InvalidateProperties(); }
 		}
 
@@ -112,14 +112,14 @@ namespace Server.Items
 
 	public class FlamingHeadDeed : BaseItem, IRewardItem
 	{
-		public override int LabelNumber { get { return 1041050; } } // a flaming head deed
+		public override int LabelNumber => 1041050;  // a flaming head deed
 
 		private bool m_IsRewardItem;
 
 		[CommandProperty(AccessLevel.GameMaster)]
 		public bool IsRewardItem
 		{
-			get { return m_IsRewardItem; }
+			get => m_IsRewardItem;
 			set { m_IsRewardItem = value; InvalidateProperties(); }
 		}
 

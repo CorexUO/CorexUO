@@ -20,22 +20,19 @@ namespace Server.Items
 	[Flipable(0x2AF9, 0x2AFD)]
 	public class DawnsMusicBox : BaseItem, ISecurable
 	{
-		public override int LabelNumber { get { return 1075198; } } // Dawns Music Box
+		public override int LabelNumber => 1075198;  // Dawns Music Box
 
 		private List<MusicName> m_Tracks;
 
-		public List<MusicName> Tracks
-		{
-			get { return m_Tracks; }
-		}
+		public List<MusicName> Tracks => m_Tracks;
 
 		private SecureLevel m_Level;
 
 		[CommandProperty(AccessLevel.GameMaster)]
 		public SecureLevel Level
 		{
-			get { return m_Level; }
-			set { m_Level = value; }
+			get => m_Level;
+			set => m_Level = value;
 		}
 
 		[Constructable]

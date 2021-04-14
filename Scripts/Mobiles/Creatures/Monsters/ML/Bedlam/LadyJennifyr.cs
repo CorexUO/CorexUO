@@ -111,7 +111,7 @@ namespace Server.Mobiles
 		}
 		*/
 
-		public override bool GivesMLMinorArtifact { get { return true; } }
+		public override bool GivesMLMinorArtifact => true;
 
 		public LadyJennifyr(Serial serial)
 			: base(serial)

@@ -3,7 +3,7 @@ namespace Server.Items
 	[Flipable(0xC12, 0xC13)]
 	public class BrokenArmoireComponent : AddonComponent
 	{
-		public override int LabelNumber { get { return 1076262; } } // Broken Armoire
+		public override int LabelNumber => 1076262;  // Broken Armoire
 
 		public BrokenArmoireComponent() : base(0xC12)
 		{
@@ -30,7 +30,7 @@ namespace Server.Items
 
 	public class BrokenArmoireAddon : BaseAddon
 	{
-		public override BaseAddonDeed Deed { get { return new BrokenArmoireDeed(); } }
+		public override BaseAddonDeed Deed => new BrokenArmoireDeed();
 
 		[Constructable]
 		public BrokenArmoireAddon() : base()
@@ -59,8 +59,8 @@ namespace Server.Items
 
 	public class BrokenArmoireDeed : BaseAddonDeed
 	{
-		public override BaseAddon Addon { get { return new BrokenArmoireAddon(); } }
-		public override int LabelNumber { get { return 1076262; } } // Broken Armoire
+		public override BaseAddon Addon => new BrokenArmoireAddon();
+		public override int LabelNumber => 1076262;  // Broken Armoire
 
 		[Constructable]
 		public BrokenArmoireDeed() : base()

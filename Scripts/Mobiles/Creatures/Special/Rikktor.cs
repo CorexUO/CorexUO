@@ -7,36 +7,18 @@ namespace Server.Mobiles
 {
 	public class Rikktor : BaseChampion
 	{
-		public override ChampionSkullType SkullType { get { return ChampionSkullType.Power; } }
+		public override ChampionSkullType SkullType => ChampionSkullType.Power;
 
-		public override Type[] UniqueList { get { return new Type[] { typeof(CrownOfTalKeesh) }; } }
-		public override Type[] SharedList
-		{
-			get
-			{
-				return new Type[] {    typeof( TheMostKnowledgePerson ),
+		public override Type[] UniqueList => new Type[] { typeof(CrownOfTalKeesh) };
+		public override Type[] SharedList => new Type[] {    typeof( TheMostKnowledgePerson ),
 										typeof( BraveKnightOfTheBritannia ),
 										typeof( LieutenantOfTheBritannianRoyalGuard ) };
-			}
-		}
-		public override Type[] DecorativeList
-		{
-			get
-			{
-				return new Type[] { typeof( LavaTile ),
+		public override Type[] DecorativeList => new Type[] { typeof( LavaTile ),
 										typeof( MonsterStatuette ),
 										typeof( MonsterStatuette ) };
-			}
-		}
 
-		public override MonsterStatuetteType[] StatueTypes
-		{
-			get
-			{
-				return new MonsterStatuetteType[] {  MonsterStatuetteType.OphidianArchMage,
+		public override MonsterStatuetteType[] StatueTypes => new MonsterStatuetteType[] {  MonsterStatuetteType.OphidianArchMage,
 														MonsterStatuetteType.OphidianWarrior };
-			}
-		}
 
 		[Constructable]
 		public Rikktor() : base(AIType.AI_Melee)
@@ -78,9 +60,9 @@ namespace Server.Mobiles
 			AddLoot(LootPack.UltraRich, 4);
 		}
 
-		public override Poison PoisonImmune { get { return Poison.Lethal; } }
-		public override ScaleType ScaleType { get { return ScaleType.All; } }
-		public override int Scales { get { return 20; } }
+		public override Poison PoisonImmune => Poison.Lethal;
+		public override ScaleType ScaleType => ScaleType.All;
+		public override int Scales => 20;
 
 		public override void OnGaveMeleeAttack(Mobile defender)
 		{
@@ -92,19 +74,19 @@ namespace Server.Mobiles
 
 		public void Earthquake()
 		{
-			Map map = this.Map;
+			Map map = Map;
 
 			if (map == null)
 				return;
 
 			ArrayList targets = new ArrayList();
 
-			foreach (Mobile m in this.GetMobilesInRange(8))
+			foreach (Mobile m in GetMobilesInRange(8))
 			{
 				if (m == this || !CanBeHarmful(m))
 					continue;
 
-				if (m is BaseCreature && (((BaseCreature)m).Controlled || ((BaseCreature)m).Summoned || ((BaseCreature)m).Team != this.Team))
+				if (m is BaseCreature && (((BaseCreature)m).Controlled || ((BaseCreature)m).Summoned || ((BaseCreature)m).Team != Team))
 					targets.Add(m);
 				else if (m.Player)
 					targets.Add(m);

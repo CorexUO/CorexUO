@@ -8,22 +8,16 @@ namespace Server.Mobiles
 {
 	public class Barracoon : BaseChampion
 	{
-		public override ChampionSkullType SkullType { get { return ChampionSkullType.Greed; } }
+		public override ChampionSkullType SkullType => ChampionSkullType.Greed;
 
-		public override Type[] UniqueList { get { return new Type[] { typeof(FangOfRactus) }; } }
-		public override Type[] SharedList
-		{
-			get
-			{
-				return new Type[] {     typeof( EmbroideredOakLeafCloak ),
+		public override Type[] UniqueList => new Type[] { typeof(FangOfRactus) };
+		public override Type[] SharedList => new Type[] {     typeof( EmbroideredOakLeafCloak ),
 										typeof( DjinnisRing ),
 										typeof( DetectiveBoots ),
 										typeof( GuantletsOfAnger ) };
-			}
-		}
-		public override Type[] DecorativeList { get { return new Type[] { typeof(SwampTile), typeof(MonsterStatuette) }; } }
+		public override Type[] DecorativeList => new Type[] { typeof(SwampTile), typeof(MonsterStatuette) };
 
-		public override MonsterStatuetteType[] StatueTypes { get { return new MonsterStatuetteType[] { MonsterStatuetteType.Slime }; } }
+		public override MonsterStatuetteType[] StatueTypes => new MonsterStatuetteType[] { MonsterStatuetteType.Slime };
 
 		[Constructable]
 		public Barracoon() : base(AIType.AI_Melee)
@@ -74,16 +68,16 @@ namespace Server.Mobiles
 			AddLoot(LootPack.UltraRich, 3);
 		}
 
-		public override bool AlwaysMurderer { get { return true; } }
-		public override bool AutoDispel { get { return true; } }
-		public override double AutoDispelChance { get { return 1.0; } }
-		public override bool BardImmune { get { return !Core.SE; } }
-		public override bool Unprovokable { get { return Core.SE; } }
-		public override bool Uncalmable { get { return Core.SE; } }
-		public override Poison PoisonImmune { get { return Poison.Deadly; } }
+		public override bool AlwaysMurderer => true;
+		public override bool AutoDispel => true;
+		public override double AutoDispelChance => 1.0;
+		public override bool BardImmune => !Core.SE;
+		public override bool Unprovokable => Core.SE;
+		public override bool Uncalmable => Core.SE;
+		public override Poison PoisonImmune => Poison.Deadly;
 
-		public override bool ShowFameTitle { get { return false; } }
-		public override bool ClickTitle { get { return false; } }
+		public override bool ShowFameTitle => false;
+		public override bool ClickTitle => false;
 
 		public void Polymorph(Mobile m)
 		{
@@ -141,14 +135,14 @@ namespace Server.Mobiles
 
 		public void SpawnRatmen(Mobile target)
 		{
-			Map map = this.Map;
+			Map map = Map;
 
 			if (map == null)
 				return;
 
 			int rats = 0;
 
-			foreach (Mobile m in this.GetMobilesInRange(10))
+			foreach (Mobile m in GetMobilesInRange(10))
 			{
 				if (m is Ratman || m is RatmanArcher || m is RatmanMage)
 					++rats;
@@ -173,10 +167,10 @@ namespace Server.Mobiles
 						case 4: rat = new RatmanMage(); break;
 					}
 
-					rat.Team = this.Team;
+					rat.Team = Team;
 
 					bool validLocation = false;
-					Point3D loc = this.Location;
+					Point3D loc = Location;
 
 					for (int j = 0; !validLocation && j < 10; ++j)
 					{
@@ -184,7 +178,7 @@ namespace Server.Mobiles
 						int y = Y + Utility.Random(3) - 1;
 						int z = map.GetAverageZ(x, y);
 
-						if (validLocation = map.CanFit(x, y, this.Z, 16, false, false))
+						if (validLocation = map.CanFit(x, y, Z, 16, false, false))
 							loc = new Point3D(x, y, Z);
 						else if (validLocation = map.CanFit(x, y, z, 16, false, false))
 							loc = new Point3D(x, y, z);

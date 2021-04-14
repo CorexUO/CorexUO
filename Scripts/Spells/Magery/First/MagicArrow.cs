@@ -11,14 +11,14 @@ namespace Server.Spells.First
 				Reagent.SulfurousAsh
 			);
 
-		public override SpellCircle Circle { get { return SpellCircle.First; } }
-		public override TargetFlags SpellTargetFlags { get { return TargetFlags.Harmful; } }
+		public override SpellCircle Circle => SpellCircle.First;
+		public override TargetFlags SpellTargetFlags => TargetFlags.Harmful;
 
 		public MagicArrowSpell(Mobile caster, Item scroll) : base(caster, scroll, m_Info)
 		{
 		}
 
-		public override bool DelayedDamageStacking { get { return !Core.AOS; } }
+		public override bool DelayedDamageStacking => !Core.AOS;
 
 		public override void OnCast()
 		{
@@ -35,7 +35,7 @@ namespace Server.Spells.First
 			}
 		}
 
-		public override bool DelayedDamage { get { return true; } }
+		public override bool DelayedDamage => true;
 
 		public void Target(Mobile m)
 		{
@@ -49,7 +49,7 @@ namespace Server.Spells.First
 
 				SpellHelper.Turn(source, m);
 
-				SpellHelper.CheckReflect((int)this.Circle, ref source, ref m);
+				SpellHelper.CheckReflect((int)Circle, ref source, ref m);
 
 				double damage;
 

@@ -16,27 +16,21 @@ namespace Server.Items
 		[CommandProperty(AccessLevel.GameMaster)]
 		public string GuildName
 		{
-			get { return m_GuildName; }
+			get => m_GuildName;
 			set { m_GuildName = value; InvalidateProperties(); }
 		}
 
 		[CommandProperty(AccessLevel.GameMaster)]
 		public string GuildAbbrev
 		{
-			get { return m_GuildAbbrev; }
+			get => m_GuildAbbrev;
 			set { m_GuildAbbrev = value; InvalidateProperties(); }
 		}
 
 		[CommandProperty(AccessLevel.GameMaster)]
-		public Guild Guild
-		{
-			get
-			{
-				return m_Guild;
-			}
-		}
+		public Guild Guild => m_Guild;
 
-		public override int LabelNumber { get { return 1041429; } } // a guildstone
+		public override int LabelNumber => 1041429;  // a guildstone
 
 		public Guildstone(Guild g) : this(g, g.Name, g.Abbreviation)
 		{
@@ -104,7 +98,7 @@ namespace Server.Items
 				Timer.DelayCall(TimeSpan.Zero, new TimerCallback(AddToHouse));
 
 			if (!Guild.NewGuildSystem && m_Guild == null)
-				this.Delete();
+				Delete();
 		}
 
 		private void AddToHouse()
@@ -153,11 +147,11 @@ namespace Server.Items
 				if ((name = m_Guild.Name) == null || (name = name.Trim()).Length <= 0)
 					name = "(unnamed)";
 
-				this.LabelTo(from, name);
+				LabelTo(from, name);
 			}
 			else if (m_GuildName != null)
 			{
-				this.LabelTo(from, m_GuildName);
+				LabelTo(from, m_GuildName);
 			}
 		}
 
@@ -214,14 +208,11 @@ namespace Server.Items
 		}
 
 		#region IAddon Members
-		public Item Deed
-		{
-			get { return new GuildstoneDeed(m_Guild, m_GuildName, m_GuildAbbrev); }
-		}
+		public Item Deed => new GuildstoneDeed(m_Guild, m_GuildName, m_GuildAbbrev);
 
 		public bool CouldFit(IPoint3D p, Map map)
 		{
-			return map.CanFit(p.X, p.Y, p.Z, this.ItemData.Height);
+			return map.CanFit(p.X, p.Y, p.Z, ItemData.Height);
 		}
 
 		#endregion
@@ -260,7 +251,7 @@ namespace Server.Items
 	[Flipable(0x14F0, 0x14EF)]
 	public class GuildstoneDeed : BaseItem
 	{
-		public override int LabelNumber { get { return 1041233; } } // deed to a guildstone
+		public override int LabelNumber => 1041233;  // deed to a guildstone
 
 		private Guild m_Guild;
 		private string m_GuildName;
@@ -269,25 +260,19 @@ namespace Server.Items
 		[CommandProperty(AccessLevel.GameMaster)]
 		public string GuildName
 		{
-			get { return m_GuildName; }
+			get => m_GuildName;
 			set { m_GuildName = value; InvalidateProperties(); }
 		}
 
 		[CommandProperty(AccessLevel.GameMaster)]
 		public string GuildAbbrev
 		{
-			get { return m_GuildAbbrev; }
+			get => m_GuildAbbrev;
 			set { m_GuildAbbrev = value; InvalidateProperties(); }
 		}
 
 		[CommandProperty(AccessLevel.GameMaster)]
-		public Guild Guild
-		{
-			get
-			{
-				return m_Guild;
-			}
-		}
+		public Guild Guild => m_Guild;
 
 		[Constructable]
 		public GuildstoneDeed() : this(null, null)

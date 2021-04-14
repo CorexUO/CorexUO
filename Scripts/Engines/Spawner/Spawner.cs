@@ -43,12 +43,12 @@ namespace Server.Mobiles
 		private bool m_Group;
 		private Rectangle2D m_SpawnArea;
 
-		public bool IsFull { get { return (Spawned.Count >= m_Count); } }
-		public bool IsEmpty { get { return (Spawned.Count == 0); } }
+		public bool IsFull => (Spawned.Count >= m_Count);
+		public bool IsEmpty => (Spawned.Count == 0);
 
 		public List<string> SpawnNames
 		{
-			get { return m_SpawnNames; }
+			get => m_SpawnNames;
 			set
 			{
 				m_SpawnNames = value;
@@ -61,7 +61,7 @@ namespace Server.Mobiles
 
 		public List<ISpawnable> Spawned { get; private set; }
 
-		public virtual int SpawnNamesCount { get { return m_SpawnNames.Count; } }
+		public virtual int SpawnNamesCount => m_SpawnNames.Count;
 
 		public override void OnAfterDuped(Item newItem)
 		{
@@ -81,20 +81,14 @@ namespace Server.Mobiles
 		[CommandProperty(AccessLevel.GameMaster)]
 		public Rectangle2D SpawnArea
 		{
-			get
-			{
-				return m_SpawnArea;
-			}
-			set
-			{
-				m_SpawnArea = value;
-			}
+			get => m_SpawnArea;
+			set => m_SpawnArea = value;
 		}
 
 		[CommandProperty(AccessLevel.GameMaster)]
 		public int Count
 		{
-			get { return m_Count; }
+			get => m_Count;
 			set { m_Count = value; InvalidateProperties(); }
 		}
 
@@ -104,7 +98,7 @@ namespace Server.Mobiles
 		[CommandProperty(AccessLevel.GameMaster)]
 		public bool Running
 		{
-			get { return m_Running; }
+			get => m_Running;
 			set
 			{
 				if (value)
@@ -122,35 +116,35 @@ namespace Server.Mobiles
 		[CommandProperty(AccessLevel.GameMaster)]
 		public int HomeRange
 		{
-			get { return m_HomeRange; }
+			get => m_HomeRange;
 			set { m_HomeRange = value; InvalidateProperties(); }
 		}
 
 		[CommandProperty(AccessLevel.GameMaster)]
 		public int WalkingRange
 		{
-			get { return m_WalkingRange; }
+			get => m_WalkingRange;
 			set { m_WalkingRange = value; InvalidateProperties(); }
 		}
 
 		[CommandProperty(AccessLevel.GameMaster)]
 		public int Team
 		{
-			get { return m_Team; }
+			get => m_Team;
 			set { m_Team = value; InvalidateProperties(); }
 		}
 
 		[CommandProperty(AccessLevel.GameMaster)]
 		public TimeSpan MinDelay
 		{
-			get { return m_MinDelay; }
+			get => m_MinDelay;
 			set { m_MinDelay = value; InvalidateProperties(); }
 		}
 
 		[CommandProperty(AccessLevel.GameMaster)]
 		public TimeSpan MaxDelay
 		{
-			get { return m_MaxDelay; }
+			get => m_MaxDelay;
 			set { m_MaxDelay = value; InvalidateProperties(); }
 		}
 
@@ -176,7 +170,7 @@ namespace Server.Mobiles
 		[CommandProperty(AccessLevel.GameMaster)]
 		public bool Group
 		{
-			get { return m_Group; }
+			get => m_Group;
 			set { m_Group = value; InvalidateProperties(); }
 		}
 
@@ -216,10 +210,7 @@ namespace Server.Mobiles
 			InitSpawner(amount, minDelay, maxDelay, team, homeRange, spawnNames);
 		}
 
-		public override string DefaultName
-		{
-			get { return "Spawner"; }
-		}
+		public override string DefaultName => "Spawner";
 
 		private void InitSpawner(int amount, TimeSpan minDelay, TimeSpan maxDelay, int team, int homeRange, List<string> spawnNames)
 		{
@@ -356,7 +347,7 @@ namespace Server.Mobiles
 				InvalidateProperties();
 		}
 
-		bool ISpawner.UnlinkOnTaming { get { return true; } }
+		bool ISpawner.UnlinkOnTaming => true;
 
 		void ISpawner.Remove(ISpawnable spawn)
 		{
@@ -541,7 +532,7 @@ namespace Server.Mobiles
 			return null;
 		}
 
-		public Point3D HomeLocation { get { return this.Location; } }
+		public Point3D HomeLocation => Location;
 
 		public virtual bool CheckSpawnerFull()
 		{
@@ -568,7 +559,7 @@ namespace Server.Mobiles
 			spawned.Spawner = this;
 			Spawned.Add(spawned);
 
-			Point3D loc = (spawned is BaseVendor ? this.Location : GetSpawnPosition(spawned));
+			Point3D loc = (spawned is BaseVendor ? Location : GetSpawnPosition(spawned));
 
 			spawned.OnBeforeSpawn(loc, map);
 			spawned.MoveToWorld(loc, map);
@@ -588,7 +579,7 @@ namespace Server.Mobiles
 				if (m_Team > 0)
 					bc.Team = m_Team;
 
-				bc.Home = (UsesSpawnerHome) ? this.HomeLocation : bc.Location;
+				bc.Home = (UsesSpawnerHome) ? HomeLocation : bc.Location;
 			}
 
 			InvalidateProperties();
@@ -632,27 +623,27 @@ namespace Server.Mobiles
 				int mapZ = map.GetAverageZ(x, y);
 
 				if (IgnoreHousing || ((BaseHouse.FindHouseAt(new Point3D(x, y, mapZ), Map, 16) == null &&
-					BaseHouse.FindHouseAt(new Point3D(x, y, this.Z), Map, 16) == null)))
+					BaseHouse.FindHouseAt(new Point3D(x, y, Z), Map, 16) == null)))
 				{
 					if (waterMob)
 					{
-						if (IsValidWater(map, x, y, this.Z))
-							return new Point3D(x, y, this.Z);
+						if (IsValidWater(map, x, y, Z))
+							return new Point3D(x, y, Z);
 						else if (IsValidWater(map, x, y, mapZ))
 							return new Point3D(x, y, mapZ);
 					}
 
 					if (!waterOnlyMob)
 					{
-						if (map.CanSpawnMobile(x, y, this.Z))
-							return new Point3D(x, y, this.Z);
+						if (map.CanSpawnMobile(x, y, Z))
+							return new Point3D(x, y, Z);
 						else if (map.CanSpawnMobile(x, y, mapZ))
 							return new Point3D(x, y, mapZ);
 					}
 				}
 			}
 
-			return this.Location;
+			return Location;
 		}
 
 		public static bool IsValidWater(Map map, int x, int y, int z)
@@ -810,7 +801,7 @@ namespace Server.Mobiles
 			{
 				ISpawnable e = Spawned[i];
 
-				e.MoveToWorld(this.Location, this.Map);
+				e.MoveToWorld(Location, Map);
 			}
 		}
 

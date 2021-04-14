@@ -55,10 +55,10 @@ namespace Server.Mobiles
 			AddLoot(LootPack.MedScrolls, 2);
 		}
 
-		public override bool CanRummageCorpses { get { return true; } }
-		public override bool AlwaysMurderer { get { return true; } }
-		public override int Meat { get { return 1; } }
-		public override int TreasureMapLevel { get { return Core.AOS ? 2 : 0; } }
+		public override bool CanRummageCorpses => true;
+		public override bool AlwaysMurderer => true;
+		public override int Meat => 1;
+		public override int TreasureMapLevel => Core.AOS ? 2 : 0;
 
 		public EvilMageLord(Serial serial) : base(serial)
 		{

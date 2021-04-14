@@ -5,7 +5,7 @@ namespace Server.Mobiles
 {
 	public class ShadowFiend : BaseCreature
 	{
-		public override bool DeleteCorpseOnDeath { get { return true; } }
+		public override bool DeleteCorpseOnDeath => true;
 
 		private UnhideTimer m_Timer;
 
@@ -76,7 +76,7 @@ namespace Server.Mobiles
 			return 0x380;
 		}
 
-		public override bool CanRummageCorpses { get { return true; } }
+		public override bool CanRummageCorpses => true;
 
 		public override bool OnBeforeDeath()
 		{

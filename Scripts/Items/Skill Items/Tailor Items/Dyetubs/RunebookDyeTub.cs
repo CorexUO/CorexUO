@@ -2,20 +2,20 @@ namespace Server.Items
 {
 	public class RunebookDyeTub : DyeTub, Engines.VeteranRewards.IRewardItem
 	{
-		public override bool AllowDyables { get { return false; } }
-		public override bool AllowRunebooks { get { return true; } }
-		public override int TargetMessage { get { return 1049774; } } // Target the runebook or runestone to dye
-		public override int FailMessage { get { return 1049775; } } // You can only dye runestones or runebooks with this tub.
-		public override int LabelNumber { get { return 1049740; } } // Runebook Dye Tub
-		public override CustomHuePicker CustomHuePicker { get { return CustomHuePicker.LeatherDyeTub; } }
+		public override bool AllowDyables => false;
+		public override bool AllowRunebooks => true;
+		public override int TargetMessage => 1049774;  // Target the runebook or runestone to dye
+		public override int FailMessage => 1049775;  // You can only dye runestones or runebooks with this tub.
+		public override int LabelNumber => 1049740;  // Runebook Dye Tub
+		public override CustomHuePicker CustomHuePicker => CustomHuePicker.LeatherDyeTub;
 
 		private bool m_IsRewardItem;
 
 		[CommandProperty(AccessLevel.GameMaster)]
 		public bool IsRewardItem
 		{
-			get { return m_IsRewardItem; }
-			set { m_IsRewardItem = value; }
+			get => m_IsRewardItem;
+			set => m_IsRewardItem = value;
 		}
 
 		[Constructable]

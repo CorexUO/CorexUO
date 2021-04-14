@@ -5,8 +5,8 @@ namespace Server.Items
 {
 	public class TotemOfVoid : BaseTalisman
 	{
-		public override int LabelNumber { get { return 1075035; } } // Totem of the Void
-		public override bool ForceShowName { get { return true; } }
+		public override int LabelNumber => 1075035;  // Totem of the Void
+		public override bool ForceShowName => true;
 
 		[Constructable]
 		public TotemOfVoid() : base(0x2F5B)

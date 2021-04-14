@@ -3,20 +3,20 @@ namespace Server.Items
 	[FlipableAttribute(0x2D22, 0x2D2E)]
 	public class Leafblade : BaseKnife
 	{
-		public override WeaponAbility PrimaryAbility { get { return WeaponAbility.Feint; } }
-		public override WeaponAbility SecondaryAbility { get { return WeaponAbility.ArmorIgnore; } }
+		public override WeaponAbility PrimaryAbility => WeaponAbility.Feint;
+		public override WeaponAbility SecondaryAbility => WeaponAbility.ArmorIgnore;
 
-		public override int DefMissSound { get { return 0x239; } }
-		public override SkillName DefSkill { get { return SkillName.Fencing; } }
+		public override int DefMissSound => 0x239;
+		public override SkillName DefSkill => SkillName.Fencing;
 
-		public override int StrReq { get { return Core.AOS ? 20 : 20; } }
+		public override int StrReq => Core.AOS ? 20 : 20;
 
-		public override int MinDamageBase { get { return Core.AOS ? 13 : 13; } }
-		public override int MaxDamageBase { get { return Core.AOS ? 15 : 15; } }
-		public override float SpeedBase { get { return Core.ML ? 2.75f : Core.AOS ? 42 : 42; } }
+		public override int MinDamageBase => Core.AOS ? 13 : 13;
+		public override int MaxDamageBase => Core.AOS ? 15 : 15;
+		public override float SpeedBase => Core.ML ? 2.75f : Core.AOS ? 42 : 42;
 
-		public override int InitMinHits { get { return 30; } } // TODO
-		public override int InitMaxHits { get { return 60; } } // TODO
+		public override int InitMinHits => 30;  // TODO
+		public override int InitMaxHits => 60;  // TODO
 
 		[Constructable]
 		public Leafblade() : base(0x2D22)

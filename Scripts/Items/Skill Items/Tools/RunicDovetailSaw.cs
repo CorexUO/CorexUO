@@ -4,7 +4,7 @@ namespace Server.Items
 {
 	public class RunicDovetailSaw : BaseRunicTool
 	{
-		public override CraftSystem CraftSystem { get { return DefCarpentry.CraftSystem; } }
+		public override CraftSystem CraftSystem => DefCarpentry.CraftSystem;
 
 		public override int LabelNumber
 		{

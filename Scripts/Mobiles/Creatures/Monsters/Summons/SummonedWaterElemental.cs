@@ -3,8 +3,8 @@ namespace Server.Mobiles
 	[CorpseName("a water elemental corpse")]
 	public class SummonedWaterElemental : BaseCreature
 	{
-		public override double DispelDifficulty { get { return 117.5; } }
-		public override double DispelFocus { get { return 45.0; } }
+		public override double DispelDifficulty => 117.5;
+		public override double DispelFocus => 45.0;
 
 		[Constructable]
 		public SummonedWaterElemental() : base(AIType.AI_Mage, FightMode.Closest, 10, 1, 0.2, 0.4)

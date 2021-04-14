@@ -2,7 +2,7 @@ namespace Server.Items
 {
 	public class ArcaneCircleAddon : BaseAddon
 	{
-		public override BaseAddonDeed Deed { get { return new ArcaneCircleDeed(); } }
+		public override BaseAddonDeed Deed => new ArcaneCircleDeed();
 
 		[Constructable]
 		public ArcaneCircleAddon()
@@ -51,8 +51,8 @@ namespace Server.Items
 
 	public class ArcaneCircleDeed : BaseAddonDeed
 	{
-		public override BaseAddon Addon { get { return new ArcaneCircleAddon(); } }
-		public override int LabelNumber { get { return 1072703; } } // arcane circle
+		public override BaseAddon Addon => new ArcaneCircleAddon();
+		public override int LabelNumber => 1072703;  // arcane circle
 
 		[Constructable]
 		public ArcaneCircleDeed()

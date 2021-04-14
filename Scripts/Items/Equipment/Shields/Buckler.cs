@@ -2,18 +2,18 @@ namespace Server.Items
 {
 	public class Buckler : BaseShield
 	{
-		public override int BasePhysicalResistance { get { return 0; } }
-		public override int BaseFireResistance { get { return 0; } }
-		public override int BaseColdResistance { get { return 0; } }
-		public override int BasePoisonResistance { get { return 1; } }
-		public override int BaseEnergyResistance { get { return 0; } }
+		public override int BasePhysicalResistance => 0;
+		public override int BaseFireResistance => 0;
+		public override int BaseColdResistance => 0;
+		public override int BasePoisonResistance => 1;
+		public override int BaseEnergyResistance => 0;
 
-		public override int InitMinHits { get { return 40; } }
-		public override int InitMaxHits { get { return 50; } }
+		public override int InitMinHits => 40;
+		public override int InitMaxHits => 50;
 
-		public override int StrReq { get { return Core.AOS ? 20 : 0; } }
+		public override int StrReq => Core.AOS ? 20 : 0;
 
-		public override int ArmorBase { get { return 7; } }
+		public override int ArmorBase => 7;
 
 		[Constructable]
 		public Buckler() : base(0x1B73)

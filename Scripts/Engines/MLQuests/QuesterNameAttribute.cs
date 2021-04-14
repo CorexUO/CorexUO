@@ -8,7 +8,7 @@ namespace Server.Engines.MLQuests
 	{
 		private readonly string m_QuesterName;
 
-		public string QuesterName { get { return m_QuesterName; } }
+		public string QuesterName => m_QuesterName;
 
 		public QuesterNameAttribute(string questerName)
 		{

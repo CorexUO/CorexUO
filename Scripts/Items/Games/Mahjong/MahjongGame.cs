@@ -20,25 +20,25 @@ namespace Server.Engines.Mahjong
 		private bool m_SpectatorVision;
 		private DateTime m_LastReset;
 
-		public MahjongTile[] Tiles { get { return m_Tiles; } }
-		public MahjongDealerIndicator DealerIndicator { get { return m_DealerIndicator; } }
-		public MahjongWallBreakIndicator WallBreakIndicator { get { return m_WallBreakIndicator; } }
-		public MahjongDices Dices { get { return m_Dices; } }
-		public MahjongPlayers Players { get { return m_Players; } }
+		public MahjongTile[] Tiles => m_Tiles;
+		public MahjongDealerIndicator DealerIndicator => m_DealerIndicator;
+		public MahjongWallBreakIndicator WallBreakIndicator => m_WallBreakIndicator;
+		public MahjongDices Dices => m_Dices;
+		public MahjongPlayers Players => m_Players;
 
 		private SecureLevel m_Level;
 
 		[CommandProperty(AccessLevel.GameMaster)]
 		public SecureLevel Level
 		{
-			get { return m_Level; }
-			set { m_Level = value; }
+			get => m_Level;
+			set => m_Level = value;
 		}
 
 		[CommandProperty(AccessLevel.GameMaster)]
 		public bool ShowScores
 		{
-			get { return m_ShowScores; }
+			get => m_ShowScores;
 			set
 			{
 				if (m_ShowScores == value)
@@ -58,7 +58,7 @@ namespace Server.Engines.Mahjong
 		[CommandProperty(AccessLevel.GameMaster)]
 		public bool SpectatorVision
 		{
-			get { return m_SpectatorVision; }
+			get => m_SpectatorVision;
 			set
 			{
 				if (m_SpectatorVision == value)

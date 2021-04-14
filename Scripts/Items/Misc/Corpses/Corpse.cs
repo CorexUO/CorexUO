@@ -160,7 +160,7 @@ namespace Server.Items
 
 		private void AssignInstancedLoot()
 		{
-			AssignInstancedLoot(this.Items);
+			AssignInstancedLoot(Items);
 		}
 
 		public void AssignInstancedLoot(Item item)
@@ -170,7 +170,7 @@ namespace Server.Items
 
 		private void AssignInstancedLoot(IEnumerable<Item> items)
 		{
-			if (Aggressors.Count == 0 || this.Items.Count == 0)
+			if (Aggressors.Count == 0 || Items.Count == 0)
 				return;
 
 			if (m_InstancedItems == null)
@@ -251,9 +251,9 @@ namespace Server.Items
 
 		public void AddCarvedItem(Item carved, Mobile carver)
 		{
-			this.DropItem(carved);
+			DropItem(carved);
 
-			if (this.InstancedCorpse)
+			if (InstancedCorpse)
 			{
 				if (m_InstancedItems == null)
 					m_InstancedItems = new Dictionary<Item, InstancedItemInfo>();
@@ -262,64 +262,55 @@ namespace Server.Items
 			}
 		}
 
-		public override bool IsDecoContainer
-		{
-			get { return false; }
-		}
+		public override bool IsDecoContainer => false;
 
 		[CommandProperty(AccessLevel.GameMaster)]
 		public DateTime TimeOfDeath { get; set; }
 
-		public override bool DisplayWeight { get { return false; } }
+		public override bool DisplayWeight => false;
 
 		public HairInfo Hair { get; }
 		public FacialHairInfo FacialHair { get; }
 
 		[CommandProperty(AccessLevel.GameMaster)]
-		public bool IsBones
-		{
-			get { return GetFlag(CorpseFlag.IsBones); }
-		}
+		public bool IsBones => GetFlag(CorpseFlag.IsBones);
 
 		[CommandProperty(AccessLevel.GameMaster)]
-		public bool Devoured
-		{
-			get { return (m_Devourer != null); }
-		}
+		public bool Devoured => (m_Devourer != null);
 
 		[CommandProperty(AccessLevel.GameMaster)]
 		public bool Carved
 		{
-			get { return GetFlag(CorpseFlag.Carved); }
-			set { SetFlag(CorpseFlag.Carved, value); }
+			get => GetFlag(CorpseFlag.Carved);
+			set => SetFlag(CorpseFlag.Carved, value);
 		}
 
 		[CommandProperty(AccessLevel.GameMaster)]
 		public bool VisitedByTaxidermist
 		{
-			get { return GetFlag(CorpseFlag.VisitedByTaxidermist); }
-			set { SetFlag(CorpseFlag.VisitedByTaxidermist, value); }
+			get => GetFlag(CorpseFlag.VisitedByTaxidermist);
+			set => SetFlag(CorpseFlag.VisitedByTaxidermist, value);
 		}
 
 		[CommandProperty(AccessLevel.GameMaster)]
 		public bool Channeled
 		{
-			get { return GetFlag(CorpseFlag.Channeled); }
-			set { SetFlag(CorpseFlag.Channeled, value); }
+			get => GetFlag(CorpseFlag.Channeled);
+			set => SetFlag(CorpseFlag.Channeled, value);
 		}
 
 		[CommandProperty(AccessLevel.GameMaster)]
 		public bool Animated
 		{
-			get { return GetFlag(CorpseFlag.Animated); }
-			set { SetFlag(CorpseFlag.Animated, value); }
+			get => GetFlag(CorpseFlag.Animated);
+			set => SetFlag(CorpseFlag.Animated, value);
 		}
 
 		[CommandProperty(AccessLevel.GameMaster)]
 		public bool SelfLooted
 		{
-			get { return GetFlag(CorpseFlag.SelfLooted); }
-			set { SetFlag(CorpseFlag.SelfLooted, value); }
+			get => GetFlag(CorpseFlag.SelfLooted);
+			set => SetFlag(CorpseFlag.SelfLooted, value);
 		}
 
 		[CommandProperty(AccessLevel.GameMaster)]
@@ -344,8 +335,8 @@ namespace Server.Items
 		[CommandProperty(AccessLevel.GameMaster)]
 		public bool Criminal
 		{
-			get { return GetFlag(CorpseFlag.Criminal); }
-			set { SetFlag(CorpseFlag.Criminal, value); }
+			get => GetFlag(CorpseFlag.Criminal);
+			set => SetFlag(CorpseFlag.Criminal, value);
 		}
 
 		[CommandProperty(AccessLevel.GameMaster)]
@@ -937,10 +928,10 @@ namespace Server.Items
 
 		public virtual void Open(Mobile from, bool checkSelfLoot)
 		{
-			if (from.AccessLevel > AccessLevel.Player || from.InRange(this.GetWorldLocation(), 2))
+			if (from.AccessLevel > AccessLevel.Player || from.InRange(GetWorldLocation(), 2))
 			{
 				#region Self Looting
-				if (checkSelfLoot && from == Owner && !GetFlag(CorpseFlag.SelfLooted) && this.Items.Count != 0)
+				if (checkSelfLoot && from == Owner && !GetFlag(CorpseFlag.SelfLooted) && Items.Count != 0)
 				{
 					DeathRobe robe = from.FindItemOnLayer(Layer.OuterTorso) as DeathRobe;
 
@@ -970,7 +961,7 @@ namespace Server.Items
 						}
 					}
 
-					List<Item> items = new List<Item>(this.Items);
+					List<Item> items = new List<Item>(Items);
 
 					bool didntFit = false;
 
@@ -998,7 +989,7 @@ namespace Server.Items
 
 					from.PlaySound(0x3E3);
 
-					if (this.Items.Count != 0)
+					if (Items.Count != 0)
 					{
 						from.SendLocalizedMessage(1062472); // You gather some of your belongings. The rest remain on the corpse.
 					}
@@ -1101,7 +1092,7 @@ namespace Server.Items
 			return false;
 		}
 
-		public override bool DisplaysContent { get { return false; } }
+		public override bool DisplaysContent => false;
 
 		public override void AddNameProperty(ObjectPropertyList list)
 		{
@@ -1110,18 +1101,18 @@ namespace Server.Items
 				if (m_CorpseName != null)
 					list.Add(m_CorpseName);
 				else
-					list.Add(1046414, this.Name); // the remains of ~1_NAME~
+					list.Add(1046414, Name); // the remains of ~1_NAME~
 			}
 			else // Bone form
 			{
-				list.Add(1046414, this.Name); // the remains of ~1_NAME~
+				list.Add(1046414, Name); // the remains of ~1_NAME~
 			}
 		}
 
 		public override void OnAosSingleClick(Mobile from)
 		{
 			int hue = Notoriety.GetHue(NotorietyHandlers.CorpseNotoriety(from, this));
-			ObjectPropertyList opl = this.PropertyList;
+			ObjectPropertyList opl = PropertyList;
 
 			if (opl.Header > 0)
 				from.Send(new MessageLocalized(Serial, ItemID, MessageType.Label, hue, 3, opl.Header, Name, opl.HeaderArgs));

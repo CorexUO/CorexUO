@@ -18,7 +18,7 @@ namespace Server.Spells.Seventh
 				Reagent.SulfurousAsh
 			);
 
-		public override SpellCircle Circle { get { return SpellCircle.Seventh; } }
+		public override SpellCircle Circle => SpellCircle.Seventh;
 
 		private readonly RunebookEntry m_Entry;
 
@@ -217,7 +217,7 @@ namespace Server.Spells.Seventh
 		[DispellableField]
 		private class InternalItem : Moongate
 		{
-			public override bool ShowFeluccaWarning { get { return Core.AOS; } }
+			public override bool ShowFeluccaWarning => Core.AOS;
 
 			public InternalItem(Point3D target, Map map) : base(target, map)
 			{

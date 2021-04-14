@@ -118,7 +118,7 @@ namespace Server.Items
 	// ********** SweetDough **********
 	public class SweetDough : BaseItem
 	{
-		public override int LabelNumber { get { return 1041340; } } // sweet dough
+		public override int LabelNumber => 1041340;  // sweet dough
 
 		[Constructable]
 		public SweetDough() : base(0x103d)
@@ -415,7 +415,7 @@ namespace Server.Items
 		[CommandProperty(AccessLevel.GameMaster)]
 		public int Quantity
 		{
-			get { return m_Quantity; }
+			get => m_Quantity;
 			set
 			{
 				if (value < 0)
@@ -626,8 +626,8 @@ namespace Server.Items
 			{
 				int needs = mill.MaxFlour - mill.CurFlour;
 
-				if (needs > this.Amount)
-					needs = this.Amount;
+				if (needs > Amount)
+					needs = Amount;
 
 				mill.CurFlour += needs;
 				Consume(needs);

@@ -9,10 +9,10 @@ namespace Server.Spells.Ninjitsu
 		{
 		}
 
-		public override int BaseMana { get { return 30; } }
-		public override double RequiredSkill { get { return Core.ML ? 40.0 : 20.0; } }
+		public override int BaseMana => 30;
+		public override double RequiredSkill => Core.ML ? 40.0 : 20.0;
 
-		public override TextDefinition AbilityMessage { get { return new TextDefinition(1063089); } } // You prepare to Backstab your opponent.
+		public override TextDefinition AbilityMessage => new TextDefinition(1063089);  // You prepare to Backstab your opponent.
 
 		public override double GetDamageScalar(Mobile attacker, Mobile defender)
 		{
@@ -46,7 +46,7 @@ namespace Server.Spells.Ninjitsu
 
 		}
 
-		public override bool ValidatesDuringHit { get { return false; } }
+		public override bool ValidatesDuringHit => false;
 
 		public override void OnHit(Mobile attacker, Mobile defender, int damage)
 		{

@@ -1228,7 +1228,7 @@ namespace Server.Network
 				{
 					ExpansionInfo info = ExpansionInfo.Table[i];
 
-					if ((info.RequiredClient != null && this.Version >= info.RequiredClient) || ((this.Flags & info.ClientFlags) != 0))
+					if ((info.RequiredClient != null && Version >= info.RequiredClient) || ((Flags & info.ClientFlags) != 0))
 					{
 						return info;
 					}
@@ -1238,7 +1238,7 @@ namespace Server.Network
 			}
 		}
 
-		public Expansion Expansion => (Expansion)this.ExpansionInfo.ID;
+		public Expansion Expansion => (Expansion)ExpansionInfo.ID;
 
 		public bool SupportsExpansion(ExpansionInfo info, bool checkCoreExpansion)
 		{
@@ -1246,9 +1246,9 @@ namespace Server.Network
 				return false;
 
 			if (info.RequiredClient != null)
-				return (this.Version >= info.RequiredClient);
+				return (Version >= info.RequiredClient);
 
-			return ((this.Flags & info.ClientFlags) != 0);
+			return ((Flags & info.ClientFlags) != 0);
 		}
 
 		public bool SupportsExpansion(Expansion ex, bool checkCoreExpansion)

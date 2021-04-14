@@ -171,7 +171,7 @@ namespace Server
 			Parent = parent;
 			Area = area;
 			Dynamic = true;
-			Music = this.DefaultMusic;
+			Music = DefaultMusic;
 
 			if (Parent == null)
 			{
@@ -465,13 +465,13 @@ namespace Server
 				return 1;
 			}
 
-			int thisPriority = this.Priority;
+			int thisPriority = Priority;
 			int regPriority = other.Priority;
 
 			if (thisPriority != regPriority)
 				return (regPriority - thisPriority);
 
-			return (other.ChildLevel - this.ChildLevel);
+			return (other.ChildLevel - ChildLevel);
 		}
 
 		public override string ToString()
@@ -949,7 +949,7 @@ namespace Server
 			}
 
 
-			MusicName music = this.DefaultMusic;
+			MusicName music = DefaultMusic;
 
 			ReadEnum(xml["music"], "name", ref music, false);
 

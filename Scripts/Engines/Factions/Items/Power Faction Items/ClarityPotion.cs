@@ -4,13 +4,7 @@ namespace Server
 {
 	public sealed class ClarityPotion : PowerFactionItem
 	{
-		public override string DefaultName
-		{
-			get
-			{
-				return "clarity potion";
-			}
-		}
+		public override string DefaultName => "clarity potion";
 
 		public ClarityPotion()
 			: base(3628)

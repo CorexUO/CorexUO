@@ -3,24 +3,24 @@ namespace Server.Items
 	[FlipableAttribute(0x1401, 0x1400)]
 	public class Kryss : BaseSword
 	{
-		public override WeaponAbility PrimaryAbility { get { return WeaponAbility.ArmorIgnore; } }
-		public override WeaponAbility SecondaryAbility { get { return WeaponAbility.InfectiousStrike; } }
+		public override WeaponAbility PrimaryAbility => WeaponAbility.ArmorIgnore;
+		public override WeaponAbility SecondaryAbility => WeaponAbility.InfectiousStrike;
 
-		public override int DefHitSound { get { return 0x23C; } }
-		public override int DefMissSound { get { return 0x238; } }
+		public override int DefHitSound => 0x23C;
+		public override int DefMissSound => 0x238;
 
-		public override int StrReq { get { return Core.AOS ? 10 : 10; } }
+		public override int StrReq => Core.AOS ? 10 : 10;
 
-		public override int MinDamageBase { get { return Core.AOS ? 10 : 3; } }
-		public override int MaxDamageBase { get { return Core.AOS ? 12 : 28; } }
-		public override float SpeedBase { get { return Core.ML ? 2.00f : Core.AOS ? 53 : 53; } }
+		public override int MinDamageBase => Core.AOS ? 10 : 3;
+		public override int MaxDamageBase => Core.AOS ? 12 : 28;
+		public override float SpeedBase => Core.ML ? 2.00f : Core.AOS ? 53 : 53;
 
-		public override int InitMinHits { get { return 31; } }
-		public override int InitMaxHits { get { return 90; } }
+		public override int InitMinHits => 31;
+		public override int InitMaxHits => 90;
 
-		public override SkillName DefSkill { get { return SkillName.Fencing; } }
-		public override WeaponType DefType { get { return WeaponType.Piercing; } }
-		public override WeaponAnimation DefAnimation { get { return WeaponAnimation.Pierce1H; } }
+		public override SkillName DefSkill => SkillName.Fencing;
+		public override WeaponType DefType => WeaponType.Piercing;
+		public override WeaponAnimation DefAnimation => WeaponAnimation.Pierce1H;
 
 		[Constructable]
 		public Kryss() : base(0x1401)

@@ -2,7 +2,7 @@ namespace Server.Items
 {
 	public class WaterloggedBoots : BaseShoes
 	{
-		public override int LabelNumber { get { return 1074364; } } // Waterlogged boots
+		public override int LabelNumber => 1074364;  // Waterlogged boots
 
 		[Constructable]
 		public WaterloggedBoots() : base(0x1711)

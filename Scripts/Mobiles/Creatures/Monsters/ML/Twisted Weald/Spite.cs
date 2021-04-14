@@ -3,8 +3,8 @@ namespace Server.Mobiles
 	[CorpseName("a Spite corpse")]
 	public class Spite : Changeling
 	{
-		public override string DefaultName { get { return "Spite"; } }
-		public override int DefaultHue { get { return 0x21; } }
+		public override string DefaultName => "Spite";
+		public override int DefaultHue => 0x21;
 
 		[Constructable]
 		public Spite()
@@ -47,7 +47,7 @@ namespace Server.Mobiles
 			AddLoot(LootPack.UltraRich, 2);
 		}
 
-		public override bool GivesMLMinorArtifact { get { return true; } }
+		public override bool GivesMLMinorArtifact => true;
 
 		public Spite(Serial serial)
 			: base(serial)

@@ -15,8 +15,8 @@ namespace Server.Spells.Sixth
 				Reagent.Nightshade
 			);
 
-		public override SpellCircle Circle { get { return SpellCircle.Sixth; } }
-		public override TargetFlags SpellTargetFlags { get { return TargetFlags.Beneficial; } }
+		public override SpellCircle Circle => SpellCircle.Sixth;
+		public override TargetFlags SpellTargetFlags => TargetFlags.Beneficial;
 
 		public InvisibilitySpell(Mobile caster, Item scroll) : base(caster, scroll, m_Info)
 		{

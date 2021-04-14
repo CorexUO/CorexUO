@@ -10,10 +10,7 @@ namespace Server.Items
 		[CommandProperty(AccessLevel.GameMaster)]
 		public int Held
 		{
-			get
-			{
-				return m_Held;
-			}
+			get => m_Held;
 			set
 			{
 				if (m_Held != value)
@@ -28,10 +25,7 @@ namespace Server.Items
 		[CommandProperty(AccessLevel.GameMaster)]
 		public PotionEffect Type
 		{
-			get
-			{
-				return m_Type;
-			}
+			get => m_Type;
 			set
 			{
 				m_Type = value;
@@ -49,7 +43,7 @@ namespace Server.Items
 		{
 			int held = Math.Max(0, Math.Min(m_Held, 100));
 
-			this.Weight = 20 + ((held * 80) / 100);
+			Weight = 20 + ((held * 80) / 100);
 		}
 
 		public PotionKeg(Serial serial) : base(serial)
@@ -162,7 +156,7 @@ namespace Server.Items
 			else
 				number = 502258; // The keg is completely full.
 
-			this.LabelTo(from, number);
+			LabelTo(from, number);
 		}
 
 		public override void OnDoubleClick(Mobile from)

@@ -2,7 +2,7 @@ namespace Server.Items
 {
 	public class WarriorStatueEastAddon : BaseAddon
 	{
-		public override BaseAddonDeed Deed { get { return new WarriorStatueEastDeed(); } }
+		public override BaseAddonDeed Deed => new WarriorStatueEastDeed();
 
 		[Constructable]
 		public WarriorStatueEastAddon()
@@ -31,8 +31,8 @@ namespace Server.Items
 
 	public class WarriorStatueEastDeed : BaseAddonDeed
 	{
-		public override BaseAddon Addon { get { return new WarriorStatueEastAddon(); } }
-		public override int LabelNumber { get { return 1072888; } } // warrior statue (east)
+		public override BaseAddon Addon => new WarriorStatueEastAddon();
+		public override int LabelNumber => 1072888;  // warrior statue (east)
 
 		[Constructable]
 		public WarriorStatueEastDeed()

@@ -10,10 +10,7 @@ namespace Server.Regions
 				Instance = new SpawnPersistence();
 		}
 
-		public override string DefaultName
-		{
-			get { return "Region spawn persistence - Internal"; }
-		}
+		public override string DefaultName => "Region spawn persistence - Internal";
 
 		private SpawnPersistence() : base(1)
 		{

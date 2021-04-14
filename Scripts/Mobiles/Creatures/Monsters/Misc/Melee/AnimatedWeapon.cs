@@ -5,15 +5,15 @@ namespace Server.Mobiles
 	[CorpseName("an animated weapon corpse")]
 	public class AnimatedWeapon : BaseCreature
 	{
-		public override bool DeleteCorpseOnDeath { get { return true; } }
-		public override bool IsHouseSummonable { get { return true; } }
+		public override bool DeleteCorpseOnDeath => true;
+		public override bool IsHouseSummonable => true;
 
-		public override double DispelDifficulty { get { return 0.0; } }
-		public override double DispelFocus { get { return 20.0; } }
+		public override double DispelDifficulty => 0.0;
+		public override double DispelFocus => 20.0;
 
 		public override double GetFightModeRanking(Mobile m, FightMode acqType, bool bPlayerOnly)
 		{
-			return m.Str / Math.Max(this.GetDistanceToSqrt(m), 1.0);
+			return m.Str / Math.Max(GetDistanceToSqrt(m), 1.0);
 		}
 
 		[Constructable]
@@ -69,8 +69,8 @@ namespace Server.Mobiles
 			ControlSlots = 4;
 		}
 
-		public override bool BleedImmune { get { return true; } }
-		public override Poison PoisonImmune { get { return Poison.Lethal; } }
+		public override bool BleedImmune => true;
+		public override Poison PoisonImmune => Poison.Lethal;
 
 		public override int GetAngerSound()
 		{

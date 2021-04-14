@@ -3,17 +3,17 @@ namespace Server.Items
 	[FlipableAttribute(0xE87, 0xE88)]
 	public class Pitchfork : BaseSpear
 	{
-		public override WeaponAbility PrimaryAbility { get { return WeaponAbility.BleedAttack; } }
-		public override WeaponAbility SecondaryAbility { get { return WeaponAbility.Dismount; } }
+		public override WeaponAbility PrimaryAbility => WeaponAbility.BleedAttack;
+		public override WeaponAbility SecondaryAbility => WeaponAbility.Dismount;
 
-		public override int StrReq { get { return Core.AOS ? 55 : 15; } }
+		public override int StrReq => Core.AOS ? 55 : 15;
 
-		public override int MinDamageBase { get { return Core.AOS ? 16 : 4; } }
-		public override int MaxDamageBase { get { return Core.AOS ? 14 : 16; } }
-		public override float SpeedBase { get { return Core.ML ? 2.50f : Core.AOS ? 43 : 45; } }
+		public override int MinDamageBase => Core.AOS ? 16 : 4;
+		public override int MaxDamageBase => Core.AOS ? 14 : 16;
+		public override float SpeedBase => Core.ML ? 2.50f : Core.AOS ? 43 : 45;
 
-		public override int InitMinHits { get { return 31; } }
-		public override int InitMaxHits { get { return 60; } }
+		public override int InitMinHits => 31;
+		public override int InitMaxHits => 60;
 
 		[Constructable]
 		public Pitchfork() : base(0xE87)

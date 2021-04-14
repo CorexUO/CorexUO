@@ -2,9 +2,9 @@ namespace Server.Items
 {
 	public class SealingWaxOrderAddressedToPetrus : BaseItem
 	{
-		public override int LabelNumber { get { return 1073132; } } // Sealing Wax Order addressed to Petrus
+		public override int LabelNumber => 1073132;  // Sealing Wax Order addressed to Petrus
 
-		public override bool Nontransferable { get { return true; } }
+		public override bool Nontransferable => true;
 
 		public override void AddNameProperties(ObjectPropertyList list)
 		{

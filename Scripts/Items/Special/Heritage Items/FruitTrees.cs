@@ -13,7 +13,7 @@ namespace Server.Items
 		[CommandProperty(AccessLevel.GameMaster)]
 		public int Fruits
 		{
-			get { return m_Fruits; }
+			get => m_Fruits;
 			set
 			{
 				if (value < 0)
@@ -92,8 +92,8 @@ namespace Server.Items
 
 	public class AppleTreeAddon : BaseFruitTreeAddon
 	{
-		public override BaseAddonDeed Deed { get { return new AppleTreeDeed(); } }
-		public override Item Fruit { get { return new Apple(); } }
+		public override BaseAddonDeed Deed => new AppleTreeDeed();
+		public override Item Fruit => new Apple();
 
 		[Constructable]
 		public AppleTreeAddon() : base()
@@ -123,8 +123,8 @@ namespace Server.Items
 
 	public class AppleTreeDeed : BaseAddonDeed
 	{
-		public override BaseAddon Addon { get { return new AppleTreeAddon(); } }
-		public override int LabelNumber { get { return 1076269; } } // Apple Tree
+		public override BaseAddon Addon => new AppleTreeAddon();
+		public override int LabelNumber => 1076269;  // Apple Tree
 
 		[Constructable]
 		public AppleTreeDeed() : base()
@@ -153,8 +153,8 @@ namespace Server.Items
 
 	public class PeachTreeAddon : BaseFruitTreeAddon
 	{
-		public override BaseAddonDeed Deed { get { return new PeachTreeDeed(); } }
-		public override Item Fruit { get { return new Peach(); } }
+		public override BaseAddonDeed Deed => new PeachTreeDeed();
+		public override Item Fruit => new Peach();
 
 		[Constructable]
 		public PeachTreeAddon() : base()
@@ -184,8 +184,8 @@ namespace Server.Items
 
 	public class PeachTreeDeed : BaseAddonDeed
 	{
-		public override BaseAddon Addon { get { return new PeachTreeAddon(); } }
-		public override int LabelNumber { get { return 1076270; } } // Peach Tree
+		public override BaseAddon Addon => new PeachTreeAddon();
+		public override int LabelNumber => 1076270;  // Peach Tree
 
 		[Constructable]
 		public PeachTreeDeed() : base()

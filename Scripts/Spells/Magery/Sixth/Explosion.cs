@@ -13,15 +13,15 @@ namespace Server.Spells.Sixth
 				Reagent.MandrakeRoot
 			);
 
-		public override SpellCircle Circle { get { return SpellCircle.Sixth; } }
-		public override TargetFlags SpellTargetFlags { get { return TargetFlags.Harmful; } }
+		public override SpellCircle Circle => SpellCircle.Sixth;
+		public override TargetFlags SpellTargetFlags => TargetFlags.Harmful;
 
 		public ExplosionSpell(Mobile caster, Item scroll)
 			: base(caster, scroll, m_Info)
 		{
 		}
 
-		public override bool DelayedDamageStacking { get { return !Core.AOS; } }
+		public override bool DelayedDamageStacking => !Core.AOS;
 
 		public override void OnCast()
 		{
@@ -38,7 +38,7 @@ namespace Server.Spells.Sixth
 			}
 		}
 
-		public override bool DelayedDamage { get { return false; } }
+		public override bool DelayedDamage => false;
 
 		public void Target(Mobile m)
 		{
@@ -52,7 +52,7 @@ namespace Server.Spells.Sixth
 
 				SpellHelper.Turn(Caster, m);
 
-				SpellHelper.CheckReflect((int)this.Circle, Caster, ref m);
+				SpellHelper.CheckReflect((int)Circle, Caster, ref m);
 
 				InternalTimer t = new InternalTimer(this, attacker, defender, m);
 				t.Start();

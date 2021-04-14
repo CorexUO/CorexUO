@@ -2,7 +2,7 @@ namespace Server.Items
 {
 	public class AnOldRing : GoldRing
 	{
-		public override int LabelNumber { get { return 1075524; } } // an old ring
+		public override int LabelNumber => 1075524;  // an old ring
 
 		[Constructable]
 		public AnOldRing() : base()

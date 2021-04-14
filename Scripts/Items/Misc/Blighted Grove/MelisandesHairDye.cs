@@ -4,7 +4,7 @@ namespace Server.Items
 {
 	public class MelisandesHairDye : BaseItem
 	{
-		public override int LabelNumber { get { return 1041088; } } // Hair Dye
+		public override int LabelNumber => 1041088;  // Hair Dye
 
 		[Constructable]
 		public MelisandesHairDye() : base(0xEFF)
@@ -50,8 +50,8 @@ namespace Server.Items
 
 		private class ConfirmGump : BaseConfirmGump
 		{
-			public override int TitleNumber { get { return 1074395; } } // <div align=right>Use Permanent Hair Dye</div>
-			public override int LabelNumber { get { return 1074396; } } // This special hair dye is made of a unique mixture of leaves, permanently changing one's hair color until another dye is used.
+			public override int TitleNumber => 1074395;  // <div align=right>Use Permanent Hair Dye</div>
+			public override int LabelNumber => 1074396;  // This special hair dye is made of a unique mixture of leaves, permanently changing one's hair color until another dye is used.
 
 			private readonly Item m_Item;
 

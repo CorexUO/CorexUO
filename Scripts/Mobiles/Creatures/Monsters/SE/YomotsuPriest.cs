@@ -65,9 +65,9 @@ namespace Server.Mobiles
 			if (Utility.RandomDouble() < .25) PackItem(Engines.Plants.Seed.RandomBonsaiSeed());
 		}
 
-		public override FoodType FavoriteFood { get { return FoodType.Fish; } }
+		public override FoodType FavoriteFood => FoodType.Fish;
 
-		public override int Meat { get { return 1; } }
+		public override int Meat => 1;
 
 
 
@@ -78,7 +78,7 @@ namespace Server.Mobiles
 			AddLoot(LootPack.Gems, 4);
 		}
 
-		public override bool CanRummageCorpses { get { return true; } }
+		public override bool CanRummageCorpses => true;
 
 		// TODO: Body Transformation
 

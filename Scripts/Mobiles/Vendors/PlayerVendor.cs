@@ -28,8 +28,8 @@ namespace Server.Mobiles
 
 		private bool m_Valid;
 
-		public Item Item { get { return m_Item; } }
-		public int Price { get { return m_Price; } }
+		public Item Item => m_Item;
+		public int Price => m_Price;
 
 		public string FormattedPrice
 		{
@@ -44,7 +44,7 @@ namespace Server.Mobiles
 
 		public string Description
 		{
-			get { return m_Description; }
+			get => m_Description;
 			set
 			{
 				if (value != null)
@@ -57,12 +57,12 @@ namespace Server.Mobiles
 			}
 		}
 
-		public DateTime Created { get { return m_Created; } }
+		public DateTime Created => m_Created;
 
-		public bool IsForSale { get { return Price >= 0; } }
-		public bool IsForFree { get { return Price == 0; } }
+		public bool IsForSale => Price >= 0;
+		public bool IsForFree => Price == 0;
 
-		public bool Valid { get { return m_Valid; } }
+		public bool Valid => m_Valid;
 
 		public VendorItem(Item item, int price, string description, DateTime created)
 		{
@@ -93,7 +93,7 @@ namespace Server.Mobiles
 			Weight = 1.0;
 		}
 
-		public override int DefaultMaxWeight { get { return 0; } }
+		public override int DefaultMaxWeight => 0;
 
 		public override bool CheckHold(Mobile m, Item item, bool message, bool checkItems, int plusItems, int plusWeight)
 		{
@@ -176,7 +176,7 @@ namespace Server.Mobiles
 				m_Item = item;
 			}
 
-			public override bool NonLocalUse { get { return true; } }
+			public override bool NonLocalUse => true;
 
 			public override void OnClick()
 			{
@@ -450,15 +450,15 @@ namespace Server.Mobiles
 			if (!Core.AOS)
 				NameHue = 0x35;
 
-			if (this.Female = Utility.RandomBool())
+			if (Female = Utility.RandomBool())
 			{
-				this.Body = 0x191;
-				this.Name = NameList.RandomName("female");
+				Body = 0x191;
+				Name = NameList.RandomName("female");
 			}
 			else
 			{
-				this.Body = 0x190;
-				this.Name = NameList.RandomName("male");
+				Body = 0x190;
+				Name = NameList.RandomName("male");
 			}
 		}
 
@@ -486,28 +486,28 @@ namespace Server.Mobiles
 		[CommandProperty(AccessLevel.GameMaster)]
 		public Mobile Owner
 		{
-			get { return m_Owner; }
-			set { m_Owner = value; }
+			get => m_Owner;
+			set => m_Owner = value;
 		}
 
 		[CommandProperty(AccessLevel.GameMaster)]
 		public int BankAccount
 		{
-			get { return m_BankAccount; }
-			set { m_BankAccount = value; }
+			get => m_BankAccount;
+			set => m_BankAccount = value;
 		}
 
 		[CommandProperty(AccessLevel.GameMaster)]
 		public int HoldGold
 		{
-			get { return m_HoldGold; }
-			set { m_HoldGold = value; }
+			get => m_HoldGold;
+			set => m_HoldGold = value;
 		}
 
 		[CommandProperty(AccessLevel.GameMaster)]
 		public string ShopName
 		{
-			get { return m_ShopName; }
+			get => m_ShopName;
 			set
 			{
 				if (value == null)
@@ -520,20 +520,17 @@ namespace Server.Mobiles
 		}
 
 		[CommandProperty(AccessLevel.GameMaster)]
-		public DateTime NextPayTime
-		{
-			get { return m_NextPayTime; }
-		}
+		public DateTime NextPayTime => m_NextPayTime;
 
 		public PlayerVendorPlaceholder Placeholder
 		{
-			get { return m_Placeholder; }
-			set { m_Placeholder = value; }
+			get => m_Placeholder;
+			set => m_Placeholder = value;
 		}
 
 		public BaseHouse House
 		{
-			get { return m_House; }
+			get => m_House;
 			set
 			{
 				if (m_House != null)
@@ -612,12 +609,12 @@ namespace Server.Mobiles
 		{
 			List<Item> list = new List<Item>();
 
-			foreach (Item item in this.Items)
-				if (item.Movable && item != this.Backpack && item.Layer != Layer.Hair && item.Layer != Layer.FacialHair)
+			foreach (Item item in Items)
+				if (item.Movable && item != Backpack && item.Layer != Layer.Hair && item.Layer != Layer.FacialHair)
 					list.Add(item);
 
-			if (this.Backpack != null)
-				list.AddRange(this.Backpack.Items);
+			if (Backpack != null)
+				list.AddRange(Backpack.Items);
 
 			return list;
 		}
@@ -646,7 +643,7 @@ namespace Server.Mobiles
 
 			if (list.Count > 0 || HoldGold > 0) // No case 1
 			{
-				if ((!toBackpack || this.Map == Map.Internal) && House != null && House.IsAosRules) // Case 2
+				if ((!toBackpack || Map == Map.Internal) && House != null && House.IsAosRules) // Case 2
 				{
 					if (House.IsOwner(Owner)) // Move to moving crate
 					{
@@ -676,7 +673,7 @@ namespace Server.Mobiles
 						House.VendorInventories.Add(inventory);
 					}
 				}
-				else if ((toBackpack || House == null || !House.IsAosRules) && this.Map != Map.Internal) // Case 3 - Move to backpack
+				else if ((toBackpack || House == null || !House.IsAosRules) && Map != Map.Internal) // Case 3 - Move to backpack
 				{
 					Container backpack = new Backpack();
 
@@ -688,7 +685,7 @@ namespace Server.Mobiles
 						backpack.DropItem(item);
 					}
 
-					backpack.MoveToWorld(this.Location, this.Map);
+					backpack.MoveToWorld(Location, Map);
 				}
 			}
 
@@ -797,7 +794,7 @@ namespace Server.Mobiles
 		{
 			Item parent = item.Parent as Item;
 
-			if (parent == this.Backpack)
+			if (parent == Backpack)
 				return true;
 
 			if (parent is Container)
@@ -842,7 +839,7 @@ namespace Server.Mobiles
 		{
 			base.OnItemRemoved(item);
 
-			if (item == this.Backpack)
+			if (item == Backpack)
 			{
 				foreach (Item subItem in item.Items)
 				{
@@ -863,11 +860,11 @@ namespace Server.Mobiles
 			{
 				if (BaseHouse.NewVendorSystem)
 				{
-					if (this.HoldGold < 1000000)
+					if (HoldGold < 1000000)
 					{
 						SayTo(from, 503210); // I'll take that to fund my services.
 
-						this.HoldGold += item.Amount;
+						HoldGold += item.Amount;
 						item.Delete();
 
 						return true;
@@ -881,11 +878,11 @@ namespace Server.Mobiles
 				}
 				else
 				{
-					if (this.BankAccount < 1000000)
+					if (BankAccount < 1000000)
 					{
 						SayTo(from, 503210); // I'll take that to fund my services.
 
-						this.BankAccount += item.Amount;
+						BankAccount += item.Amount;
 						item.Delete();
 
 						return true;
@@ -902,7 +899,7 @@ namespace Server.Mobiles
 			{
 				bool newItem = (GetVendorItem(item) == null);
 
-				if (this.Backpack != null && this.Backpack.TryDropItem(from, item, false))
+				if (Backpack != null && Backpack.TryDropItem(from, item, false))
 				{
 					if (newItem)
 						OnItemGiven(from, item);
@@ -973,7 +970,7 @@ namespace Server.Mobiles
 
 		public override bool CheckNonlocalLift(Mobile from, Item item)
 		{
-			if (item.IsChildOf(this.Backpack))
+			if (item.IsChildOf(Backpack))
 			{
 				if (IsOwner(from))
 				{
@@ -1054,11 +1051,11 @@ namespace Server.Mobiles
 
 		public void OpenBackpack(Mobile from)
 		{
-			if (this.Backpack != null)
+			if (Backpack != null)
 			{
 				SayTo(from, IsOwner(from) ? 1010642 : 503208); // Take a look at my/your goods.
 
-				this.Backpack.DisplayTo(from);
+				Backpack.DisplayTo(from);
 			}
 		}
 
@@ -1152,7 +1149,7 @@ namespace Server.Mobiles
 
 		public void Dismiss(Mobile from)
 		{
-			Container pack = this.Backpack;
+			Container pack = Backpack;
 
 			if (pack != null && pack.Items.Count > 0)
 			{
@@ -1187,7 +1184,7 @@ namespace Server.Mobiles
 
 		public bool CheckTeleport(Mobile to)
 		{
-			if (Deleted || !IsOwner(to) || House == null || this.Map == Map.Internal)
+			if (Deleted || !IsOwner(to) || House == null || Map == Map.Internal)
 				return false;
 
 			if (House.IsInside(to) || to.Map != House.Map || !House.InRange(to, 5))
@@ -1196,9 +1193,9 @@ namespace Server.Mobiles
 			if (Placeholder == null)
 			{
 				Placeholder = new PlayerVendorPlaceholder(this);
-				Placeholder.MoveToWorld(this.Location, this.Map);
+				Placeholder.MoveToWorld(Location, Map);
 
-				this.MoveToWorld(to.Location, to.Map);
+				MoveToWorld(to.Location, to.Map);
 
 				to.SendLocalizedMessage(1062431); // This vendor has been moved out of the house to your current location temporarily.  The vendor will return home automatically after two minutes have passed once you are done managing its inventory or customizing it.
 			}
@@ -1253,7 +1250,7 @@ namespace Server.Mobiles
 
 		public bool WasNamed(string speech)
 		{
-			return this.Name != null && Insensitive.StartsWith(speech, this.Name);
+			return Name != null && Insensitive.StartsWith(speech, Name);
 		}
 
 		public override void OnSpeech(SpeechEventArgs e)
@@ -1336,7 +1333,7 @@ namespace Server.Mobiles
 			{
 				if (IsOwner(from))
 				{
-					this.Direction = this.GetDirectionTo(from);
+					Direction = GetDirectionTo(from);
 
 					e.Handled = true;
 				}
@@ -1364,7 +1361,7 @@ namespace Server.Mobiles
 
 			protected override void OnTick()
 			{
-				m_Vendor.m_NextPayTime = DateTime.UtcNow + this.Interval;
+				m_Vendor.m_NextPayTime = DateTime.UtcNow + Interval;
 
 				int pay;
 				int totalGold;
@@ -1636,7 +1633,7 @@ namespace Server.Mobiles
 		private readonly ExpireTimer m_Timer;
 
 		[CommandProperty(AccessLevel.GameMaster)]
-		public PlayerVendor Vendor { get { return m_Vendor; } }
+		public PlayerVendor Vendor => m_Vendor;
 
 		public PlayerVendorPlaceholder(PlayerVendor vendor) : base(0x1F28)
 		{
@@ -1688,7 +1685,7 @@ namespace Server.Mobiles
 		{
 			if (m_Vendor != null && !m_Vendor.Deleted)
 			{
-				m_Vendor.MoveToWorld(this.Location, this.Map);
+				m_Vendor.MoveToWorld(Location, Map);
 				m_Vendor.Placeholder = null;
 			}
 		}

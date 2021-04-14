@@ -8,7 +8,7 @@ namespace Server.Items
 {
 	public class HolidayTreeDeed : BaseItem
 	{
-		public override int LabelNumber { get { return 1041116; } } // a deed for a holiday tree
+		public override int LabelNumber => 1041116;  // a deed for a holiday tree
 
 		[Constructable]
 		public HolidayTreeDeed() : base(0x14F0)
@@ -43,7 +43,7 @@ namespace Server.Items
 			if (from.AccessLevel >= AccessLevel.GameMaster)
 				return true;
 
-			if (!from.InRange(this.GetWorldLocation(), 1))
+			if (!from.InRange(GetWorldLocation(), 1))
 			{
 				from.SendLocalizedMessage(500446); // That is too far away.
 				return false;
@@ -103,7 +103,7 @@ namespace Server.Items
 
 		public void EndPlace(Mobile from, HolidayTreeType type, Point3D loc)
 		{
-			this.Delete();
+			Delete();
 			HolidayTree tree = new(from, type, loc);
 			BaseHouse house = BaseHouse.FindHouseAt(tree);
 			if (house != null)

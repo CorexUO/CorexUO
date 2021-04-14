@@ -6,14 +6,11 @@ namespace Server.Items
 {
 	public class TrashBarrel : Container, IChopable
 	{
-		public override int LabelNumber { get { return 1041064; } } // a trash barrel
+		public override int LabelNumber => 1041064;  // a trash barrel
 
-		public override int DefaultMaxWeight { get { return 0; } } // A value of 0 signals unlimited weight
+		public override int DefaultMaxWeight => 0;  // A value of 0 signals unlimited weight
 
-		public override bool IsDecoContainer
-		{
-			get { return false; }
-		}
+		public override bool IsDecoContainer => false;
 
 		[Constructable]
 		public TrashBarrel() : base(0xE77)
@@ -108,7 +105,7 @@ namespace Server.Items
 
 		public void Empty(int message)
 		{
-			List<Item> items = this.Items;
+			List<Item> items = Items;
 
 			if (items.Count > 0)
 			{

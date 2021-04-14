@@ -11,8 +11,8 @@ namespace Server.Spells.Third
 				Reagent.Nightshade
 			);
 
-		public override SpellCircle Circle { get { return SpellCircle.Third; } }
-		public override TargetFlags SpellTargetFlags { get { return TargetFlags.Harmful; } }
+		public override SpellCircle Circle => SpellCircle.Third;
+		public override TargetFlags SpellTargetFlags => TargetFlags.Harmful;
 
 		public PoisonSpell(Mobile caster, Item scroll) : base(caster, scroll, m_Info)
 		{
@@ -43,7 +43,7 @@ namespace Server.Spells.Third
 			{
 				SpellHelper.Turn(Caster, m);
 
-				SpellHelper.CheckReflect((int)this.Circle, Caster, ref m);
+				SpellHelper.CheckReflect((int)Circle, Caster, ref m);
 
 				if (m.Spell != null)
 					m.Spell.OnCasterHurt();

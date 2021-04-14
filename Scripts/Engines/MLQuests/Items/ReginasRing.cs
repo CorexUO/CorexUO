@@ -2,9 +2,9 @@ namespace Server.Items
 {
 	public class ReginasRing : SilverRing
 	{
-		public override int LabelNumber { get { return 1075305; } } // Regina's Ring
+		public override int LabelNumber => 1075305;  // Regina's Ring
 
-		public override bool Nontransferable { get { return true; } }
+		public override bool Nontransferable => true;
 
 		public override void AddNameProperties(ObjectPropertyList list)
 		{

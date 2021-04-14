@@ -26,10 +26,10 @@ namespace Server.Items
 
 		public bool CouldFit(IPoint3D p, Map map)
 		{
-			if (!map.CanFit(p.X, p.Y, p.Z, this.ItemData.Height))
+			if (!map.CanFit(p.X, p.Y, p.Z, ItemData.Height))
 				return false;
 
-			if (this.ItemID == 0x2375)
+			if (ItemID == 0x2375)
 				return BaseAddon.IsWall(p.X, p.Y - 1, p.Z, map); // North wall
 			else
 				return BaseAddon.IsWall(p.X - 1, p.Y, p.Z, map); // West wall
@@ -53,31 +53,28 @@ namespace Server.Items
 
 		private void FixMovingCrate()
 		{
-			if (this.Deleted)
+			if (Deleted)
 				return;
 
-			if (this.Movable || this.IsLockedDown)
+			if (Movable || IsLockedDown)
 			{
-				Item deed = this.Deed;
+				Item deed = Deed;
 
-				if (this.Parent is Item)
+				if (Parent is Item)
 				{
-					((Item)this.Parent).AddItem(deed);
-					deed.Location = this.Location;
+					((Item)Parent).AddItem(deed);
+					deed.Location = Location;
 				}
 				else
 				{
-					deed.MoveToWorld(this.Location, this.Map);
+					deed.MoveToWorld(Location, Map);
 				}
 
 				Delete();
 			}
 		}
 
-		public Item Deed
-		{
-			get { return new MistletoeDeed(this.Hue); }
-		}
+		public Item Deed => new MistletoeDeed(Hue);
 
 		public override void OnDoubleClick(Mobile from)
 		{
@@ -85,7 +82,7 @@ namespace Server.Items
 
 			if (house != null && house.IsCoOwner(from))
 			{
-				if (from.InRange(this.GetWorldLocation(), 3))
+				if (from.InRange(GetWorldLocation(), 3))
 				{
 					from.CloseGump(typeof(MistletoeAddonGump));
 					from.SendGump(new MistletoeAddonGump(from, this));
@@ -168,7 +165,7 @@ namespace Server.Items
 	[Flipable(0x14F0, 0x14EF)]
 	public class MistletoeDeed : BaseItem
 	{
-		public override int LabelNumber { get { return 1070882; } } // Mistletoe Deed
+		public override int LabelNumber => 1070882;  // Mistletoe Deed
 
 		[Constructable]
 		public MistletoeDeed() : this(0)
@@ -288,7 +285,7 @@ namespace Server.Items
 
 			if (itemID > 0)
 			{
-				Item addon = new MistletoeAddon(this.Hue)
+				Item addon = new MistletoeAddon(Hue)
 				{
 					ItemID = itemID
 				};

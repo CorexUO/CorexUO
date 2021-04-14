@@ -25,15 +25,15 @@ namespace Server.Mobiles
 			int jHue = 25 + Team * 40;
 
 			// Skills and Stats
-			this.InitStats(125, 125, 90);
-			this.Skills[SkillName.Macing].Base = 120;
-			this.Skills[SkillName.Anatomy].Base = 120;
-			this.Skills[SkillName.Healing].Base = 120;
-			this.Skills[SkillName.Tactics].Base = 120;
+			InitStats(125, 125, 90);
+			Skills[SkillName.Macing].Base = 120;
+			Skills[SkillName.Anatomy].Base = 120;
+			Skills[SkillName.Healing].Base = 120;
+			Skills[SkillName.Tactics].Base = 120;
 
 
 			// Name
-			this.Name = "Macer";
+			Name = "Macer";
 
 			// Equip
 			WarHammer war = new WarHammer
@@ -111,14 +111,14 @@ namespace Server.Mobiles
 			int jHue = 25 + Team * 40;
 
 			// Skills and Stats
-			this.InitStats(125, 125, 90);
-			this.Skills[SkillName.Fencing].Base = 120;
-			this.Skills[SkillName.Anatomy].Base = 120;
-			this.Skills[SkillName.Healing].Base = 120;
-			this.Skills[SkillName.Tactics].Base = 120;
+			InitStats(125, 125, 90);
+			Skills[SkillName.Fencing].Base = 120;
+			Skills[SkillName.Anatomy].Base = 120;
+			Skills[SkillName.Healing].Base = 120;
+			Skills[SkillName.Tactics].Base = 120;
 
 			// Name
-			this.Name = "Fencer";
+			Name = "Fencer";
 
 			// Equip
 			Spear ssp = new Spear
@@ -197,16 +197,16 @@ namespace Server.Mobiles
 			int jHue = 25 + Team * 40;
 
 			// Skills and Stats
-			this.InitStats(125, 125, 90);
-			this.Skills[SkillName.Swords].Base = 120;
-			this.Skills[SkillName.Anatomy].Base = 120;
-			this.Skills[SkillName.Healing].Base = 120;
-			this.Skills[SkillName.Tactics].Base = 120;
-			this.Skills[SkillName.Parry].Base = 120;
+			InitStats(125, 125, 90);
+			Skills[SkillName.Swords].Base = 120;
+			Skills[SkillName.Anatomy].Base = 120;
+			Skills[SkillName.Healing].Base = 120;
+			Skills[SkillName.Tactics].Base = 120;
+			Skills[SkillName.Parry].Base = 120;
 
 
 			// Name
-			this.Name = "Swordsman";
+			Name = "Swordsman";
 
 			// Equip
 			Katana kat = new Katana
@@ -285,17 +285,17 @@ namespace Server.Mobiles
 			int jHue = 25 + Team * 40;
 
 			// Skills and Stats
-			this.InitStats(90, 90, 125);
-			this.Skills[SkillName.Magery].Base = 120;
-			this.Skills[SkillName.EvalInt].Base = 120;
-			this.Skills[SkillName.Inscribe].Base = 100;
-			this.Skills[SkillName.Wrestling].Base = 120;
-			this.Skills[SkillName.Meditation].Base = 120;
-			this.Skills[SkillName.Poisoning].Base = 100;
+			InitStats(90, 90, 125);
+			Skills[SkillName.Magery].Base = 120;
+			Skills[SkillName.EvalInt].Base = 120;
+			Skills[SkillName.Inscribe].Base = 100;
+			Skills[SkillName.Wrestling].Base = 120;
+			Skills[SkillName.Meditation].Base = 120;
+			Skills[SkillName.Poisoning].Base = 100;
 
 
 			// Name
-			this.Name = "Nox Mage";
+			Name = "Nox Mage";
 
 			// Equip
 			Spellbook book = new Spellbook
@@ -364,17 +364,17 @@ namespace Server.Mobiles
 			int jHue = 25 + Team * 40;
 
 			// Skills and Stats
-			this.InitStats(90, 90, 125);
-			this.Skills[SkillName.Magery].Base = 100;
-			this.Skills[SkillName.EvalInt].Base = 120;
-			this.Skills[SkillName.Anatomy].Base = 80;
-			this.Skills[SkillName.Wrestling].Base = 80;
-			this.Skills[SkillName.Meditation].Base = 100;
-			this.Skills[SkillName.Poisoning].Base = 100;
+			InitStats(90, 90, 125);
+			Skills[SkillName.Magery].Base = 100;
+			Skills[SkillName.EvalInt].Base = 120;
+			Skills[SkillName.Anatomy].Base = 80;
+			Skills[SkillName.Wrestling].Base = 80;
+			Skills[SkillName.Meditation].Base = 100;
+			Skills[SkillName.Poisoning].Base = 100;
 
 
 			// Name
-			this.Name = "Stun Mage";
+			Name = "Stun Mage";
 
 			// Equip
 			Spellbook book = new Spellbook
@@ -471,17 +471,17 @@ namespace Server.Mobiles
 			int jHue = 25 + Team * 40;
 
 			// Skills and Stats
-			this.InitStats(125, 125, 125);
-			this.Skills[SkillName.Magery].Base = 120;
-			this.Skills[SkillName.EvalInt].Base = 120;
-			this.Skills[SkillName.Anatomy].Base = 120;
-			this.Skills[SkillName.Wrestling].Base = 120;
-			this.Skills[SkillName.Meditation].Base = 120;
-			this.Skills[SkillName.Poisoning].Base = 100;
-			this.Skills[SkillName.Inscribe].Base = 100;
+			InitStats(125, 125, 125);
+			Skills[SkillName.Magery].Base = 120;
+			Skills[SkillName.EvalInt].Base = 120;
+			Skills[SkillName.Anatomy].Base = 120;
+			Skills[SkillName.Wrestling].Base = 120;
+			Skills[SkillName.Meditation].Base = 120;
+			Skills[SkillName.Poisoning].Base = 100;
+			Skills[SkillName.Inscribe].Base = 100;
 
 			// Name
-			this.Name = "Super Mage";
+			Name = "Super Mage";
 
 			// Equip
 			Spellbook book = new Spellbook
@@ -585,16 +585,16 @@ namespace Server.Mobiles
 			int jHue = 25 + Team * 40;
 
 			// Skills and Stats
-			this.InitStats(125, 125, 125);
-			this.Skills[SkillName.Magery].Base = 120;
-			this.Skills[SkillName.EvalInt].Base = 120;
-			this.Skills[SkillName.Anatomy].Base = 120;
-			this.Skills[SkillName.Wrestling].Base = 120;
-			this.Skills[SkillName.Meditation].Base = 120;
-			this.Skills[SkillName.Healing].Base = 100;
+			InitStats(125, 125, 125);
+			Skills[SkillName.Magery].Base = 120;
+			Skills[SkillName.EvalInt].Base = 120;
+			Skills[SkillName.Anatomy].Base = 120;
+			Skills[SkillName.Wrestling].Base = 120;
+			Skills[SkillName.Meditation].Base = 120;
+			Skills[SkillName.Healing].Base = 100;
 
 			// Name
-			this.Name = "Healer";
+			Name = "Healer";
 
 			// Equip
 			Spellbook book = new Spellbook
@@ -692,16 +692,16 @@ namespace Server.Mobiles
 			int jHue = 25 + Team * 40;
 
 			// Skills and Stats
-			this.InitStats(105, 105, 105);
-			this.Skills[SkillName.Magery].Base = 120;
-			this.Skills[SkillName.EvalInt].Base = 120;
-			this.Skills[SkillName.Swords].Base = 120;
-			this.Skills[SkillName.Tactics].Base = 120;
-			this.Skills[SkillName.Meditation].Base = 120;
-			this.Skills[SkillName.Poisoning].Base = 100;
+			InitStats(105, 105, 105);
+			Skills[SkillName.Magery].Base = 120;
+			Skills[SkillName.EvalInt].Base = 120;
+			Skills[SkillName.Swords].Base = 120;
+			Skills[SkillName.Tactics].Base = 120;
+			Skills[SkillName.Meditation].Base = 120;
+			Skills[SkillName.Poisoning].Base = 100;
 
 			// Name
-			this.Name = "Hybrid Assassin";
+			Name = "Hybrid Assassin";
 
 			// Equip
 			Spellbook book = new Spellbook
@@ -837,16 +837,16 @@ namespace Server.Mobiles
 			int jHue = 25 + Team * 40;
 
 			// Skills and Stats
-			this.InitStats(105, 105, 105);
-			this.Skills[SkillName.Healing].Base = 120;
-			this.Skills[SkillName.Anatomy].Base = 120;
-			this.Skills[SkillName.Stealing].Base = 120;
-			this.Skills[SkillName.ArmsLore].Base = 100;
-			this.Skills[SkillName.Meditation].Base = 120;
-			this.Skills[SkillName.Wrestling].Base = 120;
+			InitStats(105, 105, 105);
+			Skills[SkillName.Healing].Base = 120;
+			Skills[SkillName.Anatomy].Base = 120;
+			Skills[SkillName.Stealing].Base = 120;
+			Skills[SkillName.ArmsLore].Base = 100;
+			Skills[SkillName.Meditation].Base = 120;
+			Skills[SkillName.Wrestling].Base = 120;
 
 			// Name
-			this.Name = "Hybrid Thief";
+			Name = "Hybrid Thief";
 
 			// Equip
 			Spellbook book = new Spellbook

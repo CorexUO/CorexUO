@@ -48,19 +48,19 @@ namespace Server.Mobiles
 			AddLoot(LootPack.MedScrolls, 2);
 		}
 
-		public override int Meat { get { return 1; } }
-		public override int TreasureMapLevel { get { return 5; } }
+		public override int Meat => 1;
+		public override int TreasureMapLevel => 5;
 
 		public void DrainLife()
 		{
 			ArrayList list = new ArrayList();
 
-			foreach (Mobile m in this.GetMobilesInRange(2))
+			foreach (Mobile m in GetMobilesInRange(2))
 			{
 				if (m == this || !CanBeHarmful(m))
 					continue;
 
-				if (m is BaseCreature && (((BaseCreature)m).Controlled || ((BaseCreature)m).Summoned || ((BaseCreature)m).Team != this.Team))
+				if (m is BaseCreature && (((BaseCreature)m).Controlled || ((BaseCreature)m).Summoned || ((BaseCreature)m).Team != Team))
 					list.Add(m);
 				else if (m.Player)
 					list.Add(m);

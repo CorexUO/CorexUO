@@ -2,20 +2,20 @@ namespace Server.Items
 {
 	public class PlateBattleKabuto : BaseArmor
 	{
-		public override int BasePhysicalResistance { get { return 6; } }
-		public override int BaseFireResistance { get { return 2; } }
-		public override int BaseColdResistance { get { return 2; } }
-		public override int BasePoisonResistance { get { return 2; } }
-		public override int BaseEnergyResistance { get { return 3; } }
+		public override int BasePhysicalResistance => 6;
+		public override int BaseFireResistance => 2;
+		public override int BaseColdResistance => 2;
+		public override int BasePoisonResistance => 2;
+		public override int BaseEnergyResistance => 3;
 
-		public override int InitMinHits { get { return 60; } }
-		public override int InitMaxHits { get { return 65; } }
+		public override int InitMinHits => 60;
+		public override int InitMaxHits => 65;
 
-		public override int StrReq { get { return Core.AOS ? 70 : 70; } }
+		public override int StrReq => Core.AOS ? 70 : 70;
 
-		public override int ArmorBase { get { return 3; } }
+		public override int ArmorBase => 3;
 
-		public override ArmorMaterialType MaterialType { get { return ArmorMaterialType.Plate; } }
+		public override ArmorMaterialType MaterialType => ArmorMaterialType.Plate;
 
 		[Constructable]
 		public PlateBattleKabuto() : base(0x2785)

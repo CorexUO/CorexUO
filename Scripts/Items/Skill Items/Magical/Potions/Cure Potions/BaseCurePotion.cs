@@ -86,7 +86,7 @@ namespace Server.Items
 				from.PlaySound(0x1E0);
 
 				if (!Engines.ConPVP.DuelContext.IsFreeConsume(from))
-					this.Consume();
+					Consume();
 			}
 			else
 			{

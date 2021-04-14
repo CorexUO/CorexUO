@@ -2,7 +2,7 @@ namespace Server.Items
 {
 	public class BrineShrimp : BaseFish
 	{
-		public override int LabelNumber { get { return 1074415; } } // Brine shrimp
+		public override int LabelNumber => 1074415;  // Brine shrimp
 
 		[Constructable]
 		public BrineShrimp() : base(0x3B11)

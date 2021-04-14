@@ -11,9 +11,9 @@ namespace Server.Mobiles
 	public class Banker : BaseVendor
 	{
 		private readonly List<SBInfo> m_SBInfos = new List<SBInfo>();
-		protected override List<SBInfo> SBInfos { get { return m_SBInfos; } }
+		protected override List<SBInfo> SBInfos => m_SBInfos;
 
-		public override NpcGuild NpcGuild { get { return NpcGuild.MerchantsGuild; } }
+		public override NpcGuild NpcGuild => NpcGuild.MerchantsGuild;
 
 		[Constructable]
 		public Banker() : base("the banker")
@@ -272,7 +272,7 @@ namespace Server.Mobiles
 
 		public override bool HandlesOnSpeech(Mobile from)
 		{
-			if (from.InRange(this.Location, 12))
+			if (from.InRange(Location, 12))
 				return true;
 
 			return base.HandlesOnSpeech(from);
@@ -280,7 +280,7 @@ namespace Server.Mobiles
 
 		public override void OnSpeech(SpeechEventArgs e)
 		{
-			if (!e.Handled && e.Mobile.InRange(this.Location, 12))
+			if (!e.Handled && e.Mobile.InRange(Location, 12))
 			{
 				for (int i = 0; i < e.Keywords.Length; ++i)
 				{
@@ -294,7 +294,7 @@ namespace Server.Mobiles
 
 								if (e.Mobile.Criminal)
 								{
-									this.Say(500389); // I will not do business with a criminal!
+									Say(500389); // I will not do business with a criminal!
 									break;
 								}
 
@@ -310,11 +310,11 @@ namespace Server.Mobiles
 
 									if ((!Core.ML && amount > 5000) || (Core.ML && amount > 60000))
 									{
-										this.Say(500381); // Thou canst not withdraw so much at one time!
+										Say(500381); // Thou canst not withdraw so much at one time!
 									}
 									else if (pack == null || pack.Deleted || !(pack.TotalWeight < pack.MaxWeight) || !(pack.TotalItems < pack.MaxItems))
 									{
-										this.Say(1048147); // Your backpack can't hold anything else.
+										Say(1048147); // Your backpack can't hold anything else.
 									}
 									else if (amount > 0)
 									{
@@ -322,13 +322,13 @@ namespace Server.Mobiles
 
 										if (box == null || !Withdraw(e.Mobile, amount))
 										{
-											this.Say(500384); // Ah, art thou trying to fool me? Thou hast not so much gold!
+											Say(500384); // Ah, art thou trying to fool me? Thou hast not so much gold!
 										}
 										else
 										{
 											pack.DropItem(new Gold(amount));
 
-											this.Say(1010005); // Thou hast withdrawn gold from thy account.
+											Say(1010005); // Thou hast withdrawn gold from thy account.
 										}
 									}
 								}
@@ -341,17 +341,17 @@ namespace Server.Mobiles
 
 								if (e.Mobile.Criminal)
 								{
-									this.Say(500389); // I will not do business with a criminal!
+									Say(500389); // I will not do business with a criminal!
 									break;
 								}
 
 								if (AccountGold.Enabled && e.Mobile.Account != null)
 								{
-									this.Say(1155855, string.Format("{0:#,0}\t{1:#,0}", e.Mobile.Account.TotalPlat, e.Mobile.Account.TotalGold)); // Thy current bank balance is ~1_AMOUNT~ platinum and ~2_AMOUNT~ gold.
+									Say(1155855, string.Format("{0:#,0}\t{1:#,0}", e.Mobile.Account.TotalPlat, e.Mobile.Account.TotalGold)); // Thy current bank balance is ~1_AMOUNT~ platinum and ~2_AMOUNT~ gold.
 								}
 								else
 								{
-									this.Say(1042759, GetBalance(e.Mobile).ToString("#,0")); // Thy current bank balance is ~1_AMOUNT~ gold.
+									Say(1042759, GetBalance(e.Mobile).ToString("#,0")); // Thy current bank balance is ~1_AMOUNT~ gold.
 								}
 
 								break;
@@ -362,7 +362,7 @@ namespace Server.Mobiles
 
 								if (e.Mobile.Criminal)
 								{
-									this.Say(500378); // Thou art a criminal and cannot access thy bank box.
+									Say(500378); // Thou art a criminal and cannot access thy bank box.
 									break;
 								}
 
@@ -379,7 +379,7 @@ namespace Server.Mobiles
 
 								if (e.Mobile.Criminal)
 								{
-									this.Say(500389); // I will not do business with a criminal!
+									Say(500389); // I will not do business with a criminal!
 									break;
 								}
 
@@ -393,11 +393,11 @@ namespace Server.Mobiles
 
 									if (amount < 5000)
 									{
-										this.Say(1010006); // We cannot create checks for such a paltry amount of gold!
+										Say(1010006); // We cannot create checks for such a paltry amount of gold!
 									}
 									else if (amount > 1000000)
 									{
-										this.Say(1010007); // Our policies prevent us from creating checks worth that much!
+										Say(1010007); // Our policies prevent us from creating checks worth that much!
 									}
 									else
 									{
@@ -407,17 +407,17 @@ namespace Server.Mobiles
 
 										if (!box.TryDropItem(e.Mobile, check, false))
 										{
-											this.Say(500386); // There's not enough room in your bankbox for the check!
+											Say(500386); // There's not enough room in your bankbox for the check!
 											check.Delete();
 										}
 										else if (!box.ConsumeTotal(typeof(Gold), amount))
 										{
-											this.Say(500384); // Ah, art thou trying to fool me? Thou hast not so much gold!
+											Say(500384); // Ah, art thou trying to fool me? Thou hast not so much gold!
 											check.Delete();
 										}
 										else
 										{
-											this.Say(1042673, AffixType.Append, amount.ToString(), ""); // Into your bank box I have placed a check in the amount of:
+											Say(1042673, AffixType.Append, amount.ToString(), ""); // Into your bank box I have placed a check in the amount of:
 										}
 									}
 								}

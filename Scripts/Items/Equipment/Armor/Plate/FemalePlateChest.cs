@@ -3,24 +3,24 @@ namespace Server.Items
 	[FlipableAttribute(0x1c04, 0x1c05)]
 	public class FemalePlateChest : BaseArmor
 	{
-		public override int BasePhysicalResistance { get { return 5; } }
-		public override int BaseFireResistance { get { return 3; } }
-		public override int BaseColdResistance { get { return 2; } }
-		public override int BasePoisonResistance { get { return 3; } }
-		public override int BaseEnergyResistance { get { return 2; } }
+		public override int BasePhysicalResistance => 5;
+		public override int BaseFireResistance => 3;
+		public override int BaseColdResistance => 2;
+		public override int BasePoisonResistance => 3;
+		public override int BaseEnergyResistance => 2;
 
-		public override int InitMinHits { get { return 50; } }
-		public override int InitMaxHits { get { return 65; } }
+		public override int InitMinHits => 50;
+		public override int InitMaxHits => 65;
 
-		public override int StrReq { get { return Core.AOS ? 95 : 45; } }
+		public override int StrReq => Core.AOS ? 95 : 45;
 
-		public override int DexBonusValue { get { return Core.AOS ? 0 : -5; } }
+		public override int DexBonusValue => Core.AOS ? 0 : -5;
 
-		public override bool AllowMaleWearer { get { return false; } }
+		public override bool AllowMaleWearer => false;
 
-		public override int ArmorBase { get { return 30; } }
+		public override int ArmorBase => 30;
 
-		public override ArmorMaterialType MaterialType { get { return ArmorMaterialType.Plate; } }
+		public override ArmorMaterialType MaterialType => ArmorMaterialType.Plate;
 
 		[Constructable]
 		public FemalePlateChest() : base(0x1C04)

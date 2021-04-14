@@ -2,7 +2,7 @@ namespace Server.Items
 {
 	public class BoneTableAddon : BaseAddon
 	{
-		public override BaseAddonDeed Deed { get { return new BoneTableDeed(); } }
+		public override BaseAddonDeed Deed => new BoneTableDeed();
 
 		[Constructable]
 		public BoneTableAddon() : base()
@@ -31,8 +31,8 @@ namespace Server.Items
 
 	public class BoneTableDeed : BaseAddonDeed
 	{
-		public override BaseAddon Addon { get { return new BoneTableAddon(); } }
-		public override int LabelNumber { get { return 1074478; } } // Bone table
+		public override BaseAddon Addon => new BoneTableAddon();
+		public override int LabelNumber => 1074478;  // Bone table
 
 		[Constructable]
 		public BoneTableDeed() : base()

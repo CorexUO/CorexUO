@@ -225,13 +225,7 @@ namespace Server.Multis
 			return this[name] as string;
 		}
 
-		public object this[string name]
-		{
-			get
-			{
-				return this[Spreadsheet.GetColumnID(name)];
-			}
-		}
+		public object this[string name] => this[Spreadsheet.GetColumnID(name)];
 
 		public object this[int id]
 		{

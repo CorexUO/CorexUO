@@ -8,15 +8,15 @@ namespace Server.Items
 {
 	public class SpecialFishingNet : BaseItem
 	{
-		public override int LabelNumber { get { return 1041079; } } // a special fishing net
+		public override int LabelNumber => 1041079;  // a special fishing net
 
 		private bool m_InUse;
 
 		[CommandProperty(AccessLevel.GameMaster)]
 		public bool InUse
 		{
-			get { return m_InUse; }
-			set { m_InUse = value; }
+			get => m_InUse;
+			set => m_InUse = value;
 		}
 
 		[Constructable]
@@ -113,7 +113,7 @@ namespace Server.Items
 			}
 		}
 
-		public virtual bool RequireDeepWater { get { return true; } }
+		public virtual bool RequireDeepWater => true;
 
 		public void OnTarget(Mobile from, object obj)
 		{
@@ -223,7 +223,7 @@ namespace Server.Items
 				if (index == 14)
 					FinishEffect(p, Map, from);
 				else
-					this.Z -= 1;
+					Z -= 1;
 			}
 		}
 
@@ -363,7 +363,7 @@ namespace Server.Items
 
 	public class FabledFishingNet : SpecialFishingNet
 	{
-		public override int LabelNumber { get { return 1063451; } } // a fabled fishing net
+		public override int LabelNumber => 1063451;  // a fabled fishing net
 
 		[Constructable]
 		public FabledFishingNet()

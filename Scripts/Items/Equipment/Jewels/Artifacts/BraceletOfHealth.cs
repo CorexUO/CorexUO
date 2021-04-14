@@ -2,8 +2,8 @@ namespace Server.Items
 {
 	public class BraceletOfHealth : GoldBracelet
 	{
-		public override int LabelNumber { get { return 1061103; } } // Bracelet of Health
-		public override int ArtifactRarity { get { return 11; } }
+		public override int LabelNumber => 1061103;  // Bracelet of Health
+		public override int ArtifactRarity => 11;
 
 		[Constructable]
 		public BraceletOfHealth()

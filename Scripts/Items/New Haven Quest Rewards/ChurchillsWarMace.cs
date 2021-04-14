@@ -2,7 +2,7 @@ namespace Server.Items
 {
 	public class ChurchillsWarMace : WarMace
 	{
-		public override int LabelNumber { get { return 1078062; } } // Churchill's War Mace
+		public override int LabelNumber => 1078062;  // Churchill's War Mace
 
 		[Constructable]
 		public ChurchillsWarMace()

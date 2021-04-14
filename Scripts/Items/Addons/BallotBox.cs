@@ -11,26 +11,17 @@ namespace Server.Items
 	{
 		public const int MaxTopicLines = 6;
 
-		public override int LabelNumber { get { return 1041006; } } // a ballot box
+		public override int LabelNumber => 1041006;  // a ballot box
 
 		private string[] m_Topic;
 		private List<Mobile> m_Yes;
 		private List<Mobile> m_No;
 
-		public string[] Topic
-		{
-			get { return m_Topic; }
-		}
+		public string[] Topic => m_Topic;
 
-		public List<Mobile> Yes
-		{
-			get { return m_Yes; }
-		}
+		public List<Mobile> Yes => m_Yes;
 
-		public List<Mobile> No
-		{
-			get { return m_No; }
-		}
+		public List<Mobile> No => m_No;
 
 		[Constructable]
 		public BallotBox() : base(0x9A8)
@@ -93,7 +84,7 @@ namespace Server.Items
 
 		public override void OnDoubleClick(Mobile from)
 		{
-			if (!from.InRange(this.GetWorldLocation(), 2))
+			if (!from.InRange(GetWorldLocation(), 2))
 			{
 				from.LocalOverheadMessage(MessageType.Regular, 0x3B2, 1019045); // I can't reach that.
 			}
@@ -332,7 +323,7 @@ namespace Server.Items
 
 	public class BallotBoxAddon : BaseAddon
 	{
-		public override BaseAddonDeed Deed { get { return new BallotBoxDeed(); } }
+		public override BaseAddonDeed Deed => new BallotBoxDeed();
 
 		public BallotBoxAddon()
 		{
@@ -360,9 +351,9 @@ namespace Server.Items
 
 	public class BallotBoxDeed : BaseAddonDeed
 	{
-		public override BaseAddon Addon { get { return new BallotBoxAddon(); } }
+		public override BaseAddon Addon => new BallotBoxAddon();
 
-		public override int LabelNumber { get { return 1044327; } } // ballot box
+		public override int LabelNumber => 1044327;  // ballot box
 
 		[Constructable]
 		public BallotBoxDeed()

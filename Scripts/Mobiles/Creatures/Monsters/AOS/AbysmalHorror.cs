@@ -10,7 +10,7 @@ namespace Server.Mobiles
 			return Utility.RandomBool() ? WeaponAbility.MortalStrike : WeaponAbility.WhirlwindAttack;
 		}
 
-		public override bool IgnoreYoungProtection { get { return Core.ML; } }
+		public override bool IgnoreYoungProtection => Core.ML;
 
 		[Constructable]
 		public AbysmalHorror() : base(AIType.AI_Mage, FightMode.Closest, 10, 1, 0.2, 0.4)
@@ -62,11 +62,11 @@ namespace Server.Mobiles
 				DemonKnight.DistributeArtifact(this);
 		}
 
-		public override bool BardImmune { get { return !Core.SE; } }
-		public override bool Unprovokable { get { return Core.SE; } }
-		public override bool AreaPeaceImmune { get { return Core.SE; } }
-		public override Poison PoisonImmune { get { return Poison.Lethal; } }
-		public override int TreasureMapLevel { get { return 1; } }
+		public override bool BardImmune => !Core.SE;
+		public override bool Unprovokable => Core.SE;
+		public override bool AreaPeaceImmune => Core.SE;
+		public override Poison PoisonImmune => Poison.Lethal;
+		public override int TreasureMapLevel => 1;
 
 		public AbysmalHorror(Serial serial) : base(serial)
 		{

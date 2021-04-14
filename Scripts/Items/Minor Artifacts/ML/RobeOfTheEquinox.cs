@@ -3,7 +3,7 @@ namespace Server.Items
 	[Flipable(0x1F03, 0x1F04)]
 	public class RobeOfTheEquinox : BaseOuterTorso
 	{
-		public override int LabelNumber { get { return 1075042; } } // Robe of the Equinox
+		public override int LabelNumber => 1075042;  // Robe of the Equinox
 
 		[Constructable]
 		public RobeOfTheEquinox() : base(0x1F04, 0xD6)

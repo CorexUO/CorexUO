@@ -4,7 +4,7 @@ namespace Server.Items
 {
 	public class BedOfNailsComponent : AddonComponent
 	{
-		public override int LabelNumber { get { return 1074801; } } // Bed of Nails
+		public override int LabelNumber => 1074801;  // Bed of Nails
 
 		public BedOfNailsComponent(int itemID)
 			: base(itemID)
@@ -44,7 +44,7 @@ namespace Server.Items
 	[FlipableAddon(Direction.South, Direction.East)]
 	public class BedOfNailsAddon : BaseAddon
 	{
-		public override BaseAddonDeed Deed { get { return new BedOfNailsDeed(); } }
+		public override BaseAddonDeed Deed => new BedOfNailsDeed();
 
 		private InternalTimer m_Timer;
 
@@ -163,8 +163,8 @@ namespace Server.Items
 
 	public class BedOfNailsDeed : BaseAddonDeed
 	{
-		public override BaseAddon Addon { get { return new BedOfNailsAddon(); } }
-		public override int LabelNumber { get { return 1074801; } } // Bed of Nails
+		public override BaseAddon Addon => new BedOfNailsAddon();
+		public override int LabelNumber => 1074801;  // Bed of Nails
 
 		[Constructable]
 		public BedOfNailsDeed()

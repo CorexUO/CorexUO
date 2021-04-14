@@ -3,7 +3,7 @@ namespace Server.Items
 	#region BackpackArtifact
 	public class BackpackArtifact : BaseDecorationContainerArtifact
 	{
-		public override int ArtifactRarity { get { return 5; } }
+		public override int ArtifactRarity => 5;
 
 		[Constructable]
 		public BackpackArtifact() : base(0x9B2)
@@ -33,7 +33,7 @@ namespace Server.Items
 	#region BloodyWaterArtifact
 	public class BloodyWaterArtifact : BaseDecorationArtifact
 	{
-		public override int ArtifactRarity { get { return 5; } }
+		public override int ArtifactRarity => 5;
 
 		[Constructable]
 		public BloodyWaterArtifact() : base(0xE23)
@@ -63,7 +63,7 @@ namespace Server.Items
 	#region BooksWestArtifact
 	public class BooksWestArtifact : BaseDecorationArtifact
 	{
-		public override int ArtifactRarity { get { return 3; } }
+		public override int ArtifactRarity => 3;
 
 		[Constructable]
 		public BooksWestArtifact() : base(0x1E25)
@@ -93,7 +93,7 @@ namespace Server.Items
 	#region BooksNorthArtifact
 	public class BooksNorthArtifact : BaseDecorationArtifact
 	{
-		public override int ArtifactRarity { get { return 3; } }
+		public override int ArtifactRarity => 3;
 
 		[Constructable]
 		public BooksNorthArtifact() : base(0x1E24)
@@ -123,7 +123,7 @@ namespace Server.Items
 	#region BooksFaceDownArtifact
 	public class BooksFaceDownArtifact : BaseDecorationArtifact
 	{
-		public override int ArtifactRarity { get { return 3; } }
+		public override int ArtifactRarity => 3;
 
 		[Constructable]
 		public BooksFaceDownArtifact() : base(0x1E21)
@@ -153,7 +153,7 @@ namespace Server.Items
 	#region BottleArtifact
 	public class BottleArtifact : BaseDecorationArtifact
 	{
-		public override int ArtifactRarity { get { return 1; } }
+		public override int ArtifactRarity => 1;
 
 		[Constructable]
 		public BottleArtifact() : base(0xE28)
@@ -183,7 +183,7 @@ namespace Server.Items
 	#region BrazierArtifact
 	public class BrazierArtifact : BaseDecorationArtifact
 	{
-		public override int ArtifactRarity { get { return 2; } }
+		public override int ArtifactRarity => 2;
 
 		[Constructable]
 		public BrazierArtifact() : base(0xE31)
@@ -214,7 +214,7 @@ namespace Server.Items
 	#region CocoonArtifact
 	public class CocoonArtifact : BaseDecorationArtifact
 	{
-		public override int ArtifactRarity { get { return 7; } }
+		public override int ArtifactRarity => 7;
 
 		[Constructable]
 		public CocoonArtifact() : base(0x10DA)
@@ -244,7 +244,7 @@ namespace Server.Items
 	#region DamagedBooksArtifact
 	public class DamagedBooksArtifact : BaseDecorationArtifact
 	{
-		public override int ArtifactRarity { get { return 1; } }
+		public override int ArtifactRarity => 1;
 
 		[Constructable]
 		public DamagedBooksArtifact() : base(0xC16)
@@ -274,7 +274,7 @@ namespace Server.Items
 	#region EggCaseArtifact
 	public class EggCaseArtifact : BaseDecorationArtifact
 	{
-		public override int ArtifactRarity { get { return 5; } }
+		public override int ArtifactRarity => 5;
 
 		[Constructable]
 		public EggCaseArtifact() : base(0x10D9)
@@ -304,7 +304,7 @@ namespace Server.Items
 	#region GruesomeStandardArtifact
 	public class GruesomeStandardArtifact : BaseDecorationArtifact
 	{
-		public override int ArtifactRarity { get { return 5; } }
+		public override int ArtifactRarity => 5;
 
 		[Constructable]
 		public GruesomeStandardArtifact() : base(0x428)
@@ -334,7 +334,7 @@ namespace Server.Items
 	#region LampPostArtifact
 	public class LampPostArtifact : BaseDecorationArtifact
 	{
-		public override int ArtifactRarity { get { return 3; } }
+		public override int ArtifactRarity => 3;
 
 		[Constructable]
 		public LampPostArtifact() : base(0xB24)
@@ -365,7 +365,7 @@ namespace Server.Items
 	#region LeatherTunicArtifact
 	public class LeatherTunicArtifact : BaseDecorationArtifact
 	{
-		public override int ArtifactRarity { get { return 9; } }
+		public override int ArtifactRarity => 9;
 
 		[Constructable]
 		public LeatherTunicArtifact() : base(0x13CA)
@@ -395,7 +395,7 @@ namespace Server.Items
 	#region RockArtifact
 	public class RockArtifact : BaseDecorationArtifact
 	{
-		public override int ArtifactRarity { get { return 1; } }
+		public override int ArtifactRarity => 1;
 
 		[Constructable]
 		public RockArtifact() : base(0x1363)
@@ -425,7 +425,7 @@ namespace Server.Items
 	#region RuinedPaintingArtifact
 	public class RuinedPaintingArtifact : BaseDecorationArtifact
 	{
-		public override int ArtifactRarity { get { return 12; } }
+		public override int ArtifactRarity => 12;
 
 		[Constructable]
 		public RuinedPaintingArtifact() : base(0xC2C)
@@ -455,7 +455,7 @@ namespace Server.Items
 	#region SaddleArtifact
 	public class SaddleArtifact : BaseDecorationArtifact
 	{
-		public override int ArtifactRarity { get { return 9; } }
+		public override int ArtifactRarity => 9;
 
 		[Constructable]
 		public SaddleArtifact() : base(0xF38)
@@ -485,7 +485,7 @@ namespace Server.Items
 	#region SkinnedDeerArtifact
 	public class SkinnedDeerArtifact : BaseDecorationArtifact
 	{
-		public override int ArtifactRarity { get { return 8; } }
+		public override int ArtifactRarity => 8;
 
 		[Constructable]
 		public SkinnedDeerArtifact() : base(0x1E91)
@@ -515,7 +515,7 @@ namespace Server.Items
 	#region SkinnedGoatArtifact
 	public class SkinnedGoatArtifact : BaseDecorationArtifact
 	{
-		public override int ArtifactRarity { get { return 5; } }
+		public override int ArtifactRarity => 5;
 
 		[Constructable]
 		public SkinnedGoatArtifact() : base(0x1E88)
@@ -545,7 +545,7 @@ namespace Server.Items
 	#region SkullCandleArtifact
 	public class SkullCandleArtifact : BaseDecorationArtifact
 	{
-		public override int ArtifactRarity { get { return 1; } }
+		public override int ArtifactRarity => 1;
 
 		[Constructable]
 		public SkullCandleArtifact() : base(0x1858)
@@ -576,7 +576,7 @@ namespace Server.Items
 	#region StretchedHideArtifact
 	public class StretchedHideArtifact : BaseDecorationArtifact
 	{
-		public override int ArtifactRarity { get { return 2; } }
+		public override int ArtifactRarity => 2;
 
 		[Constructable]
 		public StretchedHideArtifact() : base(0x106B)
@@ -606,7 +606,7 @@ namespace Server.Items
 	#region StuddedLeggingsArtifact
 	public class StuddedLeggingsArtifact : BaseDecorationArtifact
 	{
-		public override int ArtifactRarity { get { return 5; } }
+		public override int ArtifactRarity => 5;
 
 		[Constructable]
 		public StuddedLeggingsArtifact() : base(0x13D8)
@@ -636,7 +636,7 @@ namespace Server.Items
 	#region StuddedTunicArtifact
 	public class StuddedTunicArtifact : BaseDecorationArtifact
 	{
-		public override int ArtifactRarity { get { return 7; } }
+		public override int ArtifactRarity => 7;
 
 		[Constructable]
 		public StuddedTunicArtifact() : base(0x13D9)
@@ -666,7 +666,7 @@ namespace Server.Items
 	#region TarotCardsArtifact
 	public class TarotCardsArtifact : BaseDecorationArtifact
 	{
-		public override int ArtifactRarity { get { return 5; } }
+		public override int ArtifactRarity => 5;
 
 		[Constructable]
 		public TarotCardsArtifact() : base(0x12A5)

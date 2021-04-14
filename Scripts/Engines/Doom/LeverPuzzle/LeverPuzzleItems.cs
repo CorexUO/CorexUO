@@ -19,7 +19,7 @@ namespace Server.Engines.Doom
 
 		public override void OnDoubleClick(Mobile m)
 		{
-			if (!m.InRange(this.GetWorldLocation(), 3))
+			if (!m.InRange(GetWorldLocation(), 3))
 				return;
 			if (m_Controller.Enabled)
 				return;
@@ -99,10 +99,7 @@ namespace Server.Engines.Doom
 		private LeverPuzzleController m_Controller;
 
 		[CommandProperty(AccessLevel.GameMaster)]
-		public ushort Code
-		{
-			get { return m_Code; }
-		}
+		public ushort Code => m_Code;
 
 		public LeverPuzzleLever(ushort code, LeverPuzzleController controller) : base(0x108E)
 		{
@@ -161,7 +158,7 @@ namespace Server.Engines.Doom
 			Movable = false;
 		}
 
-		public override bool HandlesOnMovement { get { return true; } }
+		public override bool HandlesOnMovement => true;
 		public override bool OnMoveOver(Mobile m)
 		{
 			if (m != null && m is PlayerMobile)

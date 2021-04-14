@@ -13,14 +13,8 @@ namespace Server.Mobiles
 		[CommandProperty(AccessLevel.GameMaster)]
 		public Mobile Harrower
 		{
-			get
-			{
-				return m_Harrower;
-			}
-			set
-			{
-				m_Harrower = value;
-			}
+			get => m_Harrower;
+			set => m_Harrower = value;
 		}
 
 		[Constructable]
@@ -110,10 +104,10 @@ namespace Server.Mobiles
 			AddLoot(LootPack.HighScrolls, 2);
 		}
 
-		public override bool AutoDispel { get { return true; } }
-		public override bool Unprovokable { get { return true; } }
-		public override Poison PoisonImmune { get { return Poison.Lethal; } }
-		public override bool DisallowAllMoves { get { return true; } }
+		public override bool AutoDispel => true;
+		public override bool Unprovokable => true;
+		public override Poison PoisonImmune => Poison.Lethal;
+		public override bool DisallowAllMoves => true;
 
 		public HarrowerTentacles(Serial serial) : base(serial)
 		{

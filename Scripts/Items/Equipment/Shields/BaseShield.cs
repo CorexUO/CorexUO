@@ -4,7 +4,7 @@ namespace Server.Items
 {
 	public class BaseShield : BaseArmor
 	{
-		public override ArmorMaterialType MaterialType { get { return ArmorMaterialType.Plate; } }
+		public override ArmorMaterialType MaterialType => ArmorMaterialType.Plate;
 
 		public BaseShield(int itemID) : base(itemID)
 		{
@@ -32,7 +32,7 @@ namespace Server.Items
 		{
 			get
 			{
-				Mobile m = this.Parent as Mobile;
+				Mobile m = Parent as Mobile;
 				double ar = base.ArmorRating;
 
 				if (m != null)
@@ -99,7 +99,7 @@ namespace Server.Items
 			}
 			else
 			{
-				Mobile owner = this.Parent as Mobile;
+				Mobile owner = Parent as Mobile;
 				if (owner == null)
 					return damage;
 

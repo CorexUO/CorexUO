@@ -44,8 +44,8 @@ namespace Server.Mobiles
 			AddLoot(LootPack.Poor);
 		}
 
-		public override int Meat { get { return 1; } }
-		public override FoodType FavoriteFood { get { return FoodType.Meat | FoodType.Eggs | FoodType.FruitsAndVegies; } }
+		public override int Meat => 1;
+		public override FoodType FavoriteFood => FoodType.Meat | FoodType.Eggs | FoodType.FruitsAndVegies;
 
 		public Sewerrat(Serial serial) : base(serial)
 		{

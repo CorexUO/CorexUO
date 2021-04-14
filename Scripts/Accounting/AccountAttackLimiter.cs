@@ -112,10 +112,7 @@ namespace Server.Accounting
 		public DateTime LastAccessTime { get; set; }
 		public int Counts { get; set; }
 
-		public bool HasExpired
-		{
-			get { return (DateTime.UtcNow >= (LastAccessTime + TimeSpan.FromHours(1.0))); }
-		}
+		public bool HasExpired => (DateTime.UtcNow >= (LastAccessTime + TimeSpan.FromHours(1.0)));
 
 		public void RefreshAccessTime()
 		{

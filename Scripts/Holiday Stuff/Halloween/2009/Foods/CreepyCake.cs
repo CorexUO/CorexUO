@@ -7,7 +7,7 @@
 
 	public class CreepyCake : Food
 	{
-		public override string DefaultName { get { return "Creepy Cake"; } }
+		public override string DefaultName => "Creepy Cake";
 
 		[Constructable]
 		public CreepyCake()

@@ -4,7 +4,7 @@ namespace Server.Factions
 {
 	public class FactionDragoon : BaseFactionGuard
 	{
-		public override GuardAI GuardAI { get { return GuardAI.Magic | GuardAI.Melee | GuardAI.Smart | GuardAI.Bless | GuardAI.Curse; } }
+		public override GuardAI GuardAI => GuardAI.Magic | GuardAI.Melee | GuardAI.Smart | GuardAI.Bless | GuardAI.Curse;
 
 		[Constructable]
 		public FactionDragoon() : base("the dragoon")

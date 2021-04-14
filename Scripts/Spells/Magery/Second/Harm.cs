@@ -12,8 +12,8 @@ namespace Server.Spells.Second
 				Reagent.SpidersSilk
 			);
 
-		public override SpellCircle Circle { get { return SpellCircle.Second; } }
-		public override TargetFlags SpellTargetFlags { get { return TargetFlags.Harmful; } }
+		public override SpellCircle Circle => SpellCircle.Second;
+		public override TargetFlags SpellTargetFlags => TargetFlags.Harmful;
 
 		public HarmSpell(Mobile caster, Item scroll) : base(caster, scroll, m_Info)
 		{
@@ -34,7 +34,7 @@ namespace Server.Spells.Second
 			}
 		}
 
-		public override bool DelayedDamage { get { return false; } }
+		public override bool DelayedDamage => false;
 
 
 		public override double GetSlayerDamageScalar(Mobile target)
@@ -53,7 +53,7 @@ namespace Server.Spells.Second
 			{
 				SpellHelper.Turn(Caster, m);
 
-				SpellHelper.CheckReflect((int)this.Circle, Caster, ref m);
+				SpellHelper.CheckReflect((int)Circle, Caster, ref m);
 
 				double damage;
 

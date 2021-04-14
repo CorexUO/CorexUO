@@ -5,19 +5,19 @@ namespace Server.Items
 	[FlipableAttribute(0x26BA, 0x26C4)]
 	public class Scythe : BasePoleArm
 	{
-		public override WeaponAbility PrimaryAbility { get { return WeaponAbility.BleedAttack; } }
-		public override WeaponAbility SecondaryAbility { get { return WeaponAbility.ParalyzingBlow; } }
+		public override WeaponAbility PrimaryAbility => WeaponAbility.BleedAttack;
+		public override WeaponAbility SecondaryAbility => WeaponAbility.ParalyzingBlow;
 
-		public override int StrReq { get { return Core.AOS ? 45 : 45; } }
+		public override int StrReq => Core.AOS ? 45 : 45;
 
-		public override int MinDamageBase { get { return Core.AOS ? 15 : 15; } }
-		public override int MaxDamageBase { get { return Core.AOS ? 18 : 18; } }
-		public override float SpeedBase { get { return Core.ML ? 3.50f : Core.AOS ? 32 : 32; } }
+		public override int MinDamageBase => Core.AOS ? 15 : 15;
+		public override int MaxDamageBase => Core.AOS ? 18 : 18;
+		public override float SpeedBase => Core.ML ? 3.50f : Core.AOS ? 32 : 32;
 
-		public override int InitMinHits { get { return 31; } }
-		public override int InitMaxHits { get { return 100; } }
+		public override int InitMinHits => 31;
+		public override int InitMaxHits => 100;
 
-		public override HarvestSystem HarvestSystem { get { return null; } }
+		public override HarvestSystem HarvestSystem => null;
 
 		[Constructable]
 		public Scythe() : base(0x26BA)

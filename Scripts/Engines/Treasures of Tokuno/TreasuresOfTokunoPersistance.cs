@@ -4,10 +4,7 @@ namespace Server.Misc
 	{
 		public static TreasuresOfTokunoPersistance Instance { get; private set; }
 
-		public override string DefaultName
-		{
-			get { return "TreasuresOfTokuno Persistance - Internal"; }
-		}
+		public override string DefaultName => "TreasuresOfTokuno Persistance - Internal";
 
 		public static void Initialize()
 		{

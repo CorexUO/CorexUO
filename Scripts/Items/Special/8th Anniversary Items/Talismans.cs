@@ -14,7 +14,7 @@ namespace Server.Items
 
 	public class BaseFormTalisman : BaseItem, ITokunoDyable
 	{
-		public virtual TalismanForm Form { get { return TalismanForm.Squirrel; } }
+		public virtual TalismanForm Form => TalismanForm.Squirrel;
 
 		public BaseFormTalisman() : base(0x2F59)
 		{
@@ -75,7 +75,7 @@ namespace Server.Items
 
 	public class FerretFormTalisman : BaseFormTalisman
 	{
-		public override TalismanForm Form { get { return TalismanForm.Ferret; } }
+		public override TalismanForm Form => TalismanForm.Ferret;
 
 		[Constructable]
 		public FerretFormTalisman() : base()
@@ -103,7 +103,7 @@ namespace Server.Items
 
 	public class SquirrelFormTalisman : BaseFormTalisman
 	{
-		public override TalismanForm Form { get { return TalismanForm.Squirrel; } }
+		public override TalismanForm Form => TalismanForm.Squirrel;
 
 		[Constructable]
 		public SquirrelFormTalisman() : base()
@@ -131,7 +131,7 @@ namespace Server.Items
 
 	public class CuSidheFormTalisman : BaseFormTalisman
 	{
-		public override TalismanForm Form { get { return TalismanForm.CuSidhe; } }
+		public override TalismanForm Form => TalismanForm.CuSidhe;
 
 		[Constructable]
 		public CuSidheFormTalisman() : base()
@@ -159,7 +159,7 @@ namespace Server.Items
 
 	public class ReptalonFormTalisman : BaseFormTalisman
 	{
-		public override TalismanForm Form { get { return TalismanForm.Reptalon; } }
+		public override TalismanForm Form => TalismanForm.Reptalon;
 
 		[Constructable]
 		public ReptalonFormTalisman() : base()

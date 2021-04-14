@@ -48,8 +48,8 @@ namespace Server.Mobiles
 			AddLoot(LootPack.Average);
 		}
 
-		public override bool BleedImmune { get { return true; } }
-		public override int TreasureMapLevel { get { return 1; } }
+		public override bool BleedImmune => true;
+		public override int TreasureMapLevel => 1;
 
 		public FleshGolem(Serial serial) : base(serial)
 		{

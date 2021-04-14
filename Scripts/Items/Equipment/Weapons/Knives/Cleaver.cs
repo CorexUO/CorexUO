@@ -3,17 +3,17 @@ namespace Server.Items
 	[FlipableAttribute(0xEC3, 0xEC2)]
 	public class Cleaver : BaseKnife
 	{
-		public override WeaponAbility PrimaryAbility { get { return WeaponAbility.BleedAttack; } }
-		public override WeaponAbility SecondaryAbility { get { return WeaponAbility.InfectiousStrike; } }
+		public override WeaponAbility PrimaryAbility => WeaponAbility.BleedAttack;
+		public override WeaponAbility SecondaryAbility => WeaponAbility.InfectiousStrike;
 
-		public override int StrReq { get { return Core.AOS ? 10 : 10; } }
+		public override int StrReq => Core.AOS ? 10 : 10;
 
-		public override int MinDamageBase { get { return Core.AOS ? 11 : 2; } }
-		public override int MaxDamageBase { get { return Core.AOS ? 13 : 13; } }
-		public override float SpeedBase { get { return Core.ML ? 2.50f : Core.AOS ? 46 : 40; } }
+		public override int MinDamageBase => Core.AOS ? 11 : 2;
+		public override int MaxDamageBase => Core.AOS ? 13 : 13;
+		public override float SpeedBase => Core.ML ? 2.50f : Core.AOS ? 46 : 40;
 
-		public override int InitMinHits { get { return 31; } }
-		public override int InitMaxHits { get { return 50; } }
+		public override int InitMinHits => 31;
+		public override int InitMaxHits => 50;
 
 		[Constructable]
 		public Cleaver() : base(0xEC3)

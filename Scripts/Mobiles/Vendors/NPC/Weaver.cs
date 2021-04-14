@@ -7,9 +7,9 @@ namespace Server.Mobiles
 	public class Weaver : BaseVendor
 	{
 		private readonly List<SBInfo> m_SBInfos = new List<SBInfo>();
-		protected override List<SBInfo> SBInfos { get { return m_SBInfos; } }
+		protected override List<SBInfo> SBInfos => m_SBInfos;
 
-		public override NpcGuild NpcGuild { get { return NpcGuild.TailorsGuild; } }
+		public override NpcGuild NpcGuild => NpcGuild.TailorsGuild;
 
 		[Constructable]
 		public Weaver() : base("the weaver")
@@ -22,10 +22,7 @@ namespace Server.Mobiles
 			m_SBInfos.Add(new SBWeaver());
 		}
 
-		public override VendorShoeType ShoeType
-		{
-			get { return VendorShoeType.Sandals; }
-		}
+		public override VendorShoeType ShoeType => VendorShoeType.Sandals;
 
 		#region Bulk Orders
 		public override Item CreateBulkOrder(Mobile from, bool fromContextMenu)

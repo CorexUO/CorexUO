@@ -7,7 +7,7 @@ namespace Server.Items
 {
 	public class GreenThorns : BaseItem
 	{
-		public override int LabelNumber { get { return 1060837; } } // green thorns
+		public override int LabelNumber => 1060837;  // green thorns
 
 		[Constructable]
 		public GreenThorns() : this(1)
@@ -150,8 +150,8 @@ namespace Server.Items
 			private readonly int[] m_Tiles;
 			private readonly Type m_Effect;
 
-			public int[] Tiles { get { return m_Tiles; } }
-			public Type Effect { get { return m_Effect; } }
+			public int[] Tiles => m_Tiles;
+			public Type Effect => m_Effect;
 
 			public TilesAndEffect(int[] tiles, Type effect)
 			{
@@ -292,9 +292,9 @@ namespace Server.Items
 		private readonly Map m_Map;
 		private readonly Mobile m_From;
 
-		public Point3D Location { get { return m_Location; } }
-		public Map Map { get { return m_Map; } }
-		public Mobile From { get { return m_From; } }
+		public Point3D Location => m_Location;
+		public Map Map => m_Map;
+		public Mobile From => m_From;
 
 		public GreenThornsEffect(Point3D location, Map map, Mobile from) : base(TimeSpan.FromSeconds(2.5))
 		{
@@ -662,10 +662,7 @@ namespace Server.Items
 			new InternalTimer(tele).Start();
 		}
 
-		public override string DefaultName
-		{
-			get { return "a hole"; }
-		}
+		public override string DefaultName => "a hole";
 
 		private GreenThornsSHTeleporter() : base(0x913)
 		{

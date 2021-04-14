@@ -16,10 +16,7 @@ namespace Server.Items
 		[CommandProperty(AccessLevel.GameMaster)]
 		public MoonstoneType Type
 		{
-			get
-			{
-				return m_Type;
-			}
+			get => m_Type;
 			set
 			{
 				m_Type = value;
@@ -27,7 +24,7 @@ namespace Server.Items
 			}
 		}
 
-		public override int LabelNumber { get { return 1041490 + (int)m_Type; } }
+		public override int LabelNumber => 1041490 + (int)m_Type;
 
 		[Constructable]
 		public Moonstone(MoonstoneType type) : base(0xF8B)

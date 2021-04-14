@@ -29,7 +29,7 @@ namespace Server.Guilds
 			m_List = list;
 		}
 
-		public virtual bool WillFilter { get { return (m_Filter.Length >= 0); } }
+		public virtual bool WillFilter => (m_Filter.Length >= 0);
 
 		public override void PopulateGump()
 		{

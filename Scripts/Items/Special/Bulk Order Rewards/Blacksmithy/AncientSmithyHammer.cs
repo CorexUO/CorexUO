@@ -11,10 +11,7 @@ namespace Server.Items
 		[CommandProperty(AccessLevel.GameMaster)]
 		public int Bonus
 		{
-			get
-			{
-				return m_Bonus;
-			}
+			get => m_Bonus;
 			set
 			{
 				m_Bonus = value;
@@ -63,8 +60,8 @@ namespace Server.Items
 			m_SkillMod = null;
 		}
 
-		public override CraftSystem CraftSystem { get { return DefBlacksmithy.CraftSystem; } }
-		public override int LabelNumber { get { return 1045127; } } // ancient smithy hammer
+		public override CraftSystem CraftSystem => DefBlacksmithy.CraftSystem;
+		public override int LabelNumber => 1045127;  // ancient smithy hammer
 
 		[Constructable]
 		public AncientSmithyHammer(int bonus) : this(bonus, 600)

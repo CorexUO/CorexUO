@@ -12,8 +12,8 @@ namespace Server.Spells.Sixth
 				Reagent.Nightshade
 			);
 
-		public override SpellCircle Circle { get { return SpellCircle.Sixth; } }
-		public override TargetFlags SpellTargetFlags { get { return TargetFlags.Harmful; } }
+		public override SpellCircle Circle => SpellCircle.Sixth;
+		public override TargetFlags SpellTargetFlags => TargetFlags.Harmful;
 
 		public EnergyBoltSpell(Mobile caster, Item scroll) : base(caster, scroll, m_Info)
 		{
@@ -34,7 +34,7 @@ namespace Server.Spells.Sixth
 			}
 		}
 
-		public override bool DelayedDamage { get { return true; } }
+		public override bool DelayedDamage => true;
 
 		public void Target(Mobile m)
 		{
@@ -48,7 +48,7 @@ namespace Server.Spells.Sixth
 
 				SpellHelper.Turn(Caster, m);
 
-				SpellHelper.CheckReflect((int)this.Circle, ref source, ref m);
+				SpellHelper.CheckReflect((int)Circle, ref source, ref m);
 
 				double damage;
 

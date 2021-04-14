@@ -2,7 +2,7 @@ namespace Server.Items
 {
 	public class ChargedAssassinSpike : AssassinSpike
 	{
-		public override int LabelNumber { get { return 1073518; } } // charged assassin spike
+		public override int LabelNumber => 1073518;  // charged assassin spike
 
 		[Constructable]
 		public ChargedAssassinSpike()

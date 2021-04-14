@@ -11,9 +11,9 @@ namespace Server.Guilds
 				new RankDefinition( 1062960, 3, RankFlags.Member | RankFlags.ControlWarStatus ),	//Warlord
 				new RankDefinition( 1062959, 4, RankFlags.All )	//Leader
 			};
-		public static RankDefinition Leader { get { return Ranks[4]; } }
-		public static RankDefinition Member { get { return Ranks[1]; } }
-		public static RankDefinition Lowest { get { return Ranks[0]; } }
+		public static RankDefinition Leader => Ranks[4];
+		public static RankDefinition Member => Ranks[1];
+		public static RankDefinition Lowest => Ranks[0];
 
 		public TextDefinition Name { get; }
 		public int Rank { get; }

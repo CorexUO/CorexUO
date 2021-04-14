@@ -48,12 +48,9 @@ namespace Server.Mobiles
 			// TODO: weapon?
 		}
 
-		public override int Meat { get { return 4; } }
+		public override int Meat => 4;
 
-		public override OppositionGroup OppositionGroup
-		{
-			get { return OppositionGroup.TerathansAndOphidians; }
-		}
+		public override OppositionGroup OppositionGroup => OppositionGroup.TerathansAndOphidians;
 
 		public TerathanDrone(Serial serial) : base(serial)
 		{

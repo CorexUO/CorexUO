@@ -10,10 +10,7 @@ namespace Server.Items
 			TileData.ItemTable[0x21A2].Height = 20;
 		}
 
-		public override string DefaultName
-		{
-			get { return "no line of sight"; }
-		}
+		public override string DefaultName => "no line of sight";
 
 		[Constructable]
 		public LOSBlocker() : base(0x21A2)
@@ -55,7 +52,7 @@ namespace Server.Items
 		{
 			public GMItemPacket(Item item) : base(0x1A)
 			{
-				this.EnsureCapacity(20);
+				EnsureCapacity(20);
 
 				// 14 base length
 				// +2 - Amount

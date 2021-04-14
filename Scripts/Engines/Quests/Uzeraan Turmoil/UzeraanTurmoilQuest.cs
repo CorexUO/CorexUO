@@ -43,46 +43,36 @@ namespace Server.Engines.Quests.Haven
 				typeof( Haven.FewReagentsConversation )
 			};
 
-		public override Type[] TypeReferenceTable { get { return m_TypeReferenceTable; } }
+		public override Type[] TypeReferenceTable => m_TypeReferenceTable;
 
-		public override object Name
-		{
-			get
-			{
+		public override object Name =>
 				// "Uzeraan's Turmoil"
-				return 1049007;
-			}
-		}
+				1049007;
 
-		public override object OfferMessage
-		{
-			get
-			{
+		public override object OfferMessage =>
 				/* <I>The guard speaks to you as you come closer... </I><BR><BR>
-				 * 
-				 * Greetings traveler! <BR><BR>
-				 * 
-				 * Uzeraan, the lord of this house and overseer of this city -
-				 * <a href="?ForceTopic72">Haven</a>, has requested an audience with you. <BR><BR>
-				 * 
-				 * Hordes of gruesome hell spawn are beginning to overrun the
-				 * city and terrorize the inhabitants.  No one seems to be able
-				 * to stop them.<BR><BR>
-				 * 
-				 * Our fine city militia is falling to the evil creatures
-				 * one battalion after the other.<BR><BR>
-				 * 
-				 * Uzeraan, whom you can find through these doors, is looking to
-				 * hire mercenaries to aid in the battle. <BR><BR>
-				 * 
-				 * Will you assist us?
-				 */
-				return 1049008;
-			}
-		}
+* 
+* Greetings traveler! <BR><BR>
+* 
+* Uzeraan, the lord of this house and overseer of this city -
+* <a href="?ForceTopic72">Haven</a>, has requested an audience with you. <BR><BR>
+* 
+* Hordes of gruesome hell spawn are beginning to overrun the
+* city and terrorize the inhabitants.  No one seems to be able
+* to stop them.<BR><BR>
+* 
+* Our fine city militia is falling to the evil creatures
+* one battalion after the other.<BR><BR>
+* 
+* Uzeraan, whom you can find through these doors, is looking to
+* hire mercenaries to aid in the battle. <BR><BR>
+* 
+* Will you assist us?
+*/
+				1049008;
 
-		public override TimeSpan RestartDelay { get { return TimeSpan.MaxValue; } }
-		public override bool IsTutorial { get { return true; } }
+		public override TimeSpan RestartDelay => TimeSpan.MaxValue;
+		public override bool IsTutorial => true;
 
 		public override int Picture
 		{

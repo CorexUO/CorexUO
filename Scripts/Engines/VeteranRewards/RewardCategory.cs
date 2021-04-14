@@ -8,9 +8,9 @@ namespace Server.Engines.VeteranRewards
 		private readonly string m_NameString;
 		private readonly List<RewardEntry> m_Entries;
 
-		public int Name { get { return m_Name; } }
-		public string NameString { get { return m_NameString; } }
-		public List<RewardEntry> Entries { get { return m_Entries; } }
+		public int Name => m_Name;
+		public string NameString => m_NameString;
+		public List<RewardEntry> Entries => m_Entries;
 
 		public RewardCategory(int name)
 		{

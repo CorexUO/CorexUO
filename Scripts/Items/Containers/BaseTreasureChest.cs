@@ -12,46 +12,28 @@ namespace Server.Items
 		[CommandProperty(AccessLevel.GameMaster)]
 		public TreasureLevel Level
 		{
-			get
-			{
-				return m_TreasureLevel;
-			}
-			set
-			{
-				m_TreasureLevel = value;
-			}
+			get => m_TreasureLevel;
+			set => m_TreasureLevel = value;
 		}
 
 		[CommandProperty(AccessLevel.GameMaster)]
 		public short MaxSpawnTime
 		{
-			get
-			{
-				return m_MaxSpawnTime;
-			}
-			set
-			{
-				m_MaxSpawnTime = value;
-			}
+			get => m_MaxSpawnTime;
+			set => m_MaxSpawnTime = value;
 		}
 
 		[CommandProperty(AccessLevel.GameMaster)]
 		public short MinSpawnTime
 		{
-			get
-			{
-				return m_MinSpawnTime;
-			}
-			set
-			{
-				m_MinSpawnTime = value;
-			}
+			get => m_MinSpawnTime;
+			set => m_MinSpawnTime = value;
 		}
 
 		[CommandProperty(AccessLevel.GameMaster)]
 		public override bool Locked
 		{
-			get { return base.Locked; }
+			get => base.Locked;
 			set
 			{
 				if (base.Locked != value)
@@ -64,10 +46,7 @@ namespace Server.Items
 			}
 		}
 
-		public override bool IsDecoContainer
-		{
-			get { return false; }
-		}
+		public override bool IsDecoContainer => false;
 
 		public BaseTreasureChest(int itemID) : this(itemID, TreasureLevel.Level2)
 		{
@@ -91,7 +70,7 @@ namespace Server.Items
 		{
 			get
 			{
-				if (this.Locked)
+				if (Locked)
 					return "a locked treasure chest";
 
 				return "a treasure chest";
@@ -127,27 +106,27 @@ namespace Server.Items
 			switch (m_TreasureLevel)
 			{
 				case TreasureLevel.Level1:
-					this.RequiredSkill = this.LockLevel = 5;
+					RequiredSkill = LockLevel = 5;
 					break;
 
 				case TreasureLevel.Level2:
-					this.RequiredSkill = this.LockLevel = 20;
+					RequiredSkill = LockLevel = 20;
 					break;
 
 				case TreasureLevel.Level3:
-					this.RequiredSkill = this.LockLevel = 50;
+					RequiredSkill = LockLevel = 50;
 					break;
 
 				case TreasureLevel.Level4:
-					this.RequiredSkill = this.LockLevel = 70;
+					RequiredSkill = LockLevel = 70;
 					break;
 
 				case TreasureLevel.Level5:
-					this.RequiredSkill = this.LockLevel = 90;
+					RequiredSkill = LockLevel = 90;
 					break;
 
 				case TreasureLevel.Level6:
-					this.RequiredSkill = this.LockLevel = 100;
+					RequiredSkill = LockLevel = 100;
 					break;
 			}
 		}

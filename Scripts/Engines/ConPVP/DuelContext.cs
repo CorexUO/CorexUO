@@ -34,19 +34,19 @@ namespace Server.Engines.ConPVP
 
 		private bool m_Rematch;
 
-		public bool Rematch { get { return m_Rematch; } }
+		public bool Rematch => m_Rematch;
 
-		public bool ReadyWait { get { return m_ReadyWait; } }
-		public int ReadyCount { get { return m_ReadyCount; } }
+		public bool ReadyWait => m_ReadyWait;
+		public int ReadyCount => m_ReadyCount;
 
-		public bool Registered { get { return m_Registered; } }
-		public bool Finished { get { return m_Finished; } }
-		public bool Started { get { return m_Started; } }
+		public bool Registered => m_Registered;
+		public bool Finished => m_Finished;
+		public bool Started => m_Started;
 
-		public Mobile Initiator { get { return m_Initiator; } }
-		public ArrayList Participants { get { return m_Participants; } }
-		public Ruleset Ruleset { get { return m_Ruleset; } }
-		public Arena Arena { get { return m_Arena; } }
+		public Mobile Initiator => m_Initiator;
+		public ArrayList Participants => m_Participants;
+		public Ruleset Ruleset => m_Ruleset;
+		public Arena Arena => m_Arena;
 
 		private bool CantDoAnything(Mobile mob)
 		{
@@ -921,11 +921,11 @@ namespace Server.Engines.ConPVP
 		private Timer m_AutoTieTimer;
 		private bool m_Tied;
 
-		public bool Tied { get { return m_Tied; } }
+		public bool Tied => m_Tied;
 
 		private bool m_IsSuddenDeath;
 
-		public bool IsSuddenDeath { get { return m_IsSuddenDeath; } set { m_IsSuddenDeath = value; } }
+		public bool IsSuddenDeath { get => m_IsSuddenDeath; set => m_IsSuddenDeath = value; }
 
 		private Timer m_SDWarnTimer, m_SDActivateTimer;
 
@@ -1734,8 +1734,8 @@ namespace Server.Engines.ConPVP
 		private bool m_StartedBeginCountdown;
 		private bool m_StartedReadyCountdown;
 
-		public bool StartedBeginCountdown { get { return m_StartedBeginCountdown; } }
-		public bool StartedReadyCountdown { get { return m_StartedReadyCountdown; } }
+		public bool StartedBeginCountdown => m_StartedBeginCountdown;
+		public bool StartedReadyCountdown => m_StartedReadyCountdown;
 
 		private class InternalWall : BaseItem
 		{
@@ -2075,9 +2075,9 @@ namespace Server.Engines.ConPVP
 			private Map m_Facet;
 			private DateTime m_Expire;
 
-			public Mobile Mobile { get { return m_Mobile; } }
-			public Point3D Location { get { return m_Location; } }
-			public Map Facet { get { return m_Facet; } }
+			public Mobile Mobile => m_Mobile;
+			public Point3D Location => m_Location;
+			public Map Facet => m_Facet;
 
 			public void Return()
 			{
@@ -2111,7 +2111,7 @@ namespace Server.Engines.ConPVP
 				m_Expire = DateTime.UtcNow + TimeSpan.FromMinutes(30.0);
 			}
 
-			public bool Expired { get { return (DateTime.UtcNow >= m_Expire); } }
+			public bool Expired => (DateTime.UtcNow >= m_Expire);
 
 			public void Update()
 			{
@@ -2134,10 +2134,7 @@ namespace Server.Engines.ConPVP
 		{
 			private ArrayList m_Entries;
 
-			public override string DefaultName
-			{
-				get { return "return teleporter"; }
-			}
+			public override string DefaultName => "return teleporter";
 
 			public ExitTeleporter() : base(0x1822)
 			{
@@ -2258,10 +2255,7 @@ namespace Server.Engines.ConPVP
 		{
 			private readonly ExitTeleporter m_Teleporter;
 
-			public override string DefaultName
-			{
-				get { return "spectator moongate"; }
-			}
+			public override string DefaultName => "spectator moongate";
 
 			public ArenaMoongate(Point3D target, Map map, ExitTeleporter tp) : base(target, map)
 			{
@@ -2440,7 +2434,7 @@ namespace Server.Engines.ConPVP
 		public TournyMatch m_Match;
 		public EventGame m_EventGame;
 
-		public Tournament Tournament { get { return m_Tournament; } }
+		public Tournament Tournament => m_Tournament;
 
 		public void SendReadyGump(int count)
 		{

@@ -5,8 +5,8 @@ namespace Server.Mobiles
 	[CorpseName("a fire elemental corpse")]
 	public class FireElemental : BaseCreature
 	{
-		public override double DispelDifficulty { get { return 117.5; } }
-		public override double DispelFocus { get { return 45.0; } }
+		public override double DispelDifficulty => 117.5;
+		public override double DispelFocus => 45.0;
 
 		[Constructable]
 		public FireElemental() : base(AIType.AI_Mage, FightMode.Closest, 10, 1, 0.2, 0.4)
@@ -56,8 +56,8 @@ namespace Server.Mobiles
 			AddLoot(LootPack.Gems);
 		}
 
-		public override bool BleedImmune { get { return true; } }
-		public override int TreasureMapLevel { get { return 2; } }
+		public override bool BleedImmune => true;
+		public override int TreasureMapLevel => 2;
 
 		public FireElemental(Serial serial) : base(serial)
 		{

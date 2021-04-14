@@ -5,7 +5,7 @@ namespace Server.Items
 {
 	public class UnmadeBedAddon : BaseAddon
 	{
-		public override BaseAddonDeed Deed { get { return new UnmadeBedDeed(); } }
+		public override BaseAddonDeed Deed => new UnmadeBedDeed();
 
 		[Constructable]
 		public UnmadeBedAddon(bool east) : base()
@@ -47,8 +47,8 @@ namespace Server.Items
 
 	public class UnmadeBedDeed : BaseAddonDeed
 	{
-		public override BaseAddon Addon { get { return new UnmadeBedAddon(m_East); } }
-		public override int LabelNumber { get { return 1076279; } } // Unmade Bed
+		public override BaseAddon Addon => new UnmadeBedAddon(m_East);
+		public override int LabelNumber => 1076279;  // Unmade Bed
 
 		private bool m_East;
 

@@ -13,10 +13,10 @@ namespace Server.Multis
 		public int MultiID { get; set; }
 
 		[CommandProperty(AccessLevel.GameMaster)]
-		public Point3D Offset { get { return m_Offset; } set { m_Offset = value; } }
+		public Point3D Offset { get => m_Offset; set => m_Offset = value; }
 
 		[CommandProperty(AccessLevel.GameMaster)]
-		public string ShipName { get { return m_ShipName; } set { m_ShipName = value; InvalidateProperties(); } }
+		public string ShipName { get => m_ShipName; set { m_ShipName = value; InvalidateProperties(); } }
 
 		public BaseDockedBoat(int id, Point3D offset, BaseBoat boat) : base(0x14F4)
 		{

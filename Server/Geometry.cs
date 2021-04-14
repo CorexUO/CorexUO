@@ -67,7 +67,7 @@ namespace Server
 		public int CompareTo(object other)
 		{
 			if (other is Point2D)
-				return this.CompareTo((Point2D)other);
+				return CompareTo((Point2D)other);
 			else if (other == null)
 				return -1;
 
@@ -318,7 +318,7 @@ namespace Server
 		public int CompareTo(object other)
 		{
 			if (other is Point3D)
-				return this.CompareTo((Point3D)other);
+				return CompareTo((Point3D)other);
 			else if (other == null)
 				return -1;
 

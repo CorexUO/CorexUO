@@ -3,17 +3,17 @@ namespace Server.Items
 	[FlipableAttribute(0xf45, 0xf46)]
 	public class ExecutionersAxe : BaseAxe
 	{
-		public override WeaponAbility PrimaryAbility { get { return WeaponAbility.BleedAttack; } }
-		public override WeaponAbility SecondaryAbility { get { return WeaponAbility.MortalStrike; } }
+		public override WeaponAbility PrimaryAbility => WeaponAbility.BleedAttack;
+		public override WeaponAbility SecondaryAbility => WeaponAbility.MortalStrike;
 
-		public override int StrReq { get { return Core.AOS ? 40 : 35; } }
+		public override int StrReq => Core.AOS ? 40 : 35;
 
-		public override int MinDamageBase { get { return Core.AOS ? 15 : 6; } }
-		public override int MaxDamageBase { get { return Core.AOS ? 17 : 33; } }
-		public override float SpeedBase { get { return Core.ML ? 3.25f : Core.AOS ? 33 : 37; } }
+		public override int MinDamageBase => Core.AOS ? 15 : 6;
+		public override int MaxDamageBase => Core.AOS ? 17 : 33;
+		public override float SpeedBase => Core.ML ? 3.25f : Core.AOS ? 33 : 37;
 
-		public override int InitMinHits { get { return 31; } }
-		public override int InitMaxHits { get { return 70; } }
+		public override int InitMinHits => 31;
+		public override int InitMaxHits => 70;
 
 		[Constructable]
 		public ExecutionersAxe() : base(0xF45)

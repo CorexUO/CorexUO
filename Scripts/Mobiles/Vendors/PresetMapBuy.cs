@@ -6,7 +6,7 @@ namespace Server.Mobiles
 	{
 		private readonly PresetMapEntry m_Entry;
 
-		public override bool CanCacheDisplay { get { return false; } }
+		public override bool CanCacheDisplay => false;
 
 		public PresetMapBuyInfo(PresetMapEntry entry, int price, int amount) : base(entry.Name.ToString(), null, price, amount, 0x14EC, 0)
 		{

@@ -3,19 +3,19 @@ namespace Server.Items
 	[FlipableAttribute(0x2D20, 0x2D2C)]
 	public class ElvenSpellblade : BaseKnife
 	{
-		public override WeaponAbility PrimaryAbility { get { return WeaponAbility.PsychicAttack; } }
-		public override WeaponAbility SecondaryAbility { get { return WeaponAbility.BleedAttack; } }
+		public override WeaponAbility PrimaryAbility => WeaponAbility.PsychicAttack;
+		public override WeaponAbility SecondaryAbility => WeaponAbility.BleedAttack;
 
-		public override int DefMissSound { get { return 0x239; } }
+		public override int DefMissSound => 0x239;
 
-		public override int StrReq { get { return Core.AOS ? 35 : 35; } }
+		public override int StrReq => Core.AOS ? 35 : 35;
 
-		public override int MinDamageBase { get { return Core.AOS ? 12 : 12; } }
-		public override int MaxDamageBase { get { return Core.AOS ? 14 : 14; } }
-		public override float SpeedBase { get { return Core.ML ? 2.50f : Core.AOS ? 44 : 40; } }
+		public override int MinDamageBase => Core.AOS ? 12 : 12;
+		public override int MaxDamageBase => Core.AOS ? 14 : 14;
+		public override float SpeedBase => Core.ML ? 2.50f : Core.AOS ? 44 : 40;
 
-		public override int InitMinHits { get { return 30; } } // TODO
-		public override int InitMaxHits { get { return 60; } } // TODO
+		public override int InitMinHits => 30;  // TODO
+		public override int InitMaxHits => 60;  // TODO
 
 		[Constructable]
 		public ElvenSpellblade() : base(0x2D20)

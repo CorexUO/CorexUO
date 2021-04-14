@@ -11,8 +11,8 @@ namespace Server.Engines.MLQuests.Objectives
 
 		public QuestArea Destination
 		{
-			get { return m_Destination; }
-			set { m_Destination = value; }
+			get => m_Destination;
+			set => m_Destination = value;
 		}
 
 		public EscortObjective()
@@ -97,8 +97,8 @@ namespace Server.Engines.MLQuests.Objectives
 
 		public bool HasCompleted
 		{
-			get { return m_HasCompleted; }
-			set { m_HasCompleted = value; }
+			get => m_HasCompleted;
+			set => m_HasCompleted = value;
 		}
 
 		public EscortObjectiveInstance(EscortObjective objective, MLQuestInstance instance)
@@ -270,7 +270,7 @@ namespace Server.Engines.MLQuests.Objectives
 			// No extra instance stuff printed for this objective
 		}
 
-		public override DataType ExtraDataType { get { return DataType.EscortObjective; } }
+		public override DataType ExtraDataType => DataType.EscortObjective;
 
 		public override void Serialize(GenericWriter writer)
 		{

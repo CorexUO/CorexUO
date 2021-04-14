@@ -51,9 +51,9 @@ namespace Server.Mobiles
 			AddLoot(LootPack.Rich);
 		}
 
-		public override bool BleedImmune { get { return true; } }
+		public override bool BleedImmune => true;
 
-		public override int TreasureMapLevel { get { return Utility.RandomList(2, 3); } }
+		public override int TreasureMapLevel => Utility.RandomList(2, 3);
 
 		public SnowElemental(Serial serial) : base(serial)
 		{

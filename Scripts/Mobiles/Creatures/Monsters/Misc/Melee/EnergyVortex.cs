@@ -6,11 +6,11 @@ namespace Server.Mobiles
 	[CorpseName("an energy vortex corpse")]
 	public class EnergyVortex : BaseCreature
 	{
-		public override bool DeleteCorpseOnDeath { get { return Summoned; } }
-		public override bool AlwaysMurderer { get { return true; } } // Or Llama vortices will appear gray.
+		public override bool DeleteCorpseOnDeath => Summoned;
+		public override bool AlwaysMurderer => true;  // Or Llama vortices will appear gray.
 
-		public override double DispelDifficulty { get { return 80.0; } }
-		public override double DispelFocus { get { return 20.0; } }
+		public override double DispelDifficulty => 80.0;
+		public override double DispelFocus => 20.0;
 
 		public override double GetFightModeRanking(Mobile m, FightMode acqType, bool bPlayerOnly)
 		{
@@ -64,8 +64,8 @@ namespace Server.Mobiles
 			ControlSlots = (Core.SE) ? 2 : 1;
 		}
 
-		public override bool BleedImmune { get { return true; } }
-		public override Poison PoisonImmune { get { return Poison.Lethal; } }
+		public override bool BleedImmune => true;
+		public override Poison PoisonImmune => Poison.Lethal;
 
 		public override int GetAngerSound()
 		{

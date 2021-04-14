@@ -5,11 +5,11 @@ namespace Server.Mobiles
 	[CorpseName("a daemon corpse")]
 	public class Daemon : BaseCreature
 	{
-		public override double DispelDifficulty { get { return 125.0; } }
-		public override double DispelFocus { get { return 45.0; } }
+		public override double DispelDifficulty => 125.0;
+		public override double DispelFocus => 45.0;
 
-		public override Faction FactionAllegiance { get { return Shadowlords.Instance; } }
-		public override Ethics.Ethic EthicAllegiance { get { return Ethics.Ethic.Evil; } }
+		public override Faction FactionAllegiance => Shadowlords.Instance;
+		public override Ethics.Ethic EthicAllegiance => Ethics.Ethic.Evil;
 
 		[Constructable]
 		public Daemon() : base(AIType.AI_Mage, FightMode.Closest, 10, 1, 0.2, 0.4)
@@ -54,11 +54,11 @@ namespace Server.Mobiles
 			AddLoot(LootPack.MedScrolls, 2);
 		}
 
-		public override bool CanRummageCorpses { get { return true; } }
-		public override Poison PoisonImmune { get { return Poison.Regular; } }
-		public override int TreasureMapLevel { get { return 4; } }
-		public override int Meat { get { return 1; } }
-		public override bool CanFly { get { return true; } }
+		public override bool CanRummageCorpses => true;
+		public override Poison PoisonImmune => Poison.Regular;
+		public override int TreasureMapLevel => 4;
+		public override int Meat => 1;
+		public override bool CanFly => true;
 
 		public Daemon(Serial serial) : base(serial)
 		{

@@ -97,9 +97,9 @@ namespace Server.Engines.Quests.Hag
 		private readonly Type[] m_Creatures;
 		private readonly int m_Quantity;
 
-		public int Name { get { return m_Name; } }
-		public Type[] Creatures { get { return m_Creatures; } }
-		public int Quantity { get { return m_Quantity; } }
+		public int Name => m_Name;
+		public Type[] Creatures => m_Creatures;
+		public int Quantity => m_Quantity;
 
 		private IngredientInfo(int name, int quantity, params Type[] creatures)
 		{

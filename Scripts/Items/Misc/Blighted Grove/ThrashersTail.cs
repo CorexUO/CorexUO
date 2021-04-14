@@ -2,7 +2,7 @@ namespace Server.Items
 {
 	public class ThrashersTail : BaseItem
 	{
-		public override int LabelNumber { get { return 1074230; } } // Thrasher's Tail
+		public override int LabelNumber => 1074230;  // Thrasher's Tail
 
 		[Constructable]
 		public ThrashersTail() : base(0x1A9D)

@@ -161,7 +161,7 @@ namespace Server.Accounting
 		/// </summary>
 		public void Delete()
 		{
-			for (int i = 0; i < this.Length; ++i)
+			for (int i = 0; i < Length; ++i)
 			{
 				Mobile m = this[i];
 
@@ -246,8 +246,8 @@ namespace Server.Accounting
 		/// </summary>
 		public AccessLevel AccessLevel
 		{
-			get { return m_AccessLevel; }
-			set { m_AccessLevel = value; }
+			get => m_AccessLevel;
+			set => m_AccessLevel = value;
 		}
 
 		/// <summary>
@@ -279,7 +279,7 @@ namespace Server.Accounting
 
 				return true;
 			}
-			set { SetFlag(0, value); }
+			set => SetFlag(0, value);
 		}
 
 		/// <summary>
@@ -287,7 +287,7 @@ namespace Server.Accounting
 		/// </summary>
 		public bool Young
 		{
-			get { return !GetFlag(1); }
+			get => !GetFlag(1);
 			set
 			{
 				SetFlag(1, !value);
@@ -317,12 +317,12 @@ namespace Server.Accounting
 		{
 			get
 			{
-				if (this.AccessLevel != AccessLevel.Player)
+				if (AccessLevel != AccessLevel.Player)
 					return false;
 
 				TimeSpan inactiveLength = DateTime.UtcNow - LastLogin;
 
-				return (inactiveLength > ((this.Count == 0) ? EmptyInactiveDuration : InactiveDuration));
+				return (inactiveLength > ((Count == 0) ? EmptyInactiveDuration : InactiveDuration));
 			}
 		}
 
@@ -628,7 +628,7 @@ namespace Server.Accounting
 
 		public void RemoveYoungStatus(int message)
 		{
-			this.Young = false;
+			Young = false;
 
 			for (int i = 0; i < m_Mobiles.Length; i++)
 			{
@@ -771,7 +771,7 @@ namespace Server.Accounting
 			}
 			m_TotalGameTime = totalGameTime;
 
-			if (this.Young)
+			if (Young)
 				CheckYoung();
 
 			Accounts.Add(this);
@@ -963,7 +963,7 @@ namespace Server.Accounting
 				}
 				else
 				{
-					for (int i = 0; !hasAccess && i < this.Length; ++i)
+					for (int i = 0; !hasAccess && i < Length; ++i)
 					{
 						Mobile m = this[i];
 
@@ -1038,7 +1038,7 @@ namespace Server.Accounting
 
 		public bool CheckAccess(IPAddress ipAddress)
 		{
-			bool hasAccess = this.HasAccess(ipAddress);
+			bool hasAccess = HasAccess(ipAddress);
 
 			if (hasAccess)
 			{
@@ -1192,7 +1192,7 @@ namespace Server.Accounting
 			{
 				int count = 0;
 
-				for (int i = 0; i < this.Length; ++i)
+				for (int i = 0; i < Length; ++i)
 				{
 					if (this[i] != null)
 						++count;
@@ -1205,18 +1205,12 @@ namespace Server.Accounting
 		/// <summary>
 		/// Gets the maximum amount of characters allowed to be created on this account. Values other than 1, 5, 6, or 7 are not supported by the client.
 		/// </summary>
-		public int Limit
-		{
-			get { return (Core.SA ? 7 : Core.AOS ? 6 : 5); }
-		}
+		public int Limit => (Core.SA ? 7 : Core.AOS ? 6 : 5);
 
 		/// <summary>
 		/// Gets the maxmimum amount of characters that this account can hold.
 		/// </summary>
-		public int Length
-		{
-			get { return m_Mobiles.Length; }
-		}
+		public int Length => m_Mobiles.Length;
 
 		/// <summary>
 		/// Gets or sets the character at a specified index for this account. Out of bound index values are handled; null returned for get, ignored for set.
@@ -1279,7 +1273,7 @@ namespace Server.Accounting
 		public int CompareTo(object obj)
 		{
 			if (obj is Account account)
-				return this.CompareTo(account);
+				return CompareTo(account);
 
 			throw new ArgumentException();
 		}
@@ -1307,10 +1301,7 @@ namespace Server.Accounting
 		///     0 to 999,999,999 by default.
 		/// </summary>
 		[CommandProperty(AccessLevel.Administrator)]
-		public int TotalGold
-		{
-			get { return (int)Math.Floor((TotalCurrency - Math.Truncate(TotalCurrency)) * Math.Max(1.0, CurrencyThreshold)); }
-		}
+		public int TotalGold => (int)Math.Floor((TotalCurrency - Math.Truncate(TotalCurrency)) * Math.Max(1.0, CurrencyThreshold));
 
 		/// <summary>
 		///     This amount represents the current amount of Platinum owned by the player.
@@ -1319,7 +1310,7 @@ namespace Server.Accounting
 		///     One Platinum represents the value of CurrencyThreshold in Gold.
 		/// </summary>
 		[CommandProperty(AccessLevel.Administrator)]
-		public int TotalPlat { get { return (int)Math.Truncate(TotalCurrency); } }
+		public int TotalPlat => (int)Math.Truncate(TotalCurrency);
 
 		/// <summary>
 		///     Attempts to deposit the given amount of Gold and Platinum into this account.

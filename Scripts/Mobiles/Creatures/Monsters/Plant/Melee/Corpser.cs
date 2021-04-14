@@ -51,8 +51,8 @@ namespace Server.Mobiles
 			AddLoot(LootPack.Meager);
 		}
 
-		public override Poison PoisonImmune { get { return Poison.Lesser; } }
-		public override bool DisallowAllMoves { get { return true; } }
+		public override Poison PoisonImmune => Poison.Lesser;
+		public override bool DisallowAllMoves => true;
 
 		public Corpser(Serial serial) : base(serial)
 		{

@@ -47,9 +47,9 @@ namespace Server.Mobiles
 			return 353;
 		}
 
-		public override Poison PoisonImmune { get { return Poison.Lethal; } }
-		public override Poison HitPoison { get { return Poison.Lethal; } }
-		public override double HitPoisonChance { get { return 0.1; } }
+		public override Poison PoisonImmune => Poison.Lethal;
+		public override Poison HitPoison => Poison.Lethal;
+		public override double HitPoisonChance => 0.1;
 
 		public Quagmire(Serial serial) : base(serial)
 		{

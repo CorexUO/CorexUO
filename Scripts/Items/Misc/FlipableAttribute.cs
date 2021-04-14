@@ -65,10 +65,7 @@ namespace Server.Items
 	{
 		private readonly int[] m_ItemIDs;
 
-		public int[] ItemIDs
-		{
-			get { return m_ItemIDs; }
-		}
+		public int[] ItemIDs => m_ItemIDs;
 
 		public FlipableAttribute()
 			: this(null)

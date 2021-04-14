@@ -4,8 +4,8 @@ namespace Server.Mobiles
 {
 	public class Ninja : BaseCreature
 	{
-		public override bool CanTeach { get { return true; } }
-		public override bool ClickTitle { get { return false; } }
+		public override bool CanTeach => true;
+		public override bool ClickTitle => false;
 
 		[Constructable]
 		public Ninja() : base(AIType.AI_Melee, FightMode.Aggressor, 10, 1, 0.2, 0.4)

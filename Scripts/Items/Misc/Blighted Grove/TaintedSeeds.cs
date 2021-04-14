@@ -2,7 +2,7 @@ namespace Server.Items
 {
 	public class TaintedSeeds : BaseItem
 	{
-		public override int LabelNumber { get { return 1074233; } } // Tainted Seeds
+		public override int LabelNumber => 1074233;  // Tainted Seeds
 
 		[Constructable]
 		public TaintedSeeds() : base(0xDFA)

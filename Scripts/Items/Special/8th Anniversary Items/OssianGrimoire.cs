@@ -2,7 +2,7 @@
 {
 	public class OssianGrimoire : NecromancerSpellbook, ITokunoDyable
 	{
-		public override int LabelNumber { get { return 1078148; } } // Ossian Grimoire
+		public override int LabelNumber => 1078148;  // Ossian Grimoire
 
 		[Constructable]
 		public OssianGrimoire()

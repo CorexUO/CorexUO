@@ -58,15 +58,15 @@ namespace Server.Engines.Doom
 		}
 
 		[CommandProperty(AccessLevel.GameMaster)]
-		public ushort MyKey { get { return m_MyKey; } set { m_MyKey = value; } }
+		public ushort MyKey { get => m_MyKey; set => m_MyKey = value; }
 
 		[CommandProperty(AccessLevel.GameMaster)]
-		public ushort TheirKey { get { return m_TheirKey; } set { m_TheirKey = value; } }
+		public ushort TheirKey { get => m_TheirKey; set => m_TheirKey = value; }
 
 		[CommandProperty(AccessLevel.GameMaster)]
-		public bool Enabled { get { return m_Enabled; } set { m_Enabled = value; } }
+		public bool Enabled { get => m_Enabled; set => m_Enabled = value; }
 
-		public Mobile Successful { get { return m_Successful; } }
+		public Mobile Successful => m_Successful;
 
 		public bool CircleComplete
 		{

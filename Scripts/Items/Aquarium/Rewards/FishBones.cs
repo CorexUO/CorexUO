@@ -2,8 +2,8 @@ namespace Server.Items
 {
 	public class FishBones : BaseItem
 	{
-		public override int LabelNumber { get { return 1074601; } } // Fish bones
-		public override double DefaultWeight { get { return 1.0; } }
+		public override int LabelNumber => 1074601;  // Fish bones
+		public override double DefaultWeight => 1.0;
 
 		[Constructable]
 		public FishBones() : base(0x3B0C)

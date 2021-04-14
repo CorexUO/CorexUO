@@ -2,9 +2,9 @@ namespace Server.Items /* High seas, loot from merchant ship's hold, also a "unc
 {
 	public class WhiteClothDyeTub : DyeTub
 	{
-		public override int LabelNumber { get { return 1149984; } } // White Cloth Dye Tub
+		public override int LabelNumber => 1149984;  // White Cloth Dye Tub
 
-		public override bool Redyable { get { return false; } }
+		public override bool Redyable => false;
 
 		[Constructable]
 		public WhiteClothDyeTub()

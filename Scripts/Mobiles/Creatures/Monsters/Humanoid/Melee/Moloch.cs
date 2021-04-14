@@ -46,7 +46,7 @@ namespace Server.Mobiles
 			AddLoot(LootPack.Rich);
 		}
 
-		public override Poison PoisonImmune { get { return Poison.Regular; } }
+		public override Poison PoisonImmune => Poison.Regular;
 
 		public Moloch(Serial serial) : base(serial)
 		{

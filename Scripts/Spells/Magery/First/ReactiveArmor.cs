@@ -13,8 +13,8 @@ namespace Server.Spells.First
 				Reagent.SulfurousAsh
 			);
 
-		public override SpellCircle Circle { get { return SpellCircle.First; } }
-		public override bool RequireTarget { get { return false; } }
+		public override SpellCircle Circle => SpellCircle.First;
+		public override bool RequireTarget => false;
 
 		public ReactiveArmorSpell(Mobile caster, Item scroll) : base(caster, scroll, m_Info)
 		{

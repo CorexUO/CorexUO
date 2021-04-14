@@ -6,12 +6,12 @@ namespace Server.Mobiles
 	[CorpseName("a unicorn corpse")]
 	public class Unicorn : BaseMount
 	{
-		public override bool AllowMaleRider { get { return false; } }
-		public override bool AllowMaleTamer { get { return false; } }
+		public override bool AllowMaleRider => false;
+		public override bool AllowMaleTamer => false;
 
-		public override bool InitialInnocent { get { return true; } }
+		public override bool InitialInnocent => true;
 
-		public override TimeSpan MountAbilityDelay { get { return TimeSpan.FromHours(1.0); } }
+		public override TimeSpan MountAbilityDelay => TimeSpan.FromHours(1.0);
 
 		public override void OnDisallowedRider(Mobile m)
 		{
@@ -29,7 +29,7 @@ namespace Server.Mobiles
 
 				if (p != null)
 				{
-					int chanceToCure = 10000 + (int)(this.Skills[SkillName.Magery].Value * 75) - ((p.Level + 1) * (Core.AOS ? (p.Level < 4 ? 3300 : 3100) : 1750));
+					int chanceToCure = 10000 + (int)(Skills[SkillName.Magery].Value * 75) - ((p.Level + 1) * (Core.AOS ? (p.Level < 4 ? 3300 : 3100) : 1750));
 					chanceToCure /= 100;
 
 					if (chanceToCure > Utility.Random(100))
@@ -107,16 +107,13 @@ namespace Server.Mobiles
 				c.DropItem(new UnicornRibs());
 		}
 
-		public override OppositionGroup OppositionGroup
-		{
-			get { return OppositionGroup.FeyAndUndead; }
-		}
+		public override OppositionGroup OppositionGroup => OppositionGroup.FeyAndUndead;
 
-		public override Poison PoisonImmune { get { return Poison.Lethal; } }
-		public override int Meat { get { return 3; } }
-		public override int Hides { get { return 10; } }
-		public override HideType HideType { get { return HideType.Horned; } }
-		public override FoodType FavoriteFood { get { return FoodType.FruitsAndVegies | FoodType.GrainsAndHay; } }
+		public override Poison PoisonImmune => Poison.Lethal;
+		public override int Meat => 3;
+		public override int Hides => 10;
+		public override HideType HideType => HideType.Horned;
+		public override FoodType FavoriteFood => FoodType.FruitsAndVegies | FoodType.GrainsAndHay;
 
 		public Unicorn(Serial serial) : base(serial)
 		{

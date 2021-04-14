@@ -10,7 +10,7 @@ namespace Server.Items
 {
 	public class VendorRentalContract : BaseItem
 	{
-		public override int LabelNumber { get { return 1062332; } } // a vendor rental contract
+		public override int LabelNumber => 1062332;  // a vendor rental contract
 
 		private VendorRentalDuration m_Duration;
 		private Mobile m_Offeree;
@@ -18,7 +18,7 @@ namespace Server.Items
 
 		public VendorRentalDuration Duration
 		{
-			get { return m_Duration; }
+			get => m_Duration;
 			set
 			{
 				if (value != null)
@@ -34,7 +34,7 @@ namespace Server.Items
 
 		public Mobile Offeree
 		{
-			get { return m_Offeree; }
+			get => m_Offeree;
 			set
 			{
 				if (m_OfferExpireTimer != null)
@@ -92,7 +92,7 @@ namespace Server.Items
 
 		public bool IsUsableBy(Mobile from, bool byLandlord, bool byBackpack, bool noOfferee, bool sendMessage)
 		{
-			if (this.Deleted || !from.CheckAlive(sendMessage))
+			if (Deleted || !from.CheckAlive(sendMessage))
 				return false;
 
 			if (noOfferee && Offeree != null)
@@ -108,7 +108,7 @@ namespace Server.Items
 
 			if (byLandlord && IsLandlord(from))
 			{
-				if (from.Map != this.Map || !from.InRange(this, 5))
+				if (from.Map != Map || !from.InRange(this, 5))
 				{
 					if (sendMessage)
 						from.SendLocalizedMessage(501853); // Target is too far away.

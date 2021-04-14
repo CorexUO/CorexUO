@@ -14,13 +14,13 @@ namespace Server.Regions
 		public static Hashtable Table { get; } = new Hashtable();
 
 		// When a creature's AI is deactivated (PlayerRangeSensitive optimization) does it return home?
-		public static bool ReturnOnDeactivate { get { return true; } }
+		public static bool ReturnOnDeactivate => true;
 
 		// Are creatures unlinked on taming (true) or should they also go out of the region (false)?
-		public bool UnlinkOnTaming { get { return false; } }
+		public bool UnlinkOnTaming => false;
 
 		// Are unlinked and untamed creatures removed after 20 hours?
-		public static bool RemoveIfUntamed { get { return true; } }
+		public static bool RemoveIfUntamed => true;
 
 		public static readonly Direction InvalidDirection = Direction.Running;
 
@@ -30,7 +30,7 @@ namespace Server.Regions
 
 		public int ID { get; }
 		public BaseRegion Region { get; }
-		public Point3D HomeLocation { get { return m_Home; } }
+		public Point3D HomeLocation => m_Home;
 		public int HomeRange { get; }
 		public Direction Direction { get; }
 		public SpawnDefinition Definition { get; }
@@ -40,8 +40,8 @@ namespace Server.Regions
 		public TimeSpan MaxSpawnTime { get; }
 		public bool Running { get; private set; }
 
-		public bool Complete { get { return SpawnedObjects.Count >= Max; } }
-		public bool Spawning { get { return Running && !this.Complete; } }
+		public bool Complete => SpawnedObjects.Count >= Max;
+		public bool Spawning => Running && !Complete;
 
 		public SpawnEntry(int id, BaseRegion region, Point3D home, int range, Direction direction, SpawnDefinition definition, int max, TimeSpan minSpawnTime, TimeSpan maxSpawnTime)
 		{
@@ -122,7 +122,7 @@ namespace Server.Regions
 
 		private void CheckTimer()
 		{
-			if (this.Spawning)
+			if (Spawning)
 			{
 				if (m_SpawnTimer == null)
 				{
@@ -176,7 +176,7 @@ namespace Server.Regions
 		{
 			InternalDeleteSpawnedObjects();
 
-			for (int i = 0; !this.Complete && i < Max; i++)
+			for (int i = 0; !Complete && i < Max; i++)
 				Spawn();
 
 			Running = true;
@@ -242,7 +242,7 @@ namespace Server.Regions
 			{
 				m_NextSpawn = reader.ReadDeltaTime();
 
-				if (this.Spawning)
+				if (Spawning)
 				{
 					if (m_SpawnTimer != null)
 						m_SpawnTimer.Stop();

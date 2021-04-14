@@ -51,12 +51,12 @@ namespace Server.Mobiles
 			// TODO: Daemon bone ...
 		}
 
-		public override bool AutoDispel { get { return true; } }
-		public override Poison PoisonImmune { get { return Poison.Lethal; } }
-		public override bool CanRummageCorpses { get { return true; } }
-		public override int TreasureMapLevel { get { return 3; } }
+		public override bool AutoDispel => true;
+		public override Poison PoisonImmune => Poison.Lethal;
+		public override bool CanRummageCorpses => true;
+		public override int TreasureMapLevel => 3;
 
-		public override bool InitialInnocent { get { return true; } }
+		public override bool InitialInnocent => true;
 
 		public override int GetHurtSound()
 		{
@@ -79,9 +79,9 @@ namespace Server.Mobiles
 		{
 			if (DateTime.UtcNow >= m_NextAbilityTime)
 			{
-				Mobile combatant = this.Combatant;
+				Mobile combatant = Combatant;
 
-				if (combatant != null && combatant.Map == this.Map && combatant.InRange(this, 12) && IsEnemy(combatant) && !UnderEffect(combatant))
+				if (combatant != null && combatant.Map == Map && combatant.InRange(this, 12) && IsEnemy(combatant) && !UnderEffect(combatant))
 				{
 					m_NextAbilityTime = DateTime.UtcNow + TimeSpan.FromSeconds(Utility.RandomMinMax(20, 30));
 
@@ -91,7 +91,7 @@ namespace Server.Mobiles
 
 						if (bc.Controlled && bc.ControlMaster != null && !bc.ControlMaster.Deleted && bc.ControlMaster.Alive)
 						{
-							if (bc.ControlMaster.Map == this.Map && bc.ControlMaster.InRange(this, 12) && !UnderEffect(bc.ControlMaster))
+							if (bc.ControlMaster.Map == Map && bc.ControlMaster.InRange(this, 12) && !UnderEffect(bc.ControlMaster))
 							{
 								Combatant = combatant = bc.ControlMaster;
 							}
@@ -129,11 +129,11 @@ namespace Server.Mobiles
 							rabid.FocusMob = combatant;
 							rabid.MoveToWorld(loc, combatant.Map);
 						}
-						this.Say(1071932); //Creatures of the forest, I call to thee!  Aid me in the fight against all that is evil!
+						Say(1071932); //Creatures of the forest, I call to thee!  Aid me in the fight against all that is evil!
 					}
 					else if (combatant.Player)
 					{
-						this.Say(true, "I call a plague of insects to sting your flesh!");
+						Say(true, "I call a plague of insects to sting your flesh!");
 						m_Table[combatant] = Timer.DelayCall(TimeSpan.FromSeconds(0.5), TimeSpan.FromSeconds(7.0), new TimerStateCallback(DoEffect), new object[] { combatant, 0 });
 					}
 				}

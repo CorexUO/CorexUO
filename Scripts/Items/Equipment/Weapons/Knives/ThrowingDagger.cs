@@ -6,10 +6,7 @@ namespace Server.Items
 	[FlipableAttribute(0xF52, 0xF51)]
 	public class ThrowingDagger : BaseItem
 	{
-		public override string DefaultName
-		{
-			get { return "a throwing dagger"; }
-		}
+		public override string DefaultName => "a throwing dagger";
 
 		[Constructable]
 		public ThrowingDagger() : base(0xF52)

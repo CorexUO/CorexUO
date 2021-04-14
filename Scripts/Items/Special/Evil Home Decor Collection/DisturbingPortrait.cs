@@ -6,7 +6,7 @@ namespace Server.Items
 	[Flipable(0x2A5D, 0x2A61)]
 	public class DisturbingPortraitComponent : AddonComponent
 	{
-		public override int LabelNumber { get { return 1074479; } } // Disturbing portrait
+		public override int LabelNumber => 1074479;  // Disturbing portrait
 
 		private Timer m_Timer;
 
@@ -62,7 +62,7 @@ namespace Server.Items
 
 	public class DisturbingPortraitAddon : BaseAddon
 	{
-		public override BaseAddonDeed Deed { get { return new DisturbingPortraitDeed(); } }
+		public override BaseAddonDeed Deed => new DisturbingPortraitDeed();
 
 		[Constructable]
 		public DisturbingPortraitAddon() : base()
@@ -91,8 +91,8 @@ namespace Server.Items
 
 	public class DisturbingPortraitDeed : BaseAddonDeed
 	{
-		public override BaseAddon Addon { get { return new DisturbingPortraitAddon(); } }
-		public override int LabelNumber { get { return 1074479; } } // Disturbing portrait
+		public override BaseAddon Addon => new DisturbingPortraitAddon();
+		public override int LabelNumber => 1074479;  // Disturbing portrait
 
 		[Constructable]
 		public DisturbingPortraitDeed() : base()

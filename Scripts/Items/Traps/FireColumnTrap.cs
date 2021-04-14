@@ -13,18 +13,18 @@ namespace Server.Items
 			m_WarningFlame = true;
 		}
 
-		public override bool PassivelyTriggered { get { return true; } }
-		public override TimeSpan PassiveTriggerDelay { get { return TimeSpan.FromSeconds(2.0); } }
-		public override int PassiveTriggerRange { get { return 3; } }
-		public override TimeSpan ResetDelay { get { return TimeSpan.FromSeconds(0.5); } }
+		public override bool PassivelyTriggered => true;
+		public override TimeSpan PassiveTriggerDelay => TimeSpan.FromSeconds(2.0);
+		public override int PassiveTriggerRange => 3;
+		public override TimeSpan ResetDelay => TimeSpan.FromSeconds(0.5);
 
 		private int m_MinDamage;
 
 		[CommandProperty(AccessLevel.GameMaster)]
 		public virtual int MinDamage
 		{
-			get { return m_MinDamage; }
-			set { m_MinDamage = value; }
+			get => m_MinDamage;
+			set => m_MinDamage = value;
 		}
 
 		private int m_MaxDamage;
@@ -32,8 +32,8 @@ namespace Server.Items
 		[CommandProperty(AccessLevel.GameMaster)]
 		public virtual int MaxDamage
 		{
-			get { return m_MaxDamage; }
-			set { m_MaxDamage = value; }
+			get => m_MaxDamage;
+			set => m_MaxDamage = value;
 		}
 
 		private bool m_WarningFlame;
@@ -41,8 +41,8 @@ namespace Server.Items
 		[CommandProperty(AccessLevel.GameMaster)]
 		public virtual bool WarningFlame
 		{
-			get { return m_WarningFlame; }
-			set { m_WarningFlame = value; }
+			get => m_WarningFlame;
+			set => m_WarningFlame = value;
 		}
 
 		public override void OnTrigger(Mobile from)

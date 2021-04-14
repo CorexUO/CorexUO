@@ -50,17 +50,14 @@ namespace Server.Items
 		}
 
 		[CommandProperty(AccessLevel.GameMaster)]
-		public DateTime Created
-		{
-			get { return m_Created; }
-		}
+		public DateTime Created => m_Created;
 
 		[CommandProperty(AccessLevel.GameMaster)]
 		public CampfireStatus Status
 		{
 			get
 			{
-				switch (this.ItemID)
+				switch (ItemID)
 				{
 					case 0xDE3:
 						return CampfireStatus.Burning;
@@ -74,24 +71,24 @@ namespace Server.Items
 			}
 			set
 			{
-				if (this.Status == value)
+				if (Status == value)
 					return;
 
 				switch (value)
 				{
 					case CampfireStatus.Burning:
-						this.ItemID = 0xDE3;
-						this.Light = LightType.Circle300;
+						ItemID = 0xDE3;
+						Light = LightType.Circle300;
 						break;
 
 					case CampfireStatus.Extinguishing:
-						this.ItemID = 0xDE9;
-						this.Light = LightType.Circle150;
+						ItemID = 0xDE9;
+						Light = LightType.Circle150;
 						break;
 
 					default:
-						this.ItemID = 0xDEA;
-						this.Light = LightType.ArchedWindowEast;
+						ItemID = 0xDEA;
+						Light = LightType.ArchedWindowEast;
 						ClearEntries();
 						break;
 				}
@@ -101,16 +98,16 @@ namespace Server.Items
 		private void OnTick()
 		{
 			DateTime now = DateTime.UtcNow;
-			TimeSpan age = now - this.Created;
+			TimeSpan age = now - Created;
 
 			if (age >= TimeSpan.FromSeconds(100.0))
-				this.Delete();
+				Delete();
 			else if (age >= TimeSpan.FromSeconds(90.0))
-				this.Status = CampfireStatus.Off;
+				Status = CampfireStatus.Off;
 			else if (age >= TimeSpan.FromSeconds(60.0))
-				this.Status = CampfireStatus.Extinguishing;
+				Status = CampfireStatus.Extinguishing;
 
-			if (this.Status == CampfireStatus.Off || this.Deleted)
+			if (Status == CampfireStatus.Off || Deleted)
 				return;
 
 			foreach (CampfireEntry entry in new ArrayList(m_Entries))
@@ -126,7 +123,7 @@ namespace Server.Items
 				}
 			}
 
-			IPooledEnumerable eable = this.GetClientsInRange(SecureRange);
+			IPooledEnumerable eable = GetClientsInRange(SecureRange);
 
 			foreach (NetState state in eable)
 			{
@@ -178,7 +175,7 @@ namespace Server.Items
 
 			int version = reader.ReadInt();
 
-			this.Delete();
+			Delete();
 		}
 	}
 
@@ -189,19 +186,16 @@ namespace Server.Items
 		private readonly DateTime m_Start;
 		private bool m_Safe;
 
-		public PlayerMobile Player { get { return m_Player; } }
-		public Campfire Fire { get { return m_Fire; } }
-		public DateTime Start { get { return m_Start; } }
+		public PlayerMobile Player => m_Player;
+		public Campfire Fire => m_Fire;
+		public DateTime Start => m_Start;
 
-		public bool Valid
-		{
-			get { return !Fire.Deleted && Fire.Status != CampfireStatus.Off && Player.Map == Fire.Map && Player.InRange(Fire, Campfire.SecureRange); }
-		}
+		public bool Valid => !Fire.Deleted && Fire.Status != CampfireStatus.Off && Player.Map == Fire.Map && Player.InRange(Fire, Campfire.SecureRange);
 
 		public bool Safe
 		{
-			get { return Valid && m_Safe; }
-			set { m_Safe = value; }
+			get => Valid && m_Safe;
+			set => m_Safe = value;
 		}
 
 		public CampfireEntry(PlayerMobile player, Campfire fire)

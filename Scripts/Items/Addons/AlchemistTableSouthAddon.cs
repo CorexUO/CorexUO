@@ -2,7 +2,7 @@ namespace Server.Items
 {
 	public class AlchemistTableSouthAddon : BaseAddon
 	{
-		public override BaseAddonDeed Deed { get { return new AlchemistTableSouthDeed(); } }
+		public override BaseAddonDeed Deed => new AlchemistTableSouthDeed();
 
 		[Constructable]
 		public AlchemistTableSouthAddon()
@@ -31,8 +31,8 @@ namespace Server.Items
 
 	public class AlchemistTableSouthDeed : BaseAddonDeed
 	{
-		public override BaseAddon Addon { get { return new AlchemistTableSouthAddon(); } }
-		public override int LabelNumber { get { return 1073396; } } // alchemist table (south)
+		public override BaseAddon Addon => new AlchemistTableSouthAddon();
+		public override int LabelNumber => 1073396;  // alchemist table (south)
 
 		[Constructable]
 		public AlchemistTableSouthDeed()

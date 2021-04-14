@@ -3,7 +3,7 @@ namespace Server.Items
 	[Flipable(0x3156, 0x3157)]
 	public class MangledHeadOfDreadhorn : BaseItem
 	{
-		public override int LabelNumber { get { return 1072088; } } // The Mangled Head of Dread Horn
+		public override int LabelNumber => 1072088;  // The Mangled Head of Dread Horn
 
 		[Constructable]
 		public MangledHeadOfDreadhorn() : base(0x3156)

@@ -6,9 +6,9 @@ namespace Server.Mobiles
 	public class StoneCrafter : BaseVendor
 	{
 		private readonly List<SBInfo> m_SBInfos = new List<SBInfo>();
-		protected override List<SBInfo> SBInfos { get { return m_SBInfos; } }
+		protected override List<SBInfo> SBInfos => m_SBInfos;
 
-		public override NpcGuild NpcGuild { get { return NpcGuild.TinkersGuild; } }
+		public override NpcGuild NpcGuild => NpcGuild.TinkersGuild;
 
 		[Constructable]
 		public StoneCrafter() : base("the stone crafter")

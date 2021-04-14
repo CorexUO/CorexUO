@@ -127,7 +127,7 @@ namespace Server.Guilds
 			if (g.Alliance != this || !m_PendingMembers.Contains(g) || m_Members.Contains(g))
 				return;
 
-			g.GuildMessage(1070760, this.Name); // Your Guild has joined the ~1_ALLIANCENAME~ Alliance.
+			g.GuildMessage(1070760, Name); // Your Guild has joined the ~1_ALLIANCENAME~ Alliance.
 			AllianceMessage(1070761, g.Name); // A new Guild has joined your Alliance: ~1_GUILDNAME~
 
 			m_PendingMembers.Remove(g);
@@ -147,7 +147,7 @@ namespace Server.Guilds
 				m_Members.Remove(g);
 				g.InvalidateMemberProperties();
 
-				g.GuildMessage(1070763, this.Name); // Your Guild has been removed from the ~1_ALLIANCENAME~ Alliance.
+				g.GuildMessage(1070763, Name); // Your Guild has been removed from the ~1_ALLIANCENAME~ Alliance.
 				AllianceMessage(1070764, g.Name); // A Guild has left your Alliance: ~1_GUILDNAME~
 			}
 
@@ -295,7 +295,7 @@ namespace Server.Guilds
 
 		public class AllianceRosterGump : GuildDiplomacyGump
 		{
-			protected override bool AllowAdvancedSearch { get { return false; } }
+			protected override bool AllowAdvancedSearch => false;
 
 			private readonly AllianceInfo m_Alliance;
 

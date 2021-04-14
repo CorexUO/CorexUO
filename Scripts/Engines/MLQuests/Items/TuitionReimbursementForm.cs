@@ -2,9 +2,9 @@ namespace Server.Items
 {
 	public class TuitionReimbursementForm : BaseItem
 	{
-		public override int LabelNumber { get { return 1074610; } } // Tuition Reimbursement Form (in triplicate)
+		public override int LabelNumber => 1074610;  // Tuition Reimbursement Form (in triplicate)
 
-		public override bool Nontransferable { get { return true; } }
+		public override bool Nontransferable => true;
 
 		public override void AddNameProperties(ObjectPropertyList list)
 		{

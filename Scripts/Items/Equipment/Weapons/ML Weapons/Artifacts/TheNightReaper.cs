@@ -2,7 +2,7 @@ namespace Server.Items
 {
 	public class TheNightReaper : RepeatingCrossbow
 	{
-		public override int LabelNumber { get { return 1072912; } } // The Night Reaper
+		public override int LabelNumber => 1072912;  // The Night Reaper
 
 		[Constructable]
 		public TheNightReaper()

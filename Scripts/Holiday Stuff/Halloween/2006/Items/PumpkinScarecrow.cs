@@ -2,7 +2,7 @@
 {
 	public class PumpkinScarecrow : BaseItem
 	{
-		public override int LabelNumber { get { return 1096947; } }
+		public override int LabelNumber => 1096947;
 
 		[Constructable]
 		public PumpkinScarecrow()

@@ -2,7 +2,7 @@ namespace Server.Items
 {
 	public class GlobOfMonstreousInterredGrizzle : BaseItem
 	{
-		public override int LabelNumber { get { return 1072117; } } // Glob of Monsterous Interred Grizzle
+		public override int LabelNumber => 1072117;  // Glob of Monsterous Interred Grizzle
 
 		[Constructable]
 		public GlobOfMonstreousInterredGrizzle() : base(0x2F3)

@@ -2,7 +2,7 @@ namespace Server.Items
 {
 	public class TrueRadiantScimitar : RadiantScimitar
 	{
-		public override int LabelNumber { get { return 1073541; } } // true radiant scimitar
+		public override int LabelNumber => 1073541;  // true radiant scimitar
 
 		[Constructable]
 		public TrueRadiantScimitar()

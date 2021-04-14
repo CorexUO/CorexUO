@@ -6,7 +6,7 @@ namespace Server.Engines.Mahjong
 	{
 		private readonly ArrayList m_LeftTileTypes;
 
-		public ArrayList LeftTileTypes { get { return m_LeftTileTypes; } }
+		public ArrayList LeftTileTypes => m_LeftTileTypes;
 
 		public MahjongTileTypeGenerator(int count)
 		{

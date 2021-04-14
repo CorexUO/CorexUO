@@ -4,7 +4,7 @@ namespace Server.Engines.Quests.Doom
 {
 	public class ChylothStaff : BlackStaff
 	{
-		public override int LabelNumber { get { return 1041111; } } // a magic staff
+		public override int LabelNumber => 1041111;  // a magic staff
 
 		[Constructable]
 		public ChylothStaff()

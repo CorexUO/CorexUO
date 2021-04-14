@@ -2,9 +2,9 @@ namespace Server.Items
 {
 	public class SpiritBottle : BaseItem
 	{
-		public override int LabelNumber { get { return 1075283; } } // Spirit bottle
+		public override int LabelNumber => 1075283;  // Spirit bottle
 
-		public override bool Nontransferable { get { return true; } }
+		public override bool Nontransferable => true;
 
 		public override void AddNameProperties(ObjectPropertyList list)
 		{

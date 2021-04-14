@@ -2,9 +2,9 @@
 {
 	internal class Tub : BaseWaterContainer
 	{
-		public override int VoidItem_ID { get { return vItemID; } }
-		public override int FullItem_ID { get { return fItemID; } }
-		public override int MaxQuantity { get { return 50; } }
+		public override int VoidItem_ID => vItemID;
+		public override int FullItem_ID => fItemID;
+		public override int MaxQuantity => 50;
 
 		private static readonly int vItemID = 0xe83;
 		private static readonly int fItemID = 0xe7b;

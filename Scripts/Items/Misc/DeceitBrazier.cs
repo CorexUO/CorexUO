@@ -66,7 +66,7 @@ namespace Server.Items
 				#endregion
 			};
 
-		public static Type[] Creatures { get { return m_Creatures; } }
+		public static Type[] Creatures => m_Creatures;
 
 		private Timer m_Timer;
 		private DateTime m_NextSpawn;
@@ -74,15 +74,15 @@ namespace Server.Items
 		private TimeSpan m_NextSpawnDelay;
 
 		[CommandProperty(AccessLevel.GameMaster)]
-		public DateTime NextSpawn { get { return m_NextSpawn; } }
+		public DateTime NextSpawn => m_NextSpawn;
 
 		[CommandProperty(AccessLevel.GameMaster)]
-		public int SpawnRange { get { return m_SpawnRange; } set { m_SpawnRange = value; } }
+		public int SpawnRange { get => m_SpawnRange; set => m_SpawnRange = value; }
 
 		[CommandProperty(AccessLevel.GameMaster)]
-		public TimeSpan NextSpawnDelay { get { return m_NextSpawnDelay; } set { m_NextSpawnDelay = value; } }
+		public TimeSpan NextSpawnDelay { get => m_NextSpawnDelay; set => m_NextSpawnDelay = value; }
 
-		public override int LabelNumber { get { return 1023633; } } // Brazier
+		public override int LabelNumber => 1023633;  // Brazier
 
 		[Constructable]
 		public DeceitBrazier() : base(0xE31)
@@ -128,7 +128,7 @@ namespace Server.Items
 			PublicOverheadMessage(MessageType.Regular, 0x3B2, 500761);// Heed this warning well, and use this brazier at your own peril.
 		}
 
-		public override bool HandlesOnMovement { get { return true; } }
+		public override bool HandlesOnMovement => true;
 
 		public override void OnMovement(Mobile m, Point3D oldLocation)
 		{
@@ -158,13 +158,13 @@ namespace Server.Items
 				int y = Location.Y + (Utility.Random((m_SpawnRange * 2) + 1) - m_SpawnRange);
 				int z = Map.GetAverageZ(x, y);
 
-				if (Map.CanSpawnMobile(new Point2D(x, y), this.Z))
-					return new Point3D(x, y, this.Z);
+				if (Map.CanSpawnMobile(new Point2D(x, y), Z))
+					return new Point3D(x, y, Z);
 				else if (Map.CanSpawnMobile(new Point2D(x, y), z))
 					return new Point3D(x, y, z);
 			}
 
-			return this.Location;
+			return Location;
 		}
 
 		public virtual void DoEffect(Point3D loc, Map map)
@@ -181,7 +181,7 @@ namespace Server.Items
 				{
 					if (m_NextSpawn < DateTime.UtcNow)
 					{
-						Map map = this.Map;
+						Map map = Map;
 						BaseCreature bc = (BaseCreature)Activator.CreateInstance(m_Creatures[Utility.Random(m_Creatures.Length)]);
 
 						if (bc != null)

@@ -5,9 +5,9 @@ namespace Server.Mobiles
 {
 	public class ThiefGuildmaster : BaseGuildmaster
 	{
-		public override NpcGuild NpcGuild { get { return NpcGuild.ThievesGuild; } }
+		public override NpcGuild NpcGuild => NpcGuild.ThievesGuild;
 
-		public override TimeSpan JoinAge { get { return TimeSpan.FromDays(7.0); } }
+		public override TimeSpan JoinAge => TimeSpan.FromDays(7.0);
 
 		[Constructable]
 		public ThiefGuildmaster() : base("thief")
@@ -61,7 +61,7 @@ namespace Server.Mobiles
 
 		public override bool HandlesOnSpeech(Mobile from)
 		{
-			if (from.InRange(this.Location, 2))
+			if (from.InRange(Location, 2))
 				return true;
 
 			return base.HandlesOnSpeech(from);
@@ -71,7 +71,7 @@ namespace Server.Mobiles
 		{
 			Mobile from = e.Mobile;
 
-			if (!e.Handled && from is PlayerMobile && from.InRange(this.Location, 2) && e.HasKeyword(0x1F)) // *disguise*
+			if (!e.Handled && from is PlayerMobile && from.InRange(Location, 2) && e.HasKeyword(0x1F)) // *disguise*
 			{
 				PlayerMobile pm = (PlayerMobile)from;
 

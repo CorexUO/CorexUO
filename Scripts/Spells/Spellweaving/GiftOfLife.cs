@@ -14,10 +14,10 @@ namespace Server.Spells.Spellweaving
 				-1
 			);
 
-		public override TimeSpan CastDelayBase { get { return TimeSpan.FromSeconds(4.0); } }
+		public override TimeSpan CastDelayBase => TimeSpan.FromSeconds(4.0);
 
-		public override double RequiredSkill { get { return 38.0; } }
-		public override int RequiredMana { get { return 70; } }
+		public override double RequiredSkill => 38.0;
+		public override int RequiredMana => 70;
 
 		public GiftOfLifeSpell(Mobile caster, Item scroll)
 			: base(caster, scroll, m_Info)
@@ -140,7 +140,7 @@ namespace Server.Spells.Spellweaving
 
 		}
 
-		public double HitsScalar { get { return ((Caster.Skills.Spellweaving.Value / 2.4) + FocusLevel) / 100; } }
+		public double HitsScalar => ((Caster.Skills.Spellweaving.Value / 2.4) + FocusLevel) / 100;
 
 		public static void OnLogin(Mobile m)
 		{

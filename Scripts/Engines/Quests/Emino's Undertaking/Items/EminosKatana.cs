@@ -4,7 +4,7 @@ namespace Server.Engines.Quests.Ninja
 {
 	public class EminosKatana : QuestItem
 	{
-		public override int LabelNumber { get { return 1063214; } } // Daimyo Emino's Katana
+		public override int LabelNumber => 1063214;  // Daimyo Emino's Katana
 
 		[Constructable]
 		public EminosKatana() : base(0x13FF)

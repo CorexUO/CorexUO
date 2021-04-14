@@ -408,7 +408,7 @@ namespace Server.SkillHandlers
 		public Mobile Victim { get; }
 		public DateTime Expires { get; private set; }
 
-		public bool IsExpired { get { return (DateTime.UtcNow >= Expires); } }
+		public bool IsExpired => (DateTime.UtcNow >= Expires);
 
 		public StolenItem(Item stolen, Mobile thief, Mobile victim)
 		{

@@ -3,25 +3,25 @@ namespace Server.Items
 	[FlipableAttribute(0x1c00, 0x1c01)]
 	public class LeatherShorts : BaseArmor
 	{
-		public override int BasePhysicalResistance { get { return 2; } }
-		public override int BaseFireResistance { get { return 4; } }
-		public override int BaseColdResistance { get { return 3; } }
-		public override int BasePoisonResistance { get { return 3; } }
-		public override int BaseEnergyResistance { get { return 3; } }
+		public override int BasePhysicalResistance => 2;
+		public override int BaseFireResistance => 4;
+		public override int BaseColdResistance => 3;
+		public override int BasePoisonResistance => 3;
+		public override int BaseEnergyResistance => 3;
 
-		public override int InitMinHits { get { return 30; } }
-		public override int InitMaxHits { get { return 40; } }
+		public override int InitMinHits => 30;
+		public override int InitMaxHits => 40;
 
-		public override int StrReq { get { return Core.AOS ? 20 : 10; } }
+		public override int StrReq => Core.AOS ? 20 : 10;
 
-		public override int ArmorBase { get { return 13; } }
+		public override int ArmorBase => 13;
 
-		public override ArmorMaterialType MaterialType { get { return ArmorMaterialType.Leather; } }
-		public override CraftResource DefaultResource { get { return CraftResource.RegularLeather; } }
+		public override ArmorMaterialType MaterialType => ArmorMaterialType.Leather;
+		public override CraftResource DefaultResource => CraftResource.RegularLeather;
 
-		public override ArmorMeditationAllowance DefMedAllowance { get { return ArmorMeditationAllowance.All; } }
+		public override ArmorMeditationAllowance DefMedAllowance => ArmorMeditationAllowance.All;
 
-		public override bool AllowMaleWearer { get { return false; } }
+		public override bool AllowMaleWearer => false;
 
 		[Constructable]
 		public LeatherShorts() : base(0x1C00)

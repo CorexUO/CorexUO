@@ -7,7 +7,7 @@ namespace Server.Items
 	{
 		private Item m_Stone;
 
-		public override int LabelNumber { get { return 1041054; } } // guildstone teleporter
+		public override int LabelNumber => 1041054;  // guildstone teleporter
 
 		[Constructable]
 		public GuildTeleporter() : this(null)
@@ -26,7 +26,7 @@ namespace Server.Items
 		{
 		}
 
-		public override bool DisplayLootType { get { return false; } }
+		public override bool DisplayLootType => false;
 
 		public override void Serialize(GenericWriter writer)
 		{

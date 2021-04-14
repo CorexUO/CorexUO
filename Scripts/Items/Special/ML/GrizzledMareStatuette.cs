@@ -4,8 +4,8 @@ namespace Server.Items
 {
 	public class GrizzledMareStatuette : BaseImprisonedMobile
 	{
-		public override int LabelNumber { get { return 1074475; } } // Grizzled Mare Statuette
-		public override BaseCreature Summon { get { return new GrizzledMare(); } }
+		public override int LabelNumber => 1074475;  // Grizzled Mare Statuette
+		public override BaseCreature Summon => new GrizzledMare();
 
 		[Constructable]
 		public GrizzledMareStatuette() : base(0x2617)
@@ -37,7 +37,7 @@ namespace Server.Mobiles
 {
 	public class GrizzledMare : HellSteed
 	{
-		public override bool DeleteOnRelease { get { return true; } }
+		public override bool DeleteOnRelease => true;
 
 		private const string m_Myname = "a grizzled mare";
 

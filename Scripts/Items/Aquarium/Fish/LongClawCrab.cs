@@ -2,7 +2,7 @@ namespace Server.Items
 {
 	public class LongClawCrab : BaseFish
 	{
-		public override int LabelNumber { get { return 1073827; } } // A Long Claw Crab
+		public override int LabelNumber => 1073827;  // A Long Claw Crab
 
 		[Constructable]
 		public LongClawCrab() : base(0x3AFC)

@@ -3,19 +3,19 @@ namespace Server.Items
 	[FlipableAttribute(0x1439, 0x1438)]
 	public class WarHammer : BaseBashing
 	{
-		public override WeaponAbility PrimaryAbility { get { return WeaponAbility.WhirlwindAttack; } }
-		public override WeaponAbility SecondaryAbility { get { return WeaponAbility.CrushingBlow; } }
+		public override WeaponAbility PrimaryAbility => WeaponAbility.WhirlwindAttack;
+		public override WeaponAbility SecondaryAbility => WeaponAbility.CrushingBlow;
 
-		public override int StrReq { get { return Core.AOS ? 95 : 40; } }
+		public override int StrReq => Core.AOS ? 95 : 40;
 
-		public override int MinDamageBase { get { return Core.AOS ? 17 : 8; } }
-		public override int MaxDamageBase { get { return Core.AOS ? 18 : 36; } }
-		public override float SpeedBase { get { return Core.ML ? 3.75f : Core.AOS ? 28 : 31; } }
+		public override int MinDamageBase => Core.AOS ? 17 : 8;
+		public override int MaxDamageBase => Core.AOS ? 18 : 36;
+		public override float SpeedBase => Core.ML ? 3.75f : Core.AOS ? 28 : 31;
 
-		public override int InitMinHits { get { return 31; } }
-		public override int InitMaxHits { get { return 110; } }
+		public override int InitMinHits => 31;
+		public override int InitMaxHits => 110;
 
-		public override WeaponAnimation DefAnimation { get { return WeaponAnimation.Bash2H; } }
+		public override WeaponAnimation DefAnimation => WeaponAnimation.Bash2H;
 
 		[Constructable]
 		public WarHammer() : base(0x1439)

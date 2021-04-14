@@ -2,7 +2,7 @@ namespace Server.Items
 {
 	public class StrippedFlakeFish : BaseFish
 	{
-		public override int LabelNumber { get { return 1074595; } } // Stripped Flake Fish
+		public override int LabelNumber => 1074595;  // Stripped Flake Fish
 
 		[Constructable]
 		public StrippedFlakeFish() : base(0x3B0A)

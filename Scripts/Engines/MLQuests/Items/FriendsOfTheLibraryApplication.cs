@@ -2,9 +2,9 @@ namespace Server.Items
 {
 	public class FriendsOfTheLibraryApplication : BaseItem
 	{
-		public override int LabelNumber { get { return 1073131; } } // Friends of the Library Application
+		public override int LabelNumber => 1073131;  // Friends of the Library Application
 
-		public override bool Nontransferable { get { return true; } }
+		public override bool Nontransferable => true;
 
 		public override void AddNameProperties(ObjectPropertyList list)
 		{

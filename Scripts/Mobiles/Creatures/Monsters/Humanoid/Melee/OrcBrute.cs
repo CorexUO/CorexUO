@@ -60,14 +60,11 @@ namespace Server.Mobiles
 			AddLoot(LootPack.Rich);
 		}
 
-		public override bool BardImmune { get { return !Core.AOS; } }
-		public override Poison PoisonImmune { get { return Poison.Lethal; } }
-		public override int Meat { get { return 2; } }
+		public override bool BardImmune => !Core.AOS;
+		public override Poison PoisonImmune => Poison.Lethal;
+		public override int Meat => 2;
 
-		public override OppositionGroup OppositionGroup
-		{
-			get { return OppositionGroup.SavagesAndOrcs; }
-		}
+		public override OppositionGroup OppositionGroup => OppositionGroup.SavagesAndOrcs;
 
 		public override bool IsEnemy(Mobile m)
 		{
@@ -92,8 +89,8 @@ namespace Server.Mobiles
 			}
 		}
 
-		public override bool CanRummageCorpses { get { return true; } }
-		public override bool AutoDispel { get { return true; } }
+		public override bool CanRummageCorpses => true;
+		public override bool AutoDispel => true;
 
 		public override void OnDamagedBySpell(Mobile caster, Spell spell, int damage)
 		{
@@ -114,7 +111,7 @@ namespace Server.Mobiles
 
 			int orcs = 0;
 
-			foreach (Mobile m in this.GetMobilesInRange(10))
+			foreach (Mobile m in GetMobilesInRange(10))
 			{
 				if (m is OrcishLord)
 					++orcs;
@@ -124,7 +121,7 @@ namespace Server.Mobiles
 			{
 				BaseCreature orc = new SpawnedOrcishLord
 				{
-					Team = this.Team
+					Team = Team
 				};
 
 				Point3D loc = target.Location;
@@ -136,7 +133,7 @@ namespace Server.Mobiles
 					int y = target.Y + Utility.Random(3) - 1;
 					int z = map.GetAverageZ(x, y);
 
-					if (validLocation = map.CanFit(x, y, this.Z, 16, false, false))
+					if (validLocation = map.CanFit(x, y, Z, 16, false, false))
 						loc = new Point3D(x, y, Z);
 					else if (validLocation = map.CanFit(x, y, z, 16, false, false))
 						loc = new Point3D(x, y, z);

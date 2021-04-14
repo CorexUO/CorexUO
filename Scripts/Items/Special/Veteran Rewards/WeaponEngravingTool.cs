@@ -7,7 +7,7 @@ namespace Server.Items
 {
 	public class WeaponEngravingTool : BaseItem, IUsesRemaining, IRewardItem
 	{
-		public override int LabelNumber { get { return 1076158; } } // Weapon Engraving Tool
+		public override int LabelNumber => 1076158;  // Weapon Engraving Tool
 
 		private int m_UsesRemaining;
 		private bool m_IsRewardItem;
@@ -15,20 +15,20 @@ namespace Server.Items
 		[CommandProperty(AccessLevel.GameMaster)]
 		public int UsesRemaining
 		{
-			get { return m_UsesRemaining; }
+			get => m_UsesRemaining;
 			set { m_UsesRemaining = value; InvalidateProperties(); }
 		}
 
 		public virtual bool ShowUsesRemaining
 		{
-			get { return true; }
+			get => true;
 			set { }
 		}
 
 		[CommandProperty(AccessLevel.GameMaster)]
 		public bool IsRewardItem
 		{
-			get { return m_IsRewardItem; }
+			get => m_IsRewardItem;
 			set { m_IsRewardItem = value; InvalidateProperties(); }
 		}
 

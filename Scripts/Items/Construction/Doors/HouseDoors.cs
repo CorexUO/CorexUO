@@ -98,15 +98,15 @@ namespace Server.Items
 		[CommandProperty(AccessLevel.GameMaster)]
 		public DoorFacing Facing
 		{
-			get { return m_Facing; }
-			set { m_Facing = value; }
+			get => m_Facing;
+			set => m_Facing = value;
 		}
 
 		[CommandProperty(AccessLevel.GameMaster)]
 		public SecureLevel Level
 		{
-			get { return m_Level; }
-			set { m_Level = value; }
+			get => m_Level;
+			set => m_Level = value;
 		}
 
 		public override void GetContextMenuEntries(Mobile from, List<ContextMenuEntry> list)
@@ -128,7 +128,7 @@ namespace Server.Items
 			if (Open)
 				loc = new Point3D(X - Offset.X, Y - Offset.Y, Z - Offset.Z);
 			else
-				loc = this.Location;
+				loc = Location;
 
 			return BaseHouse.FindHouseAt(loc, Map, 20);
 		}

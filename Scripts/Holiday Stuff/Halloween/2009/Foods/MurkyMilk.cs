@@ -8,8 +8,8 @@ namespace Server.Items
 	public class MurkyMilk : Pitcher
 	{
 		public override string DefaultName { get { return "Murky Milk"; ; } }
-		public override int MaxQuantity { get { return 5; } }
-		public override double DefaultWeight { get { return 1; } }
+		public override int MaxQuantity => 5;
+		public override double DefaultWeight => 1;
 
 		[Constructable]
 		public MurkyMilk()

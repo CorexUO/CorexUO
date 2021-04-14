@@ -16,10 +16,7 @@ namespace Server.Items
 
 		private readonly Direction[] m_Directions;
 
-		public Direction[] Directions
-		{
-			get { return m_Directions; }
-		}
+		public Direction[] Directions => m_Directions;
 
 		public FlipableAddonAttribute(params Direction[] directions)
 		{

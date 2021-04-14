@@ -16,8 +16,8 @@ namespace Server.Spells.Fifth
 				Reagent.SpidersSilk
 			);
 
-		public override SpellCircle Circle { get { return SpellCircle.Fifth; } }
-		public override TargetFlags SpellTargetFlags { get { return TargetFlags.Harmful; } }
+		public override SpellCircle Circle => SpellCircle.Fifth;
+		public override TargetFlags SpellTargetFlags => TargetFlags.Harmful;
 
 		public ParalyzeSpell(Mobile caster, Item scroll) : base(caster, scroll, m_Info)
 		{
@@ -52,7 +52,7 @@ namespace Server.Spells.Fifth
 			{
 				SpellHelper.Turn(Caster, m);
 
-				SpellHelper.CheckReflect((int)this.Circle, Caster, ref m);
+				SpellHelper.CheckReflect((int)Circle, Caster, ref m);
 
 				double duration;
 

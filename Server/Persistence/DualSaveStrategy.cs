@@ -12,7 +12,7 @@ namespace Server
 
 		public override void Save(bool permitBackgroundWrite)
 		{
-			this.PermitBackgroundWrite = permitBackgroundWrite;
+			PermitBackgroundWrite = permitBackgroundWrite;
 
 			Thread saveThread = new Thread(delegate ()
 			{

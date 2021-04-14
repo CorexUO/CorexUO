@@ -2,10 +2,10 @@ namespace Server.Items
 {
 	public class ColdBlood : Cleaver
 	{
-		public override int LabelNumber { get { return 1070818; } } // Cold Blood
+		public override int LabelNumber => 1070818;  // Cold Blood
 
-		public override int InitMinHits { get { return 255; } }
-		public override int InitMaxHits { get { return 255; } }
+		public override int InitMinHits => 255;
+		public override int InitMaxHits => 255;
 
 		[Constructable]
 		public ColdBlood()

@@ -4,7 +4,7 @@ namespace Server.Items
 {
 	public class MalletAndChisel : BaseTool
 	{
-		public override CraftSystem CraftSystem { get { return DefMasonry.CraftSystem; } }
+		public override CraftSystem CraftSystem => DefMasonry.CraftSystem;
 
 		[Constructable]
 		public MalletAndChisel() : base(0x12B3)

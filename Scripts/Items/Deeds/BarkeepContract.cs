@@ -6,10 +6,7 @@ namespace Server.Items
 {
 	public class BarkeepContract : BaseItem
 	{
-		public override string DefaultName
-		{
-			get { return "a barkeep contract"; }
-		}
+		public override string DefaultName => "a barkeep contract";
 
 		[Constructable]
 		public BarkeepContract() : base(0x14F0)
@@ -51,7 +48,7 @@ namespace Server.Items
 				};
 				v.MoveToWorld(from.Location, from.Map);
 
-				this.Delete();
+				Delete();
 			}
 			else
 			{
@@ -85,7 +82,7 @@ namespace Server.Items
 						};
 						v.MoveToWorld(from.Location, from.Map);
 
-						this.Delete();
+						Delete();
 					}
 				}
 			}

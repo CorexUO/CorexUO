@@ -78,10 +78,10 @@ namespace Server.Items
 		public uint KeyValue { get; set; }
 
 		[CommandProperty(AccessLevel.GameMaster)]
-		public bool IsOpen { get { return (ItemID == 0x3ED5 || ItemID == 0x3ED4 || ItemID == 0x3E84 || ItemID == 0x3E89); } }
+		public bool IsOpen => (ItemID == 0x3ED5 || ItemID == 0x3ED4 || ItemID == 0x3E84 || ItemID == 0x3E89);
 
 		[CommandProperty(AccessLevel.GameMaster)]
-		public bool Starboard { get { return (Side == PlankSide.Starboard); } }
+		public bool Starboard => (Side == PlankSide.Starboard);
 
 		public void SetFacing(Direction dir)
 		{
@@ -203,7 +203,7 @@ namespace Server.Items
 			if (map == null || Deleted)
 				return false;
 
-			foreach (object o in this.GetObjectsInRange(0))
+			foreach (object o in GetObjectsInRange(0))
 			{
 				if (o != this)
 					return false;
@@ -273,12 +273,12 @@ namespace Server.Items
 					}
 					else if (!Locked)
 					{
-						from.Location = new Point3D(this.X, this.Y, this.Z + 3);
+						from.Location = new Point3D(X, Y, Z + 3);
 					}
 					else if (from.AccessLevel >= AccessLevel.GameMaster)
 					{
 						from.LocalOverheadMessage(Network.MessageType.Regular, 0x00, 502502); // That is locked but your godly powers allow access
-						from.Location = new Point3D(this.X, this.Y, this.Z + 3);
+						from.Location = new Point3D(X, Y, Z + 3);
 					}
 					else
 					{

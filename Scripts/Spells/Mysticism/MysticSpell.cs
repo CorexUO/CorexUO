@@ -7,7 +7,7 @@ namespace Server.Spells.Mysticism
 		public abstract double RequiredSkill { get; }
 		public abstract int RequiredMana { get; }
 
-		public override SkillName CastSkill { get { return SkillName.Mysticism; } }
+		public override SkillName CastSkill => SkillName.Mysticism;
 
 		/*
 		 * As per OSI Publish 64:

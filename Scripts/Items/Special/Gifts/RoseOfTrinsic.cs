@@ -18,19 +18,19 @@ namespace Server.Items
 
 		private SecureLevel m_Level;
 
-		public override int LabelNumber { get { return 1062913; } } // Rose of Trinsic
+		public override int LabelNumber => 1062913;  // Rose of Trinsic
 
 		[CommandProperty(AccessLevel.GameMaster)]
 		public SecureLevel Level
 		{
-			get { return m_Level; }
-			set { m_Level = value; }
+			get => m_Level;
+			set => m_Level = value;
 		}
 
 		[CommandProperty(AccessLevel.GameMaster)]
 		public int Petals
 		{
-			get { return m_Petals; }
+			get => m_Petals;
 			set
 			{
 				if (value >= 10)
@@ -162,7 +162,7 @@ namespace Server.Items
 
 	public class RoseOfTrinsicPetal : BaseItem
 	{
-		public override int LabelNumber { get { return 1062926; } } // Petal of the Rose of Trinsic
+		public override int LabelNumber => 1062926;  // Petal of the Rose of Trinsic
 
 		[Constructable]
 		public RoseOfTrinsicPetal() : this(1)

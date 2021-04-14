@@ -11,14 +11,14 @@ namespace Server.Items
 		public abstract Type AmmoType { get; }
 		public abstract Item Ammo { get; }
 
-		public override int DefHitSound { get { return 0x234; } }
-		public override int DefMissSound { get { return 0x238; } }
+		public override int DefHitSound => 0x234;
+		public override int DefMissSound => 0x238;
 
-		public override SkillName DefSkill { get { return SkillName.Archery; } }
-		public override WeaponType DefType { get { return WeaponType.Ranged; } }
-		public override WeaponAnimation DefAnimation { get { return WeaponAnimation.ShootXBow; } }
+		public override SkillName DefSkill => SkillName.Archery;
+		public override WeaponType DefType => WeaponType.Ranged;
+		public override WeaponAnimation DefAnimation => WeaponAnimation.ShootXBow;
 
-		public override SkillName AccuracySkill { get { return SkillName.Archery; } }
+		public override SkillName AccuracySkill => SkillName.Archery;
 
 		private Timer m_RecoveryTimer; // so we don't start too many timers
 		private bool m_Balanced;
@@ -27,14 +27,14 @@ namespace Server.Items
 		[CommandProperty(AccessLevel.GameMaster)]
 		public bool Balanced
 		{
-			get { return m_Balanced; }
+			get => m_Balanced;
 			set { m_Balanced = value; InvalidateProperties(); }
 		}
 
 		[CommandProperty(AccessLevel.GameMaster)]
 		public int Velocity
 		{
-			get { return m_Velocity; }
+			get => m_Velocity;
 			set { m_Velocity = value; InvalidateProperties(); }
 		}
 

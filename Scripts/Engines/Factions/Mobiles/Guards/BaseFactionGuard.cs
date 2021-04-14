@@ -13,24 +13,21 @@ namespace Server.Factions
 		private Town m_Town;
 		private Orders m_Orders;
 
-		public override bool BardImmune { get { return true; } }
+		public override bool BardImmune => true;
 
 		[CommandProperty(AccessLevel.GameMaster, AccessLevel.Administrator)]
 		public Faction Faction
 		{
-			get { return m_Faction; }
+			get => m_Faction;
 			set { Unregister(); m_Faction = value; Register(); }
 		}
 
-		public Orders Orders
-		{
-			get { return m_Orders; }
-		}
+		public Orders Orders => m_Orders;
 
 		[CommandProperty(AccessLevel.GameMaster, AccessLevel.Administrator)]
 		public Town Town
 		{
-			get { return m_Town; }
+			get => m_Town;
 			set { Unregister(); m_Town = value; Register(); }
 		}
 
@@ -48,12 +45,9 @@ namespace Server.Factions
 
 		public abstract GuardAI GuardAI { get; }
 
-		protected override BaseAI ForcedAI
-		{
-			get { return new FactionGuardAI(this); }
-		}
+		protected override BaseAI ForcedAI => new FactionGuardAI(this);
 
-		public override TimeSpan ReacquireDelay { get { return TimeSpan.FromSeconds(2.0); } }
+		public override TimeSpan ReacquireDelay => TimeSpan.FromSeconds(2.0);
 
 		public override bool IsEnemy(Mobile m)
 		{
@@ -161,7 +155,7 @@ namespace Server.Factions
 
 		private bool WasNamed(string speech)
 		{
-			string name = this.Name;
+			string name = Name;
 
 			return (name != null && Insensitive.StartsWith(speech, name));
 		}
@@ -178,17 +172,17 @@ namespace Server.Factions
 				{
 					if (m_Town == null || !m_Town.IsSheriff(from))
 					{
-						this.Say(1042189); // I don't work for you!
+						Say(1042189); // I don't work for you!
 					}
-					else if (Town.FromRegion(this.Region) == m_Town)
+					else if (Town.FromRegion(Region) == m_Town)
 					{
-						this.Say(1042180); // Your orders, sire?
+						Say(1042180); // Your orders, sire?
 						m_OrdersEnd = DateTime.UtcNow + TimeSpan.FromSeconds(10.0);
 					}
 				}
 				else if (DateTime.UtcNow < m_OrdersEnd)
 				{
-					if (m_Town != null && m_Town.IsSheriff(from) && Town.FromRegion(this.Region) == m_Town)
+					if (m_Town != null && m_Town.IsSheriff(from) && Town.FromRegion(Region) == m_Town)
 					{
 						m_OrdersEnd = DateTime.UtcNow + TimeSpan.FromSeconds(10.0);
 
@@ -404,7 +398,7 @@ namespace Server.Factions
 				GenerateRandomHair();
 		}
 
-		public override bool ClickTitle { get { return false; } }
+		public override bool ClickTitle => false;
 
 		public BaseFactionGuard(string title) : base(AIType.AI_Melee, FightMode.Closest, 10, 1, 0.2, 0.4)
 		{
@@ -450,7 +444,7 @@ namespace Server.Factions
 
 		public Mobile Rider
 		{
-			get { return m_Item.Rider; }
+			get => m_Item.Rider;
 			set { }
 		}
 
@@ -469,7 +463,7 @@ namespace Server.Factions
 		private Mobile m_Rider;
 		private readonly VirtualMount m_Mount;
 
-		public Mobile Rider { get { return m_Rider; } }
+		public Mobile Rider => m_Rider;
 
 		public VirtualMountItem(Mobile mob) : base(0x3EA0)
 		{
@@ -479,10 +473,7 @@ namespace Server.Factions
 			m_Mount = new VirtualMount(this);
 		}
 
-		public IMount Mount
-		{
-			get { return m_Mount; }
-		}
+		public IMount Mount => m_Mount;
 
 		public VirtualMountItem(Serial serial) : base(serial)
 		{

@@ -2,11 +2,11 @@ namespace Server.Mobiles
 {
 	public class BlacksmithGuildmaster : BaseGuildmaster
 	{
-		public override NpcGuild NpcGuild { get { return NpcGuild.BlacksmithsGuild; } }
+		public override NpcGuild NpcGuild => NpcGuild.BlacksmithsGuild;
 
-		public override bool IsActiveVendor { get { return true; } }
+		public override bool IsActiveVendor => true;
 
-		public override bool ClickTitle { get { return true; } }
+		public override bool ClickTitle => true;
 
 		[Constructable]
 		public BlacksmithGuildmaster() : base("blacksmith")
@@ -21,10 +21,7 @@ namespace Server.Mobiles
 			SBInfos.Add(new SBBlacksmith());
 		}
 
-		public override VendorShoeType ShoeType
-		{
-			get { return VendorShoeType.ThighBoots; }
-		}
+		public override VendorShoeType ShoeType => VendorShoeType.ThighBoots;
 
 		public override void InitOutfit()
 		{

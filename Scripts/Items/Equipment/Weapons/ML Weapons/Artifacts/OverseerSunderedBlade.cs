@@ -2,7 +2,7 @@ namespace Server.Items
 {
 	public class OverseerSunderedBlade : RadiantScimitar
 	{
-		public override int LabelNumber { get { return 1072920; } } // Overseer Sundered Blade
+		public override int LabelNumber => 1072920;  // Overseer Sundered Blade
 
 		[Constructable]
 		public OverseerSunderedBlade()
@@ -15,7 +15,7 @@ namespace Server.Items
 			Attributes.WeaponSpeed = 35;
 			Attributes.WeaponDamage = 45;
 
-			Hue = this.GetElementalDamageHue();
+			Hue = GetElementalDamageHue();
 		}
 
 		public override void GetDamageTypes(Mobile wielder, out int phys, out int fire, out int cold, out int pois, out int nrgy, out int chaos, out int direct)

@@ -2,7 +2,7 @@
 {
 	public class DragonEasterEgg : BaseItem, IDyable
 	{
-		public override int LabelNumber { get { return 1097278; } }
+		public override int LabelNumber => 1097278;
 
 		[Constructable]
 		public DragonEasterEgg()

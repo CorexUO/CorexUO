@@ -46,9 +46,9 @@ namespace Server.Mobiles
 			AddLoot(LootPack.Gems);
 		}
 
-		public override Poison PoisonImmune { get { return Poison.Lesser; } }
-		public override Poison HitPoison { get { return Poison.Lesser; } }
-		public override FoodType FavoriteFood { get { return FoodType.Meat | FoodType.Fish | FoodType.FruitsAndVegies | FoodType.GrainsAndHay | FoodType.Eggs; } }
+		public override Poison PoisonImmune => Poison.Lesser;
+		public override Poison HitPoison => Poison.Lesser;
+		public override FoodType FavoriteFood => FoodType.Meat | FoodType.Fish | FoodType.FruitsAndVegies | FoodType.GrainsAndHay | FoodType.Eggs;
 
 		public Slime(Serial serial) : base(serial)
 		{

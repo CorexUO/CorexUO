@@ -6,7 +6,7 @@ namespace Server.Engines.Plants
 {
 	public class PlantBowl : BaseItem
 	{
-		public override int LabelNumber { get { return 1060834; } } // a plant bowl
+		public override int LabelNumber => 1060834;  // a plant bowl
 
 		[Constructable]
 		public PlantBowl() : base(0x15FD)

@@ -13,14 +13,11 @@ namespace Server.Multis
 		private Timer m_DecayTimer;
 		private TimeSpan m_DecayDelay;
 
-		public virtual int EventRange { get { return 10; } }
+		public virtual int EventRange => 10;
 
 		public virtual TimeSpan DecayDelay
 		{
-			get
-			{
-				return m_DecayDelay;
-			}
+			get => m_DecayDelay;
 			set
 			{
 				m_DecayDelay = value;
@@ -88,7 +85,7 @@ namespace Server.Multis
 			if (m is BaseVendor || m is Banker)
 				m.Direction = Direction.South;
 
-			m.MoveToWorld(loc, this.Map);
+			m.MoveToWorld(loc, Map);
 		}
 
 		public virtual void OnEnter(Mobile m)
@@ -101,7 +98,7 @@ namespace Server.Multis
 			RefreshDecay(true);
 		}
 
-		public override bool HandlesOnMovement { get { return true; } }
+		public override bool HandlesOnMovement => true;
 
 		public override void OnMovement(Mobile m, Point3D oldLocation)
 		{

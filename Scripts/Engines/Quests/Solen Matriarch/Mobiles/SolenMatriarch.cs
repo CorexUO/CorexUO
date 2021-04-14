@@ -11,7 +11,7 @@ namespace Server.Engines.Quests.Matriarch
 	{
 		public abstract bool RedSolen { get; }
 
-		public override bool DisallowAllMoves { get { return false; } }
+		public override bool DisallowAllMoves => false;
 
 		public BaseSolenMatriarch()
 		{
@@ -32,21 +32,21 @@ namespace Server.Engines.Quests.Matriarch
 
 		public override bool CanTalkTo(PlayerMobile to)
 		{
-			if (SolenMatriarchQuest.IsFriend(to, this.RedSolen))
+			if (SolenMatriarchQuest.IsFriend(to, RedSolen))
 				return true;
 
 			SolenMatriarchQuest qs = to.Quest as SolenMatriarchQuest;
 
-			return qs != null && qs.RedSolen == this.RedSolen;
+			return qs != null && qs.RedSolen == RedSolen;
 		}
 
 		public override void OnTalk(PlayerMobile player, bool contextMenu)
 		{
-			this.Direction = GetDirectionTo(player);
+			Direction = GetDirectionTo(player);
 
 			SolenMatriarchQuest qs = player.Quest as SolenMatriarchQuest;
 
-			if (qs != null && qs.RedSolen == this.RedSolen)
+			if (qs != null && qs.RedSolen == RedSolen)
 			{
 				if (qs.IsObjectiveInProgress(typeof(KillInfiltratorsObjective)))
 				{
@@ -95,9 +95,9 @@ namespace Server.Engines.Quests.Matriarch
 					}
 				}
 			}
-			else if (SolenMatriarchQuest.IsFriend(player, this.RedSolen))
+			else if (SolenMatriarchQuest.IsFriend(player, RedSolen))
 			{
-				QuestSystem newQuest = new SolenMatriarchQuest(player, this.RedSolen);
+				QuestSystem newQuest = new SolenMatriarchQuest(player, RedSolen);
 
 				if (player.Quest == null && QuestSystem.CanOfferQuest(player, typeof(SolenMatriarchQuest)))
 				{
@@ -120,13 +120,13 @@ namespace Server.Engines.Quests.Matriarch
 				{
 					SolenMatriarchQuest qs = player.Quest as SolenMatriarchQuest;
 
-					if (qs != null && qs.RedSolen == this.RedSolen)
+					if (qs != null && qs.RedSolen == RedSolen)
 					{
 						SayTo(player, 1054080); // Thank you for that plant seed. Those have such wonderful flavor.
 					}
 					else
 					{
-						QuestSystem newQuest = new SolenMatriarchQuest(player, this.RedSolen);
+						QuestSystem newQuest = new SolenMatriarchQuest(player, RedSolen);
 
 						if (player.Quest == null && QuestSystem.CanOfferQuest(player, typeof(SolenMatriarchQuest)))
 						{
@@ -134,7 +134,7 @@ namespace Server.Engines.Quests.Matriarch
 						}
 						else
 						{
-							newQuest.AddConversation(new DontOfferConversation(SolenMatriarchQuest.IsFriend(player, this.RedSolen)));
+							newQuest.AddConversation(new DontOfferConversation(SolenMatriarchQuest.IsFriend(player, RedSolen)));
 						}
 					}
 
@@ -164,7 +164,7 @@ namespace Server.Engines.Quests.Matriarch
 				{
 					SolenMatriarchQuest qs = pm.Quest as SolenMatriarchQuest;
 
-					if (qs != null && qs.RedSolen == this.RedSolen)
+					if (qs != null && qs.RedSolen == RedSolen)
 					{
 						if (qs.IsObjectiveInProgress(typeof(ProcessFungiObjective)))
 						{
@@ -225,11 +225,11 @@ namespace Server.Engines.Quests.Matriarch
 
 		public void OnGivenFungi(PlayerMobile player, ZoogiFungus fungi)
 		{
-			this.Direction = GetDirectionTo(player);
+			Direction = GetDirectionTo(player);
 
 			SolenMatriarchQuest qs = player.Quest as SolenMatriarchQuest;
 
-			if (qs != null && qs.RedSolen == this.RedSolen)
+			if (qs != null && qs.RedSolen == RedSolen)
 			{
 				QuestObjective obj = qs.FindObjective(typeof(ProcessFungiObjective));
 
@@ -279,7 +279,7 @@ namespace Server.Engines.Quests.Matriarch
 
 	public class RedSolenMatriarch : BaseSolenMatriarch
 	{
-		public override bool RedSolen { get { return true; } }
+		public override bool RedSolen => true;
 
 		[Constructable]
 		public RedSolenMatriarch()
@@ -307,7 +307,7 @@ namespace Server.Engines.Quests.Matriarch
 
 	public class BlackSolenMatriarch : BaseSolenMatriarch
 	{
-		public override bool RedSolen { get { return false; } }
+		public override bool RedSolen => false;
 
 		[Constructable]
 		public BlackSolenMatriarch()

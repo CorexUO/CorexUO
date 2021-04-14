@@ -19,8 +19,8 @@ namespace Server.Spells.Fourth
 				Reagent.SulfurousAsh
 			);
 
-		public override SpellCircle Circle { get { return SpellCircle.Fourth; } }
-		public override bool CanTargetGround { get { return true; } }
+		public override SpellCircle Circle => SpellCircle.Fourth;
+		public override bool CanTargetGround => true;
 
 		public FireFieldSpell(Mobile caster, Item scroll) : base(caster, scroll, m_Info)
 		{
@@ -107,7 +107,7 @@ namespace Server.Spells.Fourth
 			private Mobile m_Caster;
 			private int m_Damage;
 
-			public override bool BlocksFit { get { return true; } }
+			public override bool BlocksFit => true;
 
 			public FireFieldItem(int itemID, Point3D loc, Mobile caster, Map map, TimeSpan duration, int val)
 				: this(itemID, loc, caster, map, duration, val, 2)

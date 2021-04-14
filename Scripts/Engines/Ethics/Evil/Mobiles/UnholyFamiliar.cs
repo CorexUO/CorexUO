@@ -5,8 +5,8 @@ namespace Server.Mobiles
 	[CorpseName("an evil corpse")]
 	public class UnholyFamiliar : BaseCreature
 	{
-		public override bool IsDispellable { get { return false; } }
-		public override bool IsBondable { get { return false; } }
+		public override bool IsDispellable => false;
+		public override bool IsBondable => false;
 
 		[Constructable]
 		public UnholyFamiliar()
@@ -46,10 +46,10 @@ namespace Server.Mobiles
 			ControlSlots = 1;
 		}
 
-		public override int Meat { get { return 1; } }
-		public override int Hides { get { return 7; } }
-		public override FoodType FavoriteFood { get { return FoodType.Meat; } }
-		public override PackInstinct PackInstinct { get { return PackInstinct.Canine; } }
+		public override int Meat => 1;
+		public override int Hides => 7;
+		public override FoodType FavoriteFood => FoodType.Meat;
+		public override PackInstinct PackInstinct => PackInstinct.Canine;
 
 		public UnholyFamiliar(Serial serial)
 			: base(serial)

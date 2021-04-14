@@ -3,17 +3,17 @@ namespace Server.Items
 	[FlipableAttribute(0x1407, 0x1406)]
 	public class WarMace : BaseBashing
 	{
-		public override WeaponAbility PrimaryAbility { get { return WeaponAbility.CrushingBlow; } }
-		public override WeaponAbility SecondaryAbility { get { return WeaponAbility.MortalStrike; } }
+		public override WeaponAbility PrimaryAbility => WeaponAbility.CrushingBlow;
+		public override WeaponAbility SecondaryAbility => WeaponAbility.MortalStrike;
 
-		public override int StrReq { get { return Core.AOS ? 80 : 30; } }
+		public override int StrReq => Core.AOS ? 80 : 30;
 
-		public override int MinDamageBase { get { return Core.AOS ? 16 : 10; } }
-		public override int MaxDamageBase { get { return Core.AOS ? 17 : 30; } }
-		public override float SpeedBase { get { return Core.ML ? 4.00f : Core.AOS ? 26 : 32; } }
+		public override int MinDamageBase => Core.AOS ? 16 : 10;
+		public override int MaxDamageBase => Core.AOS ? 17 : 30;
+		public override float SpeedBase => Core.ML ? 4.00f : Core.AOS ? 26 : 32;
 
-		public override int InitMinHits { get { return 31; } }
-		public override int InitMaxHits { get { return 110; } }
+		public override int InitMinHits => 31;
+		public override int InitMaxHits => 110;
 
 		[Constructable]
 		public WarMace() : base(0x1407)

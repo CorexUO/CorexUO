@@ -17,7 +17,7 @@ namespace Server.Accounting
 		/// </summary>
 		public string Content
 		{
-			get { return m_Content; }
+			get => m_Content;
 			set { m_Content = value; LastModified = DateTime.UtcNow; }
 		}
 

@@ -40,14 +40,14 @@ namespace Server.Engines.Quests.Doom
 
 		public BellOfTheDead Bell
 		{
-			get { return m_Bell; }
-			set { m_Bell = value; }
+			get => m_Bell;
+			set => m_Bell = value;
 		}
 
 		public Mobile AngryAt
 		{
-			get { return m_AngryAt; }
-			set { m_AngryAt = value; }
+			get => m_AngryAt;
+			set => m_AngryAt = value;
 		}
 
 		public virtual void BeginGiveWarning()
@@ -87,8 +87,8 @@ namespace Server.Engines.Quests.Doom
 			if (Deleted)
 				return;
 
-			Point3D loc = this.Location;
-			Map map = this.Map;
+			Point3D loc = Location;
+			Map map = Map;
 
 			Effects.SendLocationParticles(EffectItem.Create(loc, map, EffectItem.DefaultDuration), 0x3728, 10, 10, 0, 0, 2023, 0);
 			Effects.PlaySound(loc, map, 0x1FE);

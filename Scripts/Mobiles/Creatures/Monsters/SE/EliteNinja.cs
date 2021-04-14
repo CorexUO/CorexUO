@@ -4,7 +4,7 @@ namespace Server.Mobiles
 {
 	public class EliteNinja : BaseCreature
 	{
-		public override bool ClickTitle { get { return false; } }
+		public override bool ClickTitle => false;
 
 		[Constructable]
 		public EliteNinja() : base(AIType.AI_Melee, FightMode.Closest, 10, 1, 0.2, 0.4)
@@ -13,7 +13,7 @@ namespace Server.Mobiles
 			Hue = Utility.RandomSkinHue();
 			Name = "an elite ninja";
 
-			Body = (this.Female = Utility.RandomBool()) ? 0x191 : 0x190;
+			Body = (Female = Utility.RandomBool()) ? 0x191 : 0x190;
 
 			SetHits(251, 350);
 
@@ -86,7 +86,7 @@ namespace Server.Mobiles
 			c.DropItem(new BookOfNinjitsu());
 		}
 
-		public override bool BardImmune { get { return true; } }
+		public override bool BardImmune => true;
 
 		public override void GenerateLoot()
 		{
@@ -95,7 +95,7 @@ namespace Server.Mobiles
 			AddLoot(LootPack.Gems, 2);
 		}
 
-		public override bool AlwaysMurderer { get { return true; } }
+		public override bool AlwaysMurderer => true;
 
 		public EliteNinja(Serial serial) : base(serial)
 		{

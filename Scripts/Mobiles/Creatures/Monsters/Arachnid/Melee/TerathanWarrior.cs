@@ -46,13 +46,10 @@ namespace Server.Mobiles
 			AddLoot(LootPack.Average);
 		}
 
-		public override int TreasureMapLevel { get { return 1; } }
-		public override int Meat { get { return 4; } }
+		public override int TreasureMapLevel => 1;
+		public override int Meat => 4;
 
-		public override OppositionGroup OppositionGroup
-		{
-			get { return OppositionGroup.TerathansAndOphidians; }
-		}
+		public override OppositionGroup OppositionGroup => OppositionGroup.TerathansAndOphidians;
 
 		public TerathanWarrior(Serial serial) : base(serial)
 		{

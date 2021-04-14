@@ -2,7 +2,7 @@ namespace Server.Items
 {
 	public class FragmentOfAMap : BaseItem
 	{
-		public override int LabelNumber { get { return 1074533; } } // Fragment of a Map
+		public override int LabelNumber => 1074533;  // Fragment of a Map
 
 		[Constructable]
 		public FragmentOfAMap() : base(0x14ED)

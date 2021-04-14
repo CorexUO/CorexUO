@@ -8,18 +8,18 @@ namespace Server.Mobiles
 	public abstract class BaseGuildmaster : BaseVendor
 	{
 		private readonly List<SBInfo> m_SBInfos = new List<SBInfo>();
-		protected override List<SBInfo> SBInfos { get { return m_SBInfos; } }
+		protected override List<SBInfo> SBInfos => m_SBInfos;
 
-		public override bool IsActiveVendor { get { return false; } }
+		public override bool IsActiveVendor => false;
 
-		public override bool ClickTitle { get { return false; } }
+		public override bool ClickTitle => false;
 
-		public virtual int JoinCost { get { return 500; } }
+		public virtual int JoinCost => 500;
 
-		public virtual TimeSpan JoinAge { get { return TimeSpan.FromDays(0.0); } }
-		public virtual TimeSpan JoinGameAge { get { return TimeSpan.FromDays(2.0); } }
-		public virtual TimeSpan QuitAge { get { return TimeSpan.FromDays(7.0); } }
-		public virtual TimeSpan QuitGameAge { get { return TimeSpan.FromDays(4.0); } }
+		public virtual TimeSpan JoinAge => TimeSpan.FromDays(0.0);
+		public virtual TimeSpan JoinGameAge => TimeSpan.FromDays(2.0);
+		public virtual TimeSpan QuitAge => TimeSpan.FromDays(7.0);
+		public virtual TimeSpan QuitGameAge => TimeSpan.FromDays(4.0);
 
 		public override void InitSBInfo()
 		{
@@ -47,14 +47,14 @@ namespace Server.Mobiles
 
 		public virtual bool WasNamed(string speech)
 		{
-			string name = this.Name;
+			string name = Name;
 
 			return (name != null && Insensitive.StartsWith(speech, name));
 		}
 
 		public override bool HandlesOnSpeech(Mobile from)
 		{
-			if (from.InRange(this.Location, 2))
+			if (from.InRange(Location, 2))
 				return true;
 
 			return base.HandlesOnSpeech(from);
@@ -64,13 +64,13 @@ namespace Server.Mobiles
 		{
 			Mobile from = e.Mobile;
 
-			if (!e.Handled && from is PlayerMobile && from.InRange(this.Location, 2) && WasNamed(e.Speech))
+			if (!e.Handled && from is PlayerMobile && from.InRange(Location, 2) && WasNamed(e.Speech))
 			{
 				PlayerMobile pm = (PlayerMobile)from;
 
 				if (e.HasKeyword(0x0004)) // *join* | *member*
 				{
-					if (pm.NpcGuild == this.NpcGuild)
+					if (pm.NpcGuild == NpcGuild)
 						SayTo(from, 501047); // Thou art already a member of our guild.
 					else if (pm.NpcGuild != NpcGuild.None)
 						SayTo(from, 501046); // Thou must resign from thy other guild first.
@@ -83,7 +83,7 @@ namespace Server.Mobiles
 				}
 				else if (e.HasKeyword(0x0005)) // *resign* | *quit*
 				{
-					if (pm.NpcGuild != this.NpcGuild)
+					if (pm.NpcGuild != NpcGuild)
 					{
 						SayTo(from, 501052); // Thou dost not belong to my guild!
 					}
@@ -110,7 +110,7 @@ namespace Server.Mobiles
 			{
 				PlayerMobile pm = (PlayerMobile)from;
 
-				if (pm.NpcGuild == this.NpcGuild)
+				if (pm.NpcGuild == NpcGuild)
 				{
 					SayTo(from, 501047); // Thou art already a member of our guild.
 				}
@@ -126,7 +126,7 @@ namespace Server.Mobiles
 				{
 					SayWelcomeTo(from);
 
-					pm.NpcGuild = this.NpcGuild;
+					pm.NpcGuild = NpcGuild;
 					pm.NpcGuildJoinTime = DateTime.UtcNow;
 					pm.NpcGuildGameTime = pm.GameTime;
 

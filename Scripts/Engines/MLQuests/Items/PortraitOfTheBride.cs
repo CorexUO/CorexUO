@@ -2,9 +2,9 @@ namespace Server.Items
 {
 	public class PortraitOfTheBride : BaseItem
 	{
-		public override int LabelNumber { get { return 1075300; } } // Portrait of the Bride
+		public override int LabelNumber => 1075300;  // Portrait of the Bride
 
-		public override bool Nontransferable { get { return true; } }
+		public override bool Nontransferable => true;
 
 		public override void AddNameProperties(ObjectPropertyList list)
 		{

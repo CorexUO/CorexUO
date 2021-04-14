@@ -2,14 +2,14 @@
 {
 	public class MrPlainsCookies : Food
 	{
-		public override string DefaultName { get { return "Mr Plain's Cookies"; } }
+		public override string DefaultName => "Mr Plain's Cookies";
 
 		[Constructable]
 		public MrPlainsCookies()
 			: base(0x160C)
 		{
-			this.Weight = 1.0;
-			this.FillFactor = 4;
+			Weight = 1.0;
+			FillFactor = 4;
 			Hue = 0xF4;
 		}
 

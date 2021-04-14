@@ -9,7 +9,7 @@ namespace Server.Engines.Harvest
 	{
 		private readonly List<HarvestDefinition> m_Definitions;
 
-		public List<HarvestDefinition> Definitions { get { return m_Definitions; } }
+		public List<HarvestDefinition> Definitions => m_Definitions;
 
 		public HarvestSystem()
 		{

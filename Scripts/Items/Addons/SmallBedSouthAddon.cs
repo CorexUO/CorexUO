@@ -2,7 +2,7 @@ namespace Server.Items
 {
 	public class SmallBedSouthAddon : BaseAddon
 	{
-		public override BaseAddonDeed Deed { get { return new SmallBedSouthDeed(); } }
+		public override BaseAddonDeed Deed => new SmallBedSouthDeed();
 
 		[Constructable]
 		public SmallBedSouthAddon()
@@ -32,8 +32,8 @@ namespace Server.Items
 
 	public class SmallBedSouthDeed : BaseAddonDeed
 	{
-		public override BaseAddon Addon { get { return new SmallBedSouthAddon(); } }
-		public override int LabelNumber { get { return 1044321; } } // small bed (south)
+		public override BaseAddon Addon => new SmallBedSouthAddon();
+		public override int LabelNumber => 1044321;  // small bed (south)
 
 		[Constructable]
 		public SmallBedSouthDeed()

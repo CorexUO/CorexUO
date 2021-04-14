@@ -2,7 +2,7 @@ namespace Server.Items
 {
 	public class TableWithRedClothAddon : BaseAddon
 	{
-		public override BaseAddonDeed Deed { get { return new TableWithRedClothDeed(); } }
+		public override BaseAddonDeed Deed => new TableWithRedClothDeed();
 
 		[Constructable]
 		public TableWithRedClothAddon() : base()
@@ -31,8 +31,8 @@ namespace Server.Items
 
 	public class TableWithRedClothDeed : BaseAddonDeed
 	{
-		public override BaseAddon Addon { get { return new TableWithRedClothAddon(); } }
-		public override int LabelNumber { get { return 1076277; } } // Table With A Red Tablecloth
+		public override BaseAddon Addon => new TableWithRedClothAddon();
+		public override int LabelNumber => 1076277;  // Table With A Red Tablecloth
 
 		[Constructable]
 		public TableWithRedClothDeed() : base()

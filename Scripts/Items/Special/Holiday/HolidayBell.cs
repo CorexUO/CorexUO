@@ -35,17 +35,14 @@
 		[CommandProperty(AccessLevel.GameMaster)]
 		public int SoundID
 		{
-			get { return m_SoundID; }
+			get => m_SoundID;
 			set { m_SoundID = value; InvalidateProperties(); }
 		}
 
 		[CommandProperty(AccessLevel.GameMaster)]
-		public string Giver { get { return m_Maker; } set { m_Maker = value; } }
+		public string Giver { get => m_Maker; set => m_Maker = value; }
 
-		public override string DefaultName
-		{
-			get { return string.Format("A Holiday Bell From {0}", Giver); }
-		}
+		public override string DefaultName => string.Format("A Holiday Bell From {0}", Giver);
 
 		private string m_Maker;
 		private int m_SoundID;

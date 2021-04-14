@@ -30,13 +30,13 @@ namespace Server.Spells.Ninjitsu
 			9002
 			);
 
-		public override TimeSpan CastDelayBase { get { return TimeSpan.FromSeconds(1.0); } }
+		public override TimeSpan CastDelayBase => TimeSpan.FromSeconds(1.0);
 
-		public override double RequiredSkill { get { return 0.0; } }
-		public override int RequiredMana { get { return (Core.ML ? 10 : 0); } }
-		public override int CastRecoveryBase { get { return (Core.ML ? 10 : base.CastRecoveryBase); } }
+		public override double RequiredSkill => 0.0;
+		public override int RequiredMana => (Core.ML ? 10 : 0);
+		public override int CastRecoveryBase => (Core.ML ? 10 : base.CastRecoveryBase);
 
-		public override bool BlockedByAnimalForm { get { return false; } }
+		public override bool BlockedByAnimalForm => false;
 
 		public AnimalForm(Mobile caster, Item scroll)
 			: base(caster, scroll, m_Info)
@@ -328,7 +328,7 @@ namespace Server.Spells.Ninjitsu
 			public int Tooltip { get; }
 			public double ReqSkill { get; }
 			public int BodyMod { get; }
-			public int HueMod { get { return Utility.RandomMinMax(m_HueModMin, m_HueModMax); } }
+			public int HueMod => Utility.RandomMinMax(m_HueModMin, m_HueModMax);
 			public bool StealthBonus { get; }
 			public bool SpeedBoost { get; }
 			public bool StealingBonus { get; }

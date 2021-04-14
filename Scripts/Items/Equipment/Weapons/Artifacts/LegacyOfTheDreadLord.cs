@@ -2,11 +2,11 @@ namespace Server.Items
 {
 	public class LegacyOfTheDreadLord : Bardiche
 	{
-		public override int LabelNumber { get { return 1060860; } } // Legacy of the Dread Lord
-		public override int ArtifactRarity { get { return 10; } }
+		public override int LabelNumber => 1060860;  // Legacy of the Dread Lord
+		public override int ArtifactRarity => 10;
 
-		public override int InitMinHits { get { return 255; } }
-		public override int InitMaxHits { get { return 255; } }
+		public override int InitMinHits => 255;
+		public override int InitMaxHits => 255;
 
 		[Constructable]
 		public LegacyOfTheDreadLord()

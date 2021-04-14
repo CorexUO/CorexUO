@@ -2,7 +2,7 @@ namespace Server.Items.Holiday
 {
 	public class PaintedPorcelainMask : BasePaintedMask
 	{
-		public override string MaskName { get { return "Porcelain Mask"; } }
+		public override string MaskName => "Porcelain Mask";
 
 		[Constructable]
 		public PaintedPorcelainMask()

@@ -4,7 +4,7 @@ namespace Server.Items
 	{
 		public abstract int ArtifactRarity { get; }
 
-		public override bool ForceShowProperties { get { return true; } }
+		public override bool ForceShowProperties => true;
 
 		public BaseDecorationArtifact(int itemID) : base(itemID)
 		{
@@ -15,7 +15,7 @@ namespace Server.Items
 		{
 			base.GetProperties(list);
 
-			list.Add(1061078, this.ArtifactRarity.ToString()); // artifact rarity ~1_val~
+			list.Add(1061078, ArtifactRarity.ToString()); // artifact rarity ~1_val~
 		}
 
 		public BaseDecorationArtifact(Serial serial) : base(serial)
@@ -41,7 +41,7 @@ namespace Server.Items
 	{
 		public abstract int ArtifactRarity { get; }
 
-		public override bool ForceShowProperties { get { return true; } }
+		public override bool ForceShowProperties => true;
 
 		public BaseDecorationContainerArtifact(int itemID) : base(itemID)
 		{
@@ -52,7 +52,7 @@ namespace Server.Items
 		{
 			base.AddNameProperties(list);
 
-			list.Add(1061078, this.ArtifactRarity.ToString()); // artifact rarity ~1_val~
+			list.Add(1061078, ArtifactRarity.ToString()); // artifact rarity ~1_val~
 		}
 
 		public BaseDecorationContainerArtifact(Serial serial) : base(serial)

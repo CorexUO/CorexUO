@@ -11,13 +11,13 @@ namespace Server.Items
 		private Mobile m_Crafter;
 		private CraftResource m_Resource;
 
-		public override int LabelNumber { get { return m_Exceptional ? 1053181 : 1053012; } } // dragon barding deed
+		public override int LabelNumber => m_Exceptional ? 1053181 : 1053012;  // dragon barding deed
 
 		[CommandProperty(AccessLevel.GameMaster)]
-		public Mobile Crafter { get { return m_Crafter; } set { m_Crafter = value; InvalidateProperties(); } }
+		public Mobile Crafter { get => m_Crafter; set { m_Crafter = value; InvalidateProperties(); } }
 
 		[CommandProperty(AccessLevel.GameMaster)]
-		public CraftResource Resource { get { return m_Resource; } set { m_Resource = value; Hue = CraftResources.GetHue(value); InvalidateProperties(); } }
+		public CraftResource Resource { get => m_Resource; set { m_Resource = value; Hue = CraftResources.GetHue(value); InvalidateProperties(); } }
 
 		public DragonBardingDeed() : base(0x14F0)
 		{
@@ -64,14 +64,14 @@ namespace Server.Items
 			}
 			else
 			{
-				pet.BardingExceptional = this.Quality == ItemQuality.Exceptional;
-				pet.BardingCrafter = this.Crafter;
+				pet.BardingExceptional = Quality == ItemQuality.Exceptional;
+				pet.BardingCrafter = Crafter;
 				pet.BardingHP = pet.BardingMaxHP;
-				pet.BardingResource = this.Resource;
+				pet.BardingResource = Resource;
 				pet.HasBarding = true;
-				pet.Hue = this.Hue;
+				pet.Hue = Hue;
 
-				this.Delete();
+				Delete();
 
 				from.SendLocalizedMessage(1053027); // You place the barding on your swamp dragon.  Use a bladed item on your dragon to remove the armor.
 			}

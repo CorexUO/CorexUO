@@ -16,10 +16,10 @@ namespace Server.Engines.Quests.Haven
 		private MilitiaCanoneer m_Canoneer;
 
 		[CommandProperty(AccessLevel.GameMaster)]
-		public CannonDirection CannonDirection { get { return m_CannonDirection; } }
+		public CannonDirection CannonDirection => m_CannonDirection;
 
 		[CommandProperty(AccessLevel.GameMaster)]
-		public MilitiaCanoneer Canoneer { get { return m_Canoneer; } set { m_Canoneer = value; } }
+		public MilitiaCanoneer Canoneer { get => m_Canoneer; set => m_Canoneer = value; }
 
 		[Constructable]
 		public Cannon(CannonDirection direction)
@@ -92,7 +92,7 @@ namespace Server.Engines.Quests.Haven
 			target.Damage(9999, from);
 		}
 
-		public override bool HandlesOnMovement { get { return m_Canoneer != null && !m_Canoneer.Deleted && m_Canoneer.Active; } }
+		public override bool HandlesOnMovement => m_Canoneer != null && !m_Canoneer.Deleted && m_Canoneer.Active;
 
 		public override void OnMovement(Mobile m, Point3D oldLocation)
 		{
@@ -149,7 +149,7 @@ namespace Server.Engines.Quests.Haven
 		[CommandProperty(AccessLevel.GameMaster)]
 		public MilitiaCanoneer Canoneer
 		{
-			get { return Addon is Cannon ? ((Cannon)Addon).Canoneer : null; }
+			get => Addon is Cannon ? ((Cannon)Addon).Canoneer : null;
 			set { if (Addon is Cannon) ((Cannon)Addon).Canoneer = value; }
 		}
 

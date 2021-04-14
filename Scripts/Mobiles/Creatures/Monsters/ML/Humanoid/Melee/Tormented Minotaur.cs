@@ -47,8 +47,8 @@ namespace Server.Mobiles
 			AddLoot(LootPack.FilthyRich, 10);
 		}
 
-		public override Poison PoisonImmune { get { return Poison.Deadly; } }
-		public override int TreasureMapLevel { get { return 3; } }
+		public override Poison PoisonImmune => Poison.Deadly;
+		public override int TreasureMapLevel => 3;
 
 		public override int GetDeathSound() { return 0x596; }
 		public override int GetAttackSound() { return 0x597; }

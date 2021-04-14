@@ -35,7 +35,7 @@ namespace Server.Items
 				PlayDrinkEffect(from);
 
 				if (!Engines.ConPVP.DuelContext.IsFreeConsume(from))
-					this.Consume();
+					Consume();
 			}
 			else
 			{

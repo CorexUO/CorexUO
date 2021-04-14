@@ -9,17 +9,17 @@ namespace Server.Items
 	[FlipableAttribute(0xE81, 0xE82)]
 	public class ShepherdsCrook : BaseStaff
 	{
-		public override WeaponAbility PrimaryAbility { get { return WeaponAbility.CrushingBlow; } }
-		public override WeaponAbility SecondaryAbility { get { return WeaponAbility.Disarm; } }
+		public override WeaponAbility PrimaryAbility => WeaponAbility.CrushingBlow;
+		public override WeaponAbility SecondaryAbility => WeaponAbility.Disarm;
 
-		public override int StrReq { get { return Core.AOS ? 20 : 10; } }
+		public override int StrReq => Core.AOS ? 20 : 10;
 
-		public override int MinDamageBase { get { return Core.AOS ? 13 : 3; } }
-		public override int MaxDamageBase { get { return Core.AOS ? 15 : 12; } }
-		public override float SpeedBase { get { return Core.ML ? 2.75f : Core.AOS ? 40 : 30; } }
+		public override int MinDamageBase => Core.AOS ? 13 : 3;
+		public override int MaxDamageBase => Core.AOS ? 15 : 12;
+		public override float SpeedBase => Core.ML ? 2.75f : Core.AOS ? 40 : 30;
 
-		public override int InitMinHits { get { return 31; } }
-		public override int InitMaxHits { get { return 50; } }
+		public override int InitMinHits => 31;
+		public override int InitMaxHits => 50;
 
 		[Constructable]
 		public ShepherdsCrook() : base(0xE81)

@@ -2,10 +2,10 @@ namespace Server.Items
 {
 	public class PixieSwatter : Scepter
 	{
-		public override int LabelNumber { get { return 1070854; } } // Pixie Swatter
+		public override int LabelNumber => 1070854;  // Pixie Swatter
 
-		public override int InitMinHits { get { return 255; } }
-		public override int InitMaxHits { get { return 255; } }
+		public override int InitMinHits => 255;
+		public override int InitMaxHits => 255;
 
 		[Constructable]
 		public PixieSwatter()

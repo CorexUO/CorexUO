@@ -5,7 +5,7 @@ namespace Server.Engines.Quests.Hag
 {
 	public class Grizelda : BaseQuester
 	{
-		public override bool ClickTitle { get { return true; } }
+		public override bool ClickTitle => true;
 
 		[Constructable]
 		public Grizelda() : base("the Hag")
@@ -109,7 +109,7 @@ namespace Server.Engines.Quests.Hag
 
 								cont.DropItem(new Cauldron());
 								cont.DropItem(new MoonfireBrew());
-								cont.DropItem(new TreasureMap(Utility.RandomMinMax(1, 4), this.Map));
+								cont.DropItem(new TreasureMap(Utility.RandomMinMax(1, 4), Map));
 								cont.DropItem(new Gold(2000, 2200));
 
 								if (Utility.RandomBool())

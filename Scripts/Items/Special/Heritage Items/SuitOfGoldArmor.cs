@@ -3,7 +3,7 @@ namespace Server.Items
 	[Flipable(0x3DAA, 0x3DA9)]
 	public class SuitOfGoldArmorComponent : AddonComponent
 	{
-		public override int LabelNumber { get { return 1076265; } } // Suit of Gold Armor
+		public override int LabelNumber => 1076265;  // Suit of Gold Armor
 
 		public SuitOfGoldArmorComponent() : base(0x3DAA)
 		{
@@ -30,7 +30,7 @@ namespace Server.Items
 
 	public class SuitOfGoldArmorAddon : BaseAddon
 	{
-		public override BaseAddonDeed Deed { get { return new SuitOfGoldArmorDeed(); } }
+		public override BaseAddonDeed Deed => new SuitOfGoldArmorDeed();
 
 		[Constructable]
 		public SuitOfGoldArmorAddon() : base()
@@ -59,8 +59,8 @@ namespace Server.Items
 
 	public class SuitOfGoldArmorDeed : BaseAddonDeed
 	{
-		public override BaseAddon Addon { get { return new SuitOfGoldArmorAddon(); } }
-		public override int LabelNumber { get { return 1076265; } } // Suit of Gold Armor
+		public override BaseAddon Addon => new SuitOfGoldArmorAddon();
+		public override int LabelNumber => 1076265;  // Suit of Gold Armor
 
 		[Constructable]
 		public SuitOfGoldArmorDeed() : base()

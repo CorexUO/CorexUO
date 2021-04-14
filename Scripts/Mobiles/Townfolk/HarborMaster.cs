@@ -4,7 +4,7 @@ namespace Server.Mobiles
 {
 	public class HarborMaster : BaseCreature
 	{
-		public override bool CanTeach { get { return false; } }
+		public override bool CanTeach => false;
 
 		[Constructable]
 		public HarborMaster()
@@ -20,16 +20,16 @@ namespace Server.Mobiles
 			Blessed = true;
 
 
-			if (this.Female = Utility.RandomBool())
+			if (Female = Utility.RandomBool())
 			{
-				this.Body = 0x191;
-				this.Name = NameList.RandomName("female");
+				Body = 0x191;
+				Name = NameList.RandomName("female");
 				Title = "the Harbor Mistress";
 			}
 			else
 			{
-				this.Body = 0x190;
-				this.Name = NameList.RandomName("male");
+				Body = 0x190;
+				Name = NameList.RandomName("male");
 				Title = "the Harbor Master";
 			}
 			AddItem(new Shirt(Utility.RandomDyedHue()));
@@ -48,7 +48,7 @@ namespace Server.Mobiles
 			AddItem(pack);
 		}
 
-		public override bool ClickTitle { get { return false; } }
+		public override bool ClickTitle => false;
 
 
 		public HarborMaster(Serial serial)

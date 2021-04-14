@@ -11,22 +11,22 @@ namespace Server.Items
 		[CommandProperty(AccessLevel.GameMaster)]
 		public int UsesRemaining
 		{
-			get { return m_UsesRemaining; }
+			get => m_UsesRemaining;
 			set { m_UsesRemaining = value; InvalidateProperties(); }
 		}
 
-		public bool ShowUsesRemaining { get { return true; } set { } }
+		public bool ShowUsesRemaining { get => true; set { } }
 
-		public override int LabelNumber { get { return 1049065; } } // prospector's tool
+		public override int LabelNumber => 1049065;  // prospector's tool
 
-		public override WeaponAbility PrimaryAbility { get { return WeaponAbility.CrushingBlow; } }
-		public override WeaponAbility SecondaryAbility { get { return WeaponAbility.ShadowStrike; } }
+		public override WeaponAbility PrimaryAbility => WeaponAbility.CrushingBlow;
+		public override WeaponAbility SecondaryAbility => WeaponAbility.ShadowStrike;
 
-		public override int StrReq { get { return Core.AOS ? 40 : 10; } }
+		public override int StrReq => Core.AOS ? 40 : 10;
 
-		public override int MinDamageBase { get { return Core.AOS ? 13 : 6; } }
-		public override int MaxDamageBase { get { return Core.AOS ? 15 : 8; } }
-		public override float SpeedBase { get { return Core.ML ? 0f : Core.AOS ? 33 : 33; } }
+		public override int MinDamageBase => Core.AOS ? 13 : 6;
+		public override int MaxDamageBase => Core.AOS ? 15 : 8;
+		public override float SpeedBase => Core.ML ? 0f : Core.AOS ? 33 : 33;
 
 		[Constructable]
 		public ProspectorsTool() : base(0xFB4)

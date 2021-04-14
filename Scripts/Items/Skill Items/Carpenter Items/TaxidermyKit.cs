@@ -8,7 +8,7 @@ namespace Server.Items
 	[FlipableAttribute(0x1EBA, 0x1EBB)]
 	public class TaxidermyKit : BaseItem
 	{
-		public override int LabelNumber { get { return 1041279; } } // a taxidermy kit
+		public override int LabelNumber => 1041279;  // a taxidermy kit
 
 		[Constructable]
 		public TaxidermyKit() : base(0x1EBA)
@@ -77,10 +77,10 @@ namespace Server.Items
 			private readonly int m_DeedNumber;
 			private readonly int m_AddonNumber;
 
-			public Type CreatureType { get { return m_CreatureType; } }
-			public int NorthID { get { return m_NorthID; } }
-			public int DeedNumber { get { return m_DeedNumber; } }
-			public int AddonNumber { get { return m_AddonNumber; } }
+			public Type CreatureType => m_CreatureType;
+			public int NorthID => m_NorthID;
+			public int DeedNumber => m_DeedNumber;
+			public int AddonNumber => m_AddonNumber;
 		}
 
 
@@ -173,7 +173,7 @@ namespace Server.Items
 
 	public class TrophyAddon : BaseItem, IAddon
 	{
-		public override bool ForceShowProperties { get { return ObjectPropertyList.Enabled; } }
+		public override bool ForceShowProperties => ObjectPropertyList.Enabled;
 
 		private int m_WestID;
 		private int m_NorthID;
@@ -184,24 +184,24 @@ namespace Server.Items
 		private int m_AnimalWeight;
 
 		[CommandProperty(AccessLevel.GameMaster)]
-		public int WestID { get { return m_WestID; } set { m_WestID = value; } }
+		public int WestID { get => m_WestID; set => m_WestID = value; }
 
 		[CommandProperty(AccessLevel.GameMaster)]
-		public int NorthID { get { return m_NorthID; } set { m_NorthID = value; } }
+		public int NorthID { get => m_NorthID; set => m_NorthID = value; }
 
 		[CommandProperty(AccessLevel.GameMaster)]
-		public int DeedNumber { get { return m_DeedNumber; } set { m_DeedNumber = value; } }
+		public int DeedNumber { get => m_DeedNumber; set => m_DeedNumber = value; }
 
 		[CommandProperty(AccessLevel.GameMaster)]
-		public int AddonNumber { get { return m_AddonNumber; } set { m_AddonNumber = value; InvalidateProperties(); } }
+		public int AddonNumber { get => m_AddonNumber; set { m_AddonNumber = value; InvalidateProperties(); } }
 
 		[CommandProperty(AccessLevel.GameMaster)]
-		public Mobile Hunter { get { return m_Hunter; } set { m_Hunter = value; InvalidateProperties(); } }
+		public Mobile Hunter { get => m_Hunter; set { m_Hunter = value; InvalidateProperties(); } }
 
 		[CommandProperty(AccessLevel.GameMaster)]
-		public int AnimalWeight { get { return m_AnimalWeight; } set { m_AnimalWeight = value; InvalidateProperties(); } }
+		public int AnimalWeight { get => m_AnimalWeight; set { m_AnimalWeight = value; InvalidateProperties(); } }
 
-		public override int LabelNumber { get { return m_AddonNumber; } }
+		public override int LabelNumber => m_AddonNumber;
 
 		[Constructable]
 		public TrophyAddon(Mobile from, int itemID, int westID, int northID, int deedNumber, int addonNumber) : this(from, itemID, westID, northID, deedNumber, addonNumber, null, 0)
@@ -242,10 +242,10 @@ namespace Server.Items
 
 		public bool CouldFit(IPoint3D p, Map map)
 		{
-			if (!map.CanFit(p.X, p.Y, p.Z, this.ItemData.Height))
+			if (!map.CanFit(p.X, p.Y, p.Z, ItemData.Height))
 				return false;
 
-			if (this.ItemID == m_NorthID)
+			if (ItemID == m_NorthID)
 				return BaseAddon.IsWall(p.X, p.Y - 1, p.Z, map); // North wall
 			else
 				return BaseAddon.IsWall(p.X - 1, p.Y, p.Z, map); // West wall
@@ -292,31 +292,28 @@ namespace Server.Items
 
 		private void FixMovingCrate()
 		{
-			if (this.Deleted)
+			if (Deleted)
 				return;
 
-			if (this.Movable || this.IsLockedDown)
+			if (Movable || IsLockedDown)
 			{
-				Item deed = this.Deed;
+				Item deed = Deed;
 
-				if (this.Parent is Item)
+				if (Parent is Item)
 				{
-					((Item)this.Parent).AddItem(deed);
-					deed.Location = this.Location;
+					((Item)Parent).AddItem(deed);
+					deed.Location = Location;
 				}
 				else
 				{
-					deed.MoveToWorld(this.Location, this.Map);
+					deed.MoveToWorld(Location, Map);
 				}
 
 				Delete();
 			}
 		}
 
-		public Item Deed
-		{
-			get { return new TrophyDeed(m_WestID, m_NorthID, m_DeedNumber, m_AddonNumber, m_Hunter, m_AnimalWeight); }
-		}
+		public Item Deed => new TrophyDeed(m_WestID, m_NorthID, m_DeedNumber, m_AddonNumber, m_Hunter, m_AnimalWeight);
 
 		public override void OnDoubleClick(Mobile from)
 		{
@@ -326,7 +323,7 @@ namespace Server.Items
 			{
 				if (from.InRange(GetWorldLocation(), 1))
 				{
-					from.AddToBackpack(this.Deed);
+					from.AddToBackpack(Deed);
 					Delete();
 				}
 				else
@@ -349,24 +346,24 @@ namespace Server.Items
 		private int m_AnimalWeight;
 
 		[CommandProperty(AccessLevel.GameMaster)]
-		public int WestID { get { return m_WestID; } set { m_WestID = value; } }
+		public int WestID { get => m_WestID; set => m_WestID = value; }
 
 		[CommandProperty(AccessLevel.GameMaster)]
-		public int NorthID { get { return m_NorthID; } set { m_NorthID = value; } }
+		public int NorthID { get => m_NorthID; set => m_NorthID = value; }
 
 		[CommandProperty(AccessLevel.GameMaster)]
-		public int DeedNumber { get { return m_DeedNumber; } set { m_DeedNumber = value; InvalidateProperties(); } }
+		public int DeedNumber { get => m_DeedNumber; set { m_DeedNumber = value; InvalidateProperties(); } }
 
 		[CommandProperty(AccessLevel.GameMaster)]
-		public int AddonNumber { get { return m_AddonNumber; } set { m_AddonNumber = value; } }
+		public int AddonNumber { get => m_AddonNumber; set => m_AddonNumber = value; }
 
 		[CommandProperty(AccessLevel.GameMaster)]
-		public Mobile Hunter { get { return m_Hunter; } set { m_Hunter = value; InvalidateProperties(); } }
+		public Mobile Hunter { get => m_Hunter; set { m_Hunter = value; InvalidateProperties(); } }
 
 		[CommandProperty(AccessLevel.GameMaster)]
-		public int AnimalWeight { get { return m_AnimalWeight; } set { m_AnimalWeight = value; InvalidateProperties(); } }
+		public int AnimalWeight { get => m_AnimalWeight; set { m_AnimalWeight = value; InvalidateProperties(); } }
 
-		public override int LabelNumber { get { return m_DeedNumber; } }
+		public override int LabelNumber => m_DeedNumber;
 
 		[Constructable]
 		public TrophyDeed(int westID, int northID, int deedNumber, int addonNumber) : this(westID, northID, deedNumber, addonNumber, null, 0)

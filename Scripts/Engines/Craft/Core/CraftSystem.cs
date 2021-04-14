@@ -36,10 +36,10 @@ namespace Server.Engines.Craft
 		public CraftSubResCol CraftSubRes { get; }
 		public CraftSubResCol CraftSubRes2 { get; }
 
-		public virtual int GumpTitleNumber { get { return 0; } }
-		public virtual string GumpTitleString { get { return ""; } }
+		public virtual int GumpTitleNumber => 0;
+		public virtual string GumpTitleString => "";
 
-		public virtual CraftECA ECA { get { return CraftECA.ChanceMinusSixty; } }
+		public virtual CraftECA ECA => CraftECA.ChanceMinusSixty;
 
 		public static void Configure()
 		{

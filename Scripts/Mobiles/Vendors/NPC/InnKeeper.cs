@@ -5,7 +5,7 @@ namespace Server.Mobiles
 	public class InnKeeper : BaseVendor
 	{
 		private readonly List<SBInfo> m_SBInfos = new List<SBInfo>();
-		protected override List<SBInfo> SBInfos { get { return m_SBInfos; } }
+		protected override List<SBInfo> SBInfos => m_SBInfos;
 
 		[Constructable]
 		public InnKeeper() : base("the innkeeper")
@@ -20,10 +20,7 @@ namespace Server.Mobiles
 				m_SBInfos.Add(new SBSEFood());
 		}
 
-		public override VendorShoeType ShoeType
-		{
-			get { return Utility.RandomBool() ? VendorShoeType.Sandals : VendorShoeType.Shoes; }
-		}
+		public override VendorShoeType ShoeType => Utility.RandomBool() ? VendorShoeType.Sandals : VendorShoeType.Shoes;
 
 		public InnKeeper(Serial serial) : base(serial)
 		{

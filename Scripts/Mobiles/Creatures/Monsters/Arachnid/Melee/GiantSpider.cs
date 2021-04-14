@@ -48,10 +48,10 @@ namespace Server.Mobiles
 			AddLoot(LootPack.Poor);
 		}
 
-		public override FoodType FavoriteFood { get { return FoodType.Meat; } }
-		public override PackInstinct PackInstinct { get { return PackInstinct.Arachnid; } }
-		public override Poison PoisonImmune { get { return Poison.Regular; } }
-		public override Poison HitPoison { get { return Poison.Regular; } }
+		public override FoodType FavoriteFood => FoodType.Meat;
+		public override PackInstinct PackInstinct => PackInstinct.Arachnid;
+		public override Poison PoisonImmune => Poison.Regular;
+		public override Poison HitPoison => Poison.Regular;
 
 		public GiantSpider(Serial serial) : base(serial)
 		{

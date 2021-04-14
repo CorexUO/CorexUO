@@ -51,8 +51,8 @@ namespace Server.Mobiles
 			return 1.0;
 		}
 
-		public override bool AutoDispel { get { return !Controlled; } }
-		public override FoodType FavoriteFood { get { return FoodType.Meat; } }
+		public override bool AutoDispel => !Controlled;
+		public override FoodType FavoriteFood => FoodType.Meat;
 
 		public ScaledSwampDragon(Serial serial) : base(serial)
 		{

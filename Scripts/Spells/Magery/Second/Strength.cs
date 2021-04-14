@@ -13,8 +13,8 @@ namespace Server.Spells.Second
 				Reagent.Nightshade
 			);
 
-		public override SpellCircle Circle { get { return SpellCircle.Second; } }
-		public override TargetFlags SpellTargetFlags { get { return TargetFlags.Beneficial; } }
+		public override SpellCircle Circle => SpellCircle.Second;
+		public override TargetFlags SpellTargetFlags => TargetFlags.Beneficial;
 
 		public StrengthSpell(Mobile caster, Item scroll) : base(caster, scroll, m_Info)
 		{

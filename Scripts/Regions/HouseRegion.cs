@@ -29,7 +29,7 @@ namespace Server.Regions
 
 			Point3D ban = house.RelativeBanLocation;
 
-			this.GoLocation = new Point3D(house.X + ban.X, house.Y + ban.Y, house.Z + ban.Z);
+			GoLocation = new Point3D(house.X + ban.X, house.Y + ban.Y, house.Z + ban.Z);
 		}
 
 		public override bool AllowHousing(Mobile from, Point3D p)

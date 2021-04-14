@@ -1553,7 +1553,7 @@ namespace Server
 			if (regName != null)
 			{
 				if (Regions.ContainsKey(regName))
-					Console.WriteLine("Warning: Duplicate region name '{0}' for map '{1}'", regName, this.Name);
+					Console.WriteLine("Warning: Duplicate region name '{0}' for map '{1}'", regName, Name);
 				else
 					Regions[regName] = reg;
 			}
@@ -2726,7 +2726,7 @@ namespace Server
 		public int CompareTo(object other)
 		{
 			if (other == null || other is Map)
-				return this.CompareTo(other);
+				return CompareTo(other);
 
 			throw new ArgumentException();
 		}

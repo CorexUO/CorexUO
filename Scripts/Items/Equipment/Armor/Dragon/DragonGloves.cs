@@ -3,23 +3,23 @@ namespace Server.Items
 	[FlipableAttribute(0x2643, 0x2644)]
 	public class DragonGloves : BaseArmor
 	{
-		public override int BasePhysicalResistance { get { return 3; } }
-		public override int BaseFireResistance { get { return 3; } }
-		public override int BaseColdResistance { get { return 3; } }
-		public override int BasePoisonResistance { get { return 3; } }
-		public override int BaseEnergyResistance { get { return 3; } }
+		public override int BasePhysicalResistance => 3;
+		public override int BaseFireResistance => 3;
+		public override int BaseColdResistance => 3;
+		public override int BasePoisonResistance => 3;
+		public override int BaseEnergyResistance => 3;
 
-		public override int InitMinHits { get { return 55; } }
-		public override int InitMaxHits { get { return 75; } }
+		public override int InitMinHits => 55;
+		public override int InitMaxHits => 75;
 
-		public override int StrReq { get { return Core.AOS ? 75 : 30; } }
+		public override int StrReq => Core.AOS ? 75 : 30;
 
-		public override int DexBonusValue { get { return Core.AOS ? 0 : -2; } }
+		public override int DexBonusValue => Core.AOS ? 0 : -2;
 
-		public override int ArmorBase { get { return 40; } }
+		public override int ArmorBase => 40;
 
-		public override ArmorMaterialType MaterialType { get { return ArmorMaterialType.Dragon; } }
-		public override CraftResource DefaultResource { get { return CraftResource.RedScales; } }
+		public override ArmorMaterialType MaterialType => ArmorMaterialType.Dragon;
+		public override CraftResource DefaultResource => CraftResource.RedScales;
 
 		[Constructable]
 		public DragonGloves() : base(0x2643)

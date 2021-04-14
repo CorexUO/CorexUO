@@ -2,7 +2,7 @@ namespace Server.Items
 {
 	public class TatteredAncientMummyWrapping : BaseItem
 	{
-		public override int LabelNumber { get { return 1094912; } } // Tattered Ancient Mummy Wrapping [Replica]
+		public override int LabelNumber => 1094912;  // Tattered Ancient Mummy Wrapping [Replica]
 
 		[Constructable]
 		public TatteredAncientMummyWrapping() : base(0xE21)

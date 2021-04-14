@@ -4,7 +4,7 @@ namespace Server.Engines.Quests
 {
 	public abstract class DynamicTeleporter : BaseItem
 	{
-		public override int LabelNumber { get { return 1049382; } } // a magical teleporter
+		public override int LabelNumber => 1049382;  // a magical teleporter
 
 		public DynamicTeleporter() : this(0x1822, 0x482)
 		{
@@ -18,7 +18,7 @@ namespace Server.Engines.Quests
 
 		public abstract bool GetDestination(PlayerMobile player, ref Point3D loc, ref Map map);
 
-		public virtual int NotWorkingMessage { get { return 500309; } } // Nothing Happens.
+		public virtual int NotWorkingMessage => 500309;  // Nothing Happens.
 
 		public override bool OnMoveOver(Mobile m)
 		{
@@ -40,7 +40,7 @@ namespace Server.Engines.Quests
 				}
 				else
 				{
-					pm.SendLocalizedMessage(this.NotWorkingMessage);
+					pm.SendLocalizedMessage(NotWorkingMessage);
 				}
 			}
 

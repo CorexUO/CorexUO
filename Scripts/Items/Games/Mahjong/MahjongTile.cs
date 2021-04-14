@@ -18,13 +18,13 @@ namespace Server.Engines.Mahjong
 		private MahjongPieceDirection m_Direction;
 		private bool m_Flipped;
 
-		public MahjongGame Game { get { return m_Game; } }
-		public int Number { get { return m_Number; } }
-		public MahjongTileType Value { get { return m_Value; } }
-		public Point2D Position { get { return m_Position; } }
-		public int StackLevel { get { return m_StackLevel; } }
-		public MahjongPieceDirection Direction { get { return m_Direction; } }
-		public bool Flipped { get { return m_Flipped; } }
+		public MahjongGame Game => m_Game;
+		public int Number => m_Number;
+		public MahjongTileType Value => m_Value;
+		public Point2D Position => m_Position;
+		public int StackLevel => m_StackLevel;
+		public MahjongPieceDirection Direction => m_Direction;
+		public bool Flipped => m_Flipped;
 
 		public MahjongTile(MahjongGame game, int number, MahjongTileType value, Point2D position, int stackLevel, MahjongPieceDirection direction, bool flipped)
 		{
@@ -37,15 +37,9 @@ namespace Server.Engines.Mahjong
 			m_Flipped = flipped;
 		}
 
-		public MahjongPieceDim Dimensions
-		{
-			get { return GetDimensions(m_Position, m_Direction); }
-		}
+		public MahjongPieceDim Dimensions => GetDimensions(m_Position, m_Direction);
 
-		public bool IsMovable
-		{
-			get { return m_Game.GetStackLevel(Dimensions) <= m_StackLevel; }
-		}
+		public bool IsMovable => m_Game.GetStackLevel(Dimensions) <= m_StackLevel;
 
 		public void Move(Point2D position, MahjongPieceDirection direction, bool flip, int validHandArea)
 		{

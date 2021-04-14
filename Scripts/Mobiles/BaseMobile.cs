@@ -21,13 +21,7 @@ namespace Server.Mobiles
 		{
 		}
 
-		public override double ArmorRating
-		{
-			get
-			{
-				return VirtualArmor + VirtualArmorMod;
-			}
-		}
+		public override double ArmorRating => VirtualArmor + VirtualArmorMod;
 
 		public override bool OnDragLift(Item item)
 		{

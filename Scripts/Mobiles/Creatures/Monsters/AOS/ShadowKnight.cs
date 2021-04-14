@@ -11,7 +11,7 @@ namespace Server.Mobiles
 			return Utility.RandomBool() ? WeaponAbility.ConcussionBlow : WeaponAbility.CrushingBlow;
 		}
 
-		public override bool IgnoreYoungProtection { get { return Core.ML; } }
+		public override bool IgnoreYoungProtection => Core.ML;
 
 		[Constructable]
 		public ShadowKnight() : base(AIType.AI_Mage, FightMode.Closest, 10, 1, 0.2, 0.4)
@@ -57,10 +57,7 @@ namespace Server.Mobiles
 			AddLoot(LootPack.UltraRich, 2);
 		}
 
-		public override OppositionGroup OppositionGroup
-		{
-			get { return OppositionGroup.FeyAndUndead; }
-		}
+		public override OppositionGroup OppositionGroup => OppositionGroup.FeyAndUndead;
 
 		public override void OnDeath(Container c)
 		{
@@ -105,7 +102,7 @@ namespace Server.Mobiles
 		{
 			if (Hidden)
 			{
-				Effects.PlaySound(this.Location, this.Map, 0x2C8);
+				Effects.PlaySound(Location, Map, 0x2C8);
 				Combatant = null;
 			}
 			else
@@ -123,7 +120,7 @@ namespace Server.Mobiles
 		{
 			if (!m_HasTeleportedAway && Hits < (HitsMax / 2))
 			{
-				Map map = this.Map;
+				Map map = Map;
 
 				if (map != null)
 				{
@@ -137,16 +134,16 @@ namespace Server.Mobiles
 						if (!map.CanFit(x, y, z, 16, false, false))
 							continue;
 
-						Point3D from = this.Location;
+						Point3D from = Location;
 						Point3D to = new Point3D(x, y, z);
 
 						if (!InLOS(to))
 							continue;
 
-						this.Location = to;
-						this.ProcessDelta();
-						this.Hidden = true;
-						this.Combatant = null;
+						Location = to;
+						ProcessDelta();
+						Hidden = true;
+						Combatant = null;
 
 						Effects.SendLocationParticles(EffectItem.Create(from, map, EffectItem.DefaultDuration), 0x3728, 10, 10, 2023);
 						Effects.SendLocationParticles(EffectItem.Create(to, map, EffectItem.DefaultDuration), 0x3728, 10, 10, 5023);
@@ -166,12 +163,12 @@ namespace Server.Mobiles
 			base.OnThink();
 		}
 
-		public override bool BardImmune { get { return !Core.SE; } }
-		public override bool Unprovokable { get { return Core.SE; } }
-		public override bool AreaPeaceImmune { get { return Core.SE; } }
-		public override Poison PoisonImmune { get { return Poison.Lethal; } }
+		public override bool BardImmune => !Core.SE;
+		public override bool Unprovokable => Core.SE;
+		public override bool AreaPeaceImmune => Core.SE;
+		public override Poison PoisonImmune => Poison.Lethal;
 
-		public override int TreasureMapLevel { get { return 1; } }
+		public override int TreasureMapLevel => 1;
 
 		public ShadowKnight(Serial serial) : base(serial)
 		{

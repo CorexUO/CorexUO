@@ -2,7 +2,7 @@ namespace Server.Items
 {
 	public class SapphireMace : DiamondMace
 	{
-		public override int LabelNumber { get { return 1073531; } } // sapphire mace
+		public override int LabelNumber => 1073531;  // sapphire mace
 
 		[Constructable]
 		public SapphireMace()

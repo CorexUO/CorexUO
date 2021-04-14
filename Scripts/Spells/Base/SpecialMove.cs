@@ -9,15 +9,15 @@ namespace Server.Spells
 {
 	public abstract class SpecialMove
 	{
-		public virtual int BaseMana { get { return 0; } }
+		public virtual int BaseMana => 0;
 
-		public virtual SkillName MoveSkill { get { return SkillName.Bushido; } }
-		public virtual double RequiredSkill { get { return 0.0; } }
+		public virtual SkillName MoveSkill => SkillName.Bushido;
+		public virtual double RequiredSkill => 0.0;
 
-		public virtual TextDefinition AbilityMessage { get { return 0; } }
+		public virtual TextDefinition AbilityMessage => 0;
 
-		public virtual bool BlockedByAnimalForm { get { return true; } }
-		public virtual bool DelayedContext { get { return false; } }
+		public virtual bool BlockedByAnimalForm => true;
+		public virtual bool DelayedContext => false;
 
 		public virtual int GetAccuracyBonus(Mobile attacker)
 		{
@@ -133,7 +133,7 @@ namespace Server.Spells
 					Timer timer = new SpecialMoveTimer(from);
 					timer.Start();
 
-					AddContext(from, new SpecialMoveContext(timer, this.GetType()));
+					AddContext(from, new SpecialMoveContext(timer, GetType()));
 				}
 			}
 		}
@@ -200,7 +200,7 @@ namespace Server.Spells
 			}
 		}
 
-		public virtual bool ValidatesDuringHit { get { return true; } }
+		public virtual bool ValidatesDuringHit => true;
 
 		public static SpecialMove GetCurrentMove(Mobile m)
 		{

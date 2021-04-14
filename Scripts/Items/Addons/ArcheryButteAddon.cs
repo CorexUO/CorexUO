@@ -17,43 +17,43 @@ namespace Server.Items
 		[CommandProperty(AccessLevel.GameMaster)]
 		public double MinSkill
 		{
-			get { return m_MinSkill; }
-			set { m_MinSkill = value; }
+			get => m_MinSkill;
+			set => m_MinSkill = value;
 		}
 
 		[CommandProperty(AccessLevel.GameMaster)]
 		public double MaxSkill
 		{
-			get { return m_MaxSkill; }
-			set { m_MaxSkill = value; }
+			get => m_MaxSkill;
+			set => m_MaxSkill = value;
 		}
 
 		[CommandProperty(AccessLevel.GameMaster)]
 		public DateTime LastUse
 		{
-			get { return m_LastUse; }
-			set { m_LastUse = value; }
+			get => m_LastUse;
+			set => m_LastUse = value;
 		}
 
 		[CommandProperty(AccessLevel.GameMaster)]
 		public bool FacingEast
 		{
-			get { return (ItemID == 0x100A); }
-			set { ItemID = value ? 0x100A : 0x100B; }
+			get => (ItemID == 0x100A);
+			set => ItemID = value ? 0x100A : 0x100B;
 		}
 
 		[CommandProperty(AccessLevel.GameMaster)]
 		public int Arrows
 		{
-			get { return m_Arrows; }
-			set { m_Arrows = value; }
+			get => m_Arrows;
+			set => m_Arrows = value;
 		}
 
 		[CommandProperty(AccessLevel.GameMaster)]
 		public int Bolts
 		{
-			get { return m_Bolts; }
-			set { m_Bolts = value; }
+			get => m_Bolts;
+			set => m_Bolts = value;
 		}
 
 		[Constructable]
@@ -102,8 +102,8 @@ namespace Server.Items
 			private int m_Total;
 			private int m_Count;
 
-			public int Total { get { return m_Total; } set { m_Total = value; } }
-			public int Count { get { return m_Count; } set { m_Count = value; } }
+			public int Total { get => m_Total; set => m_Total = value; }
+			public int Count { get => m_Count; set => m_Count = value; }
 
 			public void Record(int score)
 			{
@@ -308,7 +308,7 @@ namespace Server.Items
 
 	public class ArcheryButteAddon : BaseAddon
 	{
-		public override BaseAddonDeed Deed { get { return new ArcheryButteDeed(); } }
+		public override BaseAddonDeed Deed => new ArcheryButteDeed();
 
 		[Constructable]
 		public ArcheryButteAddon()
@@ -337,8 +337,8 @@ namespace Server.Items
 
 	public class ArcheryButteDeed : BaseAddonDeed
 	{
-		public override BaseAddon Addon { get { return new ArcheryButteAddon(); } }
-		public override int LabelNumber { get { return 1024106; } } // archery butte
+		public override BaseAddon Addon => new ArcheryButteAddon();
+		public override int LabelNumber => 1024106;  // archery butte
 
 		[Constructable]
 		public ArcheryButteDeed()

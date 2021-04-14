@@ -19,8 +19,8 @@ namespace Server.Spells.Seventh
 				Reagent.SulfurousAsh
 			);
 
-		public override SpellCircle Circle { get { return SpellCircle.Seventh; } }
-		public override bool CanTargetGround { get { return true; } }
+		public override SpellCircle Circle => SpellCircle.Seventh;
+		public override bool CanTargetGround => true;
 
 		public EnergyFieldSpell(Mobile caster, Item scroll) : base(caster, scroll, m_Info)
 		{
@@ -112,7 +112,7 @@ namespace Server.Spells.Seventh
 			private readonly Timer m_Timer;
 			private readonly Mobile m_Caster;
 
-			public override bool BlocksFit { get { return true; } }
+			public override bool BlocksFit => true;
 
 			public InternalItem(Point3D loc, Map map, TimeSpan duration, int itemID, Mobile caster) : base(itemID)
 			{

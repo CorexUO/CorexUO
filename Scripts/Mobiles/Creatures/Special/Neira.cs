@@ -6,21 +6,15 @@ namespace Server.Mobiles
 {
 	public class Neira : BaseChampion
 	{
-		public override ChampionSkullType SkullType { get { return ChampionSkullType.Death; } }
+		public override ChampionSkullType SkullType => ChampionSkullType.Death;
 
-		public override Type[] UniqueList { get { return new Type[] { typeof(ShroudOfDeciet) }; } }
-		public override Type[] SharedList
-		{
-			get
-			{
-				return new Type[] {     typeof( ANecromancerShroud ),
+		public override Type[] UniqueList => new Type[] { typeof(ShroudOfDeciet) };
+		public override Type[] SharedList => new Type[] {     typeof( ANecromancerShroud ),
 
 										typeof( CaptainJohnsHat ) };
-			}
-		}
-		public override Type[] DecorativeList { get { return new Type[] { typeof(WallBlood), typeof(TatteredAncientMummyWrapping) }; } }
+		public override Type[] DecorativeList => new Type[] { typeof(WallBlood), typeof(TatteredAncientMummyWrapping) };
 
-		public override MonsterStatuetteType[] StatueTypes { get { return new MonsterStatuetteType[] { }; } }
+		public override MonsterStatuetteType[] StatueTypes => new MonsterStatuetteType[] { };
 
 		[Constructable]
 		public Neira() : base(AIType.AI_Mage)
@@ -88,7 +82,7 @@ namespace Server.Mobiles
 
 		public override bool OnBeforeDeath()
 		{
-			IMount mount = this.Mount;
+			IMount mount = Mount;
 
 			if (mount != null)
 				mount.Rider = null;
@@ -134,7 +128,7 @@ namespace Server.Mobiles
 
 			public Mobile Rider
 			{
-				get { return m_Item.Rider; }
+				get => m_Item.Rider;
 				set { }
 			}
 
@@ -165,10 +159,7 @@ namespace Server.Mobiles
 				m_Mount = new VirtualMount(this);
 			}
 
-			public IMount Mount
-			{
-				get { return m_Mount; }
-			}
+			public IMount Mount => m_Mount;
 
 			public VirtualMountItem(Serial serial)
 				: base(serial)
@@ -197,14 +188,14 @@ namespace Server.Mobiles
 			}
 		}
 
-		public override bool AlwaysMurderer { get { return true; } }
-		public override bool BardImmune { get { return !Core.SE; } }
-		public override bool Unprovokable { get { return Core.SE; } }
-		public override bool Uncalmable { get { return Core.SE; } }
-		public override Poison PoisonImmune { get { return Poison.Deadly; } }
+		public override bool AlwaysMurderer => true;
+		public override bool BardImmune => !Core.SE;
+		public override bool Unprovokable => Core.SE;
+		public override bool Uncalmable => Core.SE;
+		public override Poison PoisonImmune => Poison.Deadly;
 
-		public override bool ShowFameTitle { get { return false; } }
-		public override bool ClickTitle { get { return false; } }
+		public override bool ShowFameTitle => false;
+		public override bool ClickTitle => false;
 
 		public override void OnGaveMeleeAttack(Mobile defender)
 		{
@@ -234,7 +225,7 @@ namespace Server.Mobiles
 
 		public void AddUnholyBone(Mobile target, double chanceToThrow)
 		{
-			if (this.Map == null)
+			if (Map == null)
 				return;
 
 			if (chanceToThrow >= Utility.RandomDouble())

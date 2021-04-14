@@ -56,19 +56,19 @@ namespace Server.Mobiles
 			return 0x2D1;
 		}
 
-		public override bool ReacquireOnMovement { get { return true; } }
-		public override bool HasBreath { get { return true; } } // fire breath enabled
-		public override bool AutoDispel { get { return true; } }
-		public override Poison PoisonImmune { get { return Poison.Deadly; } }
-		public override Poison HitPoison { get { return Poison.Deadly; } }
-		public override int TreasureMapLevel { get { return 5; } }
+		public override bool ReacquireOnMovement => true;
+		public override bool HasBreath => true;  // fire breath enabled
+		public override bool AutoDispel => true;
+		public override Poison PoisonImmune => Poison.Deadly;
+		public override Poison HitPoison => Poison.Deadly;
+		public override int TreasureMapLevel => 5;
 
-		public override int Meat { get { return 19; } }
-		public override int Hides { get { return 20; } }
-		public override int Scales { get { return 10; } }
-		public override ScaleType ScaleType { get { return ScaleType.Black; } }
-		public override HideType HideType { get { return HideType.Barbed; } }
-		public override bool CanFly { get { return true; } }
+		public override int Meat => 19;
+		public override int Hides => 20;
+		public override int Scales => 10;
+		public override ScaleType ScaleType => ScaleType.Black;
+		public override HideType HideType => HideType.Barbed;
+		public override bool CanFly => true;
 
 		public ShadowWyrm(Serial serial) : base(serial)
 		{

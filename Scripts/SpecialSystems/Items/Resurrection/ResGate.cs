@@ -4,10 +4,7 @@ namespace Server.Items
 {
 	public class ResGate : BaseItem
 	{
-		public override string DefaultName
-		{
-			get { return "a resurrection gate"; }
-		}
+		public override string DefaultName => "a resurrection gate";
 
 		[Constructable]
 		public ResGate() : base(0xF6C)

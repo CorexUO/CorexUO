@@ -93,9 +93,9 @@ namespace Server.Mobiles
 			return 0x28D;
 		}
 
-		public override bool AlwaysMurderer { get { return true; } }
-		public override bool CanRummageCorpses { get { return true; } }
-		public override int Meat { get { return 1; } }
+		public override bool AlwaysMurderer => true;
+		public override bool CanRummageCorpses => true;
+		public override int Meat => 1;
 
 		private DateTime m_NextAbilityTime;
 
@@ -105,7 +105,7 @@ namespace Server.Mobiles
 			{
 				JukaLord toBuff = null;
 
-				foreach (Mobile m in this.GetMobilesInRange(8))
+				foreach (Mobile m in GetMobilesInRange(8))
 				{
 					if (m is JukaLord && IsFriend(m) && m.Combatant != null && CanBeBeneficial(m) && m.CanBeginAction(typeof(JukaMage)) && InLOS(m))
 					{
@@ -121,7 +121,7 @@ namespace Server.Mobiles
 						m_NextAbilityTime = DateTime.UtcNow + TimeSpan.FromSeconds(Utility.RandomMinMax(30, 60));
 
 						toBuff.Say(true, "Give me the power to destroy my enemies!");
-						this.Say(true, "Fight well my lord!");
+						Say(true, "Fight well my lord!");
 
 						DoBeneficial(toBuff);
 

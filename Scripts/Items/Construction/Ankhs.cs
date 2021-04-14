@@ -117,7 +117,7 @@ namespace Server.Items
 		{
 		}
 
-		public override bool HandlesOnMovement { get { return true; } } // Tell the core that we implement OnMovement
+		public override bool HandlesOnMovement => true;  // Tell the core that we implement OnMovement
 
 		public override void OnMovement(Mobile m, Point3D oldLocation)
 		{
@@ -134,7 +134,7 @@ namespace Server.Items
 		[Hue, CommandProperty(AccessLevel.GameMaster)]
 		public override int Hue
 		{
-			get { return base.Hue; }
+			get => base.Hue;
 			set { base.Hue = value; if (m_Item.Hue != value) m_Item.Hue = value; }
 		}
 
@@ -216,7 +216,7 @@ namespace Server.Items
 					m_Item.Delete();
 			}
 
-			public override bool HandlesOnMovement { get { return true; } } // Tell the core that we implement OnMovement
+			public override bool HandlesOnMovement => true;  // Tell the core that we implement OnMovement
 
 			public override void OnMovement(Mobile m, Point3D oldLocation)
 			{
@@ -233,7 +233,7 @@ namespace Server.Items
 			[Hue, CommandProperty(AccessLevel.GameMaster)]
 			public override int Hue
 			{
-				get { return base.Hue; }
+				get => base.Hue;
 				set { base.Hue = value; if (m_Item.Hue != value) m_Item.Hue = value; }
 			}
 
@@ -285,7 +285,7 @@ namespace Server.Items
 		{
 		}
 
-		public override bool HandlesOnMovement { get { return true; } } // Tell the core that we implement OnMovement
+		public override bool HandlesOnMovement => true;  // Tell the core that we implement OnMovement
 
 		public override void OnMovement(Mobile m, Point3D oldLocation)
 		{
@@ -302,7 +302,7 @@ namespace Server.Items
 		[Hue, CommandProperty(AccessLevel.GameMaster)]
 		public override int Hue
 		{
-			get { return base.Hue; }
+			get => base.Hue;
 			set { base.Hue = value; if (m_Item.Hue != value) m_Item.Hue = value; }
 		}
 
@@ -386,7 +386,7 @@ namespace Server.Items
 					m_Item.Delete();
 			}
 
-			public override bool HandlesOnMovement { get { return true; } } // Tell the core that we implement OnMovement
+			public override bool HandlesOnMovement => true;  // Tell the core that we implement OnMovement
 
 			public override void OnMovement(Mobile m, Point3D oldLocation)
 			{
@@ -403,7 +403,7 @@ namespace Server.Items
 			[Hue, CommandProperty(AccessLevel.GameMaster)]
 			public override int Hue
 			{
-				get { return base.Hue; }
+				get => base.Hue;
 				set { base.Hue = value; if (m_Item.Hue != value) m_Item.Hue = value; }
 			}
 

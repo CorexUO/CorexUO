@@ -5,10 +5,7 @@ namespace Server.Items
 {
 	public class SpecialHairDye : BaseItem
 	{
-		public override string DefaultName
-		{
-			get { return "Special Hair Dye"; }
-		}
+		public override string DefaultName => "Special Hair Dye";
 
 		[Constructable]
 		public SpecialHairDye() : base(0xE26)
@@ -37,7 +34,7 @@ namespace Server.Items
 
 		public override void OnDoubleClick(Mobile from)
 		{
-			if (from.InRange(this.GetWorldLocation(), 1))
+			if (from.InRange(GetWorldLocation(), 1))
 			{
 				from.CloseGump(typeof(SpecialHairDyeGump));
 				from.SendGump(new SpecialHairDyeGump(this));
@@ -60,29 +57,11 @@ namespace Server.Items
 			private readonly int m_HueStart;
 			private readonly int m_HueCount;
 
-			public string Name
-			{
-				get
-				{
-					return m_Name;
-				}
-			}
+			public string Name => m_Name;
 
-			public int HueStart
-			{
-				get
-				{
-					return m_HueStart;
-				}
-			}
+			public int HueStart => m_HueStart;
 
-			public int HueCount
-			{
-				get
-				{
-					return m_HueCount;
-				}
-			}
+			public int HueCount => m_HueCount;
 
 			public SpecialHairDyeEntry(string name, int hueStart, int hueCount)
 			{

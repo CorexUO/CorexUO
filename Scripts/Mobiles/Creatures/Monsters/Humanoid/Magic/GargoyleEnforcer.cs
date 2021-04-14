@@ -49,7 +49,7 @@ namespace Server.Mobiles
 				PackItem(new GargoylesPickaxe());
 		}
 
-		public override bool CanFly { get { return true; } }
+		public override bool CanFly => true;
 
 		public override void GenerateLoot()
 		{
@@ -57,7 +57,7 @@ namespace Server.Mobiles
 			AddLoot(LootPack.MedScrolls);
 		}
 
-		public override int Meat { get { return 1; } }
+		public override int Meat => 1;
 
 		public GargoyleEnforcer(Serial serial) : base(serial)
 		{

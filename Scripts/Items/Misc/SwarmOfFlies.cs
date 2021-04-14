@@ -2,10 +2,7 @@ namespace Server.Items
 {
 	public class SwarmOfFlies : BaseItem
 	{
-		public override string DefaultName
-		{
-			get { return "a swarm of flies"; }
-		}
+		public override string DefaultName => "a swarm of flies";
 
 		[Constructable]
 		public SwarmOfFlies() : base(0x91B)

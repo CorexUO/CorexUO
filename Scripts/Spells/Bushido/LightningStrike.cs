@@ -8,12 +8,12 @@ namespace Server.Spells.Bushido
 		{
 		}
 
-		public override int BaseMana { get { return 5; } }
-		public override double RequiredSkill { get { return 50.0; } }
+		public override int BaseMana => 5;
+		public override double RequiredSkill => 50.0;
 
-		public override TextDefinition AbilityMessage { get { return new TextDefinition(1063167); } } // You prepare to strike quickly.
+		public override TextDefinition AbilityMessage => new TextDefinition(1063167);  // You prepare to strike quickly.
 
-		public override bool DelayedContext { get { return true; } }
+		public override bool DelayedContext => true;
 
 		public override int GetAccuracyBonus(Mobile attacker)
 		{
@@ -45,7 +45,7 @@ namespace Server.Spells.Bushido
 			return Validate(attacker);
 		}
 
-		public override bool ValidatesDuringHit { get { return false; } }
+		public override bool ValidatesDuringHit => false;
 
 		public override void OnHit(Mobile attacker, Mobile defender, int damage)
 		{

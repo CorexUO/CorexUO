@@ -113,7 +113,7 @@ namespace Server.Regions
 			BaseRegion region = entry.Region;
 			Map map = region.Map;
 
-			Point3D loc = entry.RandomSpawnLocation(this.Height, this.Land, this.Water);
+			Point3D loc = entry.RandomSpawnLocation(Height, Land, Water);
 
 			if (loc == Point3D.Zero)
 				return null;
@@ -155,7 +155,7 @@ namespace Server.Regions
 		protected bool m_Land;
 		protected bool m_Water;
 
-		public override int Height { get { return 16; } }
+		public override int Height => 16;
 		public override bool Land { get { EnsureInit(); return m_Land; } }
 		public override bool Water { get { EnsureInit(); return m_Water; } }
 
@@ -221,8 +221,8 @@ namespace Server.Regions
 		protected int m_Height;
 
 		public override int Height { get { EnsureInit(); return m_Height; } }
-		public override bool Land { get { return true; } }
-		public override bool Water { get { return false; } }
+		public override bool Land => true;
+		public override bool Water => false;
 
 		protected SpawnItem(Type type) : base(type)
 		{

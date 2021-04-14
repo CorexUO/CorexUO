@@ -54,7 +54,7 @@ namespace Server.Engines.Quests.Haven
 			SetSkill(SkillName.Swords, 20.0);
 		}
 
-		public override bool ClickTitle { get { return false; } }
+		public override bool ClickTitle => false;
 
 		public override bool IsEnemy(Mobile m)
 		{
@@ -103,7 +103,7 @@ namespace Server.Engines.Quests.Haven
 			if (ItemID == 0x2006) // Corpse form
 			{
 				list.Add("a human corpse");
-				list.Add(1049318, this.Name); // the remains of ~1_NAME~ the militia fighter
+				list.Add(1049318, Name); // the remains of ~1_NAME~ the militia fighter
 			}
 			else
 			{
@@ -123,7 +123,7 @@ namespace Server.Engines.Quests.Haven
 
 		public override void Open(Mobile from, bool checkSelfLoot)
 		{
-			if (from.InRange(this.GetWorldLocation(), 2))
+			if (from.InRange(GetWorldLocation(), 2))
 			{
 				from.SendLocalizedMessage(1049661, 0x22); // Thinking about his sacrifice, you can't bring yourself to loot the body of this militia fighter.
 			}

@@ -3,20 +3,20 @@ namespace Server.Items
 	[FlipableAttribute(0x2D33, 0x2D27)]
 	public class RadiantScimitar : BaseSword
 	{
-		public override WeaponAbility PrimaryAbility { get { return WeaponAbility.WhirlwindAttack; } }
-		public override WeaponAbility SecondaryAbility { get { return WeaponAbility.Bladeweave; } }
+		public override WeaponAbility PrimaryAbility => WeaponAbility.WhirlwindAttack;
+		public override WeaponAbility SecondaryAbility => WeaponAbility.Bladeweave;
 
-		public override int DefHitSound { get { return 0x23B; } }
-		public override int DefMissSound { get { return 0x239; } }
+		public override int DefHitSound => 0x23B;
+		public override int DefMissSound => 0x239;
 
-		public override int StrReq { get { return Core.AOS ? 25 : 20; } }
+		public override int StrReq => Core.AOS ? 25 : 20;
 
-		public override int MinDamageBase { get { return Core.AOS ? 12 : 12; } }
-		public override int MaxDamageBase { get { return Core.AOS ? 14 : 14; } }
-		public override float SpeedBase { get { return Core.ML ? 2.50f : Core.AOS ? 43 : 43; } }
+		public override int MinDamageBase => Core.AOS ? 12 : 12;
+		public override int MaxDamageBase => Core.AOS ? 14 : 14;
+		public override float SpeedBase => Core.ML ? 2.50f : Core.AOS ? 43 : 43;
 
-		public override int InitMinHits { get { return 30; } }
-		public override int InitMaxHits { get { return 60; } }
+		public override int InitMinHits => 30;
+		public override int InitMaxHits => 60;
 
 		[Constructable]
 		public RadiantScimitar() : base(0x2D33)

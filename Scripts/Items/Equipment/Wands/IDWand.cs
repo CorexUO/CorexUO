@@ -4,7 +4,7 @@ namespace Server.Items
 {
 	public class IDWand : BaseWand
 	{
-		public override TimeSpan GetUseDelay { get { return TimeSpan.Zero; } }
+		public override TimeSpan GetUseDelay => TimeSpan.Zero;
 
 		[Constructable]
 		public IDWand() : base(WandEffect.Identification, 25, 175)

@@ -28,10 +28,7 @@ namespace Server.Items
 
 				return SawTrapType.NorthWall;
 			}
-			set
-			{
-				ItemID = GetBaseID(value);
-			}
+			set => ItemID = GetBaseID(value);
 		}
 
 		public static int GetBaseID(SawTrapType type)
@@ -57,17 +54,17 @@ namespace Server.Items
 		{
 		}
 
-		public override bool PassivelyTriggered { get { return false; } }
-		public override TimeSpan PassiveTriggerDelay { get { return TimeSpan.Zero; } }
-		public override int PassiveTriggerRange { get { return 0; } }
-		public override TimeSpan ResetDelay { get { return TimeSpan.FromSeconds(0.0); } }
+		public override bool PassivelyTriggered => false;
+		public override TimeSpan PassiveTriggerDelay => TimeSpan.Zero;
+		public override int PassiveTriggerRange => 0;
+		public override TimeSpan ResetDelay => TimeSpan.FromSeconds(0.0);
 
 		public override void OnTrigger(Mobile from)
 		{
 			if (!from.Alive || from.AccessLevel > AccessLevel.Player)
 				return;
 
-			Effects.SendLocationEffect(Location, Map, GetBaseID(this.Type) + 1, 6, 3, GetEffectHue(), 0);
+			Effects.SendLocationEffect(Location, Map, GetBaseID(Type) + 1, 6, 3, GetEffectHue(), 0);
 			Effects.PlaySound(Location, Map, 0x21C);
 
 			Spells.SpellHelper.Damage(TimeSpan.FromTicks(1), from, from, Utility.RandomMinMax(5, 15));

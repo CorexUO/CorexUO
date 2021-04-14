@@ -2,10 +2,7 @@ namespace Server.Factions
 {
 	public class Silver : BaseItem
 	{
-		public override double DefaultWeight
-		{
-			get { return 0.02; }
-		}
+		public override double DefaultWeight => 0.02;
 
 		[Constructable]
 		public Silver() : this(1)

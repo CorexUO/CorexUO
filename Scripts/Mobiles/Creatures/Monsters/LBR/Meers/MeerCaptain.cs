@@ -84,10 +84,10 @@ namespace Server.Mobiles
 			AddLoot(LootPack.Meager);
 		}
 
-		public override bool BardImmune { get { return !Core.AOS; } }
-		public override bool CanRummageCorpses { get { return true; } }
+		public override bool BardImmune => !Core.AOS;
+		public override bool CanRummageCorpses => true;
 
-		public override bool InitialInnocent { get { return true; } }
+		public override bool InitialInnocent => true;
 
 		public override int GetHurtSound()
 		{
@@ -108,11 +108,11 @@ namespace Server.Mobiles
 
 		public override void OnThink()
 		{
-			if (Combatant != null && this.MagicDamageAbsorb < 1)
+			if (Combatant != null && MagicDamageAbsorb < 1)
 			{
-				this.MagicDamageAbsorb = Utility.RandomMinMax(5, 7);
-				this.FixedParticles(0x375A, 10, 15, 5037, EffectLayer.Waist);
-				this.PlaySound(0x1E9);
+				MagicDamageAbsorb = Utility.RandomMinMax(5, 7);
+				FixedParticles(0x375A, 10, 15, 5037, EffectLayer.Waist);
+				PlaySound(0x1E9);
 			}
 
 			if (DateTime.UtcNow >= m_NextAbilityTime)
@@ -121,7 +121,7 @@ namespace Server.Mobiles
 
 				ArrayList list = new ArrayList();
 
-				foreach (Mobile m in this.GetMobilesInRange(8))
+				foreach (Mobile m in GetMobilesInRange(8))
 				{
 					if (m is MeerWarrior && IsFriend(m) && CanBeBeneficial(m) && m.Hits < m.HitsMax && !m.Poisoned && !MortalStrike.IsWounded(m))
 						list.Add(m);

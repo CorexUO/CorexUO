@@ -10,7 +10,7 @@ namespace Server.Engines.MLQuests.Definitions
 
 	public class HonestBeggar : MLQuest
 	{
-		public override Type NextQuest { get { return typeof(ReginasThanks); } }
+		public override Type NextQuest => typeof(ReginasThanks);
 
 		public HonestBeggar()
 		{
@@ -38,7 +38,7 @@ namespace Server.Engines.MLQuests.Definitions
 
 	public class ReginasThanks : MLQuest
 	{
-		public override bool IsChainTriggered { get { return true; } }
+		public override bool IsChainTriggered => true;
 
 		public ReginasThanks()
 		{
@@ -71,7 +71,7 @@ namespace Server.Engines.MLQuests.Definitions
 
 	public class Evan : BaseCreature
 	{
-		public override bool IsInvulnerable { get { return true; } }
+		public override bool IsInvulnerable => true;
 
 		[Constructable]
 		public Evan()
@@ -115,7 +115,7 @@ namespace Server.Engines.MLQuests.Definitions
 
 	public class Regina : BaseCreature
 	{
-		public override bool IsInvulnerable { get { return true; } }
+		public override bool IsInvulnerable => true;
 
 		[Constructable]
 		public Regina()

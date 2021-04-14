@@ -13,26 +13,26 @@ namespace Server.Engines.MLQuests.Objectives
 
 		public int DesiredAmount
 		{
-			get { return m_DesiredAmount; }
-			set { m_DesiredAmount = value; }
+			get => m_DesiredAmount;
+			set => m_DesiredAmount = value;
 		}
 
 		public Type[] AcceptedTypes
 		{
-			get { return m_AcceptedTypes; }
-			set { m_AcceptedTypes = value; }
+			get => m_AcceptedTypes;
+			set => m_AcceptedTypes = value;
 		}
 
 		public TextDefinition Name
 		{
-			get { return m_Name; }
-			set { m_Name = value; }
+			get => m_Name;
+			set => m_Name = value;
 		}
 
 		public QuestArea Area
 		{
-			get { return m_Area; }
-			set { m_Area = value; }
+			get => m_Area;
+			set => m_Area = value;
 		}
 
 		public KillObjective()
@@ -94,8 +94,8 @@ namespace Server.Engines.MLQuests.Objectives
 	{
 		private readonly TimeSpan m_Duration;
 
-		public override bool IsTimed { get { return true; } }
-		public override TimeSpan Duration { get { return m_Duration; } }
+		public override bool IsTimed => true;
+		public override TimeSpan Duration => m_Duration;
 
 		public TimedKillObjective(TimeSpan duration, int amount, Type[] types, TextDefinition name)
 			: this(duration, amount, types, name, null)
@@ -118,14 +118,14 @@ namespace Server.Engines.MLQuests.Objectives
 
 		public KillObjective Objective
 		{
-			get { return m_Objective; }
-			set { m_Objective = value; }
+			get => m_Objective;
+			set => m_Objective = value;
 		}
 
 		public int Slain
 		{
-			get { return m_Slain; }
-			set { m_Slain = value; }
+			get => m_Slain;
+			set => m_Slain = value;
 		}
 
 		public KillObjectiveInstance(KillObjective objective, MLQuestInstance instance)
@@ -180,7 +180,7 @@ namespace Server.Engines.MLQuests.Objectives
 			y += 16;
 		}
 
-		public override DataType ExtraDataType { get { return DataType.KillObjective; } }
+		public override DataType ExtraDataType => DataType.KillObjective;
 
 		public override void Serialize(GenericWriter writer)
 		{

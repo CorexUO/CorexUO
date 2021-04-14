@@ -11,8 +11,8 @@ namespace Server.Spells.Third
 				Reagent.BlackPearl
 			);
 
-		public override SpellCircle Circle { get { return SpellCircle.Third; } }
-		public override TargetFlags SpellTargetFlags { get { return TargetFlags.Harmful; } }
+		public override SpellCircle Circle => SpellCircle.Third;
+		public override TargetFlags SpellTargetFlags => TargetFlags.Harmful;
 
 		public FireballSpell(Mobile caster, Item scroll) : base(caster, scroll, m_Info)
 		{
@@ -33,7 +33,7 @@ namespace Server.Spells.Third
 			}
 		}
 
-		public override bool DelayedDamage { get { return true; } }
+		public override bool DelayedDamage => true;
 
 		public void Target(Mobile m)
 		{
@@ -47,7 +47,7 @@ namespace Server.Spells.Third
 
 				SpellHelper.Turn(source, m);
 
-				SpellHelper.CheckReflect((int)this.Circle, ref source, ref m);
+				SpellHelper.CheckReflect((int)Circle, ref source, ref m);
 
 				double damage;
 

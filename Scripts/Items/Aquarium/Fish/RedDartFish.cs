@@ -2,7 +2,7 @@ namespace Server.Items
 {
 	public class RedDartFish : BaseFish
 	{
-		public override int LabelNumber { get { return 1073834; } } // A Red Dart Fish
+		public override int LabelNumber => 1073834;  // A Red Dart Fish
 
 		[Constructable]
 		public RedDartFish() : base(0x3B00)

@@ -7,14 +7,14 @@ namespace Server.Items
 {
 	public abstract class BasePoleArm : BaseMeleeWeapon, IUsesRemaining
 	{
-		public override int DefHitSound { get { return 0x237; } }
-		public override int DefMissSound { get { return 0x238; } }
+		public override int DefHitSound => 0x237;
+		public override int DefMissSound => 0x238;
 
-		public override SkillName DefSkill { get { return SkillName.Swords; } }
-		public override WeaponType DefType { get { return WeaponType.Polearm; } }
-		public override WeaponAnimation DefAnimation { get { return WeaponAnimation.Slash2H; } }
+		public override SkillName DefSkill => SkillName.Swords;
+		public override WeaponType DefType => WeaponType.Polearm;
+		public override WeaponAnimation DefAnimation => WeaponAnimation.Slash2H;
 
-		public virtual HarvestSystem HarvestSystem { get { return Lumberjacking.System; } }
+		public virtual HarvestSystem HarvestSystem => Lumberjacking.System;
 
 		private int m_UsesRemaining;
 		private bool m_ShowUsesRemaining;
@@ -22,14 +22,14 @@ namespace Server.Items
 		[CommandProperty(AccessLevel.GameMaster)]
 		public int UsesRemaining
 		{
-			get { return m_UsesRemaining; }
+			get => m_UsesRemaining;
 			set { m_UsesRemaining = value; InvalidateProperties(); }
 		}
 
 		[CommandProperty(AccessLevel.GameMaster)]
 		public bool ShowUsesRemaining
 		{
-			get { return m_ShowUsesRemaining; }
+			get => m_ShowUsesRemaining;
 			set { m_ShowUsesRemaining = value; InvalidateProperties(); }
 		}
 

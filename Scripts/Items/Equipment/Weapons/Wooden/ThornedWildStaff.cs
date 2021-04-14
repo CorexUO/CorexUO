@@ -2,7 +2,7 @@ namespace Server.Items
 {
 	public class ThornedWildStaff : WildStaff
 	{
-		public override int LabelNumber { get { return 1073551; } } // thorned wild staff
+		public override int LabelNumber => 1073551;  // thorned wild staff
 
 		[Constructable]
 		public ThornedWildStaff()

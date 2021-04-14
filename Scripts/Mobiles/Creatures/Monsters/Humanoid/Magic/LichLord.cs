@@ -47,10 +47,7 @@ namespace Server.Mobiles
 			PackNecroReg(12, 40);
 		}
 
-		public override OppositionGroup OppositionGroup
-		{
-			get { return OppositionGroup.FeyAndUndead; }
-		}
+		public override OppositionGroup OppositionGroup => OppositionGroup.FeyAndUndead;
 
 		public override void GenerateLoot()
 		{
@@ -58,10 +55,10 @@ namespace Server.Mobiles
 			AddLoot(LootPack.MedScrolls, 2);
 		}
 
-		public override bool CanRummageCorpses { get { return true; } }
-		public override bool BleedImmune { get { return true; } }
-		public override Poison PoisonImmune { get { return Poison.Lethal; } }
-		public override int TreasureMapLevel { get { return 4; } }
+		public override bool CanRummageCorpses => true;
+		public override bool BleedImmune => true;
+		public override Poison PoisonImmune => Poison.Lethal;
+		public override int TreasureMapLevel => 4;
 
 		public LichLord(Serial serial) : base(serial)
 		{
