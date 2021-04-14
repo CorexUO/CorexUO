@@ -80,7 +80,17 @@ namespace Server
 
 	public class Region : IComparable<Region>
 	{
-		public static List<Region> Regions { get; } = new List<Region>();
+		public static Type DefaultRegionType { get; set; } = typeof(Region);
+
+		public static TimeSpan StaffLogoutDelay { get; set; } = TimeSpan.FromMinutes(Settings.Configuration.Get<double>("Gameplay", "StaffLogoutDelay"));
+		public static TimeSpan DefaultLogoutDelay { get; set; } = TimeSpan.FromMinutes(Settings.Configuration.Get<double>("Gameplay", "DefaultLogoutDelay"));
+
+		public const int DefaultPriority = 50;
+
+		public static readonly int MinZ = sbyte.MinValue;
+		public static readonly int MaxZ = sbyte.MaxValue + 1;
+
+		public static List<Region> Regions { get; } = new();
 
 		public static Region Find(Point3D p, Map map)
 		{
@@ -100,16 +110,6 @@ namespace Server
 
 			return map.DefaultRegion;
 		}
-
-		public static Type DefaultRegionType { get; set; } = typeof(Region);
-
-		public static TimeSpan StaffLogoutDelay { get; set; } = TimeSpan.FromMinutes(Settings.Configuration.Get<double>("Gameplay", "StaffLogoutDelay"));
-		public static TimeSpan DefaultLogoutDelay { get; set; } = TimeSpan.FromMinutes(Settings.Configuration.Get<double>("Gameplay", "DefaultLogoutDelay"));
-
-		public const int DefaultPriority = 50;
-
-		public static readonly int MinZ = sbyte.MinValue;
-		public static readonly int MaxZ = sbyte.MaxValue + 1;
 
 		public static Rectangle3D ConvertTo3D(Rectangle2D rect)
 		{
@@ -136,7 +136,7 @@ namespace Server
 		public Map Map { get; }
 		public ZoneRules Rules { get; set; }
 		public Region Parent { get; }
-		public List<Region> Children { get; } = new List<Region>();
+		public List<Region> Children { get; } = new();
 		public Rectangle3D[] Area { get; }
 		public Sector[] Sectors { get; private set; }
 		public bool Dynamic { get; }
@@ -204,7 +204,7 @@ namespace Server
 
 			Map.RegisterRegion(this);
 
-			List<Sector> sectors = new List<Sector>();
+			List<Sector> sectors = new();
 
 			for (int i = 0; i < Area.Length; i++)
 			{
@@ -367,7 +367,7 @@ namespace Server
 
 		public List<Mobile> GetPlayers()
 		{
-			List<Mobile> list = new List<Mobile>();
+			List<Mobile> list = new();
 
 			if (Sectors != null)
 			{
@@ -409,7 +409,7 @@ namespace Server
 
 		public List<Mobile> GetMobiles()
 		{
-			List<Mobile> list = new List<Mobile>();
+			List<Mobile> list = new();
 
 			if (Sectors != null)
 			{
@@ -833,7 +833,7 @@ namespace Server
 
 			Console.Write("Regions: Loading...");
 
-			XmlDocument doc = new XmlDocument();
+			XmlDocument doc = new();
 			doc.Load(System.IO.Path.Combine(Core.BaseDirectory, "Data/Regions.xml"));
 
 			XmlElement root = doc["ServerRegions"];
@@ -923,10 +923,10 @@ namespace Server
 			ReadInt32(zrange, "max", ref maxZ, false);
 
 
-			List<Rectangle3D> area = new List<Rectangle3D>();
+			List<Rectangle3D> area = new();
 			foreach (XmlElement xmlRect in xml.SelectNodes("rect"))
 			{
-				Rectangle3D rect = new Rectangle3D();
+				Rectangle3D rect = new();
 				if (ReadRectangle3D(xmlRect, minZ, maxZ, ref rect))
 					area.Add(rect);
 			}
