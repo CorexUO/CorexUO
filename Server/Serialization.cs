@@ -973,7 +973,7 @@ namespace Server
 		public override DateTimeOffset ReadDateTimeOffset()
 		{
 			long ticks = m_File.ReadInt64();
-			TimeSpan offset = new TimeSpan(m_File.ReadInt64());
+			TimeSpan offset = new(m_File.ReadInt64());
 
 			return new DateTimeOffset(ticks, offset);
 		}
@@ -1109,7 +1109,7 @@ namespace Server
 
 			if (count > 0)
 			{
-				ArrayList list = new ArrayList(count);
+				ArrayList list = new(count);
 
 				for (int i = 0; i < count; ++i)
 				{
@@ -1135,7 +1135,7 @@ namespace Server
 
 			if (count > 0)
 			{
-				ArrayList list = new ArrayList(count);
+				ArrayList list = new(count);
 
 				for (int i = 0; i < count; ++i)
 				{
@@ -1161,7 +1161,7 @@ namespace Server
 
 			if (count > 0)
 			{
-				ArrayList list = new ArrayList(count);
+				ArrayList list = new(count);
 
 				for (int i = 0; i < count; ++i)
 				{
@@ -1192,7 +1192,7 @@ namespace Server
 
 			if (count > 0)
 			{
-				List<T> list = new List<T>(count);
+				List<T> list = new(count);
 
 				for (int i = 0; i < count; ++i)
 				{
@@ -1221,7 +1221,7 @@ namespace Server
 
 			if (count > 0)
 			{
-				HashSet<T> set = new HashSet<T>();
+				HashSet<T> set = new();
 
 				for (int i = 0; i < count; ++i)
 				{
@@ -1250,7 +1250,7 @@ namespace Server
 
 			if (count > 0)
 			{
-				List<T> list = new List<T>(count);
+				List<T> list = new(count);
 
 				for (int i = 0; i < count; ++i)
 				{
@@ -1279,7 +1279,7 @@ namespace Server
 
 			if (count > 0)
 			{
-				HashSet<T> set = new HashSet<T>();
+				HashSet<T> set = new();
 
 				for (int i = 0; i < count; ++i)
 				{
@@ -1308,7 +1308,7 @@ namespace Server
 
 			if (count > 0)
 			{
-				List<T> list = new List<T>(count);
+				List<T> list = new(count);
 
 				for (int i = 0; i < count; ++i)
 				{
@@ -1337,7 +1337,7 @@ namespace Server
 
 			if (count > 0)
 			{
-				HashSet<T> set = new HashSet<T>();
+				HashSet<T> set = new();
 
 				for (int i = 0; i < count; ++i)
 				{

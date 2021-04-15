@@ -7,7 +7,7 @@ namespace Server
 {
 	public class Settings
 	{
-		public static readonly Settings Configuration = new Settings("settings.ini");
+		public static readonly Settings Configuration = new("settings.ini");
 
 		public Dictionary<string, Dictionary<string, Entry>> Values { get; set; } = new Dictionary<string, Dictionary<string, Entry>>(StringComparer.OrdinalIgnoreCase);
 
@@ -72,7 +72,7 @@ namespace Server
 
 		private void LoadFile(string path)
 		{
-			FileInfo info = new FileInfo(path);
+			FileInfo info = new(path);
 
 			if (!info.Exists)
 			{
@@ -103,7 +103,7 @@ namespace Server
 				}
 
 				string key = line.Substring(0, io);
-				string val = line.Substring(io + 1);
+				string val = line[(io + 1)..];
 
 				if (string.IsNullOrWhiteSpace(key))
 				{
@@ -123,7 +123,7 @@ namespace Server
 				}
 				else
 				{
-					Dictionary<string, Entry> newEntries = new Dictionary<string, Entry>
+					Dictionary<string, Entry> newEntries = new()
 					{
 						{ key, new Entry(section, key, val) }
 					};

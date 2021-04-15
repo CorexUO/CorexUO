@@ -118,7 +118,7 @@ namespace Server
 
 		public class TimerThread
 		{
-			private static readonly Dictionary<Timer, TimerChangeEntry> m_Changed = new Dictionary<Timer, TimerChangeEntry>();
+			private static readonly Dictionary<Timer, TimerChangeEntry> m_Changed = new();
 
 			private static readonly long[] m_NextPriorities = new long[8];
 			private static readonly long[] m_PriorityDelays = { 0, 10, 25, 50, 250, 1000, 5000, 60000 };
@@ -136,7 +136,7 @@ namespace Server
 					tw.WriteLine("Priority: {0}", (TimerPriority)i);
 					tw.WriteLine();
 
-					Dictionary<string, List<Timer>> hash = new Dictionary<string, List<Timer>>();
+					Dictionary<string, List<Timer>> hash = new();
 
 					for (int j = 0; j < m_Timers[i].Count; ++j)
 					{
@@ -198,7 +198,7 @@ namespace Server
 					}
 				}
 
-				private static readonly Queue<TimerChangeEntry> m_InstancePool = new Queue<TimerChangeEntry>();
+				private static readonly Queue<TimerChangeEntry> m_InstancePool = new();
 
 				public static TimerChangeEntry GetInstance(Timer t, int newIndex, bool isAdd)
 				{
@@ -291,7 +291,7 @@ namespace Server
 				}
 			}
 
-			private static readonly AutoResetEvent m_Signal = new AutoResetEvent(false);
+			private static readonly AutoResetEvent m_Signal = new(false);
 
 			public static void Set()
 			{
@@ -366,7 +366,7 @@ namespace Server
 			}
 		}
 
-		private static readonly Queue<Timer> m_Queue = new Queue<Timer>();
+		private static readonly Queue<Timer> m_Queue = new();
 
 		public static int BreakCount { get; set; } = 20000;
 		public static int QueueCountAtSlice { get; set; }

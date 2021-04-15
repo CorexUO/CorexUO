@@ -66,8 +66,8 @@ namespace Server
 
 		public bool Exists => (MapStream != null && IndexStream != null && DataStream != null);
 
-		private static readonly List<TileMatrix> m_Instances = new List<TileMatrix>();
-		private readonly List<TileMatrix> m_FileShare = new List<TileMatrix>();
+		private static readonly List<TileMatrix> m_Instances = new();
+		private readonly List<TileMatrix> m_FileShare = new();
 
 		public TileMatrix(Map owner, int fileIndex, int mapID, int width, int height)
 		{
@@ -635,7 +635,7 @@ namespace Server
 			m_Reader.ReadInt32();
 			int nextTable = m_Reader.ReadInt32();
 
-			List<UOPEntry> entries = new List<UOPEntry>();
+			List<UOPEntry> entries = new();
 
 			do
 			{

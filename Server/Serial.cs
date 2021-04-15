@@ -7,8 +7,8 @@ namespace Server
 		public static Serial LastMobile { get; private set; } = Zero;
 		public static Serial LastItem { get; private set; } = 0x40000000;
 
-		public static readonly Serial MinusOne = new Serial(-1);
-		public static readonly Serial Zero = new Serial(0);
+		public static readonly Serial MinusOne = new(-1);
+		public static readonly Serial Zero = new(0);
 
 		public int Value { get; }
 
