@@ -72,11 +72,11 @@ namespace Server.Spells
 		public virtual bool IsCasting => State == SpellState.Casting;
 		public virtual bool CheckNextSpellTime => !(Scroll is BaseWand);
 
-		private static readonly Dictionary<Type, DelayedDamageContextWrapper> m_ContextTable = new Dictionary<Type, DelayedDamageContextWrapper>();
+		private static readonly Dictionary<Type, DelayedDamageContextWrapper> m_ContextTable = new();
 
 		private class DelayedDamageContextWrapper
 		{
-			private readonly Dictionary<Mobile, Timer> m_Contexts = new Dictionary<Mobile, Timer>();
+			private readonly Dictionary<Mobile, Timer> m_Contexts = new();
 
 			public void Add(Mobile m, Timer t)
 			{
@@ -249,6 +249,10 @@ namespace Server.Spells
 				return false;
 
 			if (pack.ConsumeTotal(Info.Reagents, Info.Amounts) == -1)
+				return true;
+
+			//[Shard] All spells consume 1 charge
+			if (ArcaneStone.ConsumeCharge(Caster, 1))
 				return true;
 
 			return false;
@@ -502,10 +506,21 @@ namespace Server.Spells
 				Caster.Spell = null;
 			}
 
-			//Set the target
-			SpellTarget = target;
+			if (SpellTargetFlags == TargetFlags.Harmful && target is Mobile harmfullTarget && !Caster.CanBeHarmful(harmfullTarget, false))
+			{
+				Caster.SendLocalizedMessage(1001018); // You can not perform negative acts on your target.
+			}
+			else if (SpellTargetFlags == TargetFlags.Beneficial && target is Mobile beneficialTarget && !Caster.CanBeBeneficial(beneficialTarget, false))
+			{
+				Caster.SendLocalizedMessage(1001017); // You can not perform beneficial acts on your target.
+			}
+			else
+			{
+				//Set the target
+				SpellTarget = target;
 
-			StartCast();
+				StartCast();
+			}
 		}
 
 		public bool StartCast()

@@ -118,11 +118,18 @@ namespace Server.Misc
 			#endregion
 
 			Region region = from.Region;
-			if (region != null && !region.Rules.HasFlag(ZoneRules.BeneficialRestrictions))
-				return true; // in region with BeneficialRestrictions, true
+			//Check first region, if region have different rules, uses this instead of the map
+			if (region != null)
+			{
+				if (!region.Rules.HasFlag(ZoneRules.HarmfulRestrictions))
+					return true; // in region without HarmfulRestrictions, false
+			}
+			else
+			{
 
-			if (map != null && !map.Rules.HasFlag(ZoneRules.BeneficialRestrictions))
-				return true; // In felucca, anything goes
+				if (map != null && !map.Rules.HasFlag(ZoneRules.HarmfulRestrictions))
+					return true; // In felucca, anything goes
+			}
 
 			if (!from.Player)
 				return true; // NPCs have no restrictions
@@ -186,12 +193,18 @@ namespace Server.Misc
 			#endregion
 
 			Region region = from.Region;
-			if (region != null && region.Rules.HasFlag(ZoneRules.HarmfulRestrictions))
-				return true; // in region with HarmfulRestrictions, true
-
-			Map map = from.Map;
-			if (map != null && map.Rules.HasFlag(ZoneRules.HarmfulRestrictions))
-				return true; // In felucca, anything goes
+			//Check first region, if region have different rules, uses this instead of the map
+			if (region != null)
+			{
+				if (!region.Rules.HasFlag(ZoneRules.HarmfulRestrictions))
+					return true; // in region without HarmfulRestrictions, false
+			}
+			else
+			{
+				Map map = from.Map;
+				if (map != null && !map.Rules.HasFlag(ZoneRules.HarmfulRestrictions))
+					return true; // In felucca, anything goes
+			}
 
 			BaseCreature bc = from as BaseCreature;
 
