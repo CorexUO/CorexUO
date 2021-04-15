@@ -251,10 +251,6 @@ namespace Server.Spells
 			if (pack.ConsumeTotal(Info.Reagents, Info.Amounts) == -1)
 				return true;
 
-			//[Shard] All spells consume 1 charge
-			if (ArcaneStone.ConsumeCharge(Caster, 1))
-				return true;
-
 			return false;
 		}
 
