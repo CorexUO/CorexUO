@@ -394,7 +394,7 @@ namespace Server.Network
 				if ((msgSize / 7) > 100)
 					return;
 
-				List<BuyItemResponse> buyList = new List<BuyItemResponse>(msgSize / 7);
+				List<BuyItemResponse> buyList = new(msgSize / 7);
 				for (; msgSize > 0; msgSize -= 7)
 				{
 					byte layer = pvSrc.ReadByte();
@@ -434,7 +434,7 @@ namespace Server.Network
 			int count = pvSrc.ReadUInt16();
 			if (count < 100 && pvSrc.Size == (1 + 2 + 4 + 2 + (count * 6)))
 			{
-				List<SellItemResponse> sellList = new List<SellItemResponse>(count);
+				List<SellItemResponse> sellList = new(count);
 
 				for (int i = 0; i < count; i++)
 				{
@@ -998,7 +998,7 @@ namespace Server.Network
 			int z = pvSrc.ReadSByte();
 			Serial dest = pvSrc.ReadInt32();
 
-			Point3D loc = new Point3D(x, y, z);
+			Point3D loc = new(x, y, z);
 
 			Mobile from = state.Mobile;
 
@@ -1036,7 +1036,7 @@ namespace Server.Network
 			pvSrc.ReadByte(); // Grid Location?
 			Serial dest = pvSrc.ReadInt32();
 
-			Point3D loc = new Point3D(x, y, z);
+			Point3D loc = new(x, y, z);
 
 			Mobile from = state.Mobile;
 
@@ -1373,7 +1373,7 @@ namespace Server.Network
 			from.DoSpeech(text, m_EmptyInts, type, Utility.ClipDyedHue(hue));
 		}
 
-		private static readonly KeywordList m_KeywordList = new KeywordList();
+		private static readonly KeywordList m_KeywordList = new();
 
 		public static void UnicodeSpeech(NetState state, PacketReader pvSrc)
 		{
@@ -1904,7 +1904,7 @@ namespace Server.Network
 				if (!from.CheckContextMenuDisplay(target))
 					return;
 
-				ContextMenu c = new ContextMenu(from, target);
+				ContextMenu c = new(from, target);
 
 				if (c.Entries.Length > 0)
 				{
@@ -2003,7 +2003,7 @@ namespace Server.Network
 
 		public delegate void PlayCharCallback(NetState state, bool val);
 
-		public static PlayCharCallback ThirdPartyAuthCallback = null, ThirdPartyHackedCallback = null;
+		public static PlayCharCallback ThirdPartyAuthCallback, ThirdPartyHackedCallback = null;
 
 		private static readonly byte[] m_ThirdPartyAuthKey = new byte[]
 			{
@@ -2320,7 +2320,7 @@ namespace Server.Network
 
 				state.Flags = (ClientFlags)flags;
 
-				CharacterCreatedEventArgs args = new CharacterCreatedEventArgs(
+				CharacterCreatedEventArgs args = new(
 					state, a,
 					name, female, hue,
 					str, dex, intl,
@@ -2440,7 +2440,7 @@ namespace Server.Network
 
 				state.Flags = (ClientFlags)flags;
 
-				CharacterCreatedEventArgs args = new CharacterCreatedEventArgs(
+				CharacterCreatedEventArgs args = new(
 					state, a,
 					name, female, hue,
 					str, dex, intl,
@@ -2496,7 +2496,7 @@ namespace Server.Network
 		}
 
 		private const int m_AuthIDWindowSize = 128;
-		private static readonly Dictionary<int, AuthIDPersistence> m_AuthIDWindow = new Dictionary<int, AuthIDPersistence>(m_AuthIDWindowSize);
+		private static readonly Dictionary<int, AuthIDPersistence> m_AuthIDWindow = new(m_AuthIDWindowSize);
 
 		private static int GenerateAuthID(NetState state)
 		{
@@ -2574,7 +2574,7 @@ namespace Server.Network
 			string username = pvSrc.ReadString(30);
 			string password = pvSrc.ReadString(30);
 
-			GameLoginEventArgs e = new GameLoginEventArgs(state, username, password);
+			GameLoginEventArgs e = new(state, username, password);
 
 			EventSink.InvokeGameLogin(e);
 
@@ -2688,7 +2688,7 @@ namespace Server.Network
 			string username = pvSrc.ReadString(30);
 			string password = pvSrc.ReadString(30);
 
-			AccountLoginEventArgs e = new AccountLoginEventArgs(state, username, password);
+			AccountLoginEventArgs e = new(state, username, password);
 
 			EventSink.InvokeAccountLogin(e);
 
@@ -2700,7 +2700,7 @@ namespace Server.Network
 
 		public static void AccountLogin_ReplyAck(NetState state)
 		{
-			ServerListEventArgs e = new ServerListEventArgs(state, state.Account);
+			ServerListEventArgs e = new(state, state.Account);
 
 			EventSink.InvokeServerList(e);
 

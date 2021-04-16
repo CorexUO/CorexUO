@@ -15,8 +15,8 @@ namespace Server.Commands
 
 		public static void Export_OnCommand(CommandEventArgs e)
 		{
-			StreamWriter w = new StreamWriter(ExportFile);
-			ArrayList remove = new ArrayList();
+			StreamWriter w = new(ExportFile);
+			ArrayList remove = new();
 			int count = 0;
 
 			e.Mobile.SendMessage("Exporting all static items to \"{0}\"...", ExportFile);

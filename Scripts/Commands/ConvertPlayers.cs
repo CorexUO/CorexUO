@@ -16,7 +16,7 @@ namespace Server.Commands
 		public static void Convert_OnCommand(CommandEventArgs e)
 		{
 			e.Mobile.SendMessage("Converting all players to PlayerMobile.  You will be disconnected.  Please Restart the server after the world has finished saving.");
-			List<Mobile> mobs = new List<Mobile>(World.Mobiles.Values);
+			List<Mobile> mobs = new(World.Mobiles.Values);
 			int count = 0;
 
 			foreach (Mobile m in mobs)
@@ -27,10 +27,10 @@ namespace Server.Commands
 					if (m.NetState != null)
 						m.NetState.Dispose();
 
-					PlayerMobile pm = new PlayerMobile(m.Serial);
+					PlayerMobile pm = new(m.Serial);
 					pm.DefaultMobileInit();
 
-					List<Item> copy = new List<Item>(m.Items);
+					List<Item> copy = new(m.Items);
 					for (int i = 0; i < copy.Count; i++)
 						pm.AddItem(copy[i]);
 

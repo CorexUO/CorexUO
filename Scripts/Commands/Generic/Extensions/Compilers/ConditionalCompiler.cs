@@ -21,7 +21,7 @@ namespace Server.Commands.Generic
 
 	public sealed class TypeCondition : ICondition
 	{
-		public static TypeCondition Default = new TypeCondition();
+		public static TypeCondition Default = new();
 
 		void ICondition.Construct(TypeBuilder typeBuilder, ILGenerator il, int index)
 		{
@@ -40,53 +40,46 @@ namespace Server.Commands.Generic
 
 	public sealed class PropertyValue
 	{
-		private readonly Type m_Type;
-		private object m_Value;
-		private FieldInfo m_Field;
-
-		public Type Type => m_Type;
-
-		public object Value => m_Value;
-
-		public FieldInfo Field => m_Field;
-
-		public bool HasField => (m_Field != null);
+		public Type Type { get; }
+		public object Value { get; private set; }
+		public FieldInfo Field { get; private set; }
+		public bool HasField => (Field != null);
 
 		public PropertyValue(Type type, object value)
 		{
-			m_Type = type;
-			m_Value = value;
+			Type = type;
+			Value = value;
 		}
 
 		public void Load(MethodEmitter method)
 		{
-			if (m_Field != null)
+			if (Field != null)
 			{
 				method.LoadArgument(0);
-				method.LoadField(m_Field);
+				method.LoadField(Field);
 			}
-			else if (m_Value == null)
+			else if (Value == null)
 			{
-				method.LoadNull(m_Type);
+				method.LoadNull(Type);
 			}
 			else
 			{
-				if (m_Value is int)
-					method.Load((int)m_Value);
-				else if (m_Value is long)
-					method.Load((long)m_Value);
-				else if (m_Value is float)
-					method.Load((float)m_Value);
-				else if (m_Value is double)
-					method.Load((double)m_Value);
-				else if (m_Value is char)
-					method.Load((char)m_Value);
-				else if (m_Value is bool)
-					method.Load((bool)m_Value);
-				else if (m_Value is string)
-					method.Load((string)m_Value);
-				else if (m_Value is Enum)
-					method.Load((Enum)m_Value);
+				if (Value is int)
+					method.Load((int)Value);
+				else if (Value is long)
+					method.Load((long)Value);
+				else if (Value is float)
+					method.Load((float)Value);
+				else if (Value is double)
+					method.Load((double)Value);
+				else if (Value is char)
+					method.Load((char)Value);
+				else if (Value is bool)
+					method.Load((bool)Value);
+				else if (Value is string)
+					method.Load((string)Value);
+				else if (Value is Enum)
+					method.Load((Enum)Value);
 				else
 					throw new InvalidOperationException("Unrecognized comparison value.");
 			}
@@ -94,31 +87,31 @@ namespace Server.Commands.Generic
 
 		public void Acquire(TypeBuilder typeBuilder, ILGenerator il, string fieldName)
 		{
-			if (m_Value is string)
+			if (Value is string)
 			{
-				string toParse = (string)m_Value;
+				string toParse = (string)Value;
 
-				if (!m_Type.IsValueType && toParse == "null")
+				if (!Type.IsValueType && toParse == "null")
 				{
-					m_Value = null;
+					Value = null;
 				}
-				else if (m_Type == typeof(string))
+				else if (Type == typeof(string))
 				{
 					if (toParse == @"@""null""")
 						toParse = "null";
 
-					m_Value = toParse;
+					Value = toParse;
 				}
-				else if (m_Type.IsEnum)
+				else if (Type.IsEnum)
 				{
-					m_Value = Enum.Parse(m_Type, toParse, true);
+					Value = Enum.Parse(Type, toParse, true);
 				}
 				else
 				{
 					MethodInfo parseMethod = null;
 					object[] parseArgs = null;
 
-					MethodInfo parseNumber = m_Type.GetMethod(
+					MethodInfo parseNumber = Type.GetMethod(
 						"Parse",
 						BindingFlags.Public | BindingFlags.Static,
 						null,
@@ -141,7 +134,7 @@ namespace Server.Commands.Generic
 					}
 					else
 					{
-						MethodInfo parseGeneral = m_Type.GetMethod(
+						MethodInfo parseGeneral = Type.GetMethod(
 							"Parse",
 							BindingFlags.Public | BindingFlags.Static,
 							null,
@@ -155,13 +148,13 @@ namespace Server.Commands.Generic
 
 					if (parseMethod != null)
 					{
-						m_Value = parseMethod.Invoke(null, parseArgs);
+						Value = parseMethod.Invoke(null, parseArgs);
 
-						if (!m_Type.IsPrimitive)
+						if (!Type.IsPrimitive)
 						{
-							m_Field = typeBuilder.DefineField(
+							Field = typeBuilder.DefineField(
 								fieldName,
-								m_Type,
+								Type,
 								FieldAttributes.Private | FieldAttributes.InitOnly
 							);
 
@@ -173,7 +166,7 @@ namespace Server.Commands.Generic
 								il.Emit(OpCodes.Ldc_I4, (int)parseArgs[1]);
 
 							il.Emit(OpCodes.Call, parseMethod);
-							il.Emit(OpCodes.Stfld, m_Field);
+							il.Emit(OpCodes.Stfld, Field);
 						}
 					}
 					else
@@ -181,8 +174,8 @@ namespace Server.Commands.Generic
 						throw new InvalidOperationException(
 							string.Format(
 								"Unable to convert string \"{0}\" into type '{1}'.",
-								m_Value,
-								m_Type
+								Value,
+								Type
 							)
 						);
 					}
@@ -490,7 +483,7 @@ namespace Server.Commands.Generic
 
 			#region Compare
 			{
-				MethodEmitter emitter = new MethodEmitter(typeBuilder);
+				MethodEmitter emitter = new(typeBuilder);
 
 				emitter.Define(
 					/*  name  */ "Verify",

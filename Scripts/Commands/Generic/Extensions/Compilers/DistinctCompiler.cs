@@ -42,7 +42,7 @@ namespace Server.Commands.Generic
 
 			#region Compare
 			{
-				MethodEmitter emitter = new MethodEmitter(typeBuilder);
+				MethodEmitter emitter = new(typeBuilder);
 
 				emitter.Define(
 					/*  name  */ "Compare",
@@ -121,7 +121,7 @@ namespace Server.Commands.Generic
 
 			#region Equals
 			{
-				MethodEmitter emitter = new MethodEmitter(typeBuilder);
+				MethodEmitter emitter = new(typeBuilder);
 
 				emitter.Define(
 					/*  name  */ "Equals",
@@ -157,7 +157,7 @@ namespace Server.Commands.Generic
 
 			#region GetHashCode
 			{
-				MethodEmitter emitter = new MethodEmitter(typeBuilder);
+				MethodEmitter emitter = new(typeBuilder);
 
 				emitter.Define(
 					/*  name  */ "GetHashCode",

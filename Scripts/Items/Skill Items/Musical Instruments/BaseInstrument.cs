@@ -11,24 +11,15 @@ namespace Server.Items
 
 	public abstract class BaseInstrument : BaseItem, ICraftable, ISlayer
 	{
-		private int m_WellSound, m_BadlySound;
 		private SlayerName m_Slayer, m_Slayer2;
 		private Mobile m_Crafter;
 		private int m_UsesRemaining;
 
 		[CommandProperty(AccessLevel.GameMaster)]
-		public int SuccessSound
-		{
-			get => m_WellSound;
-			set => m_WellSound = value;
-		}
+		public int SuccessSound { get; set; }
 
 		[CommandProperty(AccessLevel.GameMaster)]
-		public int FailureSound
-		{
-			get => m_BadlySound;
-			set => m_BadlySound = value;
-		}
+		public int FailureSound { get; set; }
 
 		[CommandProperty(AccessLevel.GameMaster)]
 		public SlayerName Slayer
@@ -181,8 +172,7 @@ namespace Server.Items
 
 			if (instrument != null)
 			{
-				if (callback != null)
-					callback(from, instrument);
+				callback?.Invoke(from, instrument);
 			}
 			else
 			{
@@ -202,11 +192,7 @@ namespace Server.Items
 			else
 			{
 				SetInstrument(from, instrument);
-
-				InstrumentPickedCallback callback = state as InstrumentPickedCallback;
-
-				if (callback != null)
-					callback(from, instrument);
+				(state as InstrumentPickedCallback)?.Invoke(from, instrument);
 			}
 		}
 
@@ -325,8 +311,8 @@ namespace Server.Items
 
 		public BaseInstrument(int itemID, int wellSound, int badlySound) : base(itemID)
 		{
-			m_WellSound = wellSound;
-			m_BadlySound = badlySound;
+			SuccessSound = wellSound;
+			FailureSound = badlySound;
 			UsesRemaining = Utility.RandomMinMax(InitMinUses, InitMaxUses);
 		}
 
@@ -440,8 +426,8 @@ namespace Server.Items
 
 			writer.WriteEncodedInt(UsesRemaining);
 
-			writer.WriteEncodedInt(m_WellSound);
-			writer.WriteEncodedInt(m_BadlySound);
+			writer.WriteEncodedInt(SuccessSound);
+			writer.WriteEncodedInt(FailureSound);
 		}
 
 		public override void Deserialize(GenericReader reader)
@@ -466,8 +452,8 @@ namespace Server.Items
 
 						UsesRemaining = reader.ReadEncodedInt();
 
-						m_WellSound = reader.ReadEncodedInt();
-						m_BadlySound = reader.ReadEncodedInt();
+						SuccessSound = reader.ReadEncodedInt();
+						FailureSound = reader.ReadEncodedInt();
 
 						break;
 					}
@@ -509,12 +495,12 @@ namespace Server.Items
 
 		public void PlayInstrumentWell(Mobile from)
 		{
-			from.PlaySound(m_WellSound);
+			from.PlaySound(SuccessSound);
 		}
 
 		public void PlayInstrumentBadly(Mobile from)
 		{
-			from.PlaySound(m_BadlySound);
+			from.PlaySound(FailureSound);
 		}
 
 		private class InternalTimer : Timer

@@ -17,9 +17,7 @@ namespace Server.Items
 			{
 				m_Active = value;
 
-				SHTeleporter sourceAddon = Addon as SHTeleporter;
-
-				if (sourceAddon != null)
+				if (Addon is SHTeleporter sourceAddon)
 					sourceAddon.ChangeActive(value);
 			}
 		}
@@ -34,7 +32,7 @@ namespace Server.Items
 		[CommandProperty(AccessLevel.GameMaster)]
 		public Point3D TelePoint
 		{
-			get => new Point3D(Location.X + TeleOffset.X, Location.Y + TeleOffset.Y, Location.Z + TeleOffset.Z);
+			get => new(Location.X + TeleOffset.X, Location.Y + TeleOffset.Y, Location.Z + TeleOffset.Z);
 			set => m_TeleOffset = new Point3D(value.X - Location.X, value.Y - Location.Y, value.Z - Location.Z);
 		}
 
@@ -46,9 +44,7 @@ namespace Server.Items
 			{
 				m_TeleDest = value;
 
-				SHTeleporter sourceAddon = Addon as SHTeleporter;
-
-				if (sourceAddon != null)
+				if (Addon is SHTeleporter sourceAddon)
 					sourceAddon.ChangeDest(value);
 			}
 		}
@@ -118,8 +114,7 @@ namespace Server.Items
 		public override void Deserialize(GenericReader reader)
 		{
 			base.Deserialize(reader);
-
-			int version = reader.ReadInt();
+			_ = reader.ReadInt();
 
 			m_Active = reader.ReadBool();
 			m_TeleDest = reader.ReadItem() as SHTeleComponent;
@@ -164,10 +159,10 @@ namespace Server.Items
 
 				foreach (Item item in eable)
 				{
-					if (item is SHTeleporter && item.Z == p.Z)
+					if (item is SHTeleporter teleporter && item.Z == p.Z)
 					{
 						eable.Free();
-						return (SHTeleporter)item;
+						return teleporter;
 					}
 				}
 
@@ -177,7 +172,7 @@ namespace Server.Items
 
 			public SHTeleporter AddSHT(Map map, bool ext, int x, int y, int z)
 			{
-				Point3D p = new Point3D(x, y, z);
+				Point3D p = new(x, y, z);
 				SHTeleporter tele = FindSHTeleporter(map, p);
 
 				if (tele == null)
@@ -280,22 +275,15 @@ namespace Server.Items
 			}
 		}
 
-		private bool m_External;
-
-		private SHTeleComponent m_UpTele;
-		private SHTeleComponent m_RightTele;
-		private SHTeleComponent m_DownTele;
-		private SHTeleComponent m_LeftTele;
-
 		private bool m_Changing;
 
 		[CommandProperty(AccessLevel.GameMaster)]
-		public bool External => m_External;
+		public bool External { get; private set; }
 
-		public SHTeleComponent UpTele => m_UpTele;
-		public SHTeleComponent RightTele => m_RightTele;
-		public SHTeleComponent DownTele => m_DownTele;
-		public SHTeleComponent LeftTele => m_LeftTele;
+		public SHTeleComponent UpTele { get; private set; }
+		public SHTeleComponent RightTele { get; private set; }
+		public SHTeleComponent DownTele { get; private set; }
+		public SHTeleComponent LeftTele { get; private set; }
 
 		[Constructable]
 		public SHTeleporter() : this(true)
@@ -306,7 +294,7 @@ namespace Server.Items
 		public SHTeleporter(bool external)
 		{
 			m_Changing = false;
-			m_External = external;
+			External = external;
 
 			if (external)
 			{
@@ -329,20 +317,20 @@ namespace Server.Items
 			}
 
 			Point3D upOS = external ? new Point3D(-1, 0, 0) : new Point3D(-2, -1, 0);
-			m_UpTele = new SHTeleComponent(external ? 0x1775 : 0x495, upOS);
-			AddComponent(m_UpTele, 0, 0, 0);
+			UpTele = new SHTeleComponent(external ? 0x1775 : 0x495, upOS);
+			AddComponent(UpTele, 0, 0, 0);
 
 			Point3D rightOS = external ? new Point3D(-2, 0, 0) : new Point3D(2, -1, 0);
-			m_RightTele = new SHTeleComponent(external ? 0x1775 : 0x495, rightOS);
-			AddComponent(m_RightTele, 1, 0, 0);
+			RightTele = new SHTeleComponent(external ? 0x1775 : 0x495, rightOS);
+			AddComponent(RightTele, 1, 0, 0);
 
 			Point3D downOS = external ? new Point3D(-2, -1, 0) : new Point3D(2, 2, 0);
-			m_DownTele = new SHTeleComponent(external ? 0x1776 : 0x495, downOS);
-			AddComponent(m_DownTele, 1, 1, 0);
+			DownTele = new SHTeleComponent(external ? 0x1776 : 0x495, downOS);
+			AddComponent(DownTele, 1, 1, 0);
 
 			Point3D leftOS = external ? new Point3D(-1, -1, 0) : new Point3D(-1, 2, 0);
-			m_LeftTele = new SHTeleComponent(external ? 0x1775 : 0x495, leftOS);
-			AddComponent(m_LeftTele, 0, 1, 0);
+			LeftTele = new SHTeleComponent(external ? 0x1775 : 0x495, leftOS);
+			AddComponent(LeftTele, 0, 1, 0);
 		}
 
 		public SHTeleporter(Serial serial) : base(serial)
@@ -359,10 +347,10 @@ namespace Server.Items
 
 			m_Changing = true;
 
-			m_UpTele.Active = active;
-			m_RightTele.Active = active;
-			m_DownTele.Active = active;
-			m_LeftTele.Active = active;
+			UpTele.Active = active;
+			RightTele.Active = active;
+			DownTele.Active = active;
+			LeftTele.Active = active;
 
 			m_Changing = false;
 		}
@@ -374,21 +362,21 @@ namespace Server.Items
 
 			m_Changing = true;
 
-			if (dest == null || !(dest.Addon is SHTeleporter))
+			if (dest == null || dest.Addon is not SHTeleporter teleporter)
 			{
-				m_UpTele.TeleDest = dest;
-				m_RightTele.TeleDest = dest;
-				m_DownTele.TeleDest = dest;
-				m_LeftTele.TeleDest = dest;
+				UpTele.TeleDest = dest;
+				RightTele.TeleDest = dest;
+				DownTele.TeleDest = dest;
+				LeftTele.TeleDest = dest;
 			}
 			else
 			{
-				SHTeleporter destAddon = (SHTeleporter)dest.Addon;
+				SHTeleporter destAddon = teleporter;
 
-				m_UpTele.TeleDest = destAddon.UpTele;
-				m_RightTele.TeleDest = destAddon.RightTele;
-				m_DownTele.TeleDest = destAddon.DownTele;
-				m_LeftTele.TeleDest = destAddon.LeftTele;
+				UpTele.TeleDest = destAddon.UpTele;
+				RightTele.TeleDest = destAddon.RightTele;
+				DownTele.TeleDest = destAddon.DownTele;
+				LeftTele.TeleDest = destAddon.LeftTele;
 			}
 
 			m_Changing = false;
@@ -403,17 +391,17 @@ namespace Server.Items
 
 			if (destAddon != null)
 			{
-				m_UpTele.TeleDest = destAddon.UpTele;
-				m_RightTele.TeleDest = destAddon.RightTele;
-				m_DownTele.TeleDest = destAddon.DownTele;
-				m_LeftTele.TeleDest = destAddon.LeftTele;
+				UpTele.TeleDest = destAddon.UpTele;
+				RightTele.TeleDest = destAddon.RightTele;
+				DownTele.TeleDest = destAddon.DownTele;
+				LeftTele.TeleDest = destAddon.LeftTele;
 			}
 			else
 			{
-				m_UpTele.TeleDest = null;
-				m_RightTele.TeleDest = null;
-				m_DownTele.TeleDest = null;
-				m_LeftTele.TeleDest = null;
+				UpTele.TeleDest = null;
+				RightTele.TeleDest = null;
+				DownTele.TeleDest = null;
+				LeftTele.TeleDest = null;
 			}
 
 			m_Changing = false;
@@ -425,26 +413,25 @@ namespace Server.Items
 
 			writer.Write(0); // version
 
-			writer.Write(m_External);
+			writer.Write(External);
 
-			writer.Write(m_UpTele);
-			writer.Write(m_RightTele);
-			writer.Write(m_DownTele);
-			writer.Write(m_LeftTele);
+			writer.Write(UpTele);
+			writer.Write(RightTele);
+			writer.Write(DownTele);
+			writer.Write(LeftTele);
 		}
 
 		public override void Deserialize(GenericReader reader)
 		{
 			base.Deserialize(reader);
+			_ = reader.ReadInt();
 
-			int version = reader.ReadInt();
+			External = reader.ReadBool();
 
-			m_External = reader.ReadBool();
-
-			m_UpTele = (SHTeleComponent)reader.ReadItem();
-			m_RightTele = (SHTeleComponent)reader.ReadItem();
-			m_DownTele = (SHTeleComponent)reader.ReadItem();
-			m_LeftTele = (SHTeleComponent)reader.ReadItem();
+			UpTele = (SHTeleComponent)reader.ReadItem();
+			RightTele = (SHTeleComponent)reader.ReadItem();
+			DownTele = (SHTeleComponent)reader.ReadItem();
+			LeftTele = (SHTeleComponent)reader.ReadItem();
 		}
 	}
 }

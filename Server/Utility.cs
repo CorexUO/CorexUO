@@ -110,7 +110,7 @@ namespace Server
 			if (!hasOpen && !hasClose && !hasPound)
 				return str;
 
-			StringBuilder sb = new StringBuilder(str);
+			StringBuilder sb = new(str);
 
 			if (hasOpen)
 				sb.Replace('<', '(');
@@ -684,7 +684,7 @@ namespace Server
 
 		public static Point2D GetDirectionOffset(Direction d)
 		{
-			Point2D result = new Point2D(0, 0);
+			Point2D result = new(0, 0);
 
 			switch (d & Direction.Mask)
 			{
@@ -1152,7 +1152,7 @@ namespace Server
 		{
 			IEnumerator e = enumerable.GetEnumerator();
 
-			ArrayList list = new ArrayList();
+			ArrayList list = new();
 
 			while (e.MoveNext())
 			{
@@ -1182,8 +1182,8 @@ namespace Server
 
 			for (int i = 0; i < whole; ++i, byteIndex += 16)
 			{
-				StringBuilder bytes = new StringBuilder(49);
-				StringBuilder chars = new StringBuilder(16);
+				StringBuilder bytes = new(49);
+				StringBuilder chars = new(16);
 
 				for (int j = 0; j < 16; ++j)
 				{
@@ -1219,8 +1219,8 @@ namespace Server
 
 			if (rem != 0)
 			{
-				StringBuilder bytes = new StringBuilder(49);
-				StringBuilder chars = new StringBuilder(rem);
+				StringBuilder bytes = new(49);
+				StringBuilder chars = new(rem);
 
 				for (int j = 0; j < 16; ++j)
 				{
@@ -1262,7 +1262,7 @@ namespace Server
 			}
 		}
 
-		private static readonly Stack<ConsoleColor> m_ConsoleColors = new Stack<ConsoleColor>();
+		private static readonly Stack<ConsoleColor> m_ConsoleColors = new();
 
 		public static void WriteConsole(ConsoleColor color, string str)
 		{
@@ -1359,7 +1359,7 @@ namespace Server
 
 		public static List<TOutput> SafeConvertList<TInput, TOutput>(List<TInput> list) where TOutput : class
 		{
-			List<TOutput> output = new List<TOutput>(list.Capacity);
+			List<TOutput> output = new(list.Capacity);
 
 			for (int i = 0; i < list.Count; i++)
 			{

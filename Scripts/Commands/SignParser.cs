@@ -40,10 +40,10 @@ namespace Server.Commands
 
 			if (File.Exists(cfg))
 			{
-				List<SignEntry> list = new List<SignEntry>();
+				List<SignEntry> list = new();
 				from.SendMessage("Generating signs, please wait.");
 
-				using (StreamReader ip = new StreamReader(cfg))
+				using (StreamReader ip = new(cfg))
 				{
 					string line;
 
@@ -51,7 +51,7 @@ namespace Server.Commands
 					{
 						string[] split = line.Split(' ');
 
-						SignEntry e = new SignEntry(
+						SignEntry e = new(
 							line.Substring(split[0].Length + 1 + split[1].Length + 1 + split[2].Length + 1 + split[3].Length + 1 + split[4].Length + 1),
 							new Point3D(Utility.ToInt32(split[2]), Utility.ToInt32(split[3]), Utility.ToInt32(split[4])),
 							Utility.ToInt32(split[1]), Utility.ToInt32(split[0]));
@@ -94,7 +94,7 @@ namespace Server.Commands
 			}
 		}
 
-		private static readonly Queue<Item> m_ToDelete = new Queue<Item>();
+		private static readonly Queue<Item> m_ToDelete = new();
 
 		public static void Add_Static(int itemID, Point3D location, Map map, string name)
 		{

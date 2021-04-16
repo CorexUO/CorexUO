@@ -49,9 +49,9 @@ namespace Server
 		[MethodImpl(MethodImplOptions.Synchronized)]
 		private unsafe int PatchLand(TileMatrix matrix, string dataPath, string indexPath)
 		{
-			using FileStream fsData = new FileStream(dataPath, FileMode.Open, FileAccess.Read, FileShare.Read);
-			using FileStream fsIndex = new FileStream(indexPath, FileMode.Open, FileAccess.Read, FileShare.Read);
-			BinaryReader indexReader = new BinaryReader(fsIndex);
+			using FileStream fsData = new(dataPath, FileMode.Open, FileAccess.Read, FileShare.Read);
+			using FileStream fsIndex = new(indexPath, FileMode.Open, FileAccess.Read, FileShare.Read);
+			BinaryReader indexReader = new(fsIndex);
 
 			int count = (int)(indexReader.BaseStream.Length / 4);
 
@@ -83,11 +83,11 @@ namespace Server
 		[MethodImpl(MethodImplOptions.Synchronized)]
 		private unsafe int PatchStatics(TileMatrix matrix, string dataPath, string indexPath, string lookupPath)
 		{
-			using FileStream fsData = new FileStream(dataPath, FileMode.Open, FileAccess.Read, FileShare.Read);
-			using FileStream fsIndex = new FileStream(indexPath, FileMode.Open, FileAccess.Read, FileShare.Read);
-			using FileStream fsLookup = new FileStream(lookupPath, FileMode.Open, FileAccess.Read, FileShare.Read);
-			BinaryReader indexReader = new BinaryReader(fsIndex);
-			BinaryReader lookupReader = new BinaryReader(fsLookup);
+			using FileStream fsData = new(dataPath, FileMode.Open, FileAccess.Read, FileShare.Read);
+			using FileStream fsIndex = new(indexPath, FileMode.Open, FileAccess.Read, FileShare.Read);
+			using FileStream fsLookup = new(lookupPath, FileMode.Open, FileAccess.Read, FileShare.Read);
+			BinaryReader indexReader = new(fsIndex);
+			BinaryReader lookupReader = new(fsLookup);
 
 			int count = (int)(indexReader.BaseStream.Length / 4);
 

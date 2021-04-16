@@ -659,38 +659,27 @@ namespace Server.Engines.ConPVP
 			}
 		}
 
-		private readonly string m_Title, m_Description;
-		private readonly string[] m_Options;
+		public string Title { get; }
+		public string Description { get; }
+		public string[] Options { get; }
 
-		private int m_Offset, m_TotalLength;
+		public int Offset { get; private set; }
+		public int TotalLength { get; private set; }
 
-		private Ruleset[] m_Defaults;
-		private Ruleset[] m_Flavors;
+		public RulesetLayout Parent { get; set; }
+		public RulesetLayout[] Children { get; }
 
-		private RulesetLayout m_Parent;
-		private readonly RulesetLayout[] m_Children;
-
-		public string Title => m_Title;
-		public string Description => m_Description;
-		public string[] Options => m_Options;
-
-		public int Offset => m_Offset;
-		public int TotalLength => m_TotalLength;
-
-		public RulesetLayout Parent => m_Parent;
-		public RulesetLayout[] Children => m_Children;
-
-		public Ruleset[] Defaults { get => m_Defaults; set => m_Defaults = value; }
-		public Ruleset[] Flavors { get => m_Flavors; set => m_Flavors = value; }
+		public Ruleset[] Defaults { get; set; }
+		public Ruleset[] Flavors { get; set; }
 
 		public RulesetLayout FindByTitle(string title)
 		{
-			if (m_Title == title)
+			if (Title == title)
 				return this;
 
-			for (int i = 0; i < m_Children.Length; ++i)
+			for (int i = 0; i < Children.Length; ++i)
 			{
-				RulesetLayout layout = m_Children[i].FindByTitle(title);
+				RulesetLayout layout = Children[i].FindByTitle(title);
 
 				if (layout != null)
 					return layout;
@@ -701,12 +690,12 @@ namespace Server.Engines.ConPVP
 
 		public string FindByIndex(int index)
 		{
-			if (index >= m_Offset && index < (m_Offset + m_Options.Length))
-				return m_Description + ": " + m_Options[index - m_Offset];
+			if (index >= Offset && index < (Offset + Options.Length))
+				return Description + ": " + Options[index - Offset];
 
-			for (int i = 0; i < m_Children.Length; ++i)
+			for (int i = 0; i < Children.Length; ++i)
 			{
-				string opt = m_Children[i].FindByIndex(index);
+				string opt = Children[i].FindByIndex(index);
 
 				if (opt != null)
 					return opt;
@@ -717,7 +706,7 @@ namespace Server.Engines.ConPVP
 
 		public RulesetLayout FindByOption(string title, string option, ref int index)
 		{
-			if (title == null || m_Title == title)
+			if (title == null || Title == title)
 			{
 				index = GetOptionIndex(option);
 
@@ -727,9 +716,9 @@ namespace Server.Engines.ConPVP
 				title = null;
 			}
 
-			for (int i = 0; i < m_Children.Length; ++i)
+			for (int i = 0; i < Children.Length; ++i)
 			{
-				RulesetLayout layout = m_Children[i].FindByOption(title, option, ref index);
+				RulesetLayout layout = Children[i].FindByOption(title, option, ref index);
 
 				if (layout != null)
 					return layout;
@@ -740,7 +729,7 @@ namespace Server.Engines.ConPVP
 
 		public int GetOptionIndex(string option)
 		{
-			return Array.IndexOf(m_Options, option);
+			return Array.IndexOf(Options, option);
 		}
 
 		public void ComputeOffsets()
@@ -752,30 +741,30 @@ namespace Server.Engines.ConPVP
 
 		private int RecurseComputeOffsets(ref int offset)
 		{
-			m_Offset = offset;
+			Offset = offset;
 
-			offset += m_Options.Length;
-			m_TotalLength += m_Options.Length;
+			offset += Options.Length;
+			TotalLength += Options.Length;
 
-			for (int i = 0; i < m_Children.Length; ++i)
-				m_TotalLength += m_Children[i].RecurseComputeOffsets(ref offset);
+			for (int i = 0; i < Children.Length; ++i)
+				TotalLength += Children[i].RecurseComputeOffsets(ref offset);
 
-			return m_TotalLength;
+			return TotalLength;
 		}
 
-		public RulesetLayout(string title, string[] options) : this(title, title, new RulesetLayout[0], options)
+		public RulesetLayout(string title, string[] options) : this(title, title, Array.Empty<RulesetLayout>(), options)
 		{
 		}
 
-		public RulesetLayout(string title, string description, string[] options) : this(title, description, new RulesetLayout[0], options)
+		public RulesetLayout(string title, string description, string[] options) : this(title, description, Array.Empty<RulesetLayout>(), options)
 		{
 		}
 
-		public RulesetLayout(string title, RulesetLayout[] children) : this(title, title, children, new string[0])
+		public RulesetLayout(string title, RulesetLayout[] children) : this(title, title, children, Array.Empty<string>())
 		{
 		}
 
-		public RulesetLayout(string title, string description, RulesetLayout[] children) : this(title, description, children, new string[0])
+		public RulesetLayout(string title, string description, RulesetLayout[] children) : this(title, description, children, Array.Empty<string>())
 		{
 		}
 
@@ -785,13 +774,13 @@ namespace Server.Engines.ConPVP
 
 		public RulesetLayout(string title, string description, RulesetLayout[] children, string[] options)
 		{
-			m_Title = title;
-			m_Description = description;
-			m_Children = children;
-			m_Options = options;
+			Title = title;
+			Description = description;
+			Children = children;
+			Options = options;
 
 			for (int i = 0; i < children.Length; ++i)
-				children[i].m_Parent = this;
+				children[i].Parent = this;
 		}
 	}
 }

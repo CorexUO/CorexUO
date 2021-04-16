@@ -13,7 +13,7 @@ namespace Server.Mobiles
 		public override Type[] SharedList => new Type[] { typeof(RoyalGuardSurvivalKnife), typeof(ANecromancerShroud), typeof(LieutenantOfTheBritannianRoyalGuard) };
 		public override Type[] DecorativeList => new Type[] { typeof(LavaTile), typeof(DemonSkull) };
 
-		public override MonsterStatuetteType[] StatueTypes => new MonsterStatuetteType[] { };
+		public override MonsterStatuetteType[] StatueTypes => Array.Empty<MonsterStatuetteType>();
 
 		[Constructable]
 		public Semidar() : base(AIType.AI_Mage)

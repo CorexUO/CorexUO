@@ -1629,7 +1629,7 @@ namespace Server.Gumps
 				if (ips.Length != 0 && AccountHandler.IPTable.ContainsKey(ips[0]))
 					--AccountHandler.IPTable[ips[0]];
 
-				a.LoginIPs = new IPAddress[0];
+				a.LoginIPs = Array.Empty<IPAddress>();
 
 				notice = "All addresses in the list have been removed.";
 			}
@@ -1766,7 +1766,7 @@ namespace Server.Gumps
 							case 211:
 								{
 									TextRelay relay = info.GetTextEntry(0);
-									string text = (relay == null ? null : relay.Text.Trim());
+									string text = relay?.Text.Trim();
 
 									if (text == null || text.Length == 0)
 									{
@@ -1942,7 +1942,7 @@ namespace Server.Gumps
 									ArrayList results = new ArrayList();
 
 									TextRelay matchEntry = info.GetTextEntry(0);
-									string match = (matchEntry == null ? null : matchEntry.Text.Trim().ToLower());
+									string match = matchEntry?.Text.Trim().ToLower();
 									string notice = null;
 
 									if (match == null || match.Length == 0)
@@ -1996,7 +1996,7 @@ namespace Server.Gumps
 									}
 									else
 									{
-										from.SendGump(new AdminGump(from, AdminGumpPage.Clients, 0, results, notice == null ? (results.Count == 0 ? "Nothing matched your search terms." : null) : notice, null));
+										from.SendGump(new AdminGump(from, AdminGumpPage.Clients, 0, results, notice ?? (results.Count == 0 ? "Nothing matched your search terms." : null), null));
 									}
 
 									break;
@@ -2045,8 +2045,8 @@ namespace Server.Gumps
 									TextRelay unEntry = info.GetTextEntry(0);
 									TextRelay pwEntry = info.GetTextEntry(1);
 
-									string un = (unEntry == null ? null : unEntry.Text.Trim());
-									string pw = (pwEntry == null ? null : pwEntry.Text.Trim());
+									string un = unEntry?.Text.Trim();
+									string pw = pwEntry?.Text.Trim();
 
 									Account dispAccount = null;
 									string notice;
@@ -2075,7 +2075,7 @@ namespace Server.Gumps
 										}
 									}
 
-									from.SendGump(new AdminGump(from, dispAccount != null ? AdminGumpPage.AccountDetails_Information : m_PageType, m_ListPage, m_List, notice, dispAccount != null ? dispAccount : m_State));
+									from.SendGump(new AdminGump(from, dispAccount != null ? AdminGumpPage.AccountDetails_Information : m_PageType, m_ListPage, m_List, notice, dispAccount ?? m_State));
 									break;
 								}
 							case 7:
@@ -2083,7 +2083,7 @@ namespace Server.Gumps
 									ArrayList results;
 
 									TextRelay matchEntry = info.GetTextEntry(0);
-									string match = (matchEntry == null ? null : matchEntry.Text.Trim().ToLower());
+									string match = matchEntry?.Text.Trim().ToLower();
 									string notice = null;
 
 									if (match == null || match.Length == 0)
@@ -2107,7 +2107,7 @@ namespace Server.Gumps
 									if (results.Count == 1)
 										from.SendGump(new AdminGump(from, AdminGumpPage.AccountDetails_Information, 0, null, "One match found.", results[0]));
 									else
-										from.SendGump(new AdminGump(from, AdminGumpPage.Accounts, 0, results, notice == null ? (results.Count == 0 ? "Nothing matched your search terms." : null) : notice, new ArrayList()));
+										from.SendGump(new AdminGump(from, AdminGumpPage.Accounts, 0, results, notice ?? (results.Count == 0 ? "Nothing matched your search terms." : null), new ArrayList()));
 
 									break;
 								}
@@ -2141,8 +2141,8 @@ namespace Server.Gumps
 									TextRelay passwordEntry = info.GetTextEntry(0);
 									TextRelay confirmEntry = info.GetTextEntry(1);
 
-									string password = (passwordEntry == null ? null : passwordEntry.Text.Trim());
-									string confirm = (confirmEntry == null ? null : confirmEntry.Text.Trim());
+									string password = passwordEntry?.Text.Trim();
+									string confirm = confirmEntry?.Text.Trim();
 
 									string notice;
 									AdminGumpPage page = AdminGumpPage.AccountDetails_ChangePassword;
@@ -2248,7 +2248,7 @@ namespace Server.Gumps
 										break;
 
 									TextRelay entry = info.GetTextEntry(0);
-									string ip = (entry == null ? null : entry.Text.Trim());
+									string ip = entry?.Text.Trim();
 
 									string notice;
 
@@ -2298,19 +2298,16 @@ namespace Server.Gumps
 									if (a == null)
 										break;
 
-									AccessLevel newLevel;
-
-									switch (index)
+									AccessLevel newLevel = index switch
 									{
-										default:
-										case 20: newLevel = AccessLevel.Player; break;
-										case 21: newLevel = AccessLevel.Counselor; break;
-										case 22: newLevel = AccessLevel.GameMaster; break;
-										case 23: newLevel = AccessLevel.Seer; break;
-										case 24: newLevel = AccessLevel.Administrator; break;
-										case 33: newLevel = AccessLevel.Developer; break;
-										case 34: newLevel = AccessLevel.Owner; break;
-									}
+										21 => AccessLevel.Counselor,
+										22 => AccessLevel.GameMaster,
+										23 => AccessLevel.Seer,
+										24 => AccessLevel.Administrator,
+										33 => AccessLevel.Developer,
+										34 => AccessLevel.Owner,
+										_ => AccessLevel.Player,
+									};
 
 									if (newLevel < from.AccessLevel || from.AccessLevel == AccessLevel.Owner)
 									{
@@ -2525,7 +2522,7 @@ namespace Server.Gumps
 							case 0:
 								{
 									TextRelay matchEntry = info.GetTextEntry(0);
-									string match = (matchEntry == null ? null : matchEntry.Text.Trim());
+									string match = matchEntry?.Text.Trim();
 
 									string notice = null;
 									ArrayList results = new ArrayList();
@@ -2550,14 +2547,14 @@ namespace Server.Gumps
 									else if (results.Count > 1)
 										from.SendGump(new AdminGump(from, AdminGumpPage.Firewall, 0, results, string.Format("Search results for : {0}", match), m_State));
 									else
-										from.SendGump(new AdminGump(from, m_PageType, m_ListPage, m_List, notice == null ? "Nothing matched your search terms." : notice, m_State));
+										from.SendGump(new AdminGump(from, m_PageType, m_ListPage, m_List, notice ?? "Nothing matched your search terms.", m_State));
 
 									break;
 								}
 							case 1:
 								{
 									TextRelay relay = info.GetTextEntry(0);
-									string text = (relay == null ? null : relay.Text.Trim());
+									string text = relay?.Text.Trim();
 
 									if (text == null || text.Length == 0)
 									{

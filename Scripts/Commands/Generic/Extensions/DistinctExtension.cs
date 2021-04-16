@@ -6,7 +6,7 @@ namespace Server.Commands.Generic
 {
 	public sealed class DistinctExtension : BaseExtension
 	{
-		public static ExtensionInfo ExtInfo = new ExtensionInfo(30, "Distinct", -1, delegate () { return new DistinctExtension(); });
+		public static ExtensionInfo ExtInfo = new(30, "Distinct", -1, delegate () { return new DistinctExtension(); });
 
 		public static void Initialize()
 		{
@@ -61,7 +61,7 @@ namespace Server.Commands.Generic
 			if (m_Comparer == null)
 				throw new InvalidOperationException("The extension must first be optimized.");
 
-			ArrayList copy = new ArrayList(list);
+			ArrayList copy = new(list);
 
 			copy.Sort(m_Comparer);
 

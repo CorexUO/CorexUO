@@ -916,7 +916,7 @@ namespace Server
 
 		private class ZComparer : IComparer<Item>
 		{
-			public static readonly ZComparer Default = new ZComparer();
+			public static readonly ZComparer Default = new();
 
 			public int Compare(Item x, Item y)
 			{
@@ -1068,7 +1068,7 @@ namespace Server
 
 			StaticTile[] tiles = Tiles.GetStaticTiles(x, y, true);
 
-			List<Item> items = new List<Item>();
+			List<Item> items = new();
 
 			IPooledEnumerable<Item> eable = GetItemsInRange(new Point3D(x, y, 0), 0);
 
@@ -1532,7 +1532,7 @@ namespace Server
 			}
 		}
 
-		private readonly object tileLock = new object();
+		private readonly object tileLock = new();
 
 		public TileMatrix Tiles
 		{
@@ -1588,7 +1588,7 @@ namespace Server
 #if Map_NewEnumerables || Map_AllUpdates
 		public class NullEnumerable<T> : IPooledEnumerable<T>
 		{
-			public static readonly NullEnumerable<T> Instance = new NullEnumerable<T>();
+			public static readonly NullEnumerable<T> Instance = new();
 
 			private readonly IEnumerable<T> _Empty;
 
@@ -1613,7 +1613,7 @@ namespace Server
 
 		public sealed class PooledEnumerable<T> : IPooledEnumerable<T>, IDisposable
 		{
-			private static readonly Queue<PooledEnumerable<T>> _Buffer = new Queue<PooledEnumerable<T>>(0x400);
+			private static readonly Queue<PooledEnumerable<T>> _Buffer = new(0x400);
 
 			public static PooledEnumerable<T> Instantiate(Map map, Rectangle2D bounds, PooledEnumeration.Selector<T> selector)
 			{
@@ -1643,7 +1643,7 @@ namespace Server
 
 			private bool _IsDisposed;
 
-			private List<T> _Pool = new List<T>(0x40);
+			private List<T> _Pool = new(0x40);
 
 			public PooledEnumerable(IEnumerable<T> pool)
 			{
@@ -2478,7 +2478,7 @@ namespace Server
 			int height;
 			bool found;
 			Point3D p;
-			Point3DList path = new Point3DList();
+			Point3DList path = new();
 			TileFlag flags;
 
 			if (org == dest)
@@ -2610,7 +2610,7 @@ namespace Server
 				}
 			}
 
-			Rectangle2D rect = new Rectangle2D(pTop.m_X, pTop.m_Y, (pBottom.m_X - pTop.m_X) + 1, (pBottom.m_Y - pTop.m_Y) + 1);
+			Rectangle2D rect = new(pTop.m_X, pTop.m_Y, (pBottom.m_X - pTop.m_X) + 1, (pBottom.m_Y - pTop.m_Y) + 1);
 
 			IPooledEnumerable<Item> area = GetItemsInBounds(rect);
 

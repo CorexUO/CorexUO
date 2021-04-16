@@ -17,7 +17,7 @@ namespace Server.Mobiles
 										typeof( LieutenantOfTheBritannianRoyalGuard ) };
 		public override Type[] DecorativeList => new Type[] { typeof(Futon), typeof(SwampTile) };
 
-		public override MonsterStatuetteType[] StatueTypes => new MonsterStatuetteType[] { };
+		public override MonsterStatuetteType[] StatueTypes => Array.Empty<MonsterStatuetteType>();
 
 		public override WeaponAbility GetWeaponAbility()
 		{

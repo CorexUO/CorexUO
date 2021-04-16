@@ -70,9 +70,9 @@ namespace Server.Commands
 			bool multis = ((type & WipeType.Multis) != 0);
 			bool items = ((type & WipeType.Items) != 0);
 
-			List<IEntity> toDelete = new List<IEntity>();
+			List<IEntity> toDelete = new();
 
-			Rectangle2D rect = new Rectangle2D(start.X, start.Y, end.X - start.X + 1, end.Y - start.Y + 1);
+			Rectangle2D rect = new(start.X, start.Y, end.X - start.X + 1, end.Y - start.Y + 1);
 
 			IPooledEnumerable eable;
 
@@ -91,7 +91,7 @@ namespace Server.Commands
 					toDelete.Add(obj);
 				else if (multis && (obj is BaseMulti))
 					toDelete.Add(obj);
-				else if (mobiles && (obj is Mobile) && !((Mobile)obj).Player)
+				else if (mobiles && (obj is Mobile mobile) && !mobile.Player)
 					toDelete.Add(obj);
 			}
 

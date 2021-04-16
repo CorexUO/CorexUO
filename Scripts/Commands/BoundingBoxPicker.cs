@@ -54,7 +54,7 @@ namespace Server
 				else if (m_Map != null && m_Map != Map.Internal && m_Callback != null)
 				{
 					Point3D start = m_Store;
-					Point3D end = new Point3D(p);
+					Point3D end = new(p);
 
 					Utility.FixPoints(ref start, ref end);
 

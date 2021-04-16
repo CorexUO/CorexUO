@@ -23,7 +23,7 @@ namespace Server.Mobiles
 										typeof( Pier ),
 										typeof( DirtPatch )};
 
-		public override MonsterStatuetteType[] StatueTypes => new MonsterStatuetteType[] { };
+		public override MonsterStatuetteType[] StatueTypes => Array.Empty<MonsterStatuetteType>();
 
 		[Constructable]
 		public LordOaks() : base(AIType.AI_Mage, FightMode.Evil)

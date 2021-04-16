@@ -208,7 +208,7 @@ namespace Server.Commands
 
 		public static string IncreaseValue(Mobile from, object o, string[] args)
 		{
-			Type type = o.GetType();
+			_ = o.GetType();
 
 			object[] realObjs = new object[args.Length / 2];
 			PropertyInfo[] realProps = new PropertyInfo[args.Length / 2];
@@ -698,16 +698,11 @@ namespace Server
 
 	public sealed class Property
 	{
-		private readonly string m_Binding;
-
 		private PropertyInfo[] m_Chain;
-		private PropertyAccess m_Access;
 
-		public string Binding => m_Binding;
-
+		public string Binding { get; }
 		public bool IsBound => (m_Chain != null);
-
-		public PropertyAccess Access => m_Access;
+		public PropertyAccess Access { get; private set; }
 
 		public PropertyInfo[] Chain
 		{
@@ -742,7 +737,7 @@ namespace Server
 
 				bool isFinal = (i == (m_Chain.Length - 1));
 
-				PropertyAccess access = m_Access;
+				PropertyAccess access = Access;
 
 				if (!isFinal)
 					access |= PropertyAccess.Read;
@@ -767,7 +762,7 @@ namespace Server
 			if (IsBound)
 				throw new AlreadyBoundException(this);
 
-			string[] split = m_Binding.Split('.');
+			string[] split = Binding.Split('.');
 
 			PropertyInfo[] chain = new PropertyInfo[split.Length];
 
@@ -794,13 +789,13 @@ namespace Server
 					throw new ReadOnlyException(this);
 			}
 
-			m_Access = desiredAccess;
+			Access = desiredAccess;
 			m_Chain = chain;
 		}
 
 		public Property(string binding)
 		{
-			m_Binding = binding;
+			Binding = binding;
 		}
 
 		public Property(PropertyInfo[] chain)
@@ -811,7 +806,7 @@ namespace Server
 		public override string ToString()
 		{
 			if (!IsBound)
-				return m_Binding;
+				return Binding;
 
 			string[] toJoin = new string[m_Chain.Length];
 
@@ -823,7 +818,7 @@ namespace Server
 
 		public static Property Parse(Type type, string binding, PropertyAccess access)
 		{
-			Property prop = new Property(binding);
+			Property prop = new(binding);
 
 			prop.BindTo(type, access);
 

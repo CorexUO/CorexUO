@@ -111,7 +111,7 @@ namespace Server.Commands
 				return v;
 			}
 
-			private bool GetStaticFor(ConstructorInfo ctor, PropertyInfo prop, MethodInfo method)
+			private static bool GetStaticFor(ConstructorInfo ctor, PropertyInfo prop, MethodInfo method)
 			{
 				if (ctor != null)
 					return ctor.IsStatic;
@@ -129,7 +129,7 @@ namespace Server.Commands
 				return false;
 			}
 
-			private string GetNameFrom(ConstructorInfo ctor, PropertyInfo prop, MethodInfo method)
+			private static string GetNameFrom(ConstructorInfo ctor, PropertyInfo prop, MethodInfo method)
 			{
 				if (ctor != null)
 					return ctor.DeclaringType.Name;
@@ -196,7 +196,7 @@ namespace Server.Commands
 		{
 			if (name.IndexOfAny(ReplaceChars) >= 0)
 			{
-				StringBuilder sb = new StringBuilder(name);
+				StringBuilder sb = new(name);
 
 				for (int i = 0; i < ReplaceChars.Length; ++i)
 				{
@@ -273,7 +273,7 @@ namespace Server.Commands
 		public static string GetPair(Type varType, string name, bool ignoreRef)
 		{
 			string prepend = "";
-			StringBuilder append = new StringBuilder();
+			StringBuilder append = new();
 
 			Type realType = varType;
 
@@ -405,7 +405,7 @@ namespace Server.Commands
 			m_Types = new Dictionary<Type, TypeInfo>();
 			m_Namespaces = new Dictionary<string, List<TypeInfo>>();
 
-			List<Assembly> assemblies = new List<Assembly>
+			List<Assembly> assemblies = new()
 			{
 				Core.Assembly
 			};
@@ -1231,13 +1231,13 @@ namespace Server.Commands
 		#region Bodies
 		public static List<BodyEntry> LoadBodies()
 		{
-			List<BodyEntry> list = new List<BodyEntry>();
+			List<BodyEntry> list = new();
 
 			string path = Core.FindDataFile("models/models.txt");
 
 			if (File.Exists(path))
 			{
-				using (StreamReader ip = new StreamReader(path))
+				using (StreamReader ip = new(path))
 				{
 					string line;
 
@@ -1256,7 +1256,7 @@ namespace Server.Commands
 							ModelBodyType type = (ModelBodyType)Utility.ToInt32(split[1]);
 							string name = split[8];
 
-							BodyEntry entry = new BodyEntry(body, type, name);
+							BodyEntry entry = new(body, type, name);
 
 							if (!list.Contains(entry))
 								list.Add(entry);
@@ -1364,7 +1364,7 @@ namespace Server.Commands
 					html.WriteLine("      <table width=\"100%\" cellpadding=\"4\" cellspacing=\"1\">");
 					html.WriteLine("         <tr><td class=\"header\">Number</td><td class=\"header\">Text</td></tr>");
 
-					List<SpeechEntry> list = new List<SpeechEntry>(table.Values);
+					List<SpeechEntry> list = new(table.Values);
 					list.Sort(new SpeechEntrySorter());
 
 					for (int i = 0; i < list.Count; ++i)
@@ -1416,16 +1416,13 @@ namespace Server.Commands
 
 		private class SpeechEntry
 		{
-			private readonly int m_Index;
-			private readonly List<string> m_Strings;
-
-			public int Index => m_Index;
-			public List<string> Strings => m_Strings;
+			public int Index { get; }
+			public List<string> Strings { get; }
 
 			public SpeechEntry(int index)
 			{
-				m_Index = index;
-				m_Strings = new List<string>();
+				Index = index;
+				Strings = new List<string>();
 			}
 		}
 
@@ -1439,7 +1436,7 @@ namespace Server.Commands
 
 		private static List<Dictionary<int, SpeechEntry>> LoadSpeechFile()
 		{
-			List<Dictionary<int, SpeechEntry>> tables = new List<Dictionary<int, SpeechEntry>>();
+			List<Dictionary<int, SpeechEntry>> tables = new();
 			int lastIndex = -1;
 
 			Dictionary<int, SpeechEntry> table = null;
@@ -1448,9 +1445,9 @@ namespace Server.Commands
 
 			if (File.Exists(path))
 			{
-				using (FileStream ip = new FileStream(path, FileMode.Open, FileAccess.Read, FileShare.Read))
+				using (FileStream ip = new(path, FileMode.Open, FileAccess.Read, FileShare.Read))
 				{
-					BinaryReader bin = new BinaryReader(ip);
+					BinaryReader bin = new(ip);
 
 					while (bin.PeekChar() >= 0)
 					{
@@ -1489,25 +1486,19 @@ namespace Server.Commands
 
 		public class DocCommandEntry
 		{
-			private readonly AccessLevel m_AccessLevel;
-			private readonly string m_Name;
-			private readonly string[] m_Aliases;
-			private readonly string m_Usage;
-			private readonly string m_Description;
-
-			public AccessLevel AccessLevel => m_AccessLevel;
-			public string Name => m_Name;
-			public string[] Aliases => m_Aliases;
-			public string Usage => m_Usage;
-			public string Description => m_Description;
+			public AccessLevel AccessLevel { get; }
+			public string Name { get; }
+			public string[] Aliases { get; }
+			public string Usage { get; }
+			public string Description { get; }
 
 			public DocCommandEntry(AccessLevel accessLevel, string name, string[] aliases, string usage, string description)
 			{
-				m_AccessLevel = accessLevel;
-				m_Name = name;
-				m_Aliases = aliases;
-				m_Usage = usage;
-				m_Description = description;
+				AccessLevel = accessLevel;
+				Name = name;
+				Aliases = aliases;
+				Usage = usage;
+				Description = description;
 			}
 		}
 
@@ -1538,8 +1529,8 @@ namespace Server.Commands
 				html.WriteLine("      <h4><a href=\"index.html\">Back to the index</a></h4>");
 				html.WriteLine("      <h2>Commands</h2>");
 
-				List<CommandEntry> commands = new List<CommandEntry>(CommandSystem.Entries.Values);
-				List<DocCommandEntry> list = new List<DocCommandEntry>();
+				List<CommandEntry> commands = new(CommandSystem.Entries.Values);
+				List<DocCommandEntry> list = new();
 
 				commands.Sort();
 				commands.Reverse();
@@ -1601,7 +1592,7 @@ namespace Server.Commands
 
 					if (command.Supports != CommandSupport.Single)
 					{
-						StringBuilder sb = new StringBuilder(50 + desc.Length);
+						StringBuilder sb = new(50 + desc.Length);
 
 						sb.Append("Modifiers: ");
 
@@ -1763,7 +1754,7 @@ namespace Server.Commands
 				if (nspace == null || type.IsSpecialName)
 					continue;
 
-				TypeInfo info = new TypeInfo(type);
+				TypeInfo info = new(type);
 				m_Types[type] = info;
 
 				m_Namespaces.TryGetValue(nspace, out List<TypeInfo> nspaces);
@@ -1780,7 +1771,7 @@ namespace Server.Commands
 					m_Types.TryGetValue(baseType, out TypeInfo baseInfo);
 
 					if (baseInfo == null)
-						m_Types[baseType] = baseInfo = new TypeInfo(baseType);
+						m_Types[baseType] = baseInfo = new(baseType);
 
 					if (baseInfo.m_Derived == null)
 						baseInfo.m_Derived = new List<TypeInfo>();
@@ -1853,10 +1844,10 @@ namespace Server.Commands
 
 		private static void DocumentConstructableObjects()
 		{
-			List<TypeInfo> types = new List<TypeInfo>(m_Types.Values);
+			List<TypeInfo> types = new(m_Types.Values);
 			types.Sort(new TypeComparer());
 
-			ArrayList items = new ArrayList(), mobiles = new ArrayList();
+			ArrayList items = new(), mobiles = new();
 
 			for (int i = 0; i < types.Count; ++i)
 			{
@@ -1991,7 +1982,7 @@ namespace Server.Commands
 
 			if (paramType.IsEnum)
 			{
-				StringBuilder sb = new StringBuilder();
+				StringBuilder sb = new();
 
 				sb.AppendFormat("Enumeration value or name. Possible named values include:{0}", HtmlNewLine);
 
@@ -2012,7 +2003,7 @@ namespace Server.Commands
 
 					if (attr != null)
 					{
-						StringBuilder sb = new StringBuilder();
+						StringBuilder sb = new();
 
 						sb.AppendFormat("Enumeration value or name. Possible named values include:{0}", HtmlNewLine);
 
@@ -2027,7 +2018,7 @@ namespace Server.Commands
 			}
 			else if (paramType == typeofMap)
 			{
-				StringBuilder sb = new StringBuilder();
+				StringBuilder sb = new();
 
 				sb.AppendFormat("Enumeration value or name. Possible named values include:{0}", HtmlNewLine);
 
@@ -2070,7 +2061,7 @@ namespace Server.Commands
 				indexHtml.WriteLine("      <h4><a href=\"index.html\">Back to the index</a></h4>");
 				indexHtml.WriteLine("      <h2>Namespaces</h2>");
 
-				SortedList<string, List<TypeInfo>> nspaces = new SortedList<string, List<TypeInfo>>(m_Namespaces);
+				SortedList<string, List<TypeInfo>> nspaces = new(m_Namespaces);
 
 				foreach (KeyValuePair<string, List<TypeInfo>> kvp in nspaces)
 				{
@@ -2416,13 +2407,13 @@ namespace Server.Commands
 				{
 					string rootType = type.Name.Substring(0, index);
 
-					StringBuilder nameBuilder = new StringBuilder(rootType);
-					StringBuilder fnamBuilder = new StringBuilder("docs/types/" + Docs.SanitizeType(rootType));
+					StringBuilder nameBuilder = new(rootType);
+					StringBuilder fnamBuilder = new("docs/types/" + Docs.SanitizeType(rootType));
 					StringBuilder linkBuilder;
 					if (DontLink(type))//if( DontLink( rootType ) )
-						linkBuilder = new StringBuilder("<font color=\"blue\">" + rootType + "</font>");
+						linkBuilder = new("<font color=\"blue\">" + rootType + "</font>");
 					else
-						linkBuilder = new StringBuilder("<a href=\"" + "@directory@" + rootType + "-T-.html\">" + rootType + "</a>");
+						linkBuilder = new("<a href=\"" + "@directory@" + rootType + "-T-.html\">" + rootType + "</a>");
 
 					nameBuilder.Append("&lt;");
 					fnamBuilder.Append("-");
@@ -2481,7 +2472,7 @@ namespace Server.Commands
 		{
 			bool anonymousType = false;
 			if (name.Contains("<")) anonymousType = true;
-			StringBuilder sb = new StringBuilder(name);
+			StringBuilder sb = new(name);
 			for (int i = 0; i < ReplaceChars.Length; ++i) { sb.Replace(ReplaceChars[i], '-'); }
 
 			if (anonymousType) return "(Anonymous-Type)" + sb.ToString();
@@ -2551,31 +2542,27 @@ namespace Server.Commands
 
 	public class BodyEntry
 	{
-		private readonly Body m_Body;
-		private readonly ModelBodyType m_BodyType;
-		private readonly string m_Name;
-
-		public Body Body => m_Body;
-		public ModelBodyType BodyType => m_BodyType;
-		public string Name => m_Name;
+		public Body Body { get; }
+		public ModelBodyType BodyType { get; }
+		public string Name { get; }
 
 		public BodyEntry(Body body, ModelBodyType bodyType, string name)
 		{
-			m_Body = body;
-			m_BodyType = bodyType;
-			m_Name = name;
+			Body = body;
+			BodyType = bodyType;
+			Name = name;
 		}
 
 		public override bool Equals(object obj)
 		{
 			BodyEntry e = (BodyEntry)obj;
 
-			return (m_Body == e.m_Body && m_BodyType == e.m_BodyType && m_Name == e.m_Name);
+			return (Body == e.Body && BodyType == e.BodyType && Name == e.Name);
 		}
 
 		public override int GetHashCode()
 		{
-			return m_Body.BodyID ^ (int)m_BodyType ^ m_Name.GetHashCode();
+			return Body.BodyID ^ (int)BodyType ^ Name.GetHashCode();
 		}
 	}
 

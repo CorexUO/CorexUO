@@ -13,55 +13,13 @@ namespace Server.Commands.Generic
 
 	public abstract class BaseCommand
 	{
-		private string[] m_Commands;
-		private AccessLevel m_AccessLevel;
-		private CommandSupport m_Implementors;
-		private ObjectTypes m_ObjectTypes;
-		private bool m_ListOptimized;
-		private string m_Usage;
-		private string m_Description;
-
-		public bool ListOptimized
-		{
-			get => m_ListOptimized;
-			set => m_ListOptimized = value;
-		}
-
-		public string[] Commands
-		{
-			get => m_Commands;
-			set => m_Commands = value;
-		}
-
-		public string Usage
-		{
-			get => m_Usage;
-			set => m_Usage = value;
-		}
-
-		public string Description
-		{
-			get => m_Description;
-			set => m_Description = value;
-		}
-
-		public AccessLevel AccessLevel
-		{
-			get => m_AccessLevel;
-			set => m_AccessLevel = value;
-		}
-
-		public ObjectTypes ObjectTypes
-		{
-			get => m_ObjectTypes;
-			set => m_ObjectTypes = value;
-		}
-
-		public CommandSupport Supports
-		{
-			get => m_Implementors;
-			set => m_Implementors = value;
-		}
+		public bool ListOptimized { get; set; }
+		public string[] Commands { get; set; }
+		public string Usage { get; set; }
+		public string Description { get; set; }
+		public AccessLevel AccessLevel { get; set; }
+		public ObjectTypes ObjectTypes { get; set; }
+		public CommandSupport Supports { get; set; }
 
 		public BaseCommand()
 		{
@@ -177,16 +135,16 @@ namespace Server.Commands.Generic
 				{
 					object obj = m_Responses[i];
 
-					if (obj is MessageEntry)
+					if (obj is MessageEntry entry)
 					{
-						from.SendMessage(((MessageEntry)obj).ToString());
+						from.SendMessage(entry.ToString());
 
 						if (flushToLog)
-							CommandLogging.WriteLine(from, ((MessageEntry)obj).ToString());
+							CommandLogging.WriteLine(from, entry.ToString());
 					}
-					else if (obj is Gump)
+					else if (obj is Gump gump)
 					{
-						from.SendGump((Gump)obj);
+						from.SendGump(gump);
 					}
 				}
 			}

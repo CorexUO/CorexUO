@@ -95,7 +95,7 @@ namespace Server.Commands
 		public static string[] Split(string value)
 		{
 			char[] array = value.ToCharArray();
-			List<string> list = new List<string>();
+			List<string> list = new();
 			int start = 0;
 
 			while (start < array.Length)
@@ -197,7 +197,7 @@ namespace Server.Commands
 					{
 						if (entry.Handler != null)
 						{
-							CommandEventArgs e = new CommandEventArgs(from, command, argString, args);
+							CommandEventArgs e = new(from, command, argString, args);
 							entry.Handler(e);
 							EventSink.InvokeCommand(e);
 						}

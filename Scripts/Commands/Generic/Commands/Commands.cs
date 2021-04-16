@@ -58,13 +58,11 @@ namespace Server.Commands.Generic
 			Register(new TraceLockdownCommand());
 		}
 
-		private static readonly List<BaseCommand> m_AllCommands = new List<BaseCommand>();
-
-		public static List<BaseCommand> AllCommands => m_AllCommands;
+		public static List<BaseCommand> AllCommands { get; } = new List<BaseCommand>();
 
 		public static void Register(BaseCommand command)
 		{
-			m_AllCommands.Add(command);
+			AllCommands.Add(command);
 
 			List<BaseCommandImplementor> impls = BaseCommandImplementor.Implementors;
 
@@ -406,7 +404,7 @@ namespace Server.Commands.Generic
 			if (e.Arguments.Length == 0)
 				return;
 
-			List<Container> packs = new List<Container>(list.Count);
+			List<Container> packs = new(list.Count);
 
 			for (int i = 0; i < list.Count; ++i)
 			{
@@ -517,7 +515,7 @@ namespace Server.Commands.Generic
 			//CommandLogging.WriteLine( from, "{0} {1} teleporting to {2}", from.AccessLevel, CommandLogging.Format( from ), new Point3D( p ) );
 
 			Point3D fromLoc = from.Location;
-			Point3D toLoc = new Point3D(p);
+			Point3D toLoc = new(p);
 
 			from.Location = toLoc;
 			from.ProcessDelta();

@@ -37,7 +37,7 @@ namespace Server.Commands
 
 		public static void Invoke(Mobile from, Point3D start, Point3D end, string[] args, List<Container> packs, bool outline, bool mapAvg)
 		{
-			StringBuilder sb = new StringBuilder();
+			StringBuilder sb = new();
 
 			sb.AppendFormat("{0} {1} building ", from.AccessLevel, CommandLogging.Format(from));
 
@@ -316,7 +316,7 @@ namespace Server.Commands
 
 				bool sendError = true;
 
-				StringBuilder sb = new StringBuilder();
+				StringBuilder sb = new();
 				sb.Append("Serials: ");
 
 				if (packs != null)
@@ -411,7 +411,7 @@ namespace Server.Commands
 		{
 			ParameterInfo[] paramList = ctor.GetParameters();
 
-			StringBuilder sb = new StringBuilder();
+			StringBuilder sb = new();
 
 			sb.Append(type.Name);
 
@@ -450,7 +450,7 @@ namespace Server.Commands
 					else if (p is Mobile)
 						p = ((Mobile)p).Location;
 
-					Point3D point = new Point3D(p);
+					Point3D point = new(p);
 					Add.Invoke(from, point, point, m_Args);
 				}
 			}
@@ -513,8 +513,8 @@ namespace Server.Commands
 		{
 			if (e.Length >= 6)
 			{
-				Point3D p = new Point3D(e.Mobile.X + e.GetInt32(0), e.Mobile.Y + e.GetInt32(1), e.Mobile.Z + e.GetInt32(4));
-				Point3D p2 = new Point3D(p.X + e.GetInt32(2) - 1, p.Y + e.GetInt32(3) - 1, p.Z);
+				Point3D p = new(e.Mobile.X + e.GetInt32(0), e.Mobile.Y + e.GetInt32(1), e.Mobile.Z + e.GetInt32(4));
+				Point3D p2 = new(p.X + e.GetInt32(2) - 1, p.Y + e.GetInt32(3) - 1, p.Z);
 
 				string[] subArgs = new string[e.Length - 5];
 
@@ -533,8 +533,8 @@ namespace Server.Commands
 		{
 			if (e.Length >= 6)
 			{
-				Point3D p = new Point3D(e.GetInt32(0), e.GetInt32(1), e.GetInt32(4));
-				Point3D p2 = new Point3D(p.X + e.GetInt32(2) - 1, p.Y + e.GetInt32(3) - 1, e.GetInt32(4));
+				Point3D p = new(e.GetInt32(0), e.GetInt32(1), e.GetInt32(4));
+				Point3D p2 = new(p.X + e.GetInt32(2) - 1, p.Y + e.GetInt32(3) - 1, e.GetInt32(4));
 
 				string[] subArgs = new string[e.Length - 5];
 

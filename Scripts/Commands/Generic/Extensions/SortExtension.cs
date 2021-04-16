@@ -6,7 +6,7 @@ namespace Server.Commands.Generic
 {
 	public sealed class SortExtension : BaseExtension
 	{
-		public static ExtensionInfo ExtInfo = new ExtensionInfo(40, "Order", -1, delegate () { return new SortExtension(); });
+		public static ExtensionInfo ExtInfo = new(40, "Order", -1, delegate () { return new SortExtension(); });
 
 		public static void Initialize()
 		{
@@ -87,7 +87,7 @@ namespace Server.Commands.Generic
 					}
 				}
 
-				Property property = new Property(binding);
+				Property property = new(binding);
 
 				m_Orders.Add(new OrderInfo(property, isAscending));
 			}

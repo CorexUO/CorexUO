@@ -65,7 +65,7 @@ namespace Server.Commands
 			if (e.Mobile is PlayerMobile)
 			{
 				PlayerMobile pm = (PlayerMobile)e.Mobile;
-				List<Mobile> list = new List<Mobile>(pm.VisibilityList);
+				List<Mobile> list = new(pm.VisibilityList);
 
 				pm.VisibilityList.Clear();
 				pm.SendMessage("Your visibility list has been cleared.");

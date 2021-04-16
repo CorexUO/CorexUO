@@ -108,7 +108,7 @@ namespace Server.Commands.Generic
 
 			if (okay)
 			{
-				List<HouseFoundation> foundations = new List<HouseFoundation>();
+				List<HouseFoundation> foundations = new();
 				flushToLog = (list.Count > 20);
 
 				for (int i = 0; i < list.Count; ++i)

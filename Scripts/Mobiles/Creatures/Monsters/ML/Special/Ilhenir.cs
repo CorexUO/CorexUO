@@ -12,7 +12,7 @@ namespace Server.Mobiles
 	{
 		public override ChampionSkullType SkullType => ChampionSkullType.Pain;
 
-		public override Type[] UniqueList => new Type[] { };
+		public override Type[] UniqueList => Array.Empty<Type>();
 		public override Type[] SharedList => new Type[] {     typeof( ANecromancerShroud ),
 										typeof( LieutenantOfTheBritannianRoyalGuard ),
 										typeof( OblivionsNeedle ),
@@ -309,16 +309,11 @@ namespace Server.Mobiles
 
 	public class StainedOoze : BaseItem
 	{
-		private bool m_Corrosive;
 		private Timer m_Timer;
 		private int m_Ticks;
 
 		[CommandProperty(AccessLevel.GameMaster)]
-		public bool Corrosive
-		{
-			get => m_Corrosive;
-			set => m_Corrosive = value;
-		}
+		public bool Corrosive { get; set; }
 
 		[Constructable]
 		public StainedOoze()
@@ -333,7 +328,7 @@ namespace Server.Mobiles
 			Movable = false;
 			Hue = 0x95;
 
-			m_Corrosive = corrosive;
+			Corrosive = corrosive;
 			m_Timer = Timer.DelayCall(TimeSpan.Zero, TimeSpan.FromSeconds(1), OnTick);
 			m_Ticks = 0;
 		}
@@ -382,7 +377,7 @@ namespace Server.Mobiles
 
 		public void Damage(Mobile m)
 		{
-			if (m_Corrosive)
+			if (Corrosive)
 			{
 				List<Item> items = m.Items;
 				bool damaged = false;
@@ -419,7 +414,7 @@ namespace Server.Mobiles
 
 			writer.Write(0); // version
 
-			writer.Write(m_Corrosive);
+			writer.Write(Corrosive);
 		}
 
 		public override void Deserialize(GenericReader reader)
@@ -428,7 +423,7 @@ namespace Server.Mobiles
 
 			int version = reader.ReadInt();
 
-			m_Corrosive = reader.ReadBool();
+			Corrosive = reader.ReadBool();
 
 			m_Timer = Timer.DelayCall(TimeSpan.Zero, TimeSpan.FromSeconds(1), OnTick);
 			m_Ticks = (ItemID == 0x122A) ? 0 : 30;

@@ -24,7 +24,7 @@ namespace Server.Commands
 		{
 			try
 			{
-				using (StreamWriter sw = new StreamWriter("profiles.log", true))
+				using (StreamWriter sw = new("profiles.log", true))
 				{
 					sw.WriteLine("# Dump on {0:f}", DateTime.UtcNow);
 					sw.WriteLine("# Core profiling for " + Core.ProfileTime);
@@ -73,7 +73,7 @@ namespace Server.Commands
 		{
 			try
 			{
-				using (StreamWriter sw = new StreamWriter("timerdump.log", true))
+				using (StreamWriter sw = new("timerdump.log", true))
 					Timer.DumpInfo(sw);
 			}
 			catch
@@ -129,9 +129,9 @@ namespace Server.Commands
 		[Description("Generates a log file detailing all item and mobile types in the world.")]
 		public static void CountObjects_OnCommand(CommandEventArgs e)
 		{
-			using (StreamWriter op = new StreamWriter("objects.log"))
+			using (StreamWriter op = new("objects.log"))
 			{
-				Hashtable table = new Hashtable();
+				Hashtable table = new();
 
 				foreach (Item item in World.Items.Values)
 				{
@@ -145,7 +145,7 @@ namespace Server.Commands
 						table[type] = 1 + (int)o;
 				}
 
-				ArrayList items = new ArrayList(table);
+				ArrayList items = new(table);
 
 				table.Clear();
 
@@ -161,7 +161,7 @@ namespace Server.Commands
 						table[type] = 1 + (int)o;
 				}
 
-				ArrayList mobiles = new ArrayList(table);
+				ArrayList mobiles = new(table);
 
 				items.Sort(new CountSorter());
 				mobiles.Sort(new CountSorter());
@@ -191,7 +191,7 @@ namespace Server.Commands
 		[Description("Generates a log file describing all items using expanded memory.")]
 		public static void TraceExpanded_OnCommand(CommandEventArgs e)
 		{
-			Hashtable typeTable = new Hashtable();
+			Hashtable typeTable = new();
 
 			foreach (Item item in World.Items.Values)
 			{
@@ -242,7 +242,7 @@ namespace Server.Commands
 
 			try
 			{
-				using (StreamWriter op = new StreamWriter("expandedItems.log", true))
+				using (StreamWriter op = new("expandedItems.log", true))
 				{
 					string[] names = new string[]
 					{
@@ -257,7 +257,7 @@ namespace Server.Commands
 						"Spawner"
 					};
 
-					ArrayList list = new ArrayList(typeTable);
+					ArrayList list = new(typeTable);
 
 					list.Sort(new CountSorter());
 
@@ -288,7 +288,7 @@ namespace Server.Commands
 		public static void TraceInternal_OnCommand(CommandEventArgs e)
 		{
 			int totalCount = 0;
-			Hashtable table = new Hashtable();
+			Hashtable table = new();
 
 			foreach (Item item in World.Items.Values)
 			{
@@ -307,7 +307,7 @@ namespace Server.Commands
 				parms[1] += item.Amount;
 			}
 
-			using (StreamWriter op = new StreamWriter("internal.log"))
+			using (StreamWriter op = new("internal.log"))
 			{
 				op.WriteLine("# {0} items found", totalCount);
 				op.WriteLine("# {0} different types", table.Count);
@@ -337,9 +337,9 @@ namespace Server.Commands
 		{
 			try
 			{
-				ArrayList types = new ArrayList();
+				ArrayList types = new();
 
-				using (BinaryReader bin = new BinaryReader(new FileStream(string.Format("Saves/{0}/{0}.tdb", type), FileMode.Open, FileAccess.Read, FileShare.Read)))
+				using (BinaryReader bin = new(new FileStream(string.Format("Saves/{0}/{0}.tdb", type), FileMode.Open, FileAccess.Read, FileShare.Read)))
 				{
 					int count = bin.ReadInt32();
 
@@ -349,9 +349,9 @@ namespace Server.Commands
 
 				long total = 0;
 
-				Hashtable table = new Hashtable();
+				Hashtable table = new();
 
-				using (BinaryReader bin = new BinaryReader(new FileStream(string.Format("Saves/{0}/{0}.idx", type), FileMode.Open, FileAccess.Read, FileShare.Read)))
+				using (BinaryReader bin = new(new FileStream(string.Format("Saves/{0}/{0}.idx", type), FileMode.Open, FileAccess.Read, FileShare.Read)))
 				{
 					int count = bin.ReadInt32();
 
@@ -378,11 +378,11 @@ namespace Server.Commands
 					}
 				}
 
-				ArrayList list = new ArrayList(table);
+				ArrayList list = new(table);
 
 				list.Sort(new CountSorter());
 
-				using (StreamWriter op = new StreamWriter(opFile))
+				using (StreamWriter op = new(opFile))
 				{
 					op.WriteLine("# Profile of world {0}", type);
 					op.WriteLine("# Generated on {0}", DateTime.UtcNow);

@@ -10,15 +10,10 @@ namespace Server.Mobiles
 		private int m_MountedID;
 		private int m_RegularID;
 		private Mobile m_Rider;
-		private bool m_IsRewardItem;
 		private bool m_IsDonationItem;
 
 		[CommandProperty(AccessLevel.GameMaster)]
-		public bool IsRewardItem
-		{
-			get => m_IsRewardItem;
-			set => m_IsRewardItem = value;
-		}
+		public bool IsRewardItem { get; set; }
 
 		public override double DefaultWeight => 1.0;
 
@@ -51,8 +46,8 @@ namespace Server.Mobiles
 				list.Add("Donation Ethereal");
 				list.Add("7.5 sec slower cast time if not a 9mo. Veteran");
 			}
-			if (Core.ML && m_IsRewardItem)
-				list.Add(RewardSystem.GetRewardYearLabel(this, new object[] { })); // X Year Veteran Reward
+			if (Core.ML && IsRewardItem)
+				list.Add(RewardSystem.GetRewardYearLabel(this, Array.Empty<object>())); // X Year Veteran Reward
 		}
 
 		[CommandProperty(AccessLevel.GameMaster)]
@@ -118,7 +113,7 @@ namespace Server.Mobiles
 				from.SayTo(from, 1010095); // This must be on your person to use.
 				return false;
 			}
-			else if (m_IsRewardItem && !RewardSystem.CheckIsUsableBy(from, this, null))
+			else if (IsRewardItem && !RewardSystem.CheckIsUsableBy(from, this, null))
 			{
 				// CheckIsUsableBy sends the message
 				return false;
@@ -180,7 +175,7 @@ namespace Server.Mobiles
 			writer.Write(0); // version
 
 			writer.Write(m_IsDonationItem);
-			writer.Write(m_IsRewardItem);
+			writer.Write(IsRewardItem);
 
 			writer.Write(m_MountedID);
 			writer.Write(m_RegularID);
@@ -199,7 +194,7 @@ namespace Server.Mobiles
 				case 0:
 					{
 						m_IsDonationItem = reader.ReadBool();
-						m_IsRewardItem = reader.ReadBool();
+						IsRewardItem = reader.ReadBool();
 
 						m_MountedID = reader.ReadInt();
 						m_RegularID = reader.ReadInt();

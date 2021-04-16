@@ -79,7 +79,7 @@ namespace Server.Commands
 					}
 					else
 					{
-						Hashtable propertyChains = new Hashtable();
+						Hashtable propertyChains = new();
 
 						usedList = new ArrayList(list.Count);
 
@@ -168,7 +168,7 @@ namespace Server.Commands
 		[Description("Allows multiple commands to be run at the same time.")]
 		public static void Batch_OnCommand(CommandEventArgs e)
 		{
-			Batch batch = new Batch();
+			Batch batch = new();
 
 			e.Mobile.SendGump(new BatchGump(e.Mobile, batch));
 		}
@@ -194,7 +194,7 @@ namespace Server.Commands
 			{
 				argString = "";
 				command = Command.ToLower();
-				args = new string[0];
+				args = Array.Empty<string>();
 			}
 		}
 

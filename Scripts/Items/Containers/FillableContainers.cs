@@ -611,9 +611,7 @@ namespace Server.Items
 
 	public class FillableBvrge : FillableEntry
 	{
-		private readonly BeverageType m_Content;
-
-		public BeverageType Content => m_Content;
+		public BeverageType Content { get; }
 
 		public FillableBvrge(Type type, BeverageType content)
 			: this(1, type, content)
@@ -623,7 +621,7 @@ namespace Server.Items
 		public FillableBvrge(int weight, Type type, BeverageType content)
 			: base(weight, type)
 		{
-			m_Content = content;
+			Content = content;
 		}
 
 		public override Item Construct()
@@ -634,11 +632,11 @@ namespace Server.Items
 
 			if (m_Types[index] == typeof(BeverageBottle))
 			{
-				item = new BeverageBottle(m_Content);
+				item = new BeverageBottle(Content);
 			}
 			else if (m_Types[index] == typeof(Jug))
 			{
-				item = new Jug(m_Content);
+				item = new Jug(Content);
 			}
 			else
 			{
@@ -648,7 +646,7 @@ namespace Server.Items
 				{
 					BaseBeverage bev = (BaseBeverage)item;
 
-					bev.Content = m_Content;
+					bev.Content = Content;
 					bev.Quantity = bev.MaxQuantity;
 				}
 			}
@@ -676,21 +674,18 @@ namespace Server.Items
 
 	public class FillableContent
 	{
-		private readonly int m_Level;
-		private readonly Type[] m_Vendors;
-
 		private readonly FillableEntry[] m_Entries;
 		private readonly int m_Weight;
 
-		public int Level => m_Level;
-		public Type[] Vendors => m_Vendors;
+		public int Level { get; }
+		public Type[] Vendors { get; }
 
 		public FillableContentType TypeID => Lookup(this);
 
 		public FillableContent(int level, Type[] vendors, FillableEntry[] entries)
 		{
-			m_Level = level;
-			m_Vendors = vendors;
+			Level = level;
+			Vendors = vendors;
 			m_Entries = entries;
 
 			for (int i = 0; i < entries.Length; ++i)
@@ -753,9 +748,7 @@ namespace Server.Items
 
 		public static FillableContent ArtisanGuild = new FillableContent(
 			1,
-			new Type[]
-			{
-			},
+			Array.Empty<Type>(),
 			new FillableEntry[]
 			{
 				new FillableEntry( 1, typeof( PaintsAndBrush ) ),
@@ -996,9 +989,7 @@ namespace Server.Items
 
 		public static FillableContent Guard = new FillableContent(
 			3,
-			new Type[]
-			{
-			},
+			Array.Empty<Type>(),
 			new FillableEntry[]
 			{
 				new FillableEntry( 12, Loot.ArmorTypes ),
@@ -1041,9 +1032,7 @@ namespace Server.Items
 
 		public static FillableContent Inn = new FillableContent(
 			1,
-			new Type[]
-			{
-			},
+			Array.Empty<Type>(),
 			new FillableEntry[]
 			{
 				new FillableEntry( 1, typeof( Candle ) ),
@@ -1164,9 +1153,7 @@ namespace Server.Items
 
 		public static FillableContent Mill = new FillableContent(
 			1,
-			new Type[]
-			{
-			},
+			Array.Empty<Type>(),
 			new FillableEntry[]
 			{
 				new FillableEntry( 1, typeof( SackFlour ) )
@@ -1189,9 +1176,7 @@ namespace Server.Items
 
 		public static FillableContent Observatory = new FillableContent(
 			1,
-			new Type[]
-			{
-			},
+			Array.Empty<Type>(),
 			new FillableEntry[]
 			{
 				new FillableEntry( 2, typeof( Sextant ) ),
@@ -1201,9 +1186,7 @@ namespace Server.Items
 
 		public static FillableContent Painter = new FillableContent(
 			1,
-			new Type[]
-			{
-			},
+			Array.Empty<Type>(),
 			new FillableEntry[]
 			{
 				new FillableEntry( 1, typeof( PaintsAndBrush ) ),
@@ -1483,8 +1466,8 @@ namespace Server.Items
 				{
 					FillableContent fill = m_ContentTypes[i];
 
-					for (int j = 0; j < fill.m_Vendors.Length; ++j)
-						m_AcquireTable[fill.m_Vendors[j]] = fill;
+					for (int j = 0; j < fill.Vendors.Length; ++j)
+						m_AcquireTable[fill.Vendors[j]] = fill;
 				}
 			}
 

@@ -1043,7 +1043,7 @@ namespace Server.Commands
 			}
 		}
 
-		private static readonly string[] m_EmptyParams = new string[0];
+		private static readonly string[] m_EmptyParams = Array.Empty<string>();
 
 		public static DecorationListMag Read(StreamReader ip)
 		{

@@ -719,6 +719,7 @@ namespace Server.Engines.Craft
 		}
 	}
 
+	[AttributeUsage(AttributeTargets.Class)]
 	public class ForgeAttribute : Attribute
 	{
 		public ForgeAttribute()
@@ -726,6 +727,7 @@ namespace Server.Engines.Craft
 		}
 	}
 
+	[AttributeUsage(AttributeTargets.Class)]
 	public class AnvilAttribute : Attribute
 	{
 		public AnvilAttribute()

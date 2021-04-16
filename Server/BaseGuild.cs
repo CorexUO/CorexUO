@@ -62,7 +62,7 @@ namespace Server.Guilds
 		public static List<BaseGuild> Search(string find)
 		{
 			string[] words = find.ToLower().Split(' ');
-			List<BaseGuild> results = new List<BaseGuild>();
+			List<BaseGuild> results = new();
 
 			foreach (BaseGuild g in World.Guilds.Values)
 			{

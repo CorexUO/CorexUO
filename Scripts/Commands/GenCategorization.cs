@@ -42,7 +42,7 @@ namespace Server.Commands
 		[Description("Rebuilds the categorization data file used by the Add command.")]
 		public static void RebuildCategorization_OnCommand(CommandEventArgs e)
 		{
-			CategoryEntry root = new CategoryEntry(null, "Add Menu", new CategoryEntry[] { Items, Mobiles });
+			CategoryEntry root = new(null, "Add Menu", new CategoryEntry[] { Items, Mobiles });
 
 			Export(root, "Data/objects.xml", "Objects");
 
@@ -59,7 +59,7 @@ namespace Server.Commands
 
 		public static void Export(CategoryEntry ce, string fileName, string title)
 		{
-			XmlTextWriter xml = new XmlTextWriter(fileName, System.Text.Encoding.UTF8)
+			XmlTextWriter xml = new(fileName, System.Text.Encoding.UTF8)
 			{
 				Indentation = 1,
 				IndentChar = '\t',
@@ -80,7 +80,7 @@ namespace Server.Commands
 
 			xml.WriteAttributeString("title", ce.Title);
 
-			ArrayList subCats = new ArrayList(ce.SubCategories);
+			ArrayList subCats = new(ce.SubCategories);
 
 			subCats.Sort(new CategorySorter());
 
@@ -99,14 +99,12 @@ namespace Server.Commands
 
 				object obj = cte.Object;
 
-				if (obj is Item)
+				if (obj is Item item)
 				{
-					Item item = (Item)obj;
-
 					int itemID = item.ItemID;
 
-					if (item is BaseAddon && ((BaseAddon)item).Components.Count == 1)
-						itemID = ((BaseAddon)item).Components[0].ItemID;
+					if (item is BaseAddon addon && addon.Components.Count == 1)
+						itemID = addon.Components[0].ItemID;
 
 					if (itemID > TileData.MaxItemValue)
 						itemID = 1;
@@ -123,10 +121,8 @@ namespace Server.Commands
 
 					item.Delete();
 				}
-				else if (obj is Mobile)
+				else if (obj is Mobile mob)
 				{
-					Mobile mob = (Mobile)obj;
-
 					int itemID = ShrinkTable.Lookup(mob, 1);
 
 					xml.WriteAttributeString("gfx", XmlConvert.ToString(itemID));
@@ -150,7 +146,7 @@ namespace Server.Commands
 
 		public static void Load()
 		{
-			ArrayList types = new ArrayList();
+			ArrayList types = new();
 
 			AddTypes(Core.Assembly, types);
 
@@ -168,7 +164,7 @@ namespace Server.Commands
 			if (lines.Length > 0)
 			{
 				int index = 0;
-				CategoryEntry root = new CategoryEntry(null, lines, ref index);
+				CategoryEntry root = new(null, lines, ref index);
 
 				Fill(root, types);
 
@@ -251,15 +247,15 @@ namespace Server.Commands
 		{
 			string a = null, b = null;
 
-			if (x is CategoryEntry)
-				a = ((CategoryEntry)x).Title;
-			else if (x is CategoryTypeEntry)
-				a = ((CategoryTypeEntry)x).Type.Name;
+			if (x is CategoryEntry entry)
+				a = entry.Title;
+			else if (x is CategoryTypeEntry typeEntry)
+				a = typeEntry.Type.Name;
 
-			if (y is CategoryEntry)
-				b = ((CategoryEntry)y).Title;
-			else if (y is CategoryTypeEntry)
-				b = ((CategoryTypeEntry)y).Type.Name;
+			if (y is CategoryEntry entry1)
+				b = entry1.Title;
+			else if (y is CategoryTypeEntry typeEntry2)
+				b = typeEntry2.Type.Name;
 
 			if (a == null && b == null)
 				return 0;
@@ -276,63 +272,54 @@ namespace Server.Commands
 
 	public class CategoryTypeEntry
 	{
-		private readonly Type m_Type;
-		private readonly object m_Object;
-
-		public Type Type => m_Type;
-		public object Object => m_Object;
+		public Type Type { get; }
+		public object Object { get; }
 
 		public CategoryTypeEntry(Type type)
 		{
-			m_Type = type;
-			m_Object = Activator.CreateInstance(type);
+			Type = type;
+			Object = Activator.CreateInstance(type);
 		}
 	}
 
 	public class CategoryEntry
 	{
-		private readonly string m_Title;
-		private readonly Type[] m_Matches;
-		private readonly CategoryEntry[] m_SubCategories;
-		private readonly CategoryEntry m_Parent;
-		private readonly ArrayList m_Matched;
-
-		public string Title => m_Title;
-		public Type[] Matches => m_Matches;
-		public CategoryEntry Parent => m_Parent;
-		public CategoryEntry[] SubCategories => m_SubCategories;
-		public ArrayList Matched => m_Matched;
+		public string Title { get; }
+		public Type[] Matches { get; }
+		public CategoryEntry Parent { get; }
+		public CategoryEntry[] SubCategories { get; }
+		public ArrayList Matched { get; }
 
 		public CategoryEntry()
 		{
-			m_Title = "(empty)";
-			m_Matches = new Type[0];
-			m_SubCategories = new CategoryEntry[0];
-			m_Matched = new ArrayList();
+			Title = "(empty)";
+			Matches = Array.Empty<Type>();
+			SubCategories = Array.Empty<CategoryEntry>();
+			Matched = new ArrayList();
 		}
 
 		public CategoryEntry(CategoryEntry parent, string title, CategoryEntry[] subCats)
 		{
-			m_Parent = parent;
-			m_Title = title;
-			m_SubCategories = subCats;
-			m_Matches = new Type[0];
-			m_Matched = new ArrayList();
+			Parent = parent;
+			Title = title;
+			SubCategories = subCats;
+			Matches = Array.Empty<Type>();
+			Matched = new ArrayList();
 		}
 
 		public bool IsMatch(Type type)
 		{
 			bool isMatch = false;
 
-			for (int i = 0; !isMatch && i < m_Matches.Length; ++i)
-				isMatch = (type == m_Matches[i] || type.IsSubclassOf(m_Matches[i]));
+			for (int i = 0; !isMatch && i < Matches.Length; ++i)
+				isMatch = (type == Matches[i] || type.IsSubclassOf(Matches[i]));
 
 			return isMatch;
 		}
 
 		public CategoryEntry(CategoryEntry parent, CategoryLine[] lines, ref int index)
 		{
-			m_Parent = parent;
+			Parent = parent;
 
 			string text = lines[index].Text;
 
@@ -341,7 +328,7 @@ namespace Server.Commands
 			if (start < 0)
 				throw new FormatException(string.Format("Input string not correctly formatted ('{0}')", text));
 
-			m_Title = text.Substring(0, start).Trim();
+			Title = text.Substring(0, start).Trim();
 
 			int end = text.IndexOf(')', ++start);
 
@@ -351,7 +338,7 @@ namespace Server.Commands
 			text = text.Substring(start, end - start);
 			string[] split = text.Split(';');
 
-			ArrayList list = new ArrayList();
+			ArrayList list = new();
 
 			for (int i = 0; i < split.Length; ++i)
 			{
@@ -363,7 +350,7 @@ namespace Server.Commands
 					list.Add(type);
 			}
 
-			m_Matches = (Type[])list.ToArray(typeof(Type));
+			Matches = (Type[])list.ToArray(typeof(Type));
 			list.Clear();
 
 			int ourIndentation = lines[index].Indentation;
@@ -373,20 +360,17 @@ namespace Server.Commands
 			while (index < lines.Length && lines[index].Indentation > ourIndentation)
 				list.Add(new CategoryEntry(this, lines, ref index));
 
-			m_SubCategories = (CategoryEntry[])list.ToArray(typeof(CategoryEntry));
+			SubCategories = (CategoryEntry[])list.ToArray(typeof(CategoryEntry));
 			list.Clear();
 
-			m_Matched = list;
+			Matched = list;
 		}
 	}
 
 	public class CategoryLine
 	{
-		private readonly int m_Indentation;
-		private readonly string m_Text;
-
-		public int Indentation => m_Indentation;
-		public string Text => m_Text;
+		public int Indentation { get; }
+		public string Text { get; }
 
 		public CategoryLine(string input)
 		{
@@ -401,23 +385,21 @@ namespace Server.Commands
 			if (index >= input.Length)
 				throw new FormatException(string.Format("Input string not correctly formatted ('{0}')", input));
 
-			m_Indentation = index;
-			m_Text = input.Substring(index);
+			Indentation = index;
+			Text = input.Substring(index);
 		}
 
 		public static CategoryLine[] Load(string path)
 		{
-			ArrayList list = new ArrayList();
+			ArrayList list = new();
 
 			if (File.Exists(path))
 			{
-				using (StreamReader ip = new StreamReader(path))
-				{
-					string line;
+				using StreamReader ip = new(path);
+				string line;
 
-					while ((line = ip.ReadLine()) != null)
-						list.Add(new CategoryLine(line));
-				}
+				while ((line = ip.ReadLine()) != null)
+					list.Add(new CategoryLine(line));
 			}
 
 			return (CategoryLine[])list.ToArray(typeof(CategoryLine));

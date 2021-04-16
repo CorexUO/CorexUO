@@ -9,14 +9,8 @@ namespace Server.Factions
 	[CustomEnum(new string[] { "Britain", "Magincia", "Minoc", "Moonglow", "Skara Brae", "Trinsic", "Vesper", "Yew" })]
 	public abstract class Town : IComparable
 	{
-		private TownDefinition m_Definition;
 		private TownState m_State;
-
-		public TownDefinition Definition
-		{
-			get => m_Definition;
-			set => m_Definition = value;
-		}
+		public TownDefinition Definition { get; set; }
 
 		public TownState State
 		{
@@ -261,29 +255,18 @@ namespace Server.Factions
 			return list;
 		}
 
-		private List<VendorList> m_VendorLists;
-		private List<GuardList> m_GuardLists;
+		public List<VendorList> VendorLists { get; set; }
 
-		public List<VendorList> VendorLists
-		{
-			get => m_VendorLists;
-			set => m_VendorLists = value;
-		}
-
-		public List<GuardList> GuardLists
-		{
-			get => m_GuardLists;
-			set => m_GuardLists = value;
-		}
+		public List<GuardList> GuardLists { get; set; }
 
 		public void ConstructGuardLists()
 		{
-			GuardDefinition[] defs = (Owner == null ? new GuardDefinition[0] : Owner.Definition.Guards);
+			GuardDefinition[] defs = (Owner == null ? Array.Empty<GuardDefinition>() : Owner.Definition.Guards);
 
-			m_GuardLists = new List<GuardList>();
+			GuardLists = new List<GuardList>();
 
 			for (int i = 0; i < defs.Length; ++i)
-				m_GuardLists.Add(new GuardList(defs[i]));
+				GuardLists.Add(new GuardList(defs[i]));
 		}
 
 		public GuardList FindGuardList(Type type)
@@ -305,10 +288,10 @@ namespace Server.Factions
 		{
 			VendorDefinition[] defs = VendorDefinition.Definitions;
 
-			m_VendorLists = new List<VendorList>();
+			VendorLists = new List<VendorList>();
 
 			for (int i = 0; i < defs.Length; ++i)
-				m_VendorLists.Add(new VendorList(defs[i]));
+				VendorLists.Add(new VendorList(defs[i]));
 		}
 
 		public VendorList FindVendorList(Type type)
@@ -485,12 +468,12 @@ namespace Server.Factions
 
 		public int CompareTo(object obj)
 		{
-			return m_Definition.Sort - ((Town)obj).m_Definition.Sort;
+			return Definition.Sort - ((Town)obj).Definition.Sort;
 		}
 
 		public override string ToString()
 		{
-			return m_Definition.FriendlyName;
+			return Definition.FriendlyName;
 		}
 
 		public static void WriteReference(GenericWriter writer, Town town)

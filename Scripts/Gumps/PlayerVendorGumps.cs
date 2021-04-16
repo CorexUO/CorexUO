@@ -301,11 +301,11 @@ namespace Server.Gumps
 
 		private class CustomItem
 		{
-			private readonly Type m_Type;
-			private readonly int m_ItemID;
-			private readonly int m_LocNum;
-			private readonly int m_ArtNum;
-			private readonly bool m_LongText;
+			public Type Type { get; }
+			public int ItemID { get; }
+			public int LocNumber { get; }
+			public int ArtNumber { get; }
+			public bool LongText { get; }
 
 			public CustomItem(int itemID, int loc) : this(null, itemID, loc, 0, false)
 			{
@@ -325,23 +325,23 @@ namespace Server.Gumps
 
 			public CustomItem(Type type, int itemID, int loc, int art, bool longText)
 			{
-				m_Type = type;
-				m_ItemID = itemID;
-				m_LocNum = loc;
-				m_ArtNum = art;
-				m_LongText = longText;
+				Type = type;
+				ItemID = itemID;
+				LocNumber = loc;
+				ArtNumber = art;
+				LongText = longText;
 			}
 
 			public Item Create()
 			{
-				if (m_Type == null)
+				if (Type == null)
 					return null;
 
 				Item i = null;
 
 				try
 				{
-					ConstructorInfo ctor = m_Type.GetConstructor(new Type[0]);
+					ConstructorInfo ctor = Type.GetConstructor(Array.Empty<Type>());
 					if (ctor != null)
 						i = ctor.Invoke(null) as Item;
 				}
@@ -351,33 +351,22 @@ namespace Server.Gumps
 
 				return i;
 			}
-
-			public Type Type => m_Type;
-			public int ItemID => m_ItemID;
-			public int LocNumber => m_LocNum;
-			public int ArtNumber => m_ArtNum;
-			public bool LongText => m_LongText;
 		}
 
 		private class CustomCategory
 		{
-			private readonly CustomItem[] m_Entries;
-			private readonly Layer m_Layer;
-			private readonly bool m_CanDye;
-			private readonly int m_LocNum;
+			public bool CanDye { get; }
+			public CustomItem[] Entries { get; }
+			public Layer Layer { get; }
+			public int LocNumber { get; }
 
 			public CustomCategory(Layer layer, int loc, bool canDye, CustomItem[] items)
 			{
-				m_Entries = items;
-				m_CanDye = canDye;
-				m_Layer = layer;
-				m_LocNum = loc;
+				Entries = items;
+				CanDye = canDye;
+				Layer = layer;
+				LocNumber = loc;
 			}
-
-			public bool CanDye => m_CanDye;
-			public CustomItem[] Entries => m_Entries;
-			public Layer Layer => m_Layer;
-			public int LocNumber => m_LocNum;
 		}
 
 		private static readonly CustomCategory[] Categories = new CustomCategory[]{
@@ -785,16 +774,13 @@ namespace Server.Gumps
 
 		private class HairOrBeard
 		{
-			private readonly int m_ItemID;
-			private readonly int m_Name;
-
-			public int ItemID => m_ItemID;
-			public int Name => m_Name;
+			public int ItemID { get; }
+			public int Name { get; }
 
 			public HairOrBeard(int itemID, int name)
 			{
-				m_ItemID = itemID;
-				m_Name = name;
+				ItemID = itemID;
+				Name = name;
 			}
 		}
 

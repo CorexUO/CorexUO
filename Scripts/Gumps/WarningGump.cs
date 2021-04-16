@@ -53,9 +53,13 @@ namespace Server.Gumps
 		public override void OnResponse(Server.Network.NetState sender, RelayInfo info)
 		{
 			if (info.ButtonID == 1 && m_Callback != null)
+			{
 				m_Callback(sender.Mobile, true, m_State);
-			else if (m_Callback != null)
-				m_Callback(sender.Mobile, false, m_State);
+			}
+			else
+			{
+				m_Callback?.Invoke(sender.Mobile, false, m_State);
+			}
 		}
 	}
 }

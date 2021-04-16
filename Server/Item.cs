@@ -542,7 +542,7 @@ namespace Server
 
 	public class Item : IEntity, IHued, IComparable<Item>, ISerializable, ISpawnable
 	{
-		public static readonly List<Item> EmptyItems = new List<Item>();
+		public static readonly List<Item> EmptyItems = new();
 
 		//Default hue color for item messages
 		public static readonly int DefaultDisplayColor = 0x3B2;
@@ -1633,7 +1633,7 @@ namespace Server
 			set => SetFlag(ImplFlag.Stackable, value);
 		}
 
-		private readonly object _rpl = new object();
+		private readonly object _rpl = new();
 
 		public Packet RemovePacket
 		{
@@ -1655,7 +1655,7 @@ namespace Server
 			}
 		}
 
-		private readonly object _opll = new object();
+		private readonly object _opll = new();
 		public Packet OPLPacket
 		{
 			get
@@ -1740,9 +1740,9 @@ namespace Server
 			}
 		}
 
-		private readonly object _wpl = new object();
-		private readonly object _wplsa = new object();
-		private readonly object _wplhs = new object();
+		private readonly object _wpl = new();
+		private readonly object _wplsa = new();
+		private readonly object _wplhs = new();
 
 		public Packet WorldPacket
 		{
@@ -2781,7 +2781,7 @@ namespace Server
 			OnItemAdded(item);
 		}
 
-		private static readonly List<Item> m_DeltaQueue = new List<Item>();
+		private static readonly List<Item> m_DeltaQueue = new();
 
 		public void Delta(ItemDelta flags)
 		{
@@ -2798,7 +2798,7 @@ namespace Server
 				{
 					try
 					{
-						using StreamWriter op = new StreamWriter("delta-recursion.log", true);
+						using StreamWriter op = new("delta-recursion.log", true);
 						op.WriteLine("# {0}", DateTime.UtcNow);
 						op.WriteLine(new System.Diagnostics.StackTrace());
 						op.WriteLine();
@@ -2826,7 +2826,7 @@ namespace Server
 				{
 					try
 					{
-						using StreamWriter op = new StreamWriter("delta-recursion.log", true);
+						using StreamWriter op = new("delta-recursion.log", true);
 						op.WriteLine("# {0}", DateTime.UtcNow);
 						op.WriteLine(new System.Diagnostics.StackTrace());
 						op.WriteLine();
@@ -3739,7 +3739,7 @@ namespace Server
 				z = top;
 			}
 
-			List<Item> items = new List<Item>();
+			List<Item> items = new();
 
 			IPooledEnumerable<Item> eable = map.GetItemsInRange(p, 0);
 

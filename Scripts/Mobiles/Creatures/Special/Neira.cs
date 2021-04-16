@@ -14,7 +14,7 @@ namespace Server.Mobiles
 										typeof( CaptainJohnsHat ) };
 		public override Type[] DecorativeList => new Type[] { typeof(WallBlood), typeof(TatteredAncientMummyWrapping) };
 
-		public override MonsterStatuetteType[] StatueTypes => new MonsterStatuetteType[] { };
+		public override MonsterStatuetteType[] StatueTypes => Array.Empty<MonsterStatuetteType>();
 
 		[Constructable]
 		public Neira() : base(AIType.AI_Mage)

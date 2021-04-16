@@ -64,10 +64,10 @@ namespace Server.Commands
 
 				if (m_InBag)
 				{
-					if (copy.Parent is Container)
-						pack = (Container)copy.Parent;
-					else if (copy.Parent is Mobile)
-						pack = ((Mobile)copy.Parent).Backpack;
+					if (copy.Parent is Container container)
+						pack = container;
+					else if (copy.Parent is Mobile mobile)
+						pack = mobile.Backpack;
 					else
 						pack = null;
 				}
@@ -89,9 +89,8 @@ namespace Server.Commands
 						{
 							object o = c.Invoke(null);
 
-							if (o != null && o is Item)
+							if (o != null && o is Item newItem)
 							{
-								Item newItem = (Item)o;
 								CopyProperties(newItem, copy);//copy.Dupe( item, copy.Amount );
 								copy.OnAfterDuped(newItem);
 								newItem.Parent = null;

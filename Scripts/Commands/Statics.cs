@@ -20,7 +20,7 @@ namespace Server
 			CommandSystem.Register("UnfreezeWorld", AccessLevel.Administrator, new CommandEventHandler(UnfreezeWorld_OnCommand));
 		}
 
-		private static Point3D NullP3D = new Point3D(int.MinValue, int.MinValue, int.MinValue);
+		private static Point3D NullP3D = new(int.MinValue, int.MinValue, int.MinValue);
 
 		[Usage("Freeze")]
 		[Description("Makes a targeted area of dynamic items static.")]
@@ -78,7 +78,7 @@ namespace Server
 
 		public static void Freeze(Mobile from, Map targetMap, Point3D start3d, Point3D end3d)
 		{
-			Hashtable mapTable = new Hashtable();
+			Hashtable mapTable = new();
 
 			if (start3d == NullP3D && end3d == NullP3D)
 			{
@@ -107,7 +107,7 @@ namespace Server
 						if (table == null)
 							mapTable[itemMap] = table = new Hashtable();
 
-						Point2D p = new Point2D(item.X >> 3, item.Y >> 3);
+						Point2D p = new(item.X >> 3, item.Y >> 3);
 
 						DeltaState state = (DeltaState)table[p];
 
@@ -140,7 +140,7 @@ namespace Server
 						if (table == null)
 							mapTable[itemMap] = table = new Hashtable();
 
-						Point2D p = new Point2D(item.X >> 3, item.Y >> 3);
+						Point2D p = new(item.X >> 3, item.Y >> 3);
 
 						DeltaState state = (DeltaState)table[p];
 
@@ -181,10 +181,10 @@ namespace Server
 							continue;
 						}
 
-						BinaryReader idxReader = new BinaryReader(idxStream);
+						BinaryReader idxReader = new(idxStream);
 
-						BinaryWriter idxWriter = new BinaryWriter(idxStream);
-						BinaryWriter mulWriter = new BinaryWriter(mulStream);
+						BinaryWriter idxWriter = new(idxStream);
+						BinaryWriter mulWriter = new(mulStream);
 
 						foreach (DeltaState state in table.Values)
 						{
@@ -206,7 +206,7 @@ namespace Server
 								if (xOffset < 0 || xOffset >= 8 || yOffset < 0 || yOffset >= 8)
 									continue;
 
-								StaticTile newTile = new StaticTile((ushort)item.ItemID, (byte)xOffset, (byte)yOffset, (sbyte)item.Z, (short)item.Hue);
+								StaticTile newTile = new((ushort)item.ItemID, (byte)xOffset, (byte)yOffset, (sbyte)item.Z, (short)item.Hue);
 
 								newTiles[newTileCount++] = newTile;
 
@@ -347,10 +347,10 @@ namespace Server
 						return;
 					}
 
-					BinaryReader idxReader = new BinaryReader(idxStream);
+					BinaryReader idxReader = new(idxStream);
 
-					BinaryWriter idxWriter = new BinaryWriter(idxStream);
-					BinaryWriter mulWriter = new BinaryWriter(mulStream);
+					BinaryWriter idxWriter = new(idxStream);
+					BinaryWriter mulWriter = new(mulStream);
 
 					for (int x = xStartBlock; x <= xEndBlock; ++x)
 					{
