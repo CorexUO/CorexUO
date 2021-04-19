@@ -107,18 +107,12 @@ namespace Server.Engines.MLQuests.Objectives
 
 	public class CollectObjectiveInstance : BaseObjectiveInstance
 	{
-		private CollectObjective m_Objective;
-
-		public CollectObjective Objective
-		{
-			get => m_Objective;
-			set => m_Objective = value;
-		}
+		public CollectObjective Objective { get; set; }
 
 		public CollectObjectiveInstance(CollectObjective objective, MLQuestInstance instance)
 			: base(instance, objective)
 		{
-			m_Objective = objective;
+			Objective = objective;
 		}
 
 		private int GetCurrentTotal()
@@ -128,12 +122,12 @@ namespace Server.Engines.MLQuests.Objectives
 			if (pack == null)
 				return 0;
 
-			Item[] items = pack.FindItemsByType(m_Objective.AcceptedType, false); // Note: subclasses are included
+			Item[] items = pack.FindItemsByType(Objective.AcceptedType, false); // Note: subclasses are included
 			int total = 0;
 
 			foreach (Item item in items)
 			{
-				if (item.QuestItem && m_Objective.CheckItem(item))
+				if (item.QuestItem && Objective.CheckItem(item))
 					total += item.Amount;
 			}
 
@@ -142,12 +136,12 @@ namespace Server.Engines.MLQuests.Objectives
 
 		public override bool AllowsQuestItem(Item item, Type type)
 		{
-			return (m_Objective.CheckType(type) && m_Objective.CheckItem(item));
+			return (Objective.CheckType(type) && Objective.CheckItem(item));
 		}
 
 		public override bool IsCompleted()
 		{
-			return (GetCurrentTotal() >= m_Objective.DesiredAmount);
+			return (GetCurrentTotal() >= Objective.DesiredAmount);
 		}
 
 		public override void OnQuestCancelled()
@@ -158,7 +152,7 @@ namespace Server.Engines.MLQuests.Objectives
 			if (pack == null)
 				return;
 
-			Type checkType = m_Objective.AcceptedType;
+			Type checkType = Objective.AcceptedType;
 			Item[] items = pack.FindItemsByType(checkType, false);
 
 			foreach (Item item in items)
@@ -178,12 +172,12 @@ namespace Server.Engines.MLQuests.Objectives
 
 			// TODO: OSI also counts the item in the cursor?
 
-			Item[] items = pack.FindItemsByType(m_Objective.AcceptedType, false);
-			int left = m_Objective.DesiredAmount;
+			Item[] items = pack.FindItemsByType(Objective.AcceptedType, false);
+			int left = Objective.DesiredAmount;
 
 			foreach (Item item in items)
 			{
-				if (item.QuestItem && m_Objective.CheckItem(item))
+				if (item.QuestItem && Objective.CheckItem(item))
 				{
 					if (left == 0)
 						return;
@@ -216,10 +210,10 @@ namespace Server.Engines.MLQuests.Objectives
 
 		public override void WriteToGump(Gump g, ref int y)
 		{
-			m_Objective.WriteToGump(g, ref y);
+			Objective.WriteToGump(g, ref y);
 			y -= 16;
 
-			if (m_Objective.ShowDetailed)
+			if (Objective.ShowDetailed)
 			{
 				base.WriteToGump(g, ref y);
 

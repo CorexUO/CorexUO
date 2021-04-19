@@ -5,30 +5,14 @@ namespace Server.Items
 {
 	public abstract class Food : BaseItem
 	{
-		private Mobile m_Poisoner;
-		private Poison m_Poison;
-		private int m_FillFactor;
+		[CommandProperty(AccessLevel.GameMaster)]
+		public Mobile Poisoner { get; set; }
 
 		[CommandProperty(AccessLevel.GameMaster)]
-		public Mobile Poisoner
-		{
-			get => m_Poisoner;
-			set => m_Poisoner = value;
-		}
+		public Poison Poison { get; set; }
 
 		[CommandProperty(AccessLevel.GameMaster)]
-		public Poison Poison
-		{
-			get => m_Poison;
-			set => m_Poison = value;
-		}
-
-		[CommandProperty(AccessLevel.GameMaster)]
-		public int FillFactor
-		{
-			get => m_FillFactor;
-			set => m_FillFactor = value;
-		}
+		public int FillFactor { get; set; }
 
 		public Food(int itemID) : this(1, itemID)
 		{
@@ -38,7 +22,7 @@ namespace Server.Items
 		{
 			Stackable = true;
 			Amount = amount;
-			m_FillFactor = 1;
+			FillFactor = 1;
 		}
 
 		public Food(Serial serial) : base(serial)
@@ -75,8 +59,8 @@ namespace Server.Items
 				if (from.Body.IsHuman && !from.Mounted)
 					from.Animate(34, 5, 1, true, false, 0);
 
-				if (m_Poison != null)
-					from.ApplyPoison(m_Poisoner, m_Poison);
+				if (Poison != null)
+					from.ApplyPoison(Poisoner, Poison);
 
 				Consume();
 
@@ -88,7 +72,7 @@ namespace Server.Items
 
 		public virtual bool CheckHunger(Mobile from)
 		{
-			return FillHunger(from, m_FillFactor);
+			return FillHunger(from, FillFactor);
 		}
 
 		public static bool FillHunger(Mobile from, int fillFactor)
@@ -132,10 +116,10 @@ namespace Server.Items
 
 			writer.Write(0); // version
 
-			writer.Write(m_Poisoner);
+			writer.Write(Poisoner);
 
-			Poison.Serialize(m_Poison, writer);
-			writer.Write(m_FillFactor);
+			Poison.Serialize(Poison, writer);
+			writer.Write(FillFactor);
 		}
 
 		public override void Deserialize(GenericReader reader)
@@ -148,10 +132,10 @@ namespace Server.Items
 			{
 				case 0:
 					{
-						m_Poisoner = reader.ReadMobile();
+						Poisoner = reader.ReadMobile();
 
-						m_Poison = Poison.Deserialize(reader);
-						m_FillFactor = reader.ReadInt();
+						Poison = Poison.Deserialize(reader);
+						FillFactor = reader.ReadInt();
 						break;
 					}
 			}
@@ -775,37 +759,6 @@ namespace Server.Items
 		}
 	}
 
-#if false
-	public class Pizza : Food
-	{
-		[Constructable]
-		public Pizza() : base( 0x1040 )
-		{
-			Stackable = false;
-			this.Weight = 1.0;
-			this.FillFactor = 6;
-		}
-
-		public Pizza( Serial serial ) : base( serial )
-		{
-		}
-
-		public override void Serialize( GenericWriter writer )
-		{
-			base.Serialize( writer );
-
-			writer.Write( (int) 0 ); // version
-		}
-
-		public override void Deserialize( GenericReader reader )
-		{
-			base.Deserialize( reader );
-
-			int version = reader.ReadInt();
-		}
-	}
-#endif
-
 	public class FruitPie : Food
 	{
 		public override int LabelNumber => 1041346;  // baked fruit pie
@@ -1058,7 +1011,7 @@ namespace Server.Items
 		}
 	}
 
-	[FlipableAttribute(0xC74, 0xC75)]
+	[Flipable(0xC74, 0xC75)]
 	public class HoneydewMelon : Food
 	{
 		[Constructable]
@@ -1092,7 +1045,7 @@ namespace Server.Items
 		}
 	}
 
-	[FlipableAttribute(0xC64, 0xC65)]
+	[Flipable(0xC64, 0xC65)]
 	public class YellowGourd : Food
 	{
 		[Constructable]
@@ -1126,7 +1079,7 @@ namespace Server.Items
 		}
 	}
 
-	[FlipableAttribute(0xC66, 0xC67)]
+	[Flipable(0xC66, 0xC67)]
 	public class GreenGourd : Food
 	{
 		[Constructable]
@@ -1160,7 +1113,7 @@ namespace Server.Items
 		}
 	}
 
-	[FlipableAttribute(0xC7F, 0xC81)]
+	[Flipable(0xC7F, 0xC81)]
 	public class EarOfCorn : Food
 	{
 		[Constructable]

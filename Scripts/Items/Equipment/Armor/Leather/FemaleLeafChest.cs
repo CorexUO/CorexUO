@@ -1,6 +1,6 @@
 namespace Server.Items
 {
-	[FlipableAttribute(0x2FCB, 0x3181)]
+	[Flipable(0x2FCB, 0x3181)]
 	public class FemaleLeafChest : BaseArmor
 	{
 		public override int BasePhysicalResistance => 2;

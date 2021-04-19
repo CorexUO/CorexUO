@@ -1,6 +1,6 @@
 namespace Server.Items
 {
-	[FlipableAttribute(0x2bd9, 0x2bda)]
+	[Flipable(0x2bd9, 0x2bda)]
 	public class GreenStocking : BaseContainer
 	{
 		public override int DefaultGumpID => 0x103;
@@ -29,7 +29,7 @@ namespace Server.Items
 	}
 
 	[Furniture]
-	[FlipableAttribute(0x2bdb, 0x2bdc)]
+	[Flipable(0x2bdb, 0x2bdc)]
 	public class RedStocking : BaseContainer
 	{
 		public override int DefaultGumpID => 0x103;

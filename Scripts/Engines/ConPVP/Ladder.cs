@@ -268,7 +268,7 @@ namespace Server.Engines.ConPVP
 
 						for (int i = 0; i < count; ++i)
 						{
-							LadderEntry entry = new LadderEntry(reader, this, version);
+							LadderEntry entry = new(reader, this, version);
 
 							if (entry.Mobile != null)
 							{

@@ -1,6 +1,6 @@
 namespace Server.Items
 {
-	[FlipableAttribute(0x2D20, 0x2D2C)]
+	[Flipable(0x2D20, 0x2D2C)]
 	public class ElvenSpellblade : BaseKnife
 	{
 		public override WeaponAbility PrimaryAbility => WeaponAbility.PsychicAttack;

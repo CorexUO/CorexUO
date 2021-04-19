@@ -1,6 +1,6 @@
 namespace Server.Items
 {
-	[FlipableAttribute(0x13F8, 0x13F9)]
+	[Flipable(0x13F8, 0x13F9)]
 	public class GnarledStaff : BaseStaff
 	{
 		public override WeaponAbility PrimaryAbility => WeaponAbility.ConcussionBlow;

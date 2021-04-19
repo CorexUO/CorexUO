@@ -1,6 +1,6 @@
 namespace Server.Items
 {
-	[FlipableAttribute(0x27A7, 0x27F2)]
+	[Flipable(0x27A7, 0x27F2)]
 	public class Lajatang : BaseKnife
 	{
 		public override WeaponAbility PrimaryAbility => WeaponAbility.DefenseMastery;

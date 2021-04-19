@@ -1,6 +1,6 @@
 namespace Server.Items
 {
-	[FlipableAttribute(0x27AD, 0x27F8)]
+	[Flipable(0x27AD, 0x27F8)]
 	public class Kama : BaseKnife
 	{
 		public override WeaponAbility PrimaryAbility => WeaponAbility.WhirlwindAttack;

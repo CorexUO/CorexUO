@@ -1,6 +1,6 @@
 namespace Server.Items
 {
-	[FlipableAttribute(0x1401, 0x1400)]
+	[Flipable(0x1401, 0x1400)]
 	public class Kryss : BaseSword
 	{
 		public override WeaponAbility PrimaryAbility => WeaponAbility.ArmorIgnore;

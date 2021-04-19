@@ -1,6 +1,6 @@
 namespace Server.Items
 {
-	[FlipableAttribute(0x13FF, 0x13FE)]
+	[Flipable(0x13FF, 0x13FE)]
 	public class Katana : BaseSword
 	{
 		public override WeaponAbility PrimaryAbility => WeaponAbility.DoubleStrike;

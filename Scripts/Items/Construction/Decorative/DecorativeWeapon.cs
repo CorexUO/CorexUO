@@ -1,6 +1,6 @@
 namespace Server.Items
 {
-	[FlipableAttribute(0x155E, 0x155F, 0x155C, 0x155D)]
+	[Flipable(0x155E, 0x155F, 0x155C, 0x155D)]
 	public class DecorativeBowWest : BaseItem
 	{
 		[Constructable]
@@ -28,7 +28,7 @@ namespace Server.Items
 		}
 	}
 
-	[FlipableAttribute(0x155C, 0x155D, 0x155E, 0x155F)]
+	[Flipable(0x155C, 0x155D, 0x155E, 0x155F)]
 	public class DecorativeBowNorth : BaseItem
 	{
 		[Constructable]
@@ -56,7 +56,7 @@ namespace Server.Items
 		}
 	}
 
-	[FlipableAttribute(0x1560, 0x1561, 0x1562, 0x1563)]
+	[Flipable(0x1560, 0x1561, 0x1562, 0x1563)]
 	public class DecorativeAxeNorth : BaseItem
 	{
 		[Constructable]
@@ -84,7 +84,7 @@ namespace Server.Items
 		}
 	}
 
-	[FlipableAttribute(0x1562, 0x1563, 0x1560, 0x1561)]
+	[Flipable(0x1562, 0x1563, 0x1560, 0x1561)]
 	public class DecorativeAxeWest : BaseItem
 	{
 		[Constructable]

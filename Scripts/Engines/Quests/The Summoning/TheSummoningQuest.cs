@@ -16,16 +16,9 @@ namespace Server.Engines.Quests.Doom
 
 		public override Type[] TypeReferenceTable => m_TypeReferenceTable;
 
-		private Victoria m_Victoria;
-		private bool m_WaitForSummon;
+		public Victoria Victoria { get; private set; }
 
-		public Victoria Victoria => m_Victoria;
-
-		public bool WaitForSummon
-		{
-			get => m_WaitForSummon;
-			set => m_WaitForSummon = value;
-		}
+		public bool WaitForSummon { get; set; }
 
 		public override object Name =>
 				// The Summoning
@@ -67,15 +60,15 @@ namespace Server.Engines.Quests.Doom
 
 		public override void Slice()
 		{
-			if (m_WaitForSummon && m_Victoria != null)
+			if (WaitForSummon && Victoria != null)
 			{
-				SummoningAltar altar = m_Victoria.Altar;
+				SummoningAltar altar = Victoria.Altar;
 
 				if (altar != null && (altar.Daemon == null || !altar.Daemon.Alive))
 				{
-					if (From.Map == m_Victoria.Map && From.InRange(m_Victoria, 8))
+					if (From.Map == Victoria.Map && From.InRange(Victoria, 8))
 					{
-						m_WaitForSummon = false;
+						WaitForSummon = false;
 
 						AddConversation(new VanquishDaemonConversation());
 					}
@@ -102,7 +95,7 @@ namespace Server.Engines.Quests.Doom
 
 		public TheSummoningQuest(Victoria victoria, PlayerMobile from) : base(from)
 		{
-			m_Victoria = victoria;
+			Victoria = victoria;
 		}
 
 		public TheSummoningQuest()
@@ -134,16 +127,16 @@ namespace Server.Engines.Quests.Doom
 		{
 			int version = reader.ReadEncodedInt();
 
-			m_Victoria = reader.ReadMobile() as Victoria;
-			m_WaitForSummon = reader.ReadBool();
+			Victoria = reader.ReadMobile() as Victoria;
+			WaitForSummon = reader.ReadBool();
 		}
 
 		public override void ChildSerialize(GenericWriter writer)
 		{
 			writer.WriteEncodedInt(0); // version
 
-			writer.Write(m_Victoria);
-			writer.Write(m_WaitForSummon);
+			writer.Write(Victoria);
+			writer.Write(WaitForSummon);
 		}
 	}
 }

@@ -7,7 +7,7 @@ using System.Collections.Generic;
 
 namespace Server.Items
 {
-	[FlipableAttribute(0x234C, 0x234D)]
+	[Flipable(0x234C, 0x234D)]
 	public class RoseOfTrinsic : BaseItem, ISecurable
 	{
 		private static readonly TimeSpan m_SpawnTime = TimeSpan.FromHours(4.0);
@@ -16,16 +16,10 @@ namespace Server.Items
 		private DateTime m_NextSpawnTime;
 		private SpawnTimer m_SpawnTimer;
 
-		private SecureLevel m_Level;
-
 		public override int LabelNumber => 1062913;  // Rose of Trinsic
 
 		[CommandProperty(AccessLevel.GameMaster)]
-		public SecureLevel Level
-		{
-			get => m_Level;
-			set => m_Level = value;
-		}
+		public SecureLevel Level { get; set; }
 
 		[CommandProperty(AccessLevel.GameMaster)]
 		public int Petals
@@ -142,7 +136,7 @@ namespace Server.Items
 
 			writer.WriteEncodedInt(m_Petals);
 			writer.WriteDeltaTime(m_NextSpawnTime);
-			writer.WriteEncodedInt((int)m_Level);
+			writer.WriteEncodedInt((int)Level);
 		}
 
 		public override void Deserialize(GenericReader reader)
@@ -153,7 +147,7 @@ namespace Server.Items
 
 			m_Petals = reader.ReadEncodedInt();
 			m_NextSpawnTime = reader.ReadDeltaTime();
-			m_Level = (SecureLevel)reader.ReadEncodedInt();
+			Level = (SecureLevel)reader.ReadEncodedInt();
 
 			if (m_Petals < 10)
 				StartSpawnTimer(m_NextSpawnTime - DateTime.UtcNow);

@@ -2,7 +2,7 @@ using Server.Engines.Harvest;
 
 namespace Server.Items
 {
-	[FlipableAttribute(0x26BA, 0x26C4)]
+	[Flipable(0x26BA, 0x26C4)]
 	public class Scythe : BasePoleArm
 	{
 		public override WeaponAbility PrimaryAbility => WeaponAbility.BleedAttack;

@@ -1,6 +1,6 @@
 namespace Server.Items
 {
-	[FlipableAttribute(0x26C1, 0x26CB)]
+	[Flipable(0x26C1, 0x26CB)]
 	public class CrescentBlade : BaseSword
 	{
 		public override WeaponAbility PrimaryAbility => WeaponAbility.DoubleStrike;

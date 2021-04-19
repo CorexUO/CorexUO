@@ -1,6 +1,6 @@
 namespace Server.Items
 {
-	[FlipableAttribute(0x1405, 0x1404)]
+	[Flipable(0x1405, 0x1404)]
 	public class WarFork : BaseSpear
 	{
 		public override WeaponAbility PrimaryAbility => WeaponAbility.BleedAttack;

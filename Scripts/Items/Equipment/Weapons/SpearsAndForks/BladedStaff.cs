@@ -1,6 +1,6 @@
 namespace Server.Items
 {
-	[FlipableAttribute(0x26BD, 0x26C7)]
+	[Flipable(0x26BD, 0x26C7)]
 	public class BladedStaff : BaseSpear
 	{
 		public override WeaponAbility PrimaryAbility => WeaponAbility.ArmorIgnore;

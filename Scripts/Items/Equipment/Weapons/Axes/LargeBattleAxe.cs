@@ -1,6 +1,6 @@
 namespace Server.Items
 {
-	[FlipableAttribute(0x13FB, 0x13FA)]
+	[Flipable(0x13FB, 0x13FA)]
 	public class LargeBattleAxe : BaseAxe
 	{
 		public override WeaponAbility PrimaryAbility => WeaponAbility.WhirlwindAttack;

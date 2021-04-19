@@ -4,23 +4,13 @@ namespace Server.Items
 {
 	public class SerpentPillar : BaseItem
 	{
-		private bool m_Active;
-		private string m_Word;
 		private Rectangle2D m_Destination;
 
 		[CommandProperty(AccessLevel.GameMaster)]
-		public bool Active
-		{
-			get => m_Active;
-			set => m_Active = value;
-		}
+		public bool Active { get; set; }
 
 		[CommandProperty(AccessLevel.GameMaster)]
-		public string Word
-		{
-			get => m_Word;
-			set => m_Word = value;
-		}
+		public string Word { get; set; }
 
 		[CommandProperty(AccessLevel.GameMaster)]
 		public Rectangle2D Destination
@@ -42,8 +32,8 @@ namespace Server.Items
 		{
 			Movable = false;
 
-			m_Active = active;
-			m_Word = word;
+			Active = active;
+			Word = word;
 			m_Destination = destination;
 		}
 
@@ -105,8 +95,8 @@ namespace Server.Items
 
 			writer.WriteEncodedInt(0); // version
 
-			writer.Write(m_Active);
-			writer.Write(m_Word);
+			writer.Write(Active);
+			writer.Write(Word);
 			writer.Write(m_Destination);
 		}
 
@@ -116,8 +106,8 @@ namespace Server.Items
 
 			int version = reader.ReadEncodedInt();
 
-			m_Active = reader.ReadBool();
-			m_Word = reader.ReadString();
+			Active = reader.ReadBool();
+			Word = reader.ReadString();
 			m_Destination = reader.ReadRect2D();
 		}
 	}

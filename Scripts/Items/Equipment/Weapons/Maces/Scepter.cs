@@ -1,6 +1,6 @@
 namespace Server.Items
 {
-	[FlipableAttribute(0x26BC, 0x26C6)]
+	[Flipable(0x26BC, 0x26C6)]
 	public class Scepter : BaseBashing
 	{
 		public override WeaponAbility PrimaryAbility => WeaponAbility.CrushingBlow;

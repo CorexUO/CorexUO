@@ -1,6 +1,6 @@
 namespace Server.Items
 {
-	[FlipableAttribute(0xC10, 0xC11)]
+	[Flipable(0xC10, 0xC11)]
 	public class RuinedFallenChairA : BaseItem
 	{
 		[Constructable]
@@ -29,7 +29,7 @@ namespace Server.Items
 
 	}
 
-	[FlipableAttribute(0xC13, 0xC12)]
+	[Flipable(0xC13, 0xC12)]
 	public class RuinedArmoire : BaseItem
 	{
 		[Constructable]
@@ -58,7 +58,7 @@ namespace Server.Items
 
 	}
 
-	[FlipableAttribute(0xC14, 0xC15)]
+	[Flipable(0xC14, 0xC15)]
 	public class RuinedBookcase : BaseItem
 	{
 		[Constructable]
@@ -114,7 +114,7 @@ namespace Server.Items
 		}
 	}
 
-	[FlipableAttribute(0xC17, 0xC18)]
+	[Flipable(0xC17, 0xC18)]
 	public class CoveredChair : BaseItem
 	{
 		[Constructable]
@@ -143,7 +143,7 @@ namespace Server.Items
 
 	}
 
-	[FlipableAttribute(0xC19, 0xC1A)]
+	[Flipable(0xC19, 0xC1A)]
 	public class RuinedFallenChairB : BaseItem
 	{
 		[Constructable]
@@ -172,7 +172,7 @@ namespace Server.Items
 
 	}
 
-	[FlipableAttribute(0xC1B, 0xC1C, 0xC1E, 0xC1D)]
+	[Flipable(0xC1B, 0xC1C, 0xC1E, 0xC1D)]
 	public class RuinedChair : BaseItem
 	{
 		[Constructable]
@@ -227,7 +227,7 @@ namespace Server.Items
 		}
 	}
 
-	[FlipableAttribute(0xC24, 0xC25)]
+	[Flipable(0xC24, 0xC25)]
 	public class RuinedDrawers : BaseItem
 	{
 		[Constructable]
@@ -282,7 +282,7 @@ namespace Server.Items
 		}
 	}
 
-	[FlipableAttribute(0xC2D, 0xC2F, 0xC2E, 0xC30)]
+	[Flipable(0xC2D, 0xC2F, 0xC2E, 0xC30)]
 	public class WoodDebris : BaseItem
 	{
 		[Constructable]

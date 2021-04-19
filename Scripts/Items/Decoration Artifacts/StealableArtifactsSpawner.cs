@@ -8,19 +8,14 @@ namespace Server.Items
 	{
 		public class StealableEntry
 		{
-			private readonly Map m_Map;
 			private Point3D m_Location;
-			private readonly int m_MinDelay;
-			private readonly int m_MaxDelay;
-			private readonly Type m_Type;
-			private readonly int m_Hue;
 
-			public Map Map => m_Map;
+			public Map Map { get; }
 			public Point3D Location => m_Location;
-			public int MinDelay => m_MinDelay;
-			public int MaxDelay => m_MaxDelay;
-			public Type Type => m_Type;
-			public int Hue => m_Hue;
+			public int MinDelay { get; }
+			public int MaxDelay { get; }
+			public Type Type { get; }
+			public int Hue { get; }
 
 			public StealableEntry(Map map, Point3D location, int minDelay, int maxDelay, Type type) : this(map, location, minDelay, maxDelay, type, 0)
 			{
@@ -28,20 +23,20 @@ namespace Server.Items
 
 			public StealableEntry(Map map, Point3D location, int minDelay, int maxDelay, Type type, int hue)
 			{
-				m_Map = map;
+				Map = map;
 				m_Location = location;
-				m_MinDelay = minDelay;
-				m_MaxDelay = maxDelay;
-				m_Type = type;
-				m_Hue = hue;
+				MinDelay = minDelay;
+				MaxDelay = maxDelay;
+				Type = type;
+				Hue = hue;
 			}
 
 			public Item CreateInstance()
 			{
-				Item item = (Item)Activator.CreateInstance(m_Type);
+				Item item = (Item)Activator.CreateInstance(Type);
 
-				if (m_Hue > 0)
-					item.Hue = m_Hue;
+				if (Hue > 0)
+					item.Hue = Hue;
 
 				item.Movable = false;
 				item.MoveToWorld(Location, Map);
@@ -50,7 +45,7 @@ namespace Server.Items
 			}
 		}
 
-		private static readonly StealableEntry[] m_Entries = new StealableEntry[]
+		public static StealableEntry[] Entries { get; } = new StealableEntry[]
 			{
 				// Doom - Artifact rarity 1
 				new StealableEntry( Map.Malas, new Point3D( 317,  56, -1 ), 72, 108, typeof( RockArtifact ) ),
@@ -158,8 +153,6 @@ namespace Server.Items
 				new StealableEntry( Map.Malas, new Point3D( 178, 629, -1 ), 18432, 27648, typeof( ManStatuetteEastArtifact ) )
 			};
 
-		public static StealableEntry[] Entries => m_Entries;
-
 		private static Type[] m_TypesOfEntries = null;
 		public static Type[] TypesOfEntires
 		{
@@ -167,19 +160,17 @@ namespace Server.Items
 			{
 				if (m_TypesOfEntries == null)
 				{
-					m_TypesOfEntries = new Type[m_Entries.Length];
+					m_TypesOfEntries = new Type[Entries.Length];
 
-					for (int i = 0; i < m_Entries.Length; i++)
-						m_TypesOfEntries[i] = m_Entries[i].Type;
+					for (int i = 0; i < Entries.Length; i++)
+						m_TypesOfEntries[i] = Entries[i].Type;
 				}
 
 				return m_TypesOfEntries;
 			}
 		}
 
-		private static StealableArtifactsSpawner m_Instance;
-
-		public static StealableArtifactsSpawner Instance => m_Instance;
+		public static StealableArtifactsSpawner Instance { get; private set; }
 
 		private static int GetLampPostHue()
 		{
@@ -222,20 +213,20 @@ namespace Server.Items
 
 		public static bool Create()
 		{
-			if (m_Instance != null && !m_Instance.Deleted)
+			if (Instance != null && !Instance.Deleted)
 				return false;
 
-			m_Instance = new StealableArtifactsSpawner();
+			Instance = new StealableArtifactsSpawner();
 			return true;
 		}
 
 		public static bool Remove()
 		{
-			if (m_Instance == null)
+			if (Instance == null)
 				return false;
 
-			m_Instance.Delete();
-			m_Instance = null;
+			Instance.Delete();
+			Instance = null;
 			return true;
 		}
 
@@ -250,11 +241,9 @@ namespace Server.Items
 
 		public class StealableInstance
 		{
-			private readonly StealableEntry m_Entry;
 			private Item m_Item;
-			private DateTime m_NextRespawn;
 
-			public StealableEntry Entry => m_Entry;
+			public StealableEntry Entry { get; }
 
 			public Item Item
 			{
@@ -280,11 +269,7 @@ namespace Server.Items
 				}
 			}
 
-			public DateTime NextRespawn
-			{
-				get => m_NextRespawn;
-				set => m_NextRespawn = value;
-			}
+			public DateTime NextRespawn { get; set; }
 
 			public StealableInstance(StealableEntry entry) : this(entry, null, DateTime.UtcNow)
 			{
@@ -293,8 +278,8 @@ namespace Server.Items
 			public StealableInstance(StealableEntry entry, Item item, DateTime nextRespawn)
 			{
 				m_Item = item;
-				m_NextRespawn = nextRespawn;
-				m_Entry = entry;
+				NextRespawn = nextRespawn;
+				Entry = entry;
 			}
 
 			public void CheckRespawn()
@@ -319,12 +304,12 @@ namespace Server.Items
 		{
 			Movable = false;
 
-			m_Artifacts = new StealableInstance[m_Entries.Length];
-			m_Table = new Hashtable(m_Entries.Length);
+			m_Artifacts = new StealableInstance[Entries.Length];
+			m_Table = new Hashtable(Entries.Length);
 
-			for (int i = 0; i < m_Entries.Length; i++)
+			for (int i = 0; i < Entries.Length; i++)
 			{
-				m_Artifacts[i] = new StealableInstance(m_Entries[i]);
+				m_Artifacts[i] = new StealableInstance(Entries[i]);
 			}
 
 			m_RespawnTimer = Timer.DelayCall(TimeSpan.Zero, TimeSpan.FromMinutes(15.0), new TimerCallback(CheckRespawn));
@@ -346,7 +331,7 @@ namespace Server.Items
 					si.Item.Delete();
 			}
 
-			m_Instance = null;
+			Instance = null;
 		}
 
 		public void CheckRespawn()
@@ -359,7 +344,7 @@ namespace Server.Items
 
 		public StealableArtifactsSpawner(Serial serial) : base(serial)
 		{
-			m_Instance = this;
+			Instance = this;
 		}
 
 		public override void Serialize(GenericWriter writer)
@@ -385,8 +370,8 @@ namespace Server.Items
 
 			int version = reader.ReadEncodedInt();
 
-			m_Artifacts = new StealableInstance[m_Entries.Length];
-			m_Table = new Hashtable(m_Entries.Length);
+			m_Artifacts = new StealableInstance[Entries.Length];
+			m_Table = new Hashtable(Entries.Length);
 
 			int length = reader.ReadEncodedInt();
 
@@ -397,7 +382,7 @@ namespace Server.Items
 
 				if (i < m_Artifacts.Length)
 				{
-					StealableInstance si = new StealableInstance(m_Entries[i], item, nextRespawn);
+					StealableInstance si = new StealableInstance(Entries[i], item, nextRespawn);
 					m_Artifacts[i] = si;
 
 					if (si.Item != null)
@@ -405,9 +390,9 @@ namespace Server.Items
 				}
 			}
 
-			for (int i = length; i < m_Entries.Length; i++)
+			for (int i = length; i < Entries.Length; i++)
 			{
-				m_Artifacts[i] = new StealableInstance(m_Entries[i]);
+				m_Artifacts[i] = new StealableInstance(Entries[i]);
 			}
 
 			m_RespawnTimer = Timer.DelayCall(TimeSpan.Zero, TimeSpan.FromMinutes(15.0), new TimerCallback(CheckRespawn));

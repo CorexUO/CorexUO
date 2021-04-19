@@ -18,11 +18,11 @@ namespace Server.Items
 				{
 					base.Hue = value;
 
-					if (!Deleted && ShareHue && m_Components != null)
+					if (!Deleted && ShareHue && Components != null)
 					{
 						Hue = value;
 
-						foreach (AddonContainerComponent c in m_Components)
+						foreach (AddonContainerComponent c in Components)
 							c.Hue = value;
 					}
 				}
@@ -55,15 +55,13 @@ namespace Server.Items
 		public virtual Point3D WallPosition => Point3D.Zero;
 		public virtual BaseAddonContainerDeed Deed => null;
 
-		private List<AddonContainerComponent> m_Components;
-
-		public List<AddonContainerComponent> Components => m_Components;
+		public List<AddonContainerComponent> Components { get; private set; }
 
 		public BaseAddonContainer(int itemID) : base(itemID)
 		{
 			AddonComponent.ApplyLightTo(this);
 
-			m_Components = new List<AddonContainerComponent>();
+			Components = new List<AddonContainerComponent>();
 		}
 
 		public BaseAddonContainer(Serial serial) : base(serial)
@@ -77,7 +75,7 @@ namespace Server.Items
 			if (Deleted)
 				return;
 
-			foreach (AddonContainerComponent c in m_Components)
+			foreach (AddonContainerComponent c in Components)
 				c.Location = new Point3D(X + c.Offset.X, Y + c.Offset.Y, Z + c.Offset.Z);
 		}
 
@@ -88,7 +86,7 @@ namespace Server.Items
 			if (Deleted)
 				return;
 
-			foreach (AddonContainerComponent c in m_Components)
+			foreach (AddonContainerComponent c in Components)
 				c.Map = Map;
 		}
 
@@ -114,7 +112,7 @@ namespace Server.Items
 		{
 			base.OnAfterDelete();
 
-			foreach (AddonContainerComponent c in m_Components)
+			foreach (AddonContainerComponent c in Components)
 				c.Delete();
 		}
 
@@ -124,7 +122,7 @@ namespace Server.Items
 
 			writer.Write(0); // version
 
-			writer.WriteItemList<AddonContainerComponent>(m_Components);
+			writer.WriteItemList<AddonContainerComponent>(Components);
 			writer.Write((int)m_Resource);
 		}
 
@@ -134,7 +132,7 @@ namespace Server.Items
 
 			int version = reader.ReadInt();
 
-			m_Components = reader.ReadStrongItemList<AddonContainerComponent>();
+			Components = reader.ReadStrongItemList<AddonContainerComponent>();
 			m_Resource = (CraftResource)reader.ReadInt();
 
 			AddonComponent.ApplyLightTo(this);
@@ -151,7 +149,7 @@ namespace Server.Items
 			if (Deleted)
 				return;
 
-			m_Components.Add(c);
+			Components.Add(c);
 
 			c.Addon = this;
 			c.Offset = new Point3D(x, y, z);
@@ -163,7 +161,7 @@ namespace Server.Items
 			if (Deleted)
 				return AddonFitResult.Blocked;
 
-			foreach (AddonContainerComponent c in m_Components)
+			foreach (AddonContainerComponent c in Components)
 			{
 				Point3D p3D = new Point3D(p.X + c.Offset.X, p.Y + c.Offset.Y, p.Z + c.Offset.Z);
 
@@ -210,7 +208,7 @@ namespace Server.Items
 					Point3D doorLoc = door.GetWorldLocation();
 					int doorHeight = door.ItemData.CalcHeight;
 
-					foreach (AddonContainerComponent c in m_Components)
+					foreach (AddonContainerComponent c in Components)
 					{
 						Point3D addonLoc = new Point3D(p.X + c.Offset.X, p.Y + c.Offset.Y, p.Z + c.Offset.Z);
 						int addonHeight = c.ItemData.CalcHeight;
@@ -252,9 +250,9 @@ namespace Server.Items
 
 					if (RetainDeedHue)
 					{
-						for (int i = 0; hue == 0 && i < m_Components.Count; ++i)
+						for (int i = 0; hue == 0 && i < Components.Count; ++i)
 						{
-							AddonContainerComponent c = m_Components[i];
+							AddonContainerComponent c = Components[i];
 
 							if (c.Hue != 0)
 								hue = c.Hue;

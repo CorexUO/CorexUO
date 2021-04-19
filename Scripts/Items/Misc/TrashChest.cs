@@ -1,6 +1,6 @@
 namespace Server.Items
 {
-	[FlipableAttribute(0xE41, 0xE40)]
+	[Flipable(0xE41, 0xE40)]
 	public class TrashChest : Container
 	{
 		public override int DefaultMaxWeight => 0;  // A value of 0 signals unlimited weight

@@ -8,13 +8,9 @@ namespace Server.Items
 {
 	public abstract class BaseDoor : BaseItem, ILockable, ITelekinesisable
 	{
-		private bool m_Open, m_Locked;
-		private int m_OpenedID, m_OpenedSound;
-		private int m_ClosedID, m_ClosedSound;
+		private bool m_Open;
 		private Point3D m_Offset;
 		private BaseDoor m_Link;
-		private uint m_KeyValue;
-
 		private Timer m_Timer;
 
 		private static readonly Point3D[] m_Offsets = new Point3D[]
@@ -52,9 +48,7 @@ namespace Server.Items
 
 		private static void Link_OnFirstTarget(Mobile from, object targeted)
 		{
-			BaseDoor door = targeted as BaseDoor;
-
-			if (door == null)
+			if (targeted is not BaseDoor door)
 			{
 				from.BeginTarget(-1, false, TargetFlags.None, new TargetCallback(Link_OnFirstTarget));
 				from.SendMessage("That is not a door. Try again.");
@@ -69,9 +63,8 @@ namespace Server.Items
 		private static void Link_OnSecondTarget(Mobile from, object targeted, object state)
 		{
 			BaseDoor first = (BaseDoor)state;
-			BaseDoor second = targeted as BaseDoor;
 
-			if (second == null)
+			if (targeted is not BaseDoor second)
 			{
 				from.BeginTarget(-1, false, TargetFlags.None, new TargetStateCallback(Link_OnSecondTarget), first);
 				from.SendMessage("That is not a door. Try again.");
@@ -94,9 +87,7 @@ namespace Server.Items
 
 		private static void ChainLink_OnTarget(Mobile from, object targeted, object state)
 		{
-			BaseDoor door = targeted as BaseDoor;
-
-			if (door == null)
+			if (targeted is not BaseDoor door)
 			{
 				from.BeginTarget(-1, false, TargetFlags.None, new TargetStateCallback(ChainLink_OnTarget), state);
 				from.SendMessage("That is not a door. Try again.");
@@ -198,18 +189,10 @@ namespace Server.Items
 		}
 
 		[CommandProperty(AccessLevel.GameMaster)]
-		public bool Locked
-		{
-			get => m_Locked;
-			set => m_Locked = value;
-		}
+		public bool Locked { get; set; }
 
 		[CommandProperty(AccessLevel.GameMaster)]
-		public uint KeyValue
-		{
-			get => m_KeyValue;
-			set => m_KeyValue = value;
-		}
+		public uint KeyValue { get; set; }
 
 		[CommandProperty(AccessLevel.GameMaster)]
 		public bool Open
@@ -221,14 +204,14 @@ namespace Server.Items
 				{
 					m_Open = value;
 
-					ItemID = m_Open ? m_OpenedID : m_ClosedID;
+					ItemID = m_Open ? OpenedID : ClosedID;
 
 					if (m_Open)
 						Location = new Point3D(X + m_Offset.X, Y + m_Offset.Y, Z + m_Offset.Z);
 					else
 						Location = new Point3D(X - m_Offset.X, Y - m_Offset.Y, Z - m_Offset.Z);
 
-					Effects.PlaySound(this, Map, m_Open ? m_OpenedSound : m_ClosedSound);
+					Effects.PlaySound(this, Map, m_Open ? OpenedSound : ClosedSound);
 
 					if (m_Open)
 						m_Timer.Start();
@@ -248,12 +231,12 @@ namespace Server.Items
 			if (map == null)
 				return false;
 
-			Point3D p = new Point3D(X - m_Offset.X, Y - m_Offset.Y, Z - m_Offset.Z);
+			Point3D p = new(X - m_Offset.X, Y - m_Offset.Y, Z - m_Offset.Z);
 
 			return CheckFit(map, p, 16);
 		}
 
-		private bool CheckFit(Map map, Point3D p, int height)
+		private static bool CheckFit(Map map, Point3D p, int height)
 		{
 			if (map == Map.Internal)
 				return false;
@@ -302,32 +285,16 @@ namespace Server.Items
 		}
 
 		[CommandProperty(AccessLevel.GameMaster)]
-		public int OpenedID
-		{
-			get => m_OpenedID;
-			set => m_OpenedID = value;
-		}
+		public int OpenedID { get; set; }
 
 		[CommandProperty(AccessLevel.GameMaster)]
-		public int ClosedID
-		{
-			get => m_ClosedID;
-			set => m_ClosedID = value;
-		}
+		public int ClosedID { get; set; }
 
 		[CommandProperty(AccessLevel.GameMaster)]
-		public int OpenedSound
-		{
-			get => m_OpenedSound;
-			set => m_OpenedSound = value;
-		}
+		public int OpenedSound { get; set; }
 
 		[CommandProperty(AccessLevel.GameMaster)]
-		public int ClosedSound
-		{
-			get => m_ClosedSound;
-			set => m_ClosedSound = value;
-		}
+		public int ClosedSound { get; set; }
 
 		[CommandProperty(AccessLevel.GameMaster)]
 		public Point3D Offset
@@ -353,7 +320,7 @@ namespace Server.Items
 
 		public List<BaseDoor> GetChain()
 		{
-			List<BaseDoor> list = new List<BaseDoor>();
+			List<BaseDoor> list = new();
 			BaseDoor c = this;
 
 			do
@@ -400,7 +367,7 @@ namespace Server.Items
 
 		public virtual void Use(Mobile from)
 		{
-			if (m_Locked && !m_Open && UseLocks())
+			if (Locked && !m_Open && UseLocks())
 			{
 				if (from.AccessLevel >= AccessLevel.GameMaster)
 				{
@@ -472,10 +439,10 @@ namespace Server.Items
 
 		public BaseDoor(int closedID, int openedID, int openedSound, int closedSound, Point3D offset) : base(closedID)
 		{
-			m_OpenedID = openedID;
-			m_ClosedID = closedID;
-			m_OpenedSound = openedSound;
-			m_ClosedSound = closedSound;
+			OpenedID = openedID;
+			ClosedID = closedID;
+			OpenedSound = openedSound;
+			ClosedSound = closedSound;
 			m_Offset = offset;
 
 			m_Timer = new InternalTimer(this);
@@ -493,14 +460,14 @@ namespace Server.Items
 
 			writer.Write(0); // version
 
-			writer.Write(m_KeyValue);
+			writer.Write(KeyValue);
 
 			writer.Write(m_Open);
-			writer.Write(m_Locked);
-			writer.Write(m_OpenedID);
-			writer.Write(m_ClosedID);
-			writer.Write(m_OpenedSound);
-			writer.Write(m_ClosedSound);
+			writer.Write(Locked);
+			writer.Write(OpenedID);
+			writer.Write(ClosedID);
+			writer.Write(OpenedSound);
+			writer.Write(ClosedSound);
 			writer.Write(m_Offset);
 			writer.Write(m_Link);
 		}
@@ -515,13 +482,13 @@ namespace Server.Items
 			{
 				case 0:
 					{
-						m_KeyValue = reader.ReadUInt();
+						KeyValue = reader.ReadUInt();
 						m_Open = reader.ReadBool();
-						m_Locked = reader.ReadBool();
-						m_OpenedID = reader.ReadInt();
-						m_ClosedID = reader.ReadInt();
-						m_OpenedSound = reader.ReadInt();
-						m_ClosedSound = reader.ReadInt();
+						Locked = reader.ReadBool();
+						OpenedID = reader.ReadInt();
+						ClosedID = reader.ReadInt();
+						OpenedSound = reader.ReadInt();
+						ClosedSound = reader.ReadInt();
 						m_Offset = reader.ReadPoint3D();
 						m_Link = reader.ReadItem() as BaseDoor;
 

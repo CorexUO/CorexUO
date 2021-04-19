@@ -1,6 +1,6 @@
 namespace Server.Items
 {
-	[FlipableAttribute(0xF61, 0xF60)]
+	[Flipable(0xF61, 0xF60)]
 	public class Longsword : BaseSword
 	{
 		public override WeaponAbility PrimaryAbility => WeaponAbility.ArmorIgnore;

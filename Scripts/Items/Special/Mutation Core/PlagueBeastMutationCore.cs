@@ -6,19 +6,13 @@ namespace Server.Items
 {
 	public class PlagueBeastMutationCore : BaseItem, IScissorable
 	{
-		private bool m_Cut;
-
 		[CommandProperty(AccessLevel.GameMaster)]
-		public bool Cut
-		{
-			get => m_Cut;
-			set => m_Cut = value;
-		}
+		public bool Cut { get; set; }
 
 		[Constructable]
 		public PlagueBeastMutationCore() : base(0x1CF0)
 		{
-			m_Cut = true;
+			Cut = true;
 
 			Name = "a plague beast mutation core";
 			Weight = 1.0;
@@ -27,11 +21,11 @@ namespace Server.Items
 
 		public virtual bool Scissor(Mobile from, Scissors scissors)
 		{
-			if (!m_Cut)
+			if (!Cut)
 			{
 				PlagueBeastLord owner = RootParent as PlagueBeastLord;
 
-				m_Cut = true;
+				Cut = true;
 				Movable = true;
 
 				from.AddToBackpack(this);
@@ -62,7 +56,7 @@ namespace Server.Items
 
 			writer.WriteEncodedInt(0); // version
 
-			writer.Write(m_Cut);
+			writer.Write(Cut);
 		}
 
 		public override void Deserialize(GenericReader reader)
@@ -71,7 +65,7 @@ namespace Server.Items
 
 			int version = reader.ReadEncodedInt();
 
-			m_Cut = reader.ReadBool();
+			Cut = reader.ReadBool();
 		}
 	}
 }

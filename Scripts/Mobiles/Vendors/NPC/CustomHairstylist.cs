@@ -93,36 +93,29 @@ namespace Server.Mobiles
 
 	public class HairstylistBuyInfo
 	{
-		private readonly int m_Title;
-		private readonly string m_TitleString;
-		private readonly int m_Price;
-		private readonly bool m_FacialHair;
-		private readonly Type m_GumpType;
-		private readonly object[] m_GumpArgs;
-
-		public int Title => m_Title;
-		public string TitleString => m_TitleString;
-		public int Price => m_Price;
-		public bool FacialHair => m_FacialHair;
-		public Type GumpType => m_GumpType;
-		public object[] GumpArgs => m_GumpArgs;
+		public int Title { get; }
+		public string TitleString { get; }
+		public int Price { get; }
+		public bool FacialHair { get; }
+		public Type GumpType { get; }
+		public object[] GumpArgs { get; }
 
 		public HairstylistBuyInfo(int title, int price, bool facialHair, Type gumpType, object[] args)
 		{
-			m_Title = title;
-			m_Price = price;
-			m_FacialHair = facialHair;
-			m_GumpType = gumpType;
-			m_GumpArgs = args;
+			Title = title;
+			Price = price;
+			FacialHair = facialHair;
+			GumpType = gumpType;
+			GumpArgs = args;
 		}
 
 		public HairstylistBuyInfo(string title, int price, bool facialHair, Type gumpType, object[] args)
 		{
-			m_TitleString = title;
-			m_Price = price;
-			m_FacialHair = facialHair;
-			m_GumpType = gumpType;
-			m_GumpArgs = args;
+			TitleString = title;
+			Price = price;
+			FacialHair = facialHair;
+			GumpType = gumpType;
+			GumpArgs = args;
 		}
 	}
 
@@ -230,26 +223,23 @@ namespace Server.Mobiles
 
 	public class ChangeHairHueEntry
 	{
-		private readonly string m_Name;
-		private readonly int[] m_Hues;
-
-		public string Name => m_Name;
-		public int[] Hues => m_Hues;
+		public string Name { get; }
+		public int[] Hues { get; }
 
 		public ChangeHairHueEntry(string name, int[] hues)
 		{
-			m_Name = name;
-			m_Hues = hues;
+			Name = name;
+			Hues = hues;
 		}
 
 		public ChangeHairHueEntry(string name, int start, int count)
 		{
-			m_Name = name;
+			Name = name;
 
-			m_Hues = new int[count];
+			Hues = new int[count];
 
 			for (int i = 0; i < count; ++i)
-				m_Hues[i] = start + i;
+				Hues[i] = start + i;
 		}
 
 		public static readonly ChangeHairHueEntry[] BrightEntries = new ChangeHairHueEntry[]
@@ -389,21 +379,17 @@ namespace Server.Mobiles
 
 	public class ChangeHairstyleEntry
 	{
-		private readonly int m_ItemID;
-		private readonly int m_GumpID;
-		private readonly int m_X, m_Y;
-
-		public int ItemID => m_ItemID;
-		public int GumpID => m_GumpID;
-		public int X => m_X;
-		public int Y => m_Y;
+		public int ItemID { get; }
+		public int GumpID { get; }
+		public int X { get; }
+		public int Y { get; }
 
 		public ChangeHairstyleEntry(int gumpID, int x, int y, int itemID)
 		{
-			m_GumpID = gumpID;
-			m_X = x;
-			m_Y = y;
-			m_ItemID = itemID;
+			GumpID = gumpID;
+			X = x;
+			Y = y;
+			ItemID = itemID;
 		}
 
 		public static readonly ChangeHairstyleEntry[] HairEntries = new ChangeHairstyleEntry[]

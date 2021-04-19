@@ -1,6 +1,6 @@
 namespace Server.Items
 {
-	[FlipableAttribute(0x26C0, 0x26CA)]
+	[Flipable(0x26C0, 0x26CA)]
 	public class Lance : BaseSword
 	{
 		public override WeaponAbility PrimaryAbility => WeaponAbility.Dismount;

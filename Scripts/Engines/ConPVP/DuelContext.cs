@@ -863,7 +863,7 @@ namespace Server.Engines.ConPVP
 			}
 
 			if (hasWinner)
-				return winner == null ? (Participant)Participants[0] : winner;
+				return winner ?? (Participant)Participants[0];
 
 			return null;
 		}

@@ -89,7 +89,7 @@ namespace Server.Engines.ConPVP
 
 			if (!m_ReadOnly)
 			{
-				BitArray opts = new BitArray(m_Page.Options.Length);
+				BitArray opts = new(m_Page.Options.Length);
 
 				for (int i = 0; i < info.Switches.Length; ++i)
 				{

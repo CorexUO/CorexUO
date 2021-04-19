@@ -9,15 +9,12 @@ namespace Server.Mobiles
 	{
 		public override bool IgnoreYoungProtection => Core.ML;
 
-		public static Type[] ArtifactRarity10 => m_ArtifactRarity10;
-		public static Type[] ArtifactRarity11 => m_ArtifactRarity11;
-		private static readonly Type[] m_ArtifactRarity10 = new Type[]
+		public static Type[] ArtifactRarity10 { get; } = new Type[]
 			{
 				typeof( LegacyOfTheDreadLord ),
 				typeof( TheTaskmaster )
 			};
-
-		private static readonly Type[] m_ArtifactRarity11 = new Type[]
+		public static Type[] ArtifactRarity11 { get; } = new Type[]
 			{
 				typeof( TheDragonSlayer ),
 				typeof( ArmorOfFortune ),
@@ -57,18 +54,18 @@ namespace Server.Mobiles
 			if (!Core.AOS)
 				return null;
 
-			int count = (m_ArtifactRarity10.Length * 5) + (m_ArtifactRarity11.Length * 4);
+			int count = (ArtifactRarity10.Length * 5) + (ArtifactRarity11.Length * 4);
 			int random = Utility.Random(count);
 			Type type;
 
-			if (random < (m_ArtifactRarity10.Length * 5))
+			if (random < (ArtifactRarity10.Length * 5))
 			{
-				type = m_ArtifactRarity10[random / 5];
+				type = ArtifactRarity10[random / 5];
 			}
 			else
 			{
-				random -= m_ArtifactRarity10.Length * 5;
-				type = m_ArtifactRarity11[random / 4];
+				random -= ArtifactRarity10.Length * 5;
+				type = ArtifactRarity11[random / 4];
 			}
 
 			return Loot.Construct(type);

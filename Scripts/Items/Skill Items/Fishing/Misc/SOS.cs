@@ -18,9 +18,7 @@ namespace Server.Items
 		}
 
 		private int m_Level;
-		private Map m_TargetMap;
 		private Point3D m_TargetLocation;
-		private int m_MessageIndex;
 
 		[CommandProperty(AccessLevel.GameMaster)]
 		public bool IsAncient => (m_Level >= 4);
@@ -38,11 +36,7 @@ namespace Server.Items
 		}
 
 		[CommandProperty(AccessLevel.GameMaster)]
-		public Map TargetMap
-		{
-			get => m_TargetMap;
-			set => m_TargetMap = value;
-		}
+		public Map TargetMap { get; set; }
 
 		[CommandProperty(AccessLevel.GameMaster)]
 		public Point3D TargetLocation
@@ -52,11 +46,7 @@ namespace Server.Items
 		}
 
 		[CommandProperty(AccessLevel.GameMaster)]
-		public int MessageIndex
-		{
-			get => m_MessageIndex;
-			set => m_MessageIndex = value;
-		}
+		public int MessageIndex { get; set; }
 
 		public void UpdateHue()
 		{
@@ -82,9 +72,9 @@ namespace Server.Items
 			Weight = 1.0;
 
 			m_Level = level;
-			m_MessageIndex = Utility.Random(MessageEntry.Entries.Length);
-			m_TargetMap = map;
-			m_TargetLocation = FindLocation(m_TargetMap);
+			MessageIndex = Utility.Random(MessageEntry.Entries.Length);
+			TargetMap = map;
+			m_TargetLocation = FindLocation(TargetMap);
 
 			UpdateHue();
 		}
@@ -101,9 +91,9 @@ namespace Server.Items
 
 			writer.Write(m_Level);
 
-			writer.Write(m_TargetMap);
+			writer.Write(TargetMap);
 			writer.Write(m_TargetLocation);
-			writer.Write(m_MessageIndex);
+			writer.Write(MessageIndex);
 		}
 
 		public override void Deserialize(GenericReader reader)
@@ -118,9 +108,9 @@ namespace Server.Items
 					{
 						m_Level = reader.ReadInt();
 
-						m_TargetMap = reader.ReadMap();
+						TargetMap = reader.ReadMap();
 						m_TargetLocation = reader.ReadPoint3D();
-						m_MessageIndex = reader.ReadInt();
+						MessageIndex = reader.ReadInt();
 
 						break;
 					}
@@ -133,13 +123,13 @@ namespace Server.Items
 			{
 				MessageEntry entry;
 
-				if (m_MessageIndex >= 0 && m_MessageIndex < MessageEntry.Entries.Length)
-					entry = MessageEntry.Entries[m_MessageIndex];
+				if (MessageIndex >= 0 && MessageIndex < MessageEntry.Entries.Length)
+					entry = MessageEntry.Entries[MessageIndex];
 				else
-					entry = MessageEntry.Entries[m_MessageIndex = Utility.Random(MessageEntry.Entries.Length)];
+					entry = MessageEntry.Entries[MessageIndex = Utility.Random(MessageEntry.Entries.Length)];
 
 				//from.CloseGump( typeof( MessageGump ) );
-				from.SendGump(new MessageGump(entry, m_TargetMap, m_TargetLocation));
+				from.SendGump(new MessageGump(entry, TargetMap, m_TargetLocation));
 			}
 			else
 			{
@@ -217,27 +207,6 @@ namespace Server.Items
 			return water;
 		}
 
-#if false
-		private class MessageGump : Gump
-		{
-			public MessageGump( MessageEntry entry, Map map, Point3D loc ) : base( (640 - entry.Width) / 2, (480 - entry.Height) / 2 )
-			{
-				int xLong = 0, yLat = 0;
-				int xMins = 0, yMins = 0;
-				bool xEast = false, ySouth = false;
-				string fmt;
-
-				if ( Sextant.Format( loc, map, ref xLong, ref yLat, ref xMins, ref yMins, ref xEast, ref ySouth ) )
-					fmt = String.Format( "{0}°{1}'{2},{3}°{4}'{5}", yLat, yMins, ySouth ? "S" : "N", xLong, xMins, xEast ? "E" : "W" );
-				else
-					fmt = "?????";
-
-				AddPage( 0 );
-				AddBackground( 0, 0, entry.Width, entry.Height, 2520 );
-				AddHtml( 38, 38, entry.Width - 83, entry.Height - 86, String.Format( entry.Message, fmt ), false, false );
-			}
-		}
-#else
 		private class MessageGump : Gump
 		{
 			public MessageGump(MessageEntry entry, Map map, Point3D loc) : base(150, 50)
@@ -268,25 +237,21 @@ namespace Server.Items
 				AddHtmlLocalized(70, 265, 100, 20, 1011036, false, false); // OKAY
 			}
 		}
-#endif
 
 		private class MessageEntry
 		{
-			private readonly int m_Width, m_Height;
-			private readonly string m_Message;
-
-			public int Width => m_Width;
-			public int Height => m_Height;
-			public string Message => m_Message;
+			public int Width { get; }
+			public int Height { get; }
+			public string Message { get; }
 
 			public MessageEntry(int width, int height, string message)
 			{
-				m_Width = width;
-				m_Height = height;
-				m_Message = message;
+				Width = width;
+				Height = height;
+				Message = message;
 			}
 
-			private static readonly MessageEntry[] m_Entries = new MessageEntry[]
+			public static MessageEntry[] Entries { get; } = new MessageEntry[]
 				{
 					new MessageEntry( 280, 180, "...Ar! {0} and a fair wind! No chance... storms, though--ar! Is that a sea serp...<br><br>uh oh." ),
 					new MessageEntry( 280, 215, "...been inside this whale for three days now. I've run out of food I can pick out of his teeth. I took a sextant reading through the blowhole: {0}. I'll never see my treasure again..." ),
@@ -301,8 +266,6 @@ namespace Server.Items
 					new MessageEntry( 280, 160, "WANTED: divers exp...d in shipwre...overy. Must have own vess...pply at {0}<br>...good benefits, flexible hours..." ),
 					new MessageEntry( 280, 250, "...was a cad and a boor, no matter what momma s...rew him overboard! Oh, Anna, 'twas so exciting!<br>  Unfort...y he grabbe...est, and all his riches went with him!<br>  ...sked the captain, and he says we're at {0}<br>...so maybe..." )
 				};
-
-			public static MessageEntry[] Entries => m_Entries;
 		}
 	}
 }

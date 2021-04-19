@@ -1,6 +1,6 @@
 namespace Server.Items
 {
-	[FlipableAttribute(0x1439, 0x1438)]
+	[Flipable(0x1439, 0x1438)]
 	public class WarHammer : BaseBashing
 	{
 		public override WeaponAbility PrimaryAbility => WeaponAbility.WhirlwindAttack;

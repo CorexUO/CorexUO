@@ -71,7 +71,7 @@ namespace Server.Items
 		DeleteStone
 	}
 
-	[FlipableAttribute(0xEDD, 0xEDE)]
+	[Flipable(0xEDD, 0xEDE)]
 	public class HouseRaffleStone : BaseItem
 	{
 		private const int EntryLimitPerIP = 4;

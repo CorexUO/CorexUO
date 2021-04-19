@@ -16,7 +16,7 @@ namespace Server.Items
 
 
 
-	[FlipableAttribute(0x14fc, 0x14fb)]
+	[Flipable(0x14fc, 0x14fb)]
 	public class Lockpick : BaseItem
 	{
 		[Constructable]

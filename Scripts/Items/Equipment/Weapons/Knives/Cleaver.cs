@@ -1,6 +1,6 @@
 namespace Server.Items
 {
-	[FlipableAttribute(0xEC3, 0xEC2)]
+	[Flipable(0xEC3, 0xEC2)]
 	public class Cleaver : BaseKnife
 	{
 		public override WeaponAbility PrimaryAbility => WeaponAbility.BleedAttack;

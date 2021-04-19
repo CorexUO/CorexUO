@@ -1,6 +1,6 @@
 namespace Server.Items
 {
-	[FlipableAttribute(0xFAF, 0xFB0)]
+	[Flipable(0xFAF, 0xFB0)]
 	[Server.Engines.Craft.Anvil]
 	public class Anvil : BaseItem
 	{

@@ -1,6 +1,6 @@
 namespace Server.Items
 {
-	[FlipableAttribute(0xF5C, 0xF5D)]
+	[Flipable(0xF5C, 0xF5D)]
 	public class Mace : BaseBashing
 	{
 		public override WeaponAbility PrimaryAbility => WeaponAbility.ConcussionBlow;

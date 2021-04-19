@@ -7,22 +7,11 @@ namespace Server.Mobiles
 	[CorpseName("a plague spawn corpse")]
 	public class PlagueSpawn : BaseCreature
 	{
-		private Mobile m_Owner;
-		private DateTime m_ExpireTime;
+		[CommandProperty(AccessLevel.GameMaster)]
+		public Mobile Owner { get; set; }
 
 		[CommandProperty(AccessLevel.GameMaster)]
-		public Mobile Owner
-		{
-			get => m_Owner;
-			set => m_Owner = value;
-		}
-
-		[CommandProperty(AccessLevel.GameMaster)]
-		public DateTime ExpireTime
-		{
-			get => m_ExpireTime;
-			set => m_ExpireTime = value;
-		}
+		public DateTime ExpireTime { get; set; }
 
 		[Constructable]
 		public PlagueSpawn() : this(null)
@@ -48,7 +37,7 @@ namespace Server.Mobiles
 
 		public override void OnThink()
 		{
-			if (m_Owner != null && (DateTime.UtcNow >= m_ExpireTime || m_Owner.Deleted || Map != m_Owner.Map || !InRange(m_Owner, 16)))
+			if (Owner != null && (DateTime.UtcNow >= ExpireTime || Owner.Deleted || Map != Owner.Map || !InRange(Owner, 16)))
 			{
 				PlaySound(GetIdleSound());
 				Delete();
@@ -61,8 +50,8 @@ namespace Server.Mobiles
 
 		public PlagueSpawn(Mobile owner) : base(AIType.AI_Melee, FightMode.Closest, 10, 1, 0.2, 0.4)
 		{
-			m_Owner = owner;
-			m_ExpireTime = DateTime.UtcNow + TimeSpan.FromMinutes(1.0);
+			Owner = owner;
+			ExpireTime = DateTime.UtcNow + TimeSpan.FromMinutes(1.0);
 
 			Name = "a plague spawn";
 			Hue = Utility.Random(0x11, 15);

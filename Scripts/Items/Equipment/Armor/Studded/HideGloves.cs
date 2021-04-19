@@ -1,6 +1,6 @@
 namespace Server.Items
 {
-	[FlipableAttribute(0x2B75, 0x316C)]
+	[Flipable(0x2B75, 0x316C)]
 	public class HideGloves : BaseArmor
 	{
 		public override Race RequiredRace => Race.Elf;

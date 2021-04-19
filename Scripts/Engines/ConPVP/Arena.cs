@@ -550,13 +550,11 @@ namespace Server.Engines.ConPVP
 
 			if (hasBounds)
 			{
-				List<Mobile> pets = new List<Mobile>();
+				List<Mobile> pets = new();
 
 				foreach (Mobile mob in facet.GetMobilesInBounds(m_Bounds))
 				{
-					BaseCreature pet = mob as BaseCreature;
-
-					if (pet != null && pet.Controlled && pet.ControlMaster != null)
+					if (mob is BaseCreature pet && pet.Controlled && pet.ControlMaster != null)
 					{
 						if (Players.Contains(pet.ControlMaster))
 						{
@@ -657,7 +655,7 @@ namespace Server.Engines.ConPVP
 				}
 			}
 
-			List<ArenaEntry> arenas = new List<ArenaEntry>();
+			List<ArenaEntry> arenas = new();
 
 			for (int i = 0; i < Arenas.Count; ++i)
 			{

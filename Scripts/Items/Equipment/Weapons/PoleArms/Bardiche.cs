@@ -1,6 +1,6 @@
 namespace Server.Items
 {
-	[FlipableAttribute(0xF4D, 0xF4E)]
+	[Flipable(0xF4D, 0xF4E)]
 	public class Bardiche : BasePoleArm
 	{
 		public override WeaponAbility PrimaryAbility => WeaponAbility.ParalyzingBlow;

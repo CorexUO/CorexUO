@@ -1,6 +1,6 @@
 namespace Server.Items
 {
-	[FlipableAttribute(0x26BE, 0x26C8)]
+	[Flipable(0x26BE, 0x26C8)]
 	public class Pike : BaseSpear
 	{
 		public override WeaponAbility PrimaryAbility => WeaponAbility.ParalyzingBlow;

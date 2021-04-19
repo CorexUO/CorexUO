@@ -183,7 +183,7 @@ namespace Server.Items
 				{
 					from.PlaySound(0x225);
 					m_Item.Delete();
-					InternalTimer t = new InternalTimer(from, (Campfire)targeted);
+					InternalTimer t = new(from, (Campfire)targeted);
 					t.Start();
 				}
 			}

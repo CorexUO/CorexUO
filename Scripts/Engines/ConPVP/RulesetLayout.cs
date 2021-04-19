@@ -13,7 +13,7 @@ namespace Server.Engines.ConPVP
 			{
 				if (m_Root == null)
 				{
-					ArrayList entries = new ArrayList
+					ArrayList entries = new()
 					{
 						new RulesetLayout("Spells", new RulesetLayout[]
 						{

@@ -15,7 +15,6 @@ namespace Server.Items
 		private int m_Charges;
 		private int m_Recharges;
 		private BaseCreature m_Pet;
-		private string m_PetName;
 
 		[CommandProperty(AccessLevel.GameMaster)]
 		public int Charges
@@ -80,7 +79,7 @@ namespace Server.Items
 		}
 
 		[CommandProperty(AccessLevel.GameMaster)]
-		public string PetName => m_PetName;
+		public string PetName { get; private set; }
 
 		[Constructable]
 		public BallOfSummoning() : base(0xE2E)
@@ -90,17 +89,17 @@ namespace Server.Items
 
 			m_Charges = Utility.RandomMinMax(3, 9);
 
-			m_PetName = "";
+			PetName = "";
 		}
 
 		public override void AddNameProperty(ObjectPropertyList list)
 		{
-			list.Add(1054131, m_Charges.ToString() + (m_PetName.Length == 0 ? "\t " : "\t" + m_PetName)); // a crystal ball of pet summoning: [charges: ~1_charges~] : [linked pet: ~2_petName~]
+			list.Add(1054131, m_Charges.ToString() + (PetName.Length == 0 ? "\t " : "\t" + PetName)); // a crystal ball of pet summoning: [charges: ~1_charges~] : [linked pet: ~2_petName~]
 		}
 
 		public override void OnSingleClick(Mobile from)
 		{
-			LabelTo(from, 1054131, m_Charges.ToString() + (m_PetName.Length == 0 ? "\t " : "\t" + m_PetName)); // a crystal ball of pet summoning: [charges: ~1_charges~] : [linked pet: ~2_petName~]
+			LabelTo(from, 1054131, m_Charges.ToString() + (PetName.Length == 0 ? "\t " : "\t" + PetName)); // a crystal ball of pet summoning: [charges: ~1_charges~] : [linked pet: ~2_petName~]
 		}
 
 		private delegate void BallCallback(Mobile from);
@@ -330,9 +329,9 @@ namespace Server.Items
 			BaseCreature pet = Pet;
 
 			if (pet == null)
-				m_PetName = "";
+				PetName = "";
 			else
-				m_PetName = pet.Name;
+				PetName = pet.Name;
 
 			InvalidateProperties();
 		}
@@ -351,7 +350,7 @@ namespace Server.Items
 
 			writer.WriteEncodedInt(m_Charges);
 			writer.Write(Pet);
-			writer.Write(m_PetName);
+			writer.Write(PetName);
 		}
 
 		public override void Deserialize(GenericReader reader)
@@ -367,7 +366,7 @@ namespace Server.Items
 						m_Recharges = reader.ReadEncodedInt();
 						m_Charges = Math.Min(reader.ReadEncodedInt(), MaxCharges);
 						Pet = (BaseCreature)reader.ReadMobile();
-						m_PetName = reader.ReadString();
+						PetName = reader.ReadString();
 						break;
 					}
 			}

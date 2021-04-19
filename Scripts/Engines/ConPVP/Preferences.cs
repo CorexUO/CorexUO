@@ -107,7 +107,7 @@ namespace Server.Engines.ConPVP
 
 						for (int i = 0; i < count; ++i)
 						{
-							PreferencesEntry entry = new PreferencesEntry(reader, this, version);
+							PreferencesEntry entry = new(reader, this, version);
 
 							if (entry.Mobile != null)
 							{

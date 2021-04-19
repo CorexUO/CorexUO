@@ -2,7 +2,7 @@ using Server.Engines.Harvest;
 
 namespace Server.Items
 {
-	[FlipableAttribute(0x13B0, 0x13AF)]
+	[Flipable(0x13B0, 0x13AF)]
 	public class WarAxe : BaseAxe
 	{
 		public override WeaponAbility PrimaryAbility => WeaponAbility.ArmorIgnore;

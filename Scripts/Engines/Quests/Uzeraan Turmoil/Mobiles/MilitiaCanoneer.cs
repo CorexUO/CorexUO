@@ -5,19 +5,13 @@ namespace Server.Engines.Quests.Haven
 {
 	public class MilitiaCanoneer : BaseQuester
 	{
-		private bool m_Active;
-
 		[CommandProperty(AccessLevel.GameMaster)]
-		public bool Active
-		{
-			get => m_Active;
-			set => m_Active = value;
-		}
+		public bool Active { get; set; }
 
 		[Constructable]
 		public MilitiaCanoneer() : base("the Militia Canoneer")
 		{
-			m_Active = true;
+			Active = true;
 		}
 
 		public override void InitBody()
@@ -77,7 +71,7 @@ namespace Server.Engines.Quests.Haven
 
 		public bool WillFire(Cannon cannon, Mobile target)
 		{
-			if (m_Active && IsEnemy(target))
+			if (Active && IsEnemy(target))
 			{
 				Direction = GetDirectionTo(target);
 				Say(Utility.RandomList(500651, 1049098, 1049320, 1043149));
@@ -97,7 +91,7 @@ namespace Server.Engines.Quests.Haven
 
 			writer.Write(0); // version
 
-			writer.Write(m_Active);
+			writer.Write(Active);
 		}
 
 		public override void Deserialize(GenericReader reader)
@@ -106,7 +100,7 @@ namespace Server.Engines.Quests.Haven
 
 			int version = reader.ReadInt();
 
-			m_Active = reader.ReadBool();
+			Active = reader.ReadBool();
 		}
 	}
 }

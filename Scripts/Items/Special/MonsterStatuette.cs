@@ -51,26 +51,22 @@ namespace Server.Items
 
 	public class MonsterStatuetteInfo
 	{
-		private readonly int m_LabelNumber;
-		private readonly int m_ItemID;
-		private readonly int[] m_Sounds;
-
-		public int LabelNumber => m_LabelNumber;
-		public int ItemID => m_ItemID;
-		public int[] Sounds => m_Sounds;
+		public int LabelNumber { get; }
+		public int ItemID { get; }
+		public int[] Sounds { get; }
 
 		public MonsterStatuetteInfo(int labelNumber, int itemID, int baseSoundID)
 		{
-			m_LabelNumber = labelNumber;
-			m_ItemID = itemID;
-			m_Sounds = new int[] { baseSoundID, baseSoundID + 1, baseSoundID + 2, baseSoundID + 3, baseSoundID + 4 };
+			LabelNumber = labelNumber;
+			ItemID = itemID;
+			Sounds = new int[] { baseSoundID, baseSoundID + 1, baseSoundID + 2, baseSoundID + 3, baseSoundID + 4 };
 		}
 
 		public MonsterStatuetteInfo(int labelNumber, int itemID, int[] sounds)
 		{
-			m_LabelNumber = labelNumber;
-			m_ItemID = itemID;
-			m_Sounds = sounds;
+			LabelNumber = labelNumber;
+			ItemID = itemID;
+			Sounds = sounds;
 		}
 
 		private static readonly MonsterStatuetteInfo[] m_Table = new MonsterStatuetteInfo[]
@@ -132,14 +128,9 @@ namespace Server.Items
 	{
 		private MonsterStatuetteType m_Type;
 		private bool m_TurnedOn;
-		private bool m_IsRewardItem;
 
 		[CommandProperty(AccessLevel.GameMaster)]
-		public bool IsRewardItem
-		{
-			get => m_IsRewardItem;
-			set => m_IsRewardItem = value;
-		}
+		public bool IsRewardItem { get; set; }
 
 		[CommandProperty(AccessLevel.GameMaster)]
 		public bool TurnedOn
@@ -217,7 +208,7 @@ namespace Server.Items
 		{
 			base.GetProperties(list);
 
-			if (Core.ML && m_IsRewardItem)
+			if (Core.ML && IsRewardItem)
 				list.Add(RewardSystem.GetRewardYearLabel(this, new object[] { m_Type })); // X Year Veteran Reward
 
 			if (m_TurnedOn)
@@ -292,7 +283,7 @@ namespace Server.Items
 
 			writer.WriteEncodedInt((int)m_Type);
 			writer.Write(m_TurnedOn);
-			writer.Write(m_IsRewardItem);
+			writer.Write(IsRewardItem);
 		}
 
 		public override void Deserialize(GenericReader reader)
@@ -307,7 +298,7 @@ namespace Server.Items
 					{
 						m_Type = (MonsterStatuetteType)reader.ReadEncodedInt();
 						m_TurnedOn = reader.ReadBool();
-						m_IsRewardItem = reader.ReadBool();
+						IsRewardItem = reader.ReadBool();
 						break;
 					}
 			}

@@ -27,7 +27,7 @@ namespace Server.Items
 		}
 	}
 
-	[FlipableAttribute(0x0E9F, 0x0EC8)]
+	[Flipable(0x0E9F, 0x0EC8)]
 	public class WomanPortrait1 : BaseItem
 	{
 		[Constructable]
@@ -55,7 +55,7 @@ namespace Server.Items
 		}
 	}
 
-	[FlipableAttribute(0x0EE7, 0x0EC9)]
+	[Flipable(0x0EE7, 0x0EC9)]
 	public class WomanPortrait2 : BaseItem
 	{
 		[Constructable]
@@ -83,7 +83,7 @@ namespace Server.Items
 		}
 	}
 
-	[FlipableAttribute(0x0EA2, 0x0EA1)]
+	[Flipable(0x0EA2, 0x0EA1)]
 	public class ManPortrait1 : BaseItem
 	{
 		[Constructable]
@@ -111,7 +111,7 @@ namespace Server.Items
 		}
 	}
 
-	[FlipableAttribute(0x0EA3, 0x0EA4)]
+	[Flipable(0x0EA3, 0x0EA4)]
 	public class ManPortrait2 : BaseItem
 	{
 		[Constructable]
@@ -139,7 +139,7 @@ namespace Server.Items
 		}
 	}
 
-	[FlipableAttribute(0x0EA6, 0x0EA5)]
+	[Flipable(0x0EA6, 0x0EA5)]
 	public class LadyPortrait1 : BaseItem
 	{
 		[Constructable]
@@ -167,7 +167,7 @@ namespace Server.Items
 		}
 	}
 
-	[FlipableAttribute(0x0EA7, 0x0EA8)]
+	[Flipable(0x0EA7, 0x0EA8)]
 	public class LadyPortrait2 : BaseItem
 	{
 		[Constructable]

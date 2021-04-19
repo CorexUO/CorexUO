@@ -201,7 +201,6 @@ namespace Server.Engines.ConPVP
 		public Participant(DuelContext context, int count)
 		{
 			Context = context;
-			//m_Stakes = new StakesContainer( context, this );
 			Resize(count);
 		}
 	}

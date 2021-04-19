@@ -8,19 +8,17 @@ namespace Server.Engines.Quests.Ninja
 	{
 		public static int[] Messages = new int[]
 			{
-				1063191, // They won’t find me here.
+				1063191, // They wonâ€™t find me here.
 				1063192  // Ah, a quiet hideout.
 			};
 
-		private int m_Message;
-
 		[CommandProperty(AccessLevel.GameMaster)]
-		public int Message { get => m_Message; set => m_Message = value; }
+		public int Message { get; set; }
 
 		[Constructable]
 		public HiddenFigure()
 		{
-			m_Message = Utility.RandomList(Messages);
+			Message = Utility.RandomList(Messages);
 		}
 
 		public override void InitBody()
@@ -66,7 +64,7 @@ namespace Server.Engines.Quests.Ninja
 
 		public override void OnTalk(PlayerMobile player, bool contextMenu)
 		{
-			PrivateOverheadMessage(MessageType.Regular, 0x3B2, m_Message, player.NetState);
+			PrivateOverheadMessage(MessageType.Regular, 0x3B2, Message, player.NetState);
 		}
 
 		public HiddenFigure(Serial serial) : base(serial)
@@ -79,7 +77,7 @@ namespace Server.Engines.Quests.Ninja
 
 			writer.WriteEncodedInt(0); // version
 
-			writer.Write(m_Message);
+			writer.Write(Message);
 		}
 
 		public override void Deserialize(GenericReader reader)
@@ -88,7 +86,7 @@ namespace Server.Engines.Quests.Ninja
 
 			int version = reader.ReadEncodedInt();
 
-			m_Message = reader.ReadInt();
+			Message = reader.ReadInt();
 		}
 	}
 }

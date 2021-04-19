@@ -1,6 +1,6 @@
 namespace Server.Items
 {
-	[FlipableAttribute(0x26BF, 0x26C9)]
+	[Flipable(0x26BF, 0x26C9)]
 	public class DoubleBladedStaff : BaseSpear
 	{
 		public override WeaponAbility PrimaryAbility => WeaponAbility.DoubleStrike;

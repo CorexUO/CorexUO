@@ -9,41 +9,25 @@ namespace Server.Items
 
 	public class Head : BaseItem
 	{
-		private string m_PlayerName;
-		private HeadType m_HeadType;
+		[CommandProperty(AccessLevel.GameMaster)]
+		public string PlayerName { get; set; }
 
 		[CommandProperty(AccessLevel.GameMaster)]
-		public string PlayerName
-		{
-			get => m_PlayerName;
-			set => m_PlayerName = value;
-		}
-
-		[CommandProperty(AccessLevel.GameMaster)]
-		public HeadType HeadType
-		{
-			get => m_HeadType;
-			set => m_HeadType = value;
-		}
+		public HeadType HeadType { get; set; }
 
 		public override string DefaultName
 		{
 			get
 			{
-				if (m_PlayerName == null)
+				if (PlayerName == null)
 					return base.DefaultName;
 
-				switch (m_HeadType)
+				return HeadType switch
 				{
-					default:
-						return string.Format("the head of {0}", m_PlayerName);
-
-					case HeadType.Duel:
-						return string.Format("the head of {0}, taken in a duel", m_PlayerName);
-
-					case HeadType.Tournament:
-						return string.Format("the head of {0}, taken in a tournament", m_PlayerName);
-				}
+					HeadType.Duel => string.Format("the head of {0}, taken in a duel", PlayerName),
+					HeadType.Tournament => string.Format("the head of {0}, taken in a tournament", PlayerName),
+					_ => string.Format("the head of {0}", PlayerName),
+				};
 			}
 		}
 
@@ -63,8 +47,8 @@ namespace Server.Items
 		public Head(HeadType headType, string playerName)
 			: base(0x1DA0)
 		{
-			m_HeadType = headType;
-			m_PlayerName = playerName;
+			HeadType = headType;
+			PlayerName = playerName;
 		}
 
 		public Head(Serial serial)
@@ -78,8 +62,8 @@ namespace Server.Items
 
 			writer.Write(0); // version
 
-			writer.Write(m_PlayerName);
-			writer.WriteEncodedInt((int)m_HeadType);
+			writer.Write(PlayerName);
+			writer.WriteEncodedInt((int)HeadType);
 		}
 
 		public override void Deserialize(GenericReader reader)
@@ -92,8 +76,8 @@ namespace Server.Items
 			{
 				case 0:
 					{
-						m_PlayerName = reader.ReadString();
-						m_HeadType = (HeadType)reader.ReadEncodedInt();
+						PlayerName = reader.ReadString();
+						HeadType = (HeadType)reader.ReadEncodedInt();
 						break;
 					}
 			}

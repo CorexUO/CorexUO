@@ -1,6 +1,6 @@
 namespace Server.Items
 {
-	[FlipableAttribute(0x2D21, 0x2D2D)]
+	[Flipable(0x2D21, 0x2D2D)]
 	public class AssassinSpike : BaseKnife
 	{
 		public override WeaponAbility PrimaryAbility => WeaponAbility.InfectiousStrike;

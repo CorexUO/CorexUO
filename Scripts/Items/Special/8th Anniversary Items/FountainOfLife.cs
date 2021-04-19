@@ -53,7 +53,7 @@ namespace Server.Items
 		}
 	}
 
-	[FlipableAttribute(0x2AC0, 0x2AC3)]
+	[Flipable(0x2AC0, 0x2AC3)]
 	public class FountainOfLife : BaseAddonContainer
 	{
 		public override BaseAddonContainerDeed Deed => new FountainOfLifeDeed(m_Charges);

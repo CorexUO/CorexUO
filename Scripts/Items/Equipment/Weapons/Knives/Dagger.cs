@@ -1,6 +1,6 @@
 namespace Server.Items
 {
-	[FlipableAttribute(0xF52, 0xF51)]
+	[Flipable(0xF52, 0xF51)]
 	public class Dagger : BaseKnife
 	{
 		public override WeaponAbility PrimaryAbility => WeaponAbility.InfectiousStrike;

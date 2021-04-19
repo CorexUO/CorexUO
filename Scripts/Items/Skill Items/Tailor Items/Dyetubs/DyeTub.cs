@@ -15,18 +15,13 @@ namespace Server.Items
 	{
 		private bool m_Redyable;
 		private int m_DyedHue;
-		private SecureLevel m_SecureLevel;
 
 		public virtual CustomHuePicker CustomHuePicker => null;
 
 		public virtual bool AllowRunebooks => false;
-
 		public virtual bool AllowFurniture => false;
-
 		public virtual bool AllowStatuettes => false;
-
 		public virtual bool AllowLeather => false;
-
 		public virtual bool AllowDyables => true;
 
 		public override void Serialize(GenericWriter writer)
@@ -35,7 +30,7 @@ namespace Server.Items
 
 			writer.Write(0); // version
 
-			writer.Write((int)m_SecureLevel);
+			writer.Write((int)Level);
 			writer.Write(m_Redyable);
 			writer.Write(m_DyedHue);
 		}
@@ -50,7 +45,7 @@ namespace Server.Items
 			{
 				case 0:
 					{
-						m_SecureLevel = (SecureLevel)reader.ReadInt();
+						Level = (SecureLevel)reader.ReadInt();
 						m_Redyable = reader.ReadBool();
 						m_DyedHue = reader.ReadInt();
 
@@ -81,11 +76,7 @@ namespace Server.Items
 		}
 
 		[CommandProperty(AccessLevel.GameMaster)]
-		public SecureLevel Level
-		{
-			get => m_SecureLevel;
-			set => m_SecureLevel = value;
-		}
+		public SecureLevel Level { get; set; }
 
 		[Constructable]
 		public DyeTub() : base(0xFAB)

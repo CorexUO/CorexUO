@@ -1,6 +1,6 @@
 namespace Server.Items
 {
-	[FlipableAttribute(0xe43, 0xe42)]
+	[Flipable(0xe43, 0xe42)]
 	public class WoodenTreasureChest : BaseTreasureChest
 	{
 		[Constructable]
@@ -27,7 +27,7 @@ namespace Server.Items
 		}
 	}
 
-	[FlipableAttribute(0xe41, 0xe40)]
+	[Flipable(0xe41, 0xe40)]
 	public class MetalGoldenTreasureChest : BaseTreasureChest
 	{
 		[Constructable]
@@ -54,7 +54,7 @@ namespace Server.Items
 		}
 	}
 
-	[FlipableAttribute(0x9ab, 0xe7c)]
+	[Flipable(0x9ab, 0xe7c)]
 	public class MetalTreasureChest : BaseTreasureChest
 	{
 		[Constructable]

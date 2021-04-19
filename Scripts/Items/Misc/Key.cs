@@ -23,8 +23,6 @@ namespace Server.Items
 	{
 		private string m_Description;
 		private uint m_KeyVal;
-		private Item m_Link;
-		private int m_MaxRange;
 
 		public static uint RandomValue()
 		{
@@ -105,12 +103,7 @@ namespace Server.Items
 		}
 
 		[CommandProperty(AccessLevel.GameMaster)]
-		public int MaxRange
-		{
-			get => m_MaxRange;
-
-			set => m_MaxRange = value;
-		}
+		public int MaxRange { get; set; }
 
 		[CommandProperty(AccessLevel.GameMaster)]
 		public uint KeyValue
@@ -125,12 +118,7 @@ namespace Server.Items
 		}
 
 		[CommandProperty(AccessLevel.GameMaster)]
-		public Item Link
-		{
-			get => m_Link;
-
-			set => m_Link = value;
-		}
+		public Item Link { get; set; }
 
 		public override void Serialize(GenericWriter writer)
 		{
@@ -138,9 +126,9 @@ namespace Server.Items
 
 			writer.Write(0); // version
 
-			writer.Write(m_MaxRange);
+			writer.Write(MaxRange);
 
-			writer.Write(m_Link);
+			writer.Write(Link);
 
 			writer.Write(m_Description);
 			writer.Write(m_KeyVal);
@@ -156,9 +144,9 @@ namespace Server.Items
 			{
 				case 0:
 					{
-						m_MaxRange = reader.ReadInt();
+						MaxRange = reader.ReadInt();
 
-						m_Link = reader.ReadItem();
+						Link = reader.ReadItem();
 
 						m_Description = reader.ReadString();
 						m_KeyVal = reader.ReadUInt();
@@ -193,9 +181,9 @@ namespace Server.Items
 		{
 			Weight = 1.0;
 
-			m_MaxRange = 3;
+			MaxRange = 3;
 			m_KeyVal = LockVal;
-			m_Link = link;
+			Link = link;
 		}
 
 		public Key(Serial serial) : base(serial)

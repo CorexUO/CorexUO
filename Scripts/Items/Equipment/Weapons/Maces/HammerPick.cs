@@ -1,6 +1,6 @@
 namespace Server.Items
 {
-	[FlipableAttribute(0x143D, 0x143C)]
+	[Flipable(0x143D, 0x143C)]
 	public class HammerPick : BaseBashing
 	{
 		public override WeaponAbility PrimaryAbility => WeaponAbility.ArmorIgnore;

@@ -1,6 +1,6 @@
 namespace Server.Items
 {
-	[FlipableAttribute(0x2D2F, 0x2D23)]
+	[Flipable(0x2D2F, 0x2D23)]
 	public class WarCleaver : BaseKnife
 	{
 		public override WeaponAbility PrimaryAbility => WeaponAbility.Disarm;

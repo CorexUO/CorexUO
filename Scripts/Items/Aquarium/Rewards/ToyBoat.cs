@@ -1,6 +1,6 @@
 namespace Server.Items
 {
-	[FlipableAttribute(0x14F3, 0x14F4)]
+	[Flipable(0x14F3, 0x14F4)]
 	public class ToyBoat : BaseItem
 	{
 		public override int LabelNumber => 1074363;  // A toy boat

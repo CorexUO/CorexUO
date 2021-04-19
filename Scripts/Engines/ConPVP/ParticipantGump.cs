@@ -209,9 +209,7 @@ namespace Server.Engines.ConPVP
 				}
 				else
 				{
-					PlayerMobile pm = mob as PlayerMobile;
-
-					if (pm == null)
+					if (mob is not PlayerMobile pm)
 						return;
 
 					if (pm.DuelContext != null)

@@ -1,6 +1,6 @@
 namespace Server.Items
 {
-	[FlipableAttribute(0x143B, 0x143A)]
+	[Flipable(0x143B, 0x143A)]
 	public class Maul : BaseBashing
 	{
 		public override WeaponAbility PrimaryAbility => WeaponAbility.CrushingBlow;

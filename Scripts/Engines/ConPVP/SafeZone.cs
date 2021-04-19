@@ -36,10 +36,8 @@ namespace Server.Engines.ConPVP
 
 			PlayerMobile pm = m as PlayerMobile;
 
-			if (pm == null && m is BaseCreature)
+			if (pm == null && m is BaseCreature bc)
 			{
-				BaseCreature bc = (BaseCreature)m;
-
 				if (bc.Summoned)
 					pm = bc.SummonMaster as PlayerMobile;
 			}

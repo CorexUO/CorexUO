@@ -4,24 +4,14 @@ namespace Server.Items
 {
 	public class MorphItem : BaseItem
 	{
-		private int m_InactiveItemID;
-		private int m_ActiveItemID;
 		private int m_InRange;
 		private int m_OutRange;
 
 		[CommandProperty(AccessLevel.GameMaster)]
-		public int InactiveItemID
-		{
-			get => m_InactiveItemID;
-			set => m_InactiveItemID = value;
-		}
+		public int InactiveItemID { get; set; }
 
 		[CommandProperty(AccessLevel.GameMaster)]
-		public int ActiveItemID
-		{
-			get => m_ActiveItemID;
-			set => m_ActiveItemID = value;
-		}
+		public int ActiveItemID { get; set; }
 
 		[CommandProperty(AccessLevel.GameMaster)]
 		public int InRange
@@ -109,8 +99,8 @@ namespace Server.Items
 
 			writer.Write(m_OutRange);
 
-			writer.Write(m_InactiveItemID);
-			writer.Write(m_ActiveItemID);
+			writer.Write(InactiveItemID);
+			writer.Write(ActiveItemID);
 			writer.Write(m_InRange);
 		}
 
@@ -126,8 +116,8 @@ namespace Server.Items
 					{
 						m_OutRange = reader.ReadInt();
 
-						m_InactiveItemID = reader.ReadInt();
-						m_ActiveItemID = reader.ReadInt();
+						InactiveItemID = reader.ReadInt();
+						ActiveItemID = reader.ReadInt();
 						m_InRange = reader.ReadInt();
 
 						break;

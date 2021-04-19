@@ -30,7 +30,7 @@ namespace Server.Items
 		}
 	}
 
-	[FlipableAttribute(0x153b, 0x153c)]
+	[Flipable(0x153b, 0x153c)]
 	public class HalfApron : BaseWaist
 	{
 		[Constructable]
@@ -96,7 +96,7 @@ namespace Server.Items
 		}
 	}
 
-	[FlipableAttribute(0x2B68, 0x315F)]
+	[Flipable(0x2B68, 0x315F)]
 	public class WoodlandBelt : BaseWaist
 	{
 		public override Race RequiredRace => Race.Elf;

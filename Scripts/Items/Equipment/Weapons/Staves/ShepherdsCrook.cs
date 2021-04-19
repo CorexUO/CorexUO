@@ -6,7 +6,7 @@ using System;
 
 namespace Server.Items
 {
-	[FlipableAttribute(0xE81, 0xE82)]
+	[Flipable(0xE81, 0xE82)]
 	public class ShepherdsCrook : BaseStaff
 	{
 		public override WeaponAbility PrimaryAbility => WeaponAbility.CrushingBlow;

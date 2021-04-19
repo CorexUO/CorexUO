@@ -1,6 +1,6 @@
 namespace Server.Items
 {
-	[FlipableAttribute(0xF5E, 0xF5F)]
+	[Flipable(0xF5E, 0xF5F)]
 	public class Broadsword : BaseSword
 	{
 		public override WeaponAbility PrimaryAbility => WeaponAbility.CrushingBlow;

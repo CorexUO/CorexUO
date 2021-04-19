@@ -3,7 +3,7 @@ using System;
 
 namespace Server.Items
 {
-	[FlipableAttribute(0xF52, 0xF51)]
+	[Flipable(0xF52, 0xF51)]
 	public class ThrowingDagger : BaseItem
 	{
 		public override string DefaultName => "a throwing dagger";

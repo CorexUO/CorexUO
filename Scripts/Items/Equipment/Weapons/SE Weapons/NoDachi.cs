@@ -1,6 +1,6 @@
 namespace Server.Items
 {
-	[FlipableAttribute(0x27A2, 0x27ED)]
+	[Flipable(0x27A2, 0x27ED)]
 	public class NoDachi : BaseSword
 	{
 		public override WeaponAbility PrimaryAbility => WeaponAbility.CrushingBlow;

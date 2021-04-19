@@ -169,13 +169,11 @@ namespace Server.Engines.Quests.Samurai
 				// The second trial is complete.  Return to Daimyo Haochi.
 				1063229;
 
-		private bool m_Dragon;
-
-		public bool Dragon => m_Dragon;
+		public bool Dragon { get; private set; }
 
 		public SecondTrialReturnObjective(bool dragon)
 		{
-			m_Dragon = dragon;
+			Dragon = dragon;
 		}
 
 		public SecondTrialReturnObjective()
@@ -184,21 +182,21 @@ namespace Server.Engines.Quests.Samurai
 
 		public override void OnComplete()
 		{
-			System.AddConversation(new ThirdTrialIntroConversation(m_Dragon));
+			System.AddConversation(new ThirdTrialIntroConversation(Dragon));
 		}
 
 		public override void ChildDeserialize(GenericReader reader)
 		{
 			int version = reader.ReadEncodedInt();
 
-			m_Dragon = reader.ReadBool();
+			Dragon = reader.ReadBool();
 		}
 
 		public override void ChildSerialize(GenericWriter writer)
 		{
 			writer.WriteEncodedInt(0); // version
 
-			writer.Write(m_Dragon);
+			writer.Write(Dragon);
 		}
 	}
 
@@ -305,13 +303,11 @@ namespace Server.Engines.Quests.Samurai
 				// You have made your choice.  Return now to Daimyo Haochi.
 				1063242;
 
-		private bool m_KilledCat;
-
-		public bool KilledCat => m_KilledCat;
+		public bool KilledCat { get; private set; }
 
 		public FourthTrialReturnObjective(bool killedCat)
 		{
-			m_KilledCat = killedCat;
+			KilledCat = killedCat;
 		}
 
 		public FourthTrialReturnObjective()
@@ -320,33 +316,31 @@ namespace Server.Engines.Quests.Samurai
 
 		public override void OnComplete()
 		{
-			System.AddConversation(new FifthTrialIntroConversation(m_KilledCat));
+			System.AddConversation(new FifthTrialIntroConversation(KilledCat));
 		}
 
 		public override void ChildDeserialize(GenericReader reader)
 		{
 			int version = reader.ReadEncodedInt();
 
-			m_KilledCat = reader.ReadBool();
+			KilledCat = reader.ReadBool();
 		}
 
 		public override void ChildSerialize(GenericWriter writer)
 		{
 			writer.WriteEncodedInt(0); // version
 
-			writer.Write(m_KilledCat);
+			writer.Write(KilledCat);
 		}
 	}
 
 	public class FifthTrialIntroObjective : QuestObjective
 	{
 		public override object Message =>
-				// Retrieve Daimyo Haochi’s katana from the treasure room.
+				// Retrieve Daimyo Haochiâ€™s katana from the treasure room.
 				1063072;
 
-		private bool m_StolenTreasure;
-
-		public bool StolenTreasure { get => m_StolenTreasure; set => m_StolenTreasure = value; }
+		public bool StolenTreasure { get; set; }
 
 		public FifthTrialIntroObjective()
 		{
@@ -361,14 +355,14 @@ namespace Server.Engines.Quests.Samurai
 		{
 			int version = reader.ReadEncodedInt();
 
-			m_StolenTreasure = reader.ReadBool();
+			StolenTreasure = reader.ReadBool();
 		}
 
 		public override void ChildSerialize(GenericWriter writer)
 		{
 			writer.WriteEncodedInt(0); // version
 
-			writer.Write(m_StolenTreasure);
+			writer.Write(StolenTreasure);
 		}
 	}
 

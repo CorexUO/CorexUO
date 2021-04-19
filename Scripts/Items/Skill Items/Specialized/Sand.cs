@@ -1,6 +1,6 @@
 namespace Server.Items
 {
-	[FlipableAttribute(0x11EA, 0x11EB)]
+	[Flipable(0x11EA, 0x11EB)]
 	public class Sand : BaseItem, ICommodity
 	{
 		int ICommodity.DescriptionNumber => LabelNumber;

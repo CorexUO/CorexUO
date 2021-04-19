@@ -1,6 +1,6 @@
 namespace Server.Items
 {
-	[FlipableAttribute(0x1403, 0x1402)]
+	[Flipable(0x1403, 0x1402)]
 	public class ShortSpear : BaseSpear
 	{
 		public override WeaponAbility PrimaryAbility => WeaponAbility.ShadowStrike;

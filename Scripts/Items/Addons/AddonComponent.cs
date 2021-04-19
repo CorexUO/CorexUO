@@ -106,14 +106,9 @@ namespace Server.Items
 	public class AddonComponent : BaseItem, IChopable
 	{
 		private Point3D m_Offset;
-		private BaseAddon m_Addon;
 
 		[CommandProperty(AccessLevel.GameMaster)]
-		public BaseAddon Addon
-		{
-			get => m_Addon;
-			set => m_Addon = value;
-		}
+		public BaseAddon Addon { get; set; }
 
 		[CommandProperty(AccessLevel.GameMaster)]
 		public Point3D Offset
@@ -130,8 +125,8 @@ namespace Server.Items
 			{
 				base.Hue = value;
 
-				if (m_Addon != null && m_Addon.ShareHue)
-					m_Addon.Hue = value;
+				if (Addon != null && Addon.ShareHue)
+					Addon.Hue = value;
 			}
 		}
 
@@ -151,36 +146,36 @@ namespace Server.Items
 
 		public override void OnDoubleClick(Mobile from)
 		{
-			if (m_Addon != null)
-				m_Addon.OnComponentUsed(this, from);
+			if (Addon != null)
+				Addon.OnComponentUsed(this, from);
 		}
 
 		public void OnChop(Mobile from)
 		{
-			if (m_Addon != null && from.InRange(GetWorldLocation(), 3))
-				m_Addon.OnChop(from);
+			if (Addon != null && from.InRange(GetWorldLocation(), 3))
+				Addon.OnChop(from);
 			else
 				from.SendLocalizedMessage(500446); // That is too far away.
 		}
 
 		public override void OnLocationChange(Point3D old)
 		{
-			if (m_Addon != null)
-				m_Addon.Location = new Point3D(X - m_Offset.X, Y - m_Offset.Y, Z - m_Offset.Z);
+			if (Addon != null)
+				Addon.Location = new Point3D(X - m_Offset.X, Y - m_Offset.Y, Z - m_Offset.Z);
 		}
 
 		public override void OnMapChange()
 		{
-			if (m_Addon != null)
-				m_Addon.Map = Map;
+			if (Addon != null)
+				Addon.Map = Map;
 		}
 
 		public override void OnAfterDelete()
 		{
 			base.OnAfterDelete();
 
-			if (m_Addon != null)
-				m_Addon.Delete();
+			if (Addon != null)
+				Addon.Delete();
 		}
 
 		public override void Serialize(GenericWriter writer)
@@ -189,7 +184,7 @@ namespace Server.Items
 
 			writer.Write(0); // version
 
-			writer.Write(m_Addon);
+			writer.Write(Addon);
 			writer.Write(m_Offset);
 		}
 
@@ -203,11 +198,11 @@ namespace Server.Items
 			{
 				case 0:
 					{
-						m_Addon = reader.ReadItem() as BaseAddon;
+						Addon = reader.ReadItem() as BaseAddon;
 						m_Offset = reader.ReadPoint3D();
 
-						if (m_Addon != null)
-							m_Addon.OnComponentLoaded(this);
+						if (Addon != null)
+							Addon.OnComponentLoaded(this);
 
 						ApplyLightTo(this);
 

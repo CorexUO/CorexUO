@@ -1,6 +1,6 @@
 namespace Server.Items
 {
-	[FlipableAttribute(0x2D32, 0x2D26)]
+	[Flipable(0x2D32, 0x2D26)]
 	public class RuneBlade : BaseSword
 	{
 		public override WeaponAbility PrimaryAbility => WeaponAbility.Disarm;

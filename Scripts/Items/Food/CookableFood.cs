@@ -5,18 +5,12 @@ namespace Server.Items
 {
 	public abstract class CookableFood : BaseItem
 	{
-		private int m_CookingLevel;
-
 		[CommandProperty(AccessLevel.GameMaster)]
-		public int CookingLevel
-		{
-			get => m_CookingLevel;
-			set => m_CookingLevel = value;
-		}
+		public int CookingLevel { get; set; }
 
 		public CookableFood(int itemID, int cookingLevel) : base(itemID)
 		{
-			m_CookingLevel = cookingLevel;
+			CookingLevel = cookingLevel;
 		}
 
 		public CookableFood(Serial serial) : base(serial)
@@ -31,7 +25,7 @@ namespace Server.Items
 
 			writer.Write(0); // version
 
-			writer.Write(m_CookingLevel);
+			writer.Write(CookingLevel);
 		}
 
 		public override void Deserialize(GenericReader reader)
@@ -44,7 +38,7 @@ namespace Server.Items
 			{
 				case 0:
 					{
-						m_CookingLevel = reader.ReadInt();
+						CookingLevel = reader.ReadInt();
 
 						break;
 					}

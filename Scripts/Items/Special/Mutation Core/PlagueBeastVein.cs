@@ -5,22 +5,20 @@ namespace Server.Items
 {
 	public class PlagueBeastVein : PlagueBeastComponent
 	{
-		private bool m_Cut;
-
-		public bool Cut => m_Cut;
+		public bool Cut { get; private set; }
 
 		private Timer m_Timer;
 
 		public PlagueBeastVein(int itemID, int hue) : base(itemID, hue)
 		{
-			m_Cut = false;
+			Cut = false;
 		}
 
 		public override bool Scissor(Mobile from, Scissors scissors)
 		{
 			if (IsAccessibleTo(from))
 			{
-				if (!m_Cut && m_Timer == null)
+				if (!Cut && m_Timer == null)
 				{
 					m_Timer = Timer.DelayCall<Mobile>(TimeSpan.FromSeconds(3), new TimerStateCallback<Mobile>(CuttingDone), from);
 					scissors.PublicOverheadMessage(MessageType.Regular, 0x3B2, 1071899); // You begin cutting through the vein.
@@ -41,7 +39,7 @@ namespace Server.Items
 
 		private void CuttingDone(Mobile from)
 		{
-			m_Cut = true;
+			Cut = true;
 
 			if (ItemID == 0x1B1C)
 				ItemID = 0x1B1B;
@@ -67,7 +65,7 @@ namespace Server.Items
 
 			writer.WriteEncodedInt(0); // version
 
-			writer.Write(m_Cut);
+			writer.Write(Cut);
 		}
 
 		public override void Deserialize(GenericReader reader)
@@ -76,7 +74,7 @@ namespace Server.Items
 
 			int version = reader.ReadEncodedInt();
 
-			m_Cut = reader.ReadBool();
+			Cut = reader.ReadBool();
 		}
 	}
 }

@@ -1,6 +1,6 @@
 namespace Server.Items
 {
-	[FlipableAttribute(0x27AF, 0x27FA)]
+	[Flipable(0x27AF, 0x27FA)]
 	public class Sai : BaseKnife
 	{
 		public override WeaponAbility PrimaryAbility => WeaponAbility.Block;

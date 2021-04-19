@@ -1,6 +1,6 @@
 namespace Server.Items
 {
-	[FlipableAttribute(0x27Ab, 0x27F6)]
+	[Flipable(0x27Ab, 0x27F6)]
 	public class Tekagi : BaseKnife
 	{
 		public override WeaponAbility PrimaryAbility => WeaponAbility.DualWield;

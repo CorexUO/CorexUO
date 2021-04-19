@@ -5,7 +5,7 @@ using System;
 
 namespace Server.Items
 {
-	[FlipableAttribute(0x1EBA, 0x1EBB)]
+	[Flipable(0x1EBA, 0x1EBB)]
 	public class TaxidermyKit : BaseItem
 	{
 		public override int LabelNumber => 1041279;  // a taxidermy kit
@@ -66,21 +66,16 @@ namespace Server.Items
 		{
 			public TrophyInfo(Type type, int id, int deedNum, int addonNum)
 			{
-				m_CreatureType = type;
-				m_NorthID = id;
-				m_DeedNumber = deedNum;
-				m_AddonNumber = addonNum;
+				CreatureType = type;
+				NorthID = id;
+				DeedNumber = deedNum;
+				AddonNumber = addonNum;
 			}
 
-			private readonly Type m_CreatureType;
-			private readonly int m_NorthID;
-			private readonly int m_DeedNumber;
-			private readonly int m_AddonNumber;
-
-			public Type CreatureType => m_CreatureType;
-			public int NorthID => m_NorthID;
-			public int DeedNumber => m_DeedNumber;
-			public int AddonNumber => m_AddonNumber;
+			public Type CreatureType { get; }
+			public int NorthID { get; }
+			public int DeedNumber { get; }
+			public int AddonNumber { get; }
 		}
 
 
@@ -175,22 +170,19 @@ namespace Server.Items
 	{
 		public override bool ForceShowProperties => ObjectPropertyList.Enabled;
 
-		private int m_WestID;
-		private int m_NorthID;
-		private int m_DeedNumber;
 		private int m_AddonNumber;
 
 		private Mobile m_Hunter;
 		private int m_AnimalWeight;
 
 		[CommandProperty(AccessLevel.GameMaster)]
-		public int WestID { get => m_WestID; set => m_WestID = value; }
+		public int WestID { get; set; }
 
 		[CommandProperty(AccessLevel.GameMaster)]
-		public int NorthID { get => m_NorthID; set => m_NorthID = value; }
+		public int NorthID { get; set; }
 
 		[CommandProperty(AccessLevel.GameMaster)]
-		public int DeedNumber { get => m_DeedNumber; set => m_DeedNumber = value; }
+		public int DeedNumber { get; set; }
 
 		[CommandProperty(AccessLevel.GameMaster)]
 		public int AddonNumber { get => m_AddonNumber; set { m_AddonNumber = value; InvalidateProperties(); } }
@@ -210,9 +202,9 @@ namespace Server.Items
 
 		public TrophyAddon(Mobile from, int itemID, int westID, int northID, int deedNumber, int addonNumber, Mobile hunter, int animalWeight) : base(itemID)
 		{
-			m_WestID = westID;
-			m_NorthID = northID;
-			m_DeedNumber = deedNumber;
+			WestID = westID;
+			NorthID = northID;
+			DeedNumber = deedNumber;
 			m_AddonNumber = addonNumber;
 
 			m_Hunter = hunter;
@@ -245,7 +237,7 @@ namespace Server.Items
 			if (!map.CanFit(p.X, p.Y, p.Z, ItemData.Height))
 				return false;
 
-			if (ItemID == m_NorthID)
+			if (ItemID == NorthID)
 				return BaseAddon.IsWall(p.X, p.Y - 1, p.Z, map); // North wall
 			else
 				return BaseAddon.IsWall(p.X - 1, p.Y, p.Z, map); // West wall
@@ -260,9 +252,9 @@ namespace Server.Items
 			writer.Write(m_Hunter);
 			writer.Write(m_AnimalWeight);
 
-			writer.Write(m_WestID);
-			writer.Write(m_NorthID);
-			writer.Write(m_DeedNumber);
+			writer.Write(WestID);
+			writer.Write(NorthID);
+			writer.Write(DeedNumber);
 			writer.Write(m_AddonNumber);
 		}
 
@@ -279,9 +271,9 @@ namespace Server.Items
 						m_Hunter = reader.ReadMobile();
 						m_AnimalWeight = reader.ReadInt();
 
-						m_WestID = reader.ReadInt();
-						m_NorthID = reader.ReadInt();
-						m_DeedNumber = reader.ReadInt();
+						WestID = reader.ReadInt();
+						NorthID = reader.ReadInt();
+						DeedNumber = reader.ReadInt();
 						m_AddonNumber = reader.ReadInt();
 						break;
 					}
@@ -313,7 +305,7 @@ namespace Server.Items
 			}
 		}
 
-		public Item Deed => new TrophyDeed(m_WestID, m_NorthID, m_DeedNumber, m_AddonNumber, m_Hunter, m_AnimalWeight);
+		public Item Deed => new TrophyDeed(WestID, NorthID, DeedNumber, m_AddonNumber, m_Hunter, m_AnimalWeight);
 
 		public override void OnDoubleClick(Mobile from)
 		{
@@ -337,25 +329,21 @@ namespace Server.Items
 	[Flipable(0x14F0, 0x14EF)]
 	public class TrophyDeed : BaseItem
 	{
-		private int m_WestID;
-		private int m_NorthID;
 		private int m_DeedNumber;
-		private int m_AddonNumber;
-
 		private Mobile m_Hunter;
 		private int m_AnimalWeight;
 
 		[CommandProperty(AccessLevel.GameMaster)]
-		public int WestID { get => m_WestID; set => m_WestID = value; }
+		public int WestID { get; set; }
 
 		[CommandProperty(AccessLevel.GameMaster)]
-		public int NorthID { get => m_NorthID; set => m_NorthID = value; }
+		public int NorthID { get; set; }
 
 		[CommandProperty(AccessLevel.GameMaster)]
 		public int DeedNumber { get => m_DeedNumber; set { m_DeedNumber = value; InvalidateProperties(); } }
 
 		[CommandProperty(AccessLevel.GameMaster)]
-		public int AddonNumber { get => m_AddonNumber; set => m_AddonNumber = value; }
+		public int AddonNumber { get; set; }
 
 		[CommandProperty(AccessLevel.GameMaster)]
 		public Mobile Hunter { get => m_Hunter; set { m_Hunter = value; InvalidateProperties(); } }
@@ -372,10 +360,10 @@ namespace Server.Items
 
 		public TrophyDeed(int westID, int northID, int deedNumber, int addonNumber, Mobile hunter, int animalWeight) : base(0x14F0)
 		{
-			m_WestID = westID;
-			m_NorthID = northID;
+			WestID = westID;
+			NorthID = northID;
 			m_DeedNumber = deedNumber;
-			m_AddonNumber = addonNumber;
+			AddonNumber = addonNumber;
 			m_Hunter = hunter;
 			m_AnimalWeight = animalWeight;
 		}
@@ -410,10 +398,10 @@ namespace Server.Items
 			writer.Write(m_Hunter);
 			writer.Write(m_AnimalWeight);
 
-			writer.Write(m_WestID);
-			writer.Write(m_NorthID);
+			writer.Write(WestID);
+			writer.Write(NorthID);
 			writer.Write(m_DeedNumber);
-			writer.Write(m_AddonNumber);
+			writer.Write(AddonNumber);
 		}
 
 		public override void Deserialize(GenericReader reader)
@@ -429,10 +417,10 @@ namespace Server.Items
 						m_Hunter = reader.ReadMobile();
 						m_AnimalWeight = reader.ReadInt();
 
-						m_WestID = reader.ReadInt();
-						m_NorthID = reader.ReadInt();
+						WestID = reader.ReadInt();
+						NorthID = reader.ReadInt();
 						m_DeedNumber = reader.ReadInt();
-						m_AddonNumber = reader.ReadInt();
+						AddonNumber = reader.ReadInt();
 						break;
 					}
 			}
@@ -466,15 +454,15 @@ namespace Server.Items
 					int itemID = 0;
 
 					if (northWall)
-						itemID = m_NorthID;
+						itemID = NorthID;
 					else if (westWall)
-						itemID = m_WestID;
+						itemID = WestID;
 					else
 						from.SendLocalizedMessage(1042626); // The trophy must be placed next to a wall.
 
 					if (itemID > 0)
 					{
-						house.Addons.Add(new TrophyAddon(from, itemID, m_WestID, m_NorthID, m_DeedNumber, m_AddonNumber, m_Hunter, m_AnimalWeight));
+						house.Addons.Add(new TrophyAddon(from, itemID, WestID, NorthID, m_DeedNumber, AddonNumber, m_Hunter, m_AnimalWeight));
 						Delete();
 					}
 				}

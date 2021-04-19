@@ -6,7 +6,6 @@ namespace Server.Engines.Quests
 	public class HornOfRetreat : BaseItem
 	{
 		private Point3D m_DestLoc;
-		private Map m_DestMap;
 		private int m_Charges;
 
 		[CommandProperty(AccessLevel.GameMaster)]
@@ -17,11 +16,7 @@ namespace Server.Engines.Quests
 		}
 
 		[CommandProperty(AccessLevel.GameMaster)]
-		public Map DestMap
-		{
-			get => m_DestMap;
-			set => m_DestMap = value;
-		}
+		public Map DestMap { get; set; }
 
 		[CommandProperty(AccessLevel.GameMaster)]
 		public int Charges
@@ -117,7 +112,7 @@ namespace Server.Engines.Quests
 			writer.Write(0); // version
 
 			writer.Write(m_DestLoc);
-			writer.Write(m_DestMap);
+			writer.Write(DestMap);
 			writer.Write(m_Charges);
 		}
 
@@ -132,7 +127,7 @@ namespace Server.Engines.Quests
 				case 0:
 					{
 						m_DestLoc = reader.ReadPoint3D();
-						m_DestMap = reader.ReadMap();
+						DestMap = reader.ReadMap();
 						m_Charges = reader.ReadInt();
 						break;
 					}
