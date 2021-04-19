@@ -5,75 +5,46 @@ namespace Server.Engines.Chat
 {
 	public class ChatUser
 	{
-		private readonly Mobile m_Mobile;
-		private Channel m_Channel;
-		private bool m_Anonymous;
-		private bool m_IgnorePrivateMessage;
-		private readonly List<ChatUser> m_Ignored, m_Ignoring;
+		public Mobile Mobile { get; }
+		public List<ChatUser> Ignored { get; }
+		public List<ChatUser> Ignoring { get; }
+		public Channel CurrentChannel { get; set; }
+		public bool IsOnline => (Mobile.NetState != null);
+		public bool Anonymous { get; set; }
+		public bool IgnorePrivateMessage { get; set; }
+
+		public const char NormalColorCharacter = '0';
+		public const char ModeratorColorCharacter = '1';
+		public const char VoicedColorCharacter = '2';
 
 		public ChatUser(Mobile m)
 		{
-			m_Mobile = m;
-			m_Ignored = new List<ChatUser>();
-			m_Ignoring = new List<ChatUser>();
+			Mobile = m;
+			Ignored = new List<ChatUser>();
+			Ignoring = new List<ChatUser>();
 		}
-
-		public Mobile Mobile => m_Mobile;
-
-		public List<ChatUser> Ignored => m_Ignored;
-
-		public List<ChatUser> Ignoring => m_Ignoring;
 
 		public string Username
 		{
 			get
 			{
-				Account acct = m_Mobile.Account as Account;
-
-				if (acct != null)
+				if (Mobile.Account is Account acct)
 					return acct.GetTag("ChatName");
 
 				return null;
 			}
 			set
 			{
-				Account acct = m_Mobile.Account as Account;
-
-				if (acct != null)
+				if (Mobile.Account is Account acct)
 					acct.SetTag("ChatName", value);
 			}
 		}
-
-		public Channel CurrentChannel
-		{
-			get => m_Channel;
-			set => m_Channel = value;
-		}
-
-		public bool IsOnline => (m_Mobile.NetState != null);
-
-		public bool Anonymous
-		{
-			get => m_Anonymous;
-			set => m_Anonymous = value;
-		}
-
-		public bool IgnorePrivateMessage
-		{
-			get => m_IgnorePrivateMessage;
-			set => m_IgnorePrivateMessage = value;
-		}
-
-		public const char NormalColorCharacter = '0';
-		public const char ModeratorColorCharacter = '1';
-		public const char VoicedColorCharacter = '2';
-
 		public char GetColorCharacter()
 		{
-			if (m_Channel != null && m_Channel.IsModerator(this))
+			if (CurrentChannel != null && CurrentChannel.IsModerator(this))
 				return ModeratorColorCharacter;
 
-			if (m_Channel != null && m_Channel.IsVoiced(this))
+			if (CurrentChannel != null && CurrentChannel.IsVoiced(this))
 				return VoicedColorCharacter;
 
 			return NormalColorCharacter;
@@ -100,22 +71,22 @@ namespace Server.Engines.Chat
 
 		public void SendMessage(int number, string param1, string param2)
 		{
-			if (m_Mobile.NetState != null)
-				m_Mobile.Send(new ChatMessagePacket(m_Mobile, number, param1, param2));
+			if (Mobile.NetState != null)
+				Mobile.Send(new ChatMessagePacket(Mobile, number, param1, param2));
 		}
 
 		public void SendMessage(int number, Mobile from, string param1, string param2)
 		{
-			if (m_Mobile.NetState != null)
-				m_Mobile.Send(new ChatMessagePacket(from, number, param1, param2));
+			if (Mobile.NetState != null)
+				Mobile.Send(new ChatMessagePacket(from, number, param1, param2));
 		}
 
 		public bool IsIgnored(ChatUser check)
 		{
-			return m_Ignored.Contains(check);
+			return Ignored.Contains(check);
 		}
 
-		public bool IsModerator => (m_Channel != null && m_Channel.IsModerator(this));
+		public bool IsModerator => (CurrentChannel != null && CurrentChannel.IsModerator(this));
 
 		public void AddIgnored(ChatUser user)
 		{
@@ -125,8 +96,8 @@ namespace Server.Engines.Chat
 			}
 			else
 			{
-				m_Ignored.Add(user);
-				user.m_Ignoring.Add(this);
+				Ignored.Add(user);
+				user.Ignoring.Add(this);
 
 				SendMessage(23, user.Username); // You are now ignoring %1.
 			}
@@ -136,12 +107,12 @@ namespace Server.Engines.Chat
 		{
 			if (IsIgnored(user))
 			{
-				m_Ignored.Remove(user);
-				user.m_Ignoring.Remove(this);
+				Ignored.Remove(user);
+				user.Ignoring.Remove(this);
 
 				SendMessage(24, user.Username); // You are no longer ignoring %1.
 
-				if (m_Ignored.Count == 0)
+				if (Ignored.Count == 0)
 					SendMessage(26); // You are no longer ignoring anyone.
 			}
 			else
@@ -150,8 +121,8 @@ namespace Server.Engines.Chat
 			}
 		}
 
-		private static readonly List<ChatUser> m_Users = new List<ChatUser>();
-		private static readonly Dictionary<Mobile, ChatUser> m_Table = new Dictionary<Mobile, ChatUser>();
+		private static readonly List<ChatUser> m_Users = new();
+		private static readonly Dictionary<Mobile, ChatUser> m_Table = new();
 
 		public static ChatUser AddChatUser(Mobile from)
 		{
@@ -187,18 +158,18 @@ namespace Server.Engines.Chat
 			if (user == null)
 				return;
 
-			for (int i = 0; i < user.m_Ignoring.Count; ++i)
-				user.m_Ignoring[i].RemoveIgnored(user);
+			for (int i = 0; i < user.Ignoring.Count; ++i)
+				user.Ignoring[i].RemoveIgnored(user);
 
 			if (m_Users.Contains(user))
 			{
 				ChatSystem.SendCommandTo(user.Mobile, ChatCommand.CloseChatWindow);
 
-				if (user.m_Channel != null)
-					user.m_Channel.RemoveUser(user);
+				if (user.CurrentChannel != null)
+					user.CurrentChannel.RemoveUser(user);
 
 				m_Users.Remove(user);
-				m_Table.Remove(user.m_Mobile);
+				m_Table.Remove(user.Mobile);
 			}
 		}
 
@@ -263,7 +234,7 @@ namespace Server.Engines.Chat
 					continue;
 
 				if (user.CheckOnline())
-					ChatSystem.SendCommandTo(user.m_Mobile, command, param1, param2);
+					ChatSystem.SendCommandTo(user.Mobile, command, param1, param2);
 			}
 		}
 	}

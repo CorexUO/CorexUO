@@ -35,7 +35,7 @@ namespace Server.Spells
 			}
 		}
 
-		private static readonly Dictionary<Type, int> m_IDsFromTypes = new Dictionary<Type, int>(m_Types.Length);
+		private static readonly Dictionary<Type, int> m_IDsFromTypes = new(m_Types.Length);
 
 		public static Dictionary<int, SpecialMove> SpecialMoves { get; } = new Dictionary<int, SpecialMove>();
 

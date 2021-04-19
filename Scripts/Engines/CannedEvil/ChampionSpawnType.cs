@@ -18,27 +18,20 @@ namespace Server.Engines.CannedEvil
 
 	public class ChampionSpawnInfo
 	{
-		private readonly string m_Name;
-		private readonly Type m_Champion;
-		private readonly Type[][] m_SpawnTypes;
-		private readonly string[] m_LevelNames;
-
-		public string Name => m_Name;
-		public Type Champion => m_Champion;
-		public Type[][] SpawnTypes => m_SpawnTypes;
-		public string[] LevelNames => m_LevelNames;
+		public string Name { get; }
+		public Type Champion { get; }
+		public Type[][] SpawnTypes { get; }
+		public string[] LevelNames { get; }
 
 		public ChampionSpawnInfo(string name, Type champion, string[] levelNames, Type[][] spawnTypes)
 		{
-			m_Name = name;
-			m_Champion = champion;
-			m_LevelNames = levelNames;
-			m_SpawnTypes = spawnTypes;
+			Name = name;
+			Champion = champion;
+			LevelNames = levelNames;
+			SpawnTypes = spawnTypes;
 		}
 
-		public static ChampionSpawnInfo[] Table => m_Table;
-
-		private static readonly ChampionSpawnInfo[] m_Table = new ChampionSpawnInfo[]
+		public static ChampionSpawnInfo[] Table { get; } = new ChampionSpawnInfo[]
 			{
 				new ChampionSpawnInfo( "Abyss", typeof( Semidar ), new string[]{ "Foe", "Assassin", "Conqueror" }, new Type[][]	// Abyss
 				{																											// Abyss
@@ -112,10 +105,10 @@ namespace Server.Engines.CannedEvil
 		{
 			int v = (int)type;
 
-			if (v < 0 || v >= m_Table.Length)
+			if (v < 0 || v >= Table.Length)
 				v = 0;
 
-			return m_Table[v];
+			return Table[v];
 		}
 	}
 }

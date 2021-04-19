@@ -49,7 +49,7 @@ namespace Server.SkillHandlers
 			{
 				from.RevealingAction();
 
-				if (!(targeted is Mobile))
+				if (!(targeted is Mobile mobile))
 				{
 					from.SendLocalizedMessage(1049528); // You cannot calm that!
 				}
@@ -57,7 +57,7 @@ namespace Server.SkillHandlers
 				{
 					from.SendMessage("You may not peacemake in this area.");
 				}
-				else if (((Mobile)targeted).Region.IsPartOf(typeof(Engines.ConPVP.SafeZone)))
+				else if (mobile.Region.IsPartOf(typeof(Engines.ConPVP.SafeZone)))
 				{
 					from.SendMessage("You may not peacemake there.");
 				}
@@ -102,7 +102,7 @@ namespace Server.SkillHandlers
 
 								foreach (Mobile m in from.GetMobilesInRange(range))
 								{
-									if ((m is BaseCreature && ((BaseCreature)m).Uncalmable) || (m is BaseCreature && ((BaseCreature)m).AreaPeaceImmune) || m == from || !from.CanBeHarmful(m, false))
+									if ((m is BaseCreature creature && creature.Uncalmable) || (m is BaseCreature && ((BaseCreature)m).AreaPeaceImmune) || m == from || !from.CanBeHarmful(m, false))
 										continue;
 
 									calmed = true;
@@ -126,7 +126,7 @@ namespace Server.SkillHandlers
 					{
 						// Target mode : pacify a single target for a longer duration
 
-						Mobile targ = (Mobile)targeted;
+						Mobile targ = mobile;
 
 						if (!from.CanBeHarmful(targ, false))
 						{

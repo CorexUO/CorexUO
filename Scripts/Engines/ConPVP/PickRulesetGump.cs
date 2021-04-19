@@ -11,11 +11,6 @@ namespace Server.Engines.ConPVP
 		private readonly Ruleset[] m_Defaults;
 		private readonly Ruleset[] m_Flavors;
 
-		public string Center(string text)
-		{
-			return string.Format("<CENTER>{0}</CENTER>", text);
-		}
-
 		public PickRulesetGump(Mobile from, DuelContext context, Ruleset ruleset) : base(50, 50)
 		{
 			m_From = from;

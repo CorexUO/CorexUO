@@ -2,7 +2,6 @@ using Server.Accounting;
 using Server.Gumps;
 using Server.Network;
 using System;
-using System.Drawing;
 
 namespace Server
 {
@@ -11,7 +10,6 @@ namespace Server
 		public static bool UseEditGump = false;
 
 		public override bool IsVirtualItem => true;
-
 		public override bool DisplayWeight => false;
 		public override bool DisplayLootType => false;
 
@@ -263,7 +261,7 @@ namespace Server
 
 				string title = string.Format(
 					"<BASEFONT COLOR=#{0:X}><CENTER>BANK OF {1}</CENTER>",
-					Color.DarkSlateGray.ToArgb(),
+					System.Drawing.Color.DarkSlateGray.ToArgb(),
 					User.RawName.ToUpper());
 
 				AddHtml(40, 15, 320, 20, title, false, false);

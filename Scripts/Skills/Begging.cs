@@ -135,7 +135,7 @@ namespace Server.SkillHandlers
 							{
 								m_Target.PublicOverheadMessage(MessageType.Regular, m_Target.SpeechHue, 500405); // I feel sorry for thee...
 
-								Gold gold = new Gold(consumed);
+								Gold gold = new(consumed);
 
 								m_From.AddToBackpack(gold);
 								m_From.PlaySound(gold.GetDropSound());

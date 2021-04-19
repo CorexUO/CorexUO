@@ -139,8 +139,8 @@ namespace Server.Regions
 		private int[] m_RectangleWeights;
 		private int m_TotalWeight;
 
-		private static readonly List<Rectangle3D> m_RectBuffer1 = new List<Rectangle3D>();
-		private static readonly List<Rectangle3D> m_RectBuffer2 = new List<Rectangle3D>();
+		private static readonly List<Rectangle3D> m_RectBuffer1 = new();
+		private static readonly List<Rectangle3D> m_RectBuffer2 = new();
 
 		private void InitRectangles()
 		{
@@ -211,8 +211,8 @@ namespace Server.Regions
 			}
 		}
 
-		private static readonly List<int> m_SpawnBuffer1 = new List<int>();
-		private static readonly List<Item> m_SpawnBuffer2 = new List<Item>();
+		private static readonly List<int> m_SpawnBuffer1 = new();
+		private static readonly List<Item> m_SpawnBuffer2 = new();
 
 		public Point3D RandomSpawnLocation(int spawnHeight, bool land, bool water, Point3D home, int range)
 		{
@@ -503,7 +503,7 @@ namespace Server.Regions
 				SpawnZLevel = zLevel;
 
 
-				List<SpawnEntry> list = new List<SpawnEntry>();
+				List<SpawnEntry> list = new();
 
 				foreach (XmlNode node in spawning.ChildNodes)
 				{
@@ -537,7 +537,7 @@ namespace Server.Regions
 						Direction dir = SpawnEntry.InvalidDirection;
 						ReadEnum(el["direction"], "value", ref dir, false);
 
-						SpawnEntry entry = new SpawnEntry(id, this, home, range, dir, def, amount, minSpawnTime, maxSpawnTime);
+						SpawnEntry entry = new(id, this, home, range, dir, def, amount, minSpawnTime, maxSpawnTime);
 						list.Add(entry);
 					}
 				}

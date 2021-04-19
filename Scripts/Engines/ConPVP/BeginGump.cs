@@ -4,16 +4,6 @@ namespace Server.Engines.ConPVP
 {
 	public class BeginGump : Gump
 	{
-		public string Center(string text)
-		{
-			return string.Format("<CENTER>{0}</CENTER>", text);
-		}
-
-		public string Color(string text, int color)
-		{
-			return string.Format("<BASEFONT COLOR=#{0:X6}>{1}</BASEFONT>", color, text);
-		}
-
 		private const int LabelColor32 = 0xFFFFFF;
 		private const int BlackColor32 = 0x000008;
 

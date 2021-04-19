@@ -58,12 +58,12 @@ namespace Server.SkillHandlers
 				{
 					object mod = m_Mods[i];
 
-					if (mod is ResistanceMod)
-						m_Creature.AddResistanceMod((ResistanceMod)mod);
-					else if (mod is StatMod)
-						m_Creature.AddStatMod((StatMod)mod);
-					else if (mod is SkillMod)
-						m_Creature.AddSkillMod((SkillMod)mod);
+					if (mod is ResistanceMod resistanceMod)
+						m_Creature.AddResistanceMod(resistanceMod);
+					else if (mod is StatMod statMod)
+						m_Creature.AddStatMod(statMod);
+					else if (mod is SkillMod skillMod)
+						m_Creature.AddSkillMod(skillMod);
 				}
 			}
 
@@ -73,23 +73,21 @@ namespace Server.SkillHandlers
 				{
 					object mod = m_Mods[i];
 
-					if (mod is ResistanceMod)
-						m_Creature.RemoveResistanceMod((ResistanceMod)mod);
-					else if (mod is StatMod)
-						m_Creature.RemoveStatMod(((StatMod)mod).Name);
-					else if (mod is SkillMod)
-						m_Creature.RemoveSkillMod((SkillMod)mod);
+					if (mod is ResistanceMod resistanceMod)
+						m_Creature.RemoveResistanceMod(resistanceMod);
+					else if (mod is StatMod statMod)
+						m_Creature.RemoveStatMod(statMod.Name);
+					else if (mod is SkillMod skillMod)
+						m_Creature.RemoveSkillMod(skillMod);
 				}
 			}
 		}
 
-		private static readonly Hashtable m_Table = new Hashtable();
+		private static readonly Hashtable m_Table = new();
 
 		public static bool GetEffect(Mobile targ, ref int effect)
 		{
-			DiscordanceInfo info = m_Table[targ] as DiscordanceInfo;
-
-			if (info == null)
+			if (m_Table[targ] is not DiscordanceInfo info)
 				return false;
 
 			effect = info.m_Effect;
@@ -158,11 +156,9 @@ namespace Server.SkillHandlers
 				{
 					from.SendLocalizedMessage(1062488); // The instrument you are trying to play is no longer in your backpack!
 				}
-				else if (target is Mobile)
+				else if (target is Mobile targ)
 				{
-					Mobile targ = (Mobile)target;
-
-					if (targ == from || (targ is BaseCreature && (((BaseCreature)targ).BardImmune || !from.CanBeHarmful(targ, false)) && ((BaseCreature)targ).ControlMaster != from))
+					if (targ == from || (targ is BaseCreature creature && (creature.BardImmune || !from.CanBeHarmful(targ, false)) && creature.ControlMaster != from))
 					{
 						from.SendLocalizedMessage(1049535); // A song of discord would have no effect on that.
 					}
@@ -190,7 +186,7 @@ namespace Server.SkillHandlers
 							m_Instrument.PlayInstrumentWell(from);
 							m_Instrument.ConsumeUse(from);
 
-							ArrayList mods = new ArrayList();
+							ArrayList mods = new();
 							int effect;
 							double scalar;
 
@@ -236,8 +232,8 @@ namespace Server.SkillHandlers
 								}
 							}
 
-							DiscordanceInfo info = new DiscordanceInfo(from, targ, Math.Abs(effect), mods);
-							info.m_Timer = Timer.DelayCall<DiscordanceInfo>(TimeSpan.Zero, TimeSpan.FromSeconds(1.25), new TimerStateCallback<DiscordanceInfo>(ProcessDiscordance), info);
+							DiscordanceInfo info = new(from, targ, Math.Abs(effect), mods);
+							info.m_Timer = Timer.DelayCall(TimeSpan.Zero, TimeSpan.FromSeconds(1.25), new TimerStateCallback<DiscordanceInfo>(ProcessDiscordance), info);
 
 							m_Table[targ] = info;
 						}

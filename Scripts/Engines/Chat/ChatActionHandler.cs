@@ -4,19 +4,15 @@ namespace Server.Engines.Chat
 
 	public class ChatActionHandler
 	{
-		private readonly bool m_RequireModerator;
-		private readonly bool m_RequireConference;
-		private readonly OnChatAction m_Callback;
-
-		public bool RequireModerator => m_RequireModerator;
-		public bool RequireConference => m_RequireConference;
-		public OnChatAction Callback => m_Callback;
+		public bool RequireModerator { get; }
+		public bool RequireConference { get; }
+		public OnChatAction Callback { get; }
 
 		public ChatActionHandler(bool requireModerator, bool requireConference, OnChatAction callback)
 		{
-			m_RequireModerator = requireModerator;
-			m_RequireConference = requireConference;
-			m_Callback = callback;
+			RequireModerator = requireModerator;
+			RequireConference = requireConference;
+			Callback = callback;
 		}
 	}
 }

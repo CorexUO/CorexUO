@@ -10,17 +10,14 @@ namespace Server.RemoteAdmin
 		private const string LogBaseDirectory = "Logs";
 		private const string LogSubDirectory = "RemoteAdmin";
 
-		private static StreamWriter m_Output;
-		private static bool m_Enabled = Settings.Configuration.Get<bool>("Misc", "RemoteAdminEnabled");
+		public static bool Enabled { get; set; } = Settings.Configuration.Get<bool>("Misc", "RemoteAdminEnabled");
 
-		public static bool Enabled { get => m_Enabled; set => m_Enabled = value; }
-
-		public static StreamWriter Output => m_Output;
+		public static StreamWriter Output { get; private set; }
 
 		private static bool Initialized = false;
 		public static void LazyInitialize()
 		{
-			if (Initialized || !m_Enabled) return;
+			if (Initialized || !Enabled) return;
 			Initialized = true;
 
 			if (!Directory.Exists(LogBaseDirectory))
@@ -33,21 +30,21 @@ namespace Server.RemoteAdmin
 
 			try
 			{
-				m_Output = new StreamWriter(Path.Combine(directory, string.Format(LogSubDirectory + "{0}.log", DateTime.UtcNow.ToString("yyyyMMdd"))), true)
+				Output = new StreamWriter(Path.Combine(directory, string.Format(LogSubDirectory + "{0}.log", DateTime.UtcNow.ToString("yyyyMMdd"))), true)
 				{
 					AutoFlush = true
 				};
 
-				m_Output.WriteLine("##############################");
-				m_Output.WriteLine("Log started on {0}", DateTime.UtcNow);
-				m_Output.WriteLine();
+				Output.WriteLine("##############################");
+				Output.WriteLine("Log started on {0}", DateTime.UtcNow);
+				Output.WriteLine();
 			}
 			catch
 			{
 				Utility.PushColor(ConsoleColor.Red);
 				Console.WriteLine("RemoteAdminLogging: Failed to initialize LogWriter.");
 				Utility.PopColor();
-				m_Enabled = false;
+				Enabled = false;
 			}
 		}
 
@@ -72,7 +69,7 @@ namespace Server.RemoteAdmin
 		{
 			LazyInitialize();
 
-			if (!m_Enabled) return;
+			if (!Enabled) return;
 
 			try
 			{
@@ -81,7 +78,7 @@ namespace Server.RemoteAdmin
 				string accesslevel = acct == null ? "NoAccount" : acct.AccessLevel.ToString();
 				string statestr = state == null ? "NULLSTATE" : state.ToString();
 
-				m_Output.WriteLine("{0}: {1}: {2}: {3}", DateTime.UtcNow, statestr, name, text);
+				Output.WriteLine("{0}: {1}: {2}: {3}", DateTime.UtcNow, statestr, name, text);
 
 				string path = Core.BaseDirectory;
 
@@ -90,8 +87,8 @@ namespace Server.RemoteAdmin
 				Commands.CommandLogging.AppendPath(ref path, accesslevel);
 				path = Path.Combine(path, string.Format("{0}.log", name));
 
-				using (StreamWriter sw = new StreamWriter(path, true))
-					sw.WriteLine("{0}: {1}: {2}", DateTime.UtcNow, statestr, text);
+				using StreamWriter sw = new(path, true);
+				sw.WriteLine("{0}: {1}: {2}", DateTime.UtcNow, statestr, text);
 			}
 			catch
 			{

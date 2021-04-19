@@ -73,7 +73,7 @@ namespace Server
 				if (File.Exists(vdPath))
 				{
 					using FileStream fs = new(vdPath, FileMode.Open, FileAccess.Read, FileShare.Read);
-					BinaryReader bin = new BinaryReader(fs);
+					BinaryReader bin = new(fs);
 
 					int count = bin.ReadInt32();
 
@@ -128,7 +128,7 @@ namespace Server
 		public static bool PostHSFormat { get; set; } = false;
 
 		private Point2D m_Min, m_Max, m_Center;
-		public static readonly MultiComponentList Empty = new MultiComponentList();
+		public static readonly MultiComponentList Empty = new();
 
 		public Point2D Min => m_Min;
 		public Point2D Max => m_Max;

@@ -35,7 +35,7 @@ namespace Server.Engines.CannedEvil
 
 		public void AddComponent(int id, int x, int y, int z)
 		{
-			AddonComponent ac = new AddonComponent(id)
+			AddonComponent ac = new(id)
 			{
 				Hue = 0x497
 			};

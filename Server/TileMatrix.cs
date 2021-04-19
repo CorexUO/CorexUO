@@ -229,7 +229,7 @@ namespace Server
 			return tiles[x & 0x7][y & 0x7];
 		}
 
-		private readonly TileList m_TilesList = new TileList();
+		private readonly TileList m_TilesList = new();
 
 		[MethodImpl(MethodImplOptions.Synchronized)]
 		public StaticTile[] GetStaticTiles(int x, int y, bool multis)

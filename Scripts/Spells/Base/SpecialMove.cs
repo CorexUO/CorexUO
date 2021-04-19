@@ -285,7 +285,7 @@ namespace Server.Spells
 		{
 		}
 
-		private static readonly Dictionary<Mobile, SpecialMoveContext> m_PlayersTable = new Dictionary<Mobile, SpecialMoveContext>();
+		private static readonly Dictionary<Mobile, SpecialMoveContext> m_PlayersTable = new();
 
 		private static void AddContext(Mobile m, SpecialMoveContext context)
 		{

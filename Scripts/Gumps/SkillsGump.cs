@@ -130,7 +130,7 @@ namespace Server.Gumps
 
 	public class SkillsGump : Gump
 	{
-		public static bool OldStyle = PropsConfig.OldStyle;
+		public static readonly bool OldStyle = PropsConfig.OldStyle;
 
 		public static readonly int GumpOffsetX = PropsConfig.GumpOffsetX;
 		public static readonly int GumpOffsetY = PropsConfig.GumpOffsetY;
@@ -425,18 +425,15 @@ namespace Server.Gumps
 
 	public class SkillsGumpGroup
 	{
-		private readonly string m_Name;
-		private readonly SkillName[] m_Skills;
-
-		public string Name => m_Name;
-		public SkillName[] Skills => m_Skills;
+		public string Name { get; }
+		public SkillName[] Skills { get; }
 
 		public SkillsGumpGroup(string name, SkillName[] skills)
 		{
-			m_Name = name;
-			m_Skills = skills;
+			Name = name;
+			Skills = skills;
 
-			Array.Sort(m_Skills, new SkillNameComparer());
+			Array.Sort(Skills, new SkillNameComparer());
 		}
 
 		private class SkillNameComparer : IComparer
@@ -457,7 +454,7 @@ namespace Server.Gumps
 			}
 		}
 
-		private static readonly SkillsGumpGroup[] m_Groups = new SkillsGumpGroup[]
+		public static SkillsGumpGroup[] Groups { get; } = new SkillsGumpGroup[]
 			{
 				new SkillsGumpGroup( "Crafting", new SkillName[]
 				{
@@ -539,7 +536,5 @@ namespace Server.Gumps
 					SkillName.TasteID
 				} )
 			};
-
-		public static SkillsGumpGroup[] Groups => m_Groups;
 	}
 }

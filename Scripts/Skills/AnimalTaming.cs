@@ -11,7 +11,7 @@ namespace Server.SkillHandlers
 {
 	public class AnimalTaming
 	{
-		private static readonly Dictionary<Mobile, Mobile> m_BeingTamed = new Dictionary<Mobile, Mobile>();
+		private static readonly Dictionary<Mobile, Mobile> m_BeingTamed = new();
 
 		public static void Initialize()
 		{
@@ -112,9 +112,9 @@ namespace Server.SkillHandlers
 
 			public virtual void ResetPacify(object obj)
 			{
-				if (obj is BaseCreature)
+				if (obj is BaseCreature creature)
 				{
-					((BaseCreature)obj).BardPacified = true;
+					creature.BardPacified = true;
 				}
 			}
 
@@ -122,12 +122,10 @@ namespace Server.SkillHandlers
 			{
 				from.RevealingAction();
 
-				if (targeted is Mobile)
+				if (targeted is Mobile mobile)
 				{
-					if (targeted is BaseCreature)
+					if (targeted is BaseCreature creature)
 					{
-						BaseCreature creature = (BaseCreature)targeted;
-
 						if (!creature.Tamable)
 						{
 							creature.PrivateOverheadMessage(MessageType.Regular, 0x3B2, 1049655, from.NetState); // That creature cannot be tamed.
@@ -162,9 +160,7 @@ namespace Server.SkillHandlers
 						}
 						else if (CheckMastery(from, creature) || from.Skills[SkillName.AnimalTaming].Value >= creature.MinTameSkill)
 						{
-							FactionWarHorse warHorse = creature as FactionWarHorse;
-
-							if (warHorse != null)
+							if (creature is FactionWarHorse warHorse)
 							{
 								Faction faction = Faction.Find(from);
 
@@ -199,7 +195,7 @@ namespace Server.SkillHandlers
 								if (creature.AIObject != null)
 									creature.AIObject.DoMove(creature.Direction);
 
-								if (from is PlayerMobile && !(((PlayerMobile)from).HonorActive || TransformationSpellHelper.UnderTransformation(from, typeof(EtherealVoyageSpell))))
+								if (from is PlayerMobile player && !(player.HonorActive || TransformationSpellHelper.UnderTransformation(from, typeof(EtherealVoyageSpell))))
 									creature.Combatant = from;
 							}
 							else
@@ -221,7 +217,7 @@ namespace Server.SkillHandlers
 					}
 					else
 					{
-						((Mobile)targeted).PrivateOverheadMessage(MessageType.Regular, 0x3B2, 502469, from.NetState); // That being cannot be tamed.
+						mobile.PrivateOverheadMessage(MessageType.Regular, 0x3B2, 502469, from.NetState); // That being cannot be tamed.
 					}
 				}
 				else
@@ -398,7 +394,7 @@ namespace Server.SkillHandlers
 					if (m_Creature.InRange(new Point3D(p), 1))
 						return true;
 
-					MovementPath path = new MovementPath(m_Creature, new Point3D(p));
+					MovementPath path = new(m_Creature, new Point3D(p));
 					return path.Success;
 				}
 			}

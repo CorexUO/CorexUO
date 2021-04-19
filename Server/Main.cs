@@ -200,7 +200,7 @@ namespace Server
 
 				try
 				{
-					CrashedEventArgs args = new CrashedEventArgs(e.ExceptionObject as Exception);
+					CrashedEventArgs args = new(e.ExceptionObject as Exception);
 
 					EventSink.InvokeCrashed(args);
 
@@ -310,7 +310,7 @@ namespace Server
 			Console.WriteLine("done");
 		}
 
-		private static readonly AutoResetEvent m_Signal = new AutoResetEvent(true);
+		private static readonly AutoResetEvent m_Signal = new(true);
 
 		public static void Set() { m_Signal.Set(); }
 
@@ -365,7 +365,7 @@ namespace Server
 			if (BaseDirectory.Length > 0)
 				Directory.SetCurrentDirectory(BaseDirectory);
 
-			Timer.TimerThread ttObj = new Timer.TimerThread();
+			Timer.TimerThread ttObj = new();
 			timerThread = new Thread(Timer.TimerThread.TimerMain)
 			{
 				Name = "Timer Thread"
@@ -485,7 +485,7 @@ namespace Server
 		{
 			get
 			{
-				StringBuilder sb = new StringBuilder();
+				StringBuilder sb = new();
 
 				if (Debug)
 					Utility.Separate(sb, "-debug", " ");
@@ -631,10 +631,7 @@ namespace Server
 		{
 			FileName = file;
 
-			using (
-				StreamWriter writer =
-					new StreamWriter(
-						new FileStream(FileName, append ? FileMode.Append : FileMode.Create, FileAccess.Write, FileShare.Read)))
+			using (StreamWriter writer = new(new FileStream(FileName, append ? FileMode.Append : FileMode.Create, FileAccess.Write, FileShare.Read)))
 			{
 				writer.WriteLine(">>>Logging started on {0}.", DateTime.UtcNow.ToString("f"));
 				//f = Tuesday, April 10, 2001 3:51 PM
@@ -645,7 +642,7 @@ namespace Server
 
 		public override void Write(char ch)
 		{
-			using StreamWriter writer = new StreamWriter(new FileStream(FileName, FileMode.Append, FileAccess.Write, FileShare.Read));
+			using StreamWriter writer = new(new FileStream(FileName, FileMode.Append, FileAccess.Write, FileShare.Read));
 			if (_NewLine)
 			{
 				writer.Write(DateTime.UtcNow.ToString(DateFormat));
@@ -657,7 +654,7 @@ namespace Server
 
 		public override void Write(string str)
 		{
-			using StreamWriter writer = new StreamWriter(new FileStream(FileName, FileMode.Append, FileAccess.Write, FileShare.Read));
+			using StreamWriter writer = new(new FileStream(FileName, FileMode.Append, FileAccess.Write, FileShare.Read));
 			if (_NewLine)
 			{
 				writer.Write(DateTime.UtcNow.ToString(DateFormat));

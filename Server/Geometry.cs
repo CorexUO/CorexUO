@@ -8,7 +8,7 @@ namespace Server
 		internal int m_X;
 		internal int m_Y;
 
-		public static readonly Point2D Zero = new Point2D(0, 0);
+		public static readonly Point2D Zero = new(0, 0);
 
 		public Point2D(int x, int y)
 		{
@@ -66,8 +66,8 @@ namespace Server
 
 		public int CompareTo(object other)
 		{
-			if (other is Point2D)
-				return CompareTo((Point2D)other);
+			if (other is Point2D point)
+				return CompareTo(point);
 			else if (other == null)
 				return -1;
 
@@ -194,7 +194,7 @@ namespace Server
 		internal int m_Y;
 		internal int m_Z;
 
-		public static readonly Point3D Zero = new Point3D(0, 0, 0);
+		public static readonly Point3D Zero = new(0, 0, 0);
 
 		public Point3D(int x, int y, int z)
 		{
@@ -317,8 +317,8 @@ namespace Server
 
 		public int CompareTo(object other)
 		{
-			if (other is Point3D)
-				return CompareTo((Point3D)other);
+			if (other is Point3D point)
+				return CompareTo(point);
 			else if (other == null)
 				return -1;
 

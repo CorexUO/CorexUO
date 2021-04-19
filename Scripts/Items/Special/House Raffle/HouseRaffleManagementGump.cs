@@ -15,21 +15,6 @@ namespace Server.Gumps
 			Address
 		}
 
-		public string Right(string text)
-		{
-			return string.Format("<DIV ALIGN=RIGHT>{0}</DIV>", text);
-		}
-
-		public string Center(string text)
-		{
-			return string.Format("<CENTER>{0}</CENTER>", text);
-		}
-
-		public string Color(string text, int color)
-		{
-			return string.Format("<BASEFONT COLOR=#{0:X6}>{1}</BASEFONT>", color, text);
-		}
-
 		public const int LabelColor = 0xFFFFFF;
 		public const int HighlightColor = 0x11EE11;
 

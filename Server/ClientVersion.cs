@@ -91,7 +91,7 @@ namespace Server
 
 		private string ToStringImpl()
 		{
-			StringBuilder builder = new StringBuilder(16);
+			StringBuilder builder = new(16);
 
 			builder.Append(Major);
 			builder.Append('.');

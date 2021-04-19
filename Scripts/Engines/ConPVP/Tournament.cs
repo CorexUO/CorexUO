@@ -307,16 +307,6 @@ namespace Server.Engines.ConPVP
 		private const int BlackColor32 = 0x000008;
 		private const int LabelColor32 = 0xFFFFFF;
 
-		public string Center(string text)
-		{
-			return string.Format("<CENTER>{0}</CENTER>", text);
-		}
-
-		public string Color(string text, int color)
-		{
-			return string.Format("<BASEFONT COLOR=#{0:X6}>{1}</BASEFONT>", color, text);
-		}
-
 		private void AddBorderedText(int x, int y, int width, int height, string text, int color, int borderColor)
 		{
 			AddColoredText(x - 1, y - 1, width, height, text, borderColor);
@@ -638,7 +628,7 @@ namespace Server.Engines.ConPVP
 							{
 								Mobile mob = (Mobile)m_Players[i];
 
-								LadderEntry entry = (ladder == null ? null : ladder.Find(mob));
+								LadderEntry entry = ladder?.Find(mob);
 
 								if (entry != null && Ladder.GetLevel(entry.Experience) < tourny.LevelRequirement)
 								{
@@ -869,16 +859,6 @@ namespace Server.Engines.ConPVP
 
 		private const int BlackColor32 = 0x000008;
 		private const int LabelColor32 = 0xFFFFFF;
-
-		public string Center(string text)
-		{
-			return string.Format("<CENTER>{0}</CENTER>", text);
-		}
-
-		public string Color(string text, int color)
-		{
-			return string.Format("<BASEFONT COLOR=#{0:X6}>{1}</BASEFONT>", color, text);
-		}
 
 		private void AddBorderedText(int x, int y, int width, int height, string text, int color, int borderColor)
 		{
@@ -2757,16 +2737,6 @@ namespace Server.Engines.ConPVP
 		private const int BlackColor32 = 0x000008;
 		private const int LabelColor32 = 0xFFFFFF;
 
-		public string Center(string text)
-		{
-			return string.Format("<CENTER>{0}</CENTER>", text);
-		}
-
-		public string Color(string text, int color)
-		{
-			return string.Format("<BASEFONT COLOR=#{0:X6}>{1}</BASEFONT>", color, text);
-		}
-
 		private void AddBorderedText(int x, int y, int width, int height, string text, int color, int borderColor)
 		{
 			AddColoredText(x - 1, y - 1, width, height, text, borderColor);
@@ -3150,7 +3120,7 @@ namespace Server.Engines.ConPVP
 							break;
 
 						Ladder ladder = Ladder.Instance;
-						LadderEntry entry = (ladder == null ? null : ladder.Find(mob));
+						LadderEntry entry = ladder?.Find(mob);
 
 						AddHtml(25, 53, 250, 20, string.Format("Name: {0}", mob.Name), false, false);
 						AddHtml(25, 73, 250, 20, string.Format("Guild: {0}", mob.Guild == null ? "None" : mob.Guild.Name + " [" + mob.Guild.Abbreviation + "]"), false, false);

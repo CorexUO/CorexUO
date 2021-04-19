@@ -12,11 +12,6 @@ namespace Server.Engines.ConPVP
 		private readonly DuelContext m_DuelContext;
 		private readonly bool m_ReadOnly;
 
-		public string Center(string text)
-		{
-			return string.Format("<CENTER>{0}</CENTER>", text);
-		}
-
 		public void AddGoldenButton(int x, int y, int bid)
 		{
 			AddButton(x, y, 0xD2, 0xD2, bid, GumpButtonType.Reply, 0);

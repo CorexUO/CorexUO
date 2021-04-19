@@ -41,11 +41,11 @@ namespace Server.SkillHandlers
 			}
 		}
 
-		private static readonly Dictionary<Mobile, TrackingInfo> m_Table = new Dictionary<Mobile, TrackingInfo>();
+		private static readonly Dictionary<Mobile, TrackingInfo> m_Table = new();
 
 		public static void AddInfo(Mobile tracker, Mobile target)
 		{
-			TrackingInfo info = new TrackingInfo(tracker, target);
+			TrackingInfo info = new(tracker, target);
 			m_Table[tracker] = info;
 		}
 
@@ -173,7 +173,7 @@ namespace Server.SkillHandlers
 
 			int range = 10 + (int)(from.Skills[SkillName.Tracking].Value / 10);
 
-			List<Mobile> list = new List<Mobile>();
+			List<Mobile> list = new();
 
 			foreach (Mobile m in from.GetMobilesInRange(range))
 			{

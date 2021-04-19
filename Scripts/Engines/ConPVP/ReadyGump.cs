@@ -10,11 +10,6 @@ namespace Server.Engines.ConPVP
 		private readonly DuelContext m_Context;
 		private readonly int m_Count;
 
-		public string Center(string text)
-		{
-			return string.Format("<CENTER>{0}</CENTER>", text);
-		}
-
 		public ReadyGump(Mobile from, DuelContext context, int count) : base(50, 50)
 		{
 			m_From = from;

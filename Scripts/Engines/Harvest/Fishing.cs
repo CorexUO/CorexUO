@@ -31,7 +31,7 @@ namespace Server.Engines.Harvest
 			HarvestVein[] veins;
 
 			#region Fishing
-			HarvestDefinition fish = new HarvestDefinition
+			HarvestDefinition fish = new()
 			{
 				// Resource banks are every 8x8 tiles
 				BankWidth = 8,
@@ -135,9 +135,7 @@ namespace Server.Engines.Harvest
 
 		public override bool SpecialHarvest(Mobile from, Item tool, HarvestDefinition def, Map map, Point3D loc)
 		{
-			PlayerMobile player = from as PlayerMobile;
-
-			if (player != null)
+			if (from is PlayerMobile player)
 			{
 				QuestSystem qs = player.Quest;
 
@@ -225,7 +223,7 @@ namespace Server.Engines.Harvest
 			if (type == typeof(TreasureMap))
 			{
 				int level;
-				if (from is PlayerMobile && ((PlayerMobile)from).Young && from.Map == Map.Trammel && TreasureMap.IsInHavenIsland(from))
+				if (from is PlayerMobile mobile && mobile.Young && from.Map == Map.Trammel && TreasureMap.IsInHavenIsland(from))
 					level = 0;
 				else
 					level = 1;
@@ -324,8 +322,8 @@ namespace Server.Engines.Harvest
 
 						if (preLoot != null)
 						{
-							if (preLoot is IShipwreckedItem)
-								((IShipwreckedItem)preLoot).IsShipwreckedItem = true;
+							if (preLoot is IShipwreckedItem item)
+								item.IsShipwreckedItem = true;
 
 							return preLoot;
 						}
@@ -413,11 +411,11 @@ namespace Server.Engines.Harvest
 
 		public override void SendSuccessTo(Mobile from, Item item, HarvestResource resource)
 		{
-			if (item is BigFish)
+			if (item is BigFish fish)
 			{
 				from.SendLocalizedMessage(1042635); // Your fishing pole bends as you pull a big fish from the depths!
 
-				((BigFish)item).Fisher = from;
+				fish.Fisher = from;
 			}
 			else if (item is WoodenChest || item is MetalGoldenChest)
 			{

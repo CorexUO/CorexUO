@@ -4,13 +4,13 @@ namespace Server.Gumps
 {
 	public class GoGump : Gump
 	{
-		public static readonly LocationTree Felucca = new LocationTree("felucca.xml", Map.Felucca);
-		public static readonly LocationTree Trammel = new LocationTree("trammel.xml", Map.Trammel);
-		public static readonly LocationTree Ilshenar = new LocationTree("ilshenar.xml", Map.Ilshenar);
-		public static readonly LocationTree Malas = new LocationTree("malas.xml", Map.Malas);
-		public static readonly LocationTree Tokuno = new LocationTree("tokuno.xml", Map.Tokuno);
+		public static readonly LocationTree Felucca = new("felucca.xml", Map.Felucca);
+		public static readonly LocationTree Trammel = new("trammel.xml", Map.Trammel);
+		public static readonly LocationTree Ilshenar = new("ilshenar.xml", Map.Ilshenar);
+		public static readonly LocationTree Malas = new("malas.xml", Map.Malas);
+		public static readonly LocationTree Tokuno = new("tokuno.xml", Map.Tokuno);
 
-		public static bool OldStyle = PropsConfig.OldStyle;
+		public static readonly bool OldStyle = PropsConfig.OldStyle;
 
 		public static readonly int GumpOffsetX = PropsConfig.GumpOffsetX;
 		public static readonly int GumpOffsetY = PropsConfig.GumpOffsetY;
@@ -174,10 +174,10 @@ namespace Server.Gumps
 				object child = node.Children[index];
 				string name = "";
 
-				if (child is ParentNode)
-					name = ((ParentNode)child).Name;
-				else if (child is ChildNode)
-					name = ((ChildNode)child).Name;
+				if (child is ParentNode parentNode)
+					name = parentNode.Name;
+				else if (child is ChildNode childNode)
+					name = childNode.Name;
 
 				AddImageTiled(x, y, EntryWidth, EntryHeight, EntryGumpID);
 				AddLabelCropped(x + TextOffsetX, y, EntryWidth - TextOffsetX, EntryHeight, TextHue, name);
@@ -226,9 +226,9 @@ namespace Server.Gumps
 						{
 							object o = m_Node.Children[index];
 
-							if (o is ParentNode)
+							if (o is ParentNode node)
 							{
-								from.SendGump(new GoGump(0, from, m_Tree, (ParentNode)o));
+								from.SendGump(new GoGump(0, from, m_Tree, node));
 							}
 							else
 							{

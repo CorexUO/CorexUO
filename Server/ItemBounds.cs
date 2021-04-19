@@ -13,8 +13,8 @@ namespace Server
 
 			if (File.Exists("Data/Binary/Bounds.bin"))
 			{
-				using FileStream fs = new FileStream("Data/Binary/Bounds.bin", FileMode.Open, FileAccess.Read, FileShare.Read);
-				BinaryReader bin = new BinaryReader(fs);
+				using FileStream fs = new("Data/Binary/Bounds.bin", FileMode.Open, FileAccess.Read, FileShare.Read);
+				BinaryReader bin = new(fs);
 
 				int count = Math.Min(Table.Length, (int)(fs.Length / 8));
 

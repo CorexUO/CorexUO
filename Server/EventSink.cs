@@ -230,7 +230,7 @@ namespace Server
 		public Direction Direction { get; private set; }
 		public bool Blocked { get; set; }
 
-		private static readonly Queue<MovementEventArgs> m_Pool = new Queue<MovementEventArgs>();
+		private static readonly Queue<MovementEventArgs> m_Pool = new();
 
 		public static MovementEventArgs Create(Mobile mobile, Direction dir)
 		{

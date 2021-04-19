@@ -10,9 +10,9 @@ namespace Server.RemoteAdmin
 	{
 		private const string ProtocolVersion = "2";
 
-		private static ArrayList m_Auth = new ArrayList();
+		private static ArrayList m_Auth = new();
 		private static bool m_NewLine = true;
-		private static readonly StringBuilder m_ConsoleData = new StringBuilder();
+		private static readonly StringBuilder m_ConsoleData = new();
 
 		private const string DateFormat = "MMMM dd hh:mm:ss.f tt";
 
@@ -154,8 +154,7 @@ namespace Server.RemoteAdmin
 			string user = pvSrc.ReadString(30);
 			string pw = pvSrc.ReadString(30);
 
-			Account a = Accounts.GetAccount(user) as Account;
-			if (a == null)
+			if (Accounts.GetAccount(user) is not Account a)
 			{
 				state.Send(new Login(LoginResponse.NoUser));
 				Console.WriteLine("ADMIN: Invalid username '{0}' from {1}", user, state);
@@ -200,7 +199,7 @@ namespace Server.RemoteAdmin
 
 		private static void CleanUp()
 		{//remove dead instances from m_Auth
-			ArrayList list = new ArrayList();
+			ArrayList list = new();
 			for (int i = 0; i < m_Auth.Count; i++)
 			{
 				NetState ns = (NetState)m_Auth[i];

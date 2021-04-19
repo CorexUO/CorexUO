@@ -186,8 +186,7 @@ namespace Server.Engines.Harvest
 		{
 			if (def == OreAndStone)
 			{
-				PlayerMobile pm = from as PlayerMobile;
-				if (pm != null && pm.StoneMining && pm.ToggleMiningStone && from.Skills[SkillName.Mining].Base >= 100.0 && 0.1 > Utility.RandomDouble())
+				if (from is PlayerMobile pm && pm.StoneMining && pm.ToggleMiningStone && from.Skills[SkillName.Mining].Base >= 100.0 && 0.1 > Utility.RandomDouble())
 					return resource.Types[1];
 
 				return resource.Types[0];
@@ -228,7 +227,7 @@ namespace Server.Engines.Harvest
 			if (!base.CheckHarvest(from, tool, def, toHarvest))
 				return false;
 
-			if (def == Sand && !(from is PlayerMobile && from.Skills[SkillName.Mining].Base >= 100.0 && ((PlayerMobile)from).SandMining))
+			if (def == Sand && !(from is PlayerMobile mobile && from.Skills[SkillName.Mining].Base >= 100.0 && mobile.SandMining))
 			{
 				OnBadHarvestTarget(from, tool, toHarvest);
 				return false;
@@ -275,9 +274,7 @@ namespace Server.Engines.Harvest
 						if (map == null)
 							return;
 
-						BaseCreature spawned = Activator.CreateInstance(res.Types[2], new object[] { 25 }) as BaseCreature;
-
-						if (spawned != null)
+						if (Activator.CreateInstance(res.Types[2], new object[] { 25 }) is BaseCreature spawned)
 						{
 							int offset = Utility.Random(8) * 2;
 

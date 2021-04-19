@@ -25,7 +25,7 @@ namespace Server.Engines.Quests
 
 	public abstract class BaseQuester : BaseVendor
 	{
-		protected List<SBInfo> m_SBInfos = new List<SBInfo>();
+		protected List<SBInfo> m_SBInfos = new();
 		protected override List<SBInfo> SBInfos => m_SBInfos;
 
 		public override bool IsActiveVendor => false;
@@ -103,7 +103,7 @@ namespace Server.Engines.Quests
 
 		public static Container GetNewContainer()
 		{
-			Bag bag = new Bag
+			Bag bag = new()
 			{
 				Hue = QuestSystem.RandomBrightHue()
 			};
@@ -120,8 +120,7 @@ namespace Server.Engines.Quests
 		public override void Deserialize(GenericReader reader)
 		{
 			base.Deserialize(reader);
-
-			int version = reader.ReadInt();
+			_ = reader.ReadInt();
 		}
 	}
 }

@@ -9,7 +9,7 @@ using System.Collections.Generic;
 
 namespace Server.Items
 {
-	public class BraceletOfBinding : BaseBracelet, TranslocationItem
+	public class BraceletOfBinding : BaseBracelet, ITranslocationItem
 	{
 		private int m_Charges;
 		private int m_Recharges;

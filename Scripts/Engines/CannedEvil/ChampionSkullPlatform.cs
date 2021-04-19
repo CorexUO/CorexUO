@@ -75,7 +75,7 @@ namespace Server.Engines.CannedEvil
 			}
 		}
 
-		public void Clear(ChampionSkullBrazier brazier)
+		public static void Clear(ChampionSkullBrazier brazier)
 		{
 			if (brazier != null)
 			{
@@ -86,9 +86,9 @@ namespace Server.Engines.CannedEvil
 			}
 		}
 
-		public bool Validate(ChampionSkullBrazier brazier)
+		public static bool Validate(ChampionSkullBrazier brazier)
 		{
-			return (brazier != null && brazier.Skull != null && !brazier.Skull.Deleted);
+			return brazier != null && brazier.Skull != null && !brazier.Skull.Deleted;
 		}
 
 		public ChampionSkullPlatform(Serial serial) : base(serial)

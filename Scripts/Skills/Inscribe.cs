@@ -22,7 +22,7 @@ namespace Server.SkillHandlers
 			return TimeSpan.FromSeconds(1.0);
 		}
 
-		private static readonly Dictionary<BaseBook, Mobile> m_UseTable = new Dictionary<BaseBook, Mobile>();
+		private static readonly Dictionary<BaseBook, Mobile> m_UseTable = new();
 
 		private static void SetUser(BaseBook book, Mobile mob)
 		{
@@ -81,8 +81,7 @@ namespace Server.SkillHandlers
 
 			protected override void OnTarget(Mobile from, object targeted)
 			{
-				BaseBook book = targeted as BaseBook;
-				if (book == null)
+				if (targeted is not BaseBook book)
 					from.SendLocalizedMessage(1046296); // That is not a book
 				else if (Inscribe.IsEmpty(book))
 					from.SendLocalizedMessage(501611); // Can't copy an empty book.
@@ -119,7 +118,7 @@ namespace Server.SkillHandlers
 				if (m_BookSrc.Deleted)
 					return;
 
-				if (!(targeted is BaseBook bookDst))
+				if (targeted is not BaseBook bookDst)
 					from.SendLocalizedMessage(1046296); // That is not a book
 				else if (Inscribe.IsEmpty(m_BookSrc))
 					from.SendLocalizedMessage(501611); // Can't copy an empty book.

@@ -11,7 +11,7 @@ namespace Server
 {
 	public static class World
 	{
-		private static readonly ManualResetEvent m_DiskWriteHandle = new ManualResetEvent(true);
+		private static readonly ManualResetEvent m_DiskWriteHandle = new(true);
 
 		private static Queue<IEntity> _addQueue, _deleteQueue;
 
@@ -171,7 +171,7 @@ namespace Server
 		{
 			int count = tdbReader.ReadInt32();
 
-			List<Tuple<ConstructorInfo, string>> types = new List<Tuple<ConstructorInfo, string>>(count);
+			List<Tuple<ConstructorInfo, string>> types = new(count);
 
 			for (int i = 0; i < count; ++i)
 			{
@@ -237,18 +237,18 @@ namespace Server
 			_deleteQueue = new Queue<IEntity>();
 			object[] ctorArgs = new object[1];
 
-			List<ItemEntry> items = new List<ItemEntry>();
-			List<MobileEntry> mobiles = new List<MobileEntry>();
-			List<GuildEntry> guilds = new List<GuildEntry>();
+			List<ItemEntry> items = new();
+			List<MobileEntry> mobiles = new();
+			List<GuildEntry> guilds = new();
 
 			if (File.Exists(MobileIndexPath) && File.Exists(MobileTypesPath))
 			{
-				using FileStream idx = new FileStream(MobileIndexPath, FileMode.Open, FileAccess.Read, FileShare.Read);
-				BinaryReader idxReader = new BinaryReader(idx);
+				using FileStream idx = new(MobileIndexPath, FileMode.Open, FileAccess.Read, FileShare.Read);
+				BinaryReader idxReader = new(idx);
 
 				using (FileStream tdb = new(MobileTypesPath, FileMode.Open, FileAccess.Read, FileShare.Read))
 				{
-					BinaryReader tdbReader = new BinaryReader(tdb);
+					BinaryReader tdbReader = new(tdb);
 
 					List<Tuple<ConstructorInfo, string>> types = ReadTypes(tdbReader);
 
@@ -299,12 +299,12 @@ namespace Server
 
 			if (File.Exists(ItemIndexPath) && File.Exists(ItemTypesPath))
 			{
-				using FileStream idx = new FileStream(ItemIndexPath, FileMode.Open, FileAccess.Read, FileShare.Read);
-				BinaryReader idxReader = new BinaryReader(idx);
+				using FileStream idx = new(ItemIndexPath, FileMode.Open, FileAccess.Read, FileShare.Read);
+				BinaryReader idxReader = new(idx);
 
-				using (FileStream tdb = new FileStream(ItemTypesPath, FileMode.Open, FileAccess.Read, FileShare.Read))
+				using (FileStream tdb = new(ItemTypesPath, FileMode.Open, FileAccess.Read, FileShare.Read))
 				{
-					BinaryReader tdbReader = new BinaryReader(tdb);
+					BinaryReader tdbReader = new(tdb);
 
 					List<Tuple<ConstructorInfo, string>> types = ReadTypes(tdbReader);
 
@@ -356,8 +356,8 @@ namespace Server
 
 			if (File.Exists(GuildIndexPath))
 			{
-				using FileStream idx = new FileStream(GuildIndexPath, FileMode.Open, FileAccess.Read, FileShare.Read);
-				BinaryReader idxReader = new BinaryReader(idx);
+				using FileStream idx = new(GuildIndexPath, FileMode.Open, FileAccess.Read, FileShare.Read);
+				BinaryReader idxReader = new(idx);
 
 				int guildCount = idxReader.ReadInt32();
 				Guilds = new Dictionary<Serial, BaseGuild>(guildCount);
@@ -417,8 +417,8 @@ namespace Server
 
 			if (File.Exists(MobileDataPath))
 			{
-				using FileStream bin = new FileStream(MobileDataPath, FileMode.Open, FileAccess.Read, FileShare.Read);
-				BinaryFileReader reader = new BinaryFileReader(new BinaryReader(bin));
+				using FileStream bin = new(MobileDataPath, FileMode.Open, FileAccess.Read, FileShare.Read);
+				BinaryFileReader reader = new(new BinaryReader(bin));
 
 				for (int i = 0; i < mobiles.Count; ++i)
 				{
@@ -457,8 +457,8 @@ namespace Server
 
 			if (!failedMobiles && File.Exists(ItemDataPath))
 			{
-				using FileStream bin = new FileStream(ItemDataPath, FileMode.Open, FileAccess.Read, FileShare.Read);
-				BinaryFileReader reader = new BinaryFileReader(new BinaryReader(bin));
+				using FileStream bin = new(ItemDataPath, FileMode.Open, FileAccess.Read, FileShare.Read);
+				BinaryFileReader reader = new(new BinaryReader(bin));
 
 				for (int i = 0; i < items.Count; ++i)
 				{
@@ -499,8 +499,8 @@ namespace Server
 
 			if (!failedMobiles && !failedItems && File.Exists(GuildDataPath))
 			{
-				using FileStream bin = new FileStream(GuildDataPath, FileMode.Open, FileAccess.Read, FileShare.Read);
-				BinaryFileReader reader = new BinaryFileReader(new BinaryReader(bin));
+				using FileStream bin = new(GuildDataPath, FileMode.Open, FileAccess.Read, FileShare.Read);
+				BinaryFileReader reader = new(new BinaryReader(bin));
 
 				for (int i = 0; i < guilds.Count; ++i)
 				{
@@ -671,7 +671,7 @@ namespace Server
 
 			try
 			{
-				using StreamWriter op = new StreamWriter("world-save-errors.log", true);
+				using StreamWriter op = new("world-save-errors.log", true);
 				op.WriteLine("{0}\t{1}", DateTime.UtcNow, message);
 				op.WriteLine(new StackTrace(2).ToString());
 				op.WriteLine();
@@ -692,8 +692,8 @@ namespace Server
 			if (!Directory.Exists("Saves/Guilds/"))
 				Directory.CreateDirectory("Saves/Guilds/");
 
-			using FileStream idx = new FileStream(path, FileMode.Create, FileAccess.Write, FileShare.None);
-			BinaryWriter idxWriter = new BinaryWriter(idx);
+			using FileStream idx = new(path, FileMode.Create, FileAccess.Write, FileShare.None);
+			BinaryWriter idxWriter = new(idx);
 
 			idxWriter.Write(list.Count);
 
@@ -783,8 +783,8 @@ namespace Server
 			NetState.Resume();
 		}
 
-		internal static List<Type> m_ItemTypes = new List<Type>();
-		internal static List<Type> m_MobileTypes = new List<Type>();
+		internal static List<Type> m_ItemTypes = new();
+		internal static List<Type> m_MobileTypes = new();
 
 		public static IEntity FindEntity(Serial serial)
 		{

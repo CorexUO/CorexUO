@@ -38,7 +38,7 @@ namespace Server.SkillHandlers
 
 			for (int i = 0; i < m.Items.Count; i++)
 			{
-				if (!(m.Items[i] is BaseArmor armor))
+				if (m.Items[i] is not BaseArmor armor)
 					continue;
 
 				int materialType = (int)armor.MaterialType;

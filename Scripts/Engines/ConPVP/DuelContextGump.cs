@@ -5,16 +5,8 @@ namespace Server.Engines.ConPVP
 {
 	public class DuelContextGump : Gump
 	{
-		private readonly Mobile m_From;
-		private readonly DuelContext m_Context;
-
-		public Mobile From => m_From;
-		public DuelContext Context => m_Context;
-
-		public string Center(string text)
-		{
-			return string.Format("<CENTER>{0}</CENTER>", text);
-		}
+		public Mobile From { get; }
+		public DuelContext Context { get; }
 
 		public void AddGoldenButton(int x, int y, int bid)
 		{
@@ -30,8 +22,8 @@ namespace Server.Engines.ConPVP
 
 		public DuelContextGump(Mobile from, DuelContext context) : base(50, 50)
 		{
-			m_From = from;
-			m_Context = context;
+			From = from;
+			Context = context;
 
 			from.CloseGump(typeof(RulesetGump));
 			from.CloseGump(typeof(DuelContextGump));
@@ -70,7 +62,7 @@ namespace Server.Engines.ConPVP
 
 		public override void OnResponse(NetState sender, RelayInfo info)
 		{
-			if (!m_Context.Registered)
+			if (!Context.Registered)
 				return;
 
 			int index = info.ButtonID;
@@ -83,39 +75,39 @@ namespace Server.Engines.ConPVP
 					}
 				case 0: // closed
 					{
-						m_Context.Unregister();
+						Context.Unregister();
 						break;
 					}
 				case 1: // Rules
 					{
 						//m_From.SendGump( new RulesetGump( m_From, m_Context.Ruleset, m_Context.Ruleset.Layout, m_Context ) );
-						m_From.SendGump(new PickRulesetGump(m_From, m_Context, m_Context.Ruleset));
+						From.SendGump(new PickRulesetGump(From, Context, Context.Ruleset));
 						break;
 					}
 				case 2: // Start
 					{
-						if (m_Context.CheckFull())
+						if (Context.CheckFull())
 						{
-							m_Context.CloseAllGumps();
-							m_Context.SendReadyUpGump();
+							Context.CloseAllGumps();
+							Context.SendReadyUpGump();
 							//m_Context.SendReadyGump();
 						}
 						else
 						{
-							m_From.SendMessage("You cannot start the duel before all participating players have been assigned.");
-							m_From.SendGump(new DuelContextGump(m_From, m_Context));
+							From.SendMessage("You cannot start the duel before all participating players have been assigned.");
+							From.SendGump(new DuelContextGump(From, Context));
 						}
 
 						break;
 					}
 				case 3: // New Participant
 					{
-						if (m_Context.Participants.Count < 10)
-							m_Context.Participants.Add(new Participant(m_Context, 1));
+						if (Context.Participants.Count < 10)
+							Context.Participants.Add(new Participant(Context, 1));
 						else
-							m_From.SendMessage("The number of participating parties may not be increased further.");
+							From.SendMessage("The number of participating parties may not be increased further.");
 
-						m_From.SendGump(new DuelContextGump(m_From, m_Context));
+						From.SendGump(new DuelContextGump(From, Context));
 
 						break;
 					}
@@ -123,8 +115,8 @@ namespace Server.Engines.ConPVP
 					{
 						index -= 4;
 
-						if (index >= 0 && index < m_Context.Participants.Count)
-							m_From.SendGump(new ParticipantGump(m_From, m_Context, (Participant)m_Context.Participants[index]));
+						if (index >= 0 && index < Context.Participants.Count)
+							From.SendGump(new ParticipantGump(From, Context, (Participant)Context.Participants[index]));
 
 						break;
 					}

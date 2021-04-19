@@ -60,16 +60,6 @@ namespace Server.Items
 			AddTextEntry(x + 2, y + 2, width - 4, height - 4, 0, index, "");
 		}
 
-		public static string Center(string text)
-		{
-			return string.Format("<CENTER>{0}</CENTER>", text);
-		}
-
-		public string Color(string text, int color)
-		{
-			return string.Format("<BASEFONT COLOR=#{0:X6}>{1}</BASEFONT>", color, text);
-		}
-
 		public void AddButtonLabeled(int x, int y, int buttonID, string text)
 		{
 			AddButton(x, y - 1, 4005, 4007, buttonID, GumpButtonType.Reply, 0);

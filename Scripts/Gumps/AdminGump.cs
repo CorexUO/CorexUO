@@ -83,16 +83,6 @@ namespace Server.Gumps
 			AddHtml(x + 35, y, 240, 20, Color(text, LabelColor32), false, false);
 		}
 
-		public string Center(string text)
-		{
-			return string.Format("<CENTER>{0}</CENTER>", text);
-		}
-
-		public string Color(string text, int color)
-		{
-			return string.Format("<BASEFONT COLOR=#{0:X6}>{1}</BASEFONT>", color, text);
-		}
-
 		public void AddBlackAlpha(int x, int y, int width, int height)
 		{
 			AddImageTiled(x, y, width, height, 2624);
@@ -102,11 +92,6 @@ namespace Server.Gumps
 		public int GetButtonID(int type, int index)
 		{
 			return 1 + (index * 11) + type;
-		}
-
-		public static string FormatTimeSpan(TimeSpan ts)
-		{
-			return string.Format("{0:D2}:{1:D2}:{2:D2}:{3:D2}", ts.Days, ts.Hours % 24, ts.Minutes % 60, ts.Seconds % 60);
 		}
 
 		public static string FormatByteAmount(long totalBytes)
@@ -291,7 +276,7 @@ namespace Server.Gumps
 						AddLabel(40, 150, LabelHue, "Current: " + Core.CyclesPerSecond.ToString("N2"));
 						AddLabel(40, 170, LabelHue, "Average: " + Core.AverageCPS.ToString("N2"));
 
-						StringBuilder sb = new StringBuilder();
+						StringBuilder sb = new();
 
 
 						System.Threading.ThreadPool.GetAvailableThreads(out int curUser, out int curIOCP);
@@ -669,7 +654,7 @@ namespace Server.Gumps
 						if (m_List.Count == 0)
 							AddLabel(12, 140, LabelHue, "There are no accounts to display.");
 
-						StringBuilder sb = new StringBuilder();
+						StringBuilder sb = new();
 
 						for (int i = 0, index = (listPage * 12); i < 12 && index >= 0 && index < m_List.Count; ++i, ++index)
 						{
@@ -1099,7 +1084,7 @@ namespace Server.Gumps
 
 						AddButtonLabeled(20, 150, GetButtonID(5, 4), "Add Comment");
 
-						StringBuilder sb = new StringBuilder();
+						StringBuilder sb = new();
 
 						if (a.Comments.Count == 0)
 							sb.Append("There are no comments for this account.");
@@ -1129,7 +1114,7 @@ namespace Server.Gumps
 
 						AddButtonLabeled(20, 150, GetButtonID(5, 5), "Add Tag");
 
-						StringBuilder sb = new StringBuilder();
+						StringBuilder sb = new();
 
 						if (a.Tags.Count == 0)
 							sb.Append("There are no tags for this account.");
@@ -1314,7 +1299,7 @@ namespace Server.Gumps
 
 		private static ArrayList GetAllSharedAccounts()
 		{
-			Hashtable table = new Hashtable();
+			Hashtable table = new();
 			ArrayList list;
 
 			foreach (Account acct in Accounts.GetAccounts())
@@ -1373,7 +1358,7 @@ namespace Server.Gumps
 
 		private static ArrayList GetSharedAccounts(IPAddress ipAddress)
 		{
-			ArrayList list = new ArrayList();
+			ArrayList list = new();
 
 			foreach (Account acct in Accounts.GetAccounts())
 			{
@@ -1393,7 +1378,7 @@ namespace Server.Gumps
 
 		private static ArrayList GetSharedAccounts(IPAddress[] ipAddresses)
 		{
-			ArrayList list = new ArrayList();
+			ArrayList list = new();
 
 			foreach (Account acct in Accounts.GetAccounts())
 			{
@@ -1599,7 +1584,7 @@ namespace Server.Gumps
 				if (ips.Length != 0 && ip == ips[0] && AccountHandler.IPTable.ContainsKey(ips[0]))
 					--AccountHandler.IPTable[ip];
 
-				List<IPAddress> newList = new List<IPAddress>(ips);
+				List<IPAddress> newList = new(ips);
 				newList.Remove(ip);
 				a.LoginIPs = newList.ToArray();
 
@@ -1939,7 +1924,7 @@ namespace Server.Gumps
 								{
 									bool forName = (index == 0);
 
-									ArrayList results = new ArrayList();
+									ArrayList results = new();
 
 									TextRelay matchEntry = info.GetTextEntry(0);
 									string match = matchEntry?.Text.Trim().ToLower();
@@ -2202,7 +2187,7 @@ namespace Server.Gumps
 
 									if (list.Count > 0)
 									{
-										StringBuilder sb = new StringBuilder();
+										StringBuilder sb = new();
 
 										sb.AppendFormat("You are about to ban {0} account{1}. Do you wish to continue?", list.Count, list.Count != 1 ? "s" : "");
 
@@ -2378,7 +2363,7 @@ namespace Server.Gumps
 								}
 							case 30: // View all empty accounts
 								{
-									ArrayList results = new ArrayList();
+									ArrayList results = new();
 
 									foreach (Account acct in Accounts.GetAccounts())
 									{
@@ -2400,7 +2385,7 @@ namespace Server.Gumps
 								}
 							case 31: // View all inactive accounts
 								{
-									ArrayList results = new ArrayList();
+									ArrayList results = new();
 
 									foreach (Account acct in Accounts.GetAccounts())
 									{
@@ -2417,7 +2402,7 @@ namespace Server.Gumps
 								}
 							case 32: // View all banned accounts
 								{
-									ArrayList results = new ArrayList();
+									ArrayList results = new();
 
 									foreach (Account acct in Accounts.GetAccounts())
 									{
@@ -2445,7 +2430,7 @@ namespace Server.Gumps
 									if (list == null || rads == null)
 										break;
 
-									ArrayList newRads = new ArrayList();
+									ArrayList newRads = new();
 
 									foreach (Account acct in rads)
 									{
@@ -2525,7 +2510,7 @@ namespace Server.Gumps
 									string match = matchEntry?.Text.Trim();
 
 									string notice = null;
-									ArrayList results = new ArrayList();
+									ArrayList results = new();
 
 									if (match == null || match.Length == 0)
 									{
@@ -2781,7 +2766,7 @@ namespace Server.Gumps
 							}
 							else if (m_PageType == AdminGumpPage.AccountDetails_Access_Restrictions)
 							{
-								ArrayList list = new ArrayList(a.IPRestrictions);
+								ArrayList list = new(a.IPRestrictions);
 
 								list.Remove(m_List[index]);
 

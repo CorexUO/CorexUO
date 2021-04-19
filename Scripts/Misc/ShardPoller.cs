@@ -138,7 +138,7 @@ namespace Server.Misc
 			EventSink.OnLogin += EventSink_Login;
 		}
 
-		private static readonly List<ShardPoller> m_ActivePollers = new List<ShardPoller>();
+		private static readonly List<ShardPoller> m_ActivePollers = new();
 
 		private static void EventSink_Login(Mobile m)
 		{
@@ -381,16 +381,6 @@ namespace Server.Misc
 				m_Polls = new Queue<ShardPoller>(4);
 
 			m_Polls.Enqueue(poller);
-		}
-
-		public static string Center(string text)
-		{
-			return string.Format("<CENTER>{0}</CENTER>", text);
-		}
-
-		public static string Color(string text, int color)
-		{
-			return string.Format("<BASEFONT COLOR=#{0:X6}>{1}</BASEFONT>", color, text);
 		}
 
 		private const int LabelColor32 = 0xFFFFFF;

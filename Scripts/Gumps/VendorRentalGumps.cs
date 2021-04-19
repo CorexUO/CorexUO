@@ -322,9 +322,7 @@ namespace Server.Gumps
 				if (!m_Contract.IsUsableBy(from, true, false, true, true))
 					return;
 
-				Mobile mob = targeted as Mobile;
-
-				if (mob == null || !mob.Player || !mob.Alive || mob == from)
+				if (targeted is not Mobile mob || !mob.Player || !mob.Alive || mob == from)
 				{
 					from.SendLocalizedMessage(1071984); //That is not a valid target for a rental contract!
 				}

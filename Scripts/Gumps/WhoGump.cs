@@ -22,7 +22,7 @@ namespace Server.Gumps
 			e.Mobile.SendGump(new WhoGump(e.Mobile, e.ArgString));
 		}
 
-		public static bool OldStyle = PropsConfig.OldStyle;
+		public static readonly bool OldStyle = PropsConfig.OldStyle;
 
 		public static readonly int GumpOffsetX = PropsConfig.GumpOffsetX;
 		public static readonly int GumpOffsetY = PropsConfig.GumpOffsetY;
@@ -120,14 +120,14 @@ namespace Server.Gumps
 			else
 				filter = filter.ToLower();
 
-			List<Mobile> list = new List<Mobile>();
+			List<Mobile> list = new();
 			List<NetState> states = NetState.Instances;
 
 			for (int i = 0; i < states.Count; ++i)
 			{
 				Mobile m = states[i].Mobile;
 
-				if (m != null && (m == owner || !m.Hidden || owner.AccessLevel >= m.AccessLevel || (m is PlayerMobile && ((PlayerMobile)m).VisibilityList.Contains(owner))))
+				if (m != null && (m == owner || !m.Hidden || owner.AccessLevel >= m.AccessLevel || (m is PlayerMobile mobile && mobile.VisibilityList.Contains(owner))))
 				{
 					if (filter != null && (m.Name == null || m.Name.ToLower().IndexOf(filter) < 0))
 						continue;
@@ -282,7 +282,7 @@ namespace Server.Gumps
 								from.SendMessage("That player is no longer online.");
 								from.SendGump(new WhoGump(from, m_Mobiles, m_Page));
 							}
-							else if (m == from || !m.Hidden || from.AccessLevel >= m.AccessLevel || (m is PlayerMobile && ((PlayerMobile)m).VisibilityList.Contains(from)))
+							else if (m == from || !m.Hidden || from.AccessLevel >= m.AccessLevel || (m is PlayerMobile mobile && mobile.VisibilityList.Contains(from)))
 							{
 								from.SendGump(new ClientGump(from, m.NetState));
 							}

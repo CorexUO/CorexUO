@@ -276,7 +276,7 @@ namespace Server.Gumps
 			if (m_Token == null || m_Token.Deleted || info.ButtonID == 0)
 				return;
 
-			List<Type> types = new List<Type>();
+			List<Type> types = new();
 			int cliloc = 0;
 
 			switch (info.ButtonID)

@@ -13,16 +13,6 @@ namespace Server.Engines.ConPVP
 		private readonly Participant m_Participant;
 		private readonly int m_Slot;
 
-		public string Center(string text)
-		{
-			return string.Format("<CENTER>{0}</CENTER>", text);
-		}
-
-		public string Color(string text, int color)
-		{
-			return string.Format("<BASEFONT COLOR=#{0:X6}>{1}</BASEFONT>", color, text);
-		}
-
 		private const int LabelColor32 = 0xFFFFFF;
 		private const int BlackColor32 = 0x000008;
 
@@ -113,7 +103,7 @@ namespace Server.Engines.ConPVP
 			m_Challenged.SendMessage("You decline the challenge.");
 		}
 
-		private static readonly Hashtable m_IgnoreLists = new Hashtable();
+		private static readonly Hashtable m_IgnoreLists = new();
 
 		private class IgnoreEntry
 		{

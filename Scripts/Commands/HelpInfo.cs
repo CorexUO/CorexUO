@@ -337,16 +337,6 @@ namespace Server.Commands
 
 		public class CommandInfoGump : Gump
 		{
-			public string Color(string text, int color)
-			{
-				return string.Format("<BASEFONT COLOR=#{0:X6}>{1}</BASEFONT>", color, text);
-			}
-
-			public string Center(string text)
-			{
-				return string.Format("<CENTER>{0}</CENTER>", text);
-			}
-
 			public CommandInfoGump(CommandInfo info)
 				: this(info, 320, 200)
 			{

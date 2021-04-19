@@ -41,11 +41,11 @@ namespace Server
 		private bool m_Active;
 
 		// TODO: Can we avoid this?
-		private static readonly List<Mobile> m_DefaultMobileList = new List<Mobile>();
-		private static readonly List<Item> m_DefaultItemList = new List<Item>();
-		private static readonly List<NetState> m_DefaultClientList = new List<NetState>();
-		private static readonly List<BaseMulti> m_DefaultMultiList = new List<BaseMulti>();
-		private static readonly List<RegionRect> m_DefaultRectList = new List<RegionRect>();
+		private static readonly List<Mobile> m_DefaultMobileList = new();
+		private static readonly List<Item> m_DefaultItemList = new();
+		private static readonly List<NetState> m_DefaultClientList = new();
+		private static readonly List<BaseMulti> m_DefaultMultiList = new();
+		private static readonly List<RegionRect> m_DefaultRectList = new();
 
 		public Sector(int x, int y, Map owner)
 		{
@@ -194,7 +194,7 @@ namespace Server
 		{
 			if (m_Mobiles != null)
 			{
-				List<Mobile> sandbox = new List<Mobile>(m_Mobiles);
+				List<Mobile> sandbox = new(m_Mobiles);
 
 				foreach (Mobile mob in sandbox)
 				{

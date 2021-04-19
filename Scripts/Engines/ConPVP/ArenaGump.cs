@@ -185,7 +185,7 @@ namespace Server.Engines.ConPVP
 				AddBorderedText(x + 5, y + 5, 115 - 5, name, color, 0);
 				x += 115;
 
-				StringBuilder sb = new StringBuilder();
+				StringBuilder sb = new();
 
 				if (ar.Players.Count > 0)
 				{
@@ -243,16 +243,6 @@ namespace Server.Engines.ConPVP
 
 				AddBorderedText(x, y + 5, 40, Center(ar.Spectators.ToString()), color, 0);
 			}
-		}
-
-		public string Center(string text)
-		{
-			return string.Format("<CENTER>{0}</CENTER>", text);
-		}
-
-		public string Color(string text, int color)
-		{
-			return string.Format("<BASEFONT COLOR=#{0:X6}>{1}</BASEFONT>", color, text);
 		}
 
 		private void AddBorderedText(int x, int y, int width, string text, int color, int borderColor)

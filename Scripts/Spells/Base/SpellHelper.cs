@@ -126,7 +126,7 @@ namespace Server.Spells
 
 			for (int offset = 0; offset < 10; ++offset)
 			{
-				Point3D loc = new Point3D(p.X, p.Y, p.Z - offset);
+				Point3D loc = new(p.X, p.Y, p.Z - offset);
 
 				if (map.CanFit(loc, height, true, mobsBlock))
 				{
@@ -1100,7 +1100,7 @@ namespace Server.Spells
 	public class TransformationSpellHelper
 	{
 		#region Context Stuff
-		private static readonly Dictionary<Mobile, TransformContext> m_Table = new Dictionary<Mobile, TransformContext>();
+		private static readonly Dictionary<Mobile, TransformContext> m_Table = new();
 
 		public static void AddContext(Mobile m, TransformContext context)
 		{
@@ -1225,7 +1225,7 @@ namespace Server.Spells
 
 				if (!ourTransform)
 				{
-					List<ResistanceMod> mods = new List<ResistanceMod>();
+					List<ResistanceMod> mods = new();
 
 					if (transformSpell.PhysResistOffset != 0)
 						mods.Add(new ResistanceMod(ResistanceType.Physical, transformSpell.PhysResistOffset));

@@ -6,16 +6,13 @@ namespace Server.Engines.CannedEvil
 	[PropertyObject]
 	public class ChampionTitleInfo
 	{
-		public static TimeSpan LossDelay = TimeSpan.FromDays(1.0);
+		public static readonly TimeSpan LossDelay = TimeSpan.FromDays(1.0);
 		public const int LossAmount = 90;
 
 		private class TitleInfo
 		{
-			private int m_Value;
-			private DateTime m_LastDecay;
-
-			public int Value { get => m_Value; set => m_Value = value; }
-			public DateTime LastDecay { get => m_LastDecay; set => m_LastDecay = value; }
+			public int Value { get; set; }
+			public DateTime LastDecay { get; set; }
 
 			public TitleInfo()
 			{
@@ -29,8 +26,8 @@ namespace Server.Engines.CannedEvil
 				{
 					case 0:
 						{
-							m_Value = reader.ReadEncodedInt();
-							m_LastDecay = reader.ReadDateTime();
+							Value = reader.ReadEncodedInt();
+							LastDecay = reader.ReadDateTime();
 							break;
 						}
 				}
@@ -40,14 +37,12 @@ namespace Server.Engines.CannedEvil
 			{
 				writer.WriteEncodedInt(0); // version
 
-				writer.WriteEncodedInt(info.m_Value);
-				writer.Write(info.m_LastDecay);
+				writer.WriteEncodedInt(info.Value);
+				writer.Write(info.LastDecay);
 			}
 		}
 
 		private TitleInfo[] m_Values;
-
-		private int m_Harrower; //Harrower titles do NOT decay
 
 		public int GetValue(ChampionSpawnType type)
 		{
@@ -169,7 +164,7 @@ namespace Server.Engines.CannedEvil
 		public int VerminHorde { get => GetValue(ChampionSpawnType.VerminHorde); set => SetValue(ChampionSpawnType.VerminHorde, value); }
 
 		[CommandProperty(AccessLevel.GameMaster)]
-		public int Harrower { get => m_Harrower; set => m_Harrower = value; }
+		public int Harrower { get; set; }
 
 		public ChampionTitleInfo()
 		{
@@ -183,7 +178,7 @@ namespace Server.Engines.CannedEvil
 			{
 				case 0:
 					{
-						m_Harrower = reader.ReadEncodedInt();
+						Harrower = reader.ReadEncodedInt();
 
 						int length = reader.ReadEncodedInt();
 						m_Values = new TitleInfo[length];
@@ -212,7 +207,7 @@ namespace Server.Engines.CannedEvil
 		{
 			writer.WriteEncodedInt(0); // version
 
-			writer.WriteEncodedInt(titles.m_Harrower);
+			writer.WriteEncodedInt(titles.Harrower);
 
 			int length = titles.m_Values.Length;
 			writer.WriteEncodedInt(length);
@@ -261,7 +256,7 @@ namespace Server.Engines.CannedEvil
 					count++;
 			}
 
-			t.m_Harrower = Math.Max(count, t.m_Harrower);   //Harrower titles never decay.
+			t.Harrower = Math.Max(count, t.Harrower);   //Harrower titles never decay.
 		}
 	}
 }

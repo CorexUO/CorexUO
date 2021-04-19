@@ -21,7 +21,7 @@ namespace Server
 		{
 			if (File.Exists("Data/bodyTable.cfg"))
 			{
-				using StreamReader ip = new StreamReader("Data/bodyTable.cfg");
+				using StreamReader ip = new("Data/bodyTable.cfg");
 				m_Types = new BodyType[0x1000];
 
 				string line;

@@ -137,7 +137,7 @@ namespace Server.Regions
 
 	public class SpawnMobile : SpawnType
 	{
-		private static readonly Hashtable m_Table = new Hashtable();
+		private static readonly Hashtable m_Table = new();
 
 		public static SpawnMobile Get(Type type)
 		{
@@ -177,9 +177,7 @@ namespace Server.Regions
 		{
 			Mobile mobile = CreateMobile();
 
-			BaseCreature creature = mobile as BaseCreature;
-
-			if (creature != null)
+			if (mobile is BaseCreature creature)
 			{
 				creature.Home = entry.HomeLocation;
 				creature.RangeHome = entry.HomeRange;
@@ -203,7 +201,7 @@ namespace Server.Regions
 
 	public class SpawnItem : SpawnType
 	{
-		private static readonly Hashtable m_Table = new Hashtable();
+		private static readonly Hashtable m_Table = new();
 
 		public static SpawnItem Get(Type type)
 		{
@@ -308,7 +306,7 @@ namespace Server.Regions
 
 			try
 			{
-				XmlDocument doc = new XmlDocument();
+				XmlDocument doc = new();
 				doc.Load(path);
 
 				XmlElement root = doc["spawnDefinitions"];
@@ -321,12 +319,10 @@ namespace Server.Regions
 					if (!Region.ReadString(xmlDef, "name", ref name))
 						continue;
 
-					List<SpawnGroupElement> list = new List<SpawnGroupElement>();
+					List<SpawnGroupElement> list = new();
 					foreach (XmlNode node in xmlDef.ChildNodes)
 					{
-						XmlElement el = node as XmlElement;
-
-						if (el != null)
+						if (node is XmlElement el)
 						{
 							SpawnDefinition def = GetSpawnDefinition(el);
 							if (def == null)
@@ -335,13 +331,13 @@ namespace Server.Regions
 							int weight = 1;
 							Region.ReadInt32(el, "weight", ref weight, false);
 
-							SpawnGroupElement groupElement = new SpawnGroupElement(def, weight);
+							SpawnGroupElement groupElement = new(def, weight);
 							list.Add(groupElement);
 						}
 					}
 
 					SpawnGroupElement[] elements = list.ToArray();
-					SpawnGroup group = new SpawnGroup(name, elements);
+					SpawnGroup group = new(name, elements);
 					Register(group);
 				}
 			}

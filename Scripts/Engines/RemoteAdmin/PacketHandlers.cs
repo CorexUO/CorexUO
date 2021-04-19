@@ -63,7 +63,7 @@ namespace Server.RemoteAdmin
 				term = term.ToUpper();
 			}
 
-			ArrayList list = new ArrayList();
+			ArrayList list = new();
 
 			foreach (Account a in Accounts.GetAccounts())
 			{
@@ -199,7 +199,7 @@ namespace Server.RemoteAdmin
 					state.Send(new MessageBoxMessage("Warning: When editing your own account, Account Status and Access Level cannot be changed.", "Editing Own Account"));
 				}
 
-				ArrayList list = new ArrayList();
+				ArrayList list = new();
 				ushort length = pvSrc.ReadUInt16();
 				bool invalid = false;
 				for (int i = 0; i < length; i++)

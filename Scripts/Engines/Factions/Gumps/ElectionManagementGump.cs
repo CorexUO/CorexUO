@@ -6,26 +6,6 @@ namespace Server.Factions
 {
 	public class ElectionManagementGump : Gump
 	{
-		public string Right(string text)
-		{
-			return string.Format("<DIV ALIGN=RIGHT>{0}</DIV>", text);
-		}
-
-		public string Center(string text)
-		{
-			return string.Format("<CENTER>{0}</CENTER>", text);
-		}
-
-		public string Color(string text, int color)
-		{
-			return string.Format("<BASEFONT COLOR=#{0:X6}>{1}</BASEFONT>", color, text);
-		}
-
-		public static string FormatTimeSpan(TimeSpan ts)
-		{
-			return string.Format("{0:D2}:{1:D2}:{2:D2}:{3:D2}", ts.Days, ts.Hours % 24, ts.Minutes % 60, ts.Seconds % 60);
-		}
-
 		public const int LabelColor = 0xFFFFFF;
 
 		private readonly Election m_Election;
@@ -152,9 +132,9 @@ namespace Server.Factions
 					{
 						object obj = fields[j];
 
-						if (obj is Mobile)
+						if (obj is Mobile mobile)
 						{
-							AddHtml(x + 2, 140 + (idx * 20), 150, 20, Color(((Mobile)obj).Name, LabelColor), false, false);
+							AddHtml(x + 2, 140 + (idx * 20), 150, 20, Color(mobile.Name, LabelColor), false, false);
 							x += 150;
 						}
 						else if (obj is System.Net.IPAddress)
@@ -162,9 +142,9 @@ namespace Server.Factions
 							AddHtml(x, 140 + (idx * 20), 100, 20, Color(Center(obj.ToString()), LabelColor), false, false);
 							x += 100;
 						}
-						else if (obj is DateTime)
+						else if (obj is DateTime time)
 						{
-							AddHtml(x, 140 + (idx * 20), 80, 20, Color(Center(FormatTimeSpan(((DateTime)obj) - election.LastStateTime)), LabelColor), false, false);
+							AddHtml(x, 140 + (idx * 20), 80, 20, Color(Center(FormatTimeSpan(time - election.LastStateTime)), LabelColor), false, false);
 							x += 80;
 						}
 						else if (obj is int)

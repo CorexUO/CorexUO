@@ -110,7 +110,7 @@ namespace Server.Engines.Help
 			{
 				if (PageQueue.List.IndexOf(m_List[info.ButtonID - 1]) >= 0)
 				{
-					PageEntryGump g = new PageEntryGump(state.Mobile, m_List[info.ButtonID - 1]);
+					PageEntryGump g = new(state.Mobile, m_List[info.ButtonID - 1]);
 
 					g.SendTo(state);
 				}
@@ -125,16 +125,13 @@ namespace Server.Engines.Help
 
 	public class PredefinedResponse
 	{
-		private string m_Title;
-		private string m_Message;
-
-		public string Title { get => m_Title; set => m_Title = value; }
-		public string Message { get => m_Message; set => m_Message = value; }
+		public string Title { get; set; }
+		public string Message { get; set; }
 
 		public PredefinedResponse(string title, string message)
 		{
-			m_Title = title;
-			m_Message = message;
+			Title = title;
+			Message = message;
 		}
 
 		private static ArrayList m_List;
@@ -155,7 +152,7 @@ namespace Server.Engines.Help
 			if (m_List == null)
 				m_List = Load();
 
-			PredefinedResponse resp = new PredefinedResponse(title, message);
+			PredefinedResponse resp = new(title, message);
 
 			m_List.Add(resp);
 			Save();
@@ -172,7 +169,7 @@ namespace Server.Engines.Help
 			{
 				string path = Path.Combine(Core.BaseDirectory, "Data/pageresponse.cfg");
 
-				using (StreamWriter op = new StreamWriter(path))
+				using (StreamWriter op = new(path))
 				{
 					for (int i = 0; i < m_List.Count; ++i)
 					{
@@ -190,7 +187,7 @@ namespace Server.Engines.Help
 
 		public static ArrayList Load()
 		{
-			ArrayList list = new ArrayList();
+			ArrayList list = new();
 
 			string path = Path.Combine(Core.BaseDirectory, "Data/pageresponse.cfg");
 
@@ -198,7 +195,7 @@ namespace Server.Engines.Help
 			{
 				try
 				{
-					using (StreamReader ip = new StreamReader(path))
+					using (StreamReader ip = new(path))
 					{
 						string line;
 
@@ -235,16 +232,6 @@ namespace Server.Engines.Help
 	public class PredefGump : Gump
 	{
 		private const int LabelColor32 = 0xFFFFFF;
-
-		public string Center(string text)
-		{
-			return string.Format("<CENTER>{0}</CENTER>", text);
-		}
-
-		public string Color(string text, int color)
-		{
-			return string.Format("<BASEFONT COLOR=#{0:X6}>{1}</BASEFONT>", color, text);
-		}
 
 		public void AddTextInput(int x, int y, int w, int h, int id, string def)
 		{
@@ -359,7 +346,7 @@ namespace Server.Engines.Help
 
 				if (index == 0)
 				{
-					PredefinedResponse resp = new PredefinedResponse("", "");
+					PredefinedResponse resp = new("", "");
 
 					ArrayList list = PredefinedResponse.List;
 					list.Add(resp);
@@ -764,7 +751,7 @@ namespace Server.Engines.Help
 
 							state.Mobile.SendMessage("You mark the page as handled, and remove it from the queue.");
 
-							PageQueueGump g = new PageQueueGump();
+							PageQueueGump g = new();
 
 							g.SendTo(state);
 						}

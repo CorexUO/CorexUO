@@ -7,13 +7,11 @@ namespace Server.Engines.Harvest
 {
 	public abstract class HarvestSystem
 	{
-		private readonly List<HarvestDefinition> m_Definitions;
-
-		public List<HarvestDefinition> Definitions => m_Definitions;
+		public List<HarvestDefinition> Definitions { get; }
 
 		public HarvestSystem()
 		{
-			m_Definitions = new List<HarvestDefinition>();
+			Definitions = new List<HarvestDefinition>();
 		}
 
 		public virtual bool CheckTool(Mobile from, Item tool)
@@ -279,7 +277,7 @@ namespace Server.Engines.Harvest
 			if (map == null)
 				return false;
 
-			List<Item> atFeet = new List<Item>();
+			List<Item> atFeet = new();
 
 			foreach (Item obj in m.GetItemsInRange(0))
 				atFeet.Add(obj);
@@ -386,9 +384,9 @@ namespace Server.Engines.Harvest
 		{
 			HarvestDefinition def = null;
 
-			for (int i = 0; def == null && i < m_Definitions.Count; ++i)
+			for (int i = 0; def == null && i < Definitions.Count; ++i)
 			{
-				HarvestDefinition check = m_Definitions[i];
+				HarvestDefinition check = Definitions[i];
 
 				if (check.Validate(tileID))
 					def = check;

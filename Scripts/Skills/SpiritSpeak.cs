@@ -73,7 +73,7 @@ namespace Server.SkillHandlers
 
 		private class SpiritSpeakSpell : Spell
 		{
-			private static readonly SpellInfo m_Info = new SpellInfo("Spirit Speak", "", 269);
+			private static readonly SpellInfo m_Info = new("Spirit Speak", "", 269);
 
 			public override bool BlockedByHorrificBeast => false;
 
@@ -139,9 +139,9 @@ namespace Server.SkillHandlers
 
 				foreach (Item item in Caster.GetItemsInRange(3))
 				{
-					if (item is Corpse && !((Corpse)item).Channeled)
+					if (item is Corpse corpse && !corpse.Channeled)
 					{
-						toChannel = (Corpse)item;
+						toChannel = corpse;
 						break;
 					}
 				}

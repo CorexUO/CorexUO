@@ -10,7 +10,7 @@ using System.Collections.Generic;
 
 namespace Server.Items
 {
-	public class BallOfSummoning : BaseItem, TranslocationItem
+	public class BallOfSummoning : BaseItem, ITranslocationItem
 	{
 		private int m_Charges;
 		private int m_Recharges;

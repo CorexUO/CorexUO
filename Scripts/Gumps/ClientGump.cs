@@ -36,7 +36,7 @@ namespace Server.Gumps
 				from.SendMessage("That character no longer exists.");
 				return;
 			}
-			else if (from != focus && focus.Hidden && from.AccessLevel < focus.AccessLevel && (!(focus is PlayerMobile) || !((PlayerMobile)focus).VisibilityList.Contains(from)))
+			else if (from != focus && focus.Hidden && from.AccessLevel < focus.AccessLevel && (focus is not PlayerMobile mobile || !mobile.VisibilityList.Contains(from)))
 			{
 				from.SendMessage("That character is no longer visible.");
 				return;
@@ -175,16 +175,6 @@ namespace Server.Gumps
 
 		private const int LabelColor32 = 0xFFFFFF;
 
-		public string Center(string text)
-		{
-			return string.Format("<CENTER>{0}</CENTER>", text);
-		}
-
-		public string Color(string text, int color)
-		{
-			return string.Format("<BASEFONT COLOR=#{0:X6}>{1}</BASEFONT>", color, text);
-		}
-
 		public ClientGump(Mobile from, NetState state, string initialText) : base(30, 20)
 		{
 			if (state == null)
@@ -219,10 +209,9 @@ namespace Server.Gumps
 
 			AddHtml(70, 36 + (line++ * 20), 200, 20, Color(expansionName, LabelColor32), false, false);
 
-			Account a = state.Account as Account;
 			Mobile m = state.Mobile;
 
-			if (from.AccessLevel >= AccessLevel.GameMaster && a != null)
+			if (from.AccessLevel >= AccessLevel.GameMaster && state.Account is Account a)
 			{
 				AddHtml(14, 36 + (line * 20), 200, 20, Color("Account:", LabelColor32), false, false);
 				AddHtml(70, 36 + (line++ * 20), 200, 20, Color(a.Username, LabelColor32), false, false);

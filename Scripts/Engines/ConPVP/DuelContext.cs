@@ -1124,15 +1124,15 @@ namespace Server.Engines.ConPVP
 			EventSink.OnSpeech += EventSink_Speech;
 			EventSink.OnLogin += EventSink_Login;
 
-			CommandSystem.Register("vli", AccessLevel.GameMaster, new CommandEventHandler(vli_oc));
+			CommandSystem.Register("vli", AccessLevel.GameMaster, new CommandEventHandler(Vli_oc));
 		}
 
-		private static void vli_oc(CommandEventArgs e)
+		private static void Vli_oc(CommandEventArgs e)
 		{
-			e.Mobile.BeginTarget(-1, false, Targeting.TargetFlags.None, new TargetCallback(vli_ot));
+			e.Mobile.BeginTarget(-1, false, Targeting.TargetFlags.None, new TargetCallback(Vli_ot));
 		}
 
-		private static void vli_ot(Mobile from, object obj)
+		private static void Vli_ot(Mobile from, object obj)
 		{
 			if (obj is PlayerMobile)
 			{

@@ -190,7 +190,7 @@ namespace Server.Gumps
 				974, 982
 			};
 
-		private static readonly List<int> _HouseSigns = new List<int>();
+		private static readonly List<int> _HouseSigns = new();
 
 		public HouseGumpAOS(HouseGumpPageAOS page, Mobile from, BaseHouse house) : base(50, 40)
 		{
@@ -674,7 +674,7 @@ namespace Server.Gumps
 
 			if (okay && house.IsFriend(from))
 			{
-				ArrayList list = new ArrayList(house.Access);
+				ArrayList list = new(house.Access);
 
 				if (house.Access != null)
 					house.Access.Clear();
@@ -1421,7 +1421,7 @@ namespace Server.Gumps
 				return null;
 
 			string[] values = value.Split(' ');
-			ArrayList list = new ArrayList();
+			ArrayList list = new();
 			string current = "";
 
 			for (int i = 0; i < values.Length; ++i)

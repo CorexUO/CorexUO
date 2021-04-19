@@ -24,7 +24,7 @@ namespace Server.SkillHandlers
 
 		public static bool IsInGuild(Mobile m)
 		{
-			return (m is PlayerMobile && ((PlayerMobile)m).NpcGuild == NpcGuild.ThievesGuild);
+			return m is PlayerMobile mobile && mobile.NpcGuild == NpcGuild.ThievesGuild;
 		}
 
 		public static bool IsInnocentTo(Mobile from, Mobile to)
@@ -61,7 +61,7 @@ namespace Server.SkillHandlers
 				{
 					m_Thief.SendMessage("You may not steal in this area.");
 				}
-				else if (root is Mobile && ((Mobile)root).Player && !IsInGuild(m_Thief))
+				else if (root is Mobile mobile && mobile.Player && !IsInGuild(m_Thief))
 				{
 					m_Thief.SendLocalizedMessage(1005596); // You must be in the thieves guild to steal from other players.
 				}
@@ -89,7 +89,7 @@ namespace Server.SkillHandlers
 				else if (toSteal is Sigil)
 				{
 					PlayerState pl = PlayerState.Find(m_Thief);
-					Faction faction = (pl == null ? null : pl.Faction);
+					Faction faction = pl?.Faction;
 
 					Sigil sig = (Sigil)toSteal;
 
@@ -419,7 +419,7 @@ namespace Server.SkillHandlers
 			Expires = DateTime.UtcNow + StealTime;
 		}
 
-		private static readonly Queue<StolenItem> m_Queue = new Queue<StolenItem>();
+		private static readonly Queue<StolenItem> m_Queue = new();
 
 		public static void Add(Item item, Mobile thief, Mobile victim)
 		{

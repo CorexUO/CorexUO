@@ -13,7 +13,7 @@ namespace Server.Items
 		Red
 	}
 
-	public class BagOfSending : BaseItem, TranslocationItem
+	public class BagOfSending : BaseItem, ITranslocationItem
 	{
 		public static BagOfSendingHue RandomHue()
 		{

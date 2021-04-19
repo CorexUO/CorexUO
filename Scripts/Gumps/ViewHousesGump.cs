@@ -23,8 +23,8 @@ namespace Server.Gumps
 
 		public static void ViewHouses_OnTarget(Mobile from, object targeted)
 		{
-			if (targeted is Mobile)
-				from.SendGump(new ViewHousesGump(from, GetHouses((Mobile)targeted), null));
+			if (targeted is Mobile mobile)
+				from.SendGump(new ViewHousesGump(from, GetHouses(mobile), null));
 		}
 
 		private class HouseComparer : IComparer<BaseHouse>
@@ -39,11 +39,9 @@ namespace Server.Gumps
 
 		public static List<BaseHouse> GetHouses(Mobile owner)
 		{
-			List<BaseHouse> list = new List<BaseHouse>();
+			List<BaseHouse> list = new();
 
-			Account acct = owner.Account as Account;
-
-			if (acct == null)
+			if (owner.Account is not Account acct)
 			{
 				list.AddRange(BaseHouse.GetHouses(owner));
 			}
@@ -275,21 +273,6 @@ namespace Server.Gumps
 
 		private const int White16 = 0x7FFF;
 		private const int White = 0xFFFFFF;
-
-		public string Right(string text)
-		{
-			return string.Format("<div align=right>{0}</div>", text);
-		}
-
-		public string Center(string text)
-		{
-			return string.Format("<CENTER>{0}</CENTER>", text);
-		}
-
-		public string Color(string text, int color)
-		{
-			return string.Format("<BASEFONT COLOR=#{0:X6}>{1}</BASEFONT>", color, text);
-		}
 
 		public void AddBlackAlpha(int x, int y, int width, int height)
 		{

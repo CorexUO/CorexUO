@@ -88,7 +88,7 @@ namespace Server.Gumps
 			}
 			else
 			{
-				ArrayList nodes = new ArrayList();
+				ArrayList nodes = new();
 
 				while (xml.Read() && xml.NodeType != XmlNodeType.EndElement)
 				{
@@ -124,7 +124,7 @@ namespace Server.Gumps
 		{
 			if (File.Exists(path))
 			{
-				XmlTextReader xml = new XmlTextReader(path)
+				XmlTextReader xml = new(path)
 				{
 					WhitespaceHandling = WhitespaceHandling.None
 				};
@@ -133,7 +133,7 @@ namespace Server.Gumps
 				{
 					if (xml.Name == "category" && xml.NodeType == XmlNodeType.Element)
 					{
-						CAGCategory cat = new CAGCategory(null, xml);
+						CAGCategory cat = new(null, xml);
 
 						xml.Close();
 
@@ -148,7 +148,7 @@ namespace Server.Gumps
 
 	public class CategorizedAddGump : Gump
 	{
-		public static bool OldStyle = PropsConfig.OldStyle;
+		public static readonly bool OldStyle = PropsConfig.OldStyle;
 
 		public const int EntryHeight = 24;//PropsConfig.EntryHeight;
 
@@ -307,9 +307,8 @@ namespace Server.Gumps
 
 				AddButton(x + SetOffsetX, y + SetOffsetY, SetButtonID1, SetButtonID2, i + 4, GumpButtonType.Reply, 0);
 
-				if (node is CAGObject)
+				if (node is CAGObject obj)
 				{
-					CAGObject obj = (CAGObject)node;
 					int itemID = obj.ItemID;
 
 					Rectangle2D bounds = ItemBounds.Table[itemID];

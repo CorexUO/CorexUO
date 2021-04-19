@@ -28,16 +28,6 @@ namespace Server.Gumps
 		{
 		}
 
-		public string Center(string text)
-		{
-			return string.Format("<CENTER>{0}</CENTER>", text);
-		}
-
-		public string Color(string text, int color)
-		{
-			return string.Format("<BASEFONT COLOR=#{0:X6}>{1}</BASEFONT>", color, text);
-		}
-
 		public void AddTypeButton(int x, int y, int buttonID, string text, ModelBodyType type)
 		{
 			bool isSelection = (m_OurType == type);
@@ -228,15 +218,10 @@ namespace Server.Gumps
 
 		private class InternalEntry : IComparable
 		{
-			private readonly int m_Body;
-			private readonly int m_ItemID;
-			private readonly string m_Name;
-			private readonly string m_DisplayName;
-
-			public int Body => m_Body;
-			public int ItemID => m_ItemID;
-			public string Name => m_Name;
-			public string DisplayName => m_DisplayName;
+			public int Body { get; }
+			public int ItemID { get; }
+			public string Name { get; }
+			public string DisplayName { get; }
 
 			private static readonly string[] m_GroupNames = new string[]
 				{
@@ -259,32 +244,32 @@ namespace Server.Gumps
 
 			public InternalEntry(int body, int itemID, string name)
 			{
-				m_Body = body;
-				m_ItemID = itemID;
-				m_Name = name;
+				Body = body;
+				ItemID = itemID;
+				Name = name;
 
-				m_DisplayName = name.ToLower();
+				DisplayName = name.ToLower();
 
 				for (int i = 0; i < m_GroupNames.Length; ++i)
 				{
-					if (m_DisplayName.StartsWith(m_GroupNames[i]))
+					if (DisplayName.StartsWith(m_GroupNames[i]))
 					{
-						m_DisplayName = m_DisplayName.Substring(m_GroupNames[i].Length);
+						DisplayName = DisplayName.Substring(m_GroupNames[i].Length);
 						break;
 					}
 				}
 
-				m_DisplayName = m_DisplayName.Replace('_', ' ');
+				DisplayName = DisplayName.Replace('_', ' ');
 			}
 
 			public int CompareTo(object obj)
 			{
 				InternalEntry comp = (InternalEntry)obj;
 
-				int v = m_Name.CompareTo(comp.m_Name);
+				int v = Name.CompareTo(comp.Name);
 
 				if (v == 0)
-					m_Body.CompareTo(comp.m_Body);
+					Body.CompareTo(comp.Body);
 
 				return v;
 			}

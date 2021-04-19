@@ -96,8 +96,8 @@ namespace Server.Misc
 
 			while (x > y)
 			{
-				plot4points(loc, map, x, y, startPoint, endPoint, effect, opposite);
-				plot4points(loc, map, y, x, startPoint, endPoint, effect, opposite);
+				Plot4points(loc, map, x, y, startPoint, endPoint, effect, opposite);
+				Plot4points(loc, map, y, x, startPoint, endPoint, effect, opposite);
 
 				error += (y * 2) + 1;
 				++y;
@@ -109,10 +109,10 @@ namespace Server.Misc
 				}
 			}
 
-			plot4points(loc, map, x, y, startPoint, endPoint, effect, opposite);
+			Plot4points(loc, map, x, y, startPoint, endPoint, effect, opposite);
 		}
 
-		public static void plot4points(Point3D loc, Map map, int x, int y, CirclePoint start, CirclePoint end, DoEffect_Callback effect, bool opposite)
+		public static void Plot4points(Point3D loc, Map map, int x, int y, CirclePoint start, CirclePoint end, DoEffect_Callback effect, bool opposite)
 		{
 			Point2D pointA = new Point2D(loc.X - x, loc.Y - y);
 			Point2D pointB = new Point2D(loc.X - y, loc.Y - x);

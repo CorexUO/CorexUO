@@ -129,10 +129,5 @@ namespace Server.Guilds
 			else if (text != null && text.String != null)
 				AddHtml(x, y, width, height, text.String, back, scroll);
 		}
-
-		public static string Color(string text, int color)
-		{
-			return string.Format("<BASEFONT COLOR=#{0:X6}>{1}</BASEFONT>", color, text);
-		}
 	}
 }

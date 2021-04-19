@@ -27,11 +27,11 @@ namespace Server.Gumps
 
 			AddPage(0);
 
-			if (m_Type >= 0 && m_Type < m_Types.Length)
+			if (m_Type >= 0 && m_Type < Types.Length)
 			{
 				AddBlueBack(155, 174);
 
-				int baseID = m_Types[m_Type].m_BaseID;
+				int baseID = Types[m_Type].m_BaseID;
 
 				AddItem(25, 24, baseID);
 				AddButton(26, 37, 0x5782, 0x5782, 1, GumpButtonType.Reply, 0);
@@ -51,10 +51,10 @@ namespace Server.Gumps
 			{
 				AddBlueBack(265, 145);
 
-				for (int i = 0; i < m_Types.Length; ++i)
+				for (int i = 0; i < Types.Length; ++i)
 				{
 					AddButton(30 + (i * 49), 13, 0x2624, 0x2625, i + 1, GumpButtonType.Reply, 0);
-					AddItem(22 + (i * 49), 20, m_Types[i].m_BaseID);
+					AddItem(22 + (i * 49), 20, Types[i].m_BaseID);
 				}
 			}
 		}
@@ -66,7 +66,7 @@ namespace Server.Gumps
 
 			if (m_Type == -1)
 			{
-				if (button >= 0 && button < m_Types.Length)
+				if (button >= 0 && button < Types.Length)
 					from.SendGump(new AddDoorGump(button));
 			}
 			else
@@ -74,7 +74,7 @@ namespace Server.Gumps
 				if (button >= 0 && button < 8)
 				{
 					from.SendGump(new AddDoorGump(m_Type));
-					CommandSystem.Handle(from, string.Format("{0}Add {1} {2}", CommandSystem.Prefix, m_Types[m_Type].m_Type.Name, (DoorFacing)button));
+					CommandSystem.Handle(from, string.Format("{0}Add {1} {2}", CommandSystem.Prefix, Types[m_Type].m_Type.Name, (DoorFacing)button));
 				}
 				else if (button == 8)
 				{
@@ -100,7 +100,7 @@ namespace Server.Gumps
 			e.Mobile.SendGump(new AddDoorGump());
 		}
 
-		public static DoorInfo[] m_Types = new DoorInfo[]
+		public static readonly DoorInfo[] Types = new DoorInfo[]
 			{
 				new DoorInfo( typeof( MetalDoor ), 0x675 ),
 				new DoorInfo( typeof( RattanDoor ), 0x695 ),

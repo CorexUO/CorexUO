@@ -253,7 +253,7 @@ namespace Server.Regions
 				CheckGuardCandidate(m);
 		}
 
-		private readonly Dictionary<Mobile, GuardTimer> m_GuardCandidates = new Dictionary<Mobile, GuardTimer>();
+		private readonly Dictionary<Mobile, GuardTimer> m_GuardCandidates = new();
 
 		public void CheckGuardCandidate(Mobile m)
 		{

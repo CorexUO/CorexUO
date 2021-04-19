@@ -182,7 +182,7 @@ namespace Server.Gumps
 				return null;
 
 			string[] values = value.Split(' ');
-			ArrayList list = new ArrayList();
+			ArrayList list = new();
 			string current = "";
 
 			for (int i = 0; i < values.Length; ++i)

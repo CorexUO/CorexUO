@@ -9,6 +9,8 @@ namespace Server.Gumps
 {
 	public class ReportMurdererGump : Gump
 	{
+		private static readonly TimeSpan ReportExpirationTimeout = TimeSpan.FromMinutes(10);
+
 		private int m_Idx;
 		private readonly List<Mobile> m_Killers;
 		private readonly Mobile m_Victum;
@@ -20,8 +22,8 @@ namespace Server.Gumps
 
 		public static void EventSink_PlayerDeath(Mobile m, Mobile killer, Container cont)
 		{
-			List<Mobile> killers = new List<Mobile>();
-			List<Mobile> toGive = new List<Mobile>();
+			List<Mobile> killers = new();
+			List<Mobile> toGive = new();
 
 			foreach (AggressorInfo ai in m.Aggressors)
 			{
@@ -165,12 +167,11 @@ namespace Server.Gumps
 							if (Core.SE)
 							{
 								((PlayerMobile)from).RecentlyReported.Add(killer);
-								Timer.DelayCall(TimeSpan.FromMinutes(10), new TimerStateCallback(ReportedListExpiry_Callback), new object[] { from, killer });
+								Timer.DelayCall(ReportExpirationTimeout, new TimerStateCallback(ReportedListExpiry_Callback), new object[] { from, killer });
 							}
 
-							if (killer is PlayerMobile)
+							if (killer is PlayerMobile pk)
 							{
-								PlayerMobile pk = (PlayerMobile)killer;
 								pk.ResetKillTime();
 								pk.SendLocalizedMessage(1049067);//You have been reported for murder!
 

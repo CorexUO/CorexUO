@@ -64,7 +64,7 @@ namespace Server
 
 		public static bool Load()
 		{
-			List<Assembly> assemblies = new List<Assembly>();
+			List<Assembly> assemblies = new();
 
 			Console.Write("Loading scripts...");
 
@@ -121,7 +121,7 @@ namespace Server
 			}
 		}
 
-		private static readonly Dictionary<Assembly, TypeCache> m_TypeCaches = new Dictionary<Assembly, TypeCache>();
+		private static readonly Dictionary<Assembly, TypeCache> m_TypeCaches = new();
 		private static TypeCache m_NullCache;
 
 		public static TypeCache GetTypeCache(Assembly asm)

@@ -8,7 +8,6 @@ namespace Server.Engines.Chat
 		private string m_Password;
 		private readonly List<ChatUser> m_Users, m_Banned, m_Moderators, m_Voices;
 		private bool m_VoiceRestricted;
-		private bool m_AlwaysAvailable;
 
 		public Channel(string name)
 		{
@@ -97,7 +96,7 @@ namespace Server.Engines.Chat
 			return true;
 		}
 
-		public bool ValidateAccess(ChatUser from, ChatUser target)
+		public static bool ValidateAccess(ChatUser from, ChatUser target)
 		{
 			if (from != null && target != null && from.Mobile.AccessLevel < target.Mobile.AccessLevel)
 			{
@@ -142,7 +141,7 @@ namespace Server.Engines.Chat
 				m_Users.Add(user);
 				user.CurrentChannel = this;
 
-				if (user.Mobile.AccessLevel >= AccessLevel.GameMaster || (!m_AlwaysAvailable && m_Users.Count == 1))
+				if (user.Mobile.AccessLevel >= AccessLevel.GameMaster || (!AlwaysAvailable && m_Users.Count == 1))
 					AddModerator(user);
 
 				SendUsersTo(user);
@@ -167,7 +166,7 @@ namespace Server.Engines.Chat
 				SendCommand(ChatCommand.RemoveUserFromChannel, user, user.Username);
 				ChatSystem.SendCommandTo(user.Mobile, ChatCommand.LeaveChannel);
 
-				if (m_Users.Count == 0 && !m_AlwaysAvailable)
+				if (m_Users.Count == 0 && !AlwaysAvailable)
 					RemoveChannel(this);
 			}
 		}
@@ -243,11 +242,7 @@ namespace Server.Engines.Chat
 			}
 		}
 
-		public bool AlwaysAvailable
-		{
-			get => m_AlwaysAvailable;
-			set => m_AlwaysAvailable = value;
-		}
+		public bool AlwaysAvailable { get; set; }
 
 		public void AddVoiced(ChatUser user)
 		{
@@ -443,15 +438,13 @@ namespace Server.Engines.Chat
 			}
 		}
 
-		private static readonly List<Channel> m_Channels = new List<Channel>();
-
-		public static List<Channel> Channels => m_Channels;
+		public static List<Channel> Channels { get; } = new List<Channel>();
 
 		public static void SendChannelsTo(ChatUser user)
 		{
-			for (int i = 0; i < m_Channels.Count; ++i)
+			for (int i = 0; i < Channels.Count; ++i)
 			{
-				Channel channel = m_Channels[i];
+				Channel channel = Channels[i];
 
 				if (!channel.IsBanned(user))
 					ChatSystem.SendCommandTo(user.Mobile, ChatCommand.AddChannel, channel.Name, "0");
@@ -470,7 +463,7 @@ namespace Server.Engines.Chat
 			if (channel == null)
 			{
 				channel = new Channel(name, password);
-				m_Channels.Add(channel);
+				Channels.Add(channel);
 			}
 
 			ChatUser.GlobalSendCommand(ChatCommand.AddChannel, name, "0");
@@ -488,22 +481,22 @@ namespace Server.Engines.Chat
 			if (channel == null)
 				return;
 
-			if (m_Channels.Contains(channel) && channel.m_Users.Count == 0)
+			if (Channels.Contains(channel) && channel.m_Users.Count == 0)
 			{
 				ChatUser.GlobalSendCommand(ChatCommand.RemoveChannel, channel.Name);
 
 				channel.m_Moderators.Clear();
 				channel.m_Voices.Clear();
 
-				m_Channels.Remove(channel);
+				Channels.Remove(channel);
 			}
 		}
 
 		public static Channel FindChannelByName(string name)
 		{
-			for (int i = 0; i < m_Channels.Count; ++i)
+			for (int i = 0; i < Channels.Count; ++i)
 			{
-				Channel channel = m_Channels[i];
+				Channel channel = Channels[i];
 
 				if (channel.m_Name == name)
 					return channel;
