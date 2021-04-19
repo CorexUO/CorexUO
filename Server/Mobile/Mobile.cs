@@ -166,7 +166,7 @@ namespace Server
 		{
 			public long m_End;
 
-			private static readonly Queue<MovementRecord> m_InstancePool = new Queue<MovementRecord>();
+			private static readonly Queue<MovementRecord> m_InstancePool = new();
 
 			public static MovementRecord NewInstance(long end)
 			{
@@ -2202,8 +2202,8 @@ namespace Server
 
 		private long m_EndQueue;
 
-		private static readonly List<IEntity> m_MoveList = new List<IEntity>();
-		private static readonly List<Mobile> m_MoveClientList = new List<Mobile>();
+		private static readonly List<IEntity> m_MoveList = new();
+		private static readonly List<Mobile> m_MoveClientList = new();
 
 		public static AccessLevel FwdAccessOverride { get; set; } = AccessLevel.Counselor;
 		public static bool FwdEnabled { get; set; } = true;
@@ -2386,7 +2386,7 @@ namespace Server
 
 						if (m_MoveRecords.Count >= FwdMaxSteps)
 						{
-							FastWalkEventArgs fw = new FastWalkEventArgs(m_NetState);
+							FastWalkEventArgs fw = new(m_NetState);
 							EventSink.InvokeFastWalk(fw);
 
 							if (fw.Blocked)
@@ -2986,11 +2986,11 @@ namespace Server
 					m_FrozenTimer.Stop();
 			}
 
-			List<Item> content = new List<Item>();
-			List<Item> equip = new List<Item>();
-			List<Item> moveToPack = new List<Item>();
+			List<Item> content = new();
+			List<Item> equip = new();
+			List<Item> moveToPack = new();
 
-			List<Item> itemsCopy = new List<Item>(Items);
+			List<Item> itemsCopy = new(Items);
 
 			Container pack = Backpack;
 
@@ -3021,7 +3021,7 @@ namespace Server
 
 			if (pack != null)
 			{
-				List<Item> packCopy = new List<Item>(pack.Items);
+				List<Item> packCopy = new(pack.Items);
 
 				for (int i = 0; i < packCopy.Count; ++i)
 				{
@@ -3129,7 +3129,7 @@ namespace Server
 				//Body = this.Female ? 0x193 : 0x192;
 				Body = Race.GhostBody(this);
 
-				Item deathShroud = new Item(0x204E)
+				Item deathShroud = new(0x204E)
 				{
 					Movable = false,
 					Layer = Layer.OuterTorso
@@ -3665,14 +3665,14 @@ namespace Server
 			return !bounced;
 		}
 
-		private static readonly object m_GhostMutateContext = new object();
+		private static readonly object m_GhostMutateContext = new();
 
 		public virtual bool MutateSpeech(List<Mobile> hears, ref string text, ref object context)
 		{
 			if (Alive)
 				return false;
 
-			StringBuilder sb = new StringBuilder(text.Length, text.Length);
+			StringBuilder sb = new(text.Length, text.Length);
 
 			for (int i = 0; i < text.Length; ++i)
 			{
@@ -3820,8 +3820,8 @@ namespace Server
 
 		#endregion
 
-		private static readonly List<Mobile> m_Hears = new List<Mobile>();
-		private static readonly List<IEntity> m_OnSpeech = new List<IEntity>();
+		private static readonly List<Mobile> m_Hears = new();
+		private static readonly List<IEntity> m_OnSpeech = new();
 
 		public virtual void DoSpeech(string text, int[] keywords, MessageType type, int hue)
 		{
@@ -3851,7 +3851,7 @@ namespace Server
 					break;
 			}
 
-			SpeechEventArgs regArgs = new SpeechEventArgs(this, text, type, hue, keywords);
+			SpeechEventArgs regArgs = new(this, text, type, hue, keywords);
 
 			EventSink.InvokeSpeech(regArgs);
 			Region.OnSpeech(regArgs);
@@ -5609,7 +5609,7 @@ namespace Server
 
 			if (ns != null)
 			{
-				List<Gump> gumps = new List<Gump>(ns.Gumps);
+				List<Gump> gumps = new(ns.Gumps);
 
 				ns.ClearGumps();
 
@@ -7608,7 +7608,7 @@ namespace Server
 		}
 
 		private Packet m_RemovePacket;
-		private readonly object rpLock = new object();
+		private readonly object rpLock = new();
 
 		public Packet RemovePacket
 		{
@@ -7631,7 +7631,7 @@ namespace Server
 		}
 
 		private Packet m_OPLPacket;
-		private readonly object oplLock = new object();
+		private readonly object oplLock = new();
 
 		public Packet OPLPacket
 		{
@@ -8707,8 +8707,8 @@ namespace Server
 		{
 		}
 
-		private static readonly Queue<Mobile> m_DeltaQueue = new Queue<Mobile>();
-		private static readonly Queue<Mobile> m_DeltaQueueR = new Queue<Mobile>();
+		private static readonly Queue<Mobile> m_DeltaQueue = new();
+		private static readonly Queue<Mobile> m_DeltaQueueR = new();
 
 		private bool m_InDeltaQueue;
 		private MobileDelta m_DeltaFlags;
@@ -8732,7 +8732,7 @@ namespace Server
 
 						try
 						{
-							using StreamWriter op = new StreamWriter("delta-recursion.log", true);
+							using StreamWriter op = new("delta-recursion.log", true);
 							op.WriteLine("# {0}", DateTime.UtcNow);
 							op.WriteLine(new System.Diagnostics.StackTrace());
 							op.WriteLine();
