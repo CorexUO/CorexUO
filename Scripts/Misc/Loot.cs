@@ -663,7 +663,7 @@ namespace Server
 
 		public static BaseTalisman RandomTalisman()
 		{
-			BaseTalisman talisman = new BaseTalisman(BaseTalisman.GetRandomItemID())
+			BaseTalisman talisman = new(BaseTalisman.GetRandomItemID())
 			{
 				Summoner = BaseTalisman.GetRandomSummoner()
 			};

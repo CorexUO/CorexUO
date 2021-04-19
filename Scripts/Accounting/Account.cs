@@ -789,7 +789,7 @@ namespace Server.Accounting
 
 			if (accessCheck != null)
 			{
-				List<string> list = new List<string>();
+				List<string> list = new();
 
 				foreach (XmlElement ip in accessCheck.GetElementsByTagName("ip"))
 				{

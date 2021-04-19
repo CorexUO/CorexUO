@@ -11,11 +11,7 @@ namespace Server.Engines.BulkOrders
 {
 	public class BulkOrderBook : BaseItem, ISecurable
 	{
-		private ArrayList m_Entries;
-		private BOBFilter m_Filter;
 		private string m_BookName;
-		private SecureLevel m_Level;
-		private int m_ItemCount;
 
 		[CommandProperty(AccessLevel.GameMaster)]
 		public string BookName
@@ -25,21 +21,10 @@ namespace Server.Engines.BulkOrders
 		}
 
 		[CommandProperty(AccessLevel.GameMaster)]
-		public SecureLevel Level
-		{
-			get => m_Level;
-			set => m_Level = value;
-		}
-
-		public ArrayList Entries => m_Entries;
-
-		public BOBFilter Filter => m_Filter;
-
-		public int ItemCount
-		{
-			get => m_ItemCount;
-			set => m_ItemCount = value;
-		}
+		public SecureLevel Level { get; set; }
+		public ArrayList Entries { get; private set; }
+		public BOBFilter Filter { get; private set; }
+		public int ItemCount { get; set; }
 
 		[Constructable]
 		public BulkOrderBook() : base(0x2259)
@@ -47,17 +32,17 @@ namespace Server.Engines.BulkOrders
 			Weight = 1.0;
 			LootType = LootType.Blessed;
 
-			m_Entries = new ArrayList();
-			m_Filter = new BOBFilter();
+			Entries = new ArrayList();
+			Filter = new BOBFilter();
 
-			m_Level = SecureLevel.CoOwners;
+			Level = SecureLevel.CoOwners;
 		}
 
 		public override void OnDoubleClick(Mobile from)
 		{
 			if (!from.InRange(GetWorldLocation(), 2))
 				from.LocalOverheadMessage(Network.MessageType.Regular, 0x3B2, 1019045); // I can't reach that.
-			else if (m_Entries.Count == 0)
+			else if (Entries.Count == 0)
 				from.SendLocalizedMessage(1062381); // The book is empty.
 			else if (from is PlayerMobile)
 				from.SendGump(new BOBGump((PlayerMobile)from, this));
@@ -69,7 +54,7 @@ namespace Server.Engines.BulkOrders
 			{
 				from.SendLocalizedMessage(500446); // That is too far away.
 			}
-			else if (m_Entries.Count == 0)
+			else if (Entries.Count == 0)
 			{
 				from.SendLocalizedMessage(1062381); // The book is empty.
 			}
@@ -102,18 +87,18 @@ namespace Server.Engines.BulkOrders
 				}
 				else if (!from.Backpack.CheckHold(from, dropped, true, true))
 					return false;
-				else if (m_Entries.Count < 500)
+				else if (Entries.Count < 500)
 				{
 					if (dropped is LargeBOD)
-						m_Entries.Add(new BOBLargeEntry((LargeBOD)dropped));
+						Entries.Add(new BOBLargeEntry((LargeBOD)dropped));
 					else if (dropped is SmallBOD) // Sanity
-						m_Entries.Add(new BOBSmallEntry((SmallBOD)dropped));
+						Entries.Add(new BOBSmallEntry((SmallBOD)dropped));
 
 					InvalidateProperties();
 
-					if (m_Entries.Count / 5 > m_ItemCount)
+					if (Entries.Count / 5 > ItemCount)
 					{
-						m_ItemCount++;
+						ItemCount++;
 						InvalidateItems();
 					}
 
@@ -143,7 +128,7 @@ namespace Server.Engines.BulkOrders
 			int total = base.GetTotal(type);
 
 			if (type == TotalType.Items)
-				total = m_ItemCount;
+				total = ItemCount;
 
 			return total;
 		}
@@ -180,19 +165,19 @@ namespace Server.Engines.BulkOrders
 
 			writer.Write(0); // version
 
-			writer.Write(m_ItemCount);
+			writer.Write(ItemCount);
 
-			writer.Write((int)m_Level);
+			writer.Write((int)Level);
 
 			writer.Write(m_BookName);
 
-			m_Filter.Serialize(writer);
+			Filter.Serialize(writer);
 
-			writer.WriteEncodedInt(m_Entries.Count);
+			writer.WriteEncodedInt(Entries.Count);
 
-			for (int i = 0; i < m_Entries.Count; ++i)
+			for (int i = 0; i < Entries.Count; ++i)
 			{
-				object obj = m_Entries[i];
+				object obj = Entries[i];
 
 				if (obj is BOBLargeEntry)
 				{
@@ -221,17 +206,17 @@ namespace Server.Engines.BulkOrders
 			{
 				case 0:
 					{
-						m_ItemCount = reader.ReadInt();
+						ItemCount = reader.ReadInt();
 
-						m_Level = (SecureLevel)reader.ReadInt();
+						Level = (SecureLevel)reader.ReadInt();
 
 						m_BookName = reader.ReadString();
 
-						m_Filter = new BOBFilter(reader);
+						Filter = new BOBFilter(reader);
 
 						int count = reader.ReadEncodedInt();
 
-						m_Entries = new ArrayList(count);
+						Entries = new ArrayList(count);
 
 						for (int i = 0; i < count; ++i)
 						{
@@ -239,8 +224,8 @@ namespace Server.Engines.BulkOrders
 
 							switch (v)
 							{
-								case 0: m_Entries.Add(new BOBLargeEntry(reader)); break;
-								case 1: m_Entries.Add(new BOBSmallEntry(reader)); break;
+								case 0: Entries.Add(new BOBLargeEntry(reader)); break;
+								case 1: Entries.Add(new BOBSmallEntry(reader)); break;
 							}
 						}
 
@@ -253,7 +238,7 @@ namespace Server.Engines.BulkOrders
 		{
 			base.GetProperties(list);
 
-			list.Add(1062344, m_Entries.Count.ToString()); // Deeds in book: ~1_val~
+			list.Add(1062344, Entries.Count.ToString()); // Deeds in book: ~1_val~
 
 			if (m_BookName != null && m_BookName.Length > 0)
 				list.Add(1062481, m_BookName); // Book Name: ~1_val~
@@ -263,7 +248,7 @@ namespace Server.Engines.BulkOrders
 		{
 			base.OnSingleClick(from);
 
-			LabelTo(from, 1062344, m_Entries.Count.ToString()); // Deeds in book: ~1_val~
+			LabelTo(from, 1062344, Entries.Count.ToString()); // Deeds in book: ~1_val~
 
 			if (!string.IsNullOrEmpty(m_BookName))
 				LabelTo(from, 1062481, m_BookName);

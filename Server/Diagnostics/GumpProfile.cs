@@ -5,7 +5,7 @@ namespace Server.Diagnostics
 {
 	public class GumpProfile : BaseProfile
 	{
-		private static readonly Dictionary<Type, GumpProfile> _profiles = new Dictionary<Type, GumpProfile>();
+		private static readonly Dictionary<Type, GumpProfile> _profiles = new();
 
 		public static IEnumerable<GumpProfile> Profiles => _profiles.Values;
 

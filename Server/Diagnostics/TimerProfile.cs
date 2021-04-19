@@ -5,9 +5,13 @@ namespace Server.Diagnostics
 {
 	public class TimerProfile : BaseProfile
 	{
-		private static readonly Dictionary<string, TimerProfile> _profiles = new Dictionary<string, TimerProfile>();
+		private static readonly Dictionary<string, TimerProfile> _profiles = new();
 
 		public static IEnumerable<TimerProfile> Profiles => _profiles.Values;
+
+		public long Created { get; set; }
+		public long Started { get; set; }
+		public long Stopped { get; set; }
 
 		public static TimerProfile Acquire(string name)
 		{
@@ -23,12 +27,6 @@ namespace Server.Diagnostics
 
 			return prof;
 		}
-
-		public long Created { get; set; }
-
-		public long Started { get; set; }
-
-		public long Stopped { get; set; }
 
 		public TimerProfile(string name)
 			: base(name)

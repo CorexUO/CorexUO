@@ -26,7 +26,7 @@ namespace Server.Engines.BulkOrders
 
 		public override List<Item> ComputeRewards(bool full)
 		{
-			List<Item> list = new List<Item>();
+			List<Item> list = new();
 
 			RewardGroup rewardGroup = TailorRewardCalculator.Instance.LookupRewards(TailorRewardCalculator.Instance.ComputePoints(this));
 
@@ -121,7 +121,7 @@ namespace Server.Engines.BulkOrders
 
 				CraftSystem system = DefTailoring.CraftSystem;
 
-				List<SmallBulkEntry> validEntries = new List<SmallBulkEntry>();
+				List<SmallBulkEntry> validEntries = new();
 
 				for (int i = 0; i < entries.Length; ++i)
 				{

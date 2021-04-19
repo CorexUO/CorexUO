@@ -135,7 +135,7 @@ namespace Server
 		{
 			pvSrc.ReadByte(); // 1: <4.0.1a, 2>=4.0.1a
 
-			HardwareInfo info = new HardwareInfo
+			HardwareInfo info = new()
 			{
 				InstanceID = pvSrc.ReadInt32(),
 				OSMajor = pvSrc.ReadInt32(),

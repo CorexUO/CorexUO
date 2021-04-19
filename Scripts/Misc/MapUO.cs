@@ -30,7 +30,7 @@ namespace Server.Misc
 
 			if (party != null)
 			{
-				Packets.PartyTrack packet = new Packets.PartyTrack(from, party);
+				Packets.PartyTrack packet = new(from, party);
 
 				if (packet.UnderlyingStream.Length > 8)
 					state.Send(packet);
@@ -40,13 +40,12 @@ namespace Server.Misc
 		private static void OnGuildTrack(NetState state, PacketReader pvSrc)
 		{
 			Mobile from = state.Mobile;
-			Guild guild = from.Guild as Guild;
 
-			if (guild != null)
+			if (from.Guild is Guild guild)
 			{
 				bool locations = pvSrc.ReadByte() != 0;
 
-				Packets.GuildTrack packet = new Packets.GuildTrack(from, guild, locations);
+				Packets.GuildTrack packet = new(from, guild, locations);
 
 				if (packet.UnderlyingStream.Length > (locations ? 9 : 5))
 					state.Send(packet);

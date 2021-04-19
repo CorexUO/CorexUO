@@ -550,7 +550,7 @@ namespace Server.Misc
 			from.SendGump(new ShardPollGump(from, m_Poller, true, null));
 		}
 
-		private static readonly Regex m_UrlRegex = new Regex(@"\[url(?:=(.*?))?\](.*?)\[/url\]", RegexOptions.IgnoreCase | RegexOptions.Compiled);
+		private static readonly Regex m_UrlRegex = new(@"\[url(?:=(.*?))?\](.*?)\[/url\]", RegexOptions.IgnoreCase | RegexOptions.Compiled);
 
 		private static string UrlRegex_Match(Match m)
 		{

@@ -67,10 +67,9 @@ namespace Server.Engines.ConPVP
 
 	public class Preferences
 	{
-		private readonly ArrayList m_Entries;
 		private readonly Hashtable m_Table;
 
-		public ArrayList Entries => m_Entries;
+		public ArrayList Entries { get; }
 
 		public PreferencesEntry Find(Mobile mob)
 		{
@@ -79,20 +78,18 @@ namespace Server.Engines.ConPVP
 			if (entry == null)
 			{
 				m_Table[mob] = entry = new PreferencesEntry(mob, this);
-				m_Entries.Add(entry);
+				Entries.Add(entry);
 			}
 
 			return entry;
 		}
 
-		private static Preferences m_Instance;
-
-		public static Preferences Instance { get => m_Instance; set => m_Instance = value; }
+		public static Preferences Instance { get; set; }
 
 		public Preferences()
 		{
 			m_Table = new Hashtable();
-			m_Entries = new ArrayList();
+			Entries = new ArrayList();
 		}
 
 		public Preferences(GenericReader reader)
@@ -106,7 +103,7 @@ namespace Server.Engines.ConPVP
 						int count = reader.ReadEncodedInt();
 
 						m_Table = new Hashtable(count);
-						m_Entries = new ArrayList(count);
+						Entries = new ArrayList(count);
 
 						for (int i = 0; i < count; ++i)
 						{
@@ -115,7 +112,7 @@ namespace Server.Engines.ConPVP
 							if (entry.Mobile != null)
 							{
 								m_Table[entry.Mobile] = entry;
-								m_Entries.Add(entry);
+								Entries.Add(entry);
 							}
 						}
 
@@ -128,27 +125,25 @@ namespace Server.Engines.ConPVP
 		{
 			writer.WriteEncodedInt(0); // version;
 
-			writer.WriteEncodedInt(m_Entries.Count);
+			writer.WriteEncodedInt(Entries.Count);
 
-			for (int i = 0; i < m_Entries.Count; ++i)
-				((PreferencesEntry)m_Entries[i]).Serialize(writer);
+			for (int i = 0; i < Entries.Count; ++i)
+				((PreferencesEntry)Entries[i]).Serialize(writer);
 		}
 	}
 
 	public class PreferencesEntry
 	{
-		private readonly Mobile m_Mobile;
-		private readonly ArrayList m_Disliked;
 		private readonly Preferences m_Preferences;
 
-		public Mobile Mobile => m_Mobile;
-		public ArrayList Disliked => m_Disliked;
+		public Mobile Mobile { get; }
+		public ArrayList Disliked { get; }
 
 		public PreferencesEntry(Mobile mob, Preferences prefs)
 		{
 			m_Preferences = prefs;
-			m_Mobile = mob;
-			m_Disliked = new ArrayList();
+			Mobile = mob;
+			Disliked = new ArrayList();
 		}
 
 		public PreferencesEntry(GenericReader reader, Preferences prefs, int version)
@@ -159,14 +154,14 @@ namespace Server.Engines.ConPVP
 			{
 				case 0:
 					{
-						m_Mobile = reader.ReadMobile();
+						Mobile = reader.ReadMobile();
 
 						int count = reader.ReadEncodedInt();
 
-						m_Disliked = new ArrayList(count);
+						Disliked = new ArrayList(count);
 
 						for (int i = 0; i < count; ++i)
-							m_Disliked.Add(reader.ReadString());
+							Disliked.Add(reader.ReadString());
 
 						break;
 					}
@@ -175,12 +170,12 @@ namespace Server.Engines.ConPVP
 
 		public void Serialize(GenericWriter writer)
 		{
-			writer.Write(m_Mobile);
+			writer.Write(Mobile);
 
-			writer.WriteEncodedInt(m_Disliked.Count);
+			writer.WriteEncodedInt(Disliked.Count);
 
-			for (int i = 0; i < m_Disliked.Count; ++i)
-				writer.Write((string)m_Disliked[i]);
+			for (int i = 0; i < Disliked.Count; ++i)
+				writer.Write((string)Disliked[i]);
 		}
 	}
 

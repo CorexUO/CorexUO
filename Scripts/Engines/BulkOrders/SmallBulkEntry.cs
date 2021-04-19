@@ -6,19 +6,15 @@ namespace Server.Engines.BulkOrders
 {
 	public class SmallBulkEntry
 	{
-		private readonly Type m_Type;
-		private readonly int m_Number;
-		private readonly int m_Graphic;
-
-		public Type Type => m_Type;
-		public int Number => m_Number;
-		public int Graphic => m_Graphic;
+		public Type Type { get; }
+		public int Number { get; }
+		public int Graphic { get; }
 
 		public SmallBulkEntry(Type type, int number, int graphic)
 		{
-			m_Type = type;
-			m_Number = number;
-			m_Graphic = graphic;
+			Type = type;
+			Number = number;
+			Graphic = graphic;
 		}
 
 		public static SmallBulkEntry[] BlacksmithWeapons => GetEntries("Blacksmith", "weapons");
@@ -56,35 +52,33 @@ namespace Server.Engines.BulkOrders
 		{
 			path = Path.Combine(Core.BaseDirectory, path);
 
-			List<SmallBulkEntry> list = new List<SmallBulkEntry>();
+			List<SmallBulkEntry> list = new();
 
 			if (File.Exists(path))
 			{
-				using (StreamReader ip = new StreamReader(path))
+				using StreamReader ip = new(path);
+				string line;
+
+				while ((line = ip.ReadLine()) != null)
 				{
-					string line;
+					if (line.Length == 0 || line.StartsWith("#"))
+						continue;
 
-					while ((line = ip.ReadLine()) != null)
+					try
 					{
-						if (line.Length == 0 || line.StartsWith("#"))
-							continue;
+						string[] split = line.Split('\t');
 
-						try
+						if (split.Length >= 2)
 						{
-							string[] split = line.Split('\t');
+							Type type = Assembler.FindTypeByName(split[0]);
+							int graphic = Utility.ToInt32(split[split.Length - 1]);
 
-							if (split.Length >= 2)
-							{
-								Type type = Assembler.FindTypeByName(split[0]);
-								int graphic = Utility.ToInt32(split[split.Length - 1]);
-
-								if (type != null && graphic > 0)
-									list.Add(new SmallBulkEntry(type, graphic < 0x4000 ? 1020000 + graphic : 1078872 + graphic, graphic));
-							}
+							if (type != null && graphic > 0)
+								list.Add(new SmallBulkEntry(type, graphic < 0x4000 ? 1020000 + graphic : 1078872 + graphic, graphic));
 						}
-						catch
-						{
-						}
+					}
+					catch
+					{
 					}
 				}
 			}

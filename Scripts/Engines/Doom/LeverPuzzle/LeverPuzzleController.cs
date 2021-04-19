@@ -14,17 +14,11 @@ namespace Server.Engines.Doom
 {
 	public class LeverPuzzleController : BaseItem
 	{
-		private bool m_Enabled;
 		private static bool installed;
-
-		private ushort m_MyKey;
-		private ushort m_TheirKey;
-
 		private List<Item> m_Levers;
 		private List<Item> m_Teles;
 		private List<Item> m_Statues;
 		private List<LeverPuzzleRegion> m_Tiles;
-		private Mobile m_Successful;
 		private LampRoomBox m_Box;
 		private Region m_LampRoom;
 
@@ -58,15 +52,15 @@ namespace Server.Engines.Doom
 		}
 
 		[CommandProperty(AccessLevel.GameMaster)]
-		public ushort MyKey { get => m_MyKey; set => m_MyKey = value; }
+		public ushort MyKey { get; set; }
 
 		[CommandProperty(AccessLevel.GameMaster)]
-		public ushort TheirKey { get => m_TheirKey; set => m_TheirKey = value; }
+		public ushort TheirKey { get; set; }
 
 		[CommandProperty(AccessLevel.GameMaster)]
-		public bool Enabled { get => m_Enabled; set => m_Enabled = value; }
+		public bool Enabled { get; set; }
 
-		public Mobile Successful => m_Successful;
+		public Mobile Successful { get; private set; }
 
 		public bool CircleComplete
 		{
@@ -253,7 +247,7 @@ namespace Server.Engines.Doom
 
 		public virtual void RemoveSuccessful()
 		{
-			m_Successful = null;
+			Successful = null;
 		}
 
 		public virtual void LeverPulled(ushort code)
@@ -280,7 +274,7 @@ namespace Server.Engines.Doom
 				if (TheirKey == MyKey)
 				{
 					GenKey();
-					if ((m_Successful = (m_Player = GetOccupant(0))) != null)
+					if ((Successful = (m_Player = GetOccupant(0))) != null)
 					{
 						SendLocationEffect(lp_Center, 0x1153, 0, 60, 1);
 						PlaySounds(lp_Center, cs1);
@@ -290,7 +284,7 @@ namespace Server.Engines.Doom
 
 						m_Timer = new LampRoomTimer(this);
 						m_Timer.Start();
-						m_Enabled = false;
+						Enabled = false;
 					}
 				}
 				else
@@ -345,7 +339,7 @@ namespace Server.Engines.Doom
 				m_Controller = Controller;
 			}
 
-			private int Rock()
+			private static int Rock()
 			{
 				return 0x1363 + Utility.Random(0, 11);
 			}
@@ -513,9 +507,8 @@ namespace Server.Engines.Doom
 					return true;
 				}
 
-				if (m is BaseCreature)
+				if (m is BaseCreature bc)
 				{
-					BaseCreature bc = (BaseCreature)m;
 					if ((bc.Controlled || bc.Summoned) && !bc.IsDeadBondedPet)
 					{
 						return true;
@@ -724,9 +717,9 @@ namespace Server.Engines.Doom
 				m_Tiles.Add(new LeverPuzzleRegion(this, TA[i]));
 
 			m_LampRoom = new LampRoomRegion(this);
-			m_Enabled = true;
-			m_TheirKey = 0;
-			m_MyKey = 0;
+			Enabled = true;
+			TheirKey = 0;
+			MyKey = 0;
 			GenKey();
 		}
 	}

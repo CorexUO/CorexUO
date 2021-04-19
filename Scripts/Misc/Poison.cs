@@ -132,8 +132,7 @@ namespace Server
 				if (From != null)
 					From.DoHarmful(m_Mobile, true);
 
-				IHonorTarget honorTarget = m_Mobile as IHonorTarget;
-				if (honorTarget != null && honorTarget.ReceivedHonorContext != null)
+				if (m_Mobile is IHonorTarget honorTarget && honorTarget.ReceivedHonorContext != null)
 					honorTarget.ReceivedHonorContext.OnTargetPoisoned();
 
 				AOS.Damage(m_Mobile, From, damage, 0, 0, 0, 100, 0);

@@ -77,9 +77,7 @@ namespace Server.Items
 					return;
 				}
 
-				LandTarget land = targeted as LandTarget;
-
-				if (land == null)
+				if (targeted is not LandTarget land)
 				{
 					from.LocalOverheadMessage(MessageType.Regular, 0x3B2, 1061912); // * You cannot plant a green thorn there! *
 				}
@@ -147,16 +145,13 @@ namespace Server.Items
 	{
 		private class TilesAndEffect
 		{
-			private readonly int[] m_Tiles;
-			private readonly Type m_Effect;
-
-			public int[] Tiles => m_Tiles;
-			public Type Effect => m_Effect;
+			public int[] Tiles { get; }
+			public Type Effect { get; }
 
 			public TilesAndEffect(int[] tiles, Type effect)
 			{
-				m_Tiles = tiles;
-				m_Effect = effect;
+				Tiles = tiles;
+				Effect = effect;
 			}
 		}
 
@@ -289,18 +284,16 @@ namespace Server.Items
 		}
 
 		private Point3D m_Location;
-		private readonly Map m_Map;
-		private readonly Mobile m_From;
 
 		public Point3D Location => m_Location;
-		public Map Map => m_Map;
-		public Mobile From => m_From;
+		public Map Map { get; }
+		public Mobile From { get; }
 
 		public GreenThornsEffect(Point3D location, Map map, Mobile from) : base(TimeSpan.FromSeconds(2.5))
 		{
 			m_Location = location;
-			m_Map = map;
-			m_From = from;
+			Map = map;
+			From = from;
 
 			Priority = TimerPriority.TwoFiftyMS;
 		}
@@ -651,11 +644,11 @@ namespace Server.Items
 
 	public class GreenThornsSHTeleporter : BaseItem
 	{
-		public static readonly Point3D Destination = new Point3D(5738, 1856, 0);
+		public static readonly Point3D Destination = new(5738, 1856, 0);
 
 		public static void Create(Point3D location, Map map)
 		{
-			GreenThornsSHTeleporter tele = new GreenThornsSHTeleporter();
+			GreenThornsSHTeleporter tele = new();
 
 			tele.MoveToWorld(location, map);
 

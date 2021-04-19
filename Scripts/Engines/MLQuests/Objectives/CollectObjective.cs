@@ -7,27 +7,9 @@ namespace Server.Engines.MLQuests.Objectives
 {
 	public class CollectObjective : BaseObjective
 	{
-		private int m_DesiredAmount;
-		private Type m_AcceptedType;
-		private TextDefinition m_Name;
-
-		public int DesiredAmount
-		{
-			get => m_DesiredAmount;
-			set => m_DesiredAmount = value;
-		}
-
-		public Type AcceptedType
-		{
-			get => m_AcceptedType;
-			set => m_AcceptedType = value;
-		}
-
-		public TextDefinition Name
-		{
-			get => m_Name;
-			set => m_Name = value;
-		}
+		public int DesiredAmount { get; set; }
+		public Type AcceptedType { get; set; }
+		public TextDefinition Name { get; set; }
 
 		public virtual bool ShowDetailed => true;
 
@@ -38,9 +20,9 @@ namespace Server.Engines.MLQuests.Objectives
 
 		public CollectObjective(int amount, Type type, TextDefinition name)
 		{
-			m_DesiredAmount = amount;
-			m_AcceptedType = type;
-			m_Name = name;
+			DesiredAmount = amount;
+			AcceptedType = type;
+			Name = name;
 
 			if (MLQuestSystem.Debug && ShowDetailed && name.Number > 0)
 			{
@@ -53,7 +35,7 @@ namespace Server.Engines.MLQuests.Objectives
 
 		public bool CheckType(Type type)
 		{
-			return (m_AcceptedType != null && m_AcceptedType.IsAssignableFrom(type));
+			return (AcceptedType != null && AcceptedType.IsAssignableFrom(type));
 		}
 
 		public virtual bool CheckItem(Item item)
@@ -73,27 +55,27 @@ namespace Server.Engines.MLQuests.Objectives
 		{
 			if (ShowDetailed)
 			{
-				string amount = m_DesiredAmount.ToString();
+				string amount = DesiredAmount.ToString();
 
 				g.AddHtmlLocalized(98, y, 350, 16, 1072205, 0x15F90, false, false); // Obtain
 				g.AddLabel(143, y, 0x481, amount);
 
-				if (m_Name.Number > 0)
+				if (Name.Number > 0)
 				{
-					g.AddHtmlLocalized(143 + amount.Length * 15, y, 190, 18, m_Name.Number, 0x77BF, false, false);
-					g.AddItem(350, y, LabelToItemID(m_Name.Number));
+					g.AddHtmlLocalized(143 + amount.Length * 15, y, 190, 18, Name.Number, 0x77BF, false, false);
+					g.AddItem(350, y, LabelToItemID(Name.Number));
 				}
-				else if (m_Name.String != null)
+				else if (Name.String != null)
 				{
-					g.AddLabel(143 + amount.Length * 15, y, 0x481, m_Name.String);
+					g.AddLabel(143 + amount.Length * 15, y, 0x481, Name.String);
 				}
 			}
 			else
 			{
-				if (m_Name.Number > 0)
-					g.AddHtmlLocalized(98, y, 312, 32, m_Name.Number, 0x15F90, false, false);
-				else if (m_Name.String != null)
-					g.AddLabel(98, y, 0x481, m_Name.String);
+				if (Name.Number > 0)
+					g.AddHtmlLocalized(98, y, 312, 32, Name.Number, 0x15F90, false, false);
+				else if (Name.String != null)
+					g.AddLabel(98, y, 0x481, Name.String);
 			}
 
 			y += 32;

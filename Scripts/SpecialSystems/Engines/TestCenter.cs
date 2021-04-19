@@ -191,7 +191,7 @@ namespace Server.Misc
 
 							Array.Sort(strings);
 
-							StringBuilder sb = new StringBuilder();
+							StringBuilder sb = new();
 
 							if (strings.Length > 0)
 								sb.Append(strings[0]);

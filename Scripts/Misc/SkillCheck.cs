@@ -100,7 +100,7 @@ namespace Server.Misc
 
 			double chance = (value - minSkill) / (maxSkill - minSkill);
 
-			Point2D loc = new Point2D(from.Location.X / LocationSize, from.Location.Y / LocationSize);
+			Point2D loc = new(from.Location.X / LocationSize, from.Location.Y / LocationSize);
 			return CheckSkill(from, skill, loc, chance);
 		}
 
@@ -116,7 +116,7 @@ namespace Server.Misc
 			else if (chance >= 1.0)
 				return true; // No challenge
 
-			Point2D loc = new Point2D(from.Location.X / LocationSize, from.Location.Y / LocationSize);
+			Point2D loc = new(from.Location.X / LocationSize, from.Location.Y / LocationSize);
 			return CheckSkill(from, skill, loc, chance);
 		}
 
@@ -138,7 +138,7 @@ namespace Server.Misc
 			if (gc < 0.01)
 				gc = 0.01;
 
-			if (from is BaseCreature && ((BaseCreature)from).Controlled)
+			if (from is BaseCreature creature && creature.Controlled)
 				gc *= 2;
 
 			if (from.Alive && ((gc >= Utility.RandomDouble() && AllowGain(from, skill, amObj)) || skill.Base < 10.0))
@@ -188,8 +188,8 @@ namespace Server.Misc
 			if (Core.AOS && Faction.InSkillLoss(from))  //Changed some time between the introduction of AoS and SE.
 				return false;
 
-			if (AntiMacroCode && from is PlayerMobile && UseAntiMacro[skill.Info.SkillID])
-				return ((PlayerMobile)from).AntiMacroCheck(skill, obj);
+			if (AntiMacroCode && from is PlayerMobile mobile && UseAntiMacro[skill.Info.SkillID])
+				return mobile.AntiMacroCheck(skill, obj);
 			else
 				return true;
 		}
@@ -201,7 +201,7 @@ namespace Server.Misc
 			if (from.Region.IsPartOf(typeof(Regions.Jail)))
 				return;
 
-			if (from is BaseCreature && ((BaseCreature)from).IsDeadPet)
+			if (from is BaseCreature creature && creature.IsDeadPet)
 				return;
 
 			if (skill.SkillName == SkillName.Focus && from is BaseCreature)
@@ -231,9 +231,7 @@ namespace Server.Misc
 				}
 
 				#region Scroll of Alacrity
-				PlayerMobile pm = from as PlayerMobile;
-
-				if (pm != null && skill.SkillName == pm.AcceleratedSkill && pm.AcceleratedStart > DateTime.UtcNow)
+				if (from is PlayerMobile pm && skill.SkillName == pm.AcceleratedSkill && pm.AcceleratedStart > DateTime.UtcNow)
 					toGain *= Utility.RandomMinMax(2, 5);
 				#endregion
 
@@ -259,32 +257,30 @@ namespace Server.Misc
 
 		public static bool CanLower(Mobile from, Stat stat)
 		{
-			switch (stat)
+			return stat switch
 			{
-				case Stat.Str: return (from.StrLock == StatLockType.Down && from.RawStr > 10);
-				case Stat.Dex: return (from.DexLock == StatLockType.Down && from.RawDex > 10);
-				case Stat.Int: return (from.IntLock == StatLockType.Down && from.RawInt > 10);
-			}
-
-			return false;
+				Stat.Str => (from.StrLock == StatLockType.Down && from.RawStr > 10),
+				Stat.Dex => (from.DexLock == StatLockType.Down && from.RawDex > 10),
+				Stat.Int => (from.IntLock == StatLockType.Down && from.RawInt > 10),
+				_ => false,
+			};
 		}
 
 		public static bool CanRaise(Mobile from, Stat stat)
 		{
-			if (!(from is BaseCreature && ((BaseCreature)from).Controlled))
+			if (!(from is BaseCreature creature && creature.Controlled))
 			{
 				if (from.RawStatTotal >= from.StatCap)
 					return false;
 			}
 
-			switch (stat)
+			return stat switch
 			{
-				case Stat.Str: return (from.StrLock == StatLockType.Up && from.RawStr < 125);
-				case Stat.Dex: return (from.DexLock == StatLockType.Up && from.RawDex < 125);
-				case Stat.Int: return (from.IntLock == StatLockType.Up && from.RawInt < 125);
-			}
-
-			return false;
+				Stat.Str => (from.StrLock == StatLockType.Up && from.RawStr < 125),
+				Stat.Dex => (from.DexLock == StatLockType.Up && from.RawDex < 125),
+				Stat.Int => (from.IntLock == StatLockType.Up && from.RawInt < 125),
+				_ => false,
+			};
 		}
 
 		public static void IncreaseStat(Mobile from, Stat stat, bool atrophy)
@@ -347,7 +343,7 @@ namespace Server.Misc
 			{
 				case Stat.Str:
 					{
-						if (from is BaseCreature && ((BaseCreature)from).Controlled)
+						if (from is BaseCreature creature && creature.Controlled)
 						{
 							if ((from.LastStrGain + m_PetStatGainDelay) >= DateTime.UtcNow)
 								return;
@@ -360,7 +356,7 @@ namespace Server.Misc
 					}
 				case Stat.Dex:
 					{
-						if (from is BaseCreature && ((BaseCreature)from).Controlled)
+						if (from is BaseCreature creature && creature.Controlled)
 						{
 							if ((from.LastDexGain + m_PetStatGainDelay) >= DateTime.UtcNow)
 								return;
@@ -373,7 +369,7 @@ namespace Server.Misc
 					}
 				case Stat.Int:
 					{
-						if (from is BaseCreature && ((BaseCreature)from).Controlled)
+						if (from is BaseCreature creature && creature.Controlled)
 						{
 							if ((from.LastIntGain + m_PetStatGainDelay) >= DateTime.UtcNow)
 								return;

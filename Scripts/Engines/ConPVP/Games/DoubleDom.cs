@@ -215,17 +215,14 @@ namespace Server.Engines.ConPVP
 	public sealed class DDPlayerInfo : IRankedCTF
 	{
 		private readonly DDTeamInfo m_TeamInfo;
-
-		private readonly Mobile m_Player;
-
 		private int m_Kills;
 		private int m_Captures;
 
 		private int m_Score;
 
-		public Mobile Player => m_Player;
+		public Mobile Player { get; }
 
-		public string Name => m_Player.Name;
+		public string Name => Player.Name;
 
 		public int Kills
 		{
@@ -263,56 +260,31 @@ namespace Server.Engines.ConPVP
 		public DDPlayerInfo(DDTeamInfo teamInfo, Mobile player)
 		{
 			m_TeamInfo = teamInfo;
-			m_Player = player;
+			Player = player;
 		}
 	}
 
 	[PropertyObject]
 	public sealed class DDTeamInfo : IRankedCTF
 	{
-		private DDGame m_Game;
-		private readonly int m_TeamID;
-
-		private int m_Color;
-		private string m_Name;
-
-		private DDBoard m_Board;
-
 		private Point3D m_Origin;
 
-		private int m_Kills;
-		private int m_Captures;
+		public string Name => string.Format("{0} Team", TeamName);
 
-		private int m_Score;
+		public DDGame Game { get; set; }
+		public int TeamID { get; }
 
-		private readonly Dictionary<Mobile, DDPlayerInfo> m_Players;
+		public int Kills { get; set; }
+		public int Captures { get; set; }
 
-		public string Name => string.Format("{0} Team", m_Name);
+		public int Score { get; set; }
 
-		public DDGame Game { get => m_Game; set => m_Game = value; }
-		public int TeamID => m_TeamID;
-
-		public int Kills { get => m_Kills; set => m_Kills = value; }
-		public int Captures { get => m_Captures; set => m_Captures = value; }
-
-		public int Score { get => m_Score; set => m_Score = value; }
-
-		private DDPlayerInfo m_Leader;
-
-		public DDPlayerInfo Leader
-		{
-			get => m_Leader;
-			set => m_Leader = value;
-		}
+		public DDPlayerInfo Leader { get; set; }
 
 		[CommandProperty(AccessLevel.GameMaster)]
-		public DDBoard Board
-		{
-			get => m_Board;
-			set => m_Board = value;
-		}
+		public DDBoard Board { get; set; }
 
-		public Dictionary<Mobile, DDPlayerInfo> Players => m_Players;
+		public Dictionary<Mobile, DDPlayerInfo> Players { get; }
 
 		public DDPlayerInfo this[Mobile mob]
 		{
@@ -322,26 +294,18 @@ namespace Server.Engines.ConPVP
 					return null;
 
 
-				if (!m_Players.TryGetValue(mob, out DDPlayerInfo val))
-					m_Players[mob] = val = new DDPlayerInfo(this, mob);
+				if (!Players.TryGetValue(mob, out DDPlayerInfo val))
+					Players[mob] = val = new DDPlayerInfo(this, mob);
 
 				return val;
 			}
 		}
 
 		[CommandProperty(AccessLevel.GameMaster)]
-		public int Color
-		{
-			get => m_Color;
-			set => m_Color = value;
-		}
+		public int Color { get; set; }
 
 		[CommandProperty(AccessLevel.GameMaster)]
-		public string TeamName
-		{
-			get => m_Name;
-			set => m_Name = value;
-		}
+		public string TeamName { get; set; }
 
 		[CommandProperty(AccessLevel.GameMaster)]
 		public Point3D Origin
@@ -352,29 +316,29 @@ namespace Server.Engines.ConPVP
 
 		public DDTeamInfo(int teamID)
 		{
-			m_TeamID = teamID;
-			m_Players = new Dictionary<Mobile, DDPlayerInfo>();
+			TeamID = teamID;
+			Players = new Dictionary<Mobile, DDPlayerInfo>();
 		}
 
 		public void Reset()
 		{
-			m_Kills = 0;
-			m_Captures = 0;
+			Kills = 0;
+			Captures = 0;
 
-			m_Score = 0;
+			Score = 0;
 
-			m_Leader = null;
+			Leader = null;
 
-			m_Players.Clear();
+			Players.Clear();
 
-			if (m_Board != null)
-				m_Board.m_TeamInfo = this;
+			if (Board != null)
+				Board.m_TeamInfo = this;
 		}
 
 		public DDTeamInfo(int teamID, GenericReader ip)
 		{
-			m_TeamID = teamID;
-			m_Players = new Dictionary<Mobile, DDPlayerInfo>();
+			TeamID = teamID;
+			Players = new Dictionary<Mobile, DDPlayerInfo>();
 
 			int version = ip.ReadEncodedInt();
 
@@ -382,9 +346,9 @@ namespace Server.Engines.ConPVP
 			{
 				case 0:
 					{
-						m_Board = ip.ReadItem() as DDBoard;
-						m_Name = ip.ReadString();
-						m_Color = ip.ReadEncodedInt();
+						Board = ip.ReadItem() as DDBoard;
+						TeamName = ip.ReadString();
+						Color = ip.ReadEncodedInt();
 						m_Origin = ip.ReadPoint3D();
 						break;
 					}
@@ -395,9 +359,9 @@ namespace Server.Engines.ConPVP
 		{
 			op.WriteEncodedInt(0); // version
 
-			op.Write(m_Board);
-			op.Write(m_Name);
-			op.WriteEncodedInt(m_Color);
+			op.Write(Board);
+			op.Write(TeamName);
+			op.WriteEncodedInt(Color);
 			op.Write(m_Origin);
 		}
 
@@ -409,38 +373,28 @@ namespace Server.Engines.ConPVP
 
 	public sealed class DDController : EventController
 	{
-		private DDTeamInfo[] m_TeamInfo;
-
-		private TimeSpan m_Duration;
-
-		public DDTeamInfo[] TeamInfo => m_TeamInfo;
+		public DDTeamInfo[] TeamInfo { get; private set; }
 
 		[CommandProperty(AccessLevel.GameMaster)]
-		public DDTeamInfo Team1 { get => m_TeamInfo[0]; set { } }
+		public DDTeamInfo Team1 { get => TeamInfo[0]; set { } }
 
 		[CommandProperty(AccessLevel.GameMaster)]
-		public DDTeamInfo Team2 { get => m_TeamInfo[1]; set { } }
+		public DDTeamInfo Team2 { get => TeamInfo[1]; set { } }
 
 		[CommandProperty(AccessLevel.GameMaster)]
-		public DDWayPoint PointA { get => m_PointA; set => m_PointA = value; }
+		public DDWayPoint PointA { get; set; }
 
 		[CommandProperty(AccessLevel.GameMaster)]
-		public DDWayPoint PointB { get => m_PointB; set => m_PointB = value; }
-
-		private DDWayPoint m_PointA, m_PointB;
+		public DDWayPoint PointB { get; set; }
 
 		[CommandProperty(AccessLevel.GameMaster)]
-		public TimeSpan Duration
-		{
-			get => m_Duration;
-			set => m_Duration = value;
-		}
+		public TimeSpan Duration { get; set; }
 
 		public override string Title => "DoubleDom";
 
 		public override string GetTeamName(int teamID)
 		{
-			return m_TeamInfo[teamID % m_TeamInfo.Length].Name;
+			return TeamInfo[teamID % TeamInfo.Length].Name;
 		}
 
 		public override EventGame Construct(DuelContext context)
@@ -456,12 +410,12 @@ namespace Server.Engines.ConPVP
 			Visible = false;
 			Movable = false;
 
-			m_Duration = TimeSpan.FromMinutes(30.0);
+			Duration = TimeSpan.FromMinutes(30.0);
 
-			m_TeamInfo = new DDTeamInfo[2];
+			TeamInfo = new DDTeamInfo[2];
 
-			for (int i = 0; i < m_TeamInfo.Length; ++i)
-				m_TeamInfo[i] = new DDTeamInfo(i);
+			for (int i = 0; i < TeamInfo.Length; ++i)
+				TeamInfo[i] = new DDTeamInfo(i);
 		}
 
 		public DDController(Serial serial)
@@ -475,15 +429,15 @@ namespace Server.Engines.ConPVP
 
 			writer.Write(0);
 
-			writer.Write(m_Duration);
+			writer.Write(Duration);
 
-			writer.WriteEncodedInt(m_TeamInfo.Length);
+			writer.WriteEncodedInt(TeamInfo.Length);
 
-			for (int i = 0; i < m_TeamInfo.Length; ++i)
-				m_TeamInfo[i].Serialize(writer);
+			for (int i = 0; i < TeamInfo.Length; ++i)
+				TeamInfo[i].Serialize(writer);
 
-			writer.Write(m_PointA);
-			writer.Write(m_PointB);
+			writer.Write(PointA);
+			writer.Write(PointB);
 		}
 
 		public override void Deserialize(GenericReader reader)
@@ -496,14 +450,14 @@ namespace Server.Engines.ConPVP
 			{
 				case 0:
 					{
-						m_Duration = reader.ReadTimeSpan();
-						m_TeamInfo = new DDTeamInfo[reader.ReadEncodedInt()];
+						Duration = reader.ReadTimeSpan();
+						TeamInfo = new DDTeamInfo[reader.ReadEncodedInt()];
 
-						for (int i = 0; i < m_TeamInfo.Length; ++i)
-							m_TeamInfo[i] = new DDTeamInfo(i, reader);
+						for (int i = 0; i < TeamInfo.Length; ++i)
+							TeamInfo[i] = new DDTeamInfo(i, reader);
 
-						m_PointA = reader.ReadItem() as DDWayPoint;
-						m_PointB = reader.ReadItem() as DDWayPoint;
+						PointA = reader.ReadItem() as DDWayPoint;
+						PointB = reader.ReadItem() as DDWayPoint;
 
 						break;
 					}
@@ -513,9 +467,7 @@ namespace Server.Engines.ConPVP
 
 	public sealed class DDGame : EventGame
 	{
-		private readonly DDController m_Controller;
-
-		public DDController Controller => m_Controller;
+		public DDController Controller { get; }
 
 		public void Alert(string text)
 		{
@@ -541,7 +493,7 @@ namespace Server.Engines.ConPVP
 
 		public DDGame(DDController controller, DuelContext context) : base(context)
 		{
-			m_Controller = controller;
+			Controller = controller;
 		}
 
 		public Map Facet
@@ -551,7 +503,7 @@ namespace Server.Engines.ConPVP
 				if (m_Context.Arena != null)
 					return m_Context.Arena.Facet;
 
-				return m_Controller.Map;
+				return Controller.Map;
 			}
 		}
 
@@ -560,7 +512,7 @@ namespace Server.Engines.ConPVP
 			int teamID = GetTeamID(mob);
 
 			if (teamID >= 0)
-				return m_Controller.TeamInfo[teamID % m_Controller.TeamInfo.Length];
+				return Controller.TeamInfo[teamID % Controller.TeamInfo.Length];
 
 			return null;
 		}
@@ -694,27 +646,27 @@ namespace Server.Engines.ConPVP
 				m_UncaptureTimer = null;
 			}
 
-			for (int i = 0; i < m_Controller.TeamInfo.Length; ++i)
+			for (int i = 0; i < Controller.TeamInfo.Length; ++i)
 			{
-				DDTeamInfo teamInfo = m_Controller.TeamInfo[i];
+				DDTeamInfo teamInfo = Controller.TeamInfo[i];
 
 				teamInfo.Game = this;
 				teamInfo.Reset();
 			}
 
-			if (m_Controller.PointA != null)
-				m_Controller.PointA.Game = this;
+			if (Controller.PointA != null)
+				Controller.PointA.Game = this;
 
-			if (m_Controller.PointB != null)
-				m_Controller.PointB.Game = this;
+			if (Controller.PointB != null)
+				Controller.PointB.Game = this;
 
 			for (int i = 0; i < m_Context.Participants.Count; ++i)
-				ApplyHues(m_Context.Participants[i] as Participant, m_Controller.TeamInfo[i % m_Controller.TeamInfo.Length].Color);
+				ApplyHues(m_Context.Participants[i] as Participant, Controller.TeamInfo[i % Controller.TeamInfo.Length].Color);
 
 			if (m_FinishTimer != null)
 				m_FinishTimer.Stop();
 
-			m_FinishTimer = Timer.DelayCall(m_Controller.Duration, new TimerCallback(Finish_Callback));
+			m_FinishTimer = Timer.DelayCall(Controller.Duration, new TimerCallback(Finish_Callback));
 		}
 
 		private void Finish_Callback()
@@ -723,7 +675,7 @@ namespace Server.Engines.ConPVP
 
 			for (int i = 0; i < m_Context.Participants.Count; ++i)
 			{
-				DDTeamInfo teamInfo = m_Controller.TeamInfo[i % m_Controller.TeamInfo.Length];
+				DDTeamInfo teamInfo = Controller.TeamInfo[i % Controller.TeamInfo.Length];
 
 				if (teamInfo != null)
 					teams.Add(teamInfo);
@@ -768,8 +720,8 @@ namespace Server.Engines.ConPVP
 				}
 			}
 
-			if (m_Controller != null)
-				sb.Append(' ').Append(m_Controller.Title);
+			if (Controller != null)
+				sb.Append(' ').Append(Controller.Title);
 
 			string title = sb.ToString();
 
@@ -882,9 +834,9 @@ namespace Server.Engines.ConPVP
 
 		public override void OnStop()
 		{
-			for (int i = 0; i < m_Controller.TeamInfo.Length; ++i)
+			for (int i = 0; i < Controller.TeamInfo.Length; ++i)
 			{
-				DDTeamInfo teamInfo = m_Controller.TeamInfo[i];
+				DDTeamInfo teamInfo = Controller.TeamInfo[i];
 
 				if (teamInfo.Board != null)
 					teamInfo.Board.m_TeamInfo = null;
@@ -892,11 +844,11 @@ namespace Server.Engines.ConPVP
 				teamInfo.Game = null;
 			}
 
-			if (m_Controller.PointA != null)
-				m_Controller.PointA.Game = null;
+			if (Controller.PointA != null)
+				Controller.PointA.Game = null;
 
-			if (m_Controller.PointB != null)
-				m_Controller.PointB.Game = null;
+			if (Controller.PointB != null)
+				Controller.PointB.Game = null;
 
 			m_Capturable = false;
 
@@ -931,24 +883,24 @@ namespace Server.Engines.ConPVP
 			if (point == null || from == null || team == null || !m_Capturable)
 				return;
 
-			bool wasDom = (m_Controller.PointA != null && m_Controller.PointB != null &&
-				m_Controller.PointA.TeamOwner == m_Controller.PointB.TeamOwner && m_Controller.PointA.TeamOwner != null);
+			bool wasDom = (Controller.PointA != null && Controller.PointB != null &&
+				Controller.PointA.TeamOwner == Controller.PointB.TeamOwner && Controller.PointA.TeamOwner != null);
 
 			point.TeamOwner = team;
 			Alert("{0} has captured {1}!", team.Name, point.Name);
 
-			bool isDom = (m_Controller.PointA != null && m_Controller.PointB != null &&
-				m_Controller.PointA.TeamOwner == m_Controller.PointB.TeamOwner && m_Controller.PointA.TeamOwner != null);
+			bool isDom = (Controller.PointA != null && Controller.PointB != null &&
+				Controller.PointA.TeamOwner == Controller.PointB.TeamOwner && Controller.PointA.TeamOwner != null);
 
 			if (wasDom && !isDom)
 			{
 				Alert("Domination averted!");
 
-				if (m_Controller.PointA != null)
-					m_Controller.PointA.SetNonCaptureHue();
+				if (Controller.PointA != null)
+					Controller.PointA.SetNonCaptureHue();
 
-				if (m_Controller.PointB != null)
-					m_Controller.PointB.SetNonCaptureHue();
+				if (Controller.PointB != null)
+					Controller.PointB.SetNonCaptureHue();
 
 				if (m_CaptureTimer != null)
 					m_CaptureTimer.Stop();
@@ -967,10 +919,10 @@ namespace Server.Engines.ConPVP
 		{
 			DDTeamInfo team = null;
 
-			if (m_Controller.PointA != null && m_Controller.PointA.TeamOwner != null)
-				team = m_Controller.PointA.TeamOwner;
-			else if (m_Controller.PointB != null && m_Controller.PointB.TeamOwner != null)
-				team = m_Controller.PointB.TeamOwner;
+			if (Controller.PointA != null && Controller.PointA.TeamOwner != null)
+				team = Controller.PointA.TeamOwner;
+			else if (Controller.PointB != null && Controller.PointB.TeamOwner != null)
+				team = Controller.PointB.TeamOwner;
 
 			if (team == null)
 			{
@@ -985,11 +937,11 @@ namespace Server.Engines.ConPVP
 			{
 				Alert("{0} is dominating... {1}", team.Name, 10 - m_CapStage);
 
-				if (m_Controller.PointA != null)
-					m_Controller.PointA.SetCaptureHue(m_CapStage);
+				if (Controller.PointA != null)
+					Controller.PointA.SetCaptureHue(m_CapStage);
 
-				if (m_Controller.PointB != null)
-					m_Controller.PointB.SetCaptureHue(m_CapStage);
+				if (Controller.PointB != null)
+					Controller.PointB.SetCaptureHue(m_CapStage);
 			}
 			else
 			{
@@ -1003,16 +955,16 @@ namespace Server.Engines.ConPVP
 				m_CaptureTimer.Stop();
 				m_CaptureTimer = null;
 
-				if (m_Controller.PointA != null)
+				if (Controller.PointA != null)
 				{
-					m_Controller.PointA.TeamOwner = null;
-					m_Controller.PointA.SetUncapturableHue();
+					Controller.PointA.TeamOwner = null;
+					Controller.PointA.SetUncapturableHue();
 				}
 
-				if (m_Controller.PointB != null)
+				if (Controller.PointB != null)
 				{
-					m_Controller.PointB.TeamOwner = null;
-					m_Controller.PointB.SetUncapturableHue();
+					Controller.PointB.TeamOwner = null;
+					Controller.PointB.SetUncapturableHue();
 				}
 
 				m_UncaptureTimer = Timer.DelayCall(TimeSpan.FromSeconds(30.0), new TimerCallback(UncaptureTick));
@@ -1036,16 +988,16 @@ namespace Server.Engines.ConPVP
 				m_UncaptureTimer = null;
 			}
 
-			if (m_Controller.PointA != null)
+			if (Controller.PointA != null)
 			{
-				m_Controller.PointA.TeamOwner = null;
-				m_Controller.PointA.SetNonCaptureHue();
+				Controller.PointA.TeamOwner = null;
+				Controller.PointA.SetNonCaptureHue();
 			}
 
-			if (m_Controller.PointB != null)
+			if (Controller.PointB != null)
 			{
-				m_Controller.PointB.TeamOwner = null;
-				m_Controller.PointB.SetNonCaptureHue();
+				Controller.PointB.TeamOwner = null;
+				Controller.PointB.SetNonCaptureHue();
 			}
 		}
 	}

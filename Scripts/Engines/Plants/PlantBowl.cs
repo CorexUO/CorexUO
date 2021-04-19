@@ -66,7 +66,7 @@ namespace Server.Engines.Plants
 					}
 					else
 					{
-						PlantItem fullBowl = new PlantItem(true);
+						PlantItem fullBowl = new(true);
 
 						if (from.PlaceInBackpack(fullBowl))
 						{
@@ -85,7 +85,7 @@ namespace Server.Engines.Plants
 				}
 				else if (PlantBowl.IsDirtPatch(targeted))
 				{
-					PlantItem fullBowl = new PlantItem(false);
+					PlantItem fullBowl = new(false);
 
 					if (from.PlaceInBackpack(fullBowl))
 					{

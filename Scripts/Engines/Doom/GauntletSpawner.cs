@@ -23,57 +23,31 @@ namespace Server.Engines.Doom
 		public const int CompletedItemHue = 0x455;
 
 		private GauntletSpawnerState m_State;
-
-		private string m_TypeName;
-		private BaseDoor m_Door;
-		private BaseAddon m_Addon;
-		private GauntletSpawner m_Sequence;
-		private List<Mobile> m_Creatures;
-
 		private Rectangle2D m_RegionBounds;
-		private List<BaseTrap> m_Traps;
-
-		private Region m_Region;
 
 		[CommandProperty(AccessLevel.GameMaster)]
-		public string TypeName
-		{
-			get => m_TypeName;
-			set => m_TypeName = value;
-		}
+		public string TypeName { get; set; }
 
 		[CommandProperty(AccessLevel.GameMaster)]
-		public BaseDoor Door
-		{
-			get => m_Door;
-			set => m_Door = value;
-		}
+		public BaseDoor Door { get; set; }
 
 		[CommandProperty(AccessLevel.GameMaster)]
-		public BaseAddon Addon
-		{
-			get => m_Addon;
-			set => m_Addon = value;
-		}
+		public BaseAddon Addon { get; set; }
 
 		[CommandProperty(AccessLevel.GameMaster)]
-		public GauntletSpawner Sequence
-		{
-			get => m_Sequence;
-			set => m_Sequence = value;
-		}
+		public GauntletSpawner Sequence { get; set; }
 
 		[CommandProperty(AccessLevel.GameMaster)]
 		public bool HasCompleted
 		{
 			get
 			{
-				if (m_Creatures.Count == 0)
+				if (Creatures.Count == 0)
 					return false;
 
-				for (int i = 0; i < m_Creatures.Count; ++i)
+				for (int i = 0; i < Creatures.Count; ++i)
 				{
-					Mobile mob = m_Creatures[i];
+					Mobile mob = Creatures[i];
 
 					if (!mob.Deleted)
 						return false;
@@ -111,32 +85,32 @@ namespace Server.Engines.Doom
 					case GauntletSpawnerState.Completed: hue = CompletedItemHue; break;
 				}
 
-				if (m_Door != null)
+				if (Door != null)
 				{
-					m_Door.Hue = hue;
-					m_Door.Locked = lockDoors;
+					Door.Hue = hue;
+					Door.Locked = lockDoors;
 
 					if (lockDoors)
 					{
-						m_Door.KeyValue = Key.RandomValue();
-						m_Door.Open = false;
+						Door.KeyValue = Key.RandomValue();
+						Door.Open = false;
 					}
 
-					if (m_Door.Link != null)
+					if (Door.Link != null)
 					{
-						m_Door.Link.Hue = hue;
-						m_Door.Link.Locked = lockDoors;
+						Door.Link.Hue = hue;
+						Door.Link.Locked = lockDoors;
 
 						if (lockDoors)
 						{
-							m_Door.Link.KeyValue = Key.RandomValue();
-							m_Door.Open = false;
+							Door.Link.KeyValue = Key.RandomValue();
+							Door.Open = false;
 						}
 					}
 				}
 
-				if (m_Addon != null)
-					m_Addon.Hue = hue;
+				if (Addon != null)
+					Addon.Hue = hue;
 
 				if (m_State == GauntletSpawnerState.InProgress)
 				{
@@ -161,27 +135,15 @@ namespace Server.Engines.Doom
 
 		private Timer m_Timer;
 
-		public List<Mobile> Creatures
-		{
-			get => m_Creatures;
-			set => m_Creatures = value;
-		}
+		public List<Mobile> Creatures { get; set; }
 
-		public List<BaseTrap> Traps
-		{
-			get => m_Traps;
-			set => m_Traps = value;
-		}
+		public List<BaseTrap> Traps { get; set; }
 
-		public Region Region
-		{
-			get => m_Region;
-			set => m_Region = value;
-		}
+		public Region Region { get; set; }
 
 		public virtual void CreateRegion()
 		{
-			if (m_Region != null)
+			if (Region != null)
 				return;
 
 			Map map = Map;
@@ -189,15 +151,15 @@ namespace Server.Engines.Doom
 			if (map == null || map == Map.Internal)
 				return;
 
-			m_Region = new GauntletRegion(this, map);
+			Region = new GauntletRegion(this, map);
 		}
 
 		public virtual void DestroyRegion()
 		{
-			if (m_Region != null)
-				m_Region.Unregister();
+			if (Region != null)
+				Region.Unregister();
 
-			m_Region = null;
+			Region = null;
 		}
 
 		public virtual int ComputeTrapCount()
@@ -209,10 +171,10 @@ namespace Server.Engines.Doom
 
 		public virtual void ClearTraps()
 		{
-			for (int i = 0; i < m_Traps.Count; ++i)
-				m_Traps[i].Delete();
+			for (int i = 0; i < Traps.Count; ++i)
+				Traps[i].Delete();
 
-			m_Traps.Clear();
+			Traps.Clear();
 		}
 
 		public virtual void SpawnTrap()
@@ -256,7 +218,7 @@ namespace Server.Engines.Doom
 					continue;
 
 				trap.MoveToWorld(new Point3D(x, y, z), map);
-				m_Traps.Add(trap);
+				Traps.Add(trap);
 
 				return;
 			}
@@ -280,8 +242,8 @@ namespace Server.Engines.Doom
 					playerCount = reg.GetPlayerCount();
 			}
 
-			if (playerCount == 0 && m_Region != null)
-				playerCount = m_Region.GetPlayerCount();
+			if (playerCount == 0 && Region != null)
+				playerCount = Region.GetPlayerCount();
 
 			int count = (playerCount + PlayersPerSpawn - 1) / PlayersPerSpawn;
 
@@ -293,10 +255,10 @@ namespace Server.Engines.Doom
 
 		public virtual void ClearCreatures()
 		{
-			for (int i = 0; i < m_Creatures.Count; ++i)
-				m_Creatures[i].Delete();
+			for (int i = 0; i < Creatures.Count; ++i)
+				Creatures[i].Delete();
 
-			m_Creatures.Clear();
+			Creatures.Clear();
 		}
 
 		public virtual void FullSpawn()
@@ -320,10 +282,10 @@ namespace Server.Engines.Doom
 		{
 			try
 			{
-				if (m_TypeName == null)
+				if (TypeName == null)
 					return;
 
-				Type type = Assembler.FindTypeByName(m_TypeName, true);
+				Type type = Assembler.FindTypeByName(TypeName, true);
 
 				if (type == null)
 					return;
@@ -341,7 +303,7 @@ namespace Server.Engines.Doom
 				{
 					mob.MoveToWorld(GetWorldLocation(), Map);
 
-					m_Creatures.Add(mob);
+					Creatures.Add(mob);
 				}
 			}
 			catch
@@ -355,8 +317,8 @@ namespace Server.Engines.Doom
 			{
 				State = GauntletSpawnerState.InSequence;
 
-				if (m_Sequence != null && !m_Sequence.Deleted)
-					m_Sequence.RecurseReset();
+				if (Sequence != null && !Sequence.Deleted)
+					Sequence.RecurseReset();
 			}
 		}
 
@@ -367,19 +329,19 @@ namespace Server.Engines.Doom
 
 			int count = ComputeSpawnCount();
 
-			for (int i = m_Creatures.Count; i < count; ++i)
+			for (int i = Creatures.Count; i < count; ++i)
 				Spawn();
 
 			if (HasCompleted)
 			{
 				State = GauntletSpawnerState.Completed;
 
-				if (m_Sequence != null && !m_Sequence.Deleted)
+				if (Sequence != null && !Sequence.Deleted)
 				{
-					if (m_Sequence.State == GauntletSpawnerState.Completed)
+					if (Sequence.State == GauntletSpawnerState.Completed)
 						RecurseReset();
 
-					m_Sequence.State = GauntletSpawnerState.InProgress;
+					Sequence.State = GauntletSpawnerState.InProgress;
 				}
 			}
 		}
@@ -397,9 +359,9 @@ namespace Server.Engines.Doom
 			Visible = false;
 			Movable = false;
 
-			m_TypeName = typeName;
-			m_Creatures = new List<Mobile>();
-			m_Traps = new List<BaseTrap>();
+			TypeName = typeName;
+			Creatures = new List<Mobile>();
+			Traps = new List<BaseTrap>();
 		}
 
 		public GauntletSpawner(Serial serial) : base(serial)
@@ -414,14 +376,14 @@ namespace Server.Engines.Doom
 
 			writer.Write(m_RegionBounds);
 
-			writer.WriteItemList<BaseTrap>(m_Traps, false);
+			writer.WriteItemList<BaseTrap>(Traps, false);
 
-			writer.Write(m_Creatures, false);
+			writer.Write(Creatures, false);
 
-			writer.Write(m_TypeName);
-			writer.WriteItem<BaseDoor>(m_Door);
-			writer.WriteItem<BaseAddon>(m_Addon);
-			writer.WriteItem<GauntletSpawner>(m_Sequence);
+			writer.Write(TypeName);
+			writer.WriteItem<BaseDoor>(Door);
+			writer.WriteItem<BaseAddon>(Addon);
+			writer.WriteItem<GauntletSpawner>(Sequence);
 
 			writer.Write((int)m_State);
 		}
@@ -437,14 +399,14 @@ namespace Server.Engines.Doom
 				case 0:
 					{
 						m_RegionBounds = reader.ReadRect2D();
-						m_Traps = reader.ReadStrongItemList<BaseTrap>();
+						Traps = reader.ReadStrongItemList<BaseTrap>();
 
-						m_Creatures = reader.ReadStrongMobileList();
+						Creatures = reader.ReadStrongMobileList();
 
-						m_TypeName = reader.ReadString();
-						m_Door = reader.ReadItem<BaseDoor>();
-						m_Addon = reader.ReadItem<BaseAddon>();
-						m_Sequence = reader.ReadItem<GauntletSpawner>();
+						TypeName = reader.ReadString();
+						Door = reader.ReadItem<BaseDoor>();
+						Addon = reader.ReadItem<BaseAddon>();
+						Sequence = reader.ReadItem<GauntletSpawner>();
 
 						State = (GauntletSpawnerState)reader.ReadInt();
 

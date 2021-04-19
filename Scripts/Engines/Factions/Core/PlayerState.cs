@@ -6,28 +6,19 @@ namespace Server.Factions
 {
 	public class PlayerState : IComparable
 	{
-		private readonly Mobile m_Mobile;
-		private readonly Faction m_Faction;
-		private readonly List<PlayerState> m_Owner;
 		private int m_KillPoints;
-		private DateTime m_Leaving;
 		private MerchantTitle m_MerchantTitle;
 		private RankDefinition m_Rank;
-		private List<SilverGivenEntry> m_SilverGiven;
-		private bool m_IsActive;
-
 		private Town m_Sheriff;
 		private Town m_Finance;
 
-		private DateTime m_LastHonorTime;
-
-		public Mobile Mobile => m_Mobile;
-		public Faction Faction => m_Faction;
-		public List<PlayerState> Owner => m_Owner;
+		public Mobile Mobile { get; }
+		public Faction Faction { get; }
+		public List<PlayerState> Owner { get; }
 		public MerchantTitle MerchantTitle { get => m_MerchantTitle; set { m_MerchantTitle = value; Invalidate(); } }
 		public Town Sheriff { get => m_Sheriff; set { m_Sheriff = value; Invalidate(); } }
 		public Town Finance { get => m_Finance; set { m_Finance = value; Invalidate(); } }
-		public List<SilverGivenEntry> SilverGiven => m_SilverGiven;
+		public List<SilverGivenEntry> SilverGiven { get; private set; }
 
 		public int KillPoints
 		{
@@ -47,19 +38,19 @@ namespace Server.Factions
 								return;
 							}
 
-							m_Owner.Remove(this);
-							m_Owner.Insert(m_Faction.ZeroRankOffset, this);
+							Owner.Remove(this);
+							Owner.Insert(Faction.ZeroRankOffset, this);
 
-							m_RankIndex = m_Faction.ZeroRankOffset;
-							m_Faction.ZeroRankOffset++;
+							m_RankIndex = Faction.ZeroRankOffset;
+							Faction.ZeroRankOffset++;
 						}
 						while ((m_RankIndex - 1) >= 0)
 						{
-							PlayerState p = m_Owner[m_RankIndex - 1];
+							PlayerState p = Owner[m_RankIndex - 1];
 							if (value > p.KillPoints)
 							{
-								m_Owner[m_RankIndex] = p;
-								m_Owner[m_RankIndex - 1] = this;
+								Owner[m_RankIndex] = p;
+								Owner[m_RankIndex - 1] = this;
 								RankIndex--;
 								p.RankIndex++;
 							}
@@ -78,27 +69,27 @@ namespace Server.Factions
 								return;
 							}
 
-							while ((m_RankIndex + 1) < m_Faction.ZeroRankOffset)
+							while ((m_RankIndex + 1) < Faction.ZeroRankOffset)
 							{
-								PlayerState p = m_Owner[m_RankIndex + 1];
-								m_Owner[m_RankIndex + 1] = this;
-								m_Owner[m_RankIndex] = p;
+								PlayerState p = Owner[m_RankIndex + 1];
+								Owner[m_RankIndex + 1] = this;
+								Owner[m_RankIndex] = p;
 								RankIndex++;
 								p.RankIndex--;
 							}
 
 							m_RankIndex = -1;
-							m_Faction.ZeroRankOffset--;
+							Faction.ZeroRankOffset--;
 						}
 						else
 						{
-							while ((m_RankIndex + 1) < m_Faction.ZeroRankOffset)
+							while ((m_RankIndex + 1) < Faction.ZeroRankOffset)
 							{
-								PlayerState p = m_Owner[m_RankIndex + 1];
+								PlayerState p = Owner[m_RankIndex + 1];
 								if (value < p.KillPoints)
 								{
-									m_Owner[m_RankIndex + 1] = this;
-									m_Owner[m_RankIndex] = p;
+									Owner[m_RankIndex + 1] = this;
+									Owner[m_RankIndex] = p;
 									RankIndex++;
 									p.RankIndex--;
 								}
@@ -125,15 +116,15 @@ namespace Server.Factions
 			{
 				if (m_InvalidateRank)
 				{
-					RankDefinition[] ranks = m_Faction.Definition.Ranks;
+					RankDefinition[] ranks = Faction.Definition.Ranks;
 					int percent;
 
-					if (m_Owner.Count == 1)
+					if (Owner.Count == 1)
 						percent = 1000;
 					else if (m_RankIndex == -1)
 						percent = 0;
 					else
-						percent = ((m_Faction.ZeroRankOffset - m_RankIndex) * 1000) / m_Faction.ZeroRankOffset;
+						percent = ((Faction.ZeroRankOffset - m_RankIndex) * 1000) / Faction.ZeroRankOffset;
 
 					for (int i = 0; i < ranks.Length; i++)
 					{
@@ -154,23 +145,23 @@ namespace Server.Factions
 			}
 		}
 
-		public DateTime LastHonorTime { get => m_LastHonorTime; set => m_LastHonorTime = value; }
-		public DateTime Leaving { get => m_Leaving; set => m_Leaving = value; }
-		public bool IsLeaving => (m_Leaving > DateTime.MinValue);
+		public DateTime LastHonorTime { get; set; }
+		public DateTime Leaving { get; set; }
+		public bool IsLeaving => (Leaving > DateTime.MinValue);
 
-		public bool IsActive { get => m_IsActive; set => m_IsActive = value; }
+		public bool IsActive { get; set; }
 
 		public bool CanGiveSilverTo(Mobile mob)
 		{
-			if (m_SilverGiven == null)
+			if (SilverGiven == null)
 				return true;
 
-			for (int i = 0; i < m_SilverGiven.Count; ++i)
+			for (int i = 0; i < SilverGiven.Count; ++i)
 			{
-				SilverGivenEntry sge = m_SilverGiven[i];
+				SilverGivenEntry sge = SilverGiven[i];
 
 				if (sge.IsExpired)
-					m_SilverGiven.RemoveAt(i--);
+					SilverGiven.RemoveAt(i--);
 				else if (sge.GivenTo == mob)
 					return false;
 			}
@@ -180,15 +171,15 @@ namespace Server.Factions
 
 		public void OnGivenSilverTo(Mobile mob)
 		{
-			if (m_SilverGiven == null)
-				m_SilverGiven = new List<SilverGivenEntry>();
+			if (SilverGiven == null)
+				SilverGiven = new List<SilverGivenEntry>();
 
-			m_SilverGiven.Add(new SilverGivenEntry(mob));
+			SilverGiven.Add(new SilverGivenEntry(mob));
 		}
 
 		public void Invalidate()
 		{
-			if (m_Mobile is PlayerMobile pm)
+			if (Mobile is PlayerMobile pm)
 			{
 				pm.InvalidateProperties();
 			}
@@ -196,15 +187,15 @@ namespace Server.Factions
 
 		public void Attach()
 		{
-			if (m_Mobile is PlayerMobile)
-				((PlayerMobile)m_Mobile).FactionPlayerState = this;
+			if (Mobile is PlayerMobile)
+				((PlayerMobile)Mobile).FactionPlayerState = this;
 		}
 
 		public PlayerState(Mobile mob, Faction faction, List<PlayerState> owner)
 		{
-			m_Mobile = mob;
-			m_Faction = faction;
-			m_Owner = owner;
+			Mobile = mob;
+			Faction = faction;
+			Owner = owner;
 
 			Attach();
 			Invalidate();
@@ -212,8 +203,8 @@ namespace Server.Factions
 
 		public PlayerState(GenericReader reader, Faction faction, List<PlayerState> owner)
 		{
-			m_Faction = faction;
-			m_Owner = owner;
+			Faction = faction;
+			Owner = owner;
 
 			int version = reader.ReadEncodedInt();
 
@@ -221,15 +212,15 @@ namespace Server.Factions
 			{
 				case 0:
 					{
-						m_IsActive = reader.ReadBool();
-						m_LastHonorTime = reader.ReadDateTime();
+						IsActive = reader.ReadBool();
+						LastHonorTime = reader.ReadDateTime();
 
-						m_Mobile = reader.ReadMobile();
+						Mobile = reader.ReadMobile();
 
 						m_KillPoints = reader.ReadEncodedInt();
 						m_MerchantTitle = (MerchantTitle)reader.ReadEncodedInt();
 
-						m_Leaving = reader.ReadDateTime();
+						Leaving = reader.ReadDateTime();
 
 						break;
 					}
@@ -242,15 +233,15 @@ namespace Server.Factions
 		{
 			writer.WriteEncodedInt(0); // version
 
-			writer.Write(m_IsActive);
-			writer.Write(m_LastHonorTime);
+			writer.Write(IsActive);
+			writer.Write(LastHonorTime);
 
-			writer.Write(m_Mobile);
+			writer.Write(Mobile);
 
 			writer.WriteEncodedInt(m_KillPoints);
 			writer.WriteEncodedInt((int)m_MerchantTitle);
 
-			writer.Write(m_Leaving);
+			writer.Write(Leaving);
 		}
 
 		public static PlayerState Find(Mobile mob)

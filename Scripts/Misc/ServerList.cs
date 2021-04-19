@@ -187,7 +187,7 @@ namespace Server.Misc
 
 				Stream s = res.GetResponseStream();
 
-				StreamReader sr = new StreamReader(s);
+				StreamReader sr = new(s);
 
 				IPAddress ip = IPAddress.Parse(sr.ReadLine());
 

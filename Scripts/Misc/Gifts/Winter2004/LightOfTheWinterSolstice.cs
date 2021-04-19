@@ -23,10 +23,8 @@ namespace Server.Items
 				"Zippy"
 			};
 
-		private string m_Dipper;
-
 		[CommandProperty(AccessLevel.GameMaster)]
-		public string Dipper { get => m_Dipper; set => m_Dipper = value; }
+		public string Dipper { get; set; }
 
 		[Constructable]
 		public LightOfTheWinterSolstice() : this(m_StaffNames[Utility.Random(m_StaffNames.Length)])
@@ -36,7 +34,7 @@ namespace Server.Items
 		[Constructable]
 		public LightOfTheWinterSolstice(string dipper) : base(0x236E)
 		{
-			m_Dipper = dipper;
+			Dipper = dipper;
 
 			Weight = 1.0;
 			LootType = LootType.Blessed;
@@ -52,7 +50,7 @@ namespace Server.Items
 		{
 			base.OnSingleClick(from);
 
-			LabelTo(from, 1070881, m_Dipper); // Hand Dipped by ~1_name~
+			LabelTo(from, 1070881, Dipper); // Hand Dipped by ~1_name~
 			LabelTo(from, 1070880); // Winter 2004
 		}
 
@@ -60,7 +58,7 @@ namespace Server.Items
 		{
 			base.GetProperties(list);
 
-			list.Add(1070881, m_Dipper); // Hand Dipped by ~1_name~
+			list.Add(1070881, Dipper); // Hand Dipped by ~1_name~
 			list.Add(1070880); // Winter 2004
 		}
 
@@ -70,7 +68,7 @@ namespace Server.Items
 
 			writer.Write(0); // version
 
-			writer.Write(m_Dipper);
+			writer.Write(Dipper);
 		}
 
 		public override void Deserialize(GenericReader reader)
@@ -83,13 +81,13 @@ namespace Server.Items
 			{
 				case 0:
 					{
-						m_Dipper = reader.ReadString();
+						Dipper = reader.ReadString();
 						break;
 					}
 			}
 
-			if (m_Dipper != null)
-				m_Dipper = string.Intern(m_Dipper);
+			if (Dipper != null)
+				Dipper = string.Intern(Dipper);
 		}
 	}
 }

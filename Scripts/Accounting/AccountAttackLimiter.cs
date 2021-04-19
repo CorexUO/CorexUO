@@ -30,7 +30,7 @@ namespace Server.Accounting
 			return (DateTime.UtcNow >= (accessLog.LastAccessTime + ComputeThrottle(accessLog.Counts)));
 		}
 
-		private static readonly List<InvalidAccountAccessLog> m_List = new List<InvalidAccountAccessLog>();
+		private static readonly List<InvalidAccountAccessLog> m_List = new();
 
 		public static InvalidAccountAccessLog FindAccessLog(NetState ns)
 		{
@@ -69,15 +69,13 @@ namespace Server.Accounting
 			{
 				try
 				{
-					using (StreamWriter op = new StreamWriter("throttle.log", true))
-					{
-						op.WriteLine(
-							"{0}\t{1}\t{2}",
-							DateTime.UtcNow,
-							ns,
-							accessLog.Counts
-						);
-					}
+					using StreamWriter op = new("throttle.log", true);
+					op.WriteLine(
+						"{0}\t{1}\t{2}",
+						DateTime.UtcNow,
+						ns,
+						accessLog.Counts
+					);
 				}
 				catch
 				{

@@ -42,7 +42,7 @@ namespace Server.Misc
 
 		public static void RegisterMap(int mapIndex, int mapID, int fileIndex, int width, int height, int season, string name, ZoneRules rules)
 		{
-			Map newMap = new Map(mapID, mapIndex, fileIndex, width, height, season, name, rules);
+			Map newMap = new(mapID, mapIndex, fileIndex, width, height, season, name, rules);
 
 			Map.Maps[mapIndex] = newMap;
 			Map.AllMaps.Add(newMap);

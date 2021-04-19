@@ -10,12 +10,12 @@ namespace Server.Misc
 			GiftGiving.Register(new WinterGiftGiver2004());
 		}
 
-		public override DateTime Start => new DateTime(2004, 12, 24);
-		public override DateTime Finish => new DateTime(2005, 1, 1);
+		public override DateTime Start => new(2004, 12, 24);
+		public override DateTime Finish => new(2005, 1, 1);
 
 		public override void GiveGift(Mobile mob)
 		{
-			GiftBox box = new GiftBox();
+			GiftBox box = new();
 
 			box.DropItem(new MistletoeDeed());
 			box.DropItem(new PileOfGlacialSnow());

@@ -121,7 +121,7 @@ namespace Server.Items
 
 		private static void DeleteAll()
 		{
-			List<Item> list = new List<Item>();
+			List<Item> list = new();
 
 			foreach (Item item in World.Items.Values)
 			{
@@ -155,43 +155,37 @@ namespace Server.Items
 	public class PMEntry
 	{
 		private Point3D m_Location;
-		private readonly int m_Number;
 
 		public Point3D Location => m_Location;
 
-		public int Number => m_Number;
+		public int Number { get; }
 
 		public PMEntry(Point3D loc, int number)
 		{
 			m_Location = loc;
-			m_Number = number;
+			Number = number;
 		}
 	}
 
 	public class PMList
 	{
-		private readonly int m_Number, m_SelNumber;
-		private readonly Map m_Map;
-		private readonly PMEntry[] m_Entries;
+		public int Number { get; }
 
-		public int Number => m_Number;
+		public int SelNumber { get; }
 
-		public int SelNumber => m_SelNumber;
+		public Map Map { get; }
 
-		public Map Map => m_Map;
-
-		public PMEntry[] Entries => m_Entries;
+		public PMEntry[] Entries { get; }
 
 		public PMList(int number, int selNumber, Map map, PMEntry[] entries)
 		{
-			m_Number = number;
-			m_SelNumber = selNumber;
-			m_Map = map;
-			m_Entries = entries;
+			Number = number;
+			SelNumber = selNumber;
+			Map = map;
+			Entries = entries;
 		}
 
-		public static readonly PMList Trammel =
-			new PMList(1012000, 1012012, Map.Trammel, new PMEntry[]
+		public static readonly PMList Trammel = new(1012000, 1012012, Map.Trammel, new PMEntry[]
 				{
 					new PMEntry( new Point3D( 4467, 1283, 5 ), 1012003 ), // Moonglow
 					new PMEntry( new Point3D( 1336, 1997, 5 ), 1012004 ), // Britain
@@ -205,8 +199,7 @@ namespace Server.Items
 					new PMEntry( new Point3D( 3450, 2677, 25), 1078098 )  // New Haven
 				});
 
-		public static readonly PMList Felucca =
-			new PMList(1012001, 1012013, Map.Felucca, new PMEntry[]
+		public static readonly PMList Felucca = new(1012001, 1012013, Map.Felucca, new PMEntry[]
 				{
 					new PMEntry( new Point3D( 4467, 1283, 5 ), 1012003 ), // Moonglow
 					new PMEntry( new Point3D( 1336, 1997, 5 ), 1012004 ), // Britain
@@ -220,8 +213,7 @@ namespace Server.Items
 					new PMEntry( new Point3D( 2711, 2234, 0 ), 1019001 )  // Buccaneer's Den
 				});
 
-		public static readonly PMList Ilshenar =
-			new PMList(1012002, 1012014, Map.Ilshenar, new PMEntry[]
+		public static readonly PMList Ilshenar = new(1012002, 1012014, Map.Ilshenar, new PMEntry[]
 				{
 					new PMEntry( new Point3D( 1215,  467, -13 ), 1012015 ), // Compassion
 					new PMEntry( new Point3D(  722, 1366, -60 ), 1012016 ), // Honesty
@@ -234,15 +226,13 @@ namespace Server.Items
 					new PMEntry( new Point3D( 1721,  218,  96 ), 1019000 )  // Chaos
 				});
 
-		public static readonly PMList Malas =
-			new PMList(1060643, 1062039, Map.Malas, new PMEntry[]
+		public static readonly PMList Malas = new(1060643, 1062039, Map.Malas, new PMEntry[]
 				{
 					new PMEntry( new Point3D( 1015,  527, -65 ), 1060641 ), // Luna
 					new PMEntry( new Point3D( 1997, 1386, -85 ), 1060642 )  // Umbra
 				});
 
-		public static readonly PMList Tokuno =
-			new PMList(1063258, 1063415, Map.Tokuno, new PMEntry[]
+		public static readonly PMList Tokuno = new(1063258, 1063415, Map.Tokuno, new PMEntry[]
 				{
 					new PMEntry( new Point3D( 1169,  998, 41 ), 1063412 ), // Isamu-Jima
 					new PMEntry( new Point3D(  802, 1204, 25 ), 1063413 ), // Makoto-Jima
@@ -287,7 +277,7 @@ namespace Server.Items
 				else
 				{
 					ClientFlags flags = mobile.NetState == null ? ClientFlags.None : mobile.NetState.Flags;
-					bool young = mobile is PlayerMobile ? ((PlayerMobile)mobile).Young : false;
+					bool young = mobile is PlayerMobile mobile1 && mobile1.Young;
 
 					if (Core.SE && (flags & ClientFlags.Tokuno) != 0)
 						checkLists = young ? PMList.SEListsYoung : PMList.SELists;

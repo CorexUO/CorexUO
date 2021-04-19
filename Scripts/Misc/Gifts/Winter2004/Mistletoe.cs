@@ -60,9 +60,9 @@ namespace Server.Items
 			{
 				Item deed = Deed;
 
-				if (Parent is Item)
+				if (Parent is Item item)
 				{
-					((Item)Parent).AddItem(deed);
+					item.AddItem(deed);
 					deed.Location = Location;
 				}
 				else
@@ -194,8 +194,7 @@ namespace Server.Items
 		public override void Deserialize(GenericReader reader)
 		{
 			base.Deserialize(reader);
-
-			int version = reader.ReadInt();
+			_ = reader.ReadInt();
 		}
 
 		public override void OnSingleClick(Mobile from)
@@ -236,12 +235,10 @@ namespace Server.Items
 
 		public void Placement_OnTarget(Mobile from, object targeted, object state)
 		{
-			IPoint3D p = targeted as IPoint3D;
-
-			if (p == null)
+			if (targeted is not IPoint3D p)
 				return;
 
-			Point3D loc = new Point3D(p);
+			Point3D loc = new(p);
 
 			BaseHouse house = BaseHouse.FindHouseAt(loc, from.Map, 16);
 

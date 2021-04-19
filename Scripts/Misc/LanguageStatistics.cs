@@ -236,9 +236,9 @@ namespace Server.Misc
 		[Description("Generate a file containing the list of languages for each PlayerMobile.")]
 		public static void LanguageStatistics_OnCommand(CommandEventArgs e)
 		{
-			Dictionary<string, InternationalCodeCounter> ht = new Dictionary<string, InternationalCodeCounter>();
+			Dictionary<string, InternationalCodeCounter> ht = new();
 
-			using StreamWriter writer = new StreamWriter("languages.txt");
+			using StreamWriter writer = new("languages.txt");
 			if (CountAccounts)
 			{
 				// count accounts
@@ -294,7 +294,7 @@ namespace Server.Misc
 			writer.WriteLine();
 
 			// sort the list
-			List<InternationalCodeCounter> list = new List<InternationalCodeCounter>(ht.Values);
+			List<InternationalCodeCounter> list = new(ht.Values);
 			list.Sort(InternationalCodeComparer.Instance);
 
 			foreach (InternationalCodeCounter c in list)
@@ -322,7 +322,7 @@ namespace Server.Misc
 
 		private class InternationalCodeComparer : IComparer<InternationalCodeCounter>
 		{
-			public static readonly InternationalCodeComparer Instance = new InternationalCodeComparer();
+			public static readonly InternationalCodeComparer Instance = new();
 
 			public InternationalCodeComparer()
 			{

@@ -68,7 +68,7 @@ namespace Server.Misc
 		{
 			if (offset > 0)
 			{
-				if (m is PlayerMobile && ((PlayerMobile)m).KarmaLocked)
+				if (m is PlayerMobile player && player.KarmaLocked)
 					return;
 
 				if (m.Karma >= MaxKarma)
@@ -119,18 +119,18 @@ namespace Server.Misc
 					m.SendLocalizedMessage(1019063); // You have lost a little karma.
 			}
 
-			if (!Core.AOS && wasPositiveKarma && m.Karma < 0 && m is PlayerMobile && !((PlayerMobile)m).KarmaLocked)
+			if (!Core.AOS && wasPositiveKarma && m.Karma < 0 && m is PlayerMobile mobile && !mobile.KarmaLocked)
 			{
-				((PlayerMobile)m).KarmaLocked = true;
+				mobile.KarmaLocked = true;
 				m.SendLocalizedMessage(1042511, 0x22); // Karma is locked.  A mantra spoken at a shrine will unlock it again.
 			}
 		}
 
-		public static string[] HarrowerTitles = new string[] { "Spite", "Opponent", "Hunter", "Venom", "Executioner", "Annihilator", "Champion", "Assailant", "Purifier", "Nullifier" };
+		public static readonly string[] HarrowerTitles = new string[] { "Spite", "Opponent", "Hunter", "Venom", "Executioner", "Annihilator", "Champion", "Assailant", "Purifier", "Nullifier" };
 
 		public static string ComputeTitle(Mobile beholder, Mobile beheld)
 		{
-			StringBuilder title = new StringBuilder();
+			StringBuilder title = new();
 
 			int fame = beheld.Fame;
 			int karma = beheld.Karma;
@@ -172,9 +172,9 @@ namespace Server.Misc
 				title.Append(beheld.Name);
 			}
 
-			if (beheld is PlayerMobile && ((PlayerMobile)beheld).DisplayChampionTitle)
+			if (beheld is PlayerMobile player && player.DisplayChampionTitle)
 			{
-				ChampionTitleInfo info = ((PlayerMobile)beheld).ChampionTitles;
+				ChampionTitleInfo info = player.ChampionTitles;
 
 				if (info.Harrower > 0)
 					title.AppendFormat(": {0} of Evil", HarrowerTitles[Math.Min(HarrowerTitles.Length, info.Harrower) - 1]);
@@ -286,12 +286,12 @@ namespace Server.Misc
 
 		private static int GetTableType(Skill skill)
 		{
-			switch (skill.SkillName)
+			return skill.SkillName switch
 			{
-				default: return 0;
-				case SkillName.Bushido: return 1;
-				case SkillName.Ninjitsu: return 2;
-			}
+				SkillName.Bushido => 1,
+				SkillName.Ninjitsu => 2,
+				_ => 0,
+			};
 		}
 
 		private static int GetTableIndex(Skill skill)

@@ -133,7 +133,7 @@ namespace Server.Misc
 		{
 			for (int i = 0; i < paths.Length; ++i)
 			{
-				DirectoryInfo info = new DirectoryInfo(paths[i]);
+				DirectoryInfo info = new(paths[i]);
 
 				if (info.Name.StartsWith(match))
 					return info;

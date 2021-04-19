@@ -4,7 +4,7 @@ namespace Server
 {
 	public sealed class SimpleRandom : IRandomImpl
 	{
-		private readonly Random m_Random = new Random();
+		private readonly Random m_Random = new();
 
 		public SimpleRandom()
 		{

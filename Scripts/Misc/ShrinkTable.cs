@@ -45,39 +45,37 @@ namespace Server
 
 			if (!File.Exists(path))
 			{
-				m_Table = new int[0];
+				m_Table = System.Array.Empty<int>();
 				return;
 			}
 
 			m_Table = new int[1000];
 
-			using (StreamReader ip = new StreamReader(path))
+			using StreamReader ip = new(path);
+			string line;
+
+			while ((line = ip.ReadLine()) != null)
 			{
-				string line;
+				line = line.Trim();
 
-				while ((line = ip.ReadLine()) != null)
+				if (line.Length == 0 || line.StartsWith("#"))
+					continue;
+
+				try
 				{
-					line = line.Trim();
+					string[] split = line.Split('\t');
 
-					if (line.Length == 0 || line.StartsWith("#"))
-						continue;
-
-					try
+					if (split.Length >= 2)
 					{
-						string[] split = line.Split('\t');
+						int body = Utility.ToInt32(split[0]);
+						int item = Utility.ToInt32(split[1]);
 
-						if (split.Length >= 2)
-						{
-							int body = Utility.ToInt32(split[0]);
-							int item = Utility.ToInt32(split[1]);
-
-							if (body >= 0 && body < m_Table.Length)
-								m_Table[body] = item;
-						}
+						if (body >= 0 && body < m_Table.Length)
+							m_Table[body] = item;
 					}
-					catch
-					{
-					}
+				}
+				catch
+				{
 				}
 			}
 		}

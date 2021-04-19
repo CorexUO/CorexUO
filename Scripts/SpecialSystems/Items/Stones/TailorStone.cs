@@ -13,7 +13,7 @@ namespace Server.Items
 
 		public override void OnDoubleClick(Mobile from)
 		{
-			TailorBag tailorBag = new TailorBag();
+			TailorBag tailorBag = new();
 
 			if (!from.AddToBackpack(tailorBag))
 				tailorBag.Delete();

@@ -162,31 +162,29 @@ namespace Server
 
 			if (File.Exists(path))
 			{
-				using (StreamReader ip = new StreamReader(path))
+				using StreamReader ip = new(path);
+				string line;
+
+				while ((line = ip.ReadLine()) != null)
 				{
-					string line;
+					line = line.Trim();
 
-					while ((line = ip.ReadLine()) != null)
-					{
-						line = line.Trim();
+					if (line.Length == 0)
+						continue;
 
-						if (line.Length == 0)
-							continue;
+					List.Add(ToFirewallEntry(line));
 
-						List.Add(ToFirewallEntry(line));
+					/*
+					object toAdd;
 
-						/*
-						object toAdd;
+					IPAddress addr;
+					if( IPAddress.TryParse( line, out addr ) )
+						toAdd = addr;
+					else
+						toAdd = line;
 
-						IPAddress addr;
-						if( IPAddress.TryParse( line, out addr ) )
-							toAdd = addr;
-						else
-							toAdd = line;
-
-						m_Blocked.Add( toAdd.ToString() );
-						 * */
-					}
+					m_Blocked.Add( toAdd.ToString() );
+					 * */
 				}
 			}
 		}
@@ -287,11 +285,9 @@ namespace Server
 		{
 			string path = "firewall.cfg";
 
-			using (StreamWriter op = new StreamWriter(path))
-			{
-				for (int i = 0; i < List.Count; ++i)
-					op.WriteLine(List[i]);
-			}
+			using StreamWriter op = new(path);
+			for (int i = 0; i < List.Count; ++i)
+				op.WriteLine(List[i]);
 		}
 
 		public static bool IsBlocked(IPAddress ip)

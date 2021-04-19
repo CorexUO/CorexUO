@@ -12,31 +12,25 @@ namespace Server.Factions
 
 	public class MerchantTitleInfo
 	{
-		private readonly SkillName m_Skill;
-		private readonly double m_Requirement;
-		private readonly TextDefinition m_Title;
-		private readonly TextDefinition m_Label;
-		private readonly TextDefinition m_Assigned;
-
-		public SkillName Skill => m_Skill;
-		public double Requirement => m_Requirement;
-		public TextDefinition Title => m_Title;
-		public TextDefinition Label => m_Label;
-		public TextDefinition Assigned => m_Assigned;
+		public SkillName Skill { get; }
+		public double Requirement { get; }
+		public TextDefinition Title { get; }
+		public TextDefinition Label { get; }
+		public TextDefinition Assigned { get; }
 
 		public MerchantTitleInfo(SkillName skill, double requirement, TextDefinition title, TextDefinition label, TextDefinition assigned)
 		{
-			m_Skill = skill;
-			m_Requirement = requirement;
-			m_Title = title;
-			m_Label = label;
-			m_Assigned = assigned;
+			Skill = skill;
+			Requirement = requirement;
+			Title = title;
+			Label = label;
+			Assigned = assigned;
 		}
 	}
 
 	public class MerchantTitles
 	{
-		private static readonly MerchantTitleInfo[] m_Info = new MerchantTitleInfo[]
+		public static MerchantTitleInfo[] Info { get; } = new MerchantTitleInfo[]
 			{
 				new MerchantTitleInfo( SkillName.Inscribe,      90.0,   new TextDefinition( 1060773, "Scribe" ),        new TextDefinition( 1011468, "SCRIBE" ),        new TextDefinition( 1010121, "You now have the faction title of scribe" ) ),
 				new MerchantTitleInfo( SkillName.Carpentry,     90.0,   new TextDefinition( 1060774, "Carpenter" ),     new TextDefinition( 1011469, "CARPENTER" ),     new TextDefinition( 1010122, "You now have the faction title of carpenter" ) ),
@@ -46,23 +40,21 @@ namespace Server.Factions
 				new MerchantTitleInfo( SkillName.Tailoring,     90.0,   new TextDefinition( 1022982, "Tailor" ),        new TextDefinition( 1018300, "TAILOR" ),        new TextDefinition( 1042162, "You now have the faction title of Tailor" ) ),
 			};
 
-		public static MerchantTitleInfo[] Info => m_Info;
-
 		public static MerchantTitleInfo GetInfo(MerchantTitle title)
 		{
 			int idx = (int)title - 1;
 
-			if (idx >= 0 && idx < m_Info.Length)
-				return m_Info[idx];
+			if (idx >= 0 && idx < Info.Length)
+				return Info[idx];
 
 			return null;
 		}
 
 		public static bool HasMerchantQualifications(Mobile mob)
 		{
-			for (int i = 0; i < m_Info.Length; ++i)
+			for (int i = 0; i < Info.Length; ++i)
 			{
-				if (IsQualified(mob, m_Info[i]))
+				if (IsQualified(mob, Info[i]))
 					return true;
 			}
 

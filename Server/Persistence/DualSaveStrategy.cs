@@ -14,7 +14,7 @@ namespace Server
 		{
 			PermitBackgroundWrite = permitBackgroundWrite;
 
-			Thread saveThread = new Thread(delegate ()
+			Thread saveThread = new(delegate ()
 			{
 				SaveItems();
 			})

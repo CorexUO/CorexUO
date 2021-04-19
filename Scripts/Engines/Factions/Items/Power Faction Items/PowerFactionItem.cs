@@ -40,22 +40,18 @@ namespace Server
 
 		private sealed class WeightedItem
 		{
-			private readonly int _weight;
-			private readonly Type _type;
-
-			public int Weight => _weight;
-
-			public Type Type => _type;
+			public int Weight { get; }
+			public Type Type { get; }
 
 			public WeightedItem(int weight, Type type)
 			{
-				_weight = weight;
-				_type = type;
+				Weight = weight;
+				Type = type;
 			}
 
 			public Item Construct()
 			{
-				return Activator.CreateInstance(_type) as Item;
+				return Activator.CreateInstance(Type) as Item;
 			}
 		}
 

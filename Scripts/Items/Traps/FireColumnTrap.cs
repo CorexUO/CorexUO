@@ -4,6 +4,13 @@ namespace Server.Items
 {
 	public class FireColumnTrap : BaseTrap
 	{
+		private int m_MinDamage;
+
+		public override bool PassivelyTriggered => true;
+		public override TimeSpan PassiveTriggerDelay => TimeSpan.FromSeconds(2.0);
+		public override int PassiveTriggerRange => 3;
+		public override TimeSpan ResetDelay => TimeSpan.FromSeconds(0.5);
+
 		[Constructable]
 		public FireColumnTrap() : base(0x1B71)
 		{
@@ -13,12 +20,6 @@ namespace Server.Items
 			m_WarningFlame = true;
 		}
 
-		public override bool PassivelyTriggered => true;
-		public override TimeSpan PassiveTriggerDelay => TimeSpan.FromSeconds(2.0);
-		public override int PassiveTriggerRange => 3;
-		public override TimeSpan ResetDelay => TimeSpan.FromSeconds(0.5);
-
-		private int m_MinDamage;
 
 		[CommandProperty(AccessLevel.GameMaster)]
 		public virtual int MinDamage

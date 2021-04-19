@@ -29,7 +29,7 @@ namespace Server.Items
 		{
 			base.Deserialize(reader);
 
-			int version = reader.ReadInt();
+			_ = reader.ReadInt();
 
 			if (Weight == 0.0)
 				Weight = 1.0;
@@ -117,12 +117,12 @@ namespace Server.Items
 						if (text.Length > 40)
 							text = text.Substring(0, 40);
 
-						Guild guild = new Guild(from, text, "none");
+						Guild guild = new(from, text, "none");
 
 						from.Guild = guild;
 						from.GuildTitle = "Guildmaster";
 
-						Guildstone stone = new Guildstone(guild);
+						Guildstone stone = new(guild);
 
 						stone.MoveToWorld(from.Location, from.Map);
 

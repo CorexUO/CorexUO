@@ -17,7 +17,7 @@ namespace Server.Misc
 		public static float DecayDelay => Settings.Configuration.Get<float>("FoodDecay", "DecayDelay");
 		public static FoodDecayType TimerType => (FoodDecayType)Settings.Configuration.Get<int>("FoodDecay", "DecayType");
 
-		public static Dictionary<Mobile, Timer> Timers { get; } = new Dictionary<Mobile, Timer>();
+		public static Dictionary<Mobile, Timer> Timers { get; } = new();
 
 		public static void Initialize()
 		{

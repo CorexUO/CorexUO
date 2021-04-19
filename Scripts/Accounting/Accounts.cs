@@ -7,7 +7,7 @@ namespace Server.Accounting
 {
 	public class Accounts
 	{
-		private static Dictionary<string, IAccount> m_Accounts = new Dictionary<string, IAccount>();
+		private static Dictionary<string, IAccount> m_Accounts = new();
 
 		public static void Configure()
 		{
@@ -53,7 +53,7 @@ namespace Server.Accounting
 			if (!File.Exists(filePath))
 				return;
 
-			XmlDocument doc = new XmlDocument();
+			XmlDocument doc = new();
 			doc.Load(filePath);
 
 			XmlElement root = doc["accounts"];
@@ -62,7 +62,7 @@ namespace Server.Accounting
 			{
 				try
 				{
-					Account acct = new Account(account);
+					Account acct = new(account);
 				}
 				catch
 				{
@@ -78,28 +78,26 @@ namespace Server.Accounting
 
 			string filePath = Path.Combine("Saves/Accounts", "accounts.xml");
 
-			using (StreamWriter op = new StreamWriter(filePath))
+			using StreamWriter op = new(filePath);
+			XmlTextWriter xml = new(op)
 			{
-				XmlTextWriter xml = new XmlTextWriter(op)
-				{
-					Formatting = Formatting.Indented,
-					IndentChar = '\t',
-					Indentation = 1
-				};
+				Formatting = Formatting.Indented,
+				IndentChar = '\t',
+				Indentation = 1
+			};
 
-				xml.WriteStartDocument(true);
+			xml.WriteStartDocument(true);
 
-				xml.WriteStartElement("accounts");
+			xml.WriteStartElement("accounts");
 
-				xml.WriteAttributeString("count", m_Accounts.Count.ToString());
+			xml.WriteAttributeString("count", m_Accounts.Count.ToString());
 
-				foreach (Account a in GetAccounts())
-					a.Save(xml);
+			foreach (Account a in GetAccounts())
+				a.Save(xml);
 
-				xml.WriteEndElement();
+			xml.WriteEndElement();
 
-				xml.Close();
-			}
+			xml.Close();
 		}
 	}
 }

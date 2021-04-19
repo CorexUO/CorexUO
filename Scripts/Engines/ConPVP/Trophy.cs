@@ -12,29 +12,26 @@ namespace Server.Items
 	[Flipable(5020, 4647)]
 	public class Trophy : BaseItem
 	{
-		private string m_Title;
 		private TrophyRank m_Rank;
-		private Mobile m_Owner;
-		private DateTime m_Date;
 
 		[CommandProperty(AccessLevel.GameMaster)]
-		public string Title { get => m_Title; set => m_Title = value; }
+		public string Title { get; set; }
 
 		[CommandProperty(AccessLevel.GameMaster)]
 		public TrophyRank Rank { get => m_Rank; set { m_Rank = value; UpdateStyle(); } }
 
 		[CommandProperty(AccessLevel.GameMaster)]
-		public Mobile Owner { get => m_Owner; set => m_Owner = value; }
+		public Mobile Owner { get; set; }
 
 		[CommandProperty(AccessLevel.GameMaster)]
-		public DateTime Date => m_Date;
+		public DateTime Date { get; private set; }
 
 		[Constructable]
 		public Trophy(string title, TrophyRank rank) : base(5020)
 		{
-			m_Title = title;
+			Title = title;
 			m_Rank = rank;
-			m_Date = DateTime.UtcNow;
+			Date = DateTime.UtcNow;
 
 			LootType = LootType.Blessed;
 
@@ -51,10 +48,10 @@ namespace Server.Items
 
 			writer.Write(0); // version
 
-			writer.Write(m_Title);
+			writer.Write(Title);
 			writer.Write((int)m_Rank);
-			writer.Write(m_Owner);
-			writer.Write(m_Date);
+			writer.Write(Owner);
+			writer.Write(Date);
 		}
 
 		public override void Deserialize(GenericReader reader)
@@ -63,31 +60,31 @@ namespace Server.Items
 
 			int version = reader.ReadInt();
 
-			m_Title = reader.ReadString();
+			Title = reader.ReadString();
 			m_Rank = (TrophyRank)reader.ReadInt();
-			m_Owner = reader.ReadMobile();
-			m_Date = reader.ReadDateTime();
+			Owner = reader.ReadMobile();
+			Date = reader.ReadDateTime();
 		}
 
 		public override void OnAdded(IEntity parent)
 		{
 			base.OnAdded(parent);
 
-			if (m_Owner == null)
-				m_Owner = RootParent as Mobile;
+			if (Owner == null)
+				Owner = RootParent as Mobile;
 		}
 
 		public override void OnSingleClick(Mobile from)
 		{
 			base.OnSingleClick(from);
 
-			if (m_Owner != null)
-				LabelTo(from, "{0} -- {1}", m_Title, m_Owner.RawName);
-			else if (m_Title != null)
-				LabelTo(from, m_Title);
+			if (Owner != null)
+				LabelTo(from, "{0} -- {1}", Title, Owner.RawName);
+			else if (Title != null)
+				LabelTo(from, Title);
 
-			if (m_Date != DateTime.MinValue)
-				LabelTo(from, m_Date.ToString("d"));
+			if (Date != DateTime.MinValue)
+				LabelTo(from, Date.ToString("d"));
 		}
 
 		public void UpdateStyle()

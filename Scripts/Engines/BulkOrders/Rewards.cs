@@ -7,23 +7,20 @@ namespace Server.Engines.BulkOrders
 
 	public sealed class RewardType
 	{
-		private readonly int m_Points;
-		private readonly Type[] m_Types;
-
-		public int Points => m_Points;
-		public Type[] Types => m_Types;
+		public int Points { get; }
+		public Type[] Types { get; }
 
 		public RewardType(int points, params Type[] types)
 		{
-			m_Points = points;
-			m_Types = types;
+			Points = points;
+			Types = types;
 		}
 
 		public bool Contains(Type type)
 		{
-			for (int i = 0; i < m_Types.Length; ++i)
+			for (int i = 0; i < Types.Length; ++i)
 			{
-				if (m_Types[i] == type)
+				if (Types[i] == type)
 					return true;
 			}
 
@@ -33,13 +30,9 @@ namespace Server.Engines.BulkOrders
 
 	public sealed class RewardItem
 	{
-		private readonly int m_Weight;
-		private readonly ConstructCallback m_Constructor;
-		private readonly int m_Type;
-
-		public int Weight => m_Weight;
-		public ConstructCallback Constructor => m_Constructor;
-		public int Type => m_Type;
+		public int Weight { get; }
+		public ConstructCallback Constructor { get; }
+		public int Type { get; }
 
 		public RewardItem(int weight, ConstructCallback constructor) : this(weight, constructor, 0)
 		{
@@ -47,49 +40,46 @@ namespace Server.Engines.BulkOrders
 
 		public RewardItem(int weight, ConstructCallback constructor, int type)
 		{
-			m_Weight = weight;
-			m_Constructor = constructor;
-			m_Type = type;
+			Weight = weight;
+			Constructor = constructor;
+			Type = type;
 		}
 
 		public Item Construct()
 		{
-			try { return m_Constructor(m_Type); }
+			try { return Constructor(Type); }
 			catch { return null; }
 		}
 	}
 
 	public sealed class RewardGroup
 	{
-		private readonly int m_Points;
-		private readonly RewardItem[] m_Items;
-
-		public int Points => m_Points;
-		public RewardItem[] Items => m_Items;
+		public int Points { get; }
+		public RewardItem[] Items { get; }
 
 		public RewardGroup(int points, params RewardItem[] items)
 		{
-			m_Points = points;
-			m_Items = items;
+			Points = points;
+			Items = items;
 		}
 
 		public RewardItem AcquireItem()
 		{
-			if (m_Items.Length == 0)
+			if (Items.Length == 0)
 				return null;
-			else if (m_Items.Length == 1)
-				return m_Items[0];
+			else if (Items.Length == 1)
+				return Items[0];
 
 			int totalWeight = 0;
 
-			for (int i = 0; i < m_Items.Length; ++i)
-				totalWeight += m_Items[i].Weight;
+			for (int i = 0; i < Items.Length; ++i)
+				totalWeight += Items[i].Weight;
 
 			int randomWeight = Utility.Random(totalWeight);
 
-			for (int i = 0; i < m_Items.Length; ++i)
+			for (int i = 0; i < Items.Length; ++i)
 			{
-				RewardItem item = m_Items[i];
+				RewardItem item = Items[i];
 
 				if (randomWeight < item.Weight)
 					return item;
@@ -103,9 +93,7 @@ namespace Server.Engines.BulkOrders
 
 	public abstract class RewardCalculator
 	{
-		private RewardGroup[] m_Groups;
-
-		public RewardGroup[] Groups { get => m_Groups; set => m_Groups = value; }
+		public RewardGroup[] Groups { get; set; }
 
 		public abstract int ComputePoints(int quantity, bool exceptional, BulkMaterialType material, int itemCount, Type type);
 		public abstract int ComputeGold(int quantity, bool exceptional, BulkMaterialType material, int itemCount, Type type);
@@ -146,15 +134,15 @@ namespace Server.Engines.BulkOrders
 
 		public virtual RewardGroup LookupRewards(int points)
 		{
-			for (int i = m_Groups.Length - 1; i >= 1; --i)
+			for (int i = Groups.Length - 1; i >= 1; --i)
 			{
-				RewardGroup group = m_Groups[i];
+				RewardGroup group = Groups[i];
 
 				if (points >= group.Points)
 					return group;
 			}
 
-			return m_Groups[0];
+			return Groups[0];
 		}
 
 		public virtual int LookupTypePoints(RewardType[] types, Type type)
@@ -176,16 +164,16 @@ namespace Server.Engines.BulkOrders
 	public sealed class SmithRewardCalculator : RewardCalculator
 	{
 		#region Constructors
-		private static readonly ConstructCallback SturdyShovel = new ConstructCallback(CreateSturdyShovel);
-		private static readonly ConstructCallback SturdyPickaxe = new ConstructCallback(CreateSturdyPickaxe);
-		private static readonly ConstructCallback MiningGloves = new ConstructCallback(CreateMiningGloves);
-		private static readonly ConstructCallback GargoylesPickaxe = new ConstructCallback(CreateGargoylesPickaxe);
-		private static readonly ConstructCallback ProspectorsTool = new ConstructCallback(CreateProspectorsTool);
-		private static readonly ConstructCallback PowderOfTemperament = new ConstructCallback(CreatePowderOfTemperament);
-		private static readonly ConstructCallback RunicHammer = new ConstructCallback(CreateRunicHammer);
-		private static readonly ConstructCallback PowerScroll = new ConstructCallback(CreatePowerScroll);
-		private static readonly ConstructCallback ColoredAnvil = new ConstructCallback(CreateColoredAnvil);
-		private static readonly ConstructCallback AncientHammer = new ConstructCallback(CreateAncientHammer);
+		private static readonly ConstructCallback SturdyShovel = new(CreateSturdyShovel);
+		private static readonly ConstructCallback SturdyPickaxe = new(CreateSturdyPickaxe);
+		private static readonly ConstructCallback MiningGloves = new(CreateMiningGloves);
+		private static readonly ConstructCallback GargoylesPickaxe = new(CreateGargoylesPickaxe);
+		private static readonly ConstructCallback ProspectorsTool = new(CreateProspectorsTool);
+		private static readonly ConstructCallback PowderOfTemperament = new(CreatePowderOfTemperament);
+		private static readonly ConstructCallback RunicHammer = new(CreateRunicHammer);
+		private static readonly ConstructCallback PowerScroll = new(CreatePowerScroll);
+		private static readonly ConstructCallback ColoredAnvil = new(CreateColoredAnvil);
+		private static readonly ConstructCallback AncientHammer = new(CreateAncientHammer);
 
 		private static Item CreateSturdyShovel(int type)
 		{
@@ -257,7 +245,7 @@ namespace Server.Engines.BulkOrders
 		}
 		#endregion
 
-		public static readonly SmithRewardCalculator Instance = new SmithRewardCalculator();
+		public static readonly SmithRewardCalculator Instance = new();
 
 		private readonly RewardType[] m_Types = new RewardType[]
 			{
@@ -460,14 +448,14 @@ namespace Server.Engines.BulkOrders
 	public sealed class TailorRewardCalculator : RewardCalculator
 	{
 		#region Constructors
-		private static readonly ConstructCallback Cloth = new ConstructCallback(CreateCloth);
-		private static readonly ConstructCallback Sandals = new ConstructCallback(CreateSandals);
-		private static readonly ConstructCallback StretchedHide = new ConstructCallback(CreateStretchedHide);
-		private static readonly ConstructCallback RunicKit = new ConstructCallback(CreateRunicKit);
-		private static readonly ConstructCallback Tapestry = new ConstructCallback(CreateTapestry);
-		private static readonly ConstructCallback PowerScroll = new ConstructCallback(CreatePowerScroll);
-		private static readonly ConstructCallback BearRug = new ConstructCallback(CreateBearRug);
-		private static readonly ConstructCallback ClothingBlessDeed = new ConstructCallback(CreateCBD);
+		private static readonly ConstructCallback Cloth = new(CreateCloth);
+		private static readonly ConstructCallback Sandals = new(CreateSandals);
+		private static readonly ConstructCallback StretchedHide = new(CreateStretchedHide);
+		private static readonly ConstructCallback RunicKit = new(CreateRunicKit);
+		private static readonly ConstructCallback Tapestry = new(CreateTapestry);
+		private static readonly ConstructCallback PowerScroll = new(CreatePowerScroll);
+		private static readonly ConstructCallback BearRug = new(CreateBearRug);
+		private static readonly ConstructCallback ClothingBlessDeed = new(CreateCBD);
 
 		private static readonly int[][] m_ClothHues = new int[][]
 			{
@@ -482,7 +470,7 @@ namespace Server.Engines.BulkOrders
 		{
 			if (type >= 0 && type < m_ClothHues.Length)
 			{
-				UncutCloth cloth = new UncutCloth(100)
+				UncutCloth cloth = new(100)
 				{
 					Hue = m_ClothHues[type][Utility.Random(m_ClothHues[type].Length)]
 				};
@@ -562,7 +550,7 @@ namespace Server.Engines.BulkOrders
 		}
 		#endregion
 
-		public static readonly TailorRewardCalculator Instance = new TailorRewardCalculator();
+		public static readonly TailorRewardCalculator Instance = new();
 
 		public override int ComputePoints(int quantity, bool exceptional, BulkMaterialType material, int itemCount, Type type)
 		{

@@ -77,32 +77,30 @@ namespace Server.Items
 		{
 			string filePath = Path.Combine(Core.BaseDirectory, "Data/treasure.cfg");
 
-			List<Point2D> list = new List<Point2D>();
-			List<Point2D> havenList = new List<Point2D>();
+			List<Point2D> list = new();
+			List<Point2D> havenList = new();
 
 			if (File.Exists(filePath))
 			{
-				using (StreamReader ip = new StreamReader(filePath))
+				using StreamReader ip = new(filePath);
+				string line;
+
+				while ((line = ip.ReadLine()) != null)
 				{
-					string line;
-
-					while ((line = ip.ReadLine()) != null)
+					try
 					{
-						try
-						{
-							string[] split = line.Split(' ');
+						string[] split = line.Split(' ');
 
-							int x = Convert.ToInt32(split[0]), y = Convert.ToInt32(split[1]);
+						int x = Convert.ToInt32(split[0]), y = Convert.ToInt32(split[1]);
 
-							Point2D loc = new Point2D(x, y);
-							list.Add(loc);
+						Point2D loc = new(x, y);
+						list.Add(loc);
 
-							if (IsInHavenIsland(loc))
-								havenList.Add(loc);
-						}
-						catch
-						{
-						}
+						if (IsInHavenIsland(loc))
+							havenList.Add(loc);
+					}
+					catch
+					{
 					}
 				}
 			}
@@ -341,8 +339,8 @@ namespace Server.Items
 					IPoint3D p = targeted as IPoint3D;
 
 					Point3D targ3D;
-					if (p is Item)
-						targ3D = ((Item)p).GetWorldLocation();
+					if (p is Item item)
+						targ3D = item.GetWorldLocation();
 					else
 						targ3D = new Point3D(p);
 
@@ -361,7 +359,7 @@ namespace Server.Items
 					Point2D loc = m_Map.m_Location;
 					int x = loc.X, y = loc.Y;
 
-					Point3D chest3D0 = new Point3D(loc, 0);
+					Point3D chest3D0 = new(loc, 0);
 
 					if (Utility.InRange(targ3D, chest3D0, maxRange))
 					{
@@ -407,20 +405,17 @@ namespace Server.Items
 						else
 						{
 							Direction dir = Utility.GetDirection(targ3D, chest3D0);
-
-							string sDir;
-							switch (dir)
+							string sDir = dir switch
 							{
-								case Direction.North: sDir = "north"; break;
-								case Direction.Right: sDir = "northeast"; break;
-								case Direction.East: sDir = "east"; break;
-								case Direction.Down: sDir = "southeast"; break;
-								case Direction.South: sDir = "south"; break;
-								case Direction.Left: sDir = "southwest"; break;
-								case Direction.West: sDir = "west"; break;
-								default: sDir = "northwest"; break;
-							}
-
+								Direction.North => "north",
+								Direction.Right => "northeast",
+								Direction.East => "east",
+								Direction.Down => "southeast",
+								Direction.South => "south",
+								Direction.Left => "southwest",
+								Direction.West => "west",
+								_ => "northwest",
+							};
 							from.SendAsciiMessage(0x44, "Try looking for the treasure chest more to the {0}.", sDir);
 						}
 					}
@@ -554,15 +549,12 @@ namespace Server.Items
 					m_Chest.Temporary = false;
 					m_TreasureMap.Completed = true;
 					m_TreasureMap.CompletedBy = m_From;
-
-					int spawns;
-					switch (m_TreasureMap.Level)
+					int spawns = m_TreasureMap.Level switch
 					{
-						case 0: spawns = 3; break;
-						case 1: spawns = 0; break;
-						default: spawns = 4; break;
-					}
-
+						0 => 3,
+						1 => 0,
+						_ => 4,
+					};
 					for (int i = 0; i < spawns; ++i)
 					{
 						BaseCreature bc = Spawn(m_TreasureMap.Level, m_Chest.Location, m_Chest.Map, null, true);
@@ -619,7 +611,7 @@ namespace Server.Items
 			if (from.AccessLevel >= AccessLevel.GameMaster)
 				return true;
 
-			if (from is PlayerMobile && ((PlayerMobile)from).Young)
+			if (from is PlayerMobile mobile && mobile.Young)
 				return true;
 
 			if (from == Decoder)
@@ -634,17 +626,16 @@ namespace Server.Items
 
 		private double GetMinSkillLevel()
 		{
-			switch (m_Level)
+			return m_Level switch
 			{
-				case 1: return -3.0;
-				case 2: return 41.0;
-				case 3: return 51.0;
-				case 4: return 61.0;
-				case 5: return 70.0;
-				case 6: return 70.0;
-
-				default: return 0.0;
-			}
+				1 => -3.0,
+				2 => 41.0,
+				3 => 51.0,
+				4 => 61.0,
+				5 => 70.0,
+				6 => 70.0,
+				_ => 0.0,
+			};
 		}
 
 		private bool HasRequiredSkill(Mobile from)

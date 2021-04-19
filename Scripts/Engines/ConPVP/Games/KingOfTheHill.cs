@@ -11,18 +11,16 @@ namespace Server.Engines.ConPVP
 {
 	public class HillOfTheKing : BaseItem
 	{
-		private int m_ScoreInterval;
 		private KHGame m_Game;
-		private Mobile m_King;
 		private KingTimer m_KingTimer;
 
 		[Constructable]
 		public HillOfTheKing()
 			: base(0x520)
 		{
-			m_ScoreInterval = 10;
+			ScoreInterval = 10;
 			m_Game = null;
-			m_King = null;
+			King = null;
 			Movable = false;
 
 			Name = "the hill";
@@ -43,7 +41,7 @@ namespace Server.Engines.ConPVP
 			{
 				case 0:
 					{
-						m_ScoreInterval = reader.ReadEncodedInt();
+						ScoreInterval = reader.ReadEncodedInt();
 						break;
 					}
 			}
@@ -55,10 +53,10 @@ namespace Server.Engines.ConPVP
 
 			writer.Write(0); // version
 
-			writer.WriteEncodedInt(m_ScoreInterval);
+			writer.WriteEncodedInt(ScoreInterval);
 		}
 
-		public Mobile King => m_King;
+		public Mobile King { get; private set; }
 
 		public KHGame Game
 		{
@@ -70,13 +68,13 @@ namespace Server.Engines.ConPVP
 					if (m_KingTimer != null)
 						m_KingTimer.Stop();
 					m_Game = value;
-					m_King = null;
+					King = null;
 				}
 			}
 		}
 
 		[CommandProperty(AccessLevel.GameMaster)]
-		public int ScoreInterval { get => m_ScoreInterval; set => m_ScoreInterval = value; }
+		public int ScoreInterval { get; set; }
 
 		public int CapturesSoFar
 		{
@@ -100,7 +98,7 @@ namespace Server.Engines.ConPVP
 				return false;
 
 			// Not current king (or they are the current king)
-			if (m_King != null && m_King != m)
+			if (King != null && King != m)
 				return false;
 
 			// They are on a team
@@ -137,7 +135,7 @@ namespace Server.Engines.ConPVP
 		{
 			if (base.OnMoveOff(m))
 			{
-				if (m_King == m)
+				if (King == m)
 					DeKingify();
 
 				return true;
@@ -172,7 +170,7 @@ namespace Server.Engines.ConPVP
 			if (m_KingTimer != null)
 				m_KingTimer.Stop();
 
-			m_King = null;
+			King = null;
 		}
 
 		private void ReKingify(Mobile m)
@@ -185,30 +183,29 @@ namespace Server.Engines.ConPVP
 			if (ti == null)
 				return;
 
-			m_King = m;
+			King = m;
 
 			if (m_KingTimer == null)
 				m_KingTimer = new KingTimer(this);
 			m_KingTimer.Stop();
 			m_KingTimer.StartHillTicker();
 
-			if (m_King.Name != null)
-				PublicOverheadMessage(MessageType.Regular, 0x0481, false, string.Format("Taken by {0}!", m_King.Name));
+			if (King.Name != null)
+				PublicOverheadMessage(MessageType.Regular, 0x0481, false, string.Format("Taken by {0}!", King.Name));
 		}
 
 		private class KingTimer : Timer
 		{
 			private readonly HillOfTheKing m_Hill;
-			private int m_Total;
 			private int m_Counter;
 
-			public int Captures => m_Total;
+			public int Captures { get; private set; }
 
 			public KingTimer(HillOfTheKing hill)
 				: base(TimeSpan.FromSeconds(1.0), TimeSpan.FromSeconds(1.0))
 			{
 				m_Hill = hill;
-				m_Total = 0;
+				Captures = 0;
 				m_Counter = 0;
 
 				Priority = TimerPriority.FiftyMS;
@@ -216,7 +213,7 @@ namespace Server.Engines.ConPVP
 
 			public void StartHillTicker()
 			{
-				m_Total = 0;
+				Captures = 0;
 				m_Counter = 0;
 
 				Start();
@@ -271,7 +268,7 @@ namespace Server.Engines.ConPVP
 					m_Hill.PublicOverheadMessage(MessageType.Regular, 0x0481, false, "Capture!");
 
 					pi.Captures++;
-					m_Total++;
+					Captures++;
 
 					pi.Score += m_Counter;
 
@@ -506,9 +503,6 @@ namespace Server.Engines.ConPVP
 	public sealed class KHPlayerInfo : IRankedCTF, IComparable
 	{
 		private readonly KHTeamInfo m_TeamInfo;
-
-		private readonly Mobile m_Player;
-
 		private int m_Kills;
 		private int m_Captures;
 		private int m_Score;
@@ -516,10 +510,10 @@ namespace Server.Engines.ConPVP
 		public KHPlayerInfo(KHTeamInfo teamInfo, Mobile player)
 		{
 			m_TeamInfo = teamInfo;
-			m_Player = player;
+			Player = player;
 		}
 
-		public Mobile Player => m_Player;
+		public Mobile Player { get; }
 
 		public int CompareTo(object obj)
 		{
@@ -539,9 +533,9 @@ namespace Server.Engines.ConPVP
 		{
 			get
 			{
-				if (m_Player == null || m_Player.Name == null)
+				if (Player == null || Player.Name == null)
 					return "";
-				return m_Player.Name;
+				return Player.Name;
 			}
 		}
 
@@ -582,19 +576,6 @@ namespace Server.Engines.ConPVP
 	[PropertyObject]
 	public sealed class KHTeamInfo : IRankedCTF, IComparable
 	{
-		private KHGame m_Game;
-		private readonly int m_TeamID;
-
-		private int m_Color;
-		private string m_Name;
-
-		private int m_Kills;
-		private int m_Captures;
-
-		private int m_Score;
-
-		private readonly Hashtable m_Players;
-
 		public int CompareTo(object obj)
 		{
 			KHTeamInfo ti = (KHTeamInfo)obj;
@@ -613,28 +594,22 @@ namespace Server.Engines.ConPVP
 		{
 			get
 			{
-				if (m_Name == null)
+				if (TeamName == null)
 					return "(null) Team";
-				return string.Format("{0} Team", m_Name);
+				return string.Format("{0} Team", TeamName);
 			}
 		}
 
-		public KHGame Game { get => m_Game; set => m_Game = value; }
-		public int TeamID => m_TeamID;
+		public KHGame Game { get; set; }
+		public int TeamID { get; }
 
-		public int Kills { get => m_Kills; set => m_Kills = value; }
-		public int Captures { get => m_Captures; set => m_Captures = value; }
-		public int Score { get => m_Score; set => m_Score = value; }
+		public int Kills { get; set; }
+		public int Captures { get; set; }
+		public int Score { get; set; }
 
-		private KHPlayerInfo m_Leader;
+		public KHPlayerInfo Leader { get; set; }
 
-		public KHPlayerInfo Leader
-		{
-			get => m_Leader;
-			set => m_Leader = value;
-		}
-
-		public Hashtable Players => m_Players;
+		public Hashtable Players { get; }
 
 		public KHPlayerInfo this[Mobile mob]
 		{
@@ -643,50 +618,42 @@ namespace Server.Engines.ConPVP
 				if (mob == null)
 					return null;
 
-				KHPlayerInfo val = m_Players[mob] as KHPlayerInfo;
+				KHPlayerInfo val = Players[mob] as KHPlayerInfo;
 
 				if (val == null)
-					m_Players[mob] = val = new KHPlayerInfo(this, mob);
+					Players[mob] = val = new KHPlayerInfo(this, mob);
 
 				return val;
 			}
 		}
 
 		[CommandProperty(AccessLevel.GameMaster)]
-		public int Color
-		{
-			get => m_Color;
-			set => m_Color = value;
-		}
+		public int Color { get; set; }
 
 		[CommandProperty(AccessLevel.GameMaster)]
-		public string TeamName
-		{
-			get => m_Name;
-			set => m_Name = value;
-		}
+		public string TeamName { get; set; }
 
 		public KHTeamInfo(int teamID)
 		{
-			m_TeamID = teamID;
-			m_Players = new Hashtable();
+			TeamID = teamID;
+			Players = new Hashtable();
 		}
 
 		public void Reset()
 		{
-			m_Kills = 0;
-			m_Captures = 0;
-			m_Score = 0;
+			Kills = 0;
+			Captures = 0;
+			Score = 0;
 
-			m_Leader = null;
+			Leader = null;
 
-			m_Players.Clear();
+			Players.Clear();
 		}
 
 		public KHTeamInfo(int teamID, GenericReader ip)
 		{
-			m_TeamID = teamID;
-			m_Players = new Hashtable();
+			TeamID = teamID;
+			Players = new Hashtable();
 
 			int version = ip.ReadEncodedInt();
 
@@ -694,8 +661,8 @@ namespace Server.Engines.ConPVP
 			{
 				case 0:
 					{
-						m_Name = ip.ReadString();
-						m_Color = ip.ReadEncodedInt();
+						TeamName = ip.ReadString();
+						Color = ip.ReadEncodedInt();
 						break;
 					}
 			}
@@ -705,13 +672,13 @@ namespace Server.Engines.ConPVP
 		{
 			op.WriteEncodedInt(0); // version
 
-			op.Write(m_Name);
-			op.WriteEncodedInt(m_Color);
+			op.Write(TeamName);
+			op.WriteEncodedInt(Color);
 		}
 
 		public override string ToString()
 		{
-			if (m_Name != null)
+			if (TeamName != null)
 				return string.Format("({0}) ...", Name);
 			else
 				return "...";
@@ -720,66 +687,58 @@ namespace Server.Engines.ConPVP
 
 	public sealed class KHController : EventController
 	{
-		private KHTeamInfo[] m_TeamInfo;
-		private HillOfTheKing[] m_Hills;
-		private ArrayList m_Boards;
-		private TimeSpan m_Duration;
 		private int m_ScoreInterval;
 
-		public KHTeamInfo[] TeamInfo => m_TeamInfo;
+		public KHTeamInfo[] TeamInfo { get; private set; }
 
 		[CommandProperty(AccessLevel.GameMaster)]
-		public KHTeamInfo Team1_W { get => m_TeamInfo[0]; set { } }
+		public KHTeamInfo Team1_W { get => TeamInfo[0]; set { } }
 
 		[CommandProperty(AccessLevel.GameMaster)]
-		public KHTeamInfo Team2_E { get => m_TeamInfo[1]; set { } }
+		public KHTeamInfo Team2_E { get => TeamInfo[1]; set { } }
 
 		[CommandProperty(AccessLevel.GameMaster)]
-		public KHTeamInfo Team3_N { get => m_TeamInfo[2]; set { } }
+		public KHTeamInfo Team3_N { get => TeamInfo[2]; set { } }
 
 		[CommandProperty(AccessLevel.GameMaster)]
-		public KHTeamInfo Team4_S { get => m_TeamInfo[3]; set { } }
+		public KHTeamInfo Team4_S { get => TeamInfo[3]; set { } }
 
 		[CommandProperty(AccessLevel.GameMaster)]
-		public KHTeamInfo Team5_NW { get => m_TeamInfo[4]; set { } }
+		public KHTeamInfo Team5_NW { get => TeamInfo[4]; set { } }
 
 		[CommandProperty(AccessLevel.GameMaster)]
-		public KHTeamInfo Team6_SE { get => m_TeamInfo[5]; set { } }
+		public KHTeamInfo Team6_SE { get => TeamInfo[5]; set { } }
 
 		[CommandProperty(AccessLevel.GameMaster)]
-		public KHTeamInfo Team7_SW { get => m_TeamInfo[6]; set { } }
+		public KHTeamInfo Team7_SW { get => TeamInfo[6]; set { } }
 
 		[CommandProperty(AccessLevel.GameMaster)]
-		public KHTeamInfo Team8_NE { get => m_TeamInfo[7]; set { } }
+		public KHTeamInfo Team8_NE { get => TeamInfo[7]; set { } }
 
-		public HillOfTheKing[] Hills => m_Hills;
-
-		[CommandProperty(AccessLevel.GameMaster)]
-		public HillOfTheKing Hill1 { get => m_Hills[0]; set => m_Hills[0] = value; }
+		public HillOfTheKing[] Hills { get; private set; }
 
 		[CommandProperty(AccessLevel.GameMaster)]
-		public HillOfTheKing Hill2 { get => m_Hills[1]; set => m_Hills[1] = value; }
+		public HillOfTheKing Hill1 { get => Hills[0]; set => Hills[0] = value; }
 
 		[CommandProperty(AccessLevel.GameMaster)]
-		public HillOfTheKing Hill3 { get => m_Hills[2]; set => m_Hills[2] = value; }
+		public HillOfTheKing Hill2 { get => Hills[1]; set => Hills[1] = value; }
 
 		[CommandProperty(AccessLevel.GameMaster)]
-		public HillOfTheKing Hill4 { get => m_Hills[3]; set => m_Hills[3] = value; }
-
-		public ArrayList Boards => m_Boards;
+		public HillOfTheKing Hill3 { get => Hills[2]; set => Hills[2] = value; }
 
 		[CommandProperty(AccessLevel.GameMaster)]
-		public TimeSpan Duration
-		{
-			get => m_Duration;
-			set => m_Duration = value;
-		}
+		public HillOfTheKing Hill4 { get => Hills[3]; set => Hills[3] = value; }
+
+		public ArrayList Boards { get; private set; }
+
+		[CommandProperty(AccessLevel.GameMaster)]
+		public TimeSpan Duration { get; set; }
 
 		public override string Title => "King of the Hill";
 
 		public override string GetTeamName(int teamID)
 		{
-			return m_TeamInfo[teamID % m_TeamInfo.Length].Name;
+			return TeamInfo[teamID % TeamInfo.Length].Name;
 		}
 
 		public override EventGame Construct(DuelContext context)
@@ -791,7 +750,7 @@ namespace Server.Engines.ConPVP
 		{
 			if (b != null)
 			{
-				m_Boards.Remove(b);
+				Boards.Remove(b);
 				b.m_Game = null;
 			}
 		}
@@ -799,7 +758,7 @@ namespace Server.Engines.ConPVP
 		public void AddBoard(KHBoard b)
 		{
 			if (b != null)
-				m_Boards.Add(b);
+				Boards.Add(b);
 		}
 
 		[Constructable]
@@ -810,13 +769,13 @@ namespace Server.Engines.ConPVP
 
 			Name = "King of the Hill Controller";
 
-			m_Duration = TimeSpan.FromMinutes(30.0);
-			m_Boards = new ArrayList();
-			m_Hills = new HillOfTheKing[4];
-			m_TeamInfo = new KHTeamInfo[8];
+			Duration = TimeSpan.FromMinutes(30.0);
+			Boards = new ArrayList();
+			Hills = new HillOfTheKing[4];
+			TeamInfo = new KHTeamInfo[8];
 
-			for (int i = 0; i < m_TeamInfo.Length; ++i)
-				m_TeamInfo[i] = new KHTeamInfo(i);
+			for (int i = 0; i < TeamInfo.Length; ++i)
+				TeamInfo[i] = new KHTeamInfo(i);
 		}
 
 		public KHController(Serial serial)
@@ -831,17 +790,17 @@ namespace Server.Engines.ConPVP
 			writer.Write(0);
 
 			writer.WriteEncodedInt(m_ScoreInterval);
-			writer.Write(m_Duration);
+			writer.Write(Duration);
 
-			writer.WriteItemList(m_Boards, true);
+			writer.WriteItemList(Boards, true);
 
-			writer.WriteEncodedInt(m_Hills.Length);
-			for (int i = 0; i < m_Hills.Length; ++i)
-				writer.Write(m_Hills[i]);
+			writer.WriteEncodedInt(Hills.Length);
+			for (int i = 0; i < Hills.Length; ++i)
+				writer.Write(Hills[i]);
 
-			writer.WriteEncodedInt(m_TeamInfo.Length);
-			for (int i = 0; i < m_TeamInfo.Length; ++i)
-				m_TeamInfo[i].Serialize(writer);
+			writer.WriteEncodedInt(TeamInfo.Length);
+			for (int i = 0; i < TeamInfo.Length; ++i)
+				TeamInfo[i].Serialize(writer);
 		}
 
 		public override void Deserialize(GenericReader reader)
@@ -856,17 +815,17 @@ namespace Server.Engines.ConPVP
 					{
 						m_ScoreInterval = reader.ReadEncodedInt();
 
-						m_Duration = reader.ReadTimeSpan();
+						Duration = reader.ReadTimeSpan();
 
-						m_Boards = reader.ReadItemList();
+						Boards = reader.ReadItemList();
 
-						m_Hills = new HillOfTheKing[reader.ReadEncodedInt()];
-						for (int i = 0; i < m_Hills.Length; ++i)
-							m_Hills[i] = reader.ReadItem() as HillOfTheKing;
+						Hills = new HillOfTheKing[reader.ReadEncodedInt()];
+						for (int i = 0; i < Hills.Length; ++i)
+							Hills[i] = reader.ReadItem() as HillOfTheKing;
 
-						m_TeamInfo = new KHTeamInfo[reader.ReadEncodedInt()];
-						for (int i = 0; i < m_TeamInfo.Length; ++i)
-							m_TeamInfo[i] = new KHTeamInfo(i, reader);
+						TeamInfo = new KHTeamInfo[reader.ReadEncodedInt()];
+						for (int i = 0; i < TeamInfo.Length; ++i)
+							TeamInfo[i] = new KHTeamInfo(i, reader);
 
 						break;
 					}
@@ -876,17 +835,15 @@ namespace Server.Engines.ConPVP
 
 	public sealed class KHGame : EventGame
 	{
-		private readonly KHController m_Controller;
-
-		public KHController Controller => m_Controller;
+		public KHController Controller { get; }
 
 		public override bool CantDoAnything(Mobile mob)
 		{
-			if (mob != null && GetTeamInfo(mob) != null && m_Controller != null)
+			if (mob != null && GetTeamInfo(mob) != null && Controller != null)
 			{
-				for (int i = 0; i < m_Controller.Hills.Length; i++)
+				for (int i = 0; i < Controller.Hills.Length; i++)
 				{
-					if (m_Controller.Hills[i] != null && m_Controller.Hills[i].King == mob)
+					if (Controller.Hills[i] != null && Controller.Hills[i].King == mob)
 						return true;
 				}
 			}
@@ -919,7 +876,7 @@ namespace Server.Engines.ConPVP
 		public KHGame(KHController controller, DuelContext context)
 			: base(context)
 		{
-			m_Controller = controller;
+			Controller = controller;
 		}
 
 		public Map Facet
@@ -929,7 +886,7 @@ namespace Server.Engines.ConPVP
 				if (m_Context != null && m_Context.Arena != null)
 					return m_Context.Arena.Facet;
 
-				return m_Controller.Map;
+				return Controller.Map;
 			}
 		}
 
@@ -938,7 +895,7 @@ namespace Server.Engines.ConPVP
 			int teamID = GetTeamID(mob);
 
 			if (teamID >= 0)
-				return m_Controller.TeamInfo[teamID % m_Controller.TeamInfo.Length];
+				return Controller.TeamInfo[teamID % Controller.TeamInfo.Length];
 
 			return null;
 		}
@@ -1025,18 +982,18 @@ namespace Server.Engines.ConPVP
 			if (killer != null && killer.Player)
 				teamInfo = GetTeamInfo(killer);
 
-			for (int i = 0; i < m_Controller.Hills.Length; i++)
+			for (int i = 0; i < Controller.Hills.Length; i++)
 			{
-				if (m_Controller.Hills[i] == null)
+				if (Controller.Hills[i] == null)
 					continue;
 
-				if (m_Controller.Hills[i].King == mob)
+				if (Controller.Hills[i].King == mob)
 				{
-					bonus += m_Controller.Hills[i].CapturesSoFar;
-					m_Controller.Hills[i].OnKingDied(mob, victInfo, killer, teamInfo);
+					bonus += Controller.Hills[i].CapturesSoFar;
+					Controller.Hills[i].OnKingDied(mob, victInfo, killer, teamInfo);
 				}
 
-				if (m_Controller.Hills[i].King == killer)
+				if (Controller.Hills[i].King == killer)
 					bonus += 2;
 			}
 
@@ -1064,33 +1021,33 @@ namespace Server.Engines.ConPVP
 
 		public override void OnStart()
 		{
-			for (int i = 0; i < m_Controller.TeamInfo.Length; ++i)
+			for (int i = 0; i < Controller.TeamInfo.Length; ++i)
 			{
-				KHTeamInfo teamInfo = m_Controller.TeamInfo[i];
+				KHTeamInfo teamInfo = Controller.TeamInfo[i];
 
 				teamInfo.Game = this;
 				teamInfo.Reset();
 			}
 
 			for (int i = 0; i < m_Context.Participants.Count; ++i)
-				ApplyHues(m_Context.Participants[i] as Participant, m_Controller.TeamInfo[i % m_Controller.TeamInfo.Length].Color);
+				ApplyHues(m_Context.Participants[i] as Participant, Controller.TeamInfo[i % Controller.TeamInfo.Length].Color);
 
 			if (m_FinishTimer != null)
 				m_FinishTimer.Stop();
 
-			for (int i = 0; i < m_Controller.Hills.Length; i++)
+			for (int i = 0; i < Controller.Hills.Length; i++)
 			{
-				if (m_Controller.Hills[i] != null)
-					m_Controller.Hills[i].Game = this;
+				if (Controller.Hills[i] != null)
+					Controller.Hills[i].Game = this;
 			}
 
-			foreach (KHBoard board in m_Controller.Boards)
+			foreach (KHBoard board in Controller.Boards)
 			{
 				if (board != null && !board.Deleted)
 					board.m_Game = this;
 			}
 
-			m_FinishTimer = Timer.DelayCall(m_Controller.Duration, new TimerCallback(Finish_Callback));
+			m_FinishTimer = Timer.DelayCall(Controller.Duration, new TimerCallback(Finish_Callback));
 		}
 
 		private void Finish_Callback()
@@ -1099,7 +1056,7 @@ namespace Server.Engines.ConPVP
 
 			for (int i = 0; i < m_Context.Participants.Count; ++i)
 			{
-				KHTeamInfo teamInfo = m_Controller.TeamInfo[i % m_Controller.TeamInfo.Length];
+				KHTeamInfo teamInfo = Controller.TeamInfo[i % Controller.TeamInfo.Length];
 
 				if (teamInfo == null)
 					continue;
@@ -1138,8 +1095,8 @@ namespace Server.Engines.ConPVP
 				}
 			}
 
-			if (m_Controller != null)
-				sb.Append(' ').Append(m_Controller.Title);
+			if (Controller != null)
+				sb.Append(' ').Append(Controller.Title);
 
 			string title = sb.ToString();
 
@@ -1253,16 +1210,16 @@ namespace Server.Engines.ConPVP
 
 		public override void OnStop()
 		{
-			for (int i = 0; i < m_Controller.TeamInfo.Length; ++i)
-				m_Controller.TeamInfo[i].Game = null;
+			for (int i = 0; i < Controller.TeamInfo.Length; ++i)
+				Controller.TeamInfo[i].Game = null;
 
-			for (int i = 0; i < m_Controller.Hills.Length; ++i)
+			for (int i = 0; i < Controller.Hills.Length; ++i)
 			{
-				if (m_Controller.Hills[i] != null)
-					m_Controller.Hills[i].Game = null;
+				if (Controller.Hills[i] != null)
+					Controller.Hills[i].Game = null;
 			}
 
-			foreach (KHBoard board in m_Controller.Boards)
+			foreach (KHBoard board in Controller.Boards)
 			{
 				if (board != null)
 					board.m_Game = null;

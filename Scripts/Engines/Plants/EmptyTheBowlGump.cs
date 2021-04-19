@@ -83,7 +83,7 @@ namespace Server.Engines.Plants
 					}
 				case 3: // Ok
 					{
-						PlantBowl bowl = new PlantBowl();
+						PlantBowl bowl = new();
 
 						if (!from.PlaceInBackpack(bowl))
 						{
@@ -97,7 +97,7 @@ namespace Server.Engines.Plants
 
 						if (m_Plant.PlantStatus != PlantStatus.BowlOfDirt && m_Plant.PlantStatus < PlantStatus.Plant)
 						{
-							Seed seed = new Seed(m_Plant.PlantType, m_Plant.PlantHue, m_Plant.ShowType);
+							Seed seed = new(m_Plant.PlantType, m_Plant.PlantHue, m_Plant.ShowType);
 
 							if (!from.PlaceInBackpack(seed))
 							{

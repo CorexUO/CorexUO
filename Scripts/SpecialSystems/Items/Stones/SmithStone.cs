@@ -13,7 +13,7 @@ namespace Server.Items
 
 		public override void OnDoubleClick(Mobile from)
 		{
-			SmithBag SmithBag = new SmithBag(5000);
+			SmithBag SmithBag = new(5000);
 
 			if (!from.AddToBackpack(SmithBag))
 				SmithBag.Delete();

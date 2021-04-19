@@ -2,97 +2,66 @@ namespace Server.Factions
 {
 	public class FactionDefinition
 	{
-		private readonly int m_Sort;
+		public int Sort { get; }
 
-		private readonly int m_HuePrimary;
-		private readonly int m_HueSecondary;
-		private readonly int m_HueJoin;
-		private readonly int m_HueBroadcast;
+		public int HuePrimary { get; }
+		public int HueSecondary { get; }
+		public int HueJoin { get; }
+		public int HueBroadcast { get; }
 
-		private readonly int m_WarHorseBody;
-		private readonly int m_WarHorseItem;
+		public int WarHorseBody { get; }
+		public int WarHorseItem { get; }
 
-		private readonly string m_FriendlyName;
-		private readonly string m_Keyword;
-		private readonly string m_Abbreviation;
+		public string FriendlyName { get; }
+		public string Keyword { get; }
+		public string Abbreviation { get; }
 
-		private readonly TextDefinition m_Name;
-		private readonly TextDefinition m_PropName;
-		private readonly TextDefinition m_Header;
-		private readonly TextDefinition m_About;
-		private readonly TextDefinition m_CityControl;
-		private readonly TextDefinition m_SigilControl;
-		private readonly TextDefinition m_SignupName;
-		private readonly TextDefinition m_FactionStoneName;
-		private readonly TextDefinition m_OwnerLabel;
+		public TextDefinition Name { get; }
+		public TextDefinition PropName { get; }
+		public TextDefinition Header { get; }
+		public TextDefinition About { get; }
+		public TextDefinition CityControl { get; }
+		public TextDefinition SigilControl { get; }
+		public TextDefinition SignupName { get; }
+		public TextDefinition FactionStoneName { get; }
+		public TextDefinition OwnerLabel { get; }
 
-		private readonly TextDefinition m_GuardIgnore, m_GuardWarn, m_GuardAttack;
+		public TextDefinition GuardIgnore { get; }
+		public TextDefinition GuardWarn { get; }
+		public TextDefinition GuardAttack { get; }
 
-		private readonly StrongholdDefinition m_Stronghold;
+		public StrongholdDefinition Stronghold { get; }
 
-		private readonly RankDefinition[] m_Ranks;
-		private readonly GuardDefinition[] m_Guards;
-
-		public int Sort => m_Sort;
-
-		public int HuePrimary => m_HuePrimary;
-		public int HueSecondary => m_HueSecondary;
-		public int HueJoin => m_HueJoin;
-		public int HueBroadcast => m_HueBroadcast;
-
-		public int WarHorseBody => m_WarHorseBody;
-		public int WarHorseItem => m_WarHorseItem;
-
-		public string FriendlyName => m_FriendlyName;
-		public string Keyword => m_Keyword;
-		public string Abbreviation => m_Abbreviation;
-
-		public TextDefinition Name => m_Name;
-		public TextDefinition PropName => m_PropName;
-		public TextDefinition Header => m_Header;
-		public TextDefinition About => m_About;
-		public TextDefinition CityControl => m_CityControl;
-		public TextDefinition SigilControl => m_SigilControl;
-		public TextDefinition SignupName => m_SignupName;
-		public TextDefinition FactionStoneName => m_FactionStoneName;
-		public TextDefinition OwnerLabel => m_OwnerLabel;
-
-		public TextDefinition GuardIgnore => m_GuardIgnore;
-		public TextDefinition GuardWarn => m_GuardWarn;
-		public TextDefinition GuardAttack => m_GuardAttack;
-
-		public StrongholdDefinition Stronghold => m_Stronghold;
-
-		public RankDefinition[] Ranks => m_Ranks;
-		public GuardDefinition[] Guards => m_Guards;
+		public RankDefinition[] Ranks { get; }
+		public GuardDefinition[] Guards { get; }
 
 		public FactionDefinition(int sort, int huePrimary, int hueSecondary, int hueJoin, int hueBroadcast, int warHorseBody, int warHorseItem, string friendlyName, string keyword, string abbreviation, TextDefinition name, TextDefinition propName, TextDefinition header, TextDefinition about, TextDefinition cityControl, TextDefinition sigilControl, TextDefinition signupName, TextDefinition factionStoneName, TextDefinition ownerLabel, TextDefinition guardIgnore, TextDefinition guardWarn, TextDefinition guardAttack, StrongholdDefinition stronghold, RankDefinition[] ranks, GuardDefinition[] guards)
 		{
-			m_Sort = sort;
-			m_HuePrimary = huePrimary;
-			m_HueSecondary = hueSecondary;
-			m_HueJoin = hueJoin;
-			m_HueBroadcast = hueBroadcast;
-			m_WarHorseBody = warHorseBody;
-			m_WarHorseItem = warHorseItem;
-			m_FriendlyName = friendlyName;
-			m_Keyword = keyword;
-			m_Abbreviation = abbreviation;
-			m_Name = name;
-			m_PropName = propName;
-			m_Header = header;
-			m_About = about;
-			m_CityControl = cityControl;
-			m_SigilControl = sigilControl;
-			m_SignupName = signupName;
-			m_FactionStoneName = factionStoneName;
-			m_OwnerLabel = ownerLabel;
-			m_GuardIgnore = guardIgnore;
-			m_GuardWarn = guardWarn;
-			m_GuardAttack = guardAttack;
-			m_Stronghold = stronghold;
-			m_Ranks = ranks;
-			m_Guards = guards;
+			Sort = sort;
+			HuePrimary = huePrimary;
+			HueSecondary = hueSecondary;
+			HueJoin = hueJoin;
+			HueBroadcast = hueBroadcast;
+			WarHorseBody = warHorseBody;
+			WarHorseItem = warHorseItem;
+			FriendlyName = friendlyName;
+			Keyword = keyword;
+			Abbreviation = abbreviation;
+			Name = name;
+			PropName = propName;
+			Header = header;
+			About = about;
+			CityControl = cityControl;
+			SigilControl = sigilControl;
+			SignupName = signupName;
+			FactionStoneName = factionStoneName;
+			OwnerLabel = ownerLabel;
+			GuardIgnore = guardIgnore;
+			GuardWarn = guardWarn;
+			GuardAttack = guardAttack;
+			Stronghold = stronghold;
+			Ranks = ranks;
+			Guards = guards;
 		}
 	}
 }

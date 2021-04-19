@@ -15,9 +15,9 @@ namespace Server.Misc
 
 		public static void Run()
 		{
-			List<Item> items = new List<Item>();
-			List<Item> validItems = new List<Item>();
-			List<Mobile> hairCleanup = new List<Mobile>();
+			List<Item> items = new();
+			List<Item> validItems = new();
+			List<Mobile> hairCleanup = new();
 
 			int boxes = 0;
 

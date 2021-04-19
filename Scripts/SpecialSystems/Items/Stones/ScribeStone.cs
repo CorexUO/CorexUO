@@ -13,7 +13,7 @@ namespace Server.Items
 
 		public override void OnDoubleClick(Mobile from)
 		{
-			ScribeBag scribeBag = new ScribeBag();
+			ScribeBag scribeBag = new();
 
 			if (!from.AddToBackpack(scribeBag))
 				scribeBag.Delete();

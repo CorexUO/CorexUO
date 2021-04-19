@@ -26,13 +26,9 @@ namespace Server.Factions
 
 	public class ComboEntry
 	{
-		private readonly Type m_Spell;
-		private readonly TimeSpan m_Hold;
-		private readonly int m_Chance;
-
-		public Type Spell => m_Spell;
-		public TimeSpan Hold => m_Hold;
-		public int Chance => m_Chance;
+		public Type Spell { get; }
+		public TimeSpan Hold { get; }
+		public int Chance { get; }
 
 		public ComboEntry(Type spell) : this(spell, 100, TimeSpan.Zero)
 		{
@@ -44,24 +40,21 @@ namespace Server.Factions
 
 		public ComboEntry(Type spell, int chance, TimeSpan hold)
 		{
-			m_Spell = spell;
-			m_Chance = chance;
-			m_Hold = hold;
+			Spell = spell;
+			Chance = chance;
+			Hold = hold;
 		}
 	}
 
 	public class SpellCombo
 	{
-		private readonly int m_Mana;
-		private readonly ComboEntry[] m_Entries;
-
-		public int Mana => m_Mana;
-		public ComboEntry[] Entries => m_Entries;
+		public int Mana { get; }
+		public ComboEntry[] Entries { get; }
 
 		public SpellCombo(int mana, params ComboEntry[] entries)
 		{
-			m_Mana = mana;
-			m_Entries = entries;
+			Mana = mana;
+			Entries = entries;
 		}
 
 		public static readonly SpellCombo Simple = new SpellCombo(50,
@@ -83,9 +76,9 @@ namespace Server.Factions
 
 		public static Spell Process(Mobile mob, Mobile targ, ref SpellCombo combo, ref int index, ref DateTime releaseTime)
 		{
-			while (++index < combo.m_Entries.Length)
+			while (++index < combo.Entries.Length)
 			{
-				ComboEntry entry = combo.m_Entries[index];
+				ComboEntry entry = combo.Entries[index];
 
 				if (entry.Spell == typeof(PoisonSpell) && targ.Poisoned)
 					continue;

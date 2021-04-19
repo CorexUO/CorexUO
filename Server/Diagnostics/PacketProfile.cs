@@ -34,7 +34,7 @@ namespace Server.Diagnostics
 
 	public class PacketSendProfile : BasePacketProfile
 	{
-		private static readonly Dictionary<Type, PacketSendProfile> _profiles = new Dictionary<Type, PacketSendProfile>();
+		private static readonly Dictionary<Type, PacketSendProfile> _profiles = new();
 
 		public static IEnumerable<PacketSendProfile> Profiles => _profiles.Values;
 
@@ -71,7 +71,7 @@ namespace Server.Diagnostics
 
 	public class PacketReceiveProfile : BasePacketProfile
 	{
-		private static readonly Dictionary<int, PacketReceiveProfile> _profiles = new Dictionary<int, PacketReceiveProfile>();
+		private static readonly Dictionary<int, PacketReceiveProfile> _profiles = new();
 
 		public static IEnumerable<PacketReceiveProfile> Profiles => _profiles.Values;
 

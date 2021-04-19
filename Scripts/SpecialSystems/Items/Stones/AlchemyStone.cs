@@ -13,7 +13,7 @@ namespace Server.Items
 
 		public override void OnDoubleClick(Mobile from)
 		{
-			AlchemyBag alcBag = new AlchemyBag();
+			AlchemyBag alcBag = new();
 
 			if (!from.AddToBackpack(alcBag))
 				alcBag.Delete();

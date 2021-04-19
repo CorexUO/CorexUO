@@ -18,7 +18,7 @@ namespace Server.Commands
 
 			foreach (Item item in eable)
 			{
-				if (item is MorphItem && item.Z == z && ((MorphItem)item).InactiveItemID == inactiveItemID && ((MorphItem)item).ActiveItemID == activeItemID)
+				if (item is MorphItem morphItem && item.Z == z && morphItem.InactiveItemID == inactiveItemID && morphItem.ActiveItemID == activeItemID)
 				{
 					eable.Free();
 					return true;
@@ -72,7 +72,7 @@ namespace Server.Commands
 			if (FindMorphItem(x, y, z, inactiveItemID, activeItemID))
 				return;
 
-			MorphItem item = new MorphItem(inactiveItemID, activeItemID, range, 3);
+			MorphItem item = new(inactiveItemID, activeItemID, range, 3);
 
 			item.MoveToWorld(new Point3D(x, y, z), Map.Felucca);
 			m_Count++;
@@ -83,7 +83,7 @@ namespace Server.Commands
 			if (FindMorphItem(x, y, z, off, on))
 				return;
 
-			MorphItem item = new MorphItem(off, on, 2, 3)
+			MorphItem item = new(off, on, 2, 3)
 			{
 				Light = light
 			};
@@ -97,7 +97,7 @@ namespace Server.Commands
 			if (FindEffectController(x, y, z))
 				return;
 
-			EffectController item = new EffectController
+			EffectController item = new()
 			{
 				SoundID = sound,
 				TriggerType = EffectTriggerType.InRange,
@@ -113,7 +113,7 @@ namespace Server.Commands
 			if (FindMorphItem(x, y, 0, reverse ? 0x17DC : 0x17EE, reverse ? 0x17EE : 0x17DC))
 				return;
 
-			MorphItem item = new MorphItem(reverse ? 0x17DC : 0x17EE, reverse ? 0x17EE : 0x17DC, 1, 3);
+			MorphItem item = new(reverse ? 0x17DC : 0x17EE, reverse ? 0x17EE : 0x17DC, 1, 3);
 
 			item.MoveToWorld(new Point3D(x, y, 0), Map.Felucca);
 			m_Count++;

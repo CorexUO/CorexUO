@@ -62,24 +62,22 @@ namespace Server.Items
 
 	public class PresetMapEntry
 	{
-		private readonly int m_Name;
-		private readonly int m_Width, m_Height;
 		private Rectangle2D m_Bounds;
 
-		public int Name => m_Name;
-		public int Width => m_Width;
-		public int Height => m_Height;
+		public int Name { get; }
+		public int Width { get; }
+		public int Height { get; }
 		public Rectangle2D Bounds => m_Bounds;
 
 		public PresetMapEntry(int name, int width, int height, int xLeft, int yTop, int xRight, int yBottom)
 		{
-			m_Name = name;
-			m_Width = width;
-			m_Height = height;
+			Name = name;
+			Width = width;
+			Height = height;
 			m_Bounds = new Rectangle2D(xLeft, yTop, xRight - xLeft, yBottom - yTop);
 		}
 
-		private static readonly PresetMapEntry[] m_Table = new PresetMapEntry[]
+		public static PresetMapEntry[] Table { get; } = new PresetMapEntry[]
 			{
 				new PresetMapEntry( 1041189, 200, 200, 1092, 1396, 1736, 1924 ), // map of Britain
 				new PresetMapEntry( 1041203, 200, 200, 0256, 1792, 1736, 2560 ), // map of Britain to Skara Brae
@@ -110,8 +108,6 @@ namespace Server.Items
 				new PresetMapEntry( 1041179, 200, 200, 0236, 0741, 0766, 1269 ), // map of Yew
 				new PresetMapEntry( 1041202, 200, 200, 0000, 0512, 1792, 2048 )  // map of Yew to Britain
 			};
-
-		public static PresetMapEntry[] Table => m_Table;
 	}
 
 	public enum PresetMapType

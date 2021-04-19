@@ -40,7 +40,7 @@ namespace Server.ContextMenus
 			From = from;
 			Target = target;
 
-			List<ContextMenuEntry> list = new List<ContextMenuEntry>();
+			List<ContextMenuEntry> list = new();
 
 			if (target is Mobile mobile)
 			{

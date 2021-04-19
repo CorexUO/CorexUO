@@ -32,7 +32,7 @@ namespace Server.Engines.BulkOrders
 
 		public override List<Item> ComputeRewards(bool full)
 		{
-			List<Item> list = new List<Item>();
+			List<Item> list = new();
 
 			RewardGroup rewardGroup = SmithRewardCalculator.Instance.LookupRewards(SmithRewardCalculator.Instance.ComputePoints(this));
 
@@ -128,7 +128,7 @@ namespace Server.Engines.BulkOrders
 
 				CraftSystem system = DefBlacksmithy.CraftSystem;
 
-				List<SmallBulkEntry> validEntries = new List<SmallBulkEntry>();
+				List<SmallBulkEntry> validEntries = new();
 
 				for (int i = 0; i < entries.Length; ++i)
 				{

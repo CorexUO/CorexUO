@@ -4,41 +4,30 @@ namespace Server.Factions
 {
 	public class VendorDefinition
 	{
-		private readonly Type m_Type;
+		public Type Type { get; }
 
-		private readonly int m_Price;
-		private readonly int m_Upkeep;
-		private readonly int m_Maximum;
+		public int Price { get; }
+		public int Upkeep { get; }
+		public int Maximum { get; }
+		public int ItemID { get; }
 
-		private readonly int m_ItemID;
-
-		private readonly TextDefinition m_Header;
-		private readonly TextDefinition m_Label;
-
-		public Type Type => m_Type;
-
-		public int Price => m_Price;
-		public int Upkeep => m_Upkeep;
-		public int Maximum => m_Maximum;
-		public int ItemID => m_ItemID;
-
-		public TextDefinition Header => m_Header;
-		public TextDefinition Label => m_Label;
+		public TextDefinition Header { get; }
+		public TextDefinition Label { get; }
 
 		public VendorDefinition(Type type, int itemID, int price, int upkeep, int maximum, TextDefinition header, TextDefinition label)
 		{
-			m_Type = type;
+			Type = type;
 
-			m_Price = price;
-			m_Upkeep = upkeep;
-			m_Maximum = maximum;
-			m_ItemID = itemID;
+			Price = price;
+			Upkeep = upkeep;
+			Maximum = maximum;
+			ItemID = itemID;
 
-			m_Header = header;
-			m_Label = label;
+			Header = header;
+			Label = label;
 		}
 
-		private static readonly VendorDefinition[] m_Definitions = new VendorDefinition[]
+		public static VendorDefinition[] Definitions { get; } = new VendorDefinition[]
 			{
 				new VendorDefinition( typeof( FactionBottleVendor ), 0xF0E,
 					5000,
@@ -76,7 +65,5 @@ namespace Server.Factions
 					new TextDefinition( 1011555, "Buy Horse Breeder" )
 				)
 			};
-
-		public static VendorDefinition[] Definitions => m_Definitions;
 	}
 }

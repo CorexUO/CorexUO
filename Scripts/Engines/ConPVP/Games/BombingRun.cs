@@ -13,7 +13,6 @@ namespace Server.Engines.ConPVP
 	public class BRBomb : BaseItem
 	{
 		private readonly BRGame m_Game;
-		private Mobile m_Thrower;
 		private readonly EffectTimer m_Timer;
 		private bool m_Flying;
 
@@ -285,7 +284,7 @@ namespace Server.Engines.ConPVP
 
 			m_Flying = true;
 			Visible = false;
-			m_Thrower = from;
+			Thrower = from;
 			MoveToWorld(GetWorldLocation(), from.Map);
 
 			BeginFlight(pt);
@@ -346,7 +345,7 @@ namespace Server.Engines.ConPVP
 
 			string verb = "caught";
 
-			if (m_Thrower != null && m_Game.GetTeamInfo(m_Thrower) != useTeam)
+			if (Thrower != null && m_Game.GetTeamInfo(Thrower) != useTeam)
 				verb = "intercepted";
 
 			if (!TakeBomb(m, useTeam, verb))
@@ -605,7 +604,7 @@ namespace Server.Engines.ConPVP
 					if (i is BRGoal)
 					{
 						Point3D oldLoc = new Point3D(GetWorldLocation());
-						if (CheckScore((BRGoal)i, m_Thrower, 3))
+						if (CheckScore((BRGoal)i, Thrower, 3))
 							DoAnim(oldLoc, point, Map);
 						else
 							HitObject(point, loc.Z, height);
@@ -624,7 +623,7 @@ namespace Server.Engines.ConPVP
 				{
 					Mobile m = ns.Mobile;
 
-					if (m == null || m == m_Thrower)
+					if (m == null || m == Thrower)
 						continue;
 
 					Point3D point;
@@ -703,7 +702,7 @@ namespace Server.Engines.ConPVP
 			}
 		}
 
-		public Mobile Thrower => m_Thrower;
+		public Mobile Thrower { get; private set; }
 
 		public bool CheckScore(BRGoal goal, Mobile m, int points)
 		{
@@ -1153,15 +1152,12 @@ namespace Server.Engines.ConPVP
 	public sealed class BRPlayerInfo : IRankedCTF, IComparable
 	{
 		private readonly BRTeamInfo m_TeamInfo;
-
-		private readonly Mobile m_Player;
-
 		private int m_Kills;
 		private int m_Captures;
 
 		private int m_Score;
 
-		public Mobile Player => m_Player;
+		public Mobile Player { get; }
 
 		public int CompareTo(object obj)
 		{
@@ -1177,7 +1173,7 @@ namespace Server.Engines.ConPVP
 			return res;
 		}
 
-		public string Name => m_Player.Name;
+		public string Name => Player.Name;
 
 		public int Kills
 		{
@@ -1215,28 +1211,14 @@ namespace Server.Engines.ConPVP
 		public BRPlayerInfo(BRTeamInfo teamInfo, Mobile player)
 		{
 			m_TeamInfo = teamInfo;
-			m_Player = player;
+			Player = player;
 		}
 	}
 
 	[PropertyObject]
 	public sealed class BRTeamInfo : IRankedCTF, IComparable
 	{
-		private BRGame m_Game;
-		private readonly int m_TeamID;
-
-		private int m_Color;
-		private string m_Name;
-
-		private BRBoard m_Board;
 		private BRGoal m_Goal;
-
-		private int m_Kills;
-		private int m_Captures;
-
-		private int m_Score;
-
-		private readonly Hashtable m_Players;
 
 		public int CompareTo(object obj)
 		{
@@ -1252,32 +1234,22 @@ namespace Server.Engines.ConPVP
 			return res;
 		}
 
-		public string Name => string.Format("{0} Team", m_Name);
+		public string Name => string.Format("{0} Team", TeamName);
 
-		public BRGame Game { get => m_Game; set => m_Game = value; }
-		public int TeamID => m_TeamID;
+		public BRGame Game { get; set; }
+		public int TeamID { get; }
 
-		public int Kills { get => m_Kills; set => m_Kills = value; }
-		public int Captures { get => m_Captures; set => m_Captures = value; }
+		public int Kills { get; set; }
+		public int Captures { get; set; }
 
-		public int Score { get => m_Score; set => m_Score = value; }
+		public int Score { get; set; }
 
-		private BRPlayerInfo m_Leader;
-
-		public BRPlayerInfo Leader
-		{
-			get => m_Leader;
-			set => m_Leader = value;
-		}
+		public BRPlayerInfo Leader { get; set; }
 
 		[CommandProperty(AccessLevel.GameMaster)]
-		public BRBoard Board
-		{
-			get => m_Board;
-			set => m_Board = value;
-		}
+		public BRBoard Board { get; set; }
 
-		public Hashtable Players => m_Players;
+		public Hashtable Players { get; }
 
 		public BRPlayerInfo this[Mobile mob]
 		{
@@ -1286,28 +1258,20 @@ namespace Server.Engines.ConPVP
 				if (mob == null)
 					return null;
 
-				BRPlayerInfo val = m_Players[mob] as BRPlayerInfo;
+				BRPlayerInfo val = Players[mob] as BRPlayerInfo;
 
 				if (val == null)
-					m_Players[mob] = val = new BRPlayerInfo(this, mob);
+					Players[mob] = val = new BRPlayerInfo(this, mob);
 
 				return val;
 			}
 		}
 
 		[CommandProperty(AccessLevel.GameMaster)]
-		public int Color
-		{
-			get => m_Color;
-			set => m_Color = value;
-		}
+		public int Color { get; set; }
 
 		[CommandProperty(AccessLevel.GameMaster)]
-		public string TeamName
-		{
-			get => m_Name;
-			set => m_Name = value;
-		}
+		public string TeamName { get; set; }
 
 		[CommandProperty(AccessLevel.GameMaster)]
 		public BRGoal Goal
@@ -1323,30 +1287,30 @@ namespace Server.Engines.ConPVP
 
 		public BRTeamInfo(int teamID)
 		{
-			m_TeamID = teamID;
-			m_Players = new Hashtable();
+			TeamID = teamID;
+			Players = new Hashtable();
 		}
 
 		public void Reset()
 		{
-			m_Kills = 0;
-			m_Captures = 0;
-			m_Score = 0;
+			Kills = 0;
+			Captures = 0;
+			Score = 0;
 
-			m_Leader = null;
+			Leader = null;
 
-			m_Players.Clear();
+			Players.Clear();
 
-			if (m_Board != null)
-				m_Board.m_TeamInfo = this;
+			if (Board != null)
+				Board.m_TeamInfo = this;
 			if (m_Goal != null)
 				m_Goal.Team = this;
 		}
 
 		public BRTeamInfo(int teamID, GenericReader ip)
 		{
-			m_TeamID = teamID;
-			m_Players = new Hashtable();
+			TeamID = teamID;
+			Players = new Hashtable();
 
 			int version = ip.ReadEncodedInt();
 
@@ -1354,9 +1318,9 @@ namespace Server.Engines.ConPVP
 			{
 				case 0:
 					{
-						m_Board = ip.ReadItem() as BRBoard;
-						m_Name = ip.ReadString();
-						m_Color = ip.ReadEncodedInt();
+						Board = ip.ReadItem() as BRBoard;
+						TeamName = ip.ReadString();
+						Color = ip.ReadEncodedInt();
 						m_Goal = ip.ReadItem() as BRGoal;
 						break;
 					}
@@ -1367,18 +1331,18 @@ namespace Server.Engines.ConPVP
 		{
 			op.WriteEncodedInt(0); // version
 
-			op.Write(m_Board);
+			op.Write(Board);
 
-			op.Write(m_Name);
+			op.Write(TeamName);
 
-			op.WriteEncodedInt(m_Color);
+			op.WriteEncodedInt(Color);
 
 			op.Write(m_Goal);
 		}
 
 		public override string ToString()
 		{
-			if (m_Name != null)
+			if (TeamName != null)
 				return string.Format("({0}) ...", Name);
 			else
 				return "...";
@@ -1387,30 +1351,24 @@ namespace Server.Engines.ConPVP
 
 	public sealed class BRController : EventController
 	{
-		private BRTeamInfo[] m_TeamInfo;
-		private TimeSpan m_Duration;
 		private Point3D m_BombHome;
 
-		public BRTeamInfo[] TeamInfo => m_TeamInfo;
+		public BRTeamInfo[] TeamInfo { get; private set; }
 
 		[CommandProperty(AccessLevel.GameMaster)]
-		public BRTeamInfo Team1 { get => m_TeamInfo[0]; set { } }
+		public BRTeamInfo Team1 { get => TeamInfo[0]; set { } }
 
 		[CommandProperty(AccessLevel.GameMaster)]
-		public BRTeamInfo Team2 { get => m_TeamInfo[1]; set { } }
+		public BRTeamInfo Team2 { get => TeamInfo[1]; set { } }
 
 		[CommandProperty(AccessLevel.GameMaster)]
-		public BRTeamInfo Team3 { get => m_TeamInfo[2]; set { } }
+		public BRTeamInfo Team3 { get => TeamInfo[2]; set { } }
 
 		[CommandProperty(AccessLevel.GameMaster)]
-		public BRTeamInfo Team4 { get => m_TeamInfo[3]; set { } }
+		public BRTeamInfo Team4 { get => TeamInfo[3]; set { } }
 
 		[CommandProperty(AccessLevel.GameMaster)]
-		public TimeSpan Duration
-		{
-			get => m_Duration;
-			set => m_Duration = value;
-		}
+		public TimeSpan Duration { get; set; }
 
 		[CommandProperty(AccessLevel.GameMaster)]
 		public Point3D BombHome
@@ -1423,7 +1381,7 @@ namespace Server.Engines.ConPVP
 
 		public override string GetTeamName(int teamID)
 		{
-			return m_TeamInfo[teamID % m_TeamInfo.Length].Name;
+			return TeamInfo[teamID % TeamInfo.Length].Name;
 		}
 
 		public override EventGame Construct(DuelContext context)
@@ -1439,14 +1397,14 @@ namespace Server.Engines.ConPVP
 
 			Name = "Bombing Run Controller";
 
-			m_Duration = TimeSpan.FromMinutes(30.0);
+			Duration = TimeSpan.FromMinutes(30.0);
 
 			m_BombHome = Point3D.Zero;
 
-			m_TeamInfo = new BRTeamInfo[4];
+			TeamInfo = new BRTeamInfo[4];
 
-			for (int i = 0; i < m_TeamInfo.Length; ++i)
-				m_TeamInfo[i] = new BRTeamInfo(i);
+			for (int i = 0; i < TeamInfo.Length; ++i)
+				TeamInfo[i] = new BRTeamInfo(i);
 		}
 
 		public BRController(Serial serial)
@@ -1462,12 +1420,12 @@ namespace Server.Engines.ConPVP
 
 			writer.Write(m_BombHome);
 
-			writer.Write(m_Duration);
+			writer.Write(Duration);
 
-			writer.WriteEncodedInt(m_TeamInfo.Length);
+			writer.WriteEncodedInt(TeamInfo.Length);
 
-			for (int i = 0; i < m_TeamInfo.Length; ++i)
-				m_TeamInfo[i].Serialize(writer);
+			for (int i = 0; i < TeamInfo.Length; ++i)
+				TeamInfo[i].Serialize(writer);
 		}
 
 		public override void Deserialize(GenericReader reader)
@@ -1482,12 +1440,12 @@ namespace Server.Engines.ConPVP
 					{
 						m_BombHome = reader.ReadPoint3D();
 
-						m_Duration = reader.ReadTimeSpan();
+						Duration = reader.ReadTimeSpan();
 
-						m_TeamInfo = new BRTeamInfo[reader.ReadEncodedInt()];
+						TeamInfo = new BRTeamInfo[reader.ReadEncodedInt()];
 
-						for (int i = 0; i < m_TeamInfo.Length; ++i)
-							m_TeamInfo[i] = new BRTeamInfo(i, reader);
+						for (int i = 0; i < TeamInfo.Length; ++i)
+							TeamInfo[i] = new BRTeamInfo(i, reader);
 
 						break;
 					}
@@ -1516,12 +1474,12 @@ namespace Server.Engines.ConPVP
 
 		public void ReturnBomb()
 		{
-			if (m_Bomb != null && m_Controller != null)
+			if (m_Bomb != null && Controller != null)
 			{
 				if (m_UnhideCallback == null)
 					m_UnhideCallback = new TimerCallback(UnhideBomb);
 				m_Bomb.Visible = false;
-				m_Bomb.MoveToWorld(m_Controller.BombHome, m_Controller.Map);
+				m_Bomb.MoveToWorld(Controller.BombHome, Controller.Map);
 				Timer.DelayCall(TimeSpan.FromSeconds(Utility.RandomMinMax(5, 15)), m_UnhideCallback);
 			}
 		}
@@ -1535,9 +1493,7 @@ namespace Server.Engines.ConPVP
 			}
 		}
 
-		private readonly BRController m_Controller;
-
-		public BRController Controller => m_Controller;
+		public BRController Controller { get; }
 
 		public void Alert(string text)
 		{
@@ -1563,7 +1519,7 @@ namespace Server.Engines.ConPVP
 
 		public BRGame(BRController controller, DuelContext context) : base(context)
 		{
-			m_Controller = controller;
+			Controller = controller;
 		}
 
 		public Map Facet
@@ -1573,7 +1529,7 @@ namespace Server.Engines.ConPVP
 				if (m_Context.Arena != null)
 					return m_Context.Arena.Facet;
 
-				return m_Controller.Map;
+				return Controller.Map;
 			}
 		}
 
@@ -1582,7 +1538,7 @@ namespace Server.Engines.ConPVP
 			int teamID = GetTeamID(mob);
 
 			if (teamID >= 0)
-				return m_Controller.TeamInfo[teamID % m_Controller.TeamInfo.Length];
+				return Controller.TeamInfo[teamID % Controller.TeamInfo.Length];
 
 			return null;
 		}
@@ -1712,16 +1668,16 @@ namespace Server.Engines.ConPVP
 
 		public override void OnStart()
 		{
-			for (int i = 0; i < m_Controller.TeamInfo.Length; ++i)
+			for (int i = 0; i < Controller.TeamInfo.Length; ++i)
 			{
-				BRTeamInfo teamInfo = m_Controller.TeamInfo[i];
+				BRTeamInfo teamInfo = Controller.TeamInfo[i];
 
 				teamInfo.Game = this;
 				teamInfo.Reset();
 			}
 
 			for (int i = 0; i < m_Context.Participants.Count; ++i)
-				ApplyHues(m_Context.Participants[i] as Participant, m_Controller.TeamInfo[i % m_Controller.TeamInfo.Length].Color);
+				ApplyHues(m_Context.Participants[i] as Participant, Controller.TeamInfo[i % Controller.TeamInfo.Length].Color);
 
 			if (m_FinishTimer != null)
 				m_FinishTimer.Stop();
@@ -1729,7 +1685,7 @@ namespace Server.Engines.ConPVP
 			m_Bomb = new BRBomb(this);
 			ReturnBomb();
 
-			m_FinishTimer = Timer.DelayCall(m_Controller.Duration, new TimerCallback(Finish_Callback));
+			m_FinishTimer = Timer.DelayCall(Controller.Duration, new TimerCallback(Finish_Callback));
 		}
 
 		private void Finish_Callback()
@@ -1738,7 +1694,7 @@ namespace Server.Engines.ConPVP
 
 			for (int i = 0; i < m_Context.Participants.Count; ++i)
 			{
-				BRTeamInfo teamInfo = m_Controller.TeamInfo[i % m_Controller.TeamInfo.Length];
+				BRTeamInfo teamInfo = Controller.TeamInfo[i % Controller.TeamInfo.Length];
 
 				if (teamInfo == null)
 					continue;
@@ -1782,8 +1738,8 @@ namespace Server.Engines.ConPVP
 				}
 			}
 
-			if (m_Controller != null)
-				sb.Append(' ').Append(m_Controller.Title);
+			if (Controller != null)
+				sb.Append(' ').Append(Controller.Title);
 
 			string title = sb.ToString();
 
@@ -1896,9 +1852,9 @@ namespace Server.Engines.ConPVP
 
 		public override void OnStop()
 		{
-			for (int i = 0; i < m_Controller.TeamInfo.Length; ++i)
+			for (int i = 0; i < Controller.TeamInfo.Length; ++i)
 			{
-				BRTeamInfo teamInfo = m_Controller.TeamInfo[i];
+				BRTeamInfo teamInfo = Controller.TeamInfo[i];
 
 				if (teamInfo.Board != null)
 					teamInfo.Board.m_TeamInfo = null;

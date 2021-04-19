@@ -5,14 +5,8 @@ namespace Server.Items
 {
 	public class RaiseSwitch : BaseItem
 	{
-		private RaisableItem m_RaisableItem;
-
 		[CommandProperty(AccessLevel.GameMaster)]
-		public RaisableItem RaisableItem
-		{
-			get => m_RaisableItem;
-			set => m_RaisableItem = value;
-		}
+		public RaisableItem RaisableItem { get; set; }
 
 		[Constructable]
 		public RaiseSwitch() : this(0x1093)
@@ -129,7 +123,7 @@ namespace Server.Items
 
 			writer.WriteEncodedInt(0); // version
 
-			writer.Write(m_RaisableItem);
+			writer.Write(RaisableItem);
 		}
 
 		public override void Deserialize(GenericReader reader)
@@ -138,7 +132,7 @@ namespace Server.Items
 
 			int version = reader.ReadEncodedInt();
 
-			m_RaisableItem = (RaisableItem)reader.ReadItem();
+			RaisableItem = (RaisableItem)reader.ReadItem();
 
 			Reset();
 		}

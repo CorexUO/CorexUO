@@ -6,7 +6,7 @@ namespace Server
 {
 	public sealed class CSPRandom : IRandomImpl
 	{
-		private readonly RNGCryptoServiceProvider _CSP = new RNGCryptoServiceProvider();
+		private readonly RNGCryptoServiceProvider _CSP = new();
 
 		private static readonly int BUFFER_SIZE = 0x4000;
 		private static readonly int LARGE_REQUEST = 0x40;
@@ -16,9 +16,9 @@ namespace Server
 
 		private int _Index = 0;
 
-		private readonly object _sync = new object();
+		private readonly object _sync = new();
 
-		private readonly ManualResetEvent _filled = new ManualResetEvent(false);
+		private readonly ManualResetEvent _filled = new(false);
 
 		public CSPRandom()
 		{

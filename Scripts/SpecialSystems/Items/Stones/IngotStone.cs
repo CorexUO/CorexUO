@@ -13,7 +13,7 @@ namespace Server.Items
 
 		public override void OnDoubleClick(Mobile from)
 		{
-			BagOfingots ingotBag = new BagOfingots(5000);
+			BagOfingots ingotBag = new(5000);
 
 			if (!from.AddToBackpack(ingotBag))
 				ingotBag.Delete();

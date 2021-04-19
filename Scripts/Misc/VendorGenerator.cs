@@ -167,7 +167,7 @@ namespace Server
 				int xAvg = xTotal / si.m_Floor.Count;
 				int yAvg = yTotal / si.m_Floor.Count;
 
-				ArrayList names = new ArrayList();
+				ArrayList names = new();
 				ShopFlags flags = si.m_Flags;
 
 				if ((flags & ShopFlags.Armor) != 0)
@@ -413,12 +413,12 @@ namespace Server
 
 			if (flags != ShopFlags.None)
 			{
-				Point2D p = new Point2D(x, y);
+				Point2D p = new(x, y);
 				ShopInfo si = (ShopInfo)m_ShopTable[p];
 
 				if (si == null)
 				{
-					ArrayList floor = new ArrayList();
+					ArrayList floor = new();
 
 					RecurseFindFloor(map, x, y, floor);
 
@@ -511,7 +511,7 @@ namespace Server
 
 		private static void RecurseFindFloor(Map map, int x, int y, ArrayList floor)
 		{
-			Point2D p = new Point2D(x, y);
+			Point2D p = new(x, y);
 
 			if (floor.Contains(p))
 				return;

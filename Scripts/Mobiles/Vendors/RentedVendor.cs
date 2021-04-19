@@ -18,11 +18,8 @@ namespace Server.Mobiles
 				new VendorRentalDuration( TimeSpan.FromDays( 28.0 ), 1062364 )	// 1 Month
 			};
 
-		private readonly TimeSpan m_Duration;
-		private readonly int m_Name;
-
-		public TimeSpan Duration => m_Duration;
-		public int Name => m_Name;
+		public TimeSpan Duration { get; }
+		public int Name { get; }
 
 		public int ID
 		{
@@ -40,34 +37,25 @@ namespace Server.Mobiles
 
 		private VendorRentalDuration(TimeSpan duration, int name)
 		{
-			m_Duration = duration;
-			m_Name = name;
+			Duration = duration;
+			Name = name;
 		}
 	}
 
 	public class RentedVendor : PlayerVendor
 	{
-		private VendorRentalDuration m_RentalDuration;
-		private int m_RentalPrice;
-		private bool m_LandlordRenew;
-		private bool m_RenterRenew;
-		private int m_RenewalPrice;
-
-		private int m_RentalGold;
-
-		private DateTime m_RentalExpireTime;
 		private Timer m_RentalExpireTimer;
 
 		public RentedVendor(Mobile owner, BaseHouse house, VendorRentalDuration duration, int rentalPrice, bool landlordRenew, int rentalGold) : base(owner, house)
 		{
-			m_RentalDuration = duration;
-			m_RentalPrice = m_RenewalPrice = rentalPrice;
-			m_LandlordRenew = landlordRenew;
-			m_RenterRenew = false;
+			RentalDuration = duration;
+			RentalPrice = RenewalPrice = rentalPrice;
+			LandlordRenew = landlordRenew;
+			RenterRenew = false;
 
-			m_RentalGold = rentalGold;
+			RentalGold = rentalGold;
 
-			m_RentalExpireTime = DateTime.UtcNow + duration.Duration;
+			RentalExpireTime = DateTime.UtcNow + duration.Duration;
 			m_RentalExpireTimer = new RentalExpireTimer(this, duration.Duration);
 			m_RentalExpireTimer.Start();
 		}
@@ -76,48 +64,28 @@ namespace Server.Mobiles
 		{
 		}
 
-		public VendorRentalDuration RentalDuration => m_RentalDuration;
+		public VendorRentalDuration RentalDuration { get; private set; }
 
 		[CommandProperty(AccessLevel.GameMaster)]
-		public int RentalPrice
-		{
-			get => m_RentalPrice;
-			set => m_RentalPrice = value;
-		}
+		public int RentalPrice { get; set; }
 
 		[CommandProperty(AccessLevel.GameMaster)]
-		public bool LandlordRenew
-		{
-			get => m_LandlordRenew;
-			set => m_LandlordRenew = value;
-		}
+		public bool LandlordRenew { get; set; }
 
 		[CommandProperty(AccessLevel.GameMaster)]
-		public bool RenterRenew
-		{
-			get => m_RenterRenew;
-			set => m_RenterRenew = value;
-		}
+		public bool RenterRenew { get; set; }
 
 		[CommandProperty(AccessLevel.GameMaster)]
 		public bool Renew => LandlordRenew && RenterRenew && House != null && House.DecayType != DecayType.Condemned;
 
 		[CommandProperty(AccessLevel.GameMaster)]
-		public int RenewalPrice
-		{
-			get => m_RenewalPrice;
-			set => m_RenewalPrice = value;
-		}
+		public int RenewalPrice { get; set; }
 
 		[CommandProperty(AccessLevel.GameMaster)]
-		public int RentalGold
-		{
-			get => m_RentalGold;
-			set => m_RentalGold = value;
-		}
+		public int RentalGold { get; set; }
 
 		[CommandProperty(AccessLevel.GameMaster)]
-		public DateTime RentalExpireTime => m_RentalExpireTime;
+		public DateTime RentalExpireTime { get; private set; }
 
 		public override bool IsOwner(Mobile m)
 		{
@@ -342,16 +310,16 @@ namespace Server.Mobiles
 
 			writer.WriteEncodedInt(0); // version
 
-			writer.WriteEncodedInt(m_RentalDuration.ID);
+			writer.WriteEncodedInt(RentalDuration.ID);
 
-			writer.Write(m_RentalPrice);
-			writer.Write(m_LandlordRenew);
-			writer.Write(m_RenterRenew);
-			writer.Write(m_RenewalPrice);
+			writer.Write(RentalPrice);
+			writer.Write(LandlordRenew);
+			writer.Write(RenterRenew);
+			writer.Write(RenewalPrice);
 
-			writer.Write(m_RentalGold);
+			writer.Write(RentalGold);
 
-			writer.WriteDeltaTime(m_RentalExpireTime);
+			writer.WriteDeltaTime(RentalExpireTime);
 		}
 
 		public override void Deserialize(GenericReader reader)
@@ -362,20 +330,20 @@ namespace Server.Mobiles
 
 			int durationID = reader.ReadEncodedInt();
 			if (durationID < VendorRentalDuration.Instances.Length)
-				m_RentalDuration = VendorRentalDuration.Instances[durationID];
+				RentalDuration = VendorRentalDuration.Instances[durationID];
 			else
-				m_RentalDuration = VendorRentalDuration.Instances[0];
+				RentalDuration = VendorRentalDuration.Instances[0];
 
-			m_RentalPrice = reader.ReadInt();
-			m_LandlordRenew = reader.ReadBool();
-			m_RenterRenew = reader.ReadBool();
-			m_RenewalPrice = reader.ReadInt();
+			RentalPrice = reader.ReadInt();
+			LandlordRenew = reader.ReadBool();
+			RenterRenew = reader.ReadBool();
+			RenewalPrice = reader.ReadInt();
 
-			m_RentalGold = reader.ReadInt();
+			RentalGold = reader.ReadInt();
 
-			m_RentalExpireTime = reader.ReadDeltaTime();
+			RentalExpireTime = reader.ReadDeltaTime();
 
-			TimeSpan delay = m_RentalExpireTime - DateTime.UtcNow;
+			TimeSpan delay = RentalExpireTime - DateTime.UtcNow;
 			m_RentalExpireTimer = new RentalExpireTimer(this, delay > TimeSpan.Zero ? delay : TimeSpan.Zero);
 			m_RentalExpireTimer.Start();
 		}
@@ -402,7 +370,7 @@ namespace Server.Mobiles
 
 					m_Vendor.RentalPrice = renewalPrice;
 
-					m_Vendor.m_RentalExpireTime = DateTime.UtcNow + m_Vendor.RentalDuration.Duration;
+					m_Vendor.RentalExpireTime = DateTime.UtcNow + m_Vendor.RentalDuration.Duration;
 				}
 				else
 				{

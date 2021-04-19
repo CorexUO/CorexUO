@@ -13,7 +13,7 @@ namespace Server
 		}
 
 		private readonly MemoryStream _memStream;
-		private readonly List<IndexInfo> _orderedIndexInfo = new List<IndexInfo>();
+		private readonly List<IndexInfo> _orderedIndexInfo = new();
 
 		protected override int BufferSize => 512;
 

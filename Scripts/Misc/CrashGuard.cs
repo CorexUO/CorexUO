@@ -43,7 +43,7 @@ namespace Server.Misc
 		{
 			Console.Write("Crash: Sending email...");
 
-			MailMessage message = new MailMessage(Email.FromAddress, Email.CrashAddresses)
+			MailMessage message = new(Email.FromAddress, Email.CrashAddresses)
 			{
 				Subject = "Automated CorexUO Crash Report",
 				Body = "Automated CorexUO Crash Report. See attachment for details."
@@ -183,7 +183,7 @@ namespace Server.Misc
 				string root = GetRoot();
 				string filePath = Combine(root, fileName);
 
-				using (StreamWriter op = new StreamWriter(filePath))
+				using (StreamWriter op = new(filePath))
 				{
 					Version ver = Core.Assembly.GetName().Version;
 

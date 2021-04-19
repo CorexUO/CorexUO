@@ -99,7 +99,7 @@ namespace Server
 
 		private static void SaveTypeDatabase(string path, List<Type> types)
 		{
-			BinaryFileWriter bfw = new BinaryFileWriter(path, false);
+			BinaryFileWriter bfw = new(path, false);
 
 			bfw.Write(types.Count);
 

@@ -270,42 +270,37 @@ namespace Server.Items
 
 	public class HousePlacementEntry
 	{
-		private readonly Type m_Type;
-		private readonly int m_Description;
 		private readonly int m_Storage;
 		private readonly int m_Lockdowns;
 		private readonly int m_NewStorage;
 		private readonly int m_NewLockdowns;
-		private readonly int m_Vendors;
-		private readonly int m_Cost;
-		private readonly int m_MultiID;
 		private Point3D m_Offset;
 
-		public Type Type => m_Type;
+		public Type Type { get; }
 
-		public int Description => m_Description;
+		public int Description { get; }
 		public int Storage => BaseHouse.NewVendorSystem ? m_NewStorage : m_Storage;
 		public int Lockdowns => BaseHouse.NewVendorSystem ? m_NewLockdowns : m_Lockdowns;
-		public int Vendors => m_Vendors;
-		public int Cost => m_Cost;
+		public int Vendors { get; }
+		public int Cost { get; }
 
-		public int MultiID => m_MultiID;
+		public int MultiID { get; }
 		public Point3D Offset => m_Offset;
 
 		public HousePlacementEntry(Type type, int description, int storage, int lockdowns, int newStorage, int newLockdowns, int vendors, int cost, int xOffset, int yOffset, int zOffset, int multiID)
 		{
-			m_Type = type;
-			m_Description = description;
+			Type = type;
+			Description = description;
 			m_Storage = storage;
 			m_Lockdowns = lockdowns;
 			m_NewStorage = newStorage;
 			m_NewLockdowns = newLockdowns;
-			m_Vendors = vendors;
-			m_Cost = cost;
+			Vendors = vendors;
+			Cost = cost;
 
 			m_Offset = new Point3D(xOffset, yOffset, zOffset);
 
-			m_MultiID = multiID;
+			MultiID = multiID;
 		}
 
 		public BaseHouse ConstructHouse(Mobile from)
@@ -314,14 +309,14 @@ namespace Server.Items
 			{
 				object[] args;
 
-				if (m_Type == typeof(HouseFoundation))
-					args = new object[4] { from, m_MultiID, m_Storage, m_Lockdowns };
-				else if (m_Type == typeof(SmallOldHouse) || m_Type == typeof(SmallShop) || m_Type == typeof(TwoStoryHouse))
-					args = new object[2] { from, m_MultiID };
+				if (Type == typeof(HouseFoundation))
+					args = new object[4] { from, MultiID, m_Storage, m_Lockdowns };
+				else if (Type == typeof(SmallOldHouse) || Type == typeof(SmallShop) || Type == typeof(TwoStoryHouse))
+					args = new object[2] { from, MultiID };
 				else
 					args = new object[1] { from };
 
-				return Activator.CreateInstance(m_Type, args) as BaseHouse;
+				return Activator.CreateInstance(Type, args) as BaseHouse;
 			}
 			catch
 			{
@@ -359,7 +354,7 @@ namespace Server.Items
 			prevHouse.Delete();
 
 			//Point3D center = new Point3D( p.X - m_Offset.X, p.Y - m_Offset.Y, p.Z - m_Offset.Z );
-			HousePlacementResult res = HousePlacement.Check(from, m_MultiID, center, out ArrayList toMove);
+			HousePlacementResult res = HousePlacement.Check(from, MultiID, center, out ArrayList toMove);
 
 			switch (res)
 			{
@@ -376,17 +371,17 @@ namespace Server.Items
 							if (house == null)
 								return;
 
-							house.Price = m_Cost;
+							house.Price = Cost;
 
 							if (from.AccessLevel >= AccessLevel.GameMaster)
 							{
-								from.SendMessage("{0} gold would have been withdrawn from your bank if you were not a GM.", m_Cost.ToString());
+								from.SendMessage("{0} gold would have been withdrawn from your bank if you were not a GM.", Cost.ToString());
 							}
 							else
 							{
-								if (Banker.Withdraw(from, m_Cost))
+								if (Banker.Withdraw(from, Cost))
 								{
-									from.SendLocalizedMessage(1060398, m_Cost.ToString()); // ~1_AMOUNT~ gold has been withdrawn from your bank box.
+									from.SendLocalizedMessage(1060398, Cost.ToString()); // ~1_AMOUNT~ gold has been withdrawn from your bank box.
 								}
 								else
 								{
@@ -450,7 +445,7 @@ namespace Server.Items
 				return false;
 
 			Point3D center = new Point3D(p.X - m_Offset.X, p.Y - m_Offset.Y, p.Z - m_Offset.Z);
-			HousePlacementResult res = HousePlacement.Check(from, m_MultiID, center, out ArrayList toMove);
+			HousePlacementResult res = HousePlacement.Check(from, MultiID, center, out ArrayList toMove);
 
 			switch (res)
 			{
@@ -464,7 +459,7 @@ namespace Server.Items
 						{
 							from.SendLocalizedMessage(1011576); // This is a valid location.
 
-							PreviewHouse prev = new PreviewHouse(m_MultiID);
+							PreviewHouse prev = new PreviewHouse(MultiID);
 
 							MultiComponentList mcl = prev.Components;
 
@@ -554,9 +549,9 @@ namespace Server.Items
 		{
 			m_Table = new Hashtable();
 
-			FillTable(m_ClassicHouses);
-			FillTable(m_TwoStoryFoundations);
-			FillTable(m_ThreeStoryFoundations);
+			FillTable(ClassicHouses);
+			FillTable(TwoStoryFoundations);
+			FillTable(ThreeStoryFoundations);
 		}
 
 		public static HousePlacementEntry Find(BaseHouse house)
@@ -575,7 +570,7 @@ namespace Server.Items
 				{
 					HousePlacementEntry e = (HousePlacementEntry)list[i];
 
-					if (e.m_MultiID == house.ItemID)
+					if (e.MultiID == house.ItemID)
 						return e;
 				}
 			}
@@ -598,11 +593,11 @@ namespace Server.Items
 			{
 				HousePlacementEntry e = entries[i];
 
-				object obj = m_Table[e.m_Type];
+				object obj = m_Table[e.Type];
 
 				if (obj == null)
 				{
-					m_Table[e.m_Type] = e;
+					m_Table[e.Type] = e;
 				}
 				else if (obj is HousePlacementEntry)
 				{
@@ -612,7 +607,7 @@ namespace Server.Items
 						e
 					};
 
-					m_Table[e.m_Type] = list;
+					m_Table[e.Type] = list;
 				}
 				else if (obj is ArrayList)
 				{
@@ -623,11 +618,11 @@ namespace Server.Items
 						Hashtable table = new Hashtable();
 
 						for (int j = 0; j < list.Count; ++j)
-							table[((HousePlacementEntry)list[j]).m_MultiID] = list[j];
+							table[((HousePlacementEntry)list[j]).MultiID] = list[j];
 
-						table[e.m_MultiID] = e;
+						table[e.MultiID] = e;
 
-						m_Table[e.m_Type] = table;
+						m_Table[e.Type] = table;
 					}
 					else
 					{
@@ -636,12 +631,12 @@ namespace Server.Items
 				}
 				else if (obj is Hashtable)
 				{
-					((Hashtable)obj)[e.m_MultiID] = e;
+					((Hashtable)obj)[e.MultiID] = e;
 				}
 			}
 		}
 
-		private static readonly HousePlacementEntry[] m_ClassicHouses = new HousePlacementEntry[]
+		public static HousePlacementEntry[] ClassicHouses { get; } = new HousePlacementEntry[]
 			{
 				new HousePlacementEntry( typeof( SmallOldHouse ),       1011303,    425,    212,    489,    244,    10, 37000,      0,  4,  0,  0x0064  ),
 				new HousePlacementEntry( typeof( SmallOldHouse ),       1011304,    425,    212,    489,    244,    10, 37000,      0,  4,  0,  0x0066  ),
@@ -665,13 +660,7 @@ namespace Server.Items
 				new HousePlacementEntry( typeof( Castle ),              1011314,    4076,   2038,   4688,   2344,   78, 865250,     0, 16,  0,  0x007E  )
 			};
 
-		public static HousePlacementEntry[] ClassicHouses => m_ClassicHouses;
-
-
-
-
-
-		private static readonly HousePlacementEntry[] m_TwoStoryFoundations = new HousePlacementEntry[]
+		public static HousePlacementEntry[] TwoStoryFoundations { get; } = new HousePlacementEntry[]
 			{
 				new HousePlacementEntry( typeof( HouseFoundation ),     1060241,    425,    212,    489,    244,    10, 30500,      0,  4,  0,  0x13EC  ), // 7x7 2-Story Customizable House
 				new HousePlacementEntry( typeof( HouseFoundation ),     1060242,    580,    290,    667,    333,    14, 34500,      0,  5,  0,  0x13ED  ), // 7x8 2-Story Customizable House
@@ -722,13 +711,7 @@ namespace Server.Items
 				new HousePlacementEntry( typeof( HouseFoundation ),     1060319,    1300,   650,    1495,   747,    28, 96500,      0,  7,  0,  0x143A  )  // 13x13 2-Story Customizable House
 			};
 
-		public static HousePlacementEntry[] TwoStoryFoundations => m_TwoStoryFoundations;
-
-
-
-
-
-		private static readonly HousePlacementEntry[] m_ThreeStoryFoundations = new HousePlacementEntry[]
+		public static HousePlacementEntry[] ThreeStoryFoundations { get; } = new HousePlacementEntry[]
 			{
 				new HousePlacementEntry( typeof( HouseFoundation ),     1060272,    1150,   575,    1323,   661,    24, 73500,      0,  8,  0,  0x140B  ), // 9x14 3-Story Customizable House
 				new HousePlacementEntry( typeof( HouseFoundation ),     1060284,    1200,   600,    1380,   690,    26, 81000,      0,  8,  0,  0x1417  ), // 10x14 3-Story Customizable House
@@ -786,7 +769,5 @@ namespace Server.Items
 				new HousePlacementEntry( typeof( HouseFoundation ),     1060383,    2119,   1059,   2437,   1218,   42, 169500,     0,  9,  0,  0x147A  ), // 18x17 3-Story Customizable House
 				new HousePlacementEntry( typeof( HouseFoundation ),     1060384,    2119,   1059,   2437,   1218,   42, 179000,     0,  10, 0,  0x147B  )  // 18x18 3-Story Customizable House
 			};
-
-		public static HousePlacementEntry[] ThreeStoryFoundations => m_ThreeStoryFoundations;
 	}
 }

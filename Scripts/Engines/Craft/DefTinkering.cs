@@ -381,9 +381,7 @@ namespace Server.Engines.Craft
 
 	public abstract class TrapCraft : CustomCraft
 	{
-		private LockableContainer m_Container;
-
-		public LockableContainer Container => m_Container;
+		public LockableContainer Container { get; private set; }
 
 		public abstract TrapType TrapType { get; }
 
@@ -421,7 +419,7 @@ namespace Server.Engines.Craft
 			}
 			else
 			{
-				m_Container = container;
+				Container = container;
 				return true;
 			}
 		}

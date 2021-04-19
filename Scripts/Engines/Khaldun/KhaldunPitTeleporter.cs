@@ -2,16 +2,10 @@ namespace Server.Items
 {
 	public class KhaldunPitTeleporter : BaseItem
 	{
-		private bool m_Active;
 		private Point3D m_PointDest;
-		private Map m_MapDest;
 
 		[CommandProperty(AccessLevel.GameMaster)]
-		public bool Active
-		{
-			get => m_Active;
-			set => m_Active = value;
-		}
+		public bool Active { get; set; }
 
 		[CommandProperty(AccessLevel.GameMaster)]
 		public Point3D PointDest
@@ -21,11 +15,7 @@ namespace Server.Items
 		}
 
 		[CommandProperty(AccessLevel.GameMaster)]
-		public Map MapDest
-		{
-			get => m_MapDest;
-			set => m_MapDest = value;
-		}
+		public Map MapDest { get; set; }
 
 		public override int LabelNumber => 1016511;  // the floor of the cavern seems to have collapsed here - a faint light is visible at the bottom of the pit
 
@@ -40,9 +30,9 @@ namespace Server.Items
 			Movable = false;
 			Hue = 1;
 
-			m_Active = true;
+			Active = true;
 			m_PointDest = pointDest;
-			m_MapDest = mapDest;
+			MapDest = mapDest;
 		}
 
 		public KhaldunPitTeleporter(Serial serial) : base(serial)
@@ -51,10 +41,10 @@ namespace Server.Items
 
 		public override void OnDoubleClick(Mobile m)
 		{
-			if (!m_Active)
+			if (!Active)
 				return;
 
-			Map map = m_MapDest;
+			Map map = MapDest;
 
 			if (map == null || map == Map.Internal)
 				map = m.Map;
@@ -66,9 +56,9 @@ namespace Server.Items
 
 			if (m.InRange(this, 3))
 			{
-				Server.Mobiles.BaseCreature.TeleportPets(m, m_PointDest, m_MapDest);
+				Server.Mobiles.BaseCreature.TeleportPets(m, m_PointDest, MapDest);
 
-				m.MoveToWorld(m_PointDest, m_MapDest);
+				m.MoveToWorld(m_PointDest, MapDest);
 			}
 			else
 			{
@@ -87,9 +77,9 @@ namespace Server.Items
 
 			writer.Write(0); // version
 
-			writer.Write(m_Active);
+			writer.Write(Active);
 			writer.Write(m_PointDest);
-			writer.Write(m_MapDest);
+			writer.Write(MapDest);
 		}
 
 		public override void Deserialize(GenericReader reader)
@@ -98,9 +88,9 @@ namespace Server.Items
 
 			int version = reader.ReadInt();
 
-			m_Active = reader.ReadBool();
+			Active = reader.ReadBool();
 			m_PointDest = reader.ReadPoint3D();
-			m_MapDest = reader.ReadMap();
+			MapDest = reader.ReadMap();
 		}
 	}
 }

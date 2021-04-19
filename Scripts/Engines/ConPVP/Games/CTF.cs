@@ -524,17 +524,14 @@ namespace Server.Engines.ConPVP
 	public sealed class CTFPlayerInfo : IRankedCTF
 	{
 		private readonly CTFTeamInfo m_TeamInfo;
-
-		private readonly Mobile m_Player;
-
 		private int m_Kills;
 		private int m_Captures;
 
 		private int m_Score;
 
-		public Mobile Player => m_Player;
+		public Mobile Player { get; }
 
-		string IRankedCTF.Name => m_Player.Name;
+		string IRankedCTF.Name => Player.Name;
 
 		public int Kills
 		{
@@ -572,57 +569,31 @@ namespace Server.Engines.ConPVP
 		public CTFPlayerInfo(CTFTeamInfo teamInfo, Mobile player)
 		{
 			m_TeamInfo = teamInfo;
-			m_Player = player;
+			Player = player;
 		}
 	}
 
 	[PropertyObject]
 	public sealed class CTFTeamInfo : IRankedCTF
 	{
-		private CTFGame m_Game;
-		private readonly int m_TeamID;
-
-		private int m_Color;
-		private string m_Name;
-
-		private CTFBoard m_Board;
-
-		private CTFFlag m_Flag;
 		private Point3D m_Origin;
 
-		private int m_Kills;
-		private int m_Captures;
+		string IRankedCTF.Name => string.Format("{0} Team", Name);
 
-		private int m_Score;
+		public CTFGame Game { get; set; }
+		public int TeamID { get; }
 
-		private readonly Dictionary<Mobile, CTFPlayerInfo> m_Players;
+		public int Kills { get; set; }
+		public int Captures { get; set; }
 
-		string IRankedCTF.Name => string.Format("{0} Team", m_Name);
+		public int Score { get; set; }
 
-		public CTFGame Game { get => m_Game; set => m_Game = value; }
-		public int TeamID => m_TeamID;
-
-		public int Kills { get => m_Kills; set => m_Kills = value; }
-		public int Captures { get => m_Captures; set => m_Captures = value; }
-
-		public int Score { get => m_Score; set => m_Score = value; }
-
-		private CTFPlayerInfo m_Leader;
-
-		public CTFPlayerInfo Leader
-		{
-			get => m_Leader;
-			set => m_Leader = value;
-		}
+		public CTFPlayerInfo Leader { get; set; }
 
 		[CommandProperty(AccessLevel.GameMaster)]
-		public CTFBoard Board
-		{
-			get => m_Board;
-			set => m_Board = value;
-		}
+		public CTFBoard Board { get; set; }
 
-		public Dictionary<Mobile, CTFPlayerInfo> Players => m_Players;
+		public Dictionary<Mobile, CTFPlayerInfo> Players { get; }
 
 		public CTFPlayerInfo this[Mobile mob]
 		{
@@ -632,33 +603,21 @@ namespace Server.Engines.ConPVP
 					return null;
 
 
-				if (!m_Players.TryGetValue(mob, out CTFPlayerInfo val))
-					m_Players[mob] = val = new CTFPlayerInfo(this, mob);
+				if (!Players.TryGetValue(mob, out CTFPlayerInfo val))
+					Players[mob] = val = new CTFPlayerInfo(this, mob);
 
 				return val;
 			}
 		}
 
 		[CommandProperty(AccessLevel.GameMaster)]
-		public int Color
-		{
-			get => m_Color;
-			set => m_Color = value;
-		}
+		public int Color { get; set; }
 
 		[CommandProperty(AccessLevel.GameMaster)]
-		public string Name
-		{
-			get => m_Name;
-			set => m_Name = value;
-		}
+		public string Name { get; set; }
 
 		[CommandProperty(AccessLevel.GameMaster)]
-		public CTFFlag Flag
-		{
-			get => m_Flag;
-			set => m_Flag = value;
-		}
+		public CTFFlag Flag { get; set; }
 
 		[CommandProperty(AccessLevel.GameMaster)]
 		public Point3D Origin
@@ -669,36 +628,36 @@ namespace Server.Engines.ConPVP
 
 		public CTFTeamInfo(int teamID)
 		{
-			m_TeamID = teamID;
-			m_Players = new Dictionary<Mobile, CTFPlayerInfo>();
+			TeamID = teamID;
+			Players = new Dictionary<Mobile, CTFPlayerInfo>();
 		}
 
 		public void Reset()
 		{
-			m_Kills = 0;
-			m_Captures = 0;
+			Kills = 0;
+			Captures = 0;
 
-			m_Score = 0;
+			Score = 0;
 
-			m_Leader = null;
+			Leader = null;
 
-			m_Players.Clear();
+			Players.Clear();
 
-			if (m_Flag != null)
+			if (Flag != null)
 			{
-				m_Flag.m_TeamInfo = this;
-				m_Flag.Hue = m_Color;
-				m_Flag.SendHome();
+				Flag.m_TeamInfo = this;
+				Flag.Hue = Color;
+				Flag.SendHome();
 			}
 
-			if (m_Board != null)
-				m_Board.m_TeamInfo = this;
+			if (Board != null)
+				Board.m_TeamInfo = this;
 		}
 
 		public CTFTeamInfo(int teamID, GenericReader ip)
 		{
-			m_TeamID = teamID;
-			m_Players = new Dictionary<Mobile, CTFPlayerInfo>();
+			TeamID = teamID;
+			Players = new Dictionary<Mobile, CTFPlayerInfo>();
 
 			int version = ip.ReadEncodedInt();
 
@@ -706,13 +665,13 @@ namespace Server.Engines.ConPVP
 			{
 				case 0:
 					{
-						m_Board = ip.ReadItem() as CTFBoard;
+						Board = ip.ReadItem() as CTFBoard;
 
-						m_Name = ip.ReadString();
+						Name = ip.ReadString();
 
-						m_Color = ip.ReadEncodedInt();
+						Color = ip.ReadEncodedInt();
 
-						m_Flag = ip.ReadItem() as CTFFlag;
+						Flag = ip.ReadItem() as CTFFlag;
 						m_Origin = ip.ReadPoint3D();
 						break;
 					}
@@ -723,13 +682,13 @@ namespace Server.Engines.ConPVP
 		{
 			op.WriteEncodedInt(0); // version
 
-			op.Write(m_Board);
+			op.Write(Board);
 
-			op.Write(m_Name);
+			op.Write(Name);
 
-			op.WriteEncodedInt(m_Color);
+			op.WriteEncodedInt(Color);
 
-			op.Write(m_Flag);
+			op.Write(Flag);
 			op.Write(m_Origin);
 		}
 
@@ -741,48 +700,40 @@ namespace Server.Engines.ConPVP
 
 	public sealed class CTFController : EventController
 	{
-		private CTFTeamInfo[] m_TeamInfo;
-
-		private TimeSpan m_Duration;
-
-		public CTFTeamInfo[] TeamInfo => m_TeamInfo;
+		public CTFTeamInfo[] TeamInfo { get; private set; }
 
 		[CommandProperty(AccessLevel.GameMaster)]
-		public CTFTeamInfo Team1 { get => m_TeamInfo[0]; set { } }
+		public CTFTeamInfo Team1 { get => TeamInfo[0]; set { } }
 
 		[CommandProperty(AccessLevel.GameMaster)]
-		public CTFTeamInfo Team2 { get => m_TeamInfo[1]; set { } }
+		public CTFTeamInfo Team2 { get => TeamInfo[1]; set { } }
 
 		[CommandProperty(AccessLevel.GameMaster)]
-		public CTFTeamInfo Team3 { get => m_TeamInfo[2]; set { } }
+		public CTFTeamInfo Team3 { get => TeamInfo[2]; set { } }
 
 		[CommandProperty(AccessLevel.GameMaster)]
-		public CTFTeamInfo Team4 { get => m_TeamInfo[3]; set { } }
+		public CTFTeamInfo Team4 { get => TeamInfo[3]; set { } }
 
 		[CommandProperty(AccessLevel.GameMaster)]
-		public CTFTeamInfo Team5 { get => m_TeamInfo[4]; set { } }
+		public CTFTeamInfo Team5 { get => TeamInfo[4]; set { } }
 
 		[CommandProperty(AccessLevel.GameMaster)]
-		public CTFTeamInfo Team6 { get => m_TeamInfo[5]; set { } }
+		public CTFTeamInfo Team6 { get => TeamInfo[5]; set { } }
 
 		[CommandProperty(AccessLevel.GameMaster)]
-		public CTFTeamInfo Team7 { get => m_TeamInfo[6]; set { } }
+		public CTFTeamInfo Team7 { get => TeamInfo[6]; set { } }
 
 		[CommandProperty(AccessLevel.GameMaster)]
-		public CTFTeamInfo Team8 { get => m_TeamInfo[7]; set { } }
+		public CTFTeamInfo Team8 { get => TeamInfo[7]; set { } }
 
 		[CommandProperty(AccessLevel.GameMaster)]
-		public TimeSpan Duration
-		{
-			get => m_Duration;
-			set => m_Duration = value;
-		}
+		public TimeSpan Duration { get; set; }
 
 		public override string Title => "CTF";
 
 		public override string GetTeamName(int teamID)
 		{
-			return m_TeamInfo[teamID % m_TeamInfo.Length].Name;
+			return TeamInfo[teamID % TeamInfo.Length].Name;
 		}
 
 		public override EventGame Construct(DuelContext context)
@@ -796,12 +747,12 @@ namespace Server.Engines.ConPVP
 			Visible = false;
 			Movable = false;
 
-			m_Duration = TimeSpan.FromMinutes(30.0);
+			Duration = TimeSpan.FromMinutes(30.0);
 
-			m_TeamInfo = new CTFTeamInfo[8];
+			TeamInfo = new CTFTeamInfo[8];
 
-			for (int i = 0; i < m_TeamInfo.Length; ++i)
-				m_TeamInfo[i] = new CTFTeamInfo(i);
+			for (int i = 0; i < TeamInfo.Length; ++i)
+				TeamInfo[i] = new CTFTeamInfo(i);
 		}
 
 		public CTFController(Serial serial)
@@ -815,12 +766,12 @@ namespace Server.Engines.ConPVP
 
 			writer.Write(0);
 
-			writer.Write(m_Duration);
+			writer.Write(Duration);
 
-			writer.WriteEncodedInt(m_TeamInfo.Length);
+			writer.WriteEncodedInt(TeamInfo.Length);
 
-			for (int i = 0; i < m_TeamInfo.Length; ++i)
-				m_TeamInfo[i].Serialize(writer);
+			for (int i = 0; i < TeamInfo.Length; ++i)
+				TeamInfo[i].Serialize(writer);
 		}
 
 		public override void Deserialize(GenericReader reader)
@@ -833,12 +784,12 @@ namespace Server.Engines.ConPVP
 			{
 				case 0:
 					{
-						m_Duration = reader.ReadTimeSpan();
+						Duration = reader.ReadTimeSpan();
 
-						m_TeamInfo = new CTFTeamInfo[reader.ReadEncodedInt()];
+						TeamInfo = new CTFTeamInfo[reader.ReadEncodedInt()];
 
-						for (int i = 0; i < m_TeamInfo.Length; ++i)
-							m_TeamInfo[i] = new CTFTeamInfo(i, reader);
+						for (int i = 0; i < TeamInfo.Length; ++i)
+							TeamInfo[i] = new CTFTeamInfo(i, reader);
 
 						break;
 					}
@@ -854,9 +805,7 @@ namespace Server.Engines.ConPVP
 				TileData.ItemTable[i].Flags |= TileFlag.NoShoot;
 		}
 
-		private readonly CTFController m_Controller;
-
-		public CTFController Controller => m_Controller;
+		public CTFController Controller { get; }
 
 		public void Alert(string text)
 		{
@@ -882,7 +831,7 @@ namespace Server.Engines.ConPVP
 
 		public CTFGame(CTFController controller, DuelContext context) : base(context)
 		{
-			m_Controller = controller;
+			Controller = controller;
 		}
 
 		public Map Facet
@@ -892,7 +841,7 @@ namespace Server.Engines.ConPVP
 				if (m_Context.Arena != null)
 					return m_Context.Arena.Facet;
 
-				return m_Controller.Map;
+				return Controller.Map;
 			}
 		}
 
@@ -901,7 +850,7 @@ namespace Server.Engines.ConPVP
 			int teamID = GetTeamID(mob);
 
 			if (teamID >= 0)
-				return m_Controller.TeamInfo[teamID % m_Controller.TeamInfo.Length];
+				return Controller.TeamInfo[teamID % Controller.TeamInfo.Length];
 
 			return null;
 		}
@@ -1013,15 +962,15 @@ namespace Server.Engines.ConPVP
 						if (mob.InRange(teamInfo.Origin, 24) && mob.Map == Facet)
 							playerInfo.Score += 1; // fragged in base -- guarding
 
-						for (int i = 0; i < m_Controller.TeamInfo.Length; ++i)
+						for (int i = 0; i < Controller.TeamInfo.Length; ++i)
 						{
-							if (m_Controller.TeamInfo[i] == teamInfo)
+							if (Controller.TeamInfo[i] == teamInfo)
 								continue;
 
 							Mobile ourFlagCarrier = null;
 
-							if (m_Controller.TeamInfo[i].Flag != null)
-								ourFlagCarrier = m_Controller.TeamInfo[i].Flag.RootParent as Mobile;
+							if (Controller.TeamInfo[i].Flag != null)
+								ourFlagCarrier = Controller.TeamInfo[i].Flag.RootParent as Mobile;
 
 							if (ourFlagCarrier != null && GetTeamInfo(ourFlagCarrier) == teamInfo)
 							{
@@ -1057,21 +1006,21 @@ namespace Server.Engines.ConPVP
 
 		public override void OnStart()
 		{
-			for (int i = 0; i < m_Controller.TeamInfo.Length; ++i)
+			for (int i = 0; i < Controller.TeamInfo.Length; ++i)
 			{
-				CTFTeamInfo teamInfo = m_Controller.TeamInfo[i];
+				CTFTeamInfo teamInfo = Controller.TeamInfo[i];
 
 				teamInfo.Game = this;
 				teamInfo.Reset();
 			}
 
 			for (int i = 0; i < m_Context.Participants.Count; ++i)
-				ApplyHues(m_Context.Participants[i] as Participant, m_Controller.TeamInfo[i % 8].Color);
+				ApplyHues(m_Context.Participants[i] as Participant, Controller.TeamInfo[i % 8].Color);
 
 			if (m_FinishTimer != null)
 				m_FinishTimer.Stop();
 
-			m_FinishTimer = Timer.DelayCall(m_Controller.Duration, new TimerCallback(Finish_Callback));
+			m_FinishTimer = Timer.DelayCall(Controller.Duration, new TimerCallback(Finish_Callback));
 		}
 
 		private void Finish_Callback()
@@ -1080,7 +1029,7 @@ namespace Server.Engines.ConPVP
 
 			for (int i = 0; i < m_Context.Participants.Count; ++i)
 			{
-				CTFTeamInfo teamInfo = m_Controller.TeamInfo[i % 8];
+				CTFTeamInfo teamInfo = Controller.TeamInfo[i % 8];
 
 				if (teamInfo == null || teamInfo.Flag == null)
 					continue;
@@ -1127,8 +1076,8 @@ namespace Server.Engines.ConPVP
 				}
 			}
 
-			if (m_Controller != null)
-				sb.Append(' ').Append(m_Controller.Title);
+			if (Controller != null)
+				sb.Append(' ').Append(Controller.Title);
 
 			string title = sb.ToString();
 
@@ -1241,9 +1190,9 @@ namespace Server.Engines.ConPVP
 
 		public override void OnStop()
 		{
-			for (int i = 0; i < m_Controller.TeamInfo.Length; ++i)
+			for (int i = 0; i < Controller.TeamInfo.Length; ++i)
 			{
-				CTFTeamInfo teamInfo = m_Controller.TeamInfo[i];
+				CTFTeamInfo teamInfo = Controller.TeamInfo[i];
 
 				if (teamInfo.Flag != null)
 				{

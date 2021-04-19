@@ -277,7 +277,7 @@ namespace Server.Misc
 
 			Console.WriteLine("Login: {0}: Creating new account '{1}'", state, un);
 
-			Account a = new Account(un, pw);
+			Account a = new(un, pw);
 
 			return a;
 		}
@@ -291,7 +291,7 @@ namespace Server.Misc
 
 				Console.WriteLine("Login: {0}: Past IP limit threshold", e.State);
 
-				using StreamWriter op = new StreamWriter("ipLimits.log", true);
+				using StreamWriter op = new("ipLimits.log", true);
 				op.WriteLine("{0}\tPast IP limit threshold\t{1}", e.State, DateTime.UtcNow);
 
 				return;
@@ -354,7 +354,7 @@ namespace Server.Misc
 
 				Console.WriteLine("Login: {0}: Past IP limit threshold", e.State);
 
-				using StreamWriter op = new StreamWriter("ipLimits.log", true);
+				using StreamWriter op = new("ipLimits.log", true);
 				op.WriteLine("{0}\tPast IP limit threshold\t{1}", e.State, DateTime.UtcNow);
 
 				return;

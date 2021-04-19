@@ -26,13 +26,11 @@ namespace Server.Spells.Necromancy
 		{
 		}
 
-		private static readonly Hashtable m_Table = new Hashtable();
-
-		public static Hashtable Table => m_Table;
+		public static Hashtable Table { get; } = new();
 
 		public override bool CheckCast()
 		{
-			BaseCreature check = (BaseCreature)m_Table[Caster];
+			BaseCreature check = (BaseCreature)Table[Caster];
 
 			if (check != null && !check.Deleted)
 			{
@@ -48,13 +46,13 @@ namespace Server.Spells.Necromancy
 			if (CheckSequence())
 			{
 				Caster.CloseGump(typeof(SummonFamiliarGump));
-				Caster.SendGump(new SummonFamiliarGump(Caster, m_Entries, this));
+				Caster.SendGump(new SummonFamiliarGump(Caster, Entries, this));
 			}
 
 			FinishSequence();
 		}
 
-		private static readonly SummonFamiliarEntry[] m_Entries = new SummonFamiliarEntry[]
+		public static SummonFamiliarEntry[] Entries { get; } = new SummonFamiliarEntry[]
 			{
 				new SummonFamiliarEntry( typeof( HordeMinionFamiliar ), 1060146,  30.0,  30.0 ), // Horde Minion
 				new SummonFamiliarEntry( typeof( ShadowWispFamiliar ), 1060142,  50.0,  50.0 ), // Shadow Wisp
@@ -62,28 +60,21 @@ namespace Server.Spells.Necromancy
 				new SummonFamiliarEntry( typeof( DeathAdder ), 1060145,  80.0,  80.0 ), // Death Adder
 				new SummonFamiliarEntry( typeof( VampireBatFamiliar ), 1060144, 100.0, 100.0 )  // Vampire Bat
 			};
-
-		public static SummonFamiliarEntry[] Entries => m_Entries;
 	}
 
 	public class SummonFamiliarEntry
 	{
-		private readonly Type m_Type;
-		private readonly object m_Name;
-		private readonly double m_ReqNecromancy;
-		private readonly double m_ReqSpiritSpeak;
-
-		public Type Type => m_Type;
-		public object Name => m_Name;
-		public double ReqNecromancy => m_ReqNecromancy;
-		public double ReqSpiritSpeak => m_ReqSpiritSpeak;
+		public Type Type { get; }
+		public object Name { get; }
+		public double ReqNecromancy { get; }
+		public double ReqSpiritSpeak { get; }
 
 		public SummonFamiliarEntry(Type type, object name, double reqNecromancy, double reqSpiritSpeak)
 		{
-			m_Type = type;
-			m_Name = name;
-			m_ReqNecromancy = reqNecromancy;
-			m_ReqSpiritSpeak = reqSpiritSpeak;
+			Type = type;
+			Name = name;
+			ReqNecromancy = reqNecromancy;
+			ReqSpiritSpeak = reqSpiritSpeak;
 		}
 	}
 

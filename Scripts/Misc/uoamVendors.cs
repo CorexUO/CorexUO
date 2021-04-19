@@ -39,10 +39,10 @@ namespace Server
 
 			if (File.Exists(vendor_path))
 			{
-				ArrayList list = new ArrayList();
+				ArrayList list = new();
 				from.SendMessage("Generating Vendors...");
 
-				using (StreamReader ip = new StreamReader(vendor_path))
+				using (StreamReader ip = new(vendor_path))
 				{
 					string line;
 
@@ -294,7 +294,7 @@ namespace Server
 			return z;
 		}
 
-		private static readonly Queue m_ToDelete = new Queue();
+		private static readonly Queue m_ToDelete = new();
 
 		public static void ClearSpawners(int x, int y, int z, Map map)
 		{
@@ -325,7 +325,7 @@ namespace Server
 			{
 				bool isGuildmaster = (types[i].EndsWith("Guildmaster"));
 
-				Spawner sp = new Spawner(types[i]);
+				Spawner sp = new(types[i]);
 
 				if (isGuildmaster)
 					sp.Count = 1;

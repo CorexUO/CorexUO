@@ -50,7 +50,7 @@ namespace Server.Misc
 
 		private static Item MakePotionKeg(PotionEffect type, int hue)
 		{
-			PotionKeg keg = new PotionKeg
+			PotionKeg keg = new()
 			{
 				Held = 100,
 				Type = type,
@@ -238,7 +238,7 @@ namespace Server.Misc
 			PlaceItemIn(bank, 98, 169, cont);
 			// End bag of raw materials
 
-			Bag bag = new Bag();
+			Bag bag = new();
 
 			for (int i = 0; i < 5; ++i)
 				bag.DropItem(new Moonstone(MoonstoneType.Felucca));
@@ -246,7 +246,7 @@ namespace Server.Misc
 			// Felucca moonstones
 			bank.DropItem(bag);
 
-			bag = new Bag();
+			bag = new();
 
 			for (int i = 0; i < 5; ++i)
 				bag.DropItem(new Moonstone(MoonstoneType.Trammel));
@@ -267,7 +267,7 @@ namespace Server.Misc
 				PlaceItemIn(cont, 125, 105, new BookOfNinjitsu()); //Default ctor = full
 			}
 
-			Runebook runebook = new Runebook(10);
+			Runebook runebook = new(10);
 			runebook.CurCharges = runebook.MaxCharges;
 			PlaceItemIn(cont, 145, 105, runebook);
 
@@ -633,7 +633,7 @@ namespace Server.Misc
 
 			if (young)
 			{
-				NewPlayerTicket ticket = new NewPlayerTicket
+				NewPlayerTicket ticket = new()
 				{
 					Owner = newChar
 				};
@@ -682,7 +682,7 @@ namespace Server.Misc
 			}
 		}
 
-		private static readonly CityInfo m_NewHavenInfo = new CityInfo("New Haven", "The Bountiful Harvest Inn", 3503, 2574, 14, Map.Trammel);
+		private static readonly CityInfo m_NewHavenInfo = new("New Haven", "The Bountiful Harvest Inn", 3503, 2574, 14, Map.Trammel);
 
 		private static CityInfo GetStartLocation(CharacterCreatedEventArgs args, bool isYoung)
 		{
@@ -711,7 +711,7 @@ namespace Server.Misc
 						{
 							useHaven = true;
 
-							new BadStartMessage(m, 1062205);
+							_ = new BadStartMessage(m, 1062205);
 							/*
 							 * Unfortunately you are playing on a *NON-Age-Of-Shadows* game
 							 * installation and cannot be transported to Malas.
@@ -737,7 +737,7 @@ namespace Server.Misc
 						{
 							useHaven = true;
 
-							new BadStartMessage(m, 1063487);
+							_ = new BadStartMessage(m, 1063487);
 							/*
 							 * Unfortunately you are playing on a *NON-Samurai-Empire* game
 							 * installation and cannot be transported to Tokuno.
@@ -759,7 +759,7 @@ namespace Server.Misc
 						{
 							useHaven = true;
 
-							new BadStartMessage(m, 1063487);
+							_ = new BadStartMessage(m, 1063487);
 							/*
 							 * Unfortunately you are playing on a *NON-Samurai-Empire* game
 							 * installation and cannot be transported to Tokuno.
@@ -1486,7 +1486,7 @@ namespace Server.Misc
 					}
 				case SkillName.Magery:
 					{
-						BagOfReagents regs = new BagOfReagents(30);
+						BagOfReagents regs = new(30);
 
 						if (!Core.AOS)
 						{
@@ -1502,7 +1502,7 @@ namespace Server.Misc
 						PackScroll(1);
 						PackScroll(2);
 
-						Spellbook book = new Spellbook((ulong)0x382A8C38);
+						Spellbook book = new((ulong)0x382A8C38);
 
 						EquipItem(book);
 

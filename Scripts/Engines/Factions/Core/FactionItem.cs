@@ -11,28 +11,24 @@ namespace Server.Factions
 	{
 		public static readonly TimeSpan ExpirationPeriod = TimeSpan.FromDays(21.0);
 
-		private readonly Item m_Item;
-		private readonly Faction m_Faction;
-		private DateTime m_Expiration;
-
-		public Item Item => m_Item;
-		public Faction Faction => m_Faction;
-		public DateTime Expiration => m_Expiration;
+		public Item Item { get; }
+		public Faction Faction { get; }
+		public DateTime Expiration { get; private set; }
 
 		public bool HasExpired
 		{
 			get
 			{
-				if (m_Item == null || m_Item.Deleted)
+				if (Item == null || Item.Deleted)
 					return true;
 
-				return (m_Expiration != DateTime.MinValue && DateTime.UtcNow >= m_Expiration);
+				return (Expiration != DateTime.MinValue && DateTime.UtcNow >= Expiration);
 			}
 		}
 
 		public void StartExpiration()
 		{
-			m_Expiration = DateTime.UtcNow + ExpirationPeriod;
+			Expiration = DateTime.UtcNow + ExpirationPeriod;
 		}
 
 		public void CheckAttach()
@@ -45,26 +41,26 @@ namespace Server.Factions
 
 		public void Attach()
 		{
-			if (m_Item is IFactionItem)
-				((IFactionItem)m_Item).FactionItemState = this;
+			if (Item is IFactionItem)
+				((IFactionItem)Item).FactionItemState = this;
 
-			if (m_Faction != null)
-				m_Faction.State.FactionItems.Add(this);
+			if (Faction != null)
+				Faction.State.FactionItems.Add(this);
 		}
 
 		public void Detach()
 		{
-			if (m_Item is IFactionItem)
-				((IFactionItem)m_Item).FactionItemState = null;
+			if (Item is IFactionItem)
+				((IFactionItem)Item).FactionItemState = null;
 
-			if (m_Faction != null && m_Faction.State.FactionItems.Contains(this))
-				m_Faction.State.FactionItems.Remove(this);
+			if (Faction != null && Faction.State.FactionItems.Contains(this))
+				Faction.State.FactionItems.Remove(this);
 		}
 
 		public FactionItem(Item item, Faction faction)
 		{
-			m_Item = item;
-			m_Faction = faction;
+			Item = item;
+			Faction = faction;
 		}
 
 		public FactionItem(GenericReader reader, Faction faction)
@@ -75,21 +71,21 @@ namespace Server.Factions
 			{
 				case 0:
 					{
-						m_Item = reader.ReadItem();
-						m_Expiration = reader.ReadDateTime();
+						Item = reader.ReadItem();
+						Expiration = reader.ReadDateTime();
 						break;
 					}
 			}
 
-			m_Faction = faction;
+			Faction = faction;
 		}
 
 		public void Serialize(GenericWriter writer)
 		{
 			writer.WriteEncodedInt(0);
 
-			writer.Write(m_Item);
-			writer.Write(m_Expiration);
+			writer.Write(Item);
+			writer.Write(Expiration);
 		}
 
 		public static int GetMaxWearables(Mobile mob)

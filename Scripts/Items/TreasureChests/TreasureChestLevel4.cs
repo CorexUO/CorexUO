@@ -7,10 +7,11 @@ namespace Server.Items
 		private const int m_Level = 4;
 
 		public override bool Decays => true;
-
 		public override bool IsDecoContainer => false;
-
 		public override TimeSpan DecayTime => TimeSpan.FromMinutes(Utility.Random(15, 60));
+		public override int DefaultGumpID => 0x42;
+		public override int DefaultDropSound => 0x42;
+		public override Rectangle2D Bounds => new(18, 105, 144, 73);
 
 		private void SetChestAppearance()
 		{
@@ -39,12 +40,6 @@ namespace Server.Items
 					break;
 			}
 		}
-
-		public override int DefaultGumpID => 0x42;
-
-		public override int DefaultDropSound => 0x42;
-
-		public override Rectangle2D Bounds => new Rectangle2D(18, 105, 144, 73);
 
 		[Constructable]
 		public TreasureChestLevel4()

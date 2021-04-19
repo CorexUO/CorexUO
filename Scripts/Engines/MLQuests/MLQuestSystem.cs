@@ -22,24 +22,17 @@ namespace Server.Engines.MLQuests
 
 		public static readonly bool AutoGenerateNew = true;
 		public static readonly bool Debug = false;
+		public static readonly List<MLQuest> EmptyList = new();
 
-		private static readonly Dictionary<Type, MLQuest> m_Quests;
-		private static readonly Dictionary<Type, List<MLQuest>> m_QuestGivers;
-		private static readonly Dictionary<PlayerMobile, MLQuestContext> m_Contexts;
-
-		public static readonly List<MLQuest> EmptyList = new List<MLQuest>();
-
-		public static Dictionary<Type, MLQuest> Quests => m_Quests;
-
-		public static Dictionary<Type, List<MLQuest>> QuestGivers => m_QuestGivers;
-
-		public static Dictionary<PlayerMobile, MLQuestContext> Contexts => m_Contexts;
+		public static Dictionary<Type, MLQuest> Quests { get; private set; }
+		public static Dictionary<Type, List<MLQuest>> QuestGivers { get; private set; }
+		public static Dictionary<PlayerMobile, MLQuestContext> Contexts { get; private set; }
 
 		static MLQuestSystem()
 		{
-			m_Quests = new Dictionary<Type, MLQuest>();
-			m_QuestGivers = new Dictionary<Type, List<MLQuest>>();
-			m_Contexts = new Dictionary<PlayerMobile, MLQuestContext>();
+			Quests = new Dictionary<Type, MLQuest>();
+			QuestGivers = new Dictionary<Type, List<MLQuest>>();
+			Contexts = new Dictionary<PlayerMobile, MLQuestContext>();
 
 			string cfgPath = Path.Combine(Core.BaseDirectory, Path.Combine("Data", "MLQuests.cfg"));
 
@@ -103,14 +96,14 @@ namespace Server.Engines.MLQuests
 
 		private static void Register(Type type, MLQuest quest)
 		{
-			m_Quests[type] = quest;
+			Quests[type] = quest;
 		}
 
 		private static void RegisterQuestGiver(MLQuest quest, Type questerType)
 		{
 
-			if (!m_QuestGivers.TryGetValue(questerType, out List<MLQuest> questList))
-				m_QuestGivers[questerType] = questList = new List<MLQuest>();
+			if (!QuestGivers.TryGetValue(questerType, out List<MLQuest> questList))
+				QuestGivers[questerType] = questList = new List<MLQuest>();
 
 			questList.Add(quest);
 		}
@@ -130,7 +123,7 @@ namespace Server.Engines.MLQuests
 
 			if (AutoGenerateNew)
 			{
-				foreach (MLQuest quest in m_Quests.Values)
+				foreach (MLQuest quest in Quests.Values)
 				{
 					if (quest != null && !quest.Deserialized)
 						quest.Generate();
@@ -158,13 +151,13 @@ namespace Server.Engines.MLQuests
 
 			if (e.Length == 0)
 			{
-				m.SendMessage("Quest table length: {0}", m_Quests.Count);
+				m.SendMessage("Quest table length: {0}", Quests.Count);
 				return;
 			}
 
 			Type index = Assembler.FindTypeByName(e.GetString(0));
 
-			if (index == null || !m_Quests.TryGetValue(index, out MLQuest quest))
+			if (index == null || !Quests.TryGetValue(index, out MLQuest quest))
 			{
 				m.SendMessage("Invalid quest type name.");
 				return;
@@ -241,7 +234,7 @@ namespace Server.Engines.MLQuests
 
 			Type index = Assembler.FindTypeByName(e.GetString(0));
 
-			if (index == null || !m_Quests.TryGetValue(index, out MLQuest quest))
+			if (index == null || !Quests.TryGetValue(index, out MLQuest quest))
 			{
 				m.SendMessage("Invalid quest type name.");
 				return;
@@ -270,7 +263,7 @@ namespace Server.Engines.MLQuests
 
 			bool enable = (e.Length == 1) ? e.GetBoolean(0) : true;
 
-			foreach (MLQuest quest in m_Quests.Values)
+			foreach (MLQuest quest in Quests.Values)
 				quest.SaveEnabled = enable;
 
 			m.SendMessage("Serialization for all quests is now {0}.", enable ? "enabled" : "disabled");
@@ -573,7 +566,7 @@ namespace Server.Engines.MLQuests
 
 		public static MLQuestContext GetContext(PlayerMobile pm)
 		{
-			m_Contexts.TryGetValue(pm, out MLQuestContext context);
+			Contexts.TryGetValue(pm, out MLQuestContext context);
 
 			return context;
 		}
@@ -581,8 +574,8 @@ namespace Server.Engines.MLQuests
 		public static MLQuestContext GetOrCreateContext(PlayerMobile pm)
 		{
 
-			if (!m_Contexts.TryGetValue(pm, out MLQuestContext context))
-				m_Contexts[pm] = context = new MLQuestContext(pm);
+			if (!Contexts.TryGetValue(pm, out MLQuestContext context))
+				Contexts[pm] = context = new MLQuestContext(pm);
 
 			return context;
 		}
@@ -602,7 +595,7 @@ namespace Server.Engines.MLQuests
 			if (context != null)
 			{
 				context.HandleDeletion();
-				m_Contexts.Remove(pm);
+				Contexts.Remove(pm);
 			}
 		}
 
@@ -742,7 +735,7 @@ namespace Server.Engines.MLQuests
 
 		public static MLQuest FindQuest(Type questType)
 		{
-			m_Quests.TryGetValue(questType, out MLQuest result);
+			Quests.TryGetValue(questType, out MLQuest result);
 
 			return result;
 		}
@@ -750,7 +743,7 @@ namespace Server.Engines.MLQuests
 		public static List<MLQuest> FindQuestList(Type questerType)
 		{
 
-			if (m_QuestGivers.TryGetValue(questerType, out List<MLQuest> result))
+			if (QuestGivers.TryGetValue(questerType, out List<MLQuest> result))
 				return result;
 
 			return EmptyList;

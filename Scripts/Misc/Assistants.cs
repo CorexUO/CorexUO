@@ -60,8 +60,6 @@ namespace Server.Misc
 				All = ulong.MaxValue
 			}
 
-			private static Features m_DisallowedFeatures = Features.None;
-
 			public static void DisallowFeature(Features feature)
 			{
 				SetDisallowed(feature, true);
@@ -75,20 +73,20 @@ namespace Server.Misc
 			public static void SetDisallowed(Features feature, bool value)
 			{
 				if (value)
-					m_DisallowedFeatures |= feature;
+					DisallowedFeatures |= feature;
 				else
-					m_DisallowedFeatures &= ~feature;
+					DisallowedFeatures &= ~feature;
 			}
 
-			public static Features DisallowedFeatures => m_DisallowedFeatures;
+			public static Features DisallowedFeatures { get; private set; } = Features.None;
 		}
 
 		private static class Negotiator
 		{
-			private static readonly Dictionary<Mobile, Timer> m_Dictionary = new Dictionary<Mobile, Timer>();
+			private static readonly Dictionary<Mobile, Timer> m_Dictionary = new();
 
-			private static readonly TimerStateCallback OnHandshakeTimeout_Callback = new TimerStateCallback(OnHandshakeTimeout);
-			private static readonly TimerStateCallback OnForceDisconnect_Callback = new TimerStateCallback(OnForceDisconnect);
+			private static readonly TimerStateCallback OnHandshakeTimeout_Callback = new(OnHandshakeTimeout);
+			private static readonly TimerStateCallback OnForceDisconnect_Callback = new(OnForceDisconnect);
 
 			public static void Initialize()
 			{

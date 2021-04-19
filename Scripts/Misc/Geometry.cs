@@ -26,18 +26,16 @@ namespace Server.Misc
 		public class CirclePoint
 		{
 			private Point2D point;
-			private readonly int angle;
-			private readonly int quadrant;
 
 			public Point2D Point => point;
-			public int Angle => angle;
-			public int Quadrant => quadrant;
+			public int Angle { get; }
+			public int Quadrant { get; }
 
 			public CirclePoint(Point2D point, int angle, int quadrant)
 			{
 				this.point = point;
-				this.angle = angle;
-				this.quadrant = quadrant;
+				this.Angle = angle;
+				this.Quadrant = quadrant;
 			}
 		}
 
@@ -87,8 +85,8 @@ namespace Server.Misc
 				Swap(ref startQuadrant, ref endQuadrant);
 			}
 
-			CirclePoint startPoint = new CirclePoint(start, angleStart, startQuadrant);
-			CirclePoint endPoint = new CirclePoint(end, angleEnd, endQuadrant);
+			CirclePoint startPoint = new(start, angleStart, startQuadrant);
+			CirclePoint endPoint = new(end, angleEnd, endQuadrant);
 
 			int error = -radius;
 			int x = radius;
@@ -114,8 +112,8 @@ namespace Server.Misc
 
 		public static void Plot4points(Point3D loc, Map map, int x, int y, CirclePoint start, CirclePoint end, DoEffect_Callback effect, bool opposite)
 		{
-			Point2D pointA = new Point2D(loc.X - x, loc.Y - y);
-			Point2D pointB = new Point2D(loc.X - y, loc.Y - x);
+			Point2D pointA = new(loc.X - x, loc.Y - y);
+			Point2D pointB = new(loc.X - y, loc.Y - x);
 
 			int quadrant = 2;
 

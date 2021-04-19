@@ -21,7 +21,6 @@ namespace Server.Items
 			DropItem(new IronIngot(amount));
 			DropItem(new Tongs(amount));
 			DropItem(new TinkerTools(amount));
-
 		}
 
 		public SmithBag(Serial serial) : base(serial)

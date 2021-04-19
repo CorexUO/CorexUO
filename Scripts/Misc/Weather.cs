@@ -8,7 +8,7 @@ namespace Server.Misc
 	public class Weather
 	{
 		private static Map[] m_Facets;
-		private static readonly Dictionary<Map, List<Weather>> m_WeatherByFacet = new Dictionary<Map, List<Weather>>();
+		private static readonly Dictionary<Map, List<Weather>> m_WeatherByFacet = new();
 
 		public static void Initialize()
 		{
@@ -57,7 +57,7 @@ namespace Server.Misc
 		{
 			for (int i = 0; i < m_Facets.Length; ++i)
 			{
-				Rectangle2D area = new Rectangle2D();
+				Rectangle2D area = new();
 				bool isValid = false;
 
 				for (int j = 0; j < 10; ++j)
@@ -186,7 +186,7 @@ namespace Server.Misc
 			int width = Area[0].Width;
 			int height = Area[0].Height;
 
-			Rectangle2D area = new Rectangle2D();
+			Rectangle2D area = new();
 			bool isValid = false;
 
 			for (int j = 0; j < 10; ++j)
@@ -228,7 +228,7 @@ namespace Server.Misc
 				int yOffset = (MoveSpeed * MoveAngleY) / 100;
 
 				Rectangle2D oldArea = Area[0];
-				Rectangle2D newArea = new Rectangle2D(oldArea.X + xOffset, oldArea.Y + yOffset, oldArea.Width, oldArea.Height);
+				Rectangle2D newArea = new(oldArea.X + xOffset, oldArea.Y + yOffset, oldArea.Width, oldArea.Height);
 
 				if (!CheckWeatherConflict(Facet, this, newArea) && CheckContains(Bounds, newArea))
 				{
@@ -371,8 +371,7 @@ namespace Server.Misc
 		public override void Deserialize(GenericReader reader)
 		{
 			base.Deserialize(reader);
-
-			int version = reader.ReadInt();
+			_ = reader.ReadInt();
 		}
 	}
 }

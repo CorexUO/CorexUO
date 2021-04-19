@@ -76,7 +76,7 @@ namespace Server
 
 		private static void Load(string filePath)
 		{
-			XmlDocument doc = new XmlDocument();
+			XmlDocument doc = new();
 			doc.Load(filePath);
 
 			XmlElement root = doc["names"];
@@ -90,7 +90,7 @@ namespace Server
 
 				try
 				{
-					NameList list = new NameList(type, element);
+					NameList list = new(type, element);
 
 					m_Table[type] = list;
 				}

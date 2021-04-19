@@ -27,7 +27,7 @@ namespace Server
 			file.Refresh();
 
 			using FileStream fs = file.OpenWrite();
-			BinaryFileWriter writer = new BinaryFileWriter(fs, true);
+			BinaryFileWriter writer = new(fs, true);
 
 			try
 			{
@@ -85,7 +85,7 @@ namespace Server
 			file.Refresh();
 
 			using FileStream fs = file.OpenRead();
-			BinaryFileReader reader = new BinaryFileReader(new BinaryReader(fs));
+			BinaryFileReader reader = new(new BinaryReader(fs));
 
 			try
 			{

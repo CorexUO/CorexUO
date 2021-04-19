@@ -23,9 +23,9 @@ namespace Server
 
 		private int _Index = 0;
 
-		private readonly object _sync = new object();
+		private readonly object _sync = new();
 
-		private readonly ManualResetEvent _filled = new ManualResetEvent(false);
+		private readonly ManualResetEvent _filled = new(false);
 
 		public RDRand64()
 		{

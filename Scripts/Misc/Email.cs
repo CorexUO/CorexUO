@@ -32,7 +32,7 @@ namespace Server.Misc
 		public static readonly string CrashAddresses = Settings.Configuration.Get<string>("Email", "CrashAddresses", null);
 		public static readonly string SpeechLogPageAddresses = Settings.Configuration.Get<string>("Email", "SpeechLogPageAddresses", null);
 
-		private static readonly Regex _pattern = new Regex(@"^[a-z0-9.+_-]+@([a-z0-9-]+\.)+[a-z]+$", RegexOptions.Compiled | RegexOptions.IgnoreCase);
+		private static readonly Regex _pattern = new(@"^[a-z0-9.+_-]+@([a-z0-9-]+\.)+[a-z]+$", RegexOptions.Compiled | RegexOptions.IgnoreCase);
 
 		public static bool IsValid(string address)
 		{

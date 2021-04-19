@@ -813,7 +813,7 @@ namespace Server
 						{
 							if (i < info.Length)
 							{
-								Skill sk = new Skill(this, info[i], reader);
+								Skill sk = new(this, info[i], reader);
 
 								if (sk.BaseFixedPoint != 0 || sk.CapFixedPoint != 1000 || sk.Lock != SkillLock.Up)
 								{

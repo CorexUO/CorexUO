@@ -144,15 +144,10 @@ namespace Server.Engines.Plants
 			return notBrightFirst & notBrightSecond;
 		}
 
-		private readonly int m_Hue;
-		private readonly int m_Name;
-		private readonly PlantHue m_PlantHue;
-		private readonly int m_GumpHue;
-
-		public int Hue => m_Hue;
-		public int Name => m_Name;
-		public PlantHue PlantHue => m_PlantHue;
-		public int GumpHue => m_GumpHue;
+		public int Hue { get; }
+		public int Name { get; }
+		public PlantHue PlantHue { get; }
+		public int GumpHue { get; }
 
 		private PlantHueInfo(int hue, int name, PlantHue plantHue) : this(hue, name, plantHue, hue)
 		{
@@ -160,30 +155,30 @@ namespace Server.Engines.Plants
 
 		private PlantHueInfo(int hue, int name, PlantHue plantHue, int gumpHue)
 		{
-			m_Hue = hue;
-			m_Name = name;
-			m_PlantHue = plantHue;
-			m_GumpHue = gumpHue;
+			Hue = hue;
+			Name = name;
+			PlantHue = plantHue;
+			GumpHue = gumpHue;
 		}
 
 		public bool IsCrossable()
 		{
-			return IsCrossable(m_PlantHue);
+			return IsCrossable(PlantHue);
 		}
 
 		public bool IsBright()
 		{
-			return IsBright(m_PlantHue);
+			return IsBright(PlantHue);
 		}
 
 		public PlantHue GetNotBright()
 		{
-			return GetNotBright(m_PlantHue);
+			return GetNotBright(PlantHue);
 		}
 
 		public bool IsPrimary()
 		{
-			return IsPrimary(m_PlantHue);
+			return IsPrimary(PlantHue);
 		}
 	}
 }

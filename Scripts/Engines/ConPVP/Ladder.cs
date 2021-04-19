@@ -245,9 +245,7 @@ namespace Server.Engines.ConPVP
 			return m_Table[mob] as LadderEntry;
 		}
 
-		private static Ladder m_Instance;
-
-		public static Ladder Instance { get => m_Instance; set => m_Instance = value; }
+		public static Ladder Instance { get; set; }
 
 		public Ladder()
 		{
@@ -298,33 +296,29 @@ namespace Server.Engines.ConPVP
 
 	public class LadderEntry : IComparable
 	{
-		private readonly Mobile m_Mobile;
 		private int m_Experience;
-		private int m_Wins;
-		private int m_Losses;
-		private int m_Index;
 		private readonly Ladder m_Ladder;
 
-		public Mobile Mobile => m_Mobile;
+		public Mobile Mobile { get; }
 
 		[CommandProperty(AccessLevel.GameMaster, AccessLevel.Administrator)]
 		public int Experience { get => m_Experience; set { m_Experience = value; m_Ladder.UpdateEntry(this); } }
 
 		[CommandProperty(AccessLevel.GameMaster, AccessLevel.Administrator)]
-		public int Wins { get => m_Wins; set => m_Wins = value; }
+		public int Wins { get; set; }
 
 		[CommandProperty(AccessLevel.GameMaster, AccessLevel.Administrator)]
-		public int Losses { get => m_Losses; set => m_Losses = value; }
+		public int Losses { get; set; }
 
-		public int Index { get => m_Index; set => m_Index = value; }
+		public int Index { get; set; }
 
 		[CommandProperty(AccessLevel.GameMaster)]
-		public int Rank => m_Index;
+		public int Rank => Index;
 
 		public LadderEntry(Mobile mob, Ladder ladder)
 		{
 			m_Ladder = ladder;
-			m_Mobile = mob;
+			Mobile = mob;
 		}
 
 		public LadderEntry(GenericReader reader, Ladder ladder, int version)
@@ -336,10 +330,10 @@ namespace Server.Engines.ConPVP
 				case 1:
 				case 0:
 					{
-						m_Mobile = reader.ReadMobile();
+						Mobile = reader.ReadMobile();
 						m_Experience = reader.ReadEncodedInt();
-						m_Wins = reader.ReadEncodedInt();
-						m_Losses = reader.ReadEncodedInt();
+						Wins = reader.ReadEncodedInt();
+						Losses = reader.ReadEncodedInt();
 
 						break;
 					}
@@ -348,10 +342,10 @@ namespace Server.Engines.ConPVP
 
 		public void Serialize(GenericWriter writer)
 		{
-			writer.Write(m_Mobile);
+			writer.Write(Mobile);
 			writer.WriteEncodedInt(m_Experience);
-			writer.WriteEncodedInt(m_Wins);
-			writer.WriteEncodedInt(m_Losses);
+			writer.WriteEncodedInt(Wins);
+			writer.WriteEncodedInt(Losses);
 		}
 
 		public int CompareTo(object obj)

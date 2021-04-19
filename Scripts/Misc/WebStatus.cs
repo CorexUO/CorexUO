@@ -17,9 +17,9 @@ namespace Server.Misc
 		private static HttpListener _Listener;
 
 		private static string _StatusPage = string.Empty;
-		private static byte[] _StatusBuffer = new byte[0];
+		private static byte[] _StatusBuffer = Array.Empty<byte>();
 
-		private static readonly object _StatusLock = new object();
+		private static readonly object _StatusLock = new();
 
 		public static void Initialize()
 		{
@@ -82,7 +82,7 @@ namespace Server.Misc
 
 		private static string Encode(string input)
 		{
-			StringBuilder sb = new StringBuilder(input);
+			StringBuilder sb = new(input);
 
 			sb.Replace("&", "&amp;");
 			sb.Replace("<", "&lt;");
@@ -106,7 +106,7 @@ namespace Server.Misc
 				Directory.CreateDirectory("web");
 			}
 
-			using (StreamWriter op = new StreamWriter("web/status.html"))
+			using (StreamWriter op = new("web/status.html"))
 			{
 				op.WriteLine("<!DOCTYPE html>");
 				op.WriteLine("<html>");

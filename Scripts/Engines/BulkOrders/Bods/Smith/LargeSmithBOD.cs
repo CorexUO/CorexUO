@@ -31,24 +31,20 @@ namespace Server.Engines.BulkOrders
 		[Constructable]
 		public LargeSmithBOD()
 		{
-			LargeBulkEntry[] entries;
 			bool useMaterials = true;
 
 			int rand = Utility.Random(8);
-
-			switch (rand)
+			LargeBulkEntry[] entries = rand switch
 			{
-				default:
-				case 0: entries = LargeBulkEntry.ConvertEntries(this, LargeBulkEntry.LargeRing); break;
-				case 1: entries = LargeBulkEntry.ConvertEntries(this, LargeBulkEntry.LargePlate); break;
-				case 2: entries = LargeBulkEntry.ConvertEntries(this, LargeBulkEntry.LargeChain); break;
-				case 3: entries = LargeBulkEntry.ConvertEntries(this, LargeBulkEntry.LargeAxes); break;
-				case 4: entries = LargeBulkEntry.ConvertEntries(this, LargeBulkEntry.LargeFencing); break;
-				case 5: entries = LargeBulkEntry.ConvertEntries(this, LargeBulkEntry.LargeMaces); break;
-				case 6: entries = LargeBulkEntry.ConvertEntries(this, LargeBulkEntry.LargePolearms); break;
-				case 7: entries = LargeBulkEntry.ConvertEntries(this, LargeBulkEntry.LargeSwords); break;
-			}
-
+				1 => LargeBulkEntry.ConvertEntries(this, LargeBulkEntry.LargePlate),
+				2 => LargeBulkEntry.ConvertEntries(this, LargeBulkEntry.LargeChain),
+				3 => LargeBulkEntry.ConvertEntries(this, LargeBulkEntry.LargeAxes),
+				4 => LargeBulkEntry.ConvertEntries(this, LargeBulkEntry.LargeFencing),
+				5 => LargeBulkEntry.ConvertEntries(this, LargeBulkEntry.LargeMaces),
+				6 => LargeBulkEntry.ConvertEntries(this, LargeBulkEntry.LargePolearms),
+				7 => LargeBulkEntry.ConvertEntries(this, LargeBulkEntry.LargeSwords),
+				_ => LargeBulkEntry.ConvertEntries(this, LargeBulkEntry.LargeRing),
+			};
 			if (rand > 2 && rand < 8)
 				useMaterials = false;
 
@@ -81,7 +77,7 @@ namespace Server.Engines.BulkOrders
 
 		public override List<Item> ComputeRewards(bool full)
 		{
-			List<Item> list = new List<Item>();
+			List<Item> list = new();
 
 			RewardGroup rewardGroup = SmithRewardCalculator.Instance.LookupRewards(SmithRewardCalculator.Instance.ComputePoints(this));
 

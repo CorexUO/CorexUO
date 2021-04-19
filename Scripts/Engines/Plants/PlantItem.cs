@@ -36,24 +36,15 @@ namespace Server.Engines.Plants
 		 * To support older (and only older) clients, change this to false.
 		 */
 		private static readonly bool ShowContainerType = true;
-
-		private PlantSystem m_PlantSystem;
-
 		private PlantStatus m_PlantStatus;
 		private PlantType m_PlantType;
 		private PlantHue m_PlantHue;
 		private bool m_ShowType;
 
-		private SecureLevel m_Level;
-
 		[CommandProperty(AccessLevel.GameMaster)]
-		public SecureLevel Level
-		{
-			get => m_Level;
-			set => m_Level = value;
-		}
+		public SecureLevel Level { get; set; }
 
-		public PlantSystem PlantSystem => m_PlantSystem;
+		public PlantSystem PlantSystem { get; private set; }
 
 		public override bool ForceShowProperties => ObjectPropertyList.Enabled;
 
@@ -79,8 +70,8 @@ namespace Server.Engines.Plants
 					return;
 
 				double ratio;
-				if (m_PlantSystem != null)
-					ratio = (double)m_PlantSystem.Hits / m_PlantSystem.MaxHits;
+				if (PlantSystem != null)
+					ratio = (double)PlantSystem.Hits / PlantSystem.MaxHits;
 				else
 					ratio = 1.0;
 
@@ -88,19 +79,19 @@ namespace Server.Engines.Plants
 
 				if (m_PlantStatus >= PlantStatus.DecorativePlant)
 				{
-					m_PlantSystem = null;
+					PlantSystem = null;
 				}
 				else
 				{
-					if (m_PlantSystem == null)
-						m_PlantSystem = new PlantSystem(this, false);
+					if (PlantSystem == null)
+						PlantSystem = new PlantSystem(this, false);
 
-					int hits = (int)(m_PlantSystem.MaxHits * ratio);
+					int hits = (int)(PlantSystem.MaxHits * ratio);
 
 					if (hits == 0 && m_PlantStatus > PlantStatus.BowlOfDirt)
-						m_PlantSystem.Hits = hits + 1;
+						PlantSystem.Hits = hits + 1;
 					else
-						m_PlantSystem.Hits = hits;
+						PlantSystem.Hits = hits;
 				}
 
 				Update();
@@ -173,9 +164,7 @@ namespace Server.Engines.Plants
 		[CommandProperty(AccessLevel.GameMaster)]
 		public bool Reproduces => PlantHueInfo.CanReproduce(PlantHue) && PlantTypeInfo.CanReproduce(PlantType);
 
-		private static readonly ArrayList m_Instances = new ArrayList();
-
-		public static ArrayList Plants => m_Instances;
+		public static ArrayList Plants { get; } = new ArrayList();
 
 		[Constructable]
 		public PlantItem() : this(false)
@@ -188,10 +177,10 @@ namespace Server.Engines.Plants
 			Weight = 1.0;
 
 			m_PlantStatus = PlantStatus.BowlOfDirt;
-			m_PlantSystem = new PlantSystem(this, fertileDirt);
-			m_Level = SecureLevel.Owner;
+			PlantSystem = new PlantSystem(this, fertileDirt);
+			Level = SecureLevel.Owner;
 
-			m_Instances.Add(this);
+			Plants.Add(this);
 		}
 
 		public PlantItem(Serial serial) : base(serial)
@@ -258,9 +247,9 @@ namespace Server.Engines.Plants
 				string args;
 
 				if (ShowContainerType)
-					args = string.Format("#{0}\t#{1}", GetLocalizedContainerType(), m_PlantSystem.GetLocalizedDirtStatus());
+					args = string.Format("#{0}\t#{1}", GetLocalizedContainerType(), PlantSystem.GetLocalizedDirtStatus());
 				else
-					args = string.Format("#{0}", m_PlantSystem.GetLocalizedDirtStatus());
+					args = string.Format("#{0}", PlantSystem.GetLocalizedDirtStatus());
 
 				list.Add(1060830, args); // a ~1_val~ of ~2_val~ dirt
 			}
@@ -275,16 +264,16 @@ namespace Server.Engines.Plants
 				}
 				else if (m_PlantStatus >= PlantStatus.FullGrownPlant)
 				{
-					list.Add(typeInfo.GetPlantLabelFullGrown(hueInfo), string.Format("#{0}\t#{1}\t#{2}", m_PlantSystem.GetLocalizedHealth(), hueInfo.Name, typeInfo.Name));
+					list.Add(typeInfo.GetPlantLabelFullGrown(hueInfo), string.Format("#{0}\t#{1}\t#{2}", PlantSystem.GetLocalizedHealth(), hueInfo.Name, typeInfo.Name));
 				}
 				else
 				{
 					string args;
 
 					if (ShowContainerType)
-						args = string.Format("#{0}\t#{1}\t#{2}", GetLocalizedContainerType(), m_PlantSystem.GetLocalizedDirtStatus(), m_PlantSystem.GetLocalizedHealth());
+						args = string.Format("#{0}\t#{1}\t#{2}", GetLocalizedContainerType(), PlantSystem.GetLocalizedDirtStatus(), PlantSystem.GetLocalizedHealth());
 					else
-						args = string.Format("#{0}\t#{1}", m_PlantSystem.GetLocalizedDirtStatus(), m_PlantSystem.GetLocalizedHealth());
+						args = string.Format("#{0}\t#{1}", PlantSystem.GetLocalizedDirtStatus(), PlantSystem.GetLocalizedHealth());
 
 					if (m_ShowType)
 					{
@@ -347,7 +336,7 @@ namespace Server.Engines.Plants
 			{
 				from.SendLocalizedMessage(1080389, "#" + GetLocalizedPlantStatus().ToString()); // This bowl of dirt already has a ~1_val~ in it!
 			}
-			else if (m_PlantSystem.Water < 2)
+			else if (PlantSystem.Water < 2)
 			{
 				LabelTo(from, 1061920); // The dirt needs to be softened first.
 			}
@@ -361,7 +350,7 @@ namespace Server.Engines.Plants
 
 				PlantStatus = PlantStatus.Seed;
 
-				m_PlantSystem.Reset(false);
+				PlantSystem.Reset(false);
 
 				LabelTo(from, 1061922); // You plant the seed in the bowl of dirt.
 			}
@@ -376,7 +365,7 @@ namespace Server.Engines.Plants
 			else
 			{
 				PlantStatus = PlantStatus.BowlOfDirt;
-				m_PlantSystem.Reset(true);
+				PlantSystem.Reset(true);
 			}
 		}
 
@@ -411,7 +400,7 @@ namespace Server.Engines.Plants
 					return;
 
 				beverage.Quantity--;
-				m_PlantSystem.Water++;
+				PlantSystem.Water++;
 
 				from.PlaySound(0x4E);
 				LabelTo(from, 1061858); // You soften the dirt with water.
@@ -469,31 +458,31 @@ namespace Server.Engines.Plants
 
 			if (effect == PotionEffect.PoisonGreater || effect == PotionEffect.PoisonDeadly)
 			{
-				if (m_PlantSystem.IsFullPoisonPotion)
+				if (PlantSystem.IsFullPoisonPotion)
 					full = true;
 				else if (!testOnly)
-					m_PlantSystem.PoisonPotion++;
+					PlantSystem.PoisonPotion++;
 			}
 			else if (effect == PotionEffect.CureGreater)
 			{
-				if (m_PlantSystem.IsFullCurePotion)
+				if (PlantSystem.IsFullCurePotion)
 					full = true;
 				else if (!testOnly)
-					m_PlantSystem.CurePotion++;
+					PlantSystem.CurePotion++;
 			}
 			else if (effect == PotionEffect.HealGreater)
 			{
-				if (m_PlantSystem.IsFullHealPotion)
+				if (PlantSystem.IsFullHealPotion)
 					full = true;
 				else if (!testOnly)
-					m_PlantSystem.HealPotion++;
+					PlantSystem.HealPotion++;
 			}
 			else if (effect == PotionEffect.StrengthGreater)
 			{
-				if (m_PlantSystem.IsFullStrengthPotion)
+				if (PlantSystem.IsFullStrengthPotion)
 					full = true;
 				else if (!testOnly)
-					m_PlantSystem.StrengthPotion++;
+					PlantSystem.StrengthPotion++;
 			}
 			else if (effect == PotionEffect.PoisonLesser || effect == PotionEffect.Poison || effect == PotionEffect.CureLesser || effect == PotionEffect.Cure ||
 				effect == PotionEffect.HealLesser || effect == PotionEffect.Heal || effect == PotionEffect.Strength)
@@ -525,7 +514,7 @@ namespace Server.Engines.Plants
 
 			writer.Write(0); // version
 
-			writer.Write((int)m_Level);
+			writer.Write((int)Level);
 
 			writer.Write((int)m_PlantStatus);
 			writer.Write((int)m_PlantType);
@@ -533,7 +522,7 @@ namespace Server.Engines.Plants
 			writer.Write(m_ShowType);
 
 			if (m_PlantStatus < PlantStatus.DecorativePlant)
-				m_PlantSystem.Save(writer);
+				PlantSystem.Save(writer);
 		}
 
 		public override void Deserialize(GenericReader reader)
@@ -546,7 +535,7 @@ namespace Server.Engines.Plants
 			{
 				case 0:
 					{
-						m_Level = (SecureLevel)reader.ReadInt();
+						Level = (SecureLevel)reader.ReadInt();
 
 						m_PlantStatus = (PlantStatus)reader.ReadInt();
 						m_PlantType = (PlantType)reader.ReadInt();
@@ -554,20 +543,20 @@ namespace Server.Engines.Plants
 						m_ShowType = reader.ReadBool();
 
 						if (m_PlantStatus < PlantStatus.DecorativePlant)
-							m_PlantSystem = new PlantSystem(this, reader);
+							PlantSystem = new PlantSystem(this, reader);
 
 						break;
 					}
 			}
 
-			m_Instances.Add(this);
+			Plants.Add(this);
 		}
 
 		public override void OnAfterDelete()
 		{
 			base.OnAfterDelete();
 
-			m_Instances.Remove(this);
+			Plants.Remove(this);
 		}
 	}
 }
