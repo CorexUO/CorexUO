@@ -256,13 +256,13 @@ namespace Server.Items
 
 			Item[] typedItems = FindItemsByType(type, recurse);
 
-			List<List<Item>> groups = new List<List<Item>>();
+			List<List<Item>> groups = new();
 			int idx = 0;
 
 			while (idx < typedItems.Length)
 			{
 				Item a = typedItems[idx++];
-				List<Item> group = new List<Item>
+				List<Item> group = new()
 				{
 					a
 				};
@@ -352,13 +352,13 @@ namespace Server.Items
 			{
 				Item[] typedItems = FindItemsByType(types[i], recurse);
 
-				List<List<Item>> groups = new List<List<Item>>();
+				List<List<Item>> groups = new();
 				int idx = 0;
 
 				while (idx < typedItems.Length)
 				{
 					Item a = typedItems[idx++];
-					List<Item> group = new List<Item>
+					List<Item> group = new()
 					{
 						a
 					};
@@ -452,13 +452,13 @@ namespace Server.Items
 			{
 				Item[] typedItems = FindItemsByType(types[i], recurse);
 
-				List<List<Item>> groups = new List<List<Item>>();
+				List<List<Item>> groups = new();
 				int idx = 0;
 
 				while (idx < typedItems.Length)
 				{
 					Item a = typedItems[idx++];
-					List<Item> group = new List<Item>
+					List<Item> group = new()
 					{
 						a
 					};
@@ -717,7 +717,7 @@ namespace Server.Items
 		{
 			int consumed = 0;
 
-			Queue<Item> toDelete = new Queue<Item>();
+			Queue<Item> toDelete = new();
 
 			RecurseConsumeUpTo(this, type, amount, recurse, ref consumed, toDelete);
 
@@ -775,13 +775,13 @@ namespace Server.Items
 
 			Item[] typedItems = FindItemsByType(type, recurse);
 
-			List<List<Item>> groups = new List<List<Item>>();
+			List<List<Item>> groups = new();
 			int idx = 0;
 
 			while (idx < typedItems.Length)
 			{
 				Item a = typedItems[idx++];
-				List<Item> group = new List<Item>
+				List<Item> group = new()
 				{
 					a
 				};
@@ -828,13 +828,13 @@ namespace Server.Items
 
 			Item[] typedItems = FindItemsByType(types, recurse);
 
-			List<List<Item>> groups = new List<List<Item>>();
+			List<List<Item>> groups = new();
 			int idx = 0;
 
 			while (idx < typedItems.Length)
 			{
 				Item a = typedItems[idx++];
-				List<Item> group = new List<Item>
+				List<Item> group = new()
 				{
 					a
 				};
@@ -882,13 +882,13 @@ namespace Server.Items
 			{
 				Item[] typedItems = FindItemsByType(types[i], recurse);
 
-				List<List<Item>> groups = new List<List<Item>>();
+				List<List<Item>> groups = new();
 				int idx = 0;
 
 				while (idx < typedItems.Length)
 				{
 					Item a = typedItems[idx++];
-					List<Item> group = new List<Item>
+					List<Item> group = new()
 					{
 						a
 					};
@@ -961,7 +961,7 @@ namespace Server.Items
 		}
 		#endregion
 
-		private static readonly List<Item> m_FindItemsList = new List<Item>();
+		private static readonly List<Item> m_FindItemsList = new();
 
 		#region Non-Generic FindItem[s] by Type
 		public Item[] FindItemsByType(Type type)
@@ -1129,7 +1129,7 @@ namespace Server.Items
 			if (m_FindItemsList.Count > 0)
 				m_FindItemsList.Clear();
 
-			List<T> list = new List<T>();
+			List<T> list = new();
 
 			RecurseFindItemsByType<T>(this, recurse, list, predicate);
 
@@ -1647,7 +1647,7 @@ namespace Server.Items
 				return;
 			}
 
-			using (StreamReader reader = new StreamReader(path))
+			using (StreamReader reader = new(path))
 			{
 				string line;
 
@@ -1675,11 +1675,11 @@ namespace Server.Items
 							int width = Utility.ToInt32(aRect[2]);
 							int height = Utility.ToInt32(aRect[3]);
 
-							Rectangle2D bounds = new Rectangle2D(x, y, width, height);
+							Rectangle2D bounds = new(x, y, width, height);
 
 							int dropSound = Utility.ToInt32(split[2]);
 
-							ContainerData data = new ContainerData(gumpID, bounds, dropSound);
+							ContainerData data = new(gumpID, bounds, dropSound);
 
 							if (Default == null)
 								Default = data;

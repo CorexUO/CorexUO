@@ -6,16 +6,14 @@ namespace Server.Items
 	public class BankBox : Container
 	{
 		public override int DefaultMaxWeight => 0;
-
 		public override bool IsVirtualItem => true;
+
+		public Mobile Owner { get; private set; }
+		public bool Opened { get; private set; }
 
 		public BankBox(Serial serial) : base(serial)
 		{
 		}
-
-		public Mobile Owner { get; private set; }
-
-		public bool Opened { get; private set; }
 
 		public void Open()
 		{
