@@ -1502,7 +1502,7 @@ namespace Server.Misc
 						PackScroll(1);
 						PackScroll(2);
 
-						Spellbook book = new(0x382A8C38);
+						Spellbook book = new((ulong)0x382A8C38);
 
 						EquipItem(book);
 
