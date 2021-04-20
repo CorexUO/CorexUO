@@ -1028,100 +1028,100 @@ namespace Server
 
 		#endregion
 
-		private static readonly SkillName[] m_AllSkills = new SkillName[]
-			{
-				SkillName.Alchemy,
-				SkillName.Anatomy,
-				SkillName.AnimalLore,
-				SkillName.ItemID,
-				SkillName.ArmsLore,
-				SkillName.Parry,
-				SkillName.Begging,
-				SkillName.Blacksmith,
-				SkillName.Fletching,
-				SkillName.Peacemaking,
-				SkillName.Camping,
-				SkillName.Carpentry,
-				SkillName.Cartography,
-				SkillName.Cooking,
-				SkillName.DetectHidden,
-				SkillName.Discordance,
-				SkillName.EvalInt,
-				SkillName.Healing,
-				SkillName.Fishing,
-				SkillName.Forensics,
-				SkillName.Herding,
-				SkillName.Hiding,
-				SkillName.Provocation,
-				SkillName.Inscribe,
-				SkillName.Lockpicking,
-				SkillName.Magery,
-				SkillName.MagicResist,
-				SkillName.Tactics,
-				SkillName.Snooping,
-				SkillName.Musicianship,
-				SkillName.Poisoning,
-				SkillName.Archery,
-				SkillName.SpiritSpeak,
-				SkillName.Stealing,
-				SkillName.Tailoring,
-				SkillName.AnimalTaming,
-				SkillName.TasteID,
-				SkillName.Tinkering,
-				SkillName.Tracking,
-				SkillName.Veterinary,
-				SkillName.Swords,
-				SkillName.Macing,
-				SkillName.Fencing,
-				SkillName.Wrestling,
-				SkillName.Lumberjacking,
-				SkillName.Mining,
-				SkillName.Meditation,
-				SkillName.Stealth,
-				SkillName.RemoveTrap,
-				SkillName.Necromancy,
-				SkillName.Focus,
-				SkillName.Chivalry,
-				SkillName.Bushido,
-				SkillName.Ninjitsu,
-				SkillName.Spellweaving
-			};
+		public static readonly SkillName[] AllSkills = new SkillName[]
+		{
+			SkillName.Alchemy,
+			SkillName.Anatomy,
+			SkillName.AnimalLore,
+			SkillName.ItemID,
+			SkillName.ArmsLore,
+			SkillName.Parry,
+			SkillName.Begging,
+			SkillName.Blacksmith,
+			SkillName.Fletching,
+			SkillName.Peacemaking,
+			SkillName.Camping,
+			SkillName.Carpentry,
+			SkillName.Cartography,
+			SkillName.Cooking,
+			SkillName.DetectHidden,
+			SkillName.Discordance,
+			SkillName.EvalInt,
+			SkillName.Healing,
+			SkillName.Fishing,
+			SkillName.Forensics,
+			SkillName.Herding,
+			SkillName.Hiding,
+			SkillName.Provocation,
+			SkillName.Inscribe,
+			SkillName.Lockpicking,
+			SkillName.Magery,
+			SkillName.MagicResist,
+			SkillName.Tactics,
+			SkillName.Snooping,
+			SkillName.Musicianship,
+			SkillName.Poisoning,
+			SkillName.Archery,
+			SkillName.SpiritSpeak,
+			SkillName.Stealing,
+			SkillName.Tailoring,
+			SkillName.AnimalTaming,
+			SkillName.TasteID,
+			SkillName.Tinkering,
+			SkillName.Tracking,
+			SkillName.Veterinary,
+			SkillName.Swords,
+			SkillName.Macing,
+			SkillName.Fencing,
+			SkillName.Wrestling,
+			SkillName.Lumberjacking,
+			SkillName.Mining,
+			SkillName.Meditation,
+			SkillName.Stealth,
+			SkillName.RemoveTrap,
+			SkillName.Necromancy,
+			SkillName.Focus,
+			SkillName.Chivalry,
+			SkillName.Bushido,
+			SkillName.Ninjitsu,
+			SkillName.Spellweaving
+		};
 
-		private static readonly SkillName[] m_CombatSkills = new SkillName[]
-			{
-				SkillName.Archery,
-				SkillName.Swords,
-				SkillName.Macing,
-				SkillName.Fencing,
-				SkillName.Wrestling
-			};
+		public static readonly SkillName[] CombatSkills = new SkillName[]
+		{
+			SkillName.Archery,
+			SkillName.Swords,
+			SkillName.Macing,
+			SkillName.Fencing,
+			SkillName.Wrestling
+		};
 
-		private static readonly SkillName[] m_CraftSkills = new SkillName[]
-			{
-				SkillName.Alchemy,
-				SkillName.Blacksmith,
-				SkillName.Fletching,
-				SkillName.Carpentry,
-				SkillName.Cartography,
-				SkillName.Cooking,
-				SkillName.Inscribe,
-				SkillName.Tailoring,
-				SkillName.Tinkering
-			};
+		public static readonly SkillName[] CraftSkills = new SkillName[]
+		{
+			SkillName.Alchemy,
+			SkillName.Blacksmith,
+			SkillName.Fletching,
+			SkillName.Carpentry,
+			SkillName.Cartography,
+			SkillName.Cooking,
+			SkillName.Inscribe,
+			SkillName.Tailoring,
+			SkillName.Tinkering
+		};
 
 		public static SkillName RandomSkill()
 		{
-			return m_AllSkills[Utility.Random(m_AllSkills.Length - (Core.ML ? 0 : Core.SE ? 1 : Core.AOS ? 3 : 6))];
+			return AllSkills[Utility.Random(AllSkills.Length - (Core.ML ? 0 : Core.SE ? 1 : Core.AOS ? 3 : 6))];
 		}
 
 		public static SkillName RandomCombatSkill()
 		{
-			return m_CombatSkills[Utility.Random(m_CombatSkills.Length)];
+			return CombatSkills[Utility.Random(CombatSkills.Length)];
 		}
 
 		public static SkillName RandomCraftSkill()
 		{
-			return m_CraftSkills[Utility.Random(m_CraftSkills.Length)];
+			return CraftSkills[Utility.Random(CraftSkills.Length)];
 		}
 
 		public static void FixPoints(ref Point3D top, ref Point3D bottom)
@@ -1363,9 +1363,7 @@ namespace Server
 
 			for (int i = 0; i < list.Count; i++)
 			{
-				TOutput t = list[i] as TOutput;
-
-				if (t != null)
+				if (list[i] is TOutput t)
 					output.Add(t);
 			}
 
