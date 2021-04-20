@@ -3247,10 +3247,6 @@ namespace Server.Mobiles
 			if (RecentlyReported == null)
 				RecentlyReported = new List<Mobile>();
 
-			// Professions weren't verified on 1.0 RC0
-			if (!CharacterCreation.VerifyProfession(Profession))
-				Profession = 0;
-
 			if (PermaFlags == null)
 				PermaFlags = new List<Mobile>();
 

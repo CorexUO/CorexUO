@@ -31,12 +31,12 @@ namespace Server.Multis
 		private DesignState m_Backup;  // State at last user backup.
 
 		public FoundationType Type { get; set; }  // Graphic type of this foundation.
-		public int LastRevision { get; set; }	// Latest revision number.
-		public List<Item> Fixtures { get; private set; }	// List of fixtures (teleporters and doors) associated with this house.
-		public Item SignHanger { get; private set; }	// Item hanging the sign.
-		public Item Signpost { get; private set; }	// Item supporting the hanger.
-		public int SignpostGraphic { get; set; }	// ItemID number of the chosen signpost.
-		public Mobile Customizer { get; set; }	// Who is currently customizing this -or- null if not customizing.
+		public int LastRevision { get; set; }   // Latest revision number.
+		public List<Item> Fixtures { get; private set; }    // List of fixtures (teleporters and doors) associated with this house.
+		public Item SignHanger { get; private set; }    // Item hanging the sign.
+		public Item Signpost { get; private set; }  // Item supporting the hanger.
+		public int SignpostGraphic { get; set; }    // ItemID number of the chosen signpost.
+		public Mobile Customizer { get; set; }  // Who is currently customizing this -or- null if not customizing.
 
 		public override bool IsAosRules => true;
 

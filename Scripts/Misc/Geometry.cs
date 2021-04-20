@@ -34,8 +34,8 @@ namespace Server.Misc
 			public CirclePoint(Point2D point, int angle, int quadrant)
 			{
 				this.point = point;
-				this.Angle = angle;
-				this.Quadrant = quadrant;
+				Angle = angle;
+				Quadrant = quadrant;
 			}
 		}
 
