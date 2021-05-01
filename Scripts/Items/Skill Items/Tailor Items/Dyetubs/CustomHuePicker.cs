@@ -5,58 +5,49 @@ namespace Server.Items
 {
 	public class CustomHueGroup
 	{
-		private readonly int m_Name;
-		private readonly string m_NameString;
-		private readonly int[] m_Hues;
+		public int Name { get; }
+		public string NameString { get; }
 
-		public int Name => m_Name;
-		public string NameString => m_NameString;
-
-		public int[] Hues => m_Hues;
+		public int[] Hues { get; }
 
 		public CustomHueGroup(int name, int[] hues)
 		{
-			m_Name = name;
-			m_Hues = hues;
+			Name = name;
+			Hues = hues;
 		}
 
 		public CustomHueGroup(string name, int[] hues)
 		{
-			m_NameString = name;
-			m_Hues = hues;
+			NameString = name;
+			Hues = hues;
 		}
 	}
 
 	public class CustomHuePicker
 	{
-		private readonly CustomHueGroup[] m_Groups;
-		private readonly bool m_DefaultSupported;
-		private readonly int m_Title;
-		private readonly string m_TitleString;
-
-		public bool DefaultSupported => m_DefaultSupported;
-		public CustomHueGroup[] Groups => m_Groups;
-		public int Title => m_Title;
-		public string TitleString => m_TitleString;
+		public bool DefaultSupported { get; }
+		public CustomHueGroup[] Groups { get; }
+		public int Title { get; }
+		public string TitleString { get; }
 
 		public CustomHuePicker(CustomHueGroup[] groups, bool defaultSupported)
 		{
-			m_Groups = groups;
-			m_DefaultSupported = defaultSupported;
+			Groups = groups;
+			DefaultSupported = defaultSupported;
 		}
 
 		public CustomHuePicker(CustomHueGroup[] groups, bool defaultSupported, int title)
 		{
-			m_Groups = groups;
-			m_DefaultSupported = defaultSupported;
-			m_Title = title;
+			Groups = groups;
+			DefaultSupported = defaultSupported;
+			Title = title;
 		}
 
 		public CustomHuePicker(CustomHueGroup[] groups, bool defaultSupported, string title)
 		{
-			m_Groups = groups;
-			m_DefaultSupported = defaultSupported;
-			m_TitleString = title;
+			Groups = groups;
+			DefaultSupported = defaultSupported;
+			TitleString = title;
 		}
 
 		public static readonly CustomHuePicker SpecialDyeTub = new CustomHuePicker(new CustomHueGroup[]

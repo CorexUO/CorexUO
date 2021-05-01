@@ -37,7 +37,6 @@ namespace Server.Items
 		private int m_MaxHitPoints;
 		private int m_HitPoints;
 		private Mobile m_Crafter;
-		private bool m_PlayerConstructed;
 		protected CraftResource m_Resource;
 		private int m_StrReq = -1;
 
@@ -87,11 +86,7 @@ namespace Server.Items
 		}
 
 		[CommandProperty(AccessLevel.GameMaster)]
-		public bool PlayerConstructed
-		{
-			get => m_PlayerConstructed;
-			set => m_PlayerConstructed = value;
-		}
+		public bool PlayerConstructed { get; set; }
 
 		public virtual CraftResource DefaultResource => CraftResource.None;
 
@@ -599,7 +594,7 @@ namespace Server.Items
 			Utility.SetSaveFlag(ref flags, SaveFlag.Resistances, !m_AosResistances.IsEmpty);
 			Utility.SetSaveFlag(ref flags, SaveFlag.MaxHitPoints, m_MaxHitPoints != 0);
 			Utility.SetSaveFlag(ref flags, SaveFlag.HitPoints, m_HitPoints != 0);
-			Utility.SetSaveFlag(ref flags, SaveFlag.PlayerConstructed, m_PlayerConstructed != false);
+			Utility.SetSaveFlag(ref flags, SaveFlag.PlayerConstructed, PlayerConstructed != false);
 			Utility.SetSaveFlag(ref flags, SaveFlag.Crafter, m_Crafter != null);
 			Utility.SetSaveFlag(ref flags, SaveFlag.StrReq, m_StrReq != -1);
 
@@ -677,7 +672,7 @@ namespace Server.Items
 							m_StrReq = -1;
 
 						if (flags.HasFlag(SaveFlag.PlayerConstructed))
-							m_PlayerConstructed = true;
+							PlayerConstructed = true;
 
 						break;
 					}
@@ -743,7 +738,7 @@ namespace Server.Items
 
 					Item res = (Item)Activator.CreateInstance(resourceType);
 
-					ScissorHelper(from, res, m_PlayerConstructed ? (item.Resources.GetAt(0).Amount / 2) : 1);
+					ScissorHelper(from, res, PlayerConstructed ? (item.Resources.GetAt(0).Amount / 2) : 1);
 
 					res.LootType = LootType.Regular;
 

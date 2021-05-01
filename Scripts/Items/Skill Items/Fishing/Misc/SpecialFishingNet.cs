@@ -10,14 +10,8 @@ namespace Server.Items
 	{
 		public override int LabelNumber => 1041079;  // a special fishing net
 
-		private bool m_InUse;
-
 		[CommandProperty(AccessLevel.GameMaster)]
-		public bool InUse
-		{
-			get => m_InUse;
-			set => m_InUse = value;
-		}
+		public bool InUse { get; set; }
 
 		[Constructable]
 		public SpecialFishingNet() : base(0x0DCA)
@@ -71,7 +65,7 @@ namespace Server.Items
 
 			writer.Write(0); // version
 
-			writer.Write(m_InUse);
+			writer.Write(InUse);
 		}
 
 		public override void Deserialize(GenericReader reader)
@@ -84,9 +78,9 @@ namespace Server.Items
 			{
 				case 0:
 					{
-						m_InUse = reader.ReadBool();
+						InUse = reader.ReadBool();
 
-						if (m_InUse)
+						if (InUse)
 							Delete();
 
 						break;
@@ -98,7 +92,7 @@ namespace Server.Items
 
 		public override void OnDoubleClick(Mobile from)
 		{
-			if (m_InUse)
+			if (InUse)
 			{
 				from.SendLocalizedMessage(1010483); // Someone is already using that net!
 			}
@@ -117,7 +111,7 @@ namespace Server.Items
 
 		public void OnTarget(Mobile from, object obj)
 		{
-			if (Deleted || m_InUse)
+			if (Deleted || InUse)
 				return;
 
 			IPoint3D p3D = obj as IPoint3D;
@@ -150,7 +144,7 @@ namespace Server.Items
 						from.AddToBackpack(new SpecialFishingNet());
 				}
 
-				m_InUse = true;
+				InUse = true;
 				Movable = false;
 				MoveToWorld(p, map);
 

@@ -403,25 +403,17 @@ namespace Server.Items
 
 	public class RunebookEntry
 	{
-		private readonly Point3D m_Location;
-		private readonly Map m_Map;
-		private readonly string m_Description;
-		private readonly BaseHouse m_House;
-
-		public Point3D Location => m_Location;
-
-		public Map Map => m_Map;
-
-		public string Description => m_Description;
-
-		public BaseHouse House => m_House;
+		public Point3D Location { get; }
+		public Map Map { get; }
+		public string Description { get; }
+		public BaseHouse House { get; }
 
 		public RunebookEntry(Point3D loc, Map map, string desc, BaseHouse house)
 		{
-			m_Location = loc;
-			m_Map = map;
-			m_Description = desc;
-			m_House = house;
+			Location = loc;
+			Map = map;
+			Description = desc;
+			House = house;
 		}
 
 		public RunebookEntry(GenericReader reader)
@@ -432,14 +424,14 @@ namespace Server.Items
 			{
 				case 1:
 					{
-						m_House = reader.ReadItem() as BaseHouse;
+						House = reader.ReadItem() as BaseHouse;
 						goto case 0;
 					}
 				case 0:
 					{
-						m_Location = reader.ReadPoint3D();
-						m_Map = reader.ReadMap();
-						m_Description = reader.ReadString();
+						Location = reader.ReadPoint3D();
+						Map = reader.ReadMap();
+						Description = reader.ReadString();
 
 						break;
 					}
@@ -448,20 +440,20 @@ namespace Server.Items
 
 		public void Serialize(GenericWriter writer)
 		{
-			if (m_House != null && !m_House.Deleted)
+			if (House != null && !House.Deleted)
 			{
 				writer.Write((byte)1); // version
 
-				writer.Write(m_House);
+				writer.Write(House);
 			}
 			else
 			{
 				writer.Write((byte)0); // version
 			}
 
-			writer.Write(m_Location);
-			writer.Write(m_Map);
-			writer.Write(m_Description);
+			writer.Write(Location);
+			writer.Write(Map);
+			writer.Write(Description);
 		}
 	}
 }

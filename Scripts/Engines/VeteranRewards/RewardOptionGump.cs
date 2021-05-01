@@ -73,16 +73,13 @@ namespace Server.Gumps
 
 	public class RewardOption
 	{
-		private readonly int m_ID;
-		private readonly int m_Cliloc;
-
-		public int ID => m_ID;
-		public int Cliloc => m_Cliloc;
+		public int ID { get; }
+		public int Cliloc { get; }
 
 		public RewardOption(int id, int cliloc)
 		{
-			m_ID = id;
-			m_Cliloc = cliloc;
+			ID = id;
+			Cliloc = cliloc;
 		}
 	}
 

@@ -9,14 +9,8 @@ namespace Server.Items
 {
 	public abstract class BaseBoard : Container, ISecurable
 	{
-		private SecureLevel m_Level;
-
 		[CommandProperty(AccessLevel.GameMaster)]
-		public SecureLevel Level
-		{
-			get => m_Level;
-			set => m_Level = value;
-		}
+		public SecureLevel Level { get; set; }
 
 		public BaseBoard(int itemID) : base(itemID)
 		{
@@ -57,7 +51,7 @@ namespace Server.Items
 			base.Serialize(writer);
 			writer.Write(0); // version
 
-			writer.Write((int)m_Level);
+			writer.Write((int)Level);
 		}
 
 		public override void Deserialize(GenericReader reader)
@@ -65,7 +59,7 @@ namespace Server.Items
 			base.Deserialize(reader);
 			int version = reader.ReadInt();
 
-			m_Level = (SecureLevel)reader.ReadInt();
+			Level = (SecureLevel)reader.ReadInt();
 		}
 
 		public override TimeSpan DecayTime => TimeSpan.FromDays(1.0);

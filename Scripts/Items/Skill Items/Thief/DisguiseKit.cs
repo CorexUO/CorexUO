@@ -305,13 +305,13 @@ namespace Server.Items
 		public static void CreateTimer(Mobile m, TimeSpan delay)
 		{
 			if (m != null)
-				if (!m_Timers.ContainsKey(m))
-					m_Timers[m] = new InternalTimer(m, delay);
+				if (!Timers.ContainsKey(m))
+					Timers[m] = new InternalTimer(m, delay);
 		}
 
 		public static void StartTimer(Mobile m)
 		{
-			m_Timers.TryGetValue(m, out Timer t);
+			Timers.TryGetValue(m, out Timer t);
 
 			if (t != null)
 				t.Start();
@@ -319,12 +319,12 @@ namespace Server.Items
 
 		public static bool IsDisguised(Mobile m)
 		{
-			return m_Timers.ContainsKey(m);
+			return Timers.ContainsKey(m);
 		}
 
 		public static bool StopTimer(Mobile m)
 		{
-			m_Timers.TryGetValue(m, out Timer t);
+			Timers.TryGetValue(m, out Timer t);
 
 			if (t != null)
 			{
@@ -341,12 +341,12 @@ namespace Server.Items
 
 		public static bool RemoveTimer(Mobile m)
 		{
-			m_Timers.TryGetValue(m, out Timer t);
+			Timers.TryGetValue(m, out Timer t);
 
 			if (t != null)
 			{
 				t.Stop();
-				m_Timers.Remove(m);
+				Timers.Remove(m);
 			}
 
 			return (t != null);
@@ -354,7 +354,7 @@ namespace Server.Items
 
 		public static TimeSpan TimeRemaining(Mobile m)
 		{
-			m_Timers.TryGetValue(m, out Timer t);
+			Timers.TryGetValue(m, out Timer t);
 
 			if (t != null)
 			{
@@ -364,8 +364,6 @@ namespace Server.Items
 			return TimeSpan.Zero;
 		}
 
-		private static readonly Dictionary<Mobile, Timer> m_Timers = new Dictionary<Mobile, Timer>();
-
-		public static Dictionary<Mobile, Timer> Timers => m_Timers;
+		public static Dictionary<Mobile, Timer> Timers { get; } = new Dictionary<Mobile, Timer>();
 	}
 }

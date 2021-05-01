@@ -63,9 +63,7 @@ namespace Server.Items
 	[AttributeUsage(AttributeTargets.Class)]
 	public class FlipableAttribute : Attribute
 	{
-		private readonly int[] m_ItemIDs;
-
-		public int[] ItemIDs => m_ItemIDs;
+		public int[] ItemIDs { get; }
 
 		public FlipableAttribute()
 			: this(null)
@@ -74,12 +72,12 @@ namespace Server.Items
 
 		public FlipableAttribute(params int[] itemIDs)
 		{
-			m_ItemIDs = itemIDs;
+			ItemIDs = itemIDs;
 		}
 
 		public virtual void Flip(Item item)
 		{
-			if (m_ItemIDs == null)
+			if (ItemIDs == null)
 			{
 				try
 				{
@@ -95,19 +93,19 @@ namespace Server.Items
 			else
 			{
 				int index = 0;
-				for (int i = 0; i < m_ItemIDs.Length; i++)
+				for (int i = 0; i < ItemIDs.Length; i++)
 				{
-					if (item.ItemID == m_ItemIDs[i])
+					if (item.ItemID == ItemIDs[i])
 					{
 						index = i + 1;
 						break;
 					}
 				}
 
-				if (index > m_ItemIDs.Length - 1)
+				if (index > ItemIDs.Length - 1)
 					index = 0;
 
-				item.ItemID = m_ItemIDs[index];
+				item.ItemID = ItemIDs[index];
 			}
 		}
 	}

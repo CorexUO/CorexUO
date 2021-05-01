@@ -5,14 +5,8 @@ namespace Server.Items
 {
 	public abstract class BaseHat : BaseClothing, IShipwreckedItem
 	{
-		private bool m_IsShipwreckedItem;
-
 		[CommandProperty(AccessLevel.GameMaster)]
-		public bool IsShipwreckedItem
-		{
-			get => m_IsShipwreckedItem;
-			set => m_IsShipwreckedItem = value;
-		}
+		public bool IsShipwreckedItem { get; set; }
 
 		public BaseHat(int itemID) : this(itemID, 0)
 		{
@@ -32,7 +26,7 @@ namespace Server.Items
 
 			writer.Write(0); // version
 
-			writer.Write(m_IsShipwreckedItem);
+			writer.Write(IsShipwreckedItem);
 		}
 
 		public override void Deserialize(GenericReader reader)
@@ -45,7 +39,7 @@ namespace Server.Items
 			{
 				case 0:
 					{
-						m_IsShipwreckedItem = reader.ReadBool();
+						IsShipwreckedItem = reader.ReadBool();
 						break;
 					}
 			}
@@ -55,7 +49,7 @@ namespace Server.Items
 		{
 			base.AddNameProperties(list);
 
-			if (m_IsShipwreckedItem)
+			if (IsShipwreckedItem)
 				list.Add(1041645); // recovered from a shipwreck
 		}
 

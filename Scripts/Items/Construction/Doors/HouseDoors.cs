@@ -92,22 +92,11 @@ namespace Server.Items
 
 	public abstract class BaseHouseDoor : BaseDoor, ISecurable
 	{
-		private DoorFacing m_Facing;
-		private SecureLevel m_Level;
+		[CommandProperty(AccessLevel.GameMaster)]
+		public DoorFacing Facing { get; set; }
 
 		[CommandProperty(AccessLevel.GameMaster)]
-		public DoorFacing Facing
-		{
-			get => m_Facing;
-			set => m_Facing = value;
-		}
-
-		[CommandProperty(AccessLevel.GameMaster)]
-		public SecureLevel Level
-		{
-			get => m_Level;
-			set => m_Level = value;
-		}
+		public SecureLevel Level { get; set; }
 
 		public override void GetContextMenuEntries(Mobile from, List<ContextMenuEntry> list)
 		{
@@ -117,8 +106,8 @@ namespace Server.Items
 
 		public BaseHouseDoor(DoorFacing facing, int closedID, int openedID, int openedSound, int closedSound, Point3D offset) : base(closedID, openedID, openedSound, closedSound, offset)
 		{
-			m_Facing = facing;
-			m_Level = SecureLevel.Anyone;
+			Facing = facing;
+			Level = SecureLevel.Anyone;
 		}
 
 		public BaseHouse FindHouse()
@@ -146,7 +135,7 @@ namespace Server.Items
 			if (house.Public ? house.IsBanned(m) : !house.HasAccess(m))
 				return false;
 
-			return house.HasSecureAccess(m, m_Level);
+			return house.HasSecureAccess(m, Level);
 		}
 
 		public override void OnOpened(Mobile from)
@@ -185,9 +174,9 @@ namespace Server.Items
 
 			writer.Write(0); // version
 
-			writer.Write((int)m_Level);
+			writer.Write((int)Level);
 
-			writer.Write((int)m_Facing);
+			writer.Write((int)Facing);
 		}
 
 		public override void Deserialize(GenericReader reader)
@@ -200,9 +189,9 @@ namespace Server.Items
 			{
 				case 0:
 					{
-						m_Level = (SecureLevel)reader.ReadInt();
+						Level = (SecureLevel)reader.ReadInt();
 
-						m_Facing = (DoorFacing)reader.ReadInt();
+						Facing = (DoorFacing)reader.ReadInt();
 						break;
 					}
 			}
@@ -216,7 +205,7 @@ namespace Server.Items
 			const int bs = r * 2 + 1;
 			const int ss = r + 1;
 
-			switch (m_Facing)
+			switch (Facing)
 			{
 				case DoorFacing.WestCW:
 				case DoorFacing.EastCCW: x = -r; y = -r; w = bs; h = ss; break;

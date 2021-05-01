@@ -19,16 +19,14 @@ namespace Server.Items
 		{
 		}
 
-		private static readonly int[] m_Sounds = new int[] { 0x505, 0x506, 0x507 };
-
-		public static int[] Sounds => m_Sounds;
+		public static int[] Sounds { get; } = new int[] { 0x505, 0x506, 0x507 };
 
 		public override bool HandlesOnMovement => m_TurnedOn && IsLockedDown;
 
 		public override void OnMovement(Mobile m, Point3D oldLocation)
 		{
 			if (m_TurnedOn && IsLockedDown && (!m.Hidden || m.AccessLevel == AccessLevel.Player) && Utility.InRange(m.Location, Location, 2) && !Utility.InRange(oldLocation, Location, 2))
-				Effects.PlaySound(Location, Map, m_Sounds[Utility.Random(m_Sounds.Length)]);
+				Effects.PlaySound(Location, Map, Sounds[Utility.Random(Sounds.Length)]);
 
 			base.OnMovement(m, oldLocation);
 		}

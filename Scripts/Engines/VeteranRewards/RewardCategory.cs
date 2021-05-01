@@ -4,24 +4,20 @@ namespace Server.Engines.VeteranRewards
 {
 	public class RewardCategory
 	{
-		private readonly int m_Name;
-		private readonly string m_NameString;
-		private readonly List<RewardEntry> m_Entries;
-
-		public int Name => m_Name;
-		public string NameString => m_NameString;
-		public List<RewardEntry> Entries => m_Entries;
+		public int Name { get; }
+		public string NameString { get; }
+		public List<RewardEntry> Entries { get; }
 
 		public RewardCategory(int name)
 		{
-			m_Name = name;
-			m_Entries = new List<RewardEntry>();
+			Name = name;
+			Entries = new List<RewardEntry>();
 		}
 
 		public RewardCategory(string name)
 		{
-			m_NameString = name;
-			m_Entries = new List<RewardEntry>();
+			NameString = name;
+			Entries = new List<RewardEntry>();
 		}
 	}
 }
