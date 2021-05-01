@@ -129,19 +129,15 @@ namespace Server.Engines.Help
 
 	public class SpeechLogEntry
 	{
-		private readonly Mobile m_From;
-		private readonly string m_Speech;
-		private readonly DateTime m_Created;
-
-		public Mobile From => m_From;
-		public string Speech => m_Speech;
-		public DateTime Created => m_Created;
+		public Mobile From { get; }
+		public string Speech { get; }
+		public DateTime Created { get; }
 
 		public SpeechLogEntry(Mobile from, string speech)
 		{
-			m_From = from;
-			m_Speech = speech;
-			m_Created = DateTime.UtcNow;
+			From = from;
+			Speech = speech;
+			Created = DateTime.UtcNow;
 		}
 	}
 }

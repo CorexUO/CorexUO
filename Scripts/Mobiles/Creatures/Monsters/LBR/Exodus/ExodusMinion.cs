@@ -6,8 +6,7 @@ namespace Server.Mobiles
 	[CorpseName("a minion's corpse")]
 	public class ExodusMinion : BaseCreature
 	{
-		private bool m_FieldActive;
-		public bool FieldActive => m_FieldActive;
+		public bool FieldActive { get; private set; }
 		public bool CanUseField => Hits >= HitsMax * 9 / 10;  // TODO: an OSI bug prevents to verify this
 
 		public override bool IsScaredOfScaryThings => false;
@@ -52,7 +51,7 @@ namespace Server.Mobiles
 				case 2: PackItem(new ClockworkAssembly()); break;
 			}
 
-			m_FieldActive = CanUseField;
+			FieldActive = CanUseField;
 		}
 
 		public override void GenerateLoot()
@@ -92,13 +91,13 @@ namespace Server.Mobiles
 
 		public override void AlterMeleeDamageFrom(Mobile from, ref int damage)
 		{
-			if (m_FieldActive)
+			if (FieldActive)
 				damage = 0; // no melee damage when the field is up
 		}
 
 		public override void AlterSpellDamageFrom(Mobile from, ref int damage)
 		{
-			if (!m_FieldActive)
+			if (!FieldActive)
 				damage = 0; // no spell damage when the field is down
 		}
 
@@ -110,14 +109,14 @@ namespace Server.Mobiles
 				SendEBolt(from);
 			}
 
-			if (!m_FieldActive)
+			if (!FieldActive)
 			{
 				// should there be an effect when spells nullifying is on?
 				FixedParticles(0, 10, 0, 0x2522, EffectLayer.Waist);
 			}
-			else if (m_FieldActive && !CanUseField)
+			else if (FieldActive && !CanUseField)
 			{
-				m_FieldActive = false;
+				FieldActive = false;
 
 				// TODO: message and effect when field turns down; cannot be verified on OSI due to a bug
 				FixedParticles(0x3735, 1, 30, 0x251F, EffectLayer.Waist);
@@ -128,7 +127,7 @@ namespace Server.Mobiles
 		{
 			base.OnGotMeleeAttack(attacker);
 
-			if (m_FieldActive)
+			if (FieldActive)
 			{
 				FixedParticles(0x376A, 20, 10, 0x2530, EffectLayer.Waist);
 
@@ -148,15 +147,15 @@ namespace Server.Mobiles
 			base.OnThink();
 
 			// TODO: an OSI bug prevents to verify if the field can regenerate or not
-			if (!m_FieldActive && !IsHurt())
-				m_FieldActive = true;
+			if (!FieldActive && !IsHurt())
+				FieldActive = true;
 		}
 
 		public override bool Move(Direction d)
 		{
 			bool move = base.Move(d);
 
-			if (move && m_FieldActive && Combatant != null)
+			if (move && FieldActive && Combatant != null)
 				FixedParticles(0, 10, 0, 0x2530, EffectLayer.Waist);
 
 			return move;
@@ -185,7 +184,7 @@ namespace Server.Mobiles
 			base.Deserialize(reader);
 			int version = reader.ReadInt();
 
-			m_FieldActive = CanUseField;
+			FieldActive = CanUseField;
 
 			if (Name == "Exodus Minion")
 				Name = "exodus minion";

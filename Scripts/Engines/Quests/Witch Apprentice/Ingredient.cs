@@ -93,19 +93,15 @@ namespace Server.Engines.Quests.Hag
 			return ingredients[index];
 		}
 
-		private readonly int m_Name;
-		private readonly Type[] m_Creatures;
-		private readonly int m_Quantity;
-
-		public int Name => m_Name;
-		public Type[] Creatures => m_Creatures;
-		public int Quantity => m_Quantity;
+		public int Name { get; }
+		public Type[] Creatures { get; }
+		public int Quantity { get; }
 
 		private IngredientInfo(int name, int quantity, params Type[] creatures)
 		{
-			m_Name = name;
-			m_Creatures = creatures;
-			m_Quantity = quantity;
+			Name = name;
+			Creatures = creatures;
+			Quantity = quantity;
 		}
 	}
 }

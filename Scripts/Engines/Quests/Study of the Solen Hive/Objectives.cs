@@ -25,9 +25,8 @@ namespace Server.Engines.Quests.Naturalist
 		private StudyState m_StudyState;
 
 		private readonly ArrayList m_StudiedNests;
-		private bool m_StudiedSpecialNest;
 
-		public bool StudiedSpecialNest => m_StudiedSpecialNest;
+		public bool StudiedSpecialNest { get; private set; }
 
 		public StudyNestsObjective()
 		{
@@ -61,7 +60,7 @@ namespace Server.Engines.Quests.Naturalist
 							if (m_CurrentNest.Special)
 							{
 								from.SendLocalizedMessage(1054057); // You complete your examination of this bizarre Egg Nest. The Naturalist will undoubtedly be quite interested in these notes!
-								m_StudiedSpecialNest = true;
+								StudiedSpecialNest = true;
 							}
 							else
 							{
@@ -150,7 +149,7 @@ namespace Server.Engines.Quests.Naturalist
 				m_StudiedNests.Add(nest);
 			}
 
-			m_StudiedSpecialNest = reader.ReadBool();
+			StudiedSpecialNest = reader.ReadBool();
 		}
 
 		public override void ChildSerialize(GenericWriter writer)
@@ -163,7 +162,7 @@ namespace Server.Engines.Quests.Naturalist
 				writer.WriteEncodedInt(nest.ID);
 			}
 
-			writer.Write(m_StudiedSpecialNest);
+			writer.Write(StudiedSpecialNest);
 		}
 	}
 

@@ -76,13 +76,8 @@ namespace Server.Engines.Quests.Doom
 	public class VanquishDaemonObjective : QuestObjective
 	{
 		private BoneDemon m_Daemon;
-		private Corpse m_CorpseWithSkull;
 
-		public Corpse CorpseWithSkull
-		{
-			get => m_CorpseWithSkull;
-			set => m_CorpseWithSkull = value;
-		}
+		public Corpse CorpseWithSkull { get; set; }
 
 		public override object Message =>
 				/* Go forth and vanquish the devourer that has been summoned!
@@ -154,7 +149,7 @@ namespace Server.Engines.Quests.Doom
 					from.SendLocalizedMessage(1050035); // The devourer lies dead.  Search his corpse to claim your prize!
 
 					if (m_Daemon != null)
-						m_CorpseWithSkull = m_Daemon.Corpse as Corpse;
+						CorpseWithSkull = m_Daemon.Corpse as Corpse;
 				}
 			}
 		}
@@ -164,7 +159,7 @@ namespace Server.Engines.Quests.Doom
 			int version = reader.ReadEncodedInt();
 
 			m_Daemon = reader.ReadMobile() as BoneDemon;
-			m_CorpseWithSkull = reader.ReadItem() as Corpse;
+			CorpseWithSkull = reader.ReadItem() as Corpse;
 		}
 
 		public override void ChildSerialize(GenericWriter writer)
@@ -172,7 +167,7 @@ namespace Server.Engines.Quests.Doom
 			writer.WriteEncodedInt(0); // version
 
 			writer.Write(m_Daemon);
-			writer.Write(m_CorpseWithSkull);
+			writer.Write(CorpseWithSkull);
 		}
 	}
 }

@@ -59,13 +59,7 @@ namespace Server.Engines.Quests.Ninja
 
 	public class SneakPastGuardiansObjective : QuestObjective
 	{
-		private bool m_TaughtHowToUseSkills;
-
-		public bool TaughtHowToUseSkills
-		{
-			get => m_TaughtHowToUseSkills;
-			set => m_TaughtHowToUseSkills = value;
-		}
+		public bool TaughtHowToUseSkills { get; set; }
 
 		public override object Message =>
 				// Use your Ninja training to move invisibly past the magical guardians.
@@ -90,14 +84,14 @@ namespace Server.Engines.Quests.Ninja
 		{
 			int version = reader.ReadEncodedInt();
 
-			m_TaughtHowToUseSkills = reader.ReadBool();
+			TaughtHowToUseSkills = reader.ReadBool();
 		}
 
 		public override void ChildSerialize(GenericWriter writer)
 		{
 			writer.WriteEncodedInt(0); // version
 
-			writer.Write(m_TaughtHowToUseSkills);
+			writer.Write(TaughtHowToUseSkills);
 		}
 	}
 
@@ -168,7 +162,7 @@ namespace Server.Engines.Quests.Ninja
 	public class ReturnFromInnObjective : QuestObjective
 	{
 		public override object Message =>
-				// Go back through the blue teleporter and tell Daimyo Emino what you’ve overheard.
+				// Go back through the blue teleporter and tell Daimyo Emino what youâ€™ve overheard.
 				1063197;
 
 		public ReturnFromInnObjective()
@@ -203,13 +197,7 @@ namespace Server.Engines.Quests.Ninja
 
 	public class HallwayWalkObjective : QuestObjective
 	{
-		private bool m_StolenTreasure;
-
-		public bool StolenTreasure
-		{
-			get => m_StolenTreasure;
-			set => m_StolenTreasure = value;
-		}
+		public bool StolenTreasure { get; set; }
 
 		public override object Message =>
 				/* Walk through the hallway being careful 
@@ -231,14 +219,14 @@ namespace Server.Engines.Quests.Ninja
 		{
 			int version = reader.ReadEncodedInt();
 
-			m_StolenTreasure = reader.ReadBool();
+			StolenTreasure = reader.ReadBool();
 		}
 
 		public override void ChildSerialize(GenericWriter writer)
 		{
 			writer.WriteEncodedInt(0); // version
 
-			writer.Write(m_StolenTreasure);
+			writer.Write(StolenTreasure);
 		}
 	}
 

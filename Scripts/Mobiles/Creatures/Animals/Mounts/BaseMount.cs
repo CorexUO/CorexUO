@@ -7,19 +7,13 @@ namespace Server.Mobiles
 	public abstract class BaseMount : BaseCreature, IMount
 	{
 		private Mobile m_Rider;
-		private Item m_InternalItem;
-		private DateTime m_NextMountAbility;
 
 		public virtual TimeSpan MountAbilityDelay => TimeSpan.Zero;
 
 		[CommandProperty(AccessLevel.GameMaster)]
-		public DateTime NextMountAbility
-		{
-			get => m_NextMountAbility;
-			set => m_NextMountAbility = value;
-		}
+		public DateTime NextMountAbility { get; set; }
 
-		protected Item InternalItem => m_InternalItem;
+		protected Item InternalItem { get; private set; }
 
 		public virtual bool AllowMaleRider => true;
 		public virtual bool AllowFemaleRider => true;
@@ -29,7 +23,7 @@ namespace Server.Mobiles
 			Name = name;
 			Body = bodyID;
 
-			m_InternalItem = new MountItem(this, itemID);
+			InternalItem = new MountItem(this, itemID);
 		}
 
 		[Hue, CommandProperty(AccessLevel.GameMaster)]
@@ -40,8 +34,8 @@ namespace Server.Mobiles
 			{
 				base.Hue = value;
 
-				if (m_InternalItem != null)
-					m_InternalItem.Hue = value;
+				if (InternalItem != null)
+					InternalItem.Hue = value;
 			}
 		}
 
@@ -54,10 +48,10 @@ namespace Server.Mobiles
 
 		public override void OnAfterDelete()
 		{
-			if (m_InternalItem != null)
-				m_InternalItem.Delete();
+			if (InternalItem != null)
+				InternalItem.Delete();
 
-			m_InternalItem = null;
+			InternalItem = null;
 
 			base.OnAfterDelete();
 		}
@@ -80,10 +74,10 @@ namespace Server.Mobiles
 
 			writer.Write(0); // version
 
-			writer.Write(m_NextMountAbility);
+			writer.Write(NextMountAbility);
 
 			writer.Write(m_Rider);
-			writer.Write(m_InternalItem);
+			writer.Write(InternalItem);
 		}
 
 		public override void Deserialize(GenericReader reader)
@@ -96,12 +90,12 @@ namespace Server.Mobiles
 			{
 				case 0:
 					{
-						m_NextMountAbility = reader.ReadDateTime();
+						NextMountAbility = reader.ReadDateTime();
 
 						m_Rider = reader.ReadMobile();
-						m_InternalItem = reader.ReadItem();
+						InternalItem = reader.ReadItem();
 
-						if (m_InternalItem == null)
+						if (InternalItem == null)
 							Delete();
 
 						break;
@@ -188,15 +182,15 @@ namespace Server.Mobiles
 		{
 			get
 			{
-				if (m_InternalItem != null)
-					return m_InternalItem.ItemID;
+				if (InternalItem != null)
+					return InternalItem.ItemID;
 				else
 					return 0;
 			}
 			set
 			{
-				if (m_InternalItem != null)
-					m_InternalItem.ItemID = value;
+				if (InternalItem != null)
+					InternalItem.ItemID = value;
 			}
 		}
 
@@ -231,8 +225,8 @@ namespace Server.Mobiles
 						Location = loc;
 						Map = map;
 
-						if (m_InternalItem != null)
-							m_InternalItem.Internalize();
+						if (InternalItem != null)
+							InternalItem.Internalize();
 					}
 					else
 					{
@@ -243,8 +237,8 @@ namespace Server.Mobiles
 
 						Dismount(value);
 
-						if (m_InternalItem != null)
-							value.AddItem(m_InternalItem);
+						if (InternalItem != null)
+							value.AddItem(InternalItem);
 
 						value.Direction = Direction;
 
@@ -288,10 +282,10 @@ namespace Server.Mobiles
 			if (attacker == null)
 				attacker = m_Rider.FindMostRecentDamager(true);
 
-			if (!(attacker == this || attacker == m_Rider || willKill || DateTime.UtcNow < m_NextMountAbility))
+			if (!(attacker == this || attacker == m_Rider || willKill || DateTime.UtcNow < NextMountAbility))
 			{
 				if (DoMountAbility(amount, from))
-					m_NextMountAbility = DateTime.UtcNow + MountAbilityDelay;
+					NextMountAbility = DateTime.UtcNow + MountAbilityDelay;
 
 			}
 		}

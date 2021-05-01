@@ -22,7 +22,6 @@ namespace Server.Engines.Quests.Hag
 			return m_CorpseLocations[index];
 		}
 
-		private Corpse m_Corpse;
 		private Point3D m_CorpseLocation;
 
 		public override object Message =>
@@ -32,7 +31,7 @@ namespace Server.Engines.Quests.Hag
 */
 				1055014;
 
-		public Corpse Corpse => m_Corpse;
+		public Corpse Corpse { get; private set; }
 
 		public FindApprenticeObjective(bool init)
 		{
@@ -49,10 +48,10 @@ namespace Server.Engines.Quests.Hag
 			PlayerMobile player = System.From;
 			Map map = player.Map;
 
-			if ((m_Corpse == null || m_Corpse.Deleted) && (map == Map.Trammel || map == Map.Felucca) && player.InRange(m_CorpseLocation, 8))
+			if ((Corpse == null || Corpse.Deleted) && (map == Map.Trammel || map == Map.Felucca) && player.InRange(m_CorpseLocation, 8))
 			{
-				m_Corpse = new HagApprenticeCorpse();
-				m_Corpse.MoveToWorld(m_CorpseLocation, map);
+				Corpse = new HagApprenticeCorpse();
+				Corpse.MoveToWorld(m_CorpseLocation, map);
 
 				Effects.SendLocationEffect(m_CorpseLocation, map, 0x3728, 10, 10);
 				Effects.PlaySound(m_CorpseLocation, map, 0x1FE);
@@ -61,7 +60,7 @@ namespace Server.Engines.Quests.Hag
 				imp.MoveToWorld(m_CorpseLocation, map);
 
 				// * You see a strange imp stealing a scrap of paper from the bloodied corpse *
-				m_Corpse.SendLocalizedMessageTo(player, 1055049);
+				Corpse.SendLocalizedMessageTo(player, 1055049);
 
 				Timer.DelayCall(TimeSpan.FromSeconds(3.0), new TimerStateCallback(DeleteImp), imp);
 			}
@@ -95,7 +94,7 @@ namespace Server.Engines.Quests.Hag
 					{
 						m_CorpseLocation = reader.ReadPoint3D();
 
-						m_Corpse = (Corpse)reader.ReadItem();
+						Corpse = (Corpse)reader.ReadItem();
 						break;
 					}
 			}
@@ -103,13 +102,13 @@ namespace Server.Engines.Quests.Hag
 
 		public override void ChildSerialize(GenericWriter writer)
 		{
-			if (m_Corpse != null && m_Corpse.Deleted)
-				m_Corpse = null;
+			if (Corpse != null && Corpse.Deleted)
+				Corpse = null;
 
 			writer.WriteEncodedInt(0); // version
 
 			writer.Write(m_CorpseLocation);
-			writer.Write(m_Corpse);
+			writer.Write(Corpse);
 		}
 	}
 
@@ -292,14 +291,11 @@ namespace Server.Engines.Quests.Hag
 
 	public class FindIngredientObjective : QuestObjective
 	{
-		private Ingredient[] m_Ingredients;
-		private bool m_BlackheartMet;
-
 		public override object Message
 		{
 			get
 			{
-				if (!m_BlackheartMet)
+				if (!BlackheartMet)
 				{
 					switch (Step)
 					{
@@ -342,10 +338,10 @@ namespace Server.Engines.Quests.Hag
 			}
 		}
 
-		public Ingredient[] Ingredients => m_Ingredients;
-		public Ingredient Ingredient => m_Ingredients[m_Ingredients.Length - 1];
-		public int Step => m_Ingredients.Length;
-		public bool BlackheartMet => m_BlackheartMet;
+		public Ingredient[] Ingredients { get; private set; }
+		public Ingredient Ingredient => Ingredients[Ingredients.Length - 1];
+		public int Step => Ingredients.Length;
+		public bool BlackheartMet { get; private set; }
 
 		public FindIngredientObjective(Ingredient[] oldIngredients) : this(oldIngredients, false)
 		{
@@ -355,22 +351,22 @@ namespace Server.Engines.Quests.Hag
 		{
 			if (!blackheartMet)
 			{
-				m_Ingredients = new Ingredient[oldIngredients.Length + 1];
+				Ingredients = new Ingredient[oldIngredients.Length + 1];
 
 				for (int i = 0; i < oldIngredients.Length; i++)
-					m_Ingredients[i] = oldIngredients[i];
+					Ingredients[i] = oldIngredients[i];
 
-				m_Ingredients[m_Ingredients.Length - 1] = IngredientInfo.RandomIngredient(oldIngredients);
+				Ingredients[Ingredients.Length - 1] = IngredientInfo.RandomIngredient(oldIngredients);
 			}
 			else
 			{
-				m_Ingredients = new Ingredient[oldIngredients.Length];
+				Ingredients = new Ingredient[oldIngredients.Length];
 
 				for (int i = 0; i < oldIngredients.Length; i++)
-					m_Ingredients[i] = oldIngredients[i];
+					Ingredients[i] = oldIngredients[i];
 			}
 
-			m_BlackheartMet = blackheartMet;
+			BlackheartMet = blackheartMet;
 		}
 
 		public FindIngredientObjective()
@@ -443,7 +439,7 @@ namespace Server.Engines.Quests.Hag
 			System.From.SendLocalizedMessage(1055046); // You have completed your current task on the Hag's Magic Brew Recipe list.
 
 			if (Step < 3)
-				System.AddObjective(new FindIngredientObjective(m_Ingredients));
+				System.AddObjective(new FindIngredientObjective(Ingredients));
 			else
 				System.AddObjective(new ReturnIngredientsObjective());
 		}
@@ -452,22 +448,22 @@ namespace Server.Engines.Quests.Hag
 		{
 			int version = reader.ReadEncodedInt();
 
-			m_Ingredients = new Ingredient[reader.ReadEncodedInt()];
-			for (int i = 0; i < m_Ingredients.Length; i++)
-				m_Ingredients[i] = (Ingredient)reader.ReadEncodedInt();
+			Ingredients = new Ingredient[reader.ReadEncodedInt()];
+			for (int i = 0; i < Ingredients.Length; i++)
+				Ingredients[i] = (Ingredient)reader.ReadEncodedInt();
 
-			m_BlackheartMet = reader.ReadBool();
+			BlackheartMet = reader.ReadBool();
 		}
 
 		public override void ChildSerialize(GenericWriter writer)
 		{
 			writer.WriteEncodedInt(0); // version
 
-			writer.WriteEncodedInt(m_Ingredients.Length);
-			for (int i = 0; i < m_Ingredients.Length; i++)
-				writer.WriteEncodedInt((int)m_Ingredients[i]);
+			writer.WriteEncodedInt(Ingredients.Length);
+			for (int i = 0; i < Ingredients.Length; i++)
+				writer.WriteEncodedInt((int)Ingredients[i]);
 
-			writer.Write(m_BlackheartMet);
+			writer.Write(BlackheartMet);
 		}
 	}
 

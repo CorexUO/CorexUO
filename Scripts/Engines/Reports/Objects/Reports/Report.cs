@@ -13,15 +13,10 @@ namespace Server.Engines.Reports
 		public override PersistableType TypeID => ThisTypeID;
 		#endregion
 
-		private string m_Name;
-		private string m_Width;
-		private readonly ReportColumnCollection m_Columns;
-		private readonly ReportItemCollection m_Items;
-
-		public string Name { get => m_Name; set => m_Name = value; }
-		public string Width { get => m_Width; set => m_Width = value; }
-		public ReportColumnCollection Columns => m_Columns;
-		public ReportItemCollection Items => m_Items;
+		public string Name { get; set; }
+		public string Width { get; set; }
+		public ReportColumnCollection Columns { get; }
+		public ReportItemCollection Items { get; }
 
 		private Report() : this(null, null)
 		{
@@ -29,31 +24,31 @@ namespace Server.Engines.Reports
 
 		public Report(string name, string width)
 		{
-			m_Name = name;
-			m_Width = width;
-			m_Columns = new ReportColumnCollection();
-			m_Items = new ReportItemCollection();
+			Name = name;
+			Width = width;
+			Columns = new ReportColumnCollection();
+			Items = new ReportItemCollection();
 		}
 
 		public override void SerializeAttributes(PersistanceWriter op)
 		{
-			op.SetString("n", m_Name);
-			op.SetString("w", m_Width);
+			op.SetString("n", Name);
+			op.SetString("w", Width);
 		}
 
 		public override void DeserializeAttributes(PersistanceReader ip)
 		{
-			m_Name = Utility.Intern(ip.GetString("n"));
-			m_Width = Utility.Intern(ip.GetString("w"));
+			Name = Utility.Intern(ip.GetString("n"));
+			Width = Utility.Intern(ip.GetString("w"));
 		}
 
 		public override void SerializeChildren(PersistanceWriter op)
 		{
-			for (int i = 0; i < m_Columns.Count; ++i)
-				m_Columns[i].Serialize(op);
+			for (int i = 0; i < Columns.Count; ++i)
+				Columns[i].Serialize(op);
 
-			for (int i = 0; i < m_Items.Count; ++i)
-				m_Items[i].Serialize(op);
+			for (int i = 0; i < Items.Count; ++i)
+				Items[i].Serialize(op);
 		}
 
 		public override void DeserializeChildren(PersistanceReader ip)
@@ -63,9 +58,9 @@ namespace Server.Engines.Reports
 				PersistableObject child = ip.GetChild();
 
 				if (child is ReportColumn)
-					m_Columns.Add((ReportColumn)child);
+					Columns.Add((ReportColumn)child);
 				else if (child is ReportItem)
-					m_Items.Add((ReportItem)child);
+					Items.Add((ReportItem)child);
 			}
 		}
 	}

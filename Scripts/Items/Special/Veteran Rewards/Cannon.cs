@@ -64,12 +64,11 @@ namespace Server.Items
 			}
 		}
 
-		private CannonDirection m_CannonDirection;
 		private int m_Charges;
 		private bool m_IsRewardItem;
 
 		[CommandProperty(AccessLevel.GameMaster)]
-		public CannonDirection CannonDirection => m_CannonDirection;
+		public CannonDirection CannonDirection { get; private set; }
 
 		[CommandProperty(AccessLevel.GameMaster)]
 		public int Charges
@@ -100,7 +99,7 @@ namespace Server.Items
 		[Constructable]
 		public CannonAddon(CannonDirection direction)
 		{
-			m_CannonDirection = direction;
+			CannonDirection = direction;
 
 			switch (direction)
 			{
@@ -227,7 +226,7 @@ namespace Server.Items
 
 			writer.WriteEncodedInt(0); // version
 
-			writer.Write((int)m_CannonDirection);
+			writer.Write((int)CannonDirection);
 			writer.Write(m_Charges);
 			writer.Write(m_IsRewardItem);
 		}
@@ -238,7 +237,7 @@ namespace Server.Items
 
 			int version = reader.ReadEncodedInt();
 
-			m_CannonDirection = (CannonDirection)reader.ReadInt();
+			CannonDirection = (CannonDirection)reader.ReadInt();
 			m_Charges = reader.ReadInt();
 			m_IsRewardItem = reader.ReadBool();
 		}

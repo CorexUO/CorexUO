@@ -5,11 +5,10 @@ namespace Server.Engines.Quests.Necro
 {
 	public class MaabusCoffin : BaseAddon
 	{
-		private Maabus m_Maabus;
 		private Point3D m_SpawnLocation;
 
 		[CommandProperty(AccessLevel.GameMaster)]
-		public Maabus Maabus => m_Maabus;
+		public Maabus Maabus { get; private set; }
 
 		[CommandProperty(AccessLevel.GameMaster)]
 		public Point3D SpawnLocation { get => m_SpawnLocation; set => m_SpawnLocation = value; }
@@ -30,43 +29,43 @@ namespace Server.Engines.Quests.Necro
 
 		public void Awake(Mobile caller)
 		{
-			if (m_Maabus != null || m_SpawnLocation == Point3D.Zero)
+			if (Maabus != null || m_SpawnLocation == Point3D.Zero)
 				return;
 
 			foreach (MaabusCoffinComponent c in Components)
 				c.TurnToEmpty();
 
-			m_Maabus = new Maabus
+			Maabus = new Maabus
 			{
 				Location = m_SpawnLocation,
 				Map = Map
 			};
 
-			m_Maabus.Direction = m_Maabus.GetDirectionTo(caller);
+			Maabus.Direction = Maabus.GetDirectionTo(caller);
 
 			Timer.DelayCall(TimeSpan.FromSeconds(7.5), new TimerCallback(BeginSleep));
 		}
 
 		public void BeginSleep()
 		{
-			if (m_Maabus == null)
+			if (Maabus == null)
 				return;
 
-			Effects.PlaySound(m_Maabus.Location, m_Maabus.Map, 0x48E);
+			Effects.PlaySound(Maabus.Location, Maabus.Map, 0x48E);
 
 			Timer.DelayCall(TimeSpan.FromSeconds(2.5), new TimerCallback(Sleep));
 		}
 
 		public void Sleep()
 		{
-			if (m_Maabus == null)
+			if (Maabus == null)
 				return;
 
-			Effects.SendLocationParticles(EffectItem.Create(m_Maabus.Location, m_Maabus.Map, EffectItem.DefaultDuration), 0x3728, 10, 10, 0x7E7);
-			Effects.PlaySound(m_Maabus.Location, m_Maabus.Map, 0x1FE);
+			Effects.SendLocationParticles(EffectItem.Create(Maabus.Location, Maabus.Map, EffectItem.DefaultDuration), 0x3728, 10, 10, 0x7E7);
+			Effects.PlaySound(Maabus.Location, Maabus.Map, 0x1FE);
 
-			m_Maabus.Delete();
-			m_Maabus = null;
+			Maabus.Delete();
+			Maabus = null;
 
 			foreach (MaabusCoffinComponent c in Components)
 				c.TurnToFull();
@@ -82,7 +81,7 @@ namespace Server.Engines.Quests.Necro
 
 			writer.Write(0); // version
 
-			writer.Write(m_Maabus);
+			writer.Write(Maabus);
 			writer.Write(m_SpawnLocation);
 		}
 
@@ -92,7 +91,7 @@ namespace Server.Engines.Quests.Necro
 
 			int version = reader.ReadInt();
 
-			m_Maabus = reader.ReadMobile() as Maabus;
+			Maabus = reader.ReadMobile() as Maabus;
 			m_SpawnLocation = reader.ReadPoint3D();
 
 			Sleep();

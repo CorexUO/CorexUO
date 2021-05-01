@@ -84,23 +84,18 @@ namespace Server.Engines.Quests.Collector
 			return images;
 		}
 
-		private readonly int m_Figurine;
-		private readonly Type m_Type;
-		private readonly int m_X;
-		private readonly int m_Y;
-
-		public int Figurine => m_Figurine;
-		public Type Type => m_Type;
-		public int Name => m_Figurine < 0x4000 ? 1020000 + m_Figurine : 1078872 + m_Figurine;
-		public int X => m_X;
-		public int Y => m_Y;
+		public int Figurine { get; }
+		public Type Type { get; }
+		public int Name => Figurine < 0x4000 ? 1020000 + Figurine : 1078872 + Figurine;
+		public int X { get; }
+		public int Y { get; }
 
 		public ImageTypeInfo(int figurine, Type type, int x, int y)
 		{
-			m_Figurine = figurine;
-			m_Type = type;
-			m_X = x;
-			m_Y = y;
+			Figurine = figurine;
+			Type = type;
+			X = x;
+			Y = y;
 		}
 	}
 }

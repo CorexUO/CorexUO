@@ -6,8 +6,7 @@ namespace Server.Mobiles
 	[CorpseName("a solen warrior corpse")]
 	public class BlackSolenWarrior : BaseCreature
 	{
-		private bool m_BurstSac;
-		public bool BurstSac => m_BurstSac;
+		public bool BurstSac { get; private set; }
 
 		[Constructable]
 		public BlackSolenWarrior() : base(AIType.AI_Melee, FightMode.Closest, 10, 1, 0.2, 0.4)
@@ -101,7 +100,7 @@ namespace Server.Mobiles
 					if (Hits < 50)
 					{
 						PublicOverheadMessage(MessageType.Regular, 0x3B2, true, "* The solen's acid sac is burst open! *");
-						m_BurstSac = true;
+						BurstSac = true;
 					}
 				}
 				else if (from != null && from != this && InRange(from, 1))
@@ -128,7 +127,7 @@ namespace Server.Mobiles
 		{
 			base.Serialize(writer);
 			writer.Write(0);
-			writer.Write(m_BurstSac);
+			writer.Write(BurstSac);
 		}
 
 		public override void Deserialize(GenericReader reader)
@@ -140,7 +139,7 @@ namespace Server.Mobiles
 			{
 				case 0:
 					{
-						m_BurstSac = reader.ReadBool();
+						BurstSac = reader.ReadBool();
 						break;
 					}
 			}

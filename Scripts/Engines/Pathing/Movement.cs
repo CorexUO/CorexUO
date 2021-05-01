@@ -12,14 +12,11 @@ namespace Server.Movement
 
 		private const TileFlag ImpassableSurface = TileFlag.Impassable | TileFlag.Surface;
 
-		private static bool m_AlwaysIgnoreDoors;
-		private static bool m_IgnoreMovableImpassables;
-		private static bool m_IgnoreSpellFields;
 		private static Point3D m_Goal;
 
-		public static bool AlwaysIgnoreDoors { get => m_AlwaysIgnoreDoors; set => m_AlwaysIgnoreDoors = value; }
-		public static bool IgnoreMovableImpassables { get => m_IgnoreMovableImpassables; set => m_IgnoreMovableImpassables = value; }
-		public static bool IgnoreSpellFields { get => m_IgnoreSpellFields; set => m_IgnoreSpellFields = value; }
+		public static bool AlwaysIgnoreDoors { get; set; }
+		public static bool IgnoreMovableImpassables { get; set; }
+		public static bool IgnoreSpellFields { get; set; }
 		public static Point3D Goal { get => m_Goal; set => m_Goal = value; }
 
 		public static void Configure()
@@ -112,7 +109,7 @@ namespace Server.Movement
 			int stepTop = startTop + StepHeight;
 			int checkTop = startZ + PersonHeight;
 
-			bool ignoreDoors = (m_AlwaysIgnoreDoors || !m.Alive || m.Body.BodyID == 0x3DB || m.IsDeadBondedPet);
+			bool ignoreDoors = (AlwaysIgnoreDoors || !m.Alive || m.Body.BodyID == 0x3DB || m.IsDeadBondedPet);
 			bool ignoreSpellFields = m is PlayerMobile && map != Map.Felucca;
 
 			#region Tiles
@@ -301,7 +298,7 @@ namespace Server.Movement
 			List<Item> itemsLeft = m_Pools[2];
 			List<Item> itemsRight = m_Pools[3];
 
-			bool ignoreMovableImpassables = m_IgnoreMovableImpassables;
+			bool ignoreMovableImpassables = IgnoreMovableImpassables;
 			TileFlag reqFlags = ImpassableSurface;
 
 			if (m.CanSwim)

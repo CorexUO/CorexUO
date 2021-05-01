@@ -5,23 +5,11 @@ namespace Server.Mobiles
 	[CorpseName("a cow corpse")]
 	public class Cow : BaseCreature
 	{
-		private DateTime m_MilkedOn;
+		[CommandProperty(AccessLevel.GameMaster)]
+		public DateTime MilkedOn { get; set; }
 
 		[CommandProperty(AccessLevel.GameMaster)]
-		public DateTime MilkedOn
-		{
-			get => m_MilkedOn;
-			set => m_MilkedOn = value;
-		}
-
-		private int m_Milk;
-
-		[CommandProperty(AccessLevel.GameMaster)]
-		public int Milk
-		{
-			get => m_Milk;
-			set => m_Milk = value;
-		}
+		public int Milk { get; set; }
 
 		[Constructable]
 		public Cow() : base(AIType.AI_Animal, FightMode.Aggressor, 10, 1, 0.2, 0.4)
@@ -92,15 +80,15 @@ namespace Server.Mobiles
 				from.SendLocalizedMessage(1080400); // You can not milk the cow from this location.
 			if (Controlled && ControlMaster != from)
 				from.SendLocalizedMessage(1071182); // The cow nimbly escapes your attempts to milk it.
-			if (m_Milk == 0 && m_MilkedOn + TimeSpan.FromDays(1) > DateTime.UtcNow)
+			if (Milk == 0 && MilkedOn + TimeSpan.FromDays(1) > DateTime.UtcNow)
 				from.SendLocalizedMessage(1080198); // This cow can not be milked now. Please wait for some time.
 			else
 			{
-				if (m_Milk == 0)
-					m_Milk = 4;
+				if (Milk == 0)
+					Milk = 4;
 
-				m_MilkedOn = DateTime.UtcNow;
-				m_Milk--;
+				MilkedOn = DateTime.UtcNow;
+				Milk--;
 
 				return true;
 			}
@@ -118,8 +106,8 @@ namespace Server.Mobiles
 
 			writer.Write(0);
 
-			writer.Write(m_MilkedOn);
-			writer.Write(m_Milk);
+			writer.Write(MilkedOn);
+			writer.Write(Milk);
 		}
 
 		public override void Deserialize(GenericReader reader)
@@ -128,8 +116,8 @@ namespace Server.Mobiles
 
 			int version = reader.ReadInt();
 
-			m_MilkedOn = reader.ReadDateTime();
-			m_Milk = reader.ReadInt();
+			MilkedOn = reader.ReadDateTime();
+			Milk = reader.ReadInt();
 		}
 	}
 }

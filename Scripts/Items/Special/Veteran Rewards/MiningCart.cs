@@ -22,53 +22,33 @@ namespace Server.Items
 			{
 				MiningCartDeed deed = new MiningCartDeed
 				{
-					IsRewardItem = m_IsRewardItem,
-					Gems = m_Gems,
-					Ore = m_Ore
+					IsRewardItem = IsRewardItem,
+					Gems = Gems,
+					Ore = Ore
 				};
 
 				return deed;
 			}
 		}
 
-		private bool m_IsRewardItem;
+		[CommandProperty(AccessLevel.GameMaster)]
+		public bool IsRewardItem { get; set; }
 
 		[CommandProperty(AccessLevel.GameMaster)]
-		public bool IsRewardItem
-		{
-			get => m_IsRewardItem;
-			set => m_IsRewardItem = value;
-		}
-
-		private MiningCartType m_CartType;
+		public MiningCartType CartType { get; private set; }
 
 		[CommandProperty(AccessLevel.GameMaster)]
-		public MiningCartType CartType => m_CartType;
-
-		private int m_Gems;
+		public int Gems { get; set; }
 
 		[CommandProperty(AccessLevel.GameMaster)]
-		public int Gems
-		{
-			get => m_Gems;
-			set => m_Gems = value;
-		}
-
-		private int m_Ore;
-
-		[CommandProperty(AccessLevel.GameMaster)]
-		public int Ore
-		{
-			get => m_Ore;
-			set => m_Ore = value;
-		}
+		public int Ore { get; set; }
 
 		private Timer m_Timer;
 
 		[Constructable]
 		public MiningCart(MiningCartType type) : base()
 		{
-			m_CartType = type;
+			CartType = type;
 
 			switch (type)
 			{
@@ -123,15 +103,15 @@ namespace Server.Items
 
 		private void GiveResources()
 		{
-			switch (m_CartType)
+			switch (CartType)
 			{
 				case MiningCartType.OreSouth:
 				case MiningCartType.OreEast:
-					m_Ore = Math.Min(100, m_Ore + 10);
+					Ore = Math.Min(100, Ore + 10);
 					break;
 				case MiningCartType.GemSouth:
 				case MiningCartType.GemEast:
-					m_Gems = Math.Min(50, m_Gems + 5);
+					Gems = Math.Min(50, Gems + 5);
 					break;
 			}
 		}
@@ -165,11 +145,11 @@ namespace Server.Items
 			}
 			else if (house != null && house.HasSecureAccess(from, SecureLevel.Friends))
 			{
-				switch (m_CartType)
+				switch (CartType)
 				{
 					case MiningCartType.OreSouth:
 					case MiningCartType.OreEast:
-						if (m_Ore > 0)
+						if (Ore > 0)
 						{
 							Item ingots = null;
 
@@ -186,7 +166,7 @@ namespace Server.Items
 								case 8: ingots = new ValoriteIngot(); break;
 							}
 
-							int amount = Math.Min(10, m_Ore);
+							int amount = Math.Min(10, Ore);
 							ingots.Amount = amount;
 
 							if (!from.PlaceInBackpack(ingots))
@@ -197,7 +177,7 @@ namespace Server.Items
 							else
 							{
 								PublicOverheadMessage(MessageType.Regular, 0, 1094724, amount.ToString()); // Ore: ~1_COUNT~
-								m_Ore -= amount;
+								Ore -= amount;
 							}
 						}
 						else
@@ -206,7 +186,7 @@ namespace Server.Items
 						break;
 					case MiningCartType.GemSouth:
 					case MiningCartType.GemEast:
-						if (m_Gems > 0)
+						if (Gems > 0)
 						{
 							Item gems = null;
 
@@ -231,7 +211,7 @@ namespace Server.Items
 								case 14: gems = new BlueDiamond(); break;
 							}
 
-							int amount = Math.Min(5, m_Gems);
+							int amount = Math.Min(5, Gems);
 							gems.Amount = amount;
 
 							if (!from.PlaceInBackpack(gems))
@@ -242,7 +222,7 @@ namespace Server.Items
 							else
 							{
 								PublicOverheadMessage(MessageType.Regular, 0, 1094723, amount.ToString()); // Gems: ~1_COUNT~
-								m_Gems -= amount;
+								Gems -= amount;
 							}
 						}
 						else
@@ -261,11 +241,11 @@ namespace Server.Items
 
 			writer.WriteEncodedInt(0); // version
 
-			writer.Write((int)m_CartType);
+			writer.Write((int)CartType);
 
-			writer.Write(m_IsRewardItem);
-			writer.Write(m_Gems);
-			writer.Write(m_Ore);
+			writer.Write(IsRewardItem);
+			writer.Write(Gems);
+			writer.Write(Ore);
 
 			if (m_Timer != null)
 				writer.Write(m_Timer.Next);
@@ -283,10 +263,10 @@ namespace Server.Items
 			{
 				case 0:
 					{
-						m_CartType = (MiningCartType)reader.ReadInt();
-						m_IsRewardItem = reader.ReadBool();
-						m_Gems = reader.ReadInt();
-						m_Ore = reader.ReadInt();
+						CartType = (MiningCartType)reader.ReadInt();
+						IsRewardItem = reader.ReadBool();
+						Gems = reader.ReadInt();
+						Ore = reader.ReadInt();
 
 						DateTime next = reader.ReadDateTime();
 
@@ -311,8 +291,8 @@ namespace Server.Items
 				MiningCart addon = new MiningCart(m_CartType)
 				{
 					IsRewardItem = m_IsRewardItem,
-					Gems = m_Gems,
-					Ore = m_Ore
+					Gems = Gems,
+					Ore = Ore
 				};
 
 				return addon;
@@ -330,23 +310,11 @@ namespace Server.Items
 			set { m_IsRewardItem = value; InvalidateProperties(); }
 		}
 
-		private int m_Gems;
+		[CommandProperty(AccessLevel.GameMaster)]
+		public int Gems { get; set; }
 
 		[CommandProperty(AccessLevel.GameMaster)]
-		public int Gems
-		{
-			get => m_Gems;
-			set => m_Gems = value;
-		}
-
-		private int m_Ore;
-
-		[CommandProperty(AccessLevel.GameMaster)]
-		public int Ore
-		{
-			get => m_Ore;
-			set => m_Ore = value;
-		}
+		public int Ore { get; set; }
 
 		[Constructable]
 		public MiningCartDeed() : base()
@@ -387,8 +355,8 @@ namespace Server.Items
 			writer.WriteEncodedInt(0); // version
 
 			writer.Write(m_IsRewardItem);
-			writer.Write(m_Gems);
-			writer.Write(m_Ore);
+			writer.Write(Gems);
+			writer.Write(Ore);
 		}
 
 		public override void Deserialize(GenericReader reader)
@@ -398,8 +366,8 @@ namespace Server.Items
 			int version = reader.ReadEncodedInt();
 
 			m_IsRewardItem = reader.ReadBool();
-			m_Gems = reader.ReadInt();
-			m_Ore = reader.ReadInt();
+			Gems = reader.ReadInt();
+			Ore = reader.ReadInt();
 		}
 
 		public void GetOptions(RewardOptionList list)

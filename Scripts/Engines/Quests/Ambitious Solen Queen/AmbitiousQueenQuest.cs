@@ -60,13 +60,11 @@ namespace Server.Engines.Quests.Ambitious
 
 		public override int Picture => 0x15C9;
 
-		private bool m_RedSolen;
-
-		public bool RedSolen => m_RedSolen;
+		public bool RedSolen { get; private set; }
 
 		public AmbitiousQueenQuest(PlayerMobile from, bool redSolen) : base(from)
 		{
-			m_RedSolen = redSolen;
+			RedSolen = redSolen;
 		}
 
 		// Serialization
@@ -78,14 +76,14 @@ namespace Server.Engines.Quests.Ambitious
 		{
 			int version = reader.ReadEncodedInt();
 
-			m_RedSolen = reader.ReadBool();
+			RedSolen = reader.ReadBool();
 		}
 
 		public override void ChildSerialize(GenericWriter writer)
 		{
 			writer.WriteEncodedInt(0); // version
 
-			writer.Write(m_RedSolen);
+			writer.Write(RedSolen);
 		}
 
 		public override void Accept()
