@@ -3,7 +3,7 @@ using Server.Mobiles;
 using Server.Network;
 using System;
 
-namespace Server.Menus.Questions
+namespace Server.Menus
 {
 	public class StuckMenuEntry
 	{

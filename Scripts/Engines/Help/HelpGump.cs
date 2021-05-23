@@ -1,5 +1,5 @@
 using Server.Gumps;
-using Server.Menus.Questions;
+using Server.Menus;
 using Server.Mobiles;
 using Server.Multis;
 using Server.Network;

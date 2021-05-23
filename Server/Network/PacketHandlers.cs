@@ -2003,7 +2003,7 @@ namespace Server.Network
 
 		public delegate void PlayCharCallback(NetState state, bool val);
 
-		public static PlayCharCallback ThirdPartyAuthCallback, ThirdPartyHackedCallback = null;
+		public static PlayCharCallback ThirdPartyAuthCallback, ThirdPartyHackedCallback;
 
 		private static readonly byte[] m_ThirdPartyAuthKey = new byte[]
 			{

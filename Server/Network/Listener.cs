@@ -59,7 +59,7 @@ namespace Server.Network
 
 		private static Socket Bind(IPEndPoint ipep)
 		{
-			Socket s = new Socket(ipep.AddressFamily, SocketType.Stream, ProtocolType.Tcp);
+			Socket s = new(ipep.AddressFamily, SocketType.Stream, ProtocolType.Tcp);
 
 			try
 			{
@@ -217,7 +217,7 @@ namespace Server.Network
 		{
 			try
 			{
-				SocketConnectEventArgs args = new SocketConnectEventArgs(socket);
+				SocketConnectEventArgs args = new(socket);
 
 				EventSink.InvokeSocketConnect(args);
 

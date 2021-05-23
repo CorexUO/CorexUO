@@ -7,7 +7,7 @@ namespace Server.Network
 	{
 		public class Gram
 		{
-			private static readonly Stack<Gram> _pool = new Stack<Gram>();
+			private static readonly Stack<Gram> _pool = new();
 
 			public static Gram Acquire()
 			{
@@ -65,7 +65,7 @@ namespace Server.Network
 		}
 
 		private static int m_CoalesceBufferSize = 512;
-		private static BufferPool m_UnusedBuffers = new BufferPool("Coalesced", 2048, m_CoalesceBufferSize);
+		private static BufferPool m_UnusedBuffers = new("Coalesced", 2048, m_CoalesceBufferSize);
 
 		public static int CoalesceBufferSize
 		{
@@ -150,15 +150,15 @@ namespace Server.Network
 		{
 			if (buffer == null)
 			{
-				throw new ArgumentNullException("buffer");
+				throw new ArgumentNullException(nameof(buffer));
 			}
 			else if (!(offset >= 0 && offset < buffer.Length))
 			{
-				throw new ArgumentOutOfRangeException("offset", offset, "Offset must be greater than or equal to zero and less than the size of the buffer.");
+				throw new ArgumentOutOfRangeException(nameof(offset), offset, "Offset must be greater than or equal to zero and less than the size of the buffer.");
 			}
 			else if (length < 0 || length > buffer.Length)
 			{
-				throw new ArgumentOutOfRangeException("length", length, "Length cannot be less than zero or greater than the size of the buffer.");
+				throw new ArgumentOutOfRangeException(nameof(length), length, "Length cannot be less than zero or greater than the size of the buffer.");
 			}
 			else if ((buffer.Length - offset) < length)
 			{

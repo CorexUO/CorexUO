@@ -68,15 +68,15 @@ namespace Server.Network
 		{
 			if (input == null)
 			{
-				throw new ArgumentNullException("input");
+				throw new ArgumentNullException(nameof(input));
 			}
 			else if (offset < 0 || offset >= input.Length)
 			{
-				throw new ArgumentOutOfRangeException("offset");
+				throw new ArgumentOutOfRangeException(nameof(offset));
 			}
 			else if (count < 0 || count > input.Length)
 			{
-				throw new ArgumentOutOfRangeException("count");
+				throw new ArgumentOutOfRangeException(nameof(count));
 			}
 			else if ((input.Length - offset) < count)
 			{

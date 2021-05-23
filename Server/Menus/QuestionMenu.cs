@@ -1,6 +1,6 @@
 using Server.Network;
 
-namespace Server.Menus.Questions
+namespace Server.Menus
 {
 	public class QuestionMenu : IMenu
 	{

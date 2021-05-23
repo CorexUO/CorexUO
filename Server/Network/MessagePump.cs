@@ -25,7 +25,7 @@ namespace Server.Network
 			{
 				for (int i = 0; i < ipep.Length; i++)
 				{
-					Listener l = new Listener(ipep[i]);
+					Listener l = new(ipep[i]);
 					if (!success && l != null)
 						success = true;
 					Listeners[i] = l;
@@ -65,7 +65,7 @@ namespace Server.Network
 
 				for (int i = 0; i < accepted.Length; ++i)
 				{
-					NetState ns = new NetState(accepted[i], this);
+					NetState ns = new(accepted[i], this);
 					ns.Start();
 
 					if (ns.Running)
@@ -109,7 +109,7 @@ namespace Server.Network
 		}
 
 		private const int BufferSize = 4096;
-		private readonly BufferPool m_Buffers = new BufferPool("Processor", 4, BufferSize);
+		private readonly BufferPool m_Buffers = new("Processor", 4, BufferSize);
 
 		private static bool HandleSeed(NetState ns, ByteQueue buffer)
 		{
@@ -253,7 +253,7 @@ namespace Server.Network
 
 						packetLength = buffer.Dequeue(packetBuffer, 0, packetLength);
 
-						PacketReader r = new PacketReader(packetBuffer, packetLength, handler.Length != 0);
+						PacketReader r = new(packetBuffer, packetLength, handler.Length != 0);
 
 						handler.OnReceive(ns, r);
 						length = buffer.Length;

@@ -5,8 +5,6 @@ using Server.Gumps;
 using Server.HuePickers;
 using Server.Items;
 using Server.Menus;
-using Server.Menus.ItemLists;
-using Server.Menus.Questions;
 using Server.Mobiles;
 using Server.Prompts;
 using Server.Targeting;

@@ -10,7 +10,7 @@ namespace Server.Network
 	/// </summary>
 	public class PacketWriter
 	{
-		private static readonly Stack<PacketWriter> m_Pool = new Stack<PacketWriter>();
+		private static readonly Stack<PacketWriter> m_Pool = new();
 
 		public static PacketWriter CreateInstance()
 		{
@@ -53,7 +53,7 @@ namespace Server.Network
 				{
 					try
 					{
-						using StreamWriter op = new StreamWriter("neterr.log");
+						using StreamWriter op = new("neterr.log");
 						op.WriteLine("{0}\tInstance pool contains writer", DateTime.UtcNow);
 					}
 					catch
