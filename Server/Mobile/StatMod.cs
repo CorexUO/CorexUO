@@ -4,19 +4,18 @@ namespace Server
 {
 	public class StatMod
 	{
-		private readonly TimeSpan m_Duration;
-		private readonly DateTime m_Added;
-
 		public StatType Type { get; }
 		public string Name { get; }
 		public int Offset { get; }
+		public TimeSpan Duration { get; }
+		public DateTime Added { get; }
 
 		public bool HasElapsed()
 		{
-			if (m_Duration == TimeSpan.Zero)
+			if (Duration == TimeSpan.Zero)
 				return false;
 
-			return (DateTime.UtcNow - m_Added) >= m_Duration;
+			return (DateTime.UtcNow - Added) >= Duration;
 		}
 
 		public StatMod(StatType type, string name, int offset, TimeSpan duration)
@@ -24,8 +23,8 @@ namespace Server
 			Type = type;
 			Name = name;
 			Offset = offset;
-			m_Duration = duration;
-			m_Added = DateTime.UtcNow;
+			Duration = duration;
+			Added = DateTime.UtcNow;
 		}
 	}
 }
