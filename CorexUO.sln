@@ -3,11 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.29911.84
 MinimumVisualStudioVersion = 15.0.26124.0
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CorexUO", "Application\CorexUO.csproj", "{3B0D3394-8CC0-4166-8DFE-9ED07A10538E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CorexUO", "src\Application\CorexUO.csproj", "{3B0D3394-8CC0-4166-8DFE-9ED07A10538E}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Server", "Server\Server.csproj", "{245722F3-378E-436B-A8B9-7D0C93CC2D40}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Server", "src\Server\Server.csproj", "{245722F3-378E-436B-A8B9-7D0C93CC2D40}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Scripts", "Scripts\Scripts.csproj", "{74EAA3E3-1223-4FBB-AECE-3880B991EA58}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Scripts", "src\Scripts\Scripts.csproj", "{74EAA3E3-1223-4FBB-AECE-3880B991EA58}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Data", "Data", "{863CB287-E2F8-49AC-8BF1-F416E8C6D3F7}"
 	ProjectSection(SolutionItems) = preProject
