@@ -10,7 +10,7 @@
             "group": "build",
             "args": [
                 "build",
-                "Server/Server.csproj"
+                "src/Server/Server.csproj"
             ],
             "problemMatcher": "$msCompile"
         },
@@ -21,7 +21,7 @@
             "group": "build",
             "args": [
                 "build",
-                "Scripts/Scripts.csproj"
+                "src/Scripts/Scripts.csproj"
             ],
             "problemMatcher": "$msCompile"
         },
@@ -32,7 +32,7 @@
             "group": "build",
             "args": [
                 "build",
-                "Application/CorexUO.csproj"
+                "src/Application/CorexUO.csproj"
             ],
             "problemMatcher": "$msCompile"
         }
