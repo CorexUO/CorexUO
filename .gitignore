@@ -4,7 +4,6 @@
 /Application/obj/
 /Server.Tests/obj/
 /obj
-/bin
 
 *.user
 *.suo
