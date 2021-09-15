@@ -7,12 +7,12 @@ dotnet publish -o ./Publish
 
 echo "Copying Data"
 mkdir .\Publish\Data
-xcopy /s .\Binaries\Data .\Publish\Data /Y
+xcopy /s .\bin\Data .\Publish\Data /Y
 
 echo "Copying Settngs"
-xcopy .\Binaries\settings.ini .\Publish /Y
+xcopy .\bin\settings.ini .\Publish /Y
 
 echo "Copying zlib"
-xcopy .\Binaries\zlib.dll .\Publish /Y
-xcopy .\Binaries\zlib32.dll .\Publish /Y
-xcopy .\Binaries\zlib64.dll .\Publish /Y
+xcopy .\bin\zlib.dll .\Publish /Y
+xcopy .\bin\zlib32.dll .\Publish /Y
+xcopy .\bin\zlib64.dll .\Publish /Y

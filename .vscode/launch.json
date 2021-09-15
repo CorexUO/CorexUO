@@ -8,7 +8,7 @@
             "name": "CorexUO",
             "type": "coreclr",
             "request": "launch",
-            "program": "${workspaceFolder}/Binaries/CorexUO.dll",
+            "program": "${workspaceFolder}/bin/CorexUO.dll",
             "preLaunchTask": "Build-CorexUO",
             "console": "integratedTerminal",
             "justMyCode": false

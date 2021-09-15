@@ -5,12 +5,12 @@ dotnet publish -o ./Publish
 
 echo "Copying Data"
 mkdir ./Publish/Data
-cp -R ./Binaries/Data ./Publish/
+cp -R ./bin/Data ./Publish/
 
 echo "Copying Settngs"
-cp -rf ./Binaries/settings.ini ./Publish
+cp -rf ./bin/settings.ini ./Publish
 
 echo "Copying zlib"
-cp -rf ./Binaries/zlib.dll ./Publish
-cp -rf ./Binaries/zlib32.dll ./Publish
-cp -rf ./Binaries/zlib64.dll ./Publish
+cp -rf ./bin/zlib.dll ./Publish
+cp -rf ./bin/zlib32.dll ./Publish
+cp -rf ./bin/zlib64.dll ./Publish

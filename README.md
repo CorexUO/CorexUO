@@ -9,7 +9,7 @@
 CorexUO is an Ultima Online server emulator based on RunUO [https://github.com/runuo/runuo]
 The main objective of CorexUO is to update the server code to new technologies, improve the performance and give support for better customization.
 
-For change Era configuration and some basic server configuration you can use the ```Binaries\settings.ini``` file
+For change Era configuration and some basic server configuration you can use the ```bin\settings.ini``` file
 ## Era Support
 ```
 - T2A: Some mechanics
@@ -35,12 +35,8 @@ apt-get install zlib1g-dev
 ## Run
 
 ```shell
-dotnet run Binaries/CorexUO.dll
+dotnet run bin/CorexUO.dll
 ```
-
-### Binaries
-
-New folder where all dlls are generated and required files are exported. Data folder exported to the new Binaries folder.
 
 ### Misc
 

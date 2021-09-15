@@ -19,21 +19,21 @@
 
 
 # Binaries folder
-/Binaries/*.dll
-/Binaries/*.exe
-/Binaries/Logs/
-/Binaries/Backups
-/Binaries/Saves
-/Binaries/Muls
-/Binaries/Scripts
-/Binaries/runtimes
-/Binaries/publish
-/Binaries/linux-arm
+/bin/*.dll
+/bin/*.exe
+/bin/Logs/
+/bin/Backups
+/bin/Saves
+/bin/Muls
+/bin/Scripts
+/bin/runtimes
+/bin/publish
+/bin/linux-arm
 
 
 /Publish/*
 
 # Exclude files
-!/Binaries/zlib32.dll
-!/Binaries/zlib64.dll
-!/Binaries/zlib.dll
+!/bin/zlib32.dll
+!/bin/zlib64.dll
+!/bin/zlib.dll
