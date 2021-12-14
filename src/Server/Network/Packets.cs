@@ -4039,7 +4039,7 @@ namespace Server.Network
 			if (disabled != 0)
 			{
 				if (m_MD5Provider == null)
-					m_MD5Provider = new System.Security.Cryptography.MD5CryptoServiceProvider();
+					m_MD5Provider = System.Security.Cryptography.MD5.Create();
 
 				m_Stream.UnderlyingStream.Flush();
 
@@ -4063,7 +4063,7 @@ namespace Server.Network
 			}
 		}
 
-		private static System.Security.Cryptography.MD5CryptoServiceProvider m_MD5Provider;
+		private static System.Security.Cryptography.MD5 m_MD5Provider;
 
 		public static CharacterListFlags AdditionalFlags { get; set; }
 	}
@@ -4126,7 +4126,7 @@ namespace Server.Network
 			if (disabled != 0)
 			{
 				if (m_MD5Provider == null)
-					m_MD5Provider = new System.Security.Cryptography.MD5CryptoServiceProvider();
+					m_MD5Provider = System.Security.Cryptography.MD5.Create();
 
 				m_Stream.UnderlyingStream.Flush();
 
@@ -4150,7 +4150,7 @@ namespace Server.Network
 			}
 		}
 
-		private static System.Security.Cryptography.MD5CryptoServiceProvider m_MD5Provider;
+		private static System.Security.Cryptography.MD5 m_MD5Provider;
 	}
 
 	public sealed class ClearWeaponAbility : Packet

@@ -6,7 +6,7 @@ namespace Server
 {
 	public sealed class CSPRandom : IRandomImpl
 	{
-		private readonly RNGCryptoServiceProvider _CSP = new();
+		private readonly RandomNumberGenerator _CSP = RandomNumberGenerator.Create();
 
 		private static readonly int BUFFER_SIZE = 0x4000;
 		private static readonly int LARGE_REQUEST = 0x40;

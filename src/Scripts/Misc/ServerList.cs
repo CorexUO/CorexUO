@@ -1,7 +1,7 @@
 using Server.Network;
 using System;
-using System.IO;
 using System.Net;
+using System.Net.Http;
 using System.Net.NetworkInformation;
 using System.Net.Sockets;
 
@@ -179,23 +179,10 @@ namespace Server.Misc
 		{
 			try
 			{
-				WebRequest req = HttpWebRequest.Create("https://api.ipify.org");
-
-				req.Timeout = 15000;
-
-				WebResponse res = req.GetResponse();
-
-				Stream s = res.GetResponseStream();
-
-				StreamReader sr = new(s);
-
-				IPAddress ip = IPAddress.Parse(sr.ReadLine());
-
-				sr.Close();
-				s.Close();
-				res.Close();
-
-				return ip;
+				using HttpClient client = new();
+				client.Timeout = TimeSpan.FromMilliseconds(15000);
+				string ipAddress = client.GetStringAsync("https://api.ipify.org").Result;
+				return IPAddress.Parse(ipAddress);
 			}
 			catch
 			{
