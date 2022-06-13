@@ -19,11 +19,11 @@ For change Era configuration and some basic server configuration you can use the
 - Newests Era: Without updates
 ```
 
-## .Net 5 Support
-Change the core to work with .Net 5 framework.
+## .Net 6 Support
+Change the core to work with .Net 6 framework.
 
 ## Requirements to Compile
-- [.NET 5 SDK](https://dotnet.microsoft.com/download/dotnet/5.0)
+- [.NET 6 SDK](https://dotnet.microsoft.com/download/dotnet/6.0)
 
 
 ### Requirements for run in Ubuntu/Debian
