@@ -2496,9 +2496,9 @@ namespace Server
 			else
 				sq3d = zslp;
 
-			rise = ((float)yd) / sq3d;
-			run = ((float)xd) / sq3d;
-			zslp = ((float)zd) / sq3d;
+			rise = yd / sq3d;
+			run = xd / sq3d;
+			zslp = zd / sq3d;
 
 			y = org.m_Y;
 			z = org.m_Z;

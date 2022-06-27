@@ -3302,8 +3302,8 @@ namespace Server.Network
 				return new MobileIncomingOld(beholder, beheld);
 		}
 
-		private static readonly ThreadLocal<int[]> m_DupedLayersTL = new ThreadLocal<int[]>(() => { return new int[256]; });
-		private static readonly ThreadLocal<int> m_VersionTL = new ThreadLocal<int>();
+		private static readonly ThreadLocal<int[]> m_DupedLayersTL = new(() => { return new int[256]; });
+		private static readonly ThreadLocal<int> m_VersionTL = new();
 
 		public Mobile m_Beheld;
 
@@ -3410,8 +3410,8 @@ namespace Server.Network
 
 	public sealed class MobileIncomingSA : Packet
 	{
-		private static readonly ThreadLocal<int[]> m_DupedLayersTL = new ThreadLocal<int[]>(() => { return new int[256]; });
-		private static readonly ThreadLocal<int> m_VersionTL = new ThreadLocal<int>();
+		private static readonly ThreadLocal<int[]> m_DupedLayersTL = new(() => { return new int[256]; });
+		private static readonly ThreadLocal<int> m_VersionTL = new();
 
 		public Mobile m_Beheld;
 
@@ -3536,8 +3536,8 @@ namespace Server.Network
 	// Pre-7.0.0.0 Mobile Incoming
 	public sealed class MobileIncomingOld : Packet
 	{
-		private static readonly ThreadLocal<int[]> m_DupedLayersTL = new ThreadLocal<int[]>(() => { return new int[256]; });
-		private static readonly ThreadLocal<int> m_VersionTL = new ThreadLocal<int>();
+		private static readonly ThreadLocal<int[]> m_DupedLayersTL = new(() => { return new int[256]; });
+		private static readonly ThreadLocal<int> m_VersionTL = new();
 
 		public Mobile m_Beheld;
 
@@ -4363,10 +4363,10 @@ namespace Server.Network
 		public PacketWriter UnderlyingStream => m_Stream;
 
 		private const int CompressorBufferSize = 0x10000;
-		private static readonly BufferPool m_CompressorBuffers = new BufferPool("Compressor", 4, CompressorBufferSize);
+		private static readonly BufferPool m_CompressorBuffers = new("Compressor", 4, CompressorBufferSize);
 
 		private const int BufferSize = 4096;
-		private static readonly BufferPool m_Buffers = new BufferPool("Compressed", 16, BufferSize);
+		private static readonly BufferPool m_Buffers = new("Compressed", 16, BufferSize);
 
 		public static Packet SetStatic(Packet p)
 		{
@@ -4487,7 +4487,7 @@ namespace Server.Network
 
 							try
 							{
-								using StreamWriter op = new StreamWriter("net_opt.log", true);
+								using StreamWriter op = new("net_opt.log", true);
 								op.WriteLine("Redundant compile for packet {0}, use Acquire() and Release()", GetType());
 								op.WriteLine(new System.Diagnostics.StackTrace());
 							}
@@ -4543,7 +4543,7 @@ namespace Server.Network
 				if (length <= 0)
 				{
 					Console.WriteLine("Warning: Compression buffer overflowed on packet 0x{0:X2} ('{1}') (length={2})", PacketID, GetType().Name, length);
-					using StreamWriter op = new StreamWriter("compression_overflow.log", true);
+					using StreamWriter op = new("compression_overflow.log", true);
 					op.WriteLine("{0} Warning: Compression buffer overflowed on packet 0x{1:X2} ('{2}') (length={3})", DateTime.UtcNow, PacketID, GetType().Name, length);
 					op.WriteLine(new System.Diagnostics.StackTrace());
 				}

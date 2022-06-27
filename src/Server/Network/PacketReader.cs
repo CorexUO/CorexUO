@@ -21,13 +21,13 @@ namespace Server.Network
 		{
 			try
 			{
-				using StreamWriter sw = new StreamWriter("Packets.log", true);
+				using StreamWriter sw = new("Packets.log", true);
 				byte[] buffer = Buffer;
 
 				if (buffer.Length > 0)
 					sw.WriteLine("Client: {0}: Unhandled packet 0x{1:X2}", state, buffer[0]);
 
-				using (MemoryStream ms = new MemoryStream(buffer))
+				using (MemoryStream ms = new(buffer))
 					Utility.FormatBuffer(sw, ms, buffer.Length);
 
 				sw.WriteLine();
@@ -111,7 +111,7 @@ namespace Server.Network
 
 		public string ReadUnicodeStringLE()
 		{
-			StringBuilder sb = new StringBuilder();
+			StringBuilder sb = new();
 
 			int c;
 
@@ -129,7 +129,7 @@ namespace Server.Network
 			if (bound > Size)
 				bound = Size;
 
-			StringBuilder sb = new StringBuilder();
+			StringBuilder sb = new();
 
 			int c;
 
@@ -146,7 +146,7 @@ namespace Server.Network
 
 		public string ReadUnicodeStringLESafe()
 		{
-			StringBuilder sb = new StringBuilder();
+			StringBuilder sb = new();
 
 			int c;
 
@@ -161,7 +161,7 @@ namespace Server.Network
 
 		public string ReadUnicodeStringSafe()
 		{
-			StringBuilder sb = new StringBuilder();
+			StringBuilder sb = new();
 
 			int c;
 
@@ -176,7 +176,7 @@ namespace Server.Network
 
 		public string ReadUnicodeString()
 		{
-			StringBuilder sb = new StringBuilder();
+			StringBuilder sb = new();
 
 			int c;
 
@@ -231,7 +231,7 @@ namespace Server.Network
 			if (isSafe)
 				return s;
 
-			StringBuilder sb = new StringBuilder(s.Length);
+			StringBuilder sb = new(s.Length);
 
 			for (int i = 0; i < s.Length; ++i)
 				if (IsSafeChar(s[i]))
@@ -268,7 +268,7 @@ namespace Server.Network
 			if (isSafe)
 				return s;
 
-			StringBuilder sb = new StringBuilder(s.Length);
+			StringBuilder sb = new(s.Length);
 
 			for (int i = 0; i < s.Length; ++i)
 			{
@@ -302,7 +302,7 @@ namespace Server.Network
 
 		public string ReadString()
 		{
-			StringBuilder sb = new StringBuilder();
+			StringBuilder sb = new();
 
 			int c;
 
@@ -314,7 +314,7 @@ namespace Server.Network
 
 		public string ReadStringSafe()
 		{
-			StringBuilder sb = new StringBuilder();
+			StringBuilder sb = new();
 
 			int c;
 
@@ -335,7 +335,7 @@ namespace Server.Network
 			if (bound > Size)
 				bound = Size;
 
-			StringBuilder sb = new StringBuilder();
+			StringBuilder sb = new();
 
 			int c;
 
@@ -358,7 +358,7 @@ namespace Server.Network
 			if (bound > Size)
 				bound = Size;
 
-			StringBuilder sb = new StringBuilder();
+			StringBuilder sb = new();
 
 			int c;
 
@@ -378,7 +378,7 @@ namespace Server.Network
 			if (bound > Size)
 				bound = Size;
 
-			StringBuilder sb = new StringBuilder();
+			StringBuilder sb = new();
 
 			int c;
 
@@ -401,7 +401,7 @@ namespace Server.Network
 			if (bound > Size)
 				bound = Size;
 
-			StringBuilder sb = new StringBuilder();
+			StringBuilder sb = new();
 
 			int c;
 

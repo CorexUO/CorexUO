@@ -56,7 +56,7 @@ namespace Server.Network
 		}
 
 		private AsyncState m_AsyncState;
-		private readonly object m_AsyncLock = new object();
+		private readonly object m_AsyncLock = new();
 
 		public IPacketEncoder PacketEncoder { get; set; } = null;
 		public static NetStateCreatedCallback CreatedCallback { get; set; }
@@ -130,20 +130,20 @@ namespace Server.Network
 			}
 		}
 
-		private static readonly ClientVersion m_Version400a = new ClientVersion("4.0.0a");
-		private static readonly ClientVersion m_Version407a = new ClientVersion("4.0.7a");
-		private static readonly ClientVersion m_Version500a = new ClientVersion("5.0.0a");
-		private static readonly ClientVersion m_Version502b = new ClientVersion("5.0.2b");
-		private static readonly ClientVersion m_Version6000 = new ClientVersion("6.0.0.0");
-		private static readonly ClientVersion m_Version6017 = new ClientVersion("6.0.1.7");
-		private static readonly ClientVersion m_Version60142 = new ClientVersion("6.0.14.2");
-		private static readonly ClientVersion m_Version7000 = new ClientVersion("7.0.0.0");
-		private static readonly ClientVersion m_Version7090 = new ClientVersion("7.0.9.0");
-		private static readonly ClientVersion m_Version70130 = new ClientVersion("7.0.13.0");
-		private static readonly ClientVersion m_Version70160 = new ClientVersion("7.0.16.0");
-		private static readonly ClientVersion m_Version70300 = new ClientVersion("7.0.30.0");
-		private static readonly ClientVersion m_Version70331 = new ClientVersion("7.0.33.1");
-		private static readonly ClientVersion m_Version704565 = new ClientVersion("7.0.45.65");
+		private static readonly ClientVersion m_Version400a = new("4.0.0a");
+		private static readonly ClientVersion m_Version407a = new("4.0.7a");
+		private static readonly ClientVersion m_Version500a = new("5.0.0a");
+		private static readonly ClientVersion m_Version502b = new("5.0.2b");
+		private static readonly ClientVersion m_Version6000 = new("6.0.0.0");
+		private static readonly ClientVersion m_Version6017 = new("6.0.1.7");
+		private static readonly ClientVersion m_Version60142 = new("6.0.14.2");
+		private static readonly ClientVersion m_Version7000 = new("7.0.0.0");
+		private static readonly ClientVersion m_Version7090 = new("7.0.9.0");
+		private static readonly ClientVersion m_Version70130 = new("7.0.13.0");
+		private static readonly ClientVersion m_Version70160 = new("7.0.16.0");
+		private static readonly ClientVersion m_Version70300 = new("7.0.30.0");
+		private static readonly ClientVersion m_Version70331 = new("7.0.33.1");
+		private static readonly ClientVersion m_Version704565 = new("7.0.45.65");
 
 		private ProtocolChanges _ProtocolChanges;
 
@@ -279,7 +279,7 @@ namespace Server.Network
 
 		public SecureTradeContainer AddTrade(NetState state)
 		{
-			SecureTrade newTrade = new SecureTrade(Mobile, state.Mobile);
+			SecureTrade newTrade = new(Mobile, state.Mobile);
 
 			Trades.Add(newTrade);
 			state.Trades.Add(newTrade);
@@ -455,7 +455,7 @@ namespace Server.Network
 
 		public static List<NetState> Instances { get; } = new List<NetState>();
 
-		private static readonly BufferPool m_ReceiveBufferPool = new BufferPool("Receive", 2048, 2048);
+		private static readonly BufferPool m_ReceiveBufferPool = new("Receive", 2048, 2048);
 
 		public NetState(Socket socket, MessagePump messagePump)
 		{
@@ -494,7 +494,7 @@ namespace Server.Network
 		}
 
 		private bool _sending;
-		private readonly object _sendL = new object();
+		private readonly object _sendL = new();
 
 		public virtual void Send(Packet p)
 		{
@@ -573,7 +573,7 @@ namespace Server.Network
 			else
 			{
 				Console.WriteLine("Client: {0}: null buffer send, disconnecting...", this);
-				using (StreamWriter op = new StreamWriter("null_send.log", true))
+				using (StreamWriter op = new("null_send.log", true))
 				{
 					op.WriteLine("{0} Client: {1}: null buffer send, disconnecting...", DateTime.UtcNow, this);
 					op.WriteLine(new System.Diagnostics.StackTrace());
@@ -1050,7 +1050,7 @@ namespace Server.Network
 
 			try
 			{
-				using StreamWriter op = new StreamWriter("network-errors.log", true);
+				using StreamWriter op = new("network-errors.log", true);
 				op.WriteLine("# {0}", DateTime.UtcNow);
 
 				op.WriteLine(ex);
@@ -1164,7 +1164,7 @@ namespace Server.Network
 			}
 		}
 
-		private static readonly Queue<NetState> m_Disposed = new Queue<NetState>();
+		private static readonly Queue<NetState> m_Disposed = new();
 
 		public static void ProcessDisposedQueue()
 		{
