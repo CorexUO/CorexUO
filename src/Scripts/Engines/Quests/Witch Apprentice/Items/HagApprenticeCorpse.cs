@@ -9,7 +9,7 @@ namespace Server.Engines.Quests.Hag
 	{
 		private static Mobile GetOwner()
 		{
-			Mobile apprentice = new Mobile
+			Mobile apprentice = new()
 			{
 				Hue = Utility.RandomSkinHue(),
 				Female = false,

@@ -14,7 +14,7 @@ namespace Server.Engines.MLQuests
 		}
 
 		private static readonly Type m_Type = typeof(QuesterNameAttribute);
-		private static readonly Dictionary<Type, string> m_Cache = new Dictionary<Type, string>();
+		private static readonly Dictionary<Type, string> m_Cache = new();
 
 		public static string GetQuesterNameFor(Type t)
 		{

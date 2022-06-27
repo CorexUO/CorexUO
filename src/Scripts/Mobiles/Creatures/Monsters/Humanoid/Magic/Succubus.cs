@@ -53,7 +53,7 @@ namespace Server.Mobiles
 
 		public void DrainLife()
 		{
-			ArrayList list = new ArrayList();
+			ArrayList list = new();
 
 			foreach (Mobile m in GetMobilesInRange(2))
 			{

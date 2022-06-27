@@ -59,7 +59,7 @@ namespace Server.Mobiles
 				defender.PlaySound(0x208);
 				defender.SendLocalizedMessage(1070833); // The creature fans you with fire, reducing your resistance to fire attacks.
 
-				ResistanceMod mod = new ResistanceMod(ResistanceType.Fire, -10);
+				ResistanceMod mod = new(ResistanceType.Fire, -10);
 				defender.AddResistanceMod(mod);
 
 				m_Table[defender] = timer = new ExpireTimer(defender, mod);
@@ -67,7 +67,7 @@ namespace Server.Mobiles
 			}
 		}
 
-		private static readonly Dictionary<Mobile, ExpireTimer> m_Table = new Dictionary<Mobile, ExpireTimer>();
+		private static readonly Dictionary<Mobile, ExpireTimer> m_Table = new();
 
 		private class ExpireTimer : Timer
 		{

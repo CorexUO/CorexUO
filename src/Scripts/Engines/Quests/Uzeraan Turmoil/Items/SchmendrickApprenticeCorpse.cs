@@ -9,7 +9,7 @@ namespace Server.Engines.Quests.Haven
 	{
 		private static Mobile GetOwner()
 		{
-			Mobile apprentice = new Mobile
+			Mobile apprentice = new()
 			{
 				Hue = Utility.RandomSkinHue(),
 				Female = false,
@@ -24,7 +24,7 @@ namespace Server.Engines.Quests.Haven
 
 		private static List<Item> GetEquipment()
 		{
-			List<Item> list = new List<Item>
+			List<Item> list = new()
 			{
 				new Robe(QuestSystem.RandomBrightHue()),
 				new WizardsHat(Utility.RandomNeutralHue()),

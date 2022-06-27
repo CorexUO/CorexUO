@@ -8,7 +8,7 @@ namespace Server
 
 	public class VirtueGump : Gump
 	{
-		private static readonly Dictionary<int, OnVirtueUsed> m_Callbacks = new Dictionary<int, OnVirtueUsed>();
+		private static readonly Dictionary<int, OnVirtueUsed> m_Callbacks = new();
 
 		public static void Initialize()
 		{

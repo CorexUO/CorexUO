@@ -48,7 +48,7 @@ namespace Server.Engines.MLQuests
 
 			for (int i = 0; i < contexts; ++i)
 			{
-				MLQuestContext context = new MLQuestContext(reader, version);
+				MLQuestContext context = new(reader, version);
 
 				if (context.Owner != null)
 					MLQuestSystem.Contexts[context.Owner] = context;

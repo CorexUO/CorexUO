@@ -59,7 +59,7 @@ namespace Server.Engines.Harvest
 			if (banks == null)
 				Banks[map] = banks = new Dictionary<Point2D, HarvestBank>();
 
-			Point2D key = new Point2D(x, y);
+			Point2D key = new(x, y);
 			banks.TryGetValue(key, out HarvestBank bank);
 
 			if (bank == null)
@@ -81,7 +81,7 @@ namespace Server.Engines.Harvest
 			}
 			else
 			{
-				Random random = new Random((x * 17) + (y * 11) + (map.MapID * 3));
+				Random random = new((x * 17) + (y * 11) + (map.MapID * 3));
 				randomValue = random.NextDouble();
 			}
 

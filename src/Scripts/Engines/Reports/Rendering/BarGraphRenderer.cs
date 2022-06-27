@@ -220,43 +220,33 @@ namespace Server.Engines.Reports
 			if (_regions == null)
 				return;
 
-			using (StringFormat textFormat = new StringFormat())
+			using StringFormat textFormat = new();
+			textFormat.Alignment = StringAlignment.Center;
+			textFormat.LineAlignment = StringAlignment.Center;
+
+			using Font font = new(_fontFamily, _labelFontSize);
+			using Brush textBrush = new SolidBrush(_fontColor);
+			using Pen solidPen = new(_fontColor);
+			using Pen lightPen = new(Color.FromArgb(128, _fontColor));
+			float labelWidth = _barWidth + _spaceBtwBars;
+
+			for (int i = 0; i < _regions.Length; ++i)
 			{
-				textFormat.Alignment = StringAlignment.Center;
-				textFormat.LineAlignment = StringAlignment.Center;
+				BarRegion reg = _regions[i];
 
-				using (Font font = new Font(_fontFamily, _labelFontSize))
-				{
-					using (Brush textBrush = new SolidBrush(_fontColor))
-					{
-						using (Pen solidPen = new Pen(_fontColor))
-						{
-							using (Pen lightPen = new Pen(Color.FromArgb(128, _fontColor)))
-							{
-								float labelWidth = _barWidth + _spaceBtwBars;
+				RectangleF rc = new(_xOrigin + (reg.m_RangeFrom * labelWidth), _yOrigin, (reg.m_RangeTo - reg.m_RangeFrom + 1) * labelWidth, _graphHeight);
 
-								for (int i = 0; i < _regions.Length; ++i)
-								{
-									BarRegion reg = _regions[i];
+				if (rc.X + rc.Width > _xOrigin + _graphWidth)
+					rc.Width = _xOrigin + _graphWidth - rc.X;
 
-									RectangleF rc = new RectangleF(_xOrigin + (reg.m_RangeFrom * labelWidth), _yOrigin, (reg.m_RangeTo - reg.m_RangeFrom + 1) * labelWidth, _graphHeight);
+				using (SolidBrush brsh = new(Color.FromArgb(48, GetColor(i))))
+					gfx.FillRectangle(brsh, rc);
 
-									if (rc.X + rc.Width > _xOrigin + _graphWidth)
-										rc.Width = _xOrigin + _graphWidth - rc.X;
+				rc.Offset((rc.Width - 200.0f) * 0.5f, -16.0f);
+				rc.Width = 200.0f;
+				rc.Height = 20.0f;
 
-									using (SolidBrush brsh = new SolidBrush(Color.FromArgb(48, GetColor(i))))
-										gfx.FillRectangle(brsh, rc);
-
-									rc.Offset((rc.Width - 200.0f) * 0.5f, -16.0f);
-									rc.Width = 200.0f;
-									rc.Height = 20.0f;
-
-									gfx.DrawString(reg.m_Name, font, textBrush, rc, textFormat);
-								}
-							}
-						}
-					}
-				}
+				gfx.DrawString(reg.m_Name, font, textBrush, rc, textFormat);
 			}
 		}
 
@@ -272,14 +262,14 @@ namespace Server.Engines.Reports
 			int height = Convert.ToInt32(_totalHeight);
 			int width = Convert.ToInt32(_totalWidth);
 
-			Bitmap bmp = new Bitmap(width, height);
+			Bitmap bmp = new(width, height);
 
 			using (Graphics graph = Graphics.FromImage(bmp))
 			{
 				graph.CompositingQuality = CompositingQuality.HighQuality;
 				graph.SmoothingMode = SmoothingMode.AntiAlias;
 
-				using (SolidBrush brsh = new SolidBrush(_backColor))
+				using (SolidBrush brsh = new(_backColor))
 					graph.FillRectangle(brsh, -1, -1, bmp.Width + 1, bmp.Height + 1);
 
 				DrawRegions(graph);
@@ -327,30 +317,27 @@ namespace Server.Engines.Reports
 				int pointIndex = 0;
 
 				// Draw bars and the value above each bar
-				using (Pen pen = new Pen(_fontColor, 0.15f))
+				using Pen pen = new(_fontColor, 0.15f);
+				using SolidBrush whiteBrsh = new(Color.FromArgb(128, Color.White));
+				foreach (DataItem item in DataPoints)
 				{
-					using (SolidBrush whiteBrsh = new SolidBrush(Color.FromArgb(128, Color.White)))
+					using SolidBrush barBrush = new(item.ItemColor);
+					float itemY = _yOrigin + _graphHeight - item.SweepSize;
+
+					if (_renderMode == BarGraphRenderMode.Lines)
 					{
-						foreach (DataItem item in DataPoints)
+						linePoints[pointIndex++] = new PointF(_xOrigin + item.StartPos + (_barWidth / 2), itemY);
+					}
+					else if (_renderMode == BarGraphRenderMode.Bars)
+					{
+						float ox = _xOrigin + item.StartPos;
+						float oy = itemY;
+						float ow = _barWidth;
+						float oh = item.SweepSize;
+						float of = 9.5f;
+
+						PointF[] pts = new PointF[]
 						{
-							using (SolidBrush barBrush = new SolidBrush(item.ItemColor))
-							{
-								float itemY = _yOrigin + _graphHeight - item.SweepSize;
-
-								if (_renderMode == BarGraphRenderMode.Lines)
-								{
-									linePoints[pointIndex++] = new PointF(_xOrigin + item.StartPos + (_barWidth / 2), itemY);
-								}
-								else if (_renderMode == BarGraphRenderMode.Bars)
-								{
-									float ox = _xOrigin + item.StartPos;
-									float oy = itemY;
-									float ow = _barWidth;
-									float oh = item.SweepSize;
-									float of = 9.5f;
-
-									PointF[] pts = new PointF[]
-									{
 										new PointF( ox, oy ),
 										new PointF( ox + ow, oy ),
 										new PointF( ox + of, oy + of ),
@@ -358,104 +345,101 @@ namespace Server.Engines.Reports
 										new PointF( ox, oy + oh ),
 										new PointF( ox + of, oy + of + oh ),
 										new PointF( ox + of + ow, oy + of + oh )
-									};
+						};
 
-									graph.FillPolygon(barBrush, new PointF[] { pts[2], pts[3], pts[6], pts[5] });
+						graph.FillPolygon(barBrush, new PointF[] { pts[2], pts[3], pts[6], pts[5] });
 
-									using (SolidBrush ltBrsh = new SolidBrush(Color.FromArgb((int)(item.ItemColor.R * 1.1), (int)(item.ItemColor.G * 1.1), (int)(item.ItemColor.B * 1.1))))
-										graph.FillPolygon(ltBrsh, new PointF[] { pts[0], pts[2], pts[5], pts[4] });
+						using (SolidBrush ltBrsh = new(Color.FromArgb((int)(item.ItemColor.R * 1.1), (int)(item.ItemColor.G * 1.1), (int)(item.ItemColor.B * 1.1))))
+							graph.FillPolygon(ltBrsh, new PointF[] { pts[0], pts[2], pts[5], pts[4] });
 
-									using (SolidBrush drkBrush = new SolidBrush(Color.FromArgb((int)(item.ItemColor.R * 0.05), (int)(item.ItemColor.G * 0.05), (int)(item.ItemColor.B * 0.05))))
-										graph.FillPolygon(drkBrush, new PointF[] { pts[0], pts[1], pts[3], pts[2] });
+						using (SolidBrush drkBrush = new(Color.FromArgb((int)(item.ItemColor.R * 0.05), (int)(item.ItemColor.G * 0.05), (int)(item.ItemColor.B * 0.05))))
+							graph.FillPolygon(drkBrush, new PointF[] { pts[0], pts[1], pts[3], pts[2] });
 
-									graph.DrawLine(pen, pts[0], pts[1]);
-									graph.DrawLine(pen, pts[0], pts[2]);
-									graph.DrawLine(pen, pts[1], pts[3]);
-									graph.DrawLine(pen, pts[2], pts[3]);
-									graph.DrawLine(pen, pts[2], pts[5]);
-									graph.DrawLine(pen, pts[0], pts[4]);
-									graph.DrawLine(pen, pts[4], pts[5]);
-									graph.DrawLine(pen, pts[5], pts[6]);
-									graph.DrawLine(pen, pts[3], pts[6]);
+						graph.DrawLine(pen, pts[0], pts[1]);
+						graph.DrawLine(pen, pts[0], pts[2]);
+						graph.DrawLine(pen, pts[1], pts[3]);
+						graph.DrawLine(pen, pts[2], pts[3]);
+						graph.DrawLine(pen, pts[2], pts[5]);
+						graph.DrawLine(pen, pts[0], pts[4]);
+						graph.DrawLine(pen, pts[4], pts[5]);
+						graph.DrawLine(pen, pts[5], pts[6]);
+						graph.DrawLine(pen, pts[3], pts[6]);
 
-									// Draw data value
-									if (_displayBarData && (i % _interval) == 0)
-									{
-										float sectionWidth = (_barWidth + _spaceBtwBars);
-										float startX = _xOrigin + (i * sectionWidth) + (sectionWidth / 2);  // This draws the value on center of the bar
-										float startY = itemY - 2f - valFont.Height;                   // Positioned on top of each bar by 2 pixels
-										RectangleF recVal = new RectangleF(startX - ((sectionWidth * _interval) / 2), startY, sectionWidth * _interval, valFont.Height);
-										SizeF sz = graph.MeasureString(item.Value.ToString("#,###.##"), valFont, recVal.Size, sfFormat);
-										//using ( SolidBrush brsh = new SolidBrush( Color.FromArgb( 180, 255, 255, 255 ) ) )
-										//	graph.FillRectangle( brsh, new RectangleF(recVal.X+((recVal.Width-sz.Width)/2),recVal.Y+((recVal.Height-sz.Height)/2),sz.Width+4,sz.Height) );
-
-										//graph.DrawString(item.Value.ToString("#,###.##"), valFont, brsFont, recVal, sfFormat);
-
-										for (int box = -1; box <= 1; ++box)
-										{
-											for (int boy = -1; boy <= 1; ++boy)
-											{
-												if (box == 0 && boy == 0)
-													continue;
-
-												RectangleF rco = new RectangleF(recVal.X + box, recVal.Y + boy, recVal.Width, recVal.Height);
-												graph.DrawString(item.Value.ToString("#,###.##"), valFont, whiteBrsh, rco, sfFormat);
-											}
-										}
-
-										graph.DrawString(item.Value.ToString("#,###.##"), valFont, brsFont, recVal, sfFormat);
-									}
-								}
-
-								i++;
-							}
-						}
-
-						if (_renderMode == BarGraphRenderMode.Lines)
+						// Draw data value
+						if (_displayBarData && (i % _interval) == 0)
 						{
-							if (linePoints.Length >= 2)
+							float sectionWidth = (_barWidth + _spaceBtwBars);
+							float startX = _xOrigin + (i * sectionWidth) + (sectionWidth / 2);  // This draws the value on center of the bar
+							float startY = itemY - 2f - valFont.Height;                   // Positioned on top of each bar by 2 pixels
+							RectangleF recVal = new(startX - ((sectionWidth * _interval) / 2), startY, sectionWidth * _interval, valFont.Height);
+							SizeF sz = graph.MeasureString(item.Value.ToString("#,###.##"), valFont, recVal.Size, sfFormat);
+							//using ( SolidBrush brsh = new SolidBrush( Color.FromArgb( 180, 255, 255, 255 ) ) )
+							//	graph.FillRectangle( brsh, new RectangleF(recVal.X+((recVal.Width-sz.Width)/2),recVal.Y+((recVal.Height-sz.Height)/2),sz.Width+4,sz.Height) );
+
+							//graph.DrawString(item.Value.ToString("#,###.##"), valFont, brsFont, recVal, sfFormat);
+
+							for (int box = -1; box <= 1; ++box)
 							{
-								using (Pen linePen = new Pen(Color.FromArgb(220, Color.Red), 2.5f))
-									graph.DrawCurve(linePen, linePoints, 0.5f);
+								for (int boy = -1; boy <= 1; ++boy)
+								{
+									if (box == 0 && boy == 0)
+										continue;
+
+									RectangleF rco = new(recVal.X + box, recVal.Y + boy, recVal.Width, recVal.Height);
+									graph.DrawString(item.Value.ToString("#,###.##"), valFont, whiteBrsh, rco, sfFormat);
+								}
 							}
 
-							using (Pen linePen = new Pen(Color.FromArgb(40, _fontColor), 0.8f))
+							graph.DrawString(item.Value.ToString("#,###.##"), valFont, brsFont, recVal, sfFormat);
+						}
+					}
+
+					i++;
+				}
+
+				if (_renderMode == BarGraphRenderMode.Lines)
+				{
+					if (linePoints.Length >= 2)
+					{
+						using Pen linePen = new(Color.FromArgb(220, Color.Red), 2.5f);
+						graph.DrawCurve(linePen, linePoints, 0.5f);
+					}
+
+					using (Pen linePen = new(Color.FromArgb(40, _fontColor), 0.8f))
+					{
+						for (int j = 0; j < linePoints.Length; ++j)
+						{
+							graph.DrawLine(linePen, linePoints[j], new PointF(linePoints[j].X, _yOrigin + _graphHeight));
+
+							DataItem item = DataPoints[j];
+							float itemY = _yOrigin + _graphHeight - item.SweepSize;
+
+							// Draw data value
+							if (_displayBarData && (j % _interval) == 0)
 							{
-								for (int j = 0; j < linePoints.Length; ++j)
+								graph.FillEllipse(brsFont, new RectangleF(linePoints[j].X - 2.0f, linePoints[j].Y - 2.0f, 4.0f, 4.0f));
+
+								float sectionWidth = (_barWidth + _spaceBtwBars);
+								float startX = _xOrigin + (j * sectionWidth) + (sectionWidth / 2);  // This draws the value on center of the bar
+								float startY = itemY - 2f - valFont.Height;                   // Positioned on top of each bar by 2 pixels
+								RectangleF recVal = new(startX - ((sectionWidth * _interval) / 2), startY, sectionWidth * _interval, valFont.Height);
+								SizeF sz = graph.MeasureString(item.Value.ToString("#,###.##"), valFont, recVal.Size, sfFormat);
+								//using ( SolidBrush brsh = new SolidBrush( Color.FromArgb( 48, 255, 255, 255 ) ) )
+								//	graph.FillRectangle( brsh, new RectangleF(recVal.X+((recVal.Width-sz.Width)/2),recVal.Y+((recVal.Height-sz.Height)/2),sz.Width+4,sz.Height) );
+
+								for (int box = -1; box <= 1; ++box)
 								{
-									graph.DrawLine(linePen, linePoints[j], new PointF(linePoints[j].X, _yOrigin + _graphHeight));
-
-									DataItem item = DataPoints[j];
-									float itemY = _yOrigin + _graphHeight - item.SweepSize;
-
-									// Draw data value
-									if (_displayBarData && (j % _interval) == 0)
+									for (int boy = -1; boy <= 1; ++boy)
 									{
-										graph.FillEllipse(brsFont, new RectangleF(linePoints[j].X - 2.0f, linePoints[j].Y - 2.0f, 4.0f, 4.0f));
+										if (box == 0 && boy == 0)
+											continue;
 
-										float sectionWidth = (_barWidth + _spaceBtwBars);
-										float startX = _xOrigin + (j * sectionWidth) + (sectionWidth / 2);  // This draws the value on center of the bar
-										float startY = itemY - 2f - valFont.Height;                   // Positioned on top of each bar by 2 pixels
-										RectangleF recVal = new RectangleF(startX - ((sectionWidth * _interval) / 2), startY, sectionWidth * _interval, valFont.Height);
-										SizeF sz = graph.MeasureString(item.Value.ToString("#,###.##"), valFont, recVal.Size, sfFormat);
-										//using ( SolidBrush brsh = new SolidBrush( Color.FromArgb( 48, 255, 255, 255 ) ) )
-										//	graph.FillRectangle( brsh, new RectangleF(recVal.X+((recVal.Width-sz.Width)/2),recVal.Y+((recVal.Height-sz.Height)/2),sz.Width+4,sz.Height) );
-
-										for (int box = -1; box <= 1; ++box)
-										{
-											for (int boy = -1; boy <= 1; ++boy)
-											{
-												if (box == 0 && boy == 0)
-													continue;
-
-												RectangleF rco = new RectangleF(recVal.X + box, recVal.Y + boy, recVal.Width, recVal.Height);
-												graph.DrawString(item.Value.ToString("#,###.##"), valFont, whiteBrsh, rco, sfFormat);
-											}
-										}
-
-										graph.DrawString(item.Value.ToString("#,###.##"), valFont, brsFont, recVal, sfFormat);
+										RectangleF rco = new(recVal.X + box, recVal.Y + boy, recVal.Width, recVal.Height);
+										graph.DrawString(item.Value.ToString("#,###.##"), valFont, whiteBrsh, rco, sfFormat);
 									}
 								}
+
+								graph.DrawString(item.Value.ToString("#,###.##"), valFont, brsFont, recVal, sfFormat);
 							}
 						}
 					}
@@ -511,7 +495,7 @@ namespace Server.Engines.Reports
 
 				// Draw vertical label at the top of y-axis and place it in the middle top of y-axis
 				lblFont = new Font(_fontFamily, _labelFontSize + 2.0f, FontStyle.Bold);
-				RectangleF recVLabel = new RectangleF(0, _yOrigin - 2 * _spacer - lblFont.Height, _xOrigin * 2, lblFont.Height);
+				RectangleF recVLabel = new(0, _yOrigin - 2 * _spacer - lblFont.Height, _xOrigin * 2, lblFont.Height);
 				sfVLabel.Alignment = StringAlignment.Center;
 				sfVLabel.FormatFlags |= StringFormatFlags.NoClip;
 				//graph.DrawRectangle(Pens.Black,Rectangle.Truncate(recVLabel));
@@ -520,13 +504,13 @@ namespace Server.Engines.Reports
 
 				lblFont = new Font(_fontFamily, _labelFontSize);
 				// Draw all tick values and tick marks
-				using (Pen smallPen = new Pen(Color.FromArgb(96, _fontColor), 0.8f))
+				using (Pen smallPen = new(Color.FromArgb(96, _fontColor), 0.8f))
 				{
 					for (int i = 0; i < _yTickCount; i++)
 					{
 						float currentY = _topBuffer + (i * _yTickValue / _scaleFactor); // Position for tick mark
 						float labelY = currentY - lblFont.Height / 2;                       // Place label in the middle of tick
-						RectangleF lblRec = new RectangleF(_spacer + fo - 6, labelY, _maxTickValueWidth, lblFont.Height);
+						RectangleF lblRec = new(_spacer + fo - 6, labelY, _maxTickValueWidth, lblFont.Height);
 
 						float currentTick = _maxValue - i * _yTickValue;                    // Calculate tick value from top to bottom
 						graph.DrawString(currentTick.ToString("#,###.##"), lblFont, brs, lblRec, lblFormat);    // Draw tick value
@@ -641,7 +625,7 @@ namespace Server.Engines.Reports
 					if ((i % _interval) == 0)
 					{
 						currentX = _xOrigin + (i * labelWidth) + of + (labelWidth / 2);
-						RectangleF recLbl = new RectangleF(currentX - ((labelWidth * _interval) / 2), currentY + of, labelWidth * _interval, lblFont.Height * 2);
+						RectangleF recLbl = new(currentX - ((labelWidth * _interval) / 2), currentY + of, labelWidth * _interval, lblFont.Height * 2);
 						string lblString = _displayLegend ? item.Label : item.Description;  // Decide what to show: short or long
 
 						graph.DrawString(lblString, lblFont, brs, recLbl, lblFormat);
@@ -698,8 +682,8 @@ namespace Server.Engines.Reports
 					graph.DrawString(text, lblFont, brs, xLegendText, currentY, lblFormat);
 
 					// Draw color code
-					using (SolidBrush brsh = new SolidBrush(DataPoints[i].ItemColor))
-						graph.FillRectangle(brsh, xColorCode, currentY + 3f, _legendRectangleSize, _legendRectangleSize);
+					using SolidBrush brsh = new(DataPoints[i].ItemColor);
+					graph.FillRectangle(brsh, xColorCode, currentY + 3f, _legendRectangleSize, _legendRectangleSize);
 				}
 
 				// Draw legend border

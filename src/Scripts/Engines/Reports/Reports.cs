@@ -53,7 +53,7 @@ namespace Server.Engines.Reports
 
 		public static void Generate()
 		{
-			Snapshot ss = new Snapshot
+			Snapshot ss = new()
 			{
 				TimeStamp = DateTime.UtcNow
 			};
@@ -71,7 +71,7 @@ namespace Server.Engines.Reports
 			m_StatsHistory.Save();
 			m_StaffHistory.Save();
 
-			HtmlRenderer renderer = new HtmlRenderer("stats", (Snapshot)state, m_StatsHistory);
+			HtmlRenderer renderer = new("stats", (Snapshot)state, m_StatsHistory);
 			renderer.Render();
 			renderer.Upload();
 
@@ -101,7 +101,7 @@ namespace Server.Engines.Reports
 
 		public static Report CompileGeneralStats()
 		{
-			Report report = new Report("General Stats", "200");
+			Report report = new("General Stats", "200");
 
 			report.Columns.Add("50%", "left");
 			report.Columns.Add("50%", "left");
@@ -127,7 +127,7 @@ namespace Server.Engines.Reports
 
 		private static Chart CompilePCByDL()
 		{
-			BarGraph chart = new BarGraph("Player Count By Dueling Level", "graphs_pc_by_dl", 5, "Dueling Level", "Players", BarGraphRenderMode.Bars);
+			BarGraph chart = new("Player Count By Dueling Level", "graphs_pc_by_dl", 5, "Dueling Level", "Players", BarGraphRenderMode.Bars);
 
 			int lastLevel = -1;
 			ChartItem lastItem = null;
@@ -160,7 +160,7 @@ namespace Server.Engines.Reports
 
 		private static Report CompileTop15()
 		{
-			Report report = new Report("Top 15 Duelists", "80%");
+			Report report = new("Top 15 Duelists", "80%");
 
 			report.Columns.Add("6%", "center", "Rank");
 			report.Columns.Add("6%", "center", "Level");
@@ -184,7 +184,7 @@ namespace Server.Engines.Reports
 					if (entry.Mobile.Guild != null)
 						guild = entry.Mobile.Guild.Abbreviation;
 
-					ReportItem item = new ReportItem();
+					ReportItem item = new();
 
 					item.Values.Add(LadderGump.Rank(entry.Index + 1));
 					item.Values.Add(level.ToString(), "N0");
@@ -202,7 +202,7 @@ namespace Server.Engines.Reports
 
 		private static Chart CompileDislikedArenas()
 		{
-			PieChart chart = new PieChart("Most Disliked Arenas", "graphs_arenas_disliked", false);
+			PieChart chart = new("Most Disliked Arenas", "graphs_arenas_disliked", false);
 
 			Preferences prefs = Preferences.Instance;
 
@@ -250,11 +250,11 @@ namespace Server.Engines.Reports
 
 		public static Chart CompileStatChart()
 		{
-			PieChart chart = new PieChart("Stat Distribution", "graphs_strdexint_distrib", true);
+			PieChart chart = new("Stat Distribution", "graphs_strdexint_distrib", true);
 
-			ChartItem strItem = new ChartItem("Strength", 0);
-			ChartItem dexItem = new ChartItem("Dexterity", 0);
-			ChartItem intItem = new ChartItem("Intelligence", 0);
+			ChartItem strItem = new("Strength", 0);
+			ChartItem dexItem = new("Dexterity", 0);
+			ChartItem intItem = new("Intelligence", 0);
 
 			foreach (Mobile mob in World.Mobiles.Values)
 			{
@@ -328,7 +328,7 @@ namespace Server.Engines.Reports
 
 		public static Report CompileSkillReport(SkillDistribution[] distribs)
 		{
-			Report report = new Report("Skill Report", "300");
+			Report report = new("Skill Report", "300");
 
 			report.Columns.Add("70%", "left", "Name");
 			report.Columns.Add("30%", "center", "GMs");
@@ -341,7 +341,7 @@ namespace Server.Engines.Reports
 
 		public static Chart CompileSkillChart(SkillDistribution[] distribs)
 		{
-			PieChart chart = new PieChart("GM Skill Distribution", "graphs_skill_distrib", true);
+			PieChart chart = new("GM Skill Distribution", "graphs_skill_distrib", true);
 
 			for (int i = 0; i < 12; ++i)
 				chart.Items.Add(distribs[i].m_Skill.Name, distribs[i].m_NumberOfGMs);
@@ -363,7 +363,7 @@ namespace Server.Engines.Reports
 
 		public static Chart CompileFactionMembershipChart()
 		{
-			PieChart chart = new PieChart("Faction Membership", "graphs_faction_membership", true);
+			PieChart chart = new("Faction Membership", "graphs_faction_membership", true);
 
 			List<Faction> factions = Faction.Factions;
 
@@ -375,14 +375,14 @@ namespace Server.Engines.Reports
 
 		public static Report CompileFactionLeaderboard()
 		{
-			Report report = new Report("Faction Leaderboard", "60%");
+			Report report = new("Faction Leaderboard", "60%");
 
 			report.Columns.Add("28%", "center", "Name");
 			report.Columns.Add("28%", "center", "Faction");
 			report.Columns.Add("28%", "center", "Office");
 			report.Columns.Add("16%", "center", "Kill Points");
 
-			ArrayList list = new ArrayList();
+			ArrayList list = new();
 
 			List<Faction> factions = Faction.Factions;
 
@@ -411,7 +411,7 @@ namespace Server.Engines.Reports
 				else
 					office = "";
 
-				ReportItem item = new ReportItem();
+				ReportItem item = new();
 
 				item.Values.Add(pl.Mobile.Name);
 				item.Values.Add(pl.Faction.Definition.FriendlyName);
@@ -426,7 +426,7 @@ namespace Server.Engines.Reports
 
 		public static Report CompileFactionReport()
 		{
-			Report report = new Report("Faction Statistics", "80%");
+			Report report = new("Faction Statistics", "80%");
 
 			report.Columns.Add("20%", "center", "Name");
 			report.Columns.Add("20%", "center", "Commander");
@@ -453,7 +453,7 @@ namespace Server.Engines.Reports
 						++totalMerchants;
 				}
 
-				ReportItem item = new ReportItem();
+				ReportItem item = new();
 
 				item.Values.Add(faction.Definition.FriendlyName);
 				item.Values.Add(faction.Commander == null ? "" : faction.Commander.Name);
@@ -470,7 +470,7 @@ namespace Server.Engines.Reports
 
 		public static Report CompileSigilReport()
 		{
-			Report report = new Report("Faction Town Sigils", "50%");
+			Report report = new("Faction Town Sigils", "50%");
 
 			report.Columns.Add("35%", "center", "Town");
 			report.Columns.Add("35%", "center", "Controller");
@@ -498,7 +498,7 @@ namespace Server.Engines.Reports
 					controller = sigil.LastMonolith.Faction.Definition.FriendlyName;
 				}
 
-				ReportItem item = new ReportItem();
+				ReportItem item = new();
 
 				item.Values.Add(sigil.Town == null ? "" : sigil.Town.Definition.FriendlyName);
 				item.Values.Add(controller);
@@ -512,7 +512,7 @@ namespace Server.Engines.Reports
 
 		public static Report CompileFactionTownReport()
 		{
-			Report report = new Report("Faction Towns", "80%");
+			Report report = new("Faction Towns", "80%");
 
 			report.Columns.Add("20%", "center", "Name");
 			report.Columns.Add("20%", "center", "Owner");
@@ -534,7 +534,7 @@ namespace Server.Engines.Reports
 				else if (town.Tax > 0)
 					prices = "+" + town.Tax.ToString() + "%";
 
-				ReportItem item = new ReportItem();
+				ReportItem item = new();
 
 				item.Values.Add(town.Definition.FriendlyName);
 				item.Values.Add(town.Owner == null ? "Neutral" : town.Owner.Definition.FriendlyName);

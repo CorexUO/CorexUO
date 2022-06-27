@@ -117,7 +117,7 @@ namespace Server.Engines.Events
 
 					if (map.CanSpawnMobile(home))
 					{
-						ZombieSkeleton zombieskel = new ZombieSkeleton(player);
+						ZombieSkeleton zombieskel = new(player);
 
 						m_ReAnimated.Add(player, zombieskel);
 						zombieskel.Home = home;

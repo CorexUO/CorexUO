@@ -80,7 +80,7 @@ namespace Server.Mobiles
 			if (map == null)
 				return;
 
-			Bogling spawned = new Bogling
+			Bogling spawned = new()
 			{
 				Team = Team
 			};
@@ -106,7 +106,7 @@ namespace Server.Mobiles
 
 		public void EatBoglings()
 		{
-			ArrayList toEat = new ArrayList();
+			ArrayList toEat = new();
 
 			foreach (Mobile m in GetMobilesInRange(2))
 			{

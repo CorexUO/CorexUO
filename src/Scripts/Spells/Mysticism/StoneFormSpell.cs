@@ -14,7 +14,7 @@ namespace Server.Spells.Mysticism
 			EventSink.OnMobileDeath += OnPlayerDeath;
 		}
 
-		private static readonly SpellInfo m_Info = new SpellInfo(
+		private static readonly SpellInfo m_Info = new(
 				"Stone Form", "In Rel Ylem",
 				-1,
 				9002,
@@ -28,7 +28,7 @@ namespace Server.Spells.Mysticism
 		public override double RequiredSkill => 33.0;
 		public override int RequiredMana => 11;
 
-		private static readonly Hashtable m_Table = new Hashtable();
+		private static readonly Hashtable m_Table = new();
 
 		public static bool UnderEffect(Mobile m)
 		{
@@ -101,7 +101,7 @@ namespace Server.Spells.Mysticism
 
 					int offset = (int)((GetBaseSkill(Caster) + GetBoostSkill(Caster)) / 24.0);
 
-					List<ResistanceMod> mods = new List<ResistanceMod>
+					List<ResistanceMod> mods = new()
 					{
 						new ResistanceMod( ResistanceType.Physical, offset ),
 						new ResistanceMod( ResistanceType.Fire, offset ),

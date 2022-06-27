@@ -129,7 +129,7 @@ namespace Server.Mobiles
 				else
 					defender.SendLocalizedMessage(1070846); // The creature magically corrupts your armor!
 
-				List<ResistanceMod> mods = new List<ResistanceMod>();
+				List<ResistanceMod> mods = new();
 
 				if (Core.ML)
 				{
@@ -177,7 +177,7 @@ namespace Server.Mobiles
 			}
 		}
 
-		private static readonly Hashtable m_Table = new Hashtable();
+		private static readonly Hashtable m_Table = new();
 
 		private class ExpireTimer : Timer
 		{

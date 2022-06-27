@@ -16,7 +16,7 @@ namespace Server.Items
 	{
 		public const int SecureRange = 7;
 
-		private static readonly Hashtable m_Table = new Hashtable();
+		private static readonly Hashtable m_Table = new();
 
 		public static CampfireEntry GetEntry(Mobile player)
 		{
@@ -129,7 +129,7 @@ namespace Server.Items
 
 				if (pm != null && GetEntry(pm) == null)
 				{
-					CampfireEntry entry = new CampfireEntry(pm, this);
+					CampfireEntry entry = new(pm, this);
 
 					m_Table[pm] = entry;
 					m_Entries.Add(entry);

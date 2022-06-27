@@ -43,7 +43,7 @@ namespace Server.Items
 			if (info != null)
 				EndDefense(info);
 
-			ResistanceMod mod = new ResistanceMod(ResistanceType.Physical, 50 + modifier);
+			ResistanceMod mod = new(ResistanceType.Physical, 50 + modifier);
 			attacker.AddResistanceMod(mod);
 
 			info = new DefenseMasteryInfo(attacker, 80 - modifier, mod);
@@ -69,7 +69,7 @@ namespace Server.Items
 			}
 		}
 
-		private static readonly Hashtable m_Table = new Hashtable();
+		private static readonly Hashtable m_Table = new();
 
 		public static bool GetMalus(Mobile targ, ref int damageMalus)
 		{

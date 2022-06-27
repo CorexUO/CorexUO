@@ -12,7 +12,7 @@ namespace Server.Engines.Reports
 	public class BarGraph : Chart
 	{
 		#region Type Identification
-		public static readonly PersistableType ThisTypeID = new PersistableType("bg", new ConstructCallback(Construct));
+		public static readonly PersistableType ThisTypeID = new("bg", new ConstructCallback(Construct));
 
 		private static PersistableObject Construct()
 		{
@@ -123,7 +123,7 @@ namespace Server.Engines.Reports
 				counts[hour]++;
 			}
 
-			BarGraph barGraph = new BarGraph("Hourly average " + valueName, "graphs_" + valueName.ToLower() + "_avg", 10, "Time", valueName, BarGraphRenderMode.Lines)
+			BarGraph barGraph = new("Hourly average " + valueName, "graphs_" + valueName.ToLower() + "_avg", 10, "Time", valueName, BarGraphRenderMode.Lines)
 			{
 				FontSize = 6
 			};
@@ -155,7 +155,7 @@ namespace Server.Engines.Reports
 
 		public static BarGraph Growth(SnapshotHistory history, string reportName, string valueName)
 		{
-			BarGraph barGraph = new BarGraph("Growth of " + valueName + " over time", "graphs_" + valueName.ToLower() + "_growth", 10, "Time", valueName, BarGraphRenderMode.Lines)
+			BarGraph barGraph = new("Growth of " + valueName + " over time", "graphs_" + valueName.ToLower() + "_growth", 10, "Time", valueName, BarGraphRenderMode.Lines)
 			{
 				FontSize = 6,
 				Interval = 7
@@ -164,7 +164,7 @@ namespace Server.Engines.Reports
 			DateTime startPeriod = history.Snapshots[0].TimeStamp.Date + TimeSpan.FromDays(1.0);
 			DateTime endPeriod = history.Snapshots[history.Snapshots.Count - 1].TimeStamp.Date;
 
-			ArrayList regions = new ArrayList();
+			ArrayList regions = new();
 
 			DateTime curDate = DateTime.MinValue;
 			int curPeak = -1;
@@ -237,7 +237,7 @@ namespace Server.Engines.Reports
 
 		public static BarGraph OverTime(SnapshotHistory history, string reportName, string valueName, int step, int max, int ival)
 		{
-			BarGraph barGraph = new BarGraph(valueName + " over time", "graphs_" + valueName.ToLower() + "_ot", 10, "Time", valueName, BarGraphRenderMode.Lines);
+			BarGraph barGraph = new(valueName + " over time", "graphs_" + valueName.ToLower() + "_ot", 10, "Time", valueName, BarGraphRenderMode.Lines);
 
 			TimeSpan ts = TimeSpan.FromHours((max * step) - 0.5);
 
@@ -247,7 +247,7 @@ namespace Server.Engines.Reports
 			barGraph.FontSize = 6;
 			barGraph.Interval = ival;
 
-			ArrayList regions = new ArrayList();
+			ArrayList regions = new();
 
 			for (int i = 0; i < history.Snapshots.Count; ++i)
 			{

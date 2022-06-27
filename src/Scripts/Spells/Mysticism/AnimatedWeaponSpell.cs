@@ -6,7 +6,7 @@ namespace Server.Spells.Mysticism
 {
 	public class AnimatedWeaponSpell : MysticSpell
 	{
-		private static readonly SpellInfo m_Info = new SpellInfo(
+		private static readonly SpellInfo m_Info = new(
 				"Animated Weapon", "In Jux Por Ylem",
 				-1,
 				9002,
@@ -53,7 +53,7 @@ namespace Server.Spells.Mysticism
 
 				TimeSpan duration = TimeSpan.FromSeconds(10 + level);
 
-				AnimatedWeapon summon = new AnimatedWeapon(Caster, level);
+				AnimatedWeapon summon = new(Caster, level);
 				BaseCreature.Summon(summon, false, Caster, new Point3D(p), 0x212, duration);
 
 				summon.PlaySound(0x64A);

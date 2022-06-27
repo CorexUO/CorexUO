@@ -36,7 +36,7 @@ namespace Server.Mobiles
 			Name = "Macer";
 
 			// Equip
-			WarHammer war = new WarHammer
+			WarHammer war = new()
 			{
 				Movable = true,
 				Crafter = this,
@@ -44,13 +44,13 @@ namespace Server.Mobiles
 			};
 			AddItem(war);
 
-			Boots bts = new Boots
+			Boots bts = new()
 			{
 				Hue = iHue
 			};
 			AddItem(bts);
 
-			ChainChest cht = new ChainChest
+			ChainChest cht = new()
 			{
 				Movable = false,
 				LootType = LootType.Newbied,
@@ -59,7 +59,7 @@ namespace Server.Mobiles
 			};
 			AddItem(cht);
 
-			ChainLegs chl = new ChainLegs
+			ChainLegs chl = new()
 			{
 				Movable = false,
 				LootType = LootType.Newbied,
@@ -68,7 +68,7 @@ namespace Server.Mobiles
 			};
 			AddItem(chl);
 
-			PlateArms pla = new PlateArms
+			PlateArms pla = new()
 			{
 				Movable = false,
 				LootType = LootType.Newbied,
@@ -77,7 +77,7 @@ namespace Server.Mobiles
 			};
 			AddItem(pla);
 
-			Bandage band = new Bandage(50);
+			Bandage band = new(50);
 			AddToBackpack(band);
 		}
 
@@ -121,7 +121,7 @@ namespace Server.Mobiles
 			Name = "Fencer";
 
 			// Equip
-			Spear ssp = new Spear
+			Spear ssp = new()
 			{
 				Movable = true,
 				Crafter = this,
@@ -129,14 +129,14 @@ namespace Server.Mobiles
 			};
 			AddItem(ssp);
 
-			Boots snd = new Boots
+			Boots snd = new()
 			{
 				Hue = iHue,
 				LootType = LootType.Newbied
 			};
 			AddItem(snd);
 
-			ChainChest cht = new ChainChest
+			ChainChest cht = new()
 			{
 				Movable = false,
 				LootType = LootType.Newbied,
@@ -145,7 +145,7 @@ namespace Server.Mobiles
 			};
 			AddItem(cht);
 
-			ChainLegs chl = new ChainLegs
+			ChainLegs chl = new()
 			{
 				Movable = false,
 				LootType = LootType.Newbied,
@@ -154,7 +154,7 @@ namespace Server.Mobiles
 			};
 			AddItem(chl);
 
-			PlateArms pla = new PlateArms
+			PlateArms pla = new()
 			{
 				Movable = false,
 				LootType = LootType.Newbied,
@@ -163,7 +163,7 @@ namespace Server.Mobiles
 			};
 			AddItem(pla);
 
-			Bandage band = new Bandage(50);
+			Bandage band = new(50);
 			AddToBackpack(band);
 		}
 
@@ -209,7 +209,7 @@ namespace Server.Mobiles
 			Name = "Swordsman";
 
 			// Equip
-			Katana kat = new Katana
+			Katana kat = new()
 			{
 				Crafter = this,
 				Movable = true,
@@ -217,13 +217,13 @@ namespace Server.Mobiles
 			};
 			AddItem(kat);
 
-			Boots bts = new Boots
+			Boots bts = new()
 			{
 				Hue = iHue
 			};
 			AddItem(bts);
 
-			ChainChest cht = new ChainChest
+			ChainChest cht = new()
 			{
 				Movable = false,
 				LootType = LootType.Newbied,
@@ -232,7 +232,7 @@ namespace Server.Mobiles
 			};
 			AddItem(cht);
 
-			ChainLegs chl = new ChainLegs
+			ChainLegs chl = new()
 			{
 				Movable = false,
 				LootType = LootType.Newbied,
@@ -241,7 +241,7 @@ namespace Server.Mobiles
 			};
 			AddItem(chl);
 
-			PlateArms pla = new PlateArms
+			PlateArms pla = new()
 			{
 				Movable = false,
 				LootType = LootType.Newbied,
@@ -250,7 +250,7 @@ namespace Server.Mobiles
 			};
 			AddItem(pla);
 
-			Bandage band = new Bandage(50);
+			Bandage band = new(50);
 			AddToBackpack(band);
 		}
 
@@ -298,7 +298,7 @@ namespace Server.Mobiles
 			Name = "Nox Mage";
 
 			// Equip
-			Spellbook book = new Spellbook
+			Spellbook book = new()
 			{
 				Movable = false,
 				LootType = LootType.Newbied,
@@ -306,20 +306,20 @@ namespace Server.Mobiles
 			};
 			AddItem(book);
 
-			Kilt kilt = new Kilt
+			Kilt kilt = new()
 			{
 				Hue = jHue
 			};
 			AddItem(kilt);
 
-			Sandals snd = new Sandals
+			Sandals snd = new()
 			{
 				Hue = iHue,
 				LootType = LootType.Newbied
 			};
 			AddItem(snd);
 
-			SkullCap skc = new SkullCap
+			SkullCap skc = new()
 			{
 				Hue = iHue
 			};
@@ -377,7 +377,7 @@ namespace Server.Mobiles
 			Name = "Stun Mage";
 
 			// Equip
-			Spellbook book = new Spellbook
+			Spellbook book = new()
 			{
 				Movable = false,
 				LootType = LootType.Newbied,
@@ -385,7 +385,7 @@ namespace Server.Mobiles
 			};
 			AddItem(book);
 
-			LeatherArms lea = new LeatherArms
+			LeatherArms lea = new()
 			{
 				Movable = false,
 				LootType = LootType.Newbied,
@@ -394,7 +394,7 @@ namespace Server.Mobiles
 			};
 			AddItem(lea);
 
-			LeatherChest lec = new LeatherChest
+			LeatherChest lec = new()
 			{
 				Movable = false,
 				LootType = LootType.Newbied,
@@ -403,7 +403,7 @@ namespace Server.Mobiles
 			};
 			AddItem(lec);
 
-			LeatherGorget leg = new LeatherGorget
+			LeatherGorget leg = new()
 			{
 				Movable = false,
 				LootType = LootType.Newbied,
@@ -412,7 +412,7 @@ namespace Server.Mobiles
 			};
 			AddItem(leg);
 
-			LeatherLegs lel = new LeatherLegs
+			LeatherLegs lel = new()
 			{
 				Movable = false,
 				LootType = LootType.Newbied,
@@ -421,13 +421,13 @@ namespace Server.Mobiles
 			};
 			AddItem(lel);
 
-			Boots bts = new Boots
+			Boots bts = new()
 			{
 				Hue = iHue
 			};
 			AddItem(bts);
 
-			Cap cap = new Cap
+			Cap cap = new()
 			{
 				Hue = iHue
 			};
@@ -484,7 +484,7 @@ namespace Server.Mobiles
 			Name = "Super Mage";
 
 			// Equip
-			Spellbook book = new Spellbook
+			Spellbook book = new()
 			{
 				Movable = false,
 				LootType = LootType.Newbied,
@@ -492,7 +492,7 @@ namespace Server.Mobiles
 			};
 			AddItem(book);
 
-			LeatherArms lea = new LeatherArms
+			LeatherArms lea = new()
 			{
 				Movable = false,
 				LootType = LootType.Newbied,
@@ -501,7 +501,7 @@ namespace Server.Mobiles
 			};
 			AddItem(lea);
 
-			LeatherChest lec = new LeatherChest
+			LeatherChest lec = new()
 			{
 				Movable = false,
 				LootType = LootType.Newbied,
@@ -510,7 +510,7 @@ namespace Server.Mobiles
 			};
 			AddItem(lec);
 
-			LeatherGorget leg = new LeatherGorget
+			LeatherGorget leg = new()
 			{
 				Movable = false,
 				LootType = LootType.Newbied,
@@ -519,7 +519,7 @@ namespace Server.Mobiles
 			};
 			AddItem(leg);
 
-			LeatherLegs lel = new LeatherLegs
+			LeatherLegs lel = new()
 			{
 				Movable = false,
 				LootType = LootType.Newbied,
@@ -528,20 +528,20 @@ namespace Server.Mobiles
 			};
 			AddItem(lel);
 
-			Sandals snd = new Sandals
+			Sandals snd = new()
 			{
 				Hue = iHue,
 				LootType = LootType.Newbied
 			};
 			AddItem(snd);
 
-			JesterHat jhat = new JesterHat
+			JesterHat jhat = new()
 			{
 				Hue = iHue
 			};
 			AddItem(jhat);
 
-			Doublet dblt = new Doublet
+			Doublet dblt = new()
 			{
 				Hue = iHue
 			};
@@ -597,7 +597,7 @@ namespace Server.Mobiles
 			Name = "Healer";
 
 			// Equip
-			Spellbook book = new Spellbook
+			Spellbook book = new()
 			{
 				Movable = false,
 				LootType = LootType.Newbied,
@@ -605,7 +605,7 @@ namespace Server.Mobiles
 			};
 			AddItem(book);
 
-			LeatherArms lea = new LeatherArms
+			LeatherArms lea = new()
 			{
 				Movable = false,
 				LootType = LootType.Newbied,
@@ -614,7 +614,7 @@ namespace Server.Mobiles
 			};
 			AddItem(lea);
 
-			LeatherChest lec = new LeatherChest
+			LeatherChest lec = new()
 			{
 				Movable = false,
 				LootType = LootType.Newbied,
@@ -623,7 +623,7 @@ namespace Server.Mobiles
 			};
 			AddItem(lec);
 
-			LeatherGorget leg = new LeatherGorget
+			LeatherGorget leg = new()
 			{
 				Movable = false,
 				LootType = LootType.Newbied,
@@ -632,7 +632,7 @@ namespace Server.Mobiles
 			};
 			AddItem(leg);
 
-			LeatherLegs lel = new LeatherLegs
+			LeatherLegs lel = new()
 			{
 				Movable = false,
 				LootType = LootType.Newbied,
@@ -641,20 +641,20 @@ namespace Server.Mobiles
 			};
 			AddItem(lel);
 
-			Sandals snd = new Sandals
+			Sandals snd = new()
 			{
 				Hue = iHue,
 				LootType = LootType.Newbied
 			};
 			AddItem(snd);
 
-			Cap cap = new Cap
+			Cap cap = new()
 			{
 				Hue = iHue
 			};
 			AddItem(cap);
 
-			Robe robe = new Robe
+			Robe robe = new()
 			{
 				Hue = iHue
 			};
@@ -704,7 +704,7 @@ namespace Server.Mobiles
 			Name = "Hybrid Assassin";
 
 			// Equip
-			Spellbook book = new Spellbook
+			Spellbook book = new()
 			{
 				Movable = false,
 				LootType = LootType.Newbied,
@@ -712,7 +712,7 @@ namespace Server.Mobiles
 			};
 			AddToBackpack(book);
 
-			Katana kat = new Katana
+			Katana kat = new()
 			{
 				Movable = false,
 				LootType = LootType.Newbied,
@@ -723,7 +723,7 @@ namespace Server.Mobiles
 			};
 			AddToBackpack(kat);
 
-			LeatherArms lea = new LeatherArms
+			LeatherArms lea = new()
 			{
 				Movable = false,
 				LootType = LootType.Newbied,
@@ -732,7 +732,7 @@ namespace Server.Mobiles
 			};
 			AddItem(lea);
 
-			LeatherChest lec = new LeatherChest
+			LeatherChest lec = new()
 			{
 				Movable = false,
 				LootType = LootType.Newbied,
@@ -741,7 +741,7 @@ namespace Server.Mobiles
 			};
 			AddItem(lec);
 
-			LeatherGorget leg = new LeatherGorget
+			LeatherGorget leg = new()
 			{
 				Movable = false,
 				LootType = LootType.Newbied,
@@ -750,7 +750,7 @@ namespace Server.Mobiles
 			};
 			AddItem(leg);
 
-			LeatherLegs lel = new LeatherLegs
+			LeatherLegs lel = new()
 			{
 				Movable = false,
 				LootType = LootType.Newbied,
@@ -759,50 +759,50 @@ namespace Server.Mobiles
 			};
 			AddItem(lel);
 
-			Sandals snd = new Sandals
+			Sandals snd = new()
 			{
 				Hue = iHue,
 				LootType = LootType.Newbied
 			};
 			AddItem(snd);
 
-			Cap cap = new Cap
+			Cap cap = new()
 			{
 				Hue = iHue
 			};
 			AddItem(cap);
 
-			Robe robe = new Robe
+			Robe robe = new()
 			{
 				Hue = iHue
 			};
 			AddItem(robe);
 
-			DeadlyPoisonPotion pota = new DeadlyPoisonPotion
+			DeadlyPoisonPotion pota = new()
 			{
 				LootType = LootType.Newbied
 			};
 			AddToBackpack(pota);
 
-			DeadlyPoisonPotion potb = new DeadlyPoisonPotion
+			DeadlyPoisonPotion potb = new()
 			{
 				LootType = LootType.Newbied
 			};
 			AddToBackpack(potb);
 
-			DeadlyPoisonPotion potc = new DeadlyPoisonPotion
+			DeadlyPoisonPotion potc = new()
 			{
 				LootType = LootType.Newbied
 			};
 			AddToBackpack(potc);
 
-			DeadlyPoisonPotion potd = new DeadlyPoisonPotion
+			DeadlyPoisonPotion potd = new()
 			{
 				LootType = LootType.Newbied
 			};
 			AddToBackpack(potd);
 
-			Bandage band = new Bandage(50);
+			Bandage band = new(50);
 			AddToBackpack(band);
 
 		}
@@ -849,7 +849,7 @@ namespace Server.Mobiles
 			Name = "Hybrid Thief";
 
 			// Equip
-			Spellbook book = new Spellbook
+			Spellbook book = new()
 			{
 				Movable = false,
 				LootType = LootType.Newbied,
@@ -857,7 +857,7 @@ namespace Server.Mobiles
 			};
 			AddItem(book);
 
-			LeatherArms lea = new LeatherArms
+			LeatherArms lea = new()
 			{
 				Movable = false,
 				LootType = LootType.Newbied,
@@ -866,7 +866,7 @@ namespace Server.Mobiles
 			};
 			AddItem(lea);
 
-			LeatherChest lec = new LeatherChest
+			LeatherChest lec = new()
 			{
 				Movable = false,
 				LootType = LootType.Newbied,
@@ -875,7 +875,7 @@ namespace Server.Mobiles
 			};
 			AddItem(lec);
 
-			LeatherGorget leg = new LeatherGorget
+			LeatherGorget leg = new()
 			{
 				Movable = false,
 				LootType = LootType.Newbied,
@@ -884,7 +884,7 @@ namespace Server.Mobiles
 			};
 			AddItem(leg);
 
-			LeatherLegs lel = new LeatherLegs
+			LeatherLegs lel = new()
 			{
 				Movable = false,
 				LootType = LootType.Newbied,
@@ -893,26 +893,26 @@ namespace Server.Mobiles
 			};
 			AddItem(lel);
 
-			Sandals snd = new Sandals
+			Sandals snd = new()
 			{
 				Hue = iHue,
 				LootType = LootType.Newbied
 			};
 			AddItem(snd);
 
-			Cap cap = new Cap
+			Cap cap = new()
 			{
 				Hue = iHue
 			};
 			AddItem(cap);
 
-			Robe robe = new Robe
+			Robe robe = new()
 			{
 				Hue = iHue
 			};
 			AddItem(robe);
 
-			Bandage band = new Bandage(50);
+			Bandage band = new(50);
 			AddToBackpack(band);
 		}
 

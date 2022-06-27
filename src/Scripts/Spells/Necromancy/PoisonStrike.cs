@@ -8,7 +8,7 @@ namespace Server.Spells.Necromancy
 {
 	public class PoisonStrikeSpell : NecromancerSpell
 	{
-		private static readonly SpellInfo m_Info = new SpellInfo(
+		private static readonly SpellInfo m_Info = new(
 				"Poison Strike", "In Vas Nox",
 				203,
 				9031,
@@ -61,7 +61,7 @@ namespace Server.Spells.Necromancy
 
 				if (map != null)
 				{
-					List<Mobile> targets = new List<Mobile>();
+					List<Mobile> targets = new();
 
 					if (Caster.CanBeHarmful(m, false))
 						targets.Add(m);

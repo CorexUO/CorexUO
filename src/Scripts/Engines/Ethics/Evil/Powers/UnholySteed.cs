@@ -31,7 +31,7 @@ namespace Server.Ethics.Evil
 				return;
 			}
 
-			Mobiles.UnholySteed steed = new Mobiles.UnholySteed();
+			Mobiles.UnholySteed steed = new();
 
 			if (Mobiles.BaseCreature.Summon(steed, from.Mobile, from.Mobile.Location, 0x217, TimeSpan.FromHours(1.0)))
 			{

@@ -52,7 +52,7 @@ namespace Server.Items
 			BeginBleed(defender, attacker);
 		}
 
-		private static readonly Hashtable m_Table = new Hashtable();
+		private static readonly Hashtable m_Table = new();
 
 		public static bool IsBleeding(Mobile m)
 		{
@@ -84,7 +84,7 @@ namespace Server.Items
 				m.PlaySound(0x133);
 				m.Damage(damage, from);
 
-				Blood blood = new Blood
+				Blood blood = new()
 				{
 					ItemID = Utility.Random(0x122A, 5)
 				};

@@ -59,7 +59,7 @@ namespace Server.Mobiles
 
 			PackItem(new MessageInABottle());
 
-			Rope rope = new Rope
+			Rope rope = new()
 			{
 				ItemID = 0x14F8
 			};

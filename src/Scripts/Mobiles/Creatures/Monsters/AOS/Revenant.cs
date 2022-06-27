@@ -70,7 +70,7 @@ namespace Server.Mobiles
 
 			AddItem(shroud);
 
-			Halberd weapon = new Halberd
+			Halberd weapon = new()
 			{
 				Hue = 1,
 				Movable = false
@@ -104,7 +104,7 @@ namespace Server.Mobiles
 				{
 					for (int i = 0; i < 5; ++i)
 					{
-						Point3D loc = new Point3D(to.X - 4 + Utility.Random(9), to.Y - 4 + Utility.Random(9), to.Z);
+						Point3D loc = new(to.X - 4 + Utility.Random(9), to.Y - 4 + Utility.Random(9), to.Z);
 
 						if (toMap.CanSpawnMobile(loc))
 						{

@@ -36,7 +36,7 @@ namespace Server.Items
 		{
 			base.OnSingleClick(from);
 
-			List<EquipInfoAttribute> attrs = new List<EquipInfoAttribute>();
+			List<EquipInfoAttribute> attrs = new();
 
 			#region Factions
 			if (this is IFactionItem factionItem && factionItem != null && factionItem.FactionItemState != null)
@@ -110,7 +110,7 @@ namespace Server.Items
 			if (attrs.Count == 0 && crafter != null && Name != null)
 				return;
 
-			EquipmentInfo eqInfo = new EquipmentInfo(1041000, crafter, false, attrs.ToArray());
+			EquipmentInfo eqInfo = new(1041000, crafter, false, attrs.ToArray());
 			_ = from.Send(new DisplayEquipmentInfo(this, eqInfo));
 		}
 

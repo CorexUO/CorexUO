@@ -61,7 +61,7 @@ namespace Server.Mobiles
 
 			AddItem(shroud);
 
-			Scimitar weapon = new Scimitar
+			Scimitar weapon = new()
 			{
 				Skill = SkillName.Wrestling,
 				Hue = 38,

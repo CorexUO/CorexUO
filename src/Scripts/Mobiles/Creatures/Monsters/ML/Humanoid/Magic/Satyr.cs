@@ -83,7 +83,7 @@ namespace Server.Mobiles
 		#endregion
 
 		#region Suppress
-		private static readonly Dictionary<Mobile, Timer> m_Suppressed = new Dictionary<Mobile, Timer>();
+		private static readonly Dictionary<Mobile, Timer> m_Suppressed = new();
 		private DateTime m_NextSuppress;
 
 		public void Suppress(Mobile target)

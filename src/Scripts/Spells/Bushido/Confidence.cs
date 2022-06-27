@@ -5,7 +5,7 @@ namespace Server.Spells.Bushido
 {
 	public class Confidence : SamuraiSpell
 	{
-		private static readonly SpellInfo m_Info = new SpellInfo(
+		private static readonly SpellInfo m_Info = new(
 				"Confidence", null,
 				-1,
 				9002
@@ -45,7 +45,7 @@ namespace Server.Spells.Bushido
 			FinishSequence();
 		}
 
-		private static readonly Hashtable m_Table = new Hashtable();
+		private static readonly Hashtable m_Table = new();
 
 		public static bool IsConfident(Mobile m)
 		{
@@ -95,7 +95,7 @@ namespace Server.Spells.Bushido
 			}
 		}
 
-		private static readonly Hashtable m_RegenTable = new Hashtable();
+		private static readonly Hashtable m_RegenTable = new();
 
 		public static bool IsRegenerating(Mobile m)
 		{

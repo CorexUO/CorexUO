@@ -8,7 +8,7 @@ namespace Server.Spells.Chivalry
 {
 	public class RemoveCurseSpell : PaladinSpell
 	{
-		private static readonly SpellInfo m_Info = new SpellInfo(
+		private static readonly SpellInfo m_Info = new(
 				"Remove Curse", "Extermo Vomica",
 				-1,
 				9002

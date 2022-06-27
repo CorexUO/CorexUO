@@ -6,7 +6,7 @@ namespace Server.Spells.Fourth
 {
 	public class ManaDrainSpell : MagerySpell
 	{
-		private static readonly SpellInfo m_Info = new SpellInfo(
+		private static readonly SpellInfo m_Info = new(
 				"Mana Drain", "Ort Rel",
 				215,
 				9031,
@@ -37,7 +37,7 @@ namespace Server.Spells.Fourth
 			}
 		}
 
-		private static readonly Dictionary<Mobile, Timer> m_Table = new Dictionary<Mobile, Timer>();
+		private static readonly Dictionary<Mobile, Timer> m_Table = new();
 
 		private void AosDelay_Callback(object state)
 		{

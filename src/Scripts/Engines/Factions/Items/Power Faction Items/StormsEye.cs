@@ -34,7 +34,7 @@ namespace Server
 						{
 							SpellHelper.GetSurfaceTop(ref pt);
 
-							Point3D origin = new Point3D(pt);
+							Point3D origin = new(pt);
 							Map facet = from.Map;
 
 							if (facet != null && facet.CanFit(pt.X, pt.Y, pt.Z, 16, false, false, true))
@@ -60,7 +60,7 @@ namespace Server
 
 									Timer.DelayCall(TimeSpan.FromSeconds(1.0), delegate ()
 									{
-										List<Mobile> targets = new List<Mobile>();
+										List<Mobile> targets = new();
 
 										foreach (Mobile mob in facet.GetMobilesInRange(origin, 12))
 										{

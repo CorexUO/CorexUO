@@ -39,7 +39,7 @@ namespace Server.Items
 				BeginWound(defender, defender.Player ? PlayerDuration : NPCDuration);
 		}
 
-		private static readonly Hashtable m_Table = new Hashtable();
+		private static readonly Hashtable m_Table = new();
 
 		public static bool IsWounded(Mobile m)
 		{

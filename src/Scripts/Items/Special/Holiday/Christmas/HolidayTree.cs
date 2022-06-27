@@ -260,7 +260,7 @@ namespace Server.Items
 
 			if (house == null)
 			{
-				HolidayTreeDeed deed = new HolidayTreeDeed();
+				HolidayTreeDeed deed = new();
 				deed.MoveToWorld(Location, Map);
 				Delete();
 			}

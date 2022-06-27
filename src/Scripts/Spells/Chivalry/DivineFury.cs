@@ -5,7 +5,7 @@ namespace Server.Spells.Chivalry
 {
 	public class DivineFurySpell : PaladinSpell
 	{
-		private static readonly SpellInfo m_Info = new SpellInfo(
+		private static readonly SpellInfo m_Info = new(
 				"Divine Fury", "Divinum Furis",
 				-1,
 				9002
@@ -56,7 +56,7 @@ namespace Server.Spells.Chivalry
 			FinishSequence();
 		}
 
-		private static readonly Hashtable m_Table = new Hashtable();
+		private static readonly Hashtable m_Table = new();
 
 		public static bool UnderEffect(Mobile m)
 		{

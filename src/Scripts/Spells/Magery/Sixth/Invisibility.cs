@@ -7,7 +7,7 @@ namespace Server.Spells.Sixth
 {
 	public class InvisibilitySpell : MagerySpell
 	{
-		private static readonly SpellInfo m_Info = new SpellInfo(
+		private static readonly SpellInfo m_Info = new(
 				"Invisibility", "An Lor Xen",
 				206,
 				9002,
@@ -86,7 +86,7 @@ namespace Server.Spells.Sixth
 			FinishSequence();
 		}
 
-		private static readonly Dictionary<Mobile, Timer> m_Table = new Dictionary<Mobile, Timer>();
+		private static readonly Dictionary<Mobile, Timer> m_Table = new();
 
 		public static bool HasTimer(Mobile m)
 		{

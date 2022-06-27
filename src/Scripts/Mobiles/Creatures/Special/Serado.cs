@@ -139,7 +139,7 @@ namespace Server.Mobiles
 
 				Animate(10, 4, 1, true, false, 0);
 
-				ArrayList targets = new ArrayList();
+				ArrayList targets = new();
 
 				foreach (Mobile m in target.GetMobilesInRange(8))
 				{

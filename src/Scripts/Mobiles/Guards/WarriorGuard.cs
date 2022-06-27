@@ -64,7 +64,7 @@ namespace Server.Mobiles
 			if (Utility.RandomBool())
 				Utility.AssignRandomFacialHair(this, HairHue);
 
-			Halberd weapon = new Halberd
+			Halberd weapon = new()
 			{
 				Movable = false,
 				Crafter = this,

@@ -221,7 +221,7 @@ namespace Server.Items
 
 				if (text.Length > 0)
 				{
-					PlayerBBMessage message = new PlayerBBMessage(DateTime.UtcNow, from, text);
+					PlayerBBMessage message = new(DateTime.UtcNow, from, text);
 
 					if (m_Greeting)
 					{

@@ -99,7 +99,7 @@ namespace Server.Mobiles
 			}
 		}
 
-		private static readonly Hashtable m_Table = new Hashtable();
+		private static readonly Hashtable m_Table = new();
 
 		public static bool IsBeingDrained(Mobile m)
 		{

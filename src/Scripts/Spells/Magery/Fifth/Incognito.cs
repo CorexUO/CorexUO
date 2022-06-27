@@ -8,7 +8,7 @@ namespace Server.Spells.Fifth
 {
 	public class IncognitoSpell : MagerySpell
 	{
-		private static readonly SpellInfo m_Info = new SpellInfo(
+		private static readonly SpellInfo m_Info = new(
 				"Incognito", "Kal In Ex",
 				206,
 				9002,
@@ -120,7 +120,7 @@ namespace Server.Spells.Fifth
 			FinishSequence();
 		}
 
-		private static readonly Hashtable m_Timers = new Hashtable();
+		private static readonly Hashtable m_Timers = new();
 
 		public static bool StopTimer(Mobile m)
 		{

@@ -6,7 +6,7 @@ namespace Server.Spells.Third
 {
 	public class TeleportSpell : MagerySpell
 	{
-		private static readonly SpellInfo m_Info = new SpellInfo(
+		private static readonly SpellInfo m_Info = new(
 				"Teleport", "Rel Por",
 				215,
 				9031,
@@ -60,7 +60,7 @@ namespace Server.Spells.Third
 			SpellHelper.GetSurfaceTop(ref p);
 
 			Point3D from = Caster.Location;
-			Point3D to = new Point3D(p);
+			Point3D to = new(p);
 
 			if (Factions.Sigil.ExistsOn(Caster))
 			{

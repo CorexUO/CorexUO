@@ -99,7 +99,7 @@ namespace Server.Engines.Mahjong
 		{
 			for (int i = 0; i < 17; i++)
 			{
-				Point2D position = new Point2D(x + i * 20, y);
+				Point2D position = new(x + i * 20, y);
 				m_Tiles[index + i] = new MahjongTile(this, index + i, typeGenerator.Next(), position, stackLevel, direction, false);
 			}
 
@@ -110,7 +110,7 @@ namespace Server.Engines.Mahjong
 		{
 			for (int i = 0; i < 17; i++)
 			{
-				Point2D position = new Point2D(x, y + i * 20);
+				Point2D position = new(x, y + i * 20);
 				m_Tiles[index + i] = new MahjongTile(this, index + i, typeGenerator.Next(), position, stackLevel, direction, false);
 			}
 
@@ -121,7 +121,7 @@ namespace Server.Engines.Mahjong
 		{
 			m_Tiles = new MahjongTile[17 * 8];
 
-			MahjongTileTypeGenerator typeGenerator = new MahjongTileTypeGenerator(4);
+			MahjongTileTypeGenerator typeGenerator = new(4);
 
 			int i = 0;
 

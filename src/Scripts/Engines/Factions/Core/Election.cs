@@ -96,7 +96,7 @@ namespace Server.Factions
 
 						for (int i = 0; i < count; ++i)
 						{
-							Candidate cd = new Candidate(reader);
+							Candidate cd = new(reader);
 
 							if (cd.Mobile != null)
 								Candidates.Add(cd);
@@ -487,7 +487,7 @@ namespace Server.Factions
 
 						for (int i = 0; i < count; ++i)
 						{
-							Voter voter = new Voter(reader, Mobile);
+							Voter voter = new(reader, Mobile);
 
 							if (voter.From != null)
 								Voters.Add(voter);

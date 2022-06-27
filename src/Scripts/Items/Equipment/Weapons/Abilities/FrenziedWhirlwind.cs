@@ -45,12 +45,12 @@ namespace Server.Items
 			if (weapon == null)
 				return;
 
-			ArrayList list = new ArrayList();
+			ArrayList list = new();
 
 			foreach (Mobile m in attacker.GetMobilesInRange(1))
 				list.Add(m);
 
-			ArrayList targets = new ArrayList();
+			ArrayList targets = new();
 
 			for (int i = 0; i < list.Count; ++i)
 			{

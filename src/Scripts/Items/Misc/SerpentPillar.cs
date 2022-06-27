@@ -66,7 +66,7 @@ namespace Server.Items
 					int y = Utility.Random(Destination.Y, Destination.Height);
 					int z = map.GetAverageZ(x, y);
 
-					Point3D dest = new Point3D(x, y, z);
+					Point3D dest = new(x, y, z);
 
 					if (boat.CanFit(dest, map, boat.ItemID))
 					{

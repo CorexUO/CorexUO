@@ -46,7 +46,7 @@ namespace Server.Engines.Quests.Haven
 			HairItemID = 0x203D; // Pony Tail
 			HairHue = 0x22;
 
-			Bow bow = new Bow
+			Bow bow = new()
 			{
 				Movable = false
 			};

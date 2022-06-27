@@ -5,7 +5,7 @@ namespace Server.Spells.First
 {
 	public class WeakenSpell : MagerySpell
 	{
-		private static readonly SpellInfo m_Info = new SpellInfo(
+		private static readonly SpellInfo m_Info = new(
 				"Weaken", "Des Mani",
 				212,
 				9031,

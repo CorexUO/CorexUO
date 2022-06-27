@@ -70,7 +70,7 @@ namespace Server.Items
 			AddInnard(0x1D10, 0x0, 334, 196);
 			AddInnard(0x1D0B, 0x0, 322, 270);
 
-			List<PlagueBeastOrgan> organs = new List<PlagueBeastOrgan>();
+			List<PlagueBeastOrgan> organs = new();
 			PlagueBeastOrgan organ;
 
 			for (int i = 0; i < 6; i++)

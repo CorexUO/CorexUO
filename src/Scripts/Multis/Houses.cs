@@ -8,7 +8,7 @@ namespace Server.Multis
 		public static Rectangle2D[] AreaArray = new Rectangle2D[] { new Rectangle2D(-3, -3, 7, 7), new Rectangle2D(-1, 4, 3, 1) };
 
 		public override Rectangle2D[] Area => AreaArray;
-		public override Point3D BaseBanLocation => new Point3D(2, 4, 0);
+		public override Point3D BaseBanLocation => new(2, 4, 0);
 
 		public override int DefaultPrice => 43800;
 
@@ -65,7 +65,7 @@ namespace Server.Multis
 		public override int ConvertOffsetY => -1;
 
 		public override Rectangle2D[] Area => AreaArray;
-		public override Point3D BaseBanLocation => new Point3D(4, 8, 0);
+		public override Point3D BaseBanLocation => new(4, 8, 0);
 
 		public GuildHouse(Mobile owner) : base(0x74, owner, 1100, 8)
 		{
@@ -103,7 +103,7 @@ namespace Server.Multis
 		public static Rectangle2D[] AreaArray = new Rectangle2D[] { new Rectangle2D(-7, 0, 14, 7), new Rectangle2D(-7, -7, 9, 7), new Rectangle2D(-4, 7, 4, 1) };
 
 		public override Rectangle2D[] Area => AreaArray;
-		public override Point3D BaseBanLocation => new Point3D(2, 8, 0);
+		public override Point3D BaseBanLocation => new(2, 8, 0);
 
 		public override int DefaultPrice => 192400;
 
@@ -156,7 +156,7 @@ namespace Server.Multis
 		public override int ConvertOffsetY => -1;
 
 		public override Rectangle2D[] Area => AreaArray;
-		public override Point3D BaseBanLocation => new Point3D(5, 8, 0);
+		public override Point3D BaseBanLocation => new(5, 8, 0);
 
 		public Tower(Mobile owner) : base(0x7A, owner, 2119, 15)
 		{
@@ -197,7 +197,7 @@ namespace Server.Multis
 		public override int DefaultPrice => 665200;
 
 		public override Rectangle2D[] Area => AreaArray;
-		public override Point3D BaseBanLocation => new Point3D(5, 13, 0);
+		public override Point3D BaseBanLocation => new(5, 13, 0);
 
 		public Keep(Mobile owner) : base(0x7C, owner, 2625, 18)
 		{
@@ -234,7 +234,7 @@ namespace Server.Multis
 		public override int DefaultPrice => 1022800;
 
 		public override Rectangle2D[] Area => AreaArray;
-		public override Point3D BaseBanLocation => new Point3D(5, 17, 0);
+		public override Point3D BaseBanLocation => new(5, 17, 0);
 
 		public Castle(Mobile owner) : base(0x7E, owner, 4076, 28)
 		{
@@ -278,7 +278,7 @@ namespace Server.Multis
 		public override int ConvertOffsetY => -1;
 
 		public override Rectangle2D[] Area => AreaArray;
-		public override Point3D BaseBanLocation => new Point3D(1, 8, 0);
+		public override Point3D BaseBanLocation => new(1, 8, 0);
 
 		public LargePatioHouse(Mobile owner) : base(0x8C, owner, 1100, 8)
 		{
@@ -322,7 +322,7 @@ namespace Server.Multis
 		public override int ConvertOffsetY => -1;
 
 		public override Rectangle2D[] Area => AreaArray;
-		public override Point3D BaseBanLocation => new Point3D(1, 8, 0);
+		public override Point3D BaseBanLocation => new(1, 8, 0);
 
 		public LargeMarbleHouse(Mobile owner) : base(0x96, owner, 1370, 10)
 		{
@@ -361,7 +361,7 @@ namespace Server.Multis
 		public override HousePlacementEntry ConvertEntry => HousePlacementEntry.TwoStoryFoundations[6];
 
 		public override Rectangle2D[] Area => AreaArray;
-		public override Point3D BaseBanLocation => new Point3D(1, 4, 0);
+		public override Point3D BaseBanLocation => new(1, 4, 0);
 
 		public SmallTower(Mobile owner) : base(0x98, owner, 580, 4)
 		{
@@ -400,7 +400,7 @@ namespace Server.Multis
 		public override HousePlacementEntry ConvertEntry => HousePlacementEntry.TwoStoryFoundations[12];
 
 		public override Rectangle2D[] Area => AreaArray;
-		public override Point3D BaseBanLocation => new Point3D(5, 8, 0);
+		public override Point3D BaseBanLocation => new(5, 8, 0);
 
 		public LogCabin(Mobile owner) : base(0x9A, owner, 1100, 8)
 		{
@@ -442,7 +442,7 @@ namespace Server.Multis
 		public override int ConvertOffsetY => -1;
 
 		public override Rectangle2D[] Area => AreaArray;
-		public override Point3D BaseBanLocation => new Point3D(4, 6, 0);
+		public override Point3D BaseBanLocation => new(4, 6, 0);
 
 		public SandStonePatio(Mobile owner) : base(0x9C, owner, 850, 6)
 		{
@@ -481,7 +481,7 @@ namespace Server.Multis
 		public override HousePlacementEntry ConvertEntry => HousePlacementEntry.TwoStoryFoundations[31];
 
 		public override Rectangle2D[] Area => AreaArray;
-		public override Point3D BaseBanLocation => new Point3D(3, 8, 0);
+		public override Point3D BaseBanLocation => new(3, 8, 0);
 
 		public TwoStoryVilla(Mobile owner) : base(0x9E, owner, 1100, 8)
 		{
@@ -517,7 +517,7 @@ namespace Server.Multis
 	public class SmallShop : BaseHouse
 	{
 		public override Rectangle2D[] Area => (ItemID == 0x40A2 ? AreaArray1 : AreaArray2);
-		public override Point3D BaseBanLocation => new Point3D(3, 4, 0);
+		public override Point3D BaseBanLocation => new(3, 4, 0);
 
 		public override int DefaultPrice => 63000;
 

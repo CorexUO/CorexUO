@@ -387,7 +387,7 @@ namespace Server.Engines.ConPVP
 
 			KHTeamInfo ourTeam = game.GetTeamInfo(mob);
 
-			ArrayList entries = new ArrayList();
+			ArrayList entries = new();
 
 			for (int i = 0; i < game.Context.Participants.Count; ++i)
 			{
@@ -1052,7 +1052,7 @@ namespace Server.Engines.ConPVP
 
 		private void Finish_Callback()
 		{
-			ArrayList teams = new ArrayList();
+			ArrayList teams = new();
 
 			for (int i = 0; i < m_Context.Participants.Count; ++i)
 			{
@@ -1068,7 +1068,7 @@ namespace Server.Engines.ConPVP
 
 			Tournament tourny = m_Context.m_Tournament;
 
-			StringBuilder sb = new StringBuilder();
+			StringBuilder sb = new();
 
 			if (tourny != null && tourny.TournyType == TournyType.FreeForAll)
 			{

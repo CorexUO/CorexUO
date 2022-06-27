@@ -17,7 +17,7 @@ namespace Server.Commands.Generic
 
 		public bool IsMobile => (Type == null || Type == typeofMobile || Type.IsSubclassOf(typeofMobile));
 
-		public static readonly ObjectConditional Empty = new ObjectConditional(null, null);
+		public static readonly ObjectConditional Empty = new(null, null);
 
 		public bool HasCompiled => (m_Conditionals != null);
 
@@ -94,8 +94,8 @@ namespace Server.Commands.Generic
 
 			++index;
 
-			List<ICondition[]> conditions = new List<ICondition[]>();
-			List<ICondition> current = new List<ICondition>
+			List<ICondition[]> conditions = new();
+			List<ICondition> current = new()
 			{
 				TypeCondition.Default
 			};
@@ -144,7 +144,7 @@ namespace Server.Commands.Generic
 				string val = args[offset + index];
 				index++;
 
-				Property prop = new Property(binding);
+				Property prop = new(binding);
 
 				prop.BindTo(objectType, PropertyAccess.Read);
 				prop.CheckAccess(from);

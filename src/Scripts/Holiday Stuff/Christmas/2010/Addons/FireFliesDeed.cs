@@ -13,7 +13,7 @@ namespace Server.Items
 		{
 			get
 			{
-				FirefliesDeed deed = new FirefliesDeed();
+				FirefliesDeed deed = new();
 
 				return deed;
 			}
@@ -225,7 +225,7 @@ namespace Server.Items
 						if (p == null || map == null || map == Map.Internal)
 							return;
 
-						Point3D p3d = new Point3D(p);
+						Point3D p3d = new(p);
 						ItemData id = TileData.ItemTable[m_ItemID & TileData.MaxItemValue];
 
 						if (map.CanFit(p3d, id.Height))
@@ -249,7 +249,7 @@ namespace Server.Items
 
 								if (((m_ItemID == 0x2336 && north) || (m_ItemID == 0x2332 && west)) && isclear)
 								{
-									Fireflies flies = new Fireflies(m_ItemID);
+									Fireflies flies = new(m_ItemID);
 
 									house.Addons.Add(flies);
 

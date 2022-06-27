@@ -78,7 +78,7 @@ namespace Server.Engines.MLQuests.Mobiles
 			}
 			else
 			{
-				List<TextDefinition> conversation = new List<TextDefinition>();
+				List<TextDefinition> conversation = new();
 				conversation.AddRange(Incomplete);
 
 				MLQuestContext context = MLQuestSystem.GetContext(pm);

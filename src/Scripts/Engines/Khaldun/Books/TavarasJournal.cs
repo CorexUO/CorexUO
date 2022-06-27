@@ -2,8 +2,7 @@ namespace Server.Items
 {
 	public class TavarasJournal1 : BaseBook
 	{
-		public static readonly BookContent Content = new BookContent
-			(
+		public static readonly BookContent Content = new(
 				"Journal: Discovery of the Tomb", "Tavara Sewel",
 				new BookPageInfo
 				(
@@ -95,8 +94,7 @@ namespace Server.Items
 
 	public class TavarasJournal2 : BaseBook
 	{
-		public static readonly BookContent Content = new BookContent
-			(
+		public static readonly BookContent Content = new(
 				"Journal: Discovery of the Tomb", "Tavara Sewel",
 				new BookPageInfo
 				(
@@ -224,8 +222,7 @@ namespace Server.Items
 
 	public class TavarasJournal3 : BaseBook
 	{
-		public static readonly BookContent Content = new BookContent
-			(
+		public static readonly BookContent Content = new(
 				"Journal: Discovery of the Tomb", "Tavara Sewel",
 				new BookPageInfo
 				(
@@ -321,8 +318,7 @@ namespace Server.Items
 
 	public class TavarasJournal6 : BaseBook
 	{
-		public static readonly BookContent Content = new BookContent
-			(
+		public static readonly BookContent Content = new(
 				"Journal: Discovery of the Tomb", "Tavara Sewel",
 				new BookPageInfo
 				(
@@ -431,8 +427,7 @@ namespace Server.Items
 
 	public class TavarasJournal7 : BaseBook
 	{
-		public static readonly BookContent Content = new BookContent
-			(
+		public static readonly BookContent Content = new(
 				"Journal: Discovery of the Tomb", "Tavara Sewel",
 				new BookPageInfo
 				(
@@ -529,8 +524,7 @@ namespace Server.Items
 
 	public class TavarasJournal8 : BaseBook
 	{
-		public static readonly BookContent Content = new BookContent
-			(
+		public static readonly BookContent Content = new(
 				"Journal: Discovery of the Tomb", "Tavara Sewel",
 				new BookPageInfo
 				(
@@ -647,8 +641,7 @@ namespace Server.Items
 
 	public class TavarasJournal9 : BaseBook
 	{
-		public static readonly BookContent Content = new BookContent
-			(
+		public static readonly BookContent Content = new(
 				"Journal: Discovery of the Tomb", "Tavara Sewel",
 				new BookPageInfo
 				(
@@ -741,8 +734,7 @@ namespace Server.Items
 
 	public class TavarasJournal11 : BaseBook
 	{
-		public static readonly BookContent Content = new BookContent
-			(
+		public static readonly BookContent Content = new(
 				"Journal: Discovery of the Tomb", "Tavara Sewel",
 				new BookPageInfo
 				(
@@ -859,8 +851,7 @@ namespace Server.Items
 
 	public class TavarasJournal14 : BaseBook
 	{
-		public static readonly BookContent Content = new BookContent
-			(
+		public static readonly BookContent Content = new(
 				"Journal: Discovery of the Tomb", "Tavara Sewel",
 				new BookPageInfo
 				(
@@ -968,8 +959,7 @@ namespace Server.Items
 
 	public class TavarasJournal16 : BaseBook
 	{
-		public static readonly BookContent Content = new BookContent
-			(
+		public static readonly BookContent Content = new(
 				"Journal: Discovery of the Tomb", "Tavara Sewel",
 				new BookPageInfo
 				(
@@ -1089,8 +1079,7 @@ namespace Server.Items
 
 	public class TavarasJournal16b : BaseBook
 	{
-		public static readonly BookContent Content = new BookContent
-			(
+		public static readonly BookContent Content = new(
 				"Journal: Discovery of the Tomb", "Tavara Sewel",
 				new BookPageInfo
 				(
@@ -1199,8 +1188,7 @@ namespace Server.Items
 
 	public class TavarasJournal17 : BaseBook
 	{
-		public static readonly BookContent Content = new BookContent
-			(
+		public static readonly BookContent Content = new(
 				"Journal: Discovery of the Tomb", "Tavara Sewel",
 				new BookPageInfo
 				(
@@ -1270,8 +1258,7 @@ namespace Server.Items
 
 	public class TavarasJournal19 : BaseBook
 	{
-		public static readonly BookContent Content = new BookContent
-			(
+		public static readonly BookContent Content = new(
 				"Journal: Discovery of the Tomb", "Tavara Sewel",
 				new BookPageInfo
 				(

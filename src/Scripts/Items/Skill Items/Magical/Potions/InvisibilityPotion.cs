@@ -69,7 +69,7 @@ namespace Server.Items
 			RemoveTimer(m);
 		}
 
-		private static readonly Hashtable m_Table = new Hashtable();
+		private static readonly Hashtable m_Table = new();
 
 		public static bool HasTimer(Mobile m)
 		{

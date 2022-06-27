@@ -7,7 +7,7 @@ namespace Server.Mobiles
 {
 	public abstract class BaseGuildmaster : BaseVendor
 	{
-		private readonly List<SBInfo> m_SBInfos = new List<SBInfo>();
+		private readonly List<SBInfo> m_SBInfos = new();
 		protected override List<SBInfo> SBInfos => m_SBInfos;
 
 		public override bool IsActiveVendor => false;

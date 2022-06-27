@@ -6,7 +6,7 @@ namespace Server.Spells.Necromancy
 {
 	public class VengefulSpiritSpell : NecromancerSpell
 	{
-		private static readonly SpellInfo m_Info = new SpellInfo(
+		private static readonly SpellInfo m_Info = new(
 				"Vengeful Spirit", "Kal Xen Bal Beh",
 				203,
 				9031,
@@ -61,7 +61,7 @@ namespace Server.Spells.Necromancy
 
 				TimeSpan duration = TimeSpan.FromSeconds(((GetDamageSkill(Caster) * 80) / 120) + 10);
 
-				Revenant rev = new Revenant(Caster, m, duration);
+				Revenant rev = new(Caster, m, duration);
 
 				if (BaseCreature.Summon(rev, false, Caster, m.Location, 0x81, TimeSpan.FromSeconds(duration.TotalSeconds + 2.0)))
 					rev.FixedParticles(0x373A, 1, 15, 9909, EffectLayer.Waist);

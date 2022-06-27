@@ -34,7 +34,7 @@ namespace Server.Mobiles
 
 			Utility.AssignRandomHair(this, iHue);
 
-			LeatherGloves glv = new LeatherGloves
+			LeatherGloves glv = new()
 			{
 				Hue = iHue,
 				LootType = LootType.Newbied

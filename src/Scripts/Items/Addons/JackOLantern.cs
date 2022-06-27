@@ -8,7 +8,7 @@ namespace Server.Items
 
 		private AddonComponent GetComponent(int itemID, int hue)
 		{
-			AddonComponent ac = new AddonComponent(itemID)
+			AddonComponent ac = new(itemID)
 			{
 				Hue = hue,
 				Name = "jack-o-lantern"

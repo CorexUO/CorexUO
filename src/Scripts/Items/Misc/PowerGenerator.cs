@@ -27,7 +27,7 @@ namespace Server.Items
 
 		private void AddGeneratorComponent(int itemID, int x, int y, int z)
 		{
-			AddonComponent component = new AddonComponent(itemID)
+			AddonComponent component = new(itemID)
 			{
 				Name = "a power generator",
 				Hue = 0x451
@@ -428,7 +428,7 @@ namespace Server.Items
 			}
 		}
 
-		private readonly Hashtable m_DamageTable = new Hashtable();
+		private readonly Hashtable m_DamageTable = new();
 
 		public void DoDamage(Mobile to)
 		{
@@ -446,7 +446,7 @@ namespace Server.Items
 			{
 				to.Frozen = true;
 
-				DamageTimer timer = new DamageTimer(this, to);
+				DamageTimer timer = new(this, to);
 				m_DamageTable[to] = timer;
 
 				timer.Start();

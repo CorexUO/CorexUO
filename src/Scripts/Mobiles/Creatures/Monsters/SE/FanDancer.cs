@@ -118,7 +118,7 @@ namespace Server.Mobiles
 
 				int effect = -(defender.FireResistance / 10);
 
-				ResistanceMod mod = new ResistanceMod(ResistanceType.Fire, effect);
+				ResistanceMod mod = new(ResistanceType.Fire, effect);
 
 				defender.FixedParticles(0x37B9, 10, 30, 0x34, EffectLayer.RightFoot);
 				defender.PlaySound(0x208);
@@ -128,13 +128,13 @@ namespace Server.Mobiles
 
 				defender.AddResistanceMod(mod);
 
-				ExpireTimer timer = new ExpireTimer(defender, mod, TimeSpan.FromSeconds(10.0));
+				ExpireTimer timer = new(defender, mod, TimeSpan.FromSeconds(10.0));
 				timer.Start();
 				m_Table[defender] = timer;
 			}
 		}
 
-		private static readonly Hashtable m_Table = new Hashtable();
+		private static readonly Hashtable m_Table = new();
 
 		public bool IsFanned(Mobile m)
 		{

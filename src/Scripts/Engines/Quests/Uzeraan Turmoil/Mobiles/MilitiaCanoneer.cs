@@ -35,7 +35,7 @@ namespace Server.Engines.Quests.Haven
 			AddItem(new PlateGloves());
 			AddItem(new PlateLegs());
 
-			Torch torch = new Torch
+			Torch torch = new()
 			{
 				Movable = false
 			};

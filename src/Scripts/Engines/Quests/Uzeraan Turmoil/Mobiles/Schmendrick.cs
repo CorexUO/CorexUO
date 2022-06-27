@@ -34,13 +34,13 @@ namespace Server.Engines.Quests.Haven
 			FacialHairItemID = 0x203E;
 			FacialHairHue = 0x455;
 
-			GlacialStaff staff = new GlacialStaff
+			GlacialStaff staff = new()
 			{
 				Movable = false
 			};
 			AddItem(staff);
 
-			Backpack pack = new Backpack
+			Backpack pack = new()
 			{
 				Movable = false
 			};

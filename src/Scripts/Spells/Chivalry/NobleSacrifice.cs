@@ -8,7 +8,7 @@ namespace Server.Spells.Chivalry
 {
 	public class NobleSacrificeSpell : PaladinSpell
 	{
-		private static readonly SpellInfo m_Info = new SpellInfo(
+		private static readonly SpellInfo m_Info = new(
 				"Noble Sacrifice", "Dium Prostra",
 				-1,
 				9002
@@ -30,7 +30,7 @@ namespace Server.Spells.Chivalry
 		{
 			if (CheckSequence())
 			{
-				List<Mobile> targets = new List<Mobile>();
+				List<Mobile> targets = new();
 
 				foreach (Mobile m in Caster.GetMobilesInRange(3)) // TODO: Validate range
 				{

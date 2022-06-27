@@ -9,7 +9,7 @@ namespace Server.Mobiles
 {
 	public class AnimalTrainer : BaseVendor
 	{
-		private readonly List<SBInfo> m_SBInfos = new List<SBInfo>();
+		private readonly List<SBInfo> m_SBInfos = new();
 		protected override List<SBInfo> SBInfos => m_SBInfos;
 
 		[Constructable]
@@ -188,7 +188,7 @@ namespace Server.Mobiles
 			if (Deleted || !from.CheckAlive())
 				return;
 
-			List<BaseCreature> list = new List<BaseCreature>();
+			List<BaseCreature> list = new();
 
 			for (int i = 0; i < from.Stabled.Count; ++i)
 			{

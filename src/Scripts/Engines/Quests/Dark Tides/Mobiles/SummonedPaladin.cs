@@ -170,7 +170,7 @@ namespace Server.Engines.Quests.Necro
 
 				if (m_Step == 0)
 				{
-					SummonedPaladinMoongate moongate = new SummonedPaladinMoongate();
+					SummonedPaladinMoongate moongate = new();
 					moongate.MoveToWorld(new Point3D(2091, 1348, -90), Map.Malas);
 
 					Effects.PlaySound(moongate.Location, moongate.Map, 0x20E);

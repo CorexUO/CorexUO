@@ -5,7 +5,7 @@ namespace Server.Spells.Spellweaving
 {
 	public class AttuneWeaponSpell : ArcanistSpell
 	{
-		private static readonly SpellInfo m_Info = new SpellInfo(
+		private static readonly SpellInfo m_Info = new(
 				"Attune Weapon", "Haeldril",
 				-1
 			);
@@ -51,7 +51,7 @@ namespace Server.Spells.Spellweaving
 
 				TimeSpan duration = TimeSpan.FromSeconds(60 + (FocusLevel * 12));
 
-				ExpireTimer t = new ExpireTimer(Caster, duration);
+				ExpireTimer t = new(Caster, duration);
 				t.Start();
 
 				m_Table[Caster] = t;
@@ -64,7 +64,7 @@ namespace Server.Spells.Spellweaving
 			FinishSequence();
 		}
 
-		private static readonly Dictionary<Mobile, ExpireTimer> m_Table = new Dictionary<Mobile, ExpireTimer>();
+		private static readonly Dictionary<Mobile, ExpireTimer> m_Table = new();
 
 		public static void TryAbsorb(Mobile defender, ref int damage)
 		{

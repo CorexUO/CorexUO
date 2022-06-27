@@ -93,8 +93,8 @@ namespace Server.Engines.Reports
 		public override Bitmap Draw()
 		{
 			int perimeter = _perimeter;
-			Rectangle pieRect = new Rectangle(0, 0, perimeter, perimeter - 1);
-			Bitmap bmp = new Bitmap(perimeter + _legendWidth, perimeter);
+			Rectangle pieRect = new(0, 0, perimeter, perimeter - 1);
+			Bitmap bmp = new(perimeter + _legendWidth, perimeter);
 			Font fnt = null;
 			Pen pen = null;
 			Graphics grp = null;
@@ -108,7 +108,7 @@ namespace Server.Engines.Reports
 				sf = new StringFormat();
 
 				//Paint Back ground
-				using (SolidBrush brsh = new SolidBrush(_backgroundColor))
+				using (SolidBrush brsh = new(_backgroundColor))
 					grp.FillRectangle(brsh, -1, -1, perimeter + _legendWidth + 1, perimeter + 1);
 
 				//Align text to the right
@@ -204,15 +204,15 @@ namespace Server.Engines.Reports
 				}
 
 				//draws the border around Pie
-				using (Pen pen2 = new Pen(_borderColor, 2))
+				using (Pen pen2 = new(_borderColor, 2))
 					grp.DrawEllipse(pen2, pieRect);
 
 				//draw border around legend
-				using (Pen pen1 = new Pen(_borderColor, 1))
+				using (Pen pen1 = new(_borderColor, 1))
 					grp.DrawRectangle(pen1, perimeter + _bufferSpace - 10, 10, 220, _chartItems.Count * _legendFontHeight + 25);
 
 				//Draw Total under legend
-				using (Font fntb = new Font(_legendFontStyle, _legendFontSize, FontStyle.Bold))
+				using (Font fntb = new(_legendFontStyle, _legendFontSize, FontStyle.Bold))
 				{
 					grp.DrawString("Total", fntb,
 						Brushes.Black, perimeter + _bufferSpace + 30, (_chartItems.Count + 1) * _legendFontHeight, sf);
@@ -241,7 +241,7 @@ namespace Server.Engines.Reports
 
 		private void CalculateLegendWidthHeight()
 		{
-			Font fontLegend = new Font(_legendFontStyle, _legendFontSize);
+			Font fontLegend = new(_legendFontStyle, _legendFontSize);
 			_legendFontHeight = fontLegend.Height + 3;
 			_legendHeight = fontLegend.Height * (_chartItems.Count + 1);
 			if (_legendHeight > _perimeter) _perimeter = _legendHeight;

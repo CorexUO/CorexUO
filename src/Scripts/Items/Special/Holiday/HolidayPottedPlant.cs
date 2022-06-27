@@ -135,7 +135,7 @@ namespace Server.Items
 
 				if (index >= 0 && index <= 4)
 				{
-					HolidayPottedPlant plant = new HolidayPottedPlant(0x11C8 + index);
+					HolidayPottedPlant plant = new(0x11C8 + index);
 
 					if (!from.PlaceInBackpack(plant))
 					{

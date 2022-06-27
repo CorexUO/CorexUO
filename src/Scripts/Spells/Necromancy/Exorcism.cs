@@ -11,7 +11,7 @@ namespace Server.Spells.Necromancy
 {
 	public class ExorcismSpell : NecromancerSpell
 	{
-		private static readonly SpellInfo m_Info = new SpellInfo(
+		private static readonly SpellInfo m_Info = new(
 				"Exorcism", "Ort Corp Grav",
 				203,
 				9031,
@@ -63,7 +63,7 @@ namespace Server.Spells.Necromancy
 
 				if (map != null)
 				{
-					List<Mobile> targets = new List<Mobile>();
+					List<Mobile> targets = new();
 
 					foreach (Mobile m in r.ChampionSpawn.GetMobilesInRange(Range))
 						if (IsValidTarget(m))

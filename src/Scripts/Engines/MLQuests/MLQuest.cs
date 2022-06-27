@@ -54,10 +54,10 @@ namespace Server.Engines.MLQuests
 		public TextDefinition CompletionMessage { get; set; }
 		public TextDefinition CompletionNotice { get; set; }
 
-		public static readonly TextDefinition CompletionNoticeDefault = new TextDefinition(1072273); // You've completed a quest!  Don't forget to collect your reward.
-		public static readonly TextDefinition CompletionNoticeShort = new TextDefinition(1046258); // Your quest is complete.
-		public static readonly TextDefinition CompletionNoticeShortReturn = new TextDefinition(1073775); // Your quest is complete. Return for your reward.
-		public static readonly TextDefinition CompletionNoticeCraft = new TextDefinition(1073967); // You obtained what you seek, now receive your reward.
+		public static readonly TextDefinition CompletionNoticeDefault = new(1072273); // You've completed a quest!  Don't forget to collect your reward.
+		public static readonly TextDefinition CompletionNoticeShort = new(1046258); // Your quest is complete.
+		public static readonly TextDefinition CompletionNoticeShortReturn = new(1073775); // Your quest is complete. Return for your reward.
+		public static readonly TextDefinition CompletionNoticeCraft = new(1073967); // You obtained what you seek, now receive your reward.
 
 		public MLQuest()
 		{
@@ -85,7 +85,7 @@ namespace Server.Engines.MLQuests
 			string name = string.Format("MLQS-{0}", GetType().Name);
 
 			// Auto cleanup on regeneration
-			List<Item> toDelete = new List<Item>();
+			List<Item> toDelete = new();
 
 			foreach (Item item in map.GetItemsInRange(loc, 0))
 			{
@@ -103,7 +103,7 @@ namespace Server.Engines.MLQuests
 		public void PutDeco(Item deco, Point3D loc, Map map)
 		{
 			// Auto cleanup on regeneration
-			List<Item> toDelete = new List<Item>();
+			List<Item> toDelete = new();
 
 			foreach (Item item in map.GetItemsInRange(loc, 0))
 			{

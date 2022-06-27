@@ -9,7 +9,7 @@ namespace Server.Items
 
 		public override Item GetCropObject()
 		{
-			Onion onion = new Onion
+			Onion onion = new()
 			{
 				ItemID = Utility.Random(3181, 2)
 			};

@@ -152,7 +152,7 @@ namespace Server.Items
 			IPoint3D p = (IPoint3D)states[1];
 			Map map = (Map)states[2];
 
-			Point3D loc = new Point3D(p);
+			Point3D loc = new(p);
 
 			if (InstantExplosion)
 				Explode(from, true, loc, map);
@@ -238,7 +238,7 @@ namespace Server.Items
 				alchemyBonus = (int)(from.Skills.Alchemy.Value / (Core.AOS ? 5 : 10));
 
 			IPooledEnumerable eable = LeveledExplosion ? map.GetObjectsInRange(loc, ExplosionRange) : map.GetMobilesInRange(loc, ExplosionRange);
-			ArrayList toExplode = new ArrayList();
+			ArrayList toExplode = new();
 
 			int toDamage = 0;
 

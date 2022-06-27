@@ -31,7 +31,7 @@ namespace Server.Ethics.Hero
 				return;
 			}
 
-			Mobiles.HolySteed steed = new Mobiles.HolySteed();
+			Mobiles.HolySteed steed = new();
 
 			if (Mobiles.BaseCreature.Summon(steed, from.Mobile, from.Mobile.Location, 0x217, TimeSpan.FromHours(1.0)))
 			{

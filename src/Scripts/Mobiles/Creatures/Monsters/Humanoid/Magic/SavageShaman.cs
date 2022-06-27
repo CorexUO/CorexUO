@@ -113,7 +113,7 @@ namespace Server.Mobiles
 			if (Map == null)
 				return;
 
-			ArrayList list = new ArrayList();
+			ArrayList list = new();
 
 			foreach (Mobile m in GetMobilesInRange(8))
 			{
@@ -147,7 +147,7 @@ namespace Server.Mobiles
 			if (Deleted)
 				return;
 
-			ArrayList list = new ArrayList();
+			ArrayList list = new();
 
 			foreach (Mobile m in GetMobilesInRange(8))
 				list.Add(m);

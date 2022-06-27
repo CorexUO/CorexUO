@@ -160,7 +160,7 @@ namespace Server.Items
 
 		public override void OnSingleClick(Mobile from)
 		{
-			ArrayList attrs = new ArrayList();
+			ArrayList attrs = new();
 
 			if (DisplayLootType)
 			{
@@ -212,7 +212,7 @@ namespace Server.Items
 			if (attrs.Count == 0 && Crafter == null && Name != null)
 				return;
 
-			EquipmentInfo eqInfo = new EquipmentInfo(number, Crafter, false, (EquipInfoAttribute[])attrs.ToArray(typeof(EquipInfoAttribute)));
+			EquipmentInfo eqInfo = new(number, Crafter, false, (EquipInfoAttribute[])attrs.ToArray(typeof(EquipInfoAttribute)));
 
 			from.Send(new DisplayEquipmentInfo(this, eqInfo));
 		}

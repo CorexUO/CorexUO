@@ -5,7 +5,7 @@ namespace Server.Spells.Spellweaving
 {
 	public class ThunderstormSpell : ArcanistSpell
 	{
-		private static readonly SpellInfo m_Info = new SpellInfo(
+		private static readonly SpellInfo m_Info = new(
 				"Thunderstorm", "Erelonia",
 				-1
 			);
@@ -44,7 +44,7 @@ namespace Server.Spells.Spellweaving
 				int range = 2 + FocusLevel;
 				TimeSpan duration = TimeSpan.FromSeconds(5 + FocusLevel);
 
-				List<Mobile> targets = new List<Mobile>();
+				List<Mobile> targets = new();
 
 				foreach (Mobile m in Caster.GetMobilesInRange(range))
 				{
@@ -77,7 +77,7 @@ namespace Server.Spells.Spellweaving
 			FinishSequence();
 		}
 
-		private static readonly Dictionary<Mobile, Timer> m_Table = new Dictionary<Mobile, Timer>();
+		private static readonly Dictionary<Mobile, Timer> m_Table = new();
 
 		public static int GetCastRecoveryMalus(Mobile m)
 		{

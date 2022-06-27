@@ -253,7 +253,7 @@ namespace Server.Engines.Craft
 			// Back Button
 			if (info.ButtonID == 0)
 			{
-				CraftGump craftGump = new CraftGump(m_From, m_CraftSystem, m_Tool, null);
+				CraftGump craftGump = new(m_From, m_CraftSystem, m_Tool, null);
 				m_From.SendGump(craftGump);
 			}
 			else // Make Button

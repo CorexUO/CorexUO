@@ -20,7 +20,7 @@ namespace Server.Items
 		{
 			get
 			{
-				MiningCartDeed deed = new MiningCartDeed
+				MiningCartDeed deed = new()
 				{
 					IsRewardItem = IsRewardItem,
 					Gems = Gems,
@@ -288,7 +288,7 @@ namespace Server.Items
 		{
 			get
 			{
-				MiningCart addon = new MiningCart(m_CartType)
+				MiningCart addon = new(m_CartType)
 				{
 					IsRewardItem = m_IsRewardItem,
 					Gems = Gems,

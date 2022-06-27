@@ -5,7 +5,7 @@ namespace Server.Spells.Second
 {
 	public class StrengthSpell : MagerySpell
 	{
-		private static readonly SpellInfo m_Info = new SpellInfo(
+		private static readonly SpellInfo m_Info = new(
 				"Strength", "Uus Mani",
 				212,
 				9061,

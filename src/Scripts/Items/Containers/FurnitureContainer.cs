@@ -346,7 +346,7 @@ namespace Server.Items
 
 	public class DynamicFurniture
 	{
-		private static readonly Dictionary<Container, Timer> m_Table = new Dictionary<Container, Timer>();
+		private static readonly Dictionary<Container, Timer> m_Table = new();
 
 		public static bool Open(Container c, Mobile m)
 		{

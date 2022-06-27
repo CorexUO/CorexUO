@@ -71,7 +71,7 @@ namespace Server.Mobiles
 			if (pack == null)
 				return;
 
-			ArrayList list = new ArrayList();
+			ArrayList list = new();
 
 			foreach (Item item in GetItemsInRange(2))
 			{

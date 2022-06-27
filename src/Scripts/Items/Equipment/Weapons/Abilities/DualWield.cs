@@ -9,7 +9,7 @@ namespace Server.Items
 	/// </summary>
 	public class DualWield : WeaponAbility
 	{
-		private static readonly Hashtable m_Registry = new Hashtable();
+		private static readonly Hashtable m_Registry = new();
 		public static Hashtable Registry => m_Registry;
 
 		public DualWield()

@@ -56,7 +56,7 @@ namespace Server.Items
 		{
 			if (IsOwner(from))
 			{
-				OnOffGump onOffGump = new OnOffGump(this);
+				OnOffGump onOffGump = new(this);
 				from.SendGump(onOffGump);
 			}
 			else

@@ -1754,7 +1754,7 @@ namespace Server.Items
 			if (map == null)
 				return;
 
-			List<Mobile> list = new List<Mobile>();
+			List<Mobile> list = new();
 
 			int range = Core.ML ? 5 : 10;
 

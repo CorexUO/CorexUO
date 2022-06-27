@@ -79,7 +79,7 @@ namespace Server.Items
 			if (Parent == null)
 				return Location;
 
-			ArrayList list = new ArrayList(4);
+			ArrayList list = new(4);
 
 			AddOffsetLocation(from, 0, -1, list);
 			AddOffsetLocation(from, -1, 0, list);
@@ -100,7 +100,7 @@ namespace Server.Items
 			int x = from.X + offsetX;
 			int y = from.Y + offsetY;
 
-			Point3D loc = new Point3D(x, y, from.Z);
+			Point3D loc = new(x, y, from.Z);
 
 			if (map.CanFit(loc, 1) && from.InLOS(loc))
 			{

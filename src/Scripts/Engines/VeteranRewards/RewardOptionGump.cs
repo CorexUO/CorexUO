@@ -11,7 +11,7 @@ namespace Server.Gumps
 
 	public class RewardOptionGump : Gump
 	{
-		private readonly RewardOptionList m_Options = new RewardOptionList();
+		private readonly RewardOptionList m_Options = new();
 		private readonly IRewardOption m_Option;
 
 		public RewardOptionGump(IRewardOption option) : this(option, 0)

@@ -7,7 +7,7 @@ namespace Server.Spells.Second
 	{
 		public static Hashtable Registry { get; } = new Hashtable();
 
-		private static readonly SpellInfo m_Info = new SpellInfo(
+		private static readonly SpellInfo m_Info = new(
 				"Protection", "Uus Sanct",
 				236,
 				9011,
@@ -42,7 +42,7 @@ namespace Server.Spells.Second
 			return true;
 		}
 
-		private static readonly Hashtable m_Table = new Hashtable();
+		private static readonly Hashtable m_Table = new();
 
 		public static void Toggle(Mobile caster, Mobile target)
 		{

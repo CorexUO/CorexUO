@@ -27,39 +27,39 @@ namespace Server.Mobiles
 
 			new ForestOstard().Rider = this;
 
-			PlateChest chest = new PlateChest
+			PlateChest chest = new()
 			{
 				Hue = 0x966
 			};
 			AddItem(chest);
-			PlateArms arms = new PlateArms
+			PlateArms arms = new()
 			{
 				Hue = 0x966
 			};
 			AddItem(arms);
-			PlateGloves gloves = new PlateGloves
+			PlateGloves gloves = new()
 			{
 				Hue = 0x966
 			};
 			AddItem(gloves);
-			PlateGorget gorget = new PlateGorget
+			PlateGorget gorget = new()
 			{
 				Hue = 0x966
 			};
 			AddItem(gorget);
-			PlateLegs legs = new PlateLegs
+			PlateLegs legs = new()
 			{
 				Hue = 0x966
 			};
 			AddItem(legs);
-			PlateHelm helm = new PlateHelm
+			PlateHelm helm = new()
 			{
 				Hue = 0x966
 			};
 			AddItem(helm);
 
 
-			Bow bow = new Bow
+			Bow bow = new()
 			{
 				Movable = false,
 				Crafter = this,

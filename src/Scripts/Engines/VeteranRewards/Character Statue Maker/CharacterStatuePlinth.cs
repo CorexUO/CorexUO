@@ -80,7 +80,7 @@ namespace Server.Items
 
 		public virtual bool CouldFit(IPoint3D p, Map map)
 		{
-			Point3D point = new Point3D(p.X, p.Y, p.Z);
+			Point3D point = new(p.X, p.Y, p.Z);
 
 			if (map == null || !map.CanFit(point, 20))
 				return false;

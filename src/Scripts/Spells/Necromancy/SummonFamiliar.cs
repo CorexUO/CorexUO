@@ -8,7 +8,7 @@ namespace Server.Spells.Necromancy
 {
 	public class SummonFamiliarSpell : NecromancerSpell
 	{
-		private static readonly SpellInfo m_Info = new SpellInfo(
+		private static readonly SpellInfo m_Info = new(
 				"Summon Familiar", "Kal Xen Bal",
 				203,
 				9031,
@@ -131,7 +131,7 @@ namespace Server.Spells.Necromancy
 			}
 		}
 
-		private static readonly Hashtable m_Table = new Hashtable();
+		private static readonly Hashtable m_Table = new();
 
 		public override void OnResponse(NetState sender, RelayInfo info)
 		{

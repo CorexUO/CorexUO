@@ -67,8 +67,8 @@ namespace Server.Items
 
 			Point3D ourLoc = GetWorldLocation();
 
-			Point3D startLoc = new Point3D(ourLoc.X, ourLoc.Y, ourLoc.Z + 10);
-			Point3D endLoc = new Point3D(startLoc.X + Utility.RandomMinMax(-2, 2), startLoc.Y + Utility.RandomMinMax(-2, 2), startLoc.Z + 32);
+			Point3D startLoc = new(ourLoc.X, ourLoc.Y, ourLoc.Z + 10);
+			Point3D endLoc = new(startLoc.X + Utility.RandomMinMax(-2, 2), startLoc.Y + Utility.RandomMinMax(-2, 2), startLoc.Z + 32);
 
 			Effects.SendMovingEffect(new Entity(Serial.Zero, startLoc, map), new Entity(Serial.Zero, endLoc, map),
 				0x36E4, 5, 0, false, false);

@@ -101,7 +101,7 @@ namespace Server.Mobiles
 			if (map == null)
 				return from;
 
-			Point3D loc = new Point3D((RandomPoint(X)), (RandomPoint(Y)), Z);
+			Point3D loc = new((RandomPoint(X)), (RandomPoint(Y)), Z);
 
 			loc.Z = Map.GetAverageZ(loc.X, loc.Y);
 
@@ -116,7 +116,7 @@ namespace Server.Mobiles
 			for (int i = 0; i < amount; i++)
 			{
 				Item ooze = new StainedOoze(corrosive);
-				Point3D p = new Point3D(Location);
+				Point3D p = new(Location);
 
 				for (int j = 0; j < 5; j++)
 				{

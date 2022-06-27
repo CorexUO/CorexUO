@@ -16,7 +16,7 @@ namespace Server.Mobiles
 			Body = 0xA8;
 
 			// this to allow shadow fiend to loot from corpses
-			Backpack backpack = new Backpack
+			Backpack backpack = new()
 			{
 				Movable = false
 			};

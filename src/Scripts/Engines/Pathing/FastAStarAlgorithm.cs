@@ -27,8 +27,8 @@ namespace Server.PathAlgorithms.FastAStar
 
 		private static readonly Direction[] m_Path = new Direction[AreaSize * AreaSize];
 		private static readonly PathNode[] m_Nodes = new PathNode[NodeCount];
-		private static readonly BitArray m_Touched = new BitArray(NodeCount);
-		private static readonly BitArray m_OnOpen = new BitArray(NodeCount);
+		private static readonly BitArray m_Touched = new(NodeCount);
+		private static readonly BitArray m_OnOpen = new(NodeCount);
 		private static readonly int[] m_Successors = new int[8];
 
 		private static int m_xOffset, m_yOffset;
@@ -248,7 +248,7 @@ namespace Server.PathAlgorithms.FastAStar
 			int pz = m_Nodes[p].z;
 			int x, y;
 
-			Point3D p3D = new Point3D(px + m_xOffset, py + m_yOffset, pz);
+			Point3D p3D = new(px + m_xOffset, py + m_yOffset, pz);
 
 			int[] vals = m_Successors;
 			int count = 0;

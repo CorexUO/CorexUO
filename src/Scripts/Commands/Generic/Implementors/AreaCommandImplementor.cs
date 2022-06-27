@@ -32,7 +32,7 @@ namespace Server.Commands.Generic
 				BaseCommand command = (BaseCommand)states[0];
 				string[] args = (string[])states[1];
 
-				Rectangle2D rect = new Rectangle2D(start.X, start.Y, end.X - start.X + 1, end.Y - start.Y + 1);
+				Rectangle2D rect = new(start.X, start.Y, end.X - start.X + 1, end.Y - start.Y + 1);
 
 				Extensions ext = Extensions.Parse(from, ref args);
 
@@ -51,7 +51,7 @@ namespace Server.Commands.Generic
 				else
 					return;
 
-				ArrayList objs = new ArrayList();
+				ArrayList objs = new();
 
 				foreach (object obj in eable)
 				{

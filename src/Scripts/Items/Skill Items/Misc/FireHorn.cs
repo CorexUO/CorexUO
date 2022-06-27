@@ -83,7 +83,7 @@ namespace Server.Items
 			from.PlaySound(0x15F);
 			Effects.SendPacket(from, from.Map, new HuedEffect(EffectType.Moving, from.Serial, Serial.Zero, 0x36D4, from.Location, loc, 5, 0, false, true, 0, 0));
 
-			ArrayList targets = new ArrayList();
+			ArrayList targets = new();
 			bool playerVsPlayer = false;
 
 			IPooledEnumerable eable = from.Map.GetMobilesInRange(new Point3D(loc), 2);

@@ -42,45 +42,45 @@ namespace Server.Mobiles
 			Karma = -10000;
 			VirtualArmor = 40;
 
-			VikingSword weapon = new VikingSword
+			VikingSword weapon = new()
 			{
 				Hue = 0x835,
 				Movable = false
 			};
 			AddItem(weapon);
 
-			MetalShield shield = new MetalShield
+			MetalShield shield = new()
 			{
 				Hue = 0x835,
 				Movable = false
 			};
 			AddItem(shield);
 
-			BoneHelm helm = new BoneHelm
+			BoneHelm helm = new()
 			{
 				Hue = 0x835
 			};
 			AddItem(helm);
 
-			BoneArms arms = new BoneArms
+			BoneArms arms = new()
 			{
 				Hue = 0x835
 			};
 			AddItem(arms);
 
-			BoneGloves gloves = new BoneGloves
+			BoneGloves gloves = new()
 			{
 				Hue = 0x835
 			};
 			AddItem(gloves);
 
-			BoneChest tunic = new BoneChest
+			BoneChest tunic = new()
 			{
 				Hue = 0x835
 			};
 			AddItem(tunic);
 
-			BoneLegs legs = new BoneLegs
+			BoneLegs legs = new()
 			{
 				Hue = 0x835
 			};
@@ -119,7 +119,7 @@ namespace Server.Mobiles
 
 		public override bool OnBeforeDeath()
 		{
-			BoneKnight rm = new BoneKnight
+			BoneKnight rm = new()
 			{
 				Team = Team,
 				Combatant = Combatant,
@@ -128,7 +128,7 @@ namespace Server.Mobiles
 
 			if (rm.Backpack == null)
 			{
-				Backpack pack = new Backpack
+				Backpack pack = new()
 				{
 					Movable = false
 				};

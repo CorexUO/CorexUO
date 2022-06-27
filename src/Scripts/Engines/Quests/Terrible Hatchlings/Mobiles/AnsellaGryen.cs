@@ -101,7 +101,7 @@ namespace Server.Engines.Quests.Zento
 			}
 			else
 			{
-				TerribleHatchlingsQuest newQuest = new TerribleHatchlingsQuest(player);
+				TerribleHatchlingsQuest newQuest = new(player);
 				bool inRestartPeriod = false;
 
 				if (qs != null)

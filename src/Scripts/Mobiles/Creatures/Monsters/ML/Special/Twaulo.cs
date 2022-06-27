@@ -86,7 +86,7 @@ namespace Server.Mobiles
 
 			for (int i = 0; i < newPixies; ++i)
 			{
-				Pixie pixie = new Pixie
+				Pixie pixie = new()
 				{
 					Team = Team,
 					FightMode = FightMode.Closest

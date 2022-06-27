@@ -196,7 +196,7 @@ namespace Server.Mobiles
 		public Spawner(int amount, TimeSpan minDelay, TimeSpan maxDelay, int team, int homeRange, string spawnName)
 			: base(0x1f13)
 		{
-			List<string> spawnNames = new List<string>();
+			List<string> spawnNames = new();
 
 			if (!string.IsNullOrEmpty(spawnName))
 				spawnNames.Add(spawnName);
@@ -238,7 +238,7 @@ namespace Server.Mobiles
 			if (from.AccessLevel < AccessLevel.GameMaster)
 				return;
 
-			SpawnerGump g = new SpawnerGump(this);
+			SpawnerGump g = new(this);
 			_ = from.SendGump(g);
 		}
 
@@ -721,7 +721,7 @@ namespace Server.Mobiles
 		{
 			Defrag();
 
-			Dictionary<string, int> counts = new Dictionary<string, int>(StringComparer.OrdinalIgnoreCase);
+			Dictionary<string, int> counts = new(StringComparer.OrdinalIgnoreCase);
 
 			foreach (string entry in m_SpawnNames)
 			{
@@ -744,10 +744,10 @@ namespace Server.Mobiles
 					counts[name] = 1;
 			}
 
-			List<string> names = new List<string>(counts.Keys);
+			List<string> names = new(counts.Keys);
 			names.Sort();
 
-			StringBuilder result = new StringBuilder();
+			StringBuilder result = new();
 
 			for (int i = 0; i < names.Count; ++i)
 				_ = result.AppendFormat("{0}{1}: {2}", (i == 0) ? "" : "<BR>", names[i], counts[names[i]]);
@@ -977,7 +977,7 @@ namespace Server.Mobiles
 				{
 					Console.WriteLine("Warning: {0} bad spawns detected, logged: 'badspawn.log'", m_List.Count);
 
-					using StreamWriter op = new StreamWriter("badspawn.log", true);
+					using StreamWriter op = new("badspawn.log", true);
 					op.WriteLine("# Bad spawns : {0}", DateTime.UtcNow);
 					op.WriteLine("# Format: X Y Z F Name");
 					op.WriteLine();

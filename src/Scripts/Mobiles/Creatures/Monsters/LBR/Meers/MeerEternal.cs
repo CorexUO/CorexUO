@@ -87,7 +87,7 @@ namespace Server.Mobiles
 
 		private void DoAreaLeech_Finish()
 		{
-			ArrayList list = new ArrayList();
+			ArrayList list = new();
 
 			foreach (Mobile m in GetMobilesInRange(6))
 			{

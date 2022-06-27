@@ -37,7 +37,7 @@ namespace Server.Items
 		{
 			if (from.Items.Contains(this))
 			{
-				InternalTarget t = new InternalTarget(this);
+				InternalTarget t = new(this);
 				from.Target = t;
 			}
 			else

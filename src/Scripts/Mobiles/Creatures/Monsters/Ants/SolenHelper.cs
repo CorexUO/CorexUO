@@ -9,7 +9,7 @@ namespace Server.Mobiles
 		{
 			if (1 > Utility.Random(100))
 			{
-				PicnicBasket basket = new PicnicBasket();
+				PicnicBasket basket = new();
 
 				basket.DropItem(new BeverageBottle(BeverageType.Wine));
 				basket.DropItem(new CheeseWedge());

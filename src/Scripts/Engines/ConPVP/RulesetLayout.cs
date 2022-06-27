@@ -345,7 +345,7 @@ namespace Server.Engines.ConPVP
 					if (!Core.AOS)
 					{
 						#region Mage 5x
-						Ruleset m5x = new Ruleset(m_Root)
+						Ruleset m5x = new(m_Root)
 						{
 							Title = "Mage 5x"
 						};
@@ -394,7 +394,7 @@ namespace Server.Engines.ConPVP
 						#endregion
 
 						#region Mage 7x
-						Ruleset m7x = new Ruleset(m_Root)
+						Ruleset m7x = new(m_Root)
 						{
 							Title = "Mage 7x"
 						};
@@ -448,7 +448,7 @@ namespace Server.Engines.ConPVP
 						#endregion
 
 						#region Standard 7x
-						Ruleset s7x = new Ruleset(m_Root)
+						Ruleset s7x = new(m_Root)
 						{
 							Title = "Standard 7x"
 						};
@@ -507,7 +507,7 @@ namespace Server.Engines.ConPVP
 					{
 						#region Standard All Skills
 
-						Ruleset all = new Ruleset(m_Root)
+						Ruleset all = new(m_Root)
 						{
 							Title = "Standard All Skills"
 						};
@@ -597,7 +597,7 @@ namespace Server.Engines.ConPVP
 
 					// Set up flavors
 
-					Ruleset pots = new Ruleset(m_Root)
+					Ruleset pots = new(m_Root)
 					{
 						Title = "Potions"
 					};
@@ -605,7 +605,7 @@ namespace Server.Engines.ConPVP
 					pots.SetOptionRange("Potions", true);
 					pots.SetOption("Potions", "Explosion", false);
 
-					Ruleset para = new Ruleset(m_Root)
+					Ruleset para = new(m_Root)
 					{
 						Title = "Paralyze"
 					};
@@ -613,7 +613,7 @@ namespace Server.Engines.ConPVP
 					para.SetOption("Spells", "Paralyze Field", true);
 					para.SetOption("Combat Abilities", "Paralyzing Blow", true);
 
-					Ruleset fields = new Ruleset(m_Root)
+					Ruleset fields = new(m_Root)
 					{
 						Title = "Fields"
 					};
@@ -623,7 +623,7 @@ namespace Server.Engines.ConPVP
 					fields.SetOption("Spells", "Energy Field", true);
 					fields.SetOption("Spells", "Wildfire", true);
 
-					Ruleset area = new Ruleset(m_Root)
+					Ruleset area = new(m_Root)
 					{
 						Title = "Area Effect"
 					};
@@ -633,7 +633,7 @@ namespace Server.Engines.ConPVP
 					area.SetOption("Necromancy", "Wither", true);
 					area.SetOption("Necromancy", "Poison Strike", true);
 
-					Ruleset summons = new Ruleset(m_Root)
+					Ruleset summons = new(m_Root)
 					{
 						Title = "Summons"
 					};

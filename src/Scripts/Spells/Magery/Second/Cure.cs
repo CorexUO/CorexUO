@@ -4,7 +4,7 @@ namespace Server.Spells.Second
 {
 	public class CureSpell : MagerySpell
 	{
-		private static readonly SpellInfo m_Info = new SpellInfo(
+		private static readonly SpellInfo m_Info = new(
 				"Cure", "An Nox",
 				212,
 				9061,

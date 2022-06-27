@@ -5,7 +5,7 @@ namespace Server.Spells.Spellweaving
 {
 	public class ReaperFormSpell : ArcaneForm
 	{
-		private static readonly SpellInfo m_Info = new SpellInfo("Reaper Form", "Tarisstree", -1);
+		private static readonly SpellInfo m_Info = new("Reaper Form", "Tarisstree", -1);
 
 		public override TimeSpan CastDelayBase => TimeSpan.FromSeconds(2.5);
 

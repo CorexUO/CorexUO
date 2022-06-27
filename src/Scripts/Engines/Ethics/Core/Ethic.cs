@@ -214,7 +214,7 @@ namespace Server.Ethics
 
 						for (int i = 0; i < playerCount; ++i)
 						{
-							Player pl = new Player(this, reader);
+							Player pl = new(this, reader);
 
 							if (pl.Mobile != null)
 								Timer.DelayCall(TimeSpan.Zero, new TimerCallback(pl.CheckAttach));

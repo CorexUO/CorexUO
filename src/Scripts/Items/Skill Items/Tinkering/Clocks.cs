@@ -42,7 +42,7 @@ namespace Server.Items
 		public const double SecondsPerUOMinute = 5.0;
 		public const double MinutesPerUODay = SecondsPerUOMinute * 24;
 
-		private static readonly DateTime WorldStart = new DateTime(1997, 9, 1);
+		private static readonly DateTime WorldStart = new(1997, 9, 1);
 
 		public static MoonPhase GetMoonPhase(Map map, int x, int y)
 		{

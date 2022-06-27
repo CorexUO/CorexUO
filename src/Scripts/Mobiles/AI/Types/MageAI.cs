@@ -1055,9 +1055,9 @@ namespace Server.Mobiles
 				{
 					int x = m_Offsets[i], y = m_Offsets[i + 1];
 
-					Point3D p = new Point3D(px + x, py + y, 0);
+					Point3D p = new(px + x, py + y, 0);
 
-					LandTarget lt = new LandTarget(p, map);
+					LandTarget lt = new(p, map);
 
 					if ((targ.Range == -1 || m_Mobile.InRange(p, targ.Range)) && m_Mobile.InLOS(lt) && map.CanSpawnMobile(px + x, py + y, lt.Z) && !SpellHelper.CheckMulti(p, map))
 					{
@@ -1073,9 +1073,9 @@ namespace Server.Mobiles
 
 				for (int i = 0; i < 10; ++i)
 				{
-					Point3D randomPoint = new Point3D(m_Mobile.X - teleRange + Utility.Random(teleRange * 2 + 1), m_Mobile.Y - teleRange + Utility.Random(teleRange * 2 + 1), 0);
+					Point3D randomPoint = new(m_Mobile.X - teleRange + Utility.Random(teleRange * 2 + 1), m_Mobile.Y - teleRange + Utility.Random(teleRange * 2 + 1), 0);
 
-					LandTarget lt = new LandTarget(randomPoint, map);
+					LandTarget lt = new(randomPoint, map);
 
 					if (m_Mobile.InLOS(lt) && map.CanSpawnMobile(lt.X, lt.Y, lt.Z) && !SpellHelper.CheckMulti(randomPoint, map))
 					{

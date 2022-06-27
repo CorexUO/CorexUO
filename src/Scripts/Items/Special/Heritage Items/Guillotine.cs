@@ -109,7 +109,7 @@ namespace Server.Items
 						continue;
 				}
 
-				Blood blood = new Blood(Utility.RandomMinMax(0x122C, 0x122F));
+				Blood blood = new(Utility.RandomMinMax(0x122C, 0x122F));
 				blood.MoveToWorld(new Point3D(x, y, z), c.Map);
 			}
 

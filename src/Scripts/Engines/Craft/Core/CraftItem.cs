@@ -80,7 +80,7 @@ namespace Server.Engines.Craft
 			return number;
 		}
 
-		private static readonly Dictionary<Type, int> _itemIds = new Dictionary<Type, int>();
+		private static readonly Dictionary<Type, int> _itemIds = new();
 
 		public static int ItemIDOf(Type type)
 		{
@@ -142,14 +142,14 @@ namespace Server.Engines.Craft
 
 		public void AddRes(Type type, TextDefinition name, int amount, TextDefinition message)
 		{
-			CraftRes craftRes = new CraftRes(type, name, amount, message);
+			CraftRes craftRes = new(type, name, amount, message);
 			Resources.Add(craftRes);
 		}
 
 
 		public void AddSkill(SkillName skillToMake, double minSkill, double maxSkill)
 		{
-			CraftSkill craftSkill = new CraftSkill(skillToMake, minSkill, maxSkill);
+			CraftSkill craftSkill = new(skillToMake, minSkill, maxSkill);
 			Skills.Add(craftSkill);
 		}
 

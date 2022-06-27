@@ -17,7 +17,7 @@ namespace Server.Items
 		{
 			get
 			{
-				MinotaurStatueDeed deed = new MinotaurStatueDeed
+				MinotaurStatueDeed deed = new()
 				{
 					IsRewardItem = m_IsRewardItem
 				};
@@ -93,7 +93,7 @@ namespace Server.Items
 		{
 			get
 			{
-				MinotaurStatue addon = new MinotaurStatue(m_StatueType)
+				MinotaurStatue addon = new(m_StatueType)
 				{
 					IsRewardItem = m_IsRewardItem
 				};

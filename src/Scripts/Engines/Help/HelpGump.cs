@@ -238,7 +238,7 @@ namespace Server.Engines.Help
 						}
 						else if (from is PlayerMobile && ((PlayerMobile)from).CanUseStuckMenu() && from.Region.CanUseStuckMenu(from) && !CheckCombat(from) && !from.Frozen && !from.Criminal && (Core.AOS || !from.Murderer))
 						{
-							StuckMenu menu = new StuckMenu(from, from, true);
+							StuckMenu menu = new(from, from, true);
 
 							menu.BeginClose();
 

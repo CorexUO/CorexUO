@@ -156,7 +156,7 @@ namespace Server.Mobiles
 				Priority = TimerPriority.TwoFiftyMS;
 			}
 
-			private static readonly ArrayList m_ToDrain = new ArrayList();
+			private static readonly ArrayList m_ToDrain = new();
 
 			protected override void OnTick()
 			{

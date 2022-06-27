@@ -132,7 +132,7 @@ namespace Server.Items
 						}
 						else if (RootParent == null)
 						{
-							List<Mobile> toDamage = new List<Mobile>();
+							List<Mobile> toDamage = new();
 							IPooledEnumerable eable = Map.GetMobilesInRange(Location, 1);
 
 							foreach (Mobile m in eable)

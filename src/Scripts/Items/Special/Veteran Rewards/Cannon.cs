@@ -54,7 +54,7 @@ namespace Server.Items
 		{
 			get
 			{
-				CannonDeed deed = new CannonDeed
+				CannonDeed deed = new()
 				{
 					Charges = m_Charges,
 					IsRewardItem = m_IsRewardItem
@@ -366,7 +366,7 @@ namespace Server.Items
 		{
 			get
 			{
-				CannonAddon addon = new CannonAddon(m_Direction)
+				CannonAddon addon = new(m_Direction)
 				{
 					Charges = m_Charges,
 					IsRewardItem = m_IsRewardItem

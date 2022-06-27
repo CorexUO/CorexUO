@@ -62,7 +62,7 @@ namespace Server.Mobiles
 
 		public virtual void DrainLife()
 		{
-			List<Mobile> list = new List<Mobile>();
+			List<Mobile> list = new();
 
 			foreach (Mobile m in GetMobilesInRange(2))
 			{

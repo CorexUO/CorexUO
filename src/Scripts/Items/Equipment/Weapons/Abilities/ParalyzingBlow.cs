@@ -87,7 +87,7 @@ namespace Server.Items
 			BeginImmunity(defender, duration + FreezeDelayDuration);
 		}
 
-		private static readonly Hashtable m_Table = new Hashtable();
+		private static readonly Hashtable m_Table = new();
 
 		public static bool IsImmune(Mobile m)
 		{

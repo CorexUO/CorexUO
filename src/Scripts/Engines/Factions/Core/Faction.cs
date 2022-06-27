@@ -135,7 +135,7 @@ namespace Server.Factions
 					return;
 			}
 
-			List<PlayerState> activePlayers = new List<PlayerState>();
+			List<PlayerState> activePlayers = new();
 
 			foreach (Faction f in Factions)
 			{
@@ -160,7 +160,7 @@ namespace Server.Factions
 
 		public static void DistributePoints(int distrib)
 		{
-			List<PlayerState> activePlayers = new List<PlayerState>();
+			List<PlayerState> activePlayers = new();
 
 			foreach (Faction f in Factions)
 			{
@@ -496,7 +496,7 @@ namespace Server.Factions
 					pm.SendLocalizedMessage(1018031); // In the interest of faction stability, this faction declines to accept new members for now.
 				else
 				{
-					List<Mobile> members = new List<Mobile>(guild.Members);
+					List<Mobile> members = new(guild.Members);
 
 					for (int i = 0; i < members.Count; ++i)
 					{
@@ -613,7 +613,7 @@ namespace Server.Factions
 			{
 				Faction f = factions[i];
 
-				List<FactionItem> list = new List<FactionItem>(f.State.FactionItems);
+				List<FactionItem> list = new(f.State.FactionItems);
 
 				for (int j = 0; j < list.Count; ++j)
 				{
@@ -665,12 +665,12 @@ namespace Server.Factions
 			{
 				Faction f = factions[i];
 
-				List<PlayerState> playerStateList = new List<PlayerState>(f.Members);
+				List<PlayerState> playerStateList = new(f.Members);
 
 				for (int j = 0; j < playerStateList.Count; ++j)
 					f.RemoveMember(playerStateList[j].Mobile);
 
-				List<FactionItem> factionItemList = new List<FactionItem>(f.State.FactionItems);
+				List<FactionItem> factionItemList = new(f.State.FactionItems);
 
 				for (int j = 0; j < factionItemList.Count; ++j)
 				{
@@ -682,7 +682,7 @@ namespace Server.Factions
 						fi.Detach();
 				}
 
-				List<BaseFactionTrap> factionTrapList = new List<BaseFactionTrap>(f.Traps);
+				List<BaseFactionTrap> factionTrapList = new(f.Traps);
 
 				for (int j = 0; j < factionTrapList.Count; ++j)
 					factionTrapList[j].Delete();
@@ -691,7 +691,7 @@ namespace Server.Factions
 
 		public static void FactionItemReset_OnCommand(CommandEventArgs e)
 		{
-			ArrayList pots = new ArrayList();
+			ArrayList pots = new();
 
 			foreach (Item item in World.Items.Values)
 			{
@@ -881,7 +881,7 @@ namespace Server.Factions
 		public const double SkillLossFactor = 1.0 / 3;
 		public static readonly TimeSpan SkillLossPeriod = TimeSpan.FromMinutes(20.0);
 
-		private static readonly Dictionary<Mobile, SkillLossContext> m_SkillLoss = new Dictionary<Mobile, SkillLossContext>();
+		private static readonly Dictionary<Mobile, SkillLossContext> m_SkillLoss = new();
 
 		private class SkillLossContext
 		{
@@ -899,7 +899,7 @@ namespace Server.Factions
 			if (InSkillLoss(mob))
 				return;
 
-			SkillLossContext context = new SkillLossContext();
+			SkillLossContext context = new();
 			m_SkillLoss[mob] = context;
 
 			List<SkillMod> mods = context.m_Mods = new List<SkillMod>();

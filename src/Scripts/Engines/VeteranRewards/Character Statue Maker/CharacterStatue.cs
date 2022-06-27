@@ -230,7 +230,7 @@ namespace Server.Mobiles
 
 		public bool Demolish(Mobile by)
 		{
-			CharacterStatueDeed deed = new CharacterStatueDeed(null);
+			CharacterStatueDeed deed = new(null);
 
 			if (by.PlaceInBackpack(deed))
 			{
@@ -293,7 +293,7 @@ namespace Server.Mobiles
 
 		public Item CloneItem(Item item)
 		{
-			Item cloned = new Item(item.ItemID)
+			Item cloned = new(item.ItemID)
 			{
 				Layer = item.Layer,
 				Name = item.Name,
@@ -560,7 +560,7 @@ namespace Server.Mobiles
 			{
 				SpellHelper.GetSurfaceTop(ref p);
 				BaseHouse house = null;
-				Point3D loc = new Point3D(p);
+				Point3D loc = new(p);
 
 				if (targeted is Item && !((Item)targeted).IsLockedDown && !((Item)targeted).IsSecure && !(targeted is AddonComponent))
 				{
@@ -577,8 +577,8 @@ namespace Server.Mobiles
 
 				if (result == AddonFitResult.Valid)
 				{
-					CharacterStatue statue = new CharacterStatue(from, m_Type);
-					CharacterStatuePlinth plinth = new CharacterStatuePlinth(statue);
+					CharacterStatue statue = new(from, m_Type);
+					CharacterStatuePlinth plinth = new(statue);
 
 					house.Addons.Add(plinth);
 

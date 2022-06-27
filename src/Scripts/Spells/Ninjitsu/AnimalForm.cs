@@ -24,7 +24,7 @@ namespace Server.Spells.Ninjitsu
 				m.Send(SpeedControl.MountSpeed);
 		}
 
-		private static readonly SpellInfo m_Info = new SpellInfo(
+		private static readonly SpellInfo m_Info = new(
 			"Animal Form", null,
 			-1,
 			9002
@@ -157,7 +157,7 @@ namespace Server.Spells.Ninjitsu
 			FinishSequence();
 		}
 
-		private static readonly Hashtable m_LastAnimalForms = new Hashtable();
+		private static readonly Hashtable m_LastAnimalForms = new();
 
 		public int GetLastAnimalForm(Mobile m)
 		{
@@ -253,7 +253,7 @@ namespace Server.Spells.Ninjitsu
 			return MorphResult.Success;
 		}
 
-		private static readonly Hashtable m_Table = new Hashtable();
+		private static readonly Hashtable m_Table = new();
 
 		public static void AddContext(Mobile m, AnimalFormContext context)
 		{

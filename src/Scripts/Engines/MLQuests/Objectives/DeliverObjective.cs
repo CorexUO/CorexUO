@@ -41,7 +41,7 @@ namespace Server.Engines.MLQuests.Objectives
 			if (!SpawnsDelivery || pack == null)
 				return;
 
-			List<Item> delivery = new List<Item>();
+			List<Item> delivery = new();
 
 			for (int i = 0; i < Amount; ++i)
 			{

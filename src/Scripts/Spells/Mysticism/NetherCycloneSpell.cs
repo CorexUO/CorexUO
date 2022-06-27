@@ -7,7 +7,7 @@ namespace Server.Spells.Mysticism
 {
 	public class NetherCycloneSpell : MysticSpell
 	{
-		private static readonly SpellInfo m_Info = new SpellInfo(
+		private static readonly SpellInfo m_Info = new(
 				"Nether Cyclone", "Grav Hur",
 				-1,
 				9002,
@@ -49,7 +49,7 @@ namespace Server.Spells.Mysticism
 				if (p is Item)
 					p = ((Item)p).GetWorldLocation();
 
-				List<Mobile> targets = new List<Mobile>();
+				List<Mobile> targets = new();
 
 				Map map = Caster.Map;
 

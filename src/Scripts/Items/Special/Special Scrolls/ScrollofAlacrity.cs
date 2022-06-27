@@ -135,7 +135,7 @@ namespace Server.Items
 			Delete();
 		}
 
-		private static readonly Hashtable m_Table = new Hashtable();
+		private static readonly Hashtable m_Table = new();
 
 		private static void Expire_Callback(object state)
 		{

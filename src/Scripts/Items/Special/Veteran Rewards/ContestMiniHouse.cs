@@ -8,7 +8,7 @@ namespace Server.Items
 		{
 			get
 			{
-				ContestMiniHouseDeed deed = new ContestMiniHouseDeed(Type)
+				ContestMiniHouseDeed deed = new(Type)
 				{
 					IsRewardItem = m_IsRewardItem
 				};
@@ -65,7 +65,7 @@ namespace Server.Items
 		{
 			get
 			{
-				ContestMiniHouse addon = new ContestMiniHouse(Type)
+				ContestMiniHouse addon = new(Type)
 				{
 					IsRewardItem = m_IsRewardItem
 				};

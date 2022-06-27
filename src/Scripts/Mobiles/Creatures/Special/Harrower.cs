@@ -57,7 +57,7 @@ namespace Server.Mobiles
 
 			SpawnEntry entry = m_Entries[Utility.Random(m_Entries.Length)];
 
-			Harrower harrower = new Harrower();
+			Harrower harrower = new();
 
 			harrower.MoveToWorld(entry.m_Location, Map.Felucca);
 
@@ -182,7 +182,7 @@ namespace Server.Mobiles
 					if (!ok)
 						continue;
 
-					HarrowerTentacles spawn = new HarrowerTentacles(this)
+					HarrowerTentacles spawn = new(this)
 					{
 						Team = Team
 					};
@@ -249,7 +249,7 @@ namespace Server.Mobiles
 
 		public void GivePowerScrolls()
 		{
-			List<Mobile> toGive = new List<Mobile>();
+			List<Mobile> toGive = new();
 			List<DamageStore> rights = GetLootingRights();
 
 			for (int i = rights.Count - 1; i >= 0; --i)
@@ -425,7 +425,7 @@ namespace Server.Mobiles
 
 			int totalDamage = 0;
 
-			Dictionary<Mobile, int> validEntries = new Dictionary<Mobile, int>();
+			Dictionary<Mobile, int> validEntries = new();
 
 			foreach (KeyValuePair<Mobile, int> kvp in m_DamageEntries)
 			{
@@ -613,7 +613,7 @@ namespace Server.Mobiles
 				if (!canFit)
 					return;
 
-				Gold g = new Gold(750, 1250);
+				Gold g = new(750, 1250);
 
 				g.MoveToWorld(new Point3D(m_X, m_Y, z), m_Map);
 

@@ -8,7 +8,7 @@ namespace Server.Spells.Chivalry
 {
 	public class DispelEvilSpell : PaladinSpell
 	{
-		private static readonly SpellInfo m_Info = new SpellInfo(
+		private static readonly SpellInfo m_Info = new(
 				"Dispel Evil", "Dispiro Malas",
 				-1,
 				9002
@@ -37,7 +37,7 @@ namespace Server.Spells.Chivalry
 		{
 			if (CheckSequence())
 			{
-				List<Mobile> targets = new List<Mobile>();
+				List<Mobile> targets = new();
 
 				foreach (Mobile m in Caster.GetMobilesInRange(8))
 				{

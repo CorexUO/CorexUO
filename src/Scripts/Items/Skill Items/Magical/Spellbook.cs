@@ -121,7 +121,7 @@ namespace Server.Items
 			}
 		}
 
-		private static readonly Dictionary<Mobile, List<Spellbook>> m_Table = new Dictionary<Mobile, List<Spellbook>>();
+		private static readonly Dictionary<Mobile, List<Spellbook>> m_Table = new();
 
 		public static SpellbookType GetTypeForSpell(int spellID)
 		{
@@ -237,7 +237,7 @@ namespace Server.Items
 
 		public static List<Spellbook> FindAllSpellbooks(Mobile from)
 		{
-			List<Spellbook> list = new List<Spellbook>();
+			List<Spellbook> list = new();
 
 			Item item = from.FindItemOnLayer(Layer.OneHanded);
 

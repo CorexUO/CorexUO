@@ -6,7 +6,7 @@ namespace Server.Spells.Fourth
 {
 	public class CurseSpell : MagerySpell
 	{
-		private static readonly SpellInfo m_Info = new SpellInfo(
+		private static readonly SpellInfo m_Info = new(
 				"Curse", "Des Sanct",
 				227,
 				9031,
@@ -37,7 +37,7 @@ namespace Server.Spells.Fourth
 			}
 		}
 
-		private static readonly Hashtable m_UnderEffect = new Hashtable();
+		private static readonly Hashtable m_UnderEffect = new();
 
 		public static void RemoveEffect(object state)
 		{

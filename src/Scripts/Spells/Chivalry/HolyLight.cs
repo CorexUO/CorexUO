@@ -6,7 +6,7 @@ namespace Server.Spells.Chivalry
 {
 	public class HolyLightSpell : PaladinSpell
 	{
-		private static readonly SpellInfo m_Info = new SpellInfo(
+		private static readonly SpellInfo m_Info = new(
 				"Holy Light", "Augus Luminos",
 				-1,
 				9002
@@ -30,7 +30,7 @@ namespace Server.Spells.Chivalry
 		{
 			if (CheckSequence())
 			{
-				List<Mobile> targets = new List<Mobile>();
+				List<Mobile> targets = new();
 
 				foreach (Mobile m in Caster.GetMobilesInRange(3))
 					if (Caster != m && SpellHelper.ValidIndirectTarget(Caster, m) && Caster.CanBeHarmful(m, false) && (!Core.AOS || Caster.InLOS(m)))

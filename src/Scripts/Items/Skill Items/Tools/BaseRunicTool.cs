@@ -181,7 +181,7 @@ namespace Server.Items
 
 		private static void ApplySkillBonus(AosSkillBonuses attrs, int min, int max, int index, int low, int high)
 		{
-			List<SkillName> possibleSkills = new List<SkillName>(attrs.Owner is Spellbook ? m_PossibleSpellbookSkills : m_PossibleBonusSkills);
+			List<SkillName> possibleSkills = new(attrs.Owner is Spellbook ? m_PossibleSpellbookSkills : m_PossibleBonusSkills);
 			int count = (Core.SE ? possibleSkills.Count : possibleSkills.Count - 2);
 
 			SkillName sk;
@@ -213,7 +213,7 @@ namespace Server.Items
 		}
 
 		private const int MaxProperties = 32;
-		private static readonly BitArray m_Props = new BitArray(MaxProperties);
+		private static readonly BitArray m_Props = new(MaxProperties);
 		private static readonly int[] m_Possible = new int[MaxProperties];
 
 		public static int GetUniqueRandom(int count)

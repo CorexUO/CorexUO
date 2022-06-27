@@ -42,7 +42,7 @@ namespace Server.Mobiles
 			CanSwim = true;
 			CantWalk = true;
 
-			Rope rope = new Rope
+			Rope rope = new()
 			{
 				ItemID = 0x14F8
 			};

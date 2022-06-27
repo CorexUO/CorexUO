@@ -8,7 +8,7 @@ namespace Server.Items
 		{
 			for (int i = 0x2be5; i < 0x2be8; i++)
 			{
-				LocalizedAddonComponent laoc = new LocalizedAddonComponent(i, 1077395)
+				LocalizedAddonComponent laoc = new(i, 1077395)
 				{
 					Light = LightType.SouthSmall
 				}; // Gingerbread House

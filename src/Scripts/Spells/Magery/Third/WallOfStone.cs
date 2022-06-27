@@ -7,7 +7,7 @@ namespace Server.Spells.Third
 {
 	public class WallOfStoneSpell : MagerySpell
 	{
-		private static readonly SpellInfo m_Info = new SpellInfo(
+		private static readonly SpellInfo m_Info = new(
 				"Wall of Stone", "In Sanct Ylem",
 				227,
 				9011,
@@ -79,7 +79,7 @@ namespace Server.Spells.Third
 
 				for (int i = -1; i <= 1; ++i)
 				{
-					Point3D loc = new Point3D(eastToWest ? p.X + i : p.X, eastToWest ? p.Y : p.Y + i, p.Z);
+					Point3D loc = new(eastToWest ? p.X + i : p.X, eastToWest ? p.Y : p.Y + i, p.Z);
 					bool canFit = SpellHelper.AdjustField(ref loc, Caster.Map, 22, true);
 
 					//Effects.SendLocationParticles( EffectItem.Create( loc, Caster.Map, EffectItem.DefaultDuration ), 0x376A, 9, 10, 5025 );

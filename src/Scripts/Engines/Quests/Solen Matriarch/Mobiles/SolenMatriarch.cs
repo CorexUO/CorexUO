@@ -247,7 +247,7 @@ namespace Server.Engines.Quests.Matriarch
 						else
 							fungi.Amount -= amount * 2;
 
-						PowderOfTranslocation powder = new PowderOfTranslocation(amount);
+						PowderOfTranslocation powder = new(amount);
 						player.AddToBackpack(powder);
 
 						player.SendLocalizedMessage(1054100); // You receive some powder of translocation.

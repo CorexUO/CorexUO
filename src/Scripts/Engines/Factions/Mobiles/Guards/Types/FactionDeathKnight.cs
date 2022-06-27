@@ -37,7 +37,7 @@ namespace Server.Factions
 			SetSkill(SkillName.EvalInt, 100.0, 110.0);
 			SetSkill(SkillName.Meditation, 100.0, 110.0);
 
-			Item shroud = new Item(0x204E)
+			Item shroud = new(0x204E)
 			{
 				Layer = Layer.OuterTorso
 			};

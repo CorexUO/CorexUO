@@ -8,7 +8,7 @@ namespace Server.Spells.Seventh
 {
 	public class EnergyFieldSpell : MagerySpell
 	{
-		private static readonly SpellInfo m_Info = new SpellInfo(
+		private static readonly SpellInfo m_Info = new(
 				"Energy Field", "In Sanct Grav",
 				221,
 				9022,
@@ -90,7 +90,7 @@ namespace Server.Spells.Seventh
 
 				for (int i = -2; i <= 2; ++i)
 				{
-					Point3D loc = new Point3D(eastToWest ? p.X + i : p.X, eastToWest ? p.Y : p.Y + i, p.Z);
+					Point3D loc = new(eastToWest ? p.X + i : p.X, eastToWest ? p.Y : p.Y + i, p.Z);
 					bool canFit = SpellHelper.AdjustField(ref loc, Caster.Map, 12, false);
 
 					if (!canFit)

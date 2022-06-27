@@ -9,7 +9,7 @@ namespace Server.Spells.Seventh
 {
 	public class GateTravelSpell : MagerySpell
 	{
-		private static readonly SpellInfo m_Info = new SpellInfo(
+		private static readonly SpellInfo m_Info = new(
 				"Gate Travel", "Vas Rel Por",
 				263,
 				9032,
@@ -202,12 +202,12 @@ namespace Server.Spells.Seventh
 
 				Effects.PlaySound(Caster.Location, Caster.Map, 0x20E);
 
-				InternalItem firstGate = new InternalItem(loc, map);
+				InternalItem firstGate = new(loc, map);
 				firstGate.MoveToWorld(Caster.Location, Caster.Map);
 
 				Effects.PlaySound(loc, map, 0x20E);
 
-				InternalItem secondGate = new InternalItem(Caster.Location, Caster.Map);
+				InternalItem secondGate = new(Caster.Location, Caster.Map);
 				secondGate.MoveToWorld(loc, map);
 			}
 
@@ -228,7 +228,7 @@ namespace Server.Spells.Seventh
 
 				Dispellable = true;
 
-				InternalTimer t = new InternalTimer(this);
+				InternalTimer t = new(this);
 				t.Start();
 			}
 

@@ -9,7 +9,7 @@ namespace Server.Spells.Fifth
 {
 	public class PoisonFieldSpell : MagerySpell
 	{
-		private static readonly SpellInfo m_Info = new SpellInfo(
+		private static readonly SpellInfo m_Info = new(
 				"Poison Field", "In Nox Grav",
 				230,
 				9052,
@@ -85,7 +85,7 @@ namespace Server.Spells.Fifth
 
 				for (int i = -2; i <= 2; ++i)
 				{
-					Point3D loc = new Point3D(eastToWest ? p.X + i : p.X, eastToWest ? p.Y : p.Y + i, p.Z);
+					Point3D loc = new(eastToWest ? p.X + i : p.X, eastToWest ? p.Y : p.Y + i, p.Z);
 
 					new InternalItem(itemID, loc, Caster, Caster.Map, duration, i);
 				}
@@ -216,7 +216,7 @@ namespace Server.Spells.Fifth
 				private readonly InternalItem m_Item;
 				private readonly bool m_InLOS, m_CanFit;
 
-				private static readonly Queue m_Queue = new Queue();
+				private static readonly Queue m_Queue = new();
 
 				public InternalTimer(InternalItem item, TimeSpan delay, bool inLOS, bool canFit) : base(delay, TimeSpan.FromSeconds(1.5))
 				{

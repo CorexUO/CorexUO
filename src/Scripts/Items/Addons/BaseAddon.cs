@@ -126,7 +126,7 @@ namespace Server.Items
 
 			foreach (AddonComponent c in Components)
 			{
-				Point3D p3D = new Point3D(p.X + c.Offset.X, p.Y + c.Offset.Y, p.Z + c.Offset.Z);
+				Point3D p3D = new(p.X + c.Offset.X, p.Y + c.Offset.Y, p.Z + c.Offset.Z);
 
 				if (!map.CanFit(p3D.X, p3D.Y, p3D.Z, c.ItemData.Height, false, true, (c.Z == 0)))
 					return AddonFitResult.Blocked;
@@ -153,7 +153,7 @@ namespace Server.Items
 
 				foreach (AddonComponent c in Components)
 				{
-					Point3D addonLoc = new Point3D(p.X + c.Offset.X, p.Y + c.Offset.Y, p.Z + c.Offset.Z);
+					Point3D addonLoc = new(p.X + c.Offset.X, p.Y + c.Offset.Y, p.Z + c.Offset.Z);
 					int addonHeight = c.ItemData.CalcHeight;
 
 					if (Utility.InRange(doorLoc, addonLoc, 1) && (addonLoc.Z == doorLoc.Z || ((addonLoc.Z + addonHeight) > doorLoc.Z && (doorLoc.Z + doorHeight) > addonLoc.Z)))

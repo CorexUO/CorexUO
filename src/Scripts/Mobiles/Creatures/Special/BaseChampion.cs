@@ -97,7 +97,7 @@ namespace Server.Mobiles
 			if (Map != Map.Felucca)
 				return;
 
-			List<Mobile> toGive = new List<Mobile>();
+			List<Mobile> toGive = new();
 			List<DamageStore> rights = GetLootingRights();
 
 			for (int i = rights.Count - 1; i >= 0; --i)
@@ -191,7 +191,7 @@ namespace Server.Mobiles
 
 					if (chance > Utility.Random(100))
 					{
-						PowerScroll powerScroll = new PowerScroll(ps.Skill, ps.Value);
+						PowerScroll powerScroll = new(ps.Skill, ps.Value);
 
 						prot.SendLocalizedMessage(1049368); // You have been rewarded for your dedication to Justice!
 
@@ -244,7 +244,7 @@ namespace Server.Mobiles
 			{
 				//TODO: Confirm SE change or AoS one too?
 				List<DamageStore> rights = GetLootingRights();
-				List<Mobile> toGive = new List<Mobile>();
+				List<Mobile> toGive = new();
 
 				for (int i = rights.Count - 1; i >= 0; --i)
 				{
@@ -291,7 +291,7 @@ namespace Server.Mobiles
 				if (!canFit)
 					return;
 
-				Gold g = new Gold(500, 1000);
+				Gold g = new(500, 1000);
 
 				g.MoveToWorld(new Point3D(m_X, m_Y, z), m_Map);
 

@@ -7,7 +7,7 @@ namespace Server.Mobiles
 {
 	public class CustomHairstylist : BaseVendor
 	{
-		private readonly List<SBInfo> m_SBInfos = new List<SBInfo>();
+		private readonly List<SBInfo> m_SBInfos = new();
 		protected override List<SBInfo> SBInfos => m_SBInfos;
 
 		public override bool ClickTitle => false;
@@ -20,9 +20,9 @@ namespace Server.Mobiles
 			return false;
 		}
 
-		public static readonly object From = new object();
-		public static readonly object Vendor = new object();
-		public static readonly object Price = new object();
+		public static readonly object From = new();
+		public static readonly object Vendor = new();
+		public static readonly object Price = new();
 
 		private static readonly HairstylistBuyInfo[] m_SellList = new HairstylistBuyInfo[]
 			{

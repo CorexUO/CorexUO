@@ -387,7 +387,7 @@ namespace Server.Engines.Doom
 						{
 							IEntity m_IEntity = new Entity(Serial.Zero, RandomPointIn(m_Player.Location, 10), m_Player.Map);
 
-							List<Mobile> mobiles = new List<Mobile>();
+							List<Mobile> mobiles = new();
 							foreach (Mobile m in m_IEntity.Map.GetMobilesInRange(m_IEntity.Location, 2))
 							{
 								mobiles.Add(m);
@@ -645,16 +645,16 @@ namespace Server.Engines.Doom
 
 		/* Exit & Enter locations for the lamp room */
 
-		public static Point3D lr_Exit = new Point3D(353, 172, -1);
-		public static Point3D lr_Enter = new Point3D(467, 96, -1);
+		public static Point3D lr_Exit = new(353, 172, -1);
+		public static Point3D lr_Enter = new(467, 96, -1);
 
 		/* "Center" location in puzzle */
 
-		public static Point3D lp_Center = new Point3D(324, 64, -1);
+		public static Point3D lp_Center = new(324, 64, -1);
 
 		/* Lamp Room Area */
 
-		public static Rectangle2D lr_Rect = new Rectangle2D(465, 92, 10, 10);
+		public static Rectangle2D lr_Rect = new(465, 92, 10, 10);
 
 		/* Lamp Room area Poison message data */
 

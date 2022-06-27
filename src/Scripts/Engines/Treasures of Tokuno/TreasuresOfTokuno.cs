@@ -173,7 +173,7 @@ namespace Server.Mobiles
 		public override bool ClickTitle => true;
 		public override bool CanTeach => false;
 
-		protected List<SBInfo> m_SBInfos = new List<SBInfo>();
+		protected List<SBInfo> m_SBInfos = new();
 		protected override List<SBInfo> SBInfos => m_SBInfos;
 
 		public override void InitSBInfo()
@@ -292,8 +292,8 @@ namespace Server.Gumps
 			if (pack == null)
 				return new ArrayList();
 
-			ArrayList items = new ArrayList(pack.FindItemsByType(TreasuresOfTokuno.LesserArtifactsTotal));
-			ArrayList buttons = new ArrayList();
+			ArrayList items = new(pack.FindItemsByType(TreasuresOfTokuno.LesserArtifactsTotal));
+			ArrayList buttons = new();
 
 			for (int i = 0; i < items.Count; i++)
 			{

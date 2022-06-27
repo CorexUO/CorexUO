@@ -70,7 +70,7 @@ namespace Server.Multis
 
 		private void LoadSpreadsheet(int[] table, string path, params string[] tileColumns)
 		{
-			Spreadsheet ss = new Spreadsheet(path);
+			Spreadsheet ss = new(path);
 
 			int[] tileCIDs = new int[tileColumns.Length];
 
@@ -133,7 +133,7 @@ namespace Server.Multis
 
 		public Spreadsheet(string path)
 		{
-			using StreamReader ip = new StreamReader(path);
+			using StreamReader ip = new(path);
 			string[] types = ReadLine(ip);
 			string[] names = ReadLine(ip);
 
@@ -142,7 +142,7 @@ namespace Server.Multis
 			for (int i = 0; i < m_Columns.Length; ++i)
 				m_Columns[i] = new ColumnInfo(i, types[i], names[i]);
 
-			List<DataRecord> records = new List<DataRecord>();
+			List<DataRecord> records = new();
 
 			string[] values;
 

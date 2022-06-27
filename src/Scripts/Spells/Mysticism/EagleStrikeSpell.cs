@@ -5,7 +5,7 @@ namespace Server.Spells.Mysticism
 {
 	public class EagleStrikeSpell : MysticSpell
 	{
-		private static readonly SpellInfo m_Info = new SpellInfo(
+		private static readonly SpellInfo m_Info = new(
 				"Eagle Strike", "Kal Por Xen",
 				-1,
 				9002,

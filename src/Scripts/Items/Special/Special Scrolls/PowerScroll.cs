@@ -87,7 +87,7 @@ namespace Server.Items
 			};
 		*/
 
-		private static readonly List<SkillName> _Skills = new List<SkillName>();
+		private static readonly List<SkillName> _Skills = new();
 		public static List<SkillName> Skills
 		{
 			get

@@ -422,8 +422,8 @@ namespace Server.Engines.Doom
 
 		public static void CreateTeleporter(int xFrom, int yFrom, int xTo, int yTo)
 		{
-			Static telePad = new Static(0x1822);
-			Teleporter teleItem = new Teleporter(new Point3D(xTo, yTo, -1), Map.Malas, false);
+			Static telePad = new(0x1822);
+			Teleporter teleItem = new(new Point3D(xTo, yTo, -1), Map.Malas, false);
 
 			telePad.Hue = 0x482;
 			telePad.MoveToWorld(new Point3D(xFrom, yFrom, -1), Map.Malas);
@@ -454,7 +454,7 @@ namespace Server.Engines.Doom
 
 		public static GauntletSpawner CreateSpawner(string typeName, int xSpawner, int ySpawner, int xDoor, int yDoor, int xPentagram, int yPentagram, bool doorEastToWest, int xStart, int yStart, int xWidth, int yHeight)
 		{
-			GauntletSpawner spawner = new GauntletSpawner(typeName);
+			GauntletSpawner spawner = new(typeName);
 
 			spawner.MoveToWorld(new Point3D(xSpawner, ySpawner, -1), Map.Malas);
 
@@ -465,7 +465,7 @@ namespace Server.Engines.Doom
 
 			if (xPentagram > 0 && yPentagram > 0)
 			{
-				PentagramAddon pentagram = new PentagramAddon();
+				PentagramAddon pentagram = new();
 
 				pentagram.MoveToWorld(new Point3D(xPentagram, yPentagram, -1), Map.Malas);
 
@@ -477,7 +477,7 @@ namespace Server.Engines.Doom
 
 		public static void CreatePricedHealer(int price, int x, int y)
 		{
-			PricedHealer healer = new PricedHealer(price);
+			PricedHealer healer = new(price);
 
 			healer.MoveToWorld(new Point3D(x, y, -1), Map.Malas);
 
@@ -487,7 +487,7 @@ namespace Server.Engines.Doom
 
 		public static void CreateMorphItem(int x, int y, int inactiveItemID, int activeItemID, int range, int hue)
 		{
-			MorphItem item = new MorphItem(inactiveItemID, activeItemID, range)
+			MorphItem item = new(inactiveItemID, activeItemID, range)
 			{
 				Hue = hue
 			};
@@ -496,7 +496,7 @@ namespace Server.Engines.Doom
 
 		public static void CreateVarietyDealer(int x, int y)
 		{
-			VarietyDealer dealer = new VarietyDealer
+			VarietyDealer dealer = new()
 			{
 				/* Begin outfit */
 				Name = "Nix",
@@ -507,7 +507,7 @@ namespace Server.Engines.Doom
 				Hue = 0x8835
 			};
 
-			List<Item> items = new List<Item>(dealer.Items);
+			List<Item> items = new(dealer.Items);
 
 			for (int i = 0; i < items.Count; ++i)
 			{
@@ -565,7 +565,7 @@ namespace Server.Engines.Doom
 			{
 				for (int y = 371; y <= 372; ++y)
 				{
-					Static item = new Static(0x524)
+					Static item = new(0x524)
 					{
 						Hue = 1
 					};
@@ -599,7 +599,7 @@ namespace Server.Engines.Doom
 			/* End gauntlet cycle */
 
 			/* Begin exit gate */
-			ConfirmationMoongate gate = new ConfirmationMoongate
+			ConfirmationMoongate gate = new()
 			{
 				Dispellable = false,
 

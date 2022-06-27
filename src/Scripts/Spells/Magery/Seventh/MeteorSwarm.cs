@@ -5,7 +5,7 @@ namespace Server.Spells.Seventh
 {
 	public class MeteorSwarmSpell : MagerySpell
 	{
-		private static readonly SpellInfo m_Info = new SpellInfo(
+		private static readonly SpellInfo m_Info = new(
 				"Meteor Swarm", "Flam Kal Des Ylem",
 				233,
 				9042,
@@ -52,7 +52,7 @@ namespace Server.Spells.Seventh
 				if (p is Item)
 					p = ((Item)p).GetWorldLocation();
 
-				List<Mobile> targets = new List<Mobile>();
+				List<Mobile> targets = new();
 
 				Map map = Caster.Map;
 

@@ -57,14 +57,14 @@ namespace Server.Factions
 			Entries = entries;
 		}
 
-		public static readonly SpellCombo Simple = new SpellCombo(50,
+		public static readonly SpellCombo Simple = new(50,
 			new ComboEntry(typeof(ParalyzeSpell), 20),
 			new ComboEntry(typeof(ExplosionSpell), 100, TimeSpan.FromSeconds(2.8)),
 			new ComboEntry(typeof(PoisonSpell), 30),
 			new ComboEntry(typeof(EnergyBoltSpell))
 		);
 
-		public static readonly SpellCombo Strong = new SpellCombo(90,
+		public static readonly SpellCombo Strong = new(90,
 			new ComboEntry(typeof(ParalyzeSpell), 20),
 			new ComboEntry(typeof(ExplosionSpell), 50, TimeSpan.FromSeconds(2.8)),
 			new ComboEntry(typeof(PoisonSpell), 30),
@@ -659,7 +659,7 @@ namespace Server.Factions
 						int dexMod = GetStatMod(m_Guard, StatType.Dex);
 						int intMod = GetStatMod(m_Guard, StatType.Int);
 
-						List<Type> types = new List<Type>();
+						List<Type> types = new();
 
 						if (strMod <= 0)
 							types.Add(typeof(StrengthSpell));
@@ -698,7 +698,7 @@ namespace Server.Factions
 							int dexMod = GetStatMod(combatant, StatType.Dex);
 							int intMod = GetStatMod(combatant, StatType.Int);
 
-							List<Type> types = new List<Type>();
+							List<Type> types = new();
 
 							if (strMod >= 0)
 								types.Add(typeof(WeakenSpell));

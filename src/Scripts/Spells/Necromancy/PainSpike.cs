@@ -6,7 +6,7 @@ namespace Server.Spells.Necromancy
 {
 	public class PainSpikeSpell : NecromancerSpell
 	{
-		private static readonly SpellInfo m_Info = new SpellInfo(
+		private static readonly SpellInfo m_Info = new(
 				"Pain Spike", "In Sar",
 				203,
 				9031,
@@ -86,7 +86,7 @@ namespace Server.Spells.Necromancy
 			FinishSequence();
 		}
 
-		private static readonly Hashtable m_Table = new Hashtable();
+		private static readonly Hashtable m_Table = new();
 
 		private class InternalTimer : Timer
 		{

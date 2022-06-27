@@ -146,8 +146,8 @@ namespace Server.Engines.Help
 
 	public class PageQueue
 	{
-		private static readonly Hashtable m_KeyedByHandler = new Hashtable();
-		private static readonly Hashtable m_KeyedBySender = new Hashtable();
+		private static readonly Hashtable m_KeyedByHandler = new();
+		private static readonly Hashtable m_KeyedBySender = new();
 
 		public static void Initialize()
 		{
@@ -290,12 +290,12 @@ namespace Server.Engines.Help
 			Mobile sender = entry.Sender;
 			DateTime time = DateTime.UtcNow;
 
-			MailMessage mail = new MailMessage(Email.FromAddress, Email.SpeechLogPageAddresses)
+			MailMessage mail = new(Email.FromAddress, Email.SpeechLogPageAddresses)
 			{
 				Subject = "CorexUO Speech Log Page Forwarding"
 			};
 
-			using (StringWriter writer = new StringWriter())
+			using (StringWriter writer = new())
 			{
 				writer.WriteLine("CorexUO Speech Log Page - {0}", PageQueue.GetPageTypeName(entry.Type));
 				writer.WriteLine();

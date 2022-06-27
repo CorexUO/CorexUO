@@ -7,7 +7,7 @@ namespace Server.Engines.PartySystem
 	{
 		private readonly Mobile m_Mobile, m_Leader;
 
-		private static readonly Hashtable m_Table = new Hashtable();
+		private static readonly Hashtable m_Table = new();
 
 		public static void Start(Mobile m, Mobile leader)
 		{

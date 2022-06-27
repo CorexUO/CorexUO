@@ -240,7 +240,7 @@ namespace Server.Factions
 
 		public ArrayList BuildFinanceList()
 		{
-			ArrayList list = new ArrayList();
+			ArrayList list = new();
 
 			List<VendorList> vendorLists = VendorLists;
 

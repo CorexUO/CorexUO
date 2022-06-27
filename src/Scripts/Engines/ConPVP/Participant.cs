@@ -103,7 +103,7 @@ namespace Server.Engines.ConPVP
 		{
 			get
 			{
-				StringBuilder sb = new StringBuilder();
+				StringBuilder sb = new();
 
 				for (int i = 0; i < Players.Length; ++i)
 				{

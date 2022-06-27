@@ -166,7 +166,7 @@ namespace Server.Gumps
 					{
 						if (m_Guild.Guildstone != null)
 						{
-							GuildTeleporter item = new GuildTeleporter(m_Guild.Guildstone);
+							GuildTeleporter item = new(m_Guild.Guildstone);
 
 							if (m_Guild.Teleporter != null)
 								m_Guild.Teleporter.Delete();

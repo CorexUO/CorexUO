@@ -240,7 +240,7 @@ namespace Server.Engines.ConPVP
 								}
 								else if (!tourny.HasParticipant(from))
 								{
-									ArrayList players = new ArrayList
+									ArrayList players = new()
 									{
 										from
 									};
@@ -391,7 +391,7 @@ namespace Server.Engines.ConPVP
 			AddImage(215, -43, 0xEE40);
 			//AddImage( 330, 141, 0x8BA );
 
-			StringBuilder sb = new StringBuilder();
+			StringBuilder sb = new();
 
 			if (tourny.TournyType == TournyType.FreeForAll)
 			{
@@ -718,7 +718,7 @@ namespace Server.Engines.ConPVP
 									0x35, false, string.Format(fmt, from.Female ? "Lady" : "Lord", timeUntil), from.NetState);
 							}
 
-							TournyParticipant part = new TournyParticipant(from);
+							TournyParticipant part = new(from);
 							part.Players.Clear();
 							part.Players.AddRange(m_Players);
 
@@ -930,7 +930,7 @@ namespace Server.Engines.ConPVP
 
 			AddImage(215, -43, 0xEE40);
 
-			StringBuilder sb = new StringBuilder();
+			StringBuilder sb = new();
 
 			if (tourny.TournyType == TournyType.FreeForAll)
 			{
@@ -1202,7 +1202,7 @@ namespace Server.Engines.ConPVP
 		[CommandProperty(AccessLevel.GameMaster)]
 		public Tournament Tournament { get => m_Tournament; set { } }
 
-		private static readonly ArrayList m_Instances = new ArrayList();
+		private static readonly ArrayList m_Instances = new();
 
 		public static bool IsActive
 		{
@@ -1508,7 +1508,7 @@ namespace Server.Engines.ConPVP
 			if (remaining.Count < 2)
 				return;
 
-			StringBuilder sb = new StringBuilder();
+			StringBuilder sb = new();
 
 			sb.Append("The match has ended in a tie ");
 
@@ -1667,7 +1667,7 @@ namespace Server.Engines.ConPVP
 
 		public void HandleWon(Arena arena, TournyMatch match, TournyParticipant winner)
 		{
-			StringBuilder sb = new StringBuilder();
+			StringBuilder sb = new();
 
 			sb.Append("The match is complete. ");
 			sb.Append(winner.NameList);
@@ -1794,7 +1794,7 @@ namespace Server.Engines.ConPVP
 			cash /= 1000;
 			cash *= 1000;
 
-			StringBuilder sb = new StringBuilder();
+			StringBuilder sb = new();
 
 			if (TournyType == TournyType.FreeForAll)
 			{
@@ -2167,12 +2167,12 @@ namespace Server.Engines.ConPVP
 
 		public void AddLevel(int partsPerMatch, ArrayList participants, GroupingType groupType, TournyType tournyType)
 		{
-			ArrayList copy = new ArrayList(participants);
+			ArrayList copy = new(participants);
 
 			if (groupType == GroupingType.Nearest || groupType == GroupingType.HighVsLow)
 				copy.Sort();
 
-			PyramidLevel level = new PyramidLevel();
+			PyramidLevel level = new();
 
 			switch (tournyType)
 			{
@@ -2283,7 +2283,7 @@ namespace Server.Engines.ConPVP
 									lowAdvances = p.FreeAdvances;
 							}
 
-							ArrayList toAdvance = new ArrayList();
+							ArrayList toAdvance = new();
 
 							for (int i = 0; i < participants.Count; ++i)
 							{
@@ -2306,7 +2306,7 @@ namespace Server.Engines.ConPVP
 
 						while (copy.Count >= partsPerMatch)
 						{
-							ArrayList thisMatch = new ArrayList();
+							ArrayList thisMatch = new();
 
 							for (int i = 0; i < partsPerMatch; ++i)
 							{
@@ -2360,14 +2360,14 @@ namespace Server.Engines.ConPVP
 		{
 			TournyParticipant first = (TournyParticipant)Participants[0];
 
-			DuelContext dc = new DuelContext((Mobile)first.Players[0], tourny.Ruleset.Layout, false);
+			DuelContext dc = new((Mobile)first.Players[0], tourny.Ruleset.Layout, false);
 			dc.Ruleset.Options.SetAll(false);
 			dc.Ruleset.Options.Or(tourny.Ruleset.Options);
 
 			for (int i = 0; i < Participants.Count; ++i)
 			{
 				TournyParticipant tournyPart = (TournyParticipant)Participants[i];
-				Participant duelPart = new Participant(dc, tournyPart.Players.Count)
+				Participant duelPart = new(dc, tournyPart.Players.Count)
 				{
 					TournyPart = tournyPart
 				};
@@ -2434,7 +2434,7 @@ namespace Server.Engines.ConPVP
 			{
 				TournyParticipant part = (TournyParticipant)participants[i];
 
-				StringBuilder sb = new StringBuilder();
+				StringBuilder sb = new();
 
 				sb.Append("Matched in a duel against ");
 
@@ -2496,7 +2496,7 @@ namespace Server.Engines.ConPVP
 		{
 			get
 			{
-				StringBuilder sb = new StringBuilder();
+				StringBuilder sb = new();
 
 				for (int i = 0; i < Players.Count; ++i)
 				{
@@ -2681,7 +2681,7 @@ namespace Server.Engines.ConPVP
 						AddPage(0);
 						AddBackground(0, 0, 300, 300, 9380);
 
-						StringBuilder sb = new StringBuilder();
+						StringBuilder sb = new();
 
 						if (tourny.TournyType == TournyType.FreeForAll)
 						{
@@ -2945,7 +2945,7 @@ namespace Server.Engines.ConPVP
 						AddHtml(25, y, 200, 20, "Log:", false, false);
 						y += 20;
 
-						StringBuilder sb = new StringBuilder();
+						StringBuilder sb = new();
 
 						for (int i = 0; i < part.Log.Count; ++i)
 						{
@@ -3042,7 +3042,7 @@ namespace Server.Engines.ConPVP
 							else if (match.Context != null && match.Winner == null)
 								color = 0x666666;
 
-							StringBuilder sb = new StringBuilder();
+							StringBuilder sb = new();
 
 							if (m_Tournament.TournyType == TournyType.Standard)
 							{

@@ -14,9 +14,9 @@ namespace Server.Mobiles
 			Hue = 0x8026;
 			Name = "spectral armour";
 
-			Buckler buckler = new Buckler();
-			ChainCoif coif = new ChainCoif();
-			PlateGloves gloves = new PlateGloves();
+			Buckler buckler = new();
+			ChainCoif coif = new();
+			PlateGloves gloves = new();
 
 			buckler.Hue = 0x835; buckler.Movable = false;
 			coif.Hue = 0x835;
@@ -68,7 +68,7 @@ namespace Server.Mobiles
 			if (!base.OnBeforeDeath())
 				return false;
 
-			Gold gold = new Gold(Utility.RandomMinMax(240, 375));
+			Gold gold = new(Utility.RandomMinMax(240, 375));
 			gold.MoveToWorld(Location, Map);
 
 			Effects.SendLocationEffect(Location, Map, 0x376A, 10, 1);

@@ -198,7 +198,7 @@ namespace Server.Gumps
 
 					if (pack != null && corpse != null)
 					{
-						List<Item> items = new List<Item>(corpse.Items);
+						List<Item> items = new(corpse.Items);
 
 						for (int i = 0; i < items.Count; ++i)
 						{

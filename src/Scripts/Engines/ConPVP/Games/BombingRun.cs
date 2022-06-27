@@ -275,7 +275,7 @@ namespace Server.Engines.ConPVP
 			if (!(obj is IPoint3D))
 				return false;
 
-			Point3D pt = new Point3D((IPoint3D)obj);
+			Point3D pt = new((IPoint3D)obj);
 
 			if (obj is Mobile)
 				pt.Z += 10;
@@ -352,7 +352,7 @@ namespace Server.Engines.ConPVP
 				MoveToWorld(m.Location, m.Map);
 		}
 
-		private readonly Point3DList m_Path = new Point3DList();
+		private readonly Point3DList m_Path = new();
 		private int m_PathIdx = 0;
 
 		private void BeginFlight(Point3D dest)
@@ -368,7 +368,7 @@ namespace Server.Engines.ConPVP
 				dest = swap;
 			}*/
 
-			ArrayList list = new ArrayList();
+			ArrayList list = new();
 			double rise, run, zslp;
 			double dist3d, dist2d;
 			double x, y, z;
@@ -384,9 +384,9 @@ namespace Server.Engines.ConPVP
 			else
 				dist3d = dist2d;
 
-			rise = ((float)yd) / dist3d;
-			run = ((float)xd) / dist3d;
-			zslp = ((float)zd) / dist3d;
+			rise = yd / dist3d;
+			run = xd / dist3d;
+			zslp = zd / dist3d;
 
 			x = org.X;
 			y = org.Y;
@@ -494,7 +494,7 @@ namespace Server.Engines.ConPVP
 				if (m_PathIdx > 0) // move to the next location
 					MoveToWorld(m_Path[m_PathIdx - 1]);
 
-				Point3D pTop = new Point3D(GetWorldLocation()), pBottom = new Point3D(m_Path[pathCheckEnd - 1]);
+				Point3D pTop = new(GetWorldLocation()), pBottom = new(m_Path[pathCheckEnd - 1]);
 				Utility.FixPoints(ref pTop, ref pBottom);
 
 				for (int i = m_PathIdx; i < pathCheckEnd; i++)
@@ -555,7 +555,7 @@ namespace Server.Engines.ConPVP
 					}
 				}
 
-				Rectangle2D rect = new Rectangle2D(pTop.X, pTop.Y, (pBottom.X - pTop.X) + 1, (pBottom.Y - pTop.Y) + 1);
+				Rectangle2D rect = new(pTop.X, pTop.Y, (pBottom.X - pTop.X) + 1, (pBottom.Y - pTop.Y) + 1);
 
 				IPooledEnumerable area = Map.GetItemsInBounds(rect);
 				foreach (Item i in area)
@@ -603,7 +603,7 @@ namespace Server.Engines.ConPVP
 					area.Free();
 					if (i is BRGoal)
 					{
-						Point3D oldLoc = new Point3D(GetWorldLocation());
+						Point3D oldLoc = new(GetWorldLocation());
 						if (CheckScore((BRGoal)i, Thrower, 3))
 							DoAnim(oldLoc, point, Map);
 						else
@@ -1018,7 +1018,7 @@ namespace Server.Engines.ConPVP
 
 			BRTeamInfo ourTeam = game.GetTeamInfo(mob);
 
-			ArrayList entries = new ArrayList();
+			ArrayList entries = new();
 
 			if (section == null)
 			{
@@ -1690,7 +1690,7 @@ namespace Server.Engines.ConPVP
 
 		private void Finish_Callback()
 		{
-			ArrayList teams = new ArrayList();
+			ArrayList teams = new();
 
 			for (int i = 0; i < m_Context.Participants.Count; ++i)
 			{
@@ -1706,7 +1706,7 @@ namespace Server.Engines.ConPVP
 
 			Tournament tourny = m_Context.m_Tournament;
 
-			StringBuilder sb = new StringBuilder();
+			StringBuilder sb = new();
 
 			if (tourny != null && tourny.TournyType == TournyType.FreeForAll)
 			{

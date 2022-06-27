@@ -52,7 +52,7 @@ namespace Server.Engines.Help
 				int max = log.Count - (lastPage - page) * MaxEntriesPerPage;
 				int min = Math.Max(max - MaxEntriesPerPage, 0);
 
-				StringBuilder builder = new StringBuilder();
+				StringBuilder builder = new();
 
 				for (int i = min; i < max; i++)
 				{

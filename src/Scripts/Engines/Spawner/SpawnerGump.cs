@@ -55,7 +55,7 @@ namespace Server.Mobiles
 
 		public List<string> CreateArray(RelayInfo info, Mobile from)
 		{
-			List<string> creaturesName = new List<string>();
+			List<string> creaturesName = new();
 
 			for (int i = 0; i < 13; i++)
 			{

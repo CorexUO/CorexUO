@@ -487,7 +487,7 @@ namespace Server.Engines.Craft
 					if (from.Skills[skill].Value >= 50.0)
 					{
 						((BlankScroll)targeted).Consume(1);
-						RepairDeed deed = new RepairDeed(RepairDeed.GetTypeFor(m_CraftSystem), from.Skills[skill].Value, from);
+						RepairDeed deed = new(RepairDeed.GetTypeFor(m_CraftSystem), from.Skills[skill].Value, from);
 						from.AddToBackpack(deed);
 
 						number = 500442; // You create the item and put it in your backpack.

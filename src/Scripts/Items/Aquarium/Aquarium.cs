@@ -533,7 +533,7 @@ namespace Server.Items
 		#region Virtual members
 		public virtual void KillFish(int amount)
 		{
-			List<BaseFish> toKill = new List<BaseFish>();
+			List<BaseFish> toKill = new();
 
 			for (int i = 0; i < Items.Count; i++)
 			{

@@ -71,7 +71,7 @@ namespace Server.Mobiles
 				}
 			}
 
-			List<MLQuest> result = new List<MLQuest>
+			List<MLQuest> result = new()
 			{
 				m_MLQuest
 			};
@@ -447,7 +447,7 @@ namespace Server.Mobiles
 				if (cont == null)
 					cont = escorter.BankBox;
 
-				Gold gold = new Gold(500, 1000);
+				Gold gold = new(500, 1000);
 
 				if (!cont.TryDropItem(escorter, gold, false))
 					gold.MoveToWorld(escorter.Location, escorter.Map);

@@ -6,7 +6,7 @@ namespace Server.Spells.Necromancy
 {
 	public class StrangleSpell : NecromancerSpell
 	{
-		private static readonly SpellInfo m_Info = new SpellInfo(
+		private static readonly SpellInfo m_Info = new(
 				"Strangle", "In Bal Nox",
 				209,
 				9031,
@@ -108,7 +108,7 @@ namespace Server.Spells.Necromancy
 			FinishSequence();
 		}
 
-		private static readonly Hashtable m_Table = new Hashtable();
+		private static readonly Hashtable m_Table = new();
 
 		public static bool RemoveCurse(Mobile m)
 		{

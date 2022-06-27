@@ -79,7 +79,7 @@ namespace Server.Mobiles
 			if (Map == null)
 				return;
 
-			ArrayList list = new ArrayList();
+			ArrayList list = new();
 
 			foreach (Mobile m in GetMobilesInRange(2))
 			{

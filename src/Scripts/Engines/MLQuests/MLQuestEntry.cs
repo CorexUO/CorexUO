@@ -316,7 +316,7 @@ namespace Server.Engines.MLQuests
 			if (Quest == null || Player == null || Player.Deleted || !ClaimReward || Removed)
 				return;
 
-			List<Item> rewards = new List<Item>();
+			List<Item> rewards = new();
 
 			foreach (BaseReward reward in Quest.Rewards)
 				reward.AddRewardItems(Player, rewards);

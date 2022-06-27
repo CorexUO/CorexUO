@@ -5,7 +5,7 @@ namespace Server.Spells.Spellweaving
 {
 	public class EssenceOfWindSpell : ArcanistSpell
 	{
-		private static readonly SpellInfo m_Info = new SpellInfo("Essence of Wind", "Anathrae", -1);
+		private static readonly SpellInfo m_Info = new("Essence of Wind", "Anathrae", -1);
 
 		public override TimeSpan CastDelayBase => TimeSpan.FromSeconds(3.0);
 
@@ -32,7 +32,7 @@ namespace Server.Spells.Spellweaving
 				int fcMalus = FocusLevel + 1;
 				int ssiMalus = 2 * (FocusLevel + 1);
 
-				List<Mobile> targets = new List<Mobile>();
+				List<Mobile> targets = new();
 
 				foreach (Mobile m in Caster.GetMobilesInRange(range))
 				{
@@ -60,7 +60,7 @@ namespace Server.Spells.Spellweaving
 			FinishSequence();
 		}
 
-		private static readonly Dictionary<Mobile, EssenceOfWindInfo> m_Table = new Dictionary<Mobile, EssenceOfWindInfo>();
+		private static readonly Dictionary<Mobile, EssenceOfWindInfo> m_Table = new();
 
 		private class EssenceOfWindInfo
 		{

@@ -135,7 +135,7 @@ namespace Server.Engines.Quests.Matriarch
 
 		public static bool GiveRewardTo(PlayerMobile player)
 		{
-			Gold gold = new Gold(Utility.RandomMinMax(250, 350));
+			Gold gold = new(Utility.RandomMinMax(250, 350));
 
 			if (player.PlaceInBackpack(gold))
 			{

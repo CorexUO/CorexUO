@@ -32,8 +32,8 @@ namespace Server.Commands.Generic
 					return;
 				}
 
-				ArrayList list = new ArrayList();
-				ArrayList addresses = new ArrayList();
+				ArrayList list = new();
+				ArrayList addresses = new();
 
 				System.Collections.Generic.List<NetState> states = NetState.Instances;
 

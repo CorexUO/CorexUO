@@ -25,7 +25,7 @@ namespace Server.Commands.Generic
 				if (!CheckObjectTypes(from, command, ext, out bool items, out bool mobiles))
 					return;
 
-				ArrayList list = new ArrayList();
+				ArrayList list = new();
 
 				if (items)
 				{

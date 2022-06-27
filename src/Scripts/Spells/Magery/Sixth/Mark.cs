@@ -6,7 +6,7 @@ namespace Server.Spells.Sixth
 {
 	public class MarkSpell : MagerySpell
 	{
-		private static readonly SpellInfo m_Info = new SpellInfo(
+		private static readonly SpellInfo m_Info = new(
 				"Mark", "Kal Por Ylem",
 				218,
 				9002,

@@ -164,7 +164,7 @@ namespace Server.Engines.Quests.Collector
 
 		public bool GiveReward(Mobile to)
 		{
-			Bag bag = new Bag();
+			Bag bag = new();
 
 			bag.DropItem(new Gold(Utility.RandomMinMax(500, 1000)));
 

@@ -1872,7 +1872,7 @@ namespace Server.Engines.MLQuests.Definitions
 
 	public class Ryuichi : BaseVendor
 	{
-		private readonly List<SBInfo> m_SBInfos = new List<SBInfo>();
+		private readonly List<SBInfo> m_SBInfos = new();
 		protected override List<SBInfo> SBInfos => m_SBInfos;
 
 		public override bool CanShout => true;
@@ -2117,7 +2117,7 @@ namespace Server.Engines.MLQuests.Definitions
 
 	public class Hamato : BaseVendor
 	{
-		private readonly List<SBInfo> m_SBInfos = new List<SBInfo>();
+		private readonly List<SBInfo> m_SBInfos = new();
 		protected override List<SBInfo> SBInfos => m_SBInfos;
 
 		public override bool CanShout => true;

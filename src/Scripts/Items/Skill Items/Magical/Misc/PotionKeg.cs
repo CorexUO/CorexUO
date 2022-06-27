@@ -286,7 +286,7 @@ namespace Server.Items
 		{
 			Container pack = m.Backpack;
 
-			Bottle bottle = new Bottle(amount);
+			Bottle bottle = new(amount);
 
 			if (pack == null || !pack.TryDropItem(m, bottle, false))
 			{

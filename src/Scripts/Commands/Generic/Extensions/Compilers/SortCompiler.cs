@@ -79,7 +79,7 @@ namespace Server.Commands.Generic
 
 			#region Compare
 			{
-				MethodEmitter emitter = new MethodEmitter(typeBuilder);
+				MethodEmitter emitter = new(typeBuilder);
 
 				emitter.Define(
 					/*  name  */ "Compare",

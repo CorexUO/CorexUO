@@ -6,7 +6,7 @@ namespace Server.Spells.Chivalry
 {
 	public class ConsecrateWeaponSpell : PaladinSpell
 	{
-		private static readonly SpellInfo m_Info = new SpellInfo(
+		private static readonly SpellInfo m_Info = new(
 				"Consecrate Weapon", "Consecrus Arma",
 				-1,
 				9002
@@ -82,7 +82,7 @@ namespace Server.Spells.Chivalry
 			FinishSequence();
 		}
 
-		private static readonly Hashtable m_Table = new Hashtable();
+		private static readonly Hashtable m_Table = new();
 
 		private class ExpireTimer : Timer
 		{

@@ -109,7 +109,7 @@ namespace Server.Items
 
 				if (beverage.Content == BeverageType.Liquor)
 				{
-					Firebomb bomb = new Firebomb(beverage.ItemID)
+					Firebomb bomb = new(beverage.ItemID)
 					{
 						Name = beverage.Name
 					};

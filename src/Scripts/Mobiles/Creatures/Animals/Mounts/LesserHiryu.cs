@@ -179,7 +179,7 @@ namespace Server.Mobiles
 
 				int effect = -(defender.PhysicalResistance * 15 / 100);
 
-				ResistanceMod mod = new ResistanceMod(ResistanceType.Physical, effect);
+				ResistanceMod mod = new(ResistanceType.Physical, effect);
 
 				defender.FixedEffect(0x37B9, 10, 5);
 				defender.AddResistanceMod(mod);
@@ -190,7 +190,7 @@ namespace Server.Mobiles
 			}
 		}
 
-		private static readonly Hashtable m_Table = new Hashtable();
+		private static readonly Hashtable m_Table = new();
 
 		private class ExpireTimer : Timer
 		{

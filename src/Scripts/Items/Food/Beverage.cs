@@ -720,7 +720,7 @@ namespace Server.Items
 			};
 
 		#region Effects of achohol
-		private static readonly Hashtable m_Table = new Hashtable();
+		private static readonly Hashtable m_Table = new();
 
 		public static void Initialize()
 		{

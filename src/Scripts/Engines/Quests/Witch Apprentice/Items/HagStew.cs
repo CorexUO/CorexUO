@@ -26,7 +26,7 @@ namespace Server.Items
 				{
 					stew.Visible = false;
 
-					BreadLoaf hagstew = new BreadLoaf();        //this decides your fillrate
+					BreadLoaf hagstew = new();        //this decides your fillrate
 					hagstew.Eat(from);
 
 					Timer m_timer = new ShowStew(stew);

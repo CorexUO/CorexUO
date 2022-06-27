@@ -50,7 +50,7 @@ namespace Server.Items
 			TitleString = title;
 		}
 
-		public static readonly CustomHuePicker SpecialDyeTub = new CustomHuePicker(new CustomHueGroup[]
+		public static readonly CustomHuePicker SpecialDyeTub = new(new CustomHueGroup[]
 			{
 				/* Violet */
 				new CustomHueGroup( 1018345, new int[]{ 1230, 1231, 1232, 1233, 1234, 1235 } ),
@@ -70,7 +70,7 @@ namespace Server.Items
 				new CustomHueGroup( 1018352, new int[]{ 2001, 2002, 2003, 2004, 2005 } )
 			}, false, 1018344);
 
-		public static readonly CustomHuePicker LeatherDyeTub = new CustomHuePicker(new CustomHueGroup[]
+		public static readonly CustomHuePicker LeatherDyeTub = new(new CustomHueGroup[]
 			{
 				/* Dull Copper */
 				new CustomHueGroup( 1018332, new int[]{ 2419, 2420, 2421, 2422, 2423, 2424 } ),

@@ -8,7 +8,7 @@ namespace Server.Spells.Sixth
 {
 	public class ParalyzeFieldSpell : MagerySpell
 	{
-		private static readonly SpellInfo m_Info = new SpellInfo(
+		private static readonly SpellInfo m_Info = new(
 				"Paralyze Field", "In Ex Grav",
 				230,
 				9012,
@@ -76,7 +76,7 @@ namespace Server.Spells.Sixth
 
 				for (int i = -2; i <= 2; ++i)
 				{
-					Point3D loc = new Point3D(eastToWest ? p.X + i : p.X, eastToWest ? p.Y : p.Y + i, p.Z);
+					Point3D loc = new(eastToWest ? p.X + i : p.X, eastToWest ? p.Y : p.Y + i, p.Z);
 					bool canFit = SpellHelper.AdjustField(ref loc, Caster.Map, 12, false);
 
 					if (!canFit)

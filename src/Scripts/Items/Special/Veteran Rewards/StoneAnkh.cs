@@ -47,7 +47,7 @@ namespace Server.Items
 		{
 			get
 			{
-				StoneAnkhDeed deed = new StoneAnkhDeed
+				StoneAnkhDeed deed = new()
 				{
 					IsRewardItem = m_IsRewardItem
 				};
@@ -158,7 +158,7 @@ namespace Server.Items
 		{
 			get
 			{
-				StoneAnkh addon = new StoneAnkh(m_East)
+				StoneAnkh addon = new(m_East)
 				{
 					IsRewardItem = m_IsRewardItem
 				};

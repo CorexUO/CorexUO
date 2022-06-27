@@ -159,7 +159,7 @@ namespace Server.Multis
 					if (ip is Item item)
 						ip = item.GetWorldTop();
 
-					Point3D p = new Point3D(ip);
+					Point3D p = new(ip);
 
 					Region region = Region.Find(p, from.Map);
 

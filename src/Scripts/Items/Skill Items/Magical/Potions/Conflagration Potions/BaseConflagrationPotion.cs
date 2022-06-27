@@ -63,7 +63,7 @@ namespace Server.Items
 			reader.ReadInt();
 		}
 
-		private readonly List<Mobile> m_Users = new List<Mobile>();
+		private readonly List<Mobile> m_Users = new();
 
 		public void Explode_Callback(object state)
 		{
@@ -93,7 +93,7 @@ namespace Server.Items
 			{
 				for (int j = -2; j <= 2; j++)
 				{
-					Point3D p = new Point3D(loc.X + i, loc.Y + j, loc.Z);
+					Point3D p = new(loc.X + i, loc.Y + j, loc.Z);
 
 					if (map.CanFit(p, 12, true, false) && from.InLOS(p))
 						_ = new InternalItem(from, p, map, MinDamage, MaxDamage);
@@ -102,7 +102,7 @@ namespace Server.Items
 		}
 
 		#region Delay
-		private static readonly Hashtable m_Delay = new Hashtable();
+		private static readonly Hashtable m_Delay = new();
 
 		public static void AddDelay(Mobile m)
 		{
@@ -309,7 +309,7 @@ namespace Server.Items
 					if (m_Item.Map == null || from == null)
 						return;
 
-					List<Mobile> mobiles = new List<Mobile>();
+					List<Mobile> mobiles = new();
 
 					foreach (Mobile mobile in m_Item.GetMobilesInRange(0))
 						mobiles.Add(mobile);

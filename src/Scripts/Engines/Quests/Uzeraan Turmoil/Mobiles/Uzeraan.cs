@@ -34,7 +34,7 @@ namespace Server.Engines.Quests.Haven
 			FacialHairItemID = 0x203E;
 			FacialHairHue = 0x455;
 
-			BlackStaff staff = new BlackStaff
+			BlackStaff staff = new()
 			{
 				Movable = false
 			};

@@ -64,7 +64,7 @@ namespace Server.Mobiles
 			if (caster == null)
 				return;
 
-			ArrayList list = new ArrayList();
+			ArrayList list = new();
 
 			foreach (Mobile m in GetMobilesInRange(5))
 			{

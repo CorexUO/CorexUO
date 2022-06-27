@@ -15,7 +15,7 @@ namespace Server.Items
 		{
 			get
 			{
-				FlamingHeadDeed deed = new FlamingHeadDeed
+				FlamingHeadDeed deed = new()
 				{
 					IsRewardItem = m_IsRewardItem
 				};
@@ -207,7 +207,7 @@ namespace Server.Items
 						if (p == null || map == null)
 							return;
 
-						Point3D p3d = new Point3D(p);
+						Point3D p3d = new(p);
 						ItemData id = TileData.ItemTable[0x10F5];
 
 						house = BaseHouse.FindHouseAt(p3d, map, id.Height);

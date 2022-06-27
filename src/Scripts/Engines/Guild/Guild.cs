@@ -1001,7 +1001,7 @@ namespace Server.Guilds
 
 		public void CalculateGuildmaster()
 		{
-			Dictionary<Mobile, int> votes = new Dictionary<Mobile, int>();
+			Dictionary<Mobile, int> votes = new();
 
 			int votingMembers = 0;
 

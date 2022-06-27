@@ -21,10 +21,10 @@ namespace Server.Mobiles
 			AddItem(new Kilt(0x59C));
 			AddItem(new Sandals(0x599));
 
-			Kryss kryss = new Kryss();
-			Buckler buckler = new Buckler();
-			RingmailGloves gloves = new RingmailGloves();
-			FemalePlateChest chest = new FemalePlateChest();
+			Kryss kryss = new();
+			Buckler buckler = new();
+			RingmailGloves gloves = new();
+			FemalePlateChest chest = new();
 
 			kryss.Hue = 0x96F; kryss.Movable = false;
 			buckler.Hue = 0x96F; buckler.Movable = false;
@@ -83,7 +83,7 @@ namespace Server.Mobiles
 
 		public override bool OnBeforeDeath()
 		{
-			Gold gold = new Gold(Utility.RandomMinMax(190, 230));
+			Gold gold = new(Utility.RandomMinMax(190, 230));
 			gold.MoveToWorld(Location, Map);
 
 			if (Utility.Random(3) == 0)

@@ -519,7 +519,7 @@ namespace Server.Gumps
 
 		private ArrayList BuildList()
 		{
-			ArrayList list = new ArrayList();
+			ArrayList list = new();
 
 			if (m_Type == null)
 				return list;
@@ -561,7 +561,7 @@ namespace Server.Gumps
 
 		private ArrayList GetGroups(Type objectType, PropertyInfo[] props)
 		{
-			Hashtable groups = new Hashtable();
+			Hashtable groups = new();
 
 			for (int i = 0; i < props.Length; ++i)
 			{
@@ -598,7 +598,7 @@ namespace Server.Gumps
 				}
 			}
 
-			ArrayList sorted = new ArrayList(groups);
+			ArrayList sorted = new(groups);
 
 			sorted.Sort(new GroupComparer(objectType));
 
@@ -703,7 +703,7 @@ namespace Server.Gumps
 
 		private class PropertySorter : IComparer
 		{
-			public static readonly PropertySorter Instance = new PropertySorter();
+			public static readonly PropertySorter Instance = new();
 
 			private PropertySorter()
 			{

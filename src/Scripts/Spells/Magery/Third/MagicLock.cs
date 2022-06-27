@@ -6,7 +6,7 @@ namespace Server.Spells.Third
 {
 	public class MagicLockSpell : MagerySpell
 	{
-		private static readonly SpellInfo m_Info = new SpellInfo(
+		private static readonly SpellInfo m_Info = new(
 				"Magic Lock", "An Por",
 				215,
 				9001,

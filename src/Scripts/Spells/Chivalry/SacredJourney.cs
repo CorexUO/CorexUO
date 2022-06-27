@@ -9,7 +9,7 @@ namespace Server.Spells.Chivalry
 {
 	public class SacredJourneySpell : PaladinSpell
 	{
-		private static readonly SpellInfo m_Info = new SpellInfo(
+		private static readonly SpellInfo m_Info = new(
 				"Sacred Journey", "Sanctum Viatas",
 				-1,
 				9002

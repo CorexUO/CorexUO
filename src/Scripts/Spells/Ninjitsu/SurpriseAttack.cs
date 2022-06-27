@@ -13,7 +13,7 @@ namespace Server.Spells.Ninjitsu
 		public override int BaseMana => 20;
 		public override double RequiredSkill => Core.ML ? 60.0 : 30.0;
 
-		public override TextDefinition AbilityMessage => new TextDefinition(1063128);  // You prepare to surprise your prey.
+		public override TextDefinition AbilityMessage => new(1063128);  // You prepare to surprise your prey.
 
 		public override bool Validate(Mobile from)
 		{
@@ -89,7 +89,7 @@ namespace Server.Spells.Ninjitsu
 		}
 
 
-		private static readonly Hashtable m_Table = new Hashtable();
+		private static readonly Hashtable m_Table = new();
 
 		public static bool GetMalus(Mobile target, ref int malus)
 		{

@@ -101,7 +101,7 @@ namespace Server.Engines.Quests.Doom
 			PublicOverheadMessage(MessageType.Regular, 0x3B2, 1050015); // Feel the wrath of my legions!!!
 			PublicOverheadMessage(MessageType.Regular, 0x3B2, false, "MUHAHAHAHA HAHAH HAHA"); // A wee bit crazy, aren't we?
 
-			SkeletalDragon dragon = new SkeletalDragon();
+			SkeletalDragon dragon = new();
 
 			int offset = Utility.Random(8) * 2;
 
@@ -142,7 +142,7 @@ namespace Server.Engines.Quests.Doom
 
 		public static void TeleportToFerry(Mobile from)
 		{
-			Point3D loc = new Point3D(408, 251, 2);
+			Point3D loc = new(408, 251, 2);
 			Map map = Map.Malas;
 
 			Effects.SendLocationParticles(EffectItem.Create(loc, map, EffectItem.DefaultDuration), 0x3728, 10, 10, 0, 0, 2023, 0);

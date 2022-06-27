@@ -6,7 +6,7 @@ namespace Server.Mobiles
 {
 	public class KhaldunRevenant : BaseCreature
 	{
-		private static readonly Hashtable m_Table = new Hashtable();
+		private static readonly Hashtable m_Table = new();
 
 		public static void Initialize()
 		{
@@ -33,7 +33,7 @@ namespace Server.Mobiles
 
 		public static void SummonRevenant(Mobile victim, Mobile killer)
 		{
-			KhaldunRevenant revenant = new KhaldunRevenant(killer);
+			KhaldunRevenant revenant = new(killer);
 
 			revenant.MoveToWorld(victim.Location, victim.Map);
 			revenant.Combatant = killer;
@@ -97,7 +97,7 @@ namespace Server.Mobiles
 
 			VirtualArmor = 60;
 
-			Halberd weapon = new Halberd
+			Halberd weapon = new()
 			{
 				Hue = 0x41CE,
 				Movable = false

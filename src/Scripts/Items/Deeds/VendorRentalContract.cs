@@ -236,7 +236,7 @@ namespace Server.Items
 				if (location == null)
 					return;
 
-				Point3D pLocation = new Point3D(location);
+				Point3D pLocation = new(location);
 				Map map = from.Map;
 
 				BaseHouse house = BaseHouse.FindHouseAt(pLocation, map, 0);

@@ -7,7 +7,7 @@ namespace Server.Spells.Spellweaving
 {
 	public class NatureFurySpell : ArcanistSpell
 	{
-		private static readonly SpellInfo m_Info = new SpellInfo(
+		private static readonly SpellInfo m_Info = new(
 				"Nature's Fury", "Rauvvrae",
 				-1,
 				false
@@ -44,7 +44,7 @@ namespace Server.Spells.Spellweaving
 
 		public void Target(IPoint3D point)
 		{
-			Point3D p = new Point3D(point);
+			Point3D p = new(point);
 			Map map = Caster.Map;
 
 			if (map == null)
@@ -63,7 +63,7 @@ namespace Server.Spells.Spellweaving
 			{
 				TimeSpan duration = TimeSpan.FromSeconds(Caster.Skills.Spellweaving.Value / 24 + 25 + FocusLevel * 2);
 
-				NatureFury nf = new NatureFury();
+				NatureFury nf = new();
 				BaseCreature.Summon(nf, false, Caster, p, 0x5CB, duration);
 
 				new InternalTimer(nf).Start();

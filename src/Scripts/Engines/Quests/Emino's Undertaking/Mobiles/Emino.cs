@@ -35,7 +35,7 @@ namespace Server.Engines.Quests.Ninja
 			AddItem(new PlateDo());
 			AddItem(new PlateHiroSode());
 
-			Nunchaku nunchaku = new Nunchaku
+			Nunchaku nunchaku = new()
 			{
 				Movable = false
 			};
@@ -151,7 +151,7 @@ namespace Server.Engines.Quests.Ninja
 											if (walk != null)
 												stolenTreasure = walk.StolenTreasure;
 
-											Kama kama = new Kama();
+											Kama kama = new();
 
 											if (stolenTreasure)
 												BaseRunicTool.ApplyAttributesTo(kama, 1, 10, 20);

@@ -154,7 +154,7 @@ namespace Server.Multis
 
 		public Point3D GetRotatedLocation(int x, int y)
 		{
-			Point3D p = new Point3D(X + x, Y + y, Z);
+			Point3D p = new(X + x, Y + y, Z);
 
 			return Rotate(p, (int)m_Facing / 2);
 		}
@@ -263,8 +263,8 @@ namespace Server.Multis
 		{
 			uint value = Key.RandomValue();
 
-			Key packKey = new Key(KeyType.Gold, value, this);
-			Key bankKey = new Key(KeyType.Gold, value, this);
+			Key packKey = new(KeyType.Gold, value, this);
+			Key bankKey = new(KeyType.Gold, value, this);
 
 			packKey.MaxRange = 10;
 			bankKey.MaxRange = 10;
@@ -347,7 +347,7 @@ namespace Server.Multis
 
 		public Point3D GetMarkedLocation()
 		{
-			Point3D p = new Point3D(X + MarkOffset.X, Y + MarkOffset.Y, Z + MarkOffset.Z);
+			Point3D p = new(X + MarkOffset.X, Y + MarkOffset.Y, Z + MarkOffset.Z);
 
 			return Rotate(p, (int)m_Facing / 2);
 		}
@@ -1515,7 +1515,7 @@ namespace Server.Multis
 
 		public List<IEntity> GetMovingEntities()
 		{
-			List<IEntity> list = new List<IEntity>();
+			List<IEntity> list = new();
 
 			Map map = Map;
 

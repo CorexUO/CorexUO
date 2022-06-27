@@ -8,7 +8,7 @@ namespace Server.Spells.Seventh
 {
 	public class PolymorphSpell : MagerySpell
 	{
-		private static readonly SpellInfo m_Info = new SpellInfo(
+		private static readonly SpellInfo m_Info = new(
 				"Polymorph", "Vas Ylem Rel",
 				221,
 				9002,
@@ -161,7 +161,7 @@ namespace Server.Spells.Seventh
 			FinishSequence();
 		}
 
-		private static readonly Hashtable m_Timers = new Hashtable();
+		private static readonly Hashtable m_Timers = new();
 
 		public static bool StopTimer(Mobile m)
 		{

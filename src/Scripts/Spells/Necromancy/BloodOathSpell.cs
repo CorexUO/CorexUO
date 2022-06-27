@@ -7,7 +7,7 @@ namespace Server.Spells.Necromancy
 {
 	public class BloodOathSpell : NecromancerSpell
 	{
-		private static readonly SpellInfo m_Info = new SpellInfo(
+		private static readonly SpellInfo m_Info = new(
 				"Blood Oath", "In Jux Mani Xen",
 				203,
 				9031,
@@ -102,8 +102,8 @@ namespace Server.Spells.Necromancy
 			return true;
 		}
 
-		private static readonly Hashtable m_OathTable = new Hashtable();
-		private static readonly Hashtable m_Table = new Hashtable();
+		private static readonly Hashtable m_OathTable = new();
+		private static readonly Hashtable m_Table = new();
 
 		public static Mobile GetBloodOath(Mobile m)
 		{

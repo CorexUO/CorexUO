@@ -8,7 +8,7 @@ namespace Server.Items
 		public static readonly TimeSpan AttackEffectDuration = TimeSpan.FromSeconds(10.0);
 		public static readonly TimeSpan DefenseEffectDuration = TimeSpan.FromSeconds(8.0);
 
-		private static readonly Hashtable m_AttackTable = new Hashtable();
+		private static readonly Hashtable m_AttackTable = new();
 
 		public static bool IsUnderAttackEffect(Mobile m)
 		{
@@ -50,7 +50,7 @@ namespace Server.Items
 			}
 		}
 
-		private static readonly Hashtable m_DefenseTable = new Hashtable();
+		private static readonly Hashtable m_DefenseTable = new();
 
 		public static bool IsUnderDefenseEffect(Mobile m)
 		{

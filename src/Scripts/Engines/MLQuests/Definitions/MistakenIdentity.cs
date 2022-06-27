@@ -135,7 +135,7 @@ namespace Server.Engines.MLQuests.Definitions
 			CompletionMessage = 1074633; // Pulled it off huh?  Well then you've earned this signature!
 			CompletionNotice = CompletionNoticeShortReturn;
 
-			QuestArea bedlam = new QuestArea(1074835, "Bedlam"); // Bedlam
+			QuestArea bedlam = new(1074835, "Bedlam"); // Bedlam
 
 			Objectives.Add(new KillObjective(1, new Type[] { typeof(RedDeath) }, "Red Death", bedlam));
 			Objectives.Add(new KillObjective(10, new Type[] { typeof(GoreFiend) }, "gore fiends", bedlam));

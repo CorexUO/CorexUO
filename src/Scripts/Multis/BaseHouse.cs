@@ -92,7 +92,7 @@ namespace Server.Multis
 				if (acct.Inactive)
 					return DecayType.Condemned;
 
-				List<BaseHouse> allHouses = new List<BaseHouse>();
+				List<BaseHouse> allHouses = new();
 
 				for (int i = 0; i < acct.Length; ++i)
 				{
@@ -235,7 +235,7 @@ namespace Server.Multis
 
 		public virtual void KillVendors()
 		{
-			ArrayList list = new ArrayList(PlayerVendors);
+			ArrayList list = new(PlayerVendors);
 
 			foreach (PlayerVendor vendor in list)
 				vendor.Destroy(true);
@@ -270,7 +270,7 @@ namespace Server.Multis
 		private Mobile m_Owner;
 		private Point3D m_RelativeBanLocation;
 
-		private static readonly Dictionary<Mobile, List<BaseHouse>> m_Table = new Dictionary<Mobile, List<BaseHouse>>();
+		private static readonly Dictionary<Mobile, List<BaseHouse>> m_Table = new();
 
 		public virtual bool IsAosRules => Core.AOS;
 
@@ -465,7 +465,7 @@ namespace Server.Multis
 
 		public ArrayList AvailableVendorsFor(Mobile m)
 		{
-			ArrayList list = new ArrayList();
+			ArrayList list = new();
 
 			foreach (PlayerVendor vendor in PlayerVendors)
 			{
@@ -621,7 +621,7 @@ namespace Server.Multis
 
 		public List<IEntity> GetHouseEntities()
 		{
-			List<IEntity> list = new List<IEntity>();
+			List<IEntity> list = new();
 
 			if (MovingCrate != null)
 				MovingCrate.Hide();
@@ -676,8 +676,8 @@ namespace Server.Multis
 		{
 			foreach (IEntity entity in GetHouseEntities())
 			{
-				Point3D relLoc = new Point3D(entity.X - X, entity.Y - Y, entity.Z - Z);
-				RelocatedEntity relocEntity = new RelocatedEntity(entity, relLoc);
+				Point3D relLoc = new(entity.X - X, entity.Y - Y, entity.Z - Z);
+				RelocatedEntity relocEntity = new(entity, relLoc);
 
 				RelocatedEntities.Add(relocEntity);
 
@@ -693,7 +693,7 @@ namespace Server.Multis
 			foreach (RelocatedEntity relocEntity in RelocatedEntities)
 			{
 				Point3D relLoc = relocEntity.RelativeLocation;
-				Point3D location = new Point3D(relLoc.X + X, relLoc.Y + Y, relLoc.Z + Z);
+				Point3D location = new(relLoc.X + X, relLoc.Y + Y, relLoc.Z + Z);
 
 				IEntity entity = relocEntity.Entity;
 				if (entity is Item)
@@ -842,11 +842,11 @@ namespace Server.Multis
 			if (Map == null || Map == Map.Internal)
 				return new List<Item>();
 
-			Point2D start = new Point2D(X + Components.Min.X, Y + Components.Min.Y);
-			Point2D end = new Point2D(X + Components.Max.X + 1, Y + Components.Max.Y + 1);
-			Rectangle2D rect = new Rectangle2D(start, end);
+			Point2D start = new(X + Components.Min.X, Y + Components.Min.Y);
+			Point2D end = new(X + Components.Max.X + 1, Y + Components.Max.Y + 1);
+			Rectangle2D rect = new(start, end);
 
-			List<Item> list = new List<Item>();
+			List<Item> list = new();
 
 			IPooledEnumerable eable = Map.GetItemsInBounds(rect);
 
@@ -864,7 +864,7 @@ namespace Server.Multis
 			if (Map == null || Map == Map.Internal)
 				return new List<Mobile>();
 
-			List<Mobile> list = new List<Mobile>();
+			List<Mobile> list = new();
 
 			foreach (Mobile mobile in Region.GetMobiles())
 				if (IsInside(mobile))
@@ -929,7 +929,7 @@ namespace Server.Multis
 
 		public static List<BaseHouse> GetHouses(Mobile m)
 		{
-			List<BaseHouse> list = new List<BaseHouse>();
+			List<BaseHouse> list = new();
 
 			if (m != null)
 			{
@@ -1273,7 +1273,7 @@ namespace Server.Multis
 
 			foreach (IEntity entity in GetHouseEntities())
 			{
-				Point3D newLocation = new Point3D(entity.X + x, entity.Y + y, entity.Z + z);
+				Point3D newLocation = new(entity.X + x, entity.Y + y, entity.Z + z);
 
 				if (entity is Item)
 					((Item)entity).Location = newLocation;
@@ -1375,8 +1375,8 @@ namespace Server.Multis
 
 			if (!IsAosRules)
 			{
-				Key packKey = new Key(KeyType.Gold);
-				Key bankKey = new Key(KeyType.Gold);
+				Key packKey = new(KeyType.Gold);
+				Key bankKey = new(KeyType.Gold);
 
 				packKey.KeyValue = value;
 				bankKey.KeyValue = value;
@@ -2059,7 +2059,7 @@ namespace Server.Multis
 				}
 			}
 
-			StrongBox sb = new StrongBox(from, this)
+			StrongBox sb = new(from, this)
 			{
 				Movable = false,
 				IsLockedDown = false,
@@ -2470,7 +2470,7 @@ namespace Server.Multis
 						int inventoryCount = reader.ReadEncodedInt();
 						for (int i = 0; i < inventoryCount; i++)
 						{
-							VendorInventory inventory = new VendorInventory(this, reader);
+							VendorInventory inventory = new(this, reader);
 							VendorInventories.Add(inventory);
 						}
 
@@ -2493,7 +2493,7 @@ namespace Server.Multis
 
 						for (int i = 0; i < count; ++i)
 						{
-							SecureInfo info = new SecureInfo(reader);
+							SecureInfo info = new(reader);
 
 							if (info.Item != null)
 							{
@@ -2566,7 +2566,7 @@ namespace Server.Multis
 
 		private void FixLockdowns_Sandbox()
 		{
-			ArrayList lockDowns = new ArrayList();
+			ArrayList lockDowns = new();
 
 			for (int i = 0; LockDowns != null && i < LockDowns.Count; ++i)
 			{
@@ -2988,7 +2988,7 @@ namespace Server.Multis
 				Addons.Clear();
 			}
 
-			ArrayList inventories = new ArrayList(VendorInventories);
+			ArrayList inventories = new(VendorInventories);
 
 			foreach (VendorInventory inventory in inventories)
 				inventory.Delete();

@@ -81,7 +81,7 @@ namespace Server.Mobiles
 		{
 			if (Core.SE && Summoned)
 			{
-				ArrayList spirtsOrVortexes = new ArrayList();
+				ArrayList spirtsOrVortexes = new();
 
 				foreach (Mobile m in GetMobilesInRange(5))
 				{

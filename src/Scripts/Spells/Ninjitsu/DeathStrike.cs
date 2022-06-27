@@ -14,7 +14,7 @@ namespace Server.Spells.Ninjitsu
 		public override int BaseMana => 30;
 		public override double RequiredSkill => 85.0;
 
-		public override TextDefinition AbilityMessage => new TextDefinition(1063091);  // You prepare to hit your opponent with a Death Strike.
+		public override TextDefinition AbilityMessage => new(1063091);  // You prepare to hit your opponent with a Death Strike.
 
 		public override double GetDamageScalar(Mobile attacker, Mobile defender)
 		{
@@ -87,7 +87,7 @@ namespace Server.Spells.Ninjitsu
 		}
 
 
-		private static readonly Hashtable m_Table = new Hashtable();
+		private static readonly Hashtable m_Table = new();
 
 		private class DeathStrikeInfo
 		{

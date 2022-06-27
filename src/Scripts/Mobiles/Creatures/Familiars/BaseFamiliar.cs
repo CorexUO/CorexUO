@@ -127,7 +127,7 @@ namespace Server.Mobiles
 
 			if (map != null && map != Map.Internal && pack != null)
 			{
-				List<Item> list = new List<Item>(pack.Items);
+				List<Item> list = new(pack.Items);
 
 				for (int i = 0; i < list.Count; ++i)
 					list[i].MoveToWorld(Location, map);

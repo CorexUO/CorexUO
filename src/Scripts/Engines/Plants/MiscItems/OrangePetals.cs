@@ -62,7 +62,7 @@ namespace Server.Items
 			Consume();
 		}
 
-		private static readonly Hashtable m_Table = new Hashtable();
+		private static readonly Hashtable m_Table = new();
 
 		private static void AddContext(Mobile m, OrangePetalsContext context)
 		{

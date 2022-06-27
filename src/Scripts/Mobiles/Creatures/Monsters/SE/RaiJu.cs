@@ -72,13 +72,13 @@ namespace Server.Mobiles
 
 				defender.Frozen = true;
 
-				ExpireTimer timer = new ExpireTimer(defender, TimeSpan.FromSeconds(4.0));
+				ExpireTimer timer = new(defender, TimeSpan.FromSeconds(4.0));
 				timer.Start();
 				m_Table[defender] = timer;
 			}
 		}
 
-		private static readonly Hashtable m_Table = new Hashtable();
+		private static readonly Hashtable m_Table = new();
 
 		public bool IsStunned(Mobile m)
 		{

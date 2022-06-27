@@ -10,7 +10,7 @@ namespace Server.Spells.Ninjitsu
 {
 	public class MirrorImage : NinjaSpell
 	{
-		private static readonly Dictionary<Mobile, int> m_CloneCount = new Dictionary<Mobile, int>();
+		private static readonly Dictionary<Mobile, int> m_CloneCount = new();
 
 		public static bool HasClone(Mobile m)
 		{
@@ -42,7 +42,7 @@ namespace Server.Spells.Ninjitsu
 			}
 		}
 
-		private static readonly SpellInfo m_Info = new SpellInfo(
+		private static readonly SpellInfo m_Info = new(
 			"Mirror Image", null,
 			-1,
 			9002
@@ -180,7 +180,7 @@ namespace Server.Mobiles
 
 		private Item CloneItem(Item item)
 		{
-			Item newItem = new Item(item.ItemID)
+			Item newItem = new(item.ItemID)
 			{
 				Hue = item.Hue,
 				Layer = item.Layer

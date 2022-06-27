@@ -34,7 +34,7 @@ namespace Server.Engines.Quests.Ninja
 
 			AddItem(new LeatherNinjaBelt());
 
-			Tekagi tekagi = new Tekagi
+			Tekagi tekagi = new()
 			{
 				Movable = false
 			};

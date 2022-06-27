@@ -174,7 +174,7 @@ namespace Server.Engines.Quests.Hag
 
 			Point3D loc = WitchApprenticeQuest.RandomZeefzorpulLocation();
 
-			MapItem mapItem = new MapItem();
+			MapItem mapItem = new();
 			mapItem.SetDisplay(loc.X - 200, loc.Y - 200, loc.X + 200, loc.Y + 200, 200, 200);
 			mapItem.AddWorldPin(loc.X, loc.Y);
 			from.AddToBackpack(mapItem);

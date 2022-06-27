@@ -66,42 +66,42 @@ namespace Server.Mobiles
 			melee.Movable = false;
 			AddItem(melee);
 
-			DragonChest Tunic = new DragonChest
+			DragonChest Tunic = new()
 			{
 				Resource = res,
 				Movable = false
 			};
 			AddItem(Tunic);
 
-			DragonLegs Legs = new DragonLegs
+			DragonLegs Legs = new()
 			{
 				Resource = res,
 				Movable = false
 			};
 			AddItem(Legs);
 
-			DragonArms Arms = new DragonArms
+			DragonArms Arms = new()
 			{
 				Resource = res,
 				Movable = false
 			};
 			AddItem(Arms);
 
-			DragonGloves Gloves = new DragonGloves
+			DragonGloves Gloves = new()
 			{
 				Resource = res,
 				Movable = false
 			};
 			AddItem(Gloves);
 
-			DragonHelm Helm = new DragonHelm
+			DragonHelm Helm = new()
 			{
 				Resource = res,
 				Movable = false
 			};
 			AddItem(Helm);
 
-			ChaosShield shield = new ChaosShield
+			ChaosShield shield = new()
 			{
 				Movable = false
 			};
@@ -134,7 +134,7 @@ namespace Server.Mobiles
 				case 8: res = CraftResource.Iron; break;
 			}
 
-			SwampDragon mt = new SwampDragon
+			SwampDragon mt = new()
 			{
 				HasBarding = true,
 				BardingResource = res

@@ -55,7 +55,7 @@ namespace Server.Items
 			}
 		}
 
-		private static readonly Hashtable m_Table = new Hashtable();
+		private static readonly Hashtable m_Table = new();
 
 		public static bool GetBonus(Mobile targ, ref int bonus)
 		{
@@ -72,7 +72,7 @@ namespace Server.Items
 		{
 			EndBlock(m);
 
-			BlockInfo info = new BlockInfo(m, bonus)
+			BlockInfo info = new(m, bonus)
 			{
 				m_Timer = new InternalTimer(m)
 			};

@@ -90,7 +90,7 @@ namespace Server.Items
 
 			if (NeighborRange >= 0)
 			{
-				List<WarningItem> list = new List<WarningItem>();
+				List<WarningItem> list = new();
 
 				foreach (Item item in GetItemsInRange(NeighborRange))
 				{

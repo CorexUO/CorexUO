@@ -94,7 +94,7 @@ namespace Server.Items
 
 		private void RecurseDelete(BulletinMessage msg)
 		{
-			List<Item> found = new List<Item>();
+			List<Item> found = new();
 			List<Item> items = Items;
 
 			for (int i = items.Count - 1; i >= 0; --i)
@@ -352,7 +352,7 @@ namespace Server.Items
 			PostedHue = Poster.Hue;
 			Lines = lines;
 
-			List<BulletinEquip> list = new List<BulletinEquip>();
+			List<BulletinEquip> list = new();
 
 			for (int i = 0; i < poster.Items.Count; ++i)
 			{

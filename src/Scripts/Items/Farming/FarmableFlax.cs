@@ -9,7 +9,7 @@ namespace Server.Items
 
 		public override Item GetCropObject()
 		{
-			Flax flax = new Flax
+			Flax flax = new()
 			{
 				ItemID = Utility.Random(6812, 2)
 			};

@@ -20,7 +20,7 @@ namespace Server.Items
 
 	public static class TalismanSlayer
 	{
-		private static readonly Dictionary<TalismanSlayerName, Type[]> m_Table = new Dictionary<TalismanSlayerName, Type[]>();
+		private static readonly Dictionary<TalismanSlayerName, Type[]> m_Table = new();
 
 		public static void Initialize()
 		{

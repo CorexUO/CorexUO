@@ -526,7 +526,7 @@ namespace Server.Items
 
 			if (Owner != null && Owner.Backpack != null)
 			{
-				PlagueBeastMutationCore core = new PlagueBeastMutationCore();
+				PlagueBeastMutationCore core = new();
 				Owner.Backpack.AddItem(core);
 				core.Movable = false;
 				core.Cut = false;

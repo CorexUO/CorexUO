@@ -5,7 +5,7 @@ namespace Server.Spells.Sixth
 {
 	public class MassCurseSpell : MagerySpell
 	{
-		private static readonly SpellInfo m_Info = new SpellInfo(
+		private static readonly SpellInfo m_Info = new(
 				"Mass Curse", "Vas Des Sanct",
 				218,
 				9031,
@@ -49,7 +49,7 @@ namespace Server.Spells.Sixth
 
 				SpellHelper.GetSurfaceTop(ref p);
 
-				List<Mobile> targets = new List<Mobile>();
+				List<Mobile> targets = new();
 
 				Map map = Caster.Map;
 

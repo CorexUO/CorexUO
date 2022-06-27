@@ -68,14 +68,14 @@ namespace Server.Multis
 				HouseFoundation.AddStairsTo(ref mcl); // this is a AOS house, add the stairs
 
 			// Location of the nortwest-most corner of the house
-			Point3D start = new Point3D(center.X + mcl.Min.X, center.Y + mcl.Min.Y, center.Z);
+			Point3D start = new(center.X + mcl.Min.X, center.Y + mcl.Min.Y, center.Z);
 
 			// These are storage lists. They hold items and mobiles found in the map for further processing
-			List<Item> items = new List<Item>();
-			List<Mobile> mobiles = new List<Mobile>();
+			List<Item> items = new();
+			List<Mobile> mobiles = new();
 
 			// These are also storage lists. They hold location values indicating the yard and border locations.
-			List<Point2D> yard = new List<Point2D>(), borders = new List<Point2D>();
+			List<Point2D> yard = new(), borders = new();
 
 			/* RULES:
 			 *
@@ -98,7 +98,7 @@ namespace Server.Multis
 					if (addTiles.Length == 0)
 						continue; // There are no tiles here, continue checking somewhere else
 
-					Point3D testPoint = new Point3D(tileX, tileY, center.Z);
+					Point3D testPoint = new(tileX, tileY, center.Z);
 
 					Region reg = Region.Find(testPoint, map);
 
@@ -229,7 +229,7 @@ namespace Server.Multis
 						{
 							for (int yOffset = -YardSize; yOffset <= YardSize; ++yOffset)
 							{
-								Point2D yardPoint = new Point2D(tileX + xOffset, tileY + yOffset);
+								Point2D yardPoint = new(tileX + xOffset, tileY + yOffset);
 
 								if (!yard.Contains(yardPoint))
 									yard.Add(yardPoint);
@@ -265,7 +265,7 @@ namespace Server.Multis
 										continue;
 								}
 
-								Point2D borderPoint = new Point2D(tileX + xOffset, tileY + yOffset);
+								Point2D borderPoint = new(tileX + xOffset, tileY + yOffset);
 
 								if (!borders.Contains(borderPoint))
 									borders.Add(borderPoint);
@@ -319,8 +319,8 @@ namespace Server.Multis
 				}
 			}
 
-			List<Sector> _sectors = new List<Sector>();
-			List<BaseHouse> _houses = new List<BaseHouse>();
+			List<Sector> _sectors = new();
+			List<BaseHouse> _houses = new();
 
 			for (int i = 0; i < yard.Count; i++)
 			{

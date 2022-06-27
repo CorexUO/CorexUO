@@ -4,7 +4,7 @@ namespace Server.Spells.Third
 {
 	public class FireballSpell : MagerySpell
 	{
-		private static readonly SpellInfo m_Info = new SpellInfo(
+		private static readonly SpellInfo m_Info = new(
 				"Fireball", "Vas Flam",
 				203,
 				9041,

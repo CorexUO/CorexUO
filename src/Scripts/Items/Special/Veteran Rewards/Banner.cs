@@ -14,7 +14,7 @@ namespace Server.Items
 		{
 			get
 			{
-				BannerDeed deed = new BannerDeed
+				BannerDeed deed = new()
 				{
 					IsRewardItem = m_IsRewardItem
 				};
@@ -269,7 +269,7 @@ namespace Server.Items
 						if (p == null || map == null)
 							return;
 
-						Point3D p3d = new Point3D(p);
+						Point3D p3d = new(p);
 						ItemData id = TileData.ItemTable[m_ItemID & TileData.MaxItemValue];
 
 						if (map.CanFit(p3d, id.Height))

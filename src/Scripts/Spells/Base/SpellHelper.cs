@@ -404,7 +404,7 @@ namespace Server.Spells
 				creature.Mana = creature.ManaMax;
 			}
 
-			Point3D p = new Point3D(caster);
+			Point3D p = new(caster);
 
 			if (FindValidSpawnLocation(map, ref p, true))
 			{

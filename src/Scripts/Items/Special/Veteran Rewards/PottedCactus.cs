@@ -168,7 +168,7 @@ namespace Server.Items
 
 				if (info.ButtonID >= 0x1E0F && info.ButtonID <= 0x1E14)
 				{
-					RewardPottedCactus cactus = new RewardPottedCactus(info.ButtonID)
+					RewardPottedCactus cactus = new(info.ButtonID)
 					{
 						IsRewardItem = m_Cactus.IsRewardItem
 					};

@@ -29,7 +29,7 @@ namespace Server.Gumps
 			}
 			else
 			{
-				ArrayList children = new ArrayList();
+				ArrayList children = new();
 
 				while (xml.Read() && (xml.NodeType == XmlNodeType.Element || xml.NodeType == XmlNodeType.Comment))
 				{
@@ -38,7 +38,7 @@ namespace Server.Gumps
 
 					if (xml.Name == "child")
 					{
-						ChildNode n = new ChildNode(xml, this);
+						ChildNode n = new(xml, this);
 
 						children.Add(n);
 					}

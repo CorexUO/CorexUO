@@ -188,7 +188,7 @@ namespace Server.Items
 			m_ItemID = reader.ReadInt();
 		}
 
-		private static readonly Dictionary<MusicName, DawnsMusicInfo> m_Info = new Dictionary<MusicName, DawnsMusicInfo>();
+		private static readonly Dictionary<MusicName, DawnsMusicInfo> m_Info = new();
 
 		public static void Initialize()
 		{

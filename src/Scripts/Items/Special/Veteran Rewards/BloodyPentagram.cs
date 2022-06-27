@@ -36,7 +36,7 @@ namespace Server.Items
 		{
 			get
 			{
-				BloodyPentagramDeed deed = new BloodyPentagramDeed
+				BloodyPentagramDeed deed = new()
 				{
 					IsRewardItem = m_IsRewardItem
 				};
@@ -129,7 +129,7 @@ namespace Server.Items
 		{
 			get
 			{
-				BloodyPentagramAddon addon = new BloodyPentagramAddon
+				BloodyPentagramAddon addon = new()
 				{
 					IsRewardItem = m_IsRewardItem
 				};

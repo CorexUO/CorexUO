@@ -20,10 +20,10 @@ namespace Server.Mobiles
 			AddItem(new Boots(0x599));
 			AddItem(new Cloak(0x96F));
 
-			Spellbook spellbook = new Spellbook();
-			RingmailGloves gloves = new RingmailGloves();
-			StuddedChest chest = new StuddedChest();
-			PlateArms arms = new PlateArms();
+			Spellbook spellbook = new();
+			RingmailGloves gloves = new();
+			StuddedChest chest = new();
+			PlateArms arms = new();
 
 			spellbook.Hue = 0x599;
 			gloves.Hue = 0x599;

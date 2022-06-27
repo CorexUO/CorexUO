@@ -67,7 +67,7 @@ namespace Server.Engines.Quests.Collector
 
 		public static ImageType[] RandomList(int count)
 		{
-			ArrayList list = new ArrayList(m_Table.Length);
+			ArrayList list = new(m_Table.Length);
 			for (int i = 0; i < m_Table.Length; i++)
 				list.Add((ImageType)i);
 

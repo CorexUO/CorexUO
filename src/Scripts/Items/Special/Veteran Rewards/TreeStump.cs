@@ -12,7 +12,7 @@ namespace Server.Items
 		{
 			get
 			{
-				TreeStumpDeed deed = new TreeStumpDeed
+				TreeStumpDeed deed = new()
 				{
 					IsRewardItem = m_IsRewardItem,
 					Logs = m_Logs
@@ -165,7 +165,7 @@ namespace Server.Items
 		{
 			get
 			{
-				TreeStump addon = new TreeStump(m_ItemID)
+				TreeStump addon = new(m_ItemID)
 				{
 					IsRewardItem = m_IsRewardItem,
 					Logs = m_Logs

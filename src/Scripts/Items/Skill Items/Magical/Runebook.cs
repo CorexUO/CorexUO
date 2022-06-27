@@ -174,7 +174,7 @@ namespace Server.Items
 
 			Entries.RemoveAt(index);
 
-			RecallRune rune = new RecallRune
+			RecallRune rune = new()
 			{
 				Target = e.Location,
 				TargetMap = e.Map,

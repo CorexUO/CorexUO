@@ -9,7 +9,7 @@ namespace Server.Spells.Fourth
 {
 	public class FireFieldSpell : MagerySpell
 	{
-		private static readonly SpellInfo m_Info = new SpellInfo(
+		private static readonly SpellInfo m_Info = new(
 				"Fire Field", "In Flam Grav",
 				215,
 				9041,
@@ -90,7 +90,7 @@ namespace Server.Spells.Fourth
 
 				for (int i = -2; i <= 2; ++i)
 				{
-					Point3D loc = new Point3D(eastToWest ? p.X + i : p.X, eastToWest ? p.Y : p.Y + i, p.Z);
+					Point3D loc = new(eastToWest ? p.X + i : p.X, eastToWest ? p.Y : p.Y + i, p.Z);
 
 					new FireFieldItem(itemID, loc, Caster, Caster.Map, duration, i);
 				}
@@ -216,7 +216,7 @@ namespace Server.Spells.Fourth
 				private readonly FireFieldItem m_Item;
 				private readonly bool m_InLOS, m_CanFit;
 
-				private static readonly Queue m_Queue = new Queue();
+				private static readonly Queue m_Queue = new();
 
 				public InternalTimer(FireFieldItem item, TimeSpan delay, bool inLOS, bool canFit) : base(delay, TimeSpan.FromSeconds(1.0))
 				{

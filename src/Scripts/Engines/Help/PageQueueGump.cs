@@ -169,14 +169,12 @@ namespace Server.Engines.Help
 			{
 				string path = Path.Combine(Core.BaseDirectory, "Data/pageresponse.cfg");
 
-				using (StreamWriter op = new(path))
+				using StreamWriter op = new(path);
+				for (int i = 0; i < m_List.Count; ++i)
 				{
-					for (int i = 0; i < m_List.Count; ++i)
-					{
-						PredefinedResponse resp = (PredefinedResponse)m_List[i];
+					PredefinedResponse resp = (PredefinedResponse)m_List[i];
 
-						op.WriteLine("{0}\t{1}", resp.Title, resp.Message);
-					}
+					op.WriteLine("{0}\t{1}", resp.Title, resp.Message);
 				}
 			}
 			catch (Exception e)
@@ -195,27 +193,25 @@ namespace Server.Engines.Help
 			{
 				try
 				{
-					using (StreamReader ip = new(path))
+					using StreamReader ip = new(path);
+					string line;
+
+					while ((line = ip.ReadLine()) != null)
 					{
-						string line;
-
-						while ((line = ip.ReadLine()) != null)
+						try
 						{
-							try
-							{
-								line = line.Trim();
+							line = line.Trim();
 
-								if (line.Length == 0 || line.StartsWith("#"))
-									continue;
+							if (line.Length == 0 || line.StartsWith("#"))
+								continue;
 
-								string[] split = line.Split('\t');
+							string[] split = line.Split('\t');
 
-								if (split.Length == 2)
-									list.Add(new PredefinedResponse(split[0], split[1]));
-							}
-							catch
-							{
-							}
+							if (split.Length == 2)
+								list.Add(new PredefinedResponse(split[0], split[1]));
+						}
+						catch
+						{
 						}
 					}
 				}
@@ -579,7 +575,7 @@ namespace Server.Engines.Help
 
 		public void Resend(NetState state)
 		{
-			PageEntryGump g = new PageEntryGump(m_Mobile, m_Entry);
+			PageEntryGump g = new(m_Mobile, m_Entry);
 
 			g.SendTo(state);
 		}
@@ -599,7 +595,7 @@ namespace Server.Engines.Help
 					{
 						if (m_Entry.Handler != state.Mobile)
 						{
-							PageQueueGump g = new PageQueueGump();
+							PageQueueGump g = new();
 
 							g.SendTo(state);
 						}
@@ -709,7 +705,7 @@ namespace Server.Engines.Help
 
 							state.Mobile.SendMessage("You delete the page.");
 
-							PageQueueGump g = new PageQueueGump();
+							PageQueueGump g = new();
 
 							g.SendTo(state);
 						}

@@ -10,7 +10,7 @@ namespace Server.Spells.Necromancy
 {
 	public class AnimateDeadSpell : NecromancerSpell
 	{
-		private static readonly SpellInfo m_Info = new SpellInfo(
+		private static readonly SpellInfo m_Info = new(
 				"Animate Dead", "Uus Corp",
 				203,
 				9031,
@@ -231,7 +231,7 @@ namespace Server.Spells.Necromancy
 			FinishSequence();
 		}
 
-		private static readonly Dictionary<Mobile, List<Mobile>> m_Table = new Dictionary<Mobile, List<Mobile>>();
+		private static readonly Dictionary<Mobile, List<Mobile>> m_Table = new();
 
 		public static void Unregister(Mobile master, Mobile summoned)
 		{

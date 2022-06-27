@@ -44,7 +44,7 @@ namespace Server.Mobiles
 			AddItem(new Boots());
 			AddItem(new SkullCap());
 
-			Bow bow = new Bow
+			Bow bow = new()
 			{
 				Movable = false,
 				Crafter = this,
@@ -58,7 +58,7 @@ namespace Server.Mobiles
 				Movable = false
 			};
 
-			Arrow arrows = new Arrow(250)
+			Arrow arrows = new(250)
 			{
 				LootType = LootType.Newbied
 			};

@@ -7,7 +7,7 @@ namespace Server.Spells.Spellweaving
 {
 	public class ArcaneCircleSpell : ArcanistSpell
 	{
-		private static readonly SpellInfo m_Info = new SpellInfo(
+		private static readonly SpellInfo m_Info = new(
 				"Arcane Circle", "Myrshalee",
 				-1
 			);
@@ -113,7 +113,7 @@ namespace Server.Spells.Spellweaving
 
 		private List<Mobile> GetArcanists()
 		{
-			List<Mobile> weavers = new List<Mobile>
+			List<Mobile> weavers = new()
 			{
 				Caster
 			};
@@ -140,7 +140,7 @@ namespace Server.Spells.Spellweaving
 
 			if (focus == null)
 			{
-				ArcaneFocus f = new ArcaneFocus(duration, strengthBonus);
+				ArcaneFocus f = new(duration, strengthBonus);
 				if (to.PlaceInBackpack(f))
 				{
 					f.SendTimeRemainingMessage(to);

@@ -112,7 +112,7 @@ namespace Server.Mobiles
 							int x = combatant.X + coord[i][0];
 							int y = combatant.Y + coord[i][1];
 
-							Point3D loc = new Point3D(x, y, combatant.Map.GetAverageZ(x, y));
+							Point3D loc = new(x, y, combatant.Map.GetAverageZ(x, y));
 
 							if (!combatant.Map.CanSpawnMobile(loc))
 								continue;
@@ -142,7 +142,7 @@ namespace Server.Mobiles
 			base.OnThink();
 		}
 
-		private static readonly Hashtable m_Table = new Hashtable();
+		private static readonly Hashtable m_Table = new();
 
 		public static bool UnderEffect(Mobile m)
 		{

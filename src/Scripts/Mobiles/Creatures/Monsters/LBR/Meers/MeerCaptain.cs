@@ -119,7 +119,7 @@ namespace Server.Mobiles
 			{
 				m_NextAbilityTime = DateTime.UtcNow + TimeSpan.FromSeconds(Utility.RandomMinMax(10, 15));
 
-				ArrayList list = new ArrayList();
+				ArrayList list = new();
 
 				foreach (Mobile m in GetMobilesInRange(8))
 				{

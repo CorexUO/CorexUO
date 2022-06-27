@@ -34,7 +34,7 @@ namespace Server.Engines.Quests.Hag
 			AddItem(new TricorneHat(0x1));
 			AddItem(new BodySash(0x66D));
 
-			LeatherGloves gloves = new LeatherGloves
+			LeatherGloves gloves = new()
 			{
 				Hue = 0x66D
 			};

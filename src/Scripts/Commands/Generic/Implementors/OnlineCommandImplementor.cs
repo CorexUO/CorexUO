@@ -33,7 +33,7 @@ namespace Server.Commands.Generic
 					return;
 				}
 
-				ArrayList list = new ArrayList();
+				ArrayList list = new();
 
 				List<NetState> states = NetState.Instances;
 

@@ -52,14 +52,14 @@ namespace Server.PathAlgorithms.SlowAStar
 
 			PathNode curNode;
 
-			PathNode goalNode = new PathNode
+			PathNode goalNode = new()
 			{
 				x = goal.X,
 				y = goal.Y,
 				z = goal.Z
 			};
 
-			PathNode startNode = new PathNode
+			PathNode startNode = new()
 			{
 				x = start.X,
 				y = start.Y,

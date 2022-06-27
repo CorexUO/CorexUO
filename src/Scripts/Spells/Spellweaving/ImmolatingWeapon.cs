@@ -6,7 +6,7 @@ namespace Server.Spells.Spellweaving
 {
 	public class ImmolatingWeaponSpell : ArcanistSpell
 	{
-		private static readonly SpellInfo m_Info = new SpellInfo(
+		private static readonly SpellInfo m_Info = new(
 				"Immolating Weapon", "Thalshara",
 				-1
 			);
@@ -64,7 +64,7 @@ namespace Server.Spells.Spellweaving
 			FinishSequence();
 		}
 
-		private static readonly Dictionary<BaseWeapon, ImmolatingWeaponEntry> m_WeaponDamageTable = new Dictionary<BaseWeapon, ImmolatingWeaponEntry>();
+		private static readonly Dictionary<BaseWeapon, ImmolatingWeaponEntry> m_WeaponDamageTable = new();
 
 		public static bool IsImmolating(BaseWeapon weapon)
 		{

@@ -136,9 +136,9 @@ namespace Server.Items
 			}
 			else if (targeted is IPoint3D)
 			{
-				Point3D p = new Point3D((IPoint3D)targeted);
+				Point3D p = new((IPoint3D)targeted);
 
-				WayPoint point = new WayPoint(m_Last);
+				WayPoint point = new(m_Last);
 				point.MoveToWorld(p, from.Map);
 
 				from.Target = new WayPointSeqTarget(point);

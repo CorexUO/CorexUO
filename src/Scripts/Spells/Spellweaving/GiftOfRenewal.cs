@@ -6,7 +6,7 @@ namespace Server.Spells.Spellweaving
 {
 	public class GiftOfRenewalSpell : ArcanistSpell
 	{
-		private static readonly SpellInfo m_Info = new SpellInfo(
+		private static readonly SpellInfo m_Info = new(
 				"Gift of Renewal", "Olorisstra",
 				-1
 			);
@@ -58,7 +58,7 @@ namespace Server.Spells.Spellweaving
 					int hitsPerRound = 5 + (int)(skill / 24) + FocusLevel;
 					TimeSpan duration = TimeSpan.FromSeconds(30 + (FocusLevel * 10));
 
-					GiftOfRenewalInfo info = new GiftOfRenewalInfo(Caster, m, hitsPerRound);
+					GiftOfRenewalInfo info = new(Caster, m, hitsPerRound);
 
 					Timer.DelayCall(duration,
 						delegate
@@ -83,7 +83,7 @@ namespace Server.Spells.Spellweaving
 			FinishSequence();
 		}
 
-		private static readonly Dictionary<Mobile, GiftOfRenewalInfo> m_Table = new Dictionary<Mobile, GiftOfRenewalInfo>();
+		private static readonly Dictionary<Mobile, GiftOfRenewalInfo> m_Table = new();
 
 		private class GiftOfRenewalInfo
 		{

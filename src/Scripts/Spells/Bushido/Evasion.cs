@@ -6,7 +6,7 @@ namespace Server.Spells.Bushido
 {
 	public class Evasion : SamuraiSpell
 	{
-		private static readonly SpellInfo m_Info = new SpellInfo(
+		private static readonly SpellInfo m_Info = new(
 				"Evasion", null,
 				-1,
 				9002
@@ -135,7 +135,7 @@ namespace Server.Spells.Bushido
 			FinishSequence();
 		}
 
-		private static readonly Hashtable m_Table = new Hashtable();
+		private static readonly Hashtable m_Table = new();
 
 		public static bool IsEvading(Mobile m)
 		{

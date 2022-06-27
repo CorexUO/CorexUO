@@ -32,7 +32,7 @@ namespace Server.Ethics.Evil
 				return;
 			}
 
-			UnholyFamiliar familiar = new UnholyFamiliar();
+			UnholyFamiliar familiar = new();
 
 			if (Mobiles.BaseCreature.Summon(familiar, from.Mobile, from.Mobile.Location, 0x217, TimeSpan.FromHours(1.0)))
 			{

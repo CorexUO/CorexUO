@@ -34,7 +34,7 @@ namespace Server.Engines.Quests.Necro
 			return false;
 		}
 
-		private static readonly Rectangle2D m_WellOfTearsArea = new Rectangle2D(2080, 1346, 10, 10);
+		private static readonly Rectangle2D m_WellOfTearsArea = new(2080, 1346, 10, 10);
 		private static readonly Map m_WellOfTearsMap = Map.Malas;
 
 		public override void OnDoubleClick(Mobile from)
@@ -124,8 +124,8 @@ namespace Server.Engines.Quests.Necro
 						int y = baseY + Utility.Random(height);
 						int z = map.GetAverageZ(x, y);
 
-						Point3D from = new Point3D(x, y, z + Utility.RandomMinMax(5, 20));
-						Point3D to = new Point3D(x, y, z);
+						Point3D from = new(x, y, z + Utility.RandomMinMax(5, 20));
+						Point3D to = new(x, y, z);
 
 						int hue = Utility.RandomList(0x481, 0x482, 0x489, 0x497, 0x66D);
 

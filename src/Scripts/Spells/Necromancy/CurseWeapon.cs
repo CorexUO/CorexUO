@@ -6,7 +6,7 @@ namespace Server.Spells.Necromancy
 {
 	public class CurseWeaponSpell : NecromancerSpell
 	{
-		private static readonly SpellInfo m_Info = new SpellInfo(
+		private static readonly SpellInfo m_Info = new(
 				"Curse Weapon", "An Sanct Gra Char",
 				203,
 				9031,
@@ -65,7 +65,7 @@ namespace Server.Spells.Necromancy
 			FinishSequence();
 		}
 
-		private static readonly Hashtable m_Table = new Hashtable();
+		private static readonly Hashtable m_Table = new();
 
 		private class ExpireTimer : Timer
 		{

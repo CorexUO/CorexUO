@@ -42,37 +42,37 @@ namespace Server.Mobiles
 			Fame = 10000;
 			Karma = -10000;
 
-			LeatherGloves gloves = new LeatherGloves
+			LeatherGloves gloves = new()
 			{
 				Hue = 0x66D
 			};
 			AddItem(gloves);
 
-			BoneHelm helm = new BoneHelm
+			BoneHelm helm = new()
 			{
 				Hue = 0x835
 			};
 			AddItem(helm);
 
-			Necklace necklace = new Necklace
+			Necklace necklace = new()
 			{
 				Hue = 0x66D
 			};
 			AddItem(necklace);
 
-			Cloak cloak = new Cloak
+			Cloak cloak = new()
 			{
 				Hue = 0x66D
 			};
 			AddItem(cloak);
 
-			Kilt kilt = new Kilt
+			Kilt kilt = new()
 			{
 				Hue = 0x66D
 			};
 			AddItem(kilt);
 
-			Sandals sandals = new Sandals
+			Sandals sandals = new()
 			{
 				Hue = 0x66D
 			};
@@ -108,7 +108,7 @@ namespace Server.Mobiles
 
 		public override bool OnBeforeDeath()
 		{
-			BoneMagi rm = new BoneMagi
+			BoneMagi rm = new()
 			{
 				Team = Team,
 				Combatant = Combatant,
@@ -117,7 +117,7 @@ namespace Server.Mobiles
 
 			if (rm.Backpack == null)
 			{
-				Backpack pack = new Backpack
+				Backpack pack = new()
 				{
 					Movable = false
 				};

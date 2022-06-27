@@ -61,7 +61,7 @@ namespace Server.Items
 					m.Mount.Rider = null;
 				}
 
-				Point3D p = new Point3D(Location);
+				Point3D p = new(Location);
 
 				if (SpellHelper.FindValidSpawnLocation(Map, ref p, true))
 				{

@@ -7,7 +7,7 @@ namespace Server.Spells.Mysticism
 {
 	public class HailStormSpell : MysticSpell
 	{
-		private static readonly SpellInfo m_Info = new SpellInfo(
+		private static readonly SpellInfo m_Info = new(
 				"Hail Storm", "Kal Des Ylem",
 				-1,
 				9002,
@@ -46,7 +46,7 @@ namespace Server.Spells.Mysticism
 				if (p is Item)
 					p = ((Item)p).GetWorldLocation();
 
-				List<Mobile> targets = new List<Mobile>();
+				List<Mobile> targets = new();
 
 				Map map = Caster.Map;
 

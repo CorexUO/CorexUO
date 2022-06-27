@@ -7,17 +7,17 @@ namespace Server.Engines.MLQuests.Rewards
 {
 	public class ItemReward : BaseReward
 	{
-		public static readonly ItemReward SmallBagOfTrinkets = new ItemReward(1072268, typeof(SmallBagOfTrinkets)); // A small bag of trinkets.
-		public static readonly ItemReward BagOfTrinkets = new ItemReward(1072341, typeof(BagOfTrinkets)); // A bag of trinkets.
-		public static readonly ItemReward BagOfTreasure = new ItemReward(1072583, typeof(BagOfTreasure)); // A bag of treasure.
-		public static readonly ItemReward LargeBagOfTreasure = new ItemReward(1072706, typeof(LargeBagOfTreasure)); // A large bag of treasure.
-		public static readonly ItemReward Strongbox = new ItemReward(1072584, typeof(RewardStrongbox)); // A strongbox.
+		public static readonly ItemReward SmallBagOfTrinkets = new(1072268, typeof(SmallBagOfTrinkets)); // A small bag of trinkets.
+		public static readonly ItemReward BagOfTrinkets = new(1072341, typeof(BagOfTrinkets)); // A bag of trinkets.
+		public static readonly ItemReward BagOfTreasure = new(1072583, typeof(BagOfTreasure)); // A bag of treasure.
+		public static readonly ItemReward LargeBagOfTreasure = new(1072706, typeof(LargeBagOfTreasure)); // A large bag of treasure.
+		public static readonly ItemReward Strongbox = new(1072584, typeof(RewardStrongbox)); // A strongbox.
 
-		public static readonly ItemReward TailorSatchel = new ItemReward(1074282, typeof(TailorSatchel)); // Craftsman's Satchel
-		public static readonly ItemReward BlacksmithSatchel = new ItemReward(1074282, typeof(BlacksmithSatchel)); // Craftsman's Satchel
-		public static readonly ItemReward FletchingSatchel = new ItemReward(1074282, typeof(FletchingSatchel)); // Craftsman's Satchel
-		public static readonly ItemReward CarpentrySatchel = new ItemReward(1074282, typeof(CarpentrySatchel)); // Craftsman's Satchel
-		public static readonly ItemReward TinkerSatchel = new ItemReward(1074282, typeof(TinkerSatchel)); // Craftsman's Satchel
+		public static readonly ItemReward TailorSatchel = new(1074282, typeof(TailorSatchel)); // Craftsman's Satchel
+		public static readonly ItemReward BlacksmithSatchel = new(1074282, typeof(BlacksmithSatchel)); // Craftsman's Satchel
+		public static readonly ItemReward FletchingSatchel = new(1074282, typeof(FletchingSatchel)); // Craftsman's Satchel
+		public static readonly ItemReward CarpentrySatchel = new(1074282, typeof(CarpentrySatchel)); // Craftsman's Satchel
+		public static readonly ItemReward TinkerSatchel = new(1074282, typeof(TinkerSatchel)); // Craftsman's Satchel
 
 		private readonly Type m_Type;
 		private readonly int m_Amount;

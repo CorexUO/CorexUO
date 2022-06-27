@@ -51,7 +51,7 @@ namespace Server.Factions
 			if (pack == null)
 				return;
 
-			FactionWarHorse horse = new FactionWarHorse(m_Faction);
+			FactionWarHorse horse = new(m_Faction);
 
 			if ((m_From.Followers + horse.ControlSlots) > m_From.FollowersMax)
 			{

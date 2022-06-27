@@ -5,7 +5,7 @@ namespace Server.Spells.Second
 {
 	public class RemoveTrapSpell : MagerySpell
 	{
-		private static readonly SpellInfo m_Info = new SpellInfo(
+		private static readonly SpellInfo m_Info = new(
 				"Remove Trap", "An Jux",
 				212,
 				9001,

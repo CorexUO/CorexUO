@@ -27,7 +27,7 @@ namespace Server.Commands.Generic
 
 				Region reg = from.Region;
 
-				ArrayList list = new ArrayList();
+				ArrayList list = new();
 
 				if (mobiles)
 				{

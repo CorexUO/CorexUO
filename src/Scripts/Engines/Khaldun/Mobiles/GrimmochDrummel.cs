@@ -19,7 +19,7 @@ namespace Server.Mobiles
 
 			HairItemID = 0x204A;    //Krisna
 
-			Bow bow = new Bow
+			Bow bow = new()
 			{
 				Movable = false
 			};
@@ -28,14 +28,14 @@ namespace Server.Mobiles
 			AddItem(new Boots(0x8A4));
 			AddItem(new BodySash(0x8A4));
 
-			Backpack backpack = new Backpack
+			Backpack backpack = new()
 			{
 				Movable = false
 			};
 			AddItem(backpack);
 
-			LeatherGloves gloves = new LeatherGloves();
-			LeatherChest chest = new LeatherChest();
+			LeatherGloves gloves = new();
+			LeatherChest chest = new();
 			gloves.Hue = 0x96F;
 			chest.Hue = 0x96F;
 
@@ -97,7 +97,7 @@ namespace Server.Mobiles
 
 		public override bool OnBeforeDeath()
 		{
-			Gold gold = new Gold(Utility.RandomMinMax(190, 230));
+			Gold gold = new(Utility.RandomMinMax(190, 230));
 			gold.MoveToWorld(Location, Map);
 
 			Container pack = Backpack;

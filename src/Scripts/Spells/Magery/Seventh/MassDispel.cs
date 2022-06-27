@@ -7,7 +7,7 @@ namespace Server.Spells.Seventh
 {
 	public class MassDispelSpell : MagerySpell
 	{
-		private static readonly SpellInfo m_Info = new SpellInfo(
+		private static readonly SpellInfo m_Info = new(
 				"Mass Dispel", "Vas An Ort",
 				263,
 				9002,
@@ -50,7 +50,7 @@ namespace Server.Spells.Seventh
 
 				SpellHelper.GetSurfaceTop(ref p);
 
-				List<Mobile> targets = new List<Mobile>();
+				List<Mobile> targets = new();
 
 				Map map = Caster.Map;
 

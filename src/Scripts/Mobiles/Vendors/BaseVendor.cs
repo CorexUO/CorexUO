@@ -27,8 +27,8 @@ namespace Server.Mobiles
 
 		protected abstract List<SBInfo> SBInfos { get; }
 
-		private readonly ArrayList m_ArmorBuyInfo = new ArrayList();
-		private readonly ArrayList m_ArmorSellInfo = new ArrayList();
+		private readonly ArrayList m_ArmorBuyInfo = new();
+		private readonly ArrayList m_ArmorSellInfo = new();
 		private DateTime m_NextTrickOrTreat;
 
 		public override bool CanTeach => true;
@@ -653,7 +653,7 @@ namespace Server.Mobiles
 			{
 				IShopSellInfo[] info = GetSellInfo();
 
-				Dictionary<Item, SellItemState> table = new Dictionary<Item, SellItemState>();
+				Dictionary<Item, SellItemState> table = new();
 
 				foreach (IShopSellInfo ssi in info)
 				{
@@ -876,7 +876,7 @@ namespace Server.Mobiles
 			_ = GetBuyInfo();
 			IShopSellInfo[] info = GetSellInfo();
 			int totalCost = 0;
-			List<BuyItemResponse> validBuy = new List<BuyItemResponse>(list.Count);
+			List<BuyItemResponse> validBuy = new(list.Count);
 			Container cont;
 			bool fromBank = false;
 			bool fullPurchase = true;

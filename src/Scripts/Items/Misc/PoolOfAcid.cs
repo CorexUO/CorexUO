@@ -58,7 +58,7 @@ namespace Server.Items
 					ItemID = 0x122B;
 				}
 
-				List<Mobile> toDamage = new List<Mobile>();
+				List<Mobile> toDamage = new();
 
 				foreach (Mobile m in GetMobilesInRange(0))
 				{

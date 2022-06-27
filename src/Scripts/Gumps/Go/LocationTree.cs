@@ -19,7 +19,7 @@ namespace Server.Gumps
 
 			if (File.Exists(path))
 			{
-				XmlTextReader xml = new XmlTextReader(new StreamReader(path))
+				XmlTextReader xml = new(new StreamReader(path))
 				{
 					WhitespaceHandling = WhitespaceHandling.None
 				};

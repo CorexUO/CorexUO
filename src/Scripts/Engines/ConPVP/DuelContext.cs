@@ -519,7 +519,7 @@ namespace Server.Engines.ConPVP
 			if (corpse == null)
 				return;
 
-			List<Item> items = new List<Item>(corpse.Items);
+			List<Item> items = new(corpse.Items);
 
 			bool gathered = false;
 			bool didntFit = false;
@@ -778,7 +778,7 @@ namespace Server.Engines.ConPVP
 
 		public void QueryRematch()
 		{
-			DuelContext dc = new DuelContext(Initiator, Ruleset.Layout, false)
+			DuelContext dc = new(Initiator, Ruleset.Layout, false)
 			{
 				Ruleset = Ruleset,
 				Rematch = true
@@ -789,7 +789,7 @@ namespace Server.Engines.ConPVP
 			for (int i = 0; i < Participants.Count; ++i)
 			{
 				Participant oldPart = (Participant)Participants[i];
-				Participant newPart = new Participant(dc, oldPart.Players.Length);
+				Participant newPart = new(dc, oldPart.Players.Length);
 
 				for (int j = 0; j < oldPart.Players.Length; ++j)
 				{
@@ -1040,7 +1040,7 @@ namespace Server.Engines.ConPVP
 
 			StopSDTimers();
 
-			ArrayList remaining = new ArrayList();
+			ArrayList remaining = new();
 
 			for (int i = 0; i < Participants.Count; ++i)
 			{
@@ -1751,7 +1751,7 @@ namespace Server.Engines.ConPVP
 			}
 		}
 
-		private readonly ArrayList m_Walls = new ArrayList();
+		private readonly ArrayList m_Walls = new();
 
 		public void DestroyWall()
 		{
@@ -1789,9 +1789,9 @@ namespace Server.Engines.ConPVP
 
 			for (int i = -1; i <= 1; ++i)
 			{
-				Point3D loc = new Point3D(eastToWest ? wall.X + i : wall.X, eastToWest ? wall.Y : wall.Y + i, wall.Z);
+				Point3D loc = new(eastToWest ? wall.X + i : wall.X, eastToWest ? wall.Y : wall.Y + i, wall.Z);
 
-				InternalWall created = new InternalWall();
+				InternalWall created = new();
 
 				created.Appear(loc, Arena.Facet);
 
@@ -1807,7 +1807,7 @@ namespace Server.Engines.ConPVP
 
 				if (p.Players.Length > 1)
 				{
-					ArrayList players = new ArrayList();
+					ArrayList players = new();
 
 					for (int j = 0; j < p.Players.Length; ++j)
 					{
@@ -2045,7 +2045,7 @@ namespace Server.Engines.ConPVP
 			}
 		}
 
-		private readonly ArrayList m_Entered = new ArrayList();
+		private readonly ArrayList m_Entered = new();
 
 		private class ReturnEntry
 		{
@@ -2449,7 +2449,7 @@ namespace Server.Engines.ConPVP
 
 				ReadyWait = false;
 
-				List<Mobile> players = new List<Mobile>();
+				List<Mobile> players = new();
 
 				for (int i = 0; i < Participants.Count; ++i)
 				{
@@ -2511,7 +2511,7 @@ namespace Server.Engines.ConPVP
 						tp.MoveToWorld(arena.GateOut == Point3D.Zero ? arena.Outside : arena.GateOut, arena.Facet);
 					}
 
-					ArenaMoongate mg = new ArenaMoongate(arena.GateIn == Point3D.Zero ? arena.Outside : arena.GateIn, arena.Facet, tp);
+					ArenaMoongate mg = new(arena.GateIn == Point3D.Zero ? arena.Outside : arena.GateIn, arena.Facet, tp);
 
 					StartedBeginCountdown = true;
 

@@ -97,7 +97,7 @@ namespace Server.Items
 					}
 				default:
 					{
-						Golem g = new Golem(true, scalar);
+						Golem g = new(true, scalar);
 
 						if (g.SetControlMaster(from))
 						{

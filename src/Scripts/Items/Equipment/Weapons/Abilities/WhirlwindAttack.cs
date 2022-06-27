@@ -38,12 +38,12 @@ namespace Server.Items
 			attacker.FixedEffect(0x3728, 10, 15);
 			attacker.PlaySound(0x2A1);
 
-			ArrayList list = new ArrayList();
+			ArrayList list = new();
 
 			foreach (Mobile m in attacker.GetMobilesInRange(1))
 				list.Add(m);
 
-			ArrayList targets = new ArrayList();
+			ArrayList targets = new();
 
 			for (int i = 0; i < list.Count; ++i)
 			{

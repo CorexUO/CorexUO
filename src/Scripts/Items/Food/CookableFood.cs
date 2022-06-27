@@ -105,7 +105,7 @@ namespace Server.Items
 
 						m_Item.Consume();
 
-						InternalTimer t = new InternalTimer(from, targeted as IPoint3D, from.Map, m_Item);
+						InternalTimer t = new(from, targeted as IPoint3D, from.Map, m_Item);
 						t.Start();
 					}
 					else

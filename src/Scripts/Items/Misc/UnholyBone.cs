@@ -31,7 +31,7 @@ namespace Server.Items
 				else
 					from.SendMessage("You destroy the bone pile.");
 
-				Gold gold = new Gold(25, 100);
+				Gold gold = new(25, 100);
 
 				gold.MoveToWorld(GetWorldLocation(), Map);
 

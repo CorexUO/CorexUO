@@ -157,7 +157,7 @@ namespace Server.Items
 		{
 			get
 			{
-				AnkhOfSacrificeDeed deed = new AnkhOfSacrificeDeed
+				AnkhOfSacrificeDeed deed = new()
 				{
 					IsRewardItem = m_IsRewardItem
 				};
@@ -235,7 +235,7 @@ namespace Server.Items
 		{
 			get
 			{
-				AnkhOfSacrificeAddon addon = new AnkhOfSacrificeAddon(m_East)
+				AnkhOfSacrificeAddon addon = new(m_East)
 				{
 					IsRewardItem = m_IsRewardItem
 				};

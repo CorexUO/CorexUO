@@ -207,7 +207,7 @@ namespace Server.Mobiles
 
 				m_Timer.StartDissolving();
 
-				PlagueBeastBackpack pack = new PlagueBeastBackpack();
+				PlagueBeastBackpack pack = new();
 				AddItem(pack);
 				pack.Initialize();
 

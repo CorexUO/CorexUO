@@ -6,7 +6,7 @@ namespace Server.Spells.Chivalry
 {
 	public class EnemyOfOneSpell : PaladinSpell
 	{
-		private static readonly SpellInfo m_Info = new SpellInfo(
+		private static readonly SpellInfo m_Info = new(
 				"Enemy of One", "Forul Solum",
 				-1,
 				9002
@@ -60,7 +60,7 @@ namespace Server.Spells.Chivalry
 			FinishSequence();
 		}
 
-		private static readonly Hashtable m_Table = new Hashtable();
+		private static readonly Hashtable m_Table = new();
 
 		private static void Expire_Callback(object state)
 		{

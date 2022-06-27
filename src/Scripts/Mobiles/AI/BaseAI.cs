@@ -1922,7 +1922,7 @@ namespace Server.Mobiles
 
 			if (double.IsNaN(delay))
 			{
-				using (StreamWriter op = new StreamWriter("nan_transform.txt", true))
+				using (StreamWriter op = new("nan_transform.txt", true))
 				{
 					op.WriteLine(string.Format("NaN in TransformMoveDelay: {0}, {1}, {2}, {3}", DateTime.UtcNow, GetType().ToString(), m_Mobile == null ? "null" : m_Mobile.GetType().ToString(), m_Mobile.HitsMax));
 				}
@@ -1952,7 +1952,7 @@ namespace Server.Mobiles
 			return (res == MoveResult.Success || res == MoveResult.SuccessAutoTurn || (badStateOk && res == MoveResult.BadState));
 		}
 
-		private static readonly Queue<Item> m_Obstacles = new Queue<Item>();
+		private static readonly Queue<Item> m_Obstacles = new();
 
 		public virtual MoveResult DoMoveImpl(Direction d)
 		{

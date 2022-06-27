@@ -246,7 +246,7 @@ namespace Server.Engines.Plants
 						}
 						else
 						{
-							Seed seed = new Seed(system.SeedType, system.SeedHue, true);
+							Seed seed = new(system.SeedType, system.SeedHue, true);
 
 							if (from.PlaceInBackpack(seed))
 							{

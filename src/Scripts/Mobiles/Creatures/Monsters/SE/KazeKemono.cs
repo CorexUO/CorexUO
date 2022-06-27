@@ -77,7 +77,7 @@ namespace Server.Mobiles
 
 				int effect = -(defender.PhysicalResistance * 15 / 100);
 
-				ResistanceMod mod = new ResistanceMod(ResistanceType.Physical, effect);
+				ResistanceMod mod = new(ResistanceType.Physical, effect);
 
 				defender.FixedEffect(0x37B9, 10, 5);
 				defender.AddResistanceMod(mod);
@@ -107,7 +107,7 @@ namespace Server.Mobiles
 
 				int effect = -(defender.EnergyResistance / 2);
 
-				ResistanceMod mod = new ResistanceMod(ResistanceType.Energy, effect);
+				ResistanceMod mod = new(ResistanceType.Energy, effect);
 
 				defender.FixedEffect(0x37B9, 10, 5);
 				defender.AddResistanceMod(mod);
@@ -118,8 +118,8 @@ namespace Server.Mobiles
 			}
 		}
 
-		private static readonly Hashtable m_FlurryOfTwigsTable = new Hashtable();
-		private static readonly Hashtable m_ChlorophylBlastTable = new Hashtable();
+		private static readonly Hashtable m_FlurryOfTwigsTable = new();
+		private static readonly Hashtable m_ChlorophylBlastTable = new();
 
 		private class ExpireTimer : Timer
 		{

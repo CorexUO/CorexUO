@@ -5,7 +5,7 @@ namespace Server.Spells.Spellweaving
 {
 	public class WordOfDeathSpell : ArcanistSpell
 	{
-		private static readonly SpellInfo m_Info = new SpellInfo("Word of Death", "Nyraxle", -1);
+		private static readonly SpellInfo m_Info = new("Word of Death", "Nyraxle", -1);
 
 		public override TimeSpan CastDelayBase => TimeSpan.FromSeconds(3.5);
 

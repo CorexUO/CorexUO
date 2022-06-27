@@ -12,7 +12,7 @@ namespace Server.Spells.Mysticism
 			EventSink.OnMobileDeath += OnPlayerDeath;
 		}
 
-		private static readonly SpellInfo m_Info = new SpellInfo(
+		private static readonly SpellInfo m_Info = new(
 				"Spell Plague", "Vas Rel Jux Ort",
 				-1,
 				9002,
@@ -68,7 +68,7 @@ namespace Server.Spells.Mysticism
 
 				SpellHelper.Damage(this, targeted, damage, 0, types[0], types[1], types[2], types[3]);
 
-				SpellPlagueContext context = new SpellPlagueContext(this, targeted);
+				SpellPlagueContext context = new(this, targeted);
 
 				if (m_Table.ContainsKey(targeted))
 				{
@@ -115,7 +115,7 @@ namespace Server.Spells.Mysticism
 			RemoveEffect(m);
 		}
 
-		private static readonly Dictionary<Mobile, SpellPlagueContext> m_Table = new Dictionary<Mobile, SpellPlagueContext>();
+		private static readonly Dictionary<Mobile, SpellPlagueContext> m_Table = new();
 
 		protected void VisualEffect(Mobile to)
 		{

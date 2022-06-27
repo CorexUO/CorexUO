@@ -126,7 +126,7 @@ namespace Server.Items
 			if (pm == null)
 				return;
 
-			ContextMenuEntry miningEntry = new ContextMenuEntry(pm.ToggleMiningStone ? 6179 : 6178)
+			ContextMenuEntry miningEntry = new(pm.ToggleMiningStone ? 6179 : 6178)
 			{
 				Color = 0x421F
 			};

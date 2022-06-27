@@ -278,7 +278,7 @@ namespace Server.Items
 		{
 			get
 			{
-				StringBuilder sb = new StringBuilder();
+				StringBuilder sb = new();
 
 				foreach (BookPageInfo bpi in Pages)
 				{
@@ -296,7 +296,7 @@ namespace Server.Items
 		{
 			get
 			{
-				List<string> lines = new List<string>();
+				List<string> lines = new();
 
 				foreach (BookPageInfo bpi in Pages)
 				{

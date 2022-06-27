@@ -86,7 +86,7 @@ namespace Server.Engines.Reports
 
 			string filePath = Path.Combine(m_OutputDirectory, "upload.ftp");
 
-			using (StreamWriter op = new StreamWriter(filePath))
+			using (StreamWriter op = new(filePath))
 			{
 				op.WriteLine("open \"{0}\"", FtpHost);
 				op.WriteLine(FtpUsername);
@@ -100,7 +100,7 @@ namespace Server.Engines.Reports
 				op.Write("quit");
 			}
 
-			ProcessStartInfo psi = new ProcessStartInfo
+			ProcessStartInfo psi = new()
 			{
 				FileName = "ftp",
 				Arguments = string.Format("-i -s:\"{0}\"", filePath),
@@ -130,14 +130,14 @@ namespace Server.Engines.Reports
 		{
 			string filePath = Path.Combine(m_OutputDirectory, "reports.html");
 
-			using (StreamWriter op = new StreamWriter(filePath))
+			using (StreamWriter op = new(filePath))
 			{
-				XmlWriterSettings settings = new XmlWriterSettings
+				XmlWriterSettings settings = new()
 				{
 					Indent = true
 				};
-				using (XmlWriter html = XmlWriter.Create(op, settings))
-					RenderFull(html);
+				using XmlWriter html = XmlWriter.Create(op, settings);
+				RenderFull(html);
 			}
 
 			string cssPath = Path.Combine(m_OutputDirectory, "styles.css");
@@ -145,18 +145,16 @@ namespace Server.Engines.Reports
 			if (File.Exists(cssPath))
 				return;
 
-			using (StreamWriter css = new StreamWriter(cssPath))
-			{
-				css.WriteLine("body { background-color: #FFFFFF; font-family: verdana, arial; font-size: 11px; }");
-				css.WriteLine("a { color: #28435E; }");
-				css.WriteLine("a:hover { color: #4878A9; }");
-				css.WriteLine("td.header { background-color: #9696AA; font-weight: bold; font-size: 12px; }");
-				css.WriteLine("td.lentry { background-color: #D7D7EB; width: 10%; }");
-				css.WriteLine("td.rentry { background-color: #FFFFFF; width: 90%; }");
-				css.WriteLine("td.entry { background-color: #FFFFFF; }");
-				css.WriteLine("td { font-size: 11px; }");
-				css.Write(".tbl-border { background-color: #46465A; }");
-			}
+			using StreamWriter css = new(cssPath);
+			css.WriteLine("body { background-color: #FFFFFF; font-family: verdana, arial; font-size: 11px; }");
+			css.WriteLine("a { color: #28435E; }");
+			css.WriteLine("a:hover { color: #4878A9; }");
+			css.WriteLine("td.header { background-color: #9696AA; font-weight: bold; font-size: 12px; }");
+			css.WriteLine("td.lentry { background-color: #D7D7EB; width: 10%; }");
+			css.WriteLine("td.rentry { background-color: #FFFFFF; width: 90%; }");
+			css.WriteLine("td.entry { background-color: #FFFFFF; }");
+			css.WriteLine("td { font-size: 11px; }");
+			css.Write(".tbl-border { background-color: #46465A; }");
 		}
 
 		private const string ShardTitle = "Shard";
@@ -210,15 +208,13 @@ namespace Server.Engines.Reports
 		{
 			string filePath = Path.Combine(m_OutputDirectory, SafeFileName(FindNameFrom(obj)) + ".html");
 
-			using (StreamWriter op = new StreamWriter(filePath))
+			using StreamWriter op = new(filePath);
+			XmlWriterSettings settings = new()
 			{
-				XmlWriterSettings settings = new XmlWriterSettings
-				{
-					Indent = true
-				};
-				using (XmlWriter html = XmlWriter.Create(op, settings))
-					RenderSingle(obj, html);
-			}
+				Indent = true
+			};
+			using XmlWriter html = XmlWriter.Create(op, settings);
+			RenderSingle(obj, html);
 		}
 
 		private string FindNameFrom(PersistableObject obj)
@@ -281,7 +277,7 @@ namespace Server.Engines.Reports
 
 		private void RenderPieChart(PieChart chart, XmlWriter html)
 		{
-			PieChartRenderer pieChart = new PieChartRenderer(Color.White)
+			PieChartRenderer pieChart = new(Color.White)
 			{
 				ShowPercents = chart.ShowPercents
 			};
@@ -366,7 +362,7 @@ namespace Server.Engines.Reports
 
 		private void RenderBarGraph(BarGraph graph, XmlWriter html)
 		{
-			BarGraphRenderer barGraph = new BarGraphRenderer(Color.White)
+			BarGraphRenderer barGraph = new(Color.White)
 			{
 				RenderMode = graph.RenderMode,
 

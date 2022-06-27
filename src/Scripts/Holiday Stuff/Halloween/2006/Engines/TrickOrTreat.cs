@@ -154,7 +154,7 @@ namespace Server.Engines.Events
 
 		public static void MakeTwin(Mobile m_From)
 		{
-			List<Item> m_Items = new List<Item>();
+			List<Item> m_Items = new();
 
 			if (CheckMobile(m_From))
 			{
@@ -209,7 +209,7 @@ namespace Server.Engines.Events
 
 		public static Point3D RandomPointOneAway(int x, int y, int z, Map map)
 		{
-			Point3D loc = new Point3D(x + Utility.Random(-1, 3), y + Utility.Random(-1, 3), 0);
+			Point3D loc = new(x + Utility.Random(-1, 3), y + Utility.Random(-1, 3), 0);
 
 			loc.Z = (map.CanFit(loc, 0)) ? map.GetAverageZ(loc.X, loc.Y) : z;
 

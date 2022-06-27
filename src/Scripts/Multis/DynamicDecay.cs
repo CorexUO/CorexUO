@@ -23,7 +23,7 @@ namespace Server.Multis
 
 		public static void Register(DecayLevel level, TimeSpan min, TimeSpan max)
 		{
-			DecayStageInfo info = new DecayStageInfo(min, max);
+			DecayStageInfo info = new(min, max);
 
 			if (m_Stages.ContainsKey(level))
 				m_Stages[level] = info;

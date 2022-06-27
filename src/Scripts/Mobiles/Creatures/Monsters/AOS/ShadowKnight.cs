@@ -135,7 +135,7 @@ namespace Server.Mobiles
 							continue;
 
 						Point3D from = Location;
-						Point3D to = new Point3D(x, y, z);
+						Point3D to = new(x, y, z);
 
 						if (!InLOS(to))
 							continue;

@@ -165,7 +165,7 @@ namespace Server.Commands
 						}
 					}
 
-					MarkContainer mc = new MarkContainer(bone, locked)
+					MarkContainer mc = new(bone, locked)
 					{
 						TargetMap = map,
 						Description = "strange location"
@@ -228,7 +228,7 @@ namespace Server.Commands
 						}
 					}
 
-					HintItem hi = new HintItem(m_ItemID, range, messageNumber, hintNumber)
+					HintItem hi = new(m_ItemID, range, messageNumber, hintNumber)
 					{
 						WarningString = messageString,
 						HintString = hintString,
@@ -276,7 +276,7 @@ namespace Server.Commands
 						}
 					}
 
-					WarningItem wi = new WarningItem(m_ItemID, range, messageNumber)
+					WarningItem wi = new(m_ItemID, range, messageNumber)
 					{
 						WarningString = messageString,
 						ResetDelay = resetDelay
@@ -304,7 +304,7 @@ namespace Server.Commands
 				else if (m_Type == typeofSerpentPillar)
 				{
 					string word = null;
-					Rectangle2D destination = new Rectangle2D();
+					Rectangle2D destination = new();
 
 					for (int i = 0; i < m_Params.Length; ++i)
 					{
@@ -860,7 +860,7 @@ namespace Server.Commands
 			return item;
 		}
 
-		private static readonly Queue m_DeleteQueue = new Queue();
+		private static readonly Queue m_DeleteQueue = new();
 
 		private static bool FindItem(int x, int y, int z, Map map, Item srcItem)
 		{
@@ -1032,15 +1032,13 @@ namespace Server.Commands
 
 		public static ArrayList ReadAll(string path)
 		{
-			using (StreamReader ip = new StreamReader(path))
-			{
-				ArrayList list = new ArrayList();
+			using StreamReader ip = new(path);
+			ArrayList list = new();
 
-				for (DecorationListMag v = Read(ip); v != null; v = Read(ip))
-					list.Add(v);
+			for (DecorationListMag v = Read(ip); v != null; v = Read(ip))
+				list.Add(v);
 
-				return list;
-			}
+			return list;
 		}
 
 		private static readonly string[] m_EmptyParams = Array.Empty<string>();
@@ -1060,7 +1058,7 @@ namespace Server.Commands
 			if (string.IsNullOrEmpty(line))
 				return null;
 
-			DecorationListMag list = new DecorationListMag();
+			DecorationListMag list = new();
 
 			int indexOf = line.IndexOf(' ');
 

@@ -106,7 +106,7 @@ namespace Server.Engines.Mahjong
 
 		public ArrayList GetInGameMobiles(bool players, bool spectators)
 		{
-			ArrayList list = new ArrayList();
+			ArrayList list = new();
 
 			if (players)
 			{
@@ -443,7 +443,7 @@ namespace Server.Engines.Mahjong
 			if (mobiles.Count == 0)
 				return;
 
-			MahjongGeneralInfo generalInfo = new MahjongGeneralInfo(Game);
+			MahjongGeneralInfo generalInfo = new(Game);
 
 			generalInfo.Acquire();
 
@@ -478,7 +478,7 @@ namespace Server.Engines.Mahjong
 			if (mobiles.Count == 0)
 				return;
 
-			MahjongRelieve relieve = new MahjongRelieve(Game);
+			MahjongRelieve relieve = new(Game);
 
 			relieve.Acquire();
 

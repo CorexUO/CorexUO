@@ -50,7 +50,7 @@ namespace Server.Items
 
 			if (from != null && !from.Deleted && !Deleted && IsFull)
 			{
-				SackFlour flour = new SackFlour
+				SackFlour flour = new()
 				{
 					ItemID = (Utility.RandomBool() ? 4153 : 4165)
 				};

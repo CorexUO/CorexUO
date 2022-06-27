@@ -382,7 +382,7 @@ namespace Server.Items
 
 				if (i < m_Artifacts.Length)
 				{
-					StealableInstance si = new StealableInstance(Entries[i], item, nextRespawn);
+					StealableInstance si = new(Entries[i], item, nextRespawn);
 					m_Artifacts[i] = si;
 
 					if (si.Item != null)

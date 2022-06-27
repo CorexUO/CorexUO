@@ -61,7 +61,7 @@ namespace Server.Commands.Generic
 
 					Item[] found = cont.FindItemsByType(typeof(Item), true);
 
-					ArrayList list = new ArrayList();
+					ArrayList list = new();
 
 					for (int i = 0; i < found.Length; ++i)
 					{

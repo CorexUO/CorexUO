@@ -74,7 +74,7 @@ namespace Server.Multis
 			m_Mobiles.Add(m);
 
 			int zavg = Map.GetAverageZ(X + xOffset, Y + yOffset);
-			Point3D loc = new Point3D(X + xOffset, Y + yOffset, zavg + zOffset);
+			Point3D loc = new(X + xOffset, Y + yOffset, zavg + zOffset);
 
 			if (m is BaseCreature bc)
 			{

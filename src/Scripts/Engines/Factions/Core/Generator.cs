@@ -34,7 +34,7 @@ namespace Server.Factions
 
 			if (!CheckExistance(def.Monolith, facet, typeof(TownMonolith)))
 			{
-				TownMonolith mono = new TownMonolith(town);
+				TownMonolith mono = new(town);
 				mono.MoveToWorld(def.Monolith, facet);
 				mono.Sigil = new Sigil(town);
 			}

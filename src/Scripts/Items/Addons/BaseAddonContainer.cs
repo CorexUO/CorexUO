@@ -163,7 +163,7 @@ namespace Server.Items
 
 			foreach (AddonContainerComponent c in Components)
 			{
-				Point3D p3D = new Point3D(p.X + c.Offset.X, p.Y + c.Offset.Y, p.Z + c.Offset.Z);
+				Point3D p3D = new(p.X + c.Offset.X, p.Y + c.Offset.Y, p.Z + c.Offset.Z);
 
 				if (!map.CanFit(p3D.X, p3D.Y, p3D.Z, c.ItemData.Height, false, true, (c.Z == 0)))
 					return AddonFitResult.Blocked;
@@ -179,7 +179,7 @@ namespace Server.Items
 				}
 			}
 
-			Point3D p3 = new Point3D(p.X, p.Y, p.Z);
+			Point3D p3 = new(p.X, p.Y, p.Z);
 
 			if (!map.CanFit(p3.X, p3.Y, p3.Z, ItemData.Height, false, true, (Z == 0)))
 				return AddonFitResult.Blocked;
@@ -210,14 +210,14 @@ namespace Server.Items
 
 					foreach (AddonContainerComponent c in Components)
 					{
-						Point3D addonLoc = new Point3D(p.X + c.Offset.X, p.Y + c.Offset.Y, p.Z + c.Offset.Z);
+						Point3D addonLoc = new(p.X + c.Offset.X, p.Y + c.Offset.Y, p.Z + c.Offset.Z);
 						int addonHeight = c.ItemData.CalcHeight;
 
 						if (Utility.InRange(doorLoc, addonLoc, 1) && (addonLoc.Z == doorLoc.Z || ((addonLoc.Z + addonHeight) > doorLoc.Z && (doorLoc.Z + doorHeight) > addonLoc.Z)))
 							return AddonFitResult.DoorTooClose;
 					}
 
-					Point3D addonLo = new Point3D(p.X, p.Y, p.Z);
+					Point3D addonLo = new(p.X, p.Y, p.Z);
 					int addonHeigh = ItemData.CalcHeight;
 
 					if (Utility.InRange(doorLoc, addonLo, 1) && (addonLo.Z == doorLoc.Z || ((addonLo.Z + addonHeigh) > doorLoc.Z && (doorLoc.Z + doorHeight) > addonLo.Z)))

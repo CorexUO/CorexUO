@@ -7,7 +7,7 @@ namespace Server.Spells.Fourth
 {
 	public class ArchCureSpell : MagerySpell
 	{
-		private static readonly SpellInfo m_Info = new SpellInfo(
+		private static readonly SpellInfo m_Info = new(
 				"Arch Cure", "Vas An Nox",
 				215,
 				9061,
@@ -52,7 +52,7 @@ namespace Server.Spells.Fourth
 
 				SpellHelper.GetSurfaceTop(ref p);
 
-				List<Mobile> targets = new List<Mobile>();
+				List<Mobile> targets = new();
 
 				Map map = Caster.Map;
 				Mobile directTarget = p as Mobile;

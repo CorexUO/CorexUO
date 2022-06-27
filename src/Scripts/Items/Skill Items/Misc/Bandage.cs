@@ -185,7 +185,7 @@ namespace Server.Items
 			Timer = null;
 		}
 
-		private static readonly Dictionary<Mobile, BandageContext> m_Table = new Dictionary<Mobile, BandageContext>();
+		private static readonly Dictionary<Mobile, BandageContext> m_Table = new();
 
 		public static BandageContext GetContext(Mobile healer)
 		{

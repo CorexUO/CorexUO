@@ -204,7 +204,7 @@ namespace Server.Multis
 
 				if (itemID >= 0x181D && itemID < 0x1829)
 				{
-					HouseTeleporter tp = new HouseTeleporter(itemID);
+					HouseTeleporter tp = new(itemID);
 
 					AddFixture(tp, mte);
 				}
@@ -535,7 +535,7 @@ namespace Server.Multis
 		public MultiComponentList GetEmptyFoundation()
 		{
 			// Copy original foundation layout
-			MultiComponentList mcl = new MultiComponentList(MultiData.GetComponents(ItemID));
+			MultiComponentList mcl = new(MultiData.GetComponents(ItemID));
 
 			mcl.Resize(mcl.Width, mcl.Height + 1);
 
@@ -561,7 +561,7 @@ namespace Server.Multis
 			}
 		}
 
-		public override Point3D BaseBanLocation => new Point3D(Components.Min.X, Components.Height - 1 - Components.Center.Y, 0);
+		public override Point3D BaseBanLocation => new(Components.Min.X, Components.Height - 1 - Components.Center.Y, 0);
 
 		public void CheckSignpost()
 		{
@@ -804,7 +804,7 @@ namespace Server.Multis
 				 */
 
 				// Restore empty foundation : Construct new design state from empty foundation
-				DesignState newDesign = new DesignState(context.Foundation, context.Foundation.GetEmptyFoundation());
+				DesignState newDesign = new(context.Foundation, context.Foundation.GetEmptyFoundation());
 
 				// Restore empty foundation : Assign constructed state to foundation
 				context.Foundation.DesignState = newDesign;
@@ -834,7 +834,7 @@ namespace Server.Multis
 				 */
 
 				// Restore backup : Construct new design state from backup state
-				DesignState backupDesign = new DesignState(context.Foundation.BackupState);
+				DesignState backupDesign = new(context.Foundation.BackupState);
 
 				// Restore backup : Assign constructed state to foundation
 				context.Foundation.DesignState = backupDesign;
@@ -861,7 +861,7 @@ namespace Server.Multis
 				 */
 
 				// Construct a copy of the current design state
-				DesignState copyState = new DesignState(context.Foundation.DesignState);
+				DesignState copyState = new(context.Foundation.DesignState);
 
 				// Assign constructed state to backup state field
 				context.Foundation.BackupState = copyState;
@@ -886,7 +886,7 @@ namespace Server.Multis
 				 */
 
 				// Revert design state : Construct a copy of the current visible state
-				DesignState copyState = new DesignState(context.Foundation.CurrentState);
+				DesignState copyState = new(context.Foundation.CurrentState);
 
 				// Revert design state : Freeze fixtures in constructed state
 				copyState.FreezeFixtures();
@@ -959,7 +959,7 @@ namespace Server.Multis
 				 */
 
 			// Commit design state : Construct a copy of the current design state
-			DesignState copyState = new DesignState(DesignState);
+			DesignState copyState = new(DesignState);
 
 			// Commit design state : Clear visible fixtures
 			ClearFixtures(from);
@@ -1416,8 +1416,8 @@ namespace Server.Multis
 		{
 			try
 			{
-				using (StreamWriter op = new StreamWriter("comp_val.log", true))
-					op.WriteLine("{0}\t{1}\tInvalid ItemID 0x{2:X4}", state, state.Mobile, itemID);
+				using StreamWriter op = new("comp_val.log", true);
+				op.WriteLine("{0}\t{1}\tInvalid ItemID 0x{2:X4}", state, state.Mobile, itemID);
 			}
 			catch
 			{
@@ -1975,7 +1975,7 @@ namespace Server.Multis
 			if (from == null)
 				return;
 
-			DesignContext c = new DesignContext(foundation);
+			DesignContext c = new(foundation);
 
 			Table[from] = c;
 
@@ -2104,9 +2104,9 @@ namespace Server.Multis
 	{
 		public const int MaxItemsPerStairBuffer = 750;
 
-		private static readonly BufferPool m_PlaneBufferPool = new BufferPool("Housing Plane Buffers", 9, 0x400);
-		private static readonly BufferPool m_StairBufferPool = new BufferPool("Housing Stair Buffers", 6, MaxItemsPerStairBuffer * 5);
-		private static readonly BufferPool m_DeflatedBufferPool = new BufferPool("Housing Deflated Buffers", 1, 0x2000);
+		private static readonly BufferPool m_PlaneBufferPool = new("Housing Plane Buffers", 9, 0x400);
+		private static readonly BufferPool m_StairBufferPool = new("Housing Stair Buffers", 6, MaxItemsPerStairBuffer * 5);
+		private static readonly BufferPool m_DeflatedBufferPool = new("Housing Deflated Buffers", 1, 0x2000);
 
 		private readonly byte[][] m_PlaneBuffers;
 		private readonly byte[][] m_StairBuffers;
@@ -2450,8 +2450,8 @@ namespace Server.Multis
 
 						try
 						{
-							using (StreamWriter op = new StreamWriter("dsd_exceptions.txt", true))
-								op.WriteLine(e);
+							using StreamWriter op = new("dsd_exceptions.txt", true);
+							op.WriteLine(e);
 						}
 						catch
 						{

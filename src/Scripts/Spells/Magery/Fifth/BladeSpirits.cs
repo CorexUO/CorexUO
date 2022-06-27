@@ -6,7 +6,7 @@ namespace Server.Spells.Fifth
 {
 	public class BladeSpiritsSpell : MagerySpell
 	{
-		private static readonly SpellInfo m_Info = new SpellInfo(
+		private static readonly SpellInfo m_Info = new(
 				"Blade Spirits", "In Jux Hur Ylem",
 				266,
 				9040,

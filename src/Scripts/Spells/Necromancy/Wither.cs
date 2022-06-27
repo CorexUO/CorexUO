@@ -7,7 +7,7 @@ namespace Server.Spells.Necromancy
 {
 	public class WitherSpell : NecromancerSpell
 	{
-		private static readonly SpellInfo m_Info = new SpellInfo(
+		private static readonly SpellInfo m_Info = new(
 				"Wither", "Kal Vas An Flam",
 				203,
 				9031,
@@ -41,7 +41,7 @@ namespace Server.Spells.Necromancy
 
 				if (map != null)
 				{
-					List<Mobile> targets = new List<Mobile>();
+					List<Mobile> targets = new();
 
 					BaseCreature cbc = Caster as BaseCreature;
 					bool isMonster = (cbc != null && !cbc.Controlled && !cbc.Summoned);

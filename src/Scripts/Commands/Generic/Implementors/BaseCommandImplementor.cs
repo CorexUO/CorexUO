@@ -159,7 +159,7 @@ namespace Server.Commands.Generic
 
 			// NOTE: this does not preserve the case where quotation marks are used on a single word
 
-			StringBuilder sb = new StringBuilder();
+			StringBuilder sb = new();
 
 			for (int i = 0; i < args.Length; ++i)
 			{
@@ -185,7 +185,7 @@ namespace Server.Commands.Generic
 		{
 			//	try
 			//	{
-			CommandEventArgs e = new CommandEventArgs(from, command.Commands[0], GenerateArgString(args), args);
+			CommandEventArgs e = new(from, command.Commands[0], GenerateArgString(args), args);
 
 			if (!command.ValidateArgs(this, e))
 				return;
@@ -213,7 +213,7 @@ namespace Server.Commands.Generic
 			{
 				if (command.ListOptimized)
 				{
-					ArrayList list = new ArrayList
+					ArrayList list = new()
 					{
 						obj
 					};

@@ -29,7 +29,7 @@ namespace Server.Engines.Reports
 			};
 
 		// Represent collection of all data points for the chart
-		private ChartItemsCollection _dataPoints = new ChartItemsCollection();
+		private ChartItemsCollection _dataPoints = new();
 
 		// The implementation of this method is provided by derived classes
 		public abstract Bitmap Draw();

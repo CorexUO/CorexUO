@@ -241,7 +241,7 @@ namespace Server.Items
 				if (ip is Item)
 					ip = ((Item)ip).GetWorldTop();
 
-				Point3D p = new Point3D(ip);
+				Point3D p = new(ip);
 
 				Region reg = Region.Find(new Point3D(p), from.Map);
 
@@ -444,7 +444,7 @@ namespace Server.Items
 			if (!from.CheckAlive() || from.Backpack == null || from.Backpack.FindItemByType(typeof(HousePlacementTool)) == null)
 				return false;
 
-			Point3D center = new Point3D(p.X - m_Offset.X, p.Y - m_Offset.Y, p.Z - m_Offset.Z);
+			Point3D center = new(p.X - m_Offset.X, p.Y - m_Offset.Y, p.Z - m_Offset.Z);
 			HousePlacementResult res = HousePlacement.Check(from, MultiID, center, out ArrayList toMove);
 
 			switch (res)
@@ -459,11 +459,11 @@ namespace Server.Items
 						{
 							from.SendLocalizedMessage(1011576); // This is a valid location.
 
-							PreviewHouse prev = new PreviewHouse(MultiID);
+							PreviewHouse prev = new(MultiID);
 
 							MultiComponentList mcl = prev.Components;
 
-							Point3D banLoc = new Point3D(center.X + mcl.Min.X, center.Y + mcl.Max.Y + 1, center.Z);
+							Point3D banLoc = new(center.X + mcl.Min.X, center.Y + mcl.Max.Y + 1, center.Z);
 
 							for (int i = 0; i < mcl.List.Length; ++i)
 							{
@@ -601,7 +601,7 @@ namespace Server.Items
 				}
 				else if (obj is HousePlacementEntry)
 				{
-					ArrayList list = new ArrayList
+					ArrayList list = new()
 					{
 						obj,
 						e
@@ -615,7 +615,7 @@ namespace Server.Items
 
 					if (list.Count == 8)
 					{
-						Hashtable table = new Hashtable();
+						Hashtable table = new();
 
 						for (int j = 0; j < list.Count; ++j)
 							table[((HousePlacementEntry)list[j]).MultiID] = list[j];

@@ -38,7 +38,7 @@ namespace Server.Factions
 			int distrib = 0;
 			LastAtrophy = DateTime.UtcNow;
 
-			List<PlayerState> members = new List<PlayerState>(Members);
+			List<PlayerState> members = new(Members);
 
 			for (int i = 0; i < members.Count; ++i)
 			{
@@ -156,7 +156,7 @@ namespace Server.Factions
 
 						for (int i = 0; i < memberCount; ++i)
 						{
-							PlayerState pl = new PlayerState(reader, m_Faction, Members);
+							PlayerState pl = new(reader, m_Faction, Members);
 
 							if (pl.Mobile != null)
 								Members.Add(pl);
@@ -183,7 +183,7 @@ namespace Server.Factions
 
 						for (int i = 0; i < factionItemCount; ++i)
 						{
-							FactionItem factionItem = new FactionItem(reader, m_Faction);
+							FactionItem factionItem = new(reader, m_Faction);
 
 							Timer.DelayCall(TimeSpan.Zero, new TimerCallback(factionItem.CheckAttach)); // sandbox attachment
 						}

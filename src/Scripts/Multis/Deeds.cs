@@ -20,7 +20,7 @@ namespace Server.Multis.Deeds
 				if (ip is Item item)
 					ip = item.GetWorldTop();
 
-				Point3D p = new Point3D(ip);
+				Point3D p = new(ip);
 
 				Region reg = Region.Find(new Point3D(p), from.Map);
 
@@ -125,7 +125,7 @@ namespace Server.Multis.Deeds
 			}
 			else
 			{
-				Point3D center = new Point3D(p.X - Offset.X, p.Y - Offset.Y, p.Z - Offset.Z);
+				Point3D center = new(p.X - Offset.X, p.Y - Offset.Y, p.Z - Offset.Z);
 				HousePlacementResult res = HousePlacement.Check(from, MultiID, center, out ArrayList toMove);
 
 				switch (res)

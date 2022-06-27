@@ -287,12 +287,12 @@ namespace Server.Engines.VeteranRewards
 
 		public static void SetupRewardTables()
 		{
-			RewardCategory monsterStatues = new RewardCategory(1049750);
-			RewardCategory cloaksAndRobes = new RewardCategory(1049752);
-			RewardCategory etherealSteeds = new RewardCategory(1049751);
-			RewardCategory specialDyeTubs = new RewardCategory(1049753);
-			RewardCategory houseAddOns = new RewardCategory(1049754);
-			RewardCategory miscellaneous = new RewardCategory(1078596);
+			RewardCategory monsterStatues = new(1049750);
+			RewardCategory cloaksAndRobes = new(1049752);
+			RewardCategory etherealSteeds = new(1049751);
+			RewardCategory specialDyeTubs = new(1049753);
+			RewardCategory houseAddOns = new(1049754);
+			RewardCategory miscellaneous = new(1078596);
 
 			m_Categories = new RewardCategory[]
 				{

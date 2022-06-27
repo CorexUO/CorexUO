@@ -189,7 +189,7 @@ namespace Server.Items
 
 		public override bool DisplayWeight => false;
 
-		private static readonly List<HouseRaffleStone> m_AllStones = new List<HouseRaffleStone>();
+		private static readonly List<HouseRaffleStone> m_AllStones = new();
 
 		public static void CheckEnd_OnTick()
 		{
@@ -321,7 +321,7 @@ namespace Server.Items
 
 		public static string FormatLocation(Point3D loc, Map map, bool displayMap)
 		{
-			StringBuilder result = new StringBuilder();
+			StringBuilder result = new();
 
 			int xLong = 0, yLat = 0;
 			int xMins = 0, yMins = 0;
@@ -578,7 +578,7 @@ namespace Server.Items
 
 						for (int i = 0; i < entryCount; i++)
 						{
-							RaffleEntry entry = new RaffleEntry(reader, version);
+							RaffleEntry entry = new(reader, version);
 
 							if (entry.From == null)
 								continue; // Character was deleted

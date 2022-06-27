@@ -7,7 +7,7 @@ namespace Server.Engines.MLQuests.Items
 	{
 		public override int LabelNumber => 1074161;  // Access to Bedlam by invitation only
 
-		private static readonly Point3D PointDest = new Point3D(120, 1682, 0);
+		private static readonly Point3D PointDest = new(120, 1682, 0);
 		private static readonly Map MapDest = Map.Malas;
 
 		public BedlamTeleporter()

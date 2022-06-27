@@ -19,9 +19,9 @@ namespace Server.Mobiles
 
 			AddItem(new ShortPants(0x59C));
 
-			Bardiche bardiche = new Bardiche();
-			LeatherGloves gloves = new LeatherGloves();
-			LeatherArms arms = new LeatherArms();
+			Bardiche bardiche = new();
+			LeatherGloves gloves = new();
+			LeatherArms arms = new();
 
 			bardiche.Hue = 0x96F; bardiche.Movable = false;
 			gloves.Hue = 0x96F;
@@ -80,7 +80,7 @@ namespace Server.Mobiles
 
 		public override bool OnBeforeDeath()
 		{
-			Gold gold = new Gold(Utility.RandomMinMax(190, 230));
+			Gold gold = new(Utility.RandomMinMax(190, 230));
 			gold.MoveToWorld(Location, Map);
 
 			Effects.SendLocationEffect(Location, Map, 0x376A, 10, 1);

@@ -85,7 +85,7 @@ namespace Server.Engines.ConPVP
 
 			DDTeamInfo ourTeam = game.GetTeamInfo(mob);
 
-			List<IRankedCTF> entries = new List<IRankedCTF>();
+			List<IRankedCTF> entries = new();
 
 			if (section == null)
 			{
@@ -671,7 +671,7 @@ namespace Server.Engines.ConPVP
 
 		private void Finish_Callback()
 		{
-			List<DDTeamInfo> teams = new List<DDTeamInfo>();
+			List<DDTeamInfo> teams = new();
 
 			for (int i = 0; i < m_Context.Participants.Count; ++i)
 			{
@@ -688,7 +688,7 @@ namespace Server.Engines.ConPVP
 
 			Tournament tourny = m_Context.m_Tournament;
 
-			StringBuilder sb = new StringBuilder();
+			StringBuilder sb = new();
 
 			if (tourny != null && tourny.TournyType == TournyType.FreeForAll)
 			{

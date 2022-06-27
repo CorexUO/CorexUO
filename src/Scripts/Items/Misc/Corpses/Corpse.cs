@@ -176,8 +176,8 @@ namespace Server.Items
 			if (m_InstancedItems == null)
 				m_InstancedItems = new Dictionary<Item, InstancedItemInfo>();
 
-			List<Item> m_Stackables = new List<Item>();
-			List<Item> m_Unstackables = new List<Item>();
+			List<Item> m_Stackables = new();
+			List<Item> m_Unstackables = new();
 
 			for (int i = 0; i < Items.Count; i++)
 			{
@@ -192,7 +192,7 @@ namespace Server.Items
 				}
 			}
 
-			List<Mobile> attackers = new List<Mobile>(Aggressors);
+			List<Mobile> attackers = new(Aggressors);
 
 			for (int i = 1; i < attackers.Count - 1; i++)  //randomize
 			{
@@ -950,7 +950,7 @@ namespace Server.Items
 
 					if (RestoreEquip != null && pack != null)
 					{
-						List<Item> packItems = new List<Item>(pack.Items); // Only items in the top-level pack are re-equipped
+						List<Item> packItems = new(pack.Items); // Only items in the top-level pack are re-equipped
 
 						for (int i = 0; i < packItems.Count; i++)
 						{
@@ -961,7 +961,7 @@ namespace Server.Items
 						}
 					}
 
-					List<Item> items = new List<Item>(Items);
+					List<Item> items = new(Items);
 
 					bool didntFit = false;
 
@@ -1054,7 +1054,7 @@ namespace Server.Items
 
 						if (obj != null && obj.Completed && obj.CorpseWithSkull == this)
 						{
-							GoldenSkull sk = new GoldenSkull();
+							GoldenSkull sk = new();
 
 							if (player.PlaceInBackpack(sk))
 							{

@@ -41,54 +41,52 @@ namespace Server.Engines.MLQuests
 
 			if (File.Exists(cfgPath))
 			{
-				using (StreamReader sr = new StreamReader(cfgPath))
+				using StreamReader sr = new(cfgPath);
+				string line;
+
+				while ((line = sr.ReadLine()) != null)
 				{
-					string line;
+					if (line.Length == 0 || line.StartsWith("#"))
+						continue;
 
-					while ((line = sr.ReadLine()) != null)
+					string[] split = line.Split('\t');
+
+					Type type = Assembler.FindTypeByName(split[0]);
+
+					if (type == null || !baseQuestType.IsAssignableFrom(type))
 					{
-						if (line.Length == 0 || line.StartsWith("#"))
-							continue;
+						if (Debug)
+							Console.WriteLine("Warning: {1} quest type '{0}'", split[0], (type == null) ? "Unknown" : "Invalid");
 
-						string[] split = line.Split('\t');
+						continue;
+					}
 
-						Type type = Assembler.FindTypeByName(split[0]);
+					MLQuest quest = null;
 
-						if (type == null || !baseQuestType.IsAssignableFrom(type))
+					try
+					{
+						quest = Activator.CreateInstance(type) as MLQuest;
+					}
+					catch { }
+
+					if (quest == null)
+						continue;
+
+					Register(type, quest);
+
+					for (int i = 1; i < split.Length; ++i)
+					{
+						Type questerType = Assembler.FindTypeByName(split[i]);
+
+						if (questerType == null || !baseQuesterType.IsAssignableFrom(questerType))
 						{
 							if (Debug)
-								Console.WriteLine("Warning: {1} quest type '{0}'", split[0], (type == null) ? "Unknown" : "Invalid");
+								Console.WriteLine("Warning: {1} quester type '{0}'", split[i], (questerType == null) ? "Unknown" : "Invalid");
 
 							continue;
 						}
 
-						MLQuest quest = null;
-
-						try
-						{
-							quest = Activator.CreateInstance(type) as MLQuest;
-						}
-						catch { }
-
-						if (quest == null)
-							continue;
-
-						Register(type, quest);
-
-						for (int i = 1; i < split.Length; ++i)
-						{
-							Type questerType = Assembler.FindTypeByName(split[i]);
-
-							if (questerType == null || !baseQuesterType.IsAssignableFrom(questerType))
-							{
-								if (Debug)
-									Console.WriteLine("Warning: {1} quester type '{0}'", split[i], (questerType == null) ? "Unknown" : "Invalid");
-
-								continue;
-							}
-
-							RegisterQuestGiver(quest, questerType);
-						}
+						RegisterQuestGiver(quest, questerType);
 					}
 				}
 			}
@@ -278,7 +276,7 @@ namespace Server.Engines.MLQuests
 		{
 			Mobile m = e.Mobile;
 
-			ArrayList found = new ArrayList();
+			ArrayList found = new();
 
 			foreach (Item item in World.Items.Values)
 			{
@@ -623,7 +621,7 @@ namespace Server.Engines.MLQuests
 			pm.SendGump(new QuestLogGump(pm));
 		}
 
-		private static readonly List<MLQuest> m_EligiblePool = new List<MLQuest>();
+		private static readonly List<MLQuest> m_EligiblePool = new();
 
 		public static MLQuest RandomStarterQuest(IQuestGiver quester, PlayerMobile pm, MLQuestContext context)
 		{

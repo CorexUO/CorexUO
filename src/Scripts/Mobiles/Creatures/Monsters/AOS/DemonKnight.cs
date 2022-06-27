@@ -259,7 +259,7 @@ namespace Server.Mobiles
 						continue;
 				}
 
-				UnholyBone bone = new UnholyBone
+				UnholyBone bone = new()
 				{
 					Hue = 0,
 					Name = "unholy bones",

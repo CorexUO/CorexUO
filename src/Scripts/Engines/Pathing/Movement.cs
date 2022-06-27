@@ -83,7 +83,7 @@ namespace Server.Movement
 				new List<Mobile>(),
 			};
 
-		private readonly List<Sector> m_Sectors = new List<Sector>();
+		private readonly List<Sector> m_Sectors = new();
 
 		private bool Check(Map map, Mobile m, List<Item> items, List<Mobile> mobiles, int x, int y, int startTop, int startZ, bool canSwim, bool cantWalk, out int newZ)
 		{

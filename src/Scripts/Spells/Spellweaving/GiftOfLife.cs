@@ -9,7 +9,7 @@ namespace Server.Spells.Spellweaving
 {
 	public class GiftOfLifeSpell : ArcanistSpell
 	{
-		private static readonly SpellInfo m_Info = new SpellInfo(
+		private static readonly SpellInfo m_Info = new(
 				"Gift of Life", "Illorae",
 				-1
 			);
@@ -75,7 +75,7 @@ namespace Server.Spells.Spellweaving
 
 				TimeSpan duration = TimeSpan.FromMinutes(((int)(skill / 24)) * 2 + FocusLevel);
 
-				ExpireTimer t = new ExpireTimer(m, duration, this);
+				ExpireTimer t = new(m, duration, this);
 				t.Start();
 
 				m_Table[m] = t;
@@ -86,7 +86,7 @@ namespace Server.Spells.Spellweaving
 			FinishSequence();
 		}
 
-		private static readonly Dictionary<Mobile, ExpireTimer> m_Table = new Dictionary<Mobile, ExpireTimer>();
+		private static readonly Dictionary<Mobile, ExpireTimer> m_Table = new();
 
 		public static void HandleDeath(Mobile m, Mobile killer, Container cont)
 		{

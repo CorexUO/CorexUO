@@ -7,7 +7,7 @@ namespace Server.Spells.Necromancy
 {
 	public class EvilOmenSpell : NecromancerSpell
 	{
-		private static readonly SpellInfo m_Info = new SpellInfo(
+		private static readonly SpellInfo m_Info = new(
 				"Evil Omen", "Pas Tym An Sanct",
 				203,
 				9031,
@@ -78,7 +78,7 @@ namespace Server.Spells.Necromancy
 			FinishSequence();
 		}
 
-		private static readonly Hashtable m_Table = new Hashtable();
+		private static readonly Hashtable m_Table = new();
 
 		private static void EffectExpire_Callback(object state)
 		{

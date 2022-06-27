@@ -1009,7 +1009,7 @@ namespace Server.Items
 		{
 			base.GetProperties(list);
 
-			StringBuilder props = new StringBuilder();
+			StringBuilder props = new();
 
 			if (GetFlag(ConditionFlag.DenyMounted))
 				_ = props.Append("<BR>Deny Mounted");

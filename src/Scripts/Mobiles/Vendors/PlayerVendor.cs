@@ -403,7 +403,7 @@ namespace Server.Mobiles
 
 		private void UpgradeFromVersion0(object newVendorSystem)
 		{
-			List<Item> toRemove = new List<Item>();
+			List<Item> toRemove = new();
 
 			foreach (VendorItem vi in m_SellItems.Values)
 				if (!CanBeVendorItem(vi.Item))
@@ -577,7 +577,7 @@ namespace Server.Mobiles
 
 		protected List<Item> GetItems()
 		{
-			List<Item> list = new List<Item>();
+			List<Item> list = new();
 
 			foreach (Item item in Items)
 				if (item.Movable && item != Backpack && item.Layer != Layer.Hair && item.Layer != Layer.FacialHair)
@@ -630,7 +630,7 @@ namespace Server.Mobiles
 					}
 					else // Move to vendor inventory
 					{
-						VendorInventory inventory = new VendorInventory(House, Owner, Name, ShopName)
+						VendorInventory inventory = new(House, Owner, Name, ShopName)
 						{
 							Gold = HoldGold
 						};
@@ -734,7 +734,7 @@ namespace Server.Mobiles
 		{
 			RemoveVendorItem(item);
 
-			VendorItem vi = new VendorItem(item, price, description, created);
+			VendorItem vi = new(item, price, description, created);
 			m_SellItems[item] = vi;
 
 			item.InvalidateProperties();

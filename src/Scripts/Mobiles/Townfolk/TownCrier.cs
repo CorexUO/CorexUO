@@ -79,7 +79,7 @@ namespace Server.Mobiles
 			if (Entries == null)
 				Entries = new List<TownCrierEntry>();
 
-			TownCrierEntry tce = new TownCrierEntry(lines, duration);
+			TownCrierEntry tce = new(lines, duration);
 
 			Entries.Add(tce);
 
@@ -274,7 +274,7 @@ namespace Server.Mobiles
 					if (toExpire < TimeSpan.Zero)
 						toExpire = TimeSpan.Zero;
 
-					StringBuilder sb = new StringBuilder();
+					StringBuilder sb = new();
 
 					sb.Append("[Expires: ");
 
@@ -355,7 +355,7 @@ namespace Server.Mobiles
 			if (Entries == null)
 				Entries = new List<TownCrierEntry>();
 
-			TownCrierEntry tce = new TownCrierEntry(lines, duration);
+			TownCrierEntry tce = new(lines, duration);
 
 			Entries.Add(tce);
 

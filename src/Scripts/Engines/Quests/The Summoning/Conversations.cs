@@ -61,7 +61,7 @@ namespace Server.Engines.Quests.Doom
 				}
 				else if (altar.Daemon == null || !altar.Daemon.Alive)
 				{
-					BoneDemon daemon = new BoneDemon();
+					BoneDemon daemon = new();
 
 					daemon.MoveToWorld(altar.Location, altar.Map);
 					altar.Daemon = daemon;

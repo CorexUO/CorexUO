@@ -48,7 +48,7 @@ namespace Server.Mobiles
 				Hue = Utility.Random(2)
 			};
 
-			Item shroud = new Item(0x204E)
+			Item shroud = new(0x204E)
 			{
 				Layer = Layer.OuterTorso,
 				Movable = false,

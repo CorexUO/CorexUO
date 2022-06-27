@@ -7,7 +7,7 @@ namespace Server.Engines.Reports
 	public class StaffHistory : PersistableObject
 	{
 		#region Type Identification
-		public static readonly PersistableType ThisTypeID = new PersistableType("stfhst", new ConstructCallback(Construct));
+		public static readonly PersistableType ThisTypeID = new("stfhst", new ConstructCallback(Construct));
 
 		private static PersistableObject Construct()
 		{
@@ -75,8 +75,8 @@ namespace Server.Engines.Reports
 			return info;
 		}
 
-		public static readonly object RenderLock = new object();
-		public static readonly object SaveLock = new object();
+		public static readonly object RenderLock = new();
+		public static readonly object SaveLock = new();
 
 		public void Save()
 		{
@@ -247,7 +247,7 @@ namespace Server.Engines.Reports
 				}
 			}
 
-			BarGraph barGraph = new BarGraph("Average pages in queue", "graph_pagequeue_avg", 10, "Time", "Pages", BarGraphRenderMode.Lines)
+			BarGraph barGraph = new("Average pages in queue", "graph_pagequeue_avg", 10, "Time", "Pages", BarGraphRenderMode.Lines)
 			{
 				FontSize = 6
 			};
@@ -318,7 +318,7 @@ namespace Server.Engines.Reports
 				}
 			}
 
-			BarGraph barGraph = new BarGraph(title, fname, 10, "Time", "Pages", BarGraphRenderMode.Lines)
+			BarGraph barGraph = new(title, fname, 10, "Time", "Pages", BarGraphRenderMode.Lines)
 			{
 				FontSize = 6
 			};
@@ -353,7 +353,7 @@ namespace Server.Engines.Reports
 			DateTime max = DateTime.UtcNow;
 			DateTime min = max - ts;
 
-			Report report = new Report(title + " Staff Report", "400");
+			Report report = new(title + " Staff Report", "400");
 
 			report.Columns.Add("65%", "left", "Staff Name");
 			report.Columns.Add("35%", "center", "Page Count");
@@ -369,7 +369,7 @@ namespace Server.Engines.Reports
 			DateTime max = DateTime.UtcNow;
 			DateTime min = max - ts;
 
-			PieChart staffChart = new PieChart(title + " Staff Chart", fname + "_staff", true);
+			PieChart staffChart = new(title + " Staff Chart", fname + "_staff", true);
 
 			int other = 0;
 
@@ -386,7 +386,7 @@ namespace Server.Engines.Reports
 			if (other > 0)
 				staffChart.Items.Add("Other", other);
 
-			PieChart resChart = new PieChart(title + " Resolutions", fname + "_resol", true);
+			PieChart resChart = new(title + " Resolutions", fname + "_resol", true);
 
 			int countTotal = GetPageCount(m_Pages, PageResolution.None, min, max);
 			int countHandled = GetPageCount(m_Pages, PageResolution.Handled, min, max);

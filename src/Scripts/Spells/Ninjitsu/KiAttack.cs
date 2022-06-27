@@ -13,14 +13,14 @@ namespace Server.Spells.Ninjitsu
 		public override int BaseMana => 25;
 		public override double RequiredSkill => 80.0;
 
-		public override TextDefinition AbilityMessage => new TextDefinition(1063099);  // Your Ki Attack must be complete within 2 seconds for the damage bonus!
+		public override TextDefinition AbilityMessage => new(1063099);  // Your Ki Attack must be complete within 2 seconds for the damage bonus!
 
 		public override void OnUse(Mobile from)
 		{
 			if (!Validate(from))
 				return;
 
-			KiAttackInfo info = new KiAttackInfo(from);
+			KiAttackInfo info = new(from);
 			info.m_Timer = Timer.DelayCall(TimeSpan.FromSeconds(2.0), new TimerStateCallback(EndKiAttack), info);
 
 			m_Table[from] = info;
@@ -97,7 +97,7 @@ namespace Server.Spells.Ninjitsu
 			}
 		}
 
-		private static readonly Hashtable m_Table = new Hashtable();
+		private static readonly Hashtable m_Table = new();
 
 		public static double GetBonus(Mobile from)
 		{

@@ -38,7 +38,7 @@ namespace Server.Mobiles
 		{
 			if (Core.ML && from.Alive)
 			{
-				RechargeEntry entry = new RechargeEntry(from, this);
+				RechargeEntry entry = new(from, this);
 
 				if (WeaponEngravingTool.Find(from) == null)
 					entry.Enabled = false;

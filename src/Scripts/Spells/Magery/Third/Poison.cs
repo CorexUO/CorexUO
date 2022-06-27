@@ -4,7 +4,7 @@ namespace Server.Spells.Third
 {
 	public class PoisonSpell : MagerySpell
 	{
-		private static readonly SpellInfo m_Info = new SpellInfo(
+		private static readonly SpellInfo m_Info = new(
 				"Poison", "In Nox",
 				203,
 				9051,

@@ -136,7 +136,7 @@ namespace Server.Items
 			}
 			else if (RequireDeepWater ? FullValidation(map, x, y) : (ValidateDeepWater(map, x, y) || ValidateUndeepWater(map, obj, ref z)))
 			{
-				Point3D p = new Point3D(x, y, z);
+				Point3D p = new(x, y, z);
 
 				if (GetType() == typeof(SpecialFishingNet))
 				{

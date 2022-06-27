@@ -5,7 +5,7 @@ namespace Server.Spells.Eighth
 {
 	public class EarthquakeSpell : MagerySpell
 	{
-		private static readonly SpellInfo m_Info = new SpellInfo(
+		private static readonly SpellInfo m_Info = new(
 				"Earthquake", "In Vas Por",
 				233,
 				9012,
@@ -29,7 +29,7 @@ namespace Server.Spells.Eighth
 		{
 			if (SpellHelper.CheckTown(Caster, Caster) && CheckSequence())
 			{
-				List<Mobile> targets = new List<Mobile>();
+				List<Mobile> targets = new();
 
 				Map map = Caster.Map;
 

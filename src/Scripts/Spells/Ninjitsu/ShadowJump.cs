@@ -8,7 +8,7 @@ namespace Server.Spells.Ninjitsu
 {
 	public class Shadowjump : NinjaSpell
 	{
-		private static readonly SpellInfo m_Info = new SpellInfo(
+		private static readonly SpellInfo m_Info = new(
 			"Shadowjump", null,
 			-1,
 			9002
@@ -56,7 +56,7 @@ namespace Server.Spells.Ninjitsu
 			SpellHelper.GetSurfaceTop(ref p);
 
 			Point3D from = Caster.Location;
-			Point3D to = new Point3D(p);
+			Point3D to = new(p);
 
 			PlayerMobile pm = Caster as PlayerMobile; // IsStealthing should be moved to Server.Mobiles
 
