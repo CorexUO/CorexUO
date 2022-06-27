@@ -10,25 +10,23 @@ namespace Server.Engines.Mahjong
 				return new MahjongPieceDim(position, 20, 40);
 		}
 
-		private readonly MahjongGame m_Game;
 		private Point2D m_Position;
-		private MahjongPieceDirection m_Direction;
 		private MahjongWind m_Wind;
 
-		public MahjongGame Game => m_Game;
+		public MahjongGame Game { get; }
 		public Point2D Position => m_Position;
-		public MahjongPieceDirection Direction => m_Direction;
+		public MahjongPieceDirection Direction { get; private set; }
 		public MahjongWind Wind => m_Wind;
 
 		public MahjongDealerIndicator(MahjongGame game, Point2D position, MahjongPieceDirection direction, MahjongWind wind)
 		{
-			m_Game = game;
+			Game = game;
 			m_Position = position;
-			m_Direction = direction;
+			Direction = direction;
 			m_Wind = wind;
 		}
 
-		public MahjongPieceDim Dimensions => GetDimensions(m_Position, m_Direction);
+		public MahjongPieceDim Dimensions => GetDimensions(m_Position, Direction);
 
 		public void Move(Point2D position, MahjongPieceDirection direction, MahjongWind wind)
 		{
@@ -38,10 +36,10 @@ namespace Server.Engines.Mahjong
 				return;
 
 			m_Position = position;
-			m_Direction = direction;
+			Direction = direction;
 			m_Wind = wind;
 
-			m_Game.Players.SendGeneralPacket(true, true);
+			Game.Players.SendGeneralPacket(true, true);
 		}
 
 		public void Save(GenericWriter writer)
@@ -49,18 +47,18 @@ namespace Server.Engines.Mahjong
 			writer.Write(0); // version
 
 			writer.Write(m_Position);
-			writer.Write((int)m_Direction);
+			writer.Write((int)Direction);
 			writer.Write((int)m_Wind);
 		}
 
 		public MahjongDealerIndicator(MahjongGame game, GenericReader reader)
 		{
-			m_Game = game;
+			Game = game;
 
 			int version = reader.ReadInt();
 
 			m_Position = reader.ReadPoint2D();
-			m_Direction = (MahjongPieceDirection)reader.ReadInt();
+			Direction = (MahjongPieceDirection)reader.ReadInt();
 			m_Wind = (MahjongWind)reader.ReadInt();
 		}
 	}

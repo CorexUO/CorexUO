@@ -430,7 +430,6 @@ namespace Server.Items
 	{
 		private BeverageType m_Content;
 		private int m_Quantity;
-		private Mobile m_Poisoner;
 		private Poison m_Poison;
 
 		public override int LabelNumber
@@ -474,11 +473,7 @@ namespace Server.Items
 		}
 
 		[CommandProperty(AccessLevel.GameMaster)]
-		public Mobile Poisoner
-		{
-			get => m_Poisoner;
-			set => m_Poisoner = value;
-		}
+		public Mobile Poisoner { get; set; }
 
 		[CommandProperty(AccessLevel.GameMaster)]
 		public BeverageType Content
@@ -891,7 +886,7 @@ namespace Server.Items
 				from.PlaySound(Utility.RandomList(0x30, 0x2D6));
 
 				if (m_Poison != null)
-					from.ApplyPoison(m_Poisoner, m_Poison);
+					from.ApplyPoison(Poisoner, m_Poison);
 
 				--Quantity;
 			}
@@ -1059,7 +1054,7 @@ namespace Server.Items
 
 			writer.Write(0); // version
 
-			writer.Write(m_Poisoner);
+			writer.Write(Poisoner);
 
 			Poison.Serialize(m_Poison, writer);
 			writer.Write((int)m_Content);
@@ -1089,7 +1084,7 @@ namespace Server.Items
 			{
 				case 0:
 					{
-						m_Poisoner = reader.ReadMobile();
+						Poisoner = reader.ReadMobile();
 
 						m_Poison = Poison.Deserialize(reader);
 						m_Content = (BeverageType)reader.ReadInt();

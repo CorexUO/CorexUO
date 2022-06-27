@@ -28,9 +28,8 @@ namespace Server.Engines.Reports
 		private int _legendFontHeight;
 		private readonly string _legendFontStyle;
 		private readonly float _legendFontSize;
-		private bool _showPercents;
 
-		public bool ShowPercents { get => _showPercents; set => _showPercents = value; }
+		public bool ShowPercents { get; set; }
 
 		public PieChartRenderer()
 		{
@@ -129,7 +128,7 @@ namespace Server.Engines.Reports
 						if (fnt == null)
 							fnt = new Font(_legendFontStyle, _legendFontSize);
 
-						if (_showPercents && item.SweepSize > 10)
+						if (ShowPercents && item.SweepSize > 10)
 						{
 							if (sfp == null)
 							{

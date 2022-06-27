@@ -15,13 +15,12 @@ namespace Server.Engines.Reports
 		public override PersistableType TypeID => ThisTypeID;
 		#endregion
 
-		private SnapshotCollection m_Snapshots;
 
-		public SnapshotCollection Snapshots { get => m_Snapshots; set => m_Snapshots = value; }
+		public SnapshotCollection Snapshots { get; set; }
 
 		public SnapshotHistory()
 		{
-			m_Snapshots = new SnapshotCollection();
+			Snapshots = new SnapshotCollection();
 		}
 
 		public void Save()
@@ -50,14 +49,14 @@ namespace Server.Engines.Reports
 
 		public override void SerializeChildren(PersistanceWriter op)
 		{
-			for (int i = 0; i < m_Snapshots.Count; ++i)
-				m_Snapshots[i].Serialize(op);
+			for (int i = 0; i < Snapshots.Count; ++i)
+				Snapshots[i].Serialize(op);
 		}
 
 		public override void DeserializeChildren(PersistanceReader ip)
 		{
 			while (ip.HasChild)
-				m_Snapshots.Add(ip.GetChild() as Snapshot);
+				Snapshots.Add(ip.GetChild() as Snapshot);
 		}
 	}
 }

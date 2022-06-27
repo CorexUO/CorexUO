@@ -9,9 +9,7 @@ namespace Server.Items
 	{
 		public override BaseAddonDeed Deed => new LoomEastDeed();
 
-		private int m_Phase;
-
-		public int Phase { get => m_Phase; set => m_Phase = value; }
+		public int Phase { get; set; }
 
 		[Constructable]
 		public LoomEastAddon()
@@ -30,7 +28,7 @@ namespace Server.Items
 
 			writer.Write(0); // version
 
-			writer.Write(m_Phase);
+			writer.Write(Phase);
 		}
 
 		public override void Deserialize(GenericReader reader)
@@ -43,7 +41,7 @@ namespace Server.Items
 			{
 				case 0:
 					{
-						m_Phase = reader.ReadInt();
+						Phase = reader.ReadInt();
 						break;
 					}
 			}

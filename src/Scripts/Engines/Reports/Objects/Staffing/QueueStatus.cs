@@ -15,10 +15,9 @@ namespace Server.Engines.Reports
 		public override PersistableType TypeID => ThisTypeID;
 		#endregion
 
-		private DateTime m_TimeStamp;
 		private int m_Count;
 
-		public DateTime TimeStamp { get => m_TimeStamp; set => m_TimeStamp = value; }
+		public DateTime TimeStamp { get; set; }
 		public int Count { get => m_Count; set => m_Count = value; }
 
 		public QueueStatus()
@@ -27,19 +26,19 @@ namespace Server.Engines.Reports
 
 		public QueueStatus(int count)
 		{
-			m_TimeStamp = DateTime.UtcNow;
+			TimeStamp = DateTime.UtcNow;
 			m_Count = count;
 		}
 
 		public override void SerializeAttributes(PersistanceWriter op)
 		{
-			op.SetDateTime("t", m_TimeStamp);
+			op.SetDateTime("t", TimeStamp);
 			op.SetInt32("c", m_Count);
 		}
 
 		public override void DeserializeAttributes(PersistanceReader ip)
 		{
-			m_TimeStamp = ip.GetDateTime("t");
+			TimeStamp = ip.GetDateTime("t");
 			m_Count = ip.GetInt32("c");
 		}
 	}

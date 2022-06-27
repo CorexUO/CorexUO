@@ -15,10 +15,9 @@ namespace Server.Engines.Reports
 		public override PersistableType TypeID => ThisTypeID;
 		#endregion
 
-		private DateTime m_TimeStamp;
 		private ObjectCollection m_Children;
 
-		public DateTime TimeStamp { get => m_TimeStamp; set => m_TimeStamp = value; }
+		public DateTime TimeStamp { get; set; }
 		public ObjectCollection Children { get => m_Children; set => m_Children = value; }
 
 		public Snapshot()
@@ -28,12 +27,12 @@ namespace Server.Engines.Reports
 
 		public override void SerializeAttributes(PersistanceWriter op)
 		{
-			op.SetDateTime("t", m_TimeStamp);
+			op.SetDateTime("t", TimeStamp);
 		}
 
 		public override void DeserializeAttributes(PersistanceReader ip)
 		{
-			m_TimeStamp = ip.GetDateTime("t");
+			TimeStamp = ip.GetDateTime("t");
 		}
 
 		public override void SerializeChildren(PersistanceWriter op)

@@ -43,15 +43,14 @@ namespace Server.Engines.Reports
 
 	public sealed class PersistableType
 	{
-		private readonly string m_Name;
 		private readonly ConstructCallback m_Constructor;
 
-		public string Name => m_Name;
+		public string Name { get; }
 		public ConstructCallback Constructor => m_Constructor;
 
 		public PersistableType(string name, ConstructCallback constructor)
 		{
-			m_Name = name;
+			Name = name;
 			m_Constructor = constructor;
 		}
 	}

@@ -8,7 +8,7 @@ namespace Server.Engines.Events
 {
 	public class HalloweenHauntings
 	{
-		public static Dictionary<PlayerMobile, ZombieSkeleton> ReAnimated { get => m_ReAnimated; set => m_ReAnimated = value; }
+		public static Dictionary<PlayerMobile, ZombieSkeleton> ReAnimated { get; set; }
 
 		private static Timer m_Timer;
 		private static Timer m_ClearTimer;
@@ -17,9 +17,6 @@ namespace Server.Engines.Events
 		private static int m_DeathQueueLimit;
 		private static int m_QueueDelaySeconds;
 		private static int m_QueueClearIntervalSeconds;
-
-		private static Dictionary<PlayerMobile, ZombieSkeleton> m_ReAnimated;
-
 		private static List<PlayerMobile> m_DeathQueue;
 
 		private static readonly Rectangle2D[] m_Cemetaries = new Rectangle2D[]
@@ -54,7 +51,7 @@ namespace Server.Engines.Events
 			TimeSpan tick = TimeSpan.FromSeconds(m_QueueDelaySeconds);
 			TimeSpan clear = TimeSpan.FromSeconds(m_QueueClearIntervalSeconds);
 
-			m_ReAnimated = new Dictionary<PlayerMobile, ZombieSkeleton>();
+			ReAnimated = new Dictionary<PlayerMobile, ZombieSkeleton>();
 			m_DeathQueue = new List<PlayerMobile>();
 
 			if (today >= HolidaySettings.StartHalloween && today <= HolidaySettings.FinishHalloween)
@@ -83,7 +80,7 @@ namespace Server.Engines.Events
 
 		private static void Clear_Callback()
 		{
-			m_ReAnimated.Clear();
+			ReAnimated.Clear();
 
 			m_DeathQueue.Clear();
 
@@ -101,7 +98,7 @@ namespace Server.Engines.Events
 			{
 				for (int index = 0; m_DeathQueue.Count > 0 && index < m_DeathQueue.Count; index++)
 				{
-					if (!m_ReAnimated.ContainsKey(m_DeathQueue[index]))
+					if (!ReAnimated.ContainsKey(m_DeathQueue[index]))
 					{
 						player = m_DeathQueue[index];
 
@@ -109,7 +106,7 @@ namespace Server.Engines.Events
 					}
 				}
 
-				if (player != null && !player.Deleted && m_ReAnimated.Count < m_TotalZombieLimit)
+				if (player != null && !player.Deleted && ReAnimated.Count < m_TotalZombieLimit)
 				{
 					Map map = Utility.RandomBool() ? Map.Trammel : Map.Felucca;
 
@@ -119,7 +116,7 @@ namespace Server.Engines.Events
 					{
 						ZombieSkeleton zombieskel = new(player);
 
-						m_ReAnimated.Add(player, zombieskel);
+						ReAnimated.Add(player, zombieskel);
 						zombieskel.Home = home;
 						zombieskel.RangeHome = 10;
 

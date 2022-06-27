@@ -610,7 +610,7 @@ namespace Server.Items
 
 	public class AncientUrn : BaseItem
 	{
-		private static readonly string[] m_Names = new string[]
+		public static string[] Names { get; } = new string[]
 			{
 				"Akira",
 				"Avaniaga",
@@ -649,8 +649,6 @@ namespace Server.Items
 				"Zeshin"
 			};
 
-		public static string[] Names => m_Names;
-
 		private string m_UrnName;
 
 		[CommandProperty(AccessLevel.GameMaster)]
@@ -670,7 +668,7 @@ namespace Server.Items
 		}
 
 		[Constructable]
-		public AncientUrn() : this(m_Names[Utility.Random(m_Names.Length)])
+		public AncientUrn() : this(Names[Utility.Random(Names.Length)])
 		{
 		}
 

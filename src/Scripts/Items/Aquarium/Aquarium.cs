@@ -10,11 +10,8 @@ namespace Server.Items
 	{
 		public static readonly TimeSpan EvaluationInterval = TimeSpan.FromDays(1);
 
-		// items info
-		private int m_LiveCreatures;
-
 		[CommandProperty(AccessLevel.GameMaster)]
-		public int LiveCreatures => m_LiveCreatures;
+		public int LiveCreatures { get; private set; }
 
 		[CommandProperty(AccessLevel.GameMaster)]
 		public int DeadCreatures
@@ -87,12 +84,10 @@ namespace Server.Items
 		[CommandProperty(AccessLevel.GameMaster)]
 		public bool OptimalState => (m_Food.State == (int)FoodState.Full && m_Water.State == (int)WaterState.Strong);
 
-		// events
-		private List<int> m_Events;
 		private bool m_RewardAvailable;
 		private bool m_EvaluateDay;
 
-		public List<int> Events => m_Events;
+		public List<int> Events { get; private set; }
 
 		[CommandProperty(AccessLevel.GameMaster)]
 		public bool RewardAvailable
@@ -140,7 +135,7 @@ namespace Server.Items
 
 			m_Water.Maintain = Utility.RandomMinMax(1, 3);
 
-			m_Events = new List<int>();
+			Events = new List<int>();
 
 			m_Timer = Timer.DelayCall(EvaluationInterval, EvaluationInterval, new TimerCallback(Evaluate));
 		}
@@ -305,21 +300,21 @@ namespace Server.Items
 			if (m_VacationLeft > 0)
 				LabelTo(from, 1074430, m_VacationLeft.ToString()); // Vacation days left: ~1_DAYS
 
-			if (m_Events.Count > 0)
-				LabelTo(from, 1074426, m_Events.Count.ToString()); // ~1_NUM~ event(s) to view!
+			if (Events.Count > 0)
+				LabelTo(from, 1074426, Events.Count.ToString()); // ~1_NUM~ event(s) to view!
 
 			if (m_RewardAvailable)
 				LabelTo(from, 1074362); // A reward is available!
 
-			LabelTo(from, 1074247, string.Format("{0}\t{1}", m_LiveCreatures, MaxLiveCreatures)); // Live Creatures: ~1_NUM~ / ~2_MAX~
+			LabelTo(from, 1074247, string.Format("{0}\t{1}", LiveCreatures, MaxLiveCreatures)); // Live Creatures: ~1_NUM~ / ~2_MAX~
 
 			if (DeadCreatures > 0)
 				LabelTo(from, 1074248, DeadCreatures.ToString()); // Dead Creatures: ~1_NUM~
 
-			int decorations = Items.Count - m_LiveCreatures - DeadCreatures;
+			int decorations = Items.Count - LiveCreatures - DeadCreatures;
 
 			if (decorations > 0)
-				LabelTo(from, 1074249, (Items.Count - m_LiveCreatures - DeadCreatures).ToString()); // Decorations: ~1_NUM~
+				LabelTo(from, 1074249, (Items.Count - LiveCreatures - DeadCreatures).ToString()); // Decorations: ~1_NUM~
 
 			LabelTo(from, 1074250, "#" + FoodNumber()); // Food state: ~1_STATE~
 			LabelTo(from, 1074251, "#" + WaterNumber()); // Water state: ~1_STATE~
@@ -346,20 +341,20 @@ namespace Server.Items
 			if (m_VacationLeft > 0)
 				list.Add(1074430, m_VacationLeft.ToString()); // Vacation days left: ~1_DAYS
 
-			if (m_Events.Count > 0)
-				list.Add(1074426, m_Events.Count.ToString()); // ~1_NUM~ event(s) to view!
+			if (Events.Count > 0)
+				list.Add(1074426, Events.Count.ToString()); // ~1_NUM~ event(s) to view!
 
 			if (m_RewardAvailable)
 				list.Add(1074362); // A reward is available!
 
-			list.Add(1074247, "{0}\t{1}", m_LiveCreatures, MaxLiveCreatures); // Live Creatures: ~1_NUM~ / ~2_MAX~
+			list.Add(1074247, "{0}\t{1}", LiveCreatures, MaxLiveCreatures); // Live Creatures: ~1_NUM~ / ~2_MAX~
 
 			int dead = DeadCreatures;
 
 			if (dead > 0)
 				list.Add(1074248, dead.ToString()); // Dead Creatures: ~1_NUM~
 
-			int decorations = Items.Count - m_LiveCreatures - dead;
+			int decorations = Items.Count - LiveCreatures - dead;
 
 			if (decorations > 0)
 				list.Add(1074249, decorations.ToString()); // Decorations: ~1_NUM~
@@ -395,7 +390,7 @@ namespace Server.Items
 					if (m_RewardAvailable)
 						list.Add(new CollectRewardEntry(this));
 
-					if (m_Events.Count > 0)
+					if (Events.Count > 0)
 						list.Add(new ViewEventEntry(this));
 
 					if (m_VacationLeft > 0)
@@ -426,16 +421,16 @@ namespace Server.Items
 				writer.Write(DateTime.UtcNow + EvaluationInterval);
 
 			// version 0
-			writer.Write(m_LiveCreatures);
+			writer.Write(LiveCreatures);
 			writer.Write(m_VacationLeft);
 
 			m_Food.Serialize(writer);
 			m_Water.Serialize(writer);
 
-			writer.Write(m_Events.Count);
+			writer.Write(Events.Count);
 
-			for (int i = 0; i < m_Events.Count; i++)
-				writer.Write(m_Events[i]);
+			for (int i = 0; i < Events.Count; i++)
+				writer.Write(Events[i]);
 
 			writer.Write(m_RewardAvailable);
 		}
@@ -463,7 +458,7 @@ namespace Server.Items
 					}
 				case 0:
 					{
-						m_LiveCreatures = reader.ReadInt();
+						LiveCreatures = reader.ReadInt();
 						m_VacationLeft = reader.ReadInt();
 
 						m_Food = new AquariumState();
@@ -472,12 +467,12 @@ namespace Server.Items
 						m_Food.Deserialize(reader);
 						m_Water.Deserialize(reader);
 
-						m_Events = new List<int>();
+						Events = new List<int>();
 
 						int count = reader.ReadInt();
 
 						for (int i = 0; i < count; i++)
-							m_Events.Add(reader.ReadInt());
+							Events.Add(reader.ReadInt());
 
 						m_RewardAvailable = reader.ReadBool();
 
@@ -497,13 +492,13 @@ namespace Server.Items
 
 		private void RecountLiveCreatures()
 		{
-			m_LiveCreatures = 0;
+			LiveCreatures = 0;
 			List<BaseFish> fish = FindItemsByType<BaseFish>();
 
 			foreach (BaseFish f in fish)
 			{
 				if (!f.Dead)
-					++m_LiveCreatures;
+					++LiveCreatures;
 			}
 		}
 
@@ -555,12 +550,12 @@ namespace Server.Items
 				toKill.RemoveAt(kill);
 
 				amount -= 1;
-				m_LiveCreatures -= 1;
+				LiveCreatures -= 1;
 
-				if (m_LiveCreatures < 0)
-					m_LiveCreatures = 0;
+				if (LiveCreatures < 0)
+					LiveCreatures = 0;
 
-				m_Events.Add(1074366); // An unfortunate accident has left a creature floating upside-down.  It is starting to smell.
+				Events.Add(1074366); // An unfortunate accident has left a creature floating upside-down.  It is starting to smell.
 			}
 		}
 
@@ -573,41 +568,41 @@ namespace Server.Items
 			else if (m_EvaluateDay)
 			{
 				// reset events
-				m_Events = new List<int>();
+				Events = new List<int>();
 
 				// food events
 				if (
 					(m_Food.Added < m_Food.Maintain && m_Food.State != (int)FoodState.Overfed && m_Food.State != (int)FoodState.Dead) ||
 					(m_Food.Added >= m_Food.Improve && m_Food.State == (int)FoodState.Full)
 					)
-					m_Events.Add(1074368); // The tank looks worse than it did yesterday.
+					Events.Add(1074368); // The tank looks worse than it did yesterday.
 
 				if (
 					(m_Food.Added >= m_Food.Improve && m_Food.State != (int)FoodState.Full && m_Food.State != (int)FoodState.Overfed) ||
 					(m_Food.Added < m_Food.Maintain && m_Food.State == (int)FoodState.Overfed)
 					)
-					m_Events.Add(1074367); // The tank looks healthier today.
+					Events.Add(1074367); // The tank looks healthier today.
 
 				// water events
 				if (m_Water.Added < m_Water.Maintain && m_Water.State != (int)WaterState.Dead)
-					m_Events.Add(1074370); // This tank can use more water.
+					Events.Add(1074370); // This tank can use more water.
 
 				if (m_Water.Added >= m_Water.Improve && m_Water.State != (int)WaterState.Strong)
-					m_Events.Add(1074369); // The water looks clearer today.
+					Events.Add(1074369); // The water looks clearer today.
 
 				UpdateFoodState();
 				UpdateWaterState();
 
 				// reward
-				if (m_LiveCreatures > 0)
+				if (LiveCreatures > 0)
 					m_RewardAvailable = true;
 			}
 			else
 			{
 				// new fish
-				if (OptimalState && m_LiveCreatures < MaxLiveCreatures)
+				if (OptimalState && LiveCreatures < MaxLiveCreatures)
 				{
-					if (Utility.RandomDouble() < 0.005 * m_LiveCreatures)
+					if (Utility.RandomDouble() < 0.005 * LiveCreatures)
 					{
 						BaseFish fish = null;
 						int message = 0;
@@ -653,26 +648,26 @@ namespace Server.Items
 						}
 
 						if (Utility.RandomDouble() < 0.05)
-							fish.Hue = m_FishHues[Utility.Random(m_FishHues.Length)];
+							fish.Hue = FishHues[Utility.Random(FishHues.Length)];
 						else if (Utility.RandomDouble() < 0.5)
 							fish.Hue = Utility.RandomMinMax(0x100, 0x3E5);
 
 						if (AddFish(fish))
-							m_Events.Add(message);
+							Events.Add(message);
 						else
 							fish.Delete();
 					}
 				}
 
 				// kill fish *grins*
-				if (m_LiveCreatures < MaxLiveCreatures)
+				if (LiveCreatures < MaxLiveCreatures)
 				{
 					if (Utility.RandomDouble() < 0.01)
 						KillFish(1);
 				}
 				else
 				{
-					KillFish(m_LiveCreatures - MaxLiveCreatures);
+					KillFish(LiveCreatures - MaxLiveCreatures);
 				}
 			}
 
@@ -685,7 +680,7 @@ namespace Server.Items
 			if (!m_RewardAvailable)
 				return;
 
-			int max = (int)(((double)m_LiveCreatures / 30) * m_Decorations.Length);
+			int max = (int)(((double)LiveCreatures / 30) * m_Decorations.Length);
 
 			int random = (max <= 0) ? 0 : Utility.Random(max);
 
@@ -794,7 +789,7 @@ namespace Server.Items
 				}
 
 				if (!fish.Dead)
-					m_LiveCreatures -= 1;
+					LiveCreatures -= 1;
 			}
 			else
 			{
@@ -837,7 +832,7 @@ namespace Server.Items
 			if (fish == null)
 				return false;
 
-			if (IsFull || m_LiveCreatures >= MaxLiveCreatures || fish.Dead)
+			if (IsFull || LiveCreatures >= MaxLiveCreatures || fish.Dead)
 			{
 				if (from != null)
 					from.SendLocalizedMessage(1073633); // The aquarium can not hold the creature.
@@ -848,7 +843,7 @@ namespace Server.Items
 			AddItem(fish);
 			fish.StopTimer();
 
-			m_LiveCreatures += 1;
+			LiveCreatures += 1;
 
 			if (from != null)
 				from.SendLocalizedMessage(1073632, string.Format("#{0}", fish.LabelNumber)); // You add the following creature to your aquarium: ~1_FISH~
@@ -944,12 +939,10 @@ namespace Server.Items
 			return false;
 		}
 
-		private static readonly int[] m_FishHues = new int[]
+		public static int[] FishHues { get; } = new int[]
 		{
 			0x1C2, 0x1C3, 0x2A3, 0x47E, 0x51D
 		};
-
-		public static int[] FishHues => m_FishHues;
 		#endregion
 
 		#region Context entries

@@ -9,8 +9,7 @@ namespace Server.Items
 	/// </summary>
 	public class TalonStrike : WeaponAbility
 	{
-		private static readonly Hashtable m_Registry = new();
-		public static Hashtable Registry => m_Registry;
+		public static Hashtable Registry { get; } = new();
 
 		public TalonStrike()
 		{

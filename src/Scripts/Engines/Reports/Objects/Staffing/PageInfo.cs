@@ -71,17 +71,9 @@ namespace Server.Engines.Reports
 			}
 		}
 
-		private PageType m_PageType;
-		private PageResolution m_Resolution;
-
 		private DateTime m_TimeSent;
-		private DateTime m_TimeResolved;
-
 		private string m_SentBy;
-		private string m_ResolvedBy;
-
 		private string m_Message;
-		private ResponseInfoCollection m_Responses;
 
 		public StaffHistory History
 		{
@@ -107,11 +99,11 @@ namespace Server.Engines.Reports
 			}
 		}
 
-		public PageType PageType { get => m_PageType; set => m_PageType = value; }
-		public PageResolution Resolution => m_Resolution;
+		public PageType PageType { get; set; }
+		public PageResolution Resolution { get; private set; }
 
 		public DateTime TimeSent { get => m_TimeSent; set => m_TimeSent = value; }
-		public DateTime TimeResolved => m_TimeResolved;
+		public DateTime TimeResolved { get; private set; }
 
 		public string SentBy
 		{
@@ -125,10 +117,10 @@ namespace Server.Engines.Reports
 			}
 		}
 
-		public string ResolvedBy => m_ResolvedBy;
+		public string ResolvedBy { get; private set; }
 
 		public string Message { get => m_Message; set => m_Message = value; }
-		public ResponseInfoCollection Responses { get => m_Responses; set => m_Responses = value; }
+		public ResponseInfoCollection Responses { get; set; }
 
 		public void UpdateResolver()
 		{
@@ -139,9 +131,9 @@ namespace Server.Engines.Reports
 			else
 				Resolver = null;
 
-			m_ResolvedBy = resolvedBy;
-			m_TimeResolved = timeResolved;
-			m_Resolution = res;
+			ResolvedBy = resolvedBy;
+			TimeResolved = timeResolved;
+			Resolution = res;
 		}
 
 		public bool IsStaffResolution(PageResolution res)
@@ -164,9 +156,9 @@ namespace Server.Engines.Reports
 
 		public PageResolution GetResolution(out string resolvedBy, out DateTime timeResolved)
 		{
-			for (int i = m_Responses.Count - 1; i >= 0; --i)
+			for (int i = Responses.Count - 1; i >= 0; --i)
 			{
-				ResponseInfo resp = m_Responses[i];
+				ResponseInfo resp = Responses[i];
 				PageResolution res = ResFromResp(resp.Message);
 
 				if (res != PageResolution.None)
@@ -197,23 +189,23 @@ namespace Server.Engines.Reports
 
 		public PageInfo()
 		{
-			m_Responses = new ResponseInfoCollection();
+			Responses = new ResponseInfoCollection();
 		}
 
 		public PageInfo(PageEntry entry)
 		{
-			m_PageType = entry.Type;
+			PageType = entry.Type;
 
 			m_TimeSent = entry.Sent;
 			m_SentBy = GetAccount(entry.Sender);
 
 			m_Message = entry.Message;
-			m_Responses = new ResponseInfoCollection();
+			Responses = new ResponseInfoCollection();
 		}
 
 		public override void SerializeAttributes(PersistanceWriter op)
 		{
-			op.SetInt32("p", (int)m_PageType);
+			op.SetInt32("p", (int)PageType);
 
 			op.SetDateTime("ts", m_TimeSent);
 			op.SetString("s", m_SentBy);
@@ -223,7 +215,7 @@ namespace Server.Engines.Reports
 
 		public override void DeserializeAttributes(PersistanceReader ip)
 		{
-			m_PageType = (PageType)ip.GetInt32("p");
+			PageType = (PageType)ip.GetInt32("p");
 
 			m_TimeSent = ip.GetDateTime("ts");
 			m_SentBy = ip.GetString("s");
@@ -235,15 +227,15 @@ namespace Server.Engines.Reports
 		{
 			lock (this)
 			{
-				for (int i = 0; i < m_Responses.Count; ++i)
-					m_Responses[i].Serialize(op);
+				for (int i = 0; i < Responses.Count; ++i)
+					Responses[i].Serialize(op);
 			}
 		}
 
 		public override void DeserializeChildren(PersistanceReader ip)
 		{
 			while (ip.HasChild)
-				m_Responses.Add(ip.GetChild() as ResponseInfo);
+				Responses.Add(ip.GetChild() as ResponseInfo);
 		}
 	}
 }
