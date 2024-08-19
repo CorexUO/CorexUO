@@ -28,6 +28,7 @@
 /bin/runtimes
 /bin/publish
 /bin/linux-arm
+/bin/CorexUO
 
 
 /Publish/*
