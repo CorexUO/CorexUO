@@ -58,9 +58,8 @@ namespace Server.Mobiles
 
 		public void AddArcane(Item item)
 		{
-			if (item is IArcaneEquip)
+			if (item is IArcaneEquip eq)
 			{
-				IArcaneEquip eq = (IArcaneEquip)item;
 				eq.CurArcaneCharges = eq.MaxArcaneCharges = 20;
 			}
 

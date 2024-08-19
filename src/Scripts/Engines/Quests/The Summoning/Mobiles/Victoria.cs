@@ -73,18 +73,14 @@ namespace Server.Engines.Quests.Doom
 
 		public override bool OnDragDrop(Mobile from, Item dropped)
 		{
-			PlayerMobile player = from as PlayerMobile;
-
-			if (player != null)
+			if (from is PlayerMobile player)
 			{
 				QuestSystem qs = player.Quest;
 
 				if (qs is TheSummoningQuest)
 				{
-					if (dropped is DaemonBone)
+					if (dropped is DaemonBone bones)
 					{
-						DaemonBone bones = (DaemonBone)dropped;
-
 						QuestObjective obj = qs.FindObjective(typeof(CollectBonesObjective));
 
 						if (obj != null && !obj.Completed)
@@ -126,7 +122,7 @@ namespace Server.Engines.Quests.Doom
 
 		public override bool CanTalkTo(PlayerMobile to)
 		{
-			return (to.Quest == null && QuestSystem.CanOfferQuest(to, typeof(TheSummoningQuest)));
+			return to.Quest == null && QuestSystem.CanOfferQuest(to, typeof(TheSummoningQuest));
 		}
 
 		public override void OnTalk(PlayerMobile player, bool contextMenu)

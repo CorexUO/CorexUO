@@ -219,14 +219,11 @@ namespace Server
 
 			while (size > 0)
 			{
-				if (buffered.buffer == null)
-				{ // nothing yet buffered
-					buffered.buffer = bufferPool.AcquireBuffer();
-				}
+				buffered.buffer ??= bufferPool.AcquireBuffer();
 
 				byte[] page = buffered.buffer; // buffer page
 				int pageSpace = page.Length - buffered.length; // available bytes in page
-				int byteCount = (size > pageSpace ? pageSpace : size); // how many bytes we can copy over
+				int byteCount = size > pageSpace ? pageSpace : size; // how many bytes we can copy over
 
 				Buffer.BlockCopy(buffer, offset, page, buffered.length, byteCount);
 

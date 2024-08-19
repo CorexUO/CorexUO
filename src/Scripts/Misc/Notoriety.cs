@@ -401,7 +401,7 @@ namespace Server.Misc
 
 				if (Core.ML && master != null)
 				{
-					if ((source == master && CheckAggressor(target.Aggressors, source)) || (CheckAggressor(source.Aggressors, bc)))
+					if ((source == master && CheckAggressor(target.Aggressors, source)) || CheckAggressor(source.Aggressors, bc))
 						return Notoriety.CanBeAttacked;
 					else
 						return MobileNotoriety(source, master);
@@ -492,12 +492,12 @@ namespace Server.Misc
 
 		public static bool IsPet(BaseCreature c)
 		{
-			return (c != null && c.Controlled);
+			return c != null && c.Controlled;
 		}
 
 		public static bool IsSummoned(BaseCreature c)
 		{
-			return (c != null && /*c.Controlled &&*/ c.Summoned);
+			return c != null && /*c.Controlled &&*/ c.Summoned;
 		}
 
 		public static bool CheckAggressor(List<AggressorInfo> list, Mobile target)

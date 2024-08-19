@@ -56,15 +56,14 @@ namespace Server.Spells.Chivalry
 				for (int i = 0; i < targets.Count; ++i)
 				{
 					Mobile m = targets[i];
-					BaseCreature bc = m as BaseCreature;
 
-					if (bc != null)
+					if (m is BaseCreature bc)
 					{
 						bool dispellable = bc.Summoned && !bc.IsAnimatedDead;
 
 						if (dispellable)
 						{
-							double dispelChance = (50.0 + ((100 * (chiv - bc.DispelDifficulty)) / (bc.DispelFocus * 2))) / 100;
+							double dispelChance = (50.0 + (100 * (chiv - bc.DispelDifficulty) / (bc.DispelFocus * 2))) / 100;
 							dispelChance *= dispelSkill / 100.0;
 
 							if (dispelChance > Utility.RandomDouble())
@@ -102,7 +101,7 @@ namespace Server.Spells.Chivalry
 
 						if (drainChance > Utility.RandomDouble())
 						{
-							int drain = (5 * dispelSkill) / 100;
+							int drain = 5 * dispelSkill / 100;
 
 							m.Stam -= drain;
 							m.Mana -= drain;

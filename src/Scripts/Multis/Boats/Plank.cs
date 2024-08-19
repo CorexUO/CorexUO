@@ -78,10 +78,10 @@ namespace Server.Items
 		public uint KeyValue { get; set; }
 
 		[CommandProperty(AccessLevel.GameMaster)]
-		public bool IsOpen => (ItemID == 0x3ED5 || ItemID == 0x3ED4 || ItemID == 0x3E84 || ItemID == 0x3E89);
+		public bool IsOpen => ItemID == 0x3ED5 || ItemID == 0x3ED4 || ItemID == 0x3E84 || ItemID == 0x3E89;
 
 		[CommandProperty(AccessLevel.GameMaster)]
-		public bool Starboard => (Side == PlankSide.Starboard);
+		public bool Starboard => Side == PlankSide.Starboard;
 
 		public void SetFacing(Direction dir)
 		{
@@ -112,8 +112,7 @@ namespace Server.Items
 			if (IsOpen || Deleted)
 				return;
 
-			if (m_CloseTimer != null)
-				m_CloseTimer.Stop();
+			m_CloseTimer?.Stop();
 
 			m_CloseTimer = new CloseTimer(this);
 			m_CloseTimer.Start();
@@ -126,8 +125,7 @@ namespace Server.Items
 				case 0x3E85: ItemID = 0x3E84; break;
 			}
 
-			if (Boat != null)
-				Boat.Refresh();
+			Boat?.Refresh();
 		}
 
 		public override bool OnMoveOver(Mobile from)
@@ -217,8 +215,7 @@ namespace Server.Items
 			if (!IsOpen || !CanClose() || Deleted)
 				return;
 
-			if (m_CloseTimer != null)
-				m_CloseTimer.Stop();
+			m_CloseTimer?.Stop();
 
 			m_CloseTimer = null;
 
@@ -230,8 +227,7 @@ namespace Server.Items
 				case 0x3E84: ItemID = 0x3E85; break;
 			}
 
-			if (Boat != null)
-				Boat.Refresh();
+			Boat?.Refresh();
 		}
 
 		public override void OnDoubleClickDead(Mobile from)

@@ -131,7 +131,7 @@ namespace Server.Items
 					double mining = from.Skills[SkillName.Mining].Value;
 					if (mining > 100.0)
 						mining = 100.0;
-					double amount = (((4 + mining) * craftResource.Amount - 4) * 0.0068);
+					double amount = ((4 + mining) * craftResource.Amount - 4) * 0.0068;
 					if (amount < 2)
 						ingot.Amount = 2;
 					else
@@ -237,8 +237,7 @@ namespace Server.Items
 
 		private void SalvageCloth(Mobile from)
 		{
-			Scissors scissors = from.Backpack.FindItemByType(typeof(Scissors)) as Scissors;
-			if (scissors == null)
+			if (from.Backpack.FindItemByType(typeof(Scissors)) is not Scissors scissors)
 			{
 				from.SendLocalizedMessage(1079823); // You need scissors in order to salvage cloth.
 				return;
@@ -255,10 +254,8 @@ namespace Server.Items
 			{
 				Item item = scissorables[i];
 
-				if (item is IScissorable)
+				if (item is IScissorable scissorable)
 				{
-					IScissorable scissorable = (IScissorable)item;
-
 					if (Scissors.CanScissor(from, scissorable) && scissorable.Scissor(from, scissors))
 						++salvaged;
 					else

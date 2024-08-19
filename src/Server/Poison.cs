@@ -45,8 +45,7 @@ namespace Server
 			if (int.TryParse(value, out int plevel))
 				p = GetPoison(plevel);
 
-			if (p == null)
-				p = GetPoison(value);
+			p ??= GetPoison(value);
 
 			return p;
 		}

@@ -211,7 +211,7 @@ namespace Server.Items
 
 			GuardedRegion reg = (GuardedRegion)Region.Find(p, map).GetRegion(typeof(GuardedRegion));
 
-			return (reg != null && !reg.IsDisabled());
+			return reg != null && !reg.IsDisabled();
 		}
 
 		private class DelayTimer : Timer

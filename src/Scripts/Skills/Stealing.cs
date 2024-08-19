@@ -29,7 +29,7 @@ namespace Server.SkillHandlers
 
 		public static bool IsInnocentTo(Mobile from, Mobile to)
 		{
-			return (Notoriety.Compute(from, to) == Notoriety.Innocent);
+			return Notoriety.Compute(from, to) == Notoriety.Innocent;
 		}
 
 		private class StealingTarget : Target
@@ -223,7 +223,7 @@ namespace Server.SkillHandlers
 					{
 						if (toSteal.Stackable && toSteal.Amount > 1)
 						{
-							int maxAmount = (int)((m_Thief.Skills[SkillName.Stealing].Value / 10.0) / toSteal.Weight);
+							int maxAmount = (int)(m_Thief.Skills[SkillName.Stealing].Value / 10.0 / toSteal.Weight);
 
 							if (maxAmount < 1)
 								maxAmount = 1;
@@ -249,8 +249,7 @@ namespace Server.SkillHandlers
 								{
 									stolen = Mobile.LiftItemDupe(toSteal, toSteal.Amount - amount);
 
-									if (stolen == null)
-										stolen = toSteal;
+									stolen ??= toSteal;
 								}
 							}
 						}
@@ -278,7 +277,7 @@ namespace Server.SkillHandlers
 							m_Thief.SendLocalizedMessage(502723); // You fail to steal the item.
 						}
 
-						caught = (m_Thief.Skills[SkillName.Stealing].Value < Utility.Random(150));
+						caught = m_Thief.Skills[SkillName.Stealing].Value < Utility.Random(150);
 					}
 				}
 
@@ -335,10 +334,8 @@ namespace Server.SkillHandlers
 					{
 						m_Thief.CriminalAction(false);
 					}
-					else if (root is Mobile)
+					else if (root is Mobile mobRoot)
 					{
-						Mobile mobRoot = (Mobile)root;
-
 						if (!IsInGuild(mobRoot) && IsInnocentTo(m_Thief, mobRoot))
 							m_Thief.CriminalAction(false);
 
@@ -408,7 +405,7 @@ namespace Server.SkillHandlers
 		public Mobile Victim { get; }
 		public DateTime Expires { get; private set; }
 
-		public bool IsExpired => (DateTime.UtcNow >= Expires);
+		public bool IsExpired => DateTime.UtcNow >= Expires;
 
 		public StolenItem(Item stolen, Mobile thief, Mobile victim)
 		{

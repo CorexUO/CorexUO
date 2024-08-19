@@ -24,9 +24,8 @@ namespace Server.Ethics.Evil
 		{
 			Player from = state as Player;
 
-			Item item = obj as Item;
 
-			if (item == null)
+			if (obj is not Item item)
 			{
 				from.Mobile.LocalOverheadMessage(Server.Network.MessageType.Regular, 0x3B2, false, "You may not imbue that.");
 				return;

@@ -134,10 +134,7 @@ namespace Server.Engines.Doom
 			NukeItemList(m_Statues);
 			NukeItemList(m_Levers);
 
-			if (m_LampRoom != null)
-			{
-				m_LampRoom.Unregister();
-			}
+			m_LampRoom?.Unregister();
 			if (m_Tiles != null)
 			{
 				foreach (Region region in m_Tiles)
@@ -274,7 +271,7 @@ namespace Server.Engines.Doom
 				if (TheirKey == MyKey)
 				{
 					GenKey();
-					if ((Successful = (m_Player = GetOccupant(0))) != null)
+					if ((Successful = m_Player = GetOccupant(0)) != null)
 					{
 						SendLocationEffect(lp_Center, 0x1153, 0, 60, 1);
 						PlaySounds(lp_Center, cs1);
@@ -317,12 +314,12 @@ namespace Server.Engines.Doom
 			ushort tmp; int n, i; ushort[] CA = { 1, 2, 4, 8 };
 			for (i = 0; i < 4; i++)
 			{
-				n = (((n = Utility.Random(0, 3)) == i) ? n & ~i : n); /* if(i==n) { return pointless; } */
+				n = ((n = Utility.Random(0, 3)) == i) ? n & ~i : n; /* if(i==n) { return pointless; } */
 				tmp = CA[i];
 				CA[i] = CA[n];
 				CA[n] = tmp;
 			}
-			for (i = 0; i < 4; MyKey = (ushort)(CA[(i++)] | (MyKey <<= 4))) { }
+			for (i = 0; i < 4; MyKey = (ushort)(CA[i++] | (MyKey <<= 4))) { }
 		}
 
 		public class RockTimer : Timer
@@ -537,7 +534,7 @@ namespace Server.Engines.Doom
 
 		public static bool AniSafe(Mobile m)
 		{
-			return (m != null && !TransformationSpellHelper.UnderTransformation(m) && m.BodyMod == 0 && m.Alive);
+			return m != null && !TransformationSpellHelper.UnderTransformation(m) && m.BodyMod == 0 && m.Alive;
 		}
 
 		public static IEntity ZAdjustedIEFromMobile(Mobile m, int ZDelta)
@@ -550,7 +547,7 @@ namespace Server.Engines.Doom
 			if (m != null && !m.Deleted && m.Alive)
 			{
 				int damage = Utility.Random(min, max);
-				AOS.Damage(m, damage, (poison) ? 0 : 100, 0, 0, (poison) ? 100 : 0, 0);
+				AOS.Damage(m, damage, poison ? 0 : 100, 0, 0, poison ? 100 : 0, 0);
 			}
 		}
 

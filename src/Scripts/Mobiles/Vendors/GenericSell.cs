@@ -23,10 +23,8 @@ namespace Server.Mobiles
 		{
 			m_Table.TryGetValue(item.GetType(), out int price);
 
-			if (item is BaseArmor)
+			if (item is BaseArmor armor)
 			{
-				BaseArmor armor = (BaseArmor)item;
-
 				if (armor.Quality == ItemQuality.Low)
 					price = (int)(price * 0.60);
 				else if (armor.Quality == ItemQuality.Exceptional)
@@ -39,10 +37,8 @@ namespace Server.Mobiles
 				if (price < 1)
 					price = 1;
 			}
-			else if (item is BaseWeapon)
+			else if (item is BaseWeapon weapon)
 			{
-				BaseWeapon weapon = (BaseWeapon)item;
-
 				if (weapon.Quality == ItemQuality.Low)
 					price = (int)(price * 0.60);
 				else if (weapon.Quality == ItemQuality.Exceptional)

@@ -55,7 +55,7 @@ namespace Server.SkillHandlers
 							c.m_Forensicist = from.Name;
 
 						if (((Body)c.Amount).IsHuman)
-							from.SendLocalizedMessage(1042751, (c.Killer == null ? "no one" : c.Killer.Name));//This person was killed by ~1_KILLER_NAME~
+							from.SendLocalizedMessage(1042751, c.Killer == null ? "no one" : c.Killer.Name);//This person was killed by ~1_KILLER_NAME~
 
 						if (c.Looters.Count > 0)
 						{

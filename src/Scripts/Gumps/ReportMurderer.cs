@@ -52,14 +52,14 @@ namespace Server.Gumps
 				int n = Notoriety.Compute(g, m);
 
 				int theirKarma = m.Karma, ourKarma = g.Karma;
-				bool innocent = (n == Notoriety.Innocent);
-				bool criminal = (n == Notoriety.Criminal || n == Notoriety.Murderer);
+				bool innocent = n == Notoriety.Innocent;
+				bool criminal = n == Notoriety.Criminal || n == Notoriety.Murderer;
 
 				int fameAward = m.Fame / 200;
 				int karmaAward = 0;
 
 				if (innocent)
-					karmaAward = (ourKarma > -2500 ? -850 : -110 - (m.Karma / 100));
+					karmaAward = ourKarma > -2500 ? -850 : -110 - (m.Karma / 100);
 				else if (criminal)
 					karmaAward = 50;
 

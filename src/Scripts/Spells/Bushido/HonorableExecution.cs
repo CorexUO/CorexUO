@@ -19,7 +19,7 @@ namespace Server.Spells.Bushido
 			double bushido = attacker.Skills[SkillName.Bushido].Value;
 
 			// TODO: 20 -> Perfection
-			return 1.0 + (bushido * 20) / 10000;
+			return 1.0 + bushido * 20 / 10000;
 		}
 
 		public override void OnHit(Mobile attacker, Mobile defender, int damage)
@@ -29,14 +29,12 @@ namespace Server.Spells.Bushido
 
 			ClearCurrentMove(attacker);
 
-			HonorableExecutionInfo info = m_Table[attacker] as HonorableExecutionInfo;
 
-			if (info != null)
+			if (m_Table[attacker] is HonorableExecutionInfo info)
 			{
 				info.Clear();
 
-				if (info.m_Timer != null)
-					info.m_Timer.Stop();
+				info.m_Timer?.Stop();
 			}
 
 			if (!defender.Alive)
@@ -45,9 +43,9 @@ namespace Server.Spells.Bushido
 
 				double bushido = attacker.Skills[SkillName.Bushido].Value;
 
-				attacker.Hits += 20 + (int)((bushido * bushido) / 480.0);
+				attacker.Hits += 20 + (int)(bushido * bushido / 480.0);
 
-				int swingBonus = Math.Max(1, (int)((bushido * bushido) / 720.0));
+				int swingBonus = Math.Max(1, (int)(bushido * bushido / 720.0));
 
 				info = new HonorableExecutionInfo(attacker, swingBonus);
 				info.m_Timer = Timer.DelayCall(TimeSpan.FromSeconds(20.0), new TimerStateCallback(EndEffect), info);
@@ -84,9 +82,7 @@ namespace Server.Spells.Bushido
 
 		public static int GetSwingBonus(Mobile target)
 		{
-			HonorableExecutionInfo info = m_Table[target] as HonorableExecutionInfo;
-
-			if (info == null)
+			if (m_Table[target] is not HonorableExecutionInfo info)
 				return 0;
 
 			return info.m_SwingBonus;
@@ -94,9 +90,7 @@ namespace Server.Spells.Bushido
 
 		public static bool IsUnderPenalty(Mobile target)
 		{
-			HonorableExecutionInfo info = m_Table[target] as HonorableExecutionInfo;
-
-			if (info == null)
+			if (m_Table[target] is not HonorableExecutionInfo info)
 				return false;
 
 			return info.m_Penalty;
@@ -104,15 +98,12 @@ namespace Server.Spells.Bushido
 
 		public static void RemovePenalty(Mobile target)
 		{
-			HonorableExecutionInfo info = m_Table[target] as HonorableExecutionInfo;
-
-			if (info == null || !info.m_Penalty)
+			if (m_Table[target] is not HonorableExecutionInfo info || !info.m_Penalty)
 				return;
 
 			info.Clear();
 
-			if (info.m_Timer != null)
-				info.m_Timer.Stop();
+			info.m_Timer?.Stop();
 
 			m_Table.Remove(target);
 		}

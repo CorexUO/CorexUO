@@ -153,10 +153,8 @@ namespace Server.Engines.Plants
 
 		public override bool StackWith(Mobile from, Item dropped, bool playSound)
 		{
-			if (dropped is Seed)
+			if (dropped is Seed other)
 			{
-				Seed other = (Seed)dropped;
-
 				if (other.PlantType == m_PlantType && other.PlantHue == m_PlantHue && other.ShowType == m_ShowType)
 					return base.StackWith(from, dropped, playSound);
 			}
@@ -166,9 +164,7 @@ namespace Server.Engines.Plants
 
 		public override void OnAfterDuped(Item newItem)
 		{
-			Seed newSeed = newItem as Seed;
-
-			if (newSeed == null)
+			if (newItem is not Seed newSeed)
 				return;
 
 			newSeed.PlantType = m_PlantType;
@@ -197,10 +193,8 @@ namespace Server.Engines.Plants
 					return;
 				}
 
-				if (targeted is PlantItem)
+				if (targeted is PlantItem plant)
 				{
-					PlantItem plant = (PlantItem)targeted;
-
 					plant.PlantSeed(from, m_Seed);
 				}
 				else if (targeted is Item)

@@ -219,10 +219,9 @@ namespace Server.Items
 
 					if (house != null && house.IsOwner(from))
 					{
-						IPoint3D p = targeted as IPoint3D;
 						Map map = from.Map;
 
-						if (p == null || map == null || map == Map.Internal)
+						if (targeted is not IPoint3D p || map == null || map == Map.Internal)
 							return;
 
 						Point3D p3d = new(p);

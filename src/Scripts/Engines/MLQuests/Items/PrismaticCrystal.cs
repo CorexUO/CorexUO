@@ -22,9 +22,7 @@ namespace Server.Items
 
 		public override void OnDoubleClick(Mobile from)
 		{
-			PlayerMobile pm = from as PlayerMobile;
-
-			if (pm == null || pm.Backpack == null)
+			if (from is not PlayerMobile pm || pm.Backpack == null)
 				return;
 
 			if (pm.InRange(GetWorldLocation(), 2))

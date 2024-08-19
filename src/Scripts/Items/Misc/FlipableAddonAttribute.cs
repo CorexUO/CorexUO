@@ -107,10 +107,8 @@ namespace Server.Items
 
 				addon.Components.Clear();
 			}
-			else if (item is BaseAddonContainer)
+			else if (item is BaseAddonContainer addon)
 			{
-				BaseAddonContainer addon = (BaseAddonContainer)item;
-
 				foreach (AddonContainerComponent c in addon.Components)
 				{
 					c.Addon = null;

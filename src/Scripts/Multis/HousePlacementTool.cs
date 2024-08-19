@@ -234,9 +234,8 @@ namespace Server.Items
 			if (!from.CheckAlive() || from.Backpack == null || from.Backpack.FindItemByType(typeof(HousePlacementTool)) == null)
 				return;
 
-			IPoint3D ip = o as IPoint3D;
 
-			if (ip != null)
+			if (o is IPoint3D ip)
 			{
 				if (ip is Item)
 					ip = ((Item)ip).GetWorldTop();
@@ -560,12 +559,10 @@ namespace Server.Items
 
 			if (obj is HousePlacementEntry)
 			{
-				return ((HousePlacementEntry)obj);
+				return (HousePlacementEntry)obj;
 			}
-			else if (obj is ArrayList)
+			else if (obj is ArrayList list)
 			{
-				ArrayList list = (ArrayList)obj;
-
 				for (int i = 0; i < list.Count; ++i)
 				{
 					HousePlacementEntry e = (HousePlacementEntry)list[i];
@@ -574,10 +571,8 @@ namespace Server.Items
 						return e;
 				}
 			}
-			else if (obj is Hashtable)
+			else if (obj is Hashtable table)
 			{
-				Hashtable table = (Hashtable)obj;
-
 				obj = table[house.ItemID];
 
 				if (obj is HousePlacementEntry)
@@ -609,10 +604,8 @@ namespace Server.Items
 
 					m_Table[e.Type] = list;
 				}
-				else if (obj is ArrayList)
+				else if (obj is ArrayList list)
 				{
-					ArrayList list = (ArrayList)obj;
-
 					if (list.Count == 8)
 					{
 						Hashtable table = new();

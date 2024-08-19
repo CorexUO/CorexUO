@@ -160,7 +160,7 @@ namespace Server.Mobiles
 						{
 							foreach (Mobile m in list)
 							{
-								bool isFriendly = (m is Savage || m is SavageRider || m is SavageShaman || m is SavageRidgeback);
+								bool isFriendly = m is Savage || m is SavageRider || m is SavageShaman || m is SavageRidgeback;
 
 								if (!isFriendly)
 									continue;
@@ -187,7 +187,7 @@ namespace Server.Mobiles
 						{
 							foreach (Mobile m in list)
 							{
-								bool isFriendly = (m is Savage || m is SavageRider || m is SavageShaman || m is SavageRidgeback);
+								bool isFriendly = m is Savage || m is SavageRider || m is SavageShaman || m is SavageRidgeback;
 
 								if (isFriendly)
 									continue;
@@ -221,7 +221,7 @@ namespace Server.Mobiles
 						{
 							foreach (Mobile m in list)
 							{
-								bool isFriendly = (m is Savage || m is SavageRider || m is SavageShaman || m is SavageRidgeback);
+								bool isFriendly = m is Savage || m is SavageRider || m is SavageShaman || m is SavageRidgeback;
 
 								if (isFriendly)
 									continue;
@@ -231,8 +231,7 @@ namespace Server.Mobiles
 
 								DoHarmful(m);
 
-								if (m.Spell != null)
-									m.Spell.OnCasterHurt();
+								m.Spell?.OnCasterHurt();
 
 								m.Paralyzed = false;
 

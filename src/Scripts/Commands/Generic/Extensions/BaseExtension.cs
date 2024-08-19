@@ -13,7 +13,7 @@ namespace Server.Commands.Generic
 		public int Order { get; }
 		public string Name { get; }
 		public int Size { get; }
-		public bool IsFixedSize => (Size >= 0);
+		public bool IsFixedSize => Size >= 0;
 		public ExtensionConstructor Constructor { get; }
 
 		public static void Register(ExtensionInfo ext)
@@ -86,7 +86,7 @@ namespace Server.Commands.Generic
 
 			parsed.Sort(delegate (BaseExtension a, BaseExtension b)
 		   {
-			   return (a.Order - b.Order);
+			   return a.Order - b.Order;
 		   });
 
 			AssemblyEmitter emitter = null;

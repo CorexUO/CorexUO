@@ -9,7 +9,7 @@ namespace Server.Items
 		private Timer m_Timer;
 
 		[CommandProperty(AccessLevel.GameMaster)]
-		public bool Dead => (ItemID == 0x3B0C);
+		public bool Dead => ItemID == 0x3B0C;
 
 		[Constructable]
 		public BaseFish(int itemID) : base(itemID)
@@ -23,8 +23,7 @@ namespace Server.Items
 
 		public virtual void StartTimer()
 		{
-			if (m_Timer != null)
-				m_Timer.Stop();
+			m_Timer?.Stop();
 
 			m_Timer = Timer.DelayCall(DeathDelay, new TimerCallback(Kill));
 
@@ -33,8 +32,7 @@ namespace Server.Items
 
 		public virtual void StopTimer()
 		{
-			if (m_Timer != null)
-				m_Timer.Stop();
+			m_Timer?.Stop();
 
 			m_Timer = null;
 

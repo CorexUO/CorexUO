@@ -79,7 +79,7 @@ namespace Server.Mobiles
 			return result;
 		}
 
-		public override bool CanShout => (!Controlled && !IsBeingDeleted);
+		public override bool CanShout => !Controlled && !IsBeingDeleted;
 
 		public override void Shout(PlayerMobile pm)
 		{
@@ -99,7 +99,7 @@ namespace Server.Mobiles
 
 		private bool m_DeleteCorpse = false;
 
-		public bool IsBeingDeleted => (m_DeleteTimer != null);
+		public bool IsBeingDeleted => m_DeleteTimer != null;
 
 		public override bool Commandable => false;  // Our master cannot boss us around!
 		public override bool DeleteCorpseOnDeath => m_DeleteCorpse;
@@ -107,7 +107,7 @@ namespace Server.Mobiles
 		[CommandProperty(AccessLevel.GameMaster)]
 		public string Destination
 		{
-			get => m_Destination == null ? null : m_Destination.Name;
+			get => m_Destination?.Name;
 			set { m_DestinationString = value; m_Destination = EDI.Find(value); }
 		}
 
@@ -256,7 +256,7 @@ namespace Server.Mobiles
 			}
 			else if (m is PlayerMobile && (((PlayerMobile)m).LastEscortTime + EscortDelay) >= DateTime.UtcNow)
 			{
-				int minutes = (int)Math.Ceiling(((((PlayerMobile)m).LastEscortTime + EscortDelay) - DateTime.UtcNow).TotalMinutes);
+				int minutes = (int)Math.Ceiling((((PlayerMobile)m).LastEscortTime + EscortDelay - DateTime.UtcNow).TotalMinutes);
 
 				Say("You must rest {0} minute{1} before we set out on this journey.", minutes, minutes == 1 ? "" : "s");
 				return false;
@@ -305,8 +305,7 @@ namespace Server.Mobiles
 
 		public override void OnAfterDelete()
 		{
-			if (m_DeleteTimer != null)
-				m_DeleteTimer.Stop();
+			m_DeleteTimer?.Stop();
 
 			m_DeleteTimer = null;
 
@@ -410,8 +409,7 @@ namespace Server.Mobiles
 
 		public virtual void BeginDelete()
 		{
-			if (m_DeleteTimer != null)
-				m_DeleteTimer.Stop();
+			m_DeleteTimer?.Stop();
 
 			m_DeleteTime = DateTime.UtcNow + DeleteTime;
 
@@ -444,8 +442,7 @@ namespace Server.Mobiles
 
 				Container cont = escorter.Backpack;
 
-				if (cont == null)
-					cont = escorter.BankBox;
+				cont ??= escorter.BankBox;
 
 				Gold gold = new(500, 1000);
 
@@ -461,9 +458,8 @@ namespace Server.Mobiles
 
 				bool gainedPath = false;
 
-				PlayerMobile pm = escorter as PlayerMobile;
 
-				if (pm != null)
+				if (escorter is PlayerMobile pm)
 				{
 					if (pm.CompassionGains > 0 && DateTime.UtcNow > pm.NextCompassionDay)
 					{
@@ -502,7 +498,7 @@ namespace Server.Mobiles
 
 		public override bool OnBeforeDeath()
 		{
-			m_DeleteCorpse = (Controlled || IsBeingDeleted);
+			m_DeleteCorpse = Controlled || IsBeingDeleted;
 
 			return base.OnBeforeDeath();
 		}
@@ -556,7 +552,7 @@ namespace Server.Mobiles
 
 		public override bool CanBeRenamedBy(Mobile from)
 		{
-			return (from.AccessLevel >= AccessLevel.GameMaster);
+			return from.AccessLevel >= AccessLevel.GameMaster;
 		}
 
 		public override void AddCustomContextEntries(Mobile from, List<ContextMenuEntry> list)
@@ -621,9 +617,9 @@ namespace Server.Mobiles
 				return m_Destination;
 
 			if (Map.Felucca.Regions.Count > 0)
-				return (m_Destination = EDI.Find(m_DestinationString));
+				return m_Destination = EDI.Find(m_DestinationString);
 
-			return (m_Destination = null);
+			return m_Destination = null;
 		}
 
 		private class DeleteTimer : Timer

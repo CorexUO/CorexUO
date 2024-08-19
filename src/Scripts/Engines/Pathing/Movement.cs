@@ -109,7 +109,7 @@ namespace Server.Movement
 			int stepTop = startTop + StepHeight;
 			int checkTop = startZ + PersonHeight;
 
-			bool ignoreDoors = (AlwaysIgnoreDoors || !m.Alive || m.Body.BodyID == 0x3DB || m.IsDeadBondedPet);
+			bool ignoreDoors = AlwaysIgnoreDoors || !m.Alive || m.Body.BodyID == 0x3DB || m.IsDeadBondedPet;
 			bool ignoreSpellFields = m is PlayerMobile && map != Map.Felucca;
 
 			#region Tiles
@@ -264,7 +264,7 @@ namespace Server.Movement
 
 		private bool CanMoveOver(Mobile m, Mobile t)
 		{
-			return (!t.Alive || !m.Alive || t.IsDeadBondedPet || m.IsDeadBondedPet) || (t.Hidden && t.AccessLevel > AccessLevel.Player);
+			return !t.Alive || !m.Alive || t.IsDeadBondedPet || m.IsDeadBondedPet || (t.Hidden && t.AccessLevel > AccessLevel.Player);
 		}
 
 		public bool CheckMovement(Mobile m, Map map, Point3D loc, Direction d, out int newZ)
@@ -308,7 +308,7 @@ namespace Server.Movement
 			List<Mobile> mobsLeft = m_MobPools[1];
 			List<Mobile> mobsRight = m_MobPools[2];
 
-			bool checkMobs = (m is BaseCreature && !((BaseCreature)m).Controlled && (xForward != m_Goal.X || yForward != m_Goal.Y));
+			bool checkMobs = m is BaseCreature && !((BaseCreature)m).Controlled && (xForward != m_Goal.X || yForward != m_Goal.Y);
 
 			if (checkDiagonals)
 			{
@@ -520,7 +520,7 @@ namespace Server.Movement
 				StaticTile tile = staticTiles[i];
 				ItemData id = TileData.ItemTable[tile.ID & TileData.MaxItemValue];
 
-				int calcTop = (tile.Z + id.CalcHeight);
+				int calcTop = tile.Z + id.CalcHeight;
 
 				if ((!isSet || calcTop >= zCenter) && ((id.Flags & TileFlag.Surface) != 0 || (m.CanSwim && (id.Flags & TileFlag.Wet) != 0)) && loc.Z >= calcTop)
 				{

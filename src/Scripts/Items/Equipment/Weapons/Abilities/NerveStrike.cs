@@ -63,7 +63,7 @@ namespace Server.Items
 			{
 				AOS.Damage(defender, attacker, (int)(15.0 * (attacker.Skills[SkillName.Bushido].Value - 50.0) / 70.0 + Utility.Random(10)), true, 100, 0, 0, 0, 0); //0-25
 
-				if (!cantpara && ((150.0 / 7.0 + (4.0 * attacker.Skills[SkillName.Bushido].Value) / 7.0) / 100.0) > Utility.RandomDouble())
+				if (!cantpara && ((150.0 / 7.0 + 4.0 * attacker.Skills[SkillName.Bushido].Value / 7.0) / 100.0) > Utility.RandomDouble())
 				{
 					defender.Paralyze(TimeSpan.FromSeconds(2.0));
 					Server.Items.ParalyzingBlow.BeginImmunity(defender, Server.Items.ParalyzingBlow.FreezeDelayDuration);

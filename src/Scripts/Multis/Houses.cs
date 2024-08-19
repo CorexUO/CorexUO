@@ -516,7 +516,7 @@ namespace Server.Multis
 
 	public class SmallShop : BaseHouse
 	{
-		public override Rectangle2D[] Area => (ItemID == 0x40A2 ? AreaArray1 : AreaArray2);
+		public override Rectangle2D[] Area => ItemID == 0x40A2 ? AreaArray1 : AreaArray2;
 		public override Point3D BaseBanLocation => new(3, 4, 0);
 
 		public override int DefaultPrice => 63000;

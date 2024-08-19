@@ -16,8 +16,7 @@ namespace Server.Engines.Craft
 		{
 			get
 			{
-				if (m_CraftSystem == null)
-					m_CraftSystem = new DefInscription();
+				m_CraftSystem ??= new DefInscription();
 
 				return m_CraftSystem;
 			}
@@ -48,11 +47,11 @@ namespace Server.Engines.Craft
 				{
 					Spellbook book = Spellbook.Find(from, scroll.SpellID);
 
-					bool hasSpell = (book != null && book.HasSpell(scroll.SpellID));
+					bool hasSpell = book != null && book.HasSpell(scroll.SpellID);
 
 					scroll.Delete();
 
-					return (hasSpell ? 0 : 1042404); // null : You don't have that spell!
+					return hasSpell ? 0 : 1042404; // null : You don't have that spell!
 				}
 				else if (o is Item item)
 				{

@@ -78,8 +78,7 @@ namespace Server.Gumps
 
 			tree.LastBranch.TryGetValue(from, out ParentNode branch);
 
-			if (branch == null)
-				branch = tree.Root;
+			branch ??= tree.Root;
 
 			if (branch != null)
 				from.SendGump(new GoGump(0, from, tree, branch));

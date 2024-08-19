@@ -240,8 +240,7 @@ namespace Server.Mobiles
 				deed.StatueType = m_Type;
 				deed.IsRewardItem = IsRewardItem;
 
-				if (Plinth != null)
-					Plinth.Delete();
+				Plinth?.Delete();
 
 				return true;
 			}
@@ -317,8 +316,7 @@ namespace Server.Mobiles
 			for (int i = Items.Count - 1; i >= 0; i--)
 				Items[i].Hue = Hue;
 
-			if (Plinth != null)
-				Plinth.InvalidateHue();
+			Plinth?.InvalidateHue();
 		}
 
 		private int m_Animation;
@@ -366,8 +364,7 @@ namespace Server.Mobiles
 				{
 					state.Mobile.ProcessDelta();
 
-					if (p == null)
-						p = Packet.Acquire(new UpdateStatueAnimation(this, 1, m_Animation, m_Frames));
+					p ??= Packet.Acquire(new UpdateStatueAnimation(this, 1, m_Animation, m_Frames));
 
 					state.Send(p);
 				}
@@ -477,9 +474,7 @@ namespace Server.Mobiles
 
 		public override void OnDoubleClick(Mobile from)
 		{
-			Account acct = from.Account as Account;
-
-			if (acct != null && from.AccessLevel == AccessLevel.Player)
+			if (from.Account is Account acct && from.AccessLevel == AccessLevel.Player)
 			{
 				TimeSpan time = TimeSpan.FromDays(RewardSystem.RewardInterval.TotalDays * 6) - (DateTime.UtcNow - acct.Created);
 
@@ -508,8 +503,7 @@ namespace Server.Mobiles
 		{
 			base.OnDelete();
 
-			if (Statue != null)
-				Statue.Delete();
+			Statue?.Delete();
 		}
 
 		public override void Serialize(GenericWriter writer)
@@ -550,10 +544,9 @@ namespace Server.Mobiles
 
 		protected override void OnTarget(Mobile from, object targeted)
 		{
-			IPoint3D p = targeted as IPoint3D;
 			Map map = from.Map;
 
-			if (p == null || map == null || m_Maker == null || m_Maker.Deleted)
+			if (targeted is not IPoint3D p || map == null || m_Maker == null || m_Maker.Deleted)
 				return;
 
 			if (m_Maker.IsChildOf(from.Backpack))

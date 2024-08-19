@@ -105,8 +105,7 @@ namespace Server.Gumps
 
 			if (parent != null)
 			{
-				if (m_Stack == null)
-					m_Stack = new Stack<StackEntry>();
+				m_Stack ??= new Stack<StackEntry>();
 
 				m_Stack.Push(parent);
 			}
@@ -201,10 +200,8 @@ namespace Server.Gumps
 				{
 					AddImageTiled(x - OffsetSize, y, TotalWidth, EntryHeight, BackGumpID + 4);
 				}
-				else if (o is Type)
+				else if (o is Type type)
 				{
-					Type type = (Type)o;
-
 					AddImageTiled(x, y, TypeWidth, EntryHeight, EntryGumpID);
 					AddLabelCropped(x + TextOffsetX, y, TypeWidth - TextOffsetX, EntryHeight, TextHue, type.Name);
 					x += TypeWidth + OffsetSize;
@@ -212,10 +209,8 @@ namespace Server.Gumps
 					if (SetGumpID != 0)
 						AddImageTiled(x, y, SetWidth, EntryHeight, SetGumpID);
 				}
-				else if (o is PropertyInfo)
+				else if (o is PropertyInfo prop)
 				{
-					PropertyInfo prop = (PropertyInfo)o;
-
 					AddImageTiled(x, y, NameWidth, EntryHeight, EntryGumpID);
 					AddLabelCropped(x + TextOffsetX, y, NameWidth - TextOffsetX, EntryHeight, TextHue, prop.Name);
 					x += NameWidth + OffsetSize;
@@ -374,9 +369,8 @@ namespace Server.Gumps
 			if (attrs.Length == 0)
 				return Array.Empty<string>();
 
-			CustomEnumAttribute ce = attrs[0] as CustomEnumAttribute;
 
-			if (ce == null)
+			if (attrs[0] is not CustomEnumAttribute ce)
 				return Array.Empty<string>();
 
 			return ce.Names;
@@ -386,7 +380,7 @@ namespace Server.Gumps
 		{
 			object[] objs = type.GetCustomAttributes(check, inherit);
 
-			return (objs != null && objs.Length > 0);
+			return objs != null && objs.Length > 0;
 		}
 
 		private static bool IsType(Type type, Type check)
@@ -473,10 +467,8 @@ namespace Server.Gumps
 			{
 				return string.Format("0x{0:X} '{1}'", (int)(char)o, (char)o);
 			}
-			else if (o is Serial)
+			else if (o is Serial s)
 			{
-				Serial s = (Serial)o;
-
 				if (s.IsValid)
 				{
 					if (s.IsItem)
@@ -661,10 +653,8 @@ namespace Server.Gumps
 			{
 				return string.Format("0x{0:X} '{1}'", (int)(char)o, (char)o);
 			}
-			else if (o is Serial)
+			else if (o is Serial s)
 			{
-				Serial s = (Serial)o;
-
 				if (s.IsValid)
 				{
 					if (s.IsItem)

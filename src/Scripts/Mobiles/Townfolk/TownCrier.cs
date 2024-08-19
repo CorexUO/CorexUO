@@ -37,14 +37,13 @@ namespace Server.Mobiles
 		{
 			get
 			{
-				if (m_Instance == null)
-					m_Instance = new GlobalTownCrierEntryList();
+				m_Instance ??= new GlobalTownCrierEntryList();
 
 				return m_Instance;
 			}
 		}
 
-		public bool IsEmpty => (Entries == null || Entries.Count == 0);
+		public bool IsEmpty => Entries == null || Entries.Count == 0;
 
 		public GlobalTownCrierEntryList()
 		{
@@ -76,8 +75,7 @@ namespace Server.Mobiles
 
 		public TownCrierEntry AddEntry(string[] lines, TimeSpan duration)
 		{
-			if (Entries == null)
-				Entries = new List<TownCrierEntry>();
+			Entries ??= new List<TownCrierEntry>();
 
 			TownCrierEntry tce = new(lines, duration);
 
@@ -107,7 +105,7 @@ namespace Server.Mobiles
 	{
 		public string[] Lines { get; }
 		public DateTime ExpireTime { get; }
-		public bool Expired => (DateTime.UtcNow >= ExpireTime);
+		public bool Expired => DateTime.UtcNow >= ExpireTime;
 
 		public TownCrierEntry(string[] lines, TimeSpan duration)
 		{
@@ -346,21 +344,18 @@ namespace Server.Mobiles
 
 		public void ForceBeginAutoShout()
 		{
-			if (m_AutoShoutTimer == null)
-				m_AutoShoutTimer = Timer.DelayCall(TimeSpan.FromSeconds(5.0), TimeSpan.FromMinutes(1.0), new TimerCallback(AutoShout_Callback));
+			m_AutoShoutTimer ??= Timer.DelayCall(TimeSpan.FromSeconds(5.0), TimeSpan.FromMinutes(1.0), new TimerCallback(AutoShout_Callback));
 		}
 
 		public TownCrierEntry AddEntry(string[] lines, TimeSpan duration)
 		{
-			if (Entries == null)
-				Entries = new List<TownCrierEntry>();
+			Entries ??= new List<TownCrierEntry>();
 
 			TownCrierEntry tce = new(lines, duration);
 
 			Entries.Add(tce);
 
-			if (m_AutoShoutTimer == null)
-				m_AutoShoutTimer = Timer.DelayCall(TimeSpan.FromSeconds(5.0), TimeSpan.FromMinutes(1.0), new TimerCallback(AutoShout_Callback));
+			m_AutoShoutTimer ??= Timer.DelayCall(TimeSpan.FromSeconds(5.0), TimeSpan.FromMinutes(1.0), new TimerCallback(AutoShout_Callback));
 
 			return tce;
 		}
@@ -377,8 +372,7 @@ namespace Server.Mobiles
 
 			if (Entries == null && GlobalTownCrierEntryList.Instance.IsEmpty)
 			{
-				if (m_AutoShoutTimer != null)
-					m_AutoShoutTimer.Stop();
+				m_AutoShoutTimer?.Stop();
 
 				m_AutoShoutTimer = null;
 			}
@@ -390,8 +384,7 @@ namespace Server.Mobiles
 
 			if (tce == null)
 			{
-				if (m_AutoShoutTimer != null)
-					m_AutoShoutTimer.Stop();
+				m_AutoShoutTimer?.Stop();
 
 				m_AutoShoutTimer = null;
 			}
@@ -411,8 +404,7 @@ namespace Server.Mobiles
 
 			if (index < 0 || index >= tce.Lines.Length)
 			{
-				if (m_NewsTimer != null)
-					m_NewsTimer.Stop();
+				m_NewsTimer?.Stop();
 
 				m_NewsTimer = null;
 			}
@@ -433,7 +425,7 @@ namespace Server.Mobiles
 
 		public override bool HandlesOnSpeech(Mobile from)
 		{
-			return (m_NewsTimer == null && from.Alive && InRange(from, 12));
+			return m_NewsTimer == null && from.Alive && InRange(from, 12);
 		}
 
 		public override void OnSpeech(SpeechEventArgs e)

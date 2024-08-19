@@ -38,7 +38,7 @@ namespace Server.Spells
 			if (!sp.DelayedDamage)
 				return TimeSpan.Zero;
 
-			return (Core.AOS ? AosDamageDelay : OldDamageDelay);
+			return Core.AOS ? AosDamageDelay : OldDamageDelay;
 		}
 
 		public static bool CheckMulti(Point3D p, Map map)
@@ -231,7 +231,7 @@ namespace Server.Spells
 		public static TimeSpan GetDuration(Mobile caster, Mobile target)
 		{
 			if (Core.AOS)
-				return TimeSpan.FromSeconds(((6 * caster.Skills.EvalInt.Fixed) / 50) + 1);
+				return TimeSpan.FromSeconds((6 * caster.Skills.EvalInt.Fixed / 50) + 1);
 
 			return TimeSpan.FromSeconds(caster.Skills[SkillName.Magery].Value * 1.2);
 		}
@@ -331,7 +331,7 @@ namespace Server.Spells
 			if (pmFrom != null && pmTarg != null)
 			{
 				if (pmFrom.DuelContext != null && pmFrom.DuelContext == pmTarg.DuelContext && pmFrom.DuelContext.Started && pmFrom.DuelPlayer != null && pmTarg.DuelPlayer != null)
-					return (pmFrom.DuelPlayer.Participant != pmTarg.DuelPlayer.Participant);
+					return pmFrom.DuelPlayer.Participant != pmTarg.DuelPlayer.Participant;
 			}
 			#endregion
 
@@ -377,7 +377,7 @@ namespace Server.Spells
 
 			int noto = Notoriety.Compute(from, to);
 
-			return (noto != Notoriety.Innocent || from.Murderer);
+			return noto != Notoriety.Innocent || from.Murderer;
 		}
 
 		public static void Summon(BaseCreature creature, Mobile caster, int sound, TimeSpan duration, bool scaleDuration, bool scaleStats)
@@ -556,7 +556,7 @@ namespace Server.Spells
 			bool isValid = true;
 
 			for (int i = 0; isValid && i < m_Validators.Length; ++i)
-				isValid = (m_Rules[v, i] || !m_Validators[i](map, loc));
+				isValid = m_Rules[v, i] || !m_Validators[i](map, loc);
 
 			if (!isValid && caster != null)
 				SendInvalidMessage(caster, type);
@@ -568,64 +568,64 @@ namespace Server.Spells
 		{
 			int x = loc.X, y = loc.Y;
 
-			return (x >= 5120 && y >= 0 && x < 5376 && y < 256);
+			return x >= 5120 && y >= 0 && x < 5376 && y < 256;
 		}
 
 		public static bool IsFeluccaWind(Map map, Point3D loc)
 		{
-			return (map == Map.Felucca && IsWindLoc(loc));
+			return map == Map.Felucca && IsWindLoc(loc);
 		}
 
 		public static bool IsTrammelWind(Map map, Point3D loc)
 		{
-			return (map == Map.Trammel && IsWindLoc(loc));
+			return map == Map.Trammel && IsWindLoc(loc);
 		}
 
 		public static bool IsIlshenar(Map map, Point3D loc)
 		{
-			return (map == Map.Ilshenar);
+			return map == Map.Ilshenar;
 		}
 
 		public static bool IsSolenHiveLoc(Point3D loc)
 		{
 			int x = loc.X, y = loc.Y;
 
-			return (x >= 5640 && y >= 1776 && x < 5935 && y < 2039);
+			return x >= 5640 && y >= 1776 && x < 5935 && y < 2039;
 		}
 
 		public static bool IsTrammelSolenHive(Map map, Point3D loc)
 		{
-			return (map == Map.Trammel && IsSolenHiveLoc(loc));
+			return map == Map.Trammel && IsSolenHiveLoc(loc);
 		}
 
 		public static bool IsFeluccaSolenHive(Map map, Point3D loc)
 		{
-			return (map == Map.Felucca && IsSolenHiveLoc(loc));
+			return map == Map.Felucca && IsSolenHiveLoc(loc);
 		}
 
 		public static bool IsFeluccaT2A(Map map, Point3D loc)
 		{
 			int x = loc.X, y = loc.Y;
 
-			return (map == Map.Felucca && x >= 5120 && y >= 2304 && x < 6144 && y < 4096);
+			return map == Map.Felucca && x >= 5120 && y >= 2304 && x < 6144 && y < 4096;
 		}
 
 		public static bool IsAnyT2A(Map map, Point3D loc)
 		{
 			int x = loc.X, y = loc.Y;
 
-			return ((map == Map.Trammel || map == Map.Felucca) && x >= 5120 && y >= 2304 && x < 6144 && y < 4096);
+			return (map == Map.Trammel || map == Map.Felucca) && x >= 5120 && y >= 2304 && x < 6144 && y < 4096;
 		}
 
 		public static bool IsFeluccaDungeon(Map map, Point3D loc)
 		{
 			Region region = Region.Find(loc, map);
-			return (region.IsPartOf(typeof(DungeonRegion)) && region.Map == Map.Felucca);
+			return region.IsPartOf(typeof(DungeonRegion)) && region.Map == Map.Felucca;
 		}
 
 		public static bool IsKhaldun(Map map, Point3D loc)
 		{
-			return (Region.Find(loc, map).Name == "Khaldun");
+			return Region.Find(loc, map).Name == "Khaldun";
 		}
 
 		public static bool IsCrystalCave(Map map, Point3D loc)
@@ -668,12 +668,12 @@ namespace Server.Spells
 					return false;
 			}*/
 
-			return (Region.Find(loc, map).IsPartOf(typeof(Factions.StrongholdRegion)));
+			return Region.Find(loc, map).IsPartOf(typeof(Factions.StrongholdRegion));
 		}
 
 		public static bool IsChampionSpawn(Map map, Point3D loc)
 		{
-			return (Region.Find(loc, map).IsPartOf(typeof(Engines.CannedEvil.ChampionSpawnRegion)));
+			return Region.Find(loc, map).IsPartOf(typeof(Engines.CannedEvil.ChampionSpawnRegion));
 		}
 
 		public static bool IsDoomFerry(Map map, Point3D loc)
@@ -701,10 +701,10 @@ namespace Server.Spells
 			int x = loc.X, y = loc.Y;
 			_ = loc.Z;
 
-			bool r1 = (x >= 0 && y >= 0 && x <= 128 && y <= 128);
-			bool r2 = (x >= 45 && y >= 320 && x < 195 && y < 710);
+			bool r1 = x >= 0 && y >= 0 && x <= 128 && y <= 128;
+			bool r2 = x >= 45 && y >= 320 && x < 195 && y < 710;
 
-			return (r1 || r2);
+			return r1 || r2;
 		}
 
 		public static bool IsDoomGauntlet(Map map, Point3D loc)
@@ -714,7 +714,7 @@ namespace Server.Spells
 
 			int x = loc.X - 256, y = loc.Y - 304;
 
-			return (x >= 0 && y >= 0 && x < 256 && y < 256);
+			return x >= 0 && y >= 0 && x < 256 && y < 256;
 		}
 
 		public static bool IsLampRoom(Map map, Point3D loc)
@@ -724,7 +724,7 @@ namespace Server.Spells
 
 			int x = loc.X, y = loc.Y;
 
-			return (x >= 465 && y >= 92 && x < 474 && y < 102);
+			return x >= 465 && y >= 92 && x < 474 && y < 102;
 		}
 
 		public static bool IsGuardianRoom(Map map, Point3D loc)
@@ -734,14 +734,14 @@ namespace Server.Spells
 
 			int x = loc.X, y = loc.Y;
 
-			return (x >= 356 && y >= 5 && x < 375 && y < 25);
+			return x >= 356 && y >= 5 && x < 375 && y < 25;
 		}
 
 		public static bool IsHeartwood(Map map, Point3D loc)
 		{
 			int x = loc.X, y = loc.Y;
 
-			return (map == Map.Trammel || map == Map.Felucca) && (x >= 6911 && y >= 254 && x < 7167 && y < 511);
+			return (map == Map.Trammel || map == Map.Felucca) && x >= 6911 && y >= 254 && x < 7167 && y < 511;
 		}
 
 		public static bool IsMLDungeon(Map map, Point3D loc)
@@ -756,7 +756,7 @@ namespace Server.Spells
 
 			int x = loc.X, y = loc.Y;
 
-			return (x < 0 || y < 0 || x >= map.Width || y >= map.Height);
+			return x < 0 || y < 0 || x >= map.Width || y >= map.Height;
 		}
 
 		//towns
@@ -789,7 +789,7 @@ namespace Server.Spells
 
 			GuardedRegion reg = (GuardedRegion)Region.Find(loc, map).GetRegion(typeof(GuardedRegion));
 
-			return (reg != null && !reg.IsDisabled());
+			return reg != null && !reg.IsDisabled();
 		}
 
 		public static bool CheckTown(IPoint3D loc, Mobile caster)
@@ -827,7 +827,7 @@ namespace Server.Spells
 
 				// This order isn't very intuitive, but you have to nullify reflect before target gets switched
 
-				bool reflect = (target.MagicDamageAbsorb >= 0);
+				bool reflect = target.MagicDamageAbsorb >= 0;
 
 				if (target is BaseCreature creature)
 					creature.CheckReflect(caster, ref reflect);
@@ -979,7 +979,7 @@ namespace Server.Spells
 			{
 				if (context.Type == typeof(WraithFormSpell))
 				{
-					int wraithLeech = (5 + (int)((15 * from.Skills.SpiritSpeak.Value) / 100)); // Wraith form gives 5-20% mana leech
+					int wraithLeech = 5 + (int)(15 * from.Skills.SpiritSpeak.Value / 100); // Wraith form gives 5-20% mana leech
 					int manaLeech = AOS.Scale(damageGiven, wraithLeech);
 					if (manaLeech != 0)
 					{
@@ -1034,8 +1034,7 @@ namespace Server.Spells
 					tbc.AlterSpellDamageFrom(m_From, ref m_Damage);
 
 				m_Target.Damage(m_Damage);
-				if (m_Spell != null)
-					m_Spell.RemoveDelayedDamageContext(m_Target);
+				m_Spell?.RemoveDelayedDamageContext(m_Target);
 			}
 		}
 
@@ -1091,8 +1090,7 @@ namespace Server.Spells
 					bm.OnDamagedBySpell(m_From, m_Spell, damageGiven);
 				}
 
-				if (m_Spell != null)
-					m_Spell.RemoveDelayedDamageContext(m_Target);
+				m_Spell?.RemoveDelayedDamageContext(m_Target);
 			}
 		}
 	}
@@ -1146,14 +1144,14 @@ namespace Server.Spells
 
 		public static bool UnderTransformation(Mobile m)
 		{
-			return (GetContext(m) != null);
+			return GetContext(m) != null;
 		}
 
 		public static bool UnderTransformation(Mobile m, Type type)
 		{
 			TransformContext context = GetContext(m);
 
-			return (context != null && context.Type == type);
+			return context != null && context.Type == type;
 		}
 		#endregion
 
@@ -1209,8 +1207,8 @@ namespace Server.Spells
 				TransformContext context = GetContext(caster);
 				Type ourType = spell.GetType();
 
-				bool wasTransformed = (context != null);
-				bool ourTransform = (wasTransformed && context.Type == ourType);
+				bool wasTransformed = context != null;
+				bool ourTransform = wasTransformed && context.Type == ourType;
 
 				if (wasTransformed)
 				{

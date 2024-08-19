@@ -40,7 +40,7 @@ namespace Server.Misc
 
 				try
 				{
-					TimeSpan ts = (StartTime + Duration) - DateTime.UtcNow;
+					TimeSpan ts = StartTime + Duration - DateTime.UtcNow;
 
 					if (ts < TimeSpan.Zero)
 						return TimeSpan.Zero;
@@ -377,8 +377,7 @@ namespace Server.Misc
 
 		public void QueuePoll(ShardPoller poller)
 		{
-			if (m_Polls == null)
-				m_Polls = new Queue<ShardPoller>(4);
+			m_Polls ??= new Queue<ShardPoller>(4);
 
 			m_Polls.Enqueue(poller);
 		}
@@ -421,7 +420,7 @@ namespace Server.Misc
 			string title;
 
 			if (editing)
-				title = (isCompleted ? "Poll Completed" : "Poll Editor");
+				title = isCompleted ? "Poll Completed" : "Poll Editor";
 			else
 				title = "Shard Poll";
 

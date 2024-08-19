@@ -39,32 +39,32 @@ namespace Server
 
 		public static bool operator ==(ClientVersion l, ClientVersion r)
 		{
-			return (Compare(l, r) == 0);
+			return Compare(l, r) == 0;
 		}
 
 		public static bool operator !=(ClientVersion l, ClientVersion r)
 		{
-			return (Compare(l, r) != 0);
+			return Compare(l, r) != 0;
 		}
 
 		public static bool operator >=(ClientVersion l, ClientVersion r)
 		{
-			return (Compare(l, r) >= 0);
+			return Compare(l, r) >= 0;
 		}
 
 		public static bool operator >(ClientVersion l, ClientVersion r)
 		{
-			return (Compare(l, r) > 0);
+			return Compare(l, r) > 0;
 		}
 
 		public static bool operator <=(ClientVersion l, ClientVersion r)
 		{
-			return (Compare(l, r) <= 0);
+			return Compare(l, r) <= 0;
 		}
 
 		public static bool operator <(ClientVersion l, ClientVersion r)
 		{
-			return (Compare(l, r) < 0);
+			return Compare(l, r) < 0;
 		}
 
 		public override int GetHashCode()
@@ -148,7 +148,7 @@ namespace Server
 					if (Major <= 5 && Minor <= 0 && Revision <= 6)    //Anything before 5.0.7
 					{
 						if (!char.IsWhiteSpace(fmt, br3))
-							Patch = (fmt[br3] - 'a') + 1;
+							Patch = fmt[br3] - 'a' + 1;
 					}
 					else
 					{

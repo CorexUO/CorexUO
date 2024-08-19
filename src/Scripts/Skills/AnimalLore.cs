@@ -148,7 +148,7 @@ namespace Server.SkillHandlers
 			AddImage(140, 138, 2091);
 			AddImage(140, 335, 2091);
 
-			int pages = (Core.AOS ? 5 : 3);
+			int pages = Core.AOS ? 5 : 3;
 			int page = 0;
 
 

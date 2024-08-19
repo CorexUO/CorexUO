@@ -3,7 +3,7 @@ namespace Server.Items
 	public class ZoogiFungus : BaseItem, ICommodity
 	{
 		int ICommodity.DescriptionNumber => LabelNumber;
-		bool ICommodity.IsDeedable => (Core.ML);
+		bool ICommodity.IsDeedable => Core.ML;
 
 		[Constructable]
 		public ZoogiFungus() : this(1)

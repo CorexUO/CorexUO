@@ -74,7 +74,7 @@ namespace Server.Commands
 
 				string path = Core.BaseDirectory;
 
-				string name = (from.Account is not Account acct ? from.Name : acct.Username);
+				string name = from.Account is not Account acct ? from.Name : acct.Username;
 
 				AppendPath(ref path, "Logs");
 				AppendPath(ref path, "Commands");
@@ -112,7 +112,7 @@ namespace Server.Commands
 			bool isSafe = true;
 
 			for (int i = 0; isSafe && i < m_NotSafe.Length; ++i)
-				isSafe = (!ip.Contains(m_NotSafe[i]));
+				isSafe = !ip.Contains(m_NotSafe[i]);
 
 			if (isSafe)
 				return ip;

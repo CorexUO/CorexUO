@@ -124,8 +124,7 @@ namespace Server.Engines.PartySystem
 		{
 			Party p = Party.Get(from);
 
-			if (p != null)
-				p.Remove(from);
+			p?.Remove(from);
 
 			from.Party = null;
 		}
@@ -261,7 +260,7 @@ namespace Server.Engines.PartySystem
 
 		public bool Contains(Mobile m)
 		{
-			return (this[m] != null);
+			return this[m] != null;
 		}
 
 		public void Disband()
@@ -363,8 +362,7 @@ namespace Server.Engines.PartySystem
 
 				if (mob != null && mob.AccessLevel >= AccessLevel.GameMaster && mob.AccessLevel > from.AccessLevel && mob.Party != this && !m_Listeners.Contains(mob))
 				{
-					if (p == null)
-						p = Packet.Acquire(new UnicodeMessage(from.Serial, from.Body, MessageType.Regular, from.SpeechHue, 3, from.Language, from.Name, text));
+					p ??= Packet.Acquire(new UnicodeMessage(from.Serial, from.Body, MessageType.Regular, from.SpeechHue, 3, from.Language, from.Name, text));
 
 					ns.Send(p);
 				}
@@ -408,8 +406,7 @@ namespace Server.Engines.PartySystem
 
 				if (c != m && m.Map == c.Map && Utility.InUpdateRange(c, m) && c.CanSee(m))
 				{
-					if (p == null)
-						p = Packet.Acquire(new MobileStamN(m));
+					p ??= Packet.Acquire(new MobileStamN(m));
 
 					c.Send(p);
 				}
@@ -428,8 +425,7 @@ namespace Server.Engines.PartySystem
 
 				if (c != m && m.Map == c.Map && Utility.InUpdateRange(c, m) && c.CanSee(m))
 				{
-					if (p == null)
-						p = Packet.Acquire(new MobileManaN(m));
+					p ??= Packet.Acquire(new MobileManaN(m));
 
 					c.Send(p);
 				}

@@ -12,8 +12,7 @@ namespace Server.Engines.Harvest
 		{
 			get
 			{
-				if (m_System == null)
-					m_System = new Lumberjacking();
+				m_System ??= new Lumberjacking();
 
 				return m_System;
 			}
@@ -57,7 +56,7 @@ namespace Server.Engines.Harvest
 				// The chopping effect
 				EffectActions = new int[] { 13 },
 				EffectSounds = new int[] { 0x13E },
-				EffectCounts = (Core.AOS ? new int[] { 1 } : new int[] { 1, 2, 2, 2, 3 }),
+				EffectCounts = Core.AOS ? new int[] { 1 } : new int[] { 1, 2, 2, 2, 3 },
 				EffectDelay = TimeSpan.FromSeconds(1.6),
 				EffectSoundDelay = TimeSpan.FromSeconds(0.9),
 

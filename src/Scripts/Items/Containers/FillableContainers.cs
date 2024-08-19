@@ -109,7 +109,7 @@ namespace Server.Items
 
 		public void CheckRespawn()
 		{
-			bool canSpawn = (m_Content != null && !Deleted && GetItemsCount() <= SpawnThreshold && !Movable && Parent == null && !IsLockedDown && !IsSecure);
+			bool canSpawn = m_Content != null && !Deleted && GetItemsCount() <= SpawnThreshold && !Movable && Parent == null && !IsLockedDown && !IsSecure;
 
 			if (canSpawn)
 			{
@@ -276,7 +276,7 @@ namespace Server.Items
 
 		protected override int GetSpawnCount()
 		{
-			return (5 - GetItemsCount());
+			return 5 - GetItemsCount();
 		}
 
 		public override void AcquireContent()
@@ -642,10 +642,8 @@ namespace Server.Items
 			{
 				item = base.Construct();
 
-				if (item is BaseBeverage)
+				if (item is BaseBeverage bev)
 				{
-					BaseBeverage bev = (BaseBeverage)item;
-
 					bev.Content = Content;
 					bev.Quantity = bev.MaxQuantity;
 				}
@@ -1479,9 +1477,8 @@ namespace Server.Items
 				if (nearest != null && mob.GetDistanceToSqrt(loc) > nearest.GetDistanceToSqrt(loc) && !(nearest is Cobbler && mob is Provisioner))
 					continue;
 
-				FillableContent check = m_AcquireTable[mob.GetType()] as FillableContent;
 
-				if (check != null)
+				if (m_AcquireTable[mob.GetType()] is FillableContent check)
 				{
 					nearest = mob;
 					content = check;

@@ -70,17 +70,16 @@ namespace Server.Engines.VeteranRewards
 				return false;
 			}
 
-			Account acct = mob.Account as Account;
 
-			if (acct == null)
+			if (mob.Account is not Account acct)
 			{
 				ts = TimeSpan.Zero;
 				return false;
 			}
 
-			TimeSpan totalTime = (DateTime.UtcNow - acct.Created);
+			TimeSpan totalTime = DateTime.UtcNow - acct.Created;
 
-			ts = (list.Age - totalTime);
+			ts = list.Age - totalTime;
 
 			if (ts <= TimeSpan.Zero)
 				return true;
@@ -90,9 +89,7 @@ namespace Server.Engines.VeteranRewards
 
 		public static int GetRewardLevel(Mobile mob)
 		{
-			Account acct = mob.Account as Account;
-
-			if (acct == null)
+			if (mob.Account is not Account acct)
 				return 0;
 
 			return GetRewardLevel(acct);
@@ -100,7 +97,7 @@ namespace Server.Engines.VeteranRewards
 
 		public static int GetRewardLevel(Account acct)
 		{
-			TimeSpan totalTime = (DateTime.UtcNow - acct.Created);
+			TimeSpan totalTime = DateTime.UtcNow - acct.Created;
 
 			int level = (int)(totalTime.TotalDays / RewardInterval.TotalDays);
 
@@ -112,9 +109,7 @@ namespace Server.Engines.VeteranRewards
 
 		public static bool HasHalfLevel(Mobile mob)
 		{
-			Account acct = mob.Account as Account;
-
-			if (acct == null)
+			if (mob.Account is not Account acct)
 				return false;
 
 			return HasHalfLevel(acct);
@@ -122,24 +117,22 @@ namespace Server.Engines.VeteranRewards
 
 		public static bool HasHalfLevel(Account acct)
 		{
-			TimeSpan totalTime = (DateTime.UtcNow - acct.Created);
+			TimeSpan totalTime = DateTime.UtcNow - acct.Created;
 
-			double level = (totalTime.TotalDays / RewardInterval.TotalDays);
+			double level = totalTime.TotalDays / RewardInterval.TotalDays;
 
 			return level >= 0.5;
 		}
 
 		public static bool ConsumeRewardPoint(Mobile mob)
 		{
-
 			ComputeRewardInfo(mob, out int cur, out int max);
 
 			if (cur >= max)
 				return false;
 
-			Account acct = mob.Account as Account;
 
-			if (acct == null)
+			if (mob.Account is not Account acct)
 				return false;
 
 			//if ( mob.AccessLevel < AccessLevel.GameMaster )
@@ -156,9 +149,7 @@ namespace Server.Engines.VeteranRewards
 
 		public static void ComputeRewardInfo(Mobile mob, out int cur, out int max, out int level)
 		{
-			Account acct = mob.Account as Account;
-
-			if (acct == null)
+			if (mob.Account is not Account acct)
 			{
 				cur = max = level = 0;
 				return;
@@ -190,7 +181,7 @@ namespace Server.Engines.VeteranRewards
 			if (m_Lists == null)
 				SetupRewardTables();
 
-			bool isRelaxedRules = (item is DyeTub || item is MonsterStatuette);
+			bool isRelaxedRules = item is DyeTub || item is MonsterStatuette;
 
 			Type type = item.GetType();
 
@@ -220,7 +211,7 @@ namespace Server.Engines.VeteranRewards
 							bool match = true;
 
 							for (int k = 0; match && k < args.Length; ++k)
-								match = (args[k].Equals(entries[j].Args[k]));
+								match = args[k].Equals(entries[j].Args[k]);
 
 							if (match)
 							{
@@ -245,7 +236,7 @@ namespace Server.Engines.VeteranRewards
 		{
 			int level = GetRewardYear(item, args);
 
-			return 1076216 + ((level < 10) ? level : (level < 12) ? ((level - 9) + 4240) : ((level - 11) + 37585));
+			return 1076216 + ((level < 10) ? level : (level < 12) ? (level - 9 + 4240) : (level - 11 + 37585));
 		}
 
 		public static int GetRewardYear(Item item, object[] args)
@@ -272,7 +263,7 @@ namespace Server.Engines.VeteranRewards
 							bool match = true;
 
 							for (int k = 0; match && k < args.Length; ++k)
-								match = (args[k].Equals(entries[j].Args[k]));
+								match = args[k].Equals(entries[j].Args[k]);
 
 							if (match)
 								return i + 1;

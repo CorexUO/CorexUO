@@ -30,9 +30,8 @@ namespace Server.Items
 
 			ClearCurrentAbility(attacker);
 
-			BaseWeapon weapon = attacker.Weapon as BaseWeapon;
 
-			if (weapon == null)
+			if (attacker.Weapon is not BaseWeapon weapon)
 				return;
 
 			Poison p = weapon.Poison;

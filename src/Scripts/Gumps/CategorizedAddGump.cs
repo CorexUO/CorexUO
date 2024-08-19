@@ -20,7 +20,7 @@ namespace Server.Gumps
 		public int Hue { get; }
 		public CAGCategory Parent { get; }
 
-		public override string Caption => (Type == null ? "bad type" : Type.Name);
+		public override string Caption => Type == null ? "bad type" : Type.Name;
 
 		public override void OnClick(Mobile from, int page)
 		{
@@ -113,8 +113,7 @@ namespace Server.Gumps
 		{
 			get
 			{
-				if (m_Root == null)
-					m_Root = Load("Data/objects.xml");
+				m_Root ??= Load("Data/objects.xml");
 
 				return m_Root;
 			}
@@ -168,17 +167,17 @@ namespace Server.Gumps
 		public static readonly int SetGumpID = PropsConfig.SetGumpID;
 
 		public static readonly int SetWidth = PropsConfig.SetWidth;
-		public static readonly int SetOffsetX = PropsConfig.SetOffsetX, SetOffsetY = PropsConfig.SetOffsetY + (((EntryHeight - 20) / 2) / 2);
+		public static readonly int SetOffsetX = PropsConfig.SetOffsetX, SetOffsetY = PropsConfig.SetOffsetY + ((EntryHeight - 20) / 2 / 2);
 		public static readonly int SetButtonID1 = PropsConfig.SetButtonID1;
 		public static readonly int SetButtonID2 = PropsConfig.SetButtonID2;
 
 		public static readonly int PrevWidth = PropsConfig.PrevWidth;
-		public static readonly int PrevOffsetX = PropsConfig.PrevOffsetX, PrevOffsetY = PropsConfig.PrevOffsetY + (((EntryHeight - 20) / 2) / 2);
+		public static readonly int PrevOffsetX = PropsConfig.PrevOffsetX, PrevOffsetY = PropsConfig.PrevOffsetY + ((EntryHeight - 20) / 2 / 2);
 		public static readonly int PrevButtonID1 = PropsConfig.PrevButtonID1;
 		public static readonly int PrevButtonID2 = PropsConfig.PrevButtonID2;
 
 		public static readonly int NextWidth = PropsConfig.NextWidth;
-		public static readonly int NextOffsetX = PropsConfig.NextOffsetX, NextOffsetY = PropsConfig.NextOffsetY + (((EntryHeight - 20) / 2) / 2);
+		public static readonly int NextOffsetX = PropsConfig.NextOffsetX, NextOffsetY = PropsConfig.NextOffsetY + ((EntryHeight - 20) / 2 / 2);
 		public static readonly int NextButtonID1 = PropsConfig.NextButtonID1;
 		public static readonly int NextButtonID2 = PropsConfig.NextButtonID2;
 
@@ -316,9 +315,9 @@ namespace Server.Gumps
 					if (itemID != 1 && bounds.Height < (EntryHeight * 2))
 					{
 						if (bounds.Height < EntryHeight)
-							AddItem(x - OffsetSize - 22 - ((i % 2) * 44) - (bounds.Width / 2) - bounds.X, y + (EntryHeight / 2) - (bounds.Height / 2) - bounds.Y, itemID);
+							AddItem(x - OffsetSize - 22 - (i % 2 * 44) - (bounds.Width / 2) - bounds.X, y + (EntryHeight / 2) - (bounds.Height / 2) - bounds.Y, itemID);
 						else
-							AddItem(x - OffsetSize - 22 - ((i % 2) * 44) - (bounds.Width / 2) - bounds.X, y + EntryHeight - 1 - bounds.Height - bounds.Y, itemID);
+							AddItem(x - OffsetSize - 22 - (i % 2 * 44) - (bounds.Width / 2) - bounds.X, y + EntryHeight - 1 - bounds.Height - bounds.Y, itemID);
 					}
 				}
 			}

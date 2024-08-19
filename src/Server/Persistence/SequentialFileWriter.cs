@@ -41,10 +41,7 @@ namespace Server
 			}
 			else
 			{
-				if (writeCallback == null)
-				{
-					writeCallback = OnWrite;
-				}
+				writeCallback ??= OnWrite;
 
 				fileStream.BeginWrite(chunk.Buffer, FileQueue.Chunk.Offset, chunk.Size, writeCallback, chunk);
 			}

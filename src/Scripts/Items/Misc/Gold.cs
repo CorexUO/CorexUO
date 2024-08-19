@@ -5,7 +5,7 @@ namespace Server.Items
 {
 	public class Gold : BaseItem
 	{
-		public override double DefaultWeight => (Core.ML ? (0.02 / 3) : 0.02);
+		public override double DefaultWeight => Core.ML ? (0.02 / 3) : 0.02;
 
 		[Constructable]
 		public Gold() : this(1)
@@ -103,10 +103,7 @@ namespace Server.Items
 					tradeInfo.Gold += gold;
 				}
 
-				if (tradeInfo.VirtualCheck != null)
-				{
-					tradeInfo.VirtualCheck.UpdateTrade(tradeInfo.Mobile);
-				}
+				tradeInfo.VirtualCheck?.UpdateTrade(tradeInfo.Mobile);
 			}
 
 			owner.SendLocalizedMessage(1042763, Amount.ToString("#,0"));

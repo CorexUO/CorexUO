@@ -502,7 +502,7 @@ namespace Server.Commands
 			{
 				if (targeted is Mobile m)
 				{
-					BankBox box = (m.Player ? m.BankBox : m.FindBankNoCreate());
+					BankBox box = m.Player ? m.BankBox : m.FindBankNoCreate();
 
 					if (box != null)
 					{
@@ -634,7 +634,7 @@ namespace Server.Commands
 		{
 			if (map == null || map == Map.Internal)
 			{
-				return (item.RootParent is Mobile m && FixMap(ref map, ref loc, m));
+				return item.RootParent is Mobile m && FixMap(ref map, ref loc, m);
 			}
 
 			return true;
@@ -648,7 +648,7 @@ namespace Server.Commands
 				loc = m.LogoutLocation;
 			}
 
-			return (map != null && map != Map.Internal);
+			return map != null && map != Map.Internal;
 		}
 
 		[Usage("Go [name | serial | (x y [z]) | (deg min (N | S) deg min (E | W))]")]
@@ -678,7 +678,7 @@ namespace Server.Commands
 
 						Mobile owner = item.RootParent as Mobile;
 
-						if (owner != null && (owner.Map != null && owner.Map != Map.Internal) && !BaseCommand.IsAccessible(from, owner) /* !from.CanSee( owner )*/ )
+						if (owner != null && owner.Map != null && owner.Map != Map.Internal && !BaseCommand.IsAccessible(from, owner) /* !from.CanSee( owner )*/ )
 						{
 							from.SendMessage("You can not go to what you can not see.");
 							return;
@@ -707,7 +707,7 @@ namespace Server.Commands
 
 						Mobile owner = m;
 
-						if (owner != null && (owner.Map != null && owner.Map != Map.Internal) && !BaseCommand.IsAccessible(from, owner) /* !from.CanSee( owner )*/ )
+						if (owner != null && owner.Map != null && owner.Map != Map.Internal && !BaseCommand.IsAccessible(from, owner) /* !from.CanSee( owner )*/ )
 						{
 							from.SendMessage("You can not go to what you can not see.");
 							return;

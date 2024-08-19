@@ -19,17 +19,17 @@ namespace Server.Items
 			switch (Utility.RandomList(0, 1, 2))
 			{
 				case 0:// Wooden Chest
-					ItemID = (UseFirstItemId ? 0xe42 : 0xe43);
+					ItemID = UseFirstItemId ? 0xe42 : 0xe43;
 					GumpID = 0x49;
 					break;
 
 				case 1:// Metal Chest
-					ItemID = (UseFirstItemId ? 0x9ab : 0xe7c);
+					ItemID = UseFirstItemId ? 0x9ab : 0xe7c;
 					GumpID = 0x4A;
 					break;
 
 				case 2:// Metal Golden Chest
-					ItemID = (UseFirstItemId ? 0xe40 : 0xe41);
+					ItemID = UseFirstItemId ? 0xe40 : 0xe41;
 					GumpID = 0x42;
 					break;
 			}

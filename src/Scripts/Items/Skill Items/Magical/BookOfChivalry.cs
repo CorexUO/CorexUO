@@ -14,7 +14,7 @@ namespace Server.Items
 		[Constructable]
 		public BookOfChivalry(ulong content) : base(content, 0x2252)
 		{
-			Layer = (Core.ML ? Layer.OneHanded : Layer.Invalid);
+			Layer = Core.ML ? Layer.OneHanded : Layer.Invalid;
 		}
 
 		public BookOfChivalry(Serial serial) : base(serial)

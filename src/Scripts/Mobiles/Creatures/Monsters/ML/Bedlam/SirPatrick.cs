@@ -69,10 +69,8 @@ namespace Server.Mobiles
 				if (m == this || !CanBeHarmful(m, false) || (Core.AOS && !InLOS(m)))
 					continue;
 
-				if (m is BaseCreature)
+				if (m is BaseCreature bc)
 				{
-					BaseCreature bc = (BaseCreature)m;
-
 					if (bc.Controlled || bc.Summoned || bc.Team != Team)
 						list.Add(m);
 				}

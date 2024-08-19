@@ -15,8 +15,7 @@ namespace Server.Engines.Craft
 		{
 			get
 			{
-				if (m_CraftSystem == null)
-					m_CraftSystem = new DefCooking();
+				m_CraftSystem ??= new DefCooking();
 
 				return m_CraftSystem;
 			}

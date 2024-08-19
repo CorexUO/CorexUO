@@ -145,11 +145,9 @@ namespace Server.Mobiles
 			get => m_House;
 			set
 			{
-				if (m_House != null)
-					m_House.PlayerBarkeepers.Remove(this);
+				m_House?.PlayerBarkeepers.Remove(this);
 
-				if (value != null)
-					value.PlayerBarkeepers.Add(this);
+				value?.PlayerBarkeepers.Add(this);
 
 				m_House = value;
 			}
@@ -159,7 +157,7 @@ namespace Server.Mobiles
 		public string TipMessage { get; set; }
 
 		public override bool IsActiveBuyer => false;
-		public override bool IsActiveSeller => (m_SBInfos.Count > 0);
+		public override bool IsActiveSeller => m_SBInfos.Count > 0;
 
 		public override bool DisallowAllMoves => true;
 		public override bool NoHouseRestrictions => true;
@@ -181,8 +179,7 @@ namespace Server.Mobiles
 
 			Container pack = Backpack;
 
-			if (pack != null)
-				pack.Delete();
+			pack?.Delete();
 		}
 
 		public override void InitBody()
@@ -196,8 +193,7 @@ namespace Server.Mobiles
 
 			Container pack = Backpack;
 
-			if (pack != null)
-				pack.Delete();
+			pack?.Delete();
 		}
 
 		public PlayerBarkeeper(Mobile owner, BaseHouse house) : base("the barkeeper")
@@ -227,8 +223,7 @@ namespace Server.Mobiles
 
 			if (index < 0 || index >= tce.Lines.Length)
 			{
-				if (m_NewsTimer != null)
-					m_NewsTimer.Stop();
+				m_NewsTimer?.Stop();
 
 				m_NewsTimer = null;
 			}
@@ -308,10 +303,8 @@ namespace Server.Mobiles
 
 		public override bool CheckGold(Mobile from, Item dropped)
 		{
-			if (dropped is Gold)
+			if (dropped is Gold g)
 			{
-				Gold g = (Gold)dropped;
-
 				if (g.Amount > 50)
 				{
 					PrivateOverheadMessage(MessageType.Regular, 0x3B2, false, "I cannot accept so large a tip!", from.NetState);
@@ -346,7 +339,7 @@ namespace Server.Mobiles
 			if (from.AccessLevel > AccessLevel.GameMaster)
 				return true;
 
-			return (Owner == from);
+			return Owner == from;
 		}
 
 		public override void GetContextMenuEntries(Mobile from, List<ContextMenuEntry> list)
@@ -690,17 +683,17 @@ namespace Server.Mobiles
 
 			AddHtml(430, 70, 180, 25, string.Format("Page {0} of {1}", page + 1, (entries.Length + 19) / 20), false, false);
 
-			for (int count = 0, i = (page * 20); count < 20 && i < entries.Length; ++count, ++i)
+			for (int count = 0, i = page * 20; count < 20 && i < entries.Length; ++count, ++i)
 			{
 				Entry entry = entries[i];
 
-				AddButton(80 + ((count / 10) * 260), 100 + ((count % 10) * 30), 4005, 4007, 2 + i, GumpButtonType.Reply, 0);
-				AddHtml(120 + ((count / 10) * 260), 100 + ((count % 10) * 30), entry.m_Vendor ? 148 : 180, 25, entry.m_Description, true, false);
+				AddButton(80 + (count / 10 * 260), 100 + (count % 10 * 30), 4005, 4007, 2 + i, GumpButtonType.Reply, 0);
+				AddHtml(120 + (count / 10 * 260), 100 + (count % 10 * 30), entry.m_Vendor ? 148 : 180, 25, entry.m_Description, true, false);
 
 				if (entry.m_Vendor)
 				{
-					AddImage(270 + ((count / 10) * 260), 98 + ((count % 10) * 30), 2151);
-					AddItem(262 + ((count / 10) * 260), 106 + ((count % 10) * 30), 2543);
+					AddImage(270 + (count / 10 * 260), 98 + (count % 10 * 30), 2151);
+					AddItem(262 + (count / 10 * 260), 106 + (count % 10 * 30), 2543);
 				}
 			}
 

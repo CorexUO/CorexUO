@@ -23,7 +23,7 @@ namespace Server.Mobiles
 		{
 			if (!Deleted && ControlMaster != null && !ControlMaster.Deleted)
 			{
-				int range = (RangeHome - 2);
+				int range = RangeHome - 2;
 
 				if (!InRange(ControlMaster.Location, RangeHome))
 				{

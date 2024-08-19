@@ -15,7 +15,7 @@ namespace Server
 		public static readonly SaveOption SaveType = SaveOption.Normal;
 		public override string Name => "Standard";
 
-		protected bool UseSequentialWriters => (StandardSaveStrategy.SaveType == SaveOption.Normal || !PermitBackgroundWrite);
+		protected bool UseSequentialWriters => StandardSaveStrategy.SaveType == SaveOption.Normal || !PermitBackgroundWrite;
 		protected bool PermitBackgroundWrite { get; set; }
 
 		private readonly Queue<Item> _decayQueue;

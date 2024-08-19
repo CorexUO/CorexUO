@@ -43,8 +43,8 @@ namespace Server.Mobiles
 		private bool m_Group;
 		private Rectangle2D m_SpawnArea;
 
-		public bool IsFull => (Spawned.Count >= m_Count);
-		public bool IsEmpty => (Spawned.Count == 0);
+		public bool IsFull => Spawned.Count >= m_Count;
+		public bool IsEmpty => Spawned.Count == 0;
 
 		public List<string> SpawnNames
 		{
@@ -293,8 +293,7 @@ namespace Server.Mobiles
 		{
 			if (m_Running)
 			{
-				if (m_Timer != null)
-					m_Timer.Stop();
+				m_Timer?.Stop();
 
 				m_Running = false;
 			}
@@ -536,7 +535,7 @@ namespace Server.Mobiles
 
 		public virtual bool CheckSpawnerFull()
 		{
-			return (Spawned.Count >= m_Count);
+			return Spawned.Count >= m_Count;
 		}
 
 		public void Spawn(int index)
@@ -559,7 +558,7 @@ namespace Server.Mobiles
 			spawned.Spawner = this;
 			Spawned.Add(spawned);
 
-			Point3D loc = (spawned is BaseVendor ? Location : GetSpawnPosition(spawned));
+			Point3D loc = spawned is BaseVendor ? Location : GetSpawnPosition(spawned);
 
 			spawned.OnBeforeSpawn(loc, map);
 			spawned.MoveToWorld(loc, map);
@@ -579,7 +578,7 @@ namespace Server.Mobiles
 				if (m_Team > 0)
 					bc.Team = m_Team;
 
-				bc.Home = (UsesSpawnerHome) ? HomeLocation : bc.Location;
+				bc.Home = UsesSpawnerHome ? HomeLocation : bc.Location;
 			}
 
 			InvalidateProperties();
@@ -592,7 +591,7 @@ namespace Server.Mobiles
 
 		private static int GetAdjustedLocation(int range, int side, int coord, int coord_this)
 		{
-			return ((coord > 0) ? coord : (coord_this - range)) + (Utility.Random(Math.Max((((range * 2) + 1) + side), 1)));
+			return ((coord > 0) ? coord : (coord_this - range)) + Utility.Random(Math.Max((range * 2) + 1 + side, 1));
 		}
 
 		public Point3D GetSpawnPosition(ISpawnable spawned)
@@ -607,7 +606,7 @@ namespace Server.Mobiles
 			if (spawned is Mobile mob)
 			{
 				waterMob = mob.CanSwim;
-				waterOnlyMob = (mob.CanSwim && mob.CantWalk);
+				waterOnlyMob = mob.CanSwim && mob.CantWalk;
 			}
 			else
 			{
@@ -622,8 +621,8 @@ namespace Server.Mobiles
 
 				int mapZ = map.GetAverageZ(x, y);
 
-				if (IgnoreHousing || ((BaseHouse.FindHouseAt(new Point3D(x, y, mapZ), Map, 16) == null &&
-					BaseHouse.FindHouseAt(new Point3D(x, y, Z), Map, 16) == null)))
+				if (IgnoreHousing || BaseHouse.FindHouseAt(new Point3D(x, y, mapZ), Map, 16) == null &&
+					BaseHouse.FindHouseAt(new Point3D(x, y, Z), Map, 16) == null)
 				{
 					if (waterMob)
 					{
@@ -688,8 +687,7 @@ namespace Server.Mobiles
 
 			End = DateTime.UtcNow + delay;
 
-			if (m_Timer != null)
-				m_Timer.Stop();
+			m_Timer?.Stop();
 
 			m_Timer = new InternalTimer(this, delay);
 			m_Timer.Start();
@@ -811,8 +809,7 @@ namespace Server.Mobiles
 
 			RemoveSpawned();
 
-			if (m_Timer != null)
-				m_Timer.Stop();
+			m_Timer?.Stop();
 		}
 
 		public override void Serialize(GenericWriter writer)
@@ -914,8 +911,7 @@ namespace Server.Mobiles
 
 							if (Assembler.FindTypeByName(typeName) == null)
 							{
-								if (m_WarnTimer == null)
-									m_WarnTimer = new WarnTimer();
+								m_WarnTimer ??= new WarnTimer();
 
 								m_WarnTimer.Add(Location, Map, typeName);
 							}

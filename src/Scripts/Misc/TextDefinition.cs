@@ -10,7 +10,7 @@ namespace Server
 		public int Number { get; }
 		public string String { get; }
 
-		public bool IsEmpty => (Number <= 0 && String == null);
+		public bool IsEmpty => Number <= 0 && String == null;
 
 		public TextDefinition() : this(0, null)
 		{
@@ -212,7 +212,7 @@ namespace Server
 
 		public static bool IsNullOrEmpty(TextDefinition def)
 		{
-			return (def == null || def.IsEmpty);
+			return def == null || def.IsEmpty;
 		}
 	}
 }

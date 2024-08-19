@@ -128,10 +128,8 @@ namespace Server.Items
 
 			protected override void OnTarget(Mobile from, object targeted)
 			{
-				if (targeted is Item)
+				if (targeted is Item item)
 				{
-					Item item = (Item)targeted;
-
 					if (item.QuestItem)
 					{
 						from.SendLocalizedMessage(1151836); // You may not dye toggled quest items.
@@ -153,7 +151,7 @@ namespace Server.Items
 						}
 						else
 						{
-							bool okay = (item.IsChildOf(from.Backpack));
+							bool okay = item.IsChildOf(from.Backpack);
 
 							if (!okay)
 							{

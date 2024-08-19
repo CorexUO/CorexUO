@@ -61,7 +61,7 @@ namespace Server.Engines.Reports
 	{
 		public DataItem this[int index]
 		{
-			get => (DataItem)(List[index]);
+			get => (DataItem)List[index];
 			set => List[index] = value;
 		}
 

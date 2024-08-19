@@ -19,11 +19,11 @@ namespace Server
 			From = new SecureTradeInfo(this, from, new SecureTradeContainer(this));
 			To = new SecureTradeInfo(this, to, new SecureTradeContainer(this));
 
-			bool from6017 = (from.NetState != null && from.NetState.ContainerGridLines);
-			bool to6017 = (to.NetState != null && to.NetState.ContainerGridLines);
+			bool from6017 = from.NetState != null && from.NetState.ContainerGridLines;
+			bool to6017 = to.NetState != null && to.NetState.ContainerGridLines;
 
-			bool from704565 = (from.NetState != null && from.NetState.NewSecureTrading);
-			bool to704565 = (to.NetState != null && to.NetState.NewSecureTrading);
+			bool from704565 = from.NetState != null && from.NetState.NewSecureTrading;
+			bool to704565 = to.NetState != null && to.NetState.NewSecureTrading;
 
 			from.Send(new MobileStatus(from, to));
 			from.Send(new UpdateSecureTrade(From.Container, false, false));
@@ -157,17 +157,11 @@ namespace Server
 
 			NetState ns = From.Mobile.NetState;
 
-			if (ns != null)
-			{
-				ns.RemoveTrade(this);
-			}
+			ns?.RemoveTrade(this);
 
 			ns = To.Mobile.NetState;
 
-			if (ns != null)
-			{
-				ns.RemoveTrade(this);
-			}
+			ns?.RemoveTrade(this);
 
 			Timer.DelayCall(From.Dispose);
 			Timer.DelayCall(To.Dispose);

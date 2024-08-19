@@ -68,8 +68,7 @@ namespace Server.Items
 			else
 				from.SendLocalizedMessage(1060581); // You've already lit it!  Better throw it now!
 
-			if (m_Users == null)
-				m_Users = new List<Mobile>();
+			m_Users ??= new List<Mobile>();
 
 			if (!m_Users.Contains(from))
 				m_Users.Add(from);
@@ -107,16 +106,13 @@ namespace Server.Items
 					}
 				default:
 					{
-						if (HeldBy != null)
-							HeldBy.DropHolding();
+						HeldBy?.DropHolding();
 
 						if (m_Users != null)
 						{
 							foreach (Mobile m in m_Users)
 							{
-								ThrowTarget targ = m.Target as ThrowTarget;
-
-								if (targ != null && targ.Bomb == this)
+								if (m.Target is ThrowTarget targ && targ.Bomb == this)
 									Target.Cancel(m);
 							}
 
@@ -124,9 +120,8 @@ namespace Server.Items
 							m_Users = null;
 						}
 
-						if (RootParent is Mobile)
+						if (RootParent is Mobile parent)
 						{
-							Mobile parent = (Mobile)RootParent;
 							parent.SendLocalizedMessage(1060583); // The firebomb explodes in your hand!
 							AOS.Damage(parent, Utility.Random(3) + 4, 0, 100, 0, 0, 0);
 						}
@@ -148,13 +143,12 @@ namespace Server.Items
 
 								if (m_LitBy == null || (SpellHelper.ValidIndirectTarget(m_LitBy, victim) && m_LitBy.CanBeHarmful(victim, false)))
 								{
-									if (m_LitBy != null)
-										m_LitBy.DoHarmful(victim);
+									m_LitBy?.DoHarmful(victim);
 
 									AOS.Damage(victim, m_LitBy, Utility.Random(3) + 4, 0, 100, 0, 0, 0);
 								}
 							}
-							(new FirebombField(m_LitBy, toDamage)).MoveToWorld(Location, Map);
+							new FirebombField(m_LitBy, toDamage).MoveToWorld(Location, Map);
 						}
 
 						m_Timer.Stop();
@@ -169,9 +163,8 @@ namespace Server.Items
 			if (Deleted || Map == Map.Internal || !IsChildOf(from.Backpack))
 				return;
 
-			IPoint3D p = obj as IPoint3D;
 
-			if (p == null)
+			if (obj is not IPoint3D p)
 				return;
 
 			SpellHelper.GetSurfaceTop(ref p);
@@ -253,8 +246,7 @@ namespace Server.Items
 		{
 			if (ItemID == 0x398C && m_LitBy == null || (SpellHelper.ValidIndirectTarget(m_LitBy, m) && m_LitBy.CanBeHarmful(m, false)))
 			{
-				if (m_LitBy != null)
-					m_LitBy.DoHarmful(m);
+				m_LitBy?.DoHarmful(m);
 
 				AOS.Damage(m, m_LitBy, 2, 0, 100, 0, 0, 0);
 				m.PlaySound(0x208);
@@ -287,8 +279,7 @@ namespace Server.Items
 
 				if (victim.Location == Location && victim.Map == Map && (m_LitBy == null || (SpellHelper.ValidIndirectTarget(m_LitBy, victim) && m_LitBy.CanBeHarmful(victim, false))))
 				{
-					if (m_LitBy != null)
-						m_LitBy.DoHarmful(victim);
+					m_LitBy?.DoHarmful(victim);
 
 					AOS.Damage(victim, m_LitBy, Utility.Random(3) + 4, 0, 100, 0, 0, 0);
 					++i;

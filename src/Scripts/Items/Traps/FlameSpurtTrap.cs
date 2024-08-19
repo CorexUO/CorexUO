@@ -15,14 +15,12 @@ namespace Server.Items
 
 		public virtual void StartTimer()
 		{
-			if (m_Timer == null)
-				m_Timer = Timer.DelayCall(TimeSpan.FromSeconds(1.0), TimeSpan.FromSeconds(1.0), new TimerCallback(Refresh));
+			m_Timer ??= Timer.DelayCall(TimeSpan.FromSeconds(1.0), TimeSpan.FromSeconds(1.0), new TimerCallback(Refresh));
 		}
 
 		public virtual void StopTimer()
 		{
-			if (m_Timer != null)
-				m_Timer.Stop();
+			m_Timer?.Stop();
 
 			m_Timer = null;
 		}
@@ -69,8 +67,7 @@ namespace Server.Items
 		{
 			base.OnDelete();
 
-			if (m_Spurt != null)
-				m_Spurt.Delete();
+			m_Spurt?.Delete();
 		}
 
 		public virtual void Refresh()
@@ -85,7 +82,7 @@ namespace Server.Items
 				if (!mob.Player || !mob.Alive || mob.AccessLevel > AccessLevel.Player)
 					continue;
 
-				if (((Z + 8) >= mob.Z && (mob.Z + 16) > Z))
+				if ((Z + 8) >= mob.Z && (mob.Z + 16) > Z)
 				{
 					foundPlayer = true;
 					break;
@@ -94,8 +91,7 @@ namespace Server.Items
 
 			if (!foundPlayer)
 			{
-				if (m_Spurt != null)
-					m_Spurt.Delete();
+				m_Spurt?.Delete();
 
 				m_Spurt = null;
 			}
@@ -168,8 +164,7 @@ namespace Server.Items
 					{
 						Item item = reader.ReadItem();
 
-						if (item != null)
-							item.Delete();
+						item?.Delete();
 
 						CheckTimer();
 

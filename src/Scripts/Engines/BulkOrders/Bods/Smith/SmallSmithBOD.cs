@@ -124,7 +124,7 @@ namespace Server.Engines.BulkOrders
 				if (theirSkill >= 70.1)
 					excChance = (theirSkill + 80.0) / 200.0;
 
-				bool reqExceptional = (excChance > Utility.RandomDouble());
+				bool reqExceptional = excChance > Utility.RandomDouble();
 
 				CraftSystem system = DefBlacksmithy.CraftSystem;
 

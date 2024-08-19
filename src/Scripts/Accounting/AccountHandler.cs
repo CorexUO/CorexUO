@@ -112,7 +112,7 @@ namespace Server.Misc
 			bool isSafe = true;
 
 			for (int i = 0; isSafe && i < pass.Length; ++i)
-				isSafe = (pass[i] >= 0x20 && pass[i] < 0x7F);
+				isSafe = pass[i] >= 0x20 && pass[i] < 0x7F;
 
 			if (!isSafe)
 			{
@@ -210,7 +210,7 @@ namespace Server.Misc
 			if (!IPTable.ContainsKey(ip))
 				return true;
 
-			return (IPTable[ip] < MaxAccountsPerIP);
+			return IPTable[ip] < MaxAccountsPerIP;
 		}
 
 		private static Dictionary<IPAddress, int> m_IPTable;
@@ -261,10 +261,10 @@ namespace Server.Misc
 			bool isSafe = !(un.StartsWith(" ") || un.EndsWith(" ") || un.EndsWith("."));
 
 			for (int i = 0; isSafe && i < un.Length; ++i)
-				isSafe = (un[i] >= 0x20 && un[i] < 0x7F && !IsForbiddenChar(un[i]));
+				isSafe = un[i] >= 0x20 && un[i] < 0x7F && !IsForbiddenChar(un[i]);
 
 			for (int i = 0; isSafe && i < pw.Length; ++i)
-				isSafe = (pw[i] >= 0x20 && pw[i] < 0x7F);
+				isSafe = pw[i] >= 0x20 && pw[i] < 0x7F;
 
 			if (!isSafe)
 				return null;
@@ -321,7 +321,7 @@ namespace Server.Misc
 			else if (!acct.HasAccess(e.State))
 			{
 				Console.WriteLine("Login: {0}: Access denied for '{1}'", e.State, un);
-				e.RejectReason = (LockdownLevel > AccessLevel.Player ? ALRReason.BadComm : ALRReason.BadPass);
+				e.RejectReason = LockdownLevel > AccessLevel.Player ? ALRReason.BadComm : ALRReason.BadPass;
 			}
 			else if (!acct.CheckPassword(pw))
 			{

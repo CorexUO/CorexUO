@@ -35,7 +35,7 @@ namespace Server.Items
 			if (house != null && (house.Public ? house.IsBanned(m) : !house.HasAccess(m)))
 				return false;
 
-			return (house != null && house.HasSecureAccess(m, Level));
+			return house != null && house.HasSecureAccess(m, Level);
 		}
 
 		public override bool OnMoveOver(Mobile m)

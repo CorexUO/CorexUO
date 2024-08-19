@@ -32,13 +32,13 @@ namespace Server.Items
 			{
 				bool extended = Extended;
 
-				ItemID = (extended ? GetExtendedID(value) : GetBaseID(value));
+				ItemID = extended ? GetExtendedID(value) : GetBaseID(value);
 			}
 		}
 
 		public bool Extended
 		{
-			get => (ItemID == GetExtendedID(Type));
+			get => ItemID == GetExtendedID(Type);
 			set
 			{
 				if (value)

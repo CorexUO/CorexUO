@@ -40,9 +40,8 @@ namespace Server.Items
 			if (map == null)
 				return;
 
-			BaseWeapon weapon = attacker.Weapon as BaseWeapon;
 
-			if (weapon == null)
+			if (attacker.Weapon is not BaseWeapon weapon)
 				return;
 
 			ArrayList list = new();
@@ -85,9 +84,8 @@ namespace Server.Items
 					Mobile m = (Mobile)targets[i];
 					attacker.DoHarmful(m, true);
 
-					Timer t = Registry[m] as Timer;
 
-					if (t != null)
+					if (Registry[m] is Timer t)
 					{
 						t.Stop();
 						Registry.Remove(m);

@@ -497,9 +497,9 @@ namespace Server
 
 				Type[] ifaces = active.FindInterfaces(delegate (Type type, object obj)
 			   {
-				   return (type.IsGenericType)
+				   return type.IsGenericType
 					   && (type.GetGenericTypeDefinition() == typeof(IComparable<>))
-					   && (type.GetGenericArguments()[0].IsAssignableFrom(active));
+					   && type.GetGenericArguments()[0].IsAssignableFrom(active);
 			   }, null);
 
 				if (ifaces.Length > 0)
@@ -510,7 +510,7 @@ namespace Server
 				{
 					ifaces = active.FindInterfaces(delegate (Type type, object obj)
 				   {
-					   return (type == typeof(IComparable));
+					   return type == typeof(IComparable);
 				   }, null);
 
 					if (ifaces.Length > 0)

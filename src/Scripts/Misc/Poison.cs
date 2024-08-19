@@ -33,7 +33,7 @@ namespace Server
 
 		public static Poison IncreaseLevel(Poison oldPoison)
 		{
-			Poison newPoison = (oldPoison == null ? null : GetPoison(oldPoison.Level + 1));
+			Poison newPoison = oldPoison == null ? null : GetPoison(oldPoison.Level + 1);
 
 			return newPoison ?? oldPoison;
 		}
@@ -129,8 +129,7 @@ namespace Server
 					m_LastDamage = damage;
 				}
 
-				if (From != null)
-					From.DoHarmful(m_Mobile, true);
+				From?.DoHarmful(m_Mobile, true);
 
 				if (m_Mobile is IHonorTarget honorTarget && honorTarget.ReceivedHonorContext != null)
 					honorTarget.ReceivedHonorContext.OnTargetPoisoned();

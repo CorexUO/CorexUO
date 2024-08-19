@@ -87,7 +87,7 @@ namespace Server.Items
 					return true;
 			}
 
-			return (handOne == null || handTwo == null);
+			return handOne == null || handTwo == null;
 		}
 
 		public override void OnDoubleClick(Mobile from)
@@ -184,7 +184,7 @@ namespace Server.Items
 			if (Core.ML && EP > 50 && m.AccessLevel <= AccessLevel.Player)
 				EP = 50;
 
-			return (EP + skillBonus);
+			return EP + skillBonus;
 		}
 
 		public static TimeSpan Scale(Mobile m, TimeSpan v)

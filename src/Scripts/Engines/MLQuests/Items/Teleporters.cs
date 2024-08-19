@@ -45,9 +45,7 @@ namespace Server.Engines.MLQuests.Items
 
 			if (m_QuestType != null)
 			{
-				PlayerMobile pm = m as PlayerMobile;
-
-				if (pm == null)
+				if (m is not PlayerMobile pm)
 					return false;
 
 				MLQuestContext context = MLQuestSystem.GetContext(pm);
@@ -81,7 +79,7 @@ namespace Server.Engines.MLQuests.Items
 
 			writer.Write(0); // version
 
-			writer.Write((m_QuestType != null) ? m_QuestType.FullName : null);
+			writer.Write(m_QuestType?.FullName);
 			TextDefinition.Serialize(writer, Message);
 		}
 
@@ -196,7 +194,7 @@ namespace Server.Engines.MLQuests.Items
 
 			writer.Write(0); // version
 
-			writer.Write((m_TicketType != null) ? m_TicketType.FullName : null);
+			writer.Write(m_TicketType?.FullName);
 			TextDefinition.Serialize(writer, Message);
 		}
 

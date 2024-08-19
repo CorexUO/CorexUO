@@ -88,9 +88,9 @@ namespace Server.Items
 			if (scaledBy != 0)
 				scaledBy = 10000 / scaledBy;
 
-			percent *= (10000 + scaledBy);
+			percent *= 10000 + scaledBy;
 
-			return low + (((high - low) * percent) / 1000001);
+			return low + ((high - low) * percent / 1000001);
 		}
 
 		private static void ApplyAttribute(AosAttributes attrs, int min, int max, AosAttribute attr, int low, int high)
@@ -182,7 +182,7 @@ namespace Server.Items
 		private static void ApplySkillBonus(AosSkillBonuses attrs, int min, int max, int index, int low, int high)
 		{
 			List<SkillName> possibleSkills = new(attrs.Owner is Spellbook ? m_PossibleSpellbookSkills : m_PossibleBonusSkills);
-			int count = (Core.SE ? possibleSkills.Count : possibleSkills.Count - 2);
+			int count = Core.SE ? possibleSkills.Count : possibleSkills.Count - 2;
 
 			SkillName sk;
 			bool found;
@@ -194,7 +194,7 @@ namespace Server.Items
 				possibleSkills.Remove(sk);
 
 				for (int i = 0; !found && i < 5; ++i)
-					found = (attrs.GetValues(i, out SkillName check, out double _) && check == sk);
+					found = attrs.GetValues(i, out SkillName check, out double _) && check == sk;
 			} while (found && count > 0);
 
 			attrs.SetValues(index, sk, Scale(min, max, low, high));
@@ -402,7 +402,7 @@ namespace Server.Items
 			int random = Utility.Random(totalDamage / 10 + 1) * 10;
 			weapon.AosElementDamages[attr] = random;
 
-			return (totalDamage - random);
+			return totalDamage - random;
 		}
 
 		public static SlayerName GetRandomSlayer()
@@ -468,9 +468,9 @@ namespace Server.Items
 
 			m_Props.SetAll(false);
 
-			bool isShield = (armor is BaseShield);
-			int baseCount = (isShield ? 7 : 20);
-			int baseOffset = (isShield ? 0 : 4);
+			bool isShield = armor is BaseShield;
+			int baseCount = isShield ? 7 : 20;
+			int baseOffset = isShield ? 0 : 4;
 
 			if (!isShield && armor.MeditationAllowance == ArmorMeditationAllowance.All)
 				m_Props.Set(3, true); // remove mage armor from possible properties

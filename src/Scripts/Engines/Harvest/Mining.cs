@@ -14,8 +14,7 @@ namespace Server.Engines.Harvest
 		{
 			get
 			{
-				if (m_System == null)
-					m_System = new Mining();
+				m_System ??= new Mining();
 
 				return m_System;
 			}

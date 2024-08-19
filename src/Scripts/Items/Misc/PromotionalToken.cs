@@ -51,8 +51,7 @@ namespace Server.Items
 			else if (parent is Mobile)
 				m = (Mobile)parent;
 
-			if (m != null)
-				m.CloseGump(typeof(PromotionalTokenGump));
+			m?.CloseGump(typeof(PromotionalTokenGump));
 		}
 
 		public override void Serialize(GenericWriter writer)

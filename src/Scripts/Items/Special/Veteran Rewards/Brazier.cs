@@ -59,8 +59,7 @@ namespace Server.Items
 
 		public void TurnOn()
 		{
-			if (m_Fire == null)
-				m_Fire = new Item();
+			m_Fire ??= new Item();
 
 			m_Fire.ItemID = 0x19AB;
 			m_Fire.Movable = false;
@@ -93,8 +92,7 @@ namespace Server.Items
 
 		public override void OnLocationChange(Point3D old)
 		{
-			if (m_Fire != null)
-				m_Fire.MoveToWorld(new Point3D(X, Y, Z + ItemData.Height), Map);
+			m_Fire?.MoveToWorld(new Point3D(X, Y, Z + ItemData.Height), Map);
 		}
 
 		public override void GetProperties(ObjectPropertyList list)

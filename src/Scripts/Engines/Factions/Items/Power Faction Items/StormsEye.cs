@@ -28,9 +28,7 @@ namespace Server
 				{
 					if (Movable && !Deleted)
 					{
-						IPoint3D pt = obj as IPoint3D;
-
-						if (pt != null)
+						if (obj is IPoint3D pt)
 						{
 							SpellHelper.GetSurfaceTop(ref pt);
 
@@ -75,7 +73,7 @@ namespace Server
 
 										foreach (Mobile mob in targets)
 										{
-											int damage = (mob.Hits * 6) / 10;
+											int damage = mob.Hits * 6 / 10;
 
 											if (!mob.Player && damage < 10)
 											{

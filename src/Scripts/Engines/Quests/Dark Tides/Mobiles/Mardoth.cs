@@ -23,9 +23,7 @@ namespace Server.Engines.Quests.Necro
 
 		public override bool OnDragDrop(Mobile from, Item dropped)
 		{
-			PlayerMobile player = from as PlayerMobile;
-
-			if (player != null)
+			if (from is PlayerMobile player)
 			{
 				QuestSystem qs = player.Quest;
 
@@ -93,12 +91,10 @@ namespace Server.Engines.Quests.Necro
 
 		public override bool CanTalkTo(PlayerMobile to)
 		{
-			DarkTidesQuest qs = to.Quest as DarkTidesQuest;
+			if (to.Quest is not DarkTidesQuest qs)
+				return to.Quest == null && QuestSystem.CanOfferQuest(to, typeof(DarkTidesQuest));
 
-			if (qs == null)
-				return (to.Quest == null && QuestSystem.CanOfferQuest(to, typeof(DarkTidesQuest)));
-
-			return (qs.FindObjective(typeof(FindMardothAboutVaultObjective)) != null);
+			return qs.FindObjective(typeof(FindMardothAboutVaultObjective)) != null;
 		}
 
 		public override void OnTalk(PlayerMobile player, bool contextMenu)

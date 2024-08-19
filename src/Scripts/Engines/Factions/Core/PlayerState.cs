@@ -124,7 +124,7 @@ namespace Server.Factions
 					else if (m_RankIndex == -1)
 						percent = 0;
 					else
-						percent = ((Faction.ZeroRankOffset - m_RankIndex) * 1000) / Faction.ZeroRankOffset;
+						percent = (Faction.ZeroRankOffset - m_RankIndex) * 1000 / Faction.ZeroRankOffset;
 
 					for (int i = 0; i < ranks.Length; i++)
 					{
@@ -147,7 +147,7 @@ namespace Server.Factions
 
 		public DateTime LastHonorTime { get; set; }
 		public DateTime Leaving { get; set; }
-		public bool IsLeaving => (Leaving > DateTime.MinValue);
+		public bool IsLeaving => Leaving > DateTime.MinValue;
 
 		public bool IsActive { get; set; }
 
@@ -171,8 +171,7 @@ namespace Server.Factions
 
 		public void OnGivenSilverTo(Mobile mob)
 		{
-			if (SilverGiven == null)
-				SilverGiven = new List<SilverGivenEntry>();
+			SilverGiven ??= new List<SilverGivenEntry>();
 
 			SilverGiven.Add(new SilverGivenEntry(mob));
 		}

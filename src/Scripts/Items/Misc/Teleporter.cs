@@ -196,7 +196,7 @@ namespace Server.Items
 
 			Server.Mobiles.BaseCreature.TeleportPets(m, p, map);
 
-			bool sendEffect = (!m.Hidden || m.AccessLevel == AccessLevel.Player);
+			bool sendEffect = !m.Hidden || m.AccessLevel == AccessLevel.Player;
 
 			if (m_SourceEffect && sendEffect)
 				Effects.SendLocationEffect(m.Location, m.Map, 0x3728, 10, 10);
@@ -806,8 +806,7 @@ namespace Server.Items
 
 		public override bool OnMoveOver(Mobile m)
 		{
-			if (Teleporter != null)
-				Teleporter.StopTimer(m);
+			Teleporter?.StopTimer(m);
 
 			return true;
 		}
@@ -1069,7 +1068,7 @@ namespace Server.Items
 
 		protected bool GetFlag(ConditionFlag flag)
 		{
-			return ((m_Flags & flag) != 0);
+			return (m_Flags & flag) != 0;
 		}
 
 		protected void SetFlag(ConditionFlag flag, bool value)

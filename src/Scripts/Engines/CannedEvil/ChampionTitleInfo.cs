@@ -83,8 +83,7 @@ namespace Server.Engines.CannedEvil
 
 		public void SetValue(int index, int value)
 		{
-			if (m_Values == null)
-				m_Values = new TitleInfo[ChampionSpawnInfo.Table.Length];
+			m_Values ??= new TitleInfo[ChampionSpawnInfo.Table.Length];
 
 			if (value < 0)
 				value = 0;
@@ -100,8 +99,7 @@ namespace Server.Engines.CannedEvil
 
 		public void Award(int index, int value)
 		{
-			if (m_Values == null)
-				m_Values = new TitleInfo[ChampionSpawnInfo.Table.Length];
+			m_Values ??= new TitleInfo[ChampionSpawnInfo.Table.Length];
 
 			if (index < 0 || index >= m_Values.Length || value <= 0)
 				return;
@@ -114,8 +112,7 @@ namespace Server.Engines.CannedEvil
 
 		public void Atrophy(int index, int value)
 		{
-			if (m_Values == null)
-				m_Values = new TitleInfo[ChampionSpawnInfo.Table.Length];
+			m_Values ??= new TitleInfo[ChampionSpawnInfo.Table.Length];
 
 			if (index < 0 || index >= m_Values.Length || value <= 0)
 				return;
@@ -227,8 +224,7 @@ namespace Server.Engines.CannedEvil
 			if (t == null)
 				return;
 
-			if (t.m_Values == null)
-				t.m_Values = new TitleInfo[ChampionSpawnInfo.Table.Length];
+			t.m_Values ??= new TitleInfo[ChampionSpawnInfo.Table.Length];
 
 			for (int i = 0; i < t.m_Values.Length; i++)
 			{
@@ -245,8 +241,7 @@ namespace Server.Engines.CannedEvil
 			if (t == null)
 				return;
 
-			if (t.m_Values == null)
-				t.m_Values = new TitleInfo[ChampionSpawnInfo.Table.Length];
+			t.m_Values ??= new TitleInfo[ChampionSpawnInfo.Table.Length];
 
 			int count = 1;
 

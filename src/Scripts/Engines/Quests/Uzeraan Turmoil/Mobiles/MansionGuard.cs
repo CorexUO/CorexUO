@@ -45,7 +45,7 @@ namespace Server.Engines.Quests.Haven
 
 		public override bool CanTalkTo(PlayerMobile to)
 		{
-			return (to.Quest == null && QuestSystem.CanOfferQuest(to, typeof(UzeraanTurmoilQuest)));
+			return to.Quest == null && QuestSystem.CanOfferQuest(to, typeof(UzeraanTurmoilQuest));
 		}
 
 		public override void OnTalk(PlayerMobile player, bool contextMenu)

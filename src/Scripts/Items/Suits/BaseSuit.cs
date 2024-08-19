@@ -72,7 +72,7 @@ namespace Server.Items
 
 		public override bool VerifyMove(Mobile from)
 		{
-			return (from.AccessLevel >= AccessLevel);
+			return from.AccessLevel >= AccessLevel;
 		}
 
 		public override bool OnEquip(Mobile from)
@@ -80,7 +80,7 @@ namespace Server.Items
 			if (from.AccessLevel < AccessLevel)
 				from.SendMessage("You may not wear this.");
 
-			return (from.AccessLevel >= AccessLevel);
+			return from.AccessLevel >= AccessLevel;
 		}
 	}
 }

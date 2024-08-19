@@ -473,7 +473,7 @@ namespace Server.Items
 			if (!Movable)
 				return;
 
-			if ((ItemID == 0x1039 || ItemID == 0x1045))
+			if (ItemID == 0x1039 || ItemID == 0x1045)
 				++ItemID;
 
 #if false
@@ -620,9 +620,8 @@ namespace Server.Items
 			if (obj is AddonComponent)
 				obj = (obj as AddonComponent).Addon;
 
-			IFlourMill mill = obj as IFlourMill;
 
-			if (mill != null)
+			if (obj is IFlourMill mill)
 			{
 				int needs = mill.MaxFlour - mill.CurFlour;
 

@@ -38,8 +38,7 @@ namespace Server.Factions
 
 		public void Unregister()
 		{
-			if (m_Town != null)
-				m_Town.UnregisterGuard(this);
+			m_Town?.UnregisterGuard(this);
 		}
 
 		public abstract GuardAI GuardAI { get; }
@@ -71,10 +70,8 @@ namespace Server.Factions
 					{
 						AggressorInfo ai = list[i];
 
-						if (ai.Defender is BaseFactionGuard)
+						if (ai.Defender is BaseFactionGuard bf)
 						{
-							BaseFactionGuard bf = (BaseFactionGuard)ai.Defender;
-
 							if (bf.Faction == ourFaction)
 								return true;
 						}
@@ -156,7 +153,7 @@ namespace Server.Factions
 		{
 			string name = Name;
 
-			return (name != null && Insensitive.StartsWith(speech, name));
+			return name != null && Insensitive.StartsWith(speech, name);
 		}
 
 		public override void OnSpeech(SpeechEventArgs e)
@@ -261,7 +258,7 @@ namespace Server.Factions
 			{
 				string text = string.Concat("(Guard, ", m_Faction.Definition.FriendlyName, ")");
 
-				int hue = (Faction.Find(from) == m_Faction ? 98 : 38);
+				int hue = Faction.Find(from) == m_Faction ? 98 : 38;
 
 				PrivateOverheadMessage(MessageType.Label, hue, true, text, from.NetState);
 			}

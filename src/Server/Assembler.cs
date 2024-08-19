@@ -24,8 +24,7 @@ namespace Server
 				{
 					if (t.GetConstructor(m_SerialTypeArray) == null)
 					{
-						if (warningSb == null)
-							warningSb = new StringBuilder();
+						warningSb ??= new StringBuilder();
 
 						warningSb.AppendLine("       - No serialization constructor");
 					}
@@ -35,16 +34,14 @@ namespace Server
 					{
 						if (t.GetMethod("Serialize", BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.DeclaredOnly) == null)
 						{
-							if (warningSb == null)
-								warningSb = new StringBuilder();
+							warningSb ??= new StringBuilder();
 
 							warningSb.AppendLine("       - No Serialize() method");
 						}
 
 						if (t.GetMethod("Deserialize", BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.DeclaredOnly) == null)
 						{
-							if (warningSb == null)
-								warningSb = new StringBuilder();
+							warningSb ??= new StringBuilder();
 
 							warningSb.AppendLine("       - No Deserialize() method");
 						}
@@ -128,8 +125,7 @@ namespace Server
 		{
 			if (asm == null)
 			{
-				if (m_NullCache == null)
-					m_NullCache = new TypeCache(null);
+				m_NullCache ??= new TypeCache(null);
 
 				return m_NullCache;
 			}

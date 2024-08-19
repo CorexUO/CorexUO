@@ -146,8 +146,7 @@ namespace Server.Items
 
 		public override void OnDelete()
 		{
-			if (m_Timer != null)
-				m_Timer.Stop();
+			m_Timer?.Stop();
 
 			base.OnDelete();
 		}
@@ -192,9 +191,8 @@ namespace Server.Items
 				if (Items[i] is EnhancedBandage)
 					continue;
 
-				Bandage bandage = Items[i] as Bandage;
 
-				if (bandage != null)
+				if (Items[i] is Bandage bandage)
 				{
 					Item enhanced;
 

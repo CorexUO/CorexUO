@@ -126,7 +126,7 @@ namespace Server.Engines.MLQuests.Objectives
 
 		public override bool IsCompleted()
 		{
-			return (Slain >= Objective.DesiredAmount);
+			return Slain >= Objective.DesiredAmount;
 		}
 
 		public override void WriteToGump(Gump g, ref int y)

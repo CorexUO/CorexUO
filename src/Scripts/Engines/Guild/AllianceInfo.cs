@@ -17,7 +17,7 @@ namespace Server.Guilds
 
 		public void CalculateAllianceLeader()
 		{
-			m_Leader = ((m_Members.Count >= 2) ? m_Members[Utility.Random(m_Members.Count)] : null);
+			m_Leader = (m_Members.Count >= 2) ? m_Members[Utility.Random(m_Members.Count)] : null;
 		}
 
 		public void CheckLeader()
@@ -274,8 +274,7 @@ namespace Server.Guilds
 
 					if (state != null)
 					{
-						if (p == null)
-							p = Packet.Acquire(new UnicodeMessage(from.Serial, from.Body, MessageType.Alliance, hue, 3, from.Language, from.Name, text));
+						p ??= Packet.Acquire(new UnicodeMessage(from.Serial, from.Body, MessageType.Alliance, hue, 3, from.Language, from.Name, text));
 
 						state.Send(p);
 					}
@@ -287,9 +286,7 @@ namespace Server.Guilds
 
 		public void AllianceChat(Mobile from, string text)
 		{
-			PlayerMobile pm = from as PlayerMobile;
-
-			AllianceChat(from, (pm == null) ? 0x3B2 : pm.AllianceMessageHue, text);
+			AllianceChat(from, (from is not PlayerMobile pm) ? 0x3B2 : pm.AllianceMessageHue, text);
 		}
 		#endregion
 

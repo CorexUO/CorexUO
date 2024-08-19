@@ -39,14 +39,14 @@ namespace Server.Spells.Ninjitsu
 		{
 			double ninjitsu = attacker.Skills[SkillName.Ninjitsu].Value;
 
-			return 1.0 + (ninjitsu * ninjitsu) / 43636;
+			return 1.0 + ninjitsu * ninjitsu / 43636;
 		}
 
 		public override double GetPropertyBonus(Mobile attacker)
 		{
 			double ninjitsu = attacker.Skills[SkillName.Ninjitsu].Value;
 
-			double bonus = (ninjitsu * ninjitsu) / 43636;
+			double bonus = ninjitsu * ninjitsu / 43636;
 
 			return 1.0 + (bonus * 3 + 0.01);
 		}

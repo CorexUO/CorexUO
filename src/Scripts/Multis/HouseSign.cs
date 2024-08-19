@@ -31,7 +31,7 @@ namespace Server.Multis
 		[CommandProperty(AccessLevel.GameMaster)]
 		public bool RestrictDecay
 		{
-			get => (Owner != null && Owner.RestrictDecay);
+			get => Owner != null && Owner.RestrictDecay;
 			set { if (Owner != null) Owner.RestrictDecay = value; }
 		}
 

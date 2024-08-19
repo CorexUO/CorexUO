@@ -53,11 +53,11 @@ namespace Server.Items
 		[Constructable]
 		public Runebook(int maxCharges) : base(Core.AOS ? 0x22C5 : 0xEFA)
 		{
-			Weight = (Core.SE ? 1.0 : 3.0);
+			Weight = Core.SE ? 1.0 : 3.0;
 			LootType = LootType.Blessed;
 			Hue = 0x461;
 
-			Layer = (Core.AOS ? Layer.Invalid : Layer.OneHanded);
+			Layer = Core.AOS ? Layer.Invalid : Layer.OneHanded;
 
 			Entries = new List<RunebookEntry>();
 
@@ -252,7 +252,7 @@ namespace Server.Items
 
 		public override void OnDoubleClick(Mobile from)
 		{
-			if (from.InRange(GetWorldLocation(), (Core.ML ? 3 : 1)) && CheckAccess(from))
+			if (from.InRange(GetWorldLocation(), Core.ML ? 3 : 1) && CheckAccess(from))
 			{
 				if (RootParent is BaseCreature)
 				{
@@ -304,7 +304,7 @@ namespace Server.Items
 			if (house != null && house.IsAosRules && (house.Public ? house.IsBanned(m) : !house.HasAccess(m)))
 				return false;
 
-			return (house != null && house.HasSecureAccess(m, Level));
+			return house != null && house.HasSecureAccess(m, Level);
 		}
 
 		public override bool OnDragDrop(Mobile from, Item dropped)
@@ -390,7 +390,7 @@ namespace Server.Items
 			if (charges > 10)
 				charges = 10;
 
-			MaxCharges = (Core.SE ? charges * 2 : charges);
+			MaxCharges = Core.SE ? charges * 2 : charges;
 
 			if (makersMark)
 				Crafter = from;

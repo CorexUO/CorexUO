@@ -194,8 +194,7 @@ namespace Server.Spells.Mysticism
 
 			public void EndPlague(bool restart)
 			{
-				if (m_Timer != null)
-					m_Timer.Stop();
+				m_Timer?.Stop();
 
 				if (restart && m_Next != null)
 				{

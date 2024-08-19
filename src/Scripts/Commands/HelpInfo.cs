@@ -79,7 +79,7 @@ namespace Server.Commands
 
 				attrs = mi.GetCustomAttributes(typeof(AliasesAttribute), false);
 
-				AliasesAttribute aliases = (attrs.Length == 0 ? null : attrs[0] as AliasesAttribute);
+				AliasesAttribute aliases = attrs.Length == 0 ? null : attrs[0] as AliasesAttribute;
 
 				string descString = desc.Description.Replace("<", "(").Replace(">", ")");
 

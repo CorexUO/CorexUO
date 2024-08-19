@@ -74,7 +74,7 @@ namespace Server.Network
 			}
 			else
 			{
-				int rightLength = (m_Buffer.Length - m_Head);
+				int rightLength = m_Buffer.Length - m_Head;
 
 				if (rightLength >= size)
 				{
@@ -106,7 +106,7 @@ namespace Server.Network
 
 			if (m_Head < m_Tail)
 			{
-				int rightLength = (m_Buffer.Length - m_Tail);
+				int rightLength = m_Buffer.Length - m_Tail;
 
 				if (rightLength >= size)
 				{

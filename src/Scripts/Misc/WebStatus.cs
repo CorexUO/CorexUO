@@ -132,11 +132,10 @@ namespace Server.Misc
 				{
 					++index;
 
-					Guild g = m.Guild as Guild;
 
 					op.Write("         <tr class=\"ruo-result " + (index % 2 == 0 ? "even" : "odd") + "\"><td>");
 
-					if (g != null)
+					if (m.Guild is Guild g)
 					{
 						op.Write(Encode(m.Name));
 						op.Write(" [");

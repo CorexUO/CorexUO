@@ -292,7 +292,7 @@ namespace Server.Mobiles
                             SayTo( from, 1048053 ); // You can't stable that!
                         }
             */
-			else if ((pet is PackLlama || pet is PackHorse || pet is Beetle) && (pet.Backpack != null && pet.Backpack.Items.Count > 0))
+			else if ((pet is PackLlama || pet is PackHorse || pet is Beetle) && pet.Backpack != null && pet.Backpack.Items.Count > 0)
 			{
 				SayTo(from, 1042563); // You need to unload your pet.
 			}
@@ -347,7 +347,7 @@ namespace Server.Mobiles
 			bool claimed = false;
 			int stabled = 0;
 
-			bool claimByName = (petName != null);
+			bool claimByName = petName != null;
 
 			for (int i = 0; i < from.Stabled.Count; ++i)
 			{
@@ -396,7 +396,7 @@ namespace Server.Mobiles
 
 		public bool CanClaim(Mobile from, BaseCreature pet)
 		{
-			return ((from.Followers + pet.ControlSlots) <= from.FollowersMax);
+			return (from.Followers + pet.ControlSlots) <= from.FollowersMax;
 		}
 
 		private void DoClaim(Mobile from, BaseCreature pet)

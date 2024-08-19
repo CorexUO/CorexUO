@@ -113,9 +113,8 @@ namespace Server.Items
 			if (pigment.Deleted || pigment.UsesRemaining <= 0 || !from.InRange(pigment.GetWorldLocation(), 3) || !pigment.IsAccessibleTo(from))
 				return;
 
-			Item i = targeted as Item;
 
-			if (i == null)
+			if (targeted is not Item i)
 				from.SendLocalizedMessage(1070931); // You can only dye artifacts and enhanced magic items with this tub.
 			else if (!from.InRange(i.GetWorldLocation(), 3) || !IsAccessibleTo(from))
 				from.SendLocalizedMessage(502436); // That is not accessible.
@@ -167,7 +166,7 @@ namespace Server.Items
 			if (i is ITokunoDyable)
 				return true;
 
-			return (
+			return
 				IsInTypeList(t, TreasuresOfTokuno.LesserArtifactsTotal)
 				|| IsInTypeList(t, TreasuresOfTokuno.GreaterArtifacts)
 				|| IsInTypeList(t, DemonKnight.ArtifactRarity10)
@@ -180,7 +179,7 @@ namespace Server.Items
 				|| IsInTypeList(t, m_Replicas)
 				|| IsInTypeList(t, m_DyableHeritageItems)
 				|| IsInTypeList(t, m_Glasses)
-				);
+				;
 		}
 
 		private static bool IsInTypeList(Type t, Type[] list)

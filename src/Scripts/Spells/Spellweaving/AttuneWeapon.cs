@@ -46,7 +46,7 @@ namespace Server.Spells.Spellweaving
 
 				double skill = Caster.Skills[SkillName.Spellweaving].Value;
 
-				int damageAbsorb = (int)(18 + ((skill - 10) / 10) * 3 + (FocusLevel * 6));
+				int damageAbsorb = (int)(18 + (skill - 10) / 10 * 3 + (FocusLevel * 6));
 				Caster.MeleeDamageAbsorb = damageAbsorb;
 
 				TimeSpan duration = TimeSpan.FromSeconds(60 + (FocusLevel * 12));

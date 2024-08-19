@@ -29,7 +29,7 @@ namespace Server.Engines.ConPVP
 				if (p.Players.Length > 1)
 					height += 22;
 
-				height += (p.Players.Length * 22);
+				height += p.Players.Length * 22;
 			}
 
 			height += 25;
@@ -85,7 +85,7 @@ namespace Server.Engines.ConPVP
 						isAllReady = false;
 					}
 
-					string name = (pl == null ? "(Empty)" : pl.Mobile.Name);
+					string name = pl == null ? "(Empty)" : pl.Mobile.Name;
 
 					AddHtml(35 + offset + 14, y, 166, 20, name, false, false);
 

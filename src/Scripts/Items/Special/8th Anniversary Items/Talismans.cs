@@ -50,10 +50,8 @@ namespace Server.Items
 		{
 			base.OnRemoved(parent);
 
-			if (parent is Mobile)
+			if (parent is Mobile m)
 			{
-				Mobile m = (Mobile)parent;
-
 				AnimalForm.RemoveContext(m, true);
 			}
 		}

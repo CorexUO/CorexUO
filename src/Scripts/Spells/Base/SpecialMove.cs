@@ -238,7 +238,7 @@ namespace Server.Spells
 				return false;
 			}
 
-			bool sameMove = (move == GetCurrentMove(m));
+			bool sameMove = move == GetCurrentMove(m);
 
 			ClearCurrentMove(m);
 
@@ -306,7 +306,7 @@ namespace Server.Spells
 
 		private static SpecialMoveContext GetContext(Mobile m)
 		{
-			return (m_PlayersTable.ContainsKey(m) ? m_PlayersTable[m] : null);
+			return m_PlayersTable.ContainsKey(m) ? m_PlayersTable[m] : null;
 		}
 
 		public static bool GetContext(Mobile m, Type type)
@@ -316,7 +316,7 @@ namespace Server.Spells
 			if (context == null)
 				return false;
 
-			return (context.Type == type);
+			return context.Type == type;
 		}
 
 		private class SpecialMoveTimer : Timer

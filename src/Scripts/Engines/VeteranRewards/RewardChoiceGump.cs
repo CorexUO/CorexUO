@@ -132,12 +132,12 @@ namespace Server.Engines.VeteranRewards
 					i = 0;
 				}
 
-				AddButton(55 + ((i / 12) * 250), 80 + ((i % 12) * 25), 5540, 5541, GetButtonID(index, j), GumpButtonType.Reply, 0);
+				AddButton(55 + (i / 12 * 250), 80 + (i % 12 * 25), 5540, 5541, GetButtonID(index, j), GumpButtonType.Reply, 0);
 
 				if (entry.NameString != null)
-					AddHtml(80 + ((i / 12) * 250), 80 + ((i % 12) * 25), 250, 20, entry.NameString, false, false);
+					AddHtml(80 + (i / 12 * 250), 80 + (i % 12 * 25), 250, 20, entry.NameString, false, false);
 				else
-					AddHtmlLocalized(80 + ((i / 12) * 250), 80 + ((i % 12) * 25), 250, 20, entry.Name, false, false);
+					AddHtmlLocalized(80 + (i / 12 * 250), 80 + (i % 12 * 25), 250, 20, entry.Name, false, false);
 				++i;
 			}
 
@@ -170,8 +170,8 @@ namespace Server.Engines.VeteranRewards
 			{
 				--buttonID;
 
-				int type = (buttonID % 20);
-				int index = (buttonID / 20);
+				int type = buttonID % 20;
+				int index = buttonID / 20;
 
 				RewardCategory[] categories = RewardSystem.Categories;
 

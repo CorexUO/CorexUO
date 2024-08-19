@@ -263,10 +263,7 @@ namespace Server
 						Timer timer = tce.m_Timer;
 						int newIndex = tce.m_NewIndex;
 
-						if (timer.m_List != null)
-						{
-							timer.m_List.Remove(timer);
-						}
+						timer.m_List?.Remove(timer);
 
 						if (tce.m_IsAdd)
 						{
@@ -386,19 +383,13 @@ namespace Server
 					Timer t = m_Queue.Dequeue();
 					TimerProfile prof = t.GetProfile();
 
-					if (prof != null)
-					{
-						prof.Start();
-					}
+					prof?.Start();
 
 					t.OnTick();
 					t.m_Queued = false;
 					++index;
 
-					if (prof != null)
-					{
-						prof.Finish();
-					}
+					prof?.Finish();
 				}
 			}
 		}

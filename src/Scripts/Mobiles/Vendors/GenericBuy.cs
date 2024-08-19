@@ -173,7 +173,7 @@ namespace Server.Mobiles
 						return (int)price;
 					}
 
-					return (((m_Price * DefaultPrice) + 50) / 100);
+					return ((m_Price * DefaultPrice) + 50) / 100;
 				}
 
 				return m_Price;

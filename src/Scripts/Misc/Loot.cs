@@ -633,7 +633,7 @@ namespace Server
 		{
 			Type[] types = type switch
 			{
-				SpellbookType.Necromancer => (Core.SE ? SENecromancyScrollTypes : NecromancyScrollTypes),
+				SpellbookType.Necromancer => Core.SE ? SENecromancyScrollTypes : NecromancyScrollTypes,
 				SpellbookType.Paladin => PaladinScrollTypes,
 				SpellbookType.Arcanist => ArcanistScrollTypes,
 				_ => RegularScrollTypes,

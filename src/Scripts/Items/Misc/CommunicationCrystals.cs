@@ -198,10 +198,8 @@ namespace Server.Items
 						}
 					}
 				}
-				else if (targeted is ReceiverCrystal)
+				else if (targeted is ReceiverCrystal receiver)
 				{
-					ReceiverCrystal receiver = (ReceiverCrystal)targeted;
-
 					if (m_Crystal.Receivers.Count >= 10)
 					{
 						from.SendLocalizedMessage(1010042); // This broadcast crystal is already linked to 10 receivers.
@@ -231,9 +229,7 @@ namespace Server.Items
 				}
 				else
 				{
-					Item targItem = targeted as Item;
-
-					if (targItem != null && targItem.VerifyMove(from))
+					if (targeted is Item targItem && targItem.VerifyMove(from))
 					{
 						CrystalRechargeInfo info = CrystalRechargeInfo.Get(targItem.GetType());
 
@@ -433,9 +429,7 @@ namespace Server.Items
 				}
 				else
 				{
-					Item targItem = targeted as Item;
-
-					if (targItem != null && targItem.VerifyMove(from))
+					if (targeted is Item targItem && targItem.VerifyMove(from))
 					{
 						CrystalRechargeInfo info = CrystalRechargeInfo.Get(targItem.GetType());
 

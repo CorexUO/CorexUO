@@ -64,7 +64,7 @@ namespace Server.Spells.Necromancy
 				CreatureGroup group = m_Groups[i];
 				Type[] types = group.m_Types;
 
-				bool contains = (types.Length == 0);
+				bool contains = types.Length == 0;
 
 				for (int j = 0; !contains && j < types.Length; ++j)
 					contains = types[j].IsAssignableFrom(type);
@@ -152,17 +152,11 @@ namespace Server.Spells.Necromancy
 
 		public void Target(object obj)
 		{
-			MaabusCoffinComponent comp = obj as MaabusCoffinComponent;
-
-			if (comp != null)
+			if (obj is MaabusCoffinComponent comp)
 			{
-				MaabusCoffin addon = comp.Addon as MaabusCoffin;
-
-				if (addon != null)
+				if (comp.Addon is MaabusCoffin addon)
 				{
-					PlayerMobile pm = Caster as PlayerMobile;
-
-					if (pm != null)
+					if (Caster is PlayerMobile pm)
 					{
 						QuestSystem qs = pm.Quest;
 
@@ -182,9 +176,8 @@ namespace Server.Spells.Necromancy
 				}
 			}
 
-			Corpse c = obj as Corpse;
 
-			if (c == null)
+			if (obj is not Corpse c)
 			{
 				Caster.SendLocalizedMessage(1061084); // You cannot animate that.
 			}
@@ -349,9 +342,8 @@ namespace Server.Spells.Necromancy
 			if (summoned == null)
 				return;
 
-			if (summoned is BaseCreature)
+			if (summoned is BaseCreature bc)
 			{
-				BaseCreature bc = (BaseCreature)summoned;
 
 				// to be sure
 				bc.Tamable = false;

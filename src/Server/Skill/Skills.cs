@@ -219,7 +219,7 @@ namespace Server
 
 				if (m_Base != sv)
 				{
-					Owner.Total = (Owner.Total - m_Base) + sv;
+					Owner.Total = Owner.Total - m_Base + sv;
 
 					m_Base = sv;
 
@@ -227,8 +227,7 @@ namespace Server
 
 					Mobile m = Owner.Owner;
 
-					if (m != null)
-						m.OnSkillChange(SkillName, (double)oldBase / 10);
+					m?.OnSkillChange(SkillName, (double)oldBase / 10);
 				}
 			}
 		}
@@ -236,7 +235,7 @@ namespace Server
 		[CommandProperty(AccessLevel.Counselor, AccessLevel.GameMaster)]
 		public double Base
 		{
-			get => (m_Base / 10.0);
+			get => m_Base / 10.0;
 			set => BaseFixedPoint = (int)(value * 10.0);
 		}
 
@@ -264,7 +263,7 @@ namespace Server
 		[CommandProperty(AccessLevel.Counselor, AccessLevel.GameMaster)]
 		public double Cap
 		{
-			get => (m_Cap / 10.0);
+			get => m_Cap / 10.0;
 			set
 			{
 				double old = m_Cap / 10;
@@ -705,7 +704,7 @@ namespace Server
 					{
 						from.DisruptiveAction();
 
-						from.NextSkillTime = Core.TickCount + (int)(info.Callback(from)).TotalMilliseconds;
+						from.NextSkillTime = Core.TickCount + (int)info.Callback(from).TotalMilliseconds;
 
 						return true;
 					}
@@ -842,8 +841,7 @@ namespace Server
 
 			NetState ns = Owner.NetState;
 
-			if (ns != null)
-				ns.Send(new SkillChange(skill));
+			ns?.Send(new SkillChange(skill));
 		}
 
 		public IEnumerator<Skill> GetEnumerator()

@@ -31,17 +31,12 @@ namespace Server.Engines.Quests.Ninja
 					return false;
 			}
 
-			PlayerMobile pm = m as PlayerMobile;
 
-			if (pm != null)
+			if (m is PlayerMobile pm)
 			{
-				EminosUndertakingQuest qs = pm.Quest as EminosUndertakingQuest;
-
-				if (qs != null)
+				if (pm.Quest is EminosUndertakingQuest qs)
 				{
-					SneakPastGuardiansObjective obj = qs.FindObjective(typeof(SneakPastGuardiansObjective)) as SneakPastGuardiansObjective;
-
-					if (obj != null)
+					if (qs.FindObjective(typeof(SneakPastGuardiansObjective)) is SneakPastGuardiansObjective obj)
 					{
 						if (m.Hidden)
 							return true; // Hidden ninjas can pass

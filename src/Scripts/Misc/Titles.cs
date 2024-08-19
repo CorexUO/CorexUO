@@ -95,7 +95,7 @@ namespace Server.Misc
 			else if ((m.Karma + offset) < MinKarma)
 				offset = MinKarma - m.Karma;
 
-			bool wasPositiveKarma = (m.Karma >= 0);
+			bool wasPositiveKarma = m.Karma >= 0;
 
 			m.Karma += offset;
 

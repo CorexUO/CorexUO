@@ -27,7 +27,7 @@ namespace Server.Engines.MLQuests
 			Quest = quest;
 
 			m_Quester = quester;
-			QuesterType = (quester == null) ? null : quester.GetType();
+			QuesterType = quester?.GetType();
 			Player = player;
 
 			Accepted = DateTime.UtcNow;
@@ -80,7 +80,7 @@ namespace Server.Engines.MLQuests
 			set
 			{
 				m_Quester = value;
-				QuesterType = (value == null) ? null : value.GetType();
+				QuesterType = value?.GetType();
 			}
 		}
 
@@ -125,7 +125,7 @@ namespace Server.Engines.MLQuests
 
 		public bool IsCompleted()
 		{
-			bool requiresAll = (Quest.ObjectiveType == ObjectiveType.All);
+			bool requiresAll = Quest.ObjectiveType == ObjectiveType.All;
 
 			foreach (BaseObjectiveInstance obj in Objectives)
 			{
@@ -230,8 +230,7 @@ namespace Server.Engines.MLQuests
 				{
 					MLQuest nextQuest = MLQuestSystem.FindQuest(nextQuestType);
 
-					if (nextQuest != null)
-						nextQuest.SendOffer(m_Quester, Player);
+					nextQuest?.SendOffer(m_Quester, Player);
 				}
 			}
 			else
@@ -435,7 +434,7 @@ namespace Server.Engines.MLQuests
 
 		private bool GetFlag(MLQuestInstanceFlags flag)
 		{
-			return ((m_Flags & flag) != 0);
+			return (m_Flags & flag) != 0;
 		}
 
 		private void SetFlag(MLQuestInstanceFlags flag, bool value)
@@ -469,14 +468,13 @@ namespace Server.Engines.MLQuests
 			MLQuest quest = MLQuestSystem.ReadQuestRef(reader);
 
 			// TODO: Serialize quester TYPE too, the quest giver reference then becomes optional (only for escorts)
-			IQuestGiver quester = World.FindEntity(reader.ReadInt()) as IQuestGiver;
 
 			bool claimReward = reader.ReadBool();
 			int objectives = reader.ReadInt();
 
 			MLQuestInstance instance;
 
-			if (quest != null && quester != null && pm != null)
+			if (quest != null && World.FindEntity(reader.ReadInt()) is IQuestGiver quester && pm != null)
 			{
 				instance = quest.CreateInstance(quester, pm);
 				instance.ClaimReward = claimReward;
@@ -489,8 +487,7 @@ namespace Server.Engines.MLQuests
 			for (int i = 0; i < objectives; ++i)
 				BaseObjectiveInstance.Deserialize(reader, version, (instance != null && i < instance.Objectives.Length) ? instance.Objectives[i] : null);
 
-			if (instance != null)
-				instance.Slice();
+			instance?.Slice();
 
 			return instance;
 		}

@@ -149,7 +149,7 @@ namespace Server.Items
 				if (m_Deed == null || m_Deed.Deleted || info.ButtonID == 0)
 					return;
 
-				m_Deed.m_East = (info.ButtonID != 1);
+				m_Deed.m_East = info.ButtonID != 1;
 				m_Deed.SendTarget(sender.Mobile);
 			}
 		}

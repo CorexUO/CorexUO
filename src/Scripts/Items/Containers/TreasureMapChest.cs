@@ -425,8 +425,7 @@ namespace Server.Items
 
 		public override void OnAfterDelete()
 		{
-			if (m_Timer != null)
-				m_Timer.Stop();
+			m_Timer?.Stop();
 
 			m_Timer = null;
 
@@ -503,7 +502,7 @@ namespace Server.Items
 				m_From = from;
 				m_Chest = chest;
 
-				Enabled = (from == chest.Owner);
+				Enabled = from == chest.Owner;
 			}
 
 			public override void OnClick()

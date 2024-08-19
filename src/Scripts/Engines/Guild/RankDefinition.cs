@@ -28,7 +28,7 @@ namespace Server.Guilds
 
 		public bool GetFlag(RankFlags flag)
 		{
-			return ((Flags & flag) != 0);
+			return (Flags & flag) != 0;
 		}
 
 		public void SetFlag(RankFlags flag, bool value)

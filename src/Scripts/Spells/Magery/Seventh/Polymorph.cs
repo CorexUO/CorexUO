@@ -173,7 +173,7 @@ namespace Server.Spells.Seventh
 				m_Timers.Remove(m);
 			}
 
-			return (t != null);
+			return t != null;
 		}
 
 		private static void EndPolymorph(Mobile m)

@@ -27,8 +27,7 @@ namespace Server.Engines.Chat
 
 		public static void SendCommandTo(Mobile to, ChatCommand type, string param1, string param2)
 		{
-			if (to != null)
-				to.Send(new ChatMessagePacket(null, (int)type + 20, param1, param2));
+			to?.Send(new ChatMessagePacket(null, (int)type + 20, param1, param2));
 		}
 
 		public static void OpenChatWindowRequest(NetState state, PacketReader pvSrc)
@@ -90,8 +89,7 @@ namespace Server.Engines.Chat
 
 					accountChatName = chatName;
 
-					if (acct != null)
-						acct.AddTag("ChatName", chatName);
+					acct?.AddTag("ChatName", chatName);
 				}
 				else
 				{

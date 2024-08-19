@@ -66,7 +66,7 @@ namespace Server.Mobiles
 			return harrower;
 		}
 
-		public static bool CanSpawn => (Instances.Count == 0);
+		public static bool CanSpawn => Instances.Count == 0;
 
 		[Constructable]
 		public Harrower() : base(AIType.AI_Mage, FightMode.Closest, 18, 1, 0.2, 0.4)
@@ -372,8 +372,7 @@ namespace Server.Mobiles
 					RegisterDamageTo(this);
 					AwardArtifact(GetArtifact());
 
-					if (m_GateItem != null)
-						m_GateItem.Delete();
+					m_GateItem?.Delete();
 				}
 
 				return base.OnBeforeDeath();

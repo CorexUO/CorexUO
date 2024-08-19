@@ -54,7 +54,7 @@ namespace Server.Engines.ConPVP
 					if (p.Players.Length > 1)
 						height += 22;
 
-					height += (p.Players.Length * 22);
+					height += p.Players.Length * 22;
 				}
 
 				height += 10 + 22 + 25;
@@ -85,7 +85,7 @@ namespace Server.Engines.ConPVP
 					{
 						DuelPlayer pl = p.Players[j];
 
-						string name = (pl == null ? "(Empty)" : pl.Mobile.Name);
+						string name = pl == null ? "(Empty)" : pl.Mobile.Name;
 
 						AddHtml(35 + offset, y, 166, 20, name, false, false);
 
@@ -137,7 +137,7 @@ namespace Server.Engines.ConPVP
 						++changes;
 				}
 
-				height += (changes * 22);
+				height += changes * 22;
 
 				height += 10 + 22 + 25;
 
@@ -203,9 +203,7 @@ namespace Server.Engines.ConPVP
 			{
 				case 1: // okay
 					{
-						PlayerMobile pm = m_From as PlayerMobile;
-
-						if (pm == null)
+						if (m_From is not PlayerMobile pm)
 							break;
 
 						pm.DuelPlayer.Ready = true;

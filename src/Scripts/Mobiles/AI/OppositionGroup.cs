@@ -17,7 +17,7 @@ namespace Server
 			int fromGroup = IndexOf(from);
 			int targGroup = IndexOf(target);
 
-			return (fromGroup != -1 && targGroup != -1 && fromGroup != targGroup);
+			return fromGroup != -1 && targGroup != -1 && fromGroup != targGroup;
 		}
 
 		public int IndexOf(object obj)

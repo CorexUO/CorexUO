@@ -39,11 +39,11 @@ namespace Server
 			Value = serial;
 		}
 
-		public bool IsMobile => (Value > 0 && Value < 0x40000000);
+		public bool IsMobile => Value > 0 && Value < 0x40000000;
 
-		public bool IsItem => (Value >= 0x40000000 && Value <= 0x7FFFFFFF);
+		public bool IsItem => Value >= 0x40000000 && Value <= 0x7FFFFFFF;
 
-		public bool IsValid => (Value > 0);
+		public bool IsValid => Value > 0;
 
 		public override int GetHashCode()
 		{

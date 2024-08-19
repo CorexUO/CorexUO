@@ -80,7 +80,7 @@ namespace Server.Items
 
 		public override bool DropToItem(Mobile from, Item target, Point3D p)
 		{
-			return (target == Board && p.X != -1 && p.Y != -1 && base.DropToItem(from, target, p));
+			return target == Board && p.X != -1 && p.Y != -1 && base.DropToItem(from, target, p);
 		}
 
 		public override bool DropToWorld(Mobile from, Point3D p)

@@ -20,8 +20,7 @@ namespace Server.Engines.ConPVP
 
 			m_Ladder = new Ladder();
 
-			if (Ladder.Instance == null)
-				Ladder.Instance = m_Ladder;
+			Ladder.Instance ??= m_Ladder;
 		}
 
 		public override void Delete()
@@ -88,7 +87,7 @@ namespace Server.Engines.ConPVP
 			if (xp >= 22500)
 				return 50;
 			else if (xp >= 2500)
-				return (10 + ((xp - 2500) / 500));
+				return 10 + ((xp - 2500) / 500);
 			else if (xp < 0)
 				xp = 0;
 
@@ -177,7 +176,7 @@ namespace Server.Engines.ConPVP
 			int xp = 25 * scalar;
 
 			if (!weWon)
-				xp = (xp * GetLossFactor(ourLevel)) / 100;
+				xp = xp * GetLossFactor(ourLevel) / 100;
 
 			xp /= 100;
 

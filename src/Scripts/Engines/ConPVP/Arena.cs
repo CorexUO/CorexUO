@@ -186,13 +186,11 @@ namespace Server.Engines.ConPVP
 			get => m_Tournament;
 			set
 			{
-				if (m_Tournament != null)
-					m_Tournament.Tournament.Arenas.Remove(this);
+				m_Tournament?.Tournament.Arenas.Remove(this);
 
 				m_Tournament = value;
 
-				if (m_Tournament != null)
-					m_Tournament.Tournament.Arenas.Add(this);
+				m_Tournament?.Tournament.Arenas.Add(this);
 			}
 		}
 
@@ -217,8 +215,7 @@ namespace Server.Engines.ConPVP
 				if (Teleporter != null)
 					Teleporter.Map = value;
 
-				if (m_Region != null)
-					m_Region.Unregister();
+				m_Region?.Unregister();
 
 				if (m_Zone.Start != Point2D.Zero && m_Zone.End != Point2D.Zero && m_Facet != null)
 					m_Region = new SafeZone(m_Zone, m_Outside, m_Facet, m_IsGuarded);
@@ -258,15 +255,13 @@ namespace Server.Engines.ConPVP
 
 				if (m_Zone.Start != Point2D.Zero && m_Zone.End != Point2D.Zero && m_Facet != null)
 				{
-					if (m_Region != null)
-						m_Region.Unregister();
+					m_Region?.Unregister();
 
 					m_Region = new SafeZone(m_Zone, m_Outside, m_Facet, m_IsGuarded);
 				}
 				else
 				{
-					if (m_Region != null)
-						m_Region.Unregister();
+					m_Region?.Unregister();
 
 					m_Region = null;
 				}
@@ -286,7 +281,7 @@ namespace Server.Engines.ConPVP
 		public Point3D Wall { get => m_Wall; set => m_Wall = value; }
 
 		[CommandProperty(AccessLevel.GameMaster)]
-		public bool IsOccupied => (Players.Count > 0);
+		public bool IsOccupied => Players.Count > 0;
 
 		[CommandProperty(AccessLevel.GameMaster)]
 		public ArenaStartPoints Points { get => m_Points; set { } }
@@ -322,8 +317,7 @@ namespace Server.Engines.ConPVP
 		{
 			Active = false;
 
-			if (m_Region != null)
-				m_Region.Unregister();
+			m_Region?.Unregister();
 
 			m_Region = null;
 		}
@@ -500,8 +494,7 @@ namespace Server.Engines.ConPVP
 
 		private void AttachToTournament_Sandbox()
 		{
-			if (m_Tournament != null)
-				m_Tournament.Tournament.Arenas.Add(this);
+			m_Tournament?.Tournament.Arenas.Add(this);
 		}
 
 		[CommandProperty(AccessLevel.Administrator, AccessLevel.Administrator)]
@@ -523,7 +516,7 @@ namespace Server.Engines.ConPVP
 				facet = m_Facet;
 			}
 
-			bool hasBounds = (m_Bounds.Start != Point2D.Zero && m_Bounds.End != Point2D.Zero);
+			bool hasBounds = m_Bounds.Start != Point2D.Zero && m_Bounds.End != Point2D.Zero;
 
 			for (int i = 0; i < Players.Count; ++i)
 			{
@@ -638,9 +631,9 @@ namespace Server.Engines.ConPVP
 							bool isNear;
 
 							if (house == null)
-								isNear = (controller.Map == check.Map && check.InRange(controller, 24));
+								isNear = controller.Map == check.Map && check.InRange(controller, 24);
 							else
-								isNear = (Multis.BaseHouse.FindHouseAt(check) == house);
+								isNear = Multis.BaseHouse.FindHouseAt(check) == house;
 
 							if (!isNear)
 							{

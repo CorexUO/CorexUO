@@ -136,7 +136,7 @@ namespace Server.Commands
 					bool bloodied = false;
 
 					for (int i = 0; !bloodied && i < m_Params.Length; ++i)
-						bloodied = (m_Params[i] == "Bloodied");
+						bloodied = m_Params[i] == "Bloodied";
 
 					if (m_Type == typeofAnkhWest)
 						item = new AnkhWest(bloodied);
@@ -390,12 +390,10 @@ namespace Server.Commands
 				throw new Exception(string.Format("Bad type: {0}", m_Type), e);
 			}
 
-			if (item is BaseAddon)
+			if (item is BaseAddon addon)
 			{
-				if (item is MaabusCoffin)
+				if (item is MaabusCoffin coffin)
 				{
-					MaabusCoffin coffin = (MaabusCoffin)item;
-
 					for (int i = 0; i < m_Params.Length; ++i)
 					{
 						if (m_Params[i].StartsWith("SpawnLocation"))
@@ -409,7 +407,7 @@ namespace Server.Commands
 				}
 				else if (m_ItemID > 0)
 				{
-					List<AddonComponent> comps = ((BaseAddon)item).Components;
+					List<AddonComponent> comps = addon.Components;
 
 					for (int i = 0; i < comps.Count; ++i)
 					{
@@ -443,10 +441,8 @@ namespace Server.Commands
 				if (m_ItemID > 0)
 					item.ItemID = m_ItemID;
 			}
-			else if (item is Server.Mobiles.Spawner)
+			else if (item is Server.Mobiles.Spawner sp)
 			{
-				Server.Mobiles.Spawner sp = (Server.Mobiles.Spawner)item;
-
 				sp.NextSpawn = TimeSpan.Zero;
 
 				for (int i = 0; i < m_Params.Length; ++i)
@@ -516,10 +512,8 @@ namespace Server.Commands
 					}
 				}
 			}
-			else if (item is RecallRune)
+			else if (item is RecallRune rune)
 			{
-				RecallRune rune = (RecallRune)item;
-
 				for (int i = 0; i < m_Params.Length; ++i)
 				{
 					if (m_Params[i].StartsWith("Description"))
@@ -728,10 +722,8 @@ namespace Server.Commands
 				if (m_ItemID > 0)
 					item.ItemID = m_ItemID;
 			}
-			else if (item is Teleporter)
+			else if (item is Teleporter tp)
 			{
-				Teleporter tp = (Teleporter)item;
-
 				for (int i = 0; i < m_Params.Length; ++i)
 				{
 					if (m_Params[i].StartsWith("PointDest"))
@@ -788,10 +780,8 @@ namespace Server.Commands
 				if (m_ItemID > 0)
 					item.ItemID = m_ItemID;
 			}
-			else if (item is FillableContainer)
+			else if (item is FillableContainer cont)
 			{
-				FillableContainer cont = (FillableContainer)item;
-
 				for (int i = 0; i < m_Params.Length; ++i)
 				{
 					if (m_Params[i].StartsWith("ContentType"))
@@ -984,8 +974,7 @@ namespace Server.Commands
 
 				for (int j = 0; j < maps.Length; ++j)
 				{
-					if (item == null)
-						item = Construct();
+					item ??= Construct();
 
 					if (item == null)
 						continue;
@@ -1027,8 +1016,7 @@ namespace Server.Commands
 				}
 			}
 
-			if (item != null)
-				item.Delete();
+			item?.Delete();
 
 			return count;
 		}

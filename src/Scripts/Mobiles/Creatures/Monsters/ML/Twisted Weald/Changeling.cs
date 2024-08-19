@@ -55,7 +55,7 @@ namespace Server.Mobiles
 		}
 
 		public override bool ShowFameTitle => false;
-		public override bool InitialInnocent => (m_MorphedInto != null);
+		public override bool InitialInnocent => m_MorphedInto != null;
 
 		public override void GenerateLoot()
 		{
@@ -247,7 +247,7 @@ namespace Server.Mobiles
 			base.Serialize(writer);
 
 			writer.Write(0); // version
-			writer.Write((m_MorphedInto != null));
+			writer.Write(m_MorphedInto != null);
 		}
 
 		public override void Deserialize(GenericReader reader)

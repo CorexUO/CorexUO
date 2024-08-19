@@ -500,8 +500,8 @@ namespace Server.Gumps
 				for (int c = 0; c < cat.Entries.Length; c++)
 				{
 					CustomItem entry = cat.Entries[c];
-					x = 198 + (c % 3) * 129;
-					y = 38 + (c / 3) * 67;
+					x = 198 + c % 3 * 129;
+					y = 38 + c / 3 * 67;
 
 					AddHtmlLocalized(x, y, 100, entry.LongText ? 36 : 18, entry.LocNumber, false, false);
 
@@ -556,8 +556,7 @@ namespace Server.Gumps
 					{
 						Item item = m_Vendor.FindItemOnLayer(Categories[cat].Layer);
 
-						if (item != null)
-							item.Delete();
+						item?.Delete();
 
 						List<Item> items = m_Vendor.Items;
 
@@ -573,8 +572,7 @@ namespace Server.Gumps
 							}
 						}
 
-						if (item != null)
-							item.Delete();
+						item?.Delete();
 
 						if (Categories[cat].Layer == Layer.FacialHair)
 						{
@@ -694,8 +692,7 @@ namespace Server.Gumps
 									}
 								}
 
-								if (item != null)
-									item.Delete();
+								item?.Delete();
 							}
 
 							from.SendGump(new PlayerVendorCustomizeGump(m_Vendor, from));

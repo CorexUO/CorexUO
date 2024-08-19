@@ -17,8 +17,7 @@ namespace Server.Engines.Craft
 		{
 			get
 			{
-				if (m_CraftSystem == null)
-					m_CraftSystem = new DefTinkering();
+				m_CraftSystem ??= new DefTinkering();
 
 				return m_CraftSystem;
 			}
@@ -73,7 +72,7 @@ namespace Server.Engines.Craft
 			bool contains = false;
 
 			for (int i = 0; !contains && i < m_TinkerColorables.Length; ++i)
-				contains = (m_TinkerColorables[i] == type);
+				contains = m_TinkerColorables[i] == type;
 
 			return contains;
 		}

@@ -86,7 +86,7 @@ namespace Server.Engines.Help
 						Add(new GumpButton(368, 12, 0xFA5, 0xFA7, 0, GumpButtonType.Page, (i / 5) + 1));
 						Add(new GumpLabel(298, 12, 2100, "Next Page"));
 						Add(new GumpPage((i / 5) + 1));
-						Add(new GumpButton(12, 12, 0xFAE, 0xFB0, 0, GumpButtonType.Page, (i / 5)));
+						Add(new GumpButton(12, 12, 0xFAE, 0xFB0, 0, GumpButtonType.Page, i / 5));
 						Add(new GumpLabel(48, 12, 2100, "Previous Page"));
 					}
 
@@ -94,8 +94,8 @@ namespace Server.Engines.Help
 
 					string html = string.Format("[{0}] {1} <basefont color=#{2:X6}>[<u>{3}</u>]</basefont>", typeString, e.Message, e.Handler == null ? 0xFF0000 : 0xFF, e.Handler == null ? "Unhandled" : "Handling");
 
-					Add(new GumpHtml(12, 44 + ((i % 5) * 80), 350, 70, html, true, true));
-					Add(new GumpButton(370, 44 + ((i % 5) * 80) + 24, 0xFA5, 0xFA7, i + 1, GumpButtonType.Reply, 0));
+					Add(new GumpHtml(12, 44 + (i % 5 * 80), 350, 70, html, true, true));
+					Add(new GumpButton(370, 44 + (i % 5 * 80) + 24, 0xFA5, 0xFA7, i + 1, GumpButtonType.Reply, 0));
 				}
 			}
 			else
@@ -140,8 +140,7 @@ namespace Server.Engines.Help
 		{
 			get
 			{
-				if (m_List == null)
-					m_List = Load();
+				m_List ??= Load();
 
 				return m_List;
 			}
@@ -149,8 +148,7 @@ namespace Server.Engines.Help
 
 		public static PredefinedResponse Add(string title, string message)
 		{
-			if (m_List == null)
-				m_List = Load();
+			m_List ??= Load();
 
 			PredefinedResponse resp = new(title, message);
 
@@ -162,8 +160,7 @@ namespace Server.Engines.Help
 
 		public static void Save()
 		{
-			if (m_List == null)
-				m_List = Load();
+			m_List ??= Load();
 
 			try
 			{
@@ -246,7 +243,7 @@ namespace Server.Engines.Help
 
 			from.CloseGump(typeof(PredefGump));
 
-			bool canEdit = (from.AccessLevel >= AccessLevel.GameMaster);
+			bool canEdit = from.AccessLevel >= AccessLevel.GameMaster;
 
 			AddPage(0);
 
@@ -278,21 +275,21 @@ namespace Server.Engines.Help
 
 					string html = string.Format("<u>{0}</u><br>{1}", resp.Title, resp.Message);
 
-					AddHtml(12, 44 + ((i % 5) * 80), 350, 70, html, true, true);
+					AddHtml(12, 44 + (i % 5 * 80), 350, 70, html, true, true);
 
 					if (canEdit)
 					{
-						AddButton(370, 44 + ((i % 5) * 80) + 24, 0xFA5, 0xFA7, 2 + (i * 3), GumpButtonType.Reply, 0);
+						AddButton(370, 44 + (i % 5 * 80) + 24, 0xFA5, 0xFA7, 2 + (i * 3), GumpButtonType.Reply, 0);
 
 						if (i > 0)
-							AddButton(377, 44 + ((i % 5) * 80) + 2, 0x15E0, 0x15E4, 3 + (i * 3), GumpButtonType.Reply, 0);
+							AddButton(377, 44 + (i % 5 * 80) + 2, 0x15E0, 0x15E4, 3 + (i * 3), GumpButtonType.Reply, 0);
 						else
-							AddImage(377, 44 + ((i % 5) * 80) + 2, 0x25E4);
+							AddImage(377, 44 + (i % 5 * 80) + 2, 0x25E4);
 
 						if (i < (list.Count - 1))
-							AddButton(377, 44 + ((i % 5) * 80) + 70 - 2 - 16, 0x15E2, 0x15E6, 4 + (i * 3), GumpButtonType.Reply, 0);
+							AddButton(377, 44 + (i % 5 * 80) + 70 - 2 - 16, 0x15E2, 0x15E6, 4 + (i * 3), GumpButtonType.Reply, 0);
 						else
-							AddImage(377, 44 + ((i % 5) * 80) + 70 - 2 - 16, 0x25E8);
+							AddImage(377, 44 + (i % 5 * 80) + 70 - 2 - 16, 0x25E8);
 					}
 				}
 
@@ -307,8 +304,8 @@ namespace Server.Engines.Help
 						AddLabel(48, 10, 2100, "Previous Page");
 					}
 
-					AddButton(12, 44 + ((i % 5) * 80), 0xFAB, 0xFAD, 1, GumpButtonType.Reply, 0);
-					AddHtml(45, 44 + ((i % 5) * 80), 200, 20, Color("New Response", LabelColor32), false, false);
+					AddButton(12, 44 + (i % 5 * 80), 0xFAB, 0xFAD, 1, GumpButtonType.Reply, 0);
+					AddHtml(45, 44 + (i % 5 * 80), 200, 20, Color("New Response", LabelColor32), false, false);
 				}
 			}
 			else if (canEdit)

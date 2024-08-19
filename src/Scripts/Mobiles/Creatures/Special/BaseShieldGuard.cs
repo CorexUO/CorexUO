@@ -95,9 +95,8 @@ namespace Server.Mobiles
 				e.Handled = true;
 
 				Mobile from = e.Mobile;
-				Guild g = from.Guild as Guild;
 
-				if (g == null || g.Type != Type)
+				if (from.Guild is not Guild g || g.Type != Type)
 				{
 					Say(SignupNumber);
 				}

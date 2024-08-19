@@ -29,7 +29,7 @@ namespace Server.Engines.MLQuests.Objectives
 	public abstract class BaseObjectiveInstance
 	{
 		public MLQuestInstance Instance { get; }
-		public bool IsTimed => (EndTime != DateTime.MinValue);
+		public bool IsTimed => EndTime != DateTime.MinValue;
 		public DateTime EndTime { get; set; }
 		public bool Expired { get; set; }
 

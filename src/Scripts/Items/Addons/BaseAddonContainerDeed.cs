@@ -114,10 +114,9 @@ namespace Server.Items
 
 			protected override void OnTarget(Mobile from, object targeted)
 			{
-				IPoint3D p = targeted as IPoint3D;
 				Map map = from.Map;
 
-				if (p == null || map == null || m_Deed.Deleted)
+				if (targeted is not IPoint3D p || map == null || m_Deed.Deleted)
 					return;
 
 				if (m_Deed.IsChildOf(from.Backpack))

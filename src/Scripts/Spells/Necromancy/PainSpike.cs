@@ -58,9 +58,8 @@ namespace Server.Spells.Necromancy
 				if (m_Table.Contains(m))
 				{
 					damage = Utility.RandomMinMax(3, 7);
-					Timer t = m_Table[m] as Timer;
 
-					if (t != null)
+					if (m_Table[m] is Timer t)
 					{
 						t.Delay += TimeSpan.FromSeconds(2.0);
 

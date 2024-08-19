@@ -182,9 +182,8 @@ namespace Server.Engines.MLQuests
 			public override void Execute(CommandEventArgs e, object obj)
 			{
 				Mobile from = e.Mobile;
-				PlayerMobile pm = obj as PlayerMobile;
 
-				if (pm == null)
+				if (obj is not PlayerMobile pm)
 				{
 					LogFailure("That is not a player.");
 					return;
@@ -209,9 +208,7 @@ namespace Server.Engines.MLQuests
 
 			public override void Execute(CommandEventArgs e, object obj)
 			{
-				PlayerMobile pm = obj as PlayerMobile;
-
-				if (pm == null)
+				if (obj is not PlayerMobile pm)
 					LogFailure("They have no ML quest context.");
 				else
 					e.Mobile.SendGump(new PropertiesGump(e.Mobile, GetOrCreateContext(pm)));
@@ -282,13 +279,9 @@ namespace Server.Engines.MLQuests
 			{
 				if (item.QuestItem)
 				{
-					Backpack pack = item.Parent as Backpack;
-
-					if (pack != null)
+					if (item.Parent is Backpack pack)
 					{
-						PlayerMobile player = pack.Parent as PlayerMobile;
-
-						if (player != null && player.Backpack == pack)
+						if (pack.Parent is PlayerMobile player && player.Backpack == pack)
 							continue;
 					}
 
@@ -349,7 +342,7 @@ namespace Server.Engines.MLQuests
 			// 4. Random quest
 			quest = RandomStarterQuest(quester, pm, context);
 
-			return (quest != null);
+			return quest != null;
 		}
 
 		public static void OnDoubleClick(IQuestGiver quester, PlayerMobile pm)
@@ -550,8 +543,7 @@ namespace Server.Engines.MLQuests
 								instance.Quester = quester;
 							}
 
-							if (deliverInstance == null)
-								deliverInstance = instance;
+							deliverInstance ??= instance;
 
 							break; // don't return, we may have to complete more deliveries
 						}
@@ -582,8 +574,7 @@ namespace Server.Engines.MLQuests
 		{
 			MLQuestContext context = GetContext(pm);
 
-			if (context != null)
-				context.HandleDeath();
+			context?.HandleDeath();
 		}
 
 		public static void HandleDeletion(PlayerMobile pm)
@@ -642,8 +633,7 @@ namespace Server.Engines.MLQuests
 				 * Save first quest that reaches the CanOffer call.
 				 * If no quests are valid at all, return this quest for displaying the CanOffer error message.
 				 */
-				if (fallback == null)
-					fallback = quest;
+				fallback ??= quest;
 
 				if (quest.CanOffer(quester, pm, context, false))
 					m_EligiblePool.Add(quest);
@@ -657,9 +647,8 @@ namespace Server.Engines.MLQuests
 
 		public static void TurnToFace(IQuestGiver quester, Mobile mob)
 		{
-			if (quester is Mobile)
+			if (quester is Mobile m)
 			{
-				Mobile m = (Mobile)quester;
 				m.Direction = m.GetDirectionTo(mob);
 			}
 		}

@@ -18,8 +18,7 @@ namespace Server
 		{
 			get
 			{
-				if (m_UTF8 == null)
-					m_UTF8 = new UTF8Encoding(false, false);
+				m_UTF8 ??= new UTF8Encoding(false, false);
 
 				return m_UTF8;
 			}
@@ -29,8 +28,7 @@ namespace Server
 		{
 			get
 			{
-				if (m_UTF8WithEncoding == null)
-					m_UTF8WithEncoding = new UTF8Encoding(true, false);
+				m_UTF8WithEncoding ??= new UTF8Encoding(true, false);
 
 				return m_UTF8WithEncoding;
 			}
@@ -63,10 +61,7 @@ namespace Server
 
 		public static IPAddress Intern(IPAddress ipAddress)
 		{
-			if (_ipAddressTable == null)
-			{
-				_ipAddressTable = new Dictionary<IPAddress, IPAddress>();
-			}
+			_ipAddressTable ??= new Dictionary<IPAddress, IPAddress>();
 
 			if (!_ipAddressTable.TryGetValue(ipAddress, out IPAddress interned))
 			{
@@ -103,9 +98,9 @@ namespace Server
 			if (str == null)
 				return "";
 
-			bool hasOpen = (str.IndexOf('<') >= 0);
-			bool hasClose = (str.IndexOf('>') >= 0);
-			bool hasPound = (str.IndexOf('#') >= 0);
+			bool hasOpen = str.IndexOf('<') >= 0;
+			bool hasClose = str.IndexOf('>') >= 0;
+			bool hasPound = str.IndexOf('#') >= 0;
 
 			if (!hasOpen && !hasClose && !hasPound)
 				return str;
@@ -282,7 +277,7 @@ namespace Server
 
 			uint mask = uint.MaxValue << 32 - cidrLength;
 
-			return ((cidrPrefixValue & mask) == (ipValue & mask));
+			return (cidrPrefixValue & mask) == (ipValue & mask);
 		}
 
 		private static uint OrderedAddressValue(byte[] bytes)
@@ -290,15 +285,15 @@ namespace Server
 			if (bytes.Length != 4)
 				return 0;
 
-			return (uint)((((bytes[0] << 0x18) | (bytes[1] << 0x10)) | (bytes[2] << 8)) | bytes[3]) & 0xffffffff;
+			return (uint)((bytes[0] << 0x18) | (bytes[1] << 0x10) | (bytes[2] << 8) | bytes[3]) & 0xffffffff;
 		}
 
 		private static uint SwapUnsignedInt(uint source)
 		{
-			return (((source & 0x000000FF) << 0x18)
+			return ((source & 0x000000FF) << 0x18)
 			| ((source & 0x0000FF00) << 8)
 			| ((source & 0x00FF0000) >> 8)
-			| ((source & 0xFF000000) >> 0x18));
+			| ((source & 0xFF000000) >> 0x18);
 		}
 
 		public static bool TryConvertIPv6toIPv4(ref IPAddress address)
@@ -448,7 +443,7 @@ namespace Server
 
 		public static bool IPMatchClassC(IPAddress ip1, IPAddress ip2)
 		{
-			return ((Utility.GetAddressValue(ip1) & 0xFFFFFF) == (Utility.GetAddressValue(ip2) & 0xFFFFFF));
+			return (Utility.GetAddressValue(ip1) & 0xFFFFFF) == (Utility.GetAddressValue(ip2) & 0xFFFFFF);
 		}
 
 		public static int InsensitiveCompare(string first, string second)
@@ -810,7 +805,7 @@ namespace Server
 				return min;
 			}
 
-			return min + RandomImpl.Next((max - min) + 1);
+			return min + RandomImpl.Next(max - min + 1);
 		}
 
 		public static int Random(int from, int count)
@@ -1311,7 +1306,7 @@ namespace Server
 				bound2 = i;
 			}
 
-			return (num < bound2 + allowance && num > bound1 - allowance);
+			return num < bound2 + allowance && num > bound1 - allowance;
 		}
 
 		public static void AssignRandomHair(Mobile m)

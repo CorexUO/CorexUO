@@ -113,7 +113,7 @@ namespace Server.Spells.Chivalry
 			{
 				Caster.SendLocalizedMessage(501942); // That location is blocked.
 			}
-			else if ((checkMulti && SpellHelper.CheckMulti(loc, map)))
+			else if (checkMulti && SpellHelper.CheckMulti(loc, map))
 			{
 				Caster.SendLocalizedMessage(501942); // That location is blocked.
 			}
@@ -149,10 +149,8 @@ namespace Server.Spells.Chivalry
 
 			protected override void OnTarget(Mobile from, object o)
 			{
-				if (o is RecallRune)
+				if (o is RecallRune rune)
 				{
-					RecallRune rune = (RecallRune)o;
-
 					if (rune.Marked)
 						m_Owner.Effect(rune.Target, rune.TargetMap, true);
 					else

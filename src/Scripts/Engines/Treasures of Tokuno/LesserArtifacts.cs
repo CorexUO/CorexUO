@@ -793,10 +793,8 @@ namespace Server.Items
 				int min = 20;
 				int max = 80;
 
-				if (item is BaseWeapon)
+				if (item is BaseWeapon weapon)
 				{
-					BaseWeapon weapon = (BaseWeapon)item;
-
 					if (Core.AOS)
 						BaseRunicTool.ApplyAttributesTo(weapon, attributeCount, min, max);
 					else
@@ -806,10 +804,8 @@ namespace Server.Items
 						weapon.DurabilityLevel = (DurabilityLevel)Utility.Random(6);
 					}
 				}
-				else if (item is BaseArmor)
+				else if (item is BaseArmor armor)
 				{
-					BaseArmor armor = (BaseArmor)item;
-
 					if (Core.AOS)
 						BaseRunicTool.ApplyAttributesTo(armor, attributeCount, min, max);
 					else

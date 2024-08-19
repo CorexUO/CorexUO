@@ -6,9 +6,7 @@ namespace Server.Engines.Quests.Necro
 	{
 		public override bool ValidateUse(Mobile from)
 		{
-			PlayerMobile pm = from as PlayerMobile;
-
-			return (pm != null && pm.Quest is DarkTidesQuest);
+			return from is PlayerMobile pm && pm.Quest is DarkTidesQuest;
 		}
 
 		[Constructable]

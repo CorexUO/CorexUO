@@ -101,8 +101,8 @@ namespace Server.Items
 
 				for (int j = 0; j < e.HueCount; ++j)
 				{
-					AddLabel(328 + ((j / 16) * 80), 102 + ((j % 16) * 17), e.HueStart + j - 1, "*****");
-					AddRadio(310 + ((j / 16) * 80), 102 + ((j % 16) * 17), 210, 211, false, (i * 100) + j);
+					AddLabel(328 + (j / 16 * 80), 102 + (j % 16 * 17), e.HueStart + j - 1, "*****");
+					AddRadio(310 + (j / 16 * 80), 102 + (j % 16 * 17), 210, 211, false, (i * 100) + j);
 				}
 			}
 		}

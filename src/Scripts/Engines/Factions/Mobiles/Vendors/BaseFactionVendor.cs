@@ -38,8 +38,7 @@ namespace Server.Factions
 
 		public void Unregister()
 		{
-			if (m_Town != null)
-				m_Town.UnregisterVendor(this);
+			m_Town?.UnregisterVendor(this);
 		}
 
 		private readonly List<SBInfo> m_SBInfos = new();

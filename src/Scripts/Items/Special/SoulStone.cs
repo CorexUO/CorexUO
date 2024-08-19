@@ -123,8 +123,7 @@ namespace Server.Items
 
 			string name = LastUserName;
 
-			if (name == null)
-				name = string.Format("#{0}", 1074235); // Unknown
+			name ??= string.Format("#{0}", 1074235); // Unknown
 
 			list.Add(1041602, "{0}", name); // Owner: ~1_val~
 		}
@@ -285,7 +284,7 @@ namespace Server.Items
 						}
 
 						int x = (p % 2 == 0) ? 10 : 260;
-						int y = (p / 2) * 20 + 40;
+						int y = p / 2 * 20 + 40;
 
 						AddButton(x, y, 0xFA5, 0xFA6, i + 1, GumpButtonType.Reply, 0);
 						AddHtmlLocalized(x + 45, y + 2, 200, 20, AosSkillBonuses.GetLabel(skill.SkillName), 0x7FFF, false, false);

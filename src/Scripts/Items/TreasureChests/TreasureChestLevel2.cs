@@ -20,42 +20,42 @@ namespace Server.Items
 			switch (Utility.RandomList(0, 1, 2, 3, 4, 5, 6, 7))
 			{
 				case 0:// Large Crate
-					ItemID = (UseFirstItemId ? 0xe3c : 0xe3d);
+					ItemID = UseFirstItemId ? 0xe3c : 0xe3d;
 					GumpID = 0x44;
 					break;
 
 				case 1:// Medium Crate
-					ItemID = (UseFirstItemId ? 0xe3e : 0xe3f);
+					ItemID = UseFirstItemId ? 0xe3e : 0xe3f;
 					GumpID = 0x44;
 					break;
 
 				case 2:// Small Crate
-					ItemID = (UseFirstItemId ? 0x9a9 : 0xe7e);
+					ItemID = UseFirstItemId ? 0x9a9 : 0xe7e;
 					GumpID = 0x44;
 					break;
 
 				case 3:// Wooden Chest
-					ItemID = (UseFirstItemId ? 0xe42 : 0xe43);
+					ItemID = UseFirstItemId ? 0xe42 : 0xe43;
 					GumpID = 0x49;
 					break;
 
 				case 4:// Metal Chest
-					ItemID = (UseFirstItemId ? 0x9ab : 0xe7c);
+					ItemID = UseFirstItemId ? 0x9ab : 0xe7c;
 					GumpID = 0x4A;
 					break;
 
 				case 5:// Metal Golden Chest
-					ItemID = (UseFirstItemId ? 0xe40 : 0xe41);
+					ItemID = UseFirstItemId ? 0xe40 : 0xe41;
 					GumpID = 0x42;
 					break;
 
 				case 6:// Keg
-					ItemID = (UseFirstItemId ? 0xe7f : 0xe7f);
+					ItemID = UseFirstItemId ? 0xe7f : 0xe7f;
 					GumpID = 0x3e;
 					break;
 
 				case 7:// Barrel
-					ItemID = (UseFirstItemId ? 0xe77 : 0xe77);
+					ItemID = UseFirstItemId ? 0xe77 : 0xe77;
 					GumpID = 0x3e;
 					break;
 			}

@@ -25,9 +25,8 @@ namespace Server.Items
 				return false;
 			}
 
-			Key key = dropped as Key;
 
-			if (key == null || key.KeyValue == 0)
+			if (dropped is not Key key || key.KeyValue == 0)
 			{
 				from.SendLocalizedMessage(501689); // Only non-blank keys can be put on a keyring.
 				return false;
@@ -79,10 +78,8 @@ namespace Server.Items
 					m_KeyRing.Open(from);
 					from.SendLocalizedMessage(501685); // You open the keyring.
 				}
-				else if (targeted is ILockable)
+				else if (targeted is ILockable o)
 				{
-					ILockable o = (ILockable)targeted;
-
 					foreach (Key key in m_KeyRing.Keys)
 					{
 						if (key.UseOn(from, o))
@@ -120,9 +117,7 @@ namespace Server.Items
 
 		public void Open(Mobile from)
 		{
-			Container cont = Parent as Container;
-
-			if (cont == null)
+			if (Parent is not Container cont)
 				return;
 
 			for (int i = Keys.Count - 1; i >= 0; i--)

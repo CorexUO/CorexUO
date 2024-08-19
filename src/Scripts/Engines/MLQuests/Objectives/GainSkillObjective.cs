@@ -89,7 +89,7 @@ namespace Server.Engines.MLQuests.Objectives
 
 		private bool GetFlag(GainSkillObjectiveFlags flag)
 		{
-			return ((m_Flags & flag) != 0);
+			return (m_Flags & flag) != 0;
 		}
 
 		private void SetFlag(GainSkillObjectiveFlags flag, bool value)
@@ -114,7 +114,7 @@ namespace Server.Engines.MLQuests.Objectives
 
 		public bool Handles(SkillName skill)
 		{
-			return (Objective.Skill == skill);
+			return Objective.Skill == skill;
 		}
 
 		public override bool IsCompleted()
@@ -123,7 +123,7 @@ namespace Server.Engines.MLQuests.Objectives
 
 			int valueFixed = Objective.UseReal ? pm.Skills[Objective.Skill].Fixed : pm.Skills[Objective.Skill].BaseFixedPoint;
 
-			return (valueFixed >= Objective.ThresholdFixed);
+			return valueFixed >= Objective.ThresholdFixed;
 		}
 
 		// TODO: This may interfere with scrolls, or even quests among each other

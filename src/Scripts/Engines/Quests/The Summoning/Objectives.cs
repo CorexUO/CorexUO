@@ -108,8 +108,7 @@ namespace Server.Engines.Quests.Doom
 			{
 				SummoningAltar altar = victoria.Altar;
 
-				if (altar != null)
-					altar.CheckDaemon();
+				altar?.CheckDaemon();
 			}
 
 			PlayerMobile from = System.From;

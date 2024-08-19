@@ -70,7 +70,7 @@ namespace Server.Engines.ConPVP
 
 		public override bool OnMoveOver(Mobile m)
 		{
-			return (!m.Player || UseGate(m));
+			return !m.Player || UseGate(m);
 		}
 	}
 
@@ -171,13 +171,12 @@ namespace Server.Engines.ConPVP
 
 				string name = ar.Name;
 
-				if (name == null)
-					name = "(no name)";
+				name ??= "(no name)";
 
 				int x = 12;
 				int y = 32 + (i * 31);
 
-				int color = (ar.Players.Count > 0 ? 0xCCFFCC : 0xCCCCCC);
+				int color = ar.Players.Count > 0 ? 0xCCFFCC : 0xCCCCCC;
 
 				AddRadio(x + 3, y + 1, 9727, 9730, false, i);
 				x += 35;

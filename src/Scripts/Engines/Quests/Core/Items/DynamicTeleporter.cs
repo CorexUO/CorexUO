@@ -22,9 +22,7 @@ namespace Server.Engines.Quests
 
 		public override bool OnMoveOver(Mobile m)
 		{
-			PlayerMobile pm = m as PlayerMobile;
-
-			if (pm != null)
+			if (m is PlayerMobile pm)
 			{
 				Point3D loc = Point3D.Zero;
 				Map map = null;

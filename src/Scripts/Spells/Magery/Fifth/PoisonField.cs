@@ -125,8 +125,7 @@ namespace Server.Spells.Fifth
 			{
 				base.OnAfterDelete();
 
-				if (m_Timer != null)
-					m_Timer.Stop();
+				m_Timer?.Stop();
 			}
 
 			public InternalItem(Serial serial) : base(serial)
@@ -257,8 +256,8 @@ namespace Server.Spells.Fifth
 
 						if (map != null && caster != null)
 						{
-							bool eastToWest = (m_Item.ItemID == 0x3915);
-							IPooledEnumerable eable = map.GetMobilesInBounds(new Rectangle2D(m_Item.X - (eastToWest ? 0 : 1), m_Item.Y - (eastToWest ? 1 : 0), (eastToWest ? 1 : 2), (eastToWest ? 2 : 1)));
+							bool eastToWest = m_Item.ItemID == 0x3915;
+							IPooledEnumerable eable = map.GetMobilesInBounds(new Rectangle2D(m_Item.X - (eastToWest ? 0 : 1), m_Item.Y - (eastToWest ? 1 : 0), eastToWest ? 1 : 2, eastToWest ? 2 : 1));
 
 							foreach (Mobile m in eable)
 							{

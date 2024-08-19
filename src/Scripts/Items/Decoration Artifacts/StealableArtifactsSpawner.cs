@@ -327,8 +327,7 @@ namespace Server.Items
 
 			foreach (StealableInstance si in m_Artifacts)
 			{
-				if (si.Item != null)
-					si.Item.Delete();
+				si.Item?.Delete();
 			}
 
 			Instance = null;

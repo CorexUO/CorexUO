@@ -78,8 +78,7 @@ namespace Server.Items
 
 			from.RevealingAction();
 
-			if (Users == null)
-				Users = new List<Mobile>();
+			Users ??= new List<Mobile>();
 
 			if (!Users.Contains(from))
 				Users.Add(from);
@@ -266,8 +265,7 @@ namespace Server.Items
 
 				if (o is Mobile m)
 				{
-					if (from != null)
-						from.DoHarmful(m);
+					from?.DoHarmful(m);
 
 					int damage = Utility.RandomMinMax(min, max);
 

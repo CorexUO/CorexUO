@@ -242,17 +242,17 @@ namespace Server.SkillHandlers
 
 		private static bool IsAnimal(Mobile m)
 		{
-			return (!m.Player && m.Body.IsAnimal);
+			return !m.Player && m.Body.IsAnimal;
 		}
 
 		private static bool IsMonster(Mobile m)
 		{
-			return (!m.Player && m.Body.IsMonster);
+			return !m.Player && m.Body.IsMonster;
 		}
 
 		private static bool IsHumanNPC(Mobile m)
 		{
-			return (!m.Player && m.Body.IsHuman);
+			return !m.Player && m.Body.IsHuman;
 		}
 
 		private static bool IsPlayer(Mobile m)
@@ -295,11 +295,11 @@ namespace Server.SkillHandlers
 			{
 				Mobile m = list[i];
 
-				AddItem(20 + ((i % 4) * 100), 20 + ((i / 4) * 155), ShrinkTable.Lookup(m));
-				AddButton(20 + ((i % 4) * 100), 130 + ((i / 4) * 155), 4005, 4007, i + 1, GumpButtonType.Reply, 0);
+				AddItem(20 + (i % 4 * 100), 20 + (i / 4 * 155), ShrinkTable.Lookup(m));
+				AddButton(20 + (i % 4 * 100), 130 + (i / 4 * 155), 4005, 4007, i + 1, GumpButtonType.Reply, 0);
 
 				if (m.Name != null)
-					AddHtml(20 + ((i % 4) * 100), 90 + ((i / 4) * 155), 90, 40, m.Name, false, false);
+					AddHtml(20 + (i % 4 * 100), 90 + (i / 4 * 155), 90, 40, m.Name, false, false);
 			}
 		}
 

@@ -64,7 +64,7 @@ namespace Server
 
 		public BinaryReader IndexReader { get; set; }
 
-		public bool Exists => (MapStream != null && IndexStream != null && DataStream != null);
+		public bool Exists => MapStream != null && IndexStream != null && DataStream != null;
 
 		private static readonly List<TileMatrix> m_Instances = new();
 		private readonly List<TileMatrix> m_FileShare = new();
@@ -213,8 +213,7 @@ namespace Server
 					}
 				}
 
-				if (tiles == null)
-					tiles = ReadStaticBlock(x, y);
+				tiles ??= ReadStaticBlock(x, y);
 
 				m_StaticTiles[x][y] = tiles;
 			}
@@ -325,8 +324,7 @@ namespace Server
 					}
 				}
 
-				if (tiles == null)
-					tiles = ReadLandBlock(x, y);
+				tiles ??= ReadLandBlock(x, y);
 
 				m_LandTiles[x][y] = tiles;
 			}
@@ -468,14 +466,12 @@ namespace Server
 		{
 			if (m_MapIndex != null)
 				m_MapIndex.Close();
-			else if (MapStream != null)
-				MapStream.Close();
+			else
+				MapStream?.Close();
 
-			if (DataStream != null)
-				DataStream.Close();
+			DataStream?.Close();
 
-			if (IndexReader != null)
-				IndexReader.Close();
+			IndexReader?.Close();
 		}
 	}
 
@@ -495,7 +491,7 @@ namespace Server
 
 		public int Height => 0;
 
-		public bool Ignored => (m_ID == 2 || m_ID == 0x1DB || (m_ID >= 0x1AE && m_ID <= 0x1B5));
+		public bool Ignored => m_ID == 2 || m_ID == 0x1DB || (m_ID >= 0x1AE && m_ID <= 0x1B5);
 
 		public LandTile(short id, sbyte z)
 		{

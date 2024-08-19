@@ -102,7 +102,7 @@ namespace Server.Misc
 			if (r.IsPartOf("Yomotsu Mines") || r.IsPartOf("Fan Dancer's Dojo"))
 				return true;
 
-			return (m.Map == Map.Tokuno);
+			return m.Map == Map.Tokuno;
 		}
 
 		public static void HandleKill(Mobile victim, Mobile killer)
@@ -278,7 +278,7 @@ namespace Server.Gumps
 	{
 		public Item Item { get; set; }
 
-		public ItemTileButtonInfo(Item i) : base(i.ItemID, i.Hue, ((i.Name == null || i.Name.Length <= 0) ? (TextDefinition)i.LabelNumber : (TextDefinition)i.Name))
+		public ItemTileButtonInfo(Item i) : base(i.ItemID, i.Hue, (i.Name == null || i.Name.Length <= 0) ? (TextDefinition)i.LabelNumber : (TextDefinition)i.Name)
 		{
 			Item = i;
 		}
@@ -506,7 +506,7 @@ namespace Server.Gumps
 			if (sender.Mobile is not PlayerMobile pm || !pm.InRange(m_Collector.Location, 7) || !(pm.ToTItemsTurnedIn >= TreasuresOfTokuno.ItemsPerReward))
 				return;
 
-			bool pigments = (buttonInfo is PigmentsTileButtonInfo);
+			bool pigments = buttonInfo is PigmentsTileButtonInfo;
 
 			Item item = null;
 

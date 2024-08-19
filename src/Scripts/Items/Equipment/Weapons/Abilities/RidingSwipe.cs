@@ -46,10 +46,9 @@ namespace Server.Items
 
 			if (!attacker.Mounted)
 			{
-				Mobile mount = defender.Mount as Mobile;
 				BaseMount.Dismount(defender);
 
-				if (mount != null)  //Ethy mounts don't take damage
+				if (defender.Mount is Mobile mount)  //Ethy mounts don't take damage
 				{
 					int amount = 10 + (int)(10.0 * (attacker.Skills[SkillName.Bushido].Value - 50.0) / 70.0 + 5);
 

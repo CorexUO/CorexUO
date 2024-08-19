@@ -21,13 +21,13 @@ namespace Server.Items
 		}
 
 		[CommandProperty(AccessLevel.GameMaster)]
-		public bool HasFlour => (m_Flour > 0);
+		public bool HasFlour => m_Flour > 0;
 
 		[CommandProperty(AccessLevel.GameMaster)]
-		public bool IsFull => (m_Flour >= MaxFlour);
+		public bool IsFull => m_Flour >= MaxFlour;
 
 		[CommandProperty(AccessLevel.GameMaster)]
-		public bool IsWorking => (m_Timer != null);
+		public bool IsWorking => m_Timer != null;
 
 		public void StartWorking(Mobile from)
 		{
@@ -46,13 +46,12 @@ namespace Server.Items
 				m_Timer = null;
 			}
 
-			Mobile from = state as Mobile;
 
-			if (from != null && !from.Deleted && !Deleted && IsFull)
+			if (state is Mobile from && !from.Deleted && !Deleted && IsFull)
 			{
 				SackFlour flour = new()
 				{
-					ItemID = (Utility.RandomBool() ? 4153 : 4165)
+					ItemID = Utility.RandomBool() ? 4153 : 4165
 				};
 
 				if (from.PlaceInBackpack(flour))

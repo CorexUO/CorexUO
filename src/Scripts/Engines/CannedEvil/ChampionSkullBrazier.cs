@@ -16,7 +16,7 @@ namespace Server.Engines.CannedEvil
 		public ChampionSkullType Type { get => m_Type; set { m_Type = value; InvalidateProperties(); } }
 
 		[CommandProperty(AccessLevel.GameMaster)]
-		public Item Skull { get => m_Skull; set { m_Skull = value; if (Platform != null) Platform.Validate(); } }
+		public Item Skull { get => m_Skull; set { m_Skull = value; Platform?.Validate(); } }
 
 		public override int LabelNumber => 1049489 + (int)m_Type;
 
@@ -35,8 +35,7 @@ namespace Server.Engines.CannedEvil
 
 		public override void OnDoubleClick(Mobile from)
 		{
-			if (Platform != null)
-				Platform.Validate();
+			Platform?.Validate();
 
 			BeginSacrifice(from);
 		}

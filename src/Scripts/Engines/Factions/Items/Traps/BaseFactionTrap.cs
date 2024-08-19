@@ -61,7 +61,7 @@ namespace Server.Factions
 			Effects.PlaySound(Location, Map, EffectSound);
 			DoAttackEffect(from);
 
-			int silverToAward = (from.Alive ? 20 : 40);
+			int silverToAward = from.Alive ? 20 : 40;
 
 			if (silverToAward > 0 && Placer != null && Faction != null)
 			{
@@ -161,8 +161,7 @@ namespace Server.Factions
 
 			NetState ns = to.NetState;
 
-			if (ns != null)
-				ns.Send(new MessageLocalized(Serial, ItemID, MessageType.Regular, hue, 3, number, name, args));
+			ns?.Send(new MessageLocalized(Serial, ItemID, MessageType.Regular, hue, 3, number, name, args));
 		}
 
 		public BaseFactionTrap(Faction f, Mobile m, int itemID) : base(itemID)
@@ -196,16 +195,14 @@ namespace Server.Factions
 
 		public virtual void BeginConceal()
 		{
-			if (m_Concealing != null)
-				m_Concealing.Stop();
+			m_Concealing?.Stop();
 
 			m_Concealing = Timer.DelayCall(ConcealPeriod, new TimerCallback(Conceal));
 		}
 
 		public virtual void Conceal()
 		{
-			if (m_Concealing != null)
-				m_Concealing.Stop();
+			m_Concealing?.Stop();
 
 			m_Concealing = null;
 
@@ -267,7 +264,7 @@ namespace Server.Factions
 			if (faction == null)
 				return false;
 
-			return (faction != Faction);
+			return faction != Faction;
 		}
 	}
 }

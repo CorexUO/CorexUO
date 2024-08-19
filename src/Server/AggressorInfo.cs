@@ -80,7 +80,7 @@ namespace Server
 				if (m_Queued)
 					DumpAccess();
 
-				return (m_Attacker.Deleted || m_Defender.Deleted || DateTime.UtcNow >= (m_LastCombatTime + ExpireDelay));
+				return m_Attacker.Deleted || m_Defender.Deleted || DateTime.UtcNow >= (m_LastCombatTime + ExpireDelay);
 			}
 		}
 

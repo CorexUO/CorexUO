@@ -190,9 +190,8 @@ namespace Server.Engines.ConPVP
 				if (index < 0 || index >= m_Participant.Players.Length)
 					return;
 
-				Mobile mob = targeted as Mobile;
 
-				if (mob == null)
+				if (targeted is not Mobile mob)
 				{
 					from.SendMessage("That is not a player.");
 				}

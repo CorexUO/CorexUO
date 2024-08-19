@@ -49,7 +49,7 @@ namespace Server.Engines.Quests.Necro
 		{
 			QuestSystem qs = to.Quest;
 
-			return (qs is DarkTidesQuest && qs.IsObjectiveInProgress(typeof(FindCrystalCaveObjective)));
+			return qs is DarkTidesQuest && qs.IsObjectiveInProgress(typeof(FindCrystalCaveObjective));
 		}
 
 		public override void OnTalk(PlayerMobile player, bool contextMenu)
@@ -116,16 +116,14 @@ namespace Server.Engines.Quests.Necro
 
 			if (from.Alive)
 			{
-				PlayerMobile pm = from as PlayerMobile;
-
-				if (pm != null)
+				if (from is PlayerMobile pm)
 				{
 					QuestSystem qs = pm.Quest;
 
 					if (qs is DarkTidesQuest)
 					{
 						QuestObjective obj = qs.FindObjective(typeof(SpeakCavePasswordObjective));
-						bool enabled = (obj != null && !obj.Completed);
+						bool enabled = obj != null && !obj.Completed;
 
 						list.Add(new SpeakPasswordEntry(this, pm, enabled));
 					}

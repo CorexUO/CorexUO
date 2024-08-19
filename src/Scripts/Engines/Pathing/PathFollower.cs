@@ -26,7 +26,7 @@ namespace Server
 		public MoveResult Move(Direction d)
 		{
 			if (Mover == null)
-				return (m_From.Move(d) ? MoveResult.Success : MoveResult.Blocked);
+				return m_From.Move(d) ? MoveResult.Success : MoveResult.Blocked;
 
 			return Mover(d);
 		}

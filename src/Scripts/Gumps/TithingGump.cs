@@ -89,7 +89,7 @@ namespace Server.Gumps
 							m_Offer = 0;
 
 						if ((m_From.TithingPoints + m_Offer) > 100000) // TODO: What's the maximum?
-							m_Offer = (100000 - m_From.TithingPoints);
+							m_Offer = 100000 - m_From.TithingPoints;
 
 						if (m_Offer <= 0)
 						{

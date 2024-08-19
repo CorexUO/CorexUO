@@ -56,8 +56,7 @@ namespace Server.Spells.Bushido
 		{
 			Timer t = (Timer)m_Table[m];
 
-			if (t != null)
-				t.Stop();
+			t?.Stop();
 
 			t = new InternalTimer(m);
 
@@ -70,8 +69,7 @@ namespace Server.Spells.Bushido
 		{
 			Timer t = (Timer)m_Table[m];
 
-			if (t != null)
-				t.Stop();
+			t?.Stop();
 
 			m_Table.Remove(m);
 
@@ -106,8 +104,7 @@ namespace Server.Spells.Bushido
 		{
 			Timer t = (Timer)m_RegenTable[m];
 
-			if (t != null)
-				t.Stop();
+			t?.Stop();
 
 			t = new RegenTimer(m);
 
@@ -120,8 +117,7 @@ namespace Server.Spells.Bushido
 		{
 			Timer t = (Timer)m_RegenTable[m];
 
-			if (t != null)
-				t.Stop();
+			t?.Stop();
 
 			m_RegenTable.Remove(m);
 		}
@@ -145,11 +141,11 @@ namespace Server.Spells.Bushido
 
 				if (m_Ticks >= 5)
 				{
-					m_Mobile.Hits += (m_Hits - (m_Hits * 4 / 5));
+					m_Mobile.Hits += m_Hits - (m_Hits * 4 / 5);
 					StopRegenerating(m_Mobile);
 				}
 
-				m_Mobile.Hits += (m_Hits / 5);
+				m_Mobile.Hits += m_Hits / 5;
 			}
 		}
 	}

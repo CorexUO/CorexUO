@@ -256,9 +256,8 @@ namespace Server.Items
 				if (m_Cannon == null || m_Cannon.Deleted)
 					return;
 
-				IPoint3D p = targeted as IPoint3D;
 
-				if (p == null)
+				if (targeted is not IPoint3D p)
 					return;
 
 				if (from.InLOS(new Point3D(p)))

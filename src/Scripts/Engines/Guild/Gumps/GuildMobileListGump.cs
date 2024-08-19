@@ -39,13 +39,13 @@ namespace Server.Gumps
 
 					if (i != 0)
 					{
-						AddButton(20, 370, 4014, 4016, 0, GumpButtonType.Page, (i / 11));
+						AddButton(20, 370, 4014, 4016, 0, GumpButtonType.Page, i / 11);
 						AddHtmlLocalized(55, 370, 300, 35, 1011067, false, false); // Previous page
 					}
 				}
 
 				if (radio)
-					AddRadio(20, 35 + ((i % 11) * 30), 208, 209, false, i);
+					AddRadio(20, 35 + (i % 11 * 30), 208, 209, false, i);
 
 				Mobile m = m_List[i];
 
@@ -54,7 +54,7 @@ namespace Server.Gumps
 				if ((name = m.Name) != null && (name = name.Trim()).Length <= 0)
 					name = "(empty)";
 
-				AddLabel((radio ? 55 : 20), 35 + ((i % 11) * 30), 0, name);
+				AddLabel(radio ? 55 : 20, 35 + (i % 11 * 30), 0, name);
 			}
 		}
 

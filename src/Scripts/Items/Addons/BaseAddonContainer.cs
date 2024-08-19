@@ -94,8 +94,7 @@ namespace Server.Items
 		{
 			BaseHouse house = BaseHouse.FindHouseAt(this);
 
-			if (house != null)
-				house.Addons.Remove(this);
+			house?.Addons.Remove(this);
 
 			base.OnDelete();
 		}
@@ -165,7 +164,7 @@ namespace Server.Items
 			{
 				Point3D p3D = new(p.X + c.Offset.X, p.Y + c.Offset.Y, p.Z + c.Offset.Z);
 
-				if (!map.CanFit(p3D.X, p3D.Y, p3D.Z, c.ItemData.Height, false, true, (c.Z == 0)))
+				if (!map.CanFit(p3D.X, p3D.Y, p3D.Z, c.ItemData.Height, false, true, c.Z == 0))
 					return AddonFitResult.Blocked;
 				else if (!BaseAddon.CheckHouse(from, p3D, map, c.ItemData.Height, ref house))
 					return AddonFitResult.NotInHouse;
@@ -181,7 +180,7 @@ namespace Server.Items
 
 			Point3D p3 = new(p.X, p.Y, p.Z);
 
-			if (!map.CanFit(p3.X, p3.Y, p3.Z, ItemData.Height, false, true, (Z == 0)))
+			if (!map.CanFit(p3.X, p3.Y, p3.Z, ItemData.Height, false, true, Z == 0))
 				return AddonFitResult.Blocked;
 			else if (!BaseAddon.CheckHouse(from, p3, map, ItemData.Height, ref house))
 				return AddonFitResult.NotInHouse;
@@ -232,7 +231,7 @@ namespace Server.Items
 		{
 			BaseHouse house = null;
 
-			return (CouldFit(p, map, null, ref house) == AddonFitResult.Valid);
+			return CouldFit(p, map, null, ref house) == AddonFitResult.Valid;
 		}
 
 		public virtual void OnChop(Mobile from)

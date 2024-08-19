@@ -29,8 +29,7 @@ namespace Server.Engines.BulkOrders
 
 		public static SmallBulkEntry[] GetEntries(string type, string name)
 		{
-			if (m_Cache == null)
-				m_Cache = new Dictionary<string, Dictionary<string, SmallBulkEntry[]>>();
+			m_Cache ??= new Dictionary<string, Dictionary<string, SmallBulkEntry[]>>();
 
 
 			if (!m_Cache.TryGetValue(type, out Dictionary<string, SmallBulkEntry[]> table))

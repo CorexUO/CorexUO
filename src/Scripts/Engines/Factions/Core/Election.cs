@@ -39,7 +39,7 @@ namespace Server.Factions
 					case ElectionState.Campaign: period = CampaignPeriod; break;
 				}
 
-				TimeSpan until = (LastStateTime + period) - DateTime.UtcNow;
+				TimeSpan until = LastStateTime + period - DateTime.UtcNow;
 
 				if (until < TimeSpan.Zero)
 					until = TimeSpan.Zero;
@@ -198,17 +198,17 @@ namespace Server.Factions
 
 		public bool IsCandidate(Mobile mob)
 		{
-			return (FindCandidate(mob) != null);
+			return FindCandidate(mob) != null;
 		}
 
 		public bool CanVote(Mobile mob)
 		{
-			return (CurrentState == ElectionState.Election && !HasVoted(mob));
+			return CurrentState == ElectionState.Election && !HasVoted(mob);
 		}
 
 		public bool HasVoted(Mobile mob)
 		{
-			return (FindVoter(mob) != null);
+			return FindVoter(mob) != null;
 		}
 
 		public Candidate FindCandidate(Mobile mob)
@@ -253,15 +253,14 @@ namespace Server.Factions
 
 			PlayerState pl = PlayerState.Find(mob);
 
-			return (pl != null && pl.Faction == Faction && pl.Rank.Rank >= CandidateRank);
+			return pl != null && pl.Faction == Faction && pl.Rank.Rank >= CandidateRank;
 		}
 
 		public void Slice()
 		{
 			if (Faction.Election != this)
 			{
-				if (m_Timer != null)
-					m_Timer.Stop();
+				m_Timer?.Stop();
 
 				m_Timer = null;
 
@@ -392,11 +391,11 @@ namespace Server.Factions
 
 			int sk = From.Skills.Total;
 
-			int factorSkills = 50 + ((sk * 100) / 10000);
+			int factorSkills = 50 + (sk * 100 / 10000);
 			int factorKillPts = 100 + (kp * 2);
-			int factorGameTime = 50 + (int)((gameTime.Ticks * 100) / TimeSpan.TicksPerDay);
+			int factorGameTime = 50 + (int)(gameTime.Ticks * 100 / TimeSpan.TicksPerDay);
 
-			int totalFactor = (factorSkills * factorKillPts * Math.Max(factorGameTime, 100)) / 10000;
+			int totalFactor = factorSkills * factorKillPts * Math.Max(factorGameTime, 100) / 10000;
 
 			if (totalFactor > 100)
 				totalFactor = 100;

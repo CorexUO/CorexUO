@@ -55,8 +55,7 @@ namespace Server.Items
 
 		public override void OnDoubleClick(Mobile from)
 		{
-			if (Addon != null)
-				Addon.OnComponentUsed(this, from);
+			Addon?.OnComponentUsed(this, from);
 		}
 
 		public override void OnLocationChange(Point3D old)
@@ -67,8 +66,7 @@ namespace Server.Items
 
 		public override void GetContextMenuEntries(Mobile from, List<ContextMenuEntry> list)
 		{
-			if (Addon != null)
-				Addon.GetContextMenuEntries(from, list);
+			Addon?.GetContextMenuEntries(from, list);
 		}
 
 		public override void OnMapChange()
@@ -81,8 +79,7 @@ namespace Server.Items
 		{
 			base.OnAfterDelete();
 
-			if (Addon != null)
-				Addon.Delete();
+			Addon?.Delete();
 		}
 
 		public override void Serialize(GenericWriter writer)
@@ -104,8 +101,7 @@ namespace Server.Items
 			Addon = reader.ReadItem() as BaseAddonContainer;
 			m_Offset = reader.ReadPoint3D();
 
-			if (Addon != null)
-				Addon.OnComponentLoaded(this);
+			Addon?.OnComponentLoaded(this);
 
 			AddonComponent.ApplyLightTo(this);
 		}

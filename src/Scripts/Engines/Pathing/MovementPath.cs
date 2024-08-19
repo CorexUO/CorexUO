@@ -16,7 +16,7 @@ namespace Server
 		public Point3D Start => m_Start;
 		public Point3D Goal => m_Goal;
 		public Direction[] Directions { get; }
-		public bool Success => (Directions != null && Directions.Length > 0);
+		public bool Success => Directions != null && Directions.Length > 0;
 
 		public static void Initialize()
 		{
@@ -61,9 +61,7 @@ namespace Server
 
 		public static void Path_OnTarget(Mobile from, object obj)
 		{
-			IPoint3D p = obj as IPoint3D;
-
-			if (p == null)
+			if (obj is not IPoint3D p)
 				return;
 
 			Spells.SpellHelper.GetSurfaceTop(ref p);
@@ -135,13 +133,7 @@ namespace Server
 			{
 				PathAlgorithm alg = OverrideAlgorithm;
 
-				if (alg == null)
-				{
-					alg = FastAStarAlgorithm.Instance;
-
-					//if ( !alg.CheckCondition( m, map, start, goal ) )	// SlowAstar is still broken
-					//	alg = SlowAStarAlgorithm.Instance;		// TODO: Fix SlowAstar
-				}
+				alg ??= FastAStarAlgorithm.Instance;
 
 				if (alg != null && alg.CheckCondition(m, map, start, goal))
 					Directions = alg.Find(m, map, start, goal);

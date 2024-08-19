@@ -127,7 +127,7 @@ namespace Server.Items
 		}
 
 		[CommandProperty(AccessLevel.GameMaster)]
-		public bool IsArcane => (m_MaxArcaneCharges > 0 && m_CurArcaneCharges >= 0);
+		public bool IsArcane => m_MaxArcaneCharges > 0 && m_CurArcaneCharges >= 0;
 
 		public override void OnSingleClick(Mobile from)
 		{

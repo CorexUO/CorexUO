@@ -416,7 +416,7 @@ namespace Server.Items
 				return true;
 
 
-			return (m.Weapon is BaseWeapon weapon && (weapon.PrimaryAbility == a || weapon.SecondaryAbility == a));
+			return m.Weapon is BaseWeapon weapon && (weapon.PrimaryAbility == a || weapon.SecondaryAbility == a);
 		}
 
 		private static readonly Hashtable m_PlayersTable = new();
@@ -443,7 +443,7 @@ namespace Server.Items
 
 		private static WeaponAbilityContext GetContext(Mobile m)
 		{
-			return (m_PlayersTable[m] as WeaponAbilityContext);
+			return m_PlayersTable[m] as WeaponAbilityContext;
 		}
 
 		private class WeaponAbilityTimer : Timer

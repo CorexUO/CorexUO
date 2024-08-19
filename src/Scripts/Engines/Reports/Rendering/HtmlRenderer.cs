@@ -19,7 +19,7 @@ namespace Server.Engines.Reports
 		private HtmlRenderer(string outputDirectory)
 		{
 			m_Type = outputDirectory;
-			m_Title = (m_Type == "staff" ? "Staff" : "Stats");
+			m_Title = m_Type == "staff" ? "Staff" : "Stats";
 			m_OutputDirectory = Path.Combine(Core.BaseDirectory, "output");
 
 			if (!Directory.Exists(m_OutputDirectory))
@@ -91,7 +91,7 @@ namespace Server.Engines.Reports
 				op.WriteLine("open \"{0}\"", FtpHost);
 				op.WriteLine(FtpUsername);
 				op.WriteLine(FtpPassword);
-				op.WriteLine("cd \"{0}\"", (m_Type == "staff" ? FtpStaffDirectory : FtpStatsDirectory));
+				op.WriteLine("cd \"{0}\"", m_Type == "staff" ? FtpStaffDirectory : FtpStatsDirectory);
 				op.WriteLine("mput \"{0}\"", Path.Combine(m_OutputDirectory, "*.html"));
 				op.WriteLine("mput \"{0}\"", Path.Combine(m_OutputDirectory, "*.css"));
 				op.WriteLine("binary");
@@ -374,7 +374,7 @@ namespace Server.Engines.Reports
 				barGraph.VerticalLabel = graph.yTitle;
 
 			barGraph.FontColor = Color.Black;
-			barGraph.ShowData = (graph.Interval == 1);
+			barGraph.ShowData = graph.Interval == 1;
 			barGraph.VerticalTickCount = graph.Ticks;
 
 			string[] labels = new string[graph.Items.Count];
@@ -486,7 +486,7 @@ namespace Server.Engines.Reports
 			bool isNamed = false;
 
 			for (int i = 0; i < report.Columns.Count && !isNamed; ++i)
-				isNamed = (report.Columns[i].Name != null);
+				isNamed = report.Columns[i].Name != null;
 
 			if (isNamed)
 			{

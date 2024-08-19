@@ -367,8 +367,7 @@ namespace Server.Commands
 					}
 				}
 
-				if (aliased == null)
-					aliased = realType.Name;
+				aliased ??= realType.Name;
 			}
 
 			string retval = string.Concat(prepend, aliased, append, name);
@@ -898,10 +897,8 @@ namespace Server.Commands
 					rewards[14] = rewards[15] = true;
 				else if (item is ClothingBlessDeed)
 					rewards[16] = true;
-				else if (item is PowerScroll)
+				else if (item is PowerScroll ps)
 				{
-					PowerScroll ps = (PowerScroll)item;
-
 					if (ps.Value == 105.0)
 						rewards[6] = true;
 					else if (ps.Value == 110.0)
@@ -924,10 +921,8 @@ namespace Server.Commands
 					else
 						rewards[4] = true;
 				}
-				else if (item is RunicSewingKit)
+				else if (item is RunicSewingKit rkit)
 				{
-					RunicSewingKit rkit = (RunicSewingKit)item;
-
 					rewards[16 + CraftResources.GetIndex(rkit.Resource)] = true;
 				}
 
@@ -1136,10 +1131,8 @@ namespace Server.Commands
 					rewards[6] = true;
 				else if (item is ColoredAnvil)
 					rewards[7] = true;
-				else if (item is PowerScroll)
+				else if (item is PowerScroll ps)
 				{
-					PowerScroll ps = (PowerScroll)item;
-
 					if (ps.Value == 105.0)
 						rewards[8] = true;
 					else if (ps.Value == 110.0)
@@ -1149,16 +1142,12 @@ namespace Server.Commands
 					else if (ps.Value == 120.0)
 						rewards[11] = true;
 				}
-				else if (item is RunicHammer)
+				else if (item is RunicHammer rh)
 				{
-					RunicHammer rh = (RunicHammer)item;
-
 					rewards[11 + CraftResources.GetIndex(rh.Resource)] = true;
 				}
-				else if (item is AncientSmithyHammer)
+				else if (item is AncientSmithyHammer ash)
 				{
-					AncientSmithyHammer ash = (AncientSmithyHammer)item;
-
 					if (ash.Bonus == 10)
 						rewards[20] = true;
 					else if (ash.Bonus == 15)
@@ -1534,21 +1523,19 @@ namespace Server.Commands
 				if (attrs.Length == 0)
 					continue;
 
-				UsageAttribute usage = attrs[0] as UsageAttribute;
 
 				attrs = mi.GetCustomAttributes(typeof(DescriptionAttribute), false);
 
 				if (attrs.Length == 0)
 					continue;
 
-				DescriptionAttribute desc = attrs[0] as DescriptionAttribute;
 
-				if (usage == null || desc == null)
+				if (attrs[0] is not UsageAttribute usage || attrs[0] is not DescriptionAttribute desc)
 					continue;
 
 				attrs = mi.GetCustomAttributes(typeof(AliasesAttribute), false);
 
-				AliasesAttribute aliases = (attrs.Length == 0 ? null : attrs[0] as AliasesAttribute);
+				AliasesAttribute aliases = attrs.Length == 0 ? null : attrs[0] as AliasesAttribute;
 
 				string descString = desc.Description.Replace("<", "&lt;").Replace(">", "&gt;");
 
@@ -1759,8 +1746,7 @@ namespace Server.Commands
 					if (baseInfo == null)
 						m_Types[baseType] = baseInfo = new(baseType);
 
-					if (baseInfo.m_Derived == null)
-						baseInfo.m_Derived = new List<TypeInfo>();
+					baseInfo.m_Derived ??= new List<TypeInfo>();
 
 					baseInfo.m_Derived.Add(info);
 				}
@@ -1774,8 +1760,7 @@ namespace Server.Commands
 					if (decInfo == null)
 						m_Types[decType] = decInfo = new TypeInfo(decType);
 
-					if (decInfo.m_Nested == null)
-						decInfo.m_Nested = new List<TypeInfo>();
+					decInfo.m_Nested ??= new List<TypeInfo>();
 
 					decInfo.m_Nested.Add(info);
 				}
@@ -1792,8 +1777,7 @@ namespace Server.Commands
 					if (ifaceInfo == null)
 						m_Types[iface] = ifaceInfo = new TypeInfo(iface);
 
-					if (ifaceInfo.m_Derived == null)
-						ifaceInfo.m_Derived = new List<TypeInfo>();
+					ifaceInfo.m_Derived ??= new List<TypeInfo>();
 
 					ifaceInfo.m_Derived.Add(info);
 				}
@@ -1983,9 +1967,7 @@ namespace Server.Commands
 
 				if (attributes != null && attributes.Length > 0)
 				{
-					CustomEnumAttribute attr = attributes[0] as CustomEnumAttribute;
-
-					if (attr != null)
+					if (attributes[0] is CustomEnumAttribute attr)
 					{
 						StringBuilder sb = new();
 
@@ -2535,7 +2517,7 @@ namespace Server.Commands
 		{
 			BodyEntry e = (BodyEntry)obj;
 
-			return (Body == e.Body && BodyType == e.BodyType && Name == e.Name);
+			return Body == e.Body && BodyType == e.BodyType && Name == e.Name;
 		}
 
 		public override int GetHashCode()

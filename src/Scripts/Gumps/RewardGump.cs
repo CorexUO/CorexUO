@@ -79,7 +79,7 @@ namespace Server.Gumps
 					offset = 110;
 				}
 
-				bool available = (entry.Price <= Points);
+				bool available = entry.Price <= Points;
 				int half = offset + (height / 2);
 
 				if (available)

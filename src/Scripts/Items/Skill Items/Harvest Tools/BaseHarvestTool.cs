@@ -42,13 +42,13 @@ namespace Server.Items
 
 		public void ScaleUses()
 		{
-			m_UsesRemaining = (m_UsesRemaining * GetUsesScalar()) / 100;
+			m_UsesRemaining = m_UsesRemaining * GetUsesScalar() / 100;
 			InvalidateProperties();
 		}
 
 		public void UnscaleUses()
 		{
-			m_UsesRemaining = (m_UsesRemaining * 100) / GetUsesScalar();
+			m_UsesRemaining = m_UsesRemaining * 100 / GetUsesScalar();
 		}
 
 		public int GetUsesScalar()
@@ -121,9 +121,8 @@ namespace Server.Items
 			if (!item.IsChildOf(from.Backpack) && item.Parent != from)
 				return;
 
-			PlayerMobile pm = from as PlayerMobile;
 
-			if (pm == null)
+			if (from is not PlayerMobile pm)
 				return;
 
 			ContextMenuEntry miningEntry = new(pm.ToggleMiningStone ? 6179 : 6178)
@@ -146,7 +145,7 @@ namespace Server.Items
 				m_Mobile = mobile;
 				m_Value = value;
 
-				bool stoneMining = (mobile.StoneMining && mobile.Skills[SkillName.Mining].Base >= 100.0);
+				bool stoneMining = mobile.StoneMining && mobile.Skills[SkillName.Mining].Base >= 100.0;
 
 				if (mobile.ToggleMiningStone == value || (value && !stoneMining))
 					Flags |= CMEFlags.Disabled;

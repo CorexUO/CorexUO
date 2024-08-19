@@ -343,12 +343,12 @@ namespace Server
 
 		public bool IsPartOf(Type regionType)
 		{
-			return (GetRegion(regionType) != null);
+			return GetRegion(regionType) != null;
 		}
 
 		public bool IsPartOf(string regionName)
 		{
-			return (GetRegion(regionName) != null);
+			return GetRegion(regionName) != null;
 		}
 
 		public virtual bool AcceptsSpawnsFrom(Region region)
@@ -469,9 +469,9 @@ namespace Server
 			int regPriority = other.Priority;
 
 			if (thisPriority != regPriority)
-				return (regPriority - thisPriority);
+				return regPriority - thisPriority;
 
-			return (other.ChildLevel - ChildLevel);
+			return other.ChildLevel - ChildLevel;
 		}
 
 		public override string ToString()
@@ -501,7 +501,7 @@ namespace Server
 
 		public virtual bool OnMoveInto(Mobile m, Direction d, Point3D newLocation, Point3D oldLocation)
 		{
-			return (m.WalkRegion == null || AcceptsSpawnsFrom(m.WalkRegion));
+			return m.WalkRegion == null || AcceptsSpawnsFrom(m.WalkRegion);
 		}
 
 		public virtual void OnEnter(Mobile m)
@@ -514,8 +514,7 @@ namespace Server
 
 		public virtual void MakeGuard(Mobile focus)
 		{
-			if (Parent != null)
-				Parent.MakeGuard(focus);
+			Parent?.MakeGuard(focus);
 		}
 
 		public virtual Type GetResource(Type type)
@@ -536,26 +535,22 @@ namespace Server
 
 		public virtual void OnAggressed(Mobile aggressor, Mobile aggressed, bool criminal)
 		{
-			if (Parent != null)
-				Parent.OnAggressed(aggressor, aggressed, criminal);
+			Parent?.OnAggressed(aggressor, aggressed, criminal);
 		}
 
 		public virtual void OnDidHarmful(Mobile harmer, Mobile harmed)
 		{
-			if (Parent != null)
-				Parent.OnDidHarmful(harmer, harmed);
+			Parent?.OnDidHarmful(harmer, harmed);
 		}
 
 		public virtual void OnGotHarmful(Mobile harmer, Mobile harmed)
 		{
-			if (Parent != null)
-				Parent.OnGotHarmful(harmer, harmed);
+			Parent?.OnGotHarmful(harmer, harmed);
 		}
 
 		public virtual void OnLocationChanged(Mobile m, Point3D oldLocation)
 		{
-			if (Parent != null)
-				Parent.OnLocationChanged(m, oldLocation);
+			Parent?.OnLocationChanged(m, oldLocation);
 		}
 
 		public virtual bool OnTarget(Mobile m, Target t, object o)
@@ -638,26 +633,22 @@ namespace Server
 
 		public virtual void OnBeneficialAction(Mobile helper, Mobile target)
 		{
-			if (Parent != null)
-				Parent.OnBeneficialAction(helper, target);
+			Parent?.OnBeneficialAction(helper, target);
 		}
 
 		public virtual void OnGotBeneficialAction(Mobile helper, Mobile target)
 		{
-			if (Parent != null)
-				Parent.OnGotBeneficialAction(helper, target);
+			Parent?.OnGotBeneficialAction(helper, target);
 		}
 
 		public virtual void SpellDamageScalar(Mobile caster, Mobile target, ref double damage)
 		{
-			if (Parent != null)
-				Parent.SpellDamageScalar(caster, target, ref damage);
+			Parent?.SpellDamageScalar(caster, target, ref damage);
 		}
 
 		public virtual void OnSpeech(SpeechEventArgs args)
 		{
-			if (Parent != null)
-				Parent.OnSpeech(args);
+			Parent?.OnSpeech(args);
 		}
 
 		public virtual bool OnSkillUse(Mobile m, int Skill)
@@ -678,8 +669,7 @@ namespace Server
 
 		public virtual void OnSpellCast(Mobile m, ISpell s)
 		{
-			if (Parent != null)
-				Parent.OnSpellCast(m, s);
+			Parent?.OnSpellCast(m, s);
 		}
 
 		public virtual bool OnResurrect(Mobile m)
@@ -700,8 +690,7 @@ namespace Server
 
 		public virtual void OnDeath(Mobile m)
 		{
-			if (Parent != null)
-				Parent.OnDeath(m);
+			Parent?.OnDeath(m);
 		}
 
 		public virtual bool OnDamage(Mobile m, ref int Damage)
@@ -746,8 +735,7 @@ namespace Server
 
 		public virtual void AlterLightLevel(Mobile m, ref int global, ref int personal)
 		{
-			if (Parent != null)
-				Parent.AlterLightLevel(m, ref global, ref personal);
+			Parent?.AlterLightLevel(m, ref global, ref personal);
 		}
 
 		public virtual TimeSpan GetLogoutDelay(Mobile m)
@@ -804,8 +792,8 @@ namespace Server
 
 			while (oldR != newR)
 			{
-				int oldRChild = (oldR != null ? oldR.ChildLevel : -1);
-				int newRChild = (newR != null ? newR.ChildLevel : -1);
+				int oldRChild = oldR != null ? oldR.ChildLevel : -1;
+				int newRChild = newR != null ? newR.ChildLevel : -1;
 
 				if (oldRChild >= newRChild)
 				{

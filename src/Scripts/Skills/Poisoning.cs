@@ -63,12 +63,12 @@ namespace Server.SkillHandlers
 					{
 						if (Core.AOS)
 						{
-							startTimer = (weapon.PrimaryAbility == WeaponAbility.InfectiousStrike || weapon.SecondaryAbility == WeaponAbility.InfectiousStrike);
+							startTimer = weapon.PrimaryAbility == WeaponAbility.InfectiousStrike || weapon.SecondaryAbility == WeaponAbility.InfectiousStrike;
 						}
 						else if (weapon.Layer == Layer.OneHanded)
 						{
 							// Only Bladed or Piercing weapon can be poisoned
-							startTimer = (weapon.Type == WeaponType.Slashing || weapon.Type == WeaponType.Piercing);
+							startTimer = weapon.Type == WeaponType.Slashing || weapon.Type == WeaponType.Piercing;
 						}
 					}
 

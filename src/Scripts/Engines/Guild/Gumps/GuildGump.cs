@@ -48,8 +48,7 @@ namespace Server.Gumps
 			if (fealty == null || !guild.IsMember(fealty))
 				fealty = leader;
 
-			if (fealty == null)
-				fealty = beholder;
+			fealty ??= beholder;
 
 			string fealtyName;
 
@@ -128,7 +127,7 @@ namespace Server.Gumps
 
 			Item stone = g.Guildstone;
 
-			return (stone == null || stone.Deleted || !m.InRange(stone.GetWorldLocation(), 2));
+			return stone == null || stone.Deleted || !m.InRange(stone.GetWorldLocation(), 2);
 		}
 
 		public static bool BadMember(Mobile m, Guild g)
@@ -138,7 +137,7 @@ namespace Server.Gumps
 
 			Item stone = g.Guildstone;
 
-			return (stone == null || stone.Deleted || !m.InRange(stone.GetWorldLocation(), 2));
+			return stone == null || stone.Deleted || !m.InRange(stone.GetWorldLocation(), 2);
 		}
 
 		public override void OnResponse(NetState sender, RelayInfo info)

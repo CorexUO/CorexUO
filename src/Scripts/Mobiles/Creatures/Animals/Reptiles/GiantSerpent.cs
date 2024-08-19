@@ -52,7 +52,7 @@ namespace Server.Mobiles
 		}
 
 		public override Poison PoisonImmune => Poison.Greater;
-		public override Poison HitPoison => (0.8 >= Utility.RandomDouble() ? Poison.Greater : Poison.Deadly);
+		public override Poison HitPoison => 0.8 >= Utility.RandomDouble() ? Poison.Greater : Poison.Deadly;
 
 		public override bool DeathAdderCharmable => true;
 

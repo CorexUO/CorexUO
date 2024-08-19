@@ -46,7 +46,7 @@ namespace Server.Gumps
 			AddAlphaRegion(1, 1, 408, 446);
 
 			string title = string.Format("Comments for '{0}'", acct.Username);
-			int x = 205 - ((title.Length / 2) * 7);
+			int x = 205 - (title.Length / 2 * 7);
 			if (x < 120)
 				x = 120;
 			AddLabel(x, 12, 2100, title);
@@ -67,12 +67,12 @@ namespace Server.Gumps
 						AddButton(368, 12, 0xFA5, 0xFA7, 0, GumpButtonType.Page, (i / 5) + 1);
 						AddLabel(298, 12, 2100, "Next Page");
 						AddPage((i / 5) + 1);
-						AddButton(12, 12, 0xFAE, 0xFB0, 0, GumpButtonType.Page, (i / 5));
+						AddButton(12, 12, 0xFAE, 0xFB0, 0, GumpButtonType.Page, i / 5);
 						AddLabel(48, 12, 2100, "Prev Page");
 					}
 
 					string html = string.Format("[Added By: {0} on {1}]<br>{2}", comment.AddedBy, comment.LastModified.ToString("H:mm M/d/yy"), comment.Content);
-					AddHtml(12, 44 + ((i % 5) * 80), 386, 70, html, true, true);
+					AddHtml(12, 44 + (i % 5 * 80), 386, 70, html, true, true);
 				}
 			}
 			else

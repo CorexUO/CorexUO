@@ -34,9 +34,8 @@ namespace Server.Engines.Quests.Ambitious
 		{
 			Direction = GetDirectionTo(player);
 
-			AmbitiousQueenQuest qs = player.Quest as AmbitiousQueenQuest;
 
-			if (qs != null && qs.RedSolen == RedSolen)
+			if (player.Quest is AmbitiousQueenQuest qs && qs.RedSolen == RedSolen)
 			{
 				if (qs.IsObjectiveInProgress(typeof(KillQueensObjective)))
 				{
@@ -56,9 +55,7 @@ namespace Server.Engines.Quests.Ambitious
 					}
 					else
 					{
-						GetRewardObjective lastObj = qs.FindObjective(typeof(GetRewardObjective)) as GetRewardObjective;
-
-						if (lastObj != null && !lastObj.Completed)
+						if (qs.FindObjective(typeof(GetRewardObjective)) is GetRewardObjective lastObj && !lastObj.Completed)
 						{
 							bool bagOfSending = lastObj.BagOfSending;
 							bool powderOfTranslocation = lastObj.PowderOfTranslocation;
@@ -101,22 +98,17 @@ namespace Server.Engines.Quests.Ambitious
 		{
 			Direction = GetDirectionTo(from);
 
-			PlayerMobile player = from as PlayerMobile;
 
-			if (player != null)
+			if (from is PlayerMobile player)
 			{
-				AmbitiousQueenQuest qs = player.Quest as AmbitiousQueenQuest;
-
-				if (qs != null && qs.RedSolen == RedSolen)
+				if (player.Quest is AmbitiousQueenQuest qs && qs.RedSolen == RedSolen)
 				{
 					QuestObjective obj = qs.FindObjective(typeof(GatherFungiObjective));
 
 					if (obj != null && !obj.Completed)
 					{
-						if (dropped is ZoogiFungus)
+						if (dropped is ZoogiFungus fungi)
 						{
-							ZoogiFungus fungi = (ZoogiFungus)dropped;
-
 							if (fungi.Amount >= 50)
 							{
 								obj.Complete();

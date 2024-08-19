@@ -335,10 +335,10 @@ namespace Server.Engines.Reports
 						// Draw data value
 						if (ShowData && (i % _interval) == 0)
 						{
-							float sectionWidth = (_barWidth + _spaceBtwBars);
+							float sectionWidth = _barWidth + _spaceBtwBars;
 							float startX = _xOrigin + (i * sectionWidth) + (sectionWidth / 2);  // This draws the value on center of the bar
 							float startY = itemY - 2f - valFont.Height;                   // Positioned on top of each bar by 2 pixels
-							RectangleF recVal = new(startX - ((sectionWidth * _interval) / 2), startY, sectionWidth * _interval, valFont.Height);
+							RectangleF recVal = new(startX - (sectionWidth * _interval / 2), startY, sectionWidth * _interval, valFont.Height);
 							SizeF sz = graph.MeasureString(item.Value.ToString("#,###.##"), valFont, recVal.Size, sfFormat);
 							//using ( SolidBrush brsh = new SolidBrush( Color.FromArgb( 180, 255, 255, 255 ) ) )
 							//	graph.FillRectangle( brsh, new RectangleF(recVal.X+((recVal.Width-sz.Width)/2),recVal.Y+((recVal.Height-sz.Height)/2),sz.Width+4,sz.Height) );
@@ -386,10 +386,10 @@ namespace Server.Engines.Reports
 							{
 								graph.FillEllipse(brsFont, new RectangleF(linePoints[j].X - 2.0f, linePoints[j].Y - 2.0f, 4.0f, 4.0f));
 
-								float sectionWidth = (_barWidth + _spaceBtwBars);
+								float sectionWidth = _barWidth + _spaceBtwBars;
 								float startX = _xOrigin + (j * sectionWidth) + (sectionWidth / 2);  // This draws the value on center of the bar
 								float startY = itemY - 2f - valFont.Height;                   // Positioned on top of each bar by 2 pixels
-								RectangleF recVal = new(startX - ((sectionWidth * _interval) / 2), startY, sectionWidth * _interval, valFont.Height);
+								RectangleF recVal = new(startX - (sectionWidth * _interval / 2), startY, sectionWidth * _interval, valFont.Height);
 								SizeF sz = graph.MeasureString(item.Value.ToString("#,###.##"), valFont, recVal.Size, sfFormat);
 								//using ( SolidBrush brsh = new SolidBrush( Color.FromArgb( 48, 255, 255, 255 ) ) )
 								//	graph.FillRectangle( brsh, new RectangleF(recVal.X+((recVal.Width-sz.Width)/2),recVal.Y+((recVal.Height-sz.Height)/2),sz.Width+4,sz.Height) );
@@ -414,9 +414,9 @@ namespace Server.Engines.Reports
 			}
 			finally
 			{
-				if (brsFont != null) brsFont.Dispose();
-				if (valFont != null) valFont.Dispose();
-				if (sfFormat != null) sfFormat.Dispose();
+				brsFont?.Dispose();
+				valFont?.Dispose();
+				sfFormat?.Dispose();
 			}
 		}
 
@@ -434,7 +434,7 @@ namespace Server.Engines.Reports
 			Pen pen = null;
 			StringFormat sfVLabel = null;
 
-			float fo = (_yTitle == null ? 0.0f : 20.0f);
+			float fo = _yTitle == null ? 0.0f : 20.0f;
 
 			try
 			{
@@ -492,11 +492,11 @@ namespace Server.Engines.Reports
 			}
 			finally
 			{
-				if (lblFont != null) lblFont.Dispose();
-				if (brs != null) brs.Dispose();
-				if (lblFormat != null) lblFormat.Dispose();
-				if (pen != null) pen.Dispose();
-				if (sfVLabel != null) sfVLabel.Dispose();
+				lblFont?.Dispose();
+				brs?.Dispose();
+				lblFormat?.Dispose();
+				pen?.Dispose();
+				sfVLabel?.Dispose();
 			}
 		}
 
@@ -527,10 +527,10 @@ namespace Server.Engines.Reports
 			}
 			finally
 			{
-				if (lblFont != null) lblFont.Dispose();
-				if (brs != null) brs.Dispose();
-				if (lblFormat != null) lblFormat.Dispose();
-				if (pen != null) pen.Dispose();
+				lblFont?.Dispose();
+				brs?.Dispose();
+				lblFormat?.Dispose();
+				pen?.Dispose();
 			}
 		}
 
@@ -592,7 +592,7 @@ namespace Server.Engines.Reports
 					if ((i % _interval) == 0)
 					{
 						currentX = _xOrigin + (i * labelWidth) + of + (labelWidth / 2);
-						RectangleF recLbl = new(currentX - ((labelWidth * _interval) / 2), currentY + of, labelWidth * _interval, lblFont.Height * 2);
+						RectangleF recLbl = new(currentX - (labelWidth * _interval / 2), currentY + of, labelWidth * _interval, lblFont.Height * 2);
 						string lblString = ShowLegend ? item.Label : item.Description;  // Decide what to show: short or long
 
 						graph.DrawString(lblString, lblFont, brs, recLbl, lblFormat);
@@ -602,10 +602,10 @@ namespace Server.Engines.Reports
 			}
 			finally
 			{
-				if (lblFont != null) lblFont.Dispose();
-				if (brs != null) brs.Dispose();
-				if (lblFormat != null) lblFormat.Dispose();
-				if (pen != null) pen.Dispose();
+				lblFont?.Dispose();
+				brs?.Dispose();
+				lblFormat?.Dispose();
+				pen?.Dispose();
 			}
 		}
 
@@ -658,10 +658,10 @@ namespace Server.Engines.Reports
 			}
 			finally
 			{
-				if (lblFont != null) lblFont.Dispose();
-				if (brs != null) brs.Dispose();
-				if (lblFormat != null) lblFormat.Dispose();
-				if (pen != null) pen.Dispose();
+				lblFont?.Dispose();
+				brs?.Dispose();
+				lblFormat?.Dispose();
+				pen?.Dispose();
 			}
 		}
 
@@ -765,9 +765,9 @@ namespace Server.Engines.Reports
 			}
 			finally
 			{
-				if (graph != null) graph.Dispose();
-				if (bmp != null) bmp.Dispose();
-				if (font != null) font.Dispose();
+				graph?.Dispose();
+				bmp?.Dispose();
+				font?.Dispose();
 			}
 		}
 

@@ -295,7 +295,7 @@ namespace Server.Engines.MLQuests.Mobiles
 
 		public override bool CanTalkTo(Mobile from)
 		{
-			return (from.Race == Race.Human);
+			return from.Race == Race.Human;
 		}
 
 		public override void DenyTalk(Mobile from)
@@ -391,7 +391,7 @@ namespace Server.Engines.MLQuests.Mobiles
 
 		public override bool CanTalkTo(Mobile from)
 		{
-			return (from.Race == Race.Elf);
+			return from.Race == Race.Elf;
 		}
 
 		public override void DenyTalk(Mobile from)

@@ -94,10 +94,8 @@ namespace Server.Mobiles
 
 		public virtual bool ValidTrigger(Mobile m)
 		{
-			if (m is BaseCreature)
+			if (m is BaseCreature bc)
 			{
-				BaseCreature bc = (BaseCreature)m;
-
 				if (!bc.Controlled && !bc.Summoned)
 					return false;
 			}
@@ -106,7 +104,7 @@ namespace Server.Mobiles
 				return false;
 			}
 
-			return (m.Alive && !m.IsDeadBondedPet && m.CanBeDamaged() && !m.Hidden);
+			return m.Alive && !m.IsDeadBondedPet && m.CanBeDamaged() && !m.Hidden;
 		}
 
 		public override void OnMovement(Mobile m, Point3D oldLocation)

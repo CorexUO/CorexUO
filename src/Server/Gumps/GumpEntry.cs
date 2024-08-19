@@ -56,13 +56,11 @@ namespace Server.Gumps
 			{
 				if (m_Parent != value)
 				{
-					if (m_Parent != null)
-						m_Parent.Remove(this);
+					m_Parent?.Remove(this);
 
 					m_Parent = value;
 
-					if (m_Parent != null)
-						m_Parent.Add(this);
+					m_Parent?.Add(this);
 				}
 			}
 		}

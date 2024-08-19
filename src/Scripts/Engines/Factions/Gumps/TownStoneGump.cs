@@ -122,9 +122,8 @@ namespace Server.Factions
 			{
 				from.SendLocalizedMessage(1010342); // You must fire your Sheriff before you can elect a new one
 			}
-			else if (obj is Mobile)
+			else if (obj is Mobile targ)
 			{
-				Mobile targ = (Mobile)obj;
 				PlayerState pl = PlayerState.Find(targ);
 
 				if (pl == null)
@@ -167,9 +166,8 @@ namespace Server.Factions
 			{
 				from.SendLocalizedMessage(1010342); // You must fire your Sheriff before you can elect a new one
 			}
-			else if (obj is Mobile)
+			else if (obj is Mobile targ)
 			{
-				Mobile targ = (Mobile)obj;
 				PlayerState pl = PlayerState.Find(targ);
 
 				if (pl == null)

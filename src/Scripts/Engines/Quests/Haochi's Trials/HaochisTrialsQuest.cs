@@ -55,14 +55,14 @@ namespace Server.Engines.Quests.Samurai
 		public override object OfferMessage =>
 				/* <i>As you enter the courtyard you notice a faded sign.
 * It reads: </i><br><br>
-* 
+*
 * Welcome to your new home, Samurai.<br><br>
-* 
+*
 * Though your skills are only a shadow of what they can be some day,
 * you must prove your adherence to the code of the Bushido.<br><br>
-* 
+*
 * Seek Daimyo Haochi for guidance.<br><br>
-* 
+*
 * <i>Will you accept the challenge?</i>
 */
 				1063023;
@@ -117,9 +117,7 @@ namespace Server.Engines.Quests.Samurai
 
 		public static bool HasLostHaochisKatana(Mobile from)
 		{
-			PlayerMobile pm = from as PlayerMobile;
-
-			if (pm == null)
+			if (from is not PlayerMobile pm)
 				return false;
 
 			QuestSystem qs = pm.Quest;
@@ -130,7 +128,7 @@ namespace Server.Engines.Quests.Samurai
 				{
 					Container pack = from.Backpack;
 
-					return (pack == null || pack.FindItemByType(typeof(HaochisKatana)) == null);
+					return pack == null || pack.FindItemByType(typeof(HaochisKatana)) == null;
 				}
 			}
 

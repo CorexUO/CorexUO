@@ -238,8 +238,7 @@ namespace Server.Engines.ConPVP
 
 				string name = ar.Name;
 
-				if (name == null)
-					name = "(no name)";
+				name ??= "(no name)";
 
 				int x = 12;
 				int y = 32 + (i * 31);

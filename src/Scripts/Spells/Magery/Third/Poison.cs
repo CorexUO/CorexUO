@@ -45,8 +45,7 @@ namespace Server.Spells.Third
 
 				SpellHelper.CheckReflect((int)Circle, Caster, ref m);
 
-				if (m.Spell != null)
-					m.Spell.OnCasterHurt();
+				m.Spell?.OnCasterHurt();
 
 				m.Paralyzed = false;
 
@@ -85,10 +84,8 @@ namespace Server.Spells.Third
 						#region Dueling
 						double total = Caster.Skills[SkillName.Magery].Value;
 
-						if (Caster is Mobiles.PlayerMobile)
+						if (Caster is Mobiles.PlayerMobile pm)
 						{
-							Mobiles.PlayerMobile pm = (Mobiles.PlayerMobile)Caster;
-
 							if (pm.DuelContext != null && pm.DuelContext.Started && !pm.DuelContext.Finished && !pm.DuelContext.Ruleset.GetOption("Skills", "Poisoning"))
 							{
 							}

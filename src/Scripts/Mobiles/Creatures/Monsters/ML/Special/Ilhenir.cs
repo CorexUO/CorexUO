@@ -207,8 +207,7 @@ namespace Server.Mobiles
 
 		public virtual void CacophonicAttack(Mobile to)
 		{
-			if (m_Table == null)
-				m_Table = new Hashtable();
+			m_Table ??= new Hashtable();
 
 			if (to.Alive && to.Player && m_Table[to] == null)
 			{
@@ -228,8 +227,7 @@ namespace Server.Mobiles
 
 		public virtual void CacophonicEnd(Mobile from)
 		{
-			if (m_Table == null)
-				m_Table = new Hashtable();
+			m_Table ??= new Hashtable();
 
 			m_Table[from] = null;
 
@@ -238,8 +236,7 @@ namespace Server.Mobiles
 
 		public static bool UnderCacophonicAttack(Mobile from)
 		{
-			if (m_Table == null)
-				m_Table = new Hashtable();
+			m_Table ??= new Hashtable();
 
 			return m_Table[from] != null;
 		}
@@ -286,7 +283,7 @@ namespace Server.Mobiles
 
 		private int RandomPoint(int mid)
 		{
-			return (mid + Utility.RandomMinMax(-2, 2));
+			return mid + Utility.RandomMinMax(-2, 2);
 		}
 
 		public virtual Point3D GetSpawnPosition(int range)
@@ -299,7 +296,7 @@ namespace Server.Mobiles
 			if (map == null)
 				return from;
 
-			Point3D loc = new((RandomPoint(X)), (RandomPoint(Y)), Z);
+			Point3D loc = new(RandomPoint(X), RandomPoint(Y), Z);
 
 			loc.Z = Map.GetAverageZ(loc.X, loc.Y);
 
@@ -348,10 +345,8 @@ namespace Server.Mobiles
 
 			foreach (Mobile m in GetMobilesInRange(0))
 			{
-				if (m is BaseCreature)
+				if (m is BaseCreature bc)
 				{
-					BaseCreature bc = (BaseCreature)m;
-
 					if (!bc.Controlled && !bc.Summoned)
 						continue;
 				}
@@ -384,9 +379,7 @@ namespace Server.Mobiles
 
 				for (int i = 0; i < items.Count; ++i)
 				{
-					IDurability wearable = items[i] as IDurability;
-
-					if (wearable != null && wearable.HitPoints >= 10 && Utility.RandomDouble() < 0.25)
+					if (items[i] is IDurability wearable && wearable.HitPoints >= 10 && Utility.RandomDouble() < 0.25)
 					{
 						wearable.HitPoints -= (wearable.HitPoints == 10) ? Utility.Random(1, 5) : 10;
 						damaged = true;

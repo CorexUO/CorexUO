@@ -69,8 +69,7 @@ namespace Server.Items
 
 		public override void OnDelete()
 		{
-			if (Commodity != null)
-				Commodity.Delete();
+			Commodity?.Delete();
 
 			base.OnDelete();
 		}

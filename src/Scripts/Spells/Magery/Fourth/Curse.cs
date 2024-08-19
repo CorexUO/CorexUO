@@ -78,8 +78,7 @@ namespace Server.Spells.Fourth
 					m.UpdateResistances();
 				}
 
-				if (m.Spell != null)
-					m.Spell.OnCasterHurt();
+				m.Spell?.OnCasterHurt();
 
 				m.Paralyzed = false;
 

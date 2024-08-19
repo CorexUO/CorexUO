@@ -67,7 +67,7 @@ namespace Server.Engines.Chat
 
 		public bool CanTalk(ChatUser user)
 		{
-			return (!m_VoiceRestricted || m_Voices.Contains(user) || m_Moderators.Contains(user));
+			return !m_VoiceRestricted || m_Voices.Contains(user) || m_Moderators.Contains(user);
 		}
 
 		public bool IsModerator(ChatUser user)
@@ -82,7 +82,7 @@ namespace Server.Engines.Chat
 
 		public bool ValidatePassword(string password)
 		{
-			return (m_Password == null || Insensitive.Equals(m_Password, password));
+			return m_Password == null || Insensitive.Equals(m_Password, password);
 		}
 
 		public bool ValidateModerator(ChatUser user)
@@ -131,8 +131,7 @@ namespace Server.Engines.Chat
 			}
 			else
 			{
-				if (user.CurrentChannel != null)
-					user.CurrentChannel.RemoveUser(user); // Remove them from their current channel first
+				user.CurrentChannel?.RemoveUser(user); // Remove them from their current channel first
 
 				ChatSystem.SendCommandTo(user.Mobile, ChatCommand.JoinedChannel, m_Name);
 

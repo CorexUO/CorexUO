@@ -208,16 +208,16 @@ namespace Server
 	public sealed class AddBuffPacket : Packet
 	{
 		public AddBuffPacket(Mobile m, BuffInfo info)
-			: this(m, info.ID, info.TitleCliloc, info.SecondaryCliloc, info.Args, (info.TimeStart != DateTime.MinValue) ? ((info.TimeStart + info.TimeLength) - DateTime.UtcNow) : TimeSpan.Zero)
+			: this(m, info.ID, info.TitleCliloc, info.SecondaryCliloc, info.Args, (info.TimeStart != DateTime.MinValue) ? (info.TimeStart + info.TimeLength - DateTime.UtcNow) : TimeSpan.Zero)
 		{
 		}
 
 		public AddBuffPacket(Mobile mob, BuffIcon iconID, int titleCliloc, int secondaryCliloc, TextDefinition args, TimeSpan length)
 			: base(0xDF)
 		{
-			bool hasArgs = (args != null);
+			bool hasArgs = args != null;
 
-			EnsureCapacity((hasArgs ? (48 + args.ToString().Length * 2) : 44));
+			EnsureCapacity(hasArgs ? (48 + args.ToString().Length * 2) : 44);
 			m_Stream.Write(mob.Serial);
 
 

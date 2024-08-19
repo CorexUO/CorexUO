@@ -44,9 +44,8 @@ namespace Server
 			if (!from.CheckAlive())
 				return;
 
-			PlayerMobile protector = from as PlayerMobile;
 
-			if (protector == null)
+			if (from is not PlayerMobile protector)
 				return;
 
 			if (!VirtueHelper.IsSeeker(protector, VirtueName.Justice))
@@ -74,10 +73,7 @@ namespace Server
 
 		public static void OnVirtueTargeted(Mobile from, object obj)
 		{
-			PlayerMobile protector = from as PlayerMobile;
-			PlayerMobile pm = obj as PlayerMobile;
-
-			if (protector == null)
+			if (from is not PlayerMobile protector)
 				return;
 
 			if (!VirtueHelper.IsSeeker(protector, VirtueName.Justice))
@@ -88,7 +84,7 @@ namespace Server
 				protector.SendLocalizedMessage(1049542); // You cannot protect someone while being protected.
 			else if (protector.Map != Map.Felucca)
 				protector.SendLocalizedMessage(1049372); // You cannot use this ability here.
-			else if (pm == null)
+			else if (obj is not PlayerMobile pm)
 				protector.SendLocalizedMessage(1049678); // Only players can be protected.
 			else if (pm.Map != Map.Felucca)
 				protector.SendLocalizedMessage(1049372); // You cannot use this ability here.
@@ -156,17 +152,13 @@ namespace Server
 
 		public static void RejectDelay_Callback(object state)
 		{
-			Mobile m = state as Mobile;
-
-			if (m != null)
+			if (state is Mobile m)
 				m.EndAction(typeof(JusticeVirtue));
 		}
 
 		public static void CheckAtrophy(Mobile from)
 		{
-			PlayerMobile pm = from as PlayerMobile;
-
-			if (pm == null)
+			if (from is not PlayerMobile pm)
 				return;
 
 			try

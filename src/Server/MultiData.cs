@@ -511,8 +511,8 @@ namespace Server
 			}
 
 			m_Center = new Point2D(-m_Min.m_X, -m_Min.m_Y);
-			Width = (m_Max.m_X - m_Min.m_X) + 1;
-			Height = (m_Max.m_Y - m_Min.m_Y) + 1;
+			Width = m_Max.m_X - m_Min.m_X + 1;
+			Height = m_Max.m_Y - m_Min.m_Y + 1;
 
 			TileList[][] tiles = new TileList[Width][];
 			Tiles = new StaticTile[Width][][];

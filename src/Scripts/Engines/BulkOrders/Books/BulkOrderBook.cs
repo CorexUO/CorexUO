@@ -69,9 +69,9 @@ namespace Server.Engines.BulkOrders
 					SecureTrade trade = cont.Trade;
 
 					if (trade != null && trade.From.Mobile == from)
-						trade.To.Mobile.SendGump(new BOBGump((PlayerMobile)(trade.To.Mobile), this));
+						trade.To.Mobile.SendGump(new BOBGump((PlayerMobile)trade.To.Mobile, this));
 					else if (trade != null && trade.To.Mobile == from)
-						trade.From.Mobile.SendGump(new BOBGump((PlayerMobile)(trade.From.Mobile), this));
+						trade.From.Mobile.SendGump(new BOBGump((PlayerMobile)trade.From.Mobile, this));
 				}
 			}
 		}
@@ -135,10 +135,8 @@ namespace Server.Engines.BulkOrders
 
 		public void InvalidateItems()
 		{
-			if (RootParent is Mobile)
+			if (RootParent is Mobile m)
 			{
-				Mobile m = (Mobile)RootParent;
-
 				m.UpdateTotals();
 				InvalidateContainers(Parent);
 			}

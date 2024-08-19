@@ -49,9 +49,7 @@ namespace Server.Items
 
 		public override void OnAfterDuped(Item newItem)
 		{
-			DawnsMusicBox box = newItem as DawnsMusicBox;
-
-			if (box == null)
+			if (newItem is not DawnsMusicBox box)
 				return;
 
 			box.Tracks = new List<MusicName>();
@@ -113,7 +111,7 @@ namespace Server.Items
 
 			BaseHouse house = BaseHouse.FindHouseAt(this);
 
-			return (house != null && house.HasAccess(m));
+			return house != null && house.HasAccess(m);
 		}
 
 		private Timer m_Timer;

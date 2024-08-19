@@ -146,7 +146,7 @@ namespace Server
 			{
 				if (m.Mount is SwampDragon pet && pet.HasBarding)
 				{
-					int percent = (pet.BardingExceptional ? 20 : 10);
+					int percent = pet.BardingExceptional ? 20 : 10;
 					int absorbed = Scale(totalDamage, percent);
 
 					totalDamage -= absorbed;
@@ -180,7 +180,7 @@ namespace Server
 					}
 					else
 					{
-						from.Damage(Scale((damage * phys * (100 - (ignoreArmor ? 0 : m.PhysicalResistance))) / 10000, reflectPhys), m);
+						from.Damage(Scale(damage * phys * (100 - (ignoreArmor ? 0 : m.PhysicalResistance)) / 10000, reflectPhys), m);
 					}
 				}
 			}
@@ -197,7 +197,7 @@ namespace Server
 
 		public static int Scale(int input, int percent)
 		{
-			return (input * percent) / 100;
+			return input * percent / 100;
 		}
 
 		public static int GetStatus(Mobile from, int index)
@@ -725,8 +725,7 @@ namespace Server
 				if (!GetValues(i, out SkillName skill, out double bonus))
 					continue;
 
-				if (m_Mods == null)
-					m_Mods = new List<SkillMod>();
+				m_Mods ??= new List<SkillMod>();
 
 				SkillMod sk = new DefaultSkillMod(skill, true, bonus)
 				{
@@ -763,18 +762,18 @@ namespace Server
 			for (int i = 0; i < 16; ++i)
 			{
 				vSkill <<= 1;
-				vSkill |= (v & 1);
+				vSkill |= v & 1;
 				v >>= 1;
 
 				vBonus <<= 1;
-				vBonus |= (v & 1);
+				vBonus |= v & 1;
 				v >>= 1;
 			}
 
 			skill = (SkillName)vSkill;
 			bonus = (double)vBonus / 10;
 
-			return (bonus != 0);
+			return bonus != 0;
 		}
 
 		public void SetValues(int index, SkillName skill, double bonus)
@@ -786,11 +785,11 @@ namespace Server
 			for (int i = 0; i < 16; ++i)
 			{
 				v <<= 1;
-				v |= (vBonus & 1);
+				v |= vBonus & 1;
 				vBonus >>= 1;
 
 				v <<= 1;
-				v |= (vSkill & 1);
+				v |= vSkill & 1;
 				vSkill >>= 1;
 			}
 
@@ -976,7 +975,7 @@ namespace Server
 
 		private static readonly int[] m_Empty = Array.Empty<int>();
 
-		public bool IsEmpty => (m_Names == 0);
+		public bool IsEmpty => m_Names == 0;
 		public Item Owner { get; }
 
 		public BaseAttributes(Item owner)

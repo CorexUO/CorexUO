@@ -88,7 +88,7 @@ namespace Server.Mobiles
 
 		private int RandomPoint(int mid)
 		{
-			return (mid + Utility.RandomMinMax(-2, 2));
+			return mid + Utility.RandomMinMax(-2, 2);
 		}
 
 		public virtual Point3D GetSpawnPosition(int range)
@@ -101,7 +101,7 @@ namespace Server.Mobiles
 			if (map == null)
 				return from;
 
-			Point3D loc = new((RandomPoint(X)), (RandomPoint(Y)), Z);
+			Point3D loc = new(RandomPoint(X), RandomPoint(Y), Z);
 
 			loc.Z = Map.GetAverageZ(loc.X, loc.Y);
 

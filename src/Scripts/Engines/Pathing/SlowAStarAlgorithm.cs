@@ -48,7 +48,6 @@ namespace Server.PathAlgorithms.SlowAStar
 		{
 			m_Goal = goal;
 
-			BaseCreature bc = m as BaseCreature;
 
 			PathNode curNode;
 
@@ -159,7 +158,7 @@ namespace Server.PathAlgorithms.SlowAStar
 
 				sucCount = 0;
 
-				if (bc != null)
+				if (m is BaseCreature bc)
 				{
 					MoveImpl.AlwaysIgnoreDoors = bc.CanOpenDoors;
 					MoveImpl.IgnoreMovableImpassables = bc.CanMoveOverObstacles;

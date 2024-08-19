@@ -40,9 +40,7 @@ namespace Server.Items
 
 		public override bool RequiresTactics(Mobile from)
 		{
-			BaseWeapon weapon = from.Weapon as BaseWeapon;
-
-			if (weapon == null)
+			if (from.Weapon is not BaseWeapon weapon)
 				return true;
 
 			return weapon.Skill != SkillName.Wrestling;
@@ -98,8 +96,7 @@ namespace Server.Items
 		{
 			Timer t = (Timer)m_Table[m];
 
-			if (t != null)
-				t.Stop();
+			t?.Stop();
 
 			t = new InternalTimer(m, duration);
 			m_Table[m] = t;
@@ -111,8 +108,7 @@ namespace Server.Items
 		{
 			Timer t = (Timer)m_Table[m];
 
-			if (t != null)
-				t.Stop();
+			t?.Stop();
 
 			m_Table.Remove(m);
 		}

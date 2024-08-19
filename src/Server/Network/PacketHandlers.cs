@@ -321,7 +321,7 @@ namespace Server.Network
 						{
 							SecureTrade trade = cont.Trade;
 
-							bool value = (pvSrc.ReadInt32() != 0);
+							bool value = pvSrc.ReadInt32() != 0;
 
 							if (trade != null && trade.From.Mobile == state.Mobile)
 							{
@@ -969,7 +969,7 @@ namespace Server.Network
 			Mobile from = state.Mobile;
 			Item item = from.Holding;
 
-			bool valid = (item != null && item.HeldBy == from && item.Map == Map.Internal);
+			bool valid = item != null && item.HeldBy == from && item.Map == Map.Internal;
 
 			from.Holding = null;
 
@@ -981,8 +981,7 @@ namespace Server.Network
 			pvSrc.Seek(5, SeekOrigin.Current);
 			Mobile to = World.FindMobile(pvSrc.ReadInt32());
 
-			if (to == null)
-				to = from;
+			to ??= from;
 
 			if (!to.AllowEquipFrom(from) || !to.EquipItem(item))
 				item.Bounce(from);
@@ -1078,8 +1077,7 @@ namespace Server.Network
 		{
 			Skill s = state.Mobile.Skills[pvSrc.ReadInt16()];
 
-			if (s != null)
-				s.SetLockNoRelay((SkillLock)pvSrc.ReadByte());
+			s?.SetLockNoRelay((SkillLock)pvSrc.ReadByte());
 		}
 
 		public static void HelpRequest(NetState state, PacketReader pvSrc)
@@ -1107,10 +1105,7 @@ namespace Server.Network
 			{
 				TargetProfile prof = TargetProfile.Acquire(t.GetType());
 
-				if (prof != null)
-				{
-					prof.Start();
-				}
+				prof?.Start();
 
 				try
 				{
@@ -1195,10 +1190,7 @@ namespace Server.Network
 				}
 				finally
 				{
-					if (prof != null)
-					{
-						prof.Finish();
-					}
+					prof?.Finish();
 				}
 			}
 		}
@@ -1285,17 +1277,11 @@ namespace Server.Network
 
 					GumpProfile prof = GumpProfile.Acquire(gump.GetType());
 
-					if (prof != null)
-					{
-						prof.Start();
-					}
+					prof?.Start();
 
 					gump.OnResponse(state, new RelayInfo(buttonID, switches, textEntries));
 
-					if (prof != null)
-					{
-						prof.Finish();
-					}
+					prof?.Finish();
 
 					return;
 				}
@@ -1596,7 +1582,7 @@ namespace Server.Network
 			bool ok = false;
 
 			for (int i = 0; !ok && i < m_ValidAnimations.Length; ++i)
-				ok = (action == m_ValidAnimations[i]);
+				ok = action == m_ValidAnimations[i];
 
 			if (from != null && ok && from.Alive && from.Body.IsHuman && !from.Mounted)
 				from.Animate(action, 7, 1, true, false, 0);
@@ -1769,44 +1755,37 @@ namespace Server.Network
 
 		public static void PartyMessage_AddMember(NetState state, PacketReader pvSrc)
 		{
-			if (PartyCommands.Handler != null)
-				PartyCommands.Handler.OnAdd(state.Mobile);
+			PartyCommands.Handler?.OnAdd(state.Mobile);
 		}
 
 		public static void PartyMessage_RemoveMember(NetState state, PacketReader pvSrc)
 		{
-			if (PartyCommands.Handler != null)
-				PartyCommands.Handler.OnRemove(state.Mobile, World.FindMobile(pvSrc.ReadInt32()));
+			PartyCommands.Handler?.OnRemove(state.Mobile, World.FindMobile(pvSrc.ReadInt32()));
 		}
 
 		public static void PartyMessage_PrivateMessage(NetState state, PacketReader pvSrc)
 		{
-			if (PartyCommands.Handler != null)
-				PartyCommands.Handler.OnPrivateMessage(state.Mobile, World.FindMobile(pvSrc.ReadInt32()), pvSrc.ReadUnicodeStringSafe());
+			PartyCommands.Handler?.OnPrivateMessage(state.Mobile, World.FindMobile(pvSrc.ReadInt32()), pvSrc.ReadUnicodeStringSafe());
 		}
 
 		public static void PartyMessage_PublicMessage(NetState state, PacketReader pvSrc)
 		{
-			if (PartyCommands.Handler != null)
-				PartyCommands.Handler.OnPublicMessage(state.Mobile, pvSrc.ReadUnicodeStringSafe());
+			PartyCommands.Handler?.OnPublicMessage(state.Mobile, pvSrc.ReadUnicodeStringSafe());
 		}
 
 		public static void PartyMessage_SetCanLoot(NetState state, PacketReader pvSrc)
 		{
-			if (PartyCommands.Handler != null)
-				PartyCommands.Handler.OnSetCanLoot(state.Mobile, pvSrc.ReadBoolean());
+			PartyCommands.Handler?.OnSetCanLoot(state.Mobile, pvSrc.ReadBoolean());
 		}
 
 		public static void PartyMessage_Accept(NetState state, PacketReader pvSrc)
 		{
-			if (PartyCommands.Handler != null)
-				PartyCommands.Handler.OnAccept(state.Mobile, World.FindMobile(pvSrc.ReadInt32()));
+			PartyCommands.Handler?.OnAccept(state.Mobile, World.FindMobile(pvSrc.ReadInt32()));
 		}
 
 		public static void PartyMessage_Decline(NetState state, PacketReader pvSrc)
 		{
-			if (PartyCommands.Handler != null)
-				PartyCommands.Handler.OnDecline(state.Mobile, World.FindMobile(pvSrc.ReadInt32()));
+			PartyCommands.Handler?.OnDecline(state.Mobile, World.FindMobile(pvSrc.ReadInt32()));
 		}
 
 		public static void StunRequest(NetState state, PacketReader pvSrc)
@@ -2115,8 +2094,7 @@ namespace Server.Network
 				}
 				else
 				{
-					if (m.NetState != null)
-						m.NetState.Dispose();
+					m.NetState?.Dispose();
 
 					NetState.ProcessDisposedQueue();
 
@@ -2279,7 +2257,7 @@ namespace Server.Network
 			0x05, 0x06 -> Gargoyle Male, Gargoyle Female
 			*/
 
-			bool female = ((genderRace % 2) != 0);
+			bool female = (genderRace % 2) != 0;
 
 			Race race = null;
 
@@ -2293,8 +2271,7 @@ namespace Server.Network
 				race = Race.Races[(byte)(genderRace / 2)];
 			}
 
-			if (race == null)
-				race = Race.DefaultRace;
+			race ??= Race.DefaultRace;
 
 			CityInfo[] info = state.CityInfo;
 			IAccount a = state.Account;
@@ -2406,15 +2383,14 @@ namespace Server.Network
 			0x05, 0x06 -> Gargoyle Male, Gargoyle Female
 			*/
 
-			bool female = ((genderRace % 2) != 0);
+			bool female = (genderRace % 2) != 0;
 
 			Race race = null;
 
 			byte raceID = (byte)(genderRace < 4 ? 0 : ((genderRace / 2) - 1));
 			race = Race.Races[raceID];
 
-			if (race == null)
-				race = Race.DefaultRace;
+			race ??= Race.DefaultRace;
 
 			CityInfo[] info = state.CityInfo;
 			IAccount a = state.Account;

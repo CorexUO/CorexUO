@@ -107,10 +107,8 @@ namespace Server.Regions
 				m.Location = House.BanLocation;
 				m.SendLocalizedMessage(1061637); // You are not allowed to access this.
 			}
-			else if (House is HouseFoundation)
+			else if (House is HouseFoundation foundation)
 			{
-				HouseFoundation foundation = (HouseFoundation)House;
-
 				if (foundation.Customizer != null && foundation.Customizer != m && House.IsInside(m))
 					m.Location = House.BanLocation;
 			}
@@ -170,10 +168,8 @@ namespace Server.Regions
 				from.SendLocalizedMessage(1061637); // You are not allowed to access this.
 				return false;
 			}
-			else if (House is HouseFoundation)
+			else if (House is HouseFoundation foundation)
 			{
-				HouseFoundation foundation = (HouseFoundation)House;
-
 				if (foundation.Customizer != null && foundation.Customizer != from && House.IsInside(newLocation, 16))
 					return false;
 			}
@@ -381,10 +377,8 @@ namespace Server.Regions
 
 		public override bool OnDoubleClick(Mobile from, object o)
 		{
-			if (o is Container)
+			if (o is Container c)
 			{
-				Container c = (Container)o;
-
 				SecureAccessResult res = House.CheckSecureAccess(from, c);
 
 				switch (res)
@@ -400,10 +394,8 @@ namespace Server.Regions
 
 		public override bool OnSingleClick(Mobile from, object o)
 		{
-			if (o is Item)
+			if (o is Item item)
 			{
-				Item item = (Item)o;
-
 				if (House.IsLockedDown(item))
 					item.LabelTo(from, 501643); // [locked down]
 				else if (House.IsSecure(item))

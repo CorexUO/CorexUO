@@ -125,13 +125,13 @@ namespace Server
 		public virtual int AliveBody(Mobile m) { return AliveBody(m.Female); }
 		public virtual int AliveBody(bool female)
 		{
-			return (female ? FemaleBody : MaleBody);
+			return female ? FemaleBody : MaleBody;
 		}
 
 		public virtual int GhostBody(Mobile m) { return GhostBody(m.Female); }
 		public virtual int GhostBody(bool female)
 		{
-			return (female ? FemaleGhostBody : MaleGhostBody);
+			return female ? FemaleGhostBody : MaleGhostBody;
 		}
 
 		public int RaceID { get; }

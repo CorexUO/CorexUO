@@ -120,7 +120,7 @@ namespace Server.Mobiles
 
 				foreach (Mobile m in toEat)
 				{
-					Hits += (m.Hits / 2);
+					Hits += m.Hits / 2;
 					m.Delete();
 				}
 			}

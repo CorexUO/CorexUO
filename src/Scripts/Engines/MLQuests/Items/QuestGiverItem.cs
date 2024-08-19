@@ -18,15 +18,14 @@ namespace Server.Engines.MLQuests.Items
 				{
 					m_MLQuests = MLQuestSystem.FindQuestList(GetType());
 
-					if (m_MLQuests == null)
-						m_MLQuests = MLQuestSystem.EmptyList;
+					m_MLQuests ??= MLQuestSystem.EmptyList;
 				}
 
 				return m_MLQuests;
 			}
 		}
 
-		public bool CanGiveMLQuest => (MLQuests.Count != 0);
+		public bool CanGiveMLQuest => MLQuests.Count != 0;
 
 		public QuestGiverItem(int itemId)
 			: base(itemId)
@@ -95,15 +94,14 @@ namespace Server.Engines.MLQuests.Items
 				{
 					m_MLQuests = MLQuestSystem.FindQuestList(GetType());
 
-					if (m_MLQuests == null)
-						m_MLQuests = MLQuestSystem.EmptyList;
+					m_MLQuests ??= MLQuestSystem.EmptyList;
 				}
 
 				return m_MLQuests;
 			}
 		}
 
-		public bool CanGiveMLQuest => (MLQuests.Count != 0);
+		public bool CanGiveMLQuest => MLQuests.Count != 0;
 
 		public TransientQuestGiverItem(int itemId, TimeSpan lifeSpan)
 			: base(itemId, lifeSpan)

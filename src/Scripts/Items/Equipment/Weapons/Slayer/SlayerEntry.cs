@@ -74,7 +74,7 @@ namespace Server.Items
 		{
 			get
 			{
-				int[] titles = (Core.AOS ? m_AosTitles : m_OldTitles);
+				int[] titles = Core.AOS ? m_AosTitles : m_OldTitles;
 
 				return titles[(int)Name - 1];
 			}

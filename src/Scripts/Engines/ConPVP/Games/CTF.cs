@@ -324,8 +324,7 @@ namespace Server.Engines.ConPVP
 
 		private void StopCountdown()
 		{
-			if (m_ReturnTimer != null)
-				m_ReturnTimer.Stop();
+			m_ReturnTimer?.Stop();
 
 			m_ReturnTimer = null;
 		}
@@ -354,8 +353,7 @@ namespace Server.Engines.ConPVP
 				case 2:
 				case 1:
 					{
-						if (owner != null)
-							owner.SendMessage(0x26, "You have {0} {1} to capture the cookies!", m_ReturnCount, m_ReturnCount == 1 ? "second" : "seconds");
+						owner?.SendMessage(0x26, "You have {0} {1} to capture the cookies!", m_ReturnCount, m_ReturnCount == 1 ? "second" : "seconds");
 
 						break;
 					}
@@ -490,7 +488,7 @@ namespace Server.Engines.ConPVP
 			Mobile mob = FindOwner(parent);
 
 			if (mob != null)
-				mob.SolidHueOverride = (m_TeamInfo == null ? -1 : m_TeamInfo.Game.GetColor(mob));
+				mob.SolidHueOverride = m_TeamInfo == null ? -1 : m_TeamInfo.Game.GetColor(mob);
 		}
 
 		public CTFFlag(Serial serial)
@@ -538,7 +536,7 @@ namespace Server.Engines.ConPVP
 			get => m_Kills;
 			set
 			{
-				m_TeamInfo.Kills += (value - m_Kills);
+				m_TeamInfo.Kills += value - m_Kills;
 				m_Kills = value;
 			}
 		}
@@ -548,7 +546,7 @@ namespace Server.Engines.ConPVP
 			get => m_Captures;
 			set
 			{
-				m_TeamInfo.Captures += (value - m_Captures);
+				m_TeamInfo.Captures += value - m_Captures;
 				m_Captures = value;
 			}
 		}
@@ -558,7 +556,7 @@ namespace Server.Engines.ConPVP
 			get => m_Score;
 			set
 			{
-				m_TeamInfo.Score += (value - m_Score);
+				m_TeamInfo.Score += value - m_Score;
 				m_Score = value;
 
 				if (m_TeamInfo.Leader == null || m_Score > m_TeamInfo.Leader.Score)
@@ -809,8 +807,7 @@ namespace Server.Engines.ConPVP
 
 		public void Alert(string text)
 		{
-			if (m_Context.m_Tournament != null)
-				m_Context.m_Tournament.Alert(text);
+			m_Context.m_Tournament?.Alert(text);
 
 			for (int i = 0; i < m_Context.Participants.Count; ++i)
 			{
@@ -818,8 +815,7 @@ namespace Server.Engines.ConPVP
 
 				for (int j = 0; j < p.Players.Length; ++j)
 				{
-					if (p.Players[j] != null)
-						p.Players[j].Mobile.SendMessage(0x35, text);
+					p.Players[j]?.Mobile.SendMessage(0x35, text);
 				}
 			}
 		}
@@ -857,9 +853,7 @@ namespace Server.Engines.ConPVP
 
 		public int GetTeamID(Mobile mob)
 		{
-			PlayerMobile pm = mob as PlayerMobile;
-
-			if (pm == null)
+			if (mob is not PlayerMobile pm)
 				return -1;
 
 			if (pm.DuelContext == null || pm.DuelContext != m_Context)
@@ -930,7 +924,7 @@ namespace Server.Engines.ConPVP
 			for (int i = 0; i < flags.Length; ++i)
 				(flags[i] as CTFFlag).DropTo(mob, killer);
 
-			hadFlag = (hadFlag || flags.Length > 0);
+			hadFlag = hadFlag || flags.Length > 0;
 
 			if (mob.Backpack != null)
 			{
@@ -939,7 +933,7 @@ namespace Server.Engines.ConPVP
 				for (int i = 0; i < flags.Length; ++i)
 					(flags[i] as CTFFlag).DropTo(mob, killer);
 
-				hadFlag = (hadFlag || flags.Length > 0);
+				hadFlag = hadFlag || flags.Length > 0;
 			}
 
 			if (killer != null && killer.Player)
@@ -1017,8 +1011,7 @@ namespace Server.Engines.ConPVP
 			for (int i = 0; i < m_Context.Participants.Count; ++i)
 				ApplyHues(m_Context.Participants[i] as Participant, Controller.TeamInfo[i % 8].Color);
 
-			if (m_FinishTimer != null)
-				m_FinishTimer.Stop();
+			m_FinishTimer?.Stop();
 
 			m_FinishTimer = Timer.DelayCall(Controller.Duration, new TimerCallback(Finish_Callback));
 		}
@@ -1081,7 +1074,7 @@ namespace Server.Engines.ConPVP
 
 			string title = sb.ToString();
 
-			CTFTeamInfo winner = (teams.Count > 0 ? teams[0] : null);
+			CTFTeamInfo winner = teams.Count > 0 ? teams[0] : null;
 
 			for (int i = 0; i < teams.Count; ++i)
 			{
@@ -1209,8 +1202,7 @@ namespace Server.Engines.ConPVP
 			for (int i = 0; i < m_Context.Participants.Count; ++i)
 				ApplyHues(m_Context.Participants[i] as Participant, -1);
 
-			if (m_FinishTimer != null)
-				m_FinishTimer.Stop();
+			m_FinishTimer?.Stop();
 
 			m_FinishTimer = null;
 		}

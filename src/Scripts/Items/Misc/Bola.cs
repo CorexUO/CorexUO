@@ -141,7 +141,7 @@ namespace Server.Items
 				}
 			}
 
-			return (one == null && two == null);
+			return one == null && two == null;
 		}
 
 		public class BolaTarget : Target
@@ -158,10 +158,8 @@ namespace Server.Items
 				if (m_Bola.Deleted)
 					return;
 
-				if (obj is Mobile)
+				if (obj is Mobile to)
 				{
-					Mobile to = (Mobile)obj;
-
 					if (!m_Bola.IsChildOf(from.Backpack))
 					{
 						from.SendLocalizedMessage(1040019); // The bola must be in your pack to use it.

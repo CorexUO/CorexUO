@@ -27,7 +27,7 @@ namespace Server.Items
 				if (m_FactionState == null)
 					Hue = 0;
 
-				LootType = (m_FactionState == null ? LootType.Regular : LootType.Blessed);
+				LootType = m_FactionState == null ? LootType.Regular : LootType.Blessed;
 			}
 		}
 		#endregion
@@ -81,7 +81,7 @@ namespace Server.Items
 		[CommandProperty(AccessLevel.GameMaster)]
 		public int StrRequirement
 		{
-			get => (m_StrReq == -1 ? (Core.AOS ? AosStrReq : OldStrReq) : m_StrReq);
+			get => m_StrReq == -1 ? (Core.AOS ? AosStrReq : OldStrReq) : m_StrReq;
 			set { m_StrReq = value; InvalidateProperties(); }
 		}
 
@@ -423,10 +423,10 @@ namespace Server.Items
 				return true;
 
 			if (Layer == Layer.Pants)
-				return (m.FindItemOnLayer(Layer.InnerLegs) != null);
+				return m.FindItemOnLayer(Layer.InnerLegs) != null;
 
 			if (Layer == Layer.Shirt)
-				return (m.FindItemOnLayer(Layer.InnerTorso) != null);
+				return m.FindItemOnLayer(Layer.InnerTorso) != null;
 
 			return false;
 		}
@@ -461,8 +461,7 @@ namespace Server.Items
 			if (RequiredRace == Race.Elf)
 				list.Add(1075086); // Elves Only
 
-			if (m_AosSkillBonuses != null)
-				m_AosSkillBonuses.GetProperties(list);
+			m_AosSkillBonuses?.GetProperties(list);
 
 			int prop;
 

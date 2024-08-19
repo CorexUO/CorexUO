@@ -20,8 +20,7 @@ namespace Server.Engines.Craft
 		{
 			get
 			{
-				if (m_CraftSystem == null)
-					m_CraftSystem = new DefCartography();
+				m_CraftSystem ??= new DefCartography();
 
 				return m_CraftSystem;
 			}

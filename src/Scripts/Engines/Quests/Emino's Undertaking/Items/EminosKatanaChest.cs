@@ -39,9 +39,7 @@ namespace Server.Engines.Quests.Ninja
 
 		public override void OnDoubleClick(Mobile from)
 		{
-			PlayerMobile player = from as PlayerMobile;
-
-			if (player != null && player.InRange(GetWorldLocation(), 2))
+			if (from is PlayerMobile player && player.InRange(GetWorldLocation(), 2))
 			{
 				QuestSystem qs = player.Quest;
 
@@ -98,13 +96,10 @@ namespace Server.Engines.Quests.Ninja
 			if (from.AccessLevel >= AccessLevel.GameMaster)
 				return true;
 
-			PlayerMobile player = from as PlayerMobile;
 
-			if (player != null && player.Quest is EminosUndertakingQuest)
+			if (from is PlayerMobile player && player.Quest is EminosUndertakingQuest)
 			{
-				HallwayWalkObjective obj = player.Quest.FindObjective(typeof(HallwayWalkObjective)) as HallwayWalkObjective;
-
-				if (obj != null)
+				if (player.Quest.FindObjective(typeof(HallwayWalkObjective)) is HallwayWalkObjective obj)
 				{
 					if (obj.StolenTreasure)
 						from.SendLocalizedMessage(1063247); // The guard is watching you carefully!  It would be unwise to remove another item from here.
@@ -118,13 +113,9 @@ namespace Server.Engines.Quests.Ninja
 
 		public override void OnItemLifted(Mobile from, Item item)
 		{
-			PlayerMobile player = from as PlayerMobile;
-
-			if (player != null && player.Quest is EminosUndertakingQuest)
+			if (from is PlayerMobile player && player.Quest is EminosUndertakingQuest)
 			{
-				HallwayWalkObjective obj = player.Quest.FindObjective(typeof(HallwayWalkObjective)) as HallwayWalkObjective;
-
-				if (obj != null)
+				if (player.Quest.FindObjective(typeof(HallwayWalkObjective)) is HallwayWalkObjective obj)
 					obj.StolenTreasure = true;
 			}
 		}

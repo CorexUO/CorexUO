@@ -196,10 +196,8 @@ namespace Server.Items
 				{
 					from.LocalOverheadMessage(MessageType.Regular, 0x3B2, 1042001); // That must be in your pack for you to use it.
 				}
-				else if (targeted is BaseCreature)
+				else if (targeted is BaseCreature creature)
 				{
-					BaseCreature creature = (BaseCreature)targeted;
-
 					if (!creature.Controlled || creature.ControlMaster != from)
 					{
 						MessageHelper.SendLocalizedMessageTo(m_Ball, from, 1054117, 0x59); // You may only link your own pets to a Crystal Ball of Pet Summoning.

@@ -18,9 +18,7 @@ namespace Server.Engines.Quests.Ninja
 
 		public override bool CanDrop(PlayerMobile player)
 		{
-			EminosUndertakingQuest qs = player.Quest as EminosUndertakingQuest;
-
-			if (qs == null)
+			if (player.Quest is not EminosUndertakingQuest qs)
 				return true;
 
 			/*return !qs.IsObjectiveInProgress( typeof( ReturnSwordObjective ) )

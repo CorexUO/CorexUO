@@ -341,7 +341,7 @@ namespace Server.Gumps
 
 				x += PrevWidth + OffsetSize;
 
-				x -= (OldStyle ? OffsetSize : 0);
+				x -= OldStyle ? OffsetSize : 0;
 
 				AddImageTiled(x, y, emptyWidth + (OldStyle ? OffsetSize * 2 : 0), EntryHeight, EntryGumpID);
 				AddLabel(x + TextOffsetX, y, TextHue, group.Name);
@@ -373,7 +373,7 @@ namespace Server.Gumps
 
 						x += PrevWidth + OffsetSize;
 
-						x -= (OldStyle ? OffsetSize : 0);
+						x -= OldStyle ? OffsetSize : 0;
 
 						AddImageTiled(x, y, emptyWidth + (OldStyle ? OffsetSize * 2 : 0) - OffsetSize - IndentWidth, EntryHeight, EntryGumpID);
 						AddLabel(x + TextOffsetX, y, TextHue, sk == null ? "(null)" : sk.Name);

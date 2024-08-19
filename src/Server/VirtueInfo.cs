@@ -15,8 +15,7 @@ namespace Server
 
 		public void SetValue(int index, int value)
 		{
-			if (Values == null)
-				Values = new int[8];
+			Values ??= new int[8];
 
 			Values[index] = value;
 		}

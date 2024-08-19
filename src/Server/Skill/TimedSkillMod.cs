@@ -19,7 +19,7 @@ namespace Server
 
 		public override bool CheckCondition()
 		{
-			return (DateTime.UtcNow < m_Expire);
+			return DateTime.UtcNow < m_Expire;
 		}
 	}
 }

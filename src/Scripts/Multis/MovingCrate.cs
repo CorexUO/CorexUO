@@ -210,8 +210,7 @@ namespace Server.Multis
 			if (House != null && House.MovingCrate == this)
 				House.MovingCrate = null;
 
-			if (m_InternalizeTimer != null)
-				m_InternalizeTimer.Stop();
+			m_InternalizeTimer?.Stop();
 		}
 
 		public override void Serialize(GenericWriter writer)

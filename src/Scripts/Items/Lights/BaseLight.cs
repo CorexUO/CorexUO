@@ -115,8 +115,7 @@ namespace Server.Items
 			else if (m_Duration != TimeSpan.Zero)
 				m_Duration = m_End - DateTime.UtcNow;
 
-			if (m_Timer != null)
-				m_Timer.Stop();
+			m_Timer?.Stop();
 
 			PlayUnlitSound();
 		}
@@ -131,8 +130,7 @@ namespace Server.Items
 		{
 			m_Duration = delay;
 
-			if (m_Timer != null)
-				m_Timer.Stop();
+			m_Timer?.Stop();
 
 			if (delay == TimeSpan.Zero)
 				return;

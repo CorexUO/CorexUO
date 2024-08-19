@@ -13,10 +13,8 @@ namespace Server.Engines.ConPVP
 
 		public DuelPlayer Find(Mobile mob)
 		{
-			if (mob is PlayerMobile)
+			if (mob is PlayerMobile pm)
 			{
-				PlayerMobile pm = (PlayerMobile)mob;
-
 				if (pm.DuelContext == Context && pm.DuelPlayer.Participant == this)
 					return pm.DuelPlayer;
 
@@ -34,7 +32,7 @@ namespace Server.Engines.ConPVP
 
 		public bool Contains(Mobile mob)
 		{
-			return (Find(mob) != null);
+			return Find(mob) != null;
 		}
 
 		public void Broadcast(int hue, string message, string nonLocalOverhead, string localOverhead)

@@ -93,7 +93,7 @@ namespace Server.Commands
 
 				PropertyInfo[] props = type.GetProperties(BindingFlags.Static | BindingFlags.Instance | BindingFlags.Public);
 
-				bool isFinal = (i == (info.Length - 1));
+				bool isFinal = i == (info.Length - 1);
 
 				PropertyAccess access = endAccess;
 
@@ -313,7 +313,7 @@ namespace Server.Commands
 			else if (IsChar(type))
 				toString = string.Format("'{0}' ({1} [0x{1:X}])", value, (int)value);
 			else if (IsString(type))
-				toString = ((string)value == "null" ? @"@""null""" : string.Format("\"{0}\"", value));
+				toString = (string)value == "null" ? @"@""null""" : string.Format("\"{0}\"", value);
 			else if (IsText(type))
 				toString = ((TextDefinition)value).Format(false);
 			else
@@ -352,35 +352,35 @@ namespace Server.Commands
 
 		private static bool IsSerial(Type t)
 		{
-			return (t == typeofSerial);
+			return t == typeofSerial;
 		}
 
 		private static readonly Type typeofType = typeof(Type);
 
 		private static bool IsType(Type t)
 		{
-			return (t == typeofType);
+			return t == typeofType;
 		}
 
 		private static readonly Type typeofChar = typeof(char);
 
 		private static bool IsChar(Type t)
 		{
-			return (t == typeofChar);
+			return t == typeofChar;
 		}
 
 		private static readonly Type typeofString = typeof(string);
 
 		private static bool IsString(Type t)
 		{
-			return (t == typeofString);
+			return t == typeofString;
 		}
 
 		private static readonly Type typeofText = typeof(TextDefinition);
 
 		private static bool IsText(Type t)
 		{
-			return (t == typeofText);
+			return t == typeofText;
 		}
 
 		private static bool IsEnum(Type t)
@@ -393,7 +393,7 @@ namespace Server.Commands
 
 		private static bool IsParsable(Type t)
 		{
-			return (t == typeofTimeSpan || t.IsDefined(typeofParsable, false));
+			return t == typeofTimeSpan || t.IsDefined(typeofParsable, false);
 		}
 
 		private static readonly Type[] m_ParseTypes = new Type[] { typeof(string) };
@@ -418,7 +418,7 @@ namespace Server.Commands
 
 		private static bool IsNumeric(Type t)
 		{
-			return (Array.IndexOf(m_NumericTypes, t) >= 0);
+			return Array.IndexOf(m_NumericTypes, t) >= 0;
 		}
 
 		public static string ConstructFromString(Type type, object obj, string value, ref object constructed)
@@ -496,7 +496,7 @@ namespace Server.Commands
 			}
 
 			if (isSerial) // mutate back
-				toSet = (Serial)((int)toSet);
+				toSet = (Serial)(int)toSet;
 
 			constructed = toSet;
 			return null;
@@ -506,9 +506,8 @@ namespace Server.Commands
 		{
 			try
 			{
-				if (toSet is AccessLevel)
+				if (toSet is AccessLevel newLevel)
 				{
-					AccessLevel newLevel = (AccessLevel)toSet;
 					AccessLevel reqLevel = AccessLevel.Administrator;
 
 					if (newLevel == AccessLevel.Administrator)
@@ -701,7 +700,7 @@ namespace Server
 		private PropertyInfo[] m_Chain;
 
 		public string Binding { get; }
-		public bool IsBound => (m_Chain != null);
+		public bool IsBound => m_Chain != null;
 		public PropertyAccess Access { get; private set; }
 
 		public PropertyInfo[] Chain
@@ -735,7 +734,7 @@ namespace Server
 			{
 				PropertyInfo prop = m_Chain[i];
 
-				bool isFinal = (i == (m_Chain.Length - 1));
+				bool isFinal = i == (m_Chain.Length - 1);
 
 				PropertyAccess access = Access;
 
@@ -768,7 +767,7 @@ namespace Server
 
 			for (int i = 0; i < split.Length; ++i)
 			{
-				bool isFinal = (i == (chain.Length - 1));
+				bool isFinal = i == (chain.Length - 1);
 
 				chain[i] = objectType.GetProperty(split[i], BindingFlags.Instance | BindingFlags.Public | BindingFlags.IgnoreCase);
 

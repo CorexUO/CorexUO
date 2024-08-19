@@ -111,15 +111,15 @@ namespace Server.Engines.Craft
 				lreq = weapon.WeaponAttributes.LowerStatReq;
 				dinc = weapon.Attributes.WeaponDamage;
 
-				fireBonus = (attributes.WeaponFireDamage > 0);
-				coldBonus = (attributes.WeaponColdDamage > 0);
-				nrgyBonus = (attributes.WeaponEnergyDamage > 0);
-				poisBonus = (attributes.WeaponPoisonDamage > 0);
+				fireBonus = attributes.WeaponFireDamage > 0;
+				coldBonus = attributes.WeaponColdDamage > 0;
+				nrgyBonus = attributes.WeaponEnergyDamage > 0;
+				poisBonus = attributes.WeaponPoisonDamage > 0;
 
-				duraBonus = (attributes.WeaponDurability > 0);
-				luckBonus = (attributes.WeaponLuck > 0);
-				lreqBonus = (attributes.WeaponLowerRequirements > 0);
-				dincBonus = (dinc > 0);
+				duraBonus = attributes.WeaponDurability > 0;
+				luckBonus = attributes.WeaponLuck > 0;
+				lreqBonus = attributes.WeaponLowerRequirements > 0;
+				dincBonus = dinc > 0;
 			}
 			else
 			{
@@ -140,15 +140,15 @@ namespace Server.Engines.Craft
 				luck = armor.Attributes.Luck;
 				lreq = armor.ArmorAttributes.LowerStatReq;
 
-				physBonus = (attributes.ArmorPhysicalResist > 0);
-				fireBonus = (attributes.ArmorFireResist > 0);
-				coldBonus = (attributes.ArmorColdResist > 0);
-				nrgyBonus = (attributes.ArmorEnergyResist > 0);
-				poisBonus = (attributes.ArmorPoisonResist > 0);
+				physBonus = attributes.ArmorPhysicalResist > 0;
+				fireBonus = attributes.ArmorFireResist > 0;
+				coldBonus = attributes.ArmorColdResist > 0;
+				nrgyBonus = attributes.ArmorEnergyResist > 0;
+				poisBonus = attributes.ArmorPoisonResist > 0;
 
-				duraBonus = (attributes.ArmorDurability > 0);
-				luckBonus = (attributes.ArmorLuck > 0);
-				lreqBonus = (attributes.ArmorLowerRequirements > 0);
+				duraBonus = attributes.ArmorDurability > 0;
+				luckBonus = attributes.ArmorLuck > 0;
+				lreqBonus = attributes.ArmorLowerRequirements > 0;
 				dincBonus = false;
 			}
 

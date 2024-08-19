@@ -76,7 +76,7 @@ namespace Server.Engines.Doom
 				m_State = value;
 
 				int hue = 0;
-				bool lockDoors = (m_State == GauntletSpawnerState.InProgress);
+				bool lockDoors = m_State == GauntletSpawnerState.InProgress;
 
 				switch (m_State)
 				{
@@ -125,8 +125,7 @@ namespace Server.Engines.Doom
 					ClearTraps();
 					DestroyRegion();
 
-					if (m_Timer != null)
-						m_Timer.Stop();
+					m_Timer?.Stop();
 
 					m_Timer = null;
 				}
@@ -156,8 +155,7 @@ namespace Server.Engines.Doom
 
 		public virtual void DestroyRegion()
 		{
-			if (Region != null)
-				Region.Unregister();
+			Region?.Unregister();
 
 			Region = null;
 		}

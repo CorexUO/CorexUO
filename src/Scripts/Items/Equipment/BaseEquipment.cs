@@ -175,7 +175,7 @@ namespace Server.Items
 			if (base.AllowEquipedCast(from))
 				return true;
 
-			return (m_AosAttributes.SpellChanneling != 0);
+			return m_AosAttributes.SpellChanneling != 0;
 		}
 
 		public override void OnAfterDuped(Item newItem)

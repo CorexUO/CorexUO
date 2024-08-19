@@ -132,7 +132,7 @@ namespace Server
 
 			ulong r = 0;
 			fixed (byte* buf = b)
-				r = *(ulong*)(&buf[0]) >> 3;
+				r = *(ulong*)&buf[0] >> 3;
 
 			/* double: 53 bits of significand precision
 			 * ulong.MaxValue >> 11 = 9007199254740991

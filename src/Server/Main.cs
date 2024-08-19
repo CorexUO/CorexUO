@@ -43,7 +43,7 @@ namespace Server
 				if (m_ProfileStart > DateTime.MinValue)
 					m_ProfileTime += DateTime.UtcNow - m_ProfileStart;
 
-				m_ProfileStart = (m_Profiling ? DateTime.UtcNow : DateTime.MinValue);
+				m_ProfileStart = m_Profiling ? DateTime.UtcNow : DateTime.MinValue;
 			}
 		}
 
@@ -573,10 +573,7 @@ namespace Server
 						"Serialize",
 						BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.DeclaredOnly) == null)
 					{
-						if (warningSb == null)
-						{
-							warningSb = new StringBuilder();
-						}
+						warningSb ??= new StringBuilder();
 
 						warningSb.AppendLine("       - No Serialize() method");
 					}
@@ -586,10 +583,7 @@ namespace Server
 							"Deserialize",
 							BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.DeclaredOnly) == null)
 					{
-						if (warningSb == null)
-						{
-							warningSb = new StringBuilder();
-						}
+						warningSb ??= new StringBuilder();
 
 						warningSb.AppendLine("       - No Deserialize() method");
 					}

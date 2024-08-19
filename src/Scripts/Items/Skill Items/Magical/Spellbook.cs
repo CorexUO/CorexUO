@@ -85,8 +85,7 @@ namespace Server.Items
 
 			Spellbook book = Find(from, -1, bookType);
 
-			if (book != null)
-				book.DisplayTo(from);
+			book?.DisplayTo(from);
 		}
 
 		private static void EventSink_CastSpellRequest(Mobile from, int spellID, Item spellbook)
@@ -262,12 +261,12 @@ namespace Server.Items
 
 		public static Spellbook FindEquippedSpellbook(Mobile from)
 		{
-			return (from.FindItemOnLayer(Layer.OneHanded) as Spellbook);
+			return from.FindItemOnLayer(Layer.OneHanded) as Spellbook;
 		}
 
 		public static bool ValidateSpellbook(Spellbook book, int spellID, SpellbookType type)
 		{
-			return (book.SpellbookType == type && (spellID == -1 || book.HasSpell(spellID)));
+			return book.SpellbookType == type && (spellID == -1 || book.HasSpell(spellID));
 		}
 
 		public override bool DisplayWeight => false;
@@ -458,7 +457,7 @@ namespace Server.Items
 		{
 			spellID -= BookOffset;
 
-			return (spellID >= 0 && spellID < BookCount && (m_Content & ((ulong)1 << spellID)) != 0);
+			return spellID >= 0 && spellID < BookCount && (m_Content & ((ulong)1 << spellID)) != 0;
 		}
 
 		public Spellbook(Serial serial) : base(serial)
@@ -729,8 +728,7 @@ namespace Server.Items
 					}
 			}
 
-			if (m_AosSkillBonuses == null)
-				m_AosSkillBonuses = new AosSkillBonuses(this);
+			m_AosSkillBonuses ??= new AosSkillBonuses(this);
 
 			if (Core.AOS && Parent is Mobile parentMobile)
 				m_AosSkillBonuses.AddTo(parentMobile);

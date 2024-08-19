@@ -202,9 +202,7 @@ namespace Server.Items
 
 				if (m_Bracelet.CheckUse(m_From, false))
 				{
-					Mobile boundRoot = m_Bracelet.Bound.RootParent as Mobile;
-
-					if (boundRoot != null)
+					if (m_Bracelet.Bound.RootParent is Mobile boundRoot)
 					{
 						m_Bracelet.Charges--;
 
@@ -242,7 +240,6 @@ namespace Server.Items
 			if (bound == null)
 				return false;
 
-			Mobile boundRoot = bound.RootParent as Mobile;
 
 			if (Charges == 0)
 			{
@@ -254,7 +251,7 @@ namespace Server.Items
 				from.SendLocalizedMessage(1054004); // You must equip the bracelet in order to use its power.
 				return false;
 			}
-			else if (boundRoot == null || boundRoot.NetState == null || boundRoot.FindItemOnLayer(Layer.Bracelet) != bound)
+			else if (bound.RootParent is not Mobile boundRoot || boundRoot.NetState == null || boundRoot.FindItemOnLayer(Layer.Bracelet) != bound)
 			{
 				from.SendLocalizedMessage(1054006); // The bracelet emits a red glow. The bracelet's twin is not available for transport.
 				return false;
@@ -355,10 +352,8 @@ namespace Server.Items
 				{
 					from.SendLocalizedMessage(1042664); // You must have the object in your backpack to use it.
 				}
-				else if (targeted is BraceletOfBinding)
+				else if (targeted is BraceletOfBinding bindBracelet)
 				{
-					BraceletOfBinding bindBracelet = (BraceletOfBinding)targeted;
-
 					if (bindBracelet == m_Bracelet)
 					{
 						from.SendLocalizedMessage(1054012); // You cannot bind a bracelet of binding to itself!

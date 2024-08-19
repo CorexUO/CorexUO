@@ -101,11 +101,11 @@
 		{
 			switch (element)
 			{
-				case AosElementAttribute.Physical: return (label) ? 1071091 : 0;         // Earring of Protection (Physical)  1071091
-				case AosElementAttribute.Fire: return (label) ? 1071092 : 0x4ec;     // Earring of Protection (Fire)      1071092
-				case AosElementAttribute.Cold: return (label) ? 1071093 : 0x4f2;     // Earring of Protection (Cold)      1071093
-				case AosElementAttribute.Poison: return (label) ? 1071094 : 0x4f8;     // Earring of Protection (Poison)    1071094
-				case AosElementAttribute.Energy: return (label) ? 1071095 : 0x4fe;     // Earring of Protection (Energy)    1071095
+				case AosElementAttribute.Physical: return label ? 1071091 : 0;         // Earring of Protection (Physical)  1071091
+				case AosElementAttribute.Fire: return label ? 1071092 : 0x4ec;     // Earring of Protection (Fire)      1071092
+				case AosElementAttribute.Cold: return label ? 1071093 : 0x4f2;     // Earring of Protection (Cold)      1071093
+				case AosElementAttribute.Poison: return label ? 1071094 : 0x4f8;     // Earring of Protection (Poison)    1071094
+				case AosElementAttribute.Energy: return label ? 1071095 : 0x4fe;     // Earring of Protection (Energy)    1071095
 
 				default: return -1;
 			}

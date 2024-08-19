@@ -21,7 +21,7 @@ namespace Server.Spells
 			if (base.ConsumeReagents())
 				return true;
 
-			if (ArcaneGem.ConsumeCharges(Caster, (Core.SE ? 1 : 1 + (int)Circle)))
+			if (ArcaneGem.ConsumeCharges(Caster, Core.SE ? 1 : 1 + (int)Circle))
 				return true;
 
 			return false;
@@ -77,7 +77,7 @@ namespace Server.Spells
 			if (target.Skills[SkillName.MagicResist].Value < maxSkill)
 				target.CheckSkill(SkillName.MagicResist, 0.0, target.Skills[SkillName.MagicResist].Cap);
 
-			return (n >= Utility.RandomDouble());
+			return n >= Utility.RandomDouble();
 		}
 
 		public virtual double GetResistPercentForCircle(Mobile target, SpellCircle circle)

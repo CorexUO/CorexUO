@@ -323,7 +323,7 @@ namespace Server
 
 			for (int i = 0; i < types.Length; ++i)
 			{
-				bool isGuildmaster = (types[i].EndsWith("Guildmaster"));
+				bool isGuildmaster = types[i].EndsWith("Guildmaster");
 
 				Spawner sp = new(types[i]);
 

@@ -50,7 +50,7 @@ namespace Server.Items
 				}
 				else
 				{
-					from.BodyMod = (from.Female ? 184 : 183);
+					from.BodyMod = from.Female ? 184 : 183;
 					from.HueMod = 0;
 
 					if (from is PlayerMobile)

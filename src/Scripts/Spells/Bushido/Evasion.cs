@@ -30,9 +30,8 @@ namespace Server.Spells.Bushido
 			if (Caster == null) // Sanity
 				return false;
 
-			BaseWeapon weap = Caster.FindItemOnLayer(Layer.OneHanded) as BaseWeapon;
 
-			if (weap == null)
+			if (Caster.FindItemOnLayer(Layer.OneHanded) is not BaseWeapon weap)
 				weap = Caster.FindItemOnLayer(Layer.TwoHanded) as BaseWeapon;
 
 			if (weap != null)
@@ -69,9 +68,7 @@ namespace Server.Spells.Bushido
 
 		public static bool CheckSpellEvasion(Mobile defender)
 		{
-			BaseWeapon weap = defender.FindItemOnLayer(Layer.OneHanded) as BaseWeapon;
-
-			if (weap == null)
+			if (defender.FindItemOnLayer(Layer.OneHanded) is not BaseWeapon weap)
 				weap = defender.FindItemOnLayer(Layer.TwoHanded) as BaseWeapon;
 
 			if (Core.ML)
@@ -184,7 +181,7 @@ namespace Server.Spells.Bushido
 			double bonus = 0;
 
 			if (m.Skills.Bushido.Value >= 60)
-				bonus += (((m.Skills.Bushido.Value - 60) * .004) + 0.16);
+				bonus += ((m.Skills.Bushido.Value - 60) * .004) + 0.16;
 
 			if (m.Skills.Anatomy.Value >= 100 && m.Skills.Tactics.Value >= 100 && m.Skills.Bushido.Value > 100) //Bushido being HIGHER than 100 for bonus is intended
 				bonus += 0.10;
@@ -196,8 +193,7 @@ namespace Server.Spells.Bushido
 		{
 			Timer t = (Timer)m_Table[m];
 
-			if (t != null)
-				t.Stop();
+			t?.Stop();
 
 			t = new InternalTimer(m, GetEvadeDuration(m));
 
@@ -210,8 +206,7 @@ namespace Server.Spells.Bushido
 		{
 			Timer t = (Timer)m_Table[m];
 
-			if (t != null)
-				t.Stop();
+			t?.Stop();
 
 			m_Table.Remove(m);
 

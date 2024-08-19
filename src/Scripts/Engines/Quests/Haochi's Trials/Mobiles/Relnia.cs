@@ -40,9 +40,7 @@ namespace Server.Engines.Quests.Samurai
 
 		public override bool OnDragDrop(Mobile from, Item dropped)
 		{
-			PlayerMobile player = from as PlayerMobile;
-
-			if (player != null)
+			if (from is PlayerMobile player)
 			{
 				QuestSystem qs = player.Quest;
 
@@ -52,9 +50,7 @@ namespace Server.Engines.Quests.Samurai
 
 					if (obj != null && !obj.Completed)
 					{
-						Gold gold = dropped as Gold;
-
-						if (gold != null)
+						if (dropped is Gold gold)
 						{
 							obj.Complete();
 							qs.AddObjective(new FourthTrialReturnObjective(false));

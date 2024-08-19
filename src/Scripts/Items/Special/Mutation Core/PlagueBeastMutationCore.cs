@@ -23,15 +23,13 @@ namespace Server.Items
 		{
 			if (!Cut)
 			{
-				PlagueBeastLord owner = RootParent as PlagueBeastLord;
-
 				Cut = true;
 				Movable = true;
 
 				from.AddToBackpack(this);
 				from.LocalOverheadMessage(MessageType.Regular, 0x34, 1071906); // * You remove the plague mutation core from the plague beast, causing it to dissolve into a pile of goo *
 
-				if (owner != null)
+				if (RootParent is PlagueBeastLord owner)
 					Timer.DelayCall<PlagueBeastLord>(TimeSpan.FromSeconds(1), new TimerStateCallback<PlagueBeastLord>(KillParent), owner);
 
 				return true;

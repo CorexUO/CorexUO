@@ -103,10 +103,10 @@ namespace Server.Gumps
 				}
 
 				// Use charge button
-				AddButton(130 + ((i / 8) * 160), 65 + ((i % 8) * 15), 2103, 2104, 2 + (i * 6) + 0, GumpButtonType.Reply, 0);
+				AddButton(130 + (i / 8 * 160), 65 + (i % 8 * 15), 2103, 2104, 2 + (i * 6) + 0, GumpButtonType.Reply, 0);
 
 				// Description label
-				AddLabelCropped(145 + ((i / 8) * 160), 60 + ((i % 8) * 15), 115, 17, hue, desc);
+				AddLabelCropped(145 + (i / 8 * 160), 60 + (i % 8 * 15), 115, 17, hue, desc);
 			}
 
 			// Turn page button
@@ -204,7 +204,7 @@ namespace Server.Gumps
 		{
 			Spellbook book = Spellbook.Find(from, spellID);
 
-			return (book != null && book.HasSpell(spellID));
+			return book != null && book.HasSpell(spellID);
 		}
 
 		private class InternalPrompt : Prompt
@@ -218,7 +218,7 @@ namespace Server.Gumps
 
 			public override void OnResponse(Mobile from, string text)
 			{
-				if (m_Book.Deleted || !from.InRange(m_Book.GetWorldLocation(), (Core.ML ? 3 : 1)))
+				if (m_Book.Deleted || !from.InRange(m_Book.GetWorldLocation(), Core.ML ? 3 : 1))
 					return;
 
 				if (m_Book.CheckAccess(from))
@@ -242,7 +242,7 @@ namespace Server.Gumps
 			{
 				from.SendLocalizedMessage(502415); // Request cancelled.
 
-				if (!m_Book.Deleted && from.InRange(m_Book.GetWorldLocation(), (Core.ML ? 3 : 1)))
+				if (!m_Book.Deleted && from.InRange(m_Book.GetWorldLocation(), Core.ML ? 3 : 1))
 				{
 					from.CloseGump(typeof(RunebookGump));
 					from.SendGump(new RunebookGump(from, m_Book));
@@ -254,7 +254,7 @@ namespace Server.Gumps
 		{
 			Mobile from = state.Mobile;
 
-			if (Book.Deleted || !from.InRange(Book.GetWorldLocation(), (Core.ML ? 3 : 1)) || !Multis.DesignContext.Check(from))
+			if (Book.Deleted || !from.InRange(Book.GetWorldLocation(), Core.ML ? 3 : 1) || !Multis.DesignContext.Check(from))
 			{
 				Book.Openers.Remove(from);
 				return;

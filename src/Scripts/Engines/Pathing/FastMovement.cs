@@ -555,7 +555,7 @@ namespace Server.Movement
 			foreach (StaticTile tile in staticTiles)
 			{
 				ItemData tileData = TileData.ItemTable[tile.ID & TileData.MaxItemValue];
-				int calcTop = (tile.Z + tileData.CalcHeight);
+				int calcTop = tile.Z + tileData.CalcHeight;
 
 				if (isSet && calcTop < zCenter)
 				{
@@ -700,10 +700,7 @@ namespace Server.Movement
 
 			public static void ClearMoveCache(ref List<Item> cache, bool free)
 			{
-				if (cache != null)
-				{
-					cache.Clear();
-				}
+				cache?.Clear();
 
 				if (!free)
 				{

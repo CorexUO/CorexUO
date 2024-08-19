@@ -42,7 +42,7 @@ namespace Server.Spells.Necromancy
 
 		public override bool DelayedDamage => false;
 
-		private static readonly int Range = (Core.ML ? 48 : 18);
+		private static readonly int Range = Core.ML ? 48 : 18;
 
 		public override int ComputeKarmaAward()
 		{
@@ -51,9 +51,7 @@ namespace Server.Spells.Necromancy
 
 		public override void OnCast()
 		{
-			ChampionSpawnRegion r = Caster.Region.GetRegion(typeof(ChampionSpawnRegion)) as ChampionSpawnRegion;
-
-			if (r == null || !Caster.InRange(r.ChampionSpawn, Range))
+			if (Caster.Region.GetRegion(typeof(ChampionSpawnRegion)) is not ChampionSpawnRegion r || !Caster.InRange(r.ChampionSpawn, Range))
 			{
 				Caster.SendLocalizedMessage(1072111); // You are not in a valid exorcism region.
 			}
@@ -88,10 +86,9 @@ namespace Server.Spells.Necromancy
 			if (!m.Player || m.Alive)
 				return false;
 
-			Corpse c = m.Corpse as Corpse;
 			Map map = m.Map;
 
-			if (c != null && !c.Deleted && map != null && c.Map == map)
+			if (m.Corpse is Corpse c && !c.Deleted && map != null && c.Map == map)
 			{
 				if (SpellHelper.IsAnyT2A(map, c.Location) && SpellHelper.IsAnyT2A(map, m.Location))
 					return false;   //Same Map, both in T2A, ie, same 'sub server'.

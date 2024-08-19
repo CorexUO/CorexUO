@@ -83,8 +83,7 @@ namespace Server.Engines.Plants
 				}
 				else
 				{
-					if (PlantSystem == null)
-						PlantSystem = new PlantSystem(this, false);
+					PlantSystem ??= new PlantSystem(this, false);
 
 					int hits = (int)(PlantSystem.MaxHits * ratio);
 
@@ -140,8 +139,7 @@ namespace Server.Engines.Plants
 					return true;
 
 
-				Mobile owner = RootParent as Mobile;
-				if (owner == null)
+				if (RootParent is not Mobile owner)
 					return false;
 
 				if (owner.Backpack != null && IsChildOf(owner.Backpack))
@@ -386,10 +384,8 @@ namespace Server.Engines.Plants
 				return;
 			}
 
-			if (item is BaseBeverage)
+			if (item is BaseBeverage beverage)
 			{
-				BaseBeverage beverage = (BaseBeverage)item;
-
 				if (beverage.IsEmpty || !beverage.Pourable || beverage.Content != BeverageType.Water)
 				{
 					LabelTo(from, 1053069); // You can't use that on a plant!
@@ -405,10 +401,8 @@ namespace Server.Engines.Plants
 				from.PlaySound(0x4E);
 				LabelTo(from, 1061858); // You soften the dirt with water.
 			}
-			else if (item is BasePotion)
+			else if (item is BasePotion potion)
 			{
-				BasePotion potion = (BasePotion)item;
-
 				if (ApplyPotion(potion.PotionEffect, false, out int message))
 				{
 					potion.Consume();
@@ -417,10 +411,8 @@ namespace Server.Engines.Plants
 				}
 				LabelTo(from, message);
 			}
-			else if (item is PotionKeg)
+			else if (item is PotionKeg keg)
 			{
-				PotionKeg keg = (PotionKeg)item;
-
 				if (keg.Held <= 0)
 				{
 					LabelTo(from, 1053069); // You can't use that on a plant!

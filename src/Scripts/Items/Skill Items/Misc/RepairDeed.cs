@@ -152,9 +152,9 @@ namespace Server.Items
 			int skill = (int)(skillLevel / 10);
 
 			if (skill >= 11)
-				return (1062008 + skill - 11);
+				return 1062008 + skill - 11;
 			else if (skill >= 5)
-				return (1061123 + skill - 5);
+				return 1061123 + skill - 5;
 
 			return skill switch
 			{

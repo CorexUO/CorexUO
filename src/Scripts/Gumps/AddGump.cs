@@ -72,7 +72,7 @@ namespace Server.Gumps
 
 			if (searchResults.Length > 0)
 			{
-				for (int i = (page * 10); i < ((page + 1) * 10) && i < searchResults.Length; ++i)
+				for (int i = page * 10; i < ((page + 1) * 10) && i < searchResults.Length; ++i)
 				{
 					int index = i % 10;
 
@@ -207,7 +207,7 @@ namespace Server.Gumps
 				case 1: // Search
 					{
 						TextRelay te = info.GetTextEntry(0);
-						string match = (te == null ? "" : te.Text.Trim());
+						string match = te == null ? "" : te.Text.Trim();
 
 						if (match.Length < 3)
 						{

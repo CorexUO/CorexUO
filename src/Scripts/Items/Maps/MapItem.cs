@@ -181,14 +181,14 @@ namespace Server.Items
 
 		public void ConvertToWorld(int x, int y, out int worldX, out int worldY)
 		{
-			worldX = ((m_Bounds.Width * x) / Width) + m_Bounds.X;
-			worldY = ((m_Bounds.Height * y) / Height) + m_Bounds.Y;
+			worldX = (m_Bounds.Width * x / Width) + m_Bounds.X;
+			worldY = (m_Bounds.Height * y / Height) + m_Bounds.Y;
 		}
 
 		public void ConvertToMap(int x, int y, out int mapX, out int mapY)
 		{
-			mapX = ((x - m_Bounds.X) * Width) / m_Bounds.Width;
-			mapY = ((y - m_Bounds.Y) * Width) / m_Bounds.Height;
+			mapX = (x - m_Bounds.X) * Width / m_Bounds.Width;
+			mapY = (y - m_Bounds.Y) * Width / m_Bounds.Height;
 		}
 
 		public virtual void AddWorldPin(int x, int y)

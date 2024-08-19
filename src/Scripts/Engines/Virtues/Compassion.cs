@@ -20,9 +20,7 @@ namespace Server
 
 		public static void CheckAtrophy(Mobile from)
 		{
-			PlayerMobile pm = from as PlayerMobile;
-
-			if (pm == null)
+			if (from is not PlayerMobile pm)
 				return;
 
 			try

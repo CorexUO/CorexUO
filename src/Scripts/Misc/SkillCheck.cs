@@ -125,7 +125,7 @@ namespace Server.Misc
 			if (from.Skills.Cap == 0)
 				return false;
 
-			bool success = (chance >= Utility.RandomDouble());
+			bool success = chance >= Utility.RandomDouble();
 			double gc = (double)(from.Skills.Cap - from.Skills.Total) / from.Skills.Cap;
 			gc += (skill.Cap - skill.Base) / skill.Cap;
 			gc /= 2;
@@ -259,9 +259,9 @@ namespace Server.Misc
 		{
 			return stat switch
 			{
-				Stat.Str => (from.StrLock == StatLockType.Down && from.RawStr > 10),
-				Stat.Dex => (from.DexLock == StatLockType.Down && from.RawDex > 10),
-				Stat.Int => (from.IntLock == StatLockType.Down && from.RawInt > 10),
+				Stat.Str => from.StrLock == StatLockType.Down && from.RawStr > 10,
+				Stat.Dex => from.DexLock == StatLockType.Down && from.RawDex > 10,
+				Stat.Int => from.IntLock == StatLockType.Down && from.RawInt > 10,
 				_ => false,
 			};
 		}
@@ -276,9 +276,9 @@ namespace Server.Misc
 
 			return stat switch
 			{
-				Stat.Str => (from.StrLock == StatLockType.Up && from.RawStr < 125),
-				Stat.Dex => (from.DexLock == StatLockType.Up && from.RawDex < 125),
-				Stat.Int => (from.IntLock == StatLockType.Up && from.RawInt < 125),
+				Stat.Str => from.StrLock == StatLockType.Up && from.RawStr < 125,
+				Stat.Dex => from.DexLock == StatLockType.Up && from.RawDex < 125,
+				Stat.Int => from.IntLock == StatLockType.Up && from.RawInt < 125,
 				_ => false,
 			};
 		}
@@ -383,7 +383,7 @@ namespace Server.Misc
 					}
 			}
 
-			bool atrophy = ((from.RawStatTotal / (double)from.StatCap) >= Utility.RandomDouble());
+			bool atrophy = (from.RawStatTotal / (double)from.StatCap) >= Utility.RandomDouble();
 
 			IncreaseStat(from, stat, atrophy);
 		}

@@ -15,8 +15,7 @@ namespace Server.Engines.Craft
 		{
 			get
 			{
-				if (m_CraftSystem == null)
-					m_CraftSystem = new DefBlacksmithy();
+				m_CraftSystem ??= new DefBlacksmithy();
 
 				return m_CraftSystem;
 			}
@@ -65,8 +64,8 @@ namespace Server.Engines.Craft
 			{
 				Type type = item.GetType();
 
-				bool isAnvil = (type.IsDefined(typeofAnvil, false) || item.ItemID == 4015 || item.ItemID == 4016 || item.ItemID == 0x2DD5 || item.ItemID == 0x2DD6);
-				bool isForge = (type.IsDefined(typeofForge, false) || item.ItemID == 4017 || (item.ItemID >= 6522 && item.ItemID <= 6569) || item.ItemID == 0x2DD8);
+				bool isAnvil = type.IsDefined(typeofAnvil, false) || item.ItemID == 4015 || item.ItemID == 4016 || item.ItemID == 0x2DD5 || item.ItemID == 0x2DD6;
+				bool isForge = type.IsDefined(typeofForge, false) || item.ItemID == 4017 || (item.ItemID >= 6522 && item.ItemID <= 6569) || item.ItemID == 0x2DD8;
 
 				if (isAnvil || isForge)
 				{
@@ -93,8 +92,8 @@ namespace Server.Engines.Craft
 					{
 						int id = tiles[i].ID;
 
-						bool isAnvil = (id == 4015 || id == 4016 || id == 0x2DD5 || id == 0x2DD6);
-						bool isForge = (id == 4017 || (id >= 6522 && id <= 6569) || id == 0x2DD8);
+						bool isAnvil = id == 4015 || id == 4016 || id == 0x2DD5 || id == 0x2DD6;
+						bool isForge = id == 4017 || (id >= 6522 && id <= 6569) || id == 0x2DD8;
 
 						if (isAnvil || isForge)
 						{

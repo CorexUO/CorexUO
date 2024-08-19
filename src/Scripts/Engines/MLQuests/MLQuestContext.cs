@@ -99,7 +99,7 @@ namespace Server.Engines.MLQuests
 		{
 			MLQuest quest = MLQuestSystem.FindQuest(questType);
 
-			return (quest != null && HasDoneQuest(quest));
+			return quest != null && HasDoneQuest(quest);
 		}
 
 		public bool HasDoneQuest(MLQuest quest)
@@ -196,12 +196,12 @@ namespace Server.Engines.MLQuests
 		{
 			MLQuest quest = MLQuestSystem.FindQuest(questType);
 
-			return (quest != null && IsDoingQuest(quest));
+			return quest != null && IsDoingQuest(quest);
 		}
 
 		public bool IsDoingQuest(MLQuest quest)
 		{
-			return (FindInstance(quest) != null);
+			return FindInstance(quest) != null;
 		}
 
 		public void Serialize(GenericWriter writer)
@@ -269,7 +269,7 @@ namespace Server.Engines.MLQuests
 
 		public bool GetFlag(MLQuestFlag flag)
 		{
-			return ((m_Flags & flag) != 0);
+			return (m_Flags & flag) != 0;
 		}
 
 		public void SetFlag(MLQuestFlag flag, bool value)

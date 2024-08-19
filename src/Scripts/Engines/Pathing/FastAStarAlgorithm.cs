@@ -123,7 +123,6 @@ namespace Server.PathAlgorithms.FastAStar
 			m_OnOpen[m_OpenList] = true;
 			m_Touched[m_OpenList] = true;
 
-			BaseCreature bc = m as BaseCreature;
 
 			int pathCount, parent;
 			int backtrack = 0, depth = 0;
@@ -137,7 +136,7 @@ namespace Server.PathAlgorithms.FastAStar
 				if (++depth > MaxDepth)
 					break;
 
-				if (bc != null)
+				if (m is BaseCreature bc)
 				{
 					MoveImpl.AlwaysIgnoreDoors = bc.CanOpenDoors;
 					MoveImpl.IgnoreMovableImpassables = bc.CanMoveOverObstacles;
@@ -164,7 +163,7 @@ namespace Server.PathAlgorithms.FastAStar
 					if (!wasTouched)
 					{
 						int newCost = m_Nodes[bestNode].cost + 1;
-						int newTotal = newCost + Heuristic(newNode % AreaSize, (newNode / AreaSize) % AreaSize, m_Nodes[newNode].z);
+						int newTotal = newCost + Heuristic(newNode % AreaSize, newNode / AreaSize % AreaSize, m_Nodes[newNode].z);
 
 						if (!wasTouched || m_Nodes[newNode].total > newTotal)
 						{
@@ -183,7 +182,7 @@ namespace Server.PathAlgorithms.FastAStar
 
 									while (parent != -1)
 									{
-										path[pathCount++] = GetDirection(parent % AreaSize, (parent / AreaSize) % AreaSize, newNode % AreaSize, (newNode / AreaSize) % AreaSize);
+										path[pathCount++] = GetDirection(parent % AreaSize, parent / AreaSize % AreaSize, newNode % AreaSize, newNode / AreaSize % AreaSize);
 										newNode = parent;
 										parent = m_Nodes[newNode].parent;
 
@@ -244,7 +243,7 @@ namespace Server.PathAlgorithms.FastAStar
 		public int GetSuccessors(int p, Mobile m, Map map)
 		{
 			int px = p % AreaSize;
-			int py = (p / AreaSize) % AreaSize;
+			int py = p / AreaSize % AreaSize;
 			int pz = m_Nodes[p].z;
 			int x, y;
 

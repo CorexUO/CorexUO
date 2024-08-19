@@ -147,8 +147,8 @@ namespace Server.Engines.ConPVP
 				MoveToWorld(mob.Location, mob.Map);
 			else if (killer != null && !killer.Deleted)
 				MoveToWorld(killer.Location, killer.Map);
-			else if (m_Game != null)
-				m_Game.ReturnBomb();
+			else
+				m_Game?.ReturnBomb();
 		}
 
 		public override bool OnMoveOver(Mobile m)
@@ -188,8 +188,7 @@ namespace Server.Engines.ConPVP
 		{
 			base.OnAfterDelete();
 
-			if (m_Timer != null)
-				m_Timer.Stop();
+			m_Timer?.Stop();
 		}
 
 		public override void OnDoubleClick(Mobile m)
@@ -454,13 +453,13 @@ namespace Server.Engines.ConPVP
 			{
 				int count = list.Count;
 				double height = count * 2 * (Utility.RandomDouble() * 0.40 + 0.10); // 10 - 50%
-				double coeff = (-height / ((count * count) / 4.0));
+				double coeff = -height / (count * count / 4.0);
 
 				for (int i = 0; i < count; i++)
 				{
-					p = ((Point3D)list[i]);
+					p = (Point3D)list[i];
 
-					int xp = (i - (count / 2));
+					int xp = i - (count / 2);
 
 					p.Z += (int)Math.Ceiling(coeff * xp * xp + height);
 
@@ -555,7 +554,7 @@ namespace Server.Engines.ConPVP
 					}
 				}
 
-				Rectangle2D rect = new(pTop.X, pTop.Y, (pBottom.X - pTop.X) + 1, (pBottom.Y - pTop.Y) + 1);
+				Rectangle2D rect = new(pTop.X, pTop.Y, pBottom.X - pTop.X + 1, pBottom.Y - pTop.Y + 1);
 
 				IPooledEnumerable area = Map.GetItemsInBounds(rect);
 				foreach (Item i in area)
@@ -932,9 +931,8 @@ namespace Server.Engines.ConPVP
 			else
 				Hue = 0x84C;
 
-			BRBomb b = m.Backpack.FindItemByType(typeof(BRBomb), true) as BRBomb;
 
-			if (b != null)
+			if (m.Backpack.FindItemByType(typeof(BRBomb), true) is BRBomb b)
 				b.CheckScore(this, m, 7);
 
 			return true;
@@ -1180,7 +1178,7 @@ namespace Server.Engines.ConPVP
 			get => m_Kills;
 			set
 			{
-				m_TeamInfo.Kills += (value - m_Kills);
+				m_TeamInfo.Kills += value - m_Kills;
 				m_Kills = value;
 			}
 		}
@@ -1190,7 +1188,7 @@ namespace Server.Engines.ConPVP
 			get => m_Captures;
 			set
 			{
-				m_TeamInfo.Captures += (value - m_Captures);
+				m_TeamInfo.Captures += value - m_Captures;
 				m_Captures = value;
 			}
 		}
@@ -1200,7 +1198,7 @@ namespace Server.Engines.ConPVP
 			get => m_Score;
 			set
 			{
-				m_TeamInfo.Score += (value - m_Score);
+				m_TeamInfo.Score += value - m_Score;
 				m_Score = value;
 
 				if (m_TeamInfo.Leader == null || m_Score > m_TeamInfo.Leader.Score)
@@ -1258,9 +1256,8 @@ namespace Server.Engines.ConPVP
 				if (mob == null)
 					return null;
 
-				BRPlayerInfo val = Players[mob] as BRPlayerInfo;
 
-				if (val == null)
+				if (Players[mob] is not BRPlayerInfo val)
 					Players[mob] = val = new BRPlayerInfo(this, mob);
 
 				return val;
@@ -1476,8 +1473,7 @@ namespace Server.Engines.ConPVP
 		{
 			if (m_Bomb != null && Controller != null)
 			{
-				if (m_UnhideCallback == null)
-					m_UnhideCallback = new TimerCallback(UnhideBomb);
+				m_UnhideCallback ??= new TimerCallback(UnhideBomb);
 				m_Bomb.Visible = false;
 				m_Bomb.MoveToWorld(Controller.BombHome, Controller.Map);
 				Timer.DelayCall(TimeSpan.FromSeconds(Utility.RandomMinMax(5, 15)), m_UnhideCallback);
@@ -1497,8 +1493,7 @@ namespace Server.Engines.ConPVP
 
 		public void Alert(string text)
 		{
-			if (m_Context.m_Tournament != null)
-				m_Context.m_Tournament.Alert(text);
+			m_Context.m_Tournament?.Alert(text);
 
 			for (int i = 0; i < m_Context.Participants.Count; ++i)
 			{
@@ -1506,8 +1501,7 @@ namespace Server.Engines.ConPVP
 
 				for (int j = 0; j < p.Players.Length; ++j)
 				{
-					if (p.Players[j] != null)
-						p.Players[j].Mobile.SendMessage(0x35, text);
+					p.Players[j]?.Mobile.SendMessage(0x35, text);
 				}
 			}
 		}
@@ -1545,9 +1539,7 @@ namespace Server.Engines.ConPVP
 
 		public int GetTeamID(Mobile mob)
 		{
-			PlayerMobile pm = mob as PlayerMobile;
-
-			if (pm == null)
+			if (mob is not PlayerMobile pm)
 			{
 				if (mob is BaseCreature)
 					return ((BaseCreature)mob).Team - 1;
@@ -1623,7 +1615,7 @@ namespace Server.Engines.ConPVP
 			for (int i = 0; i < bombs.Length; ++i)
 				(bombs[i] as BRBomb).DropTo(mob, killer);
 
-			hadBomb = (hadBomb || bombs.Length > 0);
+			hadBomb = hadBomb || bombs.Length > 0;
 
 			if (mob.Backpack != null)
 			{
@@ -1632,7 +1624,7 @@ namespace Server.Engines.ConPVP
 				for (int i = 0; i < bombs.Length; ++i)
 					(bombs[i] as BRBomb).DropTo(mob, killer);
 
-				hadBomb = (hadBomb || bombs.Length > 0);
+				hadBomb = hadBomb || bombs.Length > 0;
 			}
 
 			if (killer != null && killer.Player)
@@ -1679,8 +1671,7 @@ namespace Server.Engines.ConPVP
 			for (int i = 0; i < m_Context.Participants.Count; ++i)
 				ApplyHues(m_Context.Participants[i] as Participant, Controller.TeamInfo[i % Controller.TeamInfo.Length].Color);
 
-			if (m_FinishTimer != null)
-				m_FinishTimer.Stop();
+			m_FinishTimer?.Stop();
 
 			m_Bomb = new BRBomb(this);
 			ReturnBomb();
@@ -1818,9 +1809,7 @@ namespace Server.Engines.ConPVP
 
 			for (int i = 0; i < m_Context.Participants.Count; ++i)
 			{
-				Participant p = m_Context.Participants[i] as Participant;
-
-				if (p == null || p.Players == null)
+				if (m_Context.Participants[i] is not Participant p || p.Players == null)
 					continue;
 
 				for (int j = 0; j < p.Players.Length; ++j)
@@ -1864,14 +1853,12 @@ namespace Server.Engines.ConPVP
 
 			ReturnBomb();
 
-			if (m_Bomb != null)
-				m_Bomb.Delete();
+			m_Bomb?.Delete();
 
 			for (int i = 0; i < m_Context.Participants.Count; ++i)
 				ApplyHues(m_Context.Participants[i] as Participant, -1);
 
-			if (m_FinishTimer != null)
-				m_FinishTimer.Stop();
+			m_FinishTimer?.Stop();
 
 			m_FinishTimer = null;
 		}

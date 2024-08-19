@@ -26,8 +26,7 @@ namespace Server.Items
 
 		public virtual void Expire(Mobile parent)
 		{
-			if (parent != null)
-				parent.SendLocalizedMessage(1072515, Name ?? string.Format("#{0}", LabelNumber)); // The ~1_name~ expired...
+			parent?.SendLocalizedMessage(1072515, Name ?? string.Format("#{0}", LabelNumber)); // The ~1_name~ expired...
 
 			Effects.PlaySound(GetWorldLocation(), Map, 0x201);
 
@@ -41,8 +40,7 @@ namespace Server.Items
 
 		public override void OnDelete()
 		{
-			if (m_Timer != null)
-				m_Timer.Stop();
+			m_Timer?.Stop();
 
 			base.OnDelete();
 		}
@@ -74,7 +72,7 @@ namespace Server.Items
 		{
 			base.GetProperties(list);
 
-			TimeSpan remaining = ((CreationTime + LifeSpan) - DateTime.UtcNow);
+			TimeSpan remaining = CreationTime + LifeSpan - DateTime.UtcNow;
 
 			list.Add(1072517, ((int)remaining.TotalSeconds).ToString()); // Lifespan: ~1_val~ seconds
 		}

@@ -21,7 +21,7 @@ namespace Server.Items
 		private Point3D m_TargetLocation;
 
 		[CommandProperty(AccessLevel.GameMaster)]
-		public bool IsAncient => (m_Level >= 4);
+		public bool IsAncient => m_Level >= 4;
 
 		[CommandProperty(AccessLevel.GameMaster)]
 		public int Level
@@ -202,7 +202,7 @@ namespace Server.Items
 			bool water = false;
 
 			for (int i = 0; !water && i < m_WaterTiles.Length; i += 2)
-				water = (tileID >= m_WaterTiles[i] && tileID <= m_WaterTiles[i + 1]);
+				water = tileID >= m_WaterTiles[i] && tileID <= m_WaterTiles[i + 1];
 
 			return water;
 		}

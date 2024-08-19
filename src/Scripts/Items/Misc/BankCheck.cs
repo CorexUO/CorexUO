@@ -135,10 +135,7 @@ namespace Server.Items
 					tradeInfo.Gold += gold;
 				}
 
-				if (tradeInfo.VirtualCheck != null)
-				{
-					tradeInfo.VirtualCheck.UpdateTrade(tradeInfo.Mobile);
-				}
+				tradeInfo.VirtualCheck?.UpdateTrade(tradeInfo.Mobile);
 			}
 
 			owner.SendLocalizedMessage(1042763, Worth.ToString("#,0"));
@@ -233,9 +230,8 @@ namespace Server.Items
 			// Gold was deposited in your account:
 			from.SendLocalizedMessage(1042672, true, deposited.ToString("#,0"));
 
-			PlayerMobile pm = from as PlayerMobile;
 
-			if (pm != null)
+			if (from is PlayerMobile pm)
 			{
 				Engines.Quests.QuestSystem qs = pm.Quest;
 

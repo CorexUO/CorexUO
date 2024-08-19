@@ -28,7 +28,7 @@ namespace Server.Mobiles
 			SetDex(150);
 			SetInt(100);
 
-			SetHits((Core.SE) ? 160 : 80);
+			SetHits(Core.SE ? 160 : 80);
 			SetStam(250);
 			SetMana(0);
 
@@ -52,7 +52,7 @@ namespace Server.Mobiles
 			Karma = 0;
 
 			VirtualArmor = 40;
-			ControlSlots = (Core.SE) ? 2 : 1;
+			ControlSlots = Core.SE ? 2 : 1;
 		}
 
 		public override bool BleedImmune => true;
@@ -91,7 +91,7 @@ namespace Server.Mobiles
 				while (spirtsOrVortexes.Count > 6)
 				{
 					int index = Utility.Random(spirtsOrVortexes.Count);
-					Dispel(((Mobile)spirtsOrVortexes[index]));
+					Dispel((Mobile)spirtsOrVortexes[index]);
 					spirtsOrVortexes.RemoveAt(index);
 				}
 			}

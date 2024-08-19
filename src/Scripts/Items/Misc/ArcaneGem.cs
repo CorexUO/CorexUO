@@ -169,10 +169,8 @@ namespace Server.Items
 			{
 				Item obj = items[i];
 
-				if (obj is IArcaneEquip)
+				if (obj is IArcaneEquip eq)
 				{
-					IArcaneEquip eq = (IArcaneEquip)obj;
-
 					if (eq.IsArcane)
 						avail += eq.CurArcaneCharges;
 				}
@@ -185,10 +183,8 @@ namespace Server.Items
 			{
 				Item obj = items[i];
 
-				if (obj is IArcaneEquip)
+				if (obj is IArcaneEquip eq)
 				{
-					IArcaneEquip eq = (IArcaneEquip)obj;
-
 					if (eq.IsArcane)
 					{
 						if (eq.CurArcaneCharges > amount)

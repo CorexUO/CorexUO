@@ -79,9 +79,7 @@ namespace Server.Engines.Reports
 		{
 			for (int j = 0; j < ss.Children.Count; ++j)
 			{
-				Report report = ss.Children[j] as Report;
-
-				if (report == null || report.Name != reportName)
+				if (ss.Children[j] is not Report report || report.Name != reportName)
 					continue;
 
 				for (int k = 0; k < report.Items.Count; ++k)

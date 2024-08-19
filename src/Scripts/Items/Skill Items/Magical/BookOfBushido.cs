@@ -14,7 +14,7 @@ namespace Server.Items
 		[Constructable]
 		public BookOfBushido(ulong content) : base(content, 0x238C)
 		{
-			Layer = (Core.ML ? Layer.OneHanded : Layer.Invalid);
+			Layer = Core.ML ? Layer.OneHanded : Layer.Invalid;
 		}
 
 		public BookOfBushido(Serial serial) : base(serial)

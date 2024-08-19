@@ -164,12 +164,12 @@ namespace Server.Spells.Fourth
 
 		private static bool IsInnocentTo(Mobile from, Mobile to)
 		{
-			return (Notoriety.Compute(from, to) == Notoriety.Innocent);
+			return Notoriety.Compute(from, to) == Notoriety.Innocent;
 		}
 
 		private static bool IsAllyTo(Mobile from, Mobile to)
 		{
-			return (Notoriety.Compute(from, to) == Notoriety.Ally);
+			return Notoriety.Compute(from, to) == Notoriety.Ally;
 		}
 
 		private class InternalTarget : Target
@@ -183,9 +183,7 @@ namespace Server.Spells.Fourth
 
 			protected override void OnTarget(Mobile from, object o)
 			{
-				IPoint3D p = o as IPoint3D;
-
-				if (p != null)
+				if (o is IPoint3D p)
 					m_Owner.Target(p);
 			}
 

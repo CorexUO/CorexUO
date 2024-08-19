@@ -185,7 +185,7 @@ namespace Server.Commands
 
 			ConstructorInfo ctor = type.GetConstructor(Type.EmptyTypes);
 
-			return (ctor != null && ctor.IsDefined(typeofConstructable, false));
+			return ctor != null && ctor.IsDefined(typeofConstructable, false);
 		}
 
 		private static void AddTypes(Assembly asm, ArrayList types)
@@ -312,7 +312,7 @@ namespace Server.Commands
 			bool isMatch = false;
 
 			for (int i = 0; !isMatch && i < Matches.Length; ++i)
-				isMatch = (type == Matches[i] || type.IsSubclassOf(Matches[i]));
+				isMatch = type == Matches[i] || type.IsSubclassOf(Matches[i]);
 
 			return isMatch;
 		}

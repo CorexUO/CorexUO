@@ -38,7 +38,7 @@ namespace Server.Mobiles
 			SetDex(200);
 			SetInt(100);
 
-			SetHits((Core.SE) ? 140 : 70);
+			SetHits(Core.SE ? 140 : 70);
 			SetStam(250);
 			SetMana(0);
 
@@ -61,7 +61,7 @@ namespace Server.Mobiles
 			Karma = 0;
 
 			VirtualArmor = 40;
-			ControlSlots = (Core.SE) ? 2 : 1;
+			ControlSlots = Core.SE ? 2 : 1;
 		}
 
 		public override bool BleedImmune => true;
@@ -96,7 +96,7 @@ namespace Server.Mobiles
 				{
 					int index = Utility.Random(spirtsOrVortexes.Count);
 					//TODO: Confirm if it's the dispel with all the pretty effects or just a deletion of it.
-					Dispel(((Mobile)spirtsOrVortexes[index]));
+					Dispel((Mobile)spirtsOrVortexes[index]);
 					spirtsOrVortexes.RemoveAt(index);
 				}
 			}

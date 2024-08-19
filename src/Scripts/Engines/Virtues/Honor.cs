@@ -34,8 +34,7 @@ namespace Server
 
 			protected override void OnTarget(Mobile from, object targeted)
 			{
-				PlayerMobile pm = from as PlayerMobile;
-				if (pm == null)
+				if (from is not PlayerMobile pm)
 					return;
 
 				if (targeted == pm)
@@ -120,11 +119,10 @@ namespace Server
 
 		private static void Honor(PlayerMobile source, Mobile target)
 		{
-			IHonorTarget honorTarget = target as IHonorTarget;
 			GuardedRegion reg = (GuardedRegion)source.Region.GetRegion(typeof(GuardedRegion));
 			Map map = source.Map;
 
-			if (honorTarget == null)
+			if (target is not IHonorTarget honorTarget)
 				return;
 
 			if (honorTarget.ReceivedHonorContext != null)
@@ -170,8 +168,7 @@ namespace Server
 				return;
 			}
 
-			if (source.SentHonorContext != null)
-				source.SentHonorContext.Cancel();
+			source.SentHonorContext?.Cancel();
 
 			new HonorContext(source, target);
 
@@ -226,7 +223,7 @@ namespace Server
 
 			m_Timer = new InternalTimer(this);
 			m_Timer.Start();
-			source.m_hontime = (DateTime.UtcNow + TimeSpan.FromMinutes(40));
+			source.m_hontime = DateTime.UtcNow + TimeSpan.FromMinutes(40);
 
 			Timer.DelayCall(TimeSpan.FromMinutes(40),
 				delegate ()
@@ -360,7 +357,7 @@ namespace Server
 			if (Source.Virtues.Honor > targetFame)
 				return;
 
-			double dGain = (targetFame / 100) * (m_HonorDamage / m_TotalDamage);    //Initial honor gain is 100th of the monsters honor
+			double dGain = targetFame / 100 * (m_HonorDamage / m_TotalDamage);    //Initial honor gain is 100th of the monsters honor
 
 			if (m_HonorDamage == m_TotalDamage && m_FirstHit == FirstHit.Granted)
 				dGain = dGain * 1.5;                            //honor gain is increased alot more if the combat was fully honorable
@@ -390,7 +387,7 @@ namespace Server
 
 		public int PerfectionDamageBonus { get; private set; }
 
-		public int PerfectionLuckBonus => (PerfectionDamageBonus * PerfectionDamageBonus) / 10;
+		public int PerfectionLuckBonus => PerfectionDamageBonus * PerfectionDamageBonus / 10;
 
 		public bool CheckDistance()
 		{

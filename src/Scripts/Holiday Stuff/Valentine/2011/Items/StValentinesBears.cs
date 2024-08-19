@@ -53,9 +53,9 @@ namespace Server.Items
 		[CommandProperty(AccessLevel.GameMaster)]
 		public DateTime EditLimit { get; set; }
 
-		public bool IsSigned => (m_Line1 != null || m_Line2 != null || m_Line3 != null);
+		public bool IsSigned => m_Line1 != null || m_Line2 != null || m_Line3 != null;
 
-		public bool CanSign => (!IsSigned || DateTime.UtcNow <= EditLimit);
+		public bool CanSign => !IsSigned || DateTime.UtcNow <= EditLimit;
 
 		public StValentinesBear(int itemid, string name)
 			: base(itemid)
@@ -210,7 +210,7 @@ namespace Server.Items
 			{
 				TextRelay tr = info.GetTextEntry(idx);
 
-				return (tr == null) ? null : tr.Text;
+				return tr?.Text;
 			}
 		}
 	}

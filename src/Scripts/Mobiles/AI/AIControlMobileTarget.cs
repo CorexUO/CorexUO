@@ -10,7 +10,7 @@ namespace Server.Targets
 
 		public OrderType Order { get; }
 
-		public AIControlMobileTarget(BaseAI ai, OrderType order) : base(-1, false, (order == OrderType.Attack ? TargetFlags.Harmful : TargetFlags.None))
+		public AIControlMobileTarget(BaseAI ai, OrderType order) : base(-1, false, order == OrderType.Attack ? TargetFlags.Harmful : TargetFlags.None)
 		{
 			m_List = new List<BaseAI>();
 			Order = order;

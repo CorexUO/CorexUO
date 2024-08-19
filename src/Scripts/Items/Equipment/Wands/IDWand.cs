@@ -39,7 +39,7 @@ namespace Server.Items
 			if (!Core.AOS && o is Item)
 				((Item)o).OnSingleClick(from);
 
-			return (o is Item);
+			return o is Item;
 		}
 	}
 }

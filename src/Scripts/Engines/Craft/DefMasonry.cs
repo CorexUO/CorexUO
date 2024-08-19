@@ -16,8 +16,7 @@ namespace Server.Engines.Craft
 		{
 			get
 			{
-				if (m_CraftSystem == null)
-					m_CraftSystem = new DefMasonry();
+				m_CraftSystem ??= new DefMasonry();
 
 				return m_CraftSystem;
 			}

@@ -54,8 +54,7 @@ namespace Server.Engines.MLQuests.Gumps
 			{
 				case 0: // Cancel
 					{
-						if (m_Owner != null)
-							m_Owner.OnCancel(m_From);
+						m_Owner?.OnCancel(m_From);
 
 						break;
 					}
@@ -97,7 +96,7 @@ namespace Server.Engines.MLQuests.Gumps
 
 		public static bool IsPending(NetState state)
 		{
-			return (state != null && m_Pending.ContainsKey(state));
+			return state != null && m_Pending.ContainsKey(state);
 		}
 
 		private static void Offer(IRaceChanger owner, PlayerMobile from, Race targetRace)
@@ -187,15 +186,13 @@ namespace Server.Engines.MLQuests.Gumps
 
 		private static void RaceChangeReply(NetState state, PacketReader pvSrc)
 		{
-
 			if (!m_Pending.TryGetValue(state, out RaceChangeState raceChangeState))
 				return;
 
 			CloseCurrent(state);
 
-			PlayerMobile pm = state.Mobile as PlayerMobile;
 
-			if (pm == null)
+			if (state.Mobile is not PlayerMobile pm)
 				return;
 
 			IRaceChanger owner = raceChangeState.m_Owner;
@@ -203,8 +200,7 @@ namespace Server.Engines.MLQuests.Gumps
 
 			if (pvSrc.Size == 5)
 			{
-				if (owner != null)
-					owner.OnCancel(pm);
+				owner?.OnCancel(pm);
 
 				return;
 			}
@@ -248,8 +244,7 @@ namespace Server.Engines.MLQuests.Gumps
 			else
 				pm.SendMessage("You have fully changed your race to {0}.", targetRace.Name);
 
-			if (owner != null)
-				owner.ConsumeNeeded(pm);
+			owner?.ConsumeNeeded(pm);
 		}
 	}
 
@@ -319,9 +314,7 @@ namespace Server.Engines.MLQuests.Gumps
 
 		public override void OnDoubleClick(Mobile from)
 		{
-			PlayerMobile pm = from as PlayerMobile;
-
-			if (pm == null)
+			if (from is not PlayerMobile pm)
 				return;
 
 			if (CheckComplete(pm))

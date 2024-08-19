@@ -53,8 +53,7 @@ namespace Server.Mobiles
 			Items.Clear();
 			Gold = 0;
 
-			if (House != null)
-				House.VendorInventories.Remove(this);
+			House?.VendorInventories.Remove(this);
 
 			m_ExpireTimer.Stop();
 		}
@@ -119,8 +118,7 @@ namespace Server.Mobiles
 				{
 					if (m_Inventory.Gold > 0)
 					{
-						if (house.MovingCrate == null)
-							house.MovingCrate = new MovingCrate(house);
+						house.MovingCrate ??= new MovingCrate(house);
 
 						Banker.Deposit(house.MovingCrate, m_Inventory.Gold);
 					}

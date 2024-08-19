@@ -114,9 +114,8 @@ namespace Server.Items
 			if (Deleted || InUse)
 				return;
 
-			IPoint3D p3D = obj as IPoint3D;
 
-			if (p3D == null)
+			if (obj is not IPoint3D p3D)
 				return;
 
 			Map map = from.Map;
@@ -320,7 +319,7 @@ namespace Server.Items
 			bool water = false;
 
 			for (int i = 0; !water && i < m_WaterTiles.Length; i += 2)
-				water = (tileID >= m_WaterTiles[i] && tileID <= m_WaterTiles[i + 1]);
+				water = tileID >= m_WaterTiles[i] && tileID <= m_WaterTiles[i + 1];
 
 			return water;
 		}

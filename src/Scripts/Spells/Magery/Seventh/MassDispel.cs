@@ -69,12 +69,11 @@ namespace Server.Spells.Seventh
 				{
 					Mobile m = targets[i];
 
-					BaseCreature bc = m as BaseCreature;
 
-					if (bc == null)
+					if (m is not BaseCreature bc)
 						continue;
 
-					double dispelChance = (50.0 + ((100 * (Caster.Skills.Magery.Value - bc.DispelDifficulty)) / (bc.DispelFocus * 2))) / 100;
+					double dispelChance = (50.0 + (100 * (Caster.Skills.Magery.Value - bc.DispelDifficulty) / (bc.DispelFocus * 2))) / 100;
 
 					if (dispelChance > Utility.RandomDouble())
 					{
@@ -106,9 +105,7 @@ namespace Server.Spells.Seventh
 
 			protected override void OnTarget(Mobile from, object o)
 			{
-				IPoint3D p = o as IPoint3D;
-
-				if (p != null)
+				if (o is IPoint3D p)
 					m_Owner.Target(p);
 			}
 

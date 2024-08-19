@@ -50,7 +50,7 @@ namespace Server.Accounting
 					{
 						if (!AccountGold.Enabled)
 						{
-							share = (int)Math.Truncate((a.TotalCurrency / a.Count) * CurrencyThreshold);
+							share = (int)Math.Truncate(a.TotalCurrency / a.Count * CurrencyThreshold);
 							found += a.TotalCurrency * CurrencyThreshold;
 						}
 
@@ -205,7 +205,7 @@ namespace Server.Accounting
 		/// </summary>
 		public List<AccountComment> Comments
 		{
-			get { if (m_Comments == null) m_Comments = new List<AccountComment>(); return m_Comments; }
+			get { m_Comments ??= new List<AccountComment>(); return m_Comments; }
 		}
 
 		/// <summary>
@@ -213,7 +213,7 @@ namespace Server.Accounting
 		/// </summary>
 		public List<AccountTag> Tags
 		{
-			get { if (m_Tags == null) m_Tags = new List<AccountTag>(); return m_Tags; }
+			get { m_Tags ??= new List<AccountTag>(); return m_Tags; }
 		}
 
 		/// <summary>
@@ -322,7 +322,7 @@ namespace Server.Accounting
 
 				TimeSpan inactiveLength = DateTime.UtcNow - LastLogin;
 
-				return (inactiveLength > ((Count == 0) ? EmptyInactiveDuration : InactiveDuration));
+				return inactiveLength > ((Count == 0) ? EmptyInactiveDuration : InactiveDuration);
 			}
 		}
 
@@ -361,7 +361,7 @@ namespace Server.Accounting
 		public void SetFlag(int index, bool value)
 		{
 			if (value)
-				Flags |= (1 << index);
+				Flags |= 1 << index;
 			else
 				Flags &= ~(1 << index);
 		}
@@ -478,7 +478,7 @@ namespace Server.Accounting
 				banDuration = TimeSpan.Zero;
 			}
 
-			return (banTime != DateTime.MinValue && banDuration != TimeSpan.Zero);
+			return banTime != DateTime.MinValue && banDuration != TimeSpan.Zero;
 		}
 
 		private static MD5 m_MD5HashProvider;
@@ -487,11 +487,9 @@ namespace Server.Accounting
 
 		public static string HashMD5(string phrase)
 		{
-			if (m_MD5HashProvider == null)
-				m_MD5HashProvider = MD5.Create();
+			m_MD5HashProvider ??= MD5.Create();
 
-			if (m_HashBuffer == null)
-				m_HashBuffer = new byte[256];
+			m_HashBuffer ??= new byte[256];
 
 			int length = Encoding.ASCII.GetBytes(phrase, 0, phrase.Length > 256 ? 256 : phrase.Length, m_HashBuffer, 0);
 			byte[] hashed = m_MD5HashProvider.ComputeHash(m_HashBuffer, 0, length);
@@ -501,11 +499,9 @@ namespace Server.Accounting
 
 		public static string HashSHA1(string phrase)
 		{
-			if (m_SHA1HashProvider == null)
-				m_SHA1HashProvider = SHA1.Create();
+			m_SHA1HashProvider ??= SHA1.Create();
 
-			if (m_HashBuffer == null)
-				m_HashBuffer = new byte[256];
+			m_HashBuffer ??= new byte[256];
 
 			int length = Encoding.ASCII.GetBytes(phrase, 0, phrase.Length > 256 ? 256 : phrase.Length, m_HashBuffer, 0);
 			byte[] hashed = m_SHA1HashProvider.ComputeHash(m_HashBuffer, 0, length);
@@ -551,17 +547,17 @@ namespace Server.Accounting
 
 			if (PlainPassword != null)
 			{
-				ok = (PlainPassword == plainPassword);
+				ok = PlainPassword == plainPassword;
 				curProt = PasswordProtection.None;
 			}
 			else if (CryptPassword != null)
 			{
-				ok = (CryptPassword == HashMD5(plainPassword));
+				ok = CryptPassword == HashMD5(plainPassword);
 				curProt = PasswordProtection.Crypt;
 			}
 			else
 			{
-				ok = (NewCryptPassword == HashSHA1(Username + plainPassword));
+				ok = NewCryptPassword == HashSHA1(Username + plainPassword);
 				curProt = PasswordProtection.NewCrypt;
 			}
 
@@ -946,7 +942,7 @@ namespace Server.Accounting
 		/// <returns>True if allowed, false if not.</returns>
 		public bool HasAccess(NetState ns)
 		{
-			return (ns != null && HasAccess(ns.Address));
+			return ns != null && HasAccess(ns.Address);
 		}
 
 		public bool HasAccess(IPAddress ipAddress)
@@ -976,7 +972,7 @@ namespace Server.Accounting
 					return false;
 			}
 
-			bool accessAllowed = (IPRestrictions.Length == 0 || IPLimiter.IsExempt(ipAddress));
+			bool accessAllowed = IPRestrictions.Length == 0 || IPLimiter.IsExempt(ipAddress);
 
 			for (int i = 0; !accessAllowed && i < IPRestrictions.Length; ++i)
 				accessAllowed = Utility.IPMatch(IPRestrictions[i], ipAddress);
@@ -1033,7 +1029,7 @@ namespace Server.Accounting
 		/// <returns>True if allowed, false if not.</returns>
 		public bool CheckAccess(NetState ns)
 		{
-			return (ns != null && CheckAccess(ns.Address));
+			return ns != null && CheckAccess(ns.Address);
 		}
 
 		public bool CheckAccess(IPAddress ipAddress)
@@ -1205,7 +1201,7 @@ namespace Server.Accounting
 		/// <summary>
 		/// Gets the maximum amount of characters allowed to be created on this account. Values other than 1, 5, 6, or 7 are not supported by the client.
 		/// </summary>
-		public int Limit => (Core.SA ? 7 : Core.AOS ? 6 : 5);
+		public int Limit => Core.SA ? 7 : Core.AOS ? 6 : 5;
 
 		/// <summary>
 		/// Gets the maxmimum amount of characters that this account can hold.

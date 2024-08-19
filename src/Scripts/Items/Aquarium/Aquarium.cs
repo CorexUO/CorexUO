@@ -22,10 +22,8 @@ namespace Server.Items
 
 				for (int i = 0; i < Items.Count; i++)
 				{
-					if (Items[i] is BaseFish)
+					if (Items[i] is BaseFish fish)
 					{
-						BaseFish fish = (BaseFish)Items[i];
-
 						if (fish.Dead)
 							dead += 1;
 					}
@@ -51,7 +49,7 @@ namespace Server.Items
 		}
 
 		[CommandProperty(AccessLevel.GameMaster)]
-		public bool IsFull => (Items.Count >= MaxItems);
+		public bool IsFull => Items.Count >= MaxItems;
 
 		// vacation info
 		private int m_VacationLeft;
@@ -82,7 +80,7 @@ namespace Server.Items
 		}
 
 		[CommandProperty(AccessLevel.GameMaster)]
-		public bool OptimalState => (m_Food.State == (int)FoodState.Full && m_Water.State == (int)WaterState.Strong);
+		public bool OptimalState => m_Food.State == (int)FoodState.Full && m_Water.State == (int)WaterState.Strong;
 
 		private bool m_RewardAvailable;
 		private bool m_EvaluateDay;
@@ -167,7 +165,7 @@ namespace Server.Items
 
 			BaseHouse house = BaseHouse.FindHouseAt(this);
 
-			return (house != null && house.IsCoOwner(from));
+			return house != null && house.IsCoOwner(from);
 		}
 
 		public override bool OnDragDrop(Mobile from, Item dropped)
@@ -186,10 +184,8 @@ namespace Server.Items
 
 			bool takeItem = true;
 
-			if (dropped is FishBowl)
+			if (dropped is FishBowl bowl)
 			{
-				FishBowl bowl = (FishBowl)dropped;
-
 				if (bowl.Empty || !AddFish(from, bowl.Fish))
 					return false;
 
@@ -197,10 +193,8 @@ namespace Server.Items
 
 				takeItem = false;
 			}
-			else if (dropped is BaseFish)
+			else if (dropped is BaseFish fish)
 			{
-				BaseFish fish = (BaseFish)dropped;
-
 				if (!AddFish(from, fish))
 					return false;
 			}
@@ -218,10 +212,8 @@ namespace Server.Items
 
 				from.SendLocalizedMessage(1074259, "1"); // ~1_NUM~ unit(s) of food have been added to the aquarium.
 			}
-			else if (dropped is BaseBeverage)
+			else if (dropped is BaseBeverage beverage)
 			{
-				BaseBeverage beverage = (BaseBeverage)dropped;
-
 				if (beverage.IsEmpty || !beverage.Pourable || beverage.Content != BeverageType.Water)
 				{
 					from.SendLocalizedMessage(500840); // Can't pour that in there.
@@ -261,10 +253,8 @@ namespace Server.Items
 
 				item.MoveToWorld(loc, Map);
 
-				if (item is BaseFish)
+				if (item is BaseFish fish)
 				{
-					BaseFish fish = (BaseFish)item;
-
 					if (!fish.Dead)
 						fish.StartTimer();
 				}
@@ -532,10 +522,8 @@ namespace Server.Items
 
 			for (int i = 0; i < Items.Count; i++)
 			{
-				if (Items[i] is BaseFish)
+				if (Items[i] is BaseFish fish)
 				{
-					BaseFish fish = (BaseFish)Items[i];
-
 					if (!fish.Dead)
 						toKill.Add(fish);
 				}
@@ -680,7 +668,7 @@ namespace Server.Items
 			if (!m_RewardAvailable)
 				return;
 
-			int max = (int)(((double)LiveCreatures / 30) * m_Decorations.Length);
+			int max = (int)((double)LiveCreatures / 30 * m_Decorations.Length);
 
 			int random = (max <= 0) ? 0 : Utility.Random(max);
 
@@ -763,10 +751,8 @@ namespace Server.Items
 				return false;
 			}
 
-			if (item is BaseFish)
+			if (item is BaseFish fish)
 			{
-				BaseFish fish = (BaseFish)item;
-
 				FishBowl bowl;
 
 				if ((bowl = GetEmptyBowl(from)) != null)
@@ -834,8 +820,7 @@ namespace Server.Items
 
 			if (IsFull || LiveCreatures >= MaxLiveCreatures || fish.Dead)
 			{
-				if (from != null)
-					from.SendLocalizedMessage(1073633); // The aquarium can not hold the creature.
+				from?.SendLocalizedMessage(1073633); // The aquarium can not hold the creature.
 
 				return false;
 			}
@@ -845,8 +830,7 @@ namespace Server.Items
 
 			LiveCreatures += 1;
 
-			if (from != null)
-				from.SendLocalizedMessage(1073632, string.Format("#{0}", fish.LabelNumber)); // You add the following creature to your aquarium: ~1_FISH~
+			from?.SendLocalizedMessage(1073632, string.Format("#{0}", fish.LabelNumber)); // You add the following creature to your aquarium: ~1_FISH~
 
 			InvalidateProperties();
 			return true;
@@ -864,24 +848,21 @@ namespace Server.Items
 
 			if (IsFull)
 			{
-				if (from != null)
-					from.SendLocalizedMessage(1073636); // The decoration will not fit in the aquarium.
+				from?.SendLocalizedMessage(1073636); // The decoration will not fit in the aquarium.
 
 				return false;
 			}
 
 			if (!Accepts(item))
 			{
-				if (from != null)
-					from.SendLocalizedMessage(1073822); // The aquarium can not hold that item.
+				from?.SendLocalizedMessage(1073822); // The aquarium can not hold that item.
 
 				return false;
 			}
 
 			AddItem(item);
 
-			if (from != null)
-				from.SendLocalizedMessage(1073635, (item.LabelNumber != 0) ? string.Format("#{0}", item.LabelNumber) : item.Name); // You add the following decoration to your aquarium: ~1_NAME~
+			from?.SendLocalizedMessage(1073635, (item.LabelNumber != 0) ? string.Format("#{0}", item.LabelNumber) : item.Name); // You add the following decoration to your aquarium: ~1_NAME~
 
 			InvalidateProperties();
 			return true;
@@ -898,10 +879,8 @@ namespace Server.Items
 
 			for (int i = 0; i < items.Length; i++)
 			{
-				if (items[i] is FishBowl)
+				if (items[i] is FishBowl bowl)
 				{
-					FishBowl bowl = (FishBowl)items[i];
-
 					if (bowl.Empty)
 						return bowl;
 				}

@@ -35,7 +35,7 @@ namespace Server.Engines.BulkOrders
 		public BulkMaterialType Material { get => m_Material; set { m_Material = value; InvalidateProperties(); } }
 
 		[CommandProperty(AccessLevel.GameMaster)]
-		public bool Complete => (m_AmountCur == m_AmountMax);
+		public bool Complete => m_AmountCur == m_AmountMax;
 
 		public override int LabelNumber => 1045151;  // a bulk order deed
 
@@ -67,7 +67,7 @@ namespace Server.Engines.BulkOrders
 			for (int i = 0; i < chances.Length; ++i)
 			{
 				if (random < chances[i])
-					return (i == 0 ? BulkMaterialType.None : start + (i - 1));
+					return i == 0 ? BulkMaterialType.None : start + (i - 1);
 
 				random -= chances[i];
 			}

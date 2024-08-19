@@ -56,7 +56,7 @@ namespace Server
 
 				if (offset < 1.0)
 				{
-					delay += ((adjusted - delay) * (1.0 - offset));
+					delay += (adjusted - delay) * (1.0 - offset);
 				}
 			}
 

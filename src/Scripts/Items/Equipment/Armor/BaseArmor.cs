@@ -22,7 +22,7 @@ namespace Server.Items
 				if (m_FactionState == null)
 					Hue = CraftResources.GetHue(Resource);
 
-				LootType = (m_FactionState == null ? LootType.Regular : LootType.Blessed);
+				LootType = m_FactionState == null ? LootType.Regular : LootType.Blessed;
 			}
 		}
 		#endregion
@@ -93,7 +93,7 @@ namespace Server.Items
 		[CommandProperty(AccessLevel.GameMaster)]
 		public AMA MeditationAllowance
 		{
-			get => (m_Meditate == (AMA)(-1) ? DefMedAllowance : m_Meditate);
+			get => m_Meditate == (AMA)(-1) ? DefMedAllowance : m_Meditate;
 			set => m_Meditate = value;
 		}
 
@@ -113,7 +113,7 @@ namespace Server.Items
 			}
 		}
 
-		public double BaseArmorRatingScaled => (BaseArmorRating * ArmorScalar);
+		public double BaseArmorRatingScaled => BaseArmorRating * ArmorScalar;
 
 		public virtual double ArmorRating
 		{
@@ -144,47 +144,47 @@ namespace Server.Items
 			}
 		}
 
-		public double ArmorRatingScaled => (ArmorRating * ArmorScalar);
+		public double ArmorRatingScaled => ArmorRating * ArmorScalar;
 
 		[CommandProperty(AccessLevel.GameMaster)]
 		public int StrBonus
 		{
-			get => (m_StrBonus == -1 ? StrBonusValue : m_StrBonus);
+			get => m_StrBonus == -1 ? StrBonusValue : m_StrBonus;
 			set { m_StrBonus = value; InvalidateProperties(); }
 		}
 
 		[CommandProperty(AccessLevel.GameMaster)]
 		public int DexBonus
 		{
-			get => (m_DexBonus == -1 ? DexBonusValue : m_DexBonus);
+			get => m_DexBonus == -1 ? DexBonusValue : m_DexBonus;
 			set { m_DexBonus = value; InvalidateProperties(); }
 		}
 
 		[CommandProperty(AccessLevel.GameMaster)]
 		public int IntBonus
 		{
-			get => (m_IntBonus == -1 ? IntBonusValue : m_IntBonus);
+			get => m_IntBonus == -1 ? IntBonusValue : m_IntBonus;
 			set { m_IntBonus = value; InvalidateProperties(); }
 		}
 
 		[CommandProperty(AccessLevel.GameMaster)]
 		public int StrRequirement
 		{
-			get => (m_StrReq == -1 ? StrReq : m_StrReq);
+			get => m_StrReq == -1 ? StrReq : m_StrReq;
 			set { m_StrReq = value; InvalidateProperties(); }
 		}
 
 		[CommandProperty(AccessLevel.GameMaster)]
 		public int DexRequirement
 		{
-			get => (m_DexReq == -1 ? DexReq : m_DexReq);
+			get => m_DexReq == -1 ? DexReq : m_DexReq;
 			set { m_DexReq = value; InvalidateProperties(); }
 		}
 
 		[CommandProperty(AccessLevel.GameMaster)]
 		public int IntRequirement
 		{
-			get => (m_IntReq == -1 ? IntReq : m_IntReq);
+			get => m_IntReq == -1 ? IntReq : m_IntReq;
 			set { m_IntReq = value; InvalidateProperties(); }
 		}
 
@@ -602,9 +602,9 @@ namespace Server.Items
 			int scale = 100;
 
 			if (m_MaxHitPoints > 0 && m_HitPoints < m_MaxHitPoints)
-				scale = 50 + ((50 * m_HitPoints) / m_MaxHitPoints);
+				scale = 50 + (50 * m_HitPoints / m_MaxHitPoints);
 
-			return (armor * scale) / 100;
+			return armor * scale / 100;
 		}
 
 		protected void Invalidate()
@@ -860,8 +860,7 @@ namespace Server.Items
 					}
 			}
 
-			if (m_AosSkillBonuses == null)
-				m_AosSkillBonuses = new AosSkillBonuses(this);
+			m_AosSkillBonuses ??= new AosSkillBonuses(this);
 
 			if (Core.AOS && Parent is Mobile mobile)
 				m_AosSkillBonuses.AddTo(mobile);
@@ -968,10 +967,10 @@ namespace Server.Items
 				return true;
 
 			if (Layer == Layer.Pants)
-				return (m.FindItemOnLayer(Layer.InnerLegs) != null);
+				return m.FindItemOnLayer(Layer.InnerLegs) != null;
 
 			if (Layer == Layer.Shirt)
-				return (m.FindItemOnLayer(Layer.InnerTorso) != null);
+				return m.FindItemOnLayer(Layer.InnerTorso) != null;
 
 			return false;
 		}
@@ -1164,7 +1163,7 @@ namespace Server.Items
 			if ((prop = GetLowerStatReq()) != 0)
 				list.Add(1060435, prop.ToString()); // lower requirements ~1_val~%
 
-			if ((prop = (GetLuckBonus() + Attributes.Luck)) != 0)
+			if ((prop = GetLuckBonus() + Attributes.Luck) != 0)
 				list.Add(1060436, prop.ToString()); // luck ~1_val~
 
 			if (m_AosArmorAttributes.MageArmor != 0)
@@ -1246,7 +1245,7 @@ namespace Server.Items
 			if (Quality == ItemQuality.Exceptional)
 			{
 				if (!(Core.ML && this is BaseShield))       // Guessed Core.ML removed exceptional resist bonuses from crafted shields
-					DistributeBonuses((tool is BaseRunicTool ? 6 : Core.SE ? 15 : 14)); // Not sure since when, but right now 15 points are added, not 14.
+					DistributeBonuses(tool is BaseRunicTool ? 6 : Core.SE ? 15 : 14); // Not sure since when, but right now 15 points are added, not 14.
 
 				if (Core.ML && !(this is BaseShield))
 				{

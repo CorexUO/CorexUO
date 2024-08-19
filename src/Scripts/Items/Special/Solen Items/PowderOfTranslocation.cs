@@ -57,10 +57,8 @@ namespace Server.Items
 				{
 					from.LocalOverheadMessage(MessageType.Regular, 0x3B2, 1019045); // I can't reach that.
 				}
-				else if (targeted is ITranslocationItem)
+				else if (targeted is ITranslocationItem transItem)
 				{
-					ITranslocationItem transItem = (ITranslocationItem)targeted;
-
 					if (transItem.Charges >= transItem.MaxCharges)
 					{
 						MessageHelper.SendLocalizedMessageTo(m_Powder, from, 1054137, 0x59); // This item cannot absorb any more powder of translocation.

@@ -6,8 +6,7 @@ namespace Server.Regions
 
 		public static void EnsureExistence()
 		{
-			if (Instance == null)
-				Instance = new SpawnPersistence();
+			Instance ??= new SpawnPersistence();
 		}
 
 		public override string DefaultName => "Region spawn persistence - Internal";

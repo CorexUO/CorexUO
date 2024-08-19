@@ -35,9 +35,7 @@ namespace Server
 
 			protected override void OnTarget(Mobile from, object targeted)
 			{
-				IPoint3D p = targeted as IPoint3D;
-
-				if (p == null)
+				if (targeted is not IPoint3D p)
 					return;
 				else if (p is Item)
 					p = ((Item)p).GetWorldTop();

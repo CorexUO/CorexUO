@@ -29,7 +29,7 @@ namespace Server.Guilds
 			m_List = list;
 		}
 
-		public virtual bool WillFilter => (m_Filter.Length >= 0);
+		public virtual bool WillFilter => m_Filter.Length >= 0;
 
 		public override void PopulateGump()
 		{
@@ -68,13 +68,13 @@ namespace Server.Guilds
 				AddImageTiled(67 + width, 112, f.Width + 6, 22, 0xBBC);
 				AddHtmlText(70 + width, 113, f.Width, 20, f.Name, false, false);
 
-				bool isComparer = (m_Fields[i].Comparer.GetType() == m_Comparer.GetType());
+				bool isComparer = m_Fields[i].Comparer.GetType() == m_Comparer.GetType();
 
-				int ButtonID = (isComparer) ? (m_Ascending ? 0x983 : 0x985) : 0x2716;
+				int ButtonID = isComparer ? (m_Ascending ? 0x983 : 0x985) : 0x2716;
 
 				AddButton(59 + width + f.Width, 117, ButtonID, ButtonID + (isComparer ? 1 : 0), 100 + i, GumpButtonType.Reply, 0);
 
-				width += (f.Width + 12);
+				width += f.Width + 12;
 			}
 
 			if (m_StartNumber <= 0)
@@ -121,7 +121,7 @@ namespace Server.Guilds
 				AddImageTiled(67 + width, 140 + itemNumber * 28, f.Width + 6, 22, 0xBBC);
 				AddHtmlText(70 + width, 141 + itemNumber * 28, f.Width, 20, GetValuesFor(o, m_Fields.Length)[j], false, false);
 
-				width += (f.Width + 12);
+				width += f.Width + 12;
 			}
 
 			if (HasRelationship(o))

@@ -139,7 +139,7 @@ namespace Server.Misc
 					int newFixedPoint = (int)(value * 10.0);
 					int oldFixedPoint = skill.BaseFixedPoint;
 
-					if (((skill.Owner.Total - oldFixedPoint) + newFixedPoint) > skill.Owner.Cap)
+					if ((skill.Owner.Total - oldFixedPoint + newFixedPoint) > skill.Owner.Cap)
 					{
 						from.SendMessage("You can not exceed the skill cap.  Try setting another skill lower first.");
 					}

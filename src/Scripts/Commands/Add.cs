@@ -332,9 +332,8 @@ namespace Server.Commands
 							Container pack = packs[i];
 							pack.DropItem((Item)built);
 						}
-						else if (built is Mobile)
+						else if (built is Mobile m)
 						{
-							Mobile m = (Mobile)built;
 							m.MoveToWorld(new Point3D(start.X, start.Y, start.Z), map);
 						}
 					}
@@ -357,14 +356,12 @@ namespace Server.Commands
 
 							sb.AppendFormat("0x{0:X}; ", built.Serial.Value);
 
-							if (built is Item)
+							if (built is Item item)
 							{
-								Item item = (Item)built;
 								item.MoveToWorld(new Point3D(x, y, z), map);
 							}
-							else if (built is Mobile)
+							else if (built is Mobile m)
 							{
-								Mobile m = (Mobile)built;
 								m.MoveToWorld(new Point3D(x, y, z), map);
 							}
 						}
@@ -441,9 +438,7 @@ namespace Server.Commands
 
 			protected override void OnTarget(Mobile from, object o)
 			{
-				IPoint3D p = o as IPoint3D;
-
-				if (p != null)
+				if (o is IPoint3D p)
 				{
 					if (p is Item)
 						p = ((Item)p).GetWorldTop();
@@ -674,7 +669,7 @@ namespace Server.Commands
 
 		public static bool IsType(Type type)
 		{
-			return (type == m_TypeType || type.IsSubclassOf(m_TypeType));
+			return type == m_TypeType || type.IsSubclassOf(m_TypeType);
 		}
 
 		private static readonly Type m_ParsableType = typeof(ParsableAttribute);

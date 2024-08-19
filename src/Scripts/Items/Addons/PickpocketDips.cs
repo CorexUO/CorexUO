@@ -14,7 +14,7 @@ namespace Server.Items
 		public double MaxSkill { get; set; }
 
 		[CommandProperty(AccessLevel.GameMaster)]
-		public bool Swinging => (m_Timer != null);
+		public bool Swinging => m_Timer != null;
 
 		public PickpocketDip(int itemID) : base(itemID)
 		{
@@ -24,15 +24,14 @@ namespace Server.Items
 
 		public void UpdateItemID()
 		{
-			int baseItemID = 0x1EC0 + (((ItemID - 0x1EC0) / 3) * 3);
+			int baseItemID = 0x1EC0 + ((ItemID - 0x1EC0) / 3 * 3);
 
 			ItemID = baseItemID + (Swinging ? 1 : 0);
 		}
 
 		public void BeginSwing()
 		{
-			if (m_Timer != null)
-				m_Timer.Stop();
+			m_Timer?.Stop();
 
 			m_Timer = new InternalTimer(this);
 			m_Timer.Start();
@@ -42,8 +41,7 @@ namespace Server.Items
 
 		public void EndSwing()
 		{
-			if (m_Timer != null)
-				m_Timer.Stop();
+			m_Timer?.Stop();
 
 			m_Timer = null;
 

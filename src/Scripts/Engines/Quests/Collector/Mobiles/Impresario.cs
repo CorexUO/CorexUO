@@ -53,9 +53,7 @@ namespace Server.Engines.Quests.Collector
 
 			if (qs is CollectorQuest)
 			{
-				FindSheetMusicObjective obj = qs.FindObjective(typeof(FindSheetMusicObjective)) as FindSheetMusicObjective;
-
-				if (obj != null && !obj.Completed)
+				if (qs.FindObjective(typeof(FindSheetMusicObjective)) is FindSheetMusicObjective obj && !obj.Completed)
 				{
 					Direction = GetDirectionTo(player);
 
@@ -132,17 +130,13 @@ namespace Server.Engines.Quests.Collector
 		{
 			if (info.ButtonID == 1 && info.IsSwitched(1))
 			{
-				PlayerMobile player = sender.Mobile as PlayerMobile;
-
-				if (player != null)
+				if (sender.Mobile is PlayerMobile player)
 				{
 					QuestSystem qs = player.Quest;
 
 					if (qs is CollectorQuest)
 					{
-						FindSheetMusicObjective obj = qs.FindObjective(typeof(FindSheetMusicObjective)) as FindSheetMusicObjective;
-
-						if (obj != null && !obj.Completed)
+						if (qs.FindObjective(typeof(FindSheetMusicObjective)) is FindSheetMusicObjective obj && !obj.Completed)
 						{
 
 

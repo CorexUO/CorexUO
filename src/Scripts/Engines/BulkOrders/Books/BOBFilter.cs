@@ -2,7 +2,7 @@ namespace Server.Engines.BulkOrders
 {
 	public class BOBFilter
 	{
-		public bool IsDefault => (Type == 0 && Quality == 0 && Material == 0 && Quantity == 0);
+		public bool IsDefault => Type == 0 && Quality == 0 && Material == 0 && Quantity == 0;
 
 		public int Type { get; set; }
 		public int Quality { get; set; }

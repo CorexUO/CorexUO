@@ -196,9 +196,7 @@ namespace Server.Engines.Quests.Haven
 
 		public override bool OnDragDrop(Mobile from, Item dropped)
 		{
-			PlayerMobile player = from as PlayerMobile;
-
-			if (player != null)
+			if (from is PlayerMobile player)
 			{
 				QuestSystem qs = player.Quest;
 

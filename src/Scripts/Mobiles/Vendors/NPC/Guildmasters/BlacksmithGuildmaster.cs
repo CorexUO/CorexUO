@@ -27,7 +27,7 @@ namespace Server.Mobiles
 		{
 			base.InitOutfit();
 
-			Item item = (Utility.RandomBool() ? null : new Server.Items.RingmailChest());
+			Item item = Utility.RandomBool() ? null : new Server.Items.RingmailChest();
 
 			if (item != null && !EquipItem(item))
 			{

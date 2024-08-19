@@ -200,8 +200,7 @@ namespace Server.Engines.Quests.Collector
 
 			protected override void OnTarget(Mobile from, object targeted)
 			{
-				Item targ = targeted as Item;
-				if (m_Obsidian.Deleted || m_Obsidian.Quantity >= Obsidian.m_Completed || targ == null)
+				if (m_Obsidian.Deleted || m_Obsidian.Quantity >= Obsidian.m_Completed || targeted is not Item targ)
 					return;
 
 				if (m_Obsidian.IsChildOf(from.Backpack) && targ.IsChildOf(from.Backpack) && targ is Obsidian && targ != m_Obsidian)

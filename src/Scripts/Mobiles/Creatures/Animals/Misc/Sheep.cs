@@ -75,7 +75,7 @@ namespace Server.Mobiles
 		public override MeatType MeatType => MeatType.LambLeg;
 		public override FoodType FavoriteFood => FoodType.FruitsAndVegies | FoodType.GrainsAndHay;
 
-		public override int Wool => (Body == 0xCF ? 3 : 0);
+		public override int Wool => Body == 0xCF ? 3 : 0;
 
 		public Sheep(Serial serial) : base(serial)
 		{

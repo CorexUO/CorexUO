@@ -84,18 +84,18 @@ namespace Server.Misc
 				if (indexOf == -1)
 					continue;
 
-				bool badPrefix = (indexOf == 0);
+				bool badPrefix = indexOf == 0;
 
 				for (int j = 0; !badPrefix && j < exceptions.Length; ++j)
-					badPrefix = (name[indexOf - 1] == exceptions[j]);
+					badPrefix = name[indexOf - 1] == exceptions[j];
 
 				if (!badPrefix)
 					continue;
 
-				bool badSuffix = ((indexOf + disallowed[i].Length) >= name.Length);
+				bool badSuffix = (indexOf + disallowed[i].Length) >= name.Length;
 
 				for (int j = 0; !badSuffix && j < exceptions.Length; ++j)
-					badSuffix = (name[indexOf + disallowed[i].Length] == exceptions[j]);
+					badSuffix = name[indexOf + disallowed[i].Length] == exceptions[j];
 
 				if (badSuffix)
 					return false;

@@ -172,8 +172,7 @@ namespace Server.Misc
 
 			List<Weather> list = GetWeatherList(facet);
 
-			if (list != null)
-				list.Add(this);
+			list?.Add(this);
 
 			Timer.DelayCall(TimeSpan.FromSeconds((0.2 + (Utility.RandomDouble() * 0.8)) * interval.TotalSeconds), interval, new TimerCallback(OnTick));
 		}
@@ -224,8 +223,8 @@ namespace Server.Misc
 
 			for (int i = 0; i < 5; ++i) // try 5 times to find a valid spot
 			{
-				int xOffset = (MoveSpeed * MoveAngleX) / 100;
-				int yOffset = (MoveSpeed * MoveAngleY) / 100;
+				int xOffset = MoveSpeed * MoveAngleX / 100;
+				int yOffset = MoveSpeed * MoveAngleY / 100;
 
 				Rectangle2D oldArea = Area[0];
 				Rectangle2D newArea = new(oldArea.X + xOffset, oldArea.Y + yOffset, oldArea.Width, oldArea.Height);
@@ -248,8 +247,8 @@ namespace Server.Misc
 		{
 			if (m_Stage == 0)
 			{
-				m_Active = (ChanceOfPercipitation > Utility.Random(100));
-				m_ExtremeTemperature = (ChanceOfExtremeTemperature > Utility.Random(100));
+				m_Active = ChanceOfPercipitation > Utility.Random(100);
+				m_ExtremeTemperature = ChanceOfExtremeTemperature > Utility.Random(100);
 
 				if (MoveSpeed > 0)
 				{
@@ -303,7 +302,7 @@ namespace Server.Misc
 					if (mob == null || mob.Map != Facet)
 						continue;
 
-					bool contains = (Area.Length == 0);
+					bool contains = Area.Length == 0;
 
 					for (int j = 0; !contains && j < Area.Length; ++j)
 						contains = Area[j].Contains(mob.Location);
@@ -311,8 +310,7 @@ namespace Server.Misc
 					if (!contains)
 						continue;
 
-					if (weatherPacket == null)
-						weatherPacket = Packet.Acquire(new Server.Network.Weather(type, density, temperature));
+					weatherPacket ??= Packet.Acquire(new Server.Network.Weather(type, density, temperature));
 
 					ns.Send(weatherPacket);
 				}

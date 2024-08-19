@@ -35,12 +35,10 @@ namespace Server.Engines.BulkOrders
 			{
 				BOBLargeEntry e = (BOBLargeEntry)obj;
 
-				return CheckFilter(e.Material, e.AmountMax, true, e.RequireExceptional, e.DeedType, (e.Entries.Length > 0 ? e.Entries[0].ItemType : null));
+				return CheckFilter(e.Material, e.AmountMax, true, e.RequireExceptional, e.DeedType, e.Entries.Length > 0 ? e.Entries[0].ItemType : null);
 			}
-			else if (obj is BOBSmallEntry)
+			else if (obj is BOBSmallEntry e)
 			{
-				BOBSmallEntry e = (BOBSmallEntry)obj;
-
 				return CheckFilter(e.Material, e.AmountMax, false, e.RequireExceptional, e.DeedType, e.ItemType);
 			}
 
@@ -49,7 +47,7 @@ namespace Server.Engines.BulkOrders
 
 		public bool CheckFilter(BulkMaterialType mat, int amountMax, bool isLarge, bool reqExc, BODType deedType, Type itemType)
 		{
-			BOBFilter f = (m_From.UseOwnFilter ? m_From.BOBFilter : m_Book.Filter);
+			BOBFilter f = m_From.UseOwnFilter ? m_From.BOBFilter : m_Book.Filter;
 
 			if (f.IsDefault)
 				return true;
@@ -75,24 +73,24 @@ namespace Server.Engines.BulkOrders
 			{
 				default:
 				case 0: return true;
-				case 1: return (deedType == BODType.Smith);
-				case 2: return (deedType == BODType.Tailor);
+				case 1: return deedType == BODType.Smith;
+				case 2: return deedType == BODType.Tailor;
 
-				case 3: return (mat == BulkMaterialType.None && BGTClassifier.Classify(deedType, itemType) == BulkGenericType.Iron);
-				case 4: return (mat == BulkMaterialType.DullCopper);
-				case 5: return (mat == BulkMaterialType.ShadowIron);
-				case 6: return (mat == BulkMaterialType.Copper);
-				case 7: return (mat == BulkMaterialType.Bronze);
-				case 8: return (mat == BulkMaterialType.Gold);
-				case 9: return (mat == BulkMaterialType.Agapite);
-				case 10: return (mat == BulkMaterialType.Verite);
-				case 11: return (mat == BulkMaterialType.Valorite);
+				case 3: return mat == BulkMaterialType.None && BGTClassifier.Classify(deedType, itemType) == BulkGenericType.Iron;
+				case 4: return mat == BulkMaterialType.DullCopper;
+				case 5: return mat == BulkMaterialType.ShadowIron;
+				case 6: return mat == BulkMaterialType.Copper;
+				case 7: return mat == BulkMaterialType.Bronze;
+				case 8: return mat == BulkMaterialType.Gold;
+				case 9: return mat == BulkMaterialType.Agapite;
+				case 10: return mat == BulkMaterialType.Verite;
+				case 11: return mat == BulkMaterialType.Valorite;
 
-				case 12: return (mat == BulkMaterialType.None && BGTClassifier.Classify(deedType, itemType) == BulkGenericType.Cloth);
-				case 13: return (mat == BulkMaterialType.None && BGTClassifier.Classify(deedType, itemType) == BulkGenericType.Leather);
-				case 14: return (mat == BulkMaterialType.Spined);
-				case 15: return (mat == BulkMaterialType.Horned);
-				case 16: return (mat == BulkMaterialType.Barbed);
+				case 12: return mat == BulkMaterialType.None && BGTClassifier.Classify(deedType, itemType) == BulkGenericType.Cloth;
+				case 13: return mat == BulkMaterialType.None && BGTClassifier.Classify(deedType, itemType) == BulkGenericType.Leather;
+				case 14: return mat == BulkMaterialType.Spined;
+				case 15: return mat == BulkMaterialType.Horned;
+				case 16: return mat == BulkMaterialType.Barbed;
 			}
 		}
 
@@ -365,9 +363,8 @@ namespace Server.Engines.BulkOrders
 								m_From.Prompt = new SetPricePrompt(m_Book, obj, m_Page, m_List);
 								m_From.SendLocalizedMessage(1062383); // Type in a price for the deed:
 							}
-							else if (m_Book.RootParent is PlayerVendor)
+							else if (m_Book.RootParent is PlayerVendor pv)
 							{
-								PlayerVendor pv = (PlayerVendor)m_Book.RootParent;
 								VendorItem vi = pv.GetVendorItem(m_Book);
 
 								if (vi != null && !vi.IsForSale)
@@ -506,14 +503,14 @@ namespace Server.Engines.BulkOrders
 			PlayerVendor pv = book.RootParent as PlayerVendor;
 
 			bool canDrop = book.IsChildOf(from.Backpack);
-			bool canBuy = (pv != null);
-			bool canPrice = (canDrop || canBuy);
+			bool canBuy = pv != null;
+			bool canPrice = canDrop || canBuy;
 
 			if (canBuy)
 			{
 				VendorItem vi = pv.GetVendorItem(book);
 
-				canBuy = (vi != null && !vi.IsForSale);
+				canBuy = vi != null && !vi.IsForSale;
 			}
 
 			int width = 600;
@@ -574,7 +571,7 @@ namespace Server.Engines.BulkOrders
 			AddButton(35, 32, 4005, 4007, 1, GumpButtonType.Reply, 0);
 			AddHtmlLocalized(70, 32, 200, 32, 1062476, LabelColor, false, false); // Set Filter
 
-			BOBFilter f = (from.UseOwnFilter ? from.BOBFilter : book.Filter);
+			BOBFilter f = from.UseOwnFilter ? from.BOBFilter : book.Filter;
 
 			if (f.IsDefault)
 				AddHtmlLocalized(canPrice ? 470 : 386, 32, 120, 32, 1062475, 16927, false, false); // Using No Filter
@@ -668,10 +665,8 @@ namespace Server.Engines.BulkOrders
 						y += 32;
 					}
 				}
-				else if (obj is BOBSmallEntry)
+				else if (obj is BOBSmallEntry e)
 				{
-					BOBSmallEntry e = (BOBSmallEntry)obj;
-
 					int y = 96 + (tableIndex++ * 32);
 
 					if (canDrop)

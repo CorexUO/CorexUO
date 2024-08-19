@@ -32,7 +32,7 @@ namespace Server.Engines.MLQuests
 			else
 				result = t.Name;
 
-			return (m_Cache[t] = result);
+			return m_Cache[t] = result;
 		}
 	}
 }

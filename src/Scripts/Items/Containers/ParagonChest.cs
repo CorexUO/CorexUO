@@ -113,10 +113,8 @@ namespace Server.Items
 				else
 					item = Loot.RandomArmorOrShieldOrWeapon();
 
-				if (item is BaseWeapon)
+				if (item is BaseWeapon weapon)
 				{
-					BaseWeapon weapon = (BaseWeapon)item;
-
 					if (Core.AOS)
 					{
 
@@ -133,10 +131,8 @@ namespace Server.Items
 
 					DropItem(item);
 				}
-				else if (item is BaseArmor)
+				else if (item is BaseArmor armor)
 				{
-					BaseArmor armor = (BaseArmor)item;
-
 					if (Core.AOS)
 					{
 
@@ -152,10 +148,8 @@ namespace Server.Items
 
 					DropItem(item);
 				}
-				else if (item is BaseHat)
+				else if (item is BaseHat hat)
 				{
-					BaseHat hat = (BaseHat)item;
-
 					if (Core.AOS)
 					{
 
@@ -190,7 +184,7 @@ namespace Server.Items
 				DropItem(item);
 			}
 
-			DropItem(new TreasureMap(level + 1, (Utility.RandomBool() ? Map.Felucca : Map.Trammel)));
+			DropItem(new TreasureMap(level + 1, Utility.RandomBool() ? Map.Felucca : Map.Trammel));
 		}
 
 		public ParagonChest(Serial serial) : base(serial)

@@ -125,9 +125,7 @@ namespace Server.Commands.Generic
 
 		public override void Execute(CommandEventArgs e, object obj)
 		{
-			Item item = obj as Item;
-
-			if (item != null)
+			if (obj is Item item)
 			{
 				if (e.Mobile.PlaceInBackpack(item))
 					AddResponse("The item has been placed in your backpack.");
@@ -475,9 +473,7 @@ namespace Server.Commands.Generic
 
 		public override void Execute(CommandEventArgs e, object obj)
 		{
-			IPoint3D p = obj as IPoint3D;
-
-			if (p == null)
+			if (obj is not IPoint3D p)
 				return;
 
 			if (p is Item)
@@ -503,9 +499,7 @@ namespace Server.Commands.Generic
 
 		public override void Execute(CommandEventArgs e, object obj)
 		{
-			IPoint3D p = obj as IPoint3D;
-
-			if (p == null)
+			if (obj is not IPoint3D p)
 				return;
 
 			Mobile from = e.Mobile;
@@ -882,9 +876,7 @@ namespace Server.Commands.Generic
 			{
 				if (mob.IsDeadBondedPet)
 				{
-					BaseCreature bc = mob as BaseCreature;
-
-					if (bc != null)
+					if (mob is BaseCreature bc)
 					{
 						CommandLogging.WriteLine(from, "{0} {1} resurrecting {2}", from.AccessLevel, CommandLogging.Format(from), CommandLogging.Format(mob));
 
@@ -1015,7 +1007,7 @@ namespace Server.Commands.Generic
 		{
 			m_Ban = ban;
 
-			AccessLevel = (ban ? AccessLevel.Administrator : AccessLevel.GameMaster);
+			AccessLevel = ban ? AccessLevel.Administrator : AccessLevel.GameMaster;
 			Supports = CommandSupport.AllMobiles;
 			Commands = new string[] { ban ? "Ban" : "Kick" };
 			ObjectTypes = ObjectTypes.Mobiles;
@@ -1043,10 +1035,7 @@ namespace Server.Commands.Generic
 
 				if (fromState != null && targState != null)
 				{
-					Account fromAccount = fromState.Account as Account;
-					Account targAccount = targState.Account as Account;
-
-					if (fromAccount != null && targAccount != null)
+					if (fromState.Account is Account fromAccount && targState.Account is Account targAccount)
 					{
 						CommandLogging.WriteLine(from, "{0} {1} {2} {3}", from.AccessLevel, CommandLogging.Format(from), m_Ban ? "banning" : "kicking", CommandLogging.Format(targ));
 
@@ -1090,9 +1079,7 @@ namespace Server.Commands.Generic
 
 		public override void Execute(CommandEventArgs e, object obj)
 		{
-			Item item = obj as Item;
-
-			if (item == null)
+			if (obj is not Item item)
 				return;
 
 			if (!item.IsLockedDown && !item.IsSecure)

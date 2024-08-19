@@ -33,9 +33,7 @@ namespace Server.Engines.Plants
 				}
 				else
 				{
-					PlantItem targ = targeted as PlantItem;
-
-					if (targ == null || targ.PlantStatus >= PlantStatus.DecorativePlant || targ.PlantStatus <= PlantStatus.BowlOfDirt)
+					if (targeted is not PlantItem targ || targ.PlantStatus >= PlantStatus.DecorativePlant || targ.PlantStatus <= PlantStatus.BowlOfDirt)
 					{
 						m_Plant.LabelTo(from, 1053070); // You can only pollinate other specially grown plants!
 					}

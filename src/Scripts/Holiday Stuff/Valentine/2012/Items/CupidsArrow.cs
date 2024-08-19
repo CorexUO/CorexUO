@@ -26,7 +26,7 @@ namespace Server.Items
 			set { m_To = value; InvalidateProperties(); }
 		}
 
-		public bool IsSigned => (m_From != null && m_To != null);
+		public bool IsSigned => m_From != null && m_To != null;
 
 		[Constructable]
 		public CupidsArrow()
@@ -80,10 +80,8 @@ namespace Server.Items
 			if (IsSigned || !IsChildOf(from.Backpack))
 				return;
 
-			if (targeted is Mobile)
+			if (targeted is Mobile m)
 			{
-				Mobile m = (Mobile)targeted;
-
 				if (!m.Alive)
 				{
 					from.SendLocalizedMessage(1152269); // That target is dead and even Cupid's arrow won't make them love you.

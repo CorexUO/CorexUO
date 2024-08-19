@@ -120,7 +120,7 @@ namespace Server.Spells.Necromancy
 			{
 				object name = entries[i].Name;
 
-				bool enabled = (necro >= entries[i].ReqNecromancy && spirit >= entries[i].ReqSpiritSpeak);
+				bool enabled = necro >= entries[i].ReqNecromancy && spirit >= entries[i].ReqSpiritSpeak;
 
 				AddButton(27, 53 + (i * 21), 9702, 9703, i + 1, GumpButtonType.Reply, 0);
 

@@ -31,7 +31,7 @@ namespace Server.Ethics.Hero
 
 			Faction fac = Faction.Find(mob);
 
-			return (fac is TrueBritannians || fac is CouncilOfMages);
+			return fac is TrueBritannians || fac is CouncilOfMages;
 		}
 	}
 }

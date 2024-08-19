@@ -30,10 +30,8 @@ namespace Server.Items
 				{
 					foreach (AddonComponent c in Addon.Components)
 					{
-						if (c is CurtainsComponent)
+						if (c is CurtainsComponent curtain)
 						{
-							CurtainsComponent curtain = (CurtainsComponent)c;
-
 							int temp = curtain.ItemID;
 							curtain.ItemID = curtain.ClosedID;
 							curtain.ClosedID = temp;
@@ -197,7 +195,7 @@ namespace Server.Items
 				if (m_Deed == null || m_Deed.Deleted || info.ButtonID == 0)
 					return;
 
-				m_Deed.m_East = (info.ButtonID != 1);
+				m_Deed.m_East = info.ButtonID != 1;
 				m_Deed.SendTarget(sender.Mobile);
 			}
 		}

@@ -49,8 +49,7 @@ namespace Server.Mobiles
 
 			Mobile caster = ControlMaster;
 
-			if (caster == null)
-				caster = SummonMaster;
+			caster ??= SummonMaster;
 
 			if (caster != null)
 				++caster.Stam;

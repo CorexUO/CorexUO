@@ -83,7 +83,7 @@ namespace Server.Mobiles
 						if (m_Mobile.Debug)
 							m_Mobile.DebugSay("{0} needs a cure", toHelp.Name);
 
-						if (!(new CureSpell(m_Mobile, null)).Cast())
+						if (!new CureSpell(m_Mobile, null).Cast())
 						{
 							m_CurrentSpell = new CureSpell(m_Mobile, null);
 							m_CurrentSpell.Cast();
@@ -94,7 +94,7 @@ namespace Server.Mobiles
 						if (m_Mobile.Debug)
 							m_Mobile.DebugSay("{0} needs a greater heal", toHelp.Name);
 
-						if (!(new GreaterHealSpell(m_Mobile, null)).Cast())
+						if (!new GreaterHealSpell(m_Mobile, null).Cast())
 						{
 							m_CurrentSpell = new GreaterHealSpell(m_Mobile, null);
 							m_CurrentSpell.Cast();

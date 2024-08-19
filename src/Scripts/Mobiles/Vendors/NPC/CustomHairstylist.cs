@@ -135,7 +135,7 @@ namespace Server.Mobiles
 			from.CloseGump(typeof(ChangeHairHueGump));
 			from.CloseGump(typeof(ChangeHairstyleGump));
 
-			bool isFemale = (from.Female || from.Body.IsFemale);
+			bool isFemale = from.Female || from.Body.IsFemale;
 
 			int balance = Banker.GetBalance(from);
 			int canAfford = 0;
@@ -178,7 +178,7 @@ namespace Server.Mobiles
 
 				int balance = Banker.GetBalance(m_From);
 
-				bool isFemale = (m_From.Female || m_From.Body.IsFemale);
+				bool isFemale = m_From.Female || m_From.Body.IsFemale;
 
 				if (buyInfo.FacialHair && isFemale)
 				{
@@ -321,8 +321,8 @@ namespace Server.Mobiles
 
 				for (int j = 0; j < hues.Length; ++j)
 				{
-					AddLabel(278 + ((j / 16) * 80), 52 + ((j % 16) * 17), hues[j] - 1, name);
-					AddRadio(260 + ((j / 16) * 80), 52 + ((j % 16) * 17), 210, 211, false, (j * entries.Length) + i);
+					AddLabel(278 + (j / 16 * 80), 52 + (j % 16 * 17), hues[j] - 1, name);
+					AddRadio(260 + (j / 16 * 80), 52 + (j % 16 * 17), 210, 211, false, (j * entries.Length) + i);
 				}
 			}
 		}
@@ -439,10 +439,10 @@ namespace Server.Mobiles
 			from.CloseGump(typeof(ChangeHairHueGump));
 			from.CloseGump(typeof(ChangeHairstyleGump));
 
-			int tableWidth = (m_FacialHair ? 2 : 3);
-			int tableHeight = ((entries.Length + tableWidth - (m_FacialHair ? 1 : 2)) / tableWidth);
+			int tableWidth = m_FacialHair ? 2 : 3;
+			int tableHeight = (entries.Length + tableWidth - (m_FacialHair ? 1 : 2)) / tableWidth;
 			int offsetWidth = 123;
-			int offsetHeight = (m_FacialHair ? 70 : 65);
+			int offsetHeight = m_FacialHair ? 70 : 65;
 
 			AddPage(0);
 

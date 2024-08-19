@@ -110,8 +110,7 @@ namespace Server.Mobiles
 		{
 			Timer t = (Timer)m_Table[m];
 
-			if (t != null)
-				t.Stop();
+			t?.Stop();
 
 			t = new InternalTimer(from, m);
 			m_Table[m] = t;
@@ -136,8 +135,7 @@ namespace Server.Mobiles
 		{
 			Timer t = (Timer)m_Table[m];
 
-			if (t != null)
-				t.Stop();
+			t?.Stop();
 
 			m_Table.Remove(m);
 
@@ -153,7 +151,7 @@ namespace Server.Mobiles
 				int rand = Utility.Random(1, 100);
 				if (willKill)
 				{
-					amt = (((rand % 5) >> 2) + 3);
+					amt = ((rand % 5) >> 2) + 3;
 				}
 				if ((Hits < 100) && (rand < 21))
 				{

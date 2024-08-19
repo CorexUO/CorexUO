@@ -49,9 +49,8 @@ namespace Server.Guilds
 		{
 			base.OnResponse(sender, info);
 
-			PlayerMobile pm = sender.Mobile as PlayerMobile;
 
-			if (pm == null || !IsMember(pm, Guild))
+			if (sender.Mobile is not PlayerMobile pm || !IsMember(pm, Guild))
 				return;
 
 			if (info.ButtonID == 5)

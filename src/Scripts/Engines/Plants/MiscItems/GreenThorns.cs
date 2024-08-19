@@ -271,7 +271,7 @@ namespace Server.Items
 				bool contains = false;
 
 				for (int i = 0; !contains && i < taep.Tiles.Length; i += 2)
-					contains = (tileID >= taep.Tiles[i] && tileID <= taep.Tiles[i + 1]);
+					contains = tileID >= taep.Tiles[i] && tileID <= taep.Tiles[i + 1];
 
 				if (contains)
 				{

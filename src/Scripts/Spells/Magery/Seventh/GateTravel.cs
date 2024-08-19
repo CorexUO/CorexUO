@@ -188,7 +188,7 @@ namespace Server.Spells.Seventh
 			{
 				Caster.SendLocalizedMessage(501942); // That location is blocked.
 			}
-			else if ((checkMulti && SpellHelper.CheckMulti(loc, map)))
+			else if (checkMulti && SpellHelper.CheckMulti(loc, map))
 			{
 				Caster.SendLocalizedMessage(501942); // That location is blocked.
 			}

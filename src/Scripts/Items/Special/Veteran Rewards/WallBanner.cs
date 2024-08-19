@@ -81,7 +81,7 @@ namespace Server.Items
 		[Constructable]
 		public WallBanner(int bannerID) : base()
 		{
-			m_East = ((bannerID % 2) == 1);
+			m_East = (bannerID % 2) == 1;
 
 			switch (bannerID)
 			{

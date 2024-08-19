@@ -45,9 +45,7 @@ namespace Server.Engines.MLQuests.Objectives
 
 			for (int i = 0; i < Amount; ++i)
 			{
-				Item item = Activator.CreateInstance(Delivery) as Item;
-
-				if (item == null)
+				if (Activator.CreateInstance(Delivery) is not Item item)
 					continue;
 
 				delivery.Add(item);
@@ -132,7 +130,7 @@ namespace Server.Engines.MLQuests.Objectives
 		{
 			Type destType = Objective.Destination;
 
-			return (destType != null && destType.IsAssignableFrom(type));
+			return destType != null && destType.IsAssignableFrom(type);
 		}
 
 		public override bool IsCompleted()

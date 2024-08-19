@@ -344,7 +344,7 @@ namespace Server.Mobiles
 
 			public override double CastDelayFastScalar => 0;
 
-			public override TimeSpan CastDelayBase => TimeSpan.FromSeconds(((m_Mount.IsDonationItem && RewardSystem.GetRewardLevel(m_Rider) < 3) ? (7.5 + (Core.AOS ? 3.0 : 2.0)) : (Core.AOS ? 3.0 : 2.0)));
+			public override TimeSpan CastDelayBase => TimeSpan.FromSeconds((m_Mount.IsDonationItem && RewardSystem.GetRewardLevel(m_Rider) < 3) ? (7.5 + (Core.AOS ? 3.0 : 2.0)) : (Core.AOS ? 3.0 : 2.0));
 
 			public override int GetMana()
 			{

@@ -4,7 +4,7 @@ namespace Server.Items
 	{
 		public override SpellbookType SpellbookType => SpellbookType.Necromancer;
 		public override int BookOffset => 100;
-		public override int BookCount => ((Core.SE) ? 17 : 16);
+		public override int BookCount => Core.SE ? 17 : 16;
 
 		[Constructable]
 		public NecromancerSpellbook() : this((ulong)0)
@@ -14,7 +14,7 @@ namespace Server.Items
 		[Constructable]
 		public NecromancerSpellbook(ulong content) : base(content, 0x2253)
 		{
-			Layer = (Core.ML ? Layer.OneHanded : Layer.Invalid);
+			Layer = Core.ML ? Layer.OneHanded : Layer.Invalid;
 		}
 
 		public NecromancerSpellbook(Serial serial) : base(serial)

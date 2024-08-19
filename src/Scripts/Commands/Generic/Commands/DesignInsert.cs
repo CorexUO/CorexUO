@@ -27,7 +27,7 @@ namespace Server.Commands.Generic
 		#region Single targeting mode
 		public override void Execute(CommandEventArgs e, object obj)
 		{
-			Target t = new DesignInsertTarget(new List<HouseFoundation>(), (e.Length < 1 || !e.GetBoolean(0)));
+			Target t = new DesignInsertTarget(new List<HouseFoundation>(), e.Length < 1 || !e.GetBoolean(0));
 			t.Invoke(e.Mobile, obj);
 		}
 
@@ -93,7 +93,7 @@ namespace Server.Commands.Generic
 		#region Area targeting mode
 		public override void ExecuteList(CommandEventArgs e, ArrayList list)
 		{
-			e.Mobile.SendGump(new WarningGump(1060637, 30720, string.Format("You are about to insert {0} objects. This cannot be undone without a full server revert.<br><br>Continue?", list.Count), 0xFFC000, 420, 280, new WarningGumpCallback(OnConfirmCallback), new object[] { e, list, (e.Length < 1 || !e.GetBoolean(0)) }));
+			e.Mobile.SendGump(new WarningGump(1060637, 30720, string.Format("You are about to insert {0} objects. This cannot be undone without a full server revert.<br><br>Continue?", list.Count), 0xFFC000, 420, 280, new WarningGumpCallback(OnConfirmCallback), new object[] { e, list, e.Length < 1 || !e.GetBoolean(0) }));
 			AddResponse("Awaiting confirmation...");
 		}
 
@@ -109,7 +109,7 @@ namespace Server.Commands.Generic
 			if (okay)
 			{
 				List<HouseFoundation> foundations = new();
-				flushToLog = (list.Count > 20);
+				flushToLog = list.Count > 20;
 
 				for (int i = 0; i < list.Count; ++i)
 				{

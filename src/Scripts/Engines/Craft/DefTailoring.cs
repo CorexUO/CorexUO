@@ -15,8 +15,7 @@ namespace Server.Engines.Craft
 		{
 			get
 			{
-				if (m_CraftSystem == null)
-					m_CraftSystem = new DefTailoring();
+				m_CraftSystem ??= new DefTailoring();
 
 				return m_CraftSystem;
 			}
@@ -62,7 +61,7 @@ namespace Server.Engines.Craft
 			bool contains = false;
 
 			for (int i = 0; !contains && i < m_TailorColorables.Length; ++i)
-				contains = (m_TailorColorables[i] == type);
+				contains = m_TailorColorables[i] == type;
 
 			return contains;
 		}

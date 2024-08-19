@@ -46,7 +46,7 @@ namespace Server.SkillHandlers
 					int marginOfError = Math.Max(0, 20 - (int)(from.Skills[SkillName.EvalInt].Value / 5));
 
 					int intel = targ.Int + Utility.RandomMinMax(-marginOfError, +marginOfError);
-					int mana = ((targ.Mana * 100) / Math.Max(targ.ManaMax, 1)) + Utility.RandomMinMax(-marginOfError, +marginOfError);
+					int mana = (targ.Mana * 100 / Math.Max(targ.ManaMax, 1)) + Utility.RandomMinMax(-marginOfError, +marginOfError);
 
 					int intMod = intel / 10;
 					int mnMod = mana / 10;

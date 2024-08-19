@@ -68,7 +68,7 @@ namespace Server.Items
 					Timer.DelayCall(TimeSpan.FromSeconds(0), new TimerStateCallback(Relocate_Callback), new object[] { m, p });
 				}
 
-				arg = new object[] { m, (21 + Utility.Random(2)), !m.Female ? 0x426 : 0x317 };
+				arg = new object[] { m, 21 + Utility.Random(2), !m.Female ? 0x426 : 0x317 };
 			}
 			else if (message == 1095161)
 			{

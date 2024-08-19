@@ -9,7 +9,7 @@ namespace Server.Items
 		public int SpellID { get; private set; }
 
 		int ICommodity.DescriptionNumber => LabelNumber;
-		bool ICommodity.IsDeedable => (Core.ML);
+		bool ICommodity.IsDeedable => Core.ML;
 
 		public SpellScroll(Serial serial) : base(serial)
 		{

@@ -284,10 +284,7 @@ namespace Server.Network
 			{
 				Socket socket = Interlocked.Exchange<Socket>(ref m_Listener, null);
 
-				if (socket != null)
-				{
-					socket.Close();
-				}
+				socket?.Close();
 			}
 		}
 

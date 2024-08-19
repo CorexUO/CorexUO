@@ -61,8 +61,7 @@ namespace Server.Spells.Ninjitsu
 				if (info.m_Steps > 0)
 					damageBonus = attacker.Skills[SkillName.Ninjitsu].Fixed / 150;
 
-				if (info.m_Timer != null)
-					info.m_Timer.Stop();
+				info.m_Timer?.Stop();
 
 				m_Table.Remove(defender);
 			}
@@ -109,9 +108,7 @@ namespace Server.Spells.Ninjitsu
 
 		public static void AddStep(Mobile m)
 		{
-			DeathStrikeInfo info = m_Table[m] as DeathStrikeInfo;
-
-			if (info == null)
+			if (m_Table[m] is not DeathStrikeInfo info)
 				return;
 
 			if (++info.m_Steps >= 5)
@@ -122,9 +119,8 @@ namespace Server.Spells.Ninjitsu
 		{
 			Mobile defender = (Mobile)state;
 
-			DeathStrikeInfo info = m_Table[defender] as DeathStrikeInfo;
 
-			if (info == null)   //sanity
+			if (m_Table[defender] is not DeathStrikeInfo info)   //sanity
 				return;
 
 			int maxDamage, damage = 0;
@@ -141,9 +137,9 @@ namespace Server.Spells.Ninjitsu
 
 				// New formula doesn't apply DamageBonus anymore, caps must be, directly, 60/30.
 				if (info.m_Steps >= 5)
-					damage = (int)Math.Floor(Math.Min(60, (ninjitsu / 3) * (0.3 + 0.7 * scalar) + stalkingBonus));
+					damage = (int)Math.Floor(Math.Min(60, ninjitsu / 3 * (0.3 + 0.7 * scalar) + stalkingBonus));
 				else
-					damage = (int)Math.Floor(Math.Min(30, (ninjitsu / 9) * (0.3 + 0.7 * scalar) + stalkingBonus));
+					damage = (int)Math.Floor(Math.Min(30, ninjitsu / 9 * (0.3 + 0.7 * scalar) + stalkingBonus));
 
 				if (info.m_isRanged)
 					damage /= 2;
@@ -162,8 +158,7 @@ namespace Server.Spells.Ninjitsu
 			else
 				AOS.Damage(info.m_Target, info.m_Attacker, damage, true, 100, 0, 0, 0, 0, 0, 0, false, false, true); // Damage is physical.
 
-			if (info.m_Timer != null)
-				info.m_Timer.Stop();
+			info.m_Timer?.Stop();
 
 			m_Table.Remove(info.m_Target);
 		}

@@ -78,10 +78,8 @@ namespace Server.Items
 							from.PlaySound(0x248);
 					}
 				}
-				else if (targeted is IScissorable)
+				else if (targeted is IScissorable obj)
 				{
-					IScissorable obj = (IScissorable)targeted;
-
 					if (CanScissor(from, obj) && obj.Scissor(from, m_Item))
 						from.PlaySound(0x248);
 				}

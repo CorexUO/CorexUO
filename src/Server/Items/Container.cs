@@ -56,21 +56,21 @@ namespace Server.Items
 		[CommandProperty(AccessLevel.GameMaster)]
 		public int GumpID
 		{
-			get => (m_GumpID == -1 ? DefaultGumpID : m_GumpID);
+			get => m_GumpID == -1 ? DefaultGumpID : m_GumpID;
 			set => m_GumpID = value;
 		}
 
 		[CommandProperty(AccessLevel.GameMaster)]
 		public int DropSound
 		{
-			get => (m_DropSound == -1 ? DefaultDropSound : m_DropSound);
+			get => m_DropSound == -1 ? DefaultDropSound : m_DropSound;
 			set => m_DropSound = value;
 		}
 
 		[CommandProperty(AccessLevel.GameMaster)]
 		public int MaxItems
 		{
-			get => (m_MaxItems == -1 ? DefaultMaxItems : m_MaxItems);
+			get => m_MaxItems == -1 ? DefaultMaxItems : m_MaxItems;
 			set { m_MaxItems = value; InvalidateProperties(); }
 		}
 
@@ -1588,10 +1588,7 @@ namespace Server.Items
 
 				if (!contains)
 				{
-					if (Openers == null)
-					{
-						Openers = new List<Mobile>();
-					}
+					Openers ??= new List<Mobile>();
 
 					Openers.Add(opener);
 				}
@@ -1681,8 +1678,7 @@ namespace Server.Items
 
 							ContainerData data = new(gumpID, bounds, dropSound);
 
-							if (Default == null)
-								Default = data;
+							Default ??= data;
 
 							if (split.Length >= 4)
 							{
@@ -1710,8 +1706,7 @@ namespace Server.Items
 				}
 			}
 
-			if (Default == null)
-				Default = new ContainerData(0x3C, new Rectangle2D(44, 65, 142, 94), 0x48);
+			Default ??= new ContainerData(0x3C, new Rectangle2D(44, 65, 142, 94), 0x48);
 		}
 
 		private static readonly Dictionary<int, ContainerData> m_Table;

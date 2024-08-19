@@ -58,8 +58,7 @@ namespace Server.Mobiles
 		{
 			Mobile caster = ControlMaster;
 
-			if (caster == null)
-				caster = SummonMaster;
+			caster ??= SummonMaster;
 
 			if (caster == null)
 				return;
@@ -78,10 +77,10 @@ namespace Server.Mobiles
 				bool friendly = true;
 
 				for (int j = 0; friendly && j < caster.Aggressors.Count; ++j)
-					friendly = (caster.Aggressors[j].Attacker != m);
+					friendly = caster.Aggressors[j].Attacker != m;
 
 				for (int j = 0; friendly && j < caster.Aggressed.Count; ++j)
-					friendly = (caster.Aggressed[j].Defender != m);
+					friendly = caster.Aggressed[j].Defender != m;
 
 				if (friendly)
 				{

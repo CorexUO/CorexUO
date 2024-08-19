@@ -33,7 +33,7 @@ namespace Server.Items
 
 		public bool CheckRange(Point3D loc, int range)
 		{
-			return ((Z + 8) >= loc.Z && (loc.Z + 16) > Z)
+			return (Z + 8) >= loc.Z && (loc.Z + 16) > Z
 				&& Utility.InRange(GetWorldLocation(), loc, range);
 		}
 

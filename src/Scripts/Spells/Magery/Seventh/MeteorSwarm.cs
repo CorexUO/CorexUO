@@ -49,8 +49,8 @@ namespace Server.Spells.Seventh
 			{
 				SpellHelper.Turn(Caster, p);
 
-				if (p is Item)
-					p = ((Item)p).GetWorldLocation();
+				if (p is Item item)
+					p = item.GetWorldLocation();
 
 				List<Mobile> targets = new();
 
@@ -91,7 +91,7 @@ namespace Server.Spells.Seventh
 					Effects.PlaySound(p, Caster.Map, 0x160);
 
 					if (Core.AOS && targets.Count > 2)
-						damage = (damage * 2) / targets.Count;
+						damage = damage * 2 / targets.Count;
 					else if (!Core.AOS)
 						damage /= targets.Count;
 
@@ -131,9 +131,7 @@ namespace Server.Spells.Seventh
 
 			protected override void OnTarget(Mobile from, object o)
 			{
-				IPoint3D p = o as IPoint3D;
-
-				if (p != null)
+				if (o is IPoint3D p)
 					m_Owner.Target(p);
 			}
 

@@ -126,7 +126,7 @@ namespace Server.Misc
 				Timers.Remove(m);
 			}
 
-			return (timer != null);
+			return timer != null;
 		}
 	}
 }

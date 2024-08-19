@@ -112,8 +112,7 @@ namespace Server.Engines.Quests.Doom
 			Chyloth = reader.ReadMobile() as Chyloth;
 			Dragon = reader.ReadMobile() as SkeletalDragon;
 
-			if (Chyloth != null)
-				Chyloth.Delete();
+			Chyloth?.Delete();
 		}
 	}
 }

@@ -67,9 +67,8 @@ namespace Server.Mobiles
 
 		public override bool OnDragDrop(Mobile from, Item dropped)
 		{
-			if (dropped is HouseDeed)
+			if (dropped is HouseDeed deed)
 			{
-				HouseDeed deed = (HouseDeed)dropped;
 				int price = ComputePriceFor(deed);
 
 				if (price > 0)
@@ -100,9 +99,8 @@ namespace Server.Mobiles
 
 		public void Appraise_OnTarget(Mobile from, object obj)
 		{
-			if (obj is HouseDeed)
+			if (obj is HouseDeed deed)
 			{
-				HouseDeed deed = (HouseDeed)obj;
 				int price = ComputePriceFor(deed);
 
 				if (price > 0)

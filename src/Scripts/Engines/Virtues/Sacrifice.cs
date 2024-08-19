@@ -32,9 +32,7 @@ namespace Server
 
 		public static void CheckAtrophy(Mobile from)
 		{
-			PlayerMobile pm = from as PlayerMobile;
-
-			if (pm == null)
+			if (from is not PlayerMobile pm)
 				return;
 
 			try
@@ -60,9 +58,8 @@ namespace Server
 			if (from.Alive)
 				return;
 
-			PlayerMobile pm = from as PlayerMobile;
 
-			if (pm == null)
+			if (from is not PlayerMobile pm)
 				return;
 
 			if (from.Criminal)
@@ -93,21 +90,19 @@ namespace Server
 			if (!from.CheckAlive())
 				return;
 
-			PlayerMobile pm = from as PlayerMobile;
 
-			if (pm == null)
+			if (from is not PlayerMobile pm)
 				return;
 
-			Mobile targ = targeted as Mobile;
 
-			if (targ == null)
+			if (targeted is not Mobile targ)
 				return;
 
 			if (!ValidateCreature(targ))
 			{
 				from.SendLocalizedMessage(1052014); // You cannot sacrifice your fame for that creature.
 			}
-			else if (((targ.Hits * 100) / Math.Max(targ.HitsMax, 1)) < 90)
+			else if ((targ.Hits * 100 / Math.Max(targ.HitsMax, 1)) < 90)
 			{
 				from.SendLocalizedMessage(1052013); // You cannot sacrifice for this monster because it is too damaged.
 			}
@@ -175,7 +170,7 @@ namespace Server
 			if (m is BaseCreature && (((BaseCreature)m).Controlled || ((BaseCreature)m).Summoned))
 				return false;
 
-			return (m is Lich || m is Succubus || m is Daemon || m is EvilMage || m is EnslavedGargoyle || m is GargoyleEnforcer);
+			return m is Lich || m is Succubus || m is Daemon || m is EvilMage || m is EnslavedGargoyle || m is GargoyleEnforcer;
 		}
 
 		private class InternalTarget : Target

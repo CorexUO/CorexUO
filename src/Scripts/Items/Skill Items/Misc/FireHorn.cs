@@ -127,8 +127,8 @@ namespace Server.Items
 					else
 						avgDamage = weightAvg / 2;
 
-					minDamage = (avgDamage * 9) / 10;
-					maxDamage = (avgDamage * 10) / 9;
+					minDamage = avgDamage * 9 / 10;
+					maxDamage = avgDamage * 10 / 9;
 				}
 				else
 				{
@@ -137,14 +137,14 @@ namespace Server.Items
 					if (playerVsPlayer)
 						total /= 3;
 
-					maxDamage = (total * 2) / 30;
-					minDamage = (maxDamage * 7) / 10;
+					maxDamage = total * 2 / 30;
+					minDamage = maxDamage * 7 / 10;
 				}
 
 				double damage = Utility.RandomMinMax(minDamage, maxDamage);
 
 				if (Core.AOS && targets.Count > 1)
-					damage = (damage * 2) / targets.Count;
+					damage = damage * 2 / targets.Count;
 				else if (!Core.AOS)
 					damage /= targets.Count;
 

@@ -198,7 +198,7 @@ namespace Server.Items
 
 			double chance = (wresValue + scndValue) / 400.0;
 
-			return (chance >= Utility.RandomDouble());
+			return chance >= Utility.RandomDouble();
 		}
 
 		private static bool HasFreeHands(Mobile m)

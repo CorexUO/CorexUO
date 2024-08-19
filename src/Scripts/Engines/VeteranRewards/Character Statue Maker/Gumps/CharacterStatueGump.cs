@@ -134,12 +134,10 @@ namespace Server.Gumps
 				{
 					CharacterStatue backup = ((CharacterStatueDeed)m_Maker).Statue;
 
-					if (backup != null)
-						backup.Delete();
+					backup?.Delete();
 				}
 
-				if (m_Maker != null)
-					m_Maker.Delete();
+				m_Maker?.Delete();
 
 				m_Statue.Sculpt(state.Mobile);
 			}

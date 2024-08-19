@@ -165,7 +165,7 @@ namespace Server.Items
 				if (m_State != HouseRaffleState.Completed)
 					return false;
 
-				return (m_Started + m_Duration + ExpirationTime <= DateTime.UtcNow);
+				return m_Started + m_Duration + ExpirationTime <= DateTime.UtcNow;
 			}
 		}
 
@@ -260,7 +260,7 @@ namespace Server.Items
 
 		public bool ValidLocation()
 		{
-			return (m_Bounds.Start != Point2D.Zero && m_Bounds.End != Point2D.Zero && m_Facet != null && m_Facet != Map.Internal);
+			return m_Bounds.Start != Point2D.Zero && m_Bounds.End != Point2D.Zero && m_Facet != null && m_Facet != Map.Internal;
 		}
 
 		private void InvalidateRegion()
@@ -280,9 +280,7 @@ namespace Server.Items
 
 		private bool HasEntered(Mobile from)
 		{
-			Account acc = from.Account as Account;
-
-			if (acc == null)
+			if (from.Account is not Account acc)
 				return false;
 
 			foreach (RaffleEntry entry in Entries)
@@ -450,9 +448,8 @@ namespace Server.Items
 			if (Deleted || m_State != HouseRaffleState.Active || !from.CheckAlive() || HasEntered(from) || IsAtIPLimit(from))
 				return;
 
-			Account acc = from.Account as Account;
 
-			if (acc == null)
+			if (from.Account is not Account acc)
 				return;
 
 			if (okay)

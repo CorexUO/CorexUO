@@ -169,10 +169,8 @@ namespace Server.Mobiles
 					m.AddToBackpack(ps);
 			}
 
-			if (m is PlayerMobile)
+			if (m is PlayerMobile pm)
 			{
-				PlayerMobile pm = (PlayerMobile)m;
-
 				for (int j = 0; j < pm.JusticeProtectors.Count; ++j)
 				{
 					Mobile prot = pm.JusticeProtectors[j];

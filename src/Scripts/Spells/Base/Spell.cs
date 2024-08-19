@@ -134,7 +134,7 @@ namespace Server.Spells
 		{
 			if (singleTarget != null)
 			{
-				return GetNewAosDamage(bonus, dice, sides, (Caster.Player && singleTarget.Player), GetDamageScalar(singleTarget));
+				return GetNewAosDamage(bonus, dice, sides, Caster.Player && singleTarget.Player, GetDamageScalar(singleTarget));
 			}
 			else
 			{
@@ -156,7 +156,7 @@ namespace Server.Spells
 			damage = AOS.Scale(damage, 100 + damageBonus);
 
 			int evalSkill = GetDamageFixed(Caster);
-			int evalScale = 30 + ((9 * evalSkill) / 100);
+			int evalScale = 30 + (9 * evalSkill / 100);
 
 			damage = AOS.Scale(damage, evalScale);
 
@@ -291,9 +291,9 @@ namespace Server.Spells
 				//m_Caster.CheckSkill( DamageSkill, 0.0, 120.0 );
 
 				if (casterEI > targetRS)
-					scalar = (1.0 + ((casterEI - targetRS) / 500.0));
+					scalar = 1.0 + ((casterEI - targetRS) / 500.0);
 				else
-					scalar = (1.0 + ((casterEI - targetRS) / 200.0));
+					scalar = 1.0 + ((casterEI - targetRS) / 200.0);
 
 				// magery damage bonus, -25% at 0 skill, +0% at 100 skill, +5% at 120 skill
 				scalar += (Caster.Skills[CastSkill].Value - 100.0) / 400.0;
@@ -347,8 +347,7 @@ namespace Server.Spells
 
 			ISlayer defISlayer = Spellbook.FindEquippedSpellbook(defender);
 
-			if (defISlayer == null)
-				defISlayer = defender.Weapon as ISlayer;
+			defISlayer ??= defender.Weapon as ISlayer;
 
 			if (defISlayer != null)
 			{
@@ -408,11 +407,9 @@ namespace Server.Spells
 
 				OnDisturb(type, true);
 
-				if (m_CastTimer != null)
-					m_CastTimer.Stop();
+				m_CastTimer?.Stop();
 
-				if (m_AnimTimer != null)
-					m_AnimTimer.Stop();
+				m_AnimTimer?.Stop();
 
 				if (Core.AOS && Caster.Player && type == DisturbType.Hurt)
 					DoHurtFizzle();
@@ -822,7 +819,7 @@ namespace Server.Spells
 					bool garlic = false;
 
 					for (int i = 0; !garlic && i < Info.Reagents.Length; ++i)
-						garlic = (Info.Reagents[i] == Reagent.Garlic);
+						garlic = Info.Reagents[i] == Reagent.Garlic;
 
 					if (garlic)
 					{
@@ -941,8 +938,7 @@ namespace Server.Spells
 					m_Spell.State = SpellState.Sequencing;
 					m_Spell.m_CastTimer = null;
 					m_Spell.Caster.OnSpellCast(m_Spell);
-					if (m_Spell.Caster.Region != null)
-						m_Spell.Caster.Region.OnSpellCast(m_Spell.Caster, m_Spell);
+					m_Spell.Caster.Region?.OnSpellCast(m_Spell.Caster, m_Spell);
 					m_Spell.Caster.NextSpellTime = Core.TickCount + (int)m_Spell.GetCastRecovery().TotalMilliseconds; // Spell.NextSpellDelay;
 
 					Target originalTarget = m_Spell.Caster.Target;

@@ -16,7 +16,7 @@ namespace Server.Mobiles
 		[CommandProperty(AccessLevel.GameMaster)]
 		public int DevourGoal
 		{
-			get => (IsParagon ? m_DevourGoal + 25 : m_DevourGoal);
+			get => IsParagon ? m_DevourGoal + 25 : m_DevourGoal;
 			set => m_DevourGoal = value;
 		}
 
@@ -180,10 +180,8 @@ namespace Server.Mobiles
 			{
 				if (item is Corpse) // For each Corpse
 				{
-					Corpse corpse = item as Corpse;
-
 					// Ensure that the corpse was killed by us
-					if (corpse != null && corpse.Killer == this && corpse.Owner != null)
+					if (item is Corpse corpse && corpse.Killer == this && corpse.Owner != null)
 					{
 						if (!corpse.DevourCorpse() && !corpse.Devoured)
 							PublicOverheadMessage(MessageType.Emote, 0x3B2, 1053032); // * The plague beast attempts to absorb the remains, but cannot! *
@@ -227,7 +225,7 @@ namespace Server.Mobiles
 				maxhits = (int)(maxhits * Paragon.HitsBuff);
 
 			if (hp < 1000 && !Core.AOS)
-				hp = (hp * 100) / 60;
+				hp = hp * 100 / 60;
 
 			if (HitsMaxSeed >= maxhits)
 			{

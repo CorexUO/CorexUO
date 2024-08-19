@@ -29,13 +29,13 @@ namespace Server.Items
 			{
 				bool breathing = Breathing;
 
-				ItemID = (breathing ? GetFireID(value) : GetBaseID(value));
+				ItemID = breathing ? GetFireID(value) : GetBaseID(value);
 			}
 		}
 
 		public bool Breathing
 		{
-			get => (ItemID == GetFireID(Type));
+			get => ItemID == GetFireID(Type);
 			set
 			{
 				if (value)

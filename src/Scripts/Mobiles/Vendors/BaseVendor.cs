@@ -79,7 +79,7 @@ namespace Server.Mobiles
 			Town town = Town.FromRegion(Region);
 
 			if (town != null)
-				return (100 + town.Tax);
+				return 100 + town.Tax;
 
 			return 100;
 		}
@@ -141,9 +141,7 @@ namespace Server.Mobiles
 		{
 			get
 			{
-				Container pack = FindItemOnLayer(Layer.ShopBuy) as Container;
-
-				if (pack == null)
+				if (FindItemOnLayer(Layer.ShopBuy) is not Container pack)
 				{
 					pack = new Backpack
 					{
@@ -159,7 +157,7 @@ namespace Server.Mobiles
 
 		public abstract void InitSBInfo();
 
-		public virtual bool IsTokunoVendor => (Map == Map.Tokuno);
+		public virtual bool IsTokunoVendor => Map == Map.Tokuno;
 
 		protected void LoadSBInfo()
 		{
@@ -167,9 +165,7 @@ namespace Server.Mobiles
 
 			for (int i = 0; i < m_ArmorBuyInfo.Count; ++i)
 			{
-				GenericBuyInfo buy = m_ArmorBuyInfo[i] as GenericBuyInfo;
-
-				if (buy != null)
+				if (m_ArmorBuyInfo[i] is GenericBuyInfo buy)
 					buy.DeleteDisplayEntity();
 			}
 
@@ -495,10 +491,7 @@ namespace Server.Mobiles
 				list.Add(new BuyItemState(buyItem.Name, cont.Serial, disp == null ? 0x7FC0FFEE : disp.Serial, buyItem.Price, buyItem.Amount, buyItem.ItemID, buyItem.Hue));
 				count++;
 
-				if (opls == null)
-				{
-					opls = new List<ObjectPropertyList>();
-				}
+				opls ??= new List<ObjectPropertyList>();
 
 				if (disp is Item)
 				{
@@ -545,10 +538,7 @@ namespace Server.Mobiles
 					list.Add(new BuyItemState(name, cont.Serial, item.Serial, price, item.Amount, item.ItemID, item.Hue));
 					count++;
 
-					if (opls == null)
-					{
-						opls = new List<ObjectPropertyList>();
-					}
+					opls ??= new List<ObjectPropertyList>();
 
 					opls.Add(item.PropertyList);
 				}
@@ -793,10 +783,8 @@ namespace Server.Mobiles
 
 			IEntity o = bii.GetEntity();
 
-			if (o is Item)
+			if (o is Item item)
 			{
-				Item item = (Item)o;
-
 				if (item.Stackable)
 				{
 					item.Amount = amount;
@@ -825,10 +813,8 @@ namespace Server.Mobiles
 					}
 				}
 			}
-			else if (o is Mobile)
+			else if (o is Mobile m)
 			{
-				Mobile m = (Mobile)o;
-
 				m.Direction = (Direction)Utility.Random(8);
 				m.MoveToWorld(buyer.Location, buyer.Map);
 				m.PlaySound(m.GetIdleSound());
@@ -975,8 +961,7 @@ namespace Server.Mobiles
 				buyer.PlaySound(0x32);
 
 			cont = buyer.Backpack;
-			if (cont == null)
-				cont = buyer.BankBox;
+			cont ??= buyer.BankBox;
 
 			foreach (BuyItemResponse buy in validBuy)
 			{
@@ -1019,8 +1004,7 @@ namespace Server.Mobiles
 									{
 										buyItem = Mobile.LiftItemDupe(item, item.Amount - amount);
 
-										if (buyItem == null)
-											buyItem = item;
+										buyItem ??= item;
 									}
 
 									if (cont == null || !cont.TryDropItem(buyer, buyItem, false))
@@ -1262,7 +1246,7 @@ namespace Server.Mobiles
 
 					if (doubled > 0)
 					{
-						writer.WriteEncodedInt(1 + ((j * sbInfos.Count) + i));
+						writer.WriteEncodedInt(1 + (j * sbInfos.Count) + i);
 						writer.WriteEncodedInt(doubled);
 					}
 				}

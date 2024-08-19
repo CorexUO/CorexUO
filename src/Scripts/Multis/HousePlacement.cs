@@ -158,7 +158,7 @@ namespace Server.Multis
 
 						TileFlag addTileFlags = TileData.ItemTable[addTile.ID & TileData.MaxItemValue].Flags;
 
-						bool isFoundation = (addTile.Z == 0 && (addTileFlags & TileFlag.Wall) != 0);
+						bool isFoundation = addTile.Z == 0 && (addTileFlags & TileFlag.Wall) != 0;
 						bool hasSurface = false;
 
 						if (isFoundation)
@@ -196,7 +196,7 @@ namespace Server.Multis
 							{
 								if (item.Movable)
 									toMove.Add(item);
-								else if ((id.Impassable || (id.Surface && (id.Flags & TileFlag.Background) == 0)))
+								else if (id.Impassable || (id.Surface && (id.Flags & TileFlag.Background) == 0))
 									return HousePlacementResult.BadItem; // Broke rule #2
 							}
 							/*else if ( isFoundation && !hasSurface && (id.Flags & TileFlag.Surface) != 0 && (item.Z + id.CalcHeight) == center.Z )

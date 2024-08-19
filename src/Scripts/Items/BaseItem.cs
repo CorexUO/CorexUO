@@ -45,8 +45,7 @@ namespace Server
 		{
 			string name = Name;
 
-			if (name == null)
-				name = string.Format("#{0}", LabelNumber);
+			name ??= string.Format("#{0}", LabelNumber);
 
 			return name;
 		}

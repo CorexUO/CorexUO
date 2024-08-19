@@ -244,8 +244,7 @@ namespace Server.Regions
 
 				if (Spawning)
 				{
-					if (m_SpawnTimer != null)
-						m_SpawnTimer.Stop();
+					m_SpawnTimer?.Stop();
 
 					TimeSpan delay = m_NextSpawn - DateTime.UtcNow;
 					m_SpawnTimer = Timer.DelayCall(delay > TimeSpan.Zero ? delay : TimeSpan.Zero, new TimerCallback(TimerCallback));
@@ -268,8 +267,7 @@ namespace Server.Regions
 
 				if (entity != null)
 				{
-					if (m_RemoveList == null)
-						m_RemoveList = new List<IEntity>();
+					m_RemoveList ??= new List<IEntity>();
 
 					m_RemoveList.Add(entity);
 				}

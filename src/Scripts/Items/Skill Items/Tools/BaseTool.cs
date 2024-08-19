@@ -43,13 +43,13 @@ namespace Server.Items
 
 		public void ScaleUses()
 		{
-			m_UsesRemaining = (m_UsesRemaining * GetUsesScalar()) / 100;
+			m_UsesRemaining = m_UsesRemaining * GetUsesScalar() / 100;
 			InvalidateProperties();
 		}
 
 		public void UnscaleUses()
 		{
-			m_UsesRemaining = (m_UsesRemaining * 100) / GetUsesScalar();
+			m_UsesRemaining = m_UsesRemaining * 100 / GetUsesScalar();
 		}
 
 		public int GetUsesScalar()
@@ -109,7 +109,7 @@ namespace Server.Items
 
 		public static bool CheckAccessible(Item tool, Mobile m)
 		{
-			return (tool.IsChildOf(m) || tool.Parent == m);
+			return tool.IsChildOf(m) || tool.Parent == m;
 		}
 
 		public static bool CheckTool(Item tool, Mobile m)

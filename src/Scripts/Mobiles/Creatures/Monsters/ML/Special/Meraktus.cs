@@ -188,8 +188,7 @@ namespace Server.Mobiles
 				Mobile m = (Mobile)targets[i];
 				if (m != null && !m.Deleted && m is PlayerMobile)
 				{
-					PlayerMobile pm = m as PlayerMobile;
-					if (pm != null && pm.Mounted)
+					if (m is PlayerMobile pm && pm.Mounted)
 					{
 						pm.Mount.Rider = null;
 					}

@@ -22,19 +22,13 @@ namespace Server.Items
 			{
 				if (base.ItemID != value)
 				{
-					Map facet = (Parent == null ? Map : null);
+					Map facet = Parent == null ? Map : null;
 
-					if (facet != null)
-					{
-						facet.OnLeave(this);
-					}
+					facet?.OnLeave(this);
 
 					base.ItemID = value;
 
-					if (facet != null)
-					{
-						facet.OnEnter(this);
-					}
+					facet?.OnEnter(this);
 				}
 			}
 		}

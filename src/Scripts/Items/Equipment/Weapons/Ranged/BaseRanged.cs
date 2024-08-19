@@ -57,11 +57,11 @@ namespace Server.Items
 
 				if (Core.AOS)
 				{
-					canSwing = (!attacker.Paralyzed && !attacker.Frozen);
+					canSwing = !attacker.Paralyzed && !attacker.Frozen;
 
 					if (canSwing)
 					{
-						canSwing = (attacker.Spell is not Spell sp || !sp.IsCasting || !sp.BlocksMovement);
+						canSwing = attacker.Spell is not Spell sp || !sp.IsCasting || !sp.BlocksMovement;
 					}
 				}
 
@@ -140,8 +140,7 @@ namespace Server.Items
 
 						if (!p.Warmode)
 						{
-							if (m_RecoveryTimer == null)
-								m_RecoveryTimer = Timer.DelayCall(TimeSpan.FromSeconds(10), new TimerCallback(p.RecoverAmmo));
+							m_RecoveryTimer ??= Timer.DelayCall(TimeSpan.FromSeconds(10), new TimerCallback(p.RecoverAmmo));
 
 							if (!m_RecoveryTimer.Running)
 								m_RecoveryTimer.Start();

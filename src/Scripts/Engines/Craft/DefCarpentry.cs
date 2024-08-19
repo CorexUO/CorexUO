@@ -15,8 +15,7 @@ namespace Server.Engines.Craft
 		{
 			get
 			{
-				if (m_CraftSystem == null)
-					m_CraftSystem = new DefCarpentry();
+				m_CraftSystem ??= new DefCarpentry();
 
 				return m_CraftSystem;
 			}

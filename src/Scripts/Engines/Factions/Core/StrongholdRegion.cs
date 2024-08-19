@@ -22,10 +22,8 @@ namespace Server.Factions
 			if (m.AccessLevel >= AccessLevel.Counselor || Contains(oldLocation))
 				return true;
 
-			if (m is PlayerMobile)
+			if (m is PlayerMobile pm)
 			{
-				PlayerMobile pm = (PlayerMobile)m;
-
 				if (pm.DuelContext != null)
 				{
 					m.SendMessage("You may not enter this area while participating in a duel or a tournament.");
@@ -33,7 +31,7 @@ namespace Server.Factions
 				}
 			}
 
-			return (Faction.Find(m, true, true) != null);
+			return Faction.Find(m, true, true) != null;
 		}
 
 		public override bool AllowHousing(Mobile from, Point3D p)

@@ -19,7 +19,7 @@ namespace Server.Items
 		[CommandProperty(AccessLevel.GameMaster)]
 		public bool FacingEast
 		{
-			get => (ItemID == 0x100A);
+			get => ItemID == 0x100A;
 			set => ItemID = value ? 0x100A : 0x100B;
 		}
 
@@ -90,8 +90,7 @@ namespace Server.Items
 
 		private ScoreEntry GetEntryFor(Mobile from)
 		{
-			if (m_Entries == null)
-				m_Entries = new Hashtable();
+			m_Entries ??= new Hashtable();
 
 			ScoreEntry e = (ScoreEntry)m_Entries[from];
 
@@ -103,9 +102,7 @@ namespace Server.Items
 
 		public void Fire(Mobile from)
 		{
-			BaseRanged bow = from.Weapon as BaseRanged;
-
-			if (bow == null)
+			if (from.Weapon is not BaseRanged bow)
 			{
 				SendLocalizedMessageTo(from, 500593); // You must practice with ranged weapons on this.
 				return;
@@ -142,9 +139,9 @@ namespace Server.Items
 			Container pack = from.Backpack;
 			Type ammoType = bow.AmmoType;
 
-			bool isArrow = (ammoType == typeof(Arrow));
-			bool isBolt = (ammoType == typeof(Bolt));
-			bool isKnown = (isArrow || isBolt);
+			bool isArrow = ammoType == typeof(Arrow);
+			bool isBolt = ammoType == typeof(Bolt);
+			bool isKnown = isArrow || isBolt;
 
 			if (pack == null || !pack.ConsumeTotal(ammoType, 1))
 			{
@@ -213,7 +210,7 @@ namespace Server.Items
 				splitScore = 5;
 			}
 
-			bool split = (isKnown && ((Arrows + Bolts) * 0.02) > Utility.RandomDouble());
+			bool split = isKnown && ((Arrows + Bolts) * 0.02) > Utility.RandomDouble();
 
 			if (split)
 			{

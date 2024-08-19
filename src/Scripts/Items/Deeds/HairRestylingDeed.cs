@@ -67,11 +67,11 @@ namespace Server.Items
 
 				for (int i = 1; i < RacialData.Length; i++)
 				{
-					AddHtmlLocalized(LayoutArray[i][2], LayoutArray[i][3], (i == 1) ? 125 : 80, (i == 1) ? 70 : 35, (m_From.Female) ? RacialData[i][0] : RacialData[i][1], false, false);
+					AddHtmlLocalized(LayoutArray[i][2], LayoutArray[i][3], (i == 1) ? 125 : 80, (i == 1) ? 70 : 35, m_From.Female ? RacialData[i][0] : RacialData[i][1], false, false);
 					if (LayoutArray[i][4] != 0)
 					{
 						AddBackground(LayoutArray[i][0], LayoutArray[i][1], 50, 50, 0xA3C);
-						AddImage(LayoutArray[i][4], LayoutArray[i][5], (m_From.Female) ? RacialData[i][4] : RacialData[i][5]);
+						AddImage(LayoutArray[i][4], LayoutArray[i][5], m_From.Female ? RacialData[i][4] : RacialData[i][5]);
 					}
 					AddButton(LayoutArray[i][6], LayoutArray[i][7], 0xFA5, 0xFA7, i, GumpButtonType.Reply, 0);
 				}
@@ -93,7 +93,7 @@ namespace Server.Items
 				if (m_From is PlayerMobile pm)
 				{
 					pm.SetHairMods(-1, -1); // clear any hairmods (disguise kit, incognito)
-					m_From.HairItemID = (m_From.Female) ? RacialData[info.ButtonID][2] : RacialData[info.ButtonID][3];
+					m_From.HairItemID = m_From.Female ? RacialData[info.ButtonID][2] : RacialData[info.ButtonID][3];
 					m_Deed.Delete();
 				}
 			}

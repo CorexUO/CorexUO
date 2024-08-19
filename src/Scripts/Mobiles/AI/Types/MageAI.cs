@@ -34,9 +34,9 @@ namespace Server.Mobiles
 				return base.Think();
 		}
 
-		public virtual bool SmartAI => (m_Mobile is BaseVendor || m_Mobile is BaseEscortable || m_Mobile is Changeling);
+		public virtual bool SmartAI => m_Mobile is BaseVendor || m_Mobile is BaseEscortable || m_Mobile is Changeling;
 
-		public virtual bool IsNecromancer => (Core.AOS && m_Mobile.Skills[SkillName.Necromancy].Value > 50);
+		public virtual bool IsNecromancer => Core.AOS && m_Mobile.Skills[SkillName.Necromancy].Value > 50;
 
 		private const double HealChance = 0.10; // 10% chance to heal at gm magery
 		private const double TeleportChance = 0.05; // 5% chance to teleport at gm magery
@@ -75,8 +75,7 @@ namespace Server.Mobiles
 				{
 					Spell spell = CheckCastHealingSpell();
 
-					if (spell != null)
-						spell.Cast();
+					spell?.Cast();
 				}
 			}
 
@@ -122,8 +121,7 @@ namespace Server.Mobiles
 				{
 					spell = new GreaterHealSpell(m_Mobile, null);
 
-					if (spell == null)
-						spell = new HealSpell(m_Mobile, null);
+					spell ??= new HealSpell(m_Mobile, null);
 				}
 			}
 			else if (m_Mobile.Hits < (m_Mobile.HitsMax - 10))
@@ -183,8 +181,7 @@ namespace Server.Mobiles
 		{
 			if (!m_Mobile.DisallowAllMoves && (SmartAI ? Utility.Random(4) == 0 : ScaleBySkill(TeleportChance, SkillName.Magery) > Utility.RandomDouble()))
 			{
-				if (m_Mobile.Target != null)
-					m_Mobile.Target.Cancel(m_Mobile, TargetCancelType.Canceled);
+				m_Mobile.Target?.Cancel(m_Mobile, TargetCancelType.Canceled);
 
 				new TeleportSpell(m_Mobile, null).Cast();
 
@@ -217,7 +214,7 @@ namespace Server.Mobiles
 		public virtual bool UseNecromancy()
 		{
 			if (IsNecromancer)
-				return (Utility.Random(m_Mobile.Skills[SkillName.Magery].BaseFixedPoint + m_Mobile.Skills[SkillName.Necromancy].BaseFixedPoint) >= m_Mobile.Skills[SkillName.Magery].BaseFixedPoint);
+				return Utility.Random(m_Mobile.Skills[SkillName.Magery].BaseFixedPoint + m_Mobile.Skills[SkillName.Necromancy].BaseFixedPoint) >= m_Mobile.Skills[SkillName.Magery].BaseFixedPoint;
 
 			return false;
 		}
@@ -641,7 +638,7 @@ namespace Server.Mobiles
 
 						int diff = c.Hits - m_Mobile.Hits;
 
-						flee = (Utility.Random(0, 100) > (10 + diff)); // (10 + diff)% chance to flee
+						flee = Utility.Random(0, 100) > (10 + diff); // (10 + diff)% chance to flee
 					}
 					else
 					{
@@ -705,8 +702,7 @@ namespace Server.Mobiles
 					RunTo(c);
 				}
 
-				if (spell != null)
-					spell.Cast();
+				spell?.Cast();
 
 				m_NextCastTime = Core.TickCount + (int)GetDelay(spell).TotalMilliseconds;
 			}
@@ -762,8 +758,7 @@ namespace Server.Mobiles
 
 					Spell spell = CheckCastHealingSpell();
 
-					if (spell != null)
-						spell.Cast();
+					spell?.Cast();
 				}
 
 				base.DoActionGuard();
@@ -914,7 +909,7 @@ namespace Server.Mobiles
 
 		public bool CanDispel(Mobile m)
 		{
-			return (m is BaseCreature && ((BaseCreature)m).Summoned && m_Mobile.CanBeHarmful(m, false) && !((BaseCreature)m).IsAnimatedDead);
+			return m is BaseCreature && ((BaseCreature)m).Summoned && m_Mobile.CanBeHarmful(m, false) && !((BaseCreature)m).IsAnimatedDead;
 		}
 
 		private static readonly int[] m_Offsets = new int[]
@@ -953,11 +948,11 @@ namespace Server.Mobiles
 			if (targ == null)
 				return false;
 
-			bool isReveal = (targ is RevealSpell.InternalTarget);
-			bool isDispel = (targ is DispelSpell.InternalTarget);
-			bool isParalyze = (targ is ParalyzeSpell.InternalTarget);
-			bool isTeleport = (targ is TeleportSpell.InternalTarget);
-			bool isInvisible = (targ is InvisibilitySpell.InternalTarget);
+			bool isReveal = targ is RevealSpell.InternalTarget;
+			bool isDispel = targ is DispelSpell.InternalTarget;
+			bool isParalyze = targ is ParalyzeSpell.InternalTarget;
+			bool isTeleport = targ is TeleportSpell.InternalTarget;
+			bool isInvisible = targ is InvisibilitySpell.InternalTarget;
 			bool teleportAway = false;
 
 			Mobile toTarget;

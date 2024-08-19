@@ -125,28 +125,24 @@ namespace Server.Engines.Reports
 
 						//grp.DrawPie(new Pen(_borderColor,1.2f),pieRect,item.StartPos,item.SweepSize);
 
-						if (fnt == null)
-							fnt = new Font(_legendFontStyle, _legendFontSize);
+						fnt ??= new Font(_legendFontStyle, _legendFontSize);
 
 						if (ShowPercents && item.SweepSize > 10)
 						{
-							if (sfp == null)
-							{
-								sfp = new StringFormat
+							sfp ??= new StringFormat
 								{
 									Alignment = StringAlignment.Center,
 									LineAlignment = StringAlignment.Center
 								};
-							}
 
-							float perc = (item.SweepSize * 100.0f) / 360.0f;
+							float perc = item.SweepSize * 100.0f / 360.0f;
 							string percString = string.Format("{0:F0}%", perc);
 
 							float px = pieRect.X + (pieRect.Width / 2);
 							float py = pieRect.Y + (pieRect.Height / 2);
 
 							double angle = item.StartPos + (item.SweepSize / 2);
-							double rads = (angle / 180.0) * Math.PI;
+							double rads = angle / 180.0 * Math.PI;
 
 							px += (float)(Math.Cos(rads) * perimeter / 3);
 							py += (float)(Math.Sin(rads) * perimeter / 3);
@@ -168,8 +164,7 @@ namespace Server.Engines.Reports
 								new RectangleF(px - 30, py - 20, 60, 40), sfp);
 						}
 
-						if (pen == null)
-							pen = new Pen(_borderColor, 0.5f);
+						pen ??= new Pen(_borderColor, 0.5f);
 
 						grp.FillRectangle(brs, perimeter + _bufferSpace, i * _legendFontHeight + 15, 10, 10);
 						grp.DrawRectangle(pen, perimeter + _bufferSpace, i * _legendFontHeight + 15, 10, 10);
@@ -182,8 +177,7 @@ namespace Server.Engines.Reports
 					}
 					finally
 					{
-						if (brs != null)
-							brs.Dispose();
+						brs?.Dispose();
 					}
 				}
 
@@ -197,8 +191,7 @@ namespace Server.Engines.Reports
 					}
 					finally
 					{
-						if (brs != null)
-							brs.Dispose();
+						brs?.Dispose();
 					}
 				}
 
@@ -223,11 +216,11 @@ namespace Server.Engines.Reports
 			}
 			finally
 			{
-				if (sf != null) sf.Dispose();
-				if (grp != null) grp.Dispose();
-				if (sfp != null) sfp.Dispose();
-				if (fnt != null) fnt.Dispose();
-				if (pen != null) pen.Dispose();
+				sf?.Dispose();
+				grp?.Dispose();
+				sfp?.Dispose();
+				fnt?.Dispose();
+				pen?.Dispose();
 			}
 			return bmp;
 		}

@@ -68,7 +68,7 @@ namespace Server.Engines.BulkOrders
 			for (int i = 0; i < chances.Length; ++i)
 			{
 				if (random < chances[i])
-					return (i == 0 ? BulkMaterialType.None : start + (i - 1));
+					return i == 0 ? BulkMaterialType.None : start + (i - 1);
 
 				random -= chances[i];
 			}
@@ -144,10 +144,8 @@ namespace Server.Engines.BulkOrders
 		{
 			if (o is Item && ((Item)o).IsChildOf(from.Backpack))
 			{
-				if (o is SmallBOD)
+				if (o is SmallBOD small)
 				{
-					SmallBOD small = (SmallBOD)o;
-
 					LargeBulkEntry entry = null;
 
 					for (int i = 0; entry == null && i < m_Entries.Length; ++i)

@@ -58,11 +58,10 @@ namespace Server.Spells.Spellweaving
 
 					Caster.DoHarmful(m);
 
-					Spell oldSpell = m.Spell as Spell;
 
 					SpellHelper.Damage(this, m, (m.Player && Caster.Player) ? pvpDamage : pvmDamage, 0, 0, 0, 0, 100);
 
-					if (oldSpell != null && oldSpell != m.Spell)
+					if (m.Spell is Spell oldSpell && oldSpell != m.Spell)
 					{
 						if (!CheckResisted(m))
 						{

@@ -186,9 +186,7 @@ namespace Server.Gumps
 
 				if (entry.From != null)
 				{
-					Account acc = entry.From.Account as Account;
-
-					if (acc != null)
+					if (entry.From.Account is Account acc)
 						name = string.Format("{0} ({1})", entry.From.Name, acc);
 					else
 						name = entry.From.Name;
@@ -222,8 +220,8 @@ namespace Server.Gumps
 
 			public int Compare(RaffleEntry x, RaffleEntry y)
 			{
-				bool xIsNull = (x == null || x.From == null);
-				bool yIsNull = (y == null || y.From == null);
+				bool xIsNull = x == null || x.From == null;
+				bool yIsNull = y == null || y.From == null;
 
 				if (xIsNull && yIsNull)
 					return 0;
@@ -251,8 +249,8 @@ namespace Server.Gumps
 
 			public int Compare(RaffleEntry x, RaffleEntry y)
 			{
-				bool xIsNull = (x == null || x.From == null);
-				bool yIsNull = (y == null || y.From == null);
+				bool xIsNull = x == null || x.From == null;
+				bool yIsNull = y == null || y.From == null;
 
 				if (xIsNull && yIsNull)
 					return 0;
@@ -290,8 +288,8 @@ namespace Server.Gumps
 
 			public int Compare(RaffleEntry x, RaffleEntry y)
 			{
-				bool xIsNull = (x == null || x.Address == null);
-				bool yIsNull = (y == null || y.Address == null);
+				bool xIsNull = x == null || x.Address == null;
+				bool yIsNull = y == null || y.Address == null;
 
 				if (xIsNull && yIsNull)
 					return 0;

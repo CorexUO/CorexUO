@@ -39,7 +39,7 @@ namespace Server.Network
 
 		public DateTime ConnectedOn { get; }
 
-		public TimeSpan ConnectedFor => (DateTime.UtcNow - ConnectedOn);
+		public TimeSpan ConnectedFor => DateTime.UtcNow - ConnectedOn;
 
 		internal int m_Seed;
 		internal int m_AuthID;
@@ -180,26 +180,26 @@ namespace Server.Network
 			Version704565 = Version70331 | NewSecureTrading
 		}
 
-		public bool NewSpellbook => ((_ProtocolChanges & ProtocolChanges.NewSpellbook) != 0);
-		public bool DamagePacket => ((_ProtocolChanges & ProtocolChanges.DamagePacket) != 0);
-		public bool Unpack => ((_ProtocolChanges & ProtocolChanges.Unpack) != 0);
-		public bool BuffIcon => ((_ProtocolChanges & ProtocolChanges.BuffIcon) != 0);
-		public bool NewHaven => ((_ProtocolChanges & ProtocolChanges.NewHaven) != 0);
-		public bool ContainerGridLines => ((_ProtocolChanges & ProtocolChanges.ContainerGridLines) != 0);
-		public bool ExtendedSupportedFeatures => ((_ProtocolChanges & ProtocolChanges.ExtendedSupportedFeatures) != 0);
-		public bool StygianAbyss => ((_ProtocolChanges & ProtocolChanges.StygianAbyss) != 0);
-		public bool HighSeas => ((_ProtocolChanges & ProtocolChanges.HighSeas) != 0);
-		public bool NewCharacterList => ((_ProtocolChanges & ProtocolChanges.NewCharacterList) != 0);
-		public bool NewCharacterCreation => ((_ProtocolChanges & ProtocolChanges.NewCharacterCreation) != 0);
-		public bool ExtendedStatus => ((_ProtocolChanges & ProtocolChanges.ExtendedStatus) != 0);
-		public bool NewMobileIncoming => ((_ProtocolChanges & ProtocolChanges.NewMobileIncoming) != 0);
-		public bool NewSecureTrading => ((_ProtocolChanges & ProtocolChanges.NewSecureTrading) != 0);
+		public bool NewSpellbook => (_ProtocolChanges & ProtocolChanges.NewSpellbook) != 0;
+		public bool DamagePacket => (_ProtocolChanges & ProtocolChanges.DamagePacket) != 0;
+		public bool Unpack => (_ProtocolChanges & ProtocolChanges.Unpack) != 0;
+		public bool BuffIcon => (_ProtocolChanges & ProtocolChanges.BuffIcon) != 0;
+		public bool NewHaven => (_ProtocolChanges & ProtocolChanges.NewHaven) != 0;
+		public bool ContainerGridLines => (_ProtocolChanges & ProtocolChanges.ContainerGridLines) != 0;
+		public bool ExtendedSupportedFeatures => (_ProtocolChanges & ProtocolChanges.ExtendedSupportedFeatures) != 0;
+		public bool StygianAbyss => (_ProtocolChanges & ProtocolChanges.StygianAbyss) != 0;
+		public bool HighSeas => (_ProtocolChanges & ProtocolChanges.HighSeas) != 0;
+		public bool NewCharacterList => (_ProtocolChanges & ProtocolChanges.NewCharacterList) != 0;
+		public bool NewCharacterCreation => (_ProtocolChanges & ProtocolChanges.NewCharacterCreation) != 0;
+		public bool ExtendedStatus => (_ProtocolChanges & ProtocolChanges.ExtendedStatus) != 0;
+		public bool NewMobileIncoming => (_ProtocolChanges & ProtocolChanges.NewMobileIncoming) != 0;
+		public bool NewSecureTrading => (_ProtocolChanges & ProtocolChanges.NewSecureTrading) != 0;
 
 		[CommandProperty(AccessLevel.Administrator, true)]
-		public bool IsUOTDClient => ((Flags & ClientFlags.UOTD) != 0 || (m_Version != null && m_Version.Type == ClientType.UOTD));
+		public bool IsUOTDClient => (Flags & ClientFlags.UOTD) != 0 || (m_Version != null && m_Version.Type == ClientType.UOTD);
 
 		[CommandProperty(AccessLevel.Administrator, true)]
-		public bool IsSAClient => (m_Version != null && m_Version.Type == ClientType.SA);
+		public bool IsSAClient => m_Version != null && m_Version.Type == ClientType.SA;
 
 		[CommandProperty(AccessLevel.Administrator, true)]
 		public bool IsEnhancedClient => IsUOTDClient || (m_Version != null && m_Version.Major >= 67);
@@ -310,10 +310,7 @@ namespace Server.Network
 
 		public void AddMenu(IMenu menu)
 		{
-			if (Menus == null)
-			{
-				Menus = new List<IMenu>();
-			}
+			Menus ??= new List<IMenu>();
 
 			if (Menus.Count < MenuCap)
 			{
@@ -328,34 +325,22 @@ namespace Server.Network
 
 		public void RemoveMenu(IMenu menu)
 		{
-			if (Menus != null)
-			{
-				Menus.Remove(menu);
-			}
+			Menus?.Remove(menu);
 		}
 
 		public void RemoveMenu(int index)
 		{
-			if (Menus != null)
-			{
-				Menus.RemoveAt(index);
-			}
+			Menus?.RemoveAt(index);
 		}
 
 		public void ClearMenus()
 		{
-			if (Menus != null)
-			{
-				Menus.Clear();
-			}
+			Menus?.Clear();
 		}
 
 		public void AddHuePicker(HuePicker huePicker)
 		{
-			if (HuePickers == null)
-			{
-				HuePickers = new List<HuePicker>();
-			}
+			HuePickers ??= new List<HuePicker>();
 
 			if (HuePickers.Count < HuePickerCap)
 			{
@@ -370,34 +355,22 @@ namespace Server.Network
 
 		public void RemoveHuePicker(HuePicker huePicker)
 		{
-			if (HuePickers != null)
-			{
-				HuePickers.Remove(huePicker);
-			}
+			HuePickers?.Remove(huePicker);
 		}
 
 		public void RemoveHuePicker(int index)
 		{
-			if (HuePickers != null)
-			{
-				HuePickers.RemoveAt(index);
-			}
+			HuePickers?.RemoveAt(index);
 		}
 
 		public void ClearHuePickers()
 		{
-			if (HuePickers != null)
-			{
-				HuePickers.Clear();
-			}
+			HuePickers?.Clear();
 		}
 
 		public void AddGump(Gump gump)
 		{
-			if (Gumps == null)
-			{
-				Gumps = new List<Gump>();
-			}
+			Gumps ??= new List<Gump>();
 
 			if (Gumps.Count < GumpCap)
 			{
@@ -412,26 +385,17 @@ namespace Server.Network
 
 		public void RemoveGump(Gump gump)
 		{
-			if (Gumps != null)
-			{
-				Gumps.Remove(gump);
-			}
+			Gumps?.Remove(gump);
 		}
 
 		public void RemoveGump(int index)
 		{
-			if (Gumps != null)
-			{
-				Gumps.RemoveAt(index);
-			}
+			Gumps?.RemoveAt(index);
 		}
 
 		public void ClearGumps()
 		{
-			if (Gumps != null)
-			{
-				Gumps.Clear();
-			}
+			Gumps?.Clear();
 		}
 
 		public void LaunchBrowser(string url)
@@ -518,15 +482,9 @@ namespace Server.Network
 
 				if (Core.Profiling) prof = PacketSendProfile.Acquire(p.GetType());
 
-				if (prof != null)
-				{
-					prof.Start();
-				}
+				prof?.Start();
 
-				if (PacketEncoder != null)
-				{
-					PacketEncoder.EncodeOutgoingPacket(this, ref buffer, ref length);
-				}
+				PacketEncoder?.EncodeOutgoingPacket(this, ref buffer, ref length);
 
 				try
 				{
@@ -565,10 +523,7 @@ namespace Server.Network
 
 				p.OnSend();
 
-				if (prof != null)
-				{
-					prof.Finish(length);
-				}
+				prof?.Finish(length);
 			}
 			else
 			{
@@ -826,8 +781,7 @@ namespace Server.Network
 
 					byte[] buffer = m_RecvBuffer;
 
-					if (PacketEncoder != null)
-						PacketEncoder.DecodeIncomingPacket(this, ref buffer, ref byteCount);
+					PacketEncoder?.DecodeIncomingPacket(this, ref buffer, ref byteCount);
 
 					lock (Buffer)
 						Buffer.Enqueue(buffer, 0, byteCount);
@@ -1241,9 +1195,9 @@ namespace Server.Network
 				return false;
 
 			if (info.RequiredClient != null)
-				return (Version >= info.RequiredClient);
+				return Version >= info.RequiredClient;
 
-			return ((Flags & info.ClientFlags) != 0);
+			return (Flags & info.ClientFlags) != 0;
 		}
 
 		public bool SupportsExpansion(Expansion ex, bool checkCoreExpansion)

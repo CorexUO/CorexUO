@@ -180,8 +180,7 @@ namespace Server.Spells.Third
 			{
 				base.OnAfterDelete();
 
-				if (m_Timer != null)
-					m_Timer.Stop();
+				m_Timer?.Stop();
 			}
 
 			private class InternalTimer : Timer

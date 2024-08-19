@@ -24,9 +24,7 @@ namespace Server.Spells.Necromancy
 
 		public override void OnCast()
 		{
-			BaseWeapon weapon = Caster.Weapon as BaseWeapon;
-
-			if (weapon == null || weapon is Fists)
+			if (Caster.Weapon is not BaseWeapon weapon || weapon is Fists)
 			{
 				Caster.SendLocalizedMessage(501078); // You must be holding a weapon.
 			}
@@ -52,8 +50,7 @@ namespace Server.Spells.Necromancy
 
 				Timer t = (Timer)m_Table[weapon];
 
-				if (t != null)
-					t.Stop();
+				t?.Stop();
 
 				weapon.Cursed = true;
 

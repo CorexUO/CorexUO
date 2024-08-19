@@ -43,7 +43,7 @@ namespace Server.Commands.Generic
 		public Type Type { get; }
 		public object Value { get; private set; }
 		public FieldInfo Field { get; private set; }
-		public bool HasField => (Field != null);
+		public bool HasField => Field != null;
 
 		public PropertyValue(Type type, object value)
 		{
@@ -87,10 +87,8 @@ namespace Server.Commands.Generic
 
 		public void Acquire(TypeBuilder typeBuilder, ILGenerator il, string fieldName)
 		{
-			if (Value is string)
+			if (Value is string toParse)
 			{
-				string toParse = (string)Value;
-
 				if (!Type.IsValueType && toParse == "null")
 				{
 					Value = null;
@@ -267,7 +265,7 @@ namespace Server.Commands.Generic
 
 			if (m_IgnoreCase || methodName == "Equals")
 			{
-				Type type = (m_IgnoreCase ? typeof(Insensitive) : typeof(string));
+				Type type = m_IgnoreCase ? typeof(Insensitive) : typeof(string);
 
 				emitter.BeginCall(
 					type.GetMethod(

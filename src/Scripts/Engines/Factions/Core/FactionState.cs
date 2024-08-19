@@ -83,8 +83,7 @@ namespace Server.Factions
 			get => m_Commander;
 			set
 			{
-				if (m_Commander != null)
-					m_Commander.InvalidateProperties();
+				m_Commander?.InvalidateProperties();
 
 				m_Commander = value;
 
@@ -194,9 +193,7 @@ namespace Server.Factions
 
 						for (int i = 0; i < factionTrapCount; ++i)
 						{
-							BaseFactionTrap trap = reader.ReadItem() as BaseFactionTrap;
-
-							if (trap != null && !trap.CheckDecay())
+							if (reader.ReadItem() is BaseFactionTrap trap && !trap.CheckDecay())
 								Traps.Add(trap);
 						}
 

@@ -44,12 +44,12 @@ namespace Server.Items
 
 		private void Down1()
 		{
-			ItemID = (ItemID == 4656 ? 4678 : 4712);
+			ItemID = ItemID == 4656 ? 4678 : 4712;
 		}
 
 		private void Down2()
 		{
-			ItemID = (ItemID == 4678 ? 4679 : 4713);
+			ItemID = ItemID == 4678 ? 4679 : 4713;
 
 			Point3D p = GetWorldLocation();
 			Map f = Map;

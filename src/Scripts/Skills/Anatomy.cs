@@ -47,7 +47,7 @@ namespace Server.SkillHandlers
 
 					int str = targ.Str + Utility.RandomMinMax(-marginOfError, +marginOfError);
 					int dex = targ.Dex + Utility.RandomMinMax(-marginOfError, +marginOfError);
-					int stm = ((targ.Stam * 100) / Math.Max(targ.StamMax, 1)) + Utility.RandomMinMax(-marginOfError, +marginOfError);
+					int stm = (targ.Stam * 100 / Math.Max(targ.StamMax, 1)) + Utility.RandomMinMax(-marginOfError, +marginOfError);
 
 					int strMod = str / 10;
 					int dexMod = dex / 10;

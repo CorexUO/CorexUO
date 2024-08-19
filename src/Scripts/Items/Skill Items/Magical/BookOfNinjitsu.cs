@@ -15,7 +15,7 @@ namespace Server.Items
 		[Constructable]
 		public BookOfNinjitsu(ulong content) : base(content, 0x23A0)
 		{
-			Layer = (Core.ML ? Layer.OneHanded : Layer.Invalid);
+			Layer = Core.ML ? Layer.OneHanded : Layer.Invalid;
 		}
 
 		public BookOfNinjitsu(Serial serial) : base(serial)

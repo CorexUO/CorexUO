@@ -125,8 +125,7 @@ namespace Server.Misc
 
 				if (m_Dictionary.TryGetValue(m, out Timer t))
 				{
-					if (t != null)
-						t.Stop();
+					t?.Stop();
 
 					m_Dictionary.Remove(m);
 				}

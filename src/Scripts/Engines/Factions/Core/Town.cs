@@ -105,7 +105,7 @@ namespace Server.Factions
 			}
 		}
 
-		public int DailyIncome => (10000 * (100 + m_State.Tax)) / 100;
+		public int DailyIncome => 10000 * (100 + m_State.Tax) / 100;
 
 		public int NetCashFlow => DailyIncome - FinanceUpkeep - SheriffUpkeep;
 
@@ -117,10 +117,8 @@ namespace Server.Factions
 
 				foreach (BaseMonolith monolith in monoliths)
 				{
-					if (monolith is TownMonolith)
+					if (monolith is TownMonolith townMonolith)
 					{
-						TownMonolith townMonolith = (TownMonolith)monolith;
-
 						if (townMonolith.Town == this)
 							return townMonolith;
 					}
@@ -167,17 +165,13 @@ namespace Server.Factions
 			else if (isSheriff)
 				type = "guard";
 
-			if (obj is BaseFactionVendor)
+			if (obj is BaseFactionVendor vendor)
 			{
-				BaseFactionVendor vendor = (BaseFactionVendor)obj;
-
 				if (vendor.Town == this && isFinance)
 					vendor.Delete();
 			}
-			else if (obj is BaseFactionGuard)
+			else if (obj is BaseFactionGuard guard)
 			{
-				BaseFactionGuard guard = (BaseFactionGuard)obj;
-
 				if (guard.Town == this && isSheriff)
 					guard.Delete();
 			}
@@ -191,16 +185,14 @@ namespace Server.Factions
 
 		public void StartIncomeTimer()
 		{
-			if (m_IncomeTimer != null)
-				m_IncomeTimer.Stop();
+			m_IncomeTimer?.Stop();
 
 			m_IncomeTimer = Timer.DelayCall(TimeSpan.FromMinutes(1.0), TimeSpan.FromMinutes(1.0), new TimerCallback(CheckIncome));
 		}
 
 		public void StopIncomeTimer()
 		{
-			if (m_IncomeTimer != null)
-				m_IncomeTimer.Stop();
+			m_IncomeTimer?.Stop();
 
 			m_IncomeTimer = null;
 		}
@@ -261,7 +253,7 @@ namespace Server.Factions
 
 		public void ConstructGuardLists()
 		{
-			GuardDefinition[] defs = (Owner == null ? Array.Empty<GuardDefinition>() : Owner.Definition.Guards);
+			GuardDefinition[] defs = Owner == null ? Array.Empty<GuardDefinition>() : Owner.Definition.Guards;
 
 			GuardLists = new List<GuardList>();
 
@@ -397,7 +389,7 @@ namespace Server.Factions
 			if (mob == null || mob.Deleted)
 				return false;
 
-			return (mob.AccessLevel >= AccessLevel.GameMaster || mob == Sheriff);
+			return mob.AccessLevel >= AccessLevel.GameMaster || mob == Sheriff;
 		}
 
 		public bool IsFinance(Mobile mob)
@@ -405,7 +397,7 @@ namespace Server.Factions
 			if (mob == null || mob.Deleted)
 				return false;
 
-			return (mob.AccessLevel >= AccessLevel.GameMaster || mob == Finance);
+			return mob.AccessLevel >= AccessLevel.GameMaster || mob == Finance;
 		}
 
 		public static List<Town> Towns => Reflector.Towns;

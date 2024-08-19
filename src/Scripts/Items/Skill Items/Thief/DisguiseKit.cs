@@ -40,14 +40,12 @@ namespace Server.Items
 
 		public bool ValidateUse(Mobile from)
 		{
-			PlayerMobile pm = from as PlayerMobile;
-
 			if (!IsChildOf(from.Backpack))
 			{
 				// That must be in your pack for you to use it.
 				from.SendLocalizedMessage(1042001);
 			}
-			else if (pm == null || pm.NpcGuild != NpcGuild.ThievesGuild)
+			else if (from is not PlayerMobile pm || pm.NpcGuild != NpcGuild.ThievesGuild)
 			{
 				// Only Members of the thieves guild are trained to use this item.
 				from.SendLocalizedMessage(501702);
@@ -156,8 +154,8 @@ namespace Server.Items
 				if (entry == null)
 					continue;
 
-				int x = (i % 2) * 205;
-				int y = (i / 2) * 55;
+				int x = i % 2 * 205;
+				int y = i / 2 * 55;
 
 				if (entry.m_GumpID != 0)
 				{
@@ -191,9 +189,9 @@ namespace Server.Items
 			int type = switched % 2;
 			int index = switched / 2;
 
-			bool hair = (type == 0);
+			bool hair = type == 0;
 
-			DisguiseEntry[] entries = (hair ? m_HairEntries : m_BeardEntries);
+			DisguiseEntry[] entries = hair ? m_HairEntries : m_BeardEntries;
 
 			if (index >= 0 && index < entries.Length)
 			{
@@ -210,10 +208,8 @@ namespace Server.Items
 
 				m_From.NameMod = NameList.RandomName(m_From.Female ? "female" : "male");
 
-				if (m_From is PlayerMobile)
+				if (m_From is PlayerMobile pm)
 				{
-					PlayerMobile pm = (PlayerMobile)m_From;
-
 					if (hair)
 						pm.SetHairMods(entry.m_ItemID, -2);
 					else
@@ -313,8 +309,7 @@ namespace Server.Items
 		{
 			Timers.TryGetValue(m, out Timer t);
 
-			if (t != null)
-				t.Start();
+			t?.Start();
 		}
 
 		public static bool IsDisguised(Mobile m)
@@ -336,7 +331,7 @@ namespace Server.Items
 				t.Stop();
 			}
 
-			return (t != null);
+			return t != null;
 		}
 
 		public static bool RemoveTimer(Mobile m)
@@ -349,7 +344,7 @@ namespace Server.Items
 				Timers.Remove(m);
 			}
 
-			return (t != null);
+			return t != null;
 		}
 
 		public static TimeSpan TimeRemaining(Mobile m)

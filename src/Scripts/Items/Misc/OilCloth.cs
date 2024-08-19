@@ -61,10 +61,8 @@ namespace Server.Items
 			{
 				from.SendLocalizedMessage(1005425); // You may only wipe down items you are holding or carrying.
 			}
-			else if (obj is BaseWeapon)
+			else if (obj is BaseWeapon weapon)
 			{
-				BaseWeapon weapon = (BaseWeapon)obj;
-
 				if (weapon.Poison == null || weapon.PoisonCharges <= 0)
 				{
 					from.LocalOverheadMessage(Network.MessageType.Regular, 0x3B2, 1005422); // Hmmmm... this does not need to be cleaned.
@@ -103,10 +101,8 @@ namespace Server.Items
 				}
 			}
 			#region Firebomb
-			else if (obj is BaseBeverage)
+			else if (obj is BaseBeverage beverage)
 			{
-				BaseBeverage beverage = (BaseBeverage)obj;
-
 				if (beverage.Content == BeverageType.Liquor)
 				{
 					Firebomb bomb = new(beverage.ItemID)

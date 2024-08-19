@@ -45,9 +45,7 @@ namespace Server.Mobiles
 		#region Bulk Orders
 		public override Item CreateBulkOrder(Mobile from, bool fromContextMenu)
 		{
-			PlayerMobile pm = from as PlayerMobile;
-
-			if (pm != null && pm.NextSmithBulkOrder == TimeSpan.Zero && (fromContextMenu || 0.2 > Utility.RandomDouble()))
+			if (from is PlayerMobile pm && pm.NextSmithBulkOrder == TimeSpan.Zero && (fromContextMenu || 0.2 > Utility.RandomDouble()))
 			{
 				double theirSkill = pm.Skills[SkillName.Blacksmith].Base;
 
@@ -69,12 +67,12 @@ namespace Server.Mobiles
 
 		public override bool IsValidBulkOrder(Item item)
 		{
-			return (item is SmallSmithBOD || item is LargeSmithBOD);
+			return item is SmallSmithBOD || item is LargeSmithBOD;
 		}
 
 		public override bool SupportsBulkOrders(Mobile from)
 		{
-			return (from is PlayerMobile && Core.AOS && from.Skills[SkillName.Blacksmith].Base > 0);
+			return from is PlayerMobile && Core.AOS && from.Skills[SkillName.Blacksmith].Base > 0;
 		}
 
 		public override TimeSpan GetNextBulkOrder(Mobile from)

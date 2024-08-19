@@ -398,10 +398,8 @@ namespace Server.Engines.Plants
 
 			foreach (Item item in items)
 			{
-				if (item is BasePotion)
+				if (item is BasePotion potion)
 				{
-					BasePotion potion = (BasePotion)item;
-
 					if (Array.IndexOf(effects, potion.PotionEffect) >= 0)
 						return potion;
 				}

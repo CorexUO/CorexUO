@@ -24,7 +24,7 @@ namespace Server.Engines.Doom
 			if (m_Controller.Enabled)
 				return;
 
-			if ((m_Wanderer == null || !m_Wanderer.Alive))
+			if (m_Wanderer == null || !m_Wanderer.Alive)
 			{
 				m_Wanderer = new WandererOfTheVoid();
 				m_Wanderer.MoveToWorld(LeverPuzzleController.lr_Enter, Map.Malas);

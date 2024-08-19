@@ -16,7 +16,7 @@ namespace Server
 			bool contains = false;
 
 			for (int i = 0; !contains && i < Count; ++i)
-				contains = (keyword == Keywords[i]);
+				contains = keyword == Keywords[i];
 
 			return contains;
 		}

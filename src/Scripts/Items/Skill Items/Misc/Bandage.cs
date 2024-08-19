@@ -179,8 +179,7 @@ namespace Server.Items
 		{
 			m_Table.Remove(Healer);
 
-			if (Timer != null)
-				Timer.Stop();
+			Timer?.Stop();
 
 			Timer = null;
 		}
@@ -239,7 +238,7 @@ namespace Server.Items
 				double anatomy = Healer.Skills[secondarySkill].Value;
 				double chance = ((healing - 68.0) / 50.0) - (Slips * 0.02);
 
-				if (((checkSkills = (healing >= 80.0 && anatomy >= 80.0)) && chance > Utility.RandomDouble())
+				if (((checkSkills = healing >= 80.0 && anatomy >= 80.0) && chance > Utility.RandomDouble())
 					  || (Core.SE && petPatient is Factions.FactionWarHorse && petPatient.ControlMaster == Healer))   //TODO: Dbl check doesn't check for faction of the horse here?
 				{
 					if (Patient.Map == null || !Patient.Map.CanFit(Patient.Location, 16, false, false))
@@ -331,7 +330,7 @@ namespace Server.Items
 				double anatomy = Healer.Skills[secondarySkill].Value;
 				double chance = ((healing - 30.0) / 50.0) - (Patient.Poison.Level * 0.1) - (Slips * 0.02);
 
-				if ((checkSkills = (healing >= 60.0 && anatomy >= 60.0)) && chance > Utility.RandomDouble())
+				if ((checkSkills = healing >= 60.0 && anatomy >= 60.0) && chance > Utility.RandomDouble())
 				{
 					if (Patient.CurePoison(Healer))
 					{
@@ -359,7 +358,7 @@ namespace Server.Items
 			}
 			else if (MortalStrike.IsWounded(Patient))
 			{
-				healerNumber = (Healer == Patient ? 1005000 : 1010398);
+				healerNumber = Healer == Patient ? 1005000 : 1010398;
 				patientNumber = -1;
 				playSound = false;
 			}
@@ -475,11 +474,11 @@ namespace Server.Items
 			{
 				healer.DoBeneficial(patient);
 
-				bool onSelf = (healer == patient);
+				bool onSelf = healer == patient;
 				int dex = healer.Dex;
 
 				double seconds;
-				double resDelay = (patient.Alive ? 0.0 : 5.0);
+				double resDelay = patient.Alive ? 0.0 : 5.0;
 
 				if (onSelf)
 				{
@@ -518,8 +517,7 @@ namespace Server.Items
 
 				BandageContext context = GetContext(healer);
 
-				if (context != null)
-					context.StopHeal();
+				context?.StopHeal();
 				seconds *= 1000;
 
 				context = new BandageContext(healer, patient, TimeSpan.FromMilliseconds(seconds));

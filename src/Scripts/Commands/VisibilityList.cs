@@ -39,9 +39,8 @@ namespace Server.Commands
 		[Description("Shows the names of everyone in your visibility list.")]
 		public static void VisList_OnCommand(CommandEventArgs e)
 		{
-			if (e.Mobile is PlayerMobile)
+			if (e.Mobile is PlayerMobile pm)
 			{
-				PlayerMobile pm = (PlayerMobile)e.Mobile;
 				List<Mobile> list = pm.VisibilityList;
 
 				if (list.Count > 0)
@@ -62,9 +61,8 @@ namespace Server.Commands
 		[Description("Removes everyone from your visibility list.")]
 		public static void VisClear_OnCommand(CommandEventArgs e)
 		{
-			if (e.Mobile is PlayerMobile)
+			if (e.Mobile is PlayerMobile pm)
 			{
-				PlayerMobile pm = (PlayerMobile)e.Mobile;
 				List<Mobile> list = new(pm.VisibilityList);
 
 				pm.VisibilityList.Clear();

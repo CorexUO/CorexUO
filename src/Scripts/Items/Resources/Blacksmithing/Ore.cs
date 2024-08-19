@@ -142,7 +142,7 @@ namespace Server.Items
 			else if (obj is StaticTarget staticTarget)
 				itemID = staticTarget.ItemID;
 
-			return (itemID == 4017 || (itemID >= 6522 && itemID <= 6569));
+			return itemID == 4017 || (itemID >= 6522 && itemID <= 6569);
 		}
 
 		private class InternalTarget : Target

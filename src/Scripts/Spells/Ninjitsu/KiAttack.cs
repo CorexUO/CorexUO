@@ -36,9 +36,7 @@ namespace Server.Spells.Ninjitsu
 
 			if (Core.ML)
 			{
-				BaseRanged ranged = from.Weapon as BaseRanged;
-
-				if (ranged != null)
+				if (from.Weapon is BaseRanged ranged)
 				{
 					from.SendLocalizedMessage(1075858); // You can only use this with melee attacks.
 					return false;
@@ -86,12 +84,9 @@ namespace Server.Spells.Ninjitsu
 
 		public override void OnClearMove(Mobile from)
 		{
-			KiAttackInfo info = m_Table[from] as KiAttackInfo;
-
-			if (info != null)
+			if (m_Table[from] is KiAttackInfo info)
 			{
-				if (info.m_Timer != null)
-					info.m_Timer.Stop();
+				info.m_Timer?.Stop();
 
 				m_Table.Remove(info.m_Mobile);
 			}
@@ -101,9 +96,7 @@ namespace Server.Spells.Ninjitsu
 
 		public static double GetBonus(Mobile from)
 		{
-			KiAttackInfo info = m_Table[from] as KiAttackInfo;
-
-			if (info == null)
+			if (m_Table[from] is not KiAttackInfo info)
 				return 0.0;
 
 			int xDelta = info.m_Location.X - from.X;
@@ -134,8 +127,7 @@ namespace Server.Spells.Ninjitsu
 		{
 			KiAttackInfo info = (KiAttackInfo)state;
 
-			if (info.m_Timer != null)
-				info.m_Timer.Stop();
+			info.m_Timer?.Stop();
 
 			ClearCurrentMove(info.m_Mobile);
 			info.m_Mobile.SendLocalizedMessage(1063102); // You failed to complete your Ki Attack in time.

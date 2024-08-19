@@ -85,10 +85,8 @@ namespace Server.Mobiles
 				{
 					m_NextAbilityTime = DateTime.UtcNow + TimeSpan.FromSeconds(Utility.RandomMinMax(20, 30));
 
-					if (combatant is BaseCreature)
+					if (combatant is BaseCreature bc)
 					{
-						BaseCreature bc = (BaseCreature)combatant;
-
 						if (bc.Controlled && bc.ControlMaster != null && !bc.ControlMaster.Deleted && bc.ControlMaster.Alive)
 						{
 							if (bc.ControlMaster.Map == Map && bc.ControlMaster.InRange(this, 12) && !UnderEffect(bc.ControlMaster))
@@ -176,9 +174,7 @@ namespace Server.Mobiles
 			}
 			else
 			{
-				Torch torch = m.FindItemOnLayer(Layer.TwoHanded) as Torch;
-
-				if (torch != null && torch.Burning)
+				if (m.FindItemOnLayer(Layer.TwoHanded) is Torch torch && torch.Burning)
 				{
 					StopEffect(m, true);
 				}

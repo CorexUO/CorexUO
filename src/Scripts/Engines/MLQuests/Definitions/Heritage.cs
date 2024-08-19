@@ -123,9 +123,9 @@ namespace Server.Engines.MLQuests.Definitions
 
 			public override bool CheckItem(Item item)
 			{
-				Pitcher pitcher = item as Pitcher; // Only pitchers work
+				// Only pitchers work
 
-				return (pitcher != null && pitcher.Content == BeverageType.Water && pitcher.Quantity > 0);
+				return item is Pitcher pitcher && pitcher.Content == BeverageType.Water && pitcher.Quantity > 0;
 			}
 		}
 	}

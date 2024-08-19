@@ -53,14 +53,13 @@ namespace Server.Spells.Necromancy
 				else
 					m.SendLocalizedMessage(1061689); // Your skin turns dry and corpselike.
 
-				if (m.Spell != null)
-					m.Spell.OnCasterHurt();
+				m.Spell?.OnCasterHurt();
 
 				m.FixedParticles(0x373A, 1, 15, 9913, 67, 7, EffectLayer.Head);
 				m.PlaySound(0x1BB);
 
 				double ss = GetDamageSkill(Caster);
-				double mr = (Caster == m ? 0.0 : GetResistSkill(m));
+				double mr = Caster == m ? 0.0 : GetResistSkill(m);
 				m.CheckSkill(SkillName.MagicResist, 0.0, 120.0);    //Skill check for gain
 
 				TimeSpan duration = TimeSpan.FromSeconds(((ss - mr) / 2.5) + 40.0);

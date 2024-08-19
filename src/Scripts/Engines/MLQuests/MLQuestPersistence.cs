@@ -6,8 +6,7 @@ namespace Server.Engines.MLQuests
 
 		public static void EnsureExistence()
 		{
-			if (m_Instance == null)
-				m_Instance = new MLQuestPersistence();
+			m_Instance ??= new MLQuestPersistence();
 		}
 
 		public override string DefaultName => "ML quests persistence - Internal";

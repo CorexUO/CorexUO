@@ -153,7 +153,7 @@ namespace Server.Items
 		{
 			BaseHouse house = FindHouse();
 
-			return (house == null || !house.IsAosRules);
+			return house == null || !house.IsAosRules;
 		}
 
 		public override void Use(Mobile from)
@@ -228,7 +228,7 @@ namespace Server.Items
 			int ry = from.Y - Y;
 			int az = Math.Abs(from.Z - Z);
 
-			return (rx >= x && rx < (x + w) && ry >= y && ry < (y + h) && az <= 4);
+			return rx >= x && rx < (x + w) && ry >= y && ry < (y + h) && az <= 4;
 		}
 	}
 }

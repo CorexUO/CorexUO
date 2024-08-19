@@ -116,7 +116,7 @@ namespace Server.Items
 		public bool CouldFit(IPoint3D p, Map map)
 		{
 			BaseHouse h = null;
-			return (CouldFit(p, map, null, ref h) == AddonFitResult.Valid);
+			return CouldFit(p, map, null, ref h) == AddonFitResult.Valid;
 		}
 
 		public virtual AddonFitResult CouldFit(IPoint3D p, Map map, Mobile from, ref BaseHouse house)
@@ -128,7 +128,7 @@ namespace Server.Items
 			{
 				Point3D p3D = new(p.X + c.Offset.X, p.Y + c.Offset.Y, p.Z + c.Offset.Z);
 
-				if (!map.CanFit(p3D.X, p3D.Y, p3D.Z, c.ItemData.Height, false, true, (c.Z == 0)))
+				if (!map.CanFit(p3D.X, p3D.Y, p3D.Z, c.ItemData.Height, false, true, c.Z == 0))
 					return AddonFitResult.Blocked;
 				else if (!CheckHouse(from, p3D, map, c.ItemData.Height, ref house))
 					return AddonFitResult.NotInHouse;

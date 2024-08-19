@@ -43,9 +43,9 @@ namespace Server.Engines.Quests.Collector
 			if (qs == null)
 				return false;
 
-			return (qs.IsObjectiveInProgress(typeof(FindTomasObjective))
+			return qs.IsObjectiveInProgress(typeof(FindTomasObjective))
 				|| qs.IsObjectiveInProgress(typeof(CaptureImagesObjective))
-				|| qs.IsObjectiveInProgress(typeof(ReturnImagesObjective)));
+				|| qs.IsObjectiveInProgress(typeof(ReturnImagesObjective));
 		}
 
 		public override void OnTalk(PlayerMobile player, bool contextMenu)
@@ -82,8 +82,7 @@ namespace Server.Engines.Quests.Collector
 
 					if (obj != null && !obj.Completed)
 					{
-						if (player.Backpack != null)
-							player.Backpack.ConsumeUpTo(typeof(EnchantedPaints), 1);
+						player.Backpack?.ConsumeUpTo(typeof(EnchantedPaints), 1);
 
 						obj.Complete();
 					}

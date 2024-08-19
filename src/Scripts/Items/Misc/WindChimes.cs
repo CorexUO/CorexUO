@@ -49,7 +49,7 @@ namespace Server.Items
 		{
 			BaseHouse house = BaseHouse.FindHouseAt(this);
 
-			return (house != null && house.IsOwner(mob));
+			return house != null && house.IsOwner(mob);
 		}
 
 		public override void OnDoubleClick(Mobile from)

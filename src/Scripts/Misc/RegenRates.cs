@@ -33,7 +33,7 @@ namespace Server.Misc
 			double n = (double)cur / max;
 			double v = Math.Sqrt(m.Skills[skill].Value * 0.005);
 
-			n *= (1.0 - v);
+			n *= 1.0 - v;
 			n += v;
 
 			m.CheckSkill(skill, n);
@@ -127,7 +127,7 @@ namespace Server.Misc
 
 				CheckBonusSkill(from, from.Mana, from.ManaMax, SkillName.Focus);
 
-				double focusPoints = (from.Skills[SkillName.Focus].Value * 0.05);
+				double focusPoints = from.Skills[SkillName.Focus].Value * 0.05;
 
 				if (armorPenalty > 0)
 					medPoints = 0; // In AOS, wearing any meditation-blocking armor completely removes meditation bonus

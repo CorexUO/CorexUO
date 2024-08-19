@@ -40,9 +40,9 @@ namespace Server.Items
 			if (!from.InRange(this, 4) || !from.InLOS(this))
 				canThrow = false;
 			else if (East)
-				canThrow = (dir == Direction.Left || dir == Direction.West || dir == Direction.Up);
+				canThrow = dir == Direction.Left || dir == Direction.West || dir == Direction.Up;
 			else
-				canThrow = (dir == Direction.Up || dir == Direction.North || dir == Direction.Right);
+				canThrow = dir == Direction.Up || dir == Direction.North || dir == Direction.Right;
 
 			if (canThrow)
 				Throw(from);
@@ -52,9 +52,7 @@ namespace Server.Items
 
 		public void Throw(Mobile from)
 		{
-			BaseKnife knife = from.Weapon as BaseKnife;
-
-			if (knife == null)
+			if (from.Weapon is not BaseKnife knife)
 			{
 				from.LocalOverheadMessage(MessageType.Regular, 0x3B2, 500751); // Try holding a knife...
 				return;

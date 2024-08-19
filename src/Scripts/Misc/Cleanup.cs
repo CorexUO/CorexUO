@@ -66,7 +66,7 @@ namespace Server.Misc
 
 					continue;
 				}
-				else if ((item.Layer == Layer.Hair || item.Layer == Layer.FacialHair))
+				else if (item.Layer == Layer.Hair || item.Layer == Layer.FacialHair)
 				{
 					object rootParent = item.RootParent;
 

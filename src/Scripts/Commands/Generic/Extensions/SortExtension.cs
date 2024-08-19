@@ -35,8 +35,7 @@ namespace Server.Commands.Generic
 				order.Property.CheckAccess(from);
 			}
 
-			if (assembly == null)
-				assembly = new AssemblyEmitter("__dynamic", false);
+			assembly ??= new AssemblyEmitter("__dynamic", false);
 
 			m_Comparer = SortCompiler.Compile(assembly, baseType, m_Orders.ToArray());
 		}

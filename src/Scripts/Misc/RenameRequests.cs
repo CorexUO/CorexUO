@@ -13,7 +13,7 @@ namespace Server.Misc
 			{
 				name = name.Trim();
 
-				if (NameVerification.Validate(name, 1, 16, true, false, true, 0, NameVerification.Empty, NameVerification.StartDisallowed, (Core.ML ? NameVerification.Disallowed : System.Array.Empty<string>())))
+				if (NameVerification.Validate(name, 1, 16, true, false, true, 0, NameVerification.Empty, NameVerification.StartDisallowed, Core.ML ? NameVerification.Disallowed : System.Array.Empty<string>()))
 				{
 
 					if (Core.ML)

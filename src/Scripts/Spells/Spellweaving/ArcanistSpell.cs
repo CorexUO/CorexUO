@@ -148,7 +148,7 @@ namespace Server.Spells.Spellweaving
 			if (percent >= 1.0)
 				return true;
 
-			return (percent >= Utility.RandomDouble());
+			return percent >= Utility.RandomDouble();
 		}
 	}
 }

@@ -42,7 +42,7 @@ namespace Server.Engines.MLQuests
 
 		public bool RequiresCollection => HasObjective<CollectObjective>() || HasObjective<DeliverObjective>();
 
-		public virtual bool RecordCompletion => (OneTimeOnly || HasRestartDelay);
+		public virtual bool RecordCompletion => OneTimeOnly || HasRestartDelay;
 
 		public virtual bool IsChainTriggered => false;
 		public virtual Type NextQuest => null;

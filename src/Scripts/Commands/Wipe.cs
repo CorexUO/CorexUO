@@ -66,9 +66,9 @@ namespace Server.Commands
 		{
 			CommandLogging.WriteLine(from, "{0} {1} wiping from {2} to {3} in {5} ({4})", from.AccessLevel, CommandLogging.Format(from), start, end, type, map);
 
-			bool mobiles = ((type & WipeType.Mobiles) != 0);
-			bool multis = ((type & WipeType.Multis) != 0);
-			bool items = ((type & WipeType.Items) != 0);
+			bool mobiles = (type & WipeType.Mobiles) != 0;
+			bool multis = (type & WipeType.Multis) != 0;
+			bool items = (type & WipeType.Items) != 0;
 
 			List<IEntity> toDelete = new();
 

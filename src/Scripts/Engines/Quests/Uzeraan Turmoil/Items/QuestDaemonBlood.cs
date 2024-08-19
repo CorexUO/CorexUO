@@ -16,9 +16,7 @@ namespace Server.Engines.Quests.Haven
 
 		public override bool CanDrop(PlayerMobile player)
 		{
-			UzeraanTurmoilQuest qs = player.Quest as UzeraanTurmoilQuest;
-
-			if (qs == null)
+			if (player.Quest is not UzeraanTurmoilQuest qs)
 				return true;
 
 			/*return !qs.IsObjectiveInProgress( typeof( ReturnDaemonBloodObjective ) );*/

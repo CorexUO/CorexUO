@@ -16,8 +16,7 @@ namespace Server.Engines.Harvest
 		{
 			get
 			{
-				if (m_System == null)
-					m_System = new Fishing();
+				m_System ??= new Fishing();
 
 				return m_System;
 			}

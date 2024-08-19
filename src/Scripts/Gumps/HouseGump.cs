@@ -54,7 +54,7 @@ namespace Server.Gumps
 					if (m == null || (name = m.Name) == null || (name = name.Trim()).Length <= 0)
 						continue;
 
-					AddLabel(55, 55 + ((i % 16) * 20), 0, accountOf && m.Player && m.Account != null ? string.Format("Account of {0}", name) : name);
+					AddLabel(55, 55 + (i % 16 * 20), 0, accountOf && m.Player && m.Account != null ? string.Format("Account of {0}", name) : name);
 				}
 			}
 		}
@@ -130,8 +130,8 @@ namespace Server.Gumps
 					if (m == null || (name = m.Name) == null || (name = name.Trim()).Length <= 0)
 						continue;
 
-					AddCheck(34, 52 + ((i % 15) * 20), 0xD2, 0xD3, false, i);
-					AddLabel(55, 52 + ((i % 15) * 20), 0, accountOf && m.Player && m.Account != null ? string.Format("Account of {0}", name) : name);
+					AddCheck(34, 52 + (i % 15 * 20), 0xD2, 0xD3, false, i);
+					AddLabel(55, 52 + (i % 15 * 20), 0, accountOf && m.Player && m.Account != null ? string.Format("Account of {0}", name) : name);
 				}
 			}
 		}
@@ -396,8 +396,8 @@ namespace Server.Gumps
 
 				for (int i = 0; i < 24; ++i)
 				{
-					AddRadio(53 + ((i / 4) * 50), 137 + ((i % 4) * 35), 210, 211, false, i + 1);
-					AddItem(60 + ((i / 4) * 50), 130 + ((i % 4) * 35), 2980 + (i * 2));
+					AddRadio(53 + (i / 4 * 50), 137 + (i % 4 * 35), 210, 211, false, i + 1);
+					AddItem(60 + (i / 4 * 50), 130 + (i % 4 * 35), 2980 + (i * 2));
 				}
 
 				AddHtmlLocalized(200, 305, 129, 20, 1011254, false, false); // Guild sign choices
@@ -410,8 +410,8 @@ namespace Server.Gumps
 
 				for (int i = 0; i < 29; ++i)
 				{
-					AddRadio(53 + ((i / 5) * 50), 137 + ((i % 5) * 35), 210, 211, false, i + 25);
-					AddItem(60 + ((i / 5) * 50), 130 + ((i % 5) * 35), 3028 + (i * 2));
+					AddRadio(53 + (i / 5 * 50), 137 + (i % 5 * 35), 210, 211, false, i + 25);
+					AddItem(60 + (i / 5 * 50), 130 + (i % 5 * 35), 3028 + (i * 2));
 				}
 
 				AddHtmlLocalized(200, 305, 129, 20, 1011255, false, false); // Shop sign choices
@@ -513,8 +513,7 @@ namespace Server.Gumps
 					{
 						if (isOwner)
 						{
-							if (m_House.CoOwners != null)
-								m_House.CoOwners.Clear();
+							m_House.CoOwners?.Clear();
 
 							from.SendLocalizedMessage(501333); // All co-owners have been removed from this house.
 						}
@@ -568,8 +567,7 @@ namespace Server.Gumps
 					{
 						if (isCoOwner)
 						{
-							if (m_House.Friends != null)
-								m_House.Friends.Clear();
+							m_House.Friends?.Clear();
 
 							from.SendLocalizedMessage(501332); // All friends have been removed from this house.
 						}

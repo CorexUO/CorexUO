@@ -16,8 +16,7 @@
 				{
 					m_Type = value;
 
-					if (Owner != null)
-						Owner.UpdateResistances();
+					Owner?.UpdateResistances();
 				}
 			}
 		}
@@ -31,8 +30,7 @@
 				{
 					m_Offset = value;
 
-					if (Owner != null)
-						Owner.UpdateResistances();
+					Owner?.UpdateResistances();
 				}
 			}
 		}

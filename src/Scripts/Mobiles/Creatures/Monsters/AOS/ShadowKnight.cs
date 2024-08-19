@@ -109,8 +109,7 @@ namespace Server.Mobiles
 			{
 				Frozen = false;
 
-				if (m_SoundTimer != null)
-					m_SoundTimer.Stop();
+				m_SoundTimer?.Stop();
 
 				m_SoundTimer = null;
 			}

@@ -47,10 +47,8 @@ namespace Server.Items
 
 			foreach (Item item in items)
 			{
-				if (item is Key)
+				if (item is Key key)
 				{
-					Key key = (Key)item;
-
 					if (key.KeyValue == keyValue)
 						key.Delete();
 				}
@@ -72,10 +70,8 @@ namespace Server.Items
 
 			foreach (Item item in items)
 			{
-				if (item is Key)
+				if (item is Key key)
 				{
-					Key key = (Key)item;
-
 					if (key.KeyValue == keyValue)
 						return true;
 				}
@@ -266,19 +262,15 @@ namespace Server.Items
 							cont.LockLevel = cont.RequiredSkill - 10;
 					}
 
-					if (o is Item)
+					if (o is Item item)
 					{
-						Item item = (Item)o;
-
 						if (o.Locked)
 							item.SendLocalizedMessageTo(from, 1048000); // You lock it.
 						else
 							item.SendLocalizedMessageTo(from, 1048001); // You unlock it.
 
-						if (item is LockableContainer)
+						if (item is LockableContainer cont)
 						{
-							LockableContainer cont = (LockableContainer)item;
-
 							if (cont.TrapType != TrapType.None && cont.TrapOnLockpick)
 							{
 								if (o.Locked)
@@ -383,10 +375,8 @@ namespace Server.Items
 
 				int number;
 
-				if (targeted is Key)
+				if (targeted is Key k)
 				{
-					Key k = (Key)targeted;
-
 					if (k.m_KeyVal == 0)
 					{
 						number = 501675; // This key is also blank.

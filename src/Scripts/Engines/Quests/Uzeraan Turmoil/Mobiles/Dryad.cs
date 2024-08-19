@@ -65,9 +65,7 @@ namespace Server.Engines.Quests.Haven
 
 		public override bool CanTalkTo(PlayerMobile to)
 		{
-			UzeraanTurmoilQuest qs = to.Quest as UzeraanTurmoilQuest;
-
-			return (qs != null && qs.FindObjective(typeof(FindDryadObjective)) != null);
+			return to.Quest is UzeraanTurmoilQuest qs && qs.FindObjective(typeof(FindDryadObjective)) != null;
 		}
 
 		public override void OnTalk(PlayerMobile player, bool contextMenu)
@@ -112,13 +110,9 @@ namespace Server.Engines.Quests.Haven
 
 		public override bool OnDragDrop(Mobile from, Item dropped)
 		{
-			PlayerMobile player = from as PlayerMobile;
-
-			if (player != null)
+			if (from is PlayerMobile player)
 			{
-				UzeraanTurmoilQuest qs = player.Quest as UzeraanTurmoilQuest;
-
-				if (qs != null && dropped is Apple && UzeraanTurmoilQuest.HasLostFertileDirt(from))
+				if (player.Quest is UzeraanTurmoilQuest qs && dropped is Apple && UzeraanTurmoilQuest.HasLostFertileDirt(from))
 				{
 					FocusTo(from);
 

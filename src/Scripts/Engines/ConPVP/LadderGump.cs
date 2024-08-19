@@ -197,7 +197,7 @@ namespace Server.Engines.ConPVP
 
 				x += 50;
 
-				AddBorderedText(x + 5, y, 115 - 5, (mob.Name), 0xFFFFFF, 0);
+				AddBorderedText(x + 5, y, 115 - 5, mob.Name, 0xFFFFFF, 0);
 				x += 115;
 
 				AddBorderedText(x, y, 60, Center(entry.Wins.ToString()), 0xFFFFFF, 0);

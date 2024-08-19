@@ -29,7 +29,7 @@ namespace Server.Engines.Quests
 
 		public virtual bool Completed => m_CurProgress >= MaxProgress;
 
-		public bool IsSingleObjective => (MaxProgress == 1);
+		public bool IsSingleObjective => MaxProgress == 1;
 
 		public QuestObjective()
 		{

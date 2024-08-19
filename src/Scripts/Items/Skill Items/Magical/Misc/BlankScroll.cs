@@ -16,7 +16,7 @@ namespace Server.Items
 		}
 
 		int ICommodity.DescriptionNumber => LabelNumber;
-		bool ICommodity.IsDeedable => (Core.ML);
+		bool ICommodity.IsDeedable => Core.ML;
 
 		public BlankScroll(Serial serial) : base(serial)
 		{

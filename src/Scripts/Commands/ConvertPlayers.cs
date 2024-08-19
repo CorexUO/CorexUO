@@ -24,8 +24,7 @@ namespace Server.Commands
 				if (m.Player && !(m is PlayerMobile))
 				{
 					count++;
-					if (m.NetState != null)
-						m.NetState.Dispose();
+					m.NetState?.Dispose();
 
 					PlayerMobile pm = new(m.Serial);
 					pm.DefaultMobileInit();

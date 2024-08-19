@@ -80,8 +80,7 @@ namespace Server.Mobiles
 
 		public override bool OnBeforeDeath()
 		{
-			if (Backpack != null)
-				Backpack.Destroy();
+			Backpack?.Destroy();
 
 			Effects.SendLocationEffect(Location, Map, 0x376A, 10, 1);
 			return true;
@@ -108,8 +107,7 @@ namespace Server.Mobiles
 
 		public override void OnAfterDelete()
 		{
-			if (m_Timer != null)
-				m_Timer.Stop();
+			m_Timer?.Stop();
 
 			m_Timer = null;
 

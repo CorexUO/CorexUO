@@ -64,7 +64,7 @@ namespace Server
 
 		public void AddHash(int val)
 		{
-			m_Hash ^= (val & 0x3FFFFFF);
+			m_Hash ^= val & 0x3FFFFFF;
 			m_Hash ^= (val >> 26) & 0x3F;
 		}
 
@@ -73,8 +73,7 @@ namespace Server
 			if (number == 0)
 				return;
 
-			if (arguments == null)
-				arguments = "";
+			arguments ??= "";
 
 			if (Header == 0)
 			{

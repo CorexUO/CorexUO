@@ -23,9 +23,7 @@ namespace Server.Misc
 		{
 			get
 			{
-				if (m_RatmanSpeech == null)
-				{
-					m_RatmanSpeech = new InhumanSpeech
+				m_RatmanSpeech ??= new InhumanSpeech
 					{
 						Hue = 149,
 						Sound = 438,
@@ -88,7 +86,6 @@ namespace Server.Misc
 							"ccka", "ccke", "ccki", "ccko", "ccku", "ccky"
 						}
 					};
-				}
 
 				return m_RatmanSpeech;
 			}
@@ -100,9 +97,7 @@ namespace Server.Misc
 		{
 			get
 			{
-				if (m_OrcSpeech == null)
-				{
-					m_OrcSpeech = new InhumanSpeech
+				m_OrcSpeech ??= new InhumanSpeech
 					{
 						Hue = 34,
 						Sound = 432,
@@ -176,7 +171,6 @@ namespace Server.Misc
 							"ghig", "rur", "sag", "sah", "sg"
 						}
 					};
-				}
 
 				return m_OrcSpeech;
 			}
@@ -188,9 +182,7 @@ namespace Server.Misc
 		{
 			get
 			{
-				if (m_LizardmanSpeech == null)
-				{
-					m_LizardmanSpeech = new InhumanSpeech
+				m_LizardmanSpeech ??= new InhumanSpeech
 					{
 						Hue = 58,
 						Sound = 418,
@@ -241,7 +233,6 @@ namespace Server.Misc
 							"lysh", "shy", "myss", "ysa", "sthy", "ysth"
 						}
 					};
-				}
 
 				return m_LizardmanSpeech;
 			}
@@ -253,9 +244,7 @@ namespace Server.Misc
 		{
 			get
 			{
-				if (m_WispSpeech == null)
-				{
-					m_WispSpeech = new InhumanSpeech
+				m_WispSpeech ??= new InhumanSpeech
 					{
 						Hue = 89,
 						Sound = 466,
@@ -272,7 +261,6 @@ namespace Server.Misc
 							"l", "l", "m", "m", "m", "m", "z"
 						}
 					};
-				}
 
 				return m_WispSpeech;
 			}

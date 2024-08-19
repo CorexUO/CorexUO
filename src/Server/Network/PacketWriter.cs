@@ -35,8 +35,7 @@ namespace Server.Network
 				}
 			}
 
-			if (pw == null)
-				pw = new PacketWriter(capacity);
+			pw ??= new PacketWriter(capacity);
 
 			return pw;
 		}

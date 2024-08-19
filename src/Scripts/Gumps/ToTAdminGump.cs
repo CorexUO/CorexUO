@@ -64,7 +64,7 @@ namespace Server.Gumps
 
 			for (int i = 0; i < m_ToTEras; i++)
 			{
-				int yoffset = (i * 25);
+				int yoffset = i * 25;
 
 				bool isThisDropEra = ((int)TreasuresOfTokuno.DropEra - 1) == i;
 				bool isThisRewardEra = ((int)TreasuresOfTokuno.RewardEra - 1) == i;
@@ -103,13 +103,13 @@ namespace Server.Gumps
 				if (button % 2 == 0)
 				{
 					selectedToT = button / 2;
-					TreasuresOfTokuno.DropEra = (TreasuresOfTokunoEra)(selectedToT);
+					TreasuresOfTokuno.DropEra = (TreasuresOfTokunoEra)selectedToT;
 					from.SendMessage("Treasures of Tokuno " + selectedToT + " Drops have been enabled");
 				}
 				else
 				{
 					selectedToT = (button - 1) / 2;
-					TreasuresOfTokuno.RewardEra = (TreasuresOfTokunoEra)(selectedToT);
+					TreasuresOfTokuno.RewardEra = (TreasuresOfTokunoEra)selectedToT;
 					from.SendMessage("Treasures of Tokuno " + selectedToT + " Rewards have been enabled");
 				}
 			}

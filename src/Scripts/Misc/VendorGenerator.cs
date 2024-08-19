@@ -100,7 +100,7 @@ namespace Server
 		{
 			itemID &= TileData.MaxLandValue;
 
-			return (itemID >= 0x406 && itemID <= 0x51A);
+			return itemID >= 0x406 && itemID <= 0x51A;
 		}
 
 		private static bool IsStaticFloor(int itemID)

@@ -71,7 +71,7 @@ namespace Server.Spells.Sixth
 
 				RemoveTimer(m);
 
-				TimeSpan duration = TimeSpan.FromSeconds(((1.2 * Caster.Skills.Magery.Fixed) / 10));
+				TimeSpan duration = TimeSpan.FromSeconds(1.2 * Caster.Skills.Magery.Fixed / 10);
 
 				Timer t = new InternalTimer(m, duration);
 

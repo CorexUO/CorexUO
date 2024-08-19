@@ -16,10 +16,8 @@ namespace Server.Mobiles
 
 			foreach (Mobile m in target.GetMobilesInRange(15))
 			{
-				if (m is BaseGuard)
+				if (m is BaseGuard g)
 				{
-					BaseGuard g = (BaseGuard)m;
-
 					if (g.Focus == null) // idling
 					{
 						g.Focus = target;

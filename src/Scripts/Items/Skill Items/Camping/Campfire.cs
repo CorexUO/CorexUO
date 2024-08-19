@@ -125,9 +125,7 @@ namespace Server.Items
 
 			foreach (NetState state in eable)
 			{
-				PlayerMobile pm = state.Mobile as PlayerMobile;
-
-				if (pm != null && GetEntry(pm) == null)
+				if (state.Mobile is PlayerMobile pm && GetEntry(pm) == null)
 				{
 					CampfireEntry entry = new(pm, this);
 
@@ -154,8 +152,7 @@ namespace Server.Items
 
 		public override void OnAfterDelete()
 		{
-			if (m_Timer != null)
-				m_Timer.Stop();
+			m_Timer?.Stop();
 
 			ClearEntries();
 		}

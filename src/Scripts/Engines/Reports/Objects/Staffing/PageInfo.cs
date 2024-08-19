@@ -39,13 +39,11 @@ namespace Server.Engines.Reports
 
 				lock (StaffHistory.RenderLock)
 				{
-					if (m_Resolver != null)
-						m_Resolver.Unregister(this);
+					m_Resolver?.Unregister(this);
 
 					m_Resolver = value;
 
-					if (m_Resolver != null)
-						m_Resolver.Register(this);
+					m_Resolver?.Register(this);
 				}
 			}
 		}
@@ -60,13 +58,11 @@ namespace Server.Engines.Reports
 
 				lock (StaffHistory.RenderLock)
 				{
-					if (m_Sender != null)
-						m_Sender.Unregister(this);
+					m_Sender?.Unregister(this);
 
 					m_Sender = value;
 
-					if (m_Sender != null)
-						m_Sender.Register(this);
+					m_Sender?.Register(this);
 				}
 			}
 		}
@@ -138,7 +134,7 @@ namespace Server.Engines.Reports
 
 		public bool IsStaffResolution(PageResolution res)
 		{
-			return (res == PageResolution.Handled);
+			return res == PageResolution.Handled;
 		}
 
 		public static PageResolution ResFromResp(string resp)
@@ -179,9 +175,8 @@ namespace Server.Engines.Reports
 			if (mob == null)
 				return null;
 
-			Accounting.Account acct = mob.Account as Accounting.Account;
 
-			if (acct == null)
+			if (mob.Account is not Accounting.Account acct)
 				return null;
 
 			return acct.Username;

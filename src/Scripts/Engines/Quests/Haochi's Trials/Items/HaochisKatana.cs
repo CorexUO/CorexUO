@@ -18,9 +18,7 @@ namespace Server.Engines.Quests.Samurai
 
 		public override bool CanDrop(PlayerMobile player)
 		{
-			HaochisTrialsQuest qs = player.Quest as HaochisTrialsQuest;
-
-			if (qs == null)
+			if (player.Quest is not HaochisTrialsQuest qs)
 				return true;
 
 			//return !qs.IsObjectiveInProgress( typeof( FifthTrialReturnObjective ) );

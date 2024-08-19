@@ -239,10 +239,7 @@ namespace Server.Network
 
 						if (Core.Profiling) prof = PacketReceiveProfile.Acquire(packetID);
 
-						if (prof != null)
-						{
-							prof.Start();
-						}
+						prof?.Start();
 
 						byte[] packetBuffer;
 
@@ -261,10 +258,7 @@ namespace Server.Network
 						if (BufferSize >= packetLength)
 							m_Buffers.ReleaseBuffer(packetBuffer);
 
-						if (prof != null)
-						{
-							prof.Finish(packetLength);
-						}
+						prof?.Finish(packetLength);
 					}
 					else
 					{

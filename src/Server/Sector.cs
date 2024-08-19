@@ -57,10 +57,7 @@ namespace Server
 
 		private static void Add<T>(ref List<T> list, T value)
 		{
-			if (list == null)
-			{
-				list = new List<T>();
-			}
+			list ??= new List<T>();
 
 			list.Add(value);
 		}
@@ -82,7 +79,7 @@ namespace Server
 		{
 			if (oldValue != null && newValue != null)
 			{
-				int index = (list != null ? list.IndexOf(oldValue) : -1);
+				int index = list != null ? list.IndexOf(oldValue) : -1;
 
 				if (index >= 0)
 				{
@@ -327,7 +324,7 @@ namespace Server
 			}
 		}
 
-		public bool Active => (m_Active && Owner != Map.Internal);
+		public bool Active => m_Active && Owner != Map.Internal;
 
 		public Map Owner { get; }
 

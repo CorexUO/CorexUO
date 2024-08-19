@@ -38,7 +38,7 @@ namespace Server.SkillHandlers
 					{
 						if (weap.MaxHitPoints != 0)
 						{
-							int hp = (int)((weap.HitPoints / (double)weap.MaxHitPoints) * 10);
+							int hp = (int)(weap.HitPoints / (double)weap.MaxHitPoints * 10);
 
 							if (hp < 0)
 								hp = 0;
@@ -49,7 +49,7 @@ namespace Server.SkillHandlers
 						}
 
 						int damage = (weap.MaxDamage + weap.MinDamage) / 2;
-						int hand = (weap.Layer == Layer.OneHanded ? 0 : 1);
+						int hand = weap.Layer == Layer.OneHanded ? 0 : 1;
 
 						if (damage < 3)
 							damage = 0;
@@ -97,7 +97,7 @@ namespace Server.SkillHandlers
 					{
 						if (arm.MaxHitPoints != 0)
 						{
-							int hp = (int)((arm.HitPoints / (double)arm.MaxHitPoints) * 10);
+							int hp = (int)(arm.HitPoints / (double)arm.MaxHitPoints * 10);
 
 							if (hp < 0)
 								hp = 0;
@@ -139,7 +139,7 @@ namespace Server.SkillHandlers
 
 					if (from.CheckTargetSkill(SkillName.ArmsLore, targeted, 0, 100))
 					{
-						int perc = (4 * pet.BardingHP) / pet.BardingMaxHP;
+						int perc = 4 * pet.BardingHP / pet.BardingMaxHP;
 
 						if (perc < 0)
 							perc = 0;

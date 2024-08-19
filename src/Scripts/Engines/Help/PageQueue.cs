@@ -64,8 +64,7 @@ namespace Server.Engines.Help
 
 		public void Stop()
 		{
-			if (m_Timer != null)
-				m_Timer.Stop();
+			m_Timer?.Stop();
 
 			m_Timer = null;
 		}
@@ -91,8 +90,7 @@ namespace Server.Engines.Help
 			m_PageLocation = sender.Location;
 			PageMap = sender.Map;
 
-			PlayerMobile pm = sender as PlayerMobile;
-			if (pm != null && pm.SpeechLog != null && Array.IndexOf(SpeechLogAttachment, type) >= 0)
+			if (sender is PlayerMobile pm && pm.SpeechLog != null && Array.IndexOf(SpeechLogAttachment, type) >= 0)
 				SpeechLog = new List<SpeechLogEntry>(pm.SpeechLog);
 
 			m_Timer = new InternalTimer(this);
@@ -156,9 +154,7 @@ namespace Server.Engines.Help
 
 		public static bool CheckAllowedToPage(Mobile from)
 		{
-			PlayerMobile pm = from as PlayerMobile;
-
-			if (pm == null)
+			if (from is not PlayerMobile pm)
 				return true;
 
 			if (pm.DesignContext != null)

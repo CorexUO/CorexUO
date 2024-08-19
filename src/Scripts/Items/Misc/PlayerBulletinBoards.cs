@@ -563,7 +563,7 @@ namespace Server.Items
 				AddHtml(255, 180, 150, 20, message.Time.ToString("yyyy-MM-dd HH:mm:ss"), false, false);
 
 				Mobile poster = message.Poster;
-				string name = (poster == null ? null : poster.Name);
+				string name = poster?.Name;
 
 				if (name == null || (name = name.Trim()).Length == 0)
 					name = "Someone";
@@ -572,8 +572,7 @@ namespace Server.Items
 
 				string body = message.Message;
 
-				if (body == null)
-					body = "";
+				body ??= "";
 
 				AddHtml(150, 240, 250, 100, body, false, false);
 

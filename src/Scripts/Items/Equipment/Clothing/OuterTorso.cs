@@ -128,8 +128,7 @@ namespace Server.Items
 
 		private void BeginDecay(TimeSpan delay)
 		{
-			if (m_DecayTimer != null)
-				m_DecayTimer.Stop();
+			m_DecayTimer?.Stop();
 
 			m_DecayTime = DateTime.UtcNow + delay;
 
@@ -157,8 +156,7 @@ namespace Server.Items
 
 		public override void OnAfterDelete()
 		{
-			if (m_DecayTimer != null)
-				m_DecayTimer.Stop();
+			m_DecayTimer?.Stop();
 
 			m_DecayTimer = null;
 		}
@@ -483,7 +481,7 @@ namespace Server.Items
 		}
 
 		[CommandProperty(AccessLevel.GameMaster)]
-		public bool IsArcane => (m_MaxArcaneCharges > 0 && m_CurArcaneCharges >= 0);
+		public bool IsArcane => m_MaxArcaneCharges > 0 && m_CurArcaneCharges >= 0;
 
 		public void Update()
 		{

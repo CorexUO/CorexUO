@@ -317,9 +317,8 @@ namespace Server.Items
 		public static void OldHeaderChange(NetState state, PacketReader pvSrc)
 		{
 			Mobile from = state.Mobile;
-			BaseBook book = World.FindItem(pvSrc.ReadInt32()) as BaseBook;
 
-			if (book == null || !book.Writable || !from.InRange(book.GetWorldLocation(), 1) || !book.IsAccessibleTo(from))
+			if (World.FindItem(pvSrc.ReadInt32()) is not BaseBook book || !book.Writable || !from.InRange(book.GetWorldLocation(), 1) || !book.IsAccessibleTo(from))
 				return;
 
 			pvSrc.Seek(4, SeekOrigin.Current); // Skip flags and page count
@@ -334,9 +333,8 @@ namespace Server.Items
 		public static void HeaderChange(NetState state, PacketReader pvSrc)
 		{
 			Mobile from = state.Mobile;
-			BaseBook book = World.FindItem(pvSrc.ReadInt32()) as BaseBook;
 
-			if (book == null || !book.Writable || !from.InRange(book.GetWorldLocation(), 1) || !book.IsAccessibleTo(from))
+			if (World.FindItem(pvSrc.ReadInt32()) is not BaseBook book || !book.Writable || !from.InRange(book.GetWorldLocation(), 1) || !book.IsAccessibleTo(from))
 				return;
 
 			pvSrc.Seek(4, SeekOrigin.Current); // Skip flags and page count
@@ -362,9 +360,8 @@ namespace Server.Items
 		public static void ContentChange(NetState state, PacketReader pvSrc)
 		{
 			Mobile from = state.Mobile;
-			BaseBook book = World.FindItem(pvSrc.ReadInt32()) as BaseBook;
 
-			if (book == null || !book.Writable || !from.InRange(book.GetWorldLocation(), 1) || !book.IsAccessibleTo(from))
+			if (World.FindItem(pvSrc.ReadInt32()) is not BaseBook book || !book.Writable || !from.InRange(book.GetWorldLocation(), 1) || !book.IsAccessibleTo(from))
 				return;
 
 			int pageCount = pvSrc.ReadUInt16();

@@ -15,7 +15,7 @@ namespace Server.Spells.Necromancy
 				Reagent.NoxCrystal
 			);
 
-		public override TimeSpan CastDelayBase => TimeSpan.FromSeconds((Core.ML ? 1.75 : 1.5));
+		public override TimeSpan CastDelayBase => TimeSpan.FromSeconds(Core.ML ? 1.75 : 1.5);
 
 		public override double RequiredSkill => 50.0;
 		public override int RequiredMana => 17;
@@ -48,7 +48,7 @@ namespace Server.Spells.Necromancy
 				Effects.SendLocationParticles(EffectItem.Create(m.Location, m.Map, EffectItem.DefaultDuration), 0x36B0, 1, 14, 63, 7, 9915, 0);
 				Effects.PlaySound(m.Location, m.Map, 0x229);
 
-				double damage = Utility.RandomMinMax((Core.ML ? 32 : 36), 40) * ((300 + (GetDamageSkill(Caster) * 9)) / 1000);
+				double damage = Utility.RandomMinMax(Core.ML ? 32 : 36, 40) * ((300 + (GetDamageSkill(Caster) * 9)) / 1000);
 
 				double sdiBonus = (double)AosAttributes.GetValue(Caster, AosAttribute.SpellDamage) / 100;
 				double pvmDamage = damage * (1 + sdiBonus);
@@ -68,7 +68,7 @@ namespace Server.Spells.Necromancy
 
 					foreach (Mobile targ in m.GetMobilesInRange(2))
 						if (!(Caster is BaseCreature && targ is BaseCreature))
-							if ((targ != Caster && m != targ) && (SpellHelper.ValidIndirectTarget(Caster, targ) && Caster.CanBeHarmful(targ, false)))
+							if (targ != Caster && m != targ && SpellHelper.ValidIndirectTarget(Caster, targ) && Caster.CanBeHarmful(targ, false))
 								targets.Add(targ);
 
 					for (int i = 0; i < targets.Count; ++i)

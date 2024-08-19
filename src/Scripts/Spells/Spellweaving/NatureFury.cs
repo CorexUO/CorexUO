@@ -50,9 +50,8 @@ namespace Server.Spells.Spellweaving
 			if (map == null)
 				return;
 
-			HouseRegion r = Region.Find(p, map).GetRegion(typeof(HouseRegion)) as HouseRegion;
 
-			if (r != null && r.House != null && !r.House.IsFriend(Caster))
+			if (Region.Find(p, map).GetRegion(typeof(HouseRegion)) is HouseRegion r && r.House != null && !r.House.IsFriend(Caster))
 				return;
 
 			if (!map.CanSpawnMobile(p.X, p.Y, p.Z))
@@ -90,8 +89,7 @@ namespace Server.Spells.Spellweaving
 
 			protected override void OnTargetFinish(Mobile from)
 			{
-				if (m_Owner != null)
-					m_Owner.FinishSequence();
+				m_Owner?.FinishSequence();
 			}
 		}
 

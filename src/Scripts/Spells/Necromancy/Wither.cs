@@ -44,7 +44,7 @@ namespace Server.Spells.Necromancy
 					List<Mobile> targets = new();
 
 					BaseCreature cbc = Caster as BaseCreature;
-					bool isMonster = (cbc != null && !cbc.Controlled && !cbc.Summoned);
+					bool isMonster = cbc != null && !cbc.Controlled && !cbc.Summoned;
 
 					foreach (Mobile m in Caster.GetMobilesInRange(Core.ML ? 4 : 5))
 					{
@@ -52,10 +52,8 @@ namespace Server.Spells.Necromancy
 						{
 							if (isMonster)
 							{
-								if (m is BaseCreature)
+								if (m is BaseCreature bc)
 								{
-									BaseCreature bc = (BaseCreature)m;
-
 									if (!bc.Controlled && !bc.Summoned && bc.Team == cbc.Team)
 										continue;
 								}
@@ -82,7 +80,7 @@ namespace Server.Spells.Necromancy
 
 						double damage = Utility.RandomMinMax(30, 35);
 
-						damage *= (300 + (m.Karma / 100) + (GetDamageSkill(Caster) * 10));
+						damage *= 300 + (m.Karma / 100) + (GetDamageSkill(Caster) * 10);
 						damage /= 1000;
 
 						int sdiBonus = AosAttributes.GetValue(Caster, AosAttribute.SpellDamage);
@@ -91,7 +89,7 @@ namespace Server.Spells.Necromancy
 						if (Core.SE && m.Player && Caster.Player && sdiBonus > 15)
 							sdiBonus = 15;
 
-						damage *= (100 + sdiBonus);
+						damage *= 100 + sdiBonus;
 						damage /= 100;
 
 						// TODO: cap?

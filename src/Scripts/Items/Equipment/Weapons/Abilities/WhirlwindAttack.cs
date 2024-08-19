@@ -27,9 +27,8 @@ namespace Server.Items
 			if (map == null)
 				return;
 
-			BaseWeapon weapon = attacker.Weapon as BaseWeapon;
 
-			if (weapon == null)
+			if (attacker.Weapon is not BaseWeapon weapon)
 				return;
 
 			if (!CheckMana(attacker, true))
@@ -65,7 +64,7 @@ namespace Server.Items
 			if (targets.Count > 0)
 			{
 				double bushido = attacker.Skills.Bushido.Value;
-				double damageBonus = 1.0 + Math.Pow((targets.Count * bushido) / 60, 2) / 100;
+				double damageBonus = 1.0 + Math.Pow(targets.Count * bushido / 60, 2) / 100;
 
 				if (damageBonus > 2.0)
 					damageBonus = 2.0;

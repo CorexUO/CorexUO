@@ -25,7 +25,7 @@ namespace Server
 					int xMax = bin.ReadInt16();
 					int yMax = bin.ReadInt16();
 
-					Table[i].Set(xMin, yMin, (xMax - xMin) + 1, (yMax - yMin) + 1);
+					Table[i].Set(xMin, yMin, xMax - xMin + 1, yMax - yMin + 1);
 				}
 
 				bin.Close();

@@ -256,7 +256,7 @@ namespace Server.Mobiles
 			if (master != null && master.Map == m_Mobile.Map && master.InRange(m_Mobile, m_Mobile.RangePerception))
 			{
 				int iCurrDist = (int)m_Mobile.GetDistanceToSqrt(master);
-				bool bRun = (iCurrDist > 5);
+				bool bRun = iCurrDist > 5;
 
 				WalkMobileRange(master, 2, bRun, 0, 1);
 			}

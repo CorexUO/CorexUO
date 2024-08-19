@@ -35,9 +35,9 @@ namespace Server.Network
 
 			public int Length { get; private set; }
 
-			public int Available => (Buffer.Length - Length);
+			public int Available => Buffer.Length - Length;
 
-			public bool IsFull => (Length == Buffer.Length);
+			public bool IsFull => Length == Buffer.Length;
 
 			private Gram()
 			{
@@ -79,8 +79,7 @@ namespace Server.Network
 
 				lock (old)
 				{
-					if (m_UnusedBuffers != null)
-						m_UnusedBuffers.Free();
+					m_UnusedBuffers?.Free();
 
 					m_CoalesceBufferSize = value;
 					m_UnusedBuffers = new BufferPool("Coalesced", 2048, m_CoalesceBufferSize);
@@ -105,9 +104,9 @@ namespace Server.Network
 
 		private Gram _buffered;
 
-		public bool IsFlushReady => (_pending.Count == 0 && _buffered != null);
+		public bool IsFlushReady => _pending.Count == 0 && _buffered != null;
 
-		public bool IsEmpty => (_pending.Count == 0 && _buffered == null);
+		public bool IsEmpty => _pending.Count == 0 && _buffered == null;
 
 		public SendQueue()
 		{
@@ -176,10 +175,7 @@ namespace Server.Network
 
 			while (length > 0)
 			{
-				if (_buffered == null)
-				{ // nothing yet buffered
-					_buffered = Gram.Acquire();
-				}
+				_buffered ??= Gram.Acquire();
 
 				int bytesWritten = _buffered.Write(buffer, offset, length);
 

@@ -70,8 +70,7 @@ namespace Server.Engines.CannedEvil
 
 		public void UpdateRegion()
 		{
-			if (m_Region != null)
-				m_Region.Unregister();
+			m_Region?.Unregister();
 
 			if (!Deleted && Map != Map.Internal)
 			{
@@ -230,14 +229,12 @@ namespace Server.Engines.CannedEvil
 			m_Active = true;
 			HasBeenAdvanced = false;
 
-			if (m_Timer != null)
-				m_Timer.Stop();
+			m_Timer?.Stop();
 
 			m_Timer = new SliceTimer(this);
 			m_Timer.Start();
 
-			if (m_RestartTimer != null)
-				m_RestartTimer.Stop();
+			m_RestartTimer?.Stop();
 
 			m_RestartTimer = null;
 
@@ -261,13 +258,11 @@ namespace Server.Engines.CannedEvil
 			m_Active = false;
 			HasBeenAdvanced = false;
 
-			if (m_Timer != null)
-				m_Timer.Stop();
+			m_Timer?.Stop();
 
 			m_Timer = null;
 
-			if (m_RestartTimer != null)
-				m_RestartTimer.Stop();
+			m_RestartTimer?.Stop();
 
 			m_RestartTimer = null;
 
@@ -280,8 +275,7 @@ namespace Server.Engines.CannedEvil
 
 		public void BeginRestart(TimeSpan ts)
 		{
-			if (m_RestartTimer != null)
-				m_RestartTimer.Stop();
+			m_RestartTimer?.Stop();
 
 			RestartTime = DateTime.UtcNow + ts;
 
@@ -560,8 +554,7 @@ namespace Server.Engines.CannedEvil
 			}
 			catch { }
 
-			if (Champion != null)
-				Champion.MoveToWorld(new Point3D(X, Y, Z - 15), Map);
+			Champion?.MoveToWorld(new Point3D(X, Y, Z - 15), Map);
 		}
 
 		public void Respawn()
@@ -569,7 +562,7 @@ namespace Server.Engines.CannedEvil
 			if (!m_Active || Deleted || Champion != null)
 				return;
 
-			while (m_Creatures.Count < ((m_SPawnSzMod * (200 / 12))) - (GetSubLevel() * (m_SPawnSzMod * (40 / 12))))
+			while (m_Creatures.Count < m_SPawnSzMod * (200 / 12) - (GetSubLevel() * m_SPawnSzMod * (40 / 12)))
 			{
 				Mobile m = Spawn();
 
@@ -870,14 +863,11 @@ namespace Server.Engines.CannedEvil
 		{
 			base.OnAfterDelete();
 
-			if (m_Platform != null)
-				m_Platform.Delete();
+			m_Platform?.Delete();
 
-			if (m_Altar != null)
-				m_Altar.Delete();
+			m_Altar?.Delete();
 
-			if (m_Idol != null)
-				m_Idol.Delete();
+			m_Idol?.Delete();
 
 			if (m_RedSkulls != null)
 			{
@@ -1156,8 +1146,7 @@ namespace Server.Engines.CannedEvil
 		{
 			base.OnAfterDelete();
 
-			if (Spawn != null)
-				Spawn.Delete();
+			Spawn?.Delete();
 		}
 
 		public IdolOfTheChampion(Serial serial) : base(serial)

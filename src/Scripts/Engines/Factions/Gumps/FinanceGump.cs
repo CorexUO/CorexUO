@@ -61,10 +61,10 @@ namespace Server.Factions
 			{
 				int ofs = m_PriceOffsets[i];
 
-				int x = 20 + ((i / 6) * 150);
-				int y = 90 + ((i % 6) * 30);
+				int x = 20 + (i / 6 * 150);
+				int y = 90 + (i % 6 * 30);
 
-				AddRadio(x, y, 208, 209, (town.Tax == ofs), i + 1);
+				AddRadio(x, y, 208, 209, town.Tax == ofs, i + 1);
 
 				if (ofs < 0)
 					AddLabel(x + 35, y, 0x26, string.Concat("- ", -ofs, "%"));
@@ -72,7 +72,7 @@ namespace Server.Factions
 					AddLabel(x + 35, y, 0x12A, string.Concat("+ ", ofs, "%"));
 			}
 
-			AddRadio(20, 270, 208, 209, (town.Tax == 0), 0);
+			AddRadio(20, 270, 208, 209, town.Tax == 0, 0);
 			AddHtmlLocalized(55, 270, 90, 25, 1011542, false, false); // normal
 
 			AddHtmlLocalized(55, 330, 200, 25, 1011509, false, false); // Set Prices

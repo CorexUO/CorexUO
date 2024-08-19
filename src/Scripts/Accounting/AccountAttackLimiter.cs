@@ -27,7 +27,7 @@ namespace Server.Accounting
 			if (accessLog == null)
 				return true;
 
-			return (DateTime.UtcNow >= (accessLog.LastAccessTime + ComputeThrottle(accessLog.Counts)));
+			return DateTime.UtcNow >= (accessLog.LastAccessTime + ComputeThrottle(accessLog.Counts));
 		}
 
 		private static readonly List<InvalidAccountAccessLog> m_List = new();
@@ -110,7 +110,7 @@ namespace Server.Accounting
 		public DateTime LastAccessTime { get; set; }
 		public int Counts { get; set; }
 
-		public bool HasExpired => (DateTime.UtcNow >= (LastAccessTime + TimeSpan.FromHours(1.0)));
+		public bool HasExpired => DateTime.UtcNow >= (LastAccessTime + TimeSpan.FromHours(1.0));
 
 		public void RefreshAccessTime()
 		{

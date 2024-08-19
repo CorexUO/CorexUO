@@ -29,7 +29,7 @@ namespace Server.Items
 				bool inGroup = false;
 
 				for (int j = 0; foundOn != null && !inGroup && j < foundOn.Length; ++j)
-					inGroup = (foundOn[j] == type);
+					inGroup = foundOn[j] == type;
 
 				if (inGroup)
 				{

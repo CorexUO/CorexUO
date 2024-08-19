@@ -16,8 +16,7 @@ namespace Server.Engines.Craft
 		{
 			get
 			{
-				if (m_CraftSystem == null)
-					m_CraftSystem = new DefGlassblowing();
+				m_CraftSystem ??= new DefGlassblowing();
 
 				return m_CraftSystem;
 			}

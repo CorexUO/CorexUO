@@ -43,8 +43,7 @@ namespace Server.Guilds
 				{
 					g = Guild.FindByAbbrev(arg) as Guild;
 
-					if (g == null)
-						g = Guild.FindByName(arg) as Guild;
+					g ??= Guild.FindByName(arg) as Guild;
 				}
 
 				if (g != null)
@@ -147,10 +146,7 @@ namespace Server.Guilds
 				if (value == current)
 					return;
 
-				if (current != null)
-				{
-					current.RemoveGuild(this);
-				}
+				current?.RemoveGuild(this);
 
 				if (value != null)
 				{
@@ -281,10 +277,10 @@ namespace Server.Guilds
 				if (status != WarStatus.InProgress)
 				{
 					AllianceInfo myAlliance = Alliance;
-					bool inAlliance = (myAlliance != null && myAlliance.IsMember(this));
+					bool inAlliance = myAlliance != null && myAlliance.IsMember(this);
 
-					AllianceInfo otherAlliance = ((g != null) ? g.Alliance : null);
-					bool otherInAlliance = (otherAlliance != null && otherAlliance.IsMember(this));
+					AllianceInfo otherAlliance = g?.Alliance;
+					bool otherInAlliance = otherAlliance != null && otherAlliance.IsMember(this);
 
 					if (inAlliance)
 					{
@@ -306,12 +302,12 @@ namespace Server.Guilds
 
 						if (otherInAlliance)
 						{
-							otherAlliance.AllianceMessage(1070739 + (int)status, (inAlliance ? Alliance.Name : Name));
+							otherAlliance.AllianceMessage(1070739 + (int)status, inAlliance ? Alliance.Name : Name);
 							otherAlliance.InvalidateMemberProperties();
 						}
 						else
 						{
-							g.GuildMessage(1070739 + (int)status, (inAlliance ? Alliance.Name : Name));
+							g.GuildMessage(1070739 + (int)status, inAlliance ? Alliance.Name : Name);
 							g.InvalidateMemberProperties();
 						}
 
@@ -330,10 +326,7 @@ namespace Server.Guilds
 					//All sanity in here
 					PendingWars.Remove(w);
 
-					if (g != null)
-					{
-						g.PendingWars.Remove(g.FindPendingWar(this));
-					}
+					g?.PendingWars.Remove(g.FindPendingWar(this));
 				}
 			}
 		}
@@ -348,8 +341,7 @@ namespace Server.Guilds
 			if (!NewGuildSystem)
 				return;
 
-			if (killer == null)
-				killer = victim.FindMostRecentDamager(false);
+			killer ??= victim.FindMostRecentDamager(false);
 
 			if (killer == null || victim.Guild == null || killer.Guild == null)
 				return;
@@ -495,7 +487,7 @@ namespace Server.Guilds
 		}
 
 
-		public override bool Disbanded => (m_Leader == null || m_Leader.Deleted);
+		public override bool Disbanded => m_Leader == null || m_Leader.Deleted;
 
 		public override void OnDelete(Mobile mob)
 		{
@@ -548,7 +540,7 @@ namespace Server.Guilds
 		{
 			if (NewGuildSystem)
 			{
-				return (Alliance != null && Alliance.IsMember(this) && Alliance.IsMember(g));
+				return Alliance != null && Alliance.IsMember(this) && Alliance.IsMember(g);
 			}
 
 			return Allies.Contains(g);
@@ -590,8 +582,7 @@ namespace Server.Guilds
 
 			CheckExpiredWars();
 
-			if (Alliance != null)
-				Alliance.CheckLeader();
+			Alliance?.CheckLeader();
 
 			writer.Write(5);//version
 
@@ -613,7 +604,7 @@ namespace Server.Guilds
 
 			#region Alliances
 
-			bool isAllianceLeader = (m_AllianceLeader == null && m_AllianceInfo != null);
+			bool isAllianceLeader = m_AllianceLeader == null && m_AllianceInfo != null;
 			writer.Write(isAllianceLeader);
 
 			if (isAllianceLeader)
@@ -741,18 +732,14 @@ namespace Server.Guilds
 					}
 			}
 
-			if (AllyDeclarations == null)
-				AllyDeclarations = new List<Guild>();
+			AllyDeclarations ??= new List<Guild>();
 
-			if (AllyInvitations == null)
-				AllyInvitations = new List<Guild>();
+			AllyInvitations ??= new List<Guild>();
 
 
-			if (AcceptedWars == null)
-				AcceptedWars = new List<WarDeclaration>();
+			AcceptedWars ??= new List<WarDeclaration>();
 
-			if (PendingWars == null)
-				PendingWars = new List<WarDeclaration>();
+			PendingWars ??= new List<WarDeclaration>();
 
 
 			/*
@@ -772,8 +759,7 @@ namespace Server.Guilds
 
 			AllianceInfo alliance = Alliance;
 
-			if (alliance != null)
-				alliance.CheckLeader();
+			alliance?.CheckLeader();
 
 			alliance = Alliance;   //CheckLeader could possibly change the value of this.Alliance
 
@@ -805,9 +791,8 @@ namespace Server.Guilds
 				if (m is PlayerMobile)
 					((PlayerMobile)m).GuildRank = RankDefinition.Lowest;
 
-				Guild guild = m.Guild as Guild;
 
-				if (guild != null)
+				if (m.Guild is Guild guild)
 					guild.InvalidateWarNotoriety();
 			}
 		}
@@ -846,8 +831,7 @@ namespace Server.Guilds
 				if (Members.Count == 0)
 					Disband();
 
-				if (guild != null)
-					guild.InvalidateWarNotoriety();
+				guild?.InvalidateWarNotoriety();
 
 				m.Delta(MobileDelta.Noto);
 			}
@@ -957,8 +941,7 @@ namespace Server.Guilds
 
 				if (state != null)
 				{
-					if (p == null)
-						p = Packet.Acquire(new UnicodeMessage(from.Serial, from.Body, MessageType.Guild, hue, 3, from.Language, from.Name, text));
+					p ??= Packet.Acquire(new UnicodeMessage(from.Serial, from.Body, MessageType.Guild, hue, 3, from.Language, from.Name, text));
 
 					state.Send(p);
 				}
@@ -969,9 +952,7 @@ namespace Server.Guilds
 
 		public void GuildChat(Mobile from, string text)
 		{
-			PlayerMobile pm = from as PlayerMobile;
-
-			GuildChat(from, (pm == null) ? 0x3B2 : pm.GuildMessageHue, text);
+			GuildChat(from, (from is not PlayerMobile pm) ? 0x3B2 : pm.GuildMessageHue, text);
 		}
 		#endregion
 
@@ -980,23 +961,21 @@ namespace Server.Guilds
 		{
 			if (NewGuildSystem)
 			{
-				PlayerMobile pm = m as PlayerMobile;
-				if (pm == null || !pm.GuildRank.GetFlag(RankFlags.CanVote))
+				if (m is not PlayerMobile pm || !pm.GuildRank.GetFlag(RankFlags.CanVote))
 					return false;
 			}
 
-			return (m != null && !m.Deleted && m.Guild == this);
+			return m != null && !m.Deleted && m.Guild == this;
 		}
 		public bool CanBeVotedFor(Mobile m)
 		{
 			if (NewGuildSystem)
 			{
-				PlayerMobile pm = m as PlayerMobile;
-				if (pm == null || pm.LastOnline + InactiveTime < DateTime.UtcNow)
+				if (m is not PlayerMobile pm || pm.LastOnline + InactiveTime < DateTime.UtcNow)
 					return false;
 			}
 
-			return (m != null && !m.Deleted && m.Guild == this);
+			return m != null && !m.Deleted && m.Guild == this;
 		}
 
 		public void CalculateGuildmaster()
@@ -1049,7 +1028,7 @@ namespace Server.Guilds
 				}
 			}
 
-			if (NewGuildSystem && (highVotes * 100) / Math.Max(votingMembers, 1) < MajorityPercentage && m_Leader != null && winner != m_Leader && !m_Leader.Deleted && m_Leader.Guild == this)
+			if (NewGuildSystem && highVotes * 100 / Math.Max(votingMembers, 1) < MajorityPercentage && m_Leader != null && winner != m_Leader && !m_Leader.Deleted && m_Leader.Guild == this)
 				winner = m_Leader;
 
 			if (m_Leader != winner && winner != null)
@@ -1078,8 +1057,7 @@ namespace Server.Guilds
 
 				InvalidateMemberProperties(true);
 
-				if (Guildstone != null)
-					Guildstone.InvalidateProperties();
+				Guildstone?.InvalidateProperties();
 			}
 		}
 
@@ -1096,8 +1074,7 @@ namespace Server.Guilds
 
 				InvalidateMemberProperties(true);
 
-				if (Guildstone != null)
-					Guildstone.InvalidateProperties();
+				Guildstone?.InvalidateProperties();
 			}
 		}
 

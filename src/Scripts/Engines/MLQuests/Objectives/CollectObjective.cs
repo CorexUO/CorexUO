@@ -35,7 +35,7 @@ namespace Server.Engines.MLQuests.Objectives
 
 		public bool CheckType(Type type)
 		{
-			return (AcceptedType != null && AcceptedType.IsAssignableFrom(type));
+			return AcceptedType != null && AcceptedType.IsAssignableFrom(type);
 		}
 
 		public virtual bool CheckItem(Item item)
@@ -46,9 +46,9 @@ namespace Server.Engines.MLQuests.Objectives
 		public static int LabelToItemID(int label)
 		{
 			if (label < 1078872)
-				return (label - 1020000);
+				return label - 1020000;
 			else
-				return (label - 1078872);
+				return label - 1078872;
 		}
 
 		public override void WriteToGump(Gump g, ref int y)
@@ -136,12 +136,12 @@ namespace Server.Engines.MLQuests.Objectives
 
 		public override bool AllowsQuestItem(Item item, Type type)
 		{
-			return (Objective.CheckType(type) && Objective.CheckItem(item));
+			return Objective.CheckType(type) && Objective.CheckItem(item);
 		}
 
 		public override bool IsCompleted()
 		{
-			return (GetCurrentTotal() >= Objective.DesiredAmount);
+			return GetCurrentTotal() >= Objective.DesiredAmount;
 		}
 
 		public override void OnQuestCancelled()

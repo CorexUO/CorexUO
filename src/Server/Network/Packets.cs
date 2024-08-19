@@ -143,10 +143,7 @@ namespace Server.Network
 		public DisplaySecureTrade(Mobile them, Container first, Container second, string name)
 			: base(0x6F)
 		{
-			if (name == null)
-			{
-				name = "";
-			}
+			name ??= "";
 
 			EnsureCapacity(18 + name.Length);
 
@@ -349,8 +346,7 @@ namespace Server.Network
 		{
 			EnsureCapacity(256);
 
-			Container BuyPack = vendor.FindItemOnLayer(Layer.ShopBuy) as Container;
-			m_Stream.Write(BuyPack == null ? Serial.MinusOne : BuyPack.Serial);
+			m_Stream.Write(vendor.FindItemOnLayer(Layer.ShopBuy) is not Container BuyPack ? Serial.MinusOne : BuyPack.Serial);
 
 			m_Stream.Write((byte)list.Count);
 
@@ -362,8 +358,7 @@ namespace Server.Network
 
 				string desc = bis.Description;
 
-				if (desc == null)
-					desc = "";
+				desc ??= "";
 
 				m_Stream.Write((byte)(desc.Length + 1));
 				m_Stream.WriteAsciiNull(desc);
@@ -394,11 +389,10 @@ namespace Server.Network
 				if (name == null || (name = name.Trim()).Length <= 0)
 					name = state.Name;
 
-				if (name == null)
-					name = "";
+				name ??= "";
 
-				m_Stream.Write((ushort)(name.Length));
-				m_Stream.WriteAsciiFixed(name, (ushort)(name.Length));
+				m_Stream.Write((ushort)name.Length);
+				m_Stream.WriteAsciiFixed(name, (ushort)name.Length);
 			}
 		}
 	}
@@ -651,7 +645,7 @@ namespace Server.Network
 
 		public static Packet Instantiate(bool dead)
 		{
-			return (dead ? Dead : Alive);
+			return dead ? Dead : Alive;
 		}
 
 		public DeathStatus(bool dead) : base(0x2C, 2)
@@ -966,14 +960,11 @@ namespace Server.Network
 	{
 		public DisplayProfile(bool realSerial, Mobile m, string header, string body, string footer) : base(0xB8)
 		{
-			if (header == null)
-				header = "";
+			header ??= "";
 
-			if (body == null)
-				body = "";
+			body ??= "";
 
-			if (footer == null)
-				footer = "";
+			footer ??= "";
 
 			EnsureCapacity(12 + header.Length + (footer.Length * 2) + (body.Length * 2));
 
@@ -1014,10 +1005,8 @@ namespace Server.Network
 
 			int hue = item.Hue;
 
-			if (item.Parent is Mobile)
+			if (item.Parent is Mobile mob)
 			{
-				Mobile mob = (Mobile)item.Parent;
-
 				if (mob.SolidHueOverride >= 0)
 					hue = mob.SolidHueOverride;
 			}
@@ -1965,7 +1954,7 @@ namespace Server.Network
 
 		public static Packet Instantiate(bool mode)
 		{
-			return (mode ? InWarMode : InPeaceMode);
+			return mode ? InWarMode : InPeaceMode;
 		}
 
 		public SetWarMode(bool mode) : base(0x72, 5)
@@ -2106,7 +2095,7 @@ namespace Server.Network
 	{
 		public LaunchBrowser(string url) : base(0xA5)
 		{
-			if (url == null) url = "";
+			url ??= "";
 
 			EnsureCapacity(4 + url.Length);
 
@@ -2163,8 +2152,8 @@ namespace Server.Network
 
 		public MessageLocalized(Serial serial, int graphic, MessageType type, int hue, int font, int number, string name, string args) : base(0xC1)
 		{
-			if (name == null) name = "";
-			if (args == null) args = "";
+			name ??= "";
+			args ??= "";
 
 			if (hue == 0)
 				hue = 0x3B2;
@@ -2401,8 +2390,7 @@ namespace Server.Network
 			{
 				string v = strings[i];
 
-				if (v == null)
-					v = string.Empty;
+				v ??= string.Empty;
 
 				m_Strings.Write((ushort)v.Length);
 				m_Strings.WriteBigUniFixed(v, v.Length);
@@ -2444,7 +2432,7 @@ namespace Server.Network
 				return;
 			}
 
-			int wantLength = 1 + ((buffer.Length * 1024) / 1000);
+			int wantLength = 1 + (buffer.Length * 1024 / 1000);
 
 			wantLength += 4095;
 			wantLength &= ~4095;
@@ -2553,8 +2541,7 @@ namespace Server.Network
 			{
 				string v = text[i];
 
-				if (v == null)
-					v = string.Empty;
+				v ??= string.Empty;
 
 				int length = (ushort)v.Length;
 
@@ -2572,7 +2559,7 @@ namespace Server.Network
 	{
 		public DisplayGump(Gump g, string layout, string[] text) : base(0xB0)
 		{
-			if (layout == null) layout = "";
+			layout ??= "";
 
 			EnsureCapacity(256);
 
@@ -2589,7 +2576,7 @@ namespace Server.Network
 			{
 				string v = text[i];
 
-				if (v == null) v = "";
+				v ??= "";
 
 				int length = (ushort)v.Length;
 
@@ -2677,7 +2664,7 @@ namespace Server.Network
 	{
 		public ScrollMessage(int type, int tip, string text) : base(0xA6)
 		{
-			if (text == null) text = "";
+			text ??= "";
 
 			EnsureCapacity(10 + text.Length);
 
@@ -2809,7 +2796,7 @@ namespace Server.Network
 			if (Enabled && max != 0)
 			{
 				stream.Write((short)Maximum);
-				stream.Write((short)((cur * Maximum) / max));
+				stream.Write((short)(cur * Maximum / max));
 			}
 			else
 			{
@@ -2822,7 +2809,7 @@ namespace Server.Network
 		{
 			if (Enabled && max != 0)
 			{
-				stream.Write((short)((cur * Maximum) / max));
+				stream.Write((short)(cur * Maximum / max));
 				stream.Write((short)Maximum);
 			}
 			else
@@ -2936,7 +2923,7 @@ namespace Server.Network
 		{
 			string name = m.Name;
 
-			if (name == null) name = "";
+			name ??= "";
 
 			EnsureCapacity(37);
 
@@ -2975,7 +2962,7 @@ namespace Server.Network
 		public MobileStatusCompact(bool canBeRenamed, Mobile m) : base(0x11)
 		{
 			string name = m.Name;
-			if (name == null) name = "";
+			name ??= "";
 
 			EnsureCapacity(43);
 
@@ -2999,7 +2986,7 @@ namespace Server.Network
 		public MobileStatusExtended(Mobile m, NetState ns) : base(0x11)
 		{
 			string name = m.Name;
-			if (name == null) name = "";
+			name ??= "";
 
 			int type;
 
@@ -3068,8 +3055,7 @@ namespace Server.Network
 
 				int min = 0, max = 0;
 
-				if (weapon != null)
-					weapon.GetStatusDamage(m, out min, out max);
+				weapon?.GetStatusDamage(m, out min, out max);
 
 				m_Stream.Write((short)min); // Damage min
 				m_Stream.Write((short)max); // Damage max
@@ -3094,7 +3080,7 @@ namespace Server.Network
 		public MobileStatus(Mobile beholder, Mobile beheld, NetState ns) : base(0x11)
 		{
 			string name = beheld.Name;
-			if (name == null) name = "";
+			name ??= "";
 
 			int type;
 
@@ -3170,8 +3156,7 @@ namespace Server.Network
 
 					int min = 0, max = 0;
 
-					if (weapon != null)
-						weapon.GetStatusDamage(beheld, out min, out max);
+					weapon?.GetStatusDamage(beheld, out min, out max);
 
 					m_Stream.Write((short)min); // Damage min
 					m_Stream.Write((short)max); // Damage max
@@ -3311,7 +3296,7 @@ namespace Server.Network
 		{
 			m_Beheld = beheld;
 
-			int m_Version = ++(m_VersionTL.Value);
+			int m_Version = ++m_VersionTL.Value;
 			int[] m_DupedLayers = m_DupedLayersTL.Value;
 
 			List<Item> eq = beheld.Items;
@@ -3419,7 +3404,7 @@ namespace Server.Network
 		{
 			m_Beheld = beheld;
 
-			int m_Version = ++(m_VersionTL.Value);
+			int m_Version = ++m_VersionTL.Value;
 			int[] m_DupedLayers = m_DupedLayersTL.Value;
 
 			List<Item> eq = beheld.Items;
@@ -3463,7 +3448,7 @@ namespace Server.Network
 						hue = beheld.SolidHueOverride;
 
 					int itemID = item.ItemID & 0x7FFF;
-					bool writeHue = (hue != 0);
+					bool writeHue = hue != 0;
 
 					if (writeHue)
 						itemID |= 0x8000;
@@ -3489,7 +3474,7 @@ namespace Server.Network
 
 					int itemID = beheld.HairItemID & 0x7FFF;
 
-					bool writeHue = (hue != 0);
+					bool writeHue = hue != 0;
 
 					if (writeHue)
 						itemID |= 0x8000;
@@ -3515,7 +3500,7 @@ namespace Server.Network
 
 					int itemID = beheld.FacialHairItemID & 0x7FFF;
 
-					bool writeHue = (hue != 0);
+					bool writeHue = hue != 0;
 
 					if (writeHue)
 						itemID |= 0x8000;
@@ -3545,7 +3530,7 @@ namespace Server.Network
 		{
 			m_Beheld = beheld;
 
-			int m_Version = ++(m_VersionTL.Value);
+			int m_Version = ++m_VersionTL.Value;
 			int[] m_DupedLayers = m_DupedLayersTL.Value;
 
 			List<Item> eq = beheld.Items;
@@ -3589,7 +3574,7 @@ namespace Server.Network
 						hue = beheld.SolidHueOverride;
 
 					int itemID = item.ItemID & 0x7FFF;
-					bool writeHue = (hue != 0);
+					bool writeHue = hue != 0;
 
 					if (writeHue)
 						itemID |= 0x8000;
@@ -3615,7 +3600,7 @@ namespace Server.Network
 
 					int itemID = beheld.HairItemID & 0x7FFF;
 
-					bool writeHue = (hue != 0);
+					bool writeHue = hue != 0;
 
 					if (writeHue)
 						itemID |= 0x8000;
@@ -3641,7 +3626,7 @@ namespace Server.Network
 
 					int itemID = beheld.FacialHairItemID & 0x7FFF;
 
-					bool writeHue = (hue != 0);
+					bool writeHue = hue != 0;
 
 					if (writeHue)
 						itemID |= 0x8000;
@@ -3663,11 +3648,9 @@ namespace Server.Network
 	{
 		public AsciiMessage(Serial serial, int graphic, MessageType type, int hue, int font, string name, string text) : base(0x1C)
 		{
-			if (name == null)
-				name = "";
+			name ??= "";
 
-			if (text == null)
-				text = "";
+			text ??= "";
 
 			if (hue == 0)
 				hue = 0x3B2;
@@ -3689,8 +3672,8 @@ namespace Server.Network
 		public UnicodeMessage(Serial serial, int graphic, MessageType type, int hue, int font, string lang, string name, string text) : base(0xAE)
 		{
 			if (string.IsNullOrEmpty(lang)) lang = "ENU";
-			if (name == null) name = "";
-			if (text == null) text = "";
+			name ??= "";
+			text ??= "";
 
 			if (hue == 0)
 				hue = 0x3B2;
@@ -4024,11 +4007,11 @@ namespace Server.Network
 			CharacterListFlags flags = ExpansionInfo.CoreExpansion.CharacterListFlags;
 
 			if (count > 6)
-				flags |= (CharacterListFlags.SeventhCharacterSlot | CharacterListFlags.SixthCharacterSlot); // 7th Character Slot - TODO: Is SixthCharacterSlot Required?
+				flags |= CharacterListFlags.SeventhCharacterSlot | CharacterListFlags.SixthCharacterSlot; // 7th Character Slot - TODO: Is SixthCharacterSlot Required?
 			else if (count == 6)
 				flags |= CharacterListFlags.SixthCharacterSlot; // 6th Character Slot
 			else if (a.Limit == 1)
-				flags |= (CharacterListFlags.SlotLimit & CharacterListFlags.OneCharacterSlot); // Limit Characters & One Character
+				flags |= CharacterListFlags.SlotLimit & CharacterListFlags.OneCharacterSlot; // Limit Characters & One Character
 
 			m_Stream.Write((int)(flags | AdditionalFlags)); // Additional Flags
 
@@ -4038,8 +4021,7 @@ namespace Server.Network
 
 			if (disabled != 0)
 			{
-				if (m_MD5Provider == null)
-					m_MD5Provider = System.Security.Cryptography.MD5.Create();
+				m_MD5Provider ??= System.Security.Cryptography.MD5.Create();
 
 				m_Stream.UnderlyingStream.Flush();
 
@@ -4113,11 +4095,11 @@ namespace Server.Network
 			CharacterListFlags flags = ExpansionInfo.CoreExpansion.CharacterListFlags;
 
 			if (count > 6)
-				flags |= (CharacterListFlags.SeventhCharacterSlot | CharacterListFlags.SixthCharacterSlot); // 7th Character Slot - TODO: Is SixthCharacterSlot Required?
+				flags |= CharacterListFlags.SeventhCharacterSlot | CharacterListFlags.SixthCharacterSlot; // 7th Character Slot - TODO: Is SixthCharacterSlot Required?
 			else if (count == 6)
 				flags |= CharacterListFlags.SixthCharacterSlot; // 6th Character Slot
 			else if (a.Limit == 1)
-				flags |= (CharacterListFlags.SlotLimit & CharacterListFlags.OneCharacterSlot); // Limit Characters & One Character
+				flags |= CharacterListFlags.SlotLimit & CharacterListFlags.OneCharacterSlot; // Limit Characters & One Character
 
 			m_Stream.Write((int)(flags | CharacterList.AdditionalFlags)); // Additional Flags
 
@@ -4125,8 +4107,7 @@ namespace Server.Network
 
 			if (disabled != 0)
 			{
-				if (m_MD5Provider == null)
-					m_MD5Provider = System.Security.Cryptography.MD5.Create();
+				m_MD5Provider ??= System.Security.Cryptography.MD5.Create();
 
 				m_Stream.UnderlyingStream.Flush();
 
@@ -4194,9 +4175,9 @@ namespace Server.Network
 	{
 		public MessageLocalizedAffix(Serial serial, int graphic, MessageType messageType, int hue, int font, int number, string name, AffixType affixType, string affix, string args) : base(0xCC)
 		{
-			if (name == null) name = "";
-			if (affix == null) affix = "";
-			if (args == null) args = "";
+			name ??= "";
+			affix ??= "";
+			args ??= "";
 
 			if (hue == 0)
 				hue = 0x3B2;
@@ -4268,14 +4249,14 @@ namespace Server.Network
 	{
 		public DisplaySignGump(Serial serial, int gumpID, string unknown, string caption) : base(0x8B)
 		{
-			if (unknown == null) unknown = "";
-			if (caption == null) caption = "";
+			unknown ??= "";
+			caption ??= "";
 
 			EnsureCapacity(16 + unknown.Length + caption.Length);
 
 			m_Stream.Write(serial);
 			m_Stream.Write((short)gumpID);
-			m_Stream.Write((short)(unknown.Length));
+			m_Stream.Write((short)unknown.Length);
 			m_Stream.WriteAsciiFixed(unknown, unknown.Length);
 			m_Stream.Write((short)(caption.Length + 1));
 			m_Stream.WriteAsciiFixed(caption, caption.Length + 1);
@@ -4382,48 +4363,42 @@ namespace Server.Network
 
 		public static void Release(ref ObjectPropertyList p)
 		{
-			if (p != null)
-				p.Release();
+			p?.Release();
 
 			p = null;
 		}
 
 		public static void Release(ref RemoveItem p)
 		{
-			if (p != null)
-				p.Release();
+			p?.Release();
 
 			p = null;
 		}
 
 		public static void Release(ref RemoveMobile p)
 		{
-			if (p != null)
-				p.Release();
+			p?.Release();
 
 			p = null;
 		}
 
 		public static void Release(ref OPLInfo p)
 		{
-			if (p != null)
-				p.Release();
+			p?.Release();
 
 			p = null;
 		}
 
 		public static void Release(ref Packet p)
 		{
-			if (p != null)
-				p.Release();
+			p?.Release();
 
 			p = null;
 		}
 
 		public static void Release(Packet p)
 		{
-			if (p != null)
-				p.Release();
+			p?.Release();
 		}
 
 		public void SetStatic()

@@ -81,8 +81,7 @@ namespace Server.Engines.Craft
 
 		private static void AddSystem(CraftSystem system)
 		{
-			if (Systems == null)
-				Systems = new List<CraftSystem>();
+			Systems ??= new List<CraftSystem>();
 
 			Systems.Add(system);
 		}
@@ -117,8 +116,7 @@ namespace Server.Engines.Craft
 		{
 			CraftContext c = GetContext(m);
 
-			if (c != null)
-				c.OnMade(item);
+			c?.OnMade(item);
 		}
 
 		public static void OnRepair(Mobile m, BaseTool tool, Item deed, Item addon, IEntity e)

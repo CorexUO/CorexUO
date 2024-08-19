@@ -13,14 +13,14 @@ namespace Server.Commands.Generic
 
 		public bool IsAscending
 		{
-			get => (m_Order > 0);
-			set => m_Order = (value ? +1 : -1);
+			get => m_Order > 0;
+			set => m_Order = value ? +1 : -1;
 		}
 
 		public bool IsDescending
 		{
-			get => (m_Order < 0);
-			set => m_Order = (value ? -1 : +1);
+			get => m_Order < 0;
+			set => m_Order = value ? -1 : +1;
 		}
 
 		public int Sign

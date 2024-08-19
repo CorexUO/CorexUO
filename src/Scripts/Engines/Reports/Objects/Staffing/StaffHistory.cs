@@ -49,9 +49,8 @@ namespace Server.Engines.Reports
 				if (account == null || account.Length == 0)
 					return null;
 
-				StaffInfo info = StaffInfo[account] as StaffInfo;
 
-				if (info == null)
+				if (StaffInfo[account] is not StaffInfo info)
 					StaffInfo[account] = info = new StaffInfo(account);
 
 				return info;
@@ -63,9 +62,8 @@ namespace Server.Engines.Reports
 			if (account == null || account.Length == 0)
 				return null;
 
-			UserInfo info = m_UserInfo[account] as UserInfo;
 
-			if (info == null)
+			if (m_UserInfo[account] is not UserInfo info)
 				m_UserInfo[account] = info = new UserInfo(account);
 
 			return info;
@@ -288,14 +286,14 @@ namespace Server.Engines.Reports
 			DateTime max = DateTime.UtcNow;
 			DateTime min = max - TimeSpan.FromDays(7.0);
 
-			bool sentStamp = (res == PageResolution.None);
+			bool sentStamp = res == PageResolution.None;
 
 			for (int i = 0; i < pages.Count; ++i)
 			{
 				if (res != PageResolution.None && pages[i].Resolution != res)
 					continue;
 
-				DateTime ts = (sentStamp ? pages[i].TimeSent : pages[i].TimeResolved);
+				DateTime ts = sentStamp ? pages[i].TimeSent : pages[i].TimeResolved;
 
 				if (ts >= min && ts < max)
 				{

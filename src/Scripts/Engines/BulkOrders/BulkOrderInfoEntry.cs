@@ -25,7 +25,7 @@ namespace Server.Engines.BulkOrders
 				int totalHours = (totalSeconds + 3599) / 3600;
 				int totalMinutes = (totalSeconds + 59) / 60;
 
-				if (((Core.SE) ? totalMinutes == 0 : totalHours == 0))
+				if (Core.SE ? totalMinutes == 0 : totalHours == 0)
 				{
 					m_From.SendLocalizedMessage(1049038); // You can get an order now.
 

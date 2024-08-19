@@ -14,7 +14,7 @@
 
 		public override bool CheckCondition()
 		{
-			return (!m_Item.Deleted && !m_Mobile.Deleted && m_Item.Parent == m_Mobile);
+			return !m_Item.Deleted && !m_Mobile.Deleted && m_Item.Parent == m_Mobile;
 		}
 	}
 }

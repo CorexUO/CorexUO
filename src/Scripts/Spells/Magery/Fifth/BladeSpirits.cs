@@ -26,7 +26,7 @@ namespace Server.Spells.Fifth
 		public override TimeSpan GetCastDelay()
 		{
 			if (Core.AOS)
-				return TimeSpan.FromTicks(base.GetCastDelay().Ticks * ((Core.SE) ? 3 : 5));
+				return TimeSpan.FromTicks(base.GetCastDelay().Ticks * (Core.SE ? 3 : 5));
 
 			return base.GetCastDelay() + TimeSpan.FromSeconds(6.0);
 		}
@@ -113,8 +113,7 @@ namespace Server.Spells.Fifth
 
 			protected override void OnTargetFinish(Mobile from)
 			{
-				if (m_Owner != null)
-					m_Owner.FinishSequence();
+				m_Owner?.FinishSequence();
 			}
 		}
 	}

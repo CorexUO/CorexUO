@@ -303,7 +303,7 @@ namespace Server.Engines.Craft
 			bool neverColor = false;
 
 			for (int i = 0; !neverColor && i < m_NeverColorTable.Length; ++i)
-				neverColor = (type == m_NeverColorTable[i] || type.IsSubclassOf(m_NeverColorTable[i]));
+				neverColor = type == m_NeverColorTable[i] || type.IsSubclassOf(m_NeverColorTable[i]);
 
 			if (neverColor)
 				return false;
@@ -311,7 +311,7 @@ namespace Server.Engines.Craft
 			bool inItemTable = false;
 
 			for (int i = 0; !inItemTable && i < m_ColoredItemTable.Length; ++i)
-				inItemTable = (type == m_ColoredItemTable[i] || type.IsSubclassOf(m_ColoredItemTable[i]));
+				inItemTable = type == m_ColoredItemTable[i] || type.IsSubclassOf(m_ColoredItemTable[i]);
 
 			return inItemTable;
 		}
@@ -329,7 +329,7 @@ namespace Server.Engines.Craft
 			bool inResourceTable = false;
 
 			for (int i = 0; !inResourceTable && i < m_ColoredResourceTable.Length; ++i)
-				inResourceTable = (type == m_ColoredResourceTable[i] || type.IsSubclassOf(m_ColoredResourceTable[i]));
+				inResourceTable = type == m_ColoredResourceTable[i] || type.IsSubclassOf(m_ColoredResourceTable[i]);
 
 			return inResourceTable;
 		}
@@ -382,7 +382,7 @@ namespace Server.Engines.Craft
 			bool contains = false;
 
 			for (int i = 0; !contains && i < itemIDs.Length; i += 2)
-				contains = (itemID >= itemIDs[i] && itemID <= itemIDs[i + 1]);
+				contains = itemID >= itemIDs[i] && itemID <= itemIDs[i + 1];
 
 			return contains;
 		}
@@ -540,7 +540,7 @@ namespace Server.Engines.Craft
 
 			maxAmount = int.MaxValue;
 
-			CraftSubResCol resCol = (UseSubRes2 ? craftSystem.CraftSubRes2 : craftSystem.CraftSubRes);
+			CraftSubResCol resCol = UseSubRes2 ? craftSystem.CraftSubRes2 : craftSystem.CraftSubRes;
 
 			for (int i = 0; i < types.Length; ++i)
 			{
@@ -705,8 +705,7 @@ namespace Server.Engines.Craft
 			if (index == -1)
 			{
 				if (consumeType != ConsumeType.None)
-					if (consumeExtra != null)
-						consumeExtra.Delete();
+					consumeExtra?.Delete();
 
 				return true;
 			}
@@ -799,7 +798,7 @@ namespace Server.Engines.Craft
 			if (GetExceptionalChance(craftSystem, chance, from) > Utility.RandomDouble())
 				quality = ItemQuality.Exceptional;
 
-			return (chance > Utility.RandomDouble());
+			return chance > Utility.RandomDouble();
 		}
 
 		public double GetSuccessChance(Mobile from, Type typeRes, CraftSystem craftSystem, bool gainSkills, ref bool allRequiredSkills)
@@ -880,11 +879,10 @@ namespace Server.Engines.Craft
 									{
 										CraftContext context = craftSystem.GetContext(from);
 
-										if (context != null)
-											context.OnMade(this);
+										context?.OnMade(this);
 
 										int iMin = craftSystem.MinCraftEffect;
-										int iMax = (craftSystem.MaxCraftEffect - iMin) + 1;
+										int iMax = craftSystem.MaxCraftEffect - iMin + 1;
 										int iRandom = Utility.Random(iMax);
 										iRandom += iMin + 1;
 										new InternalTimer(from, craftSystem, this, typeRes, tool, iRandom).Start();
@@ -1135,7 +1133,7 @@ namespace Server.Engines.Craft
 			}
 			else
 			{
-				ConsumeType consumeType = (UseAllRes ? ConsumeType.Half : ConsumeType.All);
+				ConsumeType consumeType = UseAllRes ? ConsumeType.Half : ConsumeType.All;
 				int resHue = 0;
 				int maxAmount = 0;
 
@@ -1236,8 +1234,7 @@ namespace Server.Engines.Craft
 						try { cc = Activator.CreateInstance(m_CraftItem.ItemType, new object[] { m_From, m_CraftItem, m_CraftSystem, m_TypeRes, m_Tool, quality }) as CustomCraft; }
 						catch { }
 
-						if (cc != null)
-							cc.EndCraftAction();
+						cc?.EndCraftAction();
 
 						return;
 					}

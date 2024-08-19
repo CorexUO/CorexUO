@@ -49,27 +49,23 @@ namespace Server.Mobiles
 			if (WalkMobileRange(combatant, 1, true, m_Mobile.RangeFight, m_Mobile.RangeFight))
 			{
 				m_Mobile.Direction = m_Mobile.GetDirectionTo(combatant);
-				if (m_toDisarm == null)
-					m_toDisarm = combatant.FindItemOnLayer(Layer.OneHanded);
+				m_toDisarm ??= combatant.FindItemOnLayer(Layer.OneHanded);
 
-				if (m_toDisarm == null)
-					m_toDisarm = combatant.FindItemOnLayer(Layer.TwoHanded);
+				m_toDisarm ??= combatant.FindItemOnLayer(Layer.TwoHanded);
 
 				if (m_toDisarm != null && m_toDisarm.IsChildOf(m_Mobile.Backpack))
 				{
 					m_toDisarm = combatant.FindItemOnLayer(Layer.OneHanded);
-					if (m_toDisarm == null)
-						m_toDisarm = combatant.FindItemOnLayer(Layer.TwoHanded);
+					m_toDisarm ??= combatant.FindItemOnLayer(Layer.TwoHanded);
 				}
 				if (!Core.AOS && !m_Mobile.DisarmReady && m_Mobile.Skills[SkillName.Wrestling].Value >= 80.0 && m_Mobile.Skills[SkillName.ArmsLore].Value >= 80.0 && m_toDisarm != null)
 					EventSink.InvokeDisarmRequest(m_Mobile);
 
-				if (m_toDisarm != null && m_toDisarm.IsChildOf(combatant.Backpack) && Core.TickCount - m_Mobile.NextSkillTime >= 0 && (m_toDisarm.LootType != LootType.Blessed && m_toDisarm.LootType != LootType.Newbied))
+				if (m_toDisarm != null && m_toDisarm.IsChildOf(combatant.Backpack) && Core.TickCount - m_Mobile.NextSkillTime >= 0 && m_toDisarm.LootType != LootType.Blessed && m_toDisarm.LootType != LootType.Newbied)
 				{
 					m_Mobile.DebugSay("Trying to steal from combatant.");
 					m_Mobile.UseSkill(SkillName.Stealing);
-					if (m_Mobile.Target != null)
-						m_Mobile.Target.Invoke(m_Mobile, m_toDisarm);
+					m_Mobile.Target?.Invoke(m_Mobile, m_toDisarm);
 				}
 				else if (m_toDisarm == null && Core.TickCount - m_Mobile.NextSkillTime >= 0)
 				{
@@ -82,24 +78,21 @@ namespace Server.Mobiles
 						{
 							m_Mobile.DebugSay("Trying to steal from combatant.");
 							m_Mobile.UseSkill(SkillName.Stealing);
-							if (m_Mobile.Target != null)
-								m_Mobile.Target.Invoke(m_Mobile, steala);
+							m_Mobile.Target?.Invoke(m_Mobile, steala);
 						}
 						Item stealb = cpack.FindItemByType(typeof(Nightshade));
 						if (stealb != null)
 						{
 							m_Mobile.DebugSay("Trying to steal from combatant.");
 							m_Mobile.UseSkill(SkillName.Stealing);
-							if (m_Mobile.Target != null)
-								m_Mobile.Target.Invoke(m_Mobile, stealb);
+							m_Mobile.Target?.Invoke(m_Mobile, stealb);
 						}
 						Item stealc = cpack.FindItemByType(typeof(BlackPearl));
 						if (stealc != null)
 						{
 							m_Mobile.DebugSay("Trying to steal from combatant.");
 							m_Mobile.UseSkill(SkillName.Stealing);
-							if (m_Mobile.Target != null)
-								m_Mobile.Target.Invoke(m_Mobile, stealc);
+							m_Mobile.Target?.Invoke(m_Mobile, stealc);
 						}
 
 						Item steald = cpack.FindItemByType(typeof(MandrakeRoot));
@@ -107,8 +100,7 @@ namespace Server.Mobiles
 						{
 							m_Mobile.DebugSay("Trying to steal from combatant.");
 							m_Mobile.UseSkill(SkillName.Stealing);
-							if (m_Mobile.Target != null)
-								m_Mobile.Target.Invoke(m_Mobile, steald);
+							m_Mobile.Target?.Invoke(m_Mobile, steald);
 						}
 						else if (steala == null && stealb == null && stealc == null && steald == null)
 						{
@@ -136,7 +128,7 @@ namespace Server.Mobiles
 
 					int diff = combatant.Hits - m_Mobile.Hits;
 
-					flee = (Utility.Random(0, 100) > (10 + diff)); // (10 + diff)% chance to flee
+					flee = Utility.Random(0, 100) > (10 + diff); // (10 + diff)% chance to flee
 				}
 				else
 				{

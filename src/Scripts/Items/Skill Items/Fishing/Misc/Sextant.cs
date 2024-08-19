@@ -94,8 +94,8 @@ namespace Server.Items
 
 			int x, y, z;
 
-			x = xCenter + (int)((absLong * xWidth) / 360);
-			y = yCenter + (int)((absLat * yHeight) / 360);
+			x = xCenter + (int)(absLong * xWidth / 360);
+			y = yCenter + (int)(absLat * yHeight / 360);
 
 			if (x < 0)
 				x += xWidth;
@@ -131,7 +131,7 @@ namespace Server.Items
 			if (absLat > 180.0)
 				absLat = -180.0 + (absLat % 180.0);
 
-			bool east = (absLong >= 0), south = (absLat >= 0);
+			bool east = absLong >= 0, south = absLat >= 0;
 
 			if (absLong < 0.0)
 				absLong = -absLong;
@@ -142,8 +142,8 @@ namespace Server.Items
 			xLong = (int)absLong;
 			yLat = (int)absLat;
 
-			xMins = (int)((absLong % 1.0) * 60);
-			yMins = (int)((absLat % 1.0) * 60);
+			xMins = (int)(absLong % 1.0 * 60);
+			yMins = (int)(absLat % 1.0 * 60);
 
 			xEast = east;
 			ySouth = south;

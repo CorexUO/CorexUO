@@ -30,9 +30,7 @@ namespace Server.Engines.Quests.Samurai
 
 			if (!wasBurning && Burning)
 			{
-				PlayerMobile player = from as PlayerMobile;
-
-				if (player == null)
+				if (from is not PlayerMobile player)
 					return;
 
 				QuestSystem qs = player.Quest;

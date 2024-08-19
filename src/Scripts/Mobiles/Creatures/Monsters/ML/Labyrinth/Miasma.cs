@@ -44,7 +44,7 @@ namespace Server.Mobiles
 		/* yes, this is OSI style */
 		public override double WeaponAbilityChance => 0.75;
 		public override double HitPoisonChance => 0.35;
-		public override Poison HitPoison => (Poison.Lethal);
+		public override Poison HitPoison => Poison.Lethal;
 		public override bool HasManaOveride => true;
 		public override bool GivesMLMinorArtifact => true;
 		public override int TreasureMapLevel => 5;

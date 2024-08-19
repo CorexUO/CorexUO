@@ -111,7 +111,7 @@ namespace Server.Items
 
 		public static bool IsInHavenIsland(IPoint2D loc)
 		{
-			return (loc.X >= 3314 && loc.X <= 3814 && loc.Y >= 2345 && loc.Y <= 3095);
+			return loc.X >= 3314 && loc.X <= 3814 && loc.Y >= 2345 && loc.Y <= 3095;
 		}
 
 		public static BaseCreature Spawn(int level, Point3D p, bool guardian)
@@ -209,8 +209,8 @@ namespace Server.Items
 			int width = 600;
 			int height = 600;
 
-			int x1 = m_Location.X - Utility.RandomMinMax(width / 4, (width / 4) * 3);
-			int y1 = m_Location.Y - Utility.RandomMinMax(height / 4, (height / 4) * 3);
+			int x1 = m_Location.X - Utility.RandomMinMax(width / 4, width / 4 * 3);
+			int y1 = m_Location.Y - Utility.RandomMinMax(height / 4, height / 4 * 3);
 
 			if (x1 < 0)
 				x1 = 0;
@@ -463,8 +463,7 @@ namespace Server.Items
 				Stop();
 				m_From.EndAction(typeof(TreasureMap));
 
-				if (m_Chest != null)
-					m_Chest.Delete();
+				m_Chest?.Delete();
 
 				if (m_Dirt1 != null)
 				{
@@ -492,7 +491,7 @@ namespace Server.Items
 				int height = 16;
 
 				if (z > m_Location.Z)
-					height -= (z - m_Location.Z);
+					height -= z - m_Location.Z;
 				else
 					z = m_Location.Z;
 
@@ -640,7 +639,7 @@ namespace Server.Items
 
 		private bool HasRequiredSkill(Mobile from)
 		{
-			return (from.Skills[SkillName.Cartography].Value >= GetMinSkillLevel());
+			return from.Skills[SkillName.Cartography].Value >= GetMinSkillLevel();
 		}
 
 		public void Decode(Mobile from)

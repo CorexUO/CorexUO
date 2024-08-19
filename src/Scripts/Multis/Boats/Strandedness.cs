@@ -114,7 +114,7 @@ namespace Server.Misc
 			{
 				int id = ((StaticTile)surface).ID;
 
-				return (id >= 0x1796 && id <= 0x17B2);
+				return id >= 0x1796 && id <= 0x17B2;
 			}
 
 			return false;

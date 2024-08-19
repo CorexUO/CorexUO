@@ -22,7 +22,7 @@ namespace Server.Factions
 				if (Item == null || Item.Deleted)
 					return true;
 
-				return (Expiration != DateTime.MinValue && DateTime.UtcNow >= Expiration);
+				return Expiration != DateTime.MinValue && DateTime.UtcNow >= Expiration;
 			}
 		}
 
@@ -44,8 +44,7 @@ namespace Server.Factions
 			if (Item is IFactionItem)
 				((IFactionItem)Item).FactionItemState = this;
 
-			if (Faction != null)
-				Faction.State.FactionItems.Add(this);
+			Faction?.State.FactionItems.Add(this);
 		}
 
 		public void Detach()

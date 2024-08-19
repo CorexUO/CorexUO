@@ -53,9 +53,9 @@ namespace Server.Mobiles
 			SetResistance(ResistanceType.Poison, (int)(10 * scalar), (int)(25 * scalar));
 			SetResistance(ResistanceType.Energy, (int)(30 * scalar), (int)(40 * scalar));
 
-			SetSkill(SkillName.MagicResist, (150.1 * scalar), (190.0 * scalar));
-			SetSkill(SkillName.Tactics, (60.1 * scalar), (100.0 * scalar));
-			SetSkill(SkillName.Wrestling, (60.1 * scalar), (100.0 * scalar));
+			SetSkill(SkillName.MagicResist, 150.1 * scalar, 190.0 * scalar);
+			SetSkill(SkillName.Tactics, 60.1 * scalar, 100.0 * scalar);
+			SetSkill(SkillName.Wrestling, 60.1 * scalar, 100.0 * scalar);
 
 			if (summoned)
 			{
@@ -157,8 +157,7 @@ namespace Server.Mobiles
 				PlaySound(0xEE);
 				defender.LocalOverheadMessage(MessageType.Regular, 0x3B2, false, "You have been stunned by a colossal blow!");
 
-				BaseWeapon weapon = Weapon as BaseWeapon;
-				if (weapon != null)
+				if (Weapon is BaseWeapon weapon)
 					weapon.OnHit(this, defender);
 
 				if (defender.Alive)
@@ -171,9 +170,7 @@ namespace Server.Mobiles
 
 		private void Recover_Callback(object state)
 		{
-			Mobile defender = state as Mobile;
-
-			if (defender != null)
+			if (state is Mobile defender)
 			{
 				defender.Frozen = false;
 				defender.Combatant = null;
@@ -187,10 +184,9 @@ namespace Server.Mobiles
 		{
 			if (Controlled || Summoned)
 			{
-				Mobile master = (ControlMaster);
+				Mobile master = ControlMaster;
 
-				if (master == null)
-					master = SummonMaster;
+				master ??= SummonMaster;
 
 				if (master != null && master.Player && master.Map == Map && master.InRange(Location, 20))
 				{

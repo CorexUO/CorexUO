@@ -192,8 +192,7 @@ namespace Server.SkillHandlers
 
 								creature.BardPacified = false;
 
-								if (creature.AIObject != null)
-									creature.AIObject.DoMove(creature.Direction);
+								creature.AIObject?.DoMove(creature.Direction);
 
 								if (from is PlayerMobile player && !(player.HonorActive || TransformationSpellHelper.UnderTransformation(from, typeof(EtherealVoyageSpell))))
 									creature.Combatant = from;

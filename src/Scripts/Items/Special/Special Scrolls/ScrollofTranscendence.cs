@@ -50,9 +50,8 @@ namespace Server.Items
 			if (!base.CanUse(from))
 				return false;
 
-			PlayerMobile pm = from as PlayerMobile;
 
-			if (pm == null)
+			if (from is not PlayerMobile pm)
 				return false;
 
 			#region Mondain's Legacy

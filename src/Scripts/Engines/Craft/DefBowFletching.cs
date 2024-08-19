@@ -15,8 +15,7 @@ namespace Server.Engines.Craft
 		{
 			get
 			{
-				if (m_CraftSystem == null)
-					m_CraftSystem = new DefBowFletching();
+				m_CraftSystem ??= new DefBowFletching();
 
 				return m_CraftSystem;
 			}

@@ -81,8 +81,8 @@ namespace Server.Gumps
 			{
 				int position = i % itemsPerPage;
 
-				int innerX = (position % XItems) * 250 + 14;
-				int innerY = (position / XItems) * 64 + 44;
+				int innerX = position % XItems * 250 + 14;
+				int innerY = position / XItems * 64 + 44;
 
 				int pageNum = i / itemsPerPage + 1;
 

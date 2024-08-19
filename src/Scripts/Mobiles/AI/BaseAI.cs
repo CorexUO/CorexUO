@@ -59,7 +59,7 @@ namespace Server.Mobiles
 		{
 			string name = m_Mobile.Name;
 
-			return (name != null && Insensitive.StartsWith(speech, name));
+			return name != null && Insensitive.StartsWith(speech, name);
 		}
 
 		private class InternalEntry : ContextMenuEntry
@@ -88,8 +88,8 @@ namespace Server.Mobiles
 					if (m_Mobile.IsDeadPet && (m_Order == OrderType.Guard || m_Order == OrderType.Attack || m_Order == OrderType.Transfer || m_Order == OrderType.Drop))
 						return;
 
-					bool isOwner = (m_From == m_Mobile.ControlMaster);
-					bool isFriend = (!isOwner && m_Mobile.IsPetFriend(m_From));
+					bool isOwner = m_From == m_Mobile.ControlMaster;
+					bool isFriend = !isOwner && m_Mobile.IsPetFriend(m_From);
 
 					if (!isOwner && !isFriend)
 						return;
@@ -174,8 +174,8 @@ namespace Server.Mobiles
 			if (m_Mobile.Deleted || !m_Mobile.Controlled || !from.InRange(m_Mobile, 14) || from.Map != m_Mobile.Map)
 				return;
 
-			bool isOwner = (from == m_Mobile.ControlMaster);
-			bool isFriend = (!isOwner && m_Mobile.IsPetFriend(from));
+			bool isOwner = from == m_Mobile.ControlMaster;
+			bool isFriend = !isOwner && m_Mobile.IsPetFriend(from);
 
 			if (!isOwner && !isFriend)
 				return;
@@ -213,8 +213,8 @@ namespace Server.Mobiles
 			if (m_Mobile.Deleted || !m_Mobile.Controlled || !from.InRange(m_Mobile, 14) || from.Map != m_Mobile.Map || !from.CheckAlive())
 				return;
 
-			bool isOwner = (from == m_Mobile.ControlMaster);
-			bool isFriend = (!isOwner && m_Mobile.IsPetFriend(from));
+			bool isOwner = from == m_Mobile.ControlMaster;
+			bool isFriend = !isOwner && m_Mobile.IsPetFriend(from);
 
 			if (!isOwner && !isFriend)
 				return;
@@ -268,7 +268,7 @@ namespace Server.Mobiles
 			if (from.Alive && m_Mobile.Controlled && m_Mobile.Commandable && (from == m_Mobile.ControlMaster || m_Mobile.IsPetFriend(from)))
 				return true;
 
-			return (from.Alive && from.InRange(m_Mobile.Location, 3) && m_Mobile.IsHumanInTown());
+			return from.Alive && from.InRange(m_Mobile.Location, 3) && m_Mobile.IsHumanInTown();
 		}
 
 		private static readonly SkillName[] m_KeywordTable = new SkillName[]
@@ -452,8 +452,8 @@ namespace Server.Mobiles
 			{
 				m_Mobile.DebugSay("Listening...");
 
-				bool isOwner = (e.Mobile == m_Mobile.ControlMaster);
-				bool isFriend = (!isOwner && m_Mobile.IsPetFriend(e.Mobile));
+				bool isOwner = e.Mobile == m_Mobile.ControlMaster;
+				bool isFriend = !isOwner && m_Mobile.IsPetFriend(e.Mobile);
 
 				if (e.Mobile.Alive && (isOwner || isFriend))
 				{
@@ -1111,7 +1111,7 @@ namespace Server.Mobiles
 					m_Mobile.DebugSay("My master told me come");
 
 					// Not exactly OSI style, but better than nothing.
-					bool bRun = (iCurrDist > 5);
+					bool bRun = iCurrDist > 5;
 
 					if (WalkMobileRange(m_Mobile.ControlMaster, 1, bRun, 0, 1))
 					{
@@ -1223,7 +1223,7 @@ namespace Server.Mobiles
 					m_Mobile.DebugSay("My master told me to follow: {0}", m_Mobile.ControlTarget.Name);
 
 					// Not exactly OSI style, but better than nothing.
-					bool bRun = (iCurrDist > 5);
+					bool bRun = iCurrDist > 5;
 
 					if (WalkMobileRange(m_Mobile.ControlTarget, 1, bRun, 0, 1))
 					{
@@ -1549,7 +1549,7 @@ namespace Server.Mobiles
 		{
 			public static bool IsInCombat(BaseCreature creature)
 			{
-				return (creature != null && (creature.Aggressors.Count > 0 || creature.Aggressed.Count > 0));
+				return creature != null && (creature.Aggressors.Count > 0 || creature.Aggressed.Count > 0);
 			}
 
 			private readonly BaseCreature m_Creature;
@@ -1870,8 +1870,8 @@ namespace Server.Mobiles
 
 		public double TransformMoveDelay(double delay)
 		{
-			bool isPassive = (delay == m_Mobile.PassiveSpeed);
-			bool isControlled = (m_Mobile.Controlled || m_Mobile.Summoned);
+			bool isPassive = delay == m_Mobile.PassiveSpeed;
+			bool isControlled = m_Mobile.Controlled || m_Mobile.Summoned;
 
 			if (delay == 0.2)
 				delay = 0.3;
@@ -1914,7 +1914,7 @@ namespace Server.Mobiles
 
 				offset = 1.0 - offset;
 
-				delay += (offset * 0.8);
+				delay += offset * 0.8;
 			}
 
 			if (delay < 0.0)
@@ -1937,7 +1937,7 @@ namespace Server.Mobiles
 
 		public virtual bool CheckMove()
 		{
-			return (Core.TickCount - NextMove >= 0);
+			return Core.TickCount - NextMove >= 0;
 		}
 
 		public virtual bool DoMove(Direction d)
@@ -1949,7 +1949,7 @@ namespace Server.Mobiles
 		{
 			MoveResult res = DoMoveImpl(d);
 
-			return (res == MoveResult.Success || res == MoveResult.SuccessAutoTurn || (badStateOk && res == MoveResult.BadState));
+			return res == MoveResult.Success || res == MoveResult.SuccessAutoTurn || (badStateOk && res == MoveResult.BadState);
 		}
 
 		private static readonly Queue<Item> m_Obstacles = new();
@@ -1973,14 +1973,14 @@ namespace Server.Mobiles
 
 			m_Mobile.Pushing = false;
 
-			MoveImpl.IgnoreMovableImpassables = (m_Mobile.CanMoveOverObstacles && !m_Mobile.CanDestroyObstacles);
+			MoveImpl.IgnoreMovableImpassables = m_Mobile.CanMoveOverObstacles && !m_Mobile.CanDestroyObstacles;
 
 			if ((m_Mobile.Direction & Direction.Mask) != (d & Direction.Mask))
 			{
 				bool v = m_Mobile.Move(d);
 
 				MoveImpl.IgnoreMovableImpassables = false;
-				return (v ? MoveResult.Success : MoveResult.Blocked);
+				return v ? MoveResult.Success : MoveResult.Blocked;
 			}
 			else if (!m_Mobile.Move(d))
 			{
@@ -2078,7 +2078,7 @@ namespace Server.Mobiles
 
 				if (blocked)
 				{
-					int offset = (Utility.RandomDouble() >= 0.6 ? 1 : -1);
+					int offset = Utility.RandomDouble() >= 0.6 ? 1 : -1;
 
 					for (int i = 0; i < 2; ++i)
 					{
@@ -2092,7 +2092,7 @@ namespace Server.Mobiles
 					}
 
 					MoveImpl.IgnoreMovableImpassables = false;
-					return (wasPushing ? MoveResult.BadState : MoveResult.Blocked);
+					return wasPushing ? MoveResult.BadState : MoveResult.Blocked;
 				}
 				else
 				{
@@ -2279,7 +2279,7 @@ namespace Server.Mobiles
 
 					if (iCurrDist < iWantDistMin || iCurrDist > iWantDistMax)
 					{
-						bool needCloser = (iCurrDist > iWantDistMax);
+						bool needCloser = iCurrDist > iWantDistMax;
 						bool needFurther = !needCloser;
 
 						if (needCloser && m_Path != null && m_Path.Goal == m)
@@ -2359,7 +2359,7 @@ namespace Server.Mobiles
 				else
 				{
 					m_Mobile.FocusMob = m_Mobile.BardTarget;
-					return (m_Mobile.FocusMob != null);
+					return m_Mobile.FocusMob != null;
 				}
 			}
 			else if (m_Mobile.Controlled)
@@ -2375,7 +2375,7 @@ namespace Server.Mobiles
 				else
 				{
 					m_Mobile.FocusMob = m_Mobile.ControlTarget;
-					return (m_Mobile.FocusMob != null);
+					return m_Mobile.FocusMob != null;
 				}
 			}
 
@@ -2478,14 +2478,14 @@ namespace Server.Mobiles
 						bool bValid = IsHostile(m);
 
 						if (!bValid)
-							bValid = (m_Mobile.GetFactionAllegiance(m) == BaseCreature.Allegiance.Enemy || m_Mobile.GetEthicAllegiance(m) == BaseCreature.Allegiance.Enemy);
+							bValid = m_Mobile.GetFactionAllegiance(m) == BaseCreature.Allegiance.Enemy || m_Mobile.GetEthicAllegiance(m) == BaseCreature.Allegiance.Enemy;
 
 						if (acqType == FightMode.Evil && !bValid)
 						{
 							if (m is BaseCreature creature && creature.Controlled && creature.ControlMaster != null)
-								bValid = (creature.ControlMaster.Karma < 0);
+								bValid = creature.ControlMaster.Karma < 0;
 							else
-								bValid = (m.Karma < 0);
+								bValid = m.Karma < 0;
 						}
 
 						if (!bValid)
@@ -2516,7 +2516,7 @@ namespace Server.Mobiles
 				m_Mobile.FocusMob = newFocusMob;
 			}
 
-			return (m_Mobile.FocusMob != null);
+			return m_Mobile.FocusMob != null;
 		}
 
 		private bool IsHostile(Mobile from)
@@ -2733,7 +2733,7 @@ namespace Server.Mobiles
 					m_Owner.DetectHidden();
 
 					// Not exactly OSI style, approximation.
-					int delay = (15000 / m_Owner.m_Mobile.Int);
+					int delay = 15000 / m_Owner.m_Mobile.Int;
 
 					if (delay > 60)
 						delay = 60;

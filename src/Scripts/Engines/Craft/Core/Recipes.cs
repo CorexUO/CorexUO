@@ -73,8 +73,7 @@ namespace Server.Engines.Craft
 		{
 			get
 			{
-				if (m_TD == null)
-					m_TD = new TextDefinition(CraftItem.NameNumber, CraftItem.NameString);
+				m_TD ??= new TextDefinition(CraftItem.NameNumber, CraftItem.NameString);
 
 				return m_TD;
 			}

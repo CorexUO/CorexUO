@@ -28,10 +28,8 @@ namespace Server.Items
 
 			protected override void OnTarget(Mobile from, object targeted)
 			{
-				if (targeted is Item)
+				if (targeted is Item item)
 				{
-					Item item = (Item)targeted;
-
 					if (item.Movable == false && from.AccessLevel == AccessLevel.Player)
 						return;
 
@@ -82,8 +80,7 @@ namespace Server.Items
 				try
 				{
 					MethodInfo flipMethod = item.GetType().GetMethod("Flip", Type.EmptyTypes);
-					if (flipMethod != null)
-						flipMethod.Invoke(item, new object[0]);
+					flipMethod?.Invoke(item, new object[0]);
 				}
 				catch
 				{

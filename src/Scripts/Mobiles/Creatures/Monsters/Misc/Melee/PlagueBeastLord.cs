@@ -23,9 +23,7 @@ namespace Server.Mobiles
 				{
 					for (int i = 0; i < pack.Items.Count; i++)
 					{
-						PlagueBeastBlood blood = pack.Items[i] as PlagueBeastBlood;
-
-						if (blood != null && !blood.Patched)
+						if (pack.Items[i] is PlagueBeastBlood blood && !blood.Patched)
 							return true;
 					}
 				}
@@ -199,8 +197,7 @@ namespace Server.Mobiles
 			{
 				OpenedBy = from;
 
-				if (m_Timer == null)
-					m_Timer = new DecayTimer(this);
+				m_Timer ??= new DecayTimer(this);
 
 				if (!m_Timer.Running)
 					m_Timer.Start();

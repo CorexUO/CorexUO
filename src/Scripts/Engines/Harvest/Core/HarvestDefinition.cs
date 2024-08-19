@@ -136,7 +136,7 @@ namespace Server.Engines.Harvest
 				bool contains = false;
 
 				for (int i = 0; !contains && i < Tiles.Length; i += 2)
-					contains = (tileID >= Tiles[i] && tileID <= Tiles[i + 1]);
+					contains = tileID >= Tiles[i] && tileID <= Tiles[i + 1];
 
 				return contains;
 			}
@@ -145,9 +145,9 @@ namespace Server.Engines.Harvest
 				int dist = -1;
 
 				for (int i = 0; dist < 0 && i < Tiles.Length; ++i)
-					dist = (Tiles[i] - tileID);
+					dist = Tiles[i] - tileID;
 
-				return (dist == 0);
+				return dist == 0;
 			}
 		}
 	}

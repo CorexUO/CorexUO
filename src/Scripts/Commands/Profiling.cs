@@ -107,10 +107,8 @@ namespace Server.Commands
 				if (obj is int)
 					return (int)obj;
 
-				if (obj is int[])
+				if (obj is int[] list)
 				{
-					int[] list = (int[])obj;
-
 					int total = 0;
 
 					for (int i = 0; i < list.Length; ++i)
@@ -171,7 +169,7 @@ namespace Server.Commands
 				op.WriteLine("# Items:");
 
 				foreach (DictionaryEntry de in items)
-					op.WriteLine("{0}\t{1:F2}%\t{2}", de.Value, (100 * (int)de.Value) / (double)World.Items.Count, de.Key);
+					op.WriteLine("{0}\t{1:F2}%\t{2}", de.Value, 100 * (int)de.Value / (double)World.Items.Count, de.Key);
 
 				op.WriteLine();
 				op.WriteLine();
@@ -179,7 +177,7 @@ namespace Server.Commands
 				op.WriteLine("#Mobiles:");
 
 				foreach (DictionaryEntry de in mobiles)
-					op.WriteLine("{0}\t{1:F2}%\t{2}", de.Value, (100 * (int)de.Value) / (double)World.Mobiles.Count, de.Key);
+					op.WriteLine("{0}\t{1:F2}%\t{2}", de.Value, 100 * (int)de.Value / (double)World.Mobiles.Count, de.Key);
 			}
 
 			e.Mobile.SendMessage("Object table has been generated. See the file : <corexuo root>/objects.log");
@@ -202,9 +200,7 @@ namespace Server.Commands
 
 				do
 				{
-					int[] countTable = typeTable[itemType] as int[];
-
-					if (countTable == null)
+					if (typeTable[itemType] is not int[] countTable)
 						typeTable[itemType] = countTable = new int[9];
 
 					if ((flags & ExpandFlag.Name) != 0)
@@ -383,7 +379,7 @@ namespace Server.Commands
 				op.WriteLine();
 
 				foreach (DictionaryEntry de in list)
-					op.WriteLine("{0}\t{1:F2}%\t{2}", de.Value, (100 * (int)de.Value) / (double)total, de.Key);
+					op.WriteLine("{0}\t{1:F2}%\t{2}", de.Value, 100 * (int)de.Value / (double)total, de.Key);
 			}
 			catch
 			{

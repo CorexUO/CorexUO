@@ -151,9 +151,8 @@ namespace Server.Mobiles
 		{
 			base.GetChildContextMenuEntries(from, list, item);
 
-			PlayerVendor pv = RootParent as PlayerVendor;
 
-			if (pv == null || pv.IsOwner(from))
+			if (RootParent is not PlayerVendor pv || pv.IsOwner(from))
 				return;
 
 			VendorItem vi = pv.GetVendorItem(item);
@@ -186,9 +185,8 @@ namespace Server.Mobiles
 		{
 			base.GetChildNameProperties(list, item);
 
-			PlayerVendor pv = RootParent as PlayerVendor;
 
-			if (pv == null)
+			if (RootParent is not PlayerVendor pv)
 				return;
 
 			VendorItem vi = pv.GetVendorItem(item);
@@ -208,9 +206,8 @@ namespace Server.Mobiles
 		{
 			base.GetChildProperties(list, item);
 
-			PlayerVendor pv = RootParent as PlayerVendor;
 
-			if (pv == null)
+			if (RootParent is not PlayerVendor pv)
 				return;
 
 			VendorItem vi = pv.GetVendorItem(item);
@@ -221,10 +218,8 @@ namespace Server.Mobiles
 
 		public override void OnSingleClickContained(Mobile from, Item item)
 		{
-			if (RootParent is PlayerVendor)
+			if (RootParent is PlayerVendor vendor)
 			{
-				PlayerVendor vendor = (PlayerVendor)RootParent;
-
 				VendorItem vi = vendor.GetVendorItem(item);
 
 				if (vi != null)
@@ -503,11 +498,9 @@ namespace Server.Mobiles
 			get => m_House;
 			set
 			{
-				if (m_House != null)
-					m_House.PlayerVendors.Remove(this);
+				m_House?.PlayerVendors.Remove(this);
 
-				if (value != null)
-					value.PlayerVendors.Add(this);
+				value?.PlayerVendors.Add(this);
 
 				m_House = value;
 			}
@@ -551,7 +544,7 @@ namespace Server.Mobiles
 						total += vi.Price;
 					}
 
-					return (int)(60 + (total / 500) * 3);
+					return (int)(60 + total / 500 * 3);
 				}
 				else
 				{
@@ -700,8 +693,7 @@ namespace Server.Mobiles
 
 			House = null;
 
-			if (Placeholder != null)
-				Placeholder.Delete();
+			Placeholder?.Delete();
 		}
 
 		public override bool IsSnoop(Mobile from)
@@ -867,7 +859,7 @@ namespace Server.Mobiles
 			}
 			else
 			{
-				bool newItem = (GetVendorItem(item) == null);
+				bool newItem = GetVendorItem(item) == null;
 
 				if (Backpack != null && Backpack.TryDropItem(from, item, false))
 				{
@@ -1031,9 +1023,7 @@ namespace Server.Mobiles
 
 		public static void TryToBuy(Item item, Mobile from)
 		{
-			PlayerVendor vendor = item.RootParent as PlayerVendor;
-
-			if (vendor == null || !vendor.CanInteractWith(from, false))
+			if (item.RootParent is not PlayerVendor vendor || !vendor.CanInteractWith(from, false))
 				return;
 
 			if (vendor.IsOwner(from))
@@ -1181,8 +1171,7 @@ namespace Server.Mobiles
 
 		public void Return()
 		{
-			if (Placeholder != null)
-				Placeholder.Delete();
+			Placeholder?.Delete();
 		}
 
 		public override void GetContextMenuEntries(Mobile from, List<ContextMenuEntry> list)
@@ -1215,7 +1204,7 @@ namespace Server.Mobiles
 
 		public override bool HandlesOnSpeech(Mobile from)
 		{
-			return (from.Alive && from.GetDistanceToSqrt(this) <= 3);
+			return from.Alive && from.GetDistanceToSqrt(this) <= 3;
 		}
 
 		public bool WasNamed(string speech)

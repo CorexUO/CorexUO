@@ -575,7 +575,7 @@ namespace Server
 			if (v < 0)
 				--v;
 
-			return (v / 2);
+			return v / 2;
 		}
 
 #if Map_NewEnumerables || Map_AllUpdates
@@ -1571,8 +1571,7 @@ namespace Server
 		{
 			get
 			{
-				if (DefaultRegion1 == null)
-					DefaultRegion1 = new Region(null, this, 0, Array.Empty<Rectangle3D>());
+				DefaultRegion1 ??= new Region(null, this, 0, Array.Empty<Rectangle3D>());
 
 				return DefaultRegion1;
 			}
@@ -2562,7 +2561,7 @@ namespace Server
 				int ltID = landTile.ID;
 
 				for (int j = 0; !contains && j < InvalidLandTiles.Length; ++j)
-					contains = (ltID == InvalidLandTiles[j]);
+					contains = ltID == InvalidLandTiles[j];
 
 				if (contains && statics.Length == 0)
 				{
@@ -2610,7 +2609,7 @@ namespace Server
 				}
 			}
 
-			Rectangle2D rect = new(pTop.m_X, pTop.m_Y, (pBottom.m_X - pTop.m_X) + 1, (pBottom.m_Y - pTop.m_Y) + 1);
+			Rectangle2D rect = new(pTop.m_X, pTop.m_Y, pBottom.m_X - pTop.m_X + 1, pBottom.m_Y - pTop.m_Y + 1);
 
 			IPooledEnumerable<Item> area = GetItemsInBounds(rect);
 

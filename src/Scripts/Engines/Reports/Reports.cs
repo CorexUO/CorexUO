@@ -284,13 +284,13 @@ namespace Server.Engines.Reports
 
 			public int CompareTo(object obj)
 			{
-				return (((SkillDistribution)obj).m_NumberOfGMs - m_NumberOfGMs);
+				return ((SkillDistribution)obj).m_NumberOfGMs - m_NumberOfGMs;
 			}
 		}
 
 		public static SkillDistribution[] GetSkillDistribution()
 		{
-			int skip = (Core.ML ? 0 : Core.SE ? 1 : Core.AOS ? 3 : 6);
+			int skip = Core.ML ? 0 : Core.SE ? 1 : Core.AOS ? 3 : 6;
 
 			SkillDistribution[] distribs = new SkillDistribution[SkillInfo.Table.Length - skip];
 
@@ -483,9 +483,8 @@ namespace Server.Engines.Reports
 
 				string controller = "Unknown";
 
-				Mobile mob = sigil.RootParent as Mobile;
 
-				if (mob != null)
+				if (sigil.RootParent is Mobile mob)
 				{
 					Faction faction = Faction.Find(mob);
 

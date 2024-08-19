@@ -92,7 +92,7 @@ namespace Server.Spells.Seventh
 				if (targets.Count > 0)
 				{
 					if (Core.AOS && targets.Count > 2)
-						damage = (damage * 2) / targets.Count;
+						damage = damage * 2 / targets.Count;
 					else if (!Core.AOS)
 						damage /= targets.Count;
 
@@ -135,9 +135,7 @@ namespace Server.Spells.Seventh
 
 			protected override void OnTarget(Mobile from, object o)
 			{
-				IPoint3D p = o as IPoint3D;
-
-				if (p != null)
+				if (o is IPoint3D p)
 					m_Owner.Target(p);
 			}
 

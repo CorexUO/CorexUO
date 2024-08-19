@@ -84,9 +84,7 @@ namespace Server.Items
 
 		public void Placement_OnTarget(Mobile from, object targeted, object state)
 		{
-			IPoint3D p = targeted as IPoint3D;
-
-			if (p == null)
+			if (targeted is not IPoint3D p)
 				return;
 
 			Point3D loc = new(p);
@@ -106,8 +104,7 @@ namespace Server.Items
 			Delete();
 			HolidayTree tree = new(from, type, loc);
 			BaseHouse house = BaseHouse.FindHouseAt(tree);
-			if (house != null)
-				house.Addons.Add(tree);
+			house?.Addons.Add(tree);
 		}
 
 		public override void OnDoubleClick(Mobile from)

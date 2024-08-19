@@ -135,17 +135,13 @@ namespace Server.Commands.Generic
 				object obj = m_List[i];
 				bool isDeleted = false;
 
-				if (obj is Item)
+				if (obj is Item item)
 				{
-					Item item = (Item)obj;
-
 					if (!(isDeleted = item.Deleted))
 						AddEntryHtml(40 + 130, item.GetType().Name);
 				}
-				else if (obj is Mobile)
+				else if (obj is Mobile mob)
 				{
-					Mobile mob = (Mobile)obj;
-
 					if (!(isDeleted = mob.Deleted))
 						AddEntryHtml(40 + 130, mob.Name);
 				}
@@ -187,9 +183,9 @@ namespace Server.Commands.Generic
 						AddEntryHtml(130, value);
 					}
 
-					bool isSelected = (m_Select != null && obj == m_Select);
+					bool isSelected = m_Select != null && obj == m_Select;
 
-					AddEntryButton(20, (isSelected ? 9762 : ArrowRightID1), (isSelected ? 9763 : ArrowRightID2), 3 + i, ArrowRightWidth, ArrowRightHeight);
+					AddEntryButton(20, isSelected ? 9762 : ArrowRightID1, isSelected ? 9763 : ArrowRightID2, 3 + i, ArrowRightWidth, ArrowRightHeight);
 				}
 			}
 
@@ -355,7 +351,7 @@ namespace Server.Commands.Generic
 					{
 						Mobile owner = m_Item.RootParent as Mobile;
 
-						if (owner != null && (owner.Map != null && owner.Map != Map.Internal) && !BaseCommand.IsAccessible(m_From, owner) /* !m_From.CanSee( owner )*/ )
+						if (owner != null && owner.Map != null && owner.Map != Map.Internal && !BaseCommand.IsAccessible(m_From, owner) /* !m_From.CanSee( owner )*/ )
 						{
 							m_From.SendMessage("You can not get what you can not see.");
 						}

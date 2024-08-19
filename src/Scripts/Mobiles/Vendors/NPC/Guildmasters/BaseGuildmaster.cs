@@ -49,7 +49,7 @@ namespace Server.Mobiles
 		{
 			string name = Name;
 
-			return (name != null && Insensitive.StartsWith(speech, name));
+			return name != null && Insensitive.StartsWith(speech, name);
 		}
 
 		public override bool HandlesOnSpeech(Mobile from)

@@ -57,10 +57,8 @@ namespace Server.Engines.Quests.Haven
 			if (m.Player || m is BaseVendor)
 				return false;
 
-			if (m is BaseCreature)
+			if (m is BaseCreature bc)
 			{
-				BaseCreature bc = (BaseCreature)m;
-
 				Mobile master = bc.GetMaster();
 				if (master != null)
 					return IsEnemy(master);

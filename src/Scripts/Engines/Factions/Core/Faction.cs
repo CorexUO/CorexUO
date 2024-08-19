@@ -190,10 +190,8 @@ namespace Server.Factions
 
 		public void HonorLeadership_OnTarget(Mobile from, object obj)
 		{
-			if (obj is Mobile)
+			if (obj is Mobile recv)
 			{
-				Mobile recv = (Mobile)obj;
-
 				PlayerState giveState = PlayerState.Find(from);
 				PlayerState recvState = PlayerState.Find(recv);
 
@@ -437,9 +435,7 @@ namespace Server.Factions
 
 		private bool AlreadyHasCharInFaction(Mobile mob)
 		{
-			Account acct = mob.Account as Account;
-
-			if (acct != null)
+			if (mob.Account is Account acct)
 			{
 				for (int i = 0; i < acct.Length; ++i)
 				{
@@ -455,19 +451,15 @@ namespace Server.Factions
 
 		public static bool IsFactionBanned(Mobile mob)
 		{
-			Account acct = mob.Account as Account;
-
-			if (acct == null)
+			if (mob.Account is not Account acct)
 				return false;
 
-			return (acct.GetTag("FactionBanned") != null);
+			return acct.GetTag("FactionBanned") != null;
 		}
 
 		public void OnJoinAccepted(Mobile mob)
 		{
-			PlayerMobile pm = mob as PlayerMobile;
-
-			if (pm == null)
+			if (mob is not PlayerMobile pm)
 				return; // sanity
 
 			PlayerState pl = PlayerState.Find(pm);
@@ -500,9 +492,7 @@ namespace Server.Factions
 
 					for (int i = 0; i < members.Count; ++i)
 					{
-						PlayerMobile member = members[i] as PlayerMobile;
-
-						if (member == null)
+						if (members[i] is not PlayerMobile member)
 							continue;
 
 						JoinGuilded(member, guild);
@@ -524,7 +514,7 @@ namespace Server.Factions
 			if (mob == null)
 				return false;
 
-			return (mob.AccessLevel >= AccessLevel.GameMaster || mob == Commander);
+			return mob.AccessLevel >= AccessLevel.GameMaster || mob == Commander;
 		}
 
 		public Faction()
@@ -799,9 +789,8 @@ namespace Server.Factions
 
 		public static void FactionKick_OnTarget(Mobile from, object obj)
 		{
-			if (obj is Mobile)
+			if (obj is Mobile mob)
 			{
-				Mobile mob = (Mobile)obj;
 				PlayerState pl = PlayerState.Find(mob);
 
 				if (pl != null)
@@ -950,7 +939,7 @@ namespace Server.Factions
 			if (silver <= 0)
 				return 0;
 
-			int tithed = (silver * Tithe) / 100;
+			int tithed = silver * Tithe / 100;
 
 			Silver += tithed;
 
@@ -1014,7 +1003,7 @@ namespace Server.Factions
 			if (smallest == null)
 				return true; // sanity
 
-			if (StabilityFactor > 0 && (((Members.Count + influx) * 100) / StabilityFactor) > smallest.Members.Count)
+			if (StabilityFactor > 0 && ((Members.Count + influx) * 100 / StabilityFactor) > smallest.Members.Count)
 				return false;
 
 			return true;
@@ -1022,8 +1011,7 @@ namespace Server.Factions
 
 		public static void HandleDeath(Mobile victim, Mobile killer)
 		{
-			if (killer == null)
-				killer = victim.FindMostRecentDamager(true);
+			killer ??= victim.FindMostRecentDamager(true);
 
 			PlayerState killerState = PlayerState.Find(killer);
 
@@ -1031,7 +1019,7 @@ namespace Server.Factions
 
 			if (pack != null)
 			{
-				Container killerPack = (killer == null ? null : killer.Backpack);
+				Container killerPack = killer?.Backpack;
 				Item[] sigils = pack.FindItemsByType(typeof(Sigil));
 
 				for (int i = 0; i < sigils.Length; ++i)
@@ -1066,9 +1054,8 @@ namespace Server.Factions
 			if (killerState == null)
 				return;
 
-			if (victim is BaseCreature)
+			if (victim is BaseCreature bc)
 			{
-				BaseCreature bc = (BaseCreature)victim;
 				Faction victimFaction = bc.FactionAllegiance;
 
 				if (bc.Map == Faction.Facet && victimFaction != null && killerState.Faction != victimFaction)
@@ -1166,7 +1153,7 @@ namespace Server.Factions
 						victimState.KillPoints -= award;
 						killerState.KillPoints += award;
 
-						int offset = (award != 1 ? 0 : 2); // for pluralization
+						int offset = award != 1 ? 0 : 2; // for pluralization
 
 						string args = string.Format("{0}\t{1}\t{2}", award, victim.Name, killer.Name);
 
@@ -1363,9 +1350,7 @@ namespace Server.Factions
 					}
 				case FactionKickType.Ban:
 					{
-						Account acct = mob.Account as Account;
-
-						if (acct != null)
+						if (mob.Account is Account acct)
 						{
 							if (acct.GetTag("FactionBanned") == null)
 							{
@@ -1403,9 +1388,7 @@ namespace Server.Factions
 					}
 				case FactionKickType.Unban:
 					{
-						Account acct = mob.Account as Account;
-
-						if (acct != null)
+						if (mob.Account is Account acct)
 						{
 							if (acct.GetTag("FactionBanned") == null)
 							{

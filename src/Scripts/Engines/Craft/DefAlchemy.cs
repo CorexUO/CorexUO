@@ -15,8 +15,7 @@ namespace Server.Engines.Craft
 		{
 			get
 			{
-				if (m_CraftSystem == null)
-					m_CraftSystem = new DefAlchemy();
+				m_CraftSystem ??= new DefAlchemy();
 
 				return m_CraftSystem;
 			}

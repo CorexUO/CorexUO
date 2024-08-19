@@ -109,9 +109,8 @@ namespace Server.Items
 				if (m_Gear == null || m_Gear.Deleted)
 					return;
 
-				DawnsMusicBox box = targeted as DawnsMusicBox;
 
-				if (box != null)
+				if (targeted is DawnsMusicBox box)
 				{
 					if (!box.Tracks.Contains(m_Gear.Music))
 					{

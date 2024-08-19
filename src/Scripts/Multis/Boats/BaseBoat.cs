@@ -63,7 +63,7 @@ namespace Server.Multis
 		public Direction Moving { get; set; }
 
 		[CommandProperty(AccessLevel.GameMaster)]
-		public bool IsMoving => (m_MoveTimer != null);
+		public bool IsMoving => m_MoveTimer != null;
 
 		[CommandProperty(AccessLevel.GameMaster)]
 		public int Speed { get; set; }
@@ -72,7 +72,7 @@ namespace Server.Multis
 		public bool Anchored { get; set; }
 
 		[CommandProperty(AccessLevel.GameMaster)]
-		public string ShipName { get => m_ShipName; set { m_ShipName = value; if (TillerMan != null) TillerMan.InvalidateProperties(); } }
+		public string ShipName { get => m_ShipName; set { m_ShipName = value; TillerMan?.InvalidateProperties(); } }
 
 		[CommandProperty(AccessLevel.GameMaster)]
 		public BoatOrder Order { get; set; }
@@ -84,7 +84,7 @@ namespace Server.Multis
 		public int NextNavPoint { get; set; }
 
 		[CommandProperty(AccessLevel.GameMaster)]
-		public DateTime TimeOfDecay { get => m_DecayTime; set { m_DecayTime = value; if (TillerMan != null) TillerMan.InvalidateProperties(); } }
+		public DateTime TimeOfDecay { get => m_DecayTime; set { m_DecayTime = value; TillerMan?.InvalidateProperties(); } }
 
 		public int Status
 		{
@@ -289,23 +289,17 @@ namespace Server.Multis
 
 		public override void OnAfterDelete()
 		{
-			if (TillerMan != null)
-				TillerMan.Delete();
+			TillerMan?.Delete();
 
-			if (Hold != null)
-				Hold.Delete();
+			Hold?.Delete();
 
-			if (PPlank != null)
-				PPlank.Delete();
+			PPlank?.Delete();
 
-			if (SPlank != null)
-				SPlank.Delete();
+			SPlank?.Delete();
 
-			if (m_TurnTimer != null)
-				m_TurnTimer.Stop();
+			m_TurnTimer?.Stop();
 
-			if (m_MoveTimer != null)
-				m_MoveTimer.Stop();
+			m_MoveTimer?.Stop();
 
 			Boats.Remove(this);
 		}
@@ -413,8 +407,7 @@ namespace Server.Multis
 		{
 			m_DecayTime = DateTime.UtcNow + BoatDecayDelay;
 
-			if (TillerMan != null)
-				TillerMan.InvalidateProperties();
+			TillerMan?.InvalidateProperties();
 		}
 
 		private class DecayTimer : Timer
@@ -440,8 +433,7 @@ namespace Server.Multis
 				{
 					m_Boat.Location = new Point3D(m_Boat.X, m_Boat.Y, m_Boat.Z - 1);
 
-					if (m_Boat.TillerMan != null)
-						m_Boat.TillerMan.Say(1007168 + m_Count);
+					m_Boat.TillerMan?.Say(1007168 + m_Count);
 
 					++m_Count;
 				}
@@ -514,15 +506,14 @@ namespace Server.Multis
 			if (CheckDecay())
 				return false;
 
-			bool drift = (dir != Forward && dir != ForwardLeft && dir != ForwardRight);
-			TimeSpan interval = (fast ? (drift ? FastDriftInterval : FastInterval) : (drift ? SlowDriftInterval : SlowInterval));
-			int speed = (fast ? (drift ? FastDriftSpeed : FastSpeed) : (drift ? SlowDriftSpeed : SlowSpeed));
+			bool drift = dir != Forward && dir != ForwardLeft && dir != ForwardRight;
+			TimeSpan interval = fast ? (drift ? FastDriftInterval : FastInterval) : (drift ? SlowDriftInterval : SlowInterval);
+			int speed = fast ? (drift ? FastDriftSpeed : FastSpeed) : (drift ? SlowDriftSpeed : SlowSpeed);
 			int clientSpeed = fast ? 0x4 : 0x3;
 
 			if (StartMove(dir, speed, clientSpeed, interval, false, true))
 			{
-				if (TillerMan != null)
-					TillerMan.Say(501429); // Aye aye sir.
+				TillerMan?.Say(501429); // Aye aye sir.
 
 				return true;
 			}
@@ -535,14 +526,13 @@ namespace Server.Multis
 			if (CheckDecay())
 				return false;
 
-			bool drift = (dir != Forward);
+			bool drift = dir != Forward;
 			TimeSpan interval = drift ? FastDriftInterval : FastInterval;
 			int speed = drift ? FastDriftSpeed : FastSpeed;
 
 			if (StartMove(dir, speed, 0x1, interval, true, true))
 			{
-				if (TillerMan != null)
-					TillerMan.Say(501429); // Aye aye sir.
+				TillerMan?.Say(501429); // Aye aye sir.
 
 				return true;
 			}
@@ -557,14 +547,12 @@ namespace Server.Multis
 
 			if (from.AccessLevel < AccessLevel.GameMaster && from != Owner)
 			{
-				if (TillerMan != null)
-					TillerMan.Say(Utility.Random(1042876, 4)); // Arr, don't do that! | Arr, leave me alone! | Arr, watch what thour'rt doing, matey! | Arr! Do that again and Ill throw ye overhead!
+				TillerMan?.Say(Utility.Random(1042876, 4)); // Arr, don't do that! | Arr, leave me alone! | Arr, watch what thour'rt doing, matey! | Arr! Do that again and Ill throw ye overhead!
 
 				return;
 			}
 
-			if (TillerMan != null)
-				TillerMan.Say(502580); // What dost thou wish to name thy ship?
+			TillerMan?.Say(502580); // What dost thou wish to name thy ship?
 
 			from.Prompt = new RenameBoatPrompt(this);
 		}
@@ -576,15 +564,13 @@ namespace Server.Multis
 
 			if (from.AccessLevel < AccessLevel.GameMaster && from != Owner)
 			{
-				if (TillerMan != null)
-					TillerMan.Say(1042880); // Arr! Only the owner of the ship may change its name!
+				TillerMan?.Say(1042880); // Arr! Only the owner of the ship may change its name!
 
 				return;
 			}
 			else if (!from.Alive)
 			{
-				if (TillerMan != null)
-					TillerMan.Say(502582); // You appear to be dead.
+				TillerMan?.Say(502582); // You appear to be dead.
 
 				return;
 			}
@@ -694,15 +680,13 @@ namespace Server.Multis
 
 			if (e.Mobile.AccessLevel < AccessLevel.GameMaster && e.Mobile != Owner)
 			{
-				if (TillerMan != null)
-					TillerMan.Say(1042880); // Arr! Only the owner of the ship may change its name!
+				TillerMan?.Say(1042880); // Arr! Only the owner of the ship may change its name!
 
 				return;
 			}
 			else if (!e.Mobile.Alive)
 			{
-				if (TillerMan != null)
-					TillerMan.Say(502582); // You appear to be dead.
+				TillerMan?.Say(502582); // You appear to be dead.
 
 				return;
 			}
@@ -728,8 +712,7 @@ namespace Server.Multis
 
 			if (m_ShipName == newName)
 			{
-				if (TillerMan != null)
-					TillerMan.Say(502531); // Yes, sir.
+				TillerMan?.Say(502531); // Yes, sir.
 
 				return;
 			}
@@ -738,8 +721,8 @@ namespace Server.Multis
 
 			if (TillerMan != null && m_ShipName != null)
 				TillerMan.Say(1042885, m_ShipName); // This ship is now called the ~1_NEW_SHIP_NAME~.
-			else if (TillerMan != null)
-				TillerMan.Say(502534); // This ship now has no name.
+			else
+				TillerMan?.Say(502534); // This ship now has no name.
 		}
 
 		public void RemoveName(Mobile m)
@@ -749,31 +732,27 @@ namespace Server.Multis
 
 			if (m.AccessLevel < AccessLevel.GameMaster && m != Owner)
 			{
-				if (TillerMan != null)
-					TillerMan.Say(1042880); // Arr! Only the owner of the ship may change its name!
+				TillerMan?.Say(1042880); // Arr! Only the owner of the ship may change its name!
 
 				return;
 			}
 			else if (!m.Alive)
 			{
-				if (TillerMan != null)
-					TillerMan.Say(502582); // You appear to be dead.
+				TillerMan?.Say(502582); // You appear to be dead.
 
 				return;
 			}
 
 			if (m_ShipName == null)
 			{
-				if (TillerMan != null)
-					TillerMan.Say(502526); // Ar, this ship has no name.
+				TillerMan?.Say(502526); // Ar, this ship has no name.
 
 				return;
 			}
 
 			ShipName = null;
 
-			if (TillerMan != null)
-				TillerMan.Say(502534); // This ship now has no name.
+			TillerMan?.Say(502534); // This ship now has no name.
 		}
 
 		public void GiveName(Mobile m)
@@ -805,13 +784,11 @@ namespace Server.Multis
 
 			if (map is BlankMap)
 			{
-				if (TillerMan != null)
-					TillerMan.Say(502575); // Ar, that is not a map, tis but a blank piece of paper!
+				TillerMan?.Say(502575); // Ar, that is not a map, tis but a blank piece of paper!
 			}
 			else if (map.Pins.Count == 0)
 			{
-				if (TillerMan != null)
-					TillerMan.Say(502576); // Arrrr, this map has no course on it!
+				TillerMan?.Say(502576); // Arrrr, this map has no course on it!
 			}
 			else
 			{
@@ -820,8 +797,7 @@ namespace Server.Multis
 				MapItem = map;
 				NextNavPoint = -1;
 
-				if (TillerMan != null)
-					TillerMan.Say(502577); // A map!
+				TillerMan?.Say(502577); // A map!
 			}
 		}
 
@@ -906,8 +882,7 @@ namespace Server.Multis
 			Speed = FastSpeed;
 			Order = single ? BoatOrder.Single : BoatOrder.Course;
 
-			if (m_MoveTimer != null)
-				m_MoveTimer.Stop();
+			m_MoveTimer?.Stop();
 
 			m_MoveTimer = new MoveTimer(this, FastInterval, false);
 			m_MoveTimer.Start();
@@ -1005,8 +980,7 @@ namespace Server.Multis
 					m_MoveTimer = null;
 				}
 
-				if (m_TurnTimer != null)
-					m_TurnTimer.Stop();
+				m_TurnTimer?.Stop();
 
 				m_TurnTimer = new TurnTimer(this, offset);
 				m_TurnTimer.Start();
@@ -1087,8 +1061,7 @@ namespace Server.Multis
 			m_ClientSpeed = clientSpeed;
 			Order = BoatOrder.Move;
 
-			if (m_MoveTimer != null)
-				m_MoveTimer.Stop();
+			m_MoveTimer?.Stop();
 
 			m_MoveTimer = new MoveTimer(this, interval, single);
 			m_MoveTimer.Start();
@@ -1158,7 +1131,7 @@ namespace Server.Multis
 					for (int i = 0; i < tiles.Length; ++i)
 					{
 						StaticTile tile = tiles[i];
-						bool isWater = (tile.ID >= 0x1796 && tile.ID <= 0x17B2);
+						bool isWater = tile.ID >= 0x1796 && tile.ID <= 0x17B2;
 
 						if (tile.Z == p.Z && isWater)
 							hasWater = true;
@@ -1567,17 +1540,13 @@ namespace Server.Multis
 
 			m_Facing = facing;
 
-			if (TillerMan != null)
-				TillerMan.SetFacing(facing);
+			TillerMan?.SetFacing(facing);
 
-			if (Hold != null)
-				Hold.SetFacing(facing);
+			Hold?.SetFacing(facing);
 
-			if (PPlank != null)
-				PPlank.SetFacing(facing);
+			PPlank?.SetFacing(facing);
 
-			if (SPlank != null)
-				SPlank.SetFacing(facing);
+			SPlank?.SetFacing(facing);
 
 			List<IEntity> toMove = GetMovingEntities();
 

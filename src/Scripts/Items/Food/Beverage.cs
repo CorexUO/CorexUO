@@ -275,16 +275,16 @@ namespace Server.Items
 		public override int ComputeItemID()
 		{
 			if (IsEmpty)
-				return (ItemID >= 0x1F81 && ItemID <= 0x1F84 ? ItemID : 0x1F81);
+				return ItemID >= 0x1F81 && ItemID <= 0x1F84 ? ItemID : 0x1F81;
 
 			switch (Content)
 			{
-				case BeverageType.Ale: return (ItemID == 0x9EF ? 0x9EF : 0x9EE);
-				case BeverageType.Cider: return (ItemID >= 0x1F7D && ItemID <= 0x1F80 ? ItemID : 0x1F7D);
-				case BeverageType.Liquor: return (ItemID >= 0x1F85 && ItemID <= 0x1F88 ? ItemID : 0x1F85);
-				case BeverageType.Milk: return (ItemID >= 0x1F89 && ItemID <= 0x1F8C ? ItemID : 0x1F89);
-				case BeverageType.Wine: return (ItemID >= 0x1F8D && ItemID <= 0x1F90 ? ItemID : 0x1F8D);
-				case BeverageType.Water: return (ItemID >= 0x1F91 && ItemID <= 0x1F94 ? ItemID : 0x1F91);
+				case BeverageType.Ale: return ItemID == 0x9EF ? 0x9EF : 0x9EE;
+				case BeverageType.Cider: return ItemID >= 0x1F7D && ItemID <= 0x1F80 ? ItemID : 0x1F7D;
+				case BeverageType.Liquor: return ItemID >= 0x1F85 && ItemID <= 0x1F88 ? ItemID : 0x1F85;
+				case BeverageType.Milk: return ItemID >= 0x1F89 && ItemID <= 0x1F8C ? ItemID : 0x1F89;
+				case BeverageType.Wine: return ItemID >= 0x1F8D && ItemID <= 0x1F90 ? ItemID : 0x1F8D;
+				case BeverageType.Water: return ItemID >= 0x1F91 && ItemID <= 0x1F94 ? ItemID : 0x1F91;
 			}
 
 			return 0;
@@ -445,7 +445,7 @@ namespace Server.Items
 			}
 		}
 
-		public virtual bool ShowQuantity => (MaxQuantity > 1);
+		public virtual bool ShowQuantity => MaxQuantity > 1;
 		public virtual bool Fillable => true;
 		public virtual bool Pourable => true;
 
@@ -457,13 +457,13 @@ namespace Server.Items
 		public abstract int ComputeItemID();
 
 		[CommandProperty(AccessLevel.GameMaster)]
-		public bool IsEmpty => (m_Quantity <= 0);
+		public bool IsEmpty => m_Quantity <= 0;
 
 		[CommandProperty(AccessLevel.GameMaster)]
-		public bool ContainsAlchohol => (!IsEmpty && m_Content != BeverageType.Milk && m_Content != BeverageType.Water);
+		public bool ContainsAlchohol => !IsEmpty && m_Content != BeverageType.Milk && m_Content != BeverageType.Water;
 
 		[CommandProperty(AccessLevel.GameMaster)]
-		public bool IsFull => (m_Quantity >= MaxQuantity);
+		public bool IsFull => m_Quantity >= MaxQuantity;
 
 		[CommandProperty(AccessLevel.GameMaster)]
 		public Poison Poison
@@ -520,7 +520,7 @@ namespace Server.Items
 
 		public virtual int GetQuantityDescription()
 		{
-			int perc = (m_Quantity * 100) / MaxQuantity;
+			int perc = m_Quantity * 100 / MaxQuantity;
 
 			if (perc <= 0)
 				return 1042975; // It's empty.
@@ -582,10 +582,8 @@ namespace Server.Items
 			if (!IsEmpty || !Fillable || !ValidateUse(from, false))
 				return;
 
-			if (targ is BaseBeverage)
+			if (targ is BaseBeverage bev)
 			{
-				BaseBeverage bev = (BaseBeverage)targ;
-
 				if (bev.IsEmpty || !bev.ValidateUse(from, true))
 					return;
 
@@ -610,7 +608,7 @@ namespace Server.Items
 
 				if (Quantity == 0 || (Content == BeverageType.Water && !IsFull))
 				{
-					int iNeed = Math.Min((MaxQuantity - Quantity), bwc.Quantity);
+					int iNeed = Math.Min(MaxQuantity - Quantity, bwc.Quantity);
 
 					if (iNeed > 0 && !bwc.IsEmpty && !IsFull)
 					{
@@ -622,15 +620,14 @@ namespace Server.Items
 					}
 				}
 			}
-			else if (targ is Item)
+			else if (targ is Item item)
 			{
-				Item item = (Item)targ;
 				IWaterSource src;
 
-				src = (item as IWaterSource);
+				src = item as IWaterSource;
 
 				if (src == null && item is AddonComponent)
-					src = (((AddonComponent)item).Addon as IWaterSource);
+					src = ((AddonComponent)item).Addon as IWaterSource;
 
 				if (src == null || src.Quantity <= 0)
 					return;
@@ -658,10 +655,8 @@ namespace Server.Items
 
 				from.SendLocalizedMessage(1010089); // You fill the container with water.
 			}
-			else if (targ is Cow)
+			else if (targ is Cow cow)
 			{
-				Cow cow = (Cow)targ;
-
 				if (cow.TryMilk(from))
 				{
 					Content = BeverageType.Milk;
@@ -673,22 +668,19 @@ namespace Server.Items
 			{
 				int tileID = ((LandTarget)targ).TileID;
 
-				PlayerMobile player = from as PlayerMobile;
 
-				if (player != null)
+				if (from is PlayerMobile player)
 				{
 					QuestSystem qs = player.Quest;
 
 					if (qs is WitchApprenticeQuest)
 					{
-						FindIngredientObjective obj = qs.FindObjective(typeof(FindIngredientObjective)) as FindIngredientObjective;
-
-						if (obj != null && !obj.Completed && obj.Ingredient == Ingredient.SwampWater)
+						if (qs.FindObjective(typeof(FindIngredientObjective)) is FindIngredientObjective obj && !obj.Completed && obj.Ingredient == Ingredient.SwampWater)
 						{
 							bool contains = false;
 
 							for (int i = 0; !contains && i < m_SwampTiles.Length; i += 2)
-								contains = (tileID >= m_SwampTiles[i] && tileID <= m_SwampTiles[i + 1]);
+								contains = tileID >= m_SwampTiles[i] && tileID <= m_SwampTiles[i + 1];
 
 							if (contains)
 							{
@@ -823,10 +815,8 @@ namespace Server.Items
 			if (IsEmpty || !Pourable || !ValidateUse(from, false))
 				return;
 
-			if (targ is BaseBeverage)
+			if (targ is BaseBeverage bev)
 			{
-				BaseBeverage bev = (BaseBeverage)targ;
-
 				if (!bev.ValidateUse(from, true))
 					return;
 
@@ -904,7 +894,7 @@ namespace Server.Items
 				}
 				else
 				{
-					int itNeeds = Math.Min((bwc.MaxQuantity - bwc.Quantity), Quantity);
+					int itNeeds = Math.Min(bwc.MaxQuantity - bwc.Quantity, Quantity);
 
 					if (itNeeds > 0)
 					{
@@ -923,13 +913,9 @@ namespace Server.Items
 				(((AddonComponent)targ).Addon is WaterVatEast || ((AddonComponent)targ).Addon is WaterVatSouth) &&
 				Content == BeverageType.Water)
 			{
-				PlayerMobile player = from as PlayerMobile;
-
-				if (player != null)
+				if (from is PlayerMobile player)
 				{
-					SolenMatriarchQuest qs = player.Quest as SolenMatriarchQuest;
-
-					if (qs != null)
+					if (player.Quest is SolenMatriarchQuest qs)
 					{
 						QuestObjective obj = qs.FindObjective(typeof(GatherWaterObjective));
 
@@ -994,9 +980,7 @@ namespace Server.Items
 
 			for (int i = 0; i < items.Length; ++i)
 			{
-				BaseBeverage bev = items[i] as BaseBeverage;
-
-				if (bev != null && bev.Content == content && !bev.IsEmpty)
+				if (items[i] is BaseBeverage bev && bev.Content == content && !bev.IsEmpty)
 					total += bev.Quantity;
 			}
 
@@ -1008,9 +992,7 @@ namespace Server.Items
 
 				for (int i = 0; i < items.Length; ++i)
 				{
-					BaseBeverage bev = items[i] as BaseBeverage;
-
-					if (bev == null || bev.Content != content || bev.IsEmpty)
+					if (items[i] is not BaseBeverage bev || bev.Content != content || bev.IsEmpty)
 						continue;
 
 					int theirQuantity = bev.Quantity;
@@ -1063,7 +1045,7 @@ namespace Server.Items
 
 		protected bool CheckType(string name)
 		{
-			return (World.LoadingType == string.Format("Server.Items.{0}", name));
+			return World.LoadingType == string.Format("Server.Items.{0}", name);
 		}
 
 		public override void Deserialize(GenericReader reader)

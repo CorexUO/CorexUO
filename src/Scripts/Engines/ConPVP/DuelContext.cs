@@ -44,9 +44,7 @@ namespace Server.Engines.ConPVP
 
 		public static bool IsFreeConsume(Mobile mob)
 		{
-			PlayerMobile pm = mob as PlayerMobile;
-
-			if (pm == null || pm.DuelContext == null || pm.DuelContext.m_EventGame == null)
+			if (mob is not PlayerMobile pm || pm.DuelContext == null || pm.DuelContext.m_EventGame == null)
 				return false;
 
 			return pm.DuelContext.m_EventGame.FreeConsume;
@@ -59,14 +57,12 @@ namespace Server.Engines.ConPVP
 
 		public static bool AllowSpecialMove(Mobile from, string name, SpecialMove move)
 		{
-			PlayerMobile pm = from as PlayerMobile;
-
-			if (pm == null)
+			if (from is not PlayerMobile pm)
 				return true;
 
 			DuelContext dc = pm.DuelContext;
 
-			return (dc == null || dc.InstAllowSpecialMove(from, name, move));
+			return dc == null || dc.InstAllowSpecialMove(from, name, move);
 		}
 
 		public bool InstAllowSpecialMove(Mobile from, string name, SpecialMove move)
@@ -189,14 +185,12 @@ namespace Server.Engines.ConPVP
 
 		public static bool AllowSpecialAbility(Mobile from, string name, bool message)
 		{
-			PlayerMobile pm = from as PlayerMobile;
-
-			if (pm == null)
+			if (from is not PlayerMobile pm)
 				return true;
 
 			DuelContext dc = pm.DuelContext;
 
-			return (dc == null || dc.InstAllowSpecialAbility(from, name, message));
+			return dc == null || dc.InstAllowSpecialAbility(from, name, message);
 		}
 
 		public bool InstAllowSpecialAbility(Mobile from, string name, bool message)
@@ -228,10 +222,8 @@ namespace Server.Engines.ConPVP
 				if (!Ruleset.GetOption("Weapons", "Wrestling"))
 					return false;
 			}
-			else if (item is BaseArmor)
+			else if (item is BaseArmor armor)
 			{
-				BaseArmor armor = (BaseArmor)item;
-
 				if (armor.ProtectionLevel > ArmorProtectionLevel.Regular && !Ruleset.GetOption("Armor", "Magical"))
 					return false;
 
@@ -241,10 +233,8 @@ namespace Server.Engines.ConPVP
 				if (armor is BaseShield && !Ruleset.GetOption("Armor", "Shields"))
 					return false;
 			}
-			else if (item is BaseWeapon)
+			else if (item is BaseWeapon weapon)
 			{
-				BaseWeapon weapon = (BaseWeapon)item;
-
 				if ((weapon.DamageLevel > WeaponDamageLevel.Regular || weapon.AccuracyLevel > WeaponAccuracyLevel.Regular) && !Ruleset.GetOption("Weapons", "Magical"))
 					return false;
 
@@ -514,9 +504,7 @@ namespace Server.Engines.ConPVP
 
 		public void Requip(Mobile from, Container cont)
 		{
-			Corpse corpse = cont as Corpse;
-
-			if (corpse == null)
+			if (cont is not Corpse corpse)
 				return;
 
 			List<Item> items = new(corpse.Items);
@@ -531,7 +519,7 @@ namespace Server.Engines.ConPVP
 				Item item = items[i];
 				Point3D loc = item.Location;
 
-				if ((item.Layer == Layer.Hair || item.Layer == Layer.FacialHair) || !item.Movable)
+				if (item.Layer == Layer.Hair || item.Layer == Layer.FacialHair || !item.Movable)
 					continue;
 
 				if (pack != null)
@@ -575,15 +563,12 @@ namespace Server.Engines.ConPVP
 			{
 				mob.Resurrect();
 
-				DeathRobe robe = mob.FindItemOnLayer(Layer.OuterTorso) as DeathRobe;
 
-				if (robe != null)
+				if (mob.FindItemOnLayer(Layer.OuterTorso) is DeathRobe robe)
 					robe.Delete();
 
-				if (cont is Corpse)
+				if (cont is Corpse corpse)
 				{
-					Corpse corpse = (Corpse)cont;
-
 					for (int i = 0; i < corpse.EquipItems.Count; ++i)
 					{
 						Item item = corpse.EquipItems[i];
@@ -678,15 +663,14 @@ namespace Server.Engines.ConPVP
 				}
 			}
 
-			if (m_EventGame != null)
-				m_EventGame.OnStop();
+			m_EventGame?.OnStop();
 
 			Timer.DelayCall(TimeSpan.FromSeconds(9.0), new TimerCallback(UnregisterRematch));
 		}
 
 		public void Award(Mobile us, Mobile them, bool won)
 		{
-			Ladder ladder = (Arena == null ? Ladder.Instance : Arena.AcquireLadder());
+			Ladder ladder = Arena == null ? Ladder.Instance : Arena.AcquireLadder();
 
 			if (ladder == null)
 				return;
@@ -703,7 +687,7 @@ namespace Server.Engines.ConPVP
 				return;
 
 			if (m_Tournament != null)
-				xpGain *= (xpGain > 0 ? 5 : 2);
+				xpGain *= xpGain > 0 ? 5 : 2;
 
 			if (won)
 				++ourEntry.Wins;
@@ -746,8 +730,7 @@ namespace Server.Engines.ConPVP
 
 			Registered = false;
 
-			if (Arena != null)
-				Arena.Evict();
+			Arena?.Evict();
 
 			StopSDTimers();
 
@@ -808,10 +791,8 @@ namespace Server.Engines.ConPVP
 
 		public DuelPlayer Find(Mobile mob)
 		{
-			if (mob is PlayerMobile)
+			if (mob is PlayerMobile pm)
 			{
-				PlayerMobile pm = (PlayerMobile)mob;
-
 				if (pm.DuelContext == this)
 					return pm.DuelPlayer;
 
@@ -835,7 +816,7 @@ namespace Server.Engines.ConPVP
 			DuelPlayer pl1 = Find(m1);
 			DuelPlayer pl2 = Find(m2);
 
-			return (pl1 != null && pl2 != null && pl1.Participant == pl2.Participant);
+			return pl1 != null && pl2 != null && pl1.Participant == pl2.Participant;
 		}
 
 		public Participant CheckCompletion()
@@ -878,8 +859,7 @@ namespace Server.Engines.ConPVP
 
 		public void StopCountdown()
 		{
-			if (m_Countdown != null)
-				m_Countdown.Stop();
+			m_Countdown?.Stop();
 
 			m_Countdown = null;
 		}
@@ -893,8 +873,7 @@ namespace Server.Engines.ConPVP
 
 			if (count == 0)
 			{
-				if (m_Countdown != null)
-					m_Countdown.Stop();
+				m_Countdown?.Stop();
 
 				m_Countdown = null;
 			}
@@ -913,26 +892,22 @@ namespace Server.Engines.ConPVP
 
 		public void StopSDTimers()
 		{
-			if (m_SDWarnTimer != null)
-				m_SDWarnTimer.Stop();
+			m_SDWarnTimer?.Stop();
 
 			m_SDWarnTimer = null;
 
-			if (m_SDActivateTimer != null)
-				m_SDActivateTimer.Stop();
+			m_SDActivateTimer?.Stop();
 
 			m_SDActivateTimer = null;
 		}
 
 		public void StartSuddenDeath(TimeSpan timeUntilActive)
 		{
-			if (m_SDWarnTimer != null)
-				m_SDWarnTimer.Stop();
+			m_SDWarnTimer?.Stop();
 
 			m_SDWarnTimer = Timer.DelayCall(TimeSpan.FromMinutes(timeUntilActive.TotalMinutes * 0.9), new TimerCallback(WarnSuddenDeath));
 
-			if (m_SDActivateTimer != null)
-				m_SDActivateTimer.Stop();
+			m_SDActivateTimer?.Stop();
 
 			m_SDActivateTimer = Timer.DelayCall(timeUntilActive, new TimerCallback(ActivateSuddenDeath));
 		}
@@ -956,21 +931,17 @@ namespace Server.Engines.ConPVP
 				}
 			}
 
-			if (m_Tournament != null)
-				m_Tournament.Alert(Arena, "Sudden death will be active soon!");
+			m_Tournament?.Alert(Arena, "Sudden death will be active soon!");
 
-			if (m_SDWarnTimer != null)
-				m_SDWarnTimer.Stop();
+			m_SDWarnTimer?.Stop();
 
 			m_SDWarnTimer = null;
 		}
 
 		public static bool CheckSuddenDeath(Mobile mob)
 		{
-			if (mob is PlayerMobile)
+			if (mob is PlayerMobile pm)
 			{
-				PlayerMobile pm = (PlayerMobile)mob;
-
 				if (pm.DuelPlayer != null && !pm.DuelPlayer.Eliminated && pm.DuelContext != null && pm.DuelContext.IsSuddenDeath)
 					return true;
 			}
@@ -997,21 +968,18 @@ namespace Server.Engines.ConPVP
 				}
 			}
 
-			if (m_Tournament != null)
-				m_Tournament.Alert(Arena, "Sudden death has been activated!");
+			m_Tournament?.Alert(Arena, "Sudden death has been activated!");
 
 			IsSuddenDeath = true;
 
-			if (m_SDActivateTimer != null)
-				m_SDActivateTimer.Stop();
+			m_SDActivateTimer?.Stop();
 
 			m_SDActivateTimer = null;
 		}
 
 		public void BeginAutoTie()
 		{
-			if (m_AutoTieTimer != null)
-				m_AutoTieTimer.Stop();
+			m_AutoTieTimer?.Stop();
 
 			TimeSpan ts = (m_Tournament == null || m_Tournament.TournyType == TournyType.Standard)
 				? AutoTieDelay
@@ -1022,8 +990,7 @@ namespace Server.Engines.ConPVP
 
 		public void EndAutoTie()
 		{
-			if (m_AutoTieTimer != null)
-				m_AutoTieTimer.Stop();
+			m_AutoTieTimer?.Stop();
 
 			m_AutoTieTimer = null;
 		}
@@ -1078,8 +1045,7 @@ namespace Server.Engines.ConPVP
 				}
 			}
 
-			if (m_Tournament != null)
-				m_Tournament.HandleTie(Arena, m_Match, remaining);
+			m_Tournament?.HandleTie(Arena, m_Match, remaining);
 
 			Timer.DelayCall(TimeSpan.FromSeconds(10.0), new TimerCallback(Unregister));
 		}
@@ -1116,10 +1082,8 @@ namespace Server.Engines.ConPVP
 
 		private static void Vli_ot(Mobile from, object obj)
 		{
-			if (obj is PlayerMobile)
+			if (obj is PlayerMobile pm)
 			{
-				PlayerMobile pm = (PlayerMobile)obj;
-
 				Ladder ladder = Ladder.Instance;
 
 				if (ladder == null)
@@ -1182,9 +1146,8 @@ namespace Server.Engines.ConPVP
 
 		private static void ViewLadder_OnTarget(Mobile from, object obj, object state)
 		{
-			if (obj is PlayerMobile)
+			if (obj is PlayerMobile pm)
 			{
-				PlayerMobile pm = (PlayerMobile)obj;
 				Ladder ladder = (Ladder)state;
 
 				LadderEntry entry = ladder.Find(pm);
@@ -1196,10 +1159,8 @@ namespace Server.Engines.ConPVP
 
 				pm.PrivateOverheadMessage(MessageType.Regular, pm.SpeechHue, true, string.Format(text, from == pm ? "You" : "They"), from.NetState);
 			}
-			else if (obj is Mobile)
+			else if (obj is Mobile mob)
 			{
-				Mobile mob = (Mobile)obj;
-
 				if (mob.Body.IsHuman)
 					mob.PrivateOverheadMessage(MessageType.Regular, mob.SpeechHue, false, "I'm not a duelist, and quite frankly, I resent the implication.", from.NetState);
 				else
@@ -1216,9 +1177,8 @@ namespace Server.Engines.ConPVP
 			if (e.Handled)
 				return;
 
-			PlayerMobile pm = e.Mobile as PlayerMobile;
 
-			if (pm == null)
+			if (e.Mobile is not PlayerMobile pm)
 				return;
 
 			if (Insensitive.Contains(e.Speech, "i wish to duel"))
@@ -1368,20 +1328,16 @@ namespace Server.Engines.ConPVP
 								{
 									foreach (Gump g in ns.Gumps)
 									{
-										if (g is ParticipantGump)
+										if (g is ParticipantGump pg)
 										{
-											ParticipantGump pg = (ParticipantGump)g;
-
 											if (pg.Participant == p)
 											{
 												init.SendGump(new ParticipantGump(init, dc, p));
 												break;
 											}
 										}
-										else if (g is DuelContextGump)
+										else if (g is DuelContextGump dcg)
 										{
-											DuelContextGump dcg = (DuelContextGump)g;
-
 											if (dcg.Context == dc)
 											{
 												init.SendGump(new DuelContextGump(init, dc));
@@ -1417,10 +1373,8 @@ namespace Server.Engines.ConPVP
 
 									foreach (Gump g in ns.Gumps)
 									{
-										if (g is ParticipantGump)
+										if (g is ParticipantGump pg)
 										{
-											ParticipantGump pg = (ParticipantGump)g;
-
 											if (pg.Participant == p)
 											{
 												init.SendGump(new ParticipantGump(init, dc, p));
@@ -1428,10 +1382,8 @@ namespace Server.Engines.ConPVP
 												break;
 											}
 										}
-										else if (g is DuelContextGump)
+										else if (g is DuelContextGump dcg)
 										{
-											DuelContextGump dcg = (DuelContextGump)g;
-
 											if (dcg.Context == dc)
 											{
 												init.SendGump(new DuelContextGump(init, dc));
@@ -1448,8 +1400,7 @@ namespace Server.Engines.ConPVP
 						}
 						else
 						{
-							if (pm.DuelContext.m_Countdown != null)
-								pm.DuelContext.m_Countdown.Stop();
+							pm.DuelContext.m_Countdown?.Stop();
 							pm.DuelContext.m_Countdown = null;
 
 							pm.DuelContext.StartedReadyCountdown = false;
@@ -1476,10 +1427,8 @@ namespace Server.Engines.ConPVP
 
 									foreach (Gump g in ns.Gumps)
 									{
-										if (g is ParticipantGump)
+										if (g is ParticipantGump pg)
 										{
-											ParticipantGump pg = (ParticipantGump)g;
-
 											if (pg.Participant == p)
 											{
 												init.SendGump(new ParticipantGump(init, dc, p));
@@ -1487,10 +1436,8 @@ namespace Server.Engines.ConPVP
 												break;
 											}
 										}
-										else if (g is DuelContextGump)
+										else if (g is DuelContextGump dcg)
 										{
-											DuelContextGump dcg = (DuelContextGump)g;
-
 											if (dcg.Context == dc)
 											{
 												init.SendGump(new DuelContextGump(init, dc));
@@ -2088,7 +2035,7 @@ namespace Server.Engines.ConPVP
 				m_Expire = DateTime.UtcNow + TimeSpan.FromMinutes(30.0);
 			}
 
-			public bool Expired => (DateTime.UtcNow >= m_Expire);
+			public bool Expired => DateTime.UtcNow >= m_Expire;
 
 			public void Update()
 			{
@@ -2437,8 +2384,7 @@ namespace Server.Engines.ConPVP
 						{
 							DuelPlayer dp = p.Players[j];
 
-							if (dp != null)
-								dp.Mobile.SendMessage("The duel could not be started because {0}.", error);
+							dp?.Mobile.SendMessage("The duel could not be started because {0}.", error);
 						}
 					}
 
@@ -2466,8 +2412,7 @@ namespace Server.Engines.ConPVP
 
 				Arena arena = m_OverrideArena;
 
-				if (arena == null)
-					arena = Arena.FindArena(players);
+				arena ??= Arena.FindArena(players);
 
 				if (arena == null)
 				{
@@ -2479,8 +2424,7 @@ namespace Server.Engines.ConPVP
 						{
 							DuelPlayer dp = p.Players[j];
 
-							if (dp != null)
-								dp.Mobile.SendMessage("The duel could not be started because there are no arenas. If you want to stop waiting for a free arena, yield the duel.");
+							dp?.Mobile.SendMessage("The duel could not be started because there are no arenas. If you want to stop waiting for a free arena, yield the duel.");
 						}
 					}
 
@@ -2503,9 +2447,8 @@ namespace Server.Engines.ConPVP
 						m_GateFacet = Initiator.Map;
 					}
 
-					ExitTeleporter tp = arena.Teleporter as ExitTeleporter;
 
-					if (tp == null)
+					if (arena.Teleporter is not ExitTeleporter tp)
 					{
 						arena.Teleporter = tp = new ExitTeleporter();
 						tp.MoveToWorld(arena.GateOut == Point3D.Zero ? arena.Outside : arena.GateOut, arena.Facet);
@@ -2540,8 +2483,7 @@ namespace Server.Engines.ConPVP
 						arena.MoveInside(p.Players, i);
 					}
 
-					if (m_EventGame != null)
-						m_EventGame.OnStart();
+					m_EventGame?.OnStart();
 
 					StartCountdown(10, new CountdownCallback(SendBeginGump));
 
@@ -2557,8 +2499,7 @@ namespace Server.Engines.ConPVP
 						{
 							DuelPlayer dp = p.Players[j];
 
-							if (dp != null)
-								dp.Mobile.SendMessage("The duel could not be started because all arenas are full. If you want to stop waiting for a free arena, yield the duel.");
+							dp?.Mobile.SendMessage("The duel could not be started because all arenas are full. If you want to stop waiting for a free arena, yield the duel.");
 						}
 					}
 

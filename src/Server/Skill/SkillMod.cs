@@ -26,8 +26,7 @@
 				{
 					Skill sk = m_Owner.Skills[m_Skill];
 
-					if (sk != null)
-						sk.Update();
+					sk?.Update();
 				}
 			}
 		}
@@ -39,8 +38,7 @@
 			{
 				if (m_Owner != value)
 				{
-					if (m_Owner != null)
-						m_Owner.RemoveSkillMod(this);
+					m_Owner?.RemoveSkillMod(this);
 
 					m_Owner = value;
 
@@ -70,12 +68,10 @@
 					{
 						Skill sk = m_Owner.Skills[m_Skill];
 
-						if (sk != null)
-							sk.Update();
+						sk?.Update();
 					}
 
-					if (oldUpdate != null)
-						oldUpdate.Update();
+					oldUpdate?.Update();
 				}
 			}
 		}
@@ -93,8 +89,7 @@
 					{
 						Skill sk = m_Owner.Skills[m_Skill];
 
-						if (sk != null)
-							sk.Update();
+						sk?.Update();
 					}
 				}
 			}
@@ -113,8 +108,7 @@
 					{
 						Skill sk = m_Owner.Skills[m_Skill];
 
-						if (sk != null)
-							sk.Update();
+						sk?.Update();
 					}
 				}
 			}
@@ -133,8 +127,7 @@
 					{
 						Skill sk = m_Owner.Skills[m_Skill];
 
-						if (sk != null)
-							sk.Update();
+						sk?.Update();
 					}
 				}
 			}

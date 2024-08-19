@@ -133,7 +133,7 @@ namespace Server.Mobiles
 				return tamingChance;
 			}
 
-			double skill = (useBaseSkill ? m.Skills.Bushido.Base : m.Skills.Bushido.Value);
+			double skill = useBaseSkill ? m.Skills.Bushido.Base : m.Skills.Bushido.Value;
 
 			if (skill < 90.0)
 			{

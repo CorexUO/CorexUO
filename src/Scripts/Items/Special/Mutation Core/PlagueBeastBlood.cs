@@ -55,9 +55,7 @@ namespace Server.Items
 					{
 						for (int i = 0; i < pack.Items.Count; i++)
 						{
-							PlagueBeastMainOrgan main = pack.Items[i] as PlagueBeastMainOrgan;
-
-							if (main != null && main.Complete)
+							if (pack.Items[i] is PlagueBeastMainOrgan main && main.Complete)
 								main.FinishOpening(from);
 						}
 					}
@@ -76,8 +74,7 @@ namespace Server.Items
 			if (Patched)
 				return;
 
-			if (Owner != null)
-				Owner.PlaySound(0x25);
+			Owner?.PlaySound(0x25);
 
 			if (ItemID == 0x122A)
 			{

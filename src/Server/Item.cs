@@ -745,8 +745,7 @@ namespace Server
 
 		private CompactInfo AcquireCompactInfo()
 		{
-			if (m_CompactInfo == null)
-				m_CompactInfo = new CompactInfo();
+			m_CompactInfo ??= new CompactInfo();
 
 			return m_CompactInfo;
 		}
@@ -796,16 +795,14 @@ namespace Server
 			{
 				Container cont = this as Container;
 
-				if (cont.m_Items == null)
-					cont.m_Items = new List<Item>();
+				cont.m_Items ??= new List<Item>();
 
 				return cont.m_Items;
 			}
 
 			CompactInfo info = AcquireCompactInfo();
 
-			if (info.m_Items == null)
-				info.m_Items = new List<Item>();
+			info.m_Items ??= new List<Item>();
 
 			return info.m_Items;
 		}
@@ -820,7 +817,7 @@ namespace Server
 
 		private bool GetFlag(ImplFlag flag)
 		{
-			return ((m_Flags & flag) != 0);
+			return (m_Flags & flag) != 0;
 		}
 
 		public BounceInfo GetBounce()
@@ -1190,7 +1187,7 @@ namespace Server
 
 		public virtual bool CheckConflictingLayer(Mobile m, Item item, Layer layer)
 		{
-			return (m_Layer == layer);
+			return m_Layer == layer;
 		}
 
 		public bool IsEquipped(Mobile m)
@@ -1207,7 +1204,7 @@ namespace Server
 
 		public virtual bool CanEquip(Mobile m)
 		{
-			return (m_Layer != Layer.Invalid && m.FindItemOnLayer(m_Layer) == null && CheckEquip(m));
+			return m_Layer != Layer.Invalid && m.FindItemOnLayer(m_Layer) == null && CheckEquip(m);
 		}
 
 		public virtual bool CheckEquip(Mobile m)
@@ -1361,12 +1358,12 @@ namespace Server
 
 		public bool AtWorldPoint(int x, int y)
 		{
-			return (m_Parent == null && m_Location.m_X == x && m_Location.m_Y == y);
+			return m_Parent == null && m_Location.m_X == x && m_Location.m_Y == y;
 		}
 
 		public bool AtPoint(int x, int y)
 		{
-			return (m_Location.m_X == x && m_Location.m_Y == y);
+			return m_Location.m_X == x && m_Location.m_Y == y;
 		}
 
 		/// <summary>
@@ -1428,8 +1425,7 @@ namespace Server
 
 				m_Map = map;
 
-				if (m_Map != null)
-					m_Map.OnEnter(this);
+				m_Map?.OnEnter(this);
 
 				OnMapChange();
 
@@ -1533,11 +1529,11 @@ namespace Server
 		[CommandProperty(AccessLevel.GameMaster)]
 		public virtual bool Decays =>
 				// TODO: Make item decay an option on the spawner
-				(Movable && Visible/* && Spawner == null*/);
+				Movable && Visible/* && Spawner == null*/;
 
 		public virtual bool OnDecay()
 		{
-			return (Decays && Parent == null && Map != Map.Internal && Region.Find(Location, Map).OnDecay(this));
+			return Decays && Parent == null && Map != Map.Internal && Region.Find(Location, Map).OnDecay(this);
 		}
 
 		public void SetLastMoved()
@@ -2091,7 +2087,7 @@ namespace Server
 				}
 			}
 
-			ImplFlag implFlags = (m_Flags & (ImplFlag.Visible | ImplFlag.Movable | ImplFlag.Stackable | ImplFlag.Insured | ImplFlag.PayedInsurance | ImplFlag.QuestItem));
+			ImplFlag implFlags = m_Flags & (ImplFlag.Visible | ImplFlag.Movable | ImplFlag.Stackable | ImplFlag.Insured | ImplFlag.PayedInsurance | ImplFlag.QuestItem);
 
 			if (implFlags != (ImplFlag.Visible | ImplFlag.Movable))
 				flags |= SaveFlag.ImplFlags;
@@ -2274,7 +2270,7 @@ namespace Server
 			if (info == null)
 				return false;
 
-			return ((info.m_TempFlags & flag) != 0);
+			return (info.m_TempFlags & flag) != 0;
 		}
 
 		public void SetTempFlag(int flag, bool value)
@@ -2297,7 +2293,7 @@ namespace Server
 			if (info == null)
 				return false;
 
-			return ((info.m_SavedFlags & flag) != 0);
+			return (info.m_SavedFlags & flag) != 0;
 		}
 
 		public void SetSavedFlag(int flag, bool value)
@@ -2547,8 +2543,8 @@ namespace Server
 					(m_Parent as Item).UpdateTotal(sender, type, delta);
 				else if (m_Parent is Mobile)
 					(m_Parent as Mobile).UpdateTotal(sender, type, delta);
-				else if (HeldBy != null)
-					HeldBy.UpdateTotal(sender, type, delta);
+				else
+					HeldBy?.UpdateTotal(sender, type, delta);
 			}
 		}
 
@@ -2679,8 +2675,7 @@ namespace Server
 			{
 				List<Item> items = LookupItems();
 
-				if (items == null)
-					items = EmptyItems;
+				items ??= EmptyItems;
 
 				return items;
 			}
@@ -3042,8 +3037,7 @@ namespace Server
 								//if ( sendOPLUpdate )
 								//	state.Send( RemovePacket );
 
-								if (p == null)
-									p = Packet.Acquire(new EquipUpdate(this));
+								p ??= Packet.Acquire(new EquipUpdate(this));
 
 								state.Send(p);
 
@@ -3219,8 +3213,7 @@ namespace Server
 
 					if (m.CanSee(this) && m.InRange(worldLoc, GetUpdateRange(m)))
 					{
-						if (p == null)
-							p = Packet.Acquire(new MessageLocalized(Serial, m_ItemID, type, hue, 3, number, Name, args));
+						p ??= Packet.Acquire(new MessageLocalized(Serial, m_ItemID, type, hue, 3, number, Name, args));
 
 						state.Send(p);
 					}
@@ -4032,7 +4025,7 @@ namespace Server
 		{
 		}
 
-		public bool InSecureTrade => (GetSecureTradeCont() != null);
+		public bool InSecureTrade => GetSecureTradeCont() != null;
 
 		public SecureTradeContainer GetSecureTradeCont()
 		{
@@ -4262,7 +4255,7 @@ namespace Server
 			int amount = Amount;
 
 			if (amount > (60000 / amountPerOldItem)) // let's not go over 60000
-				amount = (60000 / amountPerOldItem);
+				amount = 60000 / amountPerOldItem;
 
 			Amount -= amount;
 
@@ -4377,12 +4370,12 @@ namespace Server
 			if (m_LootType == LootType.Blessed || (Mobile.InsuranceEnabled && Insured))
 				return true;
 
-			return (m != null && m == BlessedFor);
+			return m != null && m == BlessedFor;
 		}
 
 		public virtual bool CheckNewbied()
 		{
-			return (m_LootType == LootType.Newbied);
+			return m_LootType == LootType.Newbied;
 		}
 
 		public virtual bool IsStandardLoot()
@@ -4393,7 +4386,7 @@ namespace Server
 			if (BlessedFor != null)
 				return false;
 
-			return (m_LootType == LootType.Regular);
+			return m_LootType == LootType.Regular;
 		}
 
 		public override string ToString()

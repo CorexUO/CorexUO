@@ -37,9 +37,7 @@ namespace Server.Factions
 			{
 				case 1: // continue
 					{
-						Guild guild = m_From.Guild as Guild;
-
-						if (guild == null)
+						if (m_From.Guild is not Guild guild)
 						{
 							PlayerState pl = PlayerState.Find(m_From);
 

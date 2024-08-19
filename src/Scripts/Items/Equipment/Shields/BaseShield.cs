@@ -32,11 +32,10 @@ namespace Server.Items
 		{
 			get
 			{
-				Mobile m = Parent as Mobile;
 				double ar = base.ArmorRating;
 
-				if (m != null)
-					return ((m.Skills[SkillName.Parry].Value * ar) / 200.0) + 1.0;
+				if (Parent is Mobile m)
+					return (m.Skills[SkillName.Parry].Value * ar / 200.0) + 1.0;
 				else
 					return ar;
 			}
@@ -61,7 +60,7 @@ namespace Server.Items
 					int wear;
 
 					if (weapon.Type == WeaponType.Bashing)
-						wear = (absorbed / 2);
+						wear = absorbed / 2;
 					else
 						wear = Utility.Random(2);
 
@@ -99,8 +98,7 @@ namespace Server.Items
 			}
 			else
 			{
-				Mobile owner = Parent as Mobile;
-				if (owner == null)
+				if (Parent is not Mobile owner)
 					return damage;
 
 				double chance = owner.GetHitBlockChance();

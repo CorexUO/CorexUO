@@ -102,8 +102,7 @@ namespace Server.RemoteAdmin
 
 				string pwToSend = a.PlainPassword;
 
-				if (pwToSend == null)
-					pwToSend = "(hidden)";
+				pwToSend ??= "(hidden)";
 
 				m_Stream.WriteAsciiNull(pwToSend);
 				m_Stream.Write((byte)a.AccessLevel);

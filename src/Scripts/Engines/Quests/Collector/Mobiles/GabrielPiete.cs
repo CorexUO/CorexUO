@@ -45,10 +45,10 @@ namespace Server.Engines.Quests.Collector
 			if (qs == null)
 				return false;
 
-			return (qs.IsObjectiveInProgress(typeof(FindGabrielObjective))
+			return qs.IsObjectiveInProgress(typeof(FindGabrielObjective))
 				|| qs.IsObjectiveInProgress(typeof(FindSheetMusicObjective))
 				|| qs.IsObjectiveInProgress(typeof(ReturnSheetMusicObjective))
-				|| qs.IsObjectiveInProgress(typeof(ReturnAutographObjective)));
+				|| qs.IsObjectiveInProgress(typeof(ReturnAutographObjective));
 		}
 
 		public override void OnTalk(PlayerMobile player, bool contextMenu)

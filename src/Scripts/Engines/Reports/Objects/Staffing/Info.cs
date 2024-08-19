@@ -36,11 +36,11 @@ namespace Server.Engines.Reports
 						}
 
 						if (mob != null && mob.Name != null && mob.Name.Length > 0)
-							return (m_Display = mob.Name);
+							return m_Display = mob.Name;
 					}
 				}
 
-				return (m_Display = Account);
+				return m_Display = Account;
 			}
 		}
 

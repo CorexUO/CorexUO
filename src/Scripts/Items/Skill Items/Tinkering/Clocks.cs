@@ -73,7 +73,7 @@ namespace Server.Items
 			// Really on OSI this must be by subserver
 			totalMinutes += x / 16;
 
-			hours = (totalMinutes / 60) % 24;
+			hours = totalMinutes / 60 % 24;
 			minutes = totalMinutes % 60;
 		}
 

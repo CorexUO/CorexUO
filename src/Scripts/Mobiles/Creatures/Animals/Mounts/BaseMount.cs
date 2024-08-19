@@ -48,8 +48,7 @@ namespace Server.Mobiles
 
 		public override void OnAfterDelete()
 		{
-			if (InternalItem != null)
-				InternalItem.Delete();
+			InternalItem?.Delete();
 
 			InternalItem = null;
 
@@ -225,8 +224,7 @@ namespace Server.Mobiles
 						Location = loc;
 						Map = map;
 
-						if (InternalItem != null)
-							InternalItem.Internalize();
+						InternalItem?.Internalize();
 					}
 					else
 					{
@@ -279,8 +277,7 @@ namespace Server.Mobiles
 				return;
 
 			Mobile attacker = from;
-			if (attacker == null)
-				attacker = m_Rider.FindMostRecentDamager(true);
+			attacker ??= m_Rider.FindMostRecentDamager(true);
 
 			if (!(attacker == this || attacker == m_Rider || willKill || DateTime.UtcNow < NextMountAbility))
 			{
@@ -316,8 +313,7 @@ namespace Server.Mobiles
 
 		public override void OnAfterDelete()
 		{
-			if (m_Mount != null)
-				m_Mount.Delete();
+			m_Mount?.Delete();
 
 			m_Mount = null;
 

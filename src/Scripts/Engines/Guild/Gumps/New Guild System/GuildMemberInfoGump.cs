@@ -41,7 +41,7 @@ namespace Server.Guilds
 
 			AddBackground(20, 180, 150, 26, 0x2486);
 			AddButton(25, 185, 0x845, 0x846, 1, GumpButtonType.Reply, 0);
-			AddHtmlLocalized(50, 183, 110, 26, 1062993, (m_ToLeader) ? 0x990000 : 0, false, false); // Promote
+			AddHtmlLocalized(50, 183, 110, 26, 1062993, m_ToLeader ? 0x990000 : 0, false, false); // Promote
 
 			AddBackground(180, 180, 150, 26, 0x2486);
 			AddButton(185, 185, 0x845, 0x846, 3, GumpButtonType.Reply, 0);
@@ -53,7 +53,7 @@ namespace Server.Guilds
 
 			AddBackground(180, 210, 150, 26, 0x2486);
 			AddButton(185, 215, 0x845, 0x846, 5, GumpButtonType.Reply, 0);
-			AddHtmlLocalized(210, 213, 110, 26, 1062997, (m_toKick) ? 0x5000 : 0, false, false); // Kick
+			AddHtmlLocalized(210, 213, 110, 26, 1062997, m_toKick ? 0x5000 : 0, false, false); // Kick
 		}
 
 		public override void OnResponse(NetState sender, RelayInfo info)

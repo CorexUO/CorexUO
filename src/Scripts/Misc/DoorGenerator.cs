@@ -520,11 +520,9 @@ namespace Server
 								}
 								else
 								{
-									if (first != null)
-										first.Delete();
+									first?.Delete();
 
-									if (second != null)
-										second.Delete();
+									second?.Delete();
 								}
 							}
 						}
@@ -546,11 +544,9 @@ namespace Server
 								}
 								else
 								{
-									if (first != null)
-										first.Delete();
+									first?.Delete();
 
-									if (second != null)
-										second.Delete();
+									second?.Delete();
 								}
 							}
 						}

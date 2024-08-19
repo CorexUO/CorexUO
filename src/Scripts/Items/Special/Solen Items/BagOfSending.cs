@@ -197,9 +197,8 @@ namespace Server.Items
 				{
 					MessageHelper.SendLocalizedMessageTo(m_Bag, from, 1042544, 0x59); // This item is out of charges.
 				}
-				else if (targeted is Item)
+				else if (targeted is Item item)
 				{
-					Item item = (Item)targeted;
 					int reqCharges = (int)Math.Max(1, Math.Ceiling(item.TotalWeight / 10.0));
 
 					if (!item.IsChildOf(from.Backpack))
@@ -232,7 +231,7 @@ namespace Server.Items
 					}
 					else
 					{
-						m_Bag.Charges -= (Core.ML ? reqCharges : 1);
+						m_Bag.Charges -= Core.ML ? reqCharges : 1;
 
 						MessageHelper.SendLocalizedMessageTo(m_Bag, from, 1054150, 0x59); // The item was placed in your bank box.
 					}

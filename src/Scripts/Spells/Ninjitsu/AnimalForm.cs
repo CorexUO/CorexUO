@@ -33,8 +33,8 @@ namespace Server.Spells.Ninjitsu
 		public override TimeSpan CastDelayBase => TimeSpan.FromSeconds(1.0);
 
 		public override double RequiredSkill => 0.0;
-		public override int RequiredMana => (Core.ML ? 10 : 0);
-		public override int CastRecoveryBase => (Core.ML ? 10 : base.CastRecoveryBase);
+		public override int RequiredMana => Core.ML ? 10 : 0;
+		public override int CastRecoveryBase => Core.ML ? 10 : base.CastRecoveryBase;
 
 		public override bool BlockedByAnimalForm => false;
 
@@ -71,7 +71,7 @@ namespace Server.Spells.Ninjitsu
 
 		private bool CasterIsMoving()
 		{
-			return (Core.TickCount - Caster.LastMoveTime <= Caster.ComputeMovementSpeed(Caster.Direction));
+			return Core.TickCount - Caster.LastMoveTime <= Caster.ComputeMovementSpeed(Caster.Direction);
 		}
 
 		private bool m_WasMoving;
@@ -120,7 +120,7 @@ namespace Server.Spells.Ninjitsu
 				}
 				else if (Caster is PlayerMobile)
 				{
-					bool skipGump = (m_WasMoving || CasterIsMoving());
+					bool skipGump = m_WasMoving || CasterIsMoving();
 
 					if (GetLastAnimalForm(Caster) == -1 || !skipGump)
 					{
@@ -301,19 +301,19 @@ namespace Server.Spells.Ninjitsu
 
 		public static AnimalFormContext GetContext(Mobile m)
 		{
-			return (m_Table[m] as AnimalFormContext);
+			return m_Table[m] as AnimalFormContext;
 		}
 
 		public static bool UnderTransformation(Mobile m)
 		{
-			return (GetContext(m) != null);
+			return GetContext(m) != null;
 		}
 
 		public static bool UnderTransformation(Mobile m, Type type)
 		{
 			AnimalFormContext context = GetContext(m);
 
-			return (context != null && context.Type == type);
+			return context != null && context.Type == type;
 		}
 
 		public class AnimalFormEntry
@@ -403,7 +403,7 @@ namespace Server.Spells.Ninjitsu
 
 				for (int i = 0; i < entries.Length; ++i)
 				{
-					bool enabled = (ninjitsu >= entries[i].ReqSkill && BaseFormTalisman.EntryEnabled(caster, entries[i].Type));
+					bool enabled = ninjitsu >= entries[i].ReqSkill && BaseFormTalisman.EntryEnabled(caster, entries[i].Type);
 
 					int page = current / 10 + 1;
 					int pos = current % 10;
@@ -428,7 +428,7 @@ namespace Server.Spells.Ninjitsu
 					if (enabled)
 					{
 						int x = (pos % 2 == 0) ? 14 : 264;
-						int y = (pos / 2) * 64 + 44;
+						int y = pos / 2 * 64 + 44;
 
 						Rectangle2D b = ItemBounds.Table[entries[i].ItemID];
 
@@ -533,9 +533,7 @@ namespace Server.Spells.Ninjitsu
 					{
 						if (m_Mobile.Hits < m_Mobile.HitsMax && m_Mobile.Backpack != null)
 						{
-							Bandage b = m_Mobile.Backpack.FindItemByType(typeof(Bandage)) as Bandage;
-
-							if (b != null)
+							if (m_Mobile.Backpack.FindItemByType(typeof(Bandage)) is Bandage b)
 							{
 								m_Mobile.Hits += Utility.RandomMinMax(20, 50);
 								b.Consume();

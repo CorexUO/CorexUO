@@ -32,13 +32,11 @@ namespace Server.Items
 
 		public override void OnDoubleClick(Mobile from)
 		{
-			PlayerMobile pm = from as PlayerMobile;
-
 			if (!IsChildOf(from.Backpack))
 			{
 				from.SendLocalizedMessage(1042001); // That must be in your pack for you to use it.
 			}
-			else if (pm == null || from.Skills[SkillName.Mining].Base < 100.0)
+			else if (from is not PlayerMobile pm || from.Skills[SkillName.Mining].Base < 100.0)
 			{
 				from.SendMessage("Only a Grandmaster Miner can learn from this book.");
 			}

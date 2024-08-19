@@ -22,9 +22,7 @@ namespace Server.Engines.Quests.Necro
 
 		public override bool CanDrop(PlayerMobile player)
 		{
-			DarkTidesQuest qs = player.Quest as DarkTidesQuest;
-
-			if (qs == null)
+			if (player.Quest is not DarkTidesQuest qs)
 				return true;
 
 			/*return !( qs.IsObjectiveInProgress( typeof( FindCallingScrollObjective ) )
@@ -42,9 +40,8 @@ namespace Server.Engines.Quests.Necro
 			if (!IsChildOf(from))
 				return;
 
-			PlayerMobile pm = from as PlayerMobile;
 
-			if (pm != null)
+			if (from is PlayerMobile pm)
 			{
 				QuestSystem qs = pm.Quest;
 

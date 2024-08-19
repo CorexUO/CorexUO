@@ -87,7 +87,7 @@ namespace Server.Items
 				if (!Core.SE)
 					return false;
 
-				return (DateTime.UtcNow < (TimeOfDeath + InstancedCorpseTime));
+				return DateTime.UtcNow < (TimeOfDeath + InstancedCorpseTime);
 			}
 		}
 
@@ -120,7 +120,7 @@ namespace Server.Items
 
 				Party myParty = Party.Get(m_Mobile);
 
-				return (myParty != null && myParty == Party.Get(m));
+				return myParty != null && myParty == Party.Get(m);
 			}
 		}
 
@@ -148,8 +148,7 @@ namespace Server.Items
 			{
 				if (item.GetBounce() != null)
 				{
-					if (m_HasLooted == null)
-						m_HasLooted = new List<Item>();
+					m_HasLooted ??= new List<Item>();
 
 					m_HasLooted.Add(item);
 				}
@@ -173,8 +172,7 @@ namespace Server.Items
 			if (Aggressors.Count == 0 || Items.Count == 0)
 				return;
 
-			if (m_InstancedItems == null)
-				m_InstancedItems = new Dictionary<Item, InstancedItemInfo>();
+			m_InstancedItems ??= new Dictionary<Item, InstancedItemInfo>();
 
 			List<Item> m_Stackables = new();
 			List<Item> m_Unstackables = new();
@@ -211,8 +209,8 @@ namespace Server.Items
 
 				if (item.Amount >= attackers.Count)
 				{
-					int amountPerAttacker = (item.Amount / attackers.Count);
-					int remainder = (item.Amount % attackers.Count);
+					int amountPerAttacker = item.Amount / attackers.Count;
+					int remainder = item.Amount % attackers.Count;
 
 					for (int j = 0; j < ((remainder == 0) ? attackers.Count - 1 : attackers.Count); j++)
 					{
@@ -255,8 +253,7 @@ namespace Server.Items
 
 			if (InstancedCorpse)
 			{
-				if (m_InstancedItems == null)
-					m_InstancedItems = new Dictionary<Item, InstancedItemInfo>();
+				m_InstancedItems ??= new Dictionary<Item, InstancedItemInfo>();
 
 				m_InstancedItems.Add(carved, new InstancedItemInfo(carved, carver));
 			}
@@ -276,7 +273,7 @@ namespace Server.Items
 		public bool IsBones => GetFlag(CorpseFlag.IsBones);
 
 		[CommandProperty(AccessLevel.GameMaster)]
-		public bool Devoured => (m_Devourer != null);
+		public bool Devoured => m_Devourer != null;
 
 		[CommandProperty(AccessLevel.GameMaster)]
 		public bool Carved
@@ -367,8 +364,7 @@ namespace Server.Items
 
 		public void BeginDecay(TimeSpan delay)
 		{
-			if (m_DecayTimer != null)
-				m_DecayTimer.Stop();
+			m_DecayTimer?.Stop();
 
 			m_DecayTime = DateTime.UtcNow + delay;
 
@@ -378,8 +374,7 @@ namespace Server.Items
 
 		public override void OnAfterDelete()
 		{
-			if (m_DecayTimer != null)
-				m_DecayTimer.Stop();
+			m_DecayTimer?.Stop();
 
 			m_DecayTimer = null;
 		}
@@ -417,9 +412,7 @@ namespace Server.Items
 
 			if (attrs != null && attrs.Length > 0)
 			{
-				CorpseNameAttribute attr = attrs[0] as CorpseNameAttribute;
-
-				if (attr != null)
+				if (attrs[0] is CorpseNameAttribute attr)
 					return attr.Name;
 			}
 
@@ -468,9 +461,7 @@ namespace Server.Items
 				}
 				else if (Core.AOS)
 				{
-					PlayerMobile pm = owner as PlayerMobile;
-
-					if (pm != null)
+					if (owner is PlayerMobile pm)
 						c.RestoreEquip = pm.EquipSnapshot;
 				}
 			}
@@ -536,7 +527,7 @@ namespace Server.Items
 			Aggressors = new List<Mobile>(owner.Aggressors.Count + owner.Aggressed.Count);
 			//bool addToAggressors = !( owner is BaseCreature );
 
-			bool isBaseCreature = (owner is BaseCreature);
+			bool isBaseCreature = owner is BaseCreature;
 
 			TimeSpan lastTime = TimeSpan.MaxValue;
 
@@ -547,7 +538,7 @@ namespace Server.Items
 				if ((DateTime.UtcNow - info.LastCombatTime) < lastTime)
 				{
 					Killer = info.Attacker;
-					lastTime = (DateTime.UtcNow - info.LastCombatTime);
+					lastTime = DateTime.UtcNow - info.LastCombatTime;
 				}
 
 				if (!isBaseCreature && !info.CriminalAggression)
@@ -561,7 +552,7 @@ namespace Server.Items
 				if ((DateTime.UtcNow - info.LastCombatTime) < lastTime)
 				{
 					Killer = info.Defender;
-					lastTime = (DateTime.UtcNow - info.LastCombatTime);
+					lastTime = DateTime.UtcNow - info.LastCombatTime;
 				}
 
 				if (!isBaseCreature)
@@ -597,12 +588,12 @@ namespace Server.Items
 
 		protected bool GetFlag(CorpseFlag flag)
 		{
-			return ((m_Flags & flag) != 0);
+			return (m_Flags & flag) != 0;
 		}
 
 		protected void SetFlag(CorpseFlag flag, bool on)
 		{
-			m_Flags = (on ? m_Flags | flag : m_Flags & ~flag);
+			m_Flags = on ? m_Flags | flag : m_Flags & ~flag;
 		}
 
 		public override void Serialize(GenericWriter writer)
@@ -625,8 +616,8 @@ namespace Server.Items
 
 			writer.WriteDeltaTime(TimeOfDeath);
 
-			List<KeyValuePair<Item, Point3D>> list = (m_RestoreTable == null ? null : new List<KeyValuePair<Item, Point3D>>(m_RestoreTable));
-			int count = (list == null ? 0 : list.Count);
+			List<KeyValuePair<Item, Point3D>> list = m_RestoreTable == null ? null : new List<KeyValuePair<Item, Point3D>>(m_RestoreTable);
+			int count = list == null ? 0 : list.Count;
 
 			writer.Write(count);
 
@@ -763,7 +754,7 @@ namespace Server.Items
 					return false;
 			}
 
-			return (NotorietyHandlers.CorpseNotoriety(from, this) == Notoriety.Innocent);
+			return NotorietyHandlers.CorpseNotoriety(from, this) == Notoriety.Innocent;
 		}
 
 		public override bool CheckItemUse(Mobile from, Item item)
@@ -787,8 +778,7 @@ namespace Server.Items
 
 			bool canLoot = CanLoot(from, item);
 
-			if (m_HasLooted == null)
-				m_HasLooted = new List<Item>();
+			m_HasLooted ??= new List<Item>();
 
 			if (canLoot && !m_HasLooted.Contains(item))
 			{
@@ -841,9 +831,7 @@ namespace Server.Items
 
 			public override void OnClick()
 			{
-				Corpse corpse = Owner.Target as Corpse;
-
-				if (corpse != null && Owner.From.CheckAlive())
+				if (Owner.Target is Corpse corpse && Owner.From.CheckAlive())
 					corpse.Open(Owner.From, false);
 			}
 		}
@@ -871,8 +859,7 @@ namespace Server.Items
 			if (item == null)
 				return;
 
-			if (m_RestoreTable == null)
-				m_RestoreTable = new Dictionary<Item, Point3D>();
+			m_RestoreTable ??= new Dictionary<Item, Point3D>();
 
 			m_RestoreTable[item] = loc;
 		}
@@ -933,9 +920,7 @@ namespace Server.Items
 				#region Self Looting
 				if (checkSelfLoot && from == Owner && !GetFlag(CorpseFlag.SelfLooted) && Items.Count != 0)
 				{
-					DeathRobe robe = from.FindItemOnLayer(Layer.OuterTorso) as DeathRobe;
-
-					if (robe != null)
+					if (from.FindItemOnLayer(Layer.OuterTorso) is DeathRobe robe)
 					{
 						Map map = from.Map;
 
@@ -970,7 +955,7 @@ namespace Server.Items
 						Item item = items[i];
 						Point3D loc = item.Location;
 
-						if ((item.Layer == Layer.Hair || item.Layer == Layer.FacialHair) || !item.Movable || !GetRestoreInfo(item, ref loc))
+						if (item.Layer == Layer.Hair || item.Layer == Layer.FacialHair || !item.Movable || !GetRestoreInfo(item, ref loc))
 							continue;
 
 						if (pack != null && pack.CheckHold(from, item, false, true))
@@ -1017,17 +1002,14 @@ namespace Server.Items
 					return;
 
 				#region Quests
-				PlayerMobile player = from as PlayerMobile;
 
-				if (player != null)
+				if (from is PlayerMobile player)
 				{
 					QuestSystem qs = player.Quest;
 
 					if (qs is UzeraanTurmoilQuest)
 					{
-						GetDaemonBoneObjective obj = qs.FindObjective(typeof(GetDaemonBoneObjective)) as GetDaemonBoneObjective;
-
-						if (obj != null && obj.CorpseWithBone == this && (!obj.Completed || UzeraanTurmoilQuest.HasLostDaemonBone(player)))
+						if (qs.FindObjective(typeof(GetDaemonBoneObjective)) is GetDaemonBoneObjective obj && obj.CorpseWithBone == this && (!obj.Completed || UzeraanTurmoilQuest.HasLostDaemonBone(player)))
 						{
 							Item bone = new QuestDaemonBone();
 
@@ -1050,9 +1032,7 @@ namespace Server.Items
 					}
 					else if (qs is TheSummoningQuest)
 					{
-						VanquishDaemonObjective obj = qs.FindObjective(typeof(VanquishDaemonObjective)) as VanquishDaemonObjective;
-
-						if (obj != null && obj.Completed && obj.CorpseWithSkull == this)
+						if (qs.FindObjective(typeof(VanquishDaemonObjective)) is VanquishDaemonObjective obj && obj.Completed && obj.CorpseWithSkull == this)
 						{
 							GoldenSkull sk = new();
 

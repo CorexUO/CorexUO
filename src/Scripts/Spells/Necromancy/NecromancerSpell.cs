@@ -14,7 +14,7 @@ namespace Server.Spells.Necromancy
 
 		public override bool ClearHandsOnCast => false;
 
-		public override double CastDelayFastScalar => (Core.SE ? base.CastDelayFastScalar : 0);  // Necromancer spells are not affected by fast cast items, though they are by fast cast recovery
+		public override double CastDelayFastScalar => Core.SE ? base.CastDelayFastScalar : 0;  // Necromancer spells are not affected by fast cast items, though they are by fast cast recovery
 
 		public NecromancerSpell(Mobile caster, Item scroll, SpellInfo info) : base(caster, scroll, info)
 		{

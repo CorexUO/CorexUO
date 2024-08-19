@@ -111,7 +111,7 @@ namespace Server.Engines.ConPVP
 			public DateTime m_Expire;
 
 			public Mobile Ignored => m_Ignored;
-			public bool Expired => (DateTime.UtcNow >= m_Expire);
+			public bool Expired => DateTime.UtcNow >= m_Expire;
 
 			private static readonly TimeSpan ExpireDelay = TimeSpan.FromMinutes(15.0);
 
@@ -184,9 +184,7 @@ namespace Server.Engines.ConPVP
 
 			if (info.IsSwitched(1))
 			{
-				PlayerMobile pm = m_Challenged as PlayerMobile;
-
-				if (pm == null)
+				if (m_Challenged is not PlayerMobile pm)
 					return;
 
 				if (pm.DuelContext != null)
@@ -241,20 +239,16 @@ namespace Server.Engines.ConPVP
 						{
 							foreach (Gump g in ns.Gumps)
 							{
-								if (g is ParticipantGump)
+								if (g is ParticipantGump pg)
 								{
-									ParticipantGump pg = (ParticipantGump)g;
-
 									if (pg.Participant == m_Participant)
 									{
 										m_Challenger.SendGump(new ParticipantGump(m_Challenger, m_Context, m_Participant));
 										break;
 									}
 								}
-								else if (g is DuelContextGump)
+								else if (g is DuelContextGump dcg)
 								{
-									DuelContextGump dcg = (DuelContextGump)g;
-
 									if (dcg.Context == m_Context)
 									{
 										m_Challenger.SendGump(new DuelContextGump(m_Challenger, m_Context));

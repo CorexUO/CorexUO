@@ -9,7 +9,7 @@ namespace Server.Engines.Chat
 		public List<ChatUser> Ignored { get; }
 		public List<ChatUser> Ignoring { get; }
 		public Channel CurrentChannel { get; set; }
-		public bool IsOnline => (Mobile.NetState != null);
+		public bool IsOnline => Mobile.NetState != null;
 		public bool Anonymous { get; set; }
 		public bool IgnorePrivateMessage { get; set; }
 
@@ -86,7 +86,7 @@ namespace Server.Engines.Chat
 			return Ignored.Contains(check);
 		}
 
-		public bool IsModerator => (CurrentChannel != null && CurrentChannel.IsModerator(this));
+		public bool IsModerator => CurrentChannel != null && CurrentChannel.IsModerator(this);
 
 		public void AddIgnored(ChatUser user)
 		{
@@ -165,8 +165,7 @@ namespace Server.Engines.Chat
 			{
 				ChatSystem.SendCommandTo(user.Mobile, ChatCommand.CloseChatWindow);
 
-				if (user.CurrentChannel != null)
-					user.CurrentChannel.RemoveUser(user);
+				user.CurrentChannel?.RemoveUser(user);
 
 				m_Users.Remove(user);
 				m_Table.Remove(user.Mobile);

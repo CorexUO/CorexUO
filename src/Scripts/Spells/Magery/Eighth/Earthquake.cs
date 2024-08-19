@@ -59,7 +59,7 @@ namespace Server.Spells.Eighth
 					}
 					else
 					{
-						damage = (m.Hits * 6) / 10;
+						damage = m.Hits * 6 / 10;
 
 						if (!m.Player && damage < 10)
 							damage = 10;

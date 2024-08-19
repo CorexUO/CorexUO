@@ -128,10 +128,7 @@ namespace Server.Items
 			{
 				BaseHouse house = BaseHouse.FindHouseAt(this);
 
-				if (house != null)
-				{
-					house.VendorRentalContracts.Remove(this);
-				}
+				house?.VendorRentalContracts.Remove(this);
 			}
 		}
 
@@ -232,8 +229,7 @@ namespace Server.Items
 				if (!m_Contract.IsUsableBy(from, false, true, true, true))
 					return;
 
-				IPoint3D location = targeted as IPoint3D;
-				if (location == null)
+				if (targeted is not IPoint3D location)
 					return;
 
 				Point3D pLocation = new(location);

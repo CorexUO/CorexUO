@@ -36,17 +36,13 @@ namespace Server.SkillHandlers
 			}
 			else if (!Core.AOS)
 			{
-				if (house == null)
-					house = BaseHouse.FindHouseAt(new Point3D(m.X - 1, m.Y, 127), m.Map, 16);
+				house ??= BaseHouse.FindHouseAt(new Point3D(m.X - 1, m.Y, 127), m.Map, 16);
 
-				if (house == null)
-					house = BaseHouse.FindHouseAt(new Point3D(m.X + 1, m.Y, 127), m.Map, 16);
+				house ??= BaseHouse.FindHouseAt(new Point3D(m.X + 1, m.Y, 127), m.Map, 16);
 
-				if (house == null)
-					house = BaseHouse.FindHouseAt(new Point3D(m.X, m.Y - 1, 127), m.Map, 16);
+				house ??= BaseHouse.FindHouseAt(new Point3D(m.X, m.Y - 1, 127), m.Map, 16);
 
-				if (house == null)
-					house = BaseHouse.FindHouseAt(new Point3D(m.X, m.Y + 1, 127), m.Map, 16);
+				house ??= BaseHouse.FindHouseAt(new Point3D(m.X, m.Y + 1, 127), m.Map, 16);
 
 				if (house != null)
 					bonus = 50.0;
@@ -55,8 +51,8 @@ namespace Server.SkillHandlers
 			//int range = 18 - (int)(m.Skills[SkillName.Hiding].Value / 10);
 			int range = Math.Min((int)((100 - m.Skills[SkillName.Hiding].Value) / 2) + 8, 18);  //Cap of 18 not OSI-exact, intentional difference
 
-			bool badCombat = (!CombatOverride && m.Combatant != null && m.InRange(m.Combatant.Location, range) && m.Combatant.InLOS(m));
-			bool ok = (!badCombat /*&& m.CheckSkill( SkillName.Hiding, 0.0 - bonus, 100.0 - bonus )*/ );
+			bool badCombat = !CombatOverride && m.Combatant != null && m.InRange(m.Combatant.Location, range) && m.Combatant.InLOS(m);
+			bool ok = !badCombat /*&& m.CheckSkill( SkillName.Hiding, 0.0 - bonus, 100.0 - bonus )*/ ;
 
 			if (ok)
 			{
@@ -73,7 +69,7 @@ namespace Server.SkillHandlers
 					}
 				}
 
-				ok = (!badCombat && m.CheckSkill(SkillName.Hiding, 0.0 - bonus, 100.0 - bonus));
+				ok = !badCombat && m.CheckSkill(SkillName.Hiding, 0.0 - bonus, 100.0 - bonus);
 			}
 
 			if (badCombat)

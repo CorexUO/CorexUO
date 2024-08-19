@@ -51,22 +51,22 @@ namespace Server.Engines.Quests.Haven
 
 		public override object OfferMessage =>
 				/* <I>The guard speaks to you as you come closer... </I><BR><BR>
-* 
+*
 * Greetings traveler! <BR><BR>
-* 
+*
 * Uzeraan, the lord of this house and overseer of this city -
 * <a href="?ForceTopic72">Haven</a>, has requested an audience with you. <BR><BR>
-* 
+*
 * Hordes of gruesome hell spawn are beginning to overrun the
 * city and terrorize the inhabitants.  No one seems to be able
 * to stop them.<BR><BR>
-* 
+*
 * Our fine city militia is falling to the evil creatures
 * one battalion after the other.<BR><BR>
-* 
+*
 * Uzeraan, whom you can find through these doors, is looking to
 * hire mercenaries to aid in the battle. <BR><BR>
-* 
+*
 * Will you assist us?
 */
 				1049008;
@@ -132,9 +132,7 @@ namespace Server.Engines.Quests.Haven
 
 		public static bool HasLostScrollOfPower(Mobile from)
 		{
-			PlayerMobile pm = from as PlayerMobile;
-
-			if (pm == null)
+			if (from is not PlayerMobile pm)
 				return false;
 
 			QuestSystem qs = pm.Quest;
@@ -145,7 +143,7 @@ namespace Server.Engines.Quests.Haven
 				{
 					Container pack = from.Backpack;
 
-					return (pack == null || pack.FindItemByType(typeof(SchmendrickScrollOfPower)) == null);
+					return pack == null || pack.FindItemByType(typeof(SchmendrickScrollOfPower)) == null;
 				}
 			}
 
@@ -154,9 +152,7 @@ namespace Server.Engines.Quests.Haven
 
 		public static bool HasLostFertileDirt(Mobile from)
 		{
-			PlayerMobile pm = from as PlayerMobile;
-
-			if (pm == null)
+			if (from is not PlayerMobile pm)
 				return false;
 
 			QuestSystem qs = pm.Quest;
@@ -167,7 +163,7 @@ namespace Server.Engines.Quests.Haven
 				{
 					Container pack = from.Backpack;
 
-					return (pack == null || pack.FindItemByType(typeof(QuestFertileDirt)) == null);
+					return pack == null || pack.FindItemByType(typeof(QuestFertileDirt)) == null;
 				}
 			}
 
@@ -176,9 +172,7 @@ namespace Server.Engines.Quests.Haven
 
 		public static bool HasLostDaemonBlood(Mobile from)
 		{
-			PlayerMobile pm = from as PlayerMobile;
-
-			if (pm == null)
+			if (from is not PlayerMobile pm)
 				return false;
 
 			QuestSystem qs = pm.Quest;
@@ -189,7 +183,7 @@ namespace Server.Engines.Quests.Haven
 				{
 					Container pack = from.Backpack;
 
-					return (pack == null || pack.FindItemByType(typeof(QuestDaemonBlood)) == null);
+					return pack == null || pack.FindItemByType(typeof(QuestDaemonBlood)) == null;
 				}
 			}
 
@@ -198,9 +192,7 @@ namespace Server.Engines.Quests.Haven
 
 		public static bool HasLostDaemonBone(Mobile from)
 		{
-			PlayerMobile pm = from as PlayerMobile;
-
-			if (pm == null)
+			if (from is not PlayerMobile pm)
 				return false;
 
 			QuestSystem qs = pm.Quest;
@@ -211,7 +203,7 @@ namespace Server.Engines.Quests.Haven
 				{
 					Container pack = from.Backpack;
 
-					return (pack == null || pack.FindItemByType(typeof(QuestDaemonBone)) == null);
+					return pack == null || pack.FindItemByType(typeof(QuestDaemonBone)) == null;
 				}
 			}
 

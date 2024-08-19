@@ -274,7 +274,7 @@ namespace Server
 						try
 						{
 							ctorArgs[0] = (Serial)serial;
-							m = (Mobile)(ctor.Invoke(ctorArgs));
+							m = (Mobile)ctor.Invoke(ctorArgs);
 						}
 						catch
 						{
@@ -331,7 +331,7 @@ namespace Server
 						try
 						{
 							ctorArgs[0] = (Serial)serial;
-							item = (Item)(ctor.Invoke(ctorArgs));
+							item = (Item)ctor.Invoke(ctorArgs);
 						}
 						catch
 						{

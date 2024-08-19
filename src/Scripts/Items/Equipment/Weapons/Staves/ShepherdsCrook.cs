@@ -62,10 +62,8 @@ namespace Server.Items
 
 			protected override void OnTarget(Mobile from, object targ)
 			{
-				if (targ is BaseCreature)
+				if (targ is BaseCreature bc)
 				{
-					BaseCreature bc = (BaseCreature)targ;
-
 					if (IsHerdable(bc))
 					{
 						if (bc.Controlled)
@@ -108,9 +106,8 @@ namespace Server.Items
 
 				Map map = bc.Map;
 
-				ChampionSpawnRegion region = Region.Find(bc.Home, map) as ChampionSpawnRegion;
 
-				if (region != null)
+				if (Region.Find(bc.Home, map) is ChampionSpawnRegion region)
 				{
 					ChampionSpawn spawn = region.ChampionSpawn;
 

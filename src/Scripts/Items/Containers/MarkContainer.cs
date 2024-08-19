@@ -151,8 +151,7 @@ namespace Server.Items
 
 		public void StopTimer()
 		{
-			if (m_RelockTimer != null)
-				m_RelockTimer.Stop();
+			m_RelockTimer?.Stop();
 
 			m_RelockTimer = null;
 		}
@@ -195,9 +194,7 @@ namespace Server.Items
 
 		public override bool OnDragDrop(Mobile from, Item dropped)
 		{
-			RecallRune rune = dropped as RecallRune;
-
-			if (rune != null && base.OnDragDrop(from, dropped))
+			if (dropped is RecallRune rune && base.OnDragDrop(from, dropped))
 			{
 				Mark(rune);
 
@@ -211,9 +208,7 @@ namespace Server.Items
 
 		public override bool OnDragDropInto(Mobile from, Item dropped, Point3D p)
 		{
-			RecallRune rune = dropped as RecallRune;
-
-			if (rune != null && base.OnDragDropInto(from, dropped, p))
+			if (dropped is RecallRune rune && base.OnDragDropInto(from, dropped, p))
 			{
 				Mark(rune);
 

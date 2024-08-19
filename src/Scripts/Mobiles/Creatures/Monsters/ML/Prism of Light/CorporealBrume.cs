@@ -45,7 +45,7 @@ namespace Server.Mobiles
 		}
 
 		// TODO: Verify area attack specifics
-		public override bool HasAura => (Combatant != null);
+		public override bool HasAura => Combatant != null;
 		public override TimeSpan AuraInterval => TimeSpan.FromSeconds(20);
 		public override int AuraRange => 10;
 

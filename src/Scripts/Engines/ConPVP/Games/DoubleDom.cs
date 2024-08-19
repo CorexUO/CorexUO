@@ -229,7 +229,7 @@ namespace Server.Engines.ConPVP
 			get => m_Kills;
 			set
 			{
-				m_TeamInfo.Kills += (value - m_Kills);
+				m_TeamInfo.Kills += value - m_Kills;
 				m_Kills = value;
 			}
 		}
@@ -239,7 +239,7 @@ namespace Server.Engines.ConPVP
 			get => m_Captures;
 			set
 			{
-				m_TeamInfo.Captures += (value - m_Captures);
+				m_TeamInfo.Captures += value - m_Captures;
 				m_Captures = value;
 			}
 		}
@@ -249,7 +249,7 @@ namespace Server.Engines.ConPVP
 			get => m_Score;
 			set
 			{
-				m_TeamInfo.Score += (value - m_Score);
+				m_TeamInfo.Score += value - m_Score;
 				m_Score = value;
 
 				if (m_TeamInfo.Leader == null || m_Score > m_TeamInfo.Leader.Score)
@@ -471,8 +471,7 @@ namespace Server.Engines.ConPVP
 
 		public void Alert(string text)
 		{
-			if (m_Context.m_Tournament != null)
-				m_Context.m_Tournament.Alert(text);
+			m_Context.m_Tournament?.Alert(text);
 
 			for (int i = 0; i < m_Context.Participants.Count; ++i)
 			{
@@ -480,8 +479,7 @@ namespace Server.Engines.ConPVP
 
 				for (int j = 0; j < p.Players.Length; ++j)
 				{
-					if (p.Players[j] != null)
-						p.Players[j].Mobile.SendMessage(0x35, text);
+					p.Players[j]?.Mobile.SendMessage(0x35, text);
 				}
 			}
 		}
@@ -519,9 +517,7 @@ namespace Server.Engines.ConPVP
 
 		public int GetTeamID(Mobile mob)
 		{
-			PlayerMobile pm = mob as PlayerMobile;
-
-			if (pm == null)
+			if (mob is not PlayerMobile pm)
 				return -1;
 
 			if (pm.DuelContext == null || pm.DuelContext != m_Context)
@@ -663,8 +659,7 @@ namespace Server.Engines.ConPVP
 			for (int i = 0; i < m_Context.Participants.Count; ++i)
 				ApplyHues(m_Context.Participants[i] as Participant, Controller.TeamInfo[i % Controller.TeamInfo.Length].Color);
 
-			if (m_FinishTimer != null)
-				m_FinishTimer.Stop();
+			m_FinishTimer?.Stop();
 
 			m_FinishTimer = Timer.DelayCall(Controller.Duration, new TimerCallback(Finish_Callback));
 		}
@@ -867,8 +862,7 @@ namespace Server.Engines.ConPVP
 			for (int i = 0; i < m_Context.Participants.Count; ++i)
 				ApplyHues(m_Context.Participants[i] as Participant, -1);
 
-			if (m_FinishTimer != null)
-				m_FinishTimer.Stop();
+			m_FinishTimer?.Stop();
 
 			m_FinishTimer = null;
 		}
@@ -883,27 +877,24 @@ namespace Server.Engines.ConPVP
 			if (point == null || from == null || team == null || !m_Capturable)
 				return;
 
-			bool wasDom = (Controller.PointA != null && Controller.PointB != null &&
-				Controller.PointA.TeamOwner == Controller.PointB.TeamOwner && Controller.PointA.TeamOwner != null);
+			bool wasDom = Controller.PointA != null && Controller.PointB != null &&
+				Controller.PointA.TeamOwner == Controller.PointB.TeamOwner && Controller.PointA.TeamOwner != null;
 
 			point.TeamOwner = team;
 			Alert("{0} has captured {1}!", team.Name, point.Name);
 
-			bool isDom = (Controller.PointA != null && Controller.PointB != null &&
-				Controller.PointA.TeamOwner == Controller.PointB.TeamOwner && Controller.PointA.TeamOwner != null);
+			bool isDom = Controller.PointA != null && Controller.PointB != null &&
+				Controller.PointA.TeamOwner == Controller.PointB.TeamOwner && Controller.PointA.TeamOwner != null;
 
 			if (wasDom && !isDom)
 			{
 				Alert("Domination averted!");
 
-				if (Controller.PointA != null)
-					Controller.PointA.SetNonCaptureHue();
+				Controller.PointA?.SetNonCaptureHue();
 
-				if (Controller.PointB != null)
-					Controller.PointB.SetNonCaptureHue();
+				Controller.PointB?.SetNonCaptureHue();
 
-				if (m_CaptureTimer != null)
-					m_CaptureTimer.Stop();
+				m_CaptureTimer?.Stop();
 				m_CaptureTimer = null;
 			}
 
@@ -927,8 +918,7 @@ namespace Server.Engines.ConPVP
 			if (team == null)
 			{
 				m_Capturable = true;
-				if (m_CaptureTimer != null)
-					m_CaptureTimer.Stop();
+				m_CaptureTimer?.Stop();
 				m_CaptureTimer = null;
 				return;
 			}
@@ -937,11 +927,9 @@ namespace Server.Engines.ConPVP
 			{
 				Alert("{0} is dominating... {1}", team.Name, 10 - m_CapStage);
 
-				if (Controller.PointA != null)
-					Controller.PointA.SetCaptureHue(m_CapStage);
+				Controller.PointA?.SetCaptureHue(m_CapStage);
 
-				if (Controller.PointB != null)
-					Controller.PointB.SetCaptureHue(m_CapStage);
+				Controller.PointB?.SetCaptureHue(m_CapStage);
 			}
 			else
 			{

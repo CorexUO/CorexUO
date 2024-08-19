@@ -71,7 +71,7 @@ namespace Server.Gumps
 
 		public void AddPageButton(int x, int y, int buttonID, int number, HouseGumpPageAOS page)
 		{
-			bool isSelection = (m_Page == page);
+			bool isSelection = m_Page == page;
 
 			AddButton(x, y, isSelection ? 4006 : 4005, 4007, buttonID, GumpButtonType.Reply, 0);
 			AddHtmlLocalized(x + 45, y, 200, 20, number, isSelection ? SelectedColor : LabelColor, false, false);
@@ -102,8 +102,8 @@ namespace Server.Gumps
 
 			for (int i = 0; i < list.Count; ++i)
 			{
-				int xoffset = ((index % 20) / 10) * 200;
-				int yoffset = (index % 10) * 20;
+				int xoffset = index % 20 / 10 * 200;
+				int yoffset = index % 10 * 20;
 				int page = 1 + (index / 20);
 
 				if (page != lastPage)
@@ -125,10 +125,8 @@ namespace Server.Gumps
 				string name;
 				int labelHue = LabelHue;
 
-				if (m is PlayerVendor)
+				if (m is PlayerVendor vendor)
 				{
-					PlayerVendor vendor = (PlayerVendor)m;
-
 					name = vendor.ShopName;
 
 					if (vendor.IsOwner(from))
@@ -171,14 +169,14 @@ namespace Server.Gumps
 				2974, 2976, 2978
 			};
 
-		private static readonly int[] m_FoundationNumbers = (Core.ML ? new int[]
+		private static readonly int[] m_FoundationNumbers = Core.ML ? new int[]
 			{
 				20, 189, 765, 65, 101, 0x2DF7, 0x2DFB, 0x3672, 0x3676
 			} :
 			new int[]
 			{
 				20, 189, 765, 65, 101
-			});
+			};
 
 		private static readonly int[] m_PostNumbers = new int[]
 			{
@@ -461,8 +459,8 @@ namespace Server.Gumps
 					{
 						for (int i = 0; i < m_HangerNumbers.Length; ++i)
 						{
-							int x = 50 + ((i % 3) * 100);
-							int y = 180 + ((i / 3) * 80);
+							int x = 50 + (i % 3 * 100);
+							int y = 180 + (i / 3 * 80);
 
 							AddButton(x, y, 4005, 4007, GetButtonID(7, i), GumpButtonType.Reply, 0);
 							AddItem(x + 20, y, m_HangerNumbers[i]);
@@ -474,8 +472,8 @@ namespace Server.Gumps
 					{
 						for (int i = 0; i < m_FoundationNumbers.Length; ++i)
 						{
-							int x = 15 + ((i % 5) * 80);
-							int y = 180 + ((i / 5) * 100);
+							int x = 15 + (i % 5 * 80);
+							int y = 180 + (i / 5 * 100);
 
 							AddButton(x, y, 4005, 4007, GetButtonID(8, i), GumpButtonType.Reply, 0);
 							AddItem(x + 25, y, m_FoundationNumbers[i]);
@@ -512,8 +510,8 @@ namespace Server.Gumps
 
 							for (int j = 0; j < signsPerPage && totalSigns - (signsPerPage * i) - j > 0; ++j)
 							{
-								int x = 30 + ((j % 6) * 60);
-								int y = 130 + ((j / 6) * 60);
+								int x = 30 + (j % 6 * 60);
+								int y = 130 + (j / 6 * 60);
 
 								AddButton(x, y, 4005, 4007, GetButtonID(9, index), GumpButtonType.Reply, 0);
 								AddItem(x + 20, y, _HouseSigns[index++]);
@@ -582,8 +580,8 @@ namespace Server.Gumps
 
 							for (int j = 0; j < 16 && index < m_PostNumbers.Length; ++j)
 							{
-								int x = 15 + ((j % 8) * 50);
-								int y = 130 + ((j / 8) * 110);
+								int x = 15 + (j % 8 * 50);
+								int y = 130 + (j / 8 * 110);
 
 								AddButton(x, y, 4005, 4007, GetButtonID(14, index), GumpButtonType.Reply, 0);
 								AddItem(x + 10, y, m_PostNumbers[index++]);
@@ -620,8 +618,7 @@ namespace Server.Gumps
 
 			if (okay && house.IsOwner(from))
 			{
-				if (house.CoOwners != null)
-					house.CoOwners.Clear();
+				house.CoOwners?.Clear();
 
 				from.SendLocalizedMessage(501333); // All co-owners have been removed from this house.
 			}
@@ -638,8 +635,7 @@ namespace Server.Gumps
 
 			if (okay && house.IsCoOwner(from))
 			{
-				if (house.Friends != null)
-					house.Friends.Clear();
+				house.Friends?.Clear();
 
 				from.SendLocalizedMessage(501332); // All friends have been removed from this house.
 			}
@@ -656,8 +652,7 @@ namespace Server.Gumps
 
 			if (okay && house.IsFriend(from))
 			{
-				if (house.Bans != null)
-					house.Bans.Clear();
+				house.Bans?.Clear();
 
 				from.SendLocalizedMessage(1060754); // All bans for this house have been lifted.
 			}
@@ -676,8 +671,7 @@ namespace Server.Gumps
 			{
 				ArrayList list = new(house.Access);
 
-				if (house.Access != null)
-					house.Access.Clear();
+				house.Access?.Clear();
 
 				for (int i = 0; i < list.Count; ++i)
 				{
@@ -832,7 +826,7 @@ namespace Server.Gumps
 				return;
 
 			HouseFoundation foundation = m_House as HouseFoundation;
-			bool isCustomizable = (foundation != null);
+			bool isCustomizable = foundation != null;
 
 			int val = info.ButtonID - 1;
 

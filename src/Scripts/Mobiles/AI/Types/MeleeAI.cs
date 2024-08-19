@@ -121,7 +121,7 @@ namespace Server.Mobiles
 
 						int diff = combatant.Hits - m_Mobile.Hits;
 
-						flee = (Utility.Random(0, 100) < (10 + diff)); // (10 + diff)% chance to flee
+						flee = Utility.Random(0, 100) < (10 + diff); // (10 + diff)% chance to flee
 					}
 					else
 					{

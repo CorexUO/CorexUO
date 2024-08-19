@@ -85,10 +85,8 @@ namespace Server.Items
 
 			protected override void OnTarget(Mobile from, object targeted)
 			{
-				if (targeted is DyeTub)
+				if (targeted is DyeTub tub)
 				{
-					DyeTub tub = (DyeTub)targeted;
-
 					if (tub.Redyable)
 					{
 						if (tub.MetallicHues)   /* OSI has three metallic tubs now */

@@ -548,7 +548,7 @@ namespace Server.Misc
 			for (int i = 0; i < a.Length; ++i)
 			{
 				if (a[i] == null)
-					return (a[i] = new PlayerMobile());
+					return a[i] = new PlayerMobile();
 			}
 
 			return null;
@@ -807,9 +807,9 @@ namespace Server.Misc
 			vDex = (int)(vDex * scalar);
 			vInt = (int)(vInt * scalar);
 
-			FixStat(ref vStr, (vStr + vDex + vInt) - vMax, vMax);
-			FixStat(ref vDex, (vStr + vDex + vInt) - vMax, vMax);
-			FixStat(ref vInt, (vStr + vDex + vInt) - vMax, vMax);
+			FixStat(ref vStr, vStr + vDex + vInt - vMax, vMax);
+			FixStat(ref vDex, vStr + vDex + vInt - vMax, vMax);
+			FixStat(ref vInt, vStr + vDex + vInt - vMax, vMax);
 
 			str = vStr + 10;
 			dex = vDex + 10;
@@ -870,7 +870,7 @@ namespace Server.Misc
 				}
 			}
 
-			return (total == 100 || total == 120);
+			return total == 100 || total == 120;
 		}
 
 		private static Mobile m_Mobile;
@@ -972,7 +972,7 @@ namespace Server.Misc
 			}
 
 			bool addSkillItems = true;
-			bool elf = (m.Race == Race.Elf);
+			bool elf = m.Race == Race.Elf;
 
 			switch (prof)
 			{
@@ -1224,7 +1224,7 @@ namespace Server.Misc
 
 		private static void AddSkillItems(SkillName skill, Mobile m)
 		{
-			bool elf = (m.Race == Race.Elf);
+			bool elf = m.Race == Race.Elf;
 
 			switch (skill)
 			{
@@ -1621,8 +1621,7 @@ namespace Server.Misc
 						{
 							Item shoes = m_Mobile.FindItemOnLayer(Layer.Shoes);
 
-							if (shoes != null)
-								shoes.Delete();
+							shoes?.Delete();
 						}
 
 						int hue = Utility.RandomYellowHue();

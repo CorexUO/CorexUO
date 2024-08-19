@@ -19,7 +19,7 @@ namespace Server.Gumps
 
 			AddPage(0);
 
-			int offset = (Guild.NewGuildSystem) ? 20 : 0;
+			int offset = Guild.NewGuildSystem ? 20 : 0;
 
 			AddBackground(0, 0, 220, 160 + offset, 5054);
 

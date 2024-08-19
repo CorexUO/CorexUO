@@ -111,10 +111,10 @@ namespace Server.Factions
 
 		public bool IsAllowed(GuardAI flag)
 		{
-			return ((m_Guard.GuardAI & flag) == flag);
+			return (m_Guard.GuardAI & flag) == flag;
 		}
 
-		public bool IsDamaged => (m_Guard.Hits < m_Guard.HitsMax);
+		public bool IsDamaged => m_Guard.Hits < m_Guard.HitsMax;
 
 		public bool IsPoisoned => m_Guard.Poisoned;
 
@@ -128,7 +128,7 @@ namespace Server.Factions
 				if (m_Bandage == null)
 					return TimeSpan.MaxValue;
 
-				TimeSpan ts = (m_BandageStart + m_Bandage.Timer.Delay) - DateTime.UtcNow;
+				TimeSpan ts = m_BandageStart + m_Bandage.Timer.Delay - DateTime.UtcNow;
 
 				if (ts < TimeSpan.FromSeconds(-1.0))
 				{
@@ -150,9 +150,8 @@ namespace Server.Factions
 			if (pack == null)
 				return false;
 
-			Item weapon = m_Guard.Weapon as Item;
 
-			if (weapon != null && weapon.Parent == m_Guard && !(weapon is Fists))
+			if (m_Guard.Weapon is Item weapon && weapon.Parent == m_Guard && !(weapon is Fists))
 			{
 				pack.DropItem(weapon);
 				return true;
@@ -192,7 +191,7 @@ namespace Server.Factions
 
 			m_Bandage = BandageContext.BeginHeal(m_Guard, m_Guard);
 			m_BandageStart = DateTime.UtcNow;
-			return (m_Bandage != null);
+			return m_Bandage != null;
 		}
 
 		public bool UseItemByType(Type type)
@@ -360,7 +359,7 @@ namespace Server.Factions
 
 		public bool CanDispel(Mobile m)
 		{
-			return (m is BaseCreature && ((BaseCreature)m).Summoned && m_Mobile.CanBeHarmful(m, false) && !((BaseCreature)m).IsAnimatedDead);
+			return m is BaseCreature && ((BaseCreature)m).Summoned && m_Mobile.CanBeHarmful(m, false) && !((BaseCreature)m).IsAnimatedDead;
 		}
 
 		public void RunTo(Mobile m)
@@ -478,7 +477,7 @@ namespace Server.Factions
 			{
 				Target targ = m_Guard.Target;
 
-				Mobile toHarm = (dispelTarget == null ? combatant : dispelTarget);
+				Mobile toHarm = dispelTarget == null ? combatant : dispelTarget;
 
 				if ((targ.Flags & TargetFlags.Harmful) != 0 && toHarm != null)
 				{
@@ -525,8 +524,7 @@ namespace Server.Factions
 				{
 					toFollow = m_Guard.Orders.Follow;
 
-					if (toFollow == null)
-						toFollow = m_Guard.Town.Sheriff;
+					toFollow ??= m_Guard.Town.Sheriff;
 				}
 
 				if (toFollow != null && toFollow.Map == m_Guard.Map && toFollow.InRange(m_Guard, m_Guard.RangePerception * 3) && Town.FromRegion(toFollow.Region) == m_Guard.Town)
@@ -592,7 +590,7 @@ namespace Server.Factions
 				}
 				else if (IsDamaged && (m_Guard.HitsMax - m_Guard.Hits) > Utility.Random(200))
 				{
-					if (IsAllowed(GuardAI.Magic) && ((m_Guard.Hits * 100) / Math.Max(m_Guard.HitsMax, 1)) < 10 && m_Guard.Home != Point3D.Zero && !Utility.InRange(m_Guard.Location, m_Guard.Home, 15) && m_Guard.Mana >= 11)
+					if (IsAllowed(GuardAI.Magic) && (m_Guard.Hits * 100 / Math.Max(m_Guard.HitsMax, 1)) < 10 && m_Guard.Home != Point3D.Zero && !Utility.InRange(m_Guard.Location, m_Guard.Home, 15) && m_Guard.Mana >= 11)
 					{
 						spell = new RecallSpell(m_Guard, null, new RunebookEntry(m_Guard.Home, m_Guard.Map, "Guard's Home", null), null);
 					}
@@ -634,7 +632,7 @@ namespace Server.Factions
 					{
 						if (80 > Utility.Random(100))
 						{
-							m_Combo = (IsAllowed(GuardAI.Smart) ? SpellCombo.Simple : SpellCombo.Strong);
+							m_Combo = IsAllowed(GuardAI.Smart) ? SpellCombo.Simple : SpellCombo.Strong;
 							m_ComboIndex = -1;
 
 							if (m_Guard.Mana >= (ManaReserve + m_Combo.Mana))

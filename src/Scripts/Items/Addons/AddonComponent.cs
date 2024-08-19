@@ -146,8 +146,7 @@ namespace Server.Items
 
 		public override void OnDoubleClick(Mobile from)
 		{
-			if (Addon != null)
-				Addon.OnComponentUsed(this, from);
+			Addon?.OnComponentUsed(this, from);
 		}
 
 		public void OnChop(Mobile from)
@@ -174,8 +173,7 @@ namespace Server.Items
 		{
 			base.OnAfterDelete();
 
-			if (Addon != null)
-				Addon.Delete();
+			Addon?.Delete();
 		}
 
 		public override void Serialize(GenericWriter writer)
@@ -201,8 +199,7 @@ namespace Server.Items
 						Addon = reader.ReadItem() as BaseAddon;
 						m_Offset = reader.ReadPoint3D();
 
-						if (Addon != null)
-							Addon.OnComponentLoaded(this);
+						Addon?.OnComponentLoaded(this);
 
 						ApplyLightTo(this);
 
@@ -225,7 +222,7 @@ namespace Server.Items
 				bool contains = false;
 
 				for (int j = 0; !contains && j < toMatch.Length; ++j)
-					contains = (itemID == toMatch[j]);
+					contains = itemID == toMatch[j];
 
 				if (contains)
 				{

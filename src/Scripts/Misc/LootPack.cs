@@ -57,7 +57,7 @@ namespace Server
 
 		public static bool CheckLuck(int chance)
 		{
-			return (chance > Utility.Random(10000));
+			return chance > Utility.Random(10000);
 		}
 
 		public void Generate(Mobile from, Container cont, bool spawning, int luckChance)
@@ -71,14 +71,14 @@ namespace Server
 			{
 				LootPackEntry entry = m_Entries[i];
 
-				bool shouldAdd = (entry.Chance > Utility.Random(10000));
+				bool shouldAdd = entry.Chance > Utility.Random(10000);
 
 				if (!shouldAdd && checkLuck)
 				{
 					checkLuck = false;
 
 					if (CheckLuck(luckChance))
-						shouldAdd = (entry.Chance > Utility.Random(10000));
+						shouldAdd = entry.Chance > Utility.Random(10000);
 				}
 
 				if (!shouldAdd)
@@ -596,7 +596,7 @@ namespace Server
 			if (m.Region.IsPartOf("Yomotsu Mines"))
 				return true;
 
-			return (m.Map == Map.Tokuno);
+			return m.Map == Map.Tokuno;
 		}
 
 		#region Mondain's Legacy
@@ -837,7 +837,7 @@ namespace Server
 					typeof( LichFormScroll ),           typeof( PoisonStrikeScroll ),   typeof( StrangleScroll ),   typeof( WitherScroll )
 				},
 
-				((Core.SE) ?
+				Core.SE ?
 				new Type[] // high
 				{
 					typeof( VengefulSpiritScroll ),     typeof( VampiricEmbraceScroll ), typeof( ExorcismScroll )
@@ -845,7 +845,7 @@ namespace Server
 				new Type[] // high
 				{
 					typeof( VengefulSpiritScroll ),     typeof( VampiricEmbraceScroll )
-				})
+				}
 			};
 
 		public static Item RandomScroll(int index, int minCircle, int maxCircle)
@@ -853,7 +853,7 @@ namespace Server
 			--minCircle;
 			--maxCircle;
 
-			int scrollCount = ((maxCircle - minCircle) + 1) * 8;
+			int scrollCount = (maxCircle - minCircle + 1) * 8;
 
 			if (index == 0)
 				scrollCount += m_BlankTypes.Length;
@@ -952,7 +952,7 @@ namespace Server
 			start = index + 1;
 			index = str.IndexOf('+', start);
 
-			if (negative = (index < start))
+			if (negative = index < start)
 				index = str.IndexOf('-', start);
 
 			if (index < start)

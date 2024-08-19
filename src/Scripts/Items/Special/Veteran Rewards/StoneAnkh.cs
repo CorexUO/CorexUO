@@ -262,7 +262,7 @@ namespace Server.Items
 
 				if (info.ButtonID != (int)Buttons.Cancel)
 				{
-					m_Deed.m_East = (info.ButtonID == (int)Buttons.East);
+					m_Deed.m_East = info.ButtonID == (int)Buttons.East;
 					m_Deed.SendTarget(sender.Mobile);
 				}
 			}
