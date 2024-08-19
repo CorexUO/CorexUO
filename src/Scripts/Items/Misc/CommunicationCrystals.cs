@@ -1,7 +1,7 @@
-using Server.Network;
-using Server.Targeting;
 using System;
 using System.Collections.Generic;
+using Server.Network;
+using Server.Targeting;
 
 namespace Server.Items
 {
@@ -220,9 +220,9 @@ namespace Server.Items
 				}
 				else if (targeted == from)
 				{
-					foreach (ReceiverCrystal receiver in new List<ReceiverCrystal>(m_Crystal.Receivers))
+					foreach (ReceiverCrystal receiver2 in new List<ReceiverCrystal>(m_Crystal.Receivers))
 					{
-						receiver.Sender = null;
+						receiver2.Sender = null;
 					}
 
 					from.SendLocalizedMessage(1010046); // You unlink the broadcast crystal from all of its receivers.
