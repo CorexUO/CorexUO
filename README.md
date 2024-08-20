@@ -1,6 +1,6 @@
 # Corex UO
 
-[![GitHub build](https://img.shields.io/github/actions/workflow/status/CorexUO/CorexUO/dotnet-core.yml?logo=github)](https://github.com/CorexUO/CorexUO/actions)
+[![GitHub build](https://img.shields.io/github/actions/workflow/status/CorexUO/CorexUO/build.yml?logo=github)](https://github.com/CorexUO/CorexUO/actions)
 [![GitHub issues](https://img.shields.io/github/issues/corexuo/corexuo.svg)](https://github.com/CorexUO/CorexUO/issues)
 [![GitHub last commit](https://img.shields.io/github/last-commit/CorexUO/CorexUO.svg)](https://github.com/CorexUO/CorexUO/)
 [![GitHub repo size](https://img.shields.io/github/repo-size/CorexUO/CorexUO.svg)](https://github.com/CorexUO/CorexUO/)
